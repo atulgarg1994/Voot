@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Android" parallel="false" thread-count="1">  <!--  name="Android" -->
+
+	<parameter name="userType" value="Guest"/> <!--  Guest/NonSubscribedUser/SubscribedUser -->
+	<parameter name="runModule" value="Suite"/>
+	
+	<parameter name="NonsubscribedUserName" value="igstesting001@gmail.com"/>
+	<parameter name="RegisteredEmail" value="zee5latest@gmail.com"/>
+	<parameter name="RegisteredEmailPassword" value="User@123"/>
+	<parameter name="RegisteredMobile" value="7892215214"/>
+	<parameter name="RegisteredMobilePassword" value="User@123"/>
+	<parameter name="UnRegisteredMobile" value="8073661163"/>
+	<parameter name="PromoCode" value="ZEE5FLAT50"/>
+	<parameter name="NonsubscribedPassword" value="igs@12345"/>
+	<parameter name="SubscribedUserName" value="zeetest998@test.com"/>
+	<parameter name="SubscribedPassword" value="123456"/>
+	<parameter name="regUserName" value="igszeefive3@gmail.com"/>
+	<parameter name="regPassword" value="123456"/>
+	
+	<!-- ======Test Data====== -->
+	<parameter name="displayLanguageSelection1" value="English"/>
+	<parameter name="displayLanguageSelection2" value="Marathi"/>
+	<parameter name="inValidPhnNumber" value="7892215"/>
+    <parameter name="validPhnNumber" value="7892215214"/>
+    <parameter name="validPassword" value="User@123"/>
+    <parameter name="otp1" value="1"/>
+    <parameter name="otp2" value="2"/>
+    <parameter name="otp3" value="3"/>
+    <parameter name="otp4" value="4"/>
+    <parameter name="FirstName" value="Zee"/>
+	<parameter name="LastName" value="UserZee"/>
+	<parameter name="loginThrough" value="login"/>
+	<parameter name="PrepaidCode" value="Z5PWATI9WlD"/>
+	<parameter name="RSVODUser" value="9663128823" />
+	<parameter name="RSVODPassword" value="ABCD1234" />
+
+	
+	<listeners>
+		<listener class-name="com.extent.ExtentReporter" />
+		<!-- <listener class-name="com.utility.MyTranformer"/> -->
+	</listeners>
+
+	<test name="Android_AppLaunch">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_AppLaunch" /> 	 		
+		</classes>
+	</test> 	
+	
+  	<test name="Android_Onboarding_Suite1">
+		<classes>	
+	    	<class name="com.zee5.ApplicasterScripts.Android_Onboarding_Suite1" />	  	
+		</classes>
+	</test>	
+	
+	<test name="Android_Onboarding_Suite2">
+		<classes>	
+		 	<class name="com.zee5.ApplicasterScripts.Android_Onboarding_Suite2" /> 	
+		</classes>
+	</test>	
+	
+	<test name="Android_Onboarding_Suite3">
+		<classes>	
+			<class name="com.zee5.ApplicasterScripts.Android_Onboarding_Suite3" /> 	
+		</classes>
+	</test>	
+	
+	<test name="Android_Subscription">
+		<classes>	
+		 	<class name="com.zee5.ApplicasterScripts.Android_Subscription" /> 	
+		</classes>
+	</test>	
+	
+	<test name="Android_Search">
+		<classes>	
+		 	<class name="com.zee5.ApplicasterScripts.Android_Search" /> 	
+		</classes>
+	</test>	
+	
+  <test name="DeepLinkValidation">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.DeepLinkValidation"/>
+    </classes> 
+  </test> 
+  
+
+</suite>

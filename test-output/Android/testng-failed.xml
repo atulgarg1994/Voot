@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="1" guice-stage="DEVELOPMENT" name="Failed suite [Android]">
+  <parameter name="SubscribedPassword" value="gowthu4594"/>
+  <parameter name="consumptionsEpisode" value="Digvijay stunned on hearing Sambhashiva"/>
+  <parameter name="NonsubscribedPassword" value="igs@12345"/>
+  <parameter name="url" value="http://newpwa.zee5.com/"/>
+  <parameter name="searchModuleSearchKey" value="Kamali"/>
+  <parameter name="consumptionsFreeContent" value="Gooli"/>
+  <parameter name="browser" value="chrome"/>
+  <parameter name="SubscribedUserName" value="dmgowthu@gmail.com"/>
+  <parameter name="consumptionsPremiumContent" value="Raaga"/>
+  <parameter name="userType" value="NonSubscribedUser"/>
+  <parameter name="NonsubscribedUserName" value="igstesting001@gmail.com"/>
+  <parameter name="consumptionsShow" value="Gattimela"/>
+  <parameter name="devicePin" value="1619"/>
+  <listeners>
+    <listener class-name="com.extent.ExtentReporter"/>
+  </listeners>
+  <test name="AndroidPWASmokeScript">
+    <classes>
+      <class name="com.zee5.PWASmokeScripts.AndroidPWASmokeScript"/>
+    </classes>
+  </test> <!-- AndroidPWASmokeScript -->
+  <test name="AndroidPWASmokeScript(failed)">
+    <classes>
+      <class name="com.zee5.PWASmokeScripts.AndroidPWASmokeScript">
+        <methods>
+          <include name="tearDown"/>
+          <include name="PWANetworkInterruption" invocation-numbers="0"/>
+          <include name="init"/>
+        </methods>
+      </class> <!-- com.zee5.PWASmokeScripts.AndroidPWASmokeScript -->
+    </classes>
+  </test> <!-- AndroidPWASmokeScript(failed) -->
+</suite> <!-- Failed suite [Android] -->
