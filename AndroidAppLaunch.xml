@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Android" parallel="false" thread-count="1">  <!--  name="Android"-->
+	
 	<parameter name="browser" value="chrome"/>
 	<parameter name="url" value="http://newpwa.zee5.com/"/>
-	<parameter name="userType" value="Guest"/> <!--  Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite"/>
 	
 	<parameter name="NonsubscribedUserName" value="igstesting001@gmail.com"/>
@@ -17,7 +17,8 @@
 	<parameter name="consumptionsFreeContent" value="Gooli"/>
 	<parameter name="consumptionsPremiumContent" value="Raaga"/>
 	
-		
+	
+			
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
@@ -25,7 +26,7 @@
 	</listeners>	
 
 
-	<test name="AndroidApplaunchModule">
+	<test name="AndroidTest">
 		<classes>		
 		 	<class name="com.zee5.ApplicasterScripts.AndroidAppLaunch" /> 		 		
 		</classes>

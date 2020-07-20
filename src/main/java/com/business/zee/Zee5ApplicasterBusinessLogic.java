@@ -1319,7 +1319,8 @@ List of Functions Created
 	
 	public void SearchBox(String userType) throws Exception
 	{
-		extent.HeaderChildNode("validating the UI/UX of search Landing screen");	
+		extent.HeaderChildNode("validating the UI/UX of search Landing screen");
+		System.out.println("\nValidating the UI/UX of search Landing screen");
 		verifyElementPresent(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		waitTime(6000);
@@ -1328,6 +1329,11 @@ List of Functions Created
 		verifyElementExist(AMDSearchScreen.objUpcomingOption,"Bottom bar Upcoming Option");
 		verifyElementExist(AMDSearchScreen.objDownloadsOption,"Bottom bar Downloads Option");
 		verifyElementExist(AMDSearchScreen.objMoreOption,"Bottom bar More Option");
+		
+//		verifyElementExist(AMDHomePage.HomeIcon,"Bottom bar Home Option");
+//		verifyElementExist(AMDHomePage.UpcomingIcon,"Bottom bar Upcoming Option");
+//		verifyElementExist(AMDHomePage.DownloadIcon,"Bottom bar Downloads Option");
+//		verifyElementExist(AMDHomePage.MoreMenuIcon,"Bottom bar More Option");
 		
 		WebElement elementBackBtn = findElement(AMDLoginScreen.objBackBtn);
 		int BackBtnleftX = elementBackBtn.getLocation().getX();
@@ -1346,14 +1352,14 @@ List of Functions Created
 		int VoiceIconRightX = elementVoiceIcon.getLocation().getX();
 		System.out.println(VoiceIconRightX);
 		Dimension sizee = getDriver().manage().window().getSize();
-		System.out.println(sizee.getWidth());
+//		System.out.println(sizee.getWidth());
 		int sizeee = sizee.getWidth() - 300;
-		System.out.println(sizeee);
+		System.out.println(sizee.getWidth() +" X "+sizeee);
 
 		if (VoiceIconRightX >= sizeee) {
 			logger.info("Microphone search icon is displayed at top right of the Search screen");
 			extent.extentLogger("Microphone icon", "Microphone search icon is displayed at top right of the Search screen");
-		} else {
+		}else{
 			logger.error("Microphone icon is not displayed at top right of the Search screen");
 			extent.extentLoggerFail("Microphone icon", "Microphone icon is not displayed at top right of the Search screen");
 		}
@@ -1367,9 +1373,7 @@ List of Functions Created
 		{	
 			logger.info("Device Microphone access permission pop up is displayed");
 			extent.extentLogger("Voice Search Icon","Device Microphone access permission pop up is displayed");
-		}	
-		else
-		{
+		}else{
 			logger.error("Device Microphone access permission pop up is not displayed");
 			extent.extentLoggerFail("Voice Search icon", "Device Microphone access permission pop up is not displayed");
 		}
@@ -1387,15 +1391,13 @@ List of Functions Created
         String SearchBoxText = getDriver().findElement(AMDSearchScreen.objsearchBox).getText();
        
 		System.out.println(SearchBoxText);
+		logger.info(SearchBoxText);
 		
 		if(SearchBoxText.equalsIgnoreCase("Search for Movies, Shows, Channels etc."))
 		{
 			logger.info("Water Marked Text is displayed by default in Search Box");
 			extent.extentLogger("Search box","Water Marked Text is displayed by default in Search Box");
-		}
-		
-		else
-		{
+		}else{
 			logger.error("Water Marked Text is not displayed by default in Search Box");
 			extent.extentLoggerFail("Search Box", "Water Marked Text is not displayed by default in Search Box");
 		}
@@ -1412,14 +1414,11 @@ List of Functions Created
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		
 		waitTime(2000);
-		
 		if(verifyElementExist(AMDSearchScreen.objTrendingSearchOverlay,"Trending Search Overlay"))
 		{
 		logger.info("Trending search overlay is displayed");
 		extent.extentLogger("Search screen","Trending search overlay is displayed");
-		}
-		else
-		{
+		}else{
 			logger.info("Trending search overlay is not displayed");
 			extent.extentLoggerFail("Search screen","Trending search overlay is not displayed");
 			
@@ -1427,16 +1426,13 @@ List of Functions Created
 		waitTime(2000);
 		if(verifyElementExist(AMDSearchScreen.objTopSearchOverlay,"Top search Overlay"))
 		{
-		logger.info("Top search overlay is displayed");
-		extent.extentLogger("Search screen","Top search overlay is displayed");
-		}
-		else
-		{
+			logger.info("Top search overlay is displayed");
+			extent.extentLogger("Search screen","Top search overlay is displayed");
+		}else{
 			logger.info("Top search overlay is not displayed");
 			extent.extentLoggerFail("Search screen","Top search overlay is not displayed");
 			
 		}
-		
 		
 //		click(AMDSearchScreen.objSearchEditBox, "Search box");
 //		if(verifyElementExist(AMDSearchScreen.objVirtualKeyboard, "Keyboard"))
@@ -1459,17 +1455,20 @@ List of Functions Created
 	
 	public void verifySearchLandingScreen(String userType) throws Exception
 	{
-		extent.HeaderChildNode("Verify user navigates to Search landing screen");
-		waitTime(20000);
+		extent.HeaderChildNode("Validating "+userType+" user navigates to Search landing screen");
+		System.out.println("\nValidating "+userType+"user navigates to Search landing screen");
+		waitTime(10000);
 		verifyElementPresent(AMDLoginScreen.objHomeTab, "Home Tab");
 		boolean liveTV = false;
+		
+		int noOfTabs = getCount(AMDHomePage.objTitle);
         for (int i = 1; i <= 10; i++) {
        	String tabName = null;
-			if (i == 6) 
+			if (i == noOfTabs) 
 			{
 				if (!liveTV)
 				{
-					i = 5;
+					i = noOfTabs-1;
 				}
 				WebElement eleTab = getDriver()
 						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
@@ -1524,18 +1523,20 @@ List of Functions Created
 	
 	public void verifySearchOption(String userType) throws Exception
 	{
-		extent.HeaderChildNode("Verify Search Icon on Landing pages");
-		waitTime(20000);
+		extent.HeaderChildNode("Verify Search Icon on Landing pages as : "+userType);
+		System.out.println("\nVerify Search Icon on Landing pages as "+userType);
+		waitTime(10000);
 		verifyElementPresent(AMDLoginScreen.objHomeTab, "Home Tab");
 		boolean liveTV = false;
 
-		
+		int noOfTabs = getCount(AMDHomePage.objTitle);		
+		System.out.println("HOME PAGE HEADERS: "+noOfTabs);
 		for (int i = 1; i <= 10; i++) {
 
 			String tabName = null;
-			if (i == 6) {
+			if (i == noOfTabs) {
 				if (!liveTV) {
-					i = 5;
+					i = noOfTabs-1;
 				}
 				WebElement eleTab = getDriver()
 						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
@@ -1562,9 +1563,9 @@ List of Functions Created
 			int SearchIconRightX = elementSearchIcon.getLocation().getX();
 			System.out.println(SearchIconRightX);
 			Dimension sizee = getDriver().manage().window().getSize();
-			System.out.println(sizee.getWidth());
+//			System.out.println(sizee.getWidth());
 			int sizeee = sizee.getWidth() - 300;
-			System.out.println(sizeee);
+			System.out.println(sizee.getWidth() + " X "+sizeee);
 			
 
 			if (SearchIconRightX >= sizeee) {
@@ -2570,6 +2571,7 @@ List of Functions Created
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
 			waitTime(1000);
+			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
 
 			waitTime(3000);

@@ -21,6 +21,16 @@ public class Android_Search {
 	
 	@Test(priority = 0)	 
 	@Parameters({ "userType" })
+	public void Login(String userType) throws Exception {
+		
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		
+	}
+	
+	@Test(priority = 1)	 
+	@Parameters({ "userType" })
 	public void SearchScreen(String userType) throws Exception {
 
 	    ZEE5ApplicasterBusinessLogic.verifySearchOption(userType);
@@ -28,14 +38,14 @@ public class Android_Search {
 		ZEE5ApplicasterBusinessLogic.SearchBox(userType);
 	}
 	
-	@Test(priority = 1)
+	@Test(priority = 2)
 	@Parameters({ "userType"})
 	public void  TopAndTrendingSearches(String UserType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.TopSearches(UserType);
 		ZEE5ApplicasterBusinessLogic.TrendingSearches();
 	}
 	
-	@Test(priority = 2)		// Manasa
+	@Test(priority = 3)		// Manasa
 	@Parameters({ "userType" })		
 	public void searchResultScreenValidation(String userType) throws Exception {
 		System.out.println("\nVerify Search Result screen");
@@ -45,7 +55,7 @@ public class Android_Search {
 		
 	}
 	
-	@Test(priority = 3)		// Manasa
+	@Test(priority = 4)		// Manasa
 	@Parameters({ "userType" })		
 	public void voiceSearchValidation(String userType) throws Exception {
 		System.out.println("\nVerify Voice Search functionality");
