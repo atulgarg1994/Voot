@@ -1,40 +1,140 @@
-2020-07-20 19:38:51,755 - rootLogger - INFO - PlatForm :: MPWA
-2020-07-20 19:38:51,786 - rootLogger - INFO - Running Test :: AndroidPWASanityScript
-2020-07-20 19:38:51,786 - rootLogger - INFO - Run Mode :: YES
-2020-07-20 19:40:14,288 - rootLogger - INFO - Loaded the following properties TimeOut :10 RetryCount :5
-2020-07-20 19:40:14,336 - rootLogger - INFO - :::::::::Test Login Started::::::::
-2020-07-20 19:40:16,472 - rootLogger - INFO - Hamburger Menu is displayed
-2020-07-20 19:40:17,508 - rootLogger - INFO - Clicked on Hamburger Menu
-2020-07-20 19:40:18,396 - rootLogger - INFO - Login button is displayed
-2020-07-20 19:40:21,770 - rootLogger - INFO - Clicked on Login button
-2020-07-20 19:40:25,221 - rootLogger - INFO - Login page is displayed
-2020-07-20 19:40:25,678 - rootLogger - INFO - Email field is displayed
-2020-07-20 19:40:26,474 - rootLogger - INFO - Clicked on Email field
-2020-07-20 19:40:28,296 - rootLogger - INFO - Typed the value impact0314@gmail.com into Email Field
-2020-07-20 19:40:28,911 - rootLogger - INFO - Hiding keyboard was Successfull
-2020-07-20 19:40:32,277 - rootLogger - INFO - Password Field is displayed
-2020-07-20 19:40:32,849 - rootLogger - INFO - Clicked on Password Field
-2020-07-20 19:40:34,152 - rootLogger - INFO - Typed the value impact0314 into Password field
-2020-07-20 19:40:34,501 - rootLogger - INFO - Hiding keyboard was Successfull
-2020-07-20 19:40:40,490 - rootLogger - INFO - Clicked on Login Button
-2020-07-20 19:41:12,709 - rootLogger - INFO - ::::::::::Test Login PASSED::::::::::
-2020-07-20 19:41:12,713 - rootLogger - INFO - :::::::::Test showsPage Started::::::::
-2020-07-20 19:41:12,713 - rootLogger - INFO - Accessing as Non subscribed User
-2020-07-20 19:41:43,009 - rootLogger - INFO - Login Button is not displayed
-2020-07-20 19:41:46,828 - rootLogger - INFO - Hamburger Menu is displayed
-2020-07-20 19:41:47,934 - rootLogger - INFO - Clicked on Hamburger Menu
-2020-07-20 19:42:21,206 - rootLogger - ERROR - Element Login button  is not visible
-2020-07-20 19:42:54,223 - rootLogger - ERROR - Login page is not displayed
-2020-07-20 19:43:24,598 - rootLogger - ERROR - Element Email field  is not visible
-2020-07-20 19:43:54,628 - rootLogger - ERROR - org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //input[@id='textField'] (tried for 30 second(s) with 500 milliseconds interval)
-2020-07-20 19:43:57,904 - rootLogger - INFO - Hiding keyboard was Successfull
-2020-07-20 19:44:27,994 - rootLogger - ERROR - Element Password Field  is not visible
-2020-07-20 19:44:58,146 - rootLogger - ERROR - org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //input[@type='password'] (tried for 30 second(s) with 500 milliseconds interval)
-2020-07-20 19:44:58,392 - rootLogger - INFO - Hiding keyboard was Successfull
-2020-07-20 19:45:33,693 - rootLogger - ERROR - org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //a[@href='/signin']//span[.='Login'] (tried for 30 second(s) with 500 milliseconds interval)
-2020-07-20 19:45:37,461 - rootLogger - INFO - Shows is displayed
-2020-07-20 19:45:38,392 - rootLogger - ERROR - Element Shows  is not visible
-2020-07-20 19:45:43,675 - rootLogger - INFO - Home tab is highlighted
-2020-07-20 19:45:44,073 - rootLogger - INFO - Tray is displayed
-2020-07-20 19:45:44,073 - rootLogger - INFO - Tray is loaded for 1 scroll
-2020-07-20 19:45:45,451 - rootLogger - INFO - ::::::::::Test showsPage FAILED::::::::::
+<<<<<<< src/applog/myinfo.log
+2020-07-20 21:19:35,943 - rootLogger - INFO - PlatForm :: Android
+2020-07-20 21:19:35,956 - rootLogger - INFO - Running Test :: AndroidTest
+2020-07-20 21:19:35,957 - rootLogger - INFO - Run Mode :: YES
+2020-07-20 21:19:36,167 - rootLogger - INFO - APK INSTALLED..
+2020-07-20 21:19:36,167 - rootLogger - INFO - ****Clearing the App Data****
+2020-07-20 21:20:12,322 - rootLogger - INFO - :::::::::Test Login Started::::::::
+2020-07-20 21:20:12,348 - rootLogger - INFO - UserType : Guest
+2020-07-20 21:20:15,394 - rootLogger - INFO - Device Location Permision is displayed
+2020-07-20 21:20:15,791 - rootLogger - INFO - Allow button is displayed
+2020-07-20 21:20:16,366 - rootLogger - INFO - Deny button is displayed
+2020-07-20 21:20:16,847 - rootLogger - INFO - Clicked on Allow button
+2020-07-20 21:20:17,824 - rootLogger - INFO - Clicked on Continue button (Display-LanguageScreen)
+2020-07-20 21:20:19,357 - rootLogger - INFO - Clicked on Continue button (Content-LanguageScreen)
+2020-07-20 21:20:20,398 - rootLogger - INFO - Browse for Free is displayed
+2020-07-20 21:20:21,855 - rootLogger - INFO - Hiding keyboard was Successfull
+2020-07-20 21:20:23,416 - rootLogger - INFO - Skip link is displayed
+2020-07-20 21:20:24,393 - rootLogger - INFO - Clicked on Skip link
+2020-07-20 21:20:27,967 - rootLogger - INFO - ::::::::::Test Login PASSED::::::::::
+2020-07-20 21:20:27,970 - rootLogger - INFO - :::::::::Test SearchScreen Started::::::::
+2020-07-20 21:22:55,429 - rootLogger - INFO - Home Tab is displayed
+2020-07-20 21:22:55,857 - rootLogger - INFO - List count for By.xpath: //*[@id='title'] is 5
+2020-07-20 21:22:58,706 - rootLogger - INFO - Home tab is displayed and clicked on Home tab
+2020-07-20 21:23:00,538 - rootLogger - INFO - Search icon is displayed at top right of the Home tab 
+2020-07-20 21:23:04,369 - rootLogger - INFO - Movies tab is displayed and clicked on Movies tab
+2020-07-20 21:23:06,251 - rootLogger - INFO - Search icon is displayed at top right of the Movies tab 
+2020-07-20 21:23:09,950 - rootLogger - INFO - Shows tab is displayed and clicked on Shows tab
+2020-07-20 21:23:11,740 - rootLogger - INFO - Search icon is displayed at top right of the Shows tab 
+2020-07-20 21:23:14,582 - rootLogger - INFO - News tab is displayed and clicked on News tab
+2020-07-20 21:23:15,349 - rootLogger - INFO - Search icon is displayed at top right of the News tab 
+2020-07-20 21:23:18,166 - rootLogger - INFO - Videos tab is displayed and clicked on Videos tab
+2020-07-20 21:23:19,314 - rootLogger - INFO - Search icon is displayed at top right of the Videos tab 
+2020-07-20 21:23:22,039 - rootLogger - INFO - Premium tab is displayed and clicked on Premium tab
+2020-07-20 21:23:23,238 - rootLogger - INFO - Search icon is displayed at top right of the Premium tab 
+2020-07-20 21:23:25,961 - rootLogger - INFO - Kids tab is displayed and clicked on Kids tab
+2020-07-20 21:23:26,639 - rootLogger - INFO - Search icon is displayed at top right of the Kids tab 
+2020-07-20 21:23:29,316 - rootLogger - INFO - Music tab is displayed and clicked on Music tab
+2020-07-20 21:23:31,599 - rootLogger - INFO - Search icon is displayed at top right of the Music tab 
+2020-07-20 21:23:34,348 - rootLogger - INFO - Live TV tab is displayed and clicked on Live TV tab
+2020-07-20 21:23:35,180 - rootLogger - INFO - Search icon is displayed at top right of the Live TV tab 
+2020-07-20 21:23:37,846 - rootLogger - INFO - ZEE5 Originals tab is displayed and clicked on ZEE5 Originals tab
+2020-07-20 21:23:38,568 - rootLogger - INFO - Search icon is displayed at top right of the ZEE5 Originals tab 
+2020-07-20 21:23:39,115 - rootLogger - INFO - Bottom bar Home Option is displayed
+2020-07-20 21:23:39,522 - rootLogger - INFO - Clicked on Bottom bar Home Option
+2020-07-20 21:23:50,758 - rootLogger - INFO - Home Tab is displayed
+2020-07-20 21:23:51,450 - rootLogger - INFO - List count for By.xpath: //*[@id='title'] is 5
+2020-07-20 21:23:53,971 - rootLogger - INFO - Home tab is displayed and clicked on Home tab
+2020-07-20 21:23:55,488 - rootLogger - INFO - Search icon is displayed
+2020-07-20 21:23:55,762 - rootLogger - INFO - Clicked on Search icon
+2020-07-20 21:23:59,349 - rootLogger - INFO - Search box is displayed
+2020-07-20 21:23:59,349 - rootLogger - INFO - User navigated to Search Landing screen
+2020-07-20 21:23:59,795 - rootLogger - INFO - Back Button is displayed
+2020-07-20 21:24:00,077 - rootLogger - INFO - Clicked on Back Button
+2020-07-20 21:24:05,525 - rootLogger - INFO - Movies tab is displayed and clicked on Movies tab
+2020-07-20 21:24:07,757 - rootLogger - INFO - Search icon is displayed
+2020-07-20 21:24:08,102 - rootLogger - INFO - Clicked on Search icon
+2020-07-20 21:24:11,596 - rootLogger - INFO - Search box is displayed
+2020-07-20 21:24:11,597 - rootLogger - INFO - User navigated to Search Landing screen
+2020-07-20 21:24:12,142 - rootLogger - INFO - Back Button is displayed
+2020-07-20 21:24:12,547 - rootLogger - INFO - Clicked on Back Button
+2020-07-20 21:24:17,921 - rootLogger - INFO - Shows tab is displayed and clicked on Shows tab
+2020-07-20 21:24:19,710 - rootLogger - INFO - Search icon is displayed
+2020-07-20 21:24:20,082 - rootLogger - INFO - Clicked on Search icon
+2020-07-20 21:24:22,764 - rootLogger - INFO - Search box is displayed
+2020-07-20 21:24:22,764 - rootLogger - INFO - User navigated to Search Landing screen
+2020-07-20 21:24:23,589 - rootLogger - INFO - Back Button is displayed
+2020-07-20 21:24:24,181 - rootLogger - INFO - Clicked on Back Button
+2020-07-20 21:24:28,674 - rootLogger - INFO - News tab is displayed and clicked on News tab
+2020-07-20 21:24:29,134 - rootLogger - INFO - Search icon is displayed
+2020-07-20 21:24:30,416 - rootLogger - INFO - Clicked on Search icon
+2020-07-20 21:24:33,093 - rootLogger - INFO - Search box is displayed
+2020-07-20 21:24:33,093 - rootLogger - INFO - User navigated to Search Landing screen
+2020-07-20 21:24:34,822 - rootLogger - INFO - Back Button is displayed
+2020-07-20 21:24:35,245 - rootLogger - INFO - Clicked on Back Button
+2020-07-20 21:24:40,685 - rootLogger - INFO - Videos tab is displayed and clicked on Videos tab
+2020-07-20 21:24:42,228 - rootLogger - INFO - Search icon is displayed
+2020-07-20 21:24:42,586 - rootLogger - INFO - Clicked on Search icon
+2020-07-20 21:24:45,336 - rootLogger - INFO - Search box is displayed
+2020-07-20 21:24:45,336 - rootLogger - INFO - User navigated to Search Landing screen
+2020-07-20 21:24:46,298 - rootLogger - INFO - Back Button is displayed
+2020-07-20 21:24:46,701 - rootLogger - INFO - Clicked on Back Button
+2020-07-20 21:24:51,351 - rootLogger - INFO - Premium tab is displayed and clicked on Premium tab
+2020-07-20 21:24:53,318 - rootLogger - INFO - Search icon is displayed
+2020-07-20 21:24:53,708 - rootLogger - INFO - Clicked on Search icon
+2020-07-20 21:24:56,259 - rootLogger - INFO - Search box is displayed
+2020-07-20 21:24:56,259 - rootLogger - INFO - User navigated to Search Landing screen
+2020-07-20 21:24:57,649 - rootLogger - INFO - Back Button is displayed
+2020-07-20 21:24:58,072 - rootLogger - INFO - Clicked on Back Button
+2020-07-20 21:25:03,669 - rootLogger - INFO - Kids tab is displayed and clicked on Kids tab
+2020-07-20 21:25:04,210 - rootLogger - INFO - Search icon is displayed
+2020-07-20 21:25:04,597 - rootLogger - INFO - Clicked on Search icon
+2020-07-20 21:25:07,954 - rootLogger - INFO - Search box is displayed
+2020-07-20 21:25:07,955 - rootLogger - INFO - User navigated to Search Landing screen
+2020-07-20 21:25:08,435 - rootLogger - INFO - Back Button is displayed
+2020-07-20 21:25:09,373 - rootLogger - INFO - Clicked on Back Button
+2020-07-20 21:25:14,149 - rootLogger - INFO - Music tab is displayed and clicked on Music tab
+2020-07-20 21:25:14,818 - rootLogger - INFO - Search icon is displayed
+2020-07-20 21:25:15,985 - rootLogger - INFO - Clicked on Search icon
+2020-07-20 21:25:18,580 - rootLogger - INFO - Search box is displayed
+2020-07-20 21:25:18,581 - rootLogger - INFO - User navigated to Search Landing screen
+2020-07-20 21:25:20,100 - rootLogger - INFO - Back Button is displayed
+2020-07-20 21:25:20,525 - rootLogger - INFO - Clicked on Back Button
+2020-07-20 21:25:26,157 - rootLogger - INFO - Live TV tab is displayed and clicked on Live TV tab
+2020-07-20 21:25:26,825 - rootLogger - INFO - Search icon is displayed
+2020-07-20 21:25:27,155 - rootLogger - INFO - Clicked on Search icon
+2020-07-20 21:25:30,261 - rootLogger - INFO - Search box is displayed
+2020-07-20 21:25:30,261 - rootLogger - INFO - User navigated to Search Landing screen
+2020-07-20 21:25:30,880 - rootLogger - INFO - Back Button is displayed
+2020-07-20 21:25:31,348 - rootLogger - INFO - Clicked on Back Button
+2020-07-20 21:25:36,527 - rootLogger - INFO - ZEE5 Originals tab is displayed and clicked on ZEE5 Originals tab
+2020-07-20 21:25:37,154 - rootLogger - INFO - Search icon is displayed
+2020-07-20 21:25:38,292 - rootLogger - INFO - Clicked on Search icon
+2020-07-20 21:25:40,961 - rootLogger - INFO - Search box is displayed
+2020-07-20 21:25:40,962 - rootLogger - INFO - User navigated to Search Landing screen
+2020-07-20 21:25:41,465 - rootLogger - INFO - Back Button is displayed
+2020-07-20 21:25:42,388 - rootLogger - INFO - Clicked on Back Button
+2020-07-20 21:25:45,042 - rootLogger - INFO - Bottom bar Home Option is displayed
+2020-07-20 21:25:45,448 - rootLogger - INFO - Clicked on Bottom bar Home Option
+2020-07-20 21:25:46,536 - rootLogger - INFO - Search icon is displayed
+2020-07-20 21:25:47,157 - rootLogger - INFO - Clicked on Search icon
+2020-07-20 21:25:54,619 - rootLogger - INFO - Bottom bar Home Option is displayed
+2020-07-20 21:25:55,146 - rootLogger - INFO - Bottom bar Upcoming Option is displayed
+2020-07-20 21:25:55,480 - rootLogger - INFO - Bottom bar Downloads Option is displayed
+2020-07-20 21:25:55,986 - rootLogger - INFO - Bottom bar More Option is displayed
+2020-07-20 21:25:57,165 - rootLogger - INFO - Back button is displayed at top left of the screen
+2020-07-20 21:25:58,564 - rootLogger - INFO - Microphone search icon is displayed at top right of the Search screen
+2020-07-20 21:25:58,921 - rootLogger - INFO - Clicked on Microphone Icon
+2020-07-20 21:26:00,624 - rootLogger - INFO - Device Microphone access permission pop up is displayed
+2020-07-20 21:26:00,958 - rootLogger - INFO - Back button is displayed
+2020-07-20 21:26:01,176 - rootLogger - INFO - Clicked on Back button
+2020-07-20 21:26:03,779 - rootLogger - INFO - Search Box is displayed
+2020-07-20 21:26:03,779 - rootLogger - INFO - Search box is available on top section of search landing screen
+2020-07-20 21:26:04,177 - rootLogger - INFO - Search for Movies, Shows, Channels etc.
+2020-07-20 21:26:04,177 - rootLogger - INFO - Water Marked Text is displayed by default in Search Box
+2020-07-20 21:26:05,044 - rootLogger - INFO - Back Button is displayed
+2020-07-20 21:26:05,525 - rootLogger - INFO - Clicked on Back Button
+2020-07-20 21:26:06,708 - rootLogger - INFO - Home Tab is displayed
+2020-07-20 21:26:06,709 - rootLogger - INFO - User navigated to previous screen on tapping of back button available on the search screen
+2020-07-20 21:26:07,158 - rootLogger - INFO - Search icon is displayed
+2020-07-20 21:26:07,537 - rootLogger - INFO - Clicked on Search icon

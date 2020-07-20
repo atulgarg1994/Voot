@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 public class AMDLoginScreen {
 	
 	//Back Icon
-	public static By objBackBtn = By.xpath("//*[@id='icon_back']");
+	public static By objBackBtn = By.xpath("//*[@id='icon_back']|//*[@id='action_icon']");
 	
 	//Skip Button in Login Screen 
 	public static By objLoginLnk = By.xpath("//*[@id='skip_link']");
