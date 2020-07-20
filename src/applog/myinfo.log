@@ -1,0 +1,40 @@
+2020-07-20 19:38:51,755 - rootLogger - INFO - PlatForm :: MPWA
+2020-07-20 19:38:51,786 - rootLogger - INFO - Running Test :: AndroidPWASanityScript
+2020-07-20 19:38:51,786 - rootLogger - INFO - Run Mode :: YES
+2020-07-20 19:40:14,288 - rootLogger - INFO - Loaded the following properties TimeOut :10 RetryCount :5
+2020-07-20 19:40:14,336 - rootLogger - INFO - :::::::::Test Login Started::::::::
+2020-07-20 19:40:16,472 - rootLogger - INFO - Hamburger Menu is displayed
+2020-07-20 19:40:17,508 - rootLogger - INFO - Clicked on Hamburger Menu
+2020-07-20 19:40:18,396 - rootLogger - INFO - Login button is displayed
+2020-07-20 19:40:21,770 - rootLogger - INFO - Clicked on Login button
+2020-07-20 19:40:25,221 - rootLogger - INFO - Login page is displayed
+2020-07-20 19:40:25,678 - rootLogger - INFO - Email field is displayed
+2020-07-20 19:40:26,474 - rootLogger - INFO - Clicked on Email field
+2020-07-20 19:40:28,296 - rootLogger - INFO - Typed the value impact0314@gmail.com into Email Field
+2020-07-20 19:40:28,911 - rootLogger - INFO - Hiding keyboard was Successfull
+2020-07-20 19:40:32,277 - rootLogger - INFO - Password Field is displayed
+2020-07-20 19:40:32,849 - rootLogger - INFO - Clicked on Password Field
+2020-07-20 19:40:34,152 - rootLogger - INFO - Typed the value impact0314 into Password field
+2020-07-20 19:40:34,501 - rootLogger - INFO - Hiding keyboard was Successfull
+2020-07-20 19:40:40,490 - rootLogger - INFO - Clicked on Login Button
+2020-07-20 19:41:12,709 - rootLogger - INFO - ::::::::::Test Login PASSED::::::::::
+2020-07-20 19:41:12,713 - rootLogger - INFO - :::::::::Test showsPage Started::::::::
+2020-07-20 19:41:12,713 - rootLogger - INFO - Accessing as Non subscribed User
+2020-07-20 19:41:43,009 - rootLogger - INFO - Login Button is not displayed
+2020-07-20 19:41:46,828 - rootLogger - INFO - Hamburger Menu is displayed
+2020-07-20 19:41:47,934 - rootLogger - INFO - Clicked on Hamburger Menu
+2020-07-20 19:42:21,206 - rootLogger - ERROR - Element Login button  is not visible
+2020-07-20 19:42:54,223 - rootLogger - ERROR - Login page is not displayed
+2020-07-20 19:43:24,598 - rootLogger - ERROR - Element Email field  is not visible
+2020-07-20 19:43:54,628 - rootLogger - ERROR - org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //input[@id='textField'] (tried for 30 second(s) with 500 milliseconds interval)
+2020-07-20 19:43:57,904 - rootLogger - INFO - Hiding keyboard was Successfull
+2020-07-20 19:44:27,994 - rootLogger - ERROR - Element Password Field  is not visible
+2020-07-20 19:44:58,146 - rootLogger - ERROR - org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //input[@type='password'] (tried for 30 second(s) with 500 milliseconds interval)
+2020-07-20 19:44:58,392 - rootLogger - INFO - Hiding keyboard was Successfull
+2020-07-20 19:45:33,693 - rootLogger - ERROR - org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //a[@href='/signin']//span[.='Login'] (tried for 30 second(s) with 500 milliseconds interval)
+2020-07-20 19:45:37,461 - rootLogger - INFO - Shows is displayed
+2020-07-20 19:45:38,392 - rootLogger - ERROR - Element Shows  is not visible
+2020-07-20 19:45:43,675 - rootLogger - INFO - Home tab is highlighted
+2020-07-20 19:45:44,073 - rootLogger - INFO - Tray is displayed
+2020-07-20 19:45:44,073 - rootLogger - INFO - Tray is loaded for 1 scroll
+2020-07-20 19:45:45,451 - rootLogger - INFO - ::::::::::Test showsPage FAILED::::::::::
