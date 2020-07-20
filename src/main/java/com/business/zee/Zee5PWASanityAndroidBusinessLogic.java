@@ -1746,7 +1746,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	@SuppressWarnings("rawtypes")
 	public void navigateToMusicTab(String userType) throws Exception {
 		HeaderChildNode("Music tab validation");
-		verifyElementPresentAndClick(PWAMusicPage.objTabName("Home"), "Music tab");
+		navigateToAnyScreen("Music");
+		//verifyElementPresentAndClick(PWAMusicPage.objTabName("Home"), "Music tab");
 		if (verifyElementExist(PWAMusicPage.objMusicHighlited, "Music tab")) {
 			logger.info("Music tab is highlited");
 			extent.extentLogger("Music tab", "Music tab is highlited");
@@ -1800,11 +1801,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(5000);
 
 		touchAction = new TouchAction(getDriver());
-		touchAction.longPress(LongPressOptions.longPressOptions()
-				.withElement(ElementOption.element(findElement(PWAMusicPage.objCarouselTitle))));
+		touchAction.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(findElement(PWAMusicPage.objCarouselTitle))));
 
-		String Title = getElementPropertyToString("innerText", PWAMusicPage.objCarouselTitle, "Carousel Content Title")
-				.toString();
+		String Title = getElementPropertyToString("innerText", PWAMusicPage.objCarouselTitle, "Carousel Content Title").toString();
 		click(PWAHomePage.objPlayBtn, "Clicked on content in carousel");
 		if (verifyElementExist(PWAMusicPage.objWhyRegisterPopUp, "Register popup ")) {
 			click(PWAMusicPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
@@ -8641,10 +8640,10 @@ extentLogger("Location", "Location :"+ region);
 	}
 
 	public void Moviepage(String usertype, String Tabname) throws Exception
-	{
-		MoviesScreen();
+	{	
 		landingPagesValidation(Tabname);
-		landingPagesTrailerAndPopUpValidation(usertype, Tabname);	
+		landingPagesTrailerAndPopUpValidation(usertype, Tabname);
+		MoviesScreen();
 	}
 	
 	/**
@@ -9596,26 +9595,17 @@ extentLogger("Location", "Location :"+ region);
 	public void ShowsValidation(String userType) throws Exception {
 		HeaderChildNode("Shows page");
 		if (userType.contentEquals("Guest")) {
-			extent.HeaderChildNode("Guest user scenarios");
-			logger.info("Accessing as Guest User");
 			landingPagesValidation("Shows");
 			landingPagesTrailerAndPopUpValidation("Guest","Shows");
 			verifyLandscapeforFreeContent();
 			verifyLandscapeforPremiumContent();
-
 		} else if (userType.contentEquals("NonSubscribedUser")) {
-			extent.HeaderChildNode("Non subscribed scenarios");
-			logger.info("Accessing as Non subscribed User");
-			ZeePWALogin("NonSubscribedUser");
 			landingPagesValidation("Shows");
 			landingPagesTrailerAndPopUpValidation("NonSubscribedUser","Shows");
 			verifyLandscapeforFreeContent();
 			verifyLandscapeforPremiumContent();
 			VerifyExternalLinkInShowsLandingPage();
 		} else if (userType.contentEquals("SubscribedUser")) {
-			extent.HeaderChildNode("Subscribed scenarios");
-			logger.info("Accessing as Subscribed User");
-			ZeePWALogin("SubscribedUser");
 			landingPagesValidation("Shows");
 			landingPagesTrailerAndPopUpValidation("SubscribedUser","Shows");
 			verifyLandscapeforFreeContent();
@@ -9746,10 +9736,8 @@ extentLogger("Location", "Location :"+ region);
 				Subscriptionpopup();
 		   }	
 	}
-
-
-
-
+	 
+	 
 	 public void landingPagesValidation(String tabName) throws Exception {
 			extent.HeaderChildNode("Landing Pages Validation");
 			verifyElementPresentAndClick(PWAHomePage.objTabName(tabName), tabName);
@@ -9818,8 +9806,9 @@ extentLogger("Location", "Location :"+ region);
 
 	 public void landingPagesTrailerAndPopUpValidation(String userType, String tabName) throws Exception {
 			extent.HeaderChildNode("Landing Page Carousel Validation");
-			verifyElementPresentAndClick(PWAHomePage.objTabName(tabName), tabName);
-			waitTime(2000);
+			navigateToAnyScreen(tabName);
+			//verifyElementPresentAndClick(PWAHomePage.objTabName(tabName), tabName);
+			waitTime(4000);
 			click(PWAPremiumPage.objMastheadCarousel, "Carousel");
 			waitTime(5000);
 			if (userType.contains("Guest")) {

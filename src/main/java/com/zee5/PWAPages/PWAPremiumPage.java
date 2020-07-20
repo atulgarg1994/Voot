@@ -45,7 +45,7 @@ public class PWAPremiumPage {
 	public static By objPremiumPopUp = By.xpath("//h2[contains(@class,'popupTitle') and text()='Get premium']");
 
 //	SANITY SUSHMA LIVETV MODULE
-	public static By objClosePremiumPopup = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
+	public static By objClosePremiumPopup = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close' or @class='manCloseIcon']");
 
 //	MANASA
 	// Premium popup
@@ -95,7 +95,7 @@ public class PWAPremiumPage {
 		return By.xpath("(//div[contains(@class,'trayContentWrap')]//div[@class='trayHeader'])["+i+"]");
 	}
 	
-	public static By objMastheadCarousel = By.xpath("(//div[@class='legend legendWrapper'])[1]");
+	public static By objMastheadCarousel = By.xpath("//div[contains(@class,'slick-current')]//div[@class='legend legendWrapper']");
 	
 	public static By objNewsMastheadCarousel = By.xpath("//div[contains(@class,'slick-active')]//div[@class='carouselMain']");
 

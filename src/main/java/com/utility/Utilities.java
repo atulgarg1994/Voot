@@ -102,7 +102,7 @@ public class Utilities extends ExtentReporter {
 		if (getPlatform().equals("Web")) {
 			wait = new WebDriverWait(getWebDriver(), getTimeout());
 			js = (JavascriptExecutor)getWebDriver();
-		} else if (getPlatform().equals("Android")) {
+		} else if (getPlatform().equals("Android") || getPlatform().equals("MPWA")) {
 			wait = new WebDriverWait(getDriver(), getTimeout());
 		}
 	}
@@ -503,11 +503,8 @@ public class Utilities extends ExtentReporter {
 		return count;
 	}
 
-
-
-	
 	public List<WebElement> findElements(By byLocator) {
-		if(getPlatform().equals("Android")) {
+		if(getPlatform().equals("Android")  || getPlatform().equals("MPWA")) {
 			return getDriver().findElements(byLocator);
 		}else {
 			return getWebDriver().findElements(byLocator);
@@ -550,7 +547,7 @@ public class Utilities extends ExtentReporter {
 				logger.info("Back button is tapped");
 				extent.extentLogger("Back", "Back button is tapped");
 			}
-			}else if (getPlatform().equals("Android")) {
+			}else if (getPlatform().equals("Android") || getPlatform().equals("MPWA")) {
 				for (int i = 0; i < x; i++) {
 					getDriver().navigate().back();
 					logger.info("Back button is tapped");
@@ -1565,7 +1562,7 @@ public class Utilities extends ExtentReporter {
 						Thread.sleep(1000);
 					}
 				}				
-			}else if(getPlatform().equals("Android")){
+			}else if(getPlatform().equals("Android") || getPlatform().equals("MPWA")){
 				for (int time = 0; time <= seconds; time++) {
 					try {
 						getDriver().findElement(locator).click();

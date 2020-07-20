@@ -20,7 +20,7 @@ public class AndroidPWASanityScript {
 	public void Login(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.ZeePWALogin("E-mail", userType);
 	}
-
+/*
 	@Test(priority = 1)
 	@Parameters({ "userType" }) // SHREENIDHI
 	public void PWAMenuOrSettingScenarios(String userType) throws Exception {
@@ -77,8 +77,7 @@ public class AndroidPWASanityScript {
 	@Test(priority = 7)
 	@Parameters({ "userType" }) // HITESH
 	public void PWAMusicPageValidation(String userType) throws Exception {
-//		Zee5PWASanityBusinessLogic.navigateToMusicTab(userType);
-//		Zee5PWASanityBusinessLogic.ZeePWALogin("E-mail", userType);
+		Zee5PWASanityBusinessLogic.navigateToMusicTab(userType);
 		Zee5PWASanityBusinessLogic.landingPagesValidation("Music");
 	}
 
@@ -114,13 +113,13 @@ public class AndroidPWASanityScript {
 		//smoke
 		Zee5PWASanityBusinessLogic.zeePWASubscriptionSuite(userType); 
 	}
-
+*/
 	@Test(priority = 12)
 	@Parameters({ "userType" }) // BHAVANA
 	public void showsPage(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.ShowsValidation(userType);
 	}
-
+/*
 	@Test(priority = 13)
 	@Parameters({ "userType" }) // BHAVANA
 	public void Externallinks(String userType) throws Exception {
@@ -257,7 +256,7 @@ public class AndroidPWASanityScript {
     public void PWALanguageModule(String UserType) throws Exception {
 		Zee5PWASanityBusinessLogic.LanguageModule(UserType);
     }
-		
+*/		
 	@AfterClass
 	public void tearDown() {
 		Zee5PWASanityBusinessLogic.tearDown();
