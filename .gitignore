@@ -1,1 +1,18 @@
+/bin/
+/Libs/
+.settings
+/.classpath
+/Reports/
+debug.log
+settings*
+console.properties
+appium.log
+/test-output/
+
+# Eclipse Core
+.project
+.classpath
+
+# Mac files
+.DS_Store
 /target/
