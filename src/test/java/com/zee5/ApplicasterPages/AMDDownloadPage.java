@@ -32,5 +32,16 @@ public class AMDDownloadPage {
 	public static By objEpisodeState = By.xpath("//*[@resource-id='com.graymatrix.did:id/img_state']");
 	
 	public static By objDownloadMoreEpisodesButton = By.xpath("//*[@id='btn_download_more_episode']");
+
+//Downloads text at the top center 
+	public static By objDwnloadsHeader= By.xpath("//*[@id='title']");
+	
+	//Shows tab
+	public static By objshowstab = By.xpath("//*[@text='Shows']");
+	
+	//Movies tab
+	public static By objmoviestab=By.xpath("//*[@text='Movies']");
+	//videos tab
+	public static By objvideostab= By.xpath("//*[@text='Videos']");
 	
 }

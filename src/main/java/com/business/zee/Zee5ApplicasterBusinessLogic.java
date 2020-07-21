@@ -3422,4 +3422,40 @@ List of Functions Created
 				logger.error(pUserName + " failed to login");
 			}
 		}
+
+public void DownloadScreenValidation(String userType) throws Exception{
+			extent.HeaderChildNode("Verify the UI/UX of Download landing screen");
+			if (userType.equals("Guest")) {
+				click(AMDLoginScreen.objSkipButton, "Skip button");
+				waitTime(10000);
+				verifyElementExist(AMDHomePage.objDownloadBtn,"Downloads tab at the bottom of Home page");
+				click(AMDHomePage.objDownloadBtn,"Downloads tab");
+				waitTime(5000);
+				verifyElementExist(AMDDownloadPage.objDwnloadsHeader,"Downloads text at the top on center of the screen");
+				verifyElementExist(AMDDownloadPage.objshowstab,"Shows tab in Downloads landing screen");
+				verifyElementExist(AMDDownloadPage.objmoviestab,"Movies tab in Downlaods landing screen");
+				verifyElementExist(AMDDownloadPage.objvideostab,"Videos tab in Downloads landing screen ");				
+				waitTime(5000);
+				String getPropertyValue = getAttributValue("enabled", AMDDownloadPage.objshowstab);
+				if(getPropertyValue.equalsIgnoreCase("true")){
+					extent.extentLogger("Shows tab","Shows tab is by default highlighted");
+					logger.info("Shows tab is by default highlighted");
+				}else {
+					extent.extentLoggerFail("Shows tab","Shows tab fails to highlight by default");
+					logger.error("Shows tab fails to highlight by default");
+				}
+				waitTime(2000);
+				verifyElementPresentAndClick(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
+				verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn,"Browse to Download CTA under Shows tab");
+				waitTime(3000);
+				verifyElementPresentAndClick(AMDDownloadPage.objmoviestab,"Movies tab in Downlaods landing screen");
+				verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn,"Browse to Download CTA under Shows tab");
+				waitTime(3000);
+				verifyElementPresentAndClick(AMDDownloadPage.objvideostab,"Videos tab in Downloads landing screen");
+				verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn,"Browse to Download CTA under Shows tab");
+				waitTime(3000);
+				//Browse to Download CTA functionality
+				
+		}
+	}
 }
