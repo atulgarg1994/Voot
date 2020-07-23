@@ -51,7 +51,7 @@
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_LandingPage" />	
 		</classes>
-	</test> 	
+	</test>
 	
   	<!-- <test name="Android_Onboarding_Suite1">
 		<classes>	
@@ -88,6 +88,5 @@
       <class name="com.zee5.ApplicasterScripts.DeepLinkValidation"/>
     </classes> 
   </test>  -->
-  
 
 </suite>

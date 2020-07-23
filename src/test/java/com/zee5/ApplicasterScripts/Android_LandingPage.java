@@ -24,13 +24,13 @@ public class Android_LandingPage {
 //		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 //		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
-		
 	}
-	
-	@Test(priority = 1)	
-	public void Home() throws Exception
+
+	@Test
+	@Parameters({ "userType" })
+	public void Home(String userType) throws Exception
 	{
-		ZEE5ApplicasterBusinessLogic.homeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.homeLandingScreen(userType);
 	}
 	
 	

@@ -403,5 +403,8 @@ public class PWAHomePage {
 
 		public static By objLanguagePop = By.xpath("//div[@class='popupContent langFilterPopupWrapper']");
 		
+		// Subscribe Now
+				public static By objSubscribeNow = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Subscribe Now')]");
+		
 		
 }

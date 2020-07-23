@@ -839,7 +839,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWALiveTVPage.objApplyBtn, "Apply Button");
 		waitTime(10000);
 		extent.HeaderChildNode("Validating share functionality for Upcoming Live Program");
-		verifyElementPresentAndClick(PWALiveTVPage.objUpcomingLiveProgram, "Upcoming Live Program");
+//		verifyElementPresentAndClick(PWALiveTVPage.objUpcomingLiveProgram, "Upcoming Live Program");
+		verifyElementPresent(PWALiveTVPage.objUpcomingLiveProgram, "Upcoming Live Program");
+		waitTime(3000);
+		JSClick(PWALiveTVPage.objUpcomingLiveProgram, "Upcoming Live Program");
 		waitTime(10000);
 		verifyElementPresentAndClick(PWALiveTVPage.objUpcomingLiveProgramShareBtn, "Share button");
 		waitTime(3000);
@@ -7102,7 +7105,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.extentLogger("Scroll", "user is able to scroll trough the channel list");
 		extent.HeaderChildNode("Validating that On going live show cards are highlighted");
 		waitForElementDisplayed(PWALiveTVPage.objFirstOngoingLiveTvShowCard, 20);
-		verifyElementExist(PWALiveTVPage.objFirstOngoingLiveTvShowCard, "Ongoing Live Tv show card");
+//		verifyElementExist(PWALiveTVPage.objFirstOngoingLiveTvShowCard, "Ongoing Live Tv show card");
+		verifyElementPresent(PWALiveTVPage.objOngoingLiveTvShowTitle, "Ongoing Live TV Show card");
+		JSClick(PWALiveTVPage.objOngoingLiveTvShowTitle, "Ongoing Live TV Show card");
 		String ongoingLiveTvcardClass = getAttributValue("class", PWALiveTVPage.objFirstOngoingLiveTvShowCard);
 		if (ongoingLiveTvcardClass.contains("active")) {
 			logger.info("On going live show cards are highlighted on channel guide screen");
@@ -7507,7 +7512,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		Thread.sleep(5000);
 		Thread.sleep(5000);
 		getWebDriver().switchTo().frame(iframeElement);
+//		verifyElementExist(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
 		verifyElementExist(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
+		verifyElementPresentAndClick(PWASubscriptionPages.objarrowbtn,"arrow button");
 		verifyElementExist(PWASubscriptionPages.objEnterCreditAndDebitCardDetails, "Enter Credit/Debit Card Details");
 		verifyElementExist(PWASubscriptionPages.objCardNumber, "Enter Card Number Field");
 		verifyElementExist(PWASubscriptionPages.objExpiry, "Expiry Field");

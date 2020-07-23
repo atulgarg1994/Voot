@@ -250,5 +250,6 @@ public class PWASubscriptionPages {
 	public static By objPaytmProceedToPay = By.xpath("(//article[contains(text(), 'Proceed to pay')])[2]");
 	public static By objCreditDebitProceedToPay = By.xpath("//div[@class='textView ']//article[contains(text(),'Proceed to pay')]");
 	
+	public static By objarrowbtn=By.xpath("//div[@class='linearLayout sidebarItem_object ']");
 	
 }

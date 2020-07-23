@@ -23,7 +23,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
 import org.testng.asserts.SoftAssert;
 import com.utility.Utilities;
-import com.zee5.PWAPages.*;
+import com.zee5.PWAPages.NativeVodafonePlayPage;
+import com.zee5.PWAPages.PWAAddToWatchListPage;
+import com.zee5.PWAPages.PWAHamburgerMenuPage;
+import com.zee5.PWAPages.PWAHomePage;
+import com.zee5.PWAPages.PWALandingPages;
+import com.zee5.PWAPages.PWALanguageSettingsPage;
+import com.zee5.PWAPages.PWALiveTVPage;
+import com.zee5.PWAPages.PWALoginPage;
+import com.zee5.PWAPages.PWAMoviesPage;
+import com.zee5.PWAPages.PWANewsPage;
+import com.zee5.PWAPages.PWAPlayerPage;
+import com.zee5.PWAPages.PWAPremiumPage;
+import com.zee5.PWAPages.PWASearchPage;
+import com.zee5.PWAPages.PWAShowsPage;
+import com.zee5.PWAPages.PWASignupPage;
+import com.zee5.PWAPages.PWASubscriptionPages;
+import com.zee5.PWAPages.PWAVodafonePlayPage;
+import com.zee5.PWAPages.PwaNews;
 import com.driverInstance.CommandBase;
 import com.emailReport.GmailInbox;
 import com.extent.ExtentReporter;
@@ -61,10 +78,10 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	/** The Constant logger. */
 	final static Logger logger = Logger.getLogger("rootLogger");
 
-	/** The Android getDriver(). */
+	/** The Android driver. */
 	public AndroidDriver<AndroidElement> androidDriver;
 
-	/** The Android getDriver(). */
+	/** The Android driver. */
 	public IOSDriver<WebElement> iOSDriver;
 
 	Set<String> hash_Set = new HashSet<String>();
@@ -438,7 +455,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	 * Generic PWALogin function.
 	 */
 	public void ZeePWALogin(String LoginMethod,String userType) throws Exception {
-		extent.HeaderChildNode("Login through : "+LoginMethod);
+		extent.HeaderChildNode("Login through : "+LoginMethod+" for user type: "+userType);
 		//Get the email and password from properties
 		String email="";
 		String password="";
@@ -468,7 +485,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			hideKeyboard();
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-			type(PWALoginPage.objPasswordField, password, "Password field");
+			type(PWALoginPage.objPasswordField, password+"\n", "Password field");
 			hideKeyboard();
 			waitTime(5000);
 			click(PWALoginPage.objLoginBtn, "Login Button");
@@ -944,7 +961,8 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			verifyElementExist(PWASearchPage.objFirstAssetThumbnailTrendingSearch,"First asset thumbnail of Trending searches tray");
 			verifyElementExist(PWASearchPage.objFirstAssetTitleTrendingSearch,"First asset title of Trending searches tray");
 			String searchScreenTitle = getText(PWASearchPage.objFirstAssetTitleTrendingSearch);
-			System.out.println(searchScreenTitle);
+			logger.info("Title fetched from Trending Searches : "+searchScreenTitle);
+			extent.extentLogger("title", "Title fetched from Trending Searches : "+searchScreenTitle);
 			click(PWASearchPage.objFirstAssetThumbnailTrendingSearch,"First asset thumbnail of Trending searches tray");
 			// waitForElementDisplayed(PWAPlayerPage.settingsBtn, 20);
 			waitTime(20000);
@@ -2276,6 +2294,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		System.out.println(getText(PWAHomePage.objActiveTab));
 		verifyElementPresentAndClick(PWALiveTVPage.objLiveTVMenu, "Live TV Menu");
 		waitTime(10000);
+		waitTime(10000);
 		System.out.println(getText(PWAHomePage.objActiveTab));
 		String channelTitle = getDriver().findElement(PWALiveTVPage.objLiveChannelCardTitle).getText();
 		System.out.println(channelTitle);
@@ -2926,7 +2945,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 				 */
 					getDriver().findElement(PWAPlayerPage.objPlayer).click();
 					
-					//Actions act=new Actions(driver);
+					//Actions act=new Actions(getDriver());
 					//act.click(getDriver().findElement(PWAPlayerPage.objPlayer)).build().perform();
 					
 					extent.extentLogger("playerTap", "Tapped on the Player");
@@ -2998,8 +3017,8 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			ValidatingSubscribeLinks();
 		}
 		else if(userType.equals("Guest") || userType.equals("NonSubscribedUser")){
-			zeePWASubscriptionScenariosValidation(userType, getPlatform());
-			zeePWASubscriptionFlowFromHomePageHeaderSubscribeBtn(userType, getPlatform());
+			zeePWASubscriptionScenariosValidation(userType);
+			zeePWASubscriptionFlowFromHomePageHeaderSubscribeBtn(userType);
 		}
 		else {
 			logger.error("Incorrect userType parameter passed to method");
@@ -3087,7 +3106,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	/**
 	 * Subscription Flow From Home Page Header Subscribe Btn Line No 89
 	 */
-	public void zeePWASubscriptionFlowFromHomePageHeaderSubscribeBtn(String userType, String platform) throws Exception {
+	public void zeePWASubscriptionFlowFromHomePageHeaderSubscribeBtn(String userType) throws Exception {
 		HeaderChildNode("PWA Subscription Flow From Home Page Header Subcribe Btn");
 		// Scenario no. 89
 		waitTime(5000);
@@ -3099,7 +3118,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		} else if (userType.equals("Non Subscribed User")) {
 			zeePWANonSubscribedUserSubscriptionFlow();
 		}
-		navigateBackFromPayTmWalletAndLogout(platform);
+		navigateBackFromPayTmWalletAndLogout();
 
 	}
 
@@ -3120,7 +3139,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		} else if (userType.equals("Non Subscribed User")) {
 			zeePWANonSubscribedUserSubscriptionFlow();
 		}
-		navigateBackFromPayTmWalletAndLogout(platform);
+		navigateBackFromPayTmWalletAndLogout();
 
 	}
 
@@ -3142,7 +3161,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		} else if (userType.equals("Non Subscribed User")) {
 			zeePWANonSubscribedUserSubscriptionFlow();
 		}
-		navigateBackFromPayTmWalletAndLogout(platform);
+		navigateBackFromPayTmWalletAndLogout();
 
 	}
 
@@ -3167,7 +3186,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		} else if (userType.equals("Non Subscribed User")) {
 			zeePWANonSubscribedUserSubscriptionFlow();
 		}
-		navigateBackFromPayTmWalletAndLogout(platform);
+		navigateBackFromPayTmWalletAndLogout();
 
 	}
 
@@ -3191,7 +3210,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		} else if (userType.equals("Non Subscribed User")) {
 			zeePWANonSubscribedUserSubscriptionFlow();
 		}
-		navigateBackFromPayTmWalletAndLogout(platform);
+		navigateBackFromPayTmWalletAndLogout();
 
 	}
 
@@ -3215,7 +3234,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		} else if (userType.equals("Non Subscribed User")) {
 			zeePWANonSubscribedUserSubscriptionFlow();
 		}
-		navigateBackFromPayTmWalletAndLogout(platform);
+		navigateBackFromPayTmWalletAndLogout();
 
 	}
 
@@ -3245,7 +3264,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		} else if (userType.equals("Non Subscribed User")) {
 			zeePWANonSubscribedUserSubscriptionFlow();
 		}
-		navigateBackFromPayTmWalletAndLogout(platform);
+		navigateBackFromPayTmWalletAndLogout();
 
 	}
 
@@ -3259,8 +3278,8 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "'Have A Code?' field");
 		waitTime(3000);
-		type(PWASubscriptionPages.objHaveACode, "ZEE5PTM20\n", "'Have A Code?' field");
-//		getDriver().findElement(PWASubscriptionPages.objHaveACode).sendKeys("ZEE5PTM20");
+		type(PWASubscriptionPages.objHaveACode, "ZEE5FLAT50\n", "'Have A Code?' field");
+//		getDriver().findElement(PWASubscriptionPages.objHaveACode).sendKeys("ZEE5FLAT50");
 //		hideKeyboard();
 		waitTime(5000);
 		click(PWASubscriptionPages.objApplyBtn, "Apply Button");
@@ -3309,11 +3328,11 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objEmailIDTextField, "Email ID Text Field");
 		waitTime(3000);
-		type(PWASubscriptionPages.objEmailIDTextField, "igszee5testing@gmail.com", "Email Id");
+		String email=RandomStringGenerator(6)+"@c.com";
+		type(PWASubscriptionPages.objEmailIDTextField, email, "Email Id");
 		hideKeyboard();
 		waitTime(3000);
-		verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted,
-				"Proceed Btn in Account Info Page Highlighted");
+		verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted,"Proceed Btn in Account Info Page Highlighted");
 		waitTime(3000);
 		// Password Popup
 		verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
@@ -3352,7 +3371,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	 * Payment Page Validation Validate that user is navigated to Payment options
 	 * screen post successful sign in/sign up - Line No. 105
 	 */
-	public void zeePWAPaymentPageValidation() throws Exception {
+/*	public void zeePWAPaymentPageValidation() throws Exception {
 		HeaderChildNode("Payment Page Validation and Selection of PayTm Payment option");
 		// Scenario no. 103
 		waitTime(8000);
@@ -3363,7 +3382,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresent(PWASubscriptionPages.objAccountInfoDetails, "Account Info Details in Payments Section");
 		waitTime(3000);
-		verifyElementPresent(PWASubscriptionPages.objCreditCardRadioBtn, "Credit Card Radio Btn");
+		/*verifyElementPresent(PWASubscriptionPages.objCreditCardRadioBtn, "Credit Card Radio Btn");
 		waitTime(3000);
 		verifyElementPresent(PWASubscriptionPages.objDebitCardRadioBtn, "Debit Card Radio Btn");
 		waitTime(3000);
@@ -3379,14 +3398,92 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtnEnabled, "Continue Btn Enabled");
 		waitTime(5000);
 		// PayTM Page
-		verifyElementPresent(PWASubscriptionPages.objPaytmWalletOption, "PayTM Wallet option");
+		verifyElementPresent(PWASubscriptionPages.objPaytmWalletOption, "PayTM Wallet option");*/
+		
+
+	//}
+	
+	
+	/**
+	 * Payment Page Validation Validate that user is navigated to Payment options
+	 * screen post successful sign in/sign up - Line No. 105
+	 */
+	//manas
+	public void zeePWAPaymentPageValidation() throws Exception {
+		HeaderChildNode("Validate that user is navigated to Payment options screen post successful sign in/sign up");
+
+		// Scenario no. 103
+//		waitTime(5000);
+		verifyElementPresent(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
+//		waitTime(3000);
+		zeePWASelectedPackDisplayValidation();
+//		verifyElementPresent(PWASubscriptionPages.objAccountInfoText, "Account Info Text in Payments Section");
+//		waitTime(3000);
+		verifyElementPresent(PWASubscriptionPages.objAccountInfoDetails, "Account Info Details in Payments Section");
+////		waitTime(3000);
+//		verifyElementPresent(PWASubscriptionPages.objCreditCardRadioBtn, "Credit Card Radio Button");
+////		waitTime(3000);
+//		verifyElementPresent(PWASubscriptionPages.objDebitCardRadioBtn, "Debit Card Radio Button");
+////		waitTime(3000);
+//		verifyElementPresent(PWASubscriptionPages.objPayTMRadioBtn, "PayTm Radio Button");
+////		waitTime(3000);
+//		ScrollToElement(PWASubscriptionPages.objContinueBtnDisabled, "Continue Button Disabled");
+////		waitTime(3000);
+//		verifyElementPresent(PWASubscriptionPages.objRecurrenceMessage, "Recurrence Message");
+////		waitTime(3000);
+//		click(PWASubscriptionPages.objPayTMRadioBtn, "PayTm Radio Button");
+//		waitTime(3000);
+//		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtnEnabled, "Continue Button Enabled");
+////		verifyElementPresent(PWASubscriptionPages.objContinueBtnEnabled, "Continue Button Enabled");
+		
+		waitTime(5000);
+		WebElement iframeElement = null;
+		if(getPlatform().equalsIgnoreCase("Android")){
+			iframeElement = getDriver().findElement(By.id("juspay_iframe"));
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			getDriver().switchTo().frame(iframeElement);
+		} else if(getPlatform().equalsIgnoreCase("Web")){
+			iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			getWebDriver().switchTo().frame(iframeElement);
+		}
+		
+		
+		verifyElementPresentAndClick(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
+		waitTime(5000);
+		verifyElementPresent(PWASubscriptionPages.objEnterCreditAndDebitCardDetails, "Enter Credit/Debit Card Details");
+		verifyElementPresent(PWASubscriptionPages.objCardNumber, "Enter Card Number Field");
+		verifyElementPresent(PWASubscriptionPages.objExpiry, "Expiry Field");
+		verifyElementPresent(PWASubscriptionPages.objCVV, "CVV Field");
+//		Back(1);
+		waitTime(5000);
+		if(getPlatform().equals("Android")) {
+			extent.HeaderChildNode("Validating the payment gateway using Paytm");
+			getDriver().switchTo().frame(iframeElement);
+			verifyElementPresentAndClick(PWASubscriptionPages.objPaytmWallet, "Paytm");
+			getDriver().switchTo().defaultContent();
+		}else if(getPlatform().equalsIgnoreCase("Web")){
+			extent.HeaderChildNode("Validating the payment gateway using Wallet");
+			verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+			getWebDriver().switchTo().defaultContent();
+		}
+		
+		waitTime(5000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+//		waitTime(5000);
+//		// PayTM Page
+//		verifyElementPresent(PWASubscriptionPages.objPaytmWalletOption, "PayTM Wallet option");
 
 	}
 
 	/**
 	 * Navigate back to paytm wallet and logout
 	 */
-	public void navigateBackFromPayTmWalletAndLogout(String platform) throws Exception {
+	public void navigateBackFromPayTmWalletAndLogout() throws Exception {
 		waitTime(5000);
 		Back(1);
 		waitTime(5000);
@@ -3448,7 +3545,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		} else if (userType.equals("Non Subscribed User")) {
 			zeePWANonSubscribedUserSubscriptionFlow();
 		}
-		navigateBackFromPayTmWalletAndLogout(platform);
+		navigateBackFromPayTmWalletAndLogout();
 
 	}
 	
@@ -3456,7 +3553,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	/**
 	 * Subscription Scenarios Validation
 	 */
-	public void zeePWASubscriptionScenariosValidation(String userType, String platform) throws Exception {
+	public void zeePWASubscriptionScenariosValidation(String userType) throws Exception {
 		// Scenario no. 89
 		HeaderChildNode("Scenario: Navigate to Subscription Flow From Home Page Header Subcribe Btn");
 		waitTime(5000);
@@ -3624,7 +3721,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	 * Verify Subscription and Transaction
 	 */
 	public void ValidatingSubscriptionAndTransaction() throws Exception {
-		extent.HeaderChildNode("Validation of Subscription and Transaction");
+		extent.HeaderChildNode("Validation of Subscription and Transaction");	
 		waitTime(5000);
 		waitTime(5000);
 		waitTime(5000);
@@ -3894,7 +3991,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		System.out.println(getDriver().findElement(PWAVodafonePlayPage.consumptionPageTitle).getText());
 		logger.info("Navigated to URL : " + getDriver().getCurrentUrl());
 		extent.extentLogger("<b>" + "Navigated to URL : " + getDriver().getCurrentUrl(), "Navigated to URL");
-		// System.out.println((driver).getContextHandles());
+		// System.out.println((getDriver()).getContextHandles());
 		// TO VERIFY THE BROWSER
 		String str = getCurrentActivity();
 		if (str.contains("chrome")) {
@@ -4784,7 +4881,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 				} else if (UserType.equals("SubscribedUser")) {
 					password = handler.getproperty("SUBSCRIBED_USER_PASSWORD");
 				}
-				type(PWALoginPage.objPasswordField, password, "Password field");
+				type(PWALoginPage.objPasswordField, password+"\n", "Password field");
 				hideKeyboard();
 				click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
 				waitTime(2000);
@@ -4837,7 +4934,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 				verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 				verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
 				verifyElementExist(PWALoginPage.objPasswordField, "password field");
-				type(PWALoginPage.objPasswordField, password, "Password field");
+				type(PWALoginPage.objPasswordField, password+"\n", "Password field");
 				hideKeyboard();
 				waitTime(5000);
 				click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
@@ -4910,19 +5007,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			   /**
 					 * ==========================BHAVANA ShareFunctionality===========================
 					 * 
-					 */ 
-				
-				
-				
-				public void ShareModule(String userType) throws Exception{
-					extent.HeaderChildNode(userType + " scenarios");
-					extent.extentLogger("Accessing as " + userType , "Accessing as " + userType);
-					logger.info("Accessing as " + userType);
-					if(userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")){
-						ZeePWALogin("E-mail", userType);
-					}
-					shareModuleValidationforAndroid();
-				}
+					 */ 	
 				
 				@SuppressWarnings("rawtypes")
 				public void shareModuleValidationforAndroid() throws Exception{
@@ -4935,12 +5020,11 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 					verifyElementExist(PWAShowsPage.objWatchLatestCTA, "Watch latest episode CTA");
 					waitTime(3000);
 					click(PWAShowsPage.objWatchLatestCTAPlayicon, "Watch latest episode CTA");
-					waitTime(4000);
+					Why_Register_POPUP();
 					if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
 						verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
 					}
-					waitTime(2000);
-					Why_Register_POPUP();
+					waitTime(2000);		
 					//waitTime(20000);
 					click(PWAShowsPage.objShareIcon, "Share icon");
 					// facebookshare
@@ -4977,26 +5061,22 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 					Back(1);
 				}
 				
-				
-				
-				
-
-				   /**
-					 * ==========================BHAVANA ShareFunctionality===========================
-					 * 
-					 */ 
-				
-				
-				
-				public void StaticPages(String userType) throws Exception{
+				public void ShareModule(String userType) throws Exception{
 					extent.HeaderChildNode(userType + " scenarios");
 					extent.extentLogger("Accessing as " + userType , "Accessing as " + userType);
 					logger.info("Accessing as " + userType);
 					if(userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")){
 						ZeePWALogin("E-mail", userType);
 					}
-					staticPagesValidation();
-			}	
+					shareModuleValidationforAndroid();
+				}
+				
+				   /**
+					 * ==========================BHAVANA Static Functionality===========================
+					 * 
+					 */ 
+				
+				
 			
 			public void staticPagesValidation() throws Exception {
 				extent.HeaderChildNode("Validation of Static Pages in Hamburger menu");
@@ -5017,6 +5097,20 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 				verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 				Swipe("UP", 1);
 				verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpCenterOption, "Help Center option");
+				
+				//Added to support open with
+				System.out.println(getDriver().getContextHandles());
+				getDriver().context("NATIVE_APP");
+				try {
+					getDriver().findElement(PWALiveTVPage.objChromeOpenWith).click();
+					waitTime(2000);
+					getDriver().findElement(PWALiveTVPage.objChromeOpenWith).click();
+				}
+				catch(Exception e) {}
+				getDriver().context("CHROMIUM");
+				// Added until here
+				
+				
 				androidSwitchTab();
 				if (verifyElementPresent(PWAHomePage.objHelpScreen, "Help Center screen")) {
 					logger.info("User is navigated to Help Center Screen");
@@ -5045,8 +5139,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 				if (PrivacyPolicyURL.contains("privacypolicy")) {
 					logger.info("User is navigated to Privacy Policy Screen");
 				}
-				Back(1);
-				
+				Back(1);				
 				//Static Pages in Footer Section
 				
 				extent.HeaderChildNode("Static Pages in Footer Section Validation");
@@ -5101,16 +5194,133 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 				AndroidSwitchToParentWindow();
 				Back(1);
 			}	
+				
+			
+		public void StaticPages(String userType) throws Exception {
+			extent.HeaderChildNode("Validation of Static Pages in Hamburger menu");
+			//About Us
+			HeaderChildNode("About us screen");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			Swipe("UP", 1);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objAboutUsOption, "About Us option");
+			verifyElementPresent(PWAHamburgerMenuPage.objAboutUsTextInPage, "About Us Screen page");
+			logger.info("Current URL is " + getDriver().getCurrentUrl());
+			String AboutUsurl = getDriver().getCurrentUrl();
+			if (AboutUsurl.contains("aboutus")) {
+				logger.info("User is navigated to About Us screen");
+			}
+			Back(1);
+			//Help Center
+			HeaderChildNode("Help Center Screen");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			Swipe("UP", 1);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpCenterOption, "Help Center option");
+			
+			//Added to support open with
+			System.out.println(getDriver().getContextHandles());
+			getDriver().context("NATIVE_APP");
+			try {
+				getDriver().findElement(PWALiveTVPage.objChromeOpenWith).click();
+				waitTime(2000);
+				getDriver().findElement(PWALiveTVPage.objChromeOpenWith).click();
+			}
+			catch(Exception e) {}
+			getDriver().context("CHROMIUM");
+			// Added until here
 			
 			
+			androidSwitchTab();
+			if (verifyElementPresent(PWAHomePage.objHelpScreen, "Help Center screen")) {
+				logger.info("User is navigated to Help Center Screen");
+			}
+			AndroidSwitchToParentWindow();
+			//Terms of Use
+			HeaderChildNode("Terms of Use screen");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			Swipe("UP", 1);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objTermsOfUseOption, "Terms of Use option");
+			verifyElementExist(PWAHamburgerMenuPage.objTermsOfUseScreen, "Terms of Use screen");
+			logger.info("Current URL is " + getDriver().getCurrentUrl());
+			String TermsofuseURL = getDriver().getCurrentUrl();
+			if (TermsofuseURL.contains("termsofuse")) {
+				logger.info("User is navigated to Terms of Use screen");
+			}
+			Back(1);
+			//Privacy Policy
+			HeaderChildNode("Privacy Policy screen");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			Swipe("UP", 1);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPrivacyPolicy, "Privacy Policy option");
+			verifyElementPresent(PWAHamburgerMenuPage.objPrivacyPolicyScreen, "Privacy Policy screen");
+			logger.info("Current URL is " + getDriver().getCurrentUrl());
+			String PrivacyPolicyURL = getDriver().getCurrentUrl();
+			if (PrivacyPolicyURL.contains("privacypolicy")) {
+				logger.info("User is navigated to Privacy Policy Screen");
+			}
+			Back(1);
+			
+			//Static Pages in Footer Section
+			
+			extent.HeaderChildNode("Static Pages in Footer Section Validation");
+			swipeToBottomOfPage();
+			verifyElementPresentAndClick(PWAHomePage.objAboutUsInFooterSection, "About Us in footer section");
+			if (verifyElementExist(PWAHomePage.objAboutUs, "About Us screen")) {
+				logger.info("User is navigated to About Us Screen");
+			}
+			Back(1);
+			swipeToBottomOfPage();
+			verifyElementPresentAndClick(PWAHomePage.objHelp, "Help Center in footer section");
+			androidSwitchTab();
+			if (verifyElementPresent(PWAHomePage.objHelpScreen, "Help Center screen")) {
+				logger.info("User is navigated to Help Center Screen");
+			}
+			AndroidSwitchToParentWindow();
+			swipeToBottomOfPage();
+			verifyElementPresentAndClick(PWAHomePage.objPrivacyPolicyInFooterSection, "Privacy Policy in footer section");
+			if (verifyElementPresent(PWAHomePage.objPrivacyPolicy, "Privacy Policy screen")) {
+				logger.info("User is navigated to Privacy Policy Screen");
+			}
+			Back(1);
+			swipeToBottomOfPage();
+			verifyElementPresentAndClick(PWAHomePage.objTermsOfUseInfooterSection, "Terms of Use in footer section");
+			if (verifyElementPresent(PWAHomePage.objTerms, "Terms of Use screen")) {
+				logger.info("User is navigated to Terms of Use Screen");
+			}
+			Back(1);
+			
+			//Static pages in Sign Up screen
+			if(userType.contains("Guest")){
+			extent.HeaderChildNode("Static Pages in Sign up screen Validation");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			waitTime(2000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objSignUpForFree,"Sign Up for FREE");
+			waitTime(2000);
+			//Terms of Use
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objTermsOfServicesInSignupScreen, "Terms of services in Sign up screen");
+			waitTime(2000);
+			androidSwitchTab();
+			if (verifyElementPresent(PWAHomePage.objTerms, "Terms of Use screen")) {
+				logger.info("User is navigated to Terms of Use Screen");
+			}
+			AndroidSwitchToParentWindow();
+			waitTime(3000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPrivacyPolicyInSignupScreen,"Privacy Policy in Sign up screen");
+			waitTime(2000);
+			androidSwitchTab();
+			if (verifyElementPresent(PWAHomePage.objPrivacyPolicy, "Privacy Policy screen")) {
+				logger.info("User is navigated to Privacy Policy Screen");
+			}
+			AndroidSwitchToParentWindow();
+			}
+			Back(1);
+		}	
 			
 			
 			
 			   /**
 			 * ==========================TANISHA Reco Module===========================
 			 * 
-			 */ 
-			
+			 */ 			
 		
 			/**
 			 * Main method for validating Recommendations (Talamoos) module

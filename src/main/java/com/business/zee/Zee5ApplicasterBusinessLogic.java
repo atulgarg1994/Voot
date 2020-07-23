@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
-
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -623,7 +622,7 @@ List of Functions Created
 			hideKeyboard();
 			click(AMDLoginScreen.objSkipButton, "Skip button");
 			waitTime(10000);
-			closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD HANDLED HERE
+//			closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD HANDLED HERE
 			verifyElementExist(AMDHomePage.objGetPremiumCTAOnCarosel, "Get Premium CTA on carosel");
 			click(AMDHomePage.objGetPremiumCTAOnCarosel, "Get Premium CTA on carosel");
 			verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page");
@@ -631,7 +630,7 @@ List of Functions Created
 			waitTime(5000);
 			verifyElementPresentAndClick(AMDHomePage.objShowsTab, "Shows Tab");
 			waitTime(5000);
-			closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD - HANDLED HERE
+//			closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD - HANDLED HERE
 			PartialSwipe("UP", 1);
 			waitTime(5000);
 			if (verifyElementExist(AMDHomePage.objBeforeTVTray, "BeforeTV tray")) {
@@ -769,7 +768,8 @@ List of Functions Created
 			hideKeyboard();
 			click(AMDSubscibeScreen.objApply, "Apply button");
 			verifyElementExist(AMDSubscibeScreen.objInvalidPromoCodeText, "Invalid promo code error message");
-			Swipe("UP", 1);
+			Swipe("UP", 2);
+			PartialSwipe("UP", 2);
 			verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
 			verifyElementExist(AMDSubscibeScreen.objAllAccessTab, "All access pack tab");
 			verifyElementExist(AMDSubscibeScreen.objRSVODPremiumPack, "RSVOD pack tab");
@@ -783,13 +783,14 @@ List of Functions Created
 				logger.info("Continue button is highlighted");
 				extent.extentLogger("Highlighted", "Continue button is highlighted");
 			}
+			Swipe("DOWN", 1);
 			click(AMDSubscibeScreen.objRSVODPremiumPack, "RSVOD Pack tab");
 			verifyElementPresentAndClick(AMDSubscibeScreen.objRSVODPack1, "RSVOD Plan for 30 days");
 			PartialSwipe("UP", 2);
 			verifyElementExist(AMDSubscibeScreen.objRSVODPack2, "RSVOD Plan for 365 days");
 			Swipe("Down", 1);
 			verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
-			Swipe("Up", 1);
+			Swipe("Up", 2);
 			if (getDriver().findElement(AMDSubscibeScreen.objContinueBtn).isEnabled()) {
 				logger.info("Continue button is highlighted");
 				extent.extentLogger("Highlighted", "Continue button is highlighted");
@@ -877,6 +878,7 @@ List of Functions Created
 			click(AMDSubscibeScreen.objApply, "Apply button");
 			verifyElementExist(AMDSubscibeScreen.objInvalidPromoCodeText, "Invalid promo code error message");
 			Swipe("UP", 1);
+			PartialSwipe("UP", 1);
 			verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
 			verifyElementExist(AMDSubscibeScreen.objAllAccessTab, "All access pack tab");
 			verifyElementExist(AMDSubscibeScreen.objRSVODPremiumPack, "RSVOD pack tab");
@@ -890,6 +892,7 @@ List of Functions Created
 				logger.info("Continue button is highlighted");
 				extent.extentLogger("Highlighted", "Continue button is highlighted");
 			}
+			Swipe("DOWN", 1);
 			click(AMDSubscibeScreen.objRSVODPremiumPack, "RSVOD Pack tab");
 			verifyElementPresentAndClick(AMDSubscibeScreen.objRSVODPack1, "RSVOD Plan for 30 days");
 			PartialSwipe("UP", 2);
@@ -934,6 +937,7 @@ List of Functions Created
 			verifyElementExist(AMDSearchScreen.objUpgradePopUpPacks("INR 999 for 365 days"),
 					"365 days pack in upgrade popup");
 			Swipe("UP", 1);
+			PartialSwipe("UP", 1);
 			verifyElementExist(AMDSearchScreen.objTermsOfUse, "Terms of use link");
 			verifyElementExist(AMDSearchScreen.objPrivacyPolicy, "Privacy policy");
 			if (findElement(AMDSearchScreen.objUpgradePopupProceedButton).isEnabled()) {
@@ -987,6 +991,7 @@ List of Functions Created
 		waitTime(3000);
 		Swipe("UP", 1);
 		verifyElementPresentAndClick(AMDSubscibeScreen.obj365daysPack, "365 days all access pack");
+		Swipe("UP", 1);
 		click(AMDSubscibeScreen.objContinueBtn, "Continue button");
 		if (verifyElementExist(AMDHomePage.objHomeBtn, "Home tab")) {
 			logger.info(
@@ -2665,7 +2670,7 @@ List of Functions Created
 		if(pUserType.contains("Guest")) {
 			verifyElementPresentAndClick(AMDHomePage.objMoviesTab, "Movies tab");
 		}	
-					
+
 		verifyElementExist(AMDOfflineScreen.objYouAreOffline, "You are Offline");
 		verifyElementExist(AMDOfflineScreen.objTryAgain, "Try Again");
 		verifyElementExist(AMDOfflineScreen.objGoToDownloads, "Go to Downloads");
@@ -2684,7 +2689,6 @@ List of Functions Created
 	//	verifyElementPresentAndClick(AMDOfflineScreen.objGoToDownloads, "Go to Downloads");
 		
 		verifyElementPresentAndClick(AMDHomePage.objDownload, "Download");
-
 		if (verifyElementExist(AMDOfflineScreen.objDownloadScreen, "Download Section")) {
 			logger.info("Navigated to Download Section");
 			extent.extentLogger("Download Section", "Navigated to Download Section");
@@ -2697,7 +2701,9 @@ List of Functions Created
 		Runtime.getRuntime().exec("adb shell svc wifi enable");
 		waitTime(5000);
 		verifyElementPresentAndClick(AMDHomePage.objUpcoming, "Upcoming tab");
-		if (verifyElementExist(AMDHomePage.objTitle, "Upcoming Page")) {
+		
+		waitForElementDisplayed(AMDUpcomingPage.objContentCardTitle, 10);
+		if (verifyElementExist(AMDUpcomingPage.objContentCardTitle, "Upcoming Page Content Card")) {
 			logger.info("Appropriate page is loaded");
 			extent.extentLogger("Page", "Appropriate page is loaded");
 		} else {
@@ -2938,7 +2944,10 @@ List of Functions Created
 			logger.info(tabName + " tab is displayed and clicked on " + tabName + " tab");
 			extent.extentLogger("Related search results",tabName + " tab is displayed and clicked on " + tabName + " tab");
 
-			for(int j=1;j<=2;j++) {
+			List<WebElement> results = findElements(AMDSearchScreen.objRelatedSearchResult);
+			System.out.println(results.size());
+			
+			for(int j=1;j<=results.size();j++) {
 				String searchResults= findElement(By.xpath("(//*[@id='searchResultsContent']//following-sibling::*[@id='item_primary_text'])["+j+"]")).getText();
 				System.out.println(searchResults);
 				
@@ -3469,78 +3478,44 @@ List of Functions Created
 	 * Author : Sushma
 	 * 
 	 * @throws Exception
-	 */
-	public void homeLandingScreen() throws Exception {
-		extent.HeaderChildNode("Home landing screen");
-
-		verifyElementPresentAndClick(AMDHomePage.objHomeTab, "Home Tab");
-		String activeTab = getText(AMDHomePage.objSelectedTab);
-		if (activeTab.equalsIgnoreCase("Home")) {
-			logger.info(
-					"user is able to navigate to Home screen by tapping on Home tab displayed in the top navigation bar");
-			extent.extentLogger("Home Tab",
-					"user is able to navigate to Home screen by tapping on Home tab displayed in the top navigation bar");
-		} else {
-			logger.info(
-					"user is not able to navigate to Home screen by tapping on Home tab displayed in the top navigation bar");
-			extent.extentLoggerFail("Home Tab",
-					"user is not able to navigate to Home screen by tapping on Home tab displayed in the top navigation bar");
+	 */ 
+	 public void homeLandingScreen(String userType) throws Exception {
+			extent.HeaderChildNode("Home landing screen");
+			verifyElementPresentAndClick(AMDHomePage.objHomeTab, "Home Tab");
+			String activeTab = getText(AMDHomePage.objSelectedTab);
+			if (activeTab.equalsIgnoreCase("Home")) {
+				logger.info(
+						"user is able to navigate to Home screen by tapping on Home tab displayed in the top navigation bar");
+				extent.extentLogger("Home Tab",
+						"user is able to navigate to Home screen by tapping on Home tab displayed in the top navigation bar");
+			} else {
+				logger.info(
+						"user is not able to navigate to Home screen by tapping on Home tab displayed in the top navigation bar");
+				extent.extentLoggerFail("Home Tab",
+						"user is not able to navigate to Home screen by tapping on Home tab displayed in the top navigation bar");
+			}
+			closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
+			if(!(userType.equalsIgnoreCase("SubscribedUser")))
+			{
+				verifyElementPresent(AMDHomePage.objSubscribeTeaser, "Subscribe icon");
+			}
+			carouselValidation(userType);
 		}
-		waitTime(20000);
-		carouselValidation();
 
-//    verifyElementPresent(AMDHomePage.objSubscribeTeaser, "Subscribe icon");
-//    waitTime(10000);
-//    String title1 = getText(AMDHomePage.objCarouselTitle);
-//    System.out.println(title1);
-//    waitTime(3000);
-//    String title2 = getText(AMDHomePage.objCarouselTitle);
-//    System.out.println(title2);
-//    waitTime(3000);
-//    String title3 = getText(AMDHomePage.objCarouselTitle);
-//    System.out.println(title3);
-//    
-//    if(!(title1.equalsIgnoreCase(title2)))
-//    {
-//    	if(!(title2.equalsIgnoreCase(title3)))
-//    	{
-//    		logger.info("Banners available in feature carousel unit rotates from right to left at a fixed time interval");
-//    		extentLogger("Carousel unit Autorotation", "Banners available in feature carousel unit rotate from right to left at a fixed time interval");
-//    	}
-//    	else
-//    	{
-//    		logger.info("Banners available in feature carousel unit are not rotating from right to left at a fixed time interval");
-//    		extentLoggerFail("Carousel unit Autorotation", "Banners available in feature carousel unit are not rotating from right to left at a fixed time interval");
-//    	}
-//    }
-//    else
-//	{
-//		logger.info("Banners available in feature carousel unit are not rotating from right to left at a fixed time interval");
-//		extentLoggerFail("Carousel unit Autorotation", "Banners available in feature carousel unit are not rotating from right to left at a fixed time interval");
-//	}
-
-	}
-
-	public void carouselValidation() throws Exception {
-		int noofCarouselContents = findElements(AMDHomePage.objCarouselDots).size();
-		System.out.println(noofCarouselContents);
-
+	public void carouselValidation(String UserType) throws Exception {
+		waitForElementDisplayed(AMDHomePage.objCarouselDots, 10);
+		// Validating Carousel manual swipe
 		String width = getAttributValue("width", AMDHomePage.objCarouselConetentCard);
 		String height = getAttributValue("height", AMDHomePage.objCarouselConetentCard);
 
-		String title1 = getText(AMDHomePage.objCarouselTitle);
+		String Carouseltitle1 = getText(AMDHomePage.objCarouselTitle1);
 		carouselSwipe("LEFT", 1, width, height);
-		String title2 = getText(AMDHomePage.objCarouselTitle);
+		String Carouseltitle2 = getText(AMDHomePage.objCarouselTitle1);
 		carouselSwipe("RIGHT", 1, width, height);
-		String title3 = getText(AMDHomePage.objCarouselTitle);
-		System.out.println(title1);
-		System.out.println(title2);
-		System.out.println(title3);
-
-		if (!(title1.equalsIgnoreCase(title2)))
-
+		String Carouseltitle3 = getText(AMDHomePage.objCarouselTitle1);
+		if (!(Carouseltitle1.equalsIgnoreCase(Carouseltitle2)))
 		{
-			if (title3.equalsIgnoreCase(title1)) {
+			if (Carouseltitle3.equalsIgnoreCase(Carouseltitle1)) {
 				logger.info("user is able to manually swipe banners from right to left or vice versa.");
 				extent.extentLogger("Carousel swipe",
 						"user is able to manually swipe banners from right to left or vice versa.");
@@ -3554,15 +3529,77 @@ List of Functions Created
 			extent.extentLoggerFail("Carousel swipe",
 					"user is not able to manually swipe banners from right to left or vice versa.");
 		}
-		waitTime(4000);
-
-		for (int i = 0; i < (noofCarouselContents); i++) {
+		// Validating Pagination dot, Play icon and GetPremium on Carousel
+		int noofCarouselContents = findElements(AMDHomePage.objCarouselDots).size();
+		System.out.println(noofCarouselContents);
+		for (int i = 0; i < noofCarouselContents; i++) {
+			System.out.println(getText(AMDHomePage.objCarouselTitle1));
 			verifyElementExist(AMDHomePage.objCarouselDots, "Pagination dot");
-			verifyElementExist(AMDHomePage.objPlayBtn, "Play icon");
-			verifyElementExist(AMDHomePage.objGetPremium, "GetPremium tag");
 			carouselSwipe("LEFT", 1, width, height);
 		}
 
+		for (int i = 0; i < noofCarouselContents; i++) {
+
+			System.out.println(getText(AMDHomePage.objCarouselTitle1));
+			verifyElementExist(AMDHomePage.objPlayBtn, "Play icon");
+			carouselSwipe("LEFT", 1, width, height);
+		}
+		if ((UserType.equalsIgnoreCase("Guest")) | (UserType.equalsIgnoreCase("NonSubscribedUser"))) {
+			for (int i = 0; i < noofCarouselContents; i++) {
+
+				System.out.println(getText(AMDHomePage.objCarouselTitle1));
+				verifyElementExist(AMDHomePage.objGetPremium, "GetPremium tag");
+				carouselSwipe("LEFT", 1, width, height);
+			}
+			click(AMDHomePage.objGetPremium, "GetPremium tag");
+			verifyElementPresent(AMDSubscibeScreen.objSubscribeHeader, "Subscription screen");
+			Back(1);
+		}
+
+		// navigation to consumption screen of selected content
+		String CarouselTitle = getText(AMDHomePage.objCarouselTitle1);
+		click(AMDHomePage.objCarouselTitle1, "Carousel content");
+		verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
+		String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
+
+		if (CarouselTitle.equalsIgnoreCase(consumptionScreenTitle)) {
+			logger.info("Consumption Screen is displayed for the selected content");
+			extent.extentLogger("Consumption screen", "Consumption Screen is displayed for the selected content");
+		} else {
+			logger.info("Consumption Screen is not displayed for the selected content");
+			extent.extentLoggerFail("Consumption screen",
+					"Consumption Screen is not displayed for the selected content");
+		}
+		Back(1);
+
+		// Validating Carousel Auto scroll
+		String title1 = getText(AMDHomePage.objCarouselTitle1);
+		System.out.println(title1);
+		waitTime(4000);
+		String title2 = getText(AMDHomePage.objCarouselTitle2);
+		System.out.println(title2);
+		waitTime(4000);
+		String title3 = getText(AMDHomePage.objCarouselTitle3);
+		System.out.println(title3);
+
+		if (!(title1.equalsIgnoreCase(title2))) {
+			if (!(title2.equalsIgnoreCase(title3))) {
+				logger.info(
+						"Banners available in feature carousel unit rotates from right to left at a fixed time interval");
+				extentLogger("Carousel unit Autorotation",
+						"Banners available in feature carousel unit rotate from right to left at a fixed time interval");
+			} else {
+				logger.info(
+						"Banners available in feature carousel unit are not rotating from right to left at a fixed time interval");
+				extentLoggerFail("Carousel unit Autorotation",
+						"Banners available in feature carousel unit are not rotating from right to left at a fixed time interval");
+			}
+		} else {
+			logger.info(
+					"Banners available in feature carousel unit are not rotating from right to left at a fixed time interval");
+			extentLoggerFail("Carousel unit Autorotation",
+					"Banners available in feature carousel unit are not rotating from right to left at a fixed time interval");
+		}
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -3575,7 +3612,7 @@ List of Functions Created
 				for (int i = 0; i < count; i++) {
 
 					int startx = (Integer.valueOf(width)) - 200;
-					int endx = 0;
+					int endx = 100;
 					int starty = Integer.valueOf(height);
 					touchAction.press(PointOption.point(startx, starty))
 							.waitAction(WaitOptions.waitOptions(Duration.ofMillis(100)))
@@ -3800,8 +3837,35 @@ List of Functions Created
 				extent.extentLoggerFail("Shows tab", "Shows tab fails to highlight by default");
 				logger.error("Shows tab fails to highlight by default");
 			}
+			type(AMDSearchScreen.objSearchBoxBar, "Tujhse Hai Raabta - July 20, 2020" + "\n", "Search bar");
+			waitTime(2000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDDownloadPage.objDownloadbtn, "Download button");
+			verifyElementPresentAndClick(AMDDownloadPage.objDownloadVideoQualityPopup, "Download video quality Pop up");
+			verifyElementPresentAndClick(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
+			waitTime(2000);
+			verifyElementExist(AMDDownloadPage.objGreyedThumbnail, "Greyed Thumbnail");
+			waitTime(2000);
+			click(AMDDownloadPage.objGreyedThumbnail, "Greyed Thumbnail");
+			if (verifyElementExist(AMDDownloadPage.objPauseDownloadoption, "Pause option")) {
+				extent.extentLogger("Pause", "Pause option is displayed when user taps Downloding content");
+				logger.info("Pause option is displayed when user taps Downloding content");
+			}
+			waitTime(2000);
+			click(AMDDownloadPage.objPauseDownloadoption, "Pause option");
+			if (verifyElementExist(AMDDownloadPage.objGreyedThumbnail, "Greyed Thumbnail")) {
+				extent.extentLogger("Pause", "User is able to Pause the Downloading content");
+				logger.info("User is able to Pause the Downloading content");
+			}
+			click(AMDDownloadPage.objGreyedThumbnail, "Greyed Thumbnail");
+			if (verifyElementExist(AMDDownloadPage.objCancelDownloadOption, "Cancel Download option")) {
+				extent.extentLogger("Pause", "Cancel Download is displayed when user taps Downloding content");
+				logger.info("Cancel Download is displayed when user taps Downloding content");
+			}
 
 		}
+
 	}
 	
 	/**
@@ -3895,5 +3959,118 @@ List of Functions Created
 		Back(1);
 	}
 
+	/**
+	 * Author : Manasa
+	 */
+	public void upcomingSectionValidation() throws Exception {
+		extent.HeaderChildNode("Upcoming Screen Validation");
+		verifyElementPresentAndClick(AMDHomePage.objUpcoming, "Upcoming tab");
+		
+		WebElement element = findElement(AMDHomePage.objUpcoming);
+		int leftX = element.getLocation().getX();
+		int rightX = leftX + element.getSize().getWidth();
+		int middleX = (rightX + leftX) / 2;
+		Dimension size = getDriver().manage().window().getSize();
+		if (middleX == Integer.valueOf((size.width) / 2)) {
+			logger.info("Upcoming text is displayed at the center of the screen");
+			extent.extentLogger("Title", "Upcoming text is displayed at center of the screen");
+		} else {
+			logger.error("Upcoming text is not displayed at center of the screen");
+			extent.extentLoggerFail("Title",
+					"Upcoming text is not displayed at center of the screen");
+		}
+		
+		WebElement searchIcon = findElement(AMDHomePage.objSearchBtn);
+		int searchIconRightX = searchIcon.getLocation().getX();
+		System.out.println(searchIconRightX);
+		Dimension sizee = getDriver().manage().window().getSize();
+		System.out.println(sizee.getWidth());
+		int sizeee = sizee.getWidth() - 300;
+		System.out.println(sizeee);
+
+		if (searchIconRightX >= sizeee) {
+			logger.info("Search icon is displayed at top right of the screen");
+			extent.extentLogger("Search icon", "Search icon is displayed at top right of the screen");
+		} else {
+			logger.error("Search icon is not displayed at top right of the screen");
+			extent.extentLoggerFail("Search icon", "Search icon is not displayed at top right of the screen");
+		}
+		
+		String title = getText(AMDUpcomingPage.objItemPrimaryText);
+		System.out.println(title);
+		
+		verifyElementPresentAndClick(AMDUpcomingPage.objContentCard, "Content Card");
+		
+		String titleConsumptionScreen = getText(AMDUpcomingPage.objContentCardTitle);
+		System.out.println(titleConsumptionScreen);
+		
+		String showTrailer = "Trailer";
+		String showTeaser = "Teaser";
+		
+		if(titleConsumptionScreen.contains(title)) {
+			logger.info("Navigated to appropriate consumption screen");
+			extent.extentLogger("Title", "Navigated to appropriate consumption screen");
+		}else {
+			logger.info("Not navigated to appropriate consumption screen");
+			extent.extentLoggerFail("Title", "Not navigated to appropriate consumption screen");
+		}
+		
+		if(titleConsumptionScreen.contains(showTrailer) || titleConsumptionScreen.contains(showTeaser)) {
+			logger.info("Trailer/Teaser playback is played");
+			extent.extentLogger("Trailer/Teaser", "Trailer/Teaser playback is played");
+		}else {
+			logger.info("Trailer/Teaser playback is not played");
+			extent.extentLoggerFail("Trailer/Teaser", "Trailer/Teaser playback is not played");
+		}
+		
+		Back(1);
+
+	    verifyElementPresentAndClick(AMDUpcomingPage.objContentCardTitle, "Metadata");
+		
+		
+		if(titleConsumptionScreen.contains(title)) {
+			logger.info("Navigated to appropriate consumption screen");
+			extent.extentLogger("Title", "Navigated to appropriate consumption screen");
+		}else {
+			logger.info("Not navigated to appropriate consumption screen");
+			extent.extentLoggerFail("Title", "Not navigated to appropriate consumption screen");
+		}
+		
+		Back(1);
+		
+		PartialSwipe("UP", 1);
+		
+		List<WebElement> contentCards = findElements(AMDUpcomingPage.objItemPrimaryText);
+		System.out.println(contentCards.size());
+		
+		for(int i=1; i<=contentCards.size(); i++) {
+			
+			String releaseDate = getText(By.xpath("(//*[@resource-id='com.graymatrix.did:id/tv_releasing_date'])["+i+"]"));
+			logger.info("Release Date : " +releaseDate);
+			extent.extentLogger("Release Date", "Release Date : " + releaseDate);
+			
+			String contentName = getText(By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])["+i+"]"));
+			logger.info("Content Name : " +contentName);
+			extent.extentLogger("Content Name", "Content Name : " + contentName);
+			
+			String contentDescription = getText(By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_secondary_text'])["+i+"]"));
+			logger.info("Content Description : " +contentDescription);
+			extent.extentLogger("Content Description", "Content Description : " + contentDescription);
+			
+			PartialSwipe("UP", 1);
+		}
+		
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search icon");
+		
+		if(verifyElementExist(AMDSearchScreen.objMicrophoneIcon, "Microphone Icon")) {
+			logger.info("Search landing screen is displayed after denying audio permission");
+			extent.extentLogger("Search landing screen",
+					"Search landing screen is displayed after denying audio permission");
+		} else {
+			logger.info("Search landing screen is not displayed after denying audio permission");
+			extent.extentLogger("Search landing screen",
+					"Search landing screen is not displayed after denying audio permission");
+		}
+	}
 	
 }

@@ -52,4 +52,8 @@ public class AMDDownloadPage {
 			.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Pause Download']]");
 	public static By objPauseDownloadoption = By.xpath("//*[@id='tvPauseDownload']");
 	public static By objCancelDownloadOption = By.xpath("//*[@id='tvCancelDownload']");
+	
+	public static By objDownloadbtn = By.xpath("//*[@id='downlowd_image']");
+	public static By objDownloadVideoQualityPopup = By.xpath("//*[@id='popup_title']");
+	public static By objStartDownloadCTA = By.xpath("//*[@id='bottomSheetDialogStartDownloadBtn']");
 }

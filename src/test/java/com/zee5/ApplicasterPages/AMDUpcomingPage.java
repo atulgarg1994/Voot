@@ -20,6 +20,10 @@ public class AMDUpcomingPage {
 	
 	public static By objItemMetadata = By.xpath("//*[@resource-id='com.graymatrix.did:id/metadata']");
 	
+	public static By objContentCard = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[1]");
+	
+	public static By objContentCardTitle = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[1]");	
+	
 	
 	
 }

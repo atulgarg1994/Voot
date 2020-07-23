@@ -60,7 +60,7 @@ public class DriverInstance extends Drivertools {
 	protected DesiredCapabilities generateAndroidCapabilities(String application) {
 		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android");
 		capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 300);
-		capabilities.setCapability("compressXml", "true");
+//		capabilities.setCapability("compressXml", "true");
 		capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
 		capabilities.setCapability("fullReset", false);
 		capabilities.setCapability("autoAcceptAlerts", true);
@@ -88,7 +88,7 @@ public class DriverInstance extends Drivertools {
 			WebDriverManager.firefoxdriver().version("0.26.0").setup();
 			tlWebDriver.set(new FirefoxDriver());
 		} else if (browserName.equalsIgnoreCase("Chrome")) {
-			WebDriverManager.chromedriver().setup();
+			WebDriverManager.chromedriver().version("83.0.4103.39").setup();
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("start-maximized");
 			options.addArguments("enable-automation");

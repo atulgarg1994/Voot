@@ -51,14 +51,10 @@
 	<parameter name="consumptionsContentWithMetaData"
 		value="Jothe Jotheyali" />
 
-	<parameter name="freeMovie" value="Gooli" />
-
-	<parameter name="freeMovie2" value="Doddmane Hudga" />
-
-	<parameter name="freeMovie3"
-		value="Ee Preethi Yeke Bhoomi Melide" />
-
-	<parameter name="freeMovie4" value="Melkote Manja" />
+	<parameter name="freeMovie" value="Krishna Balram: The Warrier Princess"/>
+	<parameter name="freeMovie2" value="Manthan"/>
+	<parameter name="freeMovie3" value="Pup Scouts"/>
+	<parameter name="freeMovie4" value="Robin Hood"/>
 
 	<parameter name="premiumMovie" value="Natasaarvabhowma" />
 

@@ -120,9 +120,14 @@ public class AMDHomePage {
 			//Selected tab
 			public static By objSelectedTab = By.xpath("//*[@resource-id='com.graymatrix.did:id/title' and @selected='true']");
 			//Carousel title
-			public static By objCarouselTitle = By.xpath("//*[@id='item_primary_text']");
+			public static By objCarouselTitle1 = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_primary_text' and @onScreen='true']");
+			public static By objCarouselTitle2 = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_image']//following-sibling::*[@id='item_primary_text']");
+			public static By objCarouselTitle3 = By.xpath("//*[@resource-id='com.graymatrix.did:id/pager']//*[@id='item_primary_text']");
 			//Carousel dots
 			public static By objCarouselDots = By.xpath("//*[@resource-id='com.graymatrix.did:id/indicator']/child::*");
 			
 			public static By objCarouselConetentCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/hero_1_cell_parent']");
+			
+	//Consumption screen title
+			public static By objConsumptionScreenTitle = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_primary_text']");
 }
