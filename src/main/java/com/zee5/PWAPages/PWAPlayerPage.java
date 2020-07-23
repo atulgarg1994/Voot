@@ -287,6 +287,10 @@ public static By objPlayer = By.xpath("//div[@class='playkit-overlay-action']");
 	
 	public static By objWatchPromo = By.xpath("//a[@class='showDetailIcon play']/child::div[@class='playIcon']");
 	
-	public static By subscribePopUp = By.xpath("");
+	public static By subscribePopUp =  By.xpath("//*[contains(@class,'popupTitle') and .='Subscribe']");
+	
+	public static By objfasterclosePopUp = By.xpath("//div[@class='adoric_element element-shape closeLightboxButton editing']");
+	
+	public static By objfasterPopUp = By.xpath("//div[@class='adoric_element element-text selected editing']");
 	
 }

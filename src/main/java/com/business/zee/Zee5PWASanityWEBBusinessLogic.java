@@ -1630,9 +1630,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			waitTime(5000);
 			type(PWALoginPage.objForgotNextPageConfirmPasswordField, "User@123", "Confirm password");
 			click(PWALoginPage.objForgotNextPageResetPaswwordButtonWEB, "Reset password");
-//			if (verifyElementExist(PWAPlayerPage.objfasterPopUp, "faster popup ")) {
-//				click(PWAPlayerPage.objfasterclosePopUp, "faster Pop up close button");
-//			}
+			if (verifyElementExist(PWAPlayerPage.objfasterPopUp, "faster popup ")) {
+				click(PWAPlayerPage.objfasterclosePopUp, "faster Pop up close button");
+			}
 			waitTime(10000);
 			if (verifyElementExist(PWALoginPage.objLoginPageLoginBtn, "LoginButton")) {
 				if (verifyElementExist(PWALoginPage.objEmailField, "Login page")) {

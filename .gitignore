@@ -1,13 +1,15 @@
-/bin/
-/Libs/
+bin/
+Libs/
 .settings
-/.classpath
+.classpath
 /Reports/
 debug.log
 settings*
 console.properties
 appium.log
-/test-output/
+test-output/
+target/
+session.chls
 
 # Eclipse Core
 .project
