@@ -107,19 +107,18 @@ public class AndroidPWASanityScript {
 	@Test(priority = 11)
 	@Parameters({ "userType" }) // SATHISH
 	public void sanitySubscriptionPageValidation(String userType) throws Exception {
-		Zee5PWASanityBusinessLogic.zeePWAVerifySubscriptionPopUpAfterTwentySecondsPlayback(userType);
-		Zee5PWASanityBusinessLogic.zeePWAVerifyNavigationToSubscriptionFlowFromSubscriptionPopupFullscreenPlayer(userType);
 		Zee5PWASanityBusinessLogic.zeePWAVerifySubscriptionPopupAfterTrailerPlaybackIsComplete(userType);
+		Zee5PWASanityBusinessLogic.zeePWAVerifyNavigationToSubscriptionFlowFromSubscriptionPopupFullscreenPlayer(userType);
 		//smoke
 		Zee5PWASanityBusinessLogic.zeePWASubscriptionSuite(userType); 
 	}
-*/
+
 	@Test(priority = 12)
 	@Parameters({ "userType" }) // BHAVANA
 	public void showsPage(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.ShowsValidation(userType);
 	}
-/*
+
 	@Test(priority = 13)
 	@Parameters({ "userType" }) // BHAVANA
 	public void Externallinks(String userType) throws Exception {
@@ -136,18 +135,20 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Home");
 		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Movies");
 		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Free Movies");
+		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Videos");
 		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Shows");
 		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Premium");
 		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Play");
-		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Kids");
-		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Stories");
+		//Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Kids");
+		//Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Stories");
 		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("ZEE5 Originals");	
 		// play icon functionality
 		Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("ZEE5 Originals");
 		Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("Kids");
 		Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("Premium");
 		Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("Shows");
-		Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("Free Movies");;
+		Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("Free Movies");
+		Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("Videos");
 		Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("Movies");
 		Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("Home");
 		// premium icon functionality
@@ -158,12 +159,13 @@ public class AndroidPWASanityScript {
 		// metadata
 		String languageSmallText = Zee5PWASanityBusinessLogic.allSelectedLanguages();
 		Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("ZEE5 Originals","zeeoriginals", languageSmallText);
-		Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Stories", "stories", "");
-		Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Kids", "kids", languageSmallText);
+		//Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Stories", "stories", "");
+		//Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Kids", "kids", languageSmallText);
 		Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Play","play", languageSmallText);
 		Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Premium","premiumcontents", languageSmallText);
 		Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Shows", "tvshows", languageSmallText);
 		Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Free Movies", "freemovies", languageSmallText);
+		Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Videos", "videos", languageSmallText);
 		Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Movies", "movies", languageSmallText);
 		Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Home", "home", languageSmallText);	
 		//Zee5PWASanityBusinessLogic.verifyMetadataOnNews("News", "news", languageSmallText);
@@ -171,14 +173,13 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.verifyLeftRightFunctionality("News", url);
 		System.out.println(">>>> 4th method completed");
 	}
-
+*/
 	@Test(priority = 15)
 	@Parameters({ "userType" }) // VINAY
-	public void UserActions(String userType) throws Exception {
-		Zee5PWASanityBusinessLogic.MyReminder();
-		Zee5PWASanityBusinessLogic.MyWatchlistSubscribedUser();
+	public void UserActions(String userType) throws Exception {		
+		Zee5PWASanityBusinessLogic.UserActions(userType);	
 	}
-
+/*
 	@Test(priority = 16) // TANISHA
 	@Parameters({ "userType" })
 	public void PWARecoTalamoosModule(String userType) throws Exception {
@@ -198,10 +199,10 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.playerValidations(userType);
 		Zee5PWASanityBusinessLogic.UpnextRail();
 	}
-
+*/
 	@Test(priority = 19) // BASAVARAJ
-	@Parameters({ "browser", "url", "userType", "devicePin", "consumptionsEpisode","consumptionsShow","consumptionsFreeContent","consumptionsPremiumContent"}) 
-	public void PWAContentDetails(String browser, String url, String userType, String devicePin, String consumptionsEpisode,String consumptionsShow,String consumptionsFreeContent,String consumptionsPremiumContent)throws Exception {
+	@Parameters({"url", "userType", "devicePin", "consumptionsEpisode","consumptionsShow","consumptionsFreeContent","consumptionsPremiumContent"}) 
+	public void PWAContentDetails(String url, String userType, String devicePin, String consumptionsEpisode,String consumptionsShow,String consumptionsFreeContent,String consumptionsPremiumContent)throws Exception {
 		Zee5PWASanityBusinessLogic.ContentDetails(userType);
 		Zee5PWASanityBusinessLogic.checkDurationInLivetv();
 		Zee5PWASanityBusinessLogic.checkDurationandProgressVideo(userType);
@@ -212,15 +213,16 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.verifySubscriptionPopupForPremiumContent(userType, consumptionsPremiumContent);
 		Zee5PWASanityBusinessLogic.verifyCTAandMetaDataInDetailsAndConsumption(consumptionsShow);
 	}
-
+/*
 	@Test(priority = 20) // BASAVARAJ
 	@Parameters({ "userType" })
-	public void PWATimedAnchors(String userType) throws Exception {
-		Zee5PWASanityBusinessLogic.TimedAnchors(userType);
+	public void PWATimedAnchors(String userType) throws Exception {	
 		Zee5PWASanityBusinessLogic.ShowsTimeperiodProvided(userType);
 		Zee5PWASanityBusinessLogic.musicTimeperiodProvided(userType);
+		Zee5PWASanityBusinessLogic.TimedAnchors(userType);
 		Zee5PWASanityBusinessLogic.moviesTimeperiodProvided(userType);
 		Zee5PWASanityBusinessLogic.continueWatchingtrayData(userType);
+		
 	}
 
 	@Test(priority = 21) // SHREENIDHI
@@ -229,13 +231,13 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.myProfileScenarios(userType);
 	}
 
-	
+*/	
 	@Test(priority = 22) // SHREENIDHI
 	@Parameters({ "userType" })
 	public void PWAOnboardingScenarios(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.OnboardingScenario(userType); //from smoke
 	}
-	
+/*	
 	
 	@Test(priority = 23) // BHAVANA
 	@Parameters({"userType"})

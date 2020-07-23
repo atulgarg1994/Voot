@@ -106,7 +106,8 @@ public class ExtentReporter implements ITestListener {
 
 	@Override
 	public void onTestStart(ITestResult result) {
-		if(Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals)) 
+		System.out.println("onTestStart");
+		if(Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals))
 		{
 			logger.info(":::::::::Test "+result.getName()+" Started::::::::");
 			test.set(extent.get().createTest(result.getName()));

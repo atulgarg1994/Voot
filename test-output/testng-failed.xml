@@ -1,61 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="1" guice-stage="DEVELOPMENT" name="Failed suite [MPWA]">
-  <parameter name="SubscribedPassword" value="tani99"/>
-  <parameter name="premiumMovieNoTrailer" value="RX Soori"/>
-  <parameter name="premiumMovieNoTrailer3" value="Raambo 2"/>
-  <parameter name="premiumMovieNoTrailer2" value="Londonalli Lambodara"/>
-  <parameter name="freeMovie" value="Gooli"/>
-  <parameter name="browserType" value="chrome"/>
-  <parameter name="premiumMovie2" value="Bhinna"/>
-  <parameter name="premiumMovieWithTrailer" value="Premier Padmini"/>
-  <parameter name="music" value="Nenne Monneya Ninna Parichaya - Giftbox | Ameeta Kulal | Ritvvikk Mathad | Bindu Malini"/>
-  <parameter name="consumptionsFreeContent" value="Auto Raja (2013)"/>
-  <parameter name="SubscribedUserName" value="thomas.cutinha1@gmail.com"/>
+<suite thread-count="1" guice-stage="DEVELOPMENT" name="Failed suite [Android]">
+  <parameter name="SubscribedPassword" value="123456"/>
+  <parameter name="PromoCode" value="ZEE5FLAT50"/>
+  <parameter name="RegisteredEmail" value="zee5latest@gmail.com"/>
+  <parameter name="RSVODUser" value="9663128823"/>
+  <parameter name="otp1" value="1"/>
+  <parameter name="displayLanguageSelection1" value="English"/>
+  <parameter name="otp2" value="2"/>
+  <parameter name="validPhnNumber" value="7892215214"/>
   <parameter name="runModule" value="Suite"/>
-  <parameter name="consumptionsContentWithMetaData" value="Jothe Jotheyali"/>
-  <parameter name="tvshow" value="Nisha"/>
-  <parameter name="freeEpisode2" value="Everyone delighted about Adya&#039;s pregnancy - Gattimela"/>
-  <parameter name="freeEpisode1" value="Comedy Kiladigalu Championship - Episode 1 - July 7, 2018 - Full Episode"/>
-  <parameter name="freeEpisode4" value="Aditya shares his feelings - Paaru"/>
-  <parameter name="NonsubscribedUserName" value="impact0314@gmail.com"/>
-  <parameter name="consumptionsShow" value="Paaru"/>
-  <parameter name="freeEpisode3" value="Jhende admits defeat - Jothe Jotheyali"/>
-  <parameter name="devicePin" value="1619"/>
-  <parameter name="news" value="R News"/>
-  <parameter name="livetv" value="TV9 Kannada"/>
-  <parameter name="newsToTriggerReco" value="Amid coronavirus, cong holds massive &#039;cycle rally&#039; to protest against fuel price hike in Bengaluru"/>
-  <parameter name="premiumMovie" value="Natasaarvabhowma"/>
-  <parameter name="consumptionsEpisode" value="Digvijay stunned on hearing Sambhashiva"/>
-  <parameter name="NonsubscribedPassword" value="impact0314"/>
-  <parameter name="url" value="https://newpwa.zee5.com/"/>
-  <parameter name="freeMovie3" value="Ee Preethi Yeke Bhoomi Melide"/>
-  <parameter name="freeMovie2" value="Doddmane Hudga"/>
-  <parameter name="episodeSpoiler" value="Paaru - April 06, 2020 - Episode Spoiler"/>
-  <parameter name="freeMovie4" value="Melkote Manja"/>
-  <parameter name="searchModuleSearchKey" value="Kamali"/>
-  <parameter name="trailerOfPremiumMovie" value="Bhinna - Trailer"/>
-  <parameter name="musicToTriggerReco" value="Nenne Monneya Ninna Parichaya - Giftbox | Ameeta Kulal | Ritvvikk Mathad | Bindu Malini"/>
-  <parameter name="consumptionsPremiumContent" value="Huliraya"/>
-  <parameter name="userType" value="NonSubscribedUser"/>
+  <parameter name="SubscribedUserName" value="zeetest998@test.com"/>
+  <parameter name="validPassword" value="User@123"/>
+  <parameter name="UnRegisteredMobile" value="8073661163"/>
+  <parameter name="otp3" value="3"/>
+  <parameter name="NonsubscribedUserName" value="igstesting001@gmail.com"/>
+  <parameter name="otp4" value="4"/>
+  <parameter name="loginThrough" value="login"/>
+  <parameter name="regUserName" value="igszeefive3@gmail.com"/>
+  <parameter name="RSVODPassword" value="ABCD1234"/>
+  <parameter name="FirstName" value="Zee"/>
+  <parameter name="PrepaidCode" value="Z5PWATI9WlD"/>
+  <parameter name="displayLanguageSelection2" value="Marathi"/>
+  <parameter name="NonsubscribedPassword" value="igs@12345"/>
+  <parameter name="regPassword" value="123456"/>
+  <parameter name="inValidPhnNumber" value="7892215"/>
+  <parameter name="RegisteredMobilePassword" value="User@123"/>
+  <parameter name="RegisteredEmailPassword" value="User@123"/>
+  <parameter name="userType" value="Guest"/>
+  <parameter name="LastName" value="UserZee"/>
+  <parameter name="RegisteredMobile" value="7892215214"/>
   <listeners>
-    <listener class-name="com.extent.ParameterInjector"/>
     <listener class-name="com.extent.ExtentReporter"/>
   </listeners>
-  <test name="AndroidPWASanityScript">
+  <test name="Android_LandingPage">
     <classes>
-      <class name="com.zee5.PWASanityScripts.AndroidPWASanityScript"/>
+      <class name="com.zee5.ApplicasterScripts.Android_LandingPage"/>
     </classes>
-  </test> <!-- AndroidPWASanityScript -->
-  <test name="AndroidPWASanityScript(failed)">
-    <classes>
-      <class name="com.zee5.PWASanityScripts.AndroidPWASanityScript">
-        <methods>
-          <include name="tearDown"/>
-          <include name="showsPage" invocation-numbers="0"/>
-          <include name="init"/>
-        </methods>
-      </class> <!-- com.zee5.PWASanityScripts.AndroidPWASanityScript -->
-    </classes>
-  </test> <!-- AndroidPWASanityScript(failed) -->
-</suite> <!-- Failed suite [MPWA] -->
+  </test> <!-- Android_LandingPage -->
+</suite> <!-- Failed suite [Android] -->

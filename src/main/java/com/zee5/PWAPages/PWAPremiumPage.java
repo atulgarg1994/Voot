@@ -10,6 +10,7 @@ public class PWAPremiumPage {
 	public static By objHeoCarouselCard(String titleName) {
 		return By.xpath("//h2[text()='" + titleName + "']/ancestor::div[@aria-hidden='false']");
 	}
+	
 
 	public static By objHeroCarouselTitle(String titleName) {
 
@@ -42,7 +43,7 @@ public class PWAPremiumPage {
 	}
 
 	// Premium popup
-	public static By objPremiumPopUp = By.xpath("//h2[contains(@class,'popupTitle') and text()='Get premium']");
+	public static By objPremiumPopUp = By.xpath("//h2[contains(@class,'popupTitle bigTitle') and text()='Subscribe']");
 
 //	SANITY SUSHMA LIVETV MODULE
 	public static By objClosePremiumPopup = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close' or @class='manCloseIcon']");

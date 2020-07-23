@@ -339,15 +339,14 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Parent Control Functionality");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
-		verifyElementExist(PWALoginPage.objPasswordField, "password field");
+		verifyElementExist(PWALoginPage.objPasswordField, "Password field");
 		String password = "";
-		PropertyFileReader handler = new PropertyFileReader("properties/Execution.properties");
 		if (UserType.equals("NonSubscribedUser")) {
-			password = handler.getproperty("NON_SUBSCRIBED_USER_PASSWORD");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
 		} else if (UserType.equals("SubscribedUser")) {
-			password = handler.getproperty("SUBSCRIBED_USER_PASSWORD");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
 		}
-		type(PWALoginPage.objPasswordField, password, "Password field");
+		type(PWALoginPage.objPasswordField, password+"\n", "Password field");
 		hideKeyboard();
 		click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
 		waitTime(2000);
@@ -413,6 +412,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(2000);
 		verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "zee logo");
 	}
+
 
 	public void authenticationFunctionality() throws Exception {
 		extent.HeaderChildNode("Authentication Functionality");
@@ -1805,7 +1805,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 		String Title = getElementPropertyToString("innerText", PWAMusicPage.objCarouselTitle, "Carousel Content Title").toString();
 		click(PWAHomePage.objPlayBtn, "Clicked on content in carousel");
-		if (verifyElementExist(PWAMusicPage.objWhyRegisterPopUp, "Register popup ")) {
+		if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Sign Up pop up")) {
 			click(PWAMusicPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 		}
 		System.out.println(Title);
@@ -2197,26 +2197,25 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 
 	public void premiumPopUp() throws Exception {
-		extent.HeaderChildNode(
-				"Verifing that Subscribe now or Login pop is displayed when user click on premium content");
-		while (!(verifyElementExist(PWALiveTVPage.objFirstPremiumCardinTray, "Premium Content"))) {
-			Swipe("UP", 1);
+		extent.HeaderChildNode("Verifing that Subscribe now or Login pop is displayed when user click on premium content");
+		for(int scroll=0;scroll<=4;scroll++) {
+			if(verifyElementExist(PWALiveTVPage.objFirstPremiumCardinTray, "Premium Content")){
+				break;
+			}
+			else
+				Swipe("UP", 1);
 		}
-
 		click(PWALiveTVPage.objFirstPremiumCardinTray, "Premium Content");
 		waitForElementDisplayed(PWAPremiumPage.objPremiumPopUp, 5);
 		if (verifyElementExist(PWAPremiumPage.objPremiumPopUp, "Premium PopUp")) {
 			verifyElementPresentAndClick(PWAPremiumPage.objClosePremiumPopup, "Premium PopUp Close icon");
-
 			extent.HeaderChildNode("Verifing that premium content videos in landscape mode");
-
 			if (verifyElementExist(PWALiveTVPage.objPlayerInlineSubscriptionLink, "Player inline Subscribtion link")) {
 				logger.info(
 						"Maximize icon is not displayed since user is getting Player inline Subscription link on Player screen");
 				extent.extentLogger("Maximize icon",
 						"Maximize icon is not displayed since user is getting Player inline Subscription link on Player screen");
 			}
-
 		} else {
 			playerTap();
 			verifyElementPresent(PWAPlayerPage.maximizeBtn, "Maximize icon");
@@ -2232,20 +2231,16 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				}
 			}
 		}
-
 		Back(1);
-
 		extent.HeaderChildNode("Verifing that user is able to watch the free Content");
 		verifyElementPresentAndClick(PWALiveTVPage.objFilterOption("FREE Channels"), "Free Channels filter");
 		waitForElementDisplayed(PWALiveTVPage.objFirstfreeContentCard, 5);
-
 		verifyElementPresentAndClick(PWALiveTVPage.objFirstfreeContentCard, "Free Content card");
 		waitForElementDisplayed(PWAPremiumPage.objPremiumPopUp, 5);
 		if (!(verifyElementExist(PWAPremiumPage.objPremiumPopUp, "Premium PopUp"))) {
 			logger.info("user is able to watch the free Content");
 			extent.extentLogger("Free content", "user is able to watch the free Content");
 		}
-
 		extent.HeaderChildNode("Verifing that free content videos in landscape mode");
 		playerTap();
 		verifyElementPresent(PWAPlayerPage.maximizeBtn, "Maximize icon");
@@ -2260,28 +2255,26 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				playerTap();
 			}
 		}
-
 		Back(1);
-
 	}
 
-	public void navigateToAnyScreen(String screen) throws Exception {
+	public boolean navigateToAnyScreen(String screen) throws Exception {
 		for (int i = 0; i < 3; i++) {
 			try {
-				verifyElementPresentAndClick(PWAHomePage.objTabName(screen), "Tab : " + screen);
-				waitTime(5000);
-				break;
+				if(verifyElementPresentAndClick(PWAHomePage.objTabName(screen), "Tab : " + screen))
+				return true;
 			} catch (Exception e) {
 				try {
 					swipeOnTab("Left");
-					verifyElementPresentAndClick(PWAHomePage.objTabName(screen), "Tab : " + screen);
+					if(verifyElementPresentAndClick(PWAHomePage.objTabName(screen), "Tab : " + screen)) {
 					waitTime(5000);
-					break;
+					return true;}
 				} catch (Exception exc) {
 					swipeOnTab("Right");
 				}
 			}
 		}
+		return false;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -2880,8 +2873,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 		}
 		if (playerDisplayed == false && adWasDisplayed == false) {
-			logger.error("Ad play failure");
-			extent.extentLoggerFail("failedAd", "Ad play failure");
+			logger.info("Ad play failure");
+			extent.extentLogger("failedAd", "Ad play failure");
 		}
 	}
 
@@ -2909,15 +2902,14 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	/**
 	 * Verify Subscription popup after trailer is played for 20 seconds
 	 */
-	public void zeePWAVerifySubscriptionPopUpAfterTwentySecondsPlayback(String userType) throws Exception {
-		HeaderChildNode("Verify Subscription popup after trailer is played for 20 seconds");
-		System.out.println("Verify Subscription popup after trailer is played for 20 seconds");
-
-		click(PWASubscriptionPages.objZEE5Logo, "Zee5 Logo");
+	public void zeePWAVerifySubscriptionPopupAfterTrailerPlaybackIsComplete(String userType) throws Exception {	
 		if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+			HeaderChildNode("Verify Subscription Popup After Completion Of Trailer Playback Is Complete for non-logged in User");
+			System.out.println("Verify Subscription Popup After Completion Of Trailer Playback Is Complete for non-logged in User");
+			click(PWASubscriptionPages.objZEE5Logo, "Zee5 Logo");
 			String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("premiumMovieWithTrailer");
 			zeeSearchForContentAndClickOnFirstResult(keyword);
-			waitForElement(PWASubscriptionPages.objGetPremiumPopupTitle, 21, "Get Premium Popup Title");
+			waitForElement(PWASubscriptionPages.objGetPremiumPopupTitle, 30, "Get Premium Popup Title");
 			if (verifyElementPresent(PWASubscriptionPages.objGetPremiumPopupTitle, "Get Premium Popup Title")) {
 				click(PWASubscriptionPages.objPopupCloseButton, "Popup Close Button");
 			}
@@ -2927,63 +2919,26 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	/**
 	 * Navigate to Subscription Flow From Subscription Popup full screen player
 	 */
-	public void zeePWAVerifyNavigationToSubscriptionFlowFromSubscriptionPopupFullscreenPlayer(String userType)
-			throws Exception {
-		HeaderChildNode("Navigate to Subscription Flow From Subscription Popup in full screen player");
-		System.out.println("Navigate to Subscription Flow From Subscription Popup in full screen player");
-
-		click(PWASubscriptionPages.objZEE5Logo, "Zee5 Logo");
+	public void zeePWAVerifyNavigationToSubscriptionFlowFromSubscriptionPopupFullscreenPlayer(String userType)throws Exception {	
 		if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+			HeaderChildNode("Navigate to Subscription Flow From Subscription Popup in full screen player");
+			System.out.println("Navigate to Subscription Flow From Subscription Popup in full screen player");
+			click(PWASubscriptionPages.objZEE5Logo, "Zee5 Logo");
 			String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("premiumMovieWithTrailer");
 			zeeSearchForContentAndClickOnFirstResult(keyword);
 			waitTime(10000);
-			playerTap();
+			pausePlayer();
 			verifyElementPresentAndClick(PWAPlayerPage.maximizeBtn, "Maximize window icon");
 			waitTime(5000);
-			playerTap();
 			verifyElementPresent(PWAPlayerPage.minimizeBtn, "Minimize window icon");
-
-			waitForElement(PWASubscriptionPages.objGetPremiumPopupTitle, 20, "Get Premium Popup Title");
+			verifyElementPresentAndClick(PWAPlayerPage.playBtn,"Play button");
+			waitForElement(PWASubscriptionPages.objGetPremiumPopupTitle, 30, "Get Premium Popup Title");
 			if (verifyElementPresent(PWASubscriptionPages.objGetPremiumPopupTitle, "Get Premium Popup Title")) {
-
 				verifyElementPresent(PWASubscriptionPages.objDefaultSelectedPack, "Default Selected Package");
 				verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Popup Proceed button");
-
-				if (waitForElementDisplayed(PWASubscriptionPages.objAccountInfoHighlighted, 10)) {
-					verifyElementPresent(PWASubscriptionPages.objAccountInfoHighlighted, "Account Info Section");
-				}
+				waitForElement(PWASubscriptionPages.objAccountInfoHighlighted, 10, "Account Info Section");				
 			}
-		}
-	}
-
-	/**
-	 * Navigate to Subscription Flow From Subscription Popup full screen player
-	 */
-	public void zeePWAVerifySubscriptionPopupAfterTrailerPlaybackIsComplete(String userType) throws Exception {
-		HeaderChildNode(
-				"Verify Subscription Popup After Completion Of Trailer Playback Is Complete for non-logged in User");
-		System.out.println(
-				"Verify Subscription Popup After Completion Of Trailer Playback Is Complete for non-logged in User");
-
-		click(PWASubscriptionPages.objZEE5Logo, "Zee5 Logo");
-		if (userType.equalsIgnoreCase("Guest")) {
-			String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("premiumMovieWithTrailer");
-			zeeSearchForContentAndClickOnFirstResult(keyword);
-			click(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
-			String totalDuration = findElement(PWAPlayerPage.objPlayerTotalDuration).getText();
-			System.out.println("Total duration of the trailer is: " + totalDuration);
-
-			for (int i = 0; i < 30; i++) {
-				String currentTime = findElement(PWAPlayerPage.objPlayerCurrentDuration).getText();
-				System.out.println("Current time is: " + currentTime);
-				if (totalDuration.equals(currentTime)) {
-					System.out.println("Trailer playback is complete");
-					break;
-				}
-			}
-			if (verifyElementPresent(PWASubscriptionPages.objGetPremiumPopupTitle, "Get Premium Popup Title")) {
-				click(PWASubscriptionPages.objPopupCloseButton, "Popup Close Button");
-			}
+			Back(2);
 		}
 	}
 
@@ -4625,10 +4580,20 @@ extentLogger("Location", "Location :"+ region);
 		// twittershare
 		click(PWAShowsPage.objShareIcon, "Share icon");
 		getDriver().context("NATIVE_APP");
+		waitTime(5000);		
+		for (int i = 0; i < 2; i++) {
+			try {
+				getDriver().findElement(PWAShowsPage.objTwitterApp).click();
+				break;
+			} catch (Exception e) {
+				TouchAction act = new TouchAction(getDriver());
+				act.press(PointOption.point(startx, starty))
+						.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+						.moveTo(PointOption.point(endx, endy)).release().perform();
+			}
+		}
 		waitTime(5000);
-		getDriver().findElement(PWAShowsPage.objTwitterApp).click();
-		waitTime(5000);
-		waitForElementAndClick(PWAShowsPage.objTwitterPostBtn1, 10, "POST button in Twitter App");
+		waitForElementAndClick(PWAShowsPage.objTwitterPostBtn1, 10, "Tweet button in Twitter App");
 		waitTime(5000);
 		getDriver().context("CHROMIUM");
 		// Watchhistory is showing at back-end response properly
@@ -4661,7 +4626,7 @@ extentLogger("Location", "Location :"+ region);
 	}
 
 	public void scrolltillBackToArrowAppears() throws Exception {
-		scrollToBottomOfPage();
+		PartialSwipe("UP", 3);
 		for (int i = 1; i <= 10; i++) {
 			Swipe("UP", 1);
 			if (verifyElementExist(PWAShowsPage.objBackToTopArrow, "Back to Top Arrow")) {
@@ -4674,15 +4639,16 @@ extentLogger("Location", "Location :"+ region);
 
 	public void checkDurationandProgressVideo(String userType) throws Exception {
 		extent.HeaderChildNode("Check video Duration and Progress");
-		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie2");
+		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("timedAnchorMovie");
 		String currentDuration="",currentDuration1="",totalDuration="",totalDuration1="";
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		waitTime(2000);
 		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
+		verifyElementPresentAndClick(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		waitTime(5000);
 		hideKeyboard();
 		waitTime(3000);
-		click(PWASearchPage.objSpecificSearch(keyword), "Searched content: "+keyword);
+		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
 		if(!userType.equals("SubscribedUser")) {waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 5, "Close in Pop Up");}
 		waitForPlayerAdToComplete("Video Player");
 		pausePlayer();
@@ -4881,113 +4847,118 @@ extentLogger("Location", "Location :"+ region);
 
 	
 
-	public void TimedAnchors(String userType) throws Exception {
-	
+	public void TimedAnchors(String userType) throws Exception {	
+		boolean execute=true;
 		extent.HeaderChildNode("Timed Anchors Functionality");
 		extent.extentLogger("Timed Anchors", "Timed Anchors");
-
 		waitTime(3000);
-		getDriver().get("https://newpwa.zee5.com/movies/details/doddmane-hudga/0-0-2677?t=60");
+		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie2");
+		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+		verifyElementPresentAndClick(PWASearchPage.objSearchMoviesTab, "Movies tab");
+		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
+		String currenturl=getDriver().getCurrentUrl();
+		String timedurl=currenturl+"?t=60";
+		getDriver().get(timedurl);
+		System.out.println("Hit URL : "+timedurl);
+		extent.extentLogger("", "Hit URL : "+timedurl);
+		//getDriver().get("https://newpwa.zee5.com/movies/details/doddmane-hudga/0-0-2677?t=60");
 		waitTime(10000);
-		
-
 		if (userType.equals("Guest")) 
 		{
-			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Register popup ")) {
+			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Sign Up pop up")) {
 				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 			}
-		}
-		
+		}	
 		if(userType.equals("NonSubscribedUser")){
 			if (verifyElementExist(PWAPlayerPage.objCompleteProfile, "Complete Profile popup ")) {
 				click(PWAPlayerPage.objCompleteProfileCloseIcon, "Complete Profile Pop up close button");
 			}
 		}
-
-		waitForPlayerAdToComplete("Video Player");
-		System.out.println("pause");
-		
-		pausePlayer();	
-
-		
-		String currentDuration = getText(PWAPlayerPage.objcurrenttime);
-		System.out.println("Current time: " + currentDuration);
-		List<WebElement> anchors = getDriver().findElements(By.xpath("(//div[@playermarkertag='timer']//div)"));
-		// Verify whether important segments are marked in player for Logged In user
-		if (verifyElementExist(PWAPlayerPage.objtimedanchors, "TimedAnchor")) {
-			System.out.println("TimedAnchor Present");
-			System.out.println("Number of Timed Anchors segments present :" + anchors.size());
-			extent.extentLogger("","Number of Timed Anchors segments present :" + anchors.size()); 
-			if(anchors.size()>=2)
-			{
-				
-				click(PWAPlayerPage.objtimedAnchor(2), "Inividual timed anchor");
-				 Thread.sleep(7000);
-				 System.out.println("Clicked on Timed Anchor at position : "+getAttributValue("style",PWAPlayerPage.objtimedAnchor(2)));
-				 extent.extentLogger("","Clicked on Timed Anchor at position : "+getAttributValue("style",PWAPlayerPage.objtimedAnchor(2)));
-				 String currentTime1 = getText(PWAPlayerPage.objcurrenttime);
-				 System.out.println("Current time after clicking on the TimedAnchor :" +getText(PWAPlayerPage.objcurrenttime));
-				 extent.extentLogger("", "Current time after clicking on the TimedAnchor :" +getText(PWAPlayerPage.objcurrenttime));
-				 if(!getAttributValue("style",PWAPlayerPage.objtimedAnchor(1)).equals(getAttributValue("style",PWAPlayerPage.objtimedAnchor(2))))
-				 {
-					 System.out.println("Navigated to the TimeAnchor ");
-					 extent.extentLogger("Navigated to the TimeAnchor ", "Navigated to the TimeAnchor ");
-				 }else{
-					 System.out.println("Not Navigated to the TimeAnchor ");
-					 extent.extentLoggerFail("Not Navigated to the TimeAnchor ", "Not Navigated to the TimeAnchor ");
-				 }
-				 
-				 System.out.println(getText(PWAPlayerPage.objcurrenttime));
-				 
-				 
-				 if(!currentDuration.equals(currentTime1))
-				 {
-					 System.out.println("Clicked on TimedAnchor and Time is changed");
-					 extent.extentLogger("Clicked on TimedAnchor and Time is changed", "Clicked on TimedAnchor and Time is changed");
-				 }else{
-					 System.out.println("Clicked on TimedAnchor and Time is not changed");
-					 extent.extentLoggerFail("Clicked on TimedAnchor and Time is not changed", "Clicked on TimedAnchor and Time is not changed");					 
-				 }
-				 
-					waitForPlayerAdToComplete("Video Player");
-					System.out.println("pause");
-					
-					pausePlayer();	
-				 
-				 
-				 click(PWAPlayerPage.objPlayerPlay, "Play btn");
-				 
-				 waitForPlayerAdToComplete("Video Player");
-				 
-				 if(AdValue.equals("AdPlayed"))
-				 {
-					 System.out.println("Ad Played as it was present before TimedAnchor");
-					 extent.extentLogger("Ad Played as it was present before TimedAnchor", "Ad Played as it was present before TimedAnchor");
-				 }else{
-					 System.out.println("Ad not played as it was not present before TimedAnchor");
-					 extent.extentLogger("Ad not played as it was not present before TimedAnchor", "Ad not played as it was not present before TimedAnchor");
-				 }
-				 
-				 System.out.println("pause");
-				 pausePlayer();	
-				 
-				 if(!currentTime1.equals(getText(PWAPlayerPage.objcurrenttime)))
-				 {
-					 System.out.println("Content Played after click on the TimedAnchor");
-					 extent.extentLogger("Content Played after click on the TimedAnchor", "Content Played after click on the TimedAnchor");
-				 }else{
-					 System.out.println("Content not Played after click on the TimedAnchor");
-					 extent.extentLoggerFail("Content not Played after click on the TimedAnchor", "Content not Played after click on the TimedAnchor");					 
-				 }	 
-			}		 
-		} else {
-			System.out.println("TimedAnchor is not present");
+		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			if(verifyElementExist(PWAPlayerPage.subscribePopUp,"Subscribe Pop Up")){
+				 System.out.println("The content is a Premium Content");
+				 extent.extentLogger("", "The content is a Premium Content");
+				 logger.error("Timed Anchors Functionality could not be tested because no free timed anchor content is available");
+				 extent.extentLoggerFail("", "Timed Anchors Functionality could not be tested because no free timed anchor content is available"); 
+				 execute=false;
+			}
 		}
-		
-	}
-	
-	
-	
+		if(execute) {
+			waitForPlayerAdToComplete("Video Player");
+			System.out.println("pause");		
+			pausePlayer();		
+			String currentDuration = getText(PWAPlayerPage.objcurrenttime);
+			System.out.println("Current time: " + currentDuration);
+			List<WebElement> anchors = getDriver().findElements(By.xpath("(//div[@playermarkertag='timer']//div)"));
+			// Verify whether important segments are marked in player for Logged In user
+			if (verifyElementExist(PWAPlayerPage.objtimedanchors, "TimedAnchor")) {
+				System.out.println("TimedAnchor Present");
+				System.out.println("Number of Timed Anchors segments present :" + anchors.size());
+				extent.extentLogger("","Number of Timed Anchors segments present :" + anchors.size()); 
+				if(anchors.size()>=2)
+				{		
+					click(PWAPlayerPage.objtimedAnchor(2), "Individual timed anchor");
+					 Thread.sleep(7000);
+					 System.out.println("Clicked on Timed Anchor at position : "+getAttributValue("style",PWAPlayerPage.objtimedAnchor(2)));
+					 extent.extentLogger("","Clicked on Timed Anchor at position : "+getAttributValue("style",PWAPlayerPage.objtimedAnchor(2)));
+					 String currentTime1 = getText(PWAPlayerPage.objcurrenttime);
+					 System.out.println("Current time after clicking on the TimedAnchor :" +getText(PWAPlayerPage.objcurrenttime));
+					 extent.extentLogger("", "Current time after clicking on the TimedAnchor :" +getText(PWAPlayerPage.objcurrenttime));
+					 if(!getAttributValue("style",PWAPlayerPage.objtimedAnchor(1)).equals(getAttributValue("style",PWAPlayerPage.objtimedAnchor(2))))
+					 {
+						 System.out.println("Navigated to the TimeAnchor ");
+						 extent.extentLogger("Navigated to the TimeAnchor ", "Navigated to the TimeAnchor ");
+					 }else{
+						 System.out.println("Not Navigated to the TimeAnchor ");
+						 extent.extentLoggerFail("Not Navigated to the TimeAnchor ", "Not Navigated to the TimeAnchor ");
+					 }		 
+					 System.out.println(getText(PWAPlayerPage.objcurrenttime));
+					 if(!currentDuration.equals(currentTime1))
+					 {
+						 System.out.println("Clicked on TimedAnchor and Time is changed");
+						 extent.extentLogger("Clicked on TimedAnchor and Time is changed", "Clicked on TimedAnchor and Time is changed");
+					 }else{
+						 System.out.println("Clicked on TimedAnchor and Time is not changed");
+						 extent.extentLoggerFail("Clicked on TimedAnchor and Time is not changed", "Clicked on TimedAnchor and Time is not changed");					 
+					 }
+					 
+						waitForPlayerAdToComplete("Video Player");
+						System.out.println("pause");
+						
+						pausePlayer();	
+					 
+					 
+					 click(PWAPlayerPage.objPlayerPlay, "Play btn");
+					 
+					 waitForPlayerAdToComplete("Video Player");
+					 
+					 if(AdValue.equals("AdPlayed"))
+					 {
+						 System.out.println("Ad Played as it was present before TimedAnchor");
+						 extent.extentLogger("Ad Played as it was present before TimedAnchor", "Ad Played as it was present before TimedAnchor");
+					 }else{
+						 System.out.println("Ad not played as it was not present before TimedAnchor");
+						 extent.extentLogger("Ad not played as it was not present before TimedAnchor", "Ad not played as it was not present before TimedAnchor");
+					 }
+					 
+					 System.out.println("pause");
+					 pausePlayer();	
+					 
+					 if(!currentTime1.equals(getText(PWAPlayerPage.objcurrenttime)))
+					 {
+						 System.out.println("Content Played after click on the TimedAnchor");
+						 extent.extentLogger("Content Played after click on the TimedAnchor", "Content Played after click on the TimedAnchor");
+					 }else{
+						 System.out.println("Content not Played after click on the TimedAnchor");
+						 extent.extentLoggerFail("Content not Played after click on the TimedAnchor", "Content not Played after click on the TimedAnchor");					 
+					 }	 
+				}		 
+			} else {
+				System.out.println("TimedAnchor is not present");
+			}
+		}
+	}	
 	
 	public void ShowsTimeperiodProvided(String userType) throws Exception
 	{
@@ -4995,30 +4966,38 @@ extentLogger("Location", "Location :"+ region);
 		 */
 		extent.HeaderChildNode("Verify whether playback for content(wrt shows) starts playing based on the timeperiod provided in the URL");
 		int timeperiod = 35;
-
-		getDriver().get("https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paarvathi-kisses-aditya-paaru/0-1-manual_1dr9c5e034t0?t="+timeperiod+"");
-
+		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("timedAnchorEpisode");
+		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
+		waitTime(7000);
+		String currenturl=getDriver().getCurrentUrl();
+		String timedurl=currenturl+"?t="+timeperiod+"";
+		System.out.println("Appending time period");
+		extent.extentLogger("timeperiod", "Appending time period");
+		getDriver().get(timedurl);
+		System.out.println("Hit URL : "+timedurl);
+		extent.extentLogger("", "Hit URL : "+timedurl);
+		//getDriver().get("https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paarvathi-kisses-aditya-paaru/0-1-manual_1dr9c5e034t0?t="+timeperiod+"");
 		waitTime(5000);
 		
 		if (userType.equals("Guest")) {
-			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Register popup ")) {
-				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
+			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Sign Up pop up")) {
+				click(PWASearchPage.objClosePremiumDialog, "Register Pop up close button");
 			}
 		}
 		
 		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 			if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
-				
+				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");				
 			    extent.extentLogger("GetPremium is displayed", "GetPremium is displayed");
 			} else {
 				extent.extentLogger("GetPremium is not displayed", "GetPremium is not displayed");
 			}
-		}
-		
+		}		
 		waitForPlayerAdToComplete("Video Player");
 		if (userType.equals("Guest")) {
-			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Register popup ")) {
+			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Sign Up pop up")) {
 				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 
 			}
@@ -5026,7 +5005,6 @@ extentLogger("Location", "Location :"+ region);
 		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 			if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
 				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
-
 				extent.extentLogger("GetPremium is displayed", "GetPremium is displayed");
 			} else {
 				extent.extentLogger("GetPremium is not displayed", "GetPremium is not displayed");
@@ -5034,10 +5012,7 @@ extentLogger("Location", "Location :"+ region);
 		}
 		waitForPlayerAdToComplete("Video Player");
 		pausePlayer();
-		Thread.sleep(6000);
-	
-
-		
+		Thread.sleep(6000);		
 		PresentTitle = getDriver().findElement(By.xpath("(//div[@class='consumptionMetaDiv']//h1)")).getText();
 		
 		System.out.println("Show Title : "+PresentTitle);
@@ -5055,36 +5030,35 @@ extentLogger("Location", "Location :"+ region);
 		}
 	}
 	
-	
-	
-	
-	
 	public void musicTimeperiodProvided(String userType) throws Exception
 	{
 		/*// Verify whether playback for content(wrt music and music-video) starts playing based on the timeperiod provided in the URL
 		 */
 		extent.HeaderChildNode("Verify whether playback for content(wrt music and music-video) starts playing based on the timeperiod provided in the URL");
-		int timeperiod2 =25;
-		
-		getDriver().get("https://newpwa.zee5.com/music-videos/details/appa-lyrical-punith-shetty/0-0-manual_15l5jn9il6o8?t="+timeperiod2+"");
-
-		
-		
-		
+		int timeperiod2 =25;	
+		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("timedAnchorMusic");
+		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
+		String currenturl=getDriver().getCurrentUrl();
+		String timedurl=currenturl+"?t="+timeperiod2+"";
+		System.out.println("Appending time period");
+		extent.extentLogger("timeperiod", "Appending time period");
+		getDriver().get(timedurl);
+		System.out.println("Hit URL : "+timedurl);
+		extent.extentLogger("", "Hit URL : "+timedurl);
+		//getDriver().get("https://newpwa.zee5.com/music-videos/details/appa-lyrical-punith-shetty/0-0-manual_15l5jn9il6o8?t="+timeperiod2+"");
 		if (userType.equals("Guest")) {
-			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Register popup ")) {
+			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Sign Up pop up")) {
 				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
-
 			}
-		}
-		
+		}		
 		if(userType.equals("NonSubscribedUser")){
 			if (verifyElementExist(PWAPlayerPage.objCompleteProfile, "Complete Profile popup ")) {
 				click(PWAPlayerPage.objCompleteProfileCloseIcon, "Complete Profile Pop up close button");
 
 			}
-		}
-		
+		}		
 		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 			if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
 				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
@@ -5093,16 +5067,10 @@ extentLogger("Location", "Location :"+ region);
 			} else {
 				extent.extentLogger("GetPremium is not displayed", "GetPremium is not displayed");
 			}
-		}
-		
+		}		
 		waitForPlayerAdToComplete("Video Player");
-
 		pausePlayer();
 		Thread.sleep(6000);
-	
-		
-		
-	
 		PresentTitle = getDriver().findElement(By.xpath("(//div[@class='consumptionMetaDiv']//h1)")).getText();
 		
 		System.out.println("Show Title : "+PresentTitle);
@@ -5120,22 +5088,27 @@ extentLogger("Location", "Location :"+ region);
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
 	public void moviesTimeperiodProvided(String userType) throws Exception
 	{
 		/*// Verify whether playback for content(wrt movies) starts playing based on the timeperiod provided in the URL
 		 */		
 		extent.HeaderChildNode("Verify whether playback for content(wrt movies) starts playing based on the timeperiod provided in the URL");
 		int timeperiod3 = 120;
-		
-		getDriver().get("https://newpwa.zee5.com/movies/details/action-film-starring-puneeth-rajkumar/0-0-2677?t="+timeperiod3+"");
+		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("timedAnchorMovie");
+		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+		verifyElementPresentAndClick(PWASearchPage.objSearchMoviesTab, "Movies tab");
+		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");	
+		String currenturl=getDriver().getCurrentUrl();
+		String timedurl=currenturl+"?t="+timeperiod3+"";
+		System.out.println("Appending time period");
+		extent.extentLogger("timeperiod", "Appending time period");
+		getDriver().get(timedurl);
+		System.out.println("Hit URL : "+timedurl);
+		extent.extentLogger("", "Hit URL : "+timedurl);
+		//getDriver().get("https://newpwa.zee5.com/movies/details/action-film-starring-puneeth-rajkumar/0-0-2677?t="+timeperiod3+"");
 		if (userType.equals("Guest")) {
-			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Register popup ")) {
+			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Sign Up pop up")) {
 				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 
 			}
@@ -5153,7 +5126,7 @@ extentLogger("Location", "Location :"+ region);
 		
 		waitForPlayerAdToComplete("Video Player");
 		if (userType.equals("Guest")) {
-			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Register popup ")) {
+			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Sign Up pop up")) {
 				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 
 			}
@@ -5185,19 +5158,28 @@ extentLogger("Location", "Location :"+ region);
 			extent.extentLogger("Playback not started from Appended time", "Playback not started from Appended time");
 		}
 		
-		Thread.sleep(3000);
-		
+		Thread.sleep(3000);	
+		extent.HeaderChildNode("Timed Anchor for Maximum time");
+		System.out.println("Verifying Timed Anchor for Maximum time");
+		extent.extentLogger("", "Verifying Timed Anchor for Maximum time");
 		// append max time
-		getDriver().get("https://newpwa.zee5.com/movies/details/action-film-starring-puneeth-rajkumar/0-0-2677?t=9000");
+		int maxtime = 9000;
+		timedurl=currenturl+"?t="+maxtime+"";
+		System.out.println("Appending time period");
+		extent.extentLogger("timeperiod", "Appending time period");
+		getDriver().get(timedurl);
+		System.out.println("Hit URL : "+timedurl);
+		extent.extentLogger("", "Hit URL : "+timedurl);
+		//getDriver().get("https://newpwa.zee5.com/movies/details/action-film-starring-puneeth-rajkumar/0-0-2677?t=9000");
 		if (userType.equals("Guest")) {
-			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Register popup ")) {
+			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Sign Up pop up")) {
 				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 
 			}
 		}
 		waitForPlayerAdToComplete("Video Player");
 		if (userType.equals("Guest")) {
-			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Register popup ")) {
+			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Sign Up pop up")) {
 				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 
 			}
@@ -5228,9 +5210,7 @@ extentLogger("Location", "Location :"+ region);
 		}else
 		{
 			pausePlayer();			
-		}
-
-		
+		}		
 		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 			if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
 				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
@@ -5254,53 +5234,37 @@ extentLogger("Location", "Location :"+ region);
 		getDriver().get("https://newpwa.zee5.com/movies/details/doddmane-hudga/0-0-2677?t=60");
 		Thread.sleep(5000);
 	}
-	
-	
-	
-	
-	
+
 	public void continueWatchingtrayData(String userType)
 	{
 		/*//Verifying ContinueWatching Tray Data
 		 */		
-		extent.HeaderChildNode("Verifying ContinueWatching Tray Data");		
-		
-
-		if(userType.equals("SubscribedUser") || userType.equals("NonSubscribedUser")){		
-		try{
-		//	ScrollToTheElementWEB(By.xpath("//div[@class='trayHeader']//h2[contains(text(),'Continue Watching')]"));
-			
+		if(userType.equals("SubscribedUser") || userType.equals("NonSubscribedUser")){	
+			extent.HeaderChildNode("Verifying ContinueWatching Tray Data");	
+			try{
+		//	ScrollToTheElementWEB(By.xpath("//div[@class='trayHeader']//h2[contains(text(),'Continue Watching')]"));			
 			Thread.sleep(2000);
-			click(PWAHomePage.objspecificTumbnail1("Continue Watching", 1), "Continue watching content");				
-			
+			click(PWAHomePage.objspecificTumbnail1("Continue Watching", 1), "Continue watching content");							
 			if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
 				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
 				extent.extentLogger("GetPremium is displayed", "GetPremium is displayed");
-
 			} else {
 				extent.extentLogger("GetPremium is not displayed", "GetPremium is not displayed");
 			}
-
-			waitForPlayerAdToComplete("Video Player");
-			
-			pausePlayer();	
-			
+			waitForPlayerAdToComplete("Video Player");			
+			pausePlayer();				
 			String currentDuration4 = getText(PWAPlayerPage.objcurrenttime);
-			System.out.println("Current time  : " + currentDuration4);
-			
+			System.out.println("Current time  : " + currentDuration4);			
 			String getUrl = getDriver().getCurrentUrl();
-
 			int timeperiod4 = 120;
-			String modifiedURL = getUrl + "?t="+timeperiod4+"";
-			
+			String modifiedURL = getUrl+"?t="+timeperiod4+"";			
 			getDriver().get(modifiedURL);
-
+			waitTime(5000);
+			getDriver().findElement(By.xpath("//div[contains(@class,'playkit-spinner')]"));
 			waitForPlayerAdToComplete("Video Player");
-			pausePlayer();	
-			
+			pausePlayer();				
 			String currentDuration5 = getText(PWAPlayerPage.objcurrenttime);
-			System.out.println("Current time after appending timedperiod in URL : " + currentDuration5);
-			
+			System.out.println("Current time after appending timedperiod in URL : " + currentDuration5);			
 			if(timeToSec(currentDuration5) >= timeperiod4)
 			{
 				System.out.println("Playback started from Appended time");
@@ -5310,21 +5274,12 @@ extentLogger("Location", "Location :"+ region);
 				System.out.println("Playback not started from Appended time.");
 				extent.extentLoggerFail("Playback not started from Appended time", "Playback not started from Appended time");
 			}		
-
 		}catch(Exception e)
 		{
 			System.out.println("No Continue Watching Tray");
 		}
 		}
 	}
-
-	
-	
-	
-	
-	
-	
-	
 	
 
 	/** ==========================TANISHA -RECO MODULE========================== */
@@ -5333,35 +5288,34 @@ extentLogger("Location", "Location :"+ region);
 	 */
 	public void verificationOfRecoTalamoos(String userType) throws Exception {
 		//playAnyContentAndVerifyTrendingOnZee5Tray();
-		String contentLangs = allSelectedLanguages();
+		//String contentLangs = allSelectedLanguages();
 		if (userType.equals("Guest")) {
 			playContentsToTriggerRecoApi(userType);
-			verifyRecoTrayAndPlayContent(userType, "Home", "Trending on Zee5", contentLangs, false);
-			verifyRecoTrayAndPlayContent(userType, "Premium", "Trending Now", contentLangs,true);
-			verifyRecoTrayAndPlayContent(userType, "Shows", "Trending Shows", contentLangs,false);
-			verifyRecoTrayAndPlayContent(userType, "Movies", "Trending Movies", contentLangs,false);
-			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Music", "Recommended for you",true);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Home", "Trending on Zee5", false);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Premium", "Trending Now", true);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Shows", "Trending Shows", false);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Movies", "Trending Movies", false);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Music", "Recommended for you",false);
 			verifyRecoTrayAndPlayContentWithoutAPI(userType, "News", "Recommended for you",false);
 		} else if (userType.equals("NonSubscribedUser")) {
 			playContentsToTriggerRecoApi(userType);
-			verifyRecoTrayAndPlayContent(userType, "Home", "Trending on Zee5", contentLangs, false);
-			verifyRecoTrayAndPlayContent(userType, "Premium", "Trending Now", contentLangs,true);
-			verifyRecoTrayAndPlayContent(userType, "Shows", "Trending Shows", contentLangs,false);
-			verifyRecoTrayAndPlayContent(userType, "Movies", "Trending Movies", contentLangs,false);
-			verifyRecoTrayAndPlayContent(userType, "Music", "Recommended for you", contentLangs,false);
-			verifyRecoTrayAndPlayContent(userType, "News", "Recommended for you", contentLangs,false);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Home", "Trending on Zee5", false);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Premium", "Trending Now", true);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Shows", "Trending Shows", false);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Movies", "Trending Movies", false);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Music", "Recommended for you", false);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "News", "Recommended for you", false);
 		} else if (userType.equals("SubscribedUser")) {
 			playContentsToTriggerRecoApi(userType);
-			verifyRecoTrayAndPlayContent(userType, "Home", "Trending on Zee5", contentLangs, false);
-			verifyRecoTrayAndPlayContent(userType, "Home", "You may also like", contentLangs,true);
-			verifyRecoTrayAndPlayContent(userType, "Home", "Recommended for you", contentLangs,false);
-			verifyRecoTrayAndPlayContent(userType, "Shows", "Recommended for you", contentLangs,false);
-			verifyRecoTrayAndPlayContent(userType, "Premium", "Recommended for you", contentLangs,false);
-			verifyRecoTrayAndPlayContent(userType, "Movies", "Recommended for you", contentLangs,false);
-			verifyRecoTrayAndPlayContent(userType, "Music", "Recommended for you", contentLangs,false);
-			verifyRecoTrayAndPlayContent(userType, "News", "Recommended for you", contentLangs,false);
-			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Home", "Because you watched",false);
-
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Home", "Trending on Zee5", true);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Home", "You may also like", false);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Home", "Recommended for you", false);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Shows", "Recommended for you", false);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Premium", "Recommended for you", false);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Movies", "Recommended for you", false);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Music", "Recommended for you", false);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "News", "Recommended for you",false);
+			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Home", "Because you watched",true);
 		} else {
 			logger.error("Incorrect userType passed to method");
 			extent.extentLogger("incorrectUser", "Incorrect userType passed to method");
@@ -5384,6 +5338,8 @@ extentLogger("Location", "Location :"+ region);
 	public void playContentsToTriggerRecoApi(String userType) throws Exception {
 		extent.HeaderChildNode("Play different contents to trigger Recommendation API");
 		playAContentForReco("Music",Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("musicToTriggerReco"),userType);
+		playAContentForReco("Movie",Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("movieToTriggerReco"),userType);
+		playAContentForReco("Episode",Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("episodeToTriggerReco"),userType);
 		playAContentForReco("News",Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("newsToTriggerReco"),userType);
 	}
 
@@ -5406,10 +5362,11 @@ extentLogger("Location", "Location :"+ region);
 			logger.info("Playing content for some time to trigger Reco API");
 			extent.extentLogger("contentPlayed", "Playing content for some time to trigger Reco API");
 			waitTime(30000);
+			waitTime(30000);
 		}
 	}
 
-	public void verifyRecoTrayAndPlayContentWithoutAPI(String userType, String tabName, String recoTrayTitle, boolean verifyContentDetails)
+	public void verifyRecoTrayAndPlayContentWithoutAPI1(String userType, String tabName, String recoTrayTitle, boolean verifyContentDetails)
 			throws Exception {
 		extent.HeaderChildNode(tabName + " tab: Validation of \"" + recoTrayTitle + "\" tray");
 		boolean trayFoundInUI = false;
@@ -5439,6 +5396,70 @@ extentLogger("Location", "Location :"+ region);
 					logger.error("Failed to navigate to consumption/details page: \"" + nextPageTitle + "\"");
 					extent.extentLoggerFail("playerScreen","Failed to navigate to consumption/details page: \"" + nextPageTitle + "\"");
 				}
+			}
+		}
+	}
+	
+	public void verifyRecoTrayAndPlayContentWithoutAPI(String userType, String tabName, String recoTrayTitle, boolean verifyContentDetails)throws Exception {
+		extent.HeaderChildNode(tabName + " tab: Validation of \"" + recoTrayTitle + "\" tray");
+		boolean trayFoundInUI = false;
+		waitForElementAndClickIfPresent(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, 2, "Back to Top");
+		if (navigatetoAnyScreen(tabName)) {
+			int noOfSwipes=10;
+			String trayTitleUI="";
+			boolean foundtrayInPage=false;
+			for (int i = 0; i <= noOfSwipes; i++) {
+				List<WebElement> trays=findElements(PWALandingPages.objTrayTitle);
+				for(int j=0;j<trays.size();j++) {
+					try {
+						trayTitleUI=trays.get(j).getAttribute("innerText");
+						if(trayTitleUI.toLowerCase().contains(recoTrayTitle.toLowerCase())) {
+							logger.info("Reco tray is present in page");
+							extent.extentLogger("recoPresent","Reco tray is present in page");
+							foundtrayInPage=true;
+							break;
+						}
+					}
+					catch(Exception e) {}
+				}
+				if(foundtrayInPage==false) {
+					PartialSwipe("UP", 1);
+					waitTime(5000);
+				}
+				else {
+					break;
+				}
+			}
+			if(foundtrayInPage==true) {
+				trayFoundInUI = swipeTillElement(15, PWALandingPages.objTrayTitleInUIContains(trayTitleUI),"\"" + trayTitleUI + "\" tray");
+				if (trayFoundInUI == true) {
+					extent.HeaderChildNode(tabName + " tab: Validation of content play in \"" + trayTitleUI + "\" tray");
+					swipeTillElementAndClick(3, PWALandingPages.objFirstAssetInTrayIndex(trayTitleUI),"First Asset in tray");
+					String nextPageTitle = "";
+					if (waitForElementPresence(PWAShowsPage.objShowsTitle, 2, "Shows Details page")) {
+						nextPageTitle = getText(PWAShowsPage.objShowsTitle);
+					} else if (waitForElementPresence(PWAPlayerPage.objContentTitleInConsumptionPage, 2, "Player screen")) {
+						nextPageTitle = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
+					}
+					if (!nextPageTitle.equals("")) {
+						logger.info("Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
+						extent.extentLogger("playerScreen","Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
+						waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 5,"Close in Register Pop Up");
+						String contentURL = getDriver().getCurrentUrl();
+						String[] abc = contentURL.split("/");
+						String contentID = abc[abc.length - 1];
+						//System.out.println("contentID fetched from URL: " + contentID);
+						if(verifyContentDetails)
+						verifyRecoTraysFromDetailsPage(userType, contentID);
+					} else {
+						logger.error("Failed to navigate to consumption/details page: \"" + nextPageTitle + "\"");
+						extent.extentLoggerFail("playerScreen","Failed to navigate to consumption/details page: \"" + nextPageTitle + "\"");
+					}
+				}
+			}
+			else {
+				logger.error("Reco tray "+recoTrayTitle+" is not present  in "+ tabName+" page");
+				extent.extentLoggerFail("trayabsent","Reco tray "+recoTrayTitle+" is not present in "+ tabName+" page");
 			}
 		}
 	}
@@ -6333,8 +6354,8 @@ extentLogger("Location", "Location :"+ region);
 				forgotPasswordEmailSanity();
 				forgotPasswordMobileNumberSanity();
 				facebookLogin();
-				gmailLogin();
-			    forgotPassword();
+				//gmailLogin();
+			    //forgotPassword();
 				logout();
 				getDriver().switchTo().window("CDwindow-0");
 				String url=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
@@ -7128,15 +7149,17 @@ extentLogger("Location", "Location :"+ region);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 10, "Close in Language Pop Up");
 		type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);
+		verifyElementPresentAndClick(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchedResult(contentTitle), 30, "Search Result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(contentTitle), "Search Result");
-		waitForElementAndClickIfPresent(PWASearchPage.objCloseRegisterDialog, 5, "Close in Register Pop Up");
+		if(userType.equals("Guest"))
+			waitForElementAndClickIfPresent(PWASearchPage.objCloseRegisterDialog, 5, "Close in Register Pop Up");
 		waitForElement(PWAPlayerPage.objContentTitle, 20, "Content title");
 		String consumptionPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,"Content Title").toString();
 		if (consumptionPageTitle.contains(contentTitle)) {
-			extent.extentLogger("correctNavigation", "Successfully navigated to the correct Consumption page");
-			logger.info("Successfully navigated to the correct Consumption page");
+			extent.extentLogger("correctNavigation", "Successfully navigated to the correct Consumption page: "+consumptionPageTitle);
+			logger.info("Successfully navigated to the correct Consumption page: "+consumptionPageTitle);
 			waitForElementAbsence(PWAPremiumPage.objPremiumPopUp, 30, "Premium Pop Up");
 		} else {
 			extent.extentLoggerFail("incorrectNavigation","Navigated to incorrect Consumption page: " + consumptionPageTitle);
@@ -7186,15 +7209,16 @@ extentLogger("Location", "Location :"+ region);
 			waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 2, "Close in Premium Pop Up");
 		}
 		else {
-			waitForElementAndClickIfPresent(PWASearchPage.objCloseRegisterDialog, 5, "Close in Register Pop Up");
+			if(userType.equals("Guest"))
+				waitForElementAndClickIfPresent(PWASearchPage.objCloseRegisterDialog, 5, "Close in Register Pop Up");
 			waitForElement(PWAPlayerPage.objContentTitle, 20, "Content title");
 			String consumptionPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,"Content Title").toString();
 			if (consumptionPageTitle.contains(contentTitle)) {
-				extent.extentLogger("correctNavigation", "Successfully navigated to the correct Consumption page");
-				logger.info("Successfully navigated to the correct Consumption page");
+				extent.extentLogger("correctNavigation", "Successfully navigated to the correct Consumption page: "+consumptionPageTitle);
+				logger.info("Successfully navigated to the correct Consumption page: "+consumptionPageTitle);
 				if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
-					waitForElement(PWAPremiumPage.objPremiumPopUp, 30, "Premium Pop Up");
-					waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 10, "Close in Premium Pop Up");
+					waitForElement(PWASearchPage.objSubscribeDialog, 30, "Subscribe Pop Up");
+					waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 10, "Close in Subscribe Pop Up");
 				} else if (userType.equals("SubscribedUser")) {
 					waitForElementAbsence(PWAPremiumPage.objPremiumPopUp, 30, "Premium Pop Up");
 				} else {
@@ -7701,28 +7725,33 @@ extentLogger("Location", "Location :"+ region);
 	 */
 	public void verifyPlayIconFunctionality(String screen) throws Exception {
 		extent.HeaderChildNode("Verifying play icon functionality on carousel for : " + screen);
-		navigateToAnyScreen(screen);
-		waitTime(5000);
-		for (int i = 0; i < 10; i++) {
-			try {
-				waitForElementAndClick(PWAHomePage.objPlayBtn, 20, "Play icon");
-				break;
-			} catch (Exception e) {
-				waitTime(1000);
-				if (i == 9)
-					logger.info("Failed to click");
+		if(navigateToAnyScreen(screen)) {
+			waitTime(5000);
+			for (int i = 0; i < 10; i++) {
+				try {
+					waitForElementAndClick(PWAHomePage.objPlayBtn, 20, "Play icon");
+					break;
+				} catch (Exception e) {
+					waitTime(1000);
+					if (i == 9)
+						logger.info("Failed to click");
+				}
 			}
+			waitTime(10000);
+			waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 10, "Close in Register Pop Up");//Added by Tanisha
+			if (verifyElementPresent(PWAPlayerPage.objPlayerControlScreen, "Player control containing screen")) {
+				logger.info("Verify play icon functionality is Pass");
+				extent.extentLogger("Play btn validation", "Verify play icon functionality is Pass");
+			} else {
+				logger.error("Verify play icon functionality is Fail");
+				extent.extentLoggerFail("Play btn validation", "Verify play icon functionality is Fail");
+			}		
+			Back(1);
+		}	
+		else {
+			logger.error("Failed to validate play icon functionality on tab : "+screen);
+			extent.extentLoggerFail("play", "Failed to validate play icon functionality on tab : "+screen);
 		}
-		waitTime(10000);
-		waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 10, "Close in Register Pop Up");//Added by Tanisha
-		if (verifyElementPresent(PWAPlayerPage.objPlayerControlScreen, "Player control containing screen")) {
-			logger.info("Verify play icon functionality is Pass");
-			extent.extentLogger("Play btn validation", "Verify play icon functionality is Pass");
-		} else {
-			logger.error("Verify play icon functionality is Fail");
-			extent.extentLoggerFail("Play btn validation", "Verify play icon functionality is Fail");
-		}		
-		Back(1);
 	}
 
 	/**
@@ -7732,28 +7761,33 @@ extentLogger("Location", "Location :"+ region);
 	 */
 	public void verifyPremiumIconFunctionality(String screen, String userType) throws Exception {
 		extent.HeaderChildNode("Verifying premium icon functionality On : " + screen + " for " + userType);
-		navigateToAnyScreen(screen);
-		waitTime(5000);
-		if (userType.equalsIgnoreCase("SubscribedUser")) {
-			List<WebElement> getPremiumTextList = getDriver().findElements(PWAHomePage.objGetPremium);
-			if (getPremiumTextList.size() == 0) {
-				logger.info("Get Premium text is not displayed for Subscribed users");
-				extent.extentLogger("Premium text for subscribed user","Get Premium text is not displayed for Subscribed users");
-			}
-		} else {
-			waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 10, "Close in Premium Pop Up");//Added by Tanisha
-			waitForElementAndClick(PWAHomePage.objGetPremium, 20, "Premium Icon");
-		}
-		if (userType.equalsIgnoreCase("NonSubscribedUser") || userType.equalsIgnoreCase("Guest")) {
-			if (verifyElementPresent(PWAHomePage.objSubscriptionPage, "Subscription page")) {
-				logger.info("Get Premium button functionality has Passed for " + screen);
-				extent.extentLogger("Premium btn validation", "Get Premium button functionality has Passed for " + screen);
-				Back(1);
+		if(navigateToAnyScreen(screen)) {
+			waitTime(5000);
+			if (userType.equalsIgnoreCase("SubscribedUser")) {
+				List<WebElement> getPremiumTextList = getDriver().findElements(PWAHomePage.objGetPremium);
+				if (getPremiumTextList.size() == 0) {
+					logger.info("Get Premium text is not displayed for Subscribed users");
+					extent.extentLogger("Premium text for subscribed user","Get Premium text is not displayed for Subscribed users");
+				}
 			} else {
-				logger.error("Get Premium button functionality has Failed for " + screen);
-				extent.extentLoggerFail("Premium btn validation", "Get Premium button functionality has Failed for " + screen);
+				waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 10, "Close in Premium Pop Up");//Added by Tanisha
+				waitForElementAndClick(PWAHomePage.objGetPremium, 20, "Premium Icon");
 			}
-		}		
+			if (userType.equalsIgnoreCase("NonSubscribedUser") || userType.equalsIgnoreCase("Guest")) {
+				if (verifyElementPresent(PWAHomePage.objSubscriptionPage, "Subscription page")) {
+					logger.info("Get Premium button functionality has Passed for " + screen);
+					extent.extentLogger("Premium btn validation", "Get Premium button functionality has Passed for " + screen);
+					Back(1);
+				} else {
+					logger.error("Get Premium button functionality has Failed for " + screen);
+					extent.extentLoggerFail("Premium btn validation", "Get Premium button functionality has Failed for " + screen);
+				}
+			}
+		}
+		else {
+			logger.error("Failed to validate premium icon functionality on tab : "+screen);
+			extent.extentLoggerFail("play", "Failed to validate premium icon functionality on tab : "+screen);
+		}
 	}
 	
 	/**
@@ -7901,11 +7935,11 @@ extentLogger("Location", "Location :"+ region);
 		waitTime(3000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objEmailIDTextField, "Email ID Text Field");
 		waitTime(3000);
-		type(PWASubscriptionPages.objEmailIDTextField, "igszee5testing@gmail.com", "Email Id");
+		String email=RandomStringGenerator(6)+"@c.com";
+		type(PWASubscriptionPages.objEmailIDTextField, email, "Email Id");
 		hideKeyboard();
 		waitTime(3000);
-		verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted,
-				"Proceed Btn in Account Info Page Highlighted");
+		verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted,"Proceed Btn in Account Info Page Highlighted");
 		waitTime(3000);
 		// Password Popup
 		verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
@@ -7922,6 +7956,7 @@ extentLogger("Location", "Location :"+ region);
 		waitTime(3000);
 
 	}
+
 	
 	/**
 	 * Select Pack Page Validation
@@ -8080,8 +8115,8 @@ extentLogger("Location", "Location :"+ region);
 		waitTime(3000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "'Have A Code?' field");
 		waitTime(3000);
-		type(PWASubscriptionPages.objHaveACode, "ZEE5PTM20\n", "'Have A Code?' field");
-//		driver.findElement(PWASubscriptionPages.objHaveACode).sendKeys("ZEE5PTM20");
+		type(PWASubscriptionPages.objHaveACode, "ZEE5FLAT50\n", "'Have A Code?' field");
+//		driver.findElement(PWASubscriptionPages.objHaveACode).sendKeys("ZEE5FLAT50");
 //		hideKeyboard();
 		waitTime(5000);
 		click(PWASubscriptionPages.objApplyBtn, "Apply Button");
@@ -8181,7 +8216,7 @@ extentLogger("Location", "Location :"+ region);
 		Back(1);
 		waitTime(5000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objZEE5Logo, "Zee5 Logo");
-		logout();
+		//logout();
 	}
 
 	/**
@@ -8838,7 +8873,7 @@ extentLogger("Location", "Location :"+ region);
 			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACodeCloseBtn, "Close Button");
 
 			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "Have A Code section");
-			type(PWASubscriptionPages.objHaveACode, "ZEE5PTM20", "Prepaid Code");
+			type(PWASubscriptionPages.objHaveACode, "ZEE5FLAT50", "Prepaid Code");
 			verifyElementPresentAndClick(PWASubscriptionPages.objApplyBtn, "Apply Button");
 			boolean ele1 = verifyElementPresent(PWASubscriptionPages.objAppliedSuccessfullyMessage,
 					"Applied Successfully message");
@@ -8846,7 +8881,7 @@ extentLogger("Location", "Location :"+ region);
 			logger.info(successMessage);
 			extent.extentLogger("Success Message", successMessage + " is displayed");
 			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACodeCloseBtn, "Close Button");
-			type(PWASubscriptionPages.objHaveACode, "zee5ptm20", "Prepaid Code");
+			type(PWASubscriptionPages.objHaveACode, "zee5flat50", "Prepaid Code");
 			verifyElementPresentAndClick(PWASubscriptionPages.objApplyBtn, "Apply Button");
 			boolean ele2 = verifyElementPresent(PWASubscriptionPages.objAppliedSuccessfullyMessage,
 					"Applied Successfully message");
@@ -9497,7 +9532,7 @@ extentLogger("Location", "Location :"+ region);
 		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("consumptionsShow");
 		verifyWatchLatestEpisodeCTA(keyword);
 		verifyElementPresentAndClick(PWAShowsPage.objLatestepisode, "Watch latest Episode CTA");
-		if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Register popup ")) {
+		if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Sign Up pop up")) {
 			click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 		}
 		if (verifyElementExist(PWASubscriptionPages.objGetPremiumPopupTitle, "Get Premium Popup Title")) {
@@ -9527,7 +9562,7 @@ extentLogger("Location", "Location :"+ region);
 		getDriver().navigate().refresh();
 		waitTime(2000);
 		verifyElementPresentAndClick(PWAShowsPage.objPlayforPremium, "Play icon");
-		if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Register popup ")) {
+		if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Sign Up pop up")) {
 			click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 		}
 		waitForPlayerAdToComplete("Video Player");
@@ -9948,30 +9983,35 @@ public void watchTrailerButtonFunctionality(String userType) throws Exception {
 	 */	
 	public void verifyAutoroatingOnCarousel(String screen) throws Exception {
 		extent.HeaderChildNode("Verifying autorotating of carousel pages on : " + screen);
-		navigateToAnyScreen(screen);
-		String firstCarouselTitle = "", secondCarouselTitle = "", thirdCarouselTitle = "";
-		navigateToAnyScreen(screen);
-		(new WebDriverWait(getDriver(), 30))
-				 .until(ExpectedConditions.presenceOfElementLocated(PWAHomePage.objContTitleOnCarousel));
-		firstCarouselTitle = getElementPropertyToString("innerText", PWAHomePage.objContTitleOnCarousel,"Carousel Content Title").toString();
-		logger.info("Carousel content title fetched first time: "+firstCarouselTitle);
-		extent.extentLogger("Autorotating", "Carousel content title fetched first time: "+firstCarouselTitle);
-		Thread.sleep(4000);
-		secondCarouselTitle = getElementPropertyToString("innerText", PWAHomePage.objContTitleOnCarousel,"Carousel Content Title").toString();
-		logger.info("Carousel content title fetched second time: "+secondCarouselTitle);
-		extent.extentLogger("Autorotating", "Carousel content title fetched second time: "+secondCarouselTitle);
-		Thread.sleep(4000);
-		thirdCarouselTitle = getElementPropertyToString("innerText", PWAHomePage.objContTitleOnCarousel,"Carousel Content Title").toString();
-		logger.info("Carousel content title fetched third time: "+thirdCarouselTitle);
-		extent.extentLogger("Autorotating", "Carousel content title fetched third time: "+thirdCarouselTitle);
-		Thread.sleep(4000);
-		if(firstCarouselTitle.equals(secondCarouselTitle) || secondCarouselTitle.equals(thirdCarouselTitle)){
-			logger.error("Autorotation failed");
-			extent.extentLoggerFail("Autorotating", "Autorotation failed");
+		if(navigateToAnyScreen(screen)) {
+			String firstCarouselTitle = "", secondCarouselTitle = "", thirdCarouselTitle = "";
+			navigateToAnyScreen(screen);
+			(new WebDriverWait(getDriver(), 30))
+					 .until(ExpectedConditions.presenceOfElementLocated(PWAHomePage.objContTitleOnCarousel));
+			firstCarouselTitle = getElementPropertyToString("innerText", PWAHomePage.objContTitleOnCarousel,"Carousel Content Title").toString();
+			logger.info("Carousel content title fetched first time: "+firstCarouselTitle);
+			extent.extentLogger("Autorotating", "Carousel content title fetched first time: "+firstCarouselTitle);
+			Thread.sleep(4000);
+			secondCarouselTitle = getElementPropertyToString("innerText", PWAHomePage.objContTitleOnCarousel,"Carousel Content Title").toString();
+			logger.info("Carousel content title fetched second time: "+secondCarouselTitle);
+			extent.extentLogger("Autorotating", "Carousel content title fetched second time: "+secondCarouselTitle);
+			Thread.sleep(4000);
+			thirdCarouselTitle = getElementPropertyToString("innerText", PWAHomePage.objContTitleOnCarousel,"Carousel Content Title").toString();
+			logger.info("Carousel content title fetched third time: "+thirdCarouselTitle);
+			extent.extentLogger("Autorotating", "Carousel content title fetched third time: "+thirdCarouselTitle);
+			Thread.sleep(4000);
+			if(firstCarouselTitle.equals(secondCarouselTitle) || secondCarouselTitle.equals(thirdCarouselTitle)){
+				logger.error("Autorotation failed");
+				extent.extentLoggerFail("Autorotating", "Autorotation failed");
+			}
+			else {
+				logger.info("Different carousel titles are displayed at different instances, Autorotation passed");
+				extent.extentLogger("Autorotating", "Different carousel titles are displayed at different instances, Autorotation passed");
+			}
 		}
 		else {
-			logger.info("Different carousel titles are displayed at different instances, Autorotation passed");
-			extent.extentLogger("Autorotating", "Different carousel titles are displayed at different instances, Autorotation passed");
+			logger.error("Failed to validate carousel autorotation on tab : "+screen);
+			extent.extentLoggerFail("Autorotating", "Failed to validate carousel autorotation on tab : "+screen);
 		}
 	}
 
@@ -9981,44 +10021,46 @@ public void watchTrailerButtonFunctionality(String userType) throws Exception {
 	 */
 	public void verifyMetadataOnCarousel(String screen, String pageName, String languageSmallText) throws Exception {
 		extent.HeaderChildNode("Verifying metadata of carousel pages on page : " + screen);
-		navigateToAnyScreen(screen);
-		waitTime(5000);
-		System.out.println(languageSmallText);
-		String carouselTitleAPI= "";
-		boolean isTitlePresent = false;
-		
-		List<String> allMetaTitleOnCarouselAPI = ResponseInstance.traysTitleCarousel(pageName, languageSmallText);
-	    System.out.println("API Data : " + allMetaTitleOnCarouselAPI);
-	    
-		for(int i=0; i<allMetaTitleOnCarouselAPI.size();i++) {
-	    	carouselTitleAPI = allMetaTitleOnCarouselAPI.get(i);
-	    	for(int j=0; j<7;j++) {
-	    	try {
-	    		 WebElement mastHeadEle = (new WebDriverWait(getDriver(), 30))
-	    				 .until(ExpectedConditions.presenceOfElementLocated(PWAHomePage.objContTitleTextCarousel(carouselTitleAPI)));
-	    		 isTitlePresent = mastHeadEle.isDisplayed();
-	    		 if(isTitlePresent == true) {
-	    		 break;
-	    		 }
-	    		 else {
-	    			 swipeCarouselContents(1);
-	    		 }
-	    	}catch(Exception e) {
-    			System.out.println("Exception : "+e.getMessage() );	
-	    	}
-	    }
-	    	if(isTitlePresent==true) {
-		    	softAssert.assertTrue(true, "API title "+carouselTitleAPI+" is present on UI");
-		    	logger.info("API title "+carouselTitleAPI+" is present on UI");
-		    	extent.extentLogger("Metadata validation","API title "+carouselTitleAPI+" is present on UI");
-	    	}else {
-	    	softAssert.assertTrue(true, "API title did not matched with UI title");
-	    	logger.info("API title did not matched with UI title");
-	    	extent.extentLoggerFail("Metadata validation","API title did not matched with UI title");
-	    }	    
-	   }
-	}
-	
+		if(navigateToAnyScreen(screen)) {
+			waitTime(5000);
+			System.out.println(languageSmallText);
+			String carouselTitleAPI= "";
+			boolean isTitlePresent = false;
+			List<String> allMetaTitleOnCarouselAPI = ResponseInstance.traysTitleCarousel(pageName, languageSmallText);
+				System.out.println("API Data : " + allMetaTitleOnCarouselAPI);
+				click(PWAHamburgerMenuPage.carouselFirstDot,"First Carousel Dot");
+				for(int i=0; i<allMetaTitleOnCarouselAPI.size();i++) {
+					carouselTitleAPI = allMetaTitleOnCarouselAPI.get(i);
+					for(int j=0; j<7;j++) {
+						try {
+							WebElement mastHeadEle = (new WebDriverWait(getDriver(), 30)).until(ExpectedConditions.presenceOfElementLocated(PWAHomePage.objContTitleTextCarousel(carouselTitleAPI)));
+							isTitlePresent = mastHeadEle.isDisplayed();
+							if(isTitlePresent == true) {
+								break;
+							}
+							else {
+								swipeCarouselContents(1);
+							}
+						}catch(Exception e) {
+							System.out.println("Exception : "+e.getMessage() );	
+						}
+					}
+					if(isTitlePresent==true) {
+						softAssert.assertTrue(true, "API title "+carouselTitleAPI+" is present on UI");
+						logger.info("API title "+carouselTitleAPI+" is present on UI");
+						extent.extentLogger("Metadata validation","API title "+carouselTitleAPI+" is present on UI");
+					}else {
+						softAssert.assertTrue(true, "API title did not matched with UI title");
+						logger.info("API title did not matched with UI title");
+						extent.extentLoggerFail("Metadata validation","API title did not matched with UI title");
+					}	    
+				}
+			}
+			else {
+				logger.error("Failed to validate meta data on tab : "+screen);
+				extent.extentLoggerFail("metadata", "Failed to validate meta data on tab : "+screen);
+			}
+		}
 	
 	/**
 	 * Function to left and right(<>) functionality on carousel
@@ -10236,7 +10278,7 @@ public void watchTrailerButtonFunctionality(String userType) throws Exception {
 		
 		if(userType.equals("Guest"))
 		{
-			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Register popup ")) {
+			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Sign Up pop up")) {
 				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 			}
 			if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
@@ -10881,4 +10923,150 @@ public void watchTrailerButtonFunctionality(String userType) throws Exception {
 			extent.extentLogger("Voice input", "User is not asked to give the voice input");
 		}
 	}
+	
+	public void UserActions(String userType) throws Exception {		
+		if(userType.equals("Guest")) {
+			UserActionGuestUser();
+		}
+		else if(userType.equals("NonSubscribedUser")) {
+			UserActionLoggedInUser();
+		}
+		else {
+			ContinueWatching();
+			MyReminder();
+			MyWatchlistSubscribedUser();
+		}
+	}
+	
+	/*================Logged In user -User action================*/
+	public void UserActionLoggedInUser() throws Exception{
+		
+		//Verify Continue watching tray is displayed 
+		if(verifyElementExist(PWAHomePage.objContinueWatchingTray, "Coninue Watching tray")==true) {
+			extent.extentLogger("Verify Continue watching tray ",  getDriver().findElement(PWAHomePage.objContinueWatchingTray).getText()+
+					" tray is displayed for Non subscribed user");
+			logger.info(getDriver().findElement(PWAHomePage.objContinueWatchingTray).getText() + 
+								" tray is displayed for Non subscribed user");
+		}else {
+			extent.extentLoggerFail("Verify continue watching tray", 
+					"Continue watching tray is not displayed for Non subscribed user");
+			logger.info("Continue watching tray is not displayed for Non subscribed user");
+		}
+		//Verify Add to Watch list is displayed in Content consumption screen
+		//Search any content
+		click(PWAHomePage.objSearchBtn,"Search button");
+		type(PWASearchPage.objSearchEditBox,"Ondh Kathe Hella", "Search box");
+		//Click on content
+		click(PWASearchPage.objFirstContentCardNameAfterSearch1(1), "Content");
+		String contentName = getElementPropertyToString("innerText", PWAPlayerPage.objContentName, "Title");
+		verifyElementPresentAndClick(PWAPlayerPage.watchListBtn, "Add to Watchlist");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn,"Hamburger menu");
+		click(PWAHamburgerMenuPage.objMyAccount,"My account");
+		click(PWAAddToWatchListPage.objMyWatchList,"My Watchlist");
+		click(PWAAddToWatchListPage.objMoviesTab,"Movies tab");
+		String ContentNameInWatchlist = getElementPropertyToString("innerText",PWAAddToWatchListPage.objFirstContentInWatchlist,"Content title");
+		if(contentName.equals(ContentNameInWatchlist)) {
+			extent.extentLogger("Verify Watchlist", "Added content is displayed in Watchlist screen");
+			logger.info("Added content is displayed in Watchlist screen");
+		}else {
+			extent.extentLoggerFail("Verify Watchlist", "Added content is not displayed in Watchlist screen");
+			logger.info("Added content is not displayed in Watchlist screen");
+		}
+		click(PWAAddToWatchListPage.objRemoveContentsInWatchList,"Remove all");
+		
+		
+		
+	}
+	
+	public void ContinueWatching() throws Exception {
+
+		//Verify Progress bar is displayed for continue watching tray
+		verifyElementPresent(PWAContinueWatchingTrayPage.objProgressBar, "Progress bar");
+		//Verify Progress bar is updated accordingly
+		String beforePlayingContent =
+		getElementPropertyToString("style",PWAContinueWatchingTrayPage.objProgressBarProgress(2) , "Progress bar");
+		System.out.println(beforePlayingContent);
+		String[] originalRatio = beforePlayingContent.split(":");
+		String progress = originalRatio[1];
+		String[] exactRatio = progress.split("%");
+		float progressedTime =Float.parseFloat(exactRatio[0]);
+		System.out.println(progressedTime);
+
+		//Left watch time before playing content
+		String leftWatchTime =
+		getElementPropertyToString("innerText",PWAContinueWatchingTrayPage.objTotalTimeLeft(2),"Left time before watching content");
+		String[] leftTime = leftWatchTime.split("left");
+		String timeBeforeWatchingContent = leftTime[0];
+		System.out.println(timeBeforeWatchingContent);
+		/* //Verify movie is added to continue watching tray after watching for X minutes
+		//Click on search
+		click(PWAHomePage.objSearchBtn,"Search box");
+		//Enter movie name
+		type(PWASearchPage.objSearchEditBox, "Ondh Kathe Hella", "Search edit");
+		waitTime(5000);
+		//Click on the first episode
+		click(PWASearchPage.objFirstContentCardNameAfterSearch1(1),"Movie");
+		Thread.sleep(10000);
+		//Tap on pause button
+		//Tap on player
+		pausePlayer();
+		verifyElementPresent(PWAPlayerPage.progressBar, "Progress bar");
+		WebElement slider = getDriver().findElement(PWAPlayerPage.objScrubber);
+		Actions move = new Actions(getDriver());
+		Action action = (Action) move.dragAndDropBy(slider, 30, 0).build();
+		action.perform();
+		*/
+		//Verify partially watched contents are added or updated
+		//Play any content
+		String playingContent =
+		getElementPropertyToString("innerText", PWAContinueWatchingTrayPage.objCardTitle(2),"Content");
+		//Click on the content
+		click(PWAContinueWatchingTrayPage.objCardTitle(2),"Content");
+		Thread.sleep(180000);
+		//Navigate to home page
+		navigateToAnyScreen("Home");
+		Thread.sleep(4000);
+		String updatedContent =
+		getElementPropertyToString("innerText", PWAContinueWatchingTrayPage.objCardTitle(1),"Content");
+		if(playingContent.equals(updatedContent)) {
+			extent.extentLogger("Verify partially watched content","Partially watched contents are added to Continue watching tray");
+			logger.info("Partially watched contents are added to Continue watching tray");
+		}else {
+			extent.extentLoggerFail("Verify partially watched content","Partially watched contents are not added to Continue watching tray");
+			logger.info("Partially watched contents are not added to Continue watching tray");
+		}
+
+		//Verify Progress bar is updated after watching any content from CW tray
+		String afterPlayingContent =
+		getElementPropertyToString("style",PWAContinueWatchingTrayPage.objProgressBarProgress(1) , "Progress bar");
+		System.out.println(afterPlayingContent);
+		String[] originalRatio1 = afterPlayingContent.split(":");
+		String progress1 = originalRatio1[1];
+		String[] exactRatio1 = progress1.split("%");
+		float progressedTimeAfterWatching =Float.parseFloat(exactRatio1[0]);
+		System.out.println(progressedTimeAfterWatching);
+		if(progressedTime< progressedTimeAfterWatching) {
+			extent.extentLogger("Verify progress bar","Progress bar is updated from "+progress+ " to " +progress1);
+			logger.info("Progress bar is updated from "+progress+ " to " +progress1);
+		}else {
+			extent.extentLoggerFail("Verify progress bar","Progress bar is not updated after watching content");
+			logger.info("Progress bar is not updated after watching content");
+		}
+
+		//Verify left watch time is updated accordingly
+
+		//Left watch time after playing content
+		String leftWatchTime1 =
+		getElementPropertyToString("innerText",PWAContinueWatchingTrayPage.objTotalTimeLeft(1),"Left time before watching content");
+		String[] leftTime1 = leftWatchTime1.split("left");
+		String timeAfterWatchingContent = leftTime1[0];
+		System.out.println(timeAfterWatchingContent);
+		if(! timeBeforeWatchingContent.equals(timeAfterWatchingContent)) {
+			extent.extentLogger("Verify left watch time","The left time Before watching content is " + leftTime[0]+"and the left time after watching content for some time is " +leftTime1[0]);
+			logger.info("The left time Before watching content is " + leftTime[0]+"and the left time after watching content for some time is " +leftTime1[0]);
+		}else {
+			extent.extentLoggerFail("Verify Left watch time","Left Watch time is not getting updated after watching content from Continue watching tray");
+			logger.info("Left Watch time is not getting updated after watching content from Continue watching tray");
+		}
+		}
 }

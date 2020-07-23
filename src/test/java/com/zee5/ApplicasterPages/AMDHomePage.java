@@ -112,4 +112,17 @@ public class AMDHomePage {
 			public static By objGetPremiumPopUP = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title']");
 
 			public static By objGetPremiumPopUPProceedButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/proceed']");
+			
+/**
+ * Sushma
+ */
+			
+			//Selected tab
+			public static By objSelectedTab = By.xpath("//*[@resource-id='com.graymatrix.did:id/title' and @selected='true']");
+			//Carousel title
+			public static By objCarouselTitle = By.xpath("//*[@id='item_primary_text']");
+			//Carousel dots
+			public static By objCarouselDots = By.xpath("//*[@resource-id='com.graymatrix.did:id/indicator']/child::*");
+			
+			public static By objCarouselConetentCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/hero_1_cell_parent']");
 }

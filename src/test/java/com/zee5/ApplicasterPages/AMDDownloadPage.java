@@ -44,4 +44,12 @@ public class AMDDownloadPage {
 	//videos tab
 	public static By objvideostab= By.xpath("//*[@text='Videos']");
 	
+	/**
+	 * Bhavana
+	 */
+	public static By objGreyedThumbnail = By.xpath("//*[@id='downloadView' and @class='android.view.View']");
+	public static By objdownloadpopup = By
+			.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Pause Download']]");
+	public static By objPauseDownloadoption = By.xpath("//*[@id='tvPauseDownload']");
+	public static By objCancelDownloadOption = By.xpath("//*[@id='tvCancelDownload']");
 }

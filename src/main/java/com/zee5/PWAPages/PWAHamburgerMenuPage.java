@@ -29,6 +29,7 @@ public class PWAHamburgerMenuPage {
 
 //	Move Top Arrow Icon
 	public static By objMoveTopArrowIcon = By.xpath("//div[@class='iconNavi-ic_arrow_back']");
+	
 
 //	Play Store Button
 	public static By objPlayStoreBtn = By.xpath("//img[@alt='Google Play']");
@@ -604,6 +605,6 @@ public class PWAHamburgerMenuPage {
 	
 		public static By objDisplayLanguage = By.xpath("//*[contains(@class,'settingleft') and contains(text(),'Display Language')]");
 
-
+		public static By carouselFirstDot = By.xpath("(//*[contains(@class,'carouselDots')])[1]");
 	
 }

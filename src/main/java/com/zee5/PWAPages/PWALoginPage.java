@@ -113,9 +113,8 @@ public class PWALoginPage {
 	
 	public static By objForgotNextPageTextWEB = By.xpath("//div[@class='formHeader']");
 	
+	public static By objForgotNextPageResetPaswwordButtonWEB = By.xpath("//div[@class='gradientBtnContainer']//button[@class='noSelect buttonGradient ']");
 	
-	public static By objForgotNextPageResetPaswwordButtonWEB = By.xpath("//div[@class='gradientBtnContainer']//button[@class='noSelect buttonGradient null']");
-
 	public static By objLoginPageLoginBtnWEB = By.xpath("//div[@class='gradientBtnContainer']//span[contains(text(),'Login')]");
 
     public static By objLoginBtnWEB = By.xpath("//*[@class='loginBtn noSelect' and text()='Login']");
@@ -175,4 +174,6 @@ public class PWALoginPage {
 	public static By objCountryCodeAlgeria = By.xpath("//*[@class='react-dropdown-select-type-single' and text()='213']");
 	
 	public static By objCountryCodeAndoora = By.xpath("//*[@class='react-dropdown-select-type-single' and text()='376']");
+	
+	
 }

@@ -65,6 +65,11 @@ public class PWASearchPage {
 		return By.xpath("//div[@class='menuGrid']//h3[text()=\"" + objCollapsibleItems
 				+ "\"]//following-sibling::div//li//div");
 	}
+	
+	public static By objSearchMoviesTab = By.xpath("//div[contains(@class,'tabMenuItem') and @id='movies']");
+	
+	// Close icon in get premium dialog
+	public static By objSubscribeDialog = By.xpath("//*[contains(@class,'popupTitle') and .='Subscribe']");	
 
 	// Movies By Language
 	public static By objMoviesByLang = By.xpath("//h3[text()='Movies By Language']");
@@ -181,7 +186,7 @@ public class PWASearchPage {
 	
 	public static By objClearAllTextofRecentSearches = By.xpath("//div[text()='Clear All']");
 	public static By objEpisodeTitleInconsumptionPage(String title) {
-		return By.xpath("//h1[contains(text(),'" + title + "')]");
+		return By.xpath("//h1[contains(text(),'" + title + "')] | //a[text()='" + title + "']");
 	}
 	public static By objWEBWatchTrailerBtn = By.xpath("//p[contains(text(),'Watch Trailer')]");
 	public static By objFirstContentCardNameAfterSearch1(int index) {

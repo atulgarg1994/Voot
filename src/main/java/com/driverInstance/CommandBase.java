@@ -44,7 +44,7 @@ public class CommandBase extends DriverInstance {
 		this.retryCount = retryCount;
 	}
 
-	public CommandBase(String Application) throws InterruptedException {
+	public CommandBase(String Application)  {
 		super(Application);
 		init();
 	}

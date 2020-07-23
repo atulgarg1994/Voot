@@ -40,4 +40,7 @@ public class AMDGenericObjects {
 	}
 	
 	public static By objHideKeyboard = By.xpath("//*[@id='hide_btn']");
+	
+
+	public static By objCloseInterstitialAd = By.xpath("//*[@contentDescription='Interstitial close button'] | //*[@content-desc='Interstitial close button']");
 }

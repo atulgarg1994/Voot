@@ -104,6 +104,7 @@ public class Utilities extends ExtentReporter {
 			js = (JavascriptExecutor)getWebDriver();
 		} else if (getPlatform().equals("Android") || getPlatform().equals("MPWA")) {
 			wait = new WebDriverWait(getDriver(), getTimeout());
+			js = (JavascriptExecutor)getDriver();
 		}
 	}
 
@@ -1303,7 +1304,6 @@ public class Utilities extends ExtentReporter {
 	 */
 	public void switchToWindow(int noOfWindows) {
 		try {
-			WebDriverWait wait = new WebDriverWait(getWebDriver(), 20);
 			wait.until(ExpectedConditions.numberOfWindowsToBe(noOfWindows));
 			for (String winHandle : getWebDriver().getWindowHandles()) {
 				win.add(winHandle);
@@ -1680,4 +1680,53 @@ public class Utilities extends ExtentReporter {
          }
 	}
 
+	@SuppressWarnings("rawtypes")
+	public void carouselSwipe(String direction, int count) {
+		touchAction = new TouchAction(getDriver());
+		String dire = direction;
+		try {
+			if (dire.equalsIgnoreCase("LEFT")) {
+
+				for (int i = 0; i < count; i++) {
+					Dimension size = getDriver().manage().window().getSize();
+
+					int startx = (int) (size.width * 0.9);
+					int endx = (int) (size.width * 0.20);
+					int starty = size.height / 2;
+					touchAction.press(PointOption.point(startx, starty))
+							.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+							.moveTo(PointOption.point(endx, starty)).release().perform();
+					logger.info("Swiping screen in " + " " + dire + " direction" + " " + (i + 1) + " times");
+					extent.extentLogger("SwipeLeft",
+							"Swiping screen in " + " " + dire + " direction" + " " + (i + 1) + " times");
+				}
+			} else if (dire.equalsIgnoreCase("RIGHT")) {
+
+				for (int j = 0; j < count; j++) {
+					Dimension size = getDriver().manage().window().getSize();
+					int endx = (int) (size.width * 0.9);
+					int startx = (int) (size.width * 0.20);
+					if (size.height > 2000) {
+						int starty = (int) (size.height / 2);
+						touchAction.press(PointOption.point(startx, starty))
+								.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+								.moveTo(PointOption.point(endx, starty)).release().perform();
+					} else {
+						int starty = (int) (size.height / 1.5);
+						touchAction.press(PointOption.point(startx, starty))
+								.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+								.moveTo(PointOption.point(endx, starty)).release().perform();
+					}
+
+					logger.info("Swiping screen in " + " " + dire + " direction" + " " + (j + 1) + " times");
+					extent.extentLogger("SwipeRight",
+							"Swiping screen in " + " " + dire + " direction" + " " + (j + 1) + " times");
+				}
+			}
+		}
+		catch (Exception e) {
+			logger.error(e);
+
+		}
+  }
 }

@@ -39,15 +39,21 @@
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
-	</listeners>
-
-	<test name="Android_AppLaunch">
+	</listeners> 
+	
+	<!-- <test name="Android_AppLaunch">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_AppLaunch" /> 	 		
 		</classes>
+	</test> -->
+
+	<test name="Android_LandingPage">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_LandingPage" />	
+		</classes>
 	</test> 	
 	
-  	<test name="Android_Onboarding_Suite1">
+  	<!-- <test name="Android_Onboarding_Suite1">
 		<classes>	
 	    	<class name="com.zee5.ApplicasterScripts.Android_Onboarding_Suite1" />	  	
 		</classes>
@@ -81,7 +87,7 @@
     <classes>
       <class name="com.zee5.ApplicasterScripts.DeepLinkValidation"/>
     </classes> 
-  </test> 
+  </test>  -->
   
 
 </suite>

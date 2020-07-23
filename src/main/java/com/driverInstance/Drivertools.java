@@ -215,7 +215,7 @@ public class Drivertools {
 		
 		if (Stream.of("Android", "ios", "Web", "MPWA").anyMatch(getPlatform()::equals)) {
 
-			try {
+//			try {
 				setHandler(new PropertyFileReader("properties/ExecutionControl.properties"));
 				if (getHandler().getproperty(getTestName()).equals("Y")) {
 					logger.info("Running Test :: " + getTestName());
@@ -225,11 +225,10 @@ public class Drivertools {
 					logger.info("RunMode is :: No");
 					throw new SkipException(getTestName() + " : Test Skipped ");
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				logger.info("RunMode is required.");
-				throw new SkipException("Run mode is required...");
-			}
+//			} catch (Exception e) {
+//				logger.info("RunMode is required.");
+//				throw new SkipException("Run mode is required...");
+//			}
 		} else {
 			throw new SkipException("PlatForm not matched...");
 		}

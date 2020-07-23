@@ -64,6 +64,7 @@ public class PWALiveTVPage {
 		return By.xpath("//*[@class='cardTitle']//following::span[text()='"+title+"'][1]");
 	}
 	
+	
 	// Elapsed Meta Time data for the title
 	public static By objMetaTime(String title) {
 		return By.xpath("//*[contains(text(),'"+title+"')]//following::*[starts-with(text(),'Elapsed')][1]");
@@ -164,7 +165,7 @@ public class PWALiveTVPage {
 		
 		public static By objUpcomingShowContentDialoguebox = By.xpath("//div[@role='dialog']");
 		
-		public static By objFirstPremiumCardinTray = By.xpath("(//div[@class='cardPremiumContent'])[1]/preceding-sibling::img");
+		public static By objFirstPremiumCardinTray = By.xpath("//div[@class='cardPremiumContent']//parent::*//img");
 		
 		public static By objPremiumPopUp = By.xpath("//h2[contains(@class,'popupTitle') and text()='Get premium']");
 		
@@ -187,8 +188,7 @@ public class PWALiveTVPage {
 
 		public static By objTodayDate = By.xpath("//div[text()='Today']");
 		public static By objTomorrowDate = By.xpath("(//div[@class='active']//parent::*//following-sibling::*)[1]");
-		public static By objShowName = By
-				.xpath("(//*[@title='Zee Kannada']//parent::*//parent::*//following-sibling::*//div)[2]");
+		public static By objShowName = By.xpath("(//*[@title='Suvarna News' or @title='India Today' or @title='Republic TV' or @title='WION' or @title='DD India']//parent::*//parent::*//following-sibling::*//div)[2]");
 		public static By objRemainderButton = By.xpath("//div[contains(@class,'reminder')]");
 		public static By objPopupCloseButton = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 
@@ -241,6 +241,7 @@ public class PWALiveTVPage {
 		public static By objPunjabiShow = 
 				By.xpath("(//*[@title=\"Zee Punjabi\"]//parent::*//parent::*//following-sibling::*//following-sibling::*)[1]");
 		
+		
 				
 		//public static By objApplyBtn = By.xpath("//div[contains(@class,'popupBtn noSelect')]");
 		public static By objGenreBtn = By.xpath("//div[contains(@class,'noSelect genreHeader')]");
@@ -266,6 +267,7 @@ public class PWALiveTVPage {
 		public static By objparticularTime = By.xpath("//div[@class='timeSlot']/child::div[text()='8:00 PM']");
 		
 		public static By objShowNameweb= By.xpath("(//*[@title='Zee Kannada']//parent::*//parent::*//following-sibling::*//div[@class='noSelect programOuter']/child::*/child::*/child::div[contains(text(),'08:00 PM')])[2]");
+		
 		
 		
 		public static By objTwitterEmailField = By.xpath("//input[@name='session[username_or_email]']");

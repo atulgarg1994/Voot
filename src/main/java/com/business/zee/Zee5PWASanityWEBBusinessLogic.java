@@ -1630,6 +1630,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			waitTime(5000);
 			type(PWALoginPage.objForgotNextPageConfirmPasswordField, "User@123", "Confirm password");
 			click(PWALoginPage.objForgotNextPageResetPaswwordButtonWEB, "Reset password");
+//			if (verifyElementExist(PWAPlayerPage.objfasterPopUp, "faster popup ")) {
+//				click(PWAPlayerPage.objfasterclosePopUp, "faster Pop up close button");
+//			}
 			waitTime(10000);
 			if (verifyElementExist(PWALoginPage.objLoginPageLoginBtn, "LoginButton")) {
 				if (verifyElementExist(PWALoginPage.objEmailField, "Login page")) {
@@ -6066,6 +6069,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLogger("Popup", "PopUp is verifed in portrait mode");
 			click(PWASearchPage.objUpgradePopupCloseButton, "Close button");
 			logout();
+			validateDisplayLanguagePopup();
 		}
 	}
 
@@ -11857,8 +11861,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	public void contentLanguagewithDisplayLanguage(String userType) throws Exception {
 
 		// Changing display language to Kannada
-		verifyElementPresentAndClick(PWAHomePage.objLanguage, "Language button");
-		verifyElementPresentAndClick(PWAHomePage.objKannadaWEB, "Kannada option");
+		verifyElementPresentAndClick(PWAHomePage.objLanguage, "Language button");		
+		verifyElementPresentAndClick(PWAHomePage.objKannadaWEB, "Kannada option");	
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objApply, "Apply button on display langauge screen");
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objApplybutton, "Apply button on content language screen");
@@ -11866,11 +11870,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		partialScroll();
-		if (userType.contains("Guest")) {
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objAboutUsinKannada, "About Us option in kannada");
-		} else {
+		if(userType.contains("Guest")){
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objAboutUsinKannada, "About Us option in kannada");
+		}else{
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objAboutUsinKannada2, "About Us option in kannada");
-		}
+		} 
 		String title1 = getText(PWAHamburgerMenuPage.objAboutUsTextInPage);
 		System.out.println("Title " + title1);
 		if (title1.contains("About Us")) {
@@ -11880,14 +11884,16 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		Back(1);
 		// Terms of Use
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-		partialScroll();
-		if (userType.contains("Guest")) {
-			waitForElementAndClick(PWAHamburgerMenuPage.objTermsInKannada, 8, "Terms of Use option in Kannada");
-		} else if (userType.contains("NonSubscribedUser") || userType.contains("SubscribedUser")) {
-			waitTime(3000);
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objTermsInKannada2, "Terms of Use option in Kannada");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");	
+		partialScroll();		
+		if(userType.contains("Guest")){
+		waitForElementAndClick(PWAHamburgerMenuPage.objTermsInKannada, 8, "Terms of Use option in Kannada");
 		}
+		else if(userType.contains("NonSubscribedUser")|| userType.contains("SubscribedUser")){
+			waitTime(3000);
+			verifyElementPresent(PWAHamburgerMenuPage.objTermsInKannada2, "Terms of Use option in Kannada");	
+			JSClick(PWAHamburgerMenuPage.objTermsInKannada2, "Terms of Use option in Kannada");
+			}
 		String title2 = getText(PWAHamburgerMenuPage.objTermsOfUseScreen);
 		System.out.println("Title " + title2);
 		if (title2.contains("Terms of Use")) {
@@ -11895,13 +11901,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Terms of Use",
 					"Content of the Terms of Use page is not according to the display language");
 		}
-		Back(1);
+		Back(1);	
 		// Privacy Policy
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-		if (userType.contains("Guest")) {
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPrivacyPolicyInKannadA,
-					"Privacy Policy option in Kannada");
-		} else {
+		if(userType.contains("Guest")){
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objPrivacyPolicyInKannadA,
+				"Privacy Policy option in Kannada");
+		}else{
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPrivacyPolicyInKannadA2,
 					"Privacy Policy option in Kannada");
 		}
@@ -11914,10 +11920,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		Back(1);
 		// Changing display language to English
-		verifyElementPresentAndClick(PWAHomePage.objLanguage, "Language button");
-		verifyElementPresentAndClick(PWAHomePage.objEnglishWEB, "English option");
+		verifyElementPresentAndClick(PWAHomePage.objLanguage, "Language button");	
+		verifyElementPresentAndClick(PWAHomePage.objEnglishWEB, "English option");		
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objApply, "Apply button on display langauge screen");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objApplybutton, "Apply button on content language screen");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objApplybutton, "Apply button on content language screen");	
 	}
 
 	/*

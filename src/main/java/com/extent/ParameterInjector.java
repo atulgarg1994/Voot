@@ -38,7 +38,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("searchModuleSearchKey", "Kamali");
 			params.put("consumptionsEpisode", "Digvijay stunned on hearing Sambhashiva");
 			params.put("consumptionsShow", "Paaru");
-			params.put("consumptionsFreeContent", "Auto Raja (2013)");
+			params.put("consumptionsFreeContent", "Robin Hood");
 			params.put("consumptionsPremiumContent", "Huliraya");
 			params.put("consumptionsContentWithMetaData", "Jothe Jotheyali");
 			params.put("musicToTriggerReco", "Nenne Monneya Ninna Parichaya - Giftbox | Ameeta Kulal | Ritvvikk Mathad | Bindu Malini");
@@ -63,13 +63,16 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("tvshow","Nisha");
 			params.put("trailerOfPremiumMovie","Bhinna - Trailer");
 			params.put("music","Nenne Monneya Ninna Parichaya - Giftbox | Ameeta Kulal | Ritvvikk Mathad | Bindu Malini");
+			params.put("timedAnchorEpisode", "Paarvathi kisses Aditya - Paaru");
+			params.put("timedAnchorMusic", "Appa Lyrical - Punith Shetty");		
+			params.put("timedAnchorMovie", "Robin Hood");	
 			
 		}
 		if(region.equals("MH")) {
 			params.put("searchModuleSearchKey", "Kundali Bhagya");
 			params.put("consumptionsEpisode", "Guddan steps up to protect her family");
 			params.put("consumptionsShow", "Pavitra Rishta");
-			params.put("consumptionsFreeContent", "Dhamaal");
+			params.put("consumptionsFreeContent", "Robin Hood");
 			params.put("consumptionsPremiumContent", "Badnaam Gali");
 			params.put("consumptionsContentWithMetaData", "Jodha Akbar");
 			params.put("musicToTriggerReco", "Dopamine - REJCTX");
@@ -94,6 +97,9 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("tvshow","Kannamoochi");
 			params.put("trailerOfPremiumMovie","Kedarnath - Trailer");
 			params.put("music","Nachde Ne Saare - Baar Baar Dekho | Sidharth Malhotra | Katrina Kaif | Armaan");
+			params.put("timedAnchorEpisode", "Paarvathi kisses Aditya - Paaru");
+			params.put("timedAnchorMusic", "Appa Lyrical - Punith Shetty");		
+			params.put("timedAnchorMovie", "Robin Hood");
 		}
         suite.setParameters(params);	
 	}

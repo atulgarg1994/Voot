@@ -16,7 +16,8 @@ public class PWASubscriptionPages {
 	// Account Info Page
 
 	// Account Info tab Highlighted
-	public static By objAccountInfoHighlighted = By.xpath("//li[@class='active']/div[contains(text(),'Account Info')]");
+	public static By objAccountInfoHighlighted = By.xpath("//div[contains(text(),'Account Info')]");
+	
 
 	// Selected Pack Text
 	public static By objSelectedPackText = By
@@ -72,8 +73,7 @@ public class PWASubscriptionPages {
 	public static By objPaymentHighlighted = By.xpath("//li[@class='active']/div[contains(text(),'Payment')]");
 
 	// Account Info Text
-	public static By objAccountInfoText = By
-			.xpath("//div[contains(@class, 'accountInfoPlanCard')]/p[contains(text(), 'Account Info')]");
+		public static By objAccountInfoText = By.xpath("//div[contains(@class,'accountInfoPlanCard')]//p[@class='autoPopulatedDetail']");
 
 	// Selected Pack Name
 	public static By objAccountInfoDetails = By.xpath(

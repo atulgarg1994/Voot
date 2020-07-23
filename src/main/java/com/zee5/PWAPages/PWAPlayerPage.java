@@ -240,7 +240,7 @@ public static By objPlayer = By.xpath("//div[@class='playkit-overlay-action']");
 	
 	public static By objlatestepisode = By.xpath("//p[contains(text(),'Watch Latest Episode')]");
 	
-	public static By objWhyRegisterPopUp = By.xpath("//div[.='Why Register?']");
+	public static By objWhyRegisterPopUp = By.xpath("//div[.='Sign Up']");
 	
 	public static By objPopUpafterPlayer = By.xpath("//div[@class='ReactModal__Content ReactModal__Content--after-open popupModal']");
 	
@@ -281,10 +281,12 @@ public static By objPlayer = By.xpath("//div[@class='playkit-overlay-action']");
 
 	public static By objUpnextCard = By.xpath("(//div[@class='mainCarouselDiv'])[1]");
 
-public static By objLoginText = By.xpath("//span[@class='login-link']");
+	public static By objLoginText = By.xpath("//span[@class='login-link']");
 	
 	public static By objSubscribeLink = By.xpath("//span[@class='subscribe-link']");
 	
 	public static By objWatchPromo = By.xpath("//a[@class='showDetailIcon play']/child::div[@class='playIcon']");
+	
+	public static By subscribePopUp = By.xpath("");
 	
 }
