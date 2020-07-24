@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Android" duration-ms="127454" started-at="2020-07-22T11:11:38Z" finished-at="2020-07-22T11:13:46Z">
+  <suite name="Android" duration-ms="186640" started-at="2020-07-23T08:46:08Z" finished-at="2020-07-23T08:49:15Z">
     <groups>
     </groups>
-    <test name="Android_LandingPage" duration-ms="127454" started-at="2020-07-22T11:11:38Z" finished-at="2020-07-22T11:13:46Z">
+    <test name="Android_LandingPage" duration-ms="186640" started-at="2020-07-23T08:46:08Z" finished-at="2020-07-23T08:49:15Z">
       <class name="com.zee5.ApplicasterScripts.Android_LandingPage">
-        <test-method status="PASS" signature="AppLaunch()[pri:0, instance:com.zee5.ApplicasterScripts.Android_LandingPage@694e1548]" name="AppLaunch" is-config="true" duration-ms="56205" started-at="2020-07-22T16:41:45Z" finished-at="2020-07-22T16:42:41Z">
+        <test-method status="PASS" signature="AppLaunch()[pri:0, instance:com.zee5.ApplicasterScripts.Android_LandingPage@131276c2]" name="AppLaunch" is-config="true" duration-ms="90114" started-at="2020-07-23T14:16:15Z" finished-at="2020-07-23T14:17:45Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- AppLaunch -->
-        <test-method status="PASS" signature="Login(java.lang.String)[pri:0, instance:com.zee5.ApplicasterScripts.Android_LandingPage@694e1548]" name="Login" duration-ms="15141" started-at="2020-07-22T16:42:41Z" finished-at="2020-07-22T16:42:56Z">
+        <test-method status="PASS" signature="Login(java.lang.String)[pri:0, instance:com.zee5.ApplicasterScripts.Android_LandingPage@131276c2]" name="Login" duration-ms="21447" started-at="2020-07-23T14:17:45Z" finished-at="2020-07-23T14:18:07Z">
           <params>
             <param index="0">
               <value>
@@ -22,11 +22,11 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Login -->
-        <test-method status="PASS" signature="Home()[pri:1, instance:com.zee5.ApplicasterScripts.Android_LandingPage@694e1548]" name="Home" duration-ms="38822" started-at="2020-07-22T16:42:57Z" finished-at="2020-07-22T16:43:36Z">
+        <test-method status="PASS" signature="Home()[pri:1, instance:com.zee5.ApplicasterScripts.Android_LandingPage@131276c2]" name="Home" duration-ms="45453" started-at="2020-07-23T14:18:10Z" finished-at="2020-07-23T14:18:55Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Home -->
-        <test-method status="PASS" signature="tearDownApp()[pri:0, instance:com.zee5.ApplicasterScripts.Android_LandingPage@694e1548]" name="tearDownApp" is-config="true" duration-ms="7902" started-at="2020-07-22T16:43:38Z" finished-at="2020-07-22T16:43:46Z">
+        <test-method status="PASS" signature="tearDownApp()[pri:0, instance:com.zee5.ApplicasterScripts.Android_LandingPage@131276c2]" name="tearDownApp" is-config="true" duration-ms="16739" started-at="2020-07-23T14:18:58Z" finished-at="2020-07-23T14:19:15Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownApp -->

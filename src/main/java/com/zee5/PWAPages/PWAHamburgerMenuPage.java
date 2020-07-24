@@ -3,6 +3,7 @@ package com.zee5.PWAPages;
 import org.openqa.selenium.By;
 
 public class PWAHamburgerMenuPage {
+	
 	/**
 	 * Profile Page
 	 */
@@ -493,12 +494,13 @@ public class PWAHamburgerMenuPage {
 	public static By objHamburgerBtn = By.xpath("//*[contains(text(),'Open Menu')]");
 
 	public static By objMyTransactionPackName = By.xpath("//*[@class='packInline']");
+	
 
 	public static By objGetPremiumCTAbelowPlayer = By.xpath("//*[@class='subscribe-teaser-button' and //*[.='GET PREMIUM']]");
 
 	public static By objMyTransactionPage = By.xpath("//*[@class='pageTitle' and //*[text()='My Transactions']]");
 
-	public static By objGetPremiumPopup = By.xpath("//*[.='Get premium']");
+	public static By objGetPremiumPopup = By.xpath("//h2[contains(@class,'popupTitle bigTitle') and text()='Subscribe']");      
 
 	public static By objPopupClose = By.xpath("//*[@class='noSelect closePupup iconInitialLoad-ic_close']");
 

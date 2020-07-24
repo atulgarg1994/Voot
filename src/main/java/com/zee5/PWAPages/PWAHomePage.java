@@ -146,7 +146,7 @@ public class PWAHomePage {
 //		====================================== SANITY ===================================
 
 //		MandatoryRegistration
-	public static By objSearchResult = By.xpath("//*[@title='Gooli']");
+	public static By objSearchResult = By.xpath("//*[@title='Ramayana']");
 	public static By objPopUpMobileField = By.xpath("//input[@id='textField']");
 	public static By objPopUpPasswordField = By.xpath("//input[@name='inputPassword']");
 	public static By objPopUpProceedButton = By.xpath("//button[@class='noSelect buttonGradient ']");

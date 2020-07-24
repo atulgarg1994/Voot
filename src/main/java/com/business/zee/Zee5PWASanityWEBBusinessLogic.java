@@ -3407,7 +3407,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
 		}
 
-		validateDisplayLanguagePopup();
+//		validateDisplayLanguagePopup();
 		if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
 
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
@@ -6421,11 +6421,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(10000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchResult, "Search result");
 		waitTime(5000);
-		verifyElementExist(PWAHamburgerMenuPage.objParentalLockPopUpInPlayer, "Parent control Popup");
+		if(verifyElementExist(PWAHamburgerMenuPage.objParentalLockPopUpInPlayer, "Parent control Popup"))
+		{
 		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
 		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
 		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
 		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+		}
 		waitTime(5000);
 		waitForPlayerAdToComplete("Video Player");
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
@@ -7105,9 +7107,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.extentLogger("Scroll", "user is able to scroll trough the channel list");
 		extent.HeaderChildNode("Validating that On going live show cards are highlighted");
 		waitForElementDisplayed(PWALiveTVPage.objFirstOngoingLiveTvShowCard, 20);
-//		verifyElementExist(PWALiveTVPage.objFirstOngoingLiveTvShowCard, "Ongoing Live Tv show card");
-		verifyElementPresent(PWALiveTVPage.objOngoingLiveTvShowTitle, "Ongoing Live TV Show card");
-		JSClick(PWALiveTVPage.objOngoingLiveTvShowTitle, "Ongoing Live TV Show card");
+		verifyElementExist(PWALiveTVPage.objFirstOngoingLiveTvShowCard, "Ongoing Live Tv show card");
 		String ongoingLiveTvcardClass = getAttributValue("class", PWALiveTVPage.objFirstOngoingLiveTvShowCard);
 		if (ongoingLiveTvcardClass.contains("active")) {
 			logger.info("On going live show cards are highlighted on channel guide screen");
@@ -7121,7 +7121,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Validating that user is navigated to respective live TV consumption screen");
 		String onGoingLiveTvShowCardTitle = getText(PWALiveTVPage.objOngoingLiveTvShowTitle);
 		System.out.println(onGoingLiveTvShowCardTitle);
-		verifyElementPresentAndClick(PWALiveTVPage.objOngoingLiveTvShowTitle, "Ongoing Live TV Show card");
+		verifyElementPresent(PWALiveTVPage.objOngoingLiveTvShowTitle, "Ongoing Live TV Show card");
+		JSClick(PWALiveTVPage.objOngoingLiveTvShowTitle, "Ongoing Live TV Show card");
 		waitForElementDisplayed(PWASearchPage.objShowTitleInconsumptionPage(onGoingLiveTvShowCardTitle), 5);
 		while (!(verifyElementExist(PWASearchPage.objShowTitleInconsumptionPage(onGoingLiveTvShowCardTitle),
 				"Title in Consumption Screen"))) {
@@ -11270,7 +11271,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLogger("Accessing as " + userType, "Accessing as " + userType);
 			logger.info("Accessing as " + userType);
 			if (userType.contentEquals("NonSubscribedUser")) {
-				ZeeWEBPWALogin("NonSubscribedUser");
+//				ZeeWEBPWALogin("NonSubscribedUser");
 			}
 			AboutUsScreenValidation();
 			HelpCenterScreenValidation();
@@ -11282,7 +11283,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		} else if (userType.contentEquals("SubscribedUser")) {
 			extent.HeaderChildNode("subscribed scenarios");
 			logger.info("Subscribed User");
-			ZeeWEBPWALogin("SubscribedUser");
+//			ZeeWEBPWALogin("SubscribedUser");
 			SubscribedUserAboutUsScreenValidation();
 			HelpCenterScreenValidation();
 			SubscribedUserTermsOfUseValiadtion();

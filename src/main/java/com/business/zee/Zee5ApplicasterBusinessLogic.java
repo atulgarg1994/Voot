@@ -2607,10 +2607,10 @@ List of Functions Created
 		String UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
 		if (UserType.equals("Guest")) {
 			extent.extentLogger("userType", "UserType : Guest");
-//		return;
 		}
 		
-		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+		waitTime(3000);
 
 		switch (LoginMethod) {
 		case "Guest":
@@ -2619,7 +2619,6 @@ List of Functions Created
 			waitTime(1000);
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
-
 			waitTime(3000);
 			break;
 
@@ -2636,7 +2635,7 @@ List of Functions Created
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
 			type(AMDLoginScreen.objPasswordField, Password, "Password field");
-
+			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
 			waitTime(3000);
 			break;
@@ -2654,7 +2653,7 @@ List of Functions Created
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
 			type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
-
+			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
 			waitTime(3000);
 			break;
@@ -3871,80 +3870,87 @@ List of Functions Created
 	/**
 	 * Author : Bindu
 	 */
-	public void verifyShowsScreen(String userType) throws Exception {
+	public void verifyShowsScreen(String userType) throws Exception
+	{
 		extent.HeaderChildNode("Verify user navigates to shows screen");
 		System.out.println("\nVerify User navigated to Shows Screen");
-		verifyElementPresentAndClick(AMDHomePage.objShowsTab, "Shows Tab");
-		String activeTab = getText(AMDHomePage.objSelectedTab);
-		if (activeTab.equalsIgnoreCase("Shows")) {
-			logger.info(
-					"user is able to navigate to Shows screen by tapping on Shows tab displayed in the top navigation bar");
-			extent.extentLogger("Shows Tab",
-					"user is able to navigate to Shows screen by tapping on Shows tab displayed in the top navigation bar");
-		} else {
-			logger.info(
-					"user is not able to navigate to Shows screen by tapping on Shows tab displayed in the top navigation bar");
-			extent.extentLoggerFail("Home Tab",
-					"user is not able to navigate to Shows screen by tapping on Shows tab displayed in the top navigation bar");
-		}
-		verifyElementExist(AMDShowsScreen.objSubscribeIcon, "Subscribe Icon");
+	     verifyElementPresentAndClick(AMDHomePage.objShowsTab, "Shows Tab");
+	     String activeTab = getText(AMDHomePage.objSelectedTab);
+	     if(activeTab.equalsIgnoreCase("Shows")){
+	     	logger.info("user is able to navigate to Shows screen by tapping on Shows tab displayed in the top navigation bar");
+	     	extent.extentLogger("Shows Tab", "user is able to navigate to Shows screen by tapping on Shows tab displayed in the top navigation bar");
+	     }
+	     else
+	     {
+	     	logger.info("user is not able to navigate to Shows screen by tapping on Shows tab displayed in the top navigation bar");
+	     	extent.extentLoggerFail("Home Tab", "user is not able to navigate to Shows screen by tapping on Shows tab displayed in the top navigation bar");
+	     }
+		  verifyElementExist(AMDShowsScreen.objSubscribeIcon, "Subscribe Icon");
+  }
+
+	public void verifyConsumptionScreen(String userType) throws Exception	
+	{
+	extent.HeaderChildNode("Verify user navigated to consumption screen post tapping on any where on the banner section");	
+	System.out.println("Verify user navigated to consumption scree post tapping on any where on the banner section");
+    PartialSwipe("UP",1);
+     verifyElementPresentAndClick(AMDShowsScreen.objcontentCard,"Banner card");
+	 waitTime(6000);
+
+	if(verifyElementExist(AMDShowsScreen.objPlayer,"Player"))
+	{
+	  logger.info("User is navigated to Consumption Screen");
+	  extent.extentLogger("Consumption Screen", "User is navigated to Consumption Screen");
+	  
+	}
+	else
+	{
+	  logger.info("User is not navigated to Consumption Screen");
+	  extent.extentLoggerFail("Consumption Screen", "User is not navigated to Consumption Screen");
 	}
 
-	public void verifyConsumptionScreen(String userType) throws Exception {
-		extent.HeaderChildNode(
-				"Verify user navigated to consumption screen post tapping on any where on the banner section");
-		System.out
-				.println("Verify user navigated to consumption scree post tapping on any where on the banner section");
-		PartialSwipe("UP", 1);
-		verifyElementPresentAndClick(AMDShowsScreen.objcontentCard, "Banner card");
-		waitTime(6000);
+	Back(1);
+	extent.HeaderChildNode("Verify Watch Next tray is available on Shows screen"); 
+	System.out.println("\nVerify Watch Nest Tray is available on Shows screen");
+	PartialSwipe("UP",1);
 
-		if (verifyElementExist(AMDShowsScreen.objPlayer, "Player")) {
-			logger.info("User is navigated to Consumption Screen");
-			extent.extentLogger("Consumption Screen", "User is navigated to Consumption Screen");
-
-		} else {
-			logger.info("User is not navigated to Consumption Screen");
-			extent.extentLoggerFail("Consumption Screen", "User is not navigated to Consumption Screen");
-		}
-
-		Back(1);
-		extent.HeaderChildNode("Verify Watch Next tray is available on Shows screen");
-		System.out.println("\nVerify Watch Nest Tray is available on Shows screen");
-		PartialSwipe("UP", 1);
-
-		if (verifyElementExist(AMDShowsScreen.objWatchNextTray, "Watch Next Tray")) {
-			logger.info("Watch Next tray is displayed in Shows landing screen");
-			extent.extentLogger("Shows Screen", "Watch Next tray is displayed in Shows landing screen");
-		} else {
-			logger.info("Watch Next tray is not displayed in Shows landing screen");
-			extent.extentLoggerFail("Shows Screen", "Watch Next tray is not displayed in Shows landing screen");
-		}
-
+	if(verifyElementExist(AMDShowsScreen.objWatchNextTray,"Watch Next Tray"))
+	{
+	 logger.info("Watch Next tray is displayed in Shows landing screen");
+	  extent.extentLogger("Shows Screen", "Watch Next tray is displayed in Shows landing screen");
 	}
-
-	public void verifyConsumptionScreenOfBeforeTVContent() throws Exception {
+	else
+	{
+	  logger.info("Watch Next tray is not displayed in Shows landing screen");
+	  extent.extentLoggerFail("Shows Screen", "Watch Next tray is not displayed in Shows landing screen");
+	}
+}
+	
+	public void verifyConsumptionScreenOfBeforeTVContent() throws Exception
+	{
 		extent.HeaderChildNode("Verify ConsumptionScreen For Before TV Content");
-		if (verifyElementExist(AMDHomePage.objBeforeTVTray, "Before TV Tray")) {
-			String contentTitle = getText(AMDShowsScreen.objBeforeTVContent);
-			System.out.println(contentTitle);
-			verifyElementPresentAndClick(AMDShowsScreen.objBeforeTVContent, "Before TV Card");
-			waitTime(3000);
-			if (verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page")) {
-				Back(1);
-			}
-
-			if (verifyElementExist(AMDShowsScreen.objLoginLink, "Login link")) {
-
-				logger.info("Login link is displayed Content playback is not initiated for Before TV content");
-				extent.extentLogger("Consumption Screen",
-						"Login link is displayed Content playback is not initiated for Before TV content");
-			} else {
-				logger.info("Login link is not displayed Content playback is initiated for Before TV content");
-				extent.extentLoggerFail("Consumption Screen",
-						"Login link is not displayed Content playback is initiated for Before TV content");
-			}
-			String playerPageShowTitle1 = getText(AMDShowsScreen.objPlayerPageTitle);
+	    if(verifyElementExist(AMDHomePage.objBeforeTVTray,"Before TV Tray"))
+		{
+		String contentTitle = getText(AMDShowsScreen.objBeforeTVContent);
+		System.out.println(contentTitle);
+        verifyElementPresentAndClick(AMDShowsScreen.objBeforeTVContent, "Before TV Card");
+        waitTime(3000);
+        if(verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page"))
+        {
+        	Back(1);
+        }
+        
+       if( verifyElementExist(AMDShowsScreen.objLoginLink, "Login link"))
+       {
+    	   
+    	   logger.info("Login link is displayed Content playback is not initiated for Before TV content");
+		   extent.extentLogger("Consumption Screen", "Login link is displayed Content playback is not initiated for Before TV content");
+       }
+       else
+       {
+    	   logger.info("Login link is not displayed Content playback is initiated for Before TV content");
+		   extent.extentLoggerFail("Consumption Screen", "Login link is not displayed Content playback is initiated for Before TV content");
+       }
+            String playerPageShowTitle1 = getText(AMDShowsScreen.objPlayerPageTitle);
 			System.out.println(playerPageShowTitle1);
 
 			if (contentTitle.contains(playerPageShowTitle1)) {
@@ -3954,10 +3960,10 @@ List of Functions Created
 				logger.info("user is not navigated to respective consumption screen");
 				extent.extentLogger("Consumption Screen", "user is navigated to respective consumption screen");
 			}
-		}
-
+		} 
 		Back(1);
 	}
+
 
 	/**
 	 * Author : Manasa
@@ -4073,4 +4079,37 @@ List of Functions Created
 		}
 	}
 	
+	public void moreSectionValidation() throws Exception {
+		extent.HeaderChildNode("More Screen Validation");
+		
+		Runtime.getRuntime().exec("adb shell svc wifi disable");
+		
+		verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu tab");
+		
+		verifyElementExist(AMDOfflineScreen.objYouAreOffline, "You are Offline");
+		verifyElementExist(AMDOfflineScreen.objDescription, "Please connect to the internet and try again");
+		verifyElementExist(AMDOfflineScreen.objTryAgain, "Try Again");
+		verifyElementExist(AMDOfflineScreen.objGoToDownloads, "Go to Downloads");
+		
+		Runtime.getRuntime().exec("adb shell svc wifi enable");
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDOfflineScreen.objTryAgain, "Try Again");
+		
+		verifyElementExist(AMDMoreMenu.objProfile, "Profile icon");
+		verifyElementExist(AMDMoreMenu.objBuySubscription, "Buy Subscription option");
+		verifyElementExist(AMDMoreMenu.objMySubscription, "My Subscription option");
+		verifyElementExist(AMDMoreMenu.objMyTransactions, "My Transactions option");
+		verifyElementExist(AMDMoreMenu.objWatchlist, "Watchlist option");
+		verifyElementExist(AMDMoreMenu.objMyRemainders, "My Reminders option");
+		verifyElementExist(AMDMoreMenu.objHaveaPrepaidCode, "Have a prepaid code option");
+		verifyElementExist(AMDMoreMenu.objSettings, "Settings option");
+		verifyElementExist(AMDMoreMenu.objInviteAFriend, "Invite a Friend option");
+		verifyElementExist(AMDMoreMenu.objAboutUs, "About Us option");
+		verifyElementExist(AMDMoreMenu.objHelpCentre, "Help Centre option");
+		verifyElementExist(AMDMoreMenu.objTermsOfUse, "Terms of Use");
+		verifyElementExist(AMDMoreMenu.objPrivacyPolicy, "Privacy policy");
+		verifyElementExist(AMDMoreMenu.objBuildVersion, "Build Version");
+		
+		
+	}
 }

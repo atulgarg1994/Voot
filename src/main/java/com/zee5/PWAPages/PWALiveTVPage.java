@@ -265,9 +265,8 @@ public class PWALiveTVPage {
 		public static By objFirstOngoingLiveTvShowCard = By.xpath("(//*[@class='programInner active'])[1]");
 
 		public static By objparticularTime = By.xpath("//div[@class='timeSlot']/child::div[text()='8:00 PM']");
-		
-		public static By objShowNameweb= By.xpath("(//*[@title='Zee Kannada']//parent::*//parent::*//following-sibling::*//div[@class='noSelect programOuter']/child::*/child::*/child::div[contains(text(),'08:00 PM')])[2]");
-		
+		public static By objShowNameweb= By.xpath("(//*[@title='Zee News']//parent::*//parent::*//following-sibling::*//div[@class='noSelect programOuter']/child::*/child::*/child::div[contains(text(),'08:00 PM')])[2]");		
+	
 		public static By objTwitterEmailField = By.xpath("//input[@name='session[username_or_email]']");
 		public static By objTwitterPasswordField = By.xpath("//input[@name='session[password]']");
 		public static By objTwitterLoginButton = By.xpath("//span[text()='Log in']");		

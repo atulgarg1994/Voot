@@ -43,7 +43,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("consumptionsContentWithMetaData", "Jothe Jotheyali");
 			params.put("musicToTriggerReco", "Nenne Monneya Ninna Parichaya - Giftbox | Ameeta Kulal | Ritvvikk Mathad | Bindu Malini");
 			params.put("newsToTriggerReco", "Amid coronavirus, cong holds massive 'cycle rally' to protest against fuel price hike in Bengaluru");
-			params.put("freeMovie","Krishna Balram: The Warrier Princess");
+			params.put("freeMovie","Ramayana");
 			params.put("freeMovie2","Manthan");
 			params.put("freeMovie3","Pup Scouts");
 			params.put("freeMovie4","Robin Hood");
