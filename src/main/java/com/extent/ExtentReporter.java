@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.stream.Stream;
-
 import org.apache.log4j.Logger;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -18,7 +17,6 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.SkipException;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -26,7 +24,6 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.deviceDetails.DeviceDetails;
 import com.driverInstance.DriverInstance;
 import com.propertyfilereader.PropertyFileReader;
-
 import io.appium.java_client.AppiumDriver;
 
 public class ExtentReporter implements ITestListener {
@@ -41,6 +38,9 @@ public class ExtentReporter implements ITestListener {
 	private static String currentDate;
 	private boolean runmode = true;
 	private static String BrowserType;
+	public static String filePath;
+	public static String fileName;
+	private static String AppVersion;
 	
 	/** The Constant logger. */
 	final static Logger logger = Logger.getLogger("rootLogger");
@@ -63,6 +63,16 @@ public class ExtentReporter implements ITestListener {
 	@SuppressWarnings("static-access")
 	public void setPlatform(String platform) {
 		this.platform = platform;
+	}
+	
+	@SuppressWarnings("static-access")
+	public String getAppVersion() {
+		return this.AppVersion;
+	}
+	
+	@SuppressWarnings("static-access")
+	public void setAppVersion(String versionName) {
+		this.AppVersion = versionName;
 	}
 
 	public static AppiumDriver<WebElement> getDriver() {
@@ -90,10 +100,14 @@ public class ExtentReporter implements ITestListener {
 		currentDate = dateFormat.format(date).toString().replaceFirst(" ", "_").replaceAll("/", "_").replaceAll(":","_");
 		setReport(context.getName());
 		setPlatform(context.getSuite().getName());
+		appVersion();
 		
-		String filePath = System.getProperty("user.dir") + "/Reports" + "/" +currentDate+"/"+ getPlatform() + "/"
+		filePath = System.getProperty("user.dir") + "/Reports" + "/" +currentDate+"/"+ getPlatform() + "/"
 				+ context.getCurrentXmlTest().getParameter("userType") + "/" + context.getName() + "/"
 				+context.getCurrentXmlTest().getParameter("userType")+getAppVersion()+"_"+context.getName() + "_" + getDate() + ".html";
+		
+		fileName =  context.getCurrentXmlTest().getParameter("userType")+ 
+				getAppVersion()+context.getName() + "_" + getDate()+ ".html";
 		
 		htmlReport.set(new ExtentHtmlReporter(filePath));
 		htmlReport.get().loadXMLConfig(new File(System.getProperty("user.dir") + "/ReportsConfig.xml"), true);
@@ -162,6 +176,7 @@ public class ExtentReporter implements ITestListener {
 			extent.get().setSystemInfo("Browser Info ", BrowserType);
 		}
 		extent.get().flush();
+//		MailReport.EmailReport();
 	}
 
 	@Override
@@ -208,12 +223,12 @@ public class ExtentReporter implements ITestListener {
 		}
 	}
 	
-	public String getAppVersion() {
+	public void appVersion() {
 		if (getPlatform().equals("Android")) {
 			PropertyFileReader handler = new PropertyFileReader("properties/AppPackageActivity.properties");
-			return "Build_Number_" + DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim();
+			setAppVersion("Build_Number_" + DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim());
 		} else {
-			return "";
+			setAppVersion("");
 		}
 	}
 	

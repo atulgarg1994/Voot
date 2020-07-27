@@ -14,20 +14,25 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-public class MailReport {
+import com.extent.ExtentReporter;
 
+public class MailReport {
+	
 	public static void EmailReport() {
-//		String fileName1 = ExtentReporter.fileName;
+		
+		
+		String filepath = ExtentReporter.filePath;
 
 		// mail extent reports
-		String[] to = { "durgesh.panda@zee.esselgroup.com" };
-		String[] cc = {"naveen@igsindia.net","kaushik.mr@igs-india.net"};
+		String[] to = { "igsautomationtester@igs.ind.in" };
+		String[] cc = {};
 		String[] bcc = {};
 
-		sendMail("zeeautomationigs@gmail.com", "ZeeAutomation@123", "smtp.gmail.com", "25", "true", "true", true, "javax.net.ssl.SSLSocketFactory",
+		sendMail("Zee5latest@gmail.com", "User@123", "smtp.gmail.com", "25", "true", "true", true, "javax.net.ssl.SSLSocketFactory",
 				"false", to, cc, bcc, "AUTOMATION REPORT", "Please find the reports attached.\n\n Regards\n Automation Team",
-				"");
+				filepath);
 	}
+	
 
 	public static boolean sendMail(final String userName, final String passWord, String host, String port,
 			String starttls, String auth, boolean debug, String socketFactoryClass, String fallback, String[] to,
@@ -56,7 +61,7 @@ public class MailReport {
 			MimeBodyPart messageBodyPart = new MimeBodyPart();
 			DataSource source = new FileDataSource(attachmentPath);
 			messageBodyPart.setDataHandler(new DataHandler(source));
-//			messageBodyPart.setFileName(ExtentReporter.onlyFileName);
+			messageBodyPart.setFileName(ExtentReporter.fileName);
 			multipart.addBodyPart(messageBodyPart);
 
 			// attachment ends
@@ -82,6 +87,7 @@ public class MailReport {
 			transport.close();
 			return true;
 		} catch (Exception mex) {
+			mex.printStackTrace();
 			return false;
 		}
 	}
