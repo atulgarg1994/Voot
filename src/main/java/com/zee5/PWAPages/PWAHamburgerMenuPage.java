@@ -3,7 +3,7 @@ package com.zee5.PWAPages;
 import org.openqa.selenium.By;
 
 public class PWAHamburgerMenuPage {
-	
+
 	/**
 	 * Profile Page
 	 */
@@ -30,7 +30,6 @@ public class PWAHamburgerMenuPage {
 
 //	Move Top Arrow Icon
 	public static By objMoveTopArrowIcon = By.xpath("//div[@class='iconNavi-ic_arrow_back']");
-	
 
 //	Play Store Button
 	public static By objPlayStoreBtn = By.xpath("//img[@alt='Google Play']");
@@ -63,7 +62,7 @@ public class PWAHamburgerMenuPage {
 
 //	Profile Expander Icon
 	public static By objProfileExpanderIcon = By.xpath("//div[@class='arrow iconInitialLoad-ic_viewall']");
-	
+
 //  Hamburger menu closed
 	public static By objHamburgerClose = By.xpath("//button[contains(text(),'Close Menu')]");
 
@@ -144,7 +143,7 @@ public class PWAHamburgerMenuPage {
 
 //WATCHLIST
 	public static By objMyAccountOptionsText(String option) {
-		return By.xpath("//*[contains(@class,'pageTitle') and text()=\""+option+"\"]");
+		return By.xpath("//*[contains(@class,'pageTitle') and text()=\"" + option + "\"]");
 	}
 
 //Edit Profile Text
@@ -187,12 +186,12 @@ public class PWAHamburgerMenuPage {
 
 	public static By objNoTransaction = By.xpath("//div[.='No Transaction']");
 	public static By objMyTransactionDate = By.xpath("//p[@class='date']");
-	
+
 	public static By objMyTransactionPackStatus = By.xpath("//div[@class='billRow']//p[2]");
 
 	// Buy Subscription Option
-	public static By objBuySubscriptionOption = By.xpath(
-			"//*[contains(@class,'noSelect menuItem   menuForPlans') and contains(text(),'Buy Subscription')]");
+	public static By objBuySubscriptionOption = By
+			.xpath("//*[contains(@class,'noSelect menuItem   menuForPlans') and contains(text(),'Buy Subscription')]");
 
 	public static By objProfileIconWEB = By.xpath("(//button[.='Open Menu'])[2]");
 	public static By objMyAccountOption = By.xpath("//div[contains(@class,'menuForMyAccount')]");
@@ -224,7 +223,8 @@ public class PWAHamburgerMenuPage {
 	public static By objParentalLockPin4player = By.xpath("//input[@id='parentLockId4']");
 	public static By objParentalLockNoRestrictionOption = By.xpath("//div[contains(text(),'No Restrictions')]");
 	public static By objAuthenticationText = By.xpath("//h1[contains(@class,'heading')]");
-	public static By objAuthenticationButtonNotHighlighted = By.xpath("//button[contains(@class,'noSelect buttonGradient null')]");
+	public static By objAuthenticationButtonNotHighlighted = By
+			.xpath("//button[contains(@class,'noSelect buttonGradient null')]");
 	public static By objAuthenticationField = By.xpath("//input[contains(@name,'code')]");
 	public static By objCloseHamburgerMenu = By.xpath("//button[contains(text(),'Close Menu')]");
 	public static By objPlanInHamburger = By.xpath("//div[contains(@class,'menuTitle noSelect menuForPlans')]");
@@ -248,7 +248,8 @@ public class PWAHamburgerMenuPage {
 			.xpath("//div[contains(@class,'userDetails')]//div[contains(@class,'userName')]");
 	public static By objEditProfileTextWEB = By.xpath("//h2[contains(@class,'pageSubTitle')]");
 	public static By objChangePasswordTextWEB = By.xpath("//h2[contains(@class,'pageSubTitle')]");
-	public static By objWebBuySubscriptionOption = By.xpath("//*[@class='noSelect menuItem   menuForPlans' and text()='Buy Subscription']");
+	public static By objWebBuySubscriptionOption = By
+			.xpath("//*[@class='noSelect menuItem   menuForPlans' and text()='Buy Subscription']");
 	public static By objLanguageBtnWEB = By.xpath("//div[contains(@class,'languageBtn')]");
 	public static By objContentLanguageWrapper = By.xpath("//div[@id='contentWrapLanguage']");
 	// Display language btn
@@ -427,22 +428,19 @@ public class PWAHamburgerMenuPage {
 	public static By objArticleTitle = By.xpath("//*[@data-id='article_Title']");
 
 	// About Us option in Kannada
-	public static By objAboutUsinKannada = By.xpath("//div[@class='menuGroup active'][3]//a[@class='noSelect menuItem   '][1]");
+	public static By objAboutUsinKannada = By.xpath("//a[text()='ನಮ್ಮ ಬಗ್ಗೆ']");
+	// Terms of Use option in kannada
+	public static By objTermsInKannada = By.xpath("//a[text()='ಬಳಕೆಯ ನಿಯಮಗಳು']");
+	// Privacy Policy in Kannada
+	public static By objPrivacyPolicyInKannadA = By.xpath("//a[text()='ಗೌಪ್ಯತೆ ನೀತಿ']");
+	// English option
+	public static By objEnglishOption = By.xpath("//input[@value='en']//parent::*//span");
+	public static By objKannadaLanguage = By.xpath("//input[@value='kn']//parent::*//span");
 
 	public static By objchooseAppToOpen = By.xpath("//*[@resource-id='android:id/resolver_page']");
 	// *[@text='Chrome']
 
 	public static By objSelectAppToOpen = By.xpath("//*[@text='Chrome']");
-
-	// Terms of Use option in kannada
-	public static By objTermsInKannada = By.xpath("//div[@class='menuGroup active'][3]//a[@class='noSelect menuItem   '][3]");
-
-	// Privacy Policy in Kannada
-	public static By objPrivacyPolicyInKannadA = By.xpath("//div[@class='menuGroup active'][3]//a[@class='noSelect menuItem   '][4]");
-
-	// English option
-	public static By objEnglishOption = By.xpath(
-			"//body/div[@class='ReactModalPortal']/div[@class='ReactModal__Overlay ReactModal__Overlay--after-open popupOverlay']/div[contains(@class,'ReactModal__Content ReactModal__Content--after-open popupModal languagePopupOuter')]/div/div[@class='popupContent langFilterPopupWrapper']/div[2]/div[1]/div[2]");
 
 	// Cashback for payment by Amazon pay
 	public static By objCashbackByAmazonPay = By
@@ -470,7 +468,7 @@ public class PWAHamburgerMenuPage {
 	public static By objkannadalanguage = By.xpath("//span[@class='commonName'][contains(text(),'Kannada')]");
 
 	public static By objResetSettingsToDefault = By.xpath("//div[@class='noSelect settingleftSettings']");
-	
+
 	public static By objPlans = By.xpath("//*[text()='Plans']");
 
 	public static By objBuySubscription = By.xpath("//*[.='Buy Subscription']");
@@ -494,38 +492,42 @@ public class PWAHamburgerMenuPage {
 	public static By objHamburgerBtn = By.xpath("//*[contains(text(),'Open Menu')]");
 
 	public static By objMyTransactionPackName = By.xpath("//*[@class='packInline']");
-	
 
-	public static By objGetPremiumCTAbelowPlayer = By.xpath("//*[@class='subscribe-teaser-button' and //*[.='GET PREMIUM']]");
+	public static By objGetPremiumCTAbelowPlayer = By
+			.xpath("//*[@class='subscribe-teaser-button' and //*[.='GET PREMIUM']]");
 
 	public static By objMyTransactionPage = By.xpath("//*[@class='pageTitle' and //*[text()='My Transactions']]");
 
-	public static By objGetPremiumPopup = By.xpath("//h2[contains(@class,'popupTitle bigTitle') and text()='Subscribe']");      
+	public static By objGetPremiumPopup = By
+			.xpath("//h2[contains(@class,'popupTitle bigTitle') and text()='Subscribe']");
 
 	public static By objPopupClose = By.xpath("//*[@class='noSelect closePupup iconInitialLoad-ic_close']");
 
 	public static By objSubscribeNowLink = By.xpath("//*[@class='subscribe-link']");
-	
+
 	public static By objLanguageBtn = By.xpath("//*[@class='noSelect menuItem  languageMenu ']");
 
-	public static By objContentLanguageBtn = By.xpath("//*[@class='noSelect contentlangugaeHeader ' and contains(text(),'Content Language')]");
+	public static By objContentLanguageBtn = By
+			.xpath("//*[@class='noSelect contentlangugaeHeader ' and contains(text(),'Content Language')]");
 
 	public static By objSelectedLanguages = By
-	.xpath("//*[@class='checkboxWrap checkedHighlight']//*[@class='innnerContentWrap']");
+			.xpath("//*[@class='checkboxWrap checkedHighlight']//*[@class='innnerContentWrap']");
 
 	public static By objCancelBtnOnLangPp = By.xpath("//*[@class='popupBtn accentBtn noSelect']");
 
 //	public static By objContentLanguage = By.xpath("//div[contains(@class,'contentlangugaeHeader')]");
-	//manas
+	// manas
 	public static By objContentLanguage = By.xpath("//div[contains(text(),'Content Language')]");
 	public static By objAboutUsOption = By.xpath("(//a[.='About Us'])[1]");
 
-	public static By objHelpCenterOption = By.xpath("//*[contains(@class,'menuGroup active')]//*[contains(@class,'')][contains(text(),'Help Center')]");
+	public static By objHelpCenterOption = By
+			.xpath("//*[contains(@class,'menuGroup active')]//*[contains(@class,'')][contains(text(),'Help Center')]");
 
-	public static By objTermsOfUseOption = By.xpath("//*[contains(@class,'menuGroup active')]//*[contains(@class,'')][contains(text(),'Terms of Use')]");
+	public static By objTermsOfUseOption = By
+			.xpath("//*[contains(@class,'menuGroup active')]//*[contains(@class,'')][contains(text(),'Terms of Use')]");
 
 	public static By objPrivacyPolicy = By.xpath(
-				"//*[contains(@class,'menuGroup active')]//*[contains(@class,'')][contains(text(),'Privacy Policy')]");
+			"//*[contains(@class,'menuGroup active')]//*[contains(@class,'')][contains(text(),'Privacy Policy')]");
 
 	public static By objPrivacyPolicyInfo = By.xpath("//*[@class='staticPageContainer']");
 
@@ -534,8 +536,6 @@ public class PWAHamburgerMenuPage {
 	public static By objBuildVersion = By.xpath("//*[@class='versionText']");
 
 	public static By objCloseHamburger = By.xpath("//*[text()='Close Menu']");
-
-	public static By objKannadaLanguage = By.xpath("//*[contains(@class,'ReactModalPortal')]//div[5]");
 
 	public static By objApply = By.xpath("//*[@class='popupBtn noSelect']");
 
@@ -548,65 +548,69 @@ public class PWAHamburgerMenuPage {
 	public static By objPrivacyPolicyScreen = By.xpath("//h1[contains(text(),'Privacy Policy')]");
 
 	public static By objLanguage = By.xpath("//*[contains(@class,'languageMenu')]");
-	
+
 	public static By objMoreSettingInHamburger = By.xpath("//*[contains(text(),'More Settings')]");
 
 	public static By objParentalControl = By.xpath("//*[contains(text(),'Parental Control') and @class]");
 
 	public static By objAuthenticationOption = By.xpath("//*[contains(text(),'Authenticate Device')]");
 
-	public static By objAuthenticationButtonHighlighted = By.xpath("//button[contains(@class,'noSelect buttonGradient')]");
+	public static By objAuthenticationButtonHighlighted = By
+			.xpath("//button[contains(@class,'noSelect buttonGradient')]");
 
 	public static By objPlanInsideItemsBtn(String itemName) {
-		return By.xpath("//*[contains(@class,'menuForPlans') and contains(text(),'"+itemName+"')]");
+		return By.xpath("//*[contains(@class,'menuForPlans') and contains(text(),'" + itemName + "')]");
 	}
 
-	public static By objPopUpProceedButton = By.xpath("//*[@class='registerLoginContainer']//*[@class='noSelect buttonGradient ']");
-
+	public static By objPopUpProceedButton = By
+			.xpath("//*[@class='registerLoginContainer']//*[@class='noSelect buttonGradient ']");
 
 	public static By objMoreSettingInKannada = By.xpath("//*[contains(text(),'ಹೆಚ್ಚಿನ ಸೆಟ್ಟಿಂಗ್ಸ್ ') and @class]");
 
 	public static By objUpdatePasswordButton = By.xpath("//*[contains(@class,'noSelect buttonGradient')]");
 
 //	public static By objNotNow =  By.xpath("//*[contains(@class,'addToHomeScreen')]//*[contains(text(),'Not now')]");
-	//manas
-	public static By objNotNow =  By.xpath("//*[@class='btnWrap']//*[contains(text(),'Not now')]");
-	
-	
+	// manas
+	public static By objNotNow = By.xpath("//*[@class='btnWrap']//*[contains(text(),'Not now')]");
+
 	public static By objSetParentalLockButton = By.xpath("//button[contains(@class,'noSelect buttonGradient')]");
-	
 
 	public static By objLanguageButtonWeb = By.xpath("//div[@id='languageBtn']");
-	
+
 	public static By objMyAccountOptionsText = By.xpath("//h1[contains(@class,'pageTitle')]");
-	
-	public static By objUserNameInMyProfileWeb = By.xpath("//div[@class='userDetails']//div[contains(@class,'userName')]");
-	
-	public static By objTermsInKannada2 = By.xpath("//div[@class='menuGroup active'][2]//a[@class='noSelect menuItem   '][3]");	
-	
-	public static By objPrivacyPolicyInKannadA2 = By.xpath("//div[@class='menuGroup active'][2]//a[@class='noSelect menuItem   '][4]");	
-	
-	public static By objAboutUsinKannada2 = By.xpath("//div[@class='menuGroup active'][2]//a[@class='noSelect menuItem   '][1]");
+
+	public static By objUserNameInMyProfileWeb = By
+			.xpath("//div[@class='userDetails']//div[contains(@class,'userName')]");
+
+	public static By objTermsInKannada2 = By
+			.xpath("//div[@class='menuGroup active'][2]//a[@class='noSelect menuItem   '][3]");
+
+	public static By objPrivacyPolicyInKannadA2 = By
+			.xpath("//div[@class='menuGroup active'][2]//a[@class='noSelect menuItem   '][4]");
+
+	public static By objAboutUsinKannada2 = By
+			.xpath("//div[@class='menuGroup active'][2]//a[@class='noSelect menuItem   '][1]");
 
 	public static By objHomeInOpenMenuTab = By.xpath("//a[@class='noSelect menuItem  active']//div[.='Home']");
 
 	public static By objProfileText = By.xpath("//div[@class='noSelect pageLink' and contains(text(),'My Profile')]");
 
-
-	
 	public static By objSettings = By.xpath("//*[text()='Settings']");
 	public static By objLanguagePop = By.xpath("//div[@class='popupContent langFilterPopupWrapper']");
 	public static By objInfo = By.xpath("//*[text()='Info']");
-	
-	
-	
-	//terms of use in Sign up screen
-		public static By objTermsOfServicesInSignupScreen = By.xpath("//span[text()='Terms of Services']");
-	//Privacy policy in Sign up screen
-		public static By objPrivacyPolicyInSignupScreen= By.xpath("//span[text()='Privacy Policy']");
-	
-		public static By objDisplayLanguage = By.xpath("//*[contains(@class,'settingleft') and contains(text(),'Display Language')]");
 
-		public static By carouselFirstDot = By.xpath("(//*[contains(@class,'carouselDots')])[1]");
+	// terms of use in Sign up screen
+	public static By objTermsOfServicesInSignupScreen = By.xpath("//span[text()='Terms of Services']");
+	// Privacy policy in Sign up screen
+	public static By objPrivacyPolicyInSignupScreen = By.xpath("//span[text()='Privacy Policy']");
+
+	public static By objDisplayLanguage = By
+			.xpath("//*[contains(@class,'settingleft') and contains(text(),'Display Language')]");
+
+	public static By carouselFirstDot = By.xpath("(//*[contains(@class,'carouselDots')])[1]");
 	
+	public static By objArticleTitle(String title) {
+		return By.xpath("//*[contains(@text,'"+title+"')]");
+	}
+
 }

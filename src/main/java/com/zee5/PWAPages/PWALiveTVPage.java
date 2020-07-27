@@ -280,8 +280,6 @@ public class PWALiveTVPage {
 		  }	
 		
 		public static By objTwitterPasswordField1 = By.xpath("//input[@name='session[password]']");
-		public static By objFacebookEmailField1 = By.xpath("//input[@id='email']");
-		public static By objChromeOpenWith = By.xpath("//*[@text='Chrome']");
-		
-		
+		public static By objFacebookEmailField1 = By.xpath("//input[@id='email']");		
+		public static By objChromeOpenWith = By.xpath("//*[@text='Chrome' or contains(@text,'JUST ONCE')]");
 }

@@ -314,7 +314,7 @@ public class PWAHomePage {
 		public static By objwritetous = By.xpath("//img[contains(@class,'img1')]");
 
 		// contact us page
-		public static By objcontactus = By.xpath("//div[@class='headingTxt shiftLeft chgLeft']");
+		public static By objcontactus = By.xpath("//*[@text='Contact Us']");
 
 		// About Us in Footer Section
 		public static By objAboutUsInFooterSection = By.xpath("//a[@class='noSelect'][contains(text(),'About Us')]");
@@ -404,7 +404,8 @@ public class PWAHomePage {
 		public static By objLanguagePop = By.xpath("//div[@class='popupContent langFilterPopupWrapper']");
 		
 		// Subscribe Now
-				public static By objSubscribeNow = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Subscribe Now')]");
+		public static By objSubscribeNow = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Subscribe Now')]");
 		
 		
+		public static By objTwitterFollowWeb = By.xpath("//*[text()='Follow']");
 }
