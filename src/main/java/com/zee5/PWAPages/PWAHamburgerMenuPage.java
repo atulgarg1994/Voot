@@ -601,6 +601,7 @@ public class PWAHamburgerMenuPage {
 
 	// terms of use in Sign up screen
 	public static By objTermsOfServicesInSignupScreen = By.xpath("//span[text()='Terms of Services']");
+	
 	// Privacy policy in Sign up screen
 	public static By objPrivacyPolicyInSignupScreen = By.xpath("//span[text()='Privacy Policy']");
 

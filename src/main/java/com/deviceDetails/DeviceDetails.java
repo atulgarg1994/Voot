@@ -28,6 +28,7 @@ public class DeviceDetails {
 
 	public static String getAppDetails(String str) {
 		try {
+			getListOfDevicesConnected();
 			String cmd = "";
 			if (AppDetails.isEmpty()) {
 				cmd = "adb -s " + devices.get(0) + " shell \"dumpsys package " + str + " | grep versionName\"";
@@ -46,6 +47,21 @@ public class DeviceDetails {
 		}
 
 		return DeviceModel;
+	}
+	
+	public static String getAppVersion(String packageName) {
+
+		try {
+			cmd = "adb  shell \"dumpsys package " + packageName + " | grep versionName\"";
+			Process p = Runtime.getRuntime().exec(cmd);
+			BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			while ((DeviceModel = br.readLine()) != null) {
+				return DeviceModel.trim();
+			}
+		} catch (Exception e) {
+			
+		}
+		return "";
 	}
 
 	public static void getTheDeviceManufacturer() {

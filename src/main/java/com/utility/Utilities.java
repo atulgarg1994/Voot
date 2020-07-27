@@ -1150,6 +1150,8 @@ public class Utilities extends ExtentReporter {
 		return iselementPresent;
 	}
 	
+
+	
 //====================================================================================================================================
 	/** ::::::::::::::::Web Utilities:::::::::::: */
 
@@ -1729,4 +1731,10 @@ public class Utilities extends ExtentReporter {
 
 		}
   }
+	
+	public void ScrollToTheElementWEB(By element) throws Exception {
+		js.executeScript("arguments[0].scrollIntoView(true);", findElement(element));
+		js.executeScript("window.scrollBy(0,-250)", "");
+	}
+	
 }

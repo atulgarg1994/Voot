@@ -25,6 +25,8 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.deviceDetails.DeviceDetails;
 import com.driverInstance.DriverInstance;
+import com.propertyfilereader.PropertyFileReader;
+
 import io.appium.java_client.AppiumDriver;
 
 public class ExtentReporter implements ITestListener {
@@ -91,7 +93,7 @@ public class ExtentReporter implements ITestListener {
 		
 		String filePath = System.getProperty("user.dir") + "/Reports" + "/" +currentDate+"/"+ getPlatform() + "/"
 				+ context.getCurrentXmlTest().getParameter("userType") + "/" + context.getName() + "/"
-				+ context.getName() + "_" + getDate() + ".html";
+				+context.getCurrentXmlTest().getParameter("userType")+getAppVersion()+"_"+context.getName() + "_" + getDate() + ".html";
 		
 		htmlReport.set(new ExtentHtmlReporter(filePath));
 		htmlReport.get().loadXMLConfig(new File(System.getProperty("user.dir") + "/ReportsConfig.xml"), true);
@@ -205,4 +207,15 @@ public class ExtentReporter implements ITestListener {
 			return null;
 		}
 	}
+	
+	public String getAppVersion() {
+		if (getPlatform().equals("Android")) {
+			PropertyFileReader handler = new PropertyFileReader("properties/AppPackageActivity.properties");
+			return "Build_Number_" + DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim();
+		} else {
+			return "";
+		}
+	}
+	
+
 }

@@ -31,6 +31,8 @@ import com.metadata.getResponseUpNextRail;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.Utilities;
 import com.zee5.PWAPages.*;
+
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
@@ -5479,7 +5481,134 @@ public void verificationsOfInfoOptions() throws Exception {
 		}	
 		
 		
+	/*
+	 * ==========================Guest_User_User-Actions_Module====================
+	 */
+
+	public void UserActionGuestUser() throws Exception {
+		extent.HeaderChildNode("User Action module- Guest user Validataions");
+		// Validate Continue watching tray is not displayed for Guest user
+		
+		if(getPlatform().equalsIgnoreCase("Web")){
+			ScrollToTheElementWEB(PWAHomePage.objFirstContentCardOfTray("Recommended Movies"));
+			if(verifyElementExist(PWAHomePage.objFirstContentCardOfTray("Recommended Movies"),"First Content Card Of Recommended Movies Tray")){
+				Actions action = new Actions(getWebDriver());
+				action.moveToElement(findElement(PWAHomePage.objFirstContentCardOfTray("Recommended Movies")));
+				action.perform();
+				if(verifyElementExist(PWAHomePage.objAddToWatchlistButtonOnTrayContentCard("Recommended Movies"),"Add To Watchlist icon on tray 1st content card")){
+					extent.extentLogger("Verify Add To Watchlist icon on tray content card", "Add To Watchlist icon on tray content card is displayed for guest user");
+					logger.info("Add To Watchlist icon on tray content card is displayed for guest user");
+				} else {
+					extent.extentLoggerFail("Verify Add To Watchlist icon on tray content card", "Add To Watchlist icon on tray content card is not displaying for guest user");
+					logger.info("Add To Watchlist icon on tray content card is not displaying for guest user");
+				}
+				
+				click(PWAHomePage.objAddToWatchlistButtonOnTrayContentCard("Recommended Movies"),"Add To Watchlist icon on tray 1st content card");
+				if(verifyElementExist(PWAHomePage.objLoginRequiredPopUpHeader, "Login Required PopUp Header")){
+					extent.extentLogger("Login popup is displayed when clicked on 'Add to Watchlist' icon on tray content card", "Login popup is displayed when clicked on 'Add to Watchlist' icon on tray content card for guest user");
+					logger.info("Login popup is displayed when clicked on 'Add to Watchlist' icon on tray content card for guest user");
+					click(PWAHomePage.objPopupCloseicon(), "Popup Close icon");
+				} else {
+					extent.extentLoggerFail("Login popup is not displayed when clicked on 'Add to Watchlist' icon on tray content card", "Login popup is not displayed when clicked on 'Add to Watchlist' icon on tray content card");
+					logger.info("Login popup is not displayed when clicked on 'Add to Watchlist' icon on tray content card");
+				}
+				
+				
+			}
+			verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "Zee5 Logo");
+		}
+		
+		waitTime(3000);
+		if (verifyElementExist(PWAHomePage.objContinueWatchingTray, "Continue Watching tray") == false) {
+			extent.extentLogger("Verify Continue Watching tray",
+					"Continue watching tray is not displayed for guest user");
+			logger.info("Continue watching tray is not displayed for guest user");
+		} else {
+			softAssert.assertAll();
+			extent.extentLoggerFail("Verify Continue Watching tray", "Continue watching tray is displaying for guest user");
+			logger.info("Continue watching tray is displaying for guest user");
+		}
+		validateDisplayLanguagePopup();
+		// Verify Add to Reminder is not displayed for guest user
+		// Click on live tv tab
+		if(getPlatform().equalsIgnoreCase("Android")){
+			navigateToAnyScreen("Live TV");
+		}else if(getPlatform().equalsIgnoreCase("Web")){
+			navigateToAnyScreenOnWeb("Live TV");
+		}
+		waitTime(5000);
+		// click on channel guide
+		click(PWALiveTVPage.objChannelGuideToggle, "Channel guide");
+		// Verify Reminder option is not available
+		// Click on date
+		click(PWALiveTVPage.objTomorrowDate, "Tomorrow date");
+		FilterLanguage();
+
+		// Verify Reminder option is available
+		click(PWALiveTVPage.objShowName, "Show detail");
+		if (verifyElementExist(PWALiveTVPage.objRemainderButton, "Reminder option for upcoming show ") == false) {
+			extent.extentLogger("Verify Reminder button for guest user ",
+					"Reminder button is not displayed for the Guest user");
+			logger.info("Reminder button is not displayed for the Guest user");
+		} else {
+			extent.extentLoggerFail("Verify Reminder button for guest user ",
+					"Reminder button is displayed for the Guest user");
+			logger.info("Reminder button is displayed for the Guest user");
+
+		}
+
+	}
+		
+	public void FilterLanguage() throws Exception {
+		click(PWALiveTVPage.objFilterLanguageChannelGuide, "Filter language");
+		int size = findElements(PWALiveTVPage.objSelectedlang).size();
+		for (int i = 1; i <= size; i++) {
+			click(PWALiveTVPage.objSelectedlang, "Selected language");
+		}
+		click(PWALiveTVPage.objKannadaLang, "Kannada language");
+		click(PWALiveTVPage.objApplyBtn, "Apply button");
+//		click(PWALiveTVPage.objApplyBtn,"Apply button");
+	}
 	
+	public void navigateToAnyScreen(String screen) throws Exception {
+		for (int i = 0; i < 3; i++) {
+			try {
+				verifyElementPresentAndClick(PWAHomePage.objTabName(screen), "Tab : " + screen);
+				waitTime(5000);
+				break;
+			} catch (Exception e) {
+				try {
+					swipeOnTab("Left");
+					verifyElementPresentAndClick(PWAHomePage.objTabName(screen), "Tab : " + screen);
+					waitTime(5000);
+					break;
+				} catch (Exception exc) {
+					swipeOnTab("Right");
+				}
+			}
+		}
+	}
 	
+	@SuppressWarnings("rawtypes")
+	public void swipeOnTab(String dire) throws InterruptedException {
+		extent.HeaderChildNode("Swipping on tab");
+		touchAction = new TouchAction(getDriver());
+		Dimension size = getDriver().findElement(PWAHomePage.objTabContBar).getSize();
+		if (dire.equalsIgnoreCase("Left")) {
+			int startx = (int) (size.width * 0.5);
+			int endx = (int) (size.width * 0.1);
+			int starty = size.height / 2;
+			touchAction.press(PointOption.point(startx, starty))
+					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+					.moveTo(PointOption.point(endx, starty)).release().perform();
+		} else if (dire.equalsIgnoreCase("Right")) {
+			int startx = (int) (size.width * 0.5);
+			int endx = (int) (size.width * 0.9);
+			int starty = size.height / 2;
+			touchAction.press(PointOption.point(startx, starty))
+					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+					.moveTo(PointOption.point(endx, starty)).release().perform();
+		}
+	}
 
 }

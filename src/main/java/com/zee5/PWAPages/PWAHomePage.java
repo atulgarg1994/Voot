@@ -408,4 +408,19 @@ public class PWAHomePage {
 		
 		
 		public static By objTwitterFollowWeb = By.xpath("//*[text()='Follow']");
+		
+		public static By objAddToWatchlistButtonOnTrayContentCard(String trayName)
+		{
+			return By.xpath("(//*[contains(@class,'trayHeader')]//*[contains(text(),'"+trayName+"')]//parent::*//following-sibling::*//*[contains(@class, 'noSelect btnIcon iconInitialLoad-ic_add_Watchlist')])[1]");
+		}
+		public static By objLoginRequiredPopUpHeader= By.xpath("//*[contains(text(), 'Login Required')]");
+		
+		public static By objPopupCloseicon()
+		{
+			return By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
+		}
+		public static By objFirstContentCardOfTray(String trayName)
+		{
+			return By.xpath("(//*[contains(@class,'trayHeader')]//*[contains(text(),'"+trayName+"')]//parent::*//following-sibling::*//*[contains(@class, 'showCard')])[1]");
+		}
 }

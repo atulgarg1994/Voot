@@ -5714,7 +5714,149 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			}
 		}
 		
+		public void UserActionGuestUser() throws Exception {
+			extent.HeaderChildNode("User Action module- Guest user Validataions");
+			// Validate Continue watching tray is not displayed for Guest user
+			if(getPlatform().equalsIgnoreCase("Android")){
+				ScrollToElement(PWAHomePage.objFirstContentCardOfTray("Recommended Movies"), "Recommended Movies Tray");
+			}else if(getPlatform().equalsIgnoreCase("Web")){
+				ScrollToTheElementWEB(PWAHomePage.objFirstContentCardOfTray("Recommended Movies"));
+			}
+			if(verifyElementExist(PWAHomePage.objFirstContentCardOfTray("Recommended Movies"),"First Content Card Of Recommended Movies Tray")){
+				Actions action = new Actions(getDriver());
+				action.moveToElement(findElement(PWAHomePage.objFirstContentCardOfTray("Recommended Movies")));
+				action.perform();
+				if(verifyElementExist(PWAHomePage.objAddToWatchlistButtonOnTrayContentCard("Recommended Movies"),"Add To Watchlist icon on tray 1st content card")){
+					extent.extentLogger("Verify Add To Watchlist icon on tray content card", "Add To Watchlist icon on tray content card is displayed for guest user");
+					logger.info("Add To Watchlist icon on tray content card is displayed for guest user");
+				} else {
+					extent.extentLoggerFail("Verify Add To Watchlist icon on tray content card", "Add To Watchlist icon on tray content card is not displaying for guest user");
+					logger.info("Add To Watchlist icon on tray content card is not displaying for guest user");
+				}
+					
+				click(PWAHomePage.objAddToWatchlistButtonOnTrayContentCard("Recommended Movies"),"Add To Watchlist icon on tray 1st content card");
+				if(verifyElementExist(PWAHomePage.objLoginRequiredPopUpHeader, "Login Required PopUp Header")){
+					extent.extentLogger("Login popup is displayed when clicked on 'Add to Watchlist' icon on tray content card", "Login popup is displayed when clicked on 'Add to Watchlist' icon on tray content card for guest user");
+					logger.info("Login popup is displayed when clicked on 'Add to Watchlist' icon on tray content card for guest user");
+					click(PWAHomePage.objPopupCloseicon(), "Popup Close icon");
+				} else {
+					extent.extentLoggerFail("Login popup is not displayed when clicked on 'Add to Watchlist' icon on tray content card", "Login popup is not displayed when clicked on 'Add to Watchlist' icon on tray content card");
+					logger.info("Login popup is not displayed when clicked on 'Add to Watchlist' icon on tray content card");
+				}
+			}
+			verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "Zee5 Logo");
+			
+			
+			waitTime(3000);
+			if (verifyElementExist(PWAHomePage.objContinueWatchingTray, "Continue Watching tray") == false) {
+				extent.extentLogger("Verify Continue Watching tray",
+						"Continue watching tray is not displayed for guest user");
+				logger.info("Continue watching tray is not displayed for guest user");
+			} else {
+				softAssert.assertAll();
+				extent.extentLoggerFail("Verify Continue Watching tray", "Continue watching tray is displaying for guest user");
+				logger.info("Continue watching tray is displaying for guest user");
+			}
+			validateDisplayLanguagePopup();
+			// Verify Add to Reminder is not displayed for guest user
+			// Click on live tv tab
+			if(getPlatform().equalsIgnoreCase("Android")){
+				navigateToAnyScreen("Live TV");
+			}else if(getPlatform().equalsIgnoreCase("Web")){
+				navigateToAnyScreenOnWeb("Live TV");
+			}
+			waitTime(5000);
+			// click on channel guide
+			click(PWALiveTVPage.objChannelGuideToggle, "Channel guide");
+			// Verify Reminder option is not available
+			// Click on date
+			click(PWALiveTVPage.objTomorrowDate, "Tomorrow date");
+			FilterLanguage();
+
+			// Verify Reminder option is available
+			click(PWALiveTVPage.objShowName, "Show detail");
+			if (verifyElementExist(PWALiveTVPage.objRemainderButton, "Reminder option for upcoming show ") == false) {
+				extent.extentLogger("Verify Reminder button for guest user ",
+						"Reminder button is not displayed for the Guest user");
+				logger.info("Reminder button is not displayed for the Guest user");
+			} else {
+				extent.extentLoggerFail("Verify Reminder button for guest user ",
+						"Reminder button is displayed for the Guest user");
+				logger.info("Reminder button is displayed for the Guest user");
+
+			}
+
+		}
+		
+		public void validateDisplayLanguagePopup() throws Exception {
+
+			if (waitForElement1(PWAHomePage.objDisplayLanguagePopupTitle, 20, "Display Language Popup")) {
+
+				verifyElementPresentAndClick(PWAHomePage.objDisplayLanguagePopupOption("English"),
+						"English option in Display Language popup");
+				verifyElementPresentAndClick(PWAHomePage.objDisplayLanguageContinueButton,
+						"Continue Button in Display Language popup");
+
+				verifyElementPresent(PWAHomePage.objContentLanguagePopupSelectedOption("English"),
+						"English option in Content Language popup");
+				verifyElementPresent(PWAHomePage.objContentLanguagePopupSelectedOption("Kannada"),
+						"Kannada option in Content Language popup");
+				verifyElementPresentAndClick(PWAHomePage.objContentLanguagePopupUnSelectedOption("Hindi"),
+						"Hindi option in Content Language popup");
+				verifyElementPresentAndClick(PWAHomePage.objDisplayLanguageContinueButton,
+						"Continue Button in Content Language popup");
+			}
+
+		}
+		
+
+		public void FilterLanguage() throws Exception {
+			click(PWALiveTVPage.objFilterLanguageChannelGuide, "Filter language");
+			int size = findElements(PWALiveTVPage.objSelectedlang).size();
+			for (int i = 1; i <= size; i++) {
+				click(PWALiveTVPage.objSelectedlang, "Selected language");
+			}
+			click(PWALiveTVPage.objKannadaLang, "Kannada language");
+			click(PWALiveTVPage.objApplyBtn, "Apply button");
+//			click(PWALiveTVPage.objApplyBtn,"Apply button");
+		}
 	   
-	   
+		public void navigateToAnyScreenOnWeb(String screen) throws Exception {
+			try {
+				if (verifyElementExist(PWAHomePage.objHomeBarText(screen), screen+" Tab")) {
+					click(PWAHomePage.objHomeBarText(screen), screen+" Tab");
+				} else {
+					JavascriptExecutor executor = (JavascriptExecutor) getWebDriver();
+					getWebDriver().findElement(PWAHomePage.objMoreMenuIcon);
+					waitTime(2000);				
+					try {
+						WebElement tab = getWebDriver().findElement(PWAHomePage.objMoreMenuTabs(screen));
+						executor.executeScript("arguments[0].click();", tab);
+					} catch (Exception e) {
+					}
+				} 
+			} catch (Exception e) {
+				System.out.println("Exception : " + e.getMessage());
+			}
+
+		}
+		
+		public boolean waitForElement1(By locator, int seconds, String message) throws InterruptedException {
+			main: for (int time = 0; time <= seconds; time++) {
+				try {
+					getWebDriver().findElement(locator);
+					logger.info("Located element " + message);
+					extent.extentLogger("locatedElement", "Located element " + message);
+					break main;
+				} catch (Exception e) {
+					Thread.sleep(1000);
+					if (time == seconds) {
+						logger.error("Failed to locate element " + message);
+						extent.extentLoggerFail("failedLocateElement", "Failed to locate element " + message);
+					}
+				}
+			}
+			return false;
+		}
 	   
 }

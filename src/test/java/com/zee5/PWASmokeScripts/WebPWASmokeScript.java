@@ -188,6 +188,15 @@ public class WebPWASmokeScript {
 		
 	}
 	
+	//--------------------------SATISH UserAction--------------------------
+		@Test(priority = 11)
+		@Parameters({"userType","url"})
+		public void UserAction(String userType,String url) throws Exception {
+			zee5WebBusinessLogic.dismissDisplayContentLanguagePopUp();
+			zee5WebBusinessLogic.UserActionGuestUser();
+			
+		}
+	
 	
 	@AfterClass
 	public void tearDown() {

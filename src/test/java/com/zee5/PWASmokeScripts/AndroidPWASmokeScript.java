@@ -231,7 +231,17 @@ public class AndroidPWASmokeScript {
 			}	
 			
 			
+			//--------------------------SATISH UserActions--------------------------
 			
+			
+			@Test(priority = 15)
+			@Parameters({"userType","url"})
+			public void PWAUserActions(String userType,String url) throws Exception {	
+				System.out.println("15th method started >>>>");
+				zee5PWABusinessLogic.reloadURL(url);
+				zee5PWABusinessLogic.UserActionGuestUser();
+			    System.out.println(">>>> 15th method completed");
+			}
 			
 	
 	
