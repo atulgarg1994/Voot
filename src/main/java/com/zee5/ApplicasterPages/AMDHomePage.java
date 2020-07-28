@@ -109,9 +109,10 @@ public class AMDHomePage {
 /**
  * Sushma
  */
-			
 			//Selected tab
 			public static By objSelectedTab = By.xpath("//*[@resource-id='com.graymatrix.did:id/title' and @selected='true']");
+			//Carousel unit as a 1st unit in the page
+			public static By objCarouselUnit = By.xpath("(//*[@resource-id='com.graymatrix.did:id/tabLayout']/following-sibling::*/child::*/child::*/child::*/child::*)[1]");
 			//Carousel title
 			public static By objCarouselTitle1 = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_primary_text' and @onScreen='true']");
 			public static By objCarouselTitle2 = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_image']//following-sibling::*[@id='item_primary_text']");
@@ -120,9 +121,21 @@ public class AMDHomePage {
 			public static By objCarouselDots = By.xpath("//*[@resource-id='com.graymatrix.did:id/indicator']/child::*");
 			
 			public static By objCarouselConetentCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/hero_1_cell_parent']");
+			public static By objCarouselPlayIconContentCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/playImage']/preceding-sibling::*[@resource-id='com.graymatrix.did:id/item_primary_text']");
 			
-	//Consumption screen title
+	        //Consumption screen title
 			public static By objConsumptionScreenTitle = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_primary_text']");
 			
+		    //Continue watching tray
+			public static By objContinueWatchingTray = By.xpath("//*[@resource-id='com.graymatrix.did:id/header_primary_text' and @text='Continue Watching']");
+			public static By objCloseIconOfFirstContentOfCWTray = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_remove'])[1]");
+			public static By objLeftTimeOfFirstContentOfCWTray = By.xpath("(//*[@resource-id='com.graymatrix.did:id/time_progress'])[1]");
+			public static By objProgressBarOfFirstContentOfCWTray = By.xpath("(//*[@resource-id='com.graymatrix.did:id/progress_bar'])[1]");
 			
+			public static By objSubscribeIcon = By.xpath("//*[@id='toolbar_subscribe_text']");
+			
+			public static By objTrendingNowTray = By.xpath("//*[@text='Trending Now']");
+			public static By objTrendingOnZee5Tray = By.xpath("//*[@text='Trending on Zee5']");
+			
+			public static By objCarouselTitle = By.xpath("//*[@id='item_primary_text']");
 }

@@ -5314,7 +5314,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 //		waitTime(3000);
 //		click(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
 		waitTime(3000);
-		getWebDriver().get("https://newpwa.zee5.com/movies/details/doddmane-hudga/0-0-2677?t=60");
+		getWebDriver().get("https://newpwa.zee5.com/kids/kids-movies/ramayana/0-0-72648");
 		waitTime(10000);
 
 		// waitForPlayerLoaderToComplete();
@@ -5447,7 +5447,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		int timeperiod = 35;
 		getWebDriver().get(URL);
 		getWebDriver().get(
-				"https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paarvathi-kisses-aditya-paaru/0-1-manual_1dr9c5e034t0?t="
+				"https://newpwa.zee5.com/tvshows/details/gattimela/0-6-1392/everyone-delighted-about-adyas-pregnancy-gattimela/0-1-manual_2voun4m1qsh0"
 						+ timeperiod + "");
 
 		if (BROWSER.equals("Chrome")) {
@@ -5896,6 +5896,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		Thread.sleep(2000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		verifyElementExist(PWAHomePage.objSearchField, "Search field");
+		Thread.sleep(2000);
+		if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
+					verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
+				}
 		String keyword1 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 				.getParameter("freeMovie");
 		type(PWAHomePage.objSearchField, keyword1, "Search");
@@ -6073,6 +6077,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			click(PWASearchPage.objUpgradePopupCloseButton, "Close button");
 			logout();
 			validateDisplayLanguagePopup();
+			if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
+				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
+			}
 		}
 	}
 
@@ -6092,15 +6099,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Non-Subscribed User Scenario");
 			extent.extentLogger("Accessing as Non-Subscribed User", "Accessing as Non-Subscribed User");
 			logger.info("Accessing as Non-Subscribed User");
-
+			ZeeWEBPWALogin(userType);
 			ProfileSanityWeb();
 			break;
-
+			
 		case "SubscribedUser":
 			extent.HeaderChildNode("Subscribed User scenario");
 			extent.extentLogger("Accessing as Subscribed User", "Accessing as Subscribed User");
 			logger.info("Accessing as Subscribed User");
-
+			ZeeWEBPWALogin(userType);
 			ProfileSanityWeb();
 		}
 	}

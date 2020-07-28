@@ -62,7 +62,7 @@ public class Android_Search {
 		ZEE5ApplicasterBusinessLogic.voiceSearchValidation();
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.voiceSearchDenyValidation();
 	}

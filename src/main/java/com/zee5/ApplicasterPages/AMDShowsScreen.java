@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 public class AMDShowsScreen {
 //	 public static By objTrays = By.xpath("(//*[@id='recyclerView']//*[@id='header_primary_text'])");
 	
-	
 	public static By objSubscribeIcon = By.xpath("//*[@id='toolbar_subscribe_text']");
 	
 	 public static By objTrays(int i) {

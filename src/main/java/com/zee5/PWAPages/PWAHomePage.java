@@ -354,7 +354,7 @@ public class PWAHomePage {
 		return By.xpath("//*[@class=\"noSelect active\"]");
 	}
 	
-	public static By objSearchResultWeb = By.xpath("//div[@class='searchListingNewsWrap']//img[@title='Gooli']");
+	public static By objSearchResultWeb = By.xpath("//div[@class='searchListingNewsWrap']//img[@title='Ramayana']");
 	
 	//Subscribe PopUp Home Page
 	public static By objSubscripePopupHomePage = By.xpath("//div[(contains(@style,'display: block'))]//child::div[contains(@id,'adoric_smartbox_')]");

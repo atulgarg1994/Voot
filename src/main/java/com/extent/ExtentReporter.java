@@ -107,7 +107,7 @@ public class ExtentReporter implements ITestListener {
 				+context.getCurrentXmlTest().getParameter("userType")+getAppVersion()+"_"+context.getName() + "_" + getDate() + ".html";
 		
 		fileName =  context.getCurrentXmlTest().getParameter("userType")+ 
-				getAppVersion()+context.getName() + "_" + getDate()+ ".html";
+				getAppVersion()+"_"+context.getName() + "_" + getDate()+ ".html";
 		
 		htmlReport.set(new ExtentHtmlReporter(filePath));
 		htmlReport.get().loadXMLConfig(new File(System.getProperty("user.dir") + "/ReportsConfig.xml"), true);
@@ -172,6 +172,7 @@ public class ExtentReporter implements ITestListener {
 	public void onFinish(ITestContext context) {
 		if (!getPlatform().equals("Web")) {
 			extent.get().setSystemInfo("Device Info ", DeviceDetails.DeviceInfo(context.getName()));
+			extent.get().setSystemInfo("App version : ", getAppVersion());
 		}else if(getPlatform().equals("Web")){
 			extent.get().setSystemInfo("Browser Info ", BrowserType);
 		}
@@ -226,7 +227,7 @@ public class ExtentReporter implements ITestListener {
 	public void appVersion() {
 		if (getPlatform().equals("Android")) {
 			PropertyFileReader handler = new PropertyFileReader("properties/AppPackageActivity.properties");
-			setAppVersion("Build_Number_" + DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim());
+			setAppVersion("Build " + DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim().replace("versionName=",""));
 		} else {
 			setAppVersion("");
 		}

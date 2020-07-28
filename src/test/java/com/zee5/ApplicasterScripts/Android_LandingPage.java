@@ -26,12 +26,13 @@ public class Android_LandingPage {
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 	}
 
-	@Test
+	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void Home(String userType) throws Exception
 	{
 		ZEE5ApplicasterBusinessLogic.homeLandingScreen(userType);
 	}
+	
 	
 	
 	@AfterTest

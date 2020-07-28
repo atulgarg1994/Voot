@@ -131,25 +131,13 @@ public class DeviceDetails {
 	public static String deviceNames(String extent) {
 		ArrayList<String> a = new ArrayList<String>();
 		a.addAll(hs);
-		if (cmd.isEmpty()) {
-			cmd = extent;
-			return a.get(0);
-		} else if (!cmd.isEmpty()) {
-			return a.get(1);
-		}
-		return null;
+		return a.get(0);
 	}
 
 	public static String deviceOS(String extent) {
 		ArrayList<String> a = new ArrayList<String>();
 		a.addAll(hsOS);
-		if (cmd2.isEmpty()) {
-			cmd2 = extent;
 			return a.get(0);
-		} else if (!cmd2.isEmpty()) {
-			return a.get(1);
-		}
-		return null;
 	}
 
 	public static void getTheDeviceOSVersion() {

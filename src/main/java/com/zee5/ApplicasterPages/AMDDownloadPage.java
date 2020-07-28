@@ -56,4 +56,25 @@ public class AMDDownloadPage {
 	public static By objDownloadbtn = By.xpath("//*[@id='downlowd_image']");
 	public static By objDownloadVideoQualityPopup = By.xpath("//*[@id='popup_title']");
 	public static By objStartDownloadCTA = By.xpath("//*[@id='bottomSheetDialogStartDownloadBtn']");
+	
+	public static By objSearchIcononDownloadsScreen = By.xpath("//*[@class='android.widget.ImageView' and ./parent::*[@class='android.support.v7.widget.LinearLayoutCompat']]");
+	public static By objSearchedResultFirstcontent = By.xpath("//*[@class='android.view.ViewGroup' and ./*[@id='itemImageParent']]");
+	public static By objGoToDownloadsOption = By.xpath("//*[@id='tvNavigateDownload']");
+	public static By objRightArrow = By.xpath("//*[@id='img_right_arrow']");
+	public static By objDownloadingText = By.xpath("//*[@id='tv_downloading_out_of']");
+	public static By objDownloadingCircularBar = By.xpath("//*[@class='android.widget.ImageView' and ./parent::*[@id='rl_circular']]");
+	public static By objPausedText = By.xpath("//*[@text='Paused']");
+	public static By objPausedBar = By.xpath("//*[@id='img_state']");
+	public static By objContinueOption = By.xpath("//*[@id='tvRetryDownload']");
+	public static By objDownloadFailedText = By.xpath("//*[@text='Download Failed']");
+	public static By objDownloadErrorText = By.xpath("	//*[@id='tv_download_again']");
+	public static By objRetryCTA = By.xpath("//*[@id='tvRetryDownload']");
+	public static By objDownloadIcon = By.xpath("//*[@id='downlowd_image']");
+	
+	/**
+	 * Manasa
+	 */
+	public static By objDownloadedContent = By.xpath("(//*[@id='tv_title'])[1]");
+	public static By objPlayDownloadedContent = By.xpath("//*[@id='tvPlay']");
+	public static By objDeleteDownloadedContent = By.xpath("//*[@id='tvDeleteDownload']");
 }
