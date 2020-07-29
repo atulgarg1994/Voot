@@ -11,6 +11,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.SkipException;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.Utilities;
+import com.zee5.ApplicasterPages.AMDOnboardingScreen;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
@@ -22,6 +24,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class DriverInstance extends Drivertools {
 
+	@SuppressWarnings("static-access")
 	public DriverInstance(String Application) {
 		super(Application);
 		try {
@@ -29,6 +32,7 @@ public class DriverInstance extends Drivertools {
 			case "Android":
 				tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),
 						this.generateAndroidCapabilities(Application)));
+				util.waitForElementDisplayed(AMDOnboardingScreen.objWaitForSplashScreenDisapear, 180);
 				break;
 
 			case "MPWA":

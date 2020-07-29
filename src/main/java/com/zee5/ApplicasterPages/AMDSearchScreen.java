@@ -179,4 +179,6 @@ public class AMDSearchScreen {
 	
 	public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[4]");
 	
+	public static By objNoOftraysInSearchpage = By.xpath("//*[@resource-id='com.graymatrix.did:id/header_primary_text']");
+	
 }

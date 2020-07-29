@@ -2039,36 +2039,47 @@ List of Functions Created
 		if(usertype.equalsIgnoreCase("NonSubscribedUser") || usertype.equalsIgnoreCase("SubscribedUser"))
 		{
 			
-			if(verifyElementExist(AMDSearchScreen.objTopSearches, "Top searches tray"))
-			{
-				verifyElementPresent(AMDSearchScreen.objContentCardTitleOfTopSearchesTray, "Content card title of Top searches tray");
+			int noOfTrays = findElements(AMDSearchScreen.objNoOftraysInSearchpage).size();
+			System.out.println(noOfTrays);
+			boolean TopSearchFound = false;
+			for(int i=1; i<=noOfTrays;i++) {
+				String traytitle = getDriver().findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])["+i+"]")).getText();
 				
-				getText(AMDSearchScreen.objContentCardTitleOfTopSearchesTray);
-				
-//				click(AMDSearchScreen.objContentCardTitleOfTopSearchesTray, "Content card of Top searches tray");
-//				waitForElementDisplayed(AMDSearchScreen.objConsumptionScreenTitle, 10);
-//				
-//				verifyElementPresent(AMDSearchScreen.objConsumptionScreenTitle, "Title in Consumption screen");
-//				
+				if (traytitle.equalsIgnoreCase("Top Searches")) {
+					TopSearchFound= true;
+					verifyElementExist(AMDSearchScreen.objTopSearches, "Top searches tray");
+					
+					verifyElementPresent(AMDSearchScreen.objContentCardTitleOfTopSearchesTray, "Content card title of Top searches tray");
+					
+					getText(AMDSearchScreen.objContentCardTitleOfTopSearchesTray);
+					
+//					click(AMDSearchScreen.objContentCardTitleOfTopSearchesTray, "Content card of Top searches tray");
+//					waitForElementDisplayed(AMDSearchScreen.objConsumptionScreenTitle, 10);
+//					
+//					verifyElementPresent(AMDSearchScreen.objConsumptionScreenTitle, "Title in Consumption screen");
+//					
 //
-//					String consumptionScreenTitle = getText(AMDSearchScreen.objConsumptionScreenTitle);
-//					if(contentCardTitleofTopSearches.equalsIgnoreCase(consumptionScreenTitle))
-//					{
-//					    logger.info("user navigated to respective consumption/Landing screen post tapping on any Top searches carousel");	
-//					    extent.extentLogger("Title", "user navigated to respective consumption/Landing screen post tapping on any Top searches carousel");
-//					}
-//					else
-//					{
-//						logger.info("user is not navigated to respective consumption/Landing screen post tapping on any Top searches carousel");	
-//					    extent.extentLoggerFail("Title", "user is not navigated to respective consumption/Landing screen post tapping on any Top searches carousel");
-//					}
-					Back(1);
+//						String consumptionScreenTitle = getText(AMDSearchScreen.objConsumptionScreenTitle);
+//						if(contentCardTitleofTopSearches.equalsIgnoreCase(consumptionScreenTitle))
+//						{
+//						    logger.info("user navigated to respective consumption/Landing screen post tapping on any Top searches carousel");	
+//						    extent.extentLogger("Title", "user navigated to respective consumption/Landing screen post tapping on any Top searches carousel");
+//						}
+//						else
+//						{
+//							logger.info("user is not navigated to respective consumption/Landing screen post tapping on any Top searches carousel");	
+//						    extent.extentLoggerFail("Title", "user is not navigated to respective consumption/Landing screen post tapping on any Top searches carousel");
+//						}
+						
+						break;
+				}
 			}
-			else
-			{
+			
+			if (TopSearchFound==false) {
 				logger.info("Top searches is not displayed");
-				extentLoggerFail("Top searches", "Top searches is not displayed");
-			}	
+				extentLoggerFail("Top searches tray", "Top searches is not displayed");
+			}
+			Back(1);
 		}
 		else
 		{	
@@ -2083,40 +2094,56 @@ List of Functions Created
 		extent.HeaderChildNode("Trending Searches module");
         
 		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search icon");
-		
-//	    verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
-//	    type(AMDSearchScreen.objSearchBar, "Milana", "Search bar");
-//		
-//		verifyElementPresentAndClick(AMDSearchScreen.objSearchResultFirstContent, "content");
-//		verifyElementExist(AMDSearchScreen.objConsumptionScreenTitle, "Title in Consumption screen");
-//		Back(2);
-//		waitTime(3000);
-//		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search icon");
-//		
-//		verifyElementPresent(AMDSearchScreen.objTrendingSearches, "Trending Searches tray");
-		
-		verifyElementPresent(AMDSearchScreen.objContentCardTitleOfTrendingSearchesTray, "Content card title of Trending searches tray");
-		
-		getText(AMDSearchScreen.objContentCardTitleOfTrendingSearchesTray);
-		
-//		click(AMDSearchScreen.objContentCardTitleOfTrendingSearchesTray, "Content card of Trending searches tray");
-//		waitForElementDisplayed(AMDSearchScreen.objConsumptionScreenTitle, 10);
-//		
-//		verifyElementPresent(AMDSearchScreen.objConsumptionScreenTitle, "Title in Consumption screen");
-//		
-//			String consumptionScreenTitle = getText(AMDSearchScreen.objConsumptionScreenTitle);
-//			if(contentCardTitleofTrendingSearches.equalsIgnoreCase(consumptionScreenTitle))
-//			{
-//			    logger.info("user navigated to respective consumption/Landing screen post tapping on any Trending searches carousel");	
-//			    extent.extentLogger("Title", "user navigated to respective consumption/Landing screen post tapping on any Trending searches carousel");
-//			}
-//			else
-//			{
-//				logger.info("user is not navigated to respective consumption/Landing screen post tapping on any Trending searches carousel");	
-//			    extent.extentLoggerFail("Title", "user is not navigated to respective consumption/Landing screen post tapping on any Trending searches carousel");
-//			}
+	
+			int noOfTrays = findElements(AMDSearchScreen.objNoOftraysInSearchpage).size();
+			System.out.println(noOfTrays);
+			boolean TrendingSearchFound = false;
+			for(int i=1; i<=noOfTrays;i++) {
+				String traytitle = getDriver().findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])["+i+"]")).getText();
+				
+				if (traytitle.equalsIgnoreCase("Trending Searches")) {
+					TrendingSearchFound= true;
+//				    verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+//				    type(AMDSearchScreen.objSearchBar, "Milana", "Search bar");
+//					
+//					verifyElementPresentAndClick(AMDSearchScreen.objSearchResultFirstContent, "content");
+//					verifyElementExist(AMDSearchScreen.objConsumptionScreenTitle, "Title in Consumption screen");
+//					Back(2);
+//					waitTime(3000);
+//					verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search icon");
+//					
+//					verifyElementPresent(AMDSearchScreen.objTrendingSearches, "Trending Searches tray");
+					
+					verifyElementPresent(AMDSearchScreen.objContentCardTitleOfTrendingSearchesTray, "Content card title of Trending searches tray");
+					
+					getText(AMDSearchScreen.objContentCardTitleOfTrendingSearchesTray);
+					
+//					click(AMDSearchScreen.objContentCardTitleOfTrendingSearchesTray, "Content card of Trending searches tray");
+//					waitForElementDisplayed(AMDSearchScreen.objConsumptionScreenTitle, 10);
+//					
+//					verifyElementPresent(AMDSearchScreen.objConsumptionScreenTitle, "Title in Consumption screen");
+//					
+//						String consumptionScreenTitle = getText(AMDSearchScreen.objConsumptionScreenTitle);
+//						if(contentCardTitleofTrendingSearches.equalsIgnoreCase(consumptionScreenTitle))
+//						{
+//						    logger.info("user navigated to respective consumption/Landing screen post tapping on any Trending searches carousel");	
+//						    extent.extentLogger("Title", "user navigated to respective consumption/Landing screen post tapping on any Trending searches carousel");
+//						}
+//						else
+//						{
+//							logger.info("user is not navigated to respective consumption/Landing screen post tapping on any Trending searches carousel");	
+//						    extent.extentLoggerFail("Title", "user is not navigated to respective consumption/Landing screen post tapping on any Trending searches carousel");
+//						}
+						
+						break;
+				}
+			}
+			
+			if (TrendingSearchFound==false) {
+				logger.info("Trending searches is not displayed");
+				extentLoggerFail("Trending searches tray", "Trending searches is not displayed");
+			}
 			Back(1);
-		
 	}
 
 
