@@ -171,7 +171,7 @@ public class ExtentReporter implements ITestListener {
 	public void onFinish(ITestContext context) {
 		if (!getPlatform().equals("Web")) {
 			extent.get().setSystemInfo("Device Info ", DeviceDetails.DeviceInfo(context.getName()));
-			extent.get().setSystemInfo("App version : ", getAppVersion());
+			extent.get().setSystemInfo("App version : ", getAppVersion().replace("Build", ""));
 		}else if(getPlatform().equals("Web")){
 			extent.get().setSystemInfo("Browser Info ", BrowserType);
 		}
