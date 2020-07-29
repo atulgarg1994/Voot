@@ -613,5 +613,7 @@ public class PWAHamburgerMenuPage {
 	public static By objArticleTitle(String title) {
 		return By.xpath("//*[contains(@text,'"+title+"')]");
 	}
+	
+	public static By myAccount = By.xpath("//div[contains(@class,'menuTitle')]//*[.='My Account']");
 
 }

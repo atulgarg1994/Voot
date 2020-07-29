@@ -157,7 +157,7 @@ public class PWASearchPage {
 
 	// Asset title under ang Search navigation tab
 	public static By objAssetTitleSearchNavigationTab = By.xpath(
-			"(//div[@class='listingGrid']//div[@class='metaData']//h3[contains(@class,'cardTitle')]//span[@class='highLight'])");
+			"(//div[@class='listingGrid']//div[@class='metaData']//h3[contains(@class,'cardTitle')]//span[@class='highLight'])[1]");
 
 	public static By objSearchResultScreen = By.xpath("//*[@class='searchCategoryLanding']");
 
@@ -251,4 +251,5 @@ public class PWASearchPage {
         return By.xpath("//*[@title=\""+keyword+"\"]");
     }
 	
+	public static By objActivePrograme = By.xpath("(//*[@class='programInner active'])[1]//*[@class='title']");
 }

@@ -28,9 +28,10 @@ public class Android_LandingPage {
 
 	@Test(priority = 1)
 	@Parameters({ "userType" })
-	public void Home(String userType) throws Exception
+	public void landingScreen(String userType) throws Exception
 	{
 		ZEE5ApplicasterBusinessLogic.homeLandingScreen(userType);
+		ZEE5ApplicasterBusinessLogic.moviesLandingScreen(userType);
 	}
 	
 	

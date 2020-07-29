@@ -16,7 +16,17 @@ public class AMDNewsPage {
 	
 	public static By objEndTime = By.xpath("//*[@resource-id='com.graymatrix.did:id/durationText1']");
 	
+	public static By objMetaData = By.xpath("(//*[@id='movieInfoLl']/*[@text])");
 	
+	public static By objNewsContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[2]");
+	
+	public static By objNewsContentCardTitle = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[2]");
+	
+	public static By objEntertainmentNewsTray = By.xpath("//*[@text='Entertainment News']");
+	
+	public static By objLiveNewsTray = By.xpath("//*[@text='Live News Channels']");
+	
+	public static By objTopStoriesTray = By.xpath("//*[@text='Top Stories']");
 	
 
 }

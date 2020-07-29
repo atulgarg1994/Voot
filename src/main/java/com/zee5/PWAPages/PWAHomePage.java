@@ -423,4 +423,8 @@ public class PWAHomePage {
 		{
 			return By.xpath("(//*[contains(@class,'trayHeader')]//*[contains(text(),'"+trayName+"')]//parent::*//following-sibling::*//*[contains(@class, 'showCard')])[1]");
 		}
+		
+		public static By objsearchcontent=By.xpath("//*[@title='Krishna Balram: The Warrier Princess']");
+		
+		public static By objPlayCarousel = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Play')]");
 }

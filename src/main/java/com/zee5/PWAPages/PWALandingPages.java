@@ -34,7 +34,6 @@ public class PWALandingPages {
 	}
 	
 	public static By objViewAllPageTitle = By.xpath("//h1");
-	public static By objViewAllPageFirstContent = By.xpath("(//div[@class='viewAllGrid']//div[@data-minutelytitle])[1]");
 	
 	public static By objWebProfileIcon = By.xpath("(//button[.='Open Menu'])[2]");
 	public static By obj_WEBPwa_HamburgerMenu1 = By.xpath("//button[.='Open Menu']");
@@ -51,10 +50,6 @@ public class PWALandingPages {
 //	TANISHA RECO MODULE
 	public static By objTrayTitleInUI(String apiTitle) {
 		return By.xpath("(//a[@class='titleLink' and text()=\"" + apiTitle + "\"]) | (//h2[text()=\"" + apiTitle + "\"])");
-	}
-
-	public static By objTrayTitleInUIContains(String apiTitle) {
-		return By.xpath("(//div[@class='titleLink' and contains(text(),\"" + apiTitle+ "\")]) | (//h2[contains(text(),\"" + apiTitle + "\")])");
 	}
 
 	public static By objFirstAssetInTray(String apiTrayTitle, String apiContentTitle) {
@@ -82,5 +77,22 @@ public class PWALandingPages {
 	public static By objFirstAssetInTrayTitle(String trayTitleUI) {
 		return By.xpath("//h2[contains(text(),\"" + trayTitleUI+ "\")]//parent::div//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index='0']//div[@data-minutelytitle]");
 	}
+
+	public static By objTrayTitleInUIContains(String apiTitle) {
+		return By.xpath("(//div[@class='trayHeader']//h2[contains(text(),\"" + apiTitle+ "\")]) | (//h2//a[contains(text(),\"" + apiTitle + "\")])");
+	}
+	public static By objViewAllPageFirstContent = By.xpath("((//div[@class='viewAllGrid']//div[@data-minutelytitle]) | (//div[@class='viewAllGrid']//a[@data-minutelytitle]))[1]");
+	public static By objViewAllPageSecondContent = By.xpath("((//div[@class='viewAllGrid']//div[@data-minutelytitle]) | (//div[@class='viewAllGrid']//a[@data-minutelytitle]))[2]");
+	public static By objTrayTitleInUIContainsViewAll(String apiTitle) {
+		return By.xpath("//h2//a[contains(text(),\"" + apiTitle+ "\")]//parent::*//following-sibling::*");
+	}
 	
+	public static By firstAssetNonRecoTray(String apiTrayTitle, String apiContentTitle) {
+		return By.xpath("//a[contains(text(),\"" + apiTrayTitle+ "\")]//parent::*//parent::div//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index='0']//*[contains(@data-minutelytitle,\""+ apiContentTitle + "\")]");
+	}
+	
+	public static By secondAssetNonRecoTray(String apiTrayTitle, String apiContentTitle) {
+		return By.xpath("//a[contains(text(),\"" + apiTrayTitle+ "\")]//parent::*//parent::div//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index='1']//*[contains(@data-minutelytitle,\""+ apiContentTitle + "\")]");
+	}
+
 }

@@ -19,6 +19,8 @@ public class PWAPremiumPage {
 
 	}
 
+	public static By objGetPremium = By.xpath("//button[text()='Subscribe']");
+	
 	public static By objHerocarouselPlayBtn(String titleName) {
 		return By.xpath("//div[@aria-hidden='false']/following::h2[text()='" + titleName
 				+ "']/parent::div/following-sibling::div/child::div[@class='playIcon']");
@@ -65,7 +67,6 @@ public class PWAPremiumPage {
 
 	public static By objSubscribeNowAndGoAdFree = By.xpath("//span[contains(text(),'Subscribe now and Go Ad Free')]");
 
-	public static By objGetPremium = By.xpath("//button[.='GET PREMIUM']");
 
 	public static By objCarouselTitle = By
 			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");

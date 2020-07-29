@@ -222,6 +222,25 @@ public class Utilities extends ExtentReporter {
 		}
 		return false;
 	}
+	
+	/**
+	 * boolean return type for conditions
+	 * @param byLocator
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean verifyElementDisplayed(By byLocator) throws Exception {
+
+		try {
+			WebElement element = findElement(byLocator);
+			if (element.isDisplayed()) {
+				return true;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+		return false;
+	}
 
 	/**
 	 * Check element present and click.
@@ -1735,6 +1754,16 @@ public class Utilities extends ExtentReporter {
 	public void ScrollToTheElementWEB(By element) throws Exception {
 		js.executeScript("arguments[0].scrollIntoView(true);", findElement(element));
 		js.executeScript("window.scrollBy(0,-250)", "");
+	}
+	
+	/**
+	 * Function to Initialize mandatoryRegistrationPopUp count to one
+	 * @param userType
+	 */
+	public void mandatoryRegistrationPopUp(String userType) {
+		if (userType.contains("Guest")) {
+			js.executeScript("window.localStorage.setItem('mandatoryRegistrationPopupCount','1')");
+		}
 	}
 	
 }

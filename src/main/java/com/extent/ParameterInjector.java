@@ -47,7 +47,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("freeMovie2","Manthan");
 			params.put("freeMovie3","Pup Scouts");
 			params.put("freeMovie4","Robin Hood");
-			params.put("premiumMovie","Natasaarvabhowma");
+			params.put("premiumMovie","The Road Within");
 			params.put("premiumMovie2","Bhinna");
 			params.put("premiumMovieNoTrailer","RX Soori");
 			params.put("premiumMovieNoTrailer2","Londonalli Lambodara");
@@ -81,7 +81,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("freeMovie2","Manthan");
 			params.put("freeMovie3","Pup Scouts");
 			params.put("freeMovie4","Robin Hood");
-			params.put("premiumMovie","Dream Girl");
+			params.put("premiumMovie","The Road Within");
 			params.put("premiumMovie2","Hotel Mumbai");
 			params.put("premiumMovieNoTrailer","Fitoor");
 			params.put("premiumMovieNoTrailer2","The Real Tiger");

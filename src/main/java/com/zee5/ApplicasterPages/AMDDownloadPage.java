@@ -71,6 +71,18 @@ public class AMDDownloadPage {
 	public static By objRetryCTA = By.xpath("//*[@id='tvRetryDownload']");
 	public static By objDownloadIcon = By.xpath("//*[@id='downlowd_image']");
 	
+	public static By objSpecificSearch(String str){
+			return By.xpath("//*[@class='android.view.ViewGroup' and ./*[@id='itemImageParent'] and ./*[@text='" + str + "']]");
+		}
+	public static By objCalloutPopup = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Pause All']]");
+	public static By objPauseAllOption = By.xpath("//*[@id='tvPauseAll']");
+	public static By objPausedIcon(String str){
+			return By.xpath("//*[@id='rl_end' and (./preceding-sibling::* | ./following-sibling::*)[./*[@text='" + str + "']]]");
+		}
+	public static By objDownloadingConents(String str){
+			return By.xpath("//*[@class='android.widget.RelativeLayout' and ./*[./*[@class='android.view.ViewGroup']] and ./*[./*[@text='" + str + "']]]");
+		}
+	
 	/**
 	 * Manasa
 	 */

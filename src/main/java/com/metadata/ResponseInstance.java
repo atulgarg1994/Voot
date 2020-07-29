@@ -298,6 +298,12 @@ public class ResponseInstance {
 	 * @param page
 	 * @return
 	 */
+	/**
+	 * Function to return response for different pages
+	 * 
+	 * @param page
+	 * @return
+	 */
 	public static Response getResponseForPages(String page, String contLang) {
 		Response respCarousel = null;
 		String Uri = "";
@@ -319,13 +325,14 @@ public class ResponseInstance {
 			page = "videos";
 		}else if(page.equals("movies")) {
 			page = "movies";
+		}else if(page.equals("shows")) {
+			page = "tvshows";
 		}
 		if(page.equals("stories")) {
 			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
 		}else {
-			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages="+contLang+"&version=7";
-		}
-		
+			Uri = "https://gwapi.zee5.com/content/collection/0-8-"+ page+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages="+contLang+"&version=7";
+		}	
 		respCarousel = given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(Uri);
 		System.out.println("Response status : "+respCarousel.statusCode());
 	//	System.out.println("Response Body : "+respCarousel.getBody().asString());

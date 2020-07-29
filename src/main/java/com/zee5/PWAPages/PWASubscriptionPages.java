@@ -252,4 +252,6 @@ public class PWASubscriptionPages {
 	
 	public static By objarrowbtn=By.xpath("//div[@class='linearLayout sidebarItem_object ']");
 	
+	// Get Subscribe Pop Up Title
+	public static By objSubscribePopupTitle = By.xpath("//h2[contains(@class,'popupTitle bigTitle') and contains(text(), 'Subscribe')]");
 }

@@ -116,4 +116,14 @@ public class AMDOnboardingScreen {
 	}
 	
 	public static By objWaitForSplashScreenDisapear = By.xpath("//*[@id='permission_allow_button'] | //*[@id='browseForFreeButton'] | //*[@id='title' and @text='Home']");
+/**
+ * Kushal
+ */
+	
+	public static By objContentLangBtns = By.xpath("//*[@id='btn_content_lang']");
+	
+	public static By objgetContentLangName(int index) {
+		return By.xpath("(//*[@id='btn_content_lang'])["+index+"]");
+	}
+
 }

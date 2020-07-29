@@ -104,10 +104,9 @@ public class ExtentReporter implements ITestListener {
 		
 		filePath = System.getProperty("user.dir") + "/Reports" + "/" +currentDate+"/"+ getPlatform() + "/"
 				+ context.getCurrentXmlTest().getParameter("userType") + "/" + context.getName() + "/"
-				+context.getCurrentXmlTest().getParameter("userType")+getAppVersion()+"_"+context.getName() + "_" + getDate() + ".html";
+				+context.getCurrentXmlTest().getParameter("userType")+"_"+context.getName() + "_" +getAppVersion()+"_"+getDate() + ".html";
 		
-		fileName =  context.getCurrentXmlTest().getParameter("userType")+ 
-				getAppVersion()+"_"+context.getName() + "_" + getDate()+ ".html";
+		fileName = context.getCurrentXmlTest().getParameter("userType")+"_"+context.getName() + "_" +getAppVersion()+"_"+getDate() + ".html";
 		
 		htmlReport.set(new ExtentHtmlReporter(filePath));
 		htmlReport.get().loadXMLConfig(new File(System.getProperty("user.dir") + "/ReportsConfig.xml"), true);

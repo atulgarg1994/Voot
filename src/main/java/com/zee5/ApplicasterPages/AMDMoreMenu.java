@@ -54,4 +54,18 @@ public class AMDMoreMenu {
 	public static By objPlayerBackBtn = By.xpath("//*[@id='icon_down']");
 	public static By objEnterPinCTA = By.xpath("//*[@text='Enter PIN']");
 	
+	//----- Sub-Menu under settings
+	public static By objVideo_Quality = By.xpath("//*[@id='qualityPixels']");
+	public static By objVideo_WifiOnly = By.xpath("//*[@id='videoOverWifiSwitch']");
+	public static By objVideo_Autoply = By.xpath("//*[@id='autoPlaySwitch']");
+	
+	public static By objDownloads_Quality = By.xpath("//*[@id='downloadLabel']");
+	public static By objDownloads_WifiOnly = By.xpath("//*[@id='downloadOverWifiSwitch']");
+	
+	public static By objContentLang = By.xpath("//*[@id='contentLanguageValue']");
+	public static By objDisplayLang = By.xpath("//*[@id='displayLanguageValue']");
+	
+	public static By objClearSearchHistory = By.xpath("//*[@id='searchHistoryAction']");
+	public static By objResetDefault = By.xpath("//*[@id='resetSettingAction']");
+	
 }

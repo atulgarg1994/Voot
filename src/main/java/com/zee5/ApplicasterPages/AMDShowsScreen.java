@@ -49,5 +49,7 @@ public class AMDShowsScreen {
 	 
 	 public static By objContinueWatingCloseIcon = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_remove'])[1]");
 	 
+	 public static By objBeforeTVContent1 = By.xpath("(//*[@id='item_image' and @resource-id='com.graymatrix.did:id/item_image' and @index=1])[2]");
 	 
+	 public static By objSubscribeNowlink = By.xpath("//*[@text='Subscribe Now']");
 }
