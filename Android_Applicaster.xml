@@ -49,11 +49,11 @@
 
 	<test name="Android_LandingPage">
 		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_LandingPage" />	
+			<class name="com.zee5.ApplicasterScripts.Android_LandingPage" />
 		</classes>
 	</test>
 	
-  	<!-- <test name="Android_Onboarding_Suite1">
+  	 <test name="Android_Onboarding_Suite1">
 		<classes>	
 	    	<class name="com.zee5.ApplicasterScripts.Android_Onboarding_Suite1" />	  	
 		</classes>
@@ -65,7 +65,7 @@
 		</classes>
 	</test>	
 	
-	<test name="Android_Onboarding_Suite3">
+<!--	<test name="Android_Onboarding_Suite3">
 		<classes>	
 			<class name="com.zee5.ApplicasterScripts.Android_Onboarding_Suite3" /> 	
 		</classes>

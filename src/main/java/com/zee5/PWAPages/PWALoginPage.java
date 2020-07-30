@@ -175,5 +175,8 @@ public class PWALoginPage {
 	
 	public static By objCountryCodeAndoora = By.xpath("//*[@class='react-dropdown-select-type-single' and text()='376']");
 	
+	public static By objShowPasswordButton = By.xpath("//span[contains(@class,'showPwd')]");
 	
+	// PasswordField entered
+	public static By objPasswordFieldFilled = By.xpath("//input[@name='password']");
 }

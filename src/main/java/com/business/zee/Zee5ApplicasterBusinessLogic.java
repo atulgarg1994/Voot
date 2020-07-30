@@ -3544,13 +3544,13 @@ List of Functions Created
 		
 		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Continue Watching"), AMDHomePage.objCarouselConetentCard, "Continue watching tray", "MastheadCarousel");
 		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Trending on Zee5"), AMDHomePage.objCarouselConetentCard, "Trending on Zee5 tray", "MastheadCarousel");
-		findingTrayInscreen(25, AMDHomePage.objTrayTitle("Trending Trailers and Teasers"), AMDHomePage.objCarouselConetentCard, "Trending Trailers and Teasers tray", "Mastheadcarousel");
+		findingTrayInscreen(25, AMDHomePage.objTrayTitle("Trending Trailers"), AMDHomePage.objCarouselConetentCard, "Trending Trailers and Teasers tray", "Mastheadcarousel");
 			
 	}
 
 	 public void carouselValidation(String UserType,String tabName) throws Exception {
 			waitForElementDisplayed(AMDHomePage.objCarouselDots, 10);
-			verifyElementPresent(AMDHomePage.objCarouselUnit, "Carousel unit as first unit on Movies screen");
+			verifyElementPresent(AMDHomePage.objCarouselUnit, "Carousel unit as first unit on "+tabName+" screen");
 			// Validating Carousel manual swipe
 			String width = getAttributValue("width", AMDHomePage.objCarouselConetentCard);
 			
@@ -3621,7 +3621,7 @@ List of Functions Created
 					verifyElementNotPresent(AMDHomePage.objGetPremium, 2);
 					carouselSwipe("LEFT", 1, width, height);
 				}
-			}
+			  }
 			}
 
 			// navigation to consumption screen of selected content
@@ -3880,16 +3880,14 @@ List of Functions Created
 				logger.error("Shows tab fails to highlight by default");
 			}
 			
-			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2,"Search Icon");
-			
+			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2,"Search Icon");				
 			waitTime(3000);
 			//type(AMDDownloadPage.objSearchIcononDownloadsScreen, keyword, "Search Field");
 			click(AMDSearchScreen.objSearchEditBox,"Search edit");
 			type(AMDSearchScreen.objSearchBoxBar,"Comedy Kiladigalu Championship - Episode 8 - July 29, 2018", "Search Field");
 			waitTime(5000);
 			hideKeyboard();
-			click(AMDDownloadPage.objSpecificSearch("Comedy Kiladigalu Championship - Episode 8 - July 29, 2018"), "Searched Show");
-					
+			click(AMDDownloadPage.objSpecificSearch("Comedy Kiladigalu Championship - Episode 8 - July 29, 2018"), "Searched Show");						
 		waitTime(5000);
 		verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon,"Download button");
 		waitTime(2000);
@@ -3923,11 +3921,7 @@ List of Functions Created
 		if(verifyElementExist(AMDDownloadPage.objDownloadingCircularBar,"Downloading circular bar")){
 			extent.extentLogger("Re-start","User is able to re-start the Paused content");
 			logger.info("User is able to re-start the Paused content");
-		}
-		
-		
-		
-		
+		}	
 		//offline
 		Runtime.getRuntime().exec("adb shell svc wifi disable");
 		verifyElementExist(AMDDownloadPage.objDownloadFailedText,"Download Failed text");
@@ -3949,8 +3943,8 @@ List of Functions Created
 		waitTime(8000);
 		if(verifyElementExist(AMDDownloadPage.objDownloadingConents("Comedy Kiladigalu Championship - Episode 8"),"Downloaded content") == false)
 		{
-			extent.extentLogger("Cancel Download","Content is Downloaded is deleted");
-			logger.info("Content is Downloaded is deleted");
+			extent.extentLogger("Cancel Download","Content Downloaded is deleted");
+			logger.info("Content Downloaded is deleted");
 		} 
 			
 		Back(1);
@@ -3961,30 +3955,38 @@ List of Functions Created
 		}else {
 			extent.extentLoggerFail("Downloads tab","No Downloads active page without content downloading");
 			logger.error("No Downloads active page without content downloading");
-		}  
-		
+		} 			
 		//search content 
-		type(AMDDownloadPage.objSearchIcononDownloadsScreen, "Comedy Kiladigalu Championship - Episode 24"+"\n", "Search bar");
-		waitTime(5000);				
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2,"Search Icon");			
+		waitTime(3000);
+		click(AMDSearchScreen.objSearchEditBox,"Search edit");
+		type(AMDSearchScreen.objSearchBoxBar,"Comedy Kiladigalu Championship - Episode 24", "Search Field");
+		waitTime(5000);
 		hideKeyboard();
-		click(AMDDownloadPage.objSearchedResultFirstcontent,"Searched result");	
+		click(AMDDownloadPage.objSpecificSearch("Comedy Kiladigalu Championship - Episode 24 "), "Searched Show");	
 		waitTime(3000);
 		verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon,"Download button");
-		waitTime(2000);
-		Back(1);
-		click(AMDHomePage.objDownloadBtn,"Downloads tab");
-		//search content
-		
-		type(AMDDownloadPage.objSearchIcononDownloadsScreen, "Comedy Kiladigalu Championship - Episode 9"+"\n", "Search bar");
-		waitTime(5000);				
-		hideKeyboard();
-		click(AMDDownloadPage.objSearchedResultFirstcontent,"Searched result");	
-		waitTime(3000);
-		verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon,"Download button");
+		click(AMDDownloadPage.objDownloadVideoQualityPopup,"Download video quality Pop up");
+		click(AMDDownloadPage.objStartDownloadCTA,"Start Download CTA");
 		waitTime(2000);
 		Back(1);
 		click(AMDHomePage.objDownloadBtn,"Downloads tab");
 		
+		//search content			
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2,"Search Icon");			
+		waitTime(3000);
+		click(AMDSearchScreen.objSearchEditBox,"Search edit");
+		type(AMDSearchScreen.objSearchBoxBar,"Comedy Kiladigalu Championship - Episode 9", "Search Field");
+		waitTime(5000);
+		hideKeyboard();
+		click(AMDDownloadPage.objSpecificSearch("Comedy Kiladigalu Championship - Episode 9"), "Searched Show");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon,"Download button");
+		waitTime(2000);
+		click(AMDDownloadPage.objDownloadVideoQualityPopup,"Download video quality Pop up");
+		click(AMDDownloadPage.objStartDownloadCTA,"Start Download CTA");
+		Back(1);
+		click(AMDHomePage.objDownloadBtn,"Downloads tab");			
 		
 		click(AMDDownloadPage.objDownloadingText,"Downloading text");
 		if(verifyElementExist(AMDDownloadPage.objDownloadingCircularBar,"Downloading Icon")){
@@ -3996,7 +3998,7 @@ List of Functions Created
 			logger.info("Contents are Queued up in a line ");				
 		}
 		verifyElementPresentAndClick(AMDDownloadPage.objDownloadingCircularBar,"Downloading Icon");
-		verifyElementExist(AMDDownloadPage.objCalloutPopup,"Call out Pop up");
+		verifyElementExist(AMDDownloadPage.objCalloutPopupwhileDownloading,"Call out Pop up");
 		verifyElementExist(AMDDownloadPage.objPauseAllOption,"Pause All CTA");
 		verifyElementExist(AMDDownloadPage.objCancelDownloadOption,"Cancel Download CTA");
 		click(AMDDownloadPage.objPauseAllOption,"Pause All CTA");
@@ -4013,11 +4015,59 @@ List of Functions Created
 			extent.extentLogger("Cancel Download","Downloading content is deleted");
 			logger.info("Downloading content is deleted");
 		}
+		click(AMDDownloadPage.objPausedIcon("Comedy Kiladigalu Championship - Episode 9"),"Paused icon");
+		click(AMDDownloadPage.objRetryCTA,"Continue option");  
+		waitTime(12000);
+		waitForElementDisplayed(AMDDownloadPage.objTickIcon, 10);
+		click(AMDDownloadPage.objTickIcon,"Tick Icon");
+		verifyElementExist(AMDDownloadPage.objCalloutAfterDownload,"Call out Popup");
+		verifyElementExist(AMDDownloadPage.objPlayCTA,"Play CTA");
+		verifyElementExist(AMDDownloadPage.objDeleteDownloadCTA,"Delete Download CTA");	
+		//play tcs
+//		click(AMDDownloadPage.objDeleteDownloadCTA,"Delete Download CTA");
+//		if(verifyElementExist(AMDDownloadPage.objDownloadingConents("Comedy Kiladigalu Championship - Episode 9"),"Downloaded content") == false)
+//		{
+//			extent.extentLogger("Cancel Download","Downloaded content is deleted");
+//			logger.info("Downloaded content is deleted");
+//		}
 		
-		
+		Back(1);
+		//search
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2,"Search Icon");			
+		waitTime(3000);
+		click(AMDSearchScreen.objSearchEditBox,"Search edit");
+		type(AMDSearchScreen.objSearchBoxBar,"Comedy Kiladigalu Championship - Episode 10", "Search Field");
+		waitTime(5000);
+		hideKeyboard();
+		click(AMDDownloadPage.objSpecificSearch("Comedy Kiladigalu Championship - Episode 10"), "Searched Show");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon,"Download button");
+		waitTime(2000);
+		click(AMDDownloadPage.objDownloadVideoQualityPopup,"Download video quality Pop up");
+		click(AMDDownloadPage.objStartDownloadCTA,"Start Download CTA");
+		Back(1);
+		click(AMDHomePage.objDownloadBtn,"Downloads tab");
+		click(AMDDownloadPage.objDownloadingText,"Downloading text");
+		if(verifyElementExist(AMDDownloadPage.objDownloadingCircularBar,"Downloading Icon")){
+			extent.extentLogger("Downloading","Incomplete Downloads are available");
+			logger.info("Incomplete Downloads are available");
+		}
+		click(AMDDownloadPage.objDownloadingCircularBar,"Downloading Icon");
+		if(verifyElementExist(AMDDownloadPage.objPlayCTA,"Play CTA")== false){
+			extent.extentLogger("Downloading","Incomplete Downloads are NOT allowed to be Play");
+			logger.info("Incomplete Downloads are NOT allowed to be Play");
+		}
+		click(AMDDownloadPage.objTickIcon,"Tick Icon");
+		click(AMDDownloadPage.objDeleteDownloadCTA,"Delete Download CTA");	
+		if(verifyElementExist(AMDDownloadPage.objDownloadingConents("Comedy Kiladigalu Championship - Episode 9"),"Downloaded content") == false)
+		{
+			extent.extentLogger("Cancel Download","Downloaded content is deleted");
+			logger.info("Downloaded content is deleted");
+		}			
 		}	 	
 			
-		} 
+		} 				
+	
 	
 	/**
 	 * Author : Bindu
@@ -4040,8 +4090,74 @@ List of Functions Created
 					"user is not able to navigate to Shows screen by tapping on Shows tab displayed in the top navigation bar");
 		}
 		
-			verifyElementPresent(AMDHomePage.objSubscribeTeaser, "Subscribe icon");
-		        carouselValidation(userType,"Shows");
+        verifyElementPresent(AMDHomePage.objCarouselUnit, "Carousel unit as first unit on Shows screen");
+		waitTime(1000);
+		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			verifyElementExist(AMDShowsScreen.objMastheadAD, "Masthead ad");
+		}
+		
+		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			if(verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
+				logger.info("subscribe icon is dislayed");
+				extent.extentLogger("Subscribe icon", "subscribe icon is dislayed");
+			}else{
+				logger.info("subscribe icon is not dislayed");
+				extent.extentLoggerFail("Subscribe icon", "subscribe icon is not dislayed");
+			}
+		}else {
+			if(verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
+				logger.info("subscribe icon is dislayed");
+				extent.extentLoggerFail("Subscribe icon", "subscribe icon is dislayed");
+			}else{
+				logger.info("subscribe icon is not dislayed");
+				extent.extentLogger("Subscribe icon", "subscribe icon is not dislayed");
+			}
+		}
+		      
+		carouselValidation(userType,"Shows");
+		verifyElementPresent(AMDShowsScreen.objContinueWatchingTray,"Continue Watching Tray");
+		if ((userType.equalsIgnoreCase("NonSubscribedUser")) | (userType.equalsIgnoreCase("SubscribedUser")))
+		{
+			verifyElementPresent(AMDShowsScreen.objContinueWatchingTray,"Continue Watching Tray");	
+			waitTime(2000);
+			verifyElementExist(AMDShowsScreen.objLeftWatchTime,"Left watch time info available on the Continue Watching tray card");
+			verifyElementExist(AMDShowsScreen.objProgressBar,"Progress bar is displayed on the Continue Watchinh tray card to indicate the content watched portion");
+		}
+		
+		for(int j=0;j<3;j++)
+		{
+		   if(verifyElementExist(AMDHomePage.objBeforeTVTray, "Shows BeforeTV tray"))
+		   {
+			   logger.info("Shows Before Tv tray is displayed in Shows landing screen");
+	    	   extent.extentLogger("Shows Screen", "shows Before Tv tray is displayed in Shows landing screen");
+	    		break; 
+		   }
+		   else
+		   {
+			   logger.info("Shows Before Tv tray is not displayed in Shows landing screen");
+	    	   extent.extentLogger("Shows Screen", "shows Before Tv tray is not displayed in Shows landing screen");
+	    	   PartialSwipe("UP",1);  
+		   }
+		}
+		
+		   verifyElementExist(AMDHomePage.objBeforeTVTray, "BeforeTV tray");       
+		   for(int i=0;i<3;i++)  
+		     {
+		    	if(verifyElementExist(AMDShowsScreen.objTrendingShowsTray, "Trending shows tray"))  
+		    	{
+		    		logger.info("Trending shows tray is displayed in Shows landing screen");
+		    		extent.extentLogger("Shows Screen", "Trending shows tray is displayed in Shows landing screen");
+		    		break;
+		    	}
+		    	else
+		    	{
+		    		logger.info("Trending shows tray is not displayed in Shows landing screen");
+		    		extent.extentLogger("Shows Screen", "Trending shows tray is not displayed in Shows landing screen");
+		    		PartialSwipe("UP",1);
+		    	}
+		    	
+		   }
+		        
 	}
 
 	public void verifyConsumptionScreen(String userType) throws Exception	
@@ -4456,13 +4572,88 @@ List of Functions Created
 					"user is not able to navigate to News screen by tapping on News tab displayed in the top navigation bar");
 		}
 
-		verifyElementPresent(AMDHomePage.objSubscribeTeaser, "Subscribe icon");
+		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			if(verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
+				logger.info("subscribe icon is dislayed");
+				extent.extentLogger("Subscribe icon", "subscribe icon is dislayed");
+			}else{
+				logger.info("subscribe icon is not dislayed");
+				extent.extentLoggerFail("Subscribe icon", "subscribe icon is not dislayed");
+			}
+		}else {
+			if(verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
+				logger.info("subscribe icon is dislayed");
+				extent.extentLoggerFail("Subscribe icon", "subscribe icon is dislayed");
+			}else{
+				logger.info("subscribe icon is not dislayed");
+				extent.extentLogger("Subscribe icon", "subscribe icon is not dislayed");
+			}
+		}
 		carouselValidation(userType,"News");
 	}
+	
+	public void verifyTraysInNewsScreen(String userType, String lang1) throws Exception
+	{
+		extent.HeaderChildNode("Verify Trays Present in News Landing Screen");
+		System.out.println("Verify Trays Present in News Landing Screen");
+		waitTime(6000);
+		
+		selectContentLang_MoreMenu("lang1");
+	    verifyElementExist(AMDNewsPage.objTodaysHeadlinesTray,"Todays Headlines Tray");
+		for(int i=0;i<2;i++)
+		{
+			if(verifyElementExist(AMDNewsPage.objEntertainmentNewsTray,"Entertainment News Tray"))
+			{
+				logger.info("Entertainment News Tray present on news landing screen");
+				extent.extentLogger("News Screen","Entertainment News Tray present on news landing screen" );
+				break;
+			}
+			else
+			{
+				logger.info("Entertainment News Tray is not present on news landing screen");
+				extent.extentLogger("News Screen","Entertainment News Tray present on news landing screen" );	
+				PartialSwipe("UP",1);
+			}
+			
+		}
+			for(int j=0;j<4;j++)
+			{
+				if(verifyElementExist(AMDNewsPage.objLiveNewsTray,"Live News Tray"))
+				{
+					logger.info("Live News Tray present on news landing screen");
+					extent.extentLogger("News Screen","Live News Tray present on news landing screen" );
+					break;
+				}
+				else
+				{
+					logger.info("Live News Tray is not present on news landing screen");
+					extent.extentLogger("News Screen","Live News Tray present on news landing screen" );	
+					PartialSwipe("UP",1);
+					
+				}
+			}
+			for(int k=0;k<2;k++)
+			{
+				if(verifyElementExist(AMDNewsPage.objTopStoriesTray,"Top stories Tray"))
+				{
+					logger.info("Top Stories Tray present on news landing screen");
+					extent.extentLogger("News Screen","Top Stories Tray present on news landing screen" );
+					break;
+				}
+				else
+				{
+					logger.info("Top Stories Tray is not present on news landing screen");
+					extent.extentLogger("News Screen","Top Stories Tray present on news landing screen" );	
+					PartialSwipe("UP",1);
+					
+				}
+			}
+		}
 
 	public void verifyListingCollectionScreen(String userType) throws Exception {
 		extent.HeaderChildNode("Verify user navigated to Listing collection Screen");
 		System.out.println("Verify user navigated to Listing collection Screen");
+		waitTime(2000);
 		verifyElementPresent(AMDNewsPage.objRightArrowBtn, "Right arrow");
 		click(AMDNewsPage.objRightArrowBtn, "Right arrow");
 		waitTime(4000);
@@ -4479,9 +4670,18 @@ List of Functions Created
 		verifyElementPresent(AMDNewsPage.objThumbNailImg, "Thumbnail Image");
 		click(AMDNewsPage.objThumbNailImg, "Thumbnail Image");
 		logger.info("user can able to tap on Thumb Nail Image");
-		extent.extentLogger("News Tab", "user can able to tap on Thumb Nail Image");
+		extent.extentLogger("Listing Collection screen", "user can able to tap on Thumb Nail Image");
 		Back(1);
+		
+		    verifyElementExist(AMDNewsPage.objMetaData,"MetaData");
+	
+			logger.info("MetaData like Title,Year,Duration is not displayed in listing collection screen");
+			extent.extentLogger("Listing Collection screen",
+					"MetaData like Title,Year,Duration is not displayed in listing collection screen");
+		
+		
 		verifyElementPresent(AMDNewsPage.objThumbNailImg, "Thumbnail Image");
+		waitTime(6000);
 		click(AMDNewsPage.objThumbNailImg, "Thumbnail Image");
 		waitTime(2000);
 		if (verifyElementPresent(AMDNewsPage.objConsumptionScreenTitle, "Consumption Screen Title")) {

@@ -206,11 +206,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
 			String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-			type(PWALoginPage.objEmailField, Username, "Email Field");
+			type(PWALoginPage.objEmailField, Username+"\n", "Email Field");
 			waitTime(3000);
 			hideKeyboard();
 			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-			type(PWALoginPage.objPasswordField, Password, "Password field");
+			type(PWALoginPage.objPasswordField, Password+"\n", "Password field");
 			hideKeyboard();
 			waitTime(5000);
 			click(PWALoginPage.objLoginButton, "Login Button");
@@ -224,11 +224,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
 
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-			type(PWALoginPage.objEmailField, SubscribedUsername, "Email Field");
+			type(PWALoginPage.objEmailField, SubscribedUsername+"\n", "Email Field");
 			waitTime(3000);
 			hideKeyboard();
 			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-			type(PWALoginPage.objPasswordField, SubscribedPassword, "Password field");
+			type(PWALoginPage.objPasswordField, SubscribedPassword+"\n", "Password field");
 			waitTime(5000);
 			hideKeyboard();
 			click(PWALoginPage.objLoginButton, "Login Button");
@@ -366,7 +366,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		hideKeyboard();
 		type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
 		hideKeyboard();
-		type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4, "4\n", "ParentalLockPin");
 		hideKeyboard();
 		waitTime(4000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
@@ -376,7 +376,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		verifyElementExist(PWAHomePage.objSearchField, "Search field");
 		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("consumptionsFreeContent");
-		type(PWAHomePage.objSearchField, keyword, "Search");		
+		type(PWAHomePage.objSearchField, keyword+"\n", "Search");		
 		verifyElementPresentAndClick(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		waitTime(10000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
@@ -388,7 +388,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		hideKeyboard();
 		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
 		hideKeyboard();
-		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4\n", "ParentalLockPin");
 		hideKeyboard();
 		waitTime(5000);
 		waitForPlayerAdToComplete("Video Player");
@@ -430,7 +430,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info("Authenticate button is not highlighted by default");
 			extent.extentLogger("Authenticate", "Authenticate button is not highlighted by default");
 		}
-		type(PWAHamburgerMenuPage.objAuthenticationField, "abcdef", "AuthenticationField");
+		type(PWAHamburgerMenuPage.objAuthenticationField, "abcdef\n", "AuthenticationField");
 		hideKeyboard();
 		String AuthenticationField = getText(PWAHamburgerMenuPage.objAuthenticationField);
 		if (AuthenticationField != null) {
@@ -456,7 +456,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 			getDriver().findElement(PWAHamburgerMenuPage.objAuthenticationField).clear();
 			Wait(3000);
-			type(PWAHamburgerMenuPage.objAuthenticationField, "&!@#$%", "AuthenticationField");
+			type(PWAHamburgerMenuPage.objAuthenticationField, "&!@#$%\n", "AuthenticationField");
 			hideKeyboard();
 			waitTime(2000);
 			click(PWAHamburgerMenuPage.objAuthenticationButtonHighlighted, "Authenticate button");
@@ -567,7 +567,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 		case "Mobile":
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-			type(PWALoginPage.objEmailField, "8792396107", "Email Field");
+			type(PWALoginPage.objEmailField, "8792396107\n", "Email Field");
 			hideKeyboard();
 			verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login butotn");
 			waitTime(3000);
@@ -576,7 +576,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWALoginPage.objpasswordphno, "Password field");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "password-field");
-			type(PWALoginPage.objPasswordField, "tanisha19", "password-field");
+			type(PWALoginPage.objPasswordField, "tanisha19\n", "password-field");
 			hideKeyboard();
 			waitTime(2000);
 			click(PWALoginPage.objproceedphno, "Proceed button");
@@ -602,7 +602,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				verifyElementPresent(PWALoginPage.objFacebookLoginEmail, " Email Field");
 				type(PWALoginPage.objFacebookLoginEmail, "igszeetesttest@gmail.com", "Emial Field");
 				verifyElementPresent(PWALoginPage.objFacebookLoginpassword, " Password Field");
-				type(PWALoginPage.objFacebookLoginpassword, "Igs$123Zee", "Password Field");
+				type(PWALoginPage.objFacebookLoginpassword, "Igs$123Zee\n", "Password Field");
 				verifyElementPresentAndClick(PWALoginPage.objFacebookLoginButtonInFbPage, " Login Button");
 				waitTime(9000);
 				getDriver().switchTo().window("CDwindow-0");
@@ -657,7 +657,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				verifyElementPresentAndClick(PWALoginPage.objGmailNextButton, "clicked on next button");
 				waitTime(3000);
 				verifyElementPresent(PWALoginPage.objGmailPasswordField, " Password Field");
-				type(PWALoginPage.objGmailPasswordField, "User@123", "Password Field");
+				type(PWALoginPage.objGmailPasswordField, "User@123\n", "Password Field");
 				hideKeyboard();
 				verifyElementPresentAndClick(PWALoginPage.objGmailNextButton, "clicked on next button");
 				waitTime(5000);
@@ -704,7 +704,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				type(PWALoginPage.objTwitterEmaildField, "Zee5latest@gmail.com", "Email Field");
 				hideKeyboard();
 				verifyElementPresentAndClick(PWALoginPage.objTwitterPasswordField, "Twitter Password field");
-				type(PWALoginPage.objTwitterPasswordField, "User@123", "Password field");
+				type(PWALoginPage.objTwitterPasswordField, "User@123\n", "Password field");
 				click(PWALoginPage.objTwitterSignInButton, "Sign in button");
 				waitTime(5000);
 				verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
@@ -767,7 +767,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 		extent.HeaderChildNode("Validating that user is able to search Movie");
 		waitTime(3000);
-		type(PWASearchPage.objSearchEditBox, title, "Search bar");
+		type(PWASearchPage.objSearchEditBox, title+"\n", "Search bar");
 		waitForElementDisplayed(PWASearchPage.objSearchNavigationTab("All"), 5);
 		if (getPlatform().equals("Android")) {
 			getDriver().hideKeyboard();
@@ -811,7 +811,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Validating that user is able to search Partly spelt asset name");
 
 		waitTime(3000);
-		type(PWASearchPage.objSearchEditBox, title, "Search bar");
+		type(PWASearchPage.objSearchEditBox, title+"\n", "Search bar");
 
 		waitForElementDisplayed(PWASearchPage.objSearchNavigationTab("All"), 5);
 
@@ -862,7 +862,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Validating that empty state screen is displayed");
 
 		waitTime(3000);
-		type(PWASearchPage.objSearchEditBox, title, "Search bar");
+		type(PWASearchPage.objSearchEditBox, title+"\n", "Search bar");
 
 		waitForElementDisplayed(PWASearchPage.objSearchNavigationTab("All"), 5);
 
@@ -907,7 +907,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 		waitTime(3000);
 
-		type(PWASearchPage.objSearchEditBox, Channel, "Search bar");
+		type(PWASearchPage.objSearchEditBox, Channel+"\n", "Search bar");
 
 		waitForElementDisplayed(PWASearchPage.objSearchNavigationTab("All"), 5);
 
@@ -935,7 +935,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Validating that user is able to search content by Language");
 
 		waitTime(3000);
-		type(PWASearchPage.objSearchEditBox, language, "Search bar");
+		type(PWASearchPage.objSearchEditBox, language+"\n", "Search bar");
 
 		waitForElementDisplayed(PWASearchPage.objSearchNavigationTab("All"), 5);
 
@@ -991,7 +991,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Validating that user is able to search content by Genre");
 
 		waitTime(3000);
-		type(PWASearchPage.objSearchEditBox, genre, "Search bar");
+		type(PWASearchPage.objSearchEditBox, genre+"\n", "Search bar");
 
 		waitForElementDisplayed(PWASearchPage.objSearchNavigationTab("All"), 5);
 
@@ -1955,7 +1955,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementExist(PWAHamburgerMenuPage.objEditProfileGoBackBtn, "Go back button");
 		verifyElementExist(PWAHamburgerMenuPage.objEditProfileSavechangesBtn, "Save changes Button");
 		getDriver().findElement(PWAHamburgerMenuPage.objEditProfileFirstName).clear();
-		type(PWAHamburgerMenuPage.objEditProfileFirstName, "Zee5Igs", "First name");
+		type(PWAHamburgerMenuPage.objEditProfileFirstName, "Zee5Igs\n", "First name");
 		hideKeyboard();
 		waitTime(3000);
 		click(PWAHamburgerMenuPage.objEditProfileSavechangesBtn, "Save changes Button");
@@ -1988,14 +1988,14 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		click(PWAHamburgerMenuPage.objChangePasswordBtn, "Change password button");
 		waitTime(4000);
 		verifyElementExist(PWAHamburgerMenuPage.objChangePasswordText, "change password page");
-		type(PWAHamburgerMenuPage.objChangeOldPassword, "User@123", "Current password field");
+		type(PWAHamburgerMenuPage.objChangeOldPassword, "User@123\n", "Current password field");
 		hideKeyboard();
 		String password = getText(PWAHamburgerMenuPage.objChangeOldPassword);
 		if (password != null) {
 			logger.info("User is able to enter numbers and special character");
 			extent.extentLogger("Password", "User is able to enter numbers and special character");
 		}
-		type(PWAHamburgerMenuPage.objNewPassword, "abc", "password field");
+		type(PWAHamburgerMenuPage.objNewPassword, "abc\n", "password field");
 		hideKeyboard();
 		click(PWAHamburgerMenuPage.objUpdatePasswordButton, "update button");
 		if (verifyElementExist(PWAHamburgerMenuPage.objPasswordErrorText, "Error text")) {
@@ -2008,9 +2008,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		getDriver().findElement(PWAHamburgerMenuPage.objNewPassword).clear();
 		waitTime(5000);
-		type(PWAHamburgerMenuPage.objNewPassword, "igszee5", "password field");
+		type(PWAHamburgerMenuPage.objNewPassword, "igszee5\n", "password field");
 		hideKeyboard();
-		type(PWAHamburgerMenuPage.objConfirmNewPassword, "igszee5", "Current confirm field");
+		type(PWAHamburgerMenuPage.objConfirmNewPassword, "igszee5\n", "Current confirm field");
 		hideKeyboard();
 		if (getDriver().findElement(PWAHamburgerMenuPage.objUpdatePasswordButton).isEnabled() == true) {
 			logger.info("Updated button is enabled when password field is not empty");
@@ -2363,7 +2363,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		waitTime(2000);
 		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("premiumMovie");
-		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
+		type(PWASearchPage.objSearchEditBox, keyword+"\n", "Search Field");
 		waitTime(3000);
 		click(PWASearchPage.objSearchResultPremiumContent, "Premium content");
 		if (verifyElementExist(PWASearchPage.objCloseRegisterDialog, "Pop Up") == false) {
@@ -2375,7 +2375,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		verifyElementExist(PWAHomePage.objSearchField, "Search field");
 		String keyword1=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("consumptionsFreeContent");
-		type(PWAHomePage.objSearchField, keyword1, "Search");
+		type(PWAHomePage.objSearchField, keyword1+"\n", "Search");
 		verifyElementPresentAndClick(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		waitTime(10000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword1), "Search Result");		
@@ -2386,10 +2386,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info("PopUp is verifed in portrait mode");
 			extent.extentLogger("Popup", "PopUp is verifed in portrait mode");
 			verifyElementExist(PWAHomePage.objPopUpMobileField, "Mobile field in pop up");
-			type(PWAHomePage.objPopUpMobileField, "7892215214", "Mobile field");
+			type(PWAHomePage.objPopUpMobileField, "7892215214\n", "Mobile field");
 			hideKeyboard();
 			verifyElementExist(PWAHomePage.objPopUpPasswordField, "Password field in pop up");
-			type(PWAHomePage.objPopUpPasswordField, "User@123", "Password field");
+			type(PWAHomePage.objPopUpPasswordField, "User@123\n", "Password field");
 			hideKeyboard();
 			verifyElementPresentAndClick(PWAHomePage.objPopUpProceedButton, "Proceed button");
 			try {
@@ -2408,7 +2408,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 			getDriver().findElement(PWAHomePage.objPopUpMobileField).clear();
 			waitTime(5000);
-			type(PWAHomePage.objPopUpMobileField, "8660863575", "Mobile field");
+			type(PWAHomePage.objPopUpMobileField, "8660863575\n", "Mobile field");
 			hideKeyboard();
 			verifyElementPresentAndClick(PWAHomePage.objPopUpProceedButton, "Proceed button");
 			waitTime(2000);
@@ -2502,7 +2502,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		hideKeyboard();
 		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-		type(PWALoginPage.objPasswordField, "123456", "Password field");
+		type(PWALoginPage.objPasswordField, "123456\n", "Password field");
 		hideKeyboard();
 		waitTime(5000);
 		click(PWALoginPage.objLoginBtn, "Login Button");
@@ -2510,7 +2510,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		verifyElementExist(PWAHomePage.objSearchField, "Search field");
 		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("consumptionsFreeContent");
-		type(PWAHomePage.objSearchField, keyword, "Search");
+		type(PWAHomePage.objSearchField, keyword+"\n", "Search");
 		verifyElementPresentAndClick(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		waitTime(10000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");		
@@ -2520,16 +2520,16 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info("PopUp is verifed in portrait mode");
 			extent.extentLogger("Popup", "PopUp is verifed in portrait mode");
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objFirstName, "First Name Field");
-			type(CompleteYourProfilePopUp.objFirstName, "Test", "First Name Field");
+			type(CompleteYourProfilePopUp.objFirstName, "Test\n", "First Name Field");
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objLastName, "Last Name Field");
-			type(CompleteYourProfilePopUp.objLastName, "User", "Last Name Field");
+			type(CompleteYourProfilePopUp.objLastName, "User\n", "Last Name Field");
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objDay, "Day Field");
 			click(CompleteYourProfilePopUp.objDateSelector, "Date");
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objYear, "Year Field");
 			click(CompleteYourProfilePopUp.objDateSelector, "Year");
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderFemale, "Gender Field");
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objMobileNo, "Mobile Number");
-			type(CompleteYourProfilePopUp.objMobileNo, "95839633299", "Mobile Number");
+			type(CompleteYourProfilePopUp.objMobileNo, "95839633299\n", "Mobile Number");
 			waitTime(3000);
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objCloseBtn, "Close Button");
 			click(PWAHomePage.objZeeLogo, "Zee logo");
@@ -2554,11 +2554,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresent(PWALoginPage.objLoginTxt, "Login page");
 		extent.HeaderChildNode("Login through RSVOD User");
 		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-		type(PWALoginPage.objEmailField, "pwate44@mailnesia.com", "Email Field");
+		type(PWALoginPage.objEmailField, "pwate44@mailnesia.com\n", "Email Field");
 		hideKeyboard();
 		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-		type(PWALoginPage.objPasswordField, "1234567", "Password field");
+		type(PWALoginPage.objPasswordField, "1234567\n", "Password field");
 		hideKeyboard();
 		waitTime(5000);
 		click(PWALoginPage.objLoginBtn, "Login Button");
@@ -2566,7 +2566,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		waitTime(2000);
 		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("premiumMovie");
-		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
+		type(PWASearchPage.objSearchEditBox, keyword+"\n", "Search Field");
 		waitTime(3000);
 		click(PWASearchPage.objSearchResultPremiumContent, "Premium content");
 		if (verifyElementExist(PWASearchPage.objCloseRegisterDialog, "Popup") == false) {
@@ -2689,7 +2689,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
         verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
         verifyElementExist(PWAHomePage.objSearchField, "Search field");
         String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie");
-        type(PWAHomePage.objSearchField, keyword, "Search");
+        type(PWAHomePage.objSearchField, keyword+"\n", "Search");
         hideKeyboard();
         waitTime(10000);
         verifyElementPresentAndClick(PWAHomePage.objSearchResult, "Search result");
@@ -2988,9 +2988,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
         click(PWALoginPage.objCountryCodeAndoora, "Andoora country code");
         click(PWALoginPage.objCountryCode, "Country code field");
         click(PWALoginPage.objCountryCodeIndia, "India country code");
-        
-        
-        type(PWALoginPage.objPasswordField, "Igsindia123\n", "Password Field");
+        type(PWALoginPage.objPasswordField, "Igsindia123", "Password Field");
+        click(PWALoginPage.objShowPasswordButton,"Show Password icon");
         hideKeyboard();
         waitTime(3000);
         calenderFunctionality();
@@ -3026,6 +3025,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
         hideKeyboard();
         waitTime(3000);
         type(PWALoginPage.objPasswordField, "Igsindia123\n", "Password Field");
+        click(PWALoginPage.objShowPasswordButton,"Show Password icon");
         hideKeyboard();
         waitTime(3000);
         calenderFunctionality();
@@ -3056,12 +3056,12 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
             String OTP = gmail.readEmail(OTPNotification());
             System.out.println(OTP.length());
             
-logger.info("OTP is recieved from Telecom service");
-extent.extentLogger("Service provider", "OTP is recieved from Telecom service");
-Response regionResponse=given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
-String region=regionResponse.getBody().jsonPath().getString("state");
-logger.info("Location :"+ region);
-extentLogger("Location", "Location :"+ region);
+			logger.info("OTP is recieved from Telecom service");
+			extent.extentLogger("Service provider", "OTP is recieved from Telecom service");
+			Response regionResponse=given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
+			String region=regionResponse.getBody().jsonPath().getString("state");
+			logger.info("Location :"+ region);
+			extentLogger("Location", "Location :"+ region);
             char Otp1 = OTP.charAt(13);
             char Otp2 = OTP.charAt(14);
             char Otp3 = OTP.charAt(15);
@@ -3074,7 +3074,7 @@ extentLogger("Location", "Location :"+ region);
             type(PWASignupPage.objOTP1, OTP1, "OTP box1");
             type(PWASignupPage.objOTP2, OTP2, "OTP box2");
             type(PWASignupPage.objOTP3, OTP3, "OTP box3");
-            type(PWASignupPage.objOTP4, OTP4, "OTP box4");
+            type(PWASignupPage.objOTP4, OTP4+"\n", "OTP box4");
             hideKeyboard();
             
             if (getDriver().findElement(PWASignupPage.objSignUpButtonHighlighted).isEnabled() == true) {
@@ -3098,7 +3098,7 @@ extentLogger("Location", "Location :"+ region);
         type(PWASignupPage.objOTP1, "a", "OTP box1");
         type(PWASignupPage.objOTP2, "b", "OTP box2");
         type(PWASignupPage.objOTP3, "c", "OTP box3");
-        type(PWASignupPage.objOTP4, "d", "OTP box4");
+        type(PWASignupPage.objOTP4, "d\n", "OTP box4");
         hideKeyboard();
         waitTime(2000);
         if (getDriver().findElement(PWASignupPage.objSignUpButtonHighlighted).isEnabled() == false) {
@@ -3109,7 +3109,7 @@ extentLogger("Location", "Location :"+ region);
         type(PWASignupPage.objOTP1, "1", "OTP box1");
         type(PWASignupPage.objOTP2, "2", "OTP box2");
         type(PWASignupPage.objOTP3, "3", "OTP box3");
-        type(PWASignupPage.objOTP4, "4", "OTP box4");
+        type(PWASignupPage.objOTP4, "4\n", "OTP box4");
         hideKeyboard();
         waitTime(3000);
         
@@ -3138,7 +3138,7 @@ extentLogger("Location", "Location :"+ region);
 	public void emailRegistration() throws Exception {
 		extent.HeaderChildNode("Email-Registration");
 		waitTime(5000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hanmburger Menu");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu");
 		click(PWALoginPage.objSignUpBtn, "Sign up button");
 		waitTime(4000);
 		verifyElementExist(PWALoginPage.objSignUpHeaderInSignUpPage, "SignUp Page");
@@ -3157,24 +3157,24 @@ extentLogger("Location", "Location :"+ region);
 		}
 
 		type(PWALoginPage.objPasswordField, "abc", "password field");
+		click(PWALoginPage.objShowPasswordButton,"Show Password icon");
 		hideKeyboard();
 		click(PWASignupPage.objSignUpButtonNotHighlighted, "SignUp Button");
 		verifyElementExist(PWASignupPage.objPasswordErrorMessage, "Password error message");
-		getDriver().findElement(PWALoginPage.objPasswordField).clear();
+		try{getDriver().findElement(PWALoginPage.objPasswordFieldFilled).clear(); System.out.println("Cleared password field");}catch(Exception e) {}
 		waitTime(5000);
-		type(PWALoginPage.objPasswordField, "user@123", "password field");
+		type(PWALoginPage.objPasswordFieldFilled, "user@123", "password field");
 		hideKeyboard();
-		if (verifyElementExist(PWASignupPage.objPasswordHiddenField, "password field")) {
+		if (verifyElementExist(PWASignupPage.objPasswordHiddenField, "Password field")) {
 			logger.info("Password field is hidden before tapping on password icon");
 			extentLogger("Password", "Password field is hidden before tapping on password icon");
 		}
-		click(PWASignupPage.objPasswordIcon, "Password icon");
-
+		click(PWASignupPage.objPasswordIcon, "Show Password icon");
 		if (verifyElementExist(PWASignupPage.objPasswordFieldShow, "Password")) {
 			logger.info("Password field is shown when user taps on password icon");
 			extent.extentLogger("Password", "Password field is shown when user taps on password icon");
 		}
-		click(PWASignupPage.objPasswordIcon, "Password icon");
+		click(PWASignupPage.objPasswordIcon, "Show Password icon");
 
 		calenderFunctionality();
 		String SelectedDate = getText(PWALoginPage.objDateOfBirthField);
@@ -3217,7 +3217,7 @@ extentLogger("Location", "Location :"+ region);
 		verifyElementPresentAndClick(PWALoginPage.objForgotPasswordTxt, "Forgot password");
 		waitTime(2000);
 		verifyElementExist(PWALoginPage.objEmailField, "Email field");
-		type(PWALoginPage.objEmailField, "s", "Email field");
+		type(PWALoginPage.objEmailField, "s\n", "Email field");
 		hideKeyboard();
 		if (getDriver().findElement(PWALoginPage.objForgotPasswordLinkButton).isEnabled() == false) {
 			logger.info("Continue button is not highlighted when user enters invalid email id");
@@ -3259,14 +3259,14 @@ extentLogger("Location", "Location :"+ region);
 		verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login button");
 		verifyElementPresentAndClick(PWALoginPage.objForgotPasswordTxt, "Forgot password");
 		waitTime(2000);
-		type(PWALoginPage.objEmailField, "789221", "Email field");
+		type(PWALoginPage.objEmailField, "789221\n", "Email field");
 		hideKeyboard();
 		if (getDriver().findElement(PWALoginPage.objForgotPasswordLinkButton).isEnabled() == false) {
 			logger.info("Continue button is not highlighted when user enter invalid mobile number");
 			extent.extentLogger("Continue", "Continue button is not highlighted when user enter invalid mobile number");
 		}
 		getDriver().findElement(PWALoginPage.objEmailField).clear();
-		type(PWALoginPage.objEmailField, "5214", "Email field");
+		type(PWALoginPage.objEmailField, "5214\n", "Email field");
 		hideKeyboard();
 		if (verifyElementExist(PWALoginPage.objForgotPasswordMessage, "Message")) {
 			logger.info("Supporting description is displayed");
@@ -3275,9 +3275,9 @@ extentLogger("Location", "Location :"+ region);
 		click(PWALoginPage.objForgotPasswordLinkButton, "Continue button");
 		waitTime(3000);
 		verifyElementExist(PWALoginPage.objNewPasswordField, "New password page");
-		type(PWALoginPage.objNewPasswordField, "User@123", "Password field");
+		type(PWALoginPage.objNewPasswordField, "User@123\n", "Password field");
 		hideKeyboard();
-		type(PWALoginPage.objConfirmNewPasswordField, "User@123", "Confirm Password field");
+		type(PWALoginPage.objConfirmNewPasswordField, "User@123\n", "Confirm Password field");
 		hideKeyboard();
 		click(PWALoginPage.objForgotPasswordLinkButton, "Continue button");
 		if (verifyElementExist(PWALoginPage.objOTPVerifyPage, "OTP verification page")) {
@@ -3313,7 +3313,7 @@ extentLogger("Location", "Location :"+ region);
 			verifyElementPresent(PWALoginPage.objFacebookLoginEmail, " Email Field");
 			type(PWALoginPage.objFacebookLoginEmail, "igszeetesttest@gmail.com", "Emial Field");
 			verifyElementPresent(PWALoginPage.objFacebookLoginpassword, " Password Field");
-			type(PWALoginPage.objFacebookLoginpassword, "Igs$123Zee", "Password Field");
+			type(PWALoginPage.objFacebookLoginpassword, "Igs$123Zee\n", "Password Field");
 			verifyElementPresentAndClick(PWALoginPage.objFacebookLoginButtonInFbPage, "Login Button");
 			waitTime(10000);
 			getDriver().switchTo().window("CDwindow-0");
@@ -3356,7 +3356,7 @@ extentLogger("Location", "Location :"+ region);
 			}
 		}
 		click(PWAHamburgerMenuPage.objCloseHamburgerMenu, "Close button");
-		logout();
+		//logout();
 	}
 
 	/*
@@ -3386,7 +3386,7 @@ extentLogger("Location", "Location :"+ region);
 			verifyElementPresentAndClick(PWALoginPage.objGmailNextButton, "clicked on next button");
 			waitTime(3000);
 			verifyElementPresent(PWALoginPage.objGmailPasswordField, " Password Field");
-			type(PWALoginPage.objGmailPasswordField, "User@123", "Password Field");
+			type(PWALoginPage.objGmailPasswordField, "User@123\n", "Password Field");
 			hideKeyboard();
 			verifyElementPresentAndClick(PWALoginPage.objGmailNextButton, "clicked on next button");
 			waitTime(7000);
@@ -3458,7 +3458,7 @@ extentLogger("Location", "Location :"+ region);
 			type(PWALoginPage.objTwitterEmaildField, "Zee5latest@gmail.com", "Email Field");
 			hideKeyboard();
 			verifyElementPresentAndClick(PWALoginPage.objTwitterPasswordField, "Twitter Password field");
-			type(PWALoginPage.objTwitterPasswordField, "User@123", "Password field");
+			type(PWALoginPage.objTwitterPasswordField, "User@123\n", "Password field");
 			click(PWALoginPage.objTwitterSignInButton, "Sign in button");
 			waitTime(5000);
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
@@ -3826,7 +3826,7 @@ extentLogger("Location", "Location :"+ region);
 		verifyElementPresentAndClick(NativeVodafonePlayPage.SearchTextBox, "Search TextBox");
 		Thread.sleep(3000);
 		// Send Value for Saerch
-		type(NativeVodafonePlayPage.SearchTextBox, "Simmba", "Search TextBox");
+		type(NativeVodafonePlayPage.SearchTextBox, "Simmba\n", "Search TextBox");
 		Thread.sleep(3000);
 		hideKeyboard();
 		// Click on Searched Data
@@ -3839,7 +3839,7 @@ extentLogger("Location", "Location :"+ region);
 		Thread.sleep(7000);
 		if (verifyElementExist(NativeVodafonePlayPage.EnterYourNumber, "EnterNumber")) {
 			verifyElementPresentAndClick(NativeVodafonePlayPage.NumberTextBox, "Number text");
-			type(NativeVodafonePlayPage.NumberTextBox, vodafonePhoneNumber, "Number field");
+			type(NativeVodafonePlayPage.NumberTextBox, vodafonePhoneNumber+"\n", "Number field");
 			hideKeyboard();
 			Thread.sleep(5000);
 			verifyElementPresentAndClick(NativeVodafonePlayPage.continueBtn, "ContinueBtn");
@@ -3847,7 +3847,7 @@ extentLogger("Location", "Location :"+ region);
 			verifyElementExist(NativeVodafonePlayPage.EnterOTPText, "OTP Text");
 			verifyElementPresentAndClick(NativeVodafonePlayPage.OTPTextField, "OTP text field");
 			Thread.sleep(10000);
-			type(NativeVodafonePlayPage.NumberTextBox, vodafonePhoneNumber, "Number field");
+			type(NativeVodafonePlayPage.NumberTextBox, vodafonePhoneNumber+"\n", "Number field");
 			hideKeyboard();
 			Thread.sleep(5000);
 			verifyElementPresentAndClick(NativeVodafonePlayPage.OTPgoBtn, "GoBtn");
@@ -4453,7 +4453,7 @@ extentLogger("Location", "Location :"+ region);
 		extent.HeaderChildNode("Verification of Episode Tray, Reco Tray and Verification of FB/Twitter Share");
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("consumptionsShow");
-		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
+		type(PWASearchPage.objSearchEditBox, keyword+"\n", "Search Field");
 		waitTime(5000);
 		hideKeyboard();
 		click(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
@@ -4601,11 +4601,13 @@ extentLogger("Location", "Location :"+ region);
 
 	public void checkDurationandProgressVideo(String userType) throws Exception {
 		extent.HeaderChildNode("Check video Duration and Progress");
+		//handle mandatory pop up
+		mandatoryRegistrationPopUp(userType);
 		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("timedAnchorMovie");
 		String currentDuration="",currentDuration1="",totalDuration="",totalDuration1="";
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		waitTime(2000);
-		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
+		type(PWASearchPage.objSearchEditBox, keyword+"\n", "Search Field");
 		verifyElementPresentAndClick(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		waitTime(5000);
 		hideKeyboard();
@@ -4773,8 +4775,11 @@ extentLogger("Location", "Location :"+ region);
 		waitTime(2000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		waitTime(2000);
+		//handle mandatory pop up
+		String user=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		mandatoryRegistrationPopUp(user);
 		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("livetv");
-		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
+		type(PWASearchPage.objSearchEditBox, keyword+"\n", "Search Field");
 		waitTime(5000);
 		hideKeyboard();
 		waitTime(3000);
@@ -5979,7 +5984,7 @@ extentLogger("Location", "Location :"+ region);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		// Enter an episode
 		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeEpisode1");
-		type(PWASearchPage.objSearchEditBox, keyword,"Search edit box");
+		type(PWASearchPage.objSearchEditBox, keyword+"\n","Search edit box");
 		waitTime(5000);
 		// Click on the first episode
 		click(PWASearchPage.objFirstContentCardNameAfterSearch1(1), "Episode");
@@ -5992,7 +5997,7 @@ extentLogger("Location", "Location :"+ region);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		// Enter an episode
 		String keyword2=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeEpisode2");
-		type(PWASearchPage.objSearchEditBox, keyword2,"Search edit box");
+		type(PWASearchPage.objSearchEditBox, keyword2+"\n","Search edit box");
 		waitTime(5000);
 		// Click on the first episode
 		click(PWASearchPage.objFirstContentCardNameAfterSearch1(1), "Episode");
@@ -6007,7 +6012,7 @@ extentLogger("Location", "Location :"+ region);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		// Enter a movie
 		String keyword3=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie3");
-		type(PWASearchPage.objSearchEditBox, keyword3, "Search edit box");
+		type(PWASearchPage.objSearchEditBox, keyword3+"\n", "Search edit box");
 		waitTime(5000);
 		// Click on the first Movie
 		click(PWASearchPage.objFirstContentCardNameAfterSearch1(1), "Movie");
@@ -6020,7 +6025,7 @@ extentLogger("Location", "Location :"+ region);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		// Enter a Movie
 		String keyword1=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie2");
-		type(PWASearchPage.objSearchEditBox, keyword1, "Search edit box");
+		type(PWASearchPage.objSearchEditBox, keyword1+"\n", "Search edit box");
 		waitTime(5000);
 		// Click on the Movie
 		click(PWASearchPage.objFirstContentCardNameAfterSearch1(1), "Movie");
@@ -6033,7 +6038,7 @@ extentLogger("Location", "Location :"+ region);
 		// Adding Video clip
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		// Enter a Video clip
-		type(PWASearchPage.objSearchEditBox, "Gravitas: Why are Sweden-China ties turning hostile?", "Search edit box");
+		type(PWASearchPage.objSearchEditBox, "Gravitas: Why are Sweden-China ties turning hostile?\n", "Search edit box");
 		waitTime(5000);
 		// Click on the first Video
 		click(PWASearchPage.objFirstContentCardNameAfterSearch1(1), "Video clip");
@@ -6402,7 +6407,7 @@ extentLogger("Location", "Location :"+ region);
 		verifyElementPresent(PWAHamburgerMenuPage.objEditProfileText, "Edit profile page");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objEditProfileFirstName, "First name column");
 		getDriver().findElement(PWAHamburgerMenuPage.objEditProfileFirstName).clear();
-		type(PWAHamburgerMenuPage.objEditProfileFirstName, "Zee5", "Editprofile first name");
+		type(PWAHamburgerMenuPage.objEditProfileFirstName, "Zee5\n", "Editprofile first name");
 		hideKeyboard();
 		Swipe("UP", 1);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objEditProfileSavechangesBtn, "Save changes");
@@ -6439,13 +6444,13 @@ extentLogger("Location", "Location :"+ region);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objChangePasswordBtn, "Change password button");
 		verifyElementPresent(PWAHamburgerMenuPage.objChangePasswordText, "Change password page");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objChangeOldPassword, "Current password field");
-		type(PWAHamburgerMenuPage.objChangeOldPassword, "User@123", "Current password field");
+		type(PWAHamburgerMenuPage.objChangeOldPassword, "User@123\n", "Current password field");
 		hideKeyboard();
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objNewPassword, "New password field");
-		type(PWAHamburgerMenuPage.objNewPassword, "igszee5", "New password field");
+		type(PWAHamburgerMenuPage.objNewPassword, "igszee5\n", "New password field");
 		hideKeyboard();
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objNewPassword, "Confirm password field");
-		type(PWAHamburgerMenuPage.objConfirmNewPassword, "igszee5", "Current confirm field");
+		type(PWAHamburgerMenuPage.objConfirmNewPassword, "igszee5\n", "Current confirm field");
 		hideKeyboard();
 		waitTime(3000);
 		verifyElementPresent(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted,"Update password button");
@@ -6511,13 +6516,14 @@ extentLogger("Location", "Location :"+ region);
     public void navigationToSignInFromMyplans(String Usertype) throws Exception {
         Swipe("UP", 1);    
         if (verifyElementExist(PWASubscriptionPages.objadhocPopupArea, "Adoric Popup")) {
-            click(PWASubscriptionPages.objadhocPopupSignUpBtn, "Adoric Popup SignUP Button");
+            click(PWASubscriptionPages.objadhocPopupSignUpBtn, "Adoric Popup Sign UP Button");
             waitTime(4000);
             verifyElementPresent(PWASubscriptionPages.objadhocPopupRegestrationScreen, "Sign up page");
             waitTime(3000);
             getDriver().navigate().back();
             Swipe("UP", 1);
             verifyElementPresentAndClick(PWASubscriptionPages.objSelectedSubscriptionPlanAmount, "Subscription plan");
+            Swipe("UP", 1);
             verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue button");
             waitTime(3000);
             verifyElementPresent(PWALoginPage.objEmailField, "Sign in page");                      
@@ -6527,9 +6533,9 @@ extentLogger("Location", "Location :"+ region);
                 click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
                 waitTime(3000);
                 verifyElementExist(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
-                type(PWASubscriptionPages.objPasswordField, "User@123", "Password");
+                type(PWASubscriptionPages.objPasswordField, "User@123\n", "Password");
                 hideKeyboard();
-                click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
+                //click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
                 waitTime(3000);
                 if(verifyElementExist(PWASubscriptionPages.objAccountDetailInSubscription, "Account details")) {
                     logger.info("Verified subscribe flow for logged in user");
@@ -6539,12 +6545,13 @@ extentLogger("Location", "Location :"+ region);
                 if(Usertype=="NewRegister") {
                     type(PWALoginPage.objEmailField, RandomStringGenerator(5)+"@gmail.com", "Email");
                     hideKeyboard();
+                    waitTime(3000);
                     click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
                     waitTime(3000);
                     verifyElementExist(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
-                    type(PWASubscriptionPages.objPasswordField, "User@123", "Password");
+                    type(PWASubscriptionPages.objPasswordField, "User@123\n", "Password");
                     hideKeyboard();
-                    click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
+                    //click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
                     waitTime(10000);
                     if(verifyElementExist(PWASubscriptionPages.objAccountDetailInSubscription, "Account details")) {
                         logger.info("Verified subscribe flow for logged in user");
@@ -6563,6 +6570,7 @@ extentLogger("Location", "Location :"+ region);
         } else {
             waitTime(3000);
             verifyElementPresentAndClick(PWASubscriptionPages.objSelectedSubscriptionPlanAmount, "Subscription plan");
+            Swipe("UP", 1);
             verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue button");
             waitTime(3000);
             verifyElementPresent(PWALoginPage.objEmailField, "Sign in page");
@@ -6572,10 +6580,10 @@ extentLogger("Location", "Location :"+ region);
                 click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
                 waitTime(3000);
                 verifyElementExist(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
-                type(PWASubscriptionPages.objPasswordField, "User@123", "Password");
+                type(PWASubscriptionPages.objPasswordField, "User@123\n", "Password");
                 hideKeyboard();
                 waitTime(10000);
-                click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
+                //click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
                 try {getDriver().findElement(PWASubscriptionPages.objProceedButtonInPassword).click();}catch(Exception e) {}
                 waitTime(10000);
                 if(verifyElementExist(PWASubscriptionPages.objAccountDetailInSubscription, "Account details")) {
@@ -6590,11 +6598,8 @@ extentLogger("Location", "Location :"+ region);
                     click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
                     waitTime(3000);
                     verifyElementExist(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
-                    type(PWASubscriptionPages.objPasswordField, "User@123", "Password");
+                    type(PWASubscriptionPages.objPasswordField, "User@123\n", "Password");
                     hideKeyboard();
-                    waitTime(10000);
-                    click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
-                    try {getDriver().findElement(PWASubscriptionPages.objProceedButtonInPassword).click();}catch(Exception e) {}
                     waitTime(10000);
                     if(verifyElementExist(PWASubscriptionPages.objAccountDetailInSubscription, "Account details")) {
                         logger.info("Verified subscribe flow for New Register user");
@@ -6616,9 +6621,12 @@ extentLogger("Location", "Location :"+ region);
         verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
         waitTime(2000);
         String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("premiumMovieNoTrailer");
-        type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
+        type(PWASearchPage.objSearchEditBox, keyword+"\n", "Search Field");
         hideKeyboard();
         waitTime(3000);
+        //handle mandatory pop up
+        String user=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+        mandatoryRegistrationPopUp(user);
         click(PWASearchPage.objPremiumSearchResult(keyword), "Premium content");
         waitTime(12000);
         if(verifyElementExist(PWASubscriptionPages.objSubscribepopup, "Subscribe popup")) {
@@ -6652,9 +6660,12 @@ extentLogger("Location", "Location :"+ region);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		waitTime(2000);
 		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("premiumMovie");
-		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
+		type(PWASearchPage.objSearchEditBox, keyword+"\n", "Search Field");
 		hideKeyboard();
 		waitTime(3000);
+		//handle mandatory pop up
+		String user=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		mandatoryRegistrationPopUp(user);
 		click(PWASearchPage.objSearchResultPremiumContent2, "Premium content");
 		waitTime(10000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumCTAInPlater, "CTA in player");
@@ -6706,14 +6717,14 @@ extentLogger("Location", "Location :"+ region);
 			System.out.println(getDriver().getCurrentUrl());
 			Thread.sleep(5000);
 			verifyElementPresent(PWALoginPage.objForgotNextPageText, "Reset password page");
-			type(PWALoginPage.objForgotNextPagePwsswordFielfd, "User@123", "Password");
+			type(PWALoginPage.objForgotNextPagePwsswordFielfd, "User@123\n", "Password");
 			waitTime(3000);
 			type(PWALoginPage.objForgotNextPageConfirmPasswordField, "User@123\n", "Confirm password");
 			Wait(10000);
 			if (verifyElementExist(PWALoginPage.objEmailField, "Login page")) {
 				type(PWALoginPage.objEmailField, "zee5latest@gmail.com", "Login");
 				hideKeyboard();
-				type(PWALoginPage.objPasswordField, "User@123", "Password");
+				type(PWALoginPage.objPasswordField, "User@123\n", "Password");
 				hideKeyboard();
 				waitTime(2000);
 				click(PWALoginPage.objLoginBtn, "LoginButton");
@@ -6912,7 +6923,7 @@ extentLogger("Location", "Location :"+ region);
 		verifyElementPresentAndClick(NativeVodafonePlayPage.SearchTextBox, "Search TextBox");
 		Thread.sleep(3000);
 		// Send Value for Saerch
-		type(NativeVodafonePlayPage.SearchTextBox, "Commando 3", "Search TextBox");
+		type(NativeVodafonePlayPage.SearchTextBox, "Commando 3\n", "Search TextBox");
 		Thread.sleep(3000);
 		hideKeyboard();
 		// Click on Searched Data
@@ -6960,6 +6971,8 @@ extentLogger("Location", "Location :"+ region);
 	public void verifyConsumptionsScreenTappingOnCard(String userType, String contentType, String contentTitle) throws Exception {
 		extent.HeaderChildNode("Verify Consumption Page for Content type: " + contentType);
 		String consumptionPageTitle = "";
+		//handle mandatory pop up
+		mandatoryRegistrationPopUp(userType);
 		if (contentType.equals("Live TV")) {
 			navigateToAnyScreen("Live TV");
 			String url=getDriver().getCurrentUrl();
@@ -7120,6 +7133,8 @@ extentLogger("Location", "Location :"+ region);
 	 * @throws Exception
 	 */
 	public void verifyNoSubscriptionPopupForFreeContent(String userType, String contentTitle) throws Exception {
+		//handle mandatory pop up
+		mandatoryRegistrationPopUp(userType);
 		extent.HeaderChildNode("Verify No Subscription Popup For Free Content");
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 10, "Close in Language Pop Up");
@@ -7175,6 +7190,8 @@ extentLogger("Location", "Location :"+ region);
 	 */
 	public void verifySubscriptionPopupForPremiumContent(String userType, String contentTitle) throws Exception {
 		extent.HeaderChildNode("Verify Subscription Popup For Premium Content");
+		//handle mandatory pop up
+		mandatoryRegistrationPopUp(userType);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);
 		waitTime(2000);
@@ -7217,6 +7234,9 @@ extentLogger("Location", "Location :"+ region);
 	 */
 	public void verifyCTAandMetaDataInDetailsAndConsumption(String contentTitle) throws Exception {
 		extent.HeaderChildNode("Verify Watch Latest Episode CTA");
+		//handle mandatory pop up
+		String user=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		mandatoryRegistrationPopUp(user);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);
 		waitForElement(PWASearchPage.objSearchNavigationTab("Shows"), 30, "Shows tab");
@@ -7700,6 +7720,9 @@ extentLogger("Location", "Location :"+ region);
 	 */
 	public void verifyPlayIconFunctionality(String screen) throws Exception {
 		extent.HeaderChildNode("Verifying play icon functionality on carousel for : " + screen);
+		//handle mandatory pop up
+		String user=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		mandatoryRegistrationPopUp(user);
 		if(navigateToAnyScreen(screen)) {
 			waitTime(5000);
 			for (int i = 0; i < 10; i++) {
@@ -7909,7 +7932,7 @@ extentLogger("Location", "Location :"+ region);
 		verifyElementPresentAndClick(PWASubscriptionPages.objEmailIDTextField, "Email ID Text Field");
 		waitTime(3000);
 		String email=RandomStringGenerator(6)+"@c.com";
-		type(PWASubscriptionPages.objEmailIDTextField, email, "Email Id");
+		type(PWASubscriptionPages.objEmailIDTextField, email+"\n", "Email Id");
 		hideKeyboard();
 		waitTime(3000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted,"Proceed Btn in Account Info Page Highlighted");
@@ -7921,7 +7944,7 @@ extentLogger("Location", "Location :"+ region);
 		waitTime(3000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
 		waitTime(3000);
-		type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
+		type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345\n", "Password Field");
 		hideKeyboard();
 		waitTime(9000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtn, "Enabled Proceed Btn");
@@ -8648,7 +8671,7 @@ extentLogger("Location", "Location :"+ region);
 		click(PWAHomePage.objSearchBtn, "Search Button");
 		// Enter text
 		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("episodeSpoiler");
-		type(PWASearchPage.objSearchEditBox, keyword, "Search Edit box");
+		type(PWASearchPage.objSearchEditBox, keyword+"\n", "Search Edit box");
 		// Click on first content
 		waitTime(10000);
 		click(PWASearchPage.objFirstContentCardNameAfterSearch, "Content Card");
@@ -8810,7 +8833,7 @@ extentLogger("Location", "Location :"+ region);
 			extent.HeaderChildNode("Validating if the Coupon code accepts special characters");
 
 			String code = "zee5pt20@&*";
-			type(PWASubscriptionPages.objHaveACode, code, "Prepaid Code");
+			type(PWASubscriptionPages.objHaveACode, code+"\n", "Prepaid Code");
 			String codeVerify = getText(PWASubscriptionPages.objHaveACode);
 			System.out.println(codeVerify);
 
@@ -8829,7 +8852,7 @@ extentLogger("Location", "Location :"+ region);
 			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACodeCloseBtn, "Close Button");
 
 			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "Have A Code section");
-			type(PWASubscriptionPages.objHaveACode, "ZEE5FLAT50", "Prepaid Code");
+			type(PWASubscriptionPages.objHaveACode, "ZEE5FLAT50\n", "Prepaid Code");
 			verifyElementPresentAndClick(PWASubscriptionPages.objApplyBtn, "Apply Button");
 			boolean ele1 = verifyElementPresent(PWASubscriptionPages.objAppliedSuccessfullyMessage,
 					"Applied Successfully message");
@@ -8837,7 +8860,7 @@ extentLogger("Location", "Location :"+ region);
 			logger.info(successMessage);
 			extent.extentLogger("Success Message", successMessage + " is displayed");
 			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACodeCloseBtn, "Close Button");
-			type(PWASubscriptionPages.objHaveACode, "zee5flat50", "Prepaid Code");
+			type(PWASubscriptionPages.objHaveACode, "zee5flat50\n", "Prepaid Code");
 			verifyElementPresentAndClick(PWASubscriptionPages.objApplyBtn, "Apply Button");
 			boolean ele2 = verifyElementPresent(PWASubscriptionPages.objAppliedSuccessfullyMessage,
 					"Applied Successfully message");
@@ -8882,9 +8905,9 @@ extentLogger("Location", "Location :"+ region);
 		if (userType.contains("NonSubscribedUser")) {
 			extent.HeaderChildNode("Validating if user is able to fill Complete Profile/Tell us more about you section");
 				verifyElementPresentAndClick(CompleteYourProfilePopUp.objFirstName, "First Name Field");
-				type(CompleteYourProfilePopUp.objFirstName, "Test", "First Name Field");
+				type(CompleteYourProfilePopUp.objFirstName, "Test\n", "First Name Field");
 				verifyElementPresentAndClick(CompleteYourProfilePopUp.objLastName, "Last Name Field");
-				type(CompleteYourProfilePopUp.objLastName, "User", "Last Name Field");
+				type(CompleteYourProfilePopUp.objLastName, "User\n", "Last Name Field");
 				verifyElementPresentAndClick(CompleteYourProfilePopUp.objDay, "Day Field");
 				click(CompleteYourProfilePopUp.objDateSelector, "Date");
 				verifyElementPresentAndClick(CompleteYourProfilePopUp.objMonth, "Month Field");
@@ -8893,7 +8916,7 @@ extentLogger("Location", "Location :"+ region);
 				click(CompleteYourProfilePopUp.objDateSelector, "Year");
 				verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderFemale, "Gender Field");
 				verifyElementPresentAndClick(CompleteYourProfilePopUp.objMobileNo, "Mobile Number");
-				type(CompleteYourProfilePopUp.objMobileNo, "95839633299", "Mobile Number");
+				type(CompleteYourProfilePopUp.objMobileNo, "95839633299\n", "Mobile Number");
 				verifyElementPresentAndClick(CompleteYourProfilePopUp.objCloseBtn, "Close Button");
 			}
 
@@ -9082,7 +9105,7 @@ extentLogger("Location", "Location :"+ region);
 			verifyElementPresent(PWASubscriptionPages.objProceedBtnDisabled, "Disabled Proceed Button");
 
 			verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
-			type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
+			type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345\n", "Password Field");
 			hideKeyboard();
 			verifyElementExist(PWASubscriptionPages.objProceedBtnEnabled, "Proceed Button");
 			click(PWASubscriptionPages.objProceedBtnEnabled, "Enabled Proceed Button");
@@ -9492,7 +9515,7 @@ extentLogger("Location", "Location :"+ region);
 
 	public void verifyLandscapeforPremiumContent() throws Exception {
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
-		type(PWAHomePage.objSearchField, "Baarish", "Search");
+		type(PWAHomePage.objSearchField, "Baarish\n", "Search");
 		hideKeyboard();
 		waitTime(2000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult("Baarish"), "Search Result");
@@ -10361,7 +10384,7 @@ extentLogger("Location", "Location :"+ region);
 	public void searchvideoandselect(String str,String userType, String type) throws Exception
 	{	String url=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
-		type(PWASearchPage.objSearchEditBox, str, "Search Field");
+		type(PWASearchPage.objSearchEditBox, str+"\n", "Search Field");
 		waitTime(3000);
 		hideKeyboard();
 		waitTime(7000);
@@ -10375,10 +10398,14 @@ extentLogger("Location", "Location :"+ region);
 			verifyElementPresentAndClick(PWASearchPage.objSearchedResult(str), "Searched content : "+str);			
 		}
 		Thread.sleep(5000);
-		System.out.println("Navigated to tab : " + getText(PWAHomePage.objSeletedTab));
-		extent.extentLogger("Navigated to tab : " + getText(PWAHomePage.objSeletedTab),"Navigated to tab : " + getText(PWAHomePage.objSeletedTab));
-		logger.info("Navigated to tab : " + getText(PWAHomePage.objSeletedTab));
-		
+		if(getText(PWAHomePage.objSeletedTab).equals("")) {
+			extent.extentLoggerFail("","Navigated to tab : " + getText(PWAHomePage.objSeletedTab));
+			logger.error("Navigated to tab : " + getText(PWAHomePage.objSeletedTab));
+		}
+		else {
+			extent.extentLogger("","Navigated to tab : " + getText(PWAHomePage.objSeletedTab));
+			logger.info("Navigated to tab : " + getText(PWAHomePage.objSeletedTab));
+		}	
 		if(type.equals("ZeeOriginal")){
 		if (verifyElementExist(PWAHomePage.objKalGetPremium, "Get Premium"))
 		{
@@ -10572,7 +10599,7 @@ extentLogger("Location", "Location :"+ region);
 		
 		type(PWAHamburgerMenuPage.objEmailField, "bhavana9518@gmail.com", "Email Id");
 	
-		type(PWAHamburgerMenuPage.objErrorMessageField, "Video couldn't play", "Error message");
+		type(PWAHamburgerMenuPage.objErrorMessageField, "Video couldn't play\n", "Error message");
 		
 		if (getDriver().findElement(PWAHamburgerMenuPage.objSubmitButton).isEnabled() == true) {
 			logger.info("Submit is enabled by giving mandatory inputs");
@@ -11097,7 +11124,7 @@ extentLogger("Location", "Location :"+ region);
 		//Verify Add to Watch list is displayed in Content consumption screen
 		//Search any content
 		click(PWAHomePage.objSearchBtn,"Search button");
-		type(PWASearchPage.objSearchEditBox,"Ondh Kathe Hella", "Search box");
+		type(PWASearchPage.objSearchEditBox,"Ondh Kathe Hella\n", "Search box");
 		//Click on content
 		click(PWASearchPage.objFirstContentCardNameAfterSearch1(1), "Content");
 		String contentName = getElementPropertyToString("innerText", PWAPlayerPage.objContentName, "Title");

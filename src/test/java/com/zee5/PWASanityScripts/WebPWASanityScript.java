@@ -288,7 +288,7 @@ public class WebPWASanityScript {
   			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Premium");
   			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Play");
   			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Kids");
-  			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Stories");
+//  			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Stories");
   			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("ZEE5 Originals");	
   			// play icon functionality
   			Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("ZEE5 Originals");
@@ -312,13 +312,13 @@ public class WebPWASanityScript {
   			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Premium");
   			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Play");
   			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Kids");
-  			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Stories");
+//  			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Stories");
   			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("ZEE5 Originals");
   			//zee5WebBusinessLogic.verifyLeftRightFunctionality("News");
   			// metadata
   			String languageSmallText = Zee5WEBPWASanityBusinessLogic.allSelectedLanguagesWEB();
   			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("ZEE5 Originals","zeeoriginals", languageSmallText);
-  			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Stories", "stories", "");
+//  			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Stories", "stories", "");
   			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Kids", "kids", languageSmallText);
   			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Play","play", languageSmallText);
   			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Premium","premiumcontents", languageSmallText);
@@ -327,7 +327,6 @@ public class WebPWASanityScript {
   			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Movies", "movies", languageSmallText);
   			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Home", "home", languageSmallText);	
   		    //zee5WebBusinessLogic.verifyMetadataOnNews("News", "news", languageSmallText);
-  		  		
 	}
   	
   	
@@ -410,5 +409,4 @@ public class WebPWASanityScript {
 	public void tearDown() {
 		Zee5WEBPWASanityBusinessLogic.tearDown();
 	}
-
 }

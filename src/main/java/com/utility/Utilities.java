@@ -774,7 +774,6 @@ public class Utilities extends ExtentReporter {
 
 				for (int i = 0; i < count; i++) {
 					Dimension size = getDriver().manage().window().getSize();
-
 					int startx = (int) (size.width * 0.5);
 					int endx = (int) (size.width * 0.1);
 					int starty = size.height / 2;
@@ -827,8 +826,8 @@ public class Utilities extends ExtentReporter {
 				for (int j = 0; j < count; j++) {
 
 					Dimension size = getDriver().manage().window().getSize();
-					int starty = (int) (size.height * 0.80);
-					int endy = (int) (size.height * 0.20);
+					int starty = (int) (size.height * 0.70);
+					int endy = (int) (size.height * 0.30);
 					int startx = size.width / 2;
 					touchAction.press(PointOption.point(startx, endy))
 							.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))

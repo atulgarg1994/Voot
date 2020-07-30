@@ -141,9 +141,11 @@ public class ExtentReporter implements ITestListener {
 
 	@Override
 	public void onTestFailure(ITestResult result) {
+		if((getDriver() != null) || (getWebDriver() != null)) {
 		screencapture();
 		childTest.get().log(Status.FAIL, result.getName() + " is FAILED");
 		logger.info("::::::::::Test "+result.getName()+" FAILED::::::::::");
+		}
 	}
 
 	@Override
@@ -227,6 +229,7 @@ public class ExtentReporter implements ITestListener {
 		if (getPlatform().equals("Android")) {
 			PropertyFileReader handler = new PropertyFileReader("properties/AppPackageActivity.properties");
 			setAppVersion("Build " + DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim().replace("versionName=",""));
+			logger.info(getAppVersion());
 		} else {
 			setAppVersion("");
 		}

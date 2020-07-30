@@ -19,7 +19,7 @@ public class Android_Onboarding_Suite1 {
 	
 	
 	@Test(priority = 1)
-	@Parameters({ "userType", })
+	@Parameters({"userType"})
 	public void verificationOfLoginPage(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();

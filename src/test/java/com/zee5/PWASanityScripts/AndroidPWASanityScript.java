@@ -20,7 +20,7 @@ public class AndroidPWASanityScript {
 	public void Login(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.ZeePWALogin("E-mail", userType);
 	}
-	
+	/*	
 	@Test(priority = 1) // SHREENIDHI
 	@Parameters({ "userType" })
 	public void PWAOnboardingScenarios(String userType) throws Exception {
@@ -38,11 +38,11 @@ public class AndroidPWASanityScript {
 	public void PWAMandatoryRegistration(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.registerPopUpScenarios(userType);
 	}
-	
+*/	
 	@Test(priority = 4)
 	@Parameters({ "userType" ,"url"}) // MANAS
 	public void PWACarousel(String userType, String url) throws Exception {
-		Zee5PWASanityBusinessLogic.ValidatingCarousalinalltabs(userType);
+		//Zee5PWASanityBusinessLogic.ValidatingCarousalinalltabs(userType);
 		//smoke landing
 		// autorotating
 		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Home");
@@ -86,7 +86,7 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.verifyLeftRightFunctionality("News", url);
 		System.out.println(">>>> 4th method completed");
 	}
-	
+/*	
 	@Test(priority = 5)// VINAY
 	@Parameters({ "userType"})
     public void PWALanguageModule(String UserType) throws Exception {

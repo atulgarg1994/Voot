@@ -28,5 +28,6 @@ public class AMDNewsPage {
 	
 	public static By objTopStoriesTray = By.xpath("//*[@text='Top Stories']");
 	
-
+	public static By objTodaysHeadlinesTray = By.xpath("//*[@text=concat(\" Today's Headlines\")]");
+	
 }

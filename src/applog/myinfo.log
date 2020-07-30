@@ -1,22 +1,12 @@
-2020-07-22 16:41:47,295 - rootLogger - INFO - PlatForm :: Android
-2020-07-22 16:41:47,310 - rootLogger - INFO - Running Test :: Android_LandingPage
-2020-07-22 16:41:47,311 - rootLogger - INFO - Run Mode :: YES
-2020-07-22 16:41:47,417 - rootLogger - INFO - APK INSTALLED..
-2020-07-22 16:42:41,821 - rootLogger - INFO - :::::::::Test Login Started::::::::
-2020-07-22 16:42:48,970 - rootLogger - INFO - Skip link is displayed
-2020-07-22 16:42:50,082 - rootLogger - INFO - Clicked on Skip link
-2020-07-22 16:42:53,027 - rootLogger - INFO - Hiding keyboard was Successfull
-2020-07-22 16:42:53,556 - rootLogger - INFO - Skip link is displayed
-2020-07-22 16:42:53,953 - rootLogger - INFO - Clicked on Skip link
-2020-07-22 16:42:57,611 - rootLogger - INFO - ::::::::::Test Login PASSED::::::::::
-2020-07-22 16:42:57,614 - rootLogger - INFO - :::::::::Test Home Started::::::::
-2020-07-22 16:42:58,715 - rootLogger - INFO - Home Tab is displayed
-2020-07-22 16:43:00,283 - rootLogger - INFO - Clicked on Home Tab
-2020-07-22 16:43:04,573 - rootLogger - INFO - user is able to navigate to Home screen by tapping on Home tab displayed in the top navigation bar
-2020-07-22 16:43:05,796 - rootLogger - INFO - Subscribe icon is displayed
-2020-07-22 16:43:28,174 - rootLogger - INFO - Banners available in feature carousel unit are not rotating from right to left at a fixed time interval
-2020-07-22 16:43:30,191 - rootLogger - INFO - Swiping screen in  RIGHT direction 1 times
-2020-07-22 16:43:33,199 - rootLogger - INFO - Swiping screen in  LEFT direction 1 times
-2020-07-22 16:43:35,781 - rootLogger - INFO - Swiping screen in  RIGHT direction 1 times
-2020-07-22 16:43:36,433 - rootLogger - INFO - user is not able to manually swipe banners from right to left or vice versa
-2020-07-22 16:43:38,468 - rootLogger - INFO - ::::::::::Test Home PASSED::::::::::
+2020-07-29 19:54:44,774 - rootLogger - INFO - Build Build 17.0.0.160
+2020-07-29 19:54:53,909 - rootLogger - INFO - PlatForm :: Android
+2020-07-29 19:54:53,912 - rootLogger - INFO - Android_LandingPage : Test Skipped
+2020-07-29 19:54:53,913 - rootLogger - INFO - RunMode is :: No
+2020-07-29 19:54:53,935 - rootLogger - INFO - :::::::::Test Login Started::::::::
+2020-07-29 19:54:53,946 - rootLogger - INFO - :::::::::Test landingScreen Started::::::::
+2020-07-29 19:54:55,043 - rootLogger - INFO - Build Build 17.0.0.160
+2020-07-29 19:55:01,783 - rootLogger - INFO - PlatForm :: Android
+2020-07-29 19:55:01,786 - rootLogger - INFO - Running Test :: Android_Onboarding_Suite1
+2020-07-29 19:55:01,786 - rootLogger - INFO - Run Mode :: YES
+2020-07-29 19:55:01,956 - rootLogger - INFO - APK INSTALLED..
+2020-07-29 19:55:01,956 - rootLogger - INFO - ****Clearing the App Data****

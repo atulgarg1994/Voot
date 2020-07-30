@@ -89,4 +89,13 @@ public class AMDDownloadPage {
 	public static By objDownloadedContent = By.xpath("(//*[@id='tv_title'])[1]");
 	public static By objPlayDownloadedContent = By.xpath("//*[@id='tvPlay']");
 	public static By objDeleteDownloadedContent = By.xpath("//*[@id='tvDeleteDownload']");
+	
+	public static By objCalloutPopupwhileDownloading = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Pause All']]");
+	public static By objTickIcon= By.xpath("//*[@id='img_state']");
+	public static By objCalloutAfterDownload = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Play']]");
+	public static By objPlayCTA = By.xpath("//*[@id='tvPlay']");
+	public static By objDeleteDownloadCTA = By.xpath("//*[@id='tvDeleteDownload']");
+	public static By objPauseIconOnPlayer = By.xpath("//*[@id='icon_pause']");
+	public static By objPlayIconOnPlayer = By.xpath("//*[@id='icon_play']");
+	public static By objBackOnPlayer = By.xpath("//*[@id='icon_down']");
 }
