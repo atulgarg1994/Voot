@@ -4979,325 +4979,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		return false;
 	}
 
-	/** ==========================TANISHA -RECO MODULE========================== */
-	/**
-	 * Main method for validating Recommendations (Talamoos) module
-	 */
-	public void verificationOfRecoTalamoos(String userType) throws Exception {
-		// playAnyContentAndVerifyTrendingOnZee5Tray();
-		String contentLangs = allSelectedLanguagesWEB();
-		if (userType.equals("Guest")) {
-			playContentsToTriggerRecoApi();
-			verifyRecoTrayAndPlayContent(userType, "Home", "Trending on ZEE5", contentLangs, true);
-			verifyRecoTrayAndPlayContent(userType, "Premium", "Trending Now", contentLangs, false);
-			verifyRecoTrayAndPlayContent(userType, "Shows", "Trending Shows", contentLangs, false);
-			verifyRecoTrayAndPlayContent(userType, "Movies", "Trending Movies", contentLangs, false);
-			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Music", "Recommended for you", false);
-			verifyRecoTrayAndPlayContentWithoutAPI(userType, "News", "Recommended for you", false);
-		} else if (userType.equals("NonSubscribedUser")) {
-			playContentsToTriggerRecoApi();
-			verifyRecoTrayAndPlayContent(userType, "Home", "Trending on ZEE5", contentLangs, true);
-			verifyRecoTrayAndPlayContent(userType, "Premium", "Trending Now", contentLangs, false);
-			verifyRecoTrayAndPlayContent(userType, "Shows", "Trending Shows", contentLangs, false);
-			verifyRecoTrayAndPlayContent(userType, "Movies", "Trending Movies", contentLangs, false);
-			verifyRecoTrayAndPlayContent(userType, "Music", "Recommended for you", contentLangs, false);
-			verifyRecoTrayAndPlayContent(userType, "News", "Recommended for you", contentLangs, false);
-		} else if (userType.equals("SubscribedUser")) {
-			playContentsToTriggerRecoApi();
-			verifyRecoTrayAndPlayContent(userType, "Home", "Trending on ZEE5", contentLangs, true);
-			verifyRecoTrayAndPlayContent(userType, "Home", "You may also like", contentLangs, false);
-			verifyRecoTrayAndPlayContent(userType, "Home", "Recommended for you", contentLangs, false);
-			verifyRecoTrayAndPlayContent(userType, "Shows", "Recommended for you", contentLangs, false);
-			verifyRecoTrayAndPlayContent(userType, "Premium", "Recommended for you", contentLangs, false);
-			verifyRecoTrayAndPlayContent(userType, "Movies", "Recommended for you", contentLangs, false);
-			verifyRecoTrayAndPlayContent(userType, "Music", "Recommended for you", contentLangs, false);
-			verifyRecoTrayAndPlayContent(userType, "News", "Recommended for you", contentLangs, false);
-			verifyRecoTrayAndPlayContentWithoutAPI(userType, "Home", "Because you watched", false);
 
-		} else {
-			logger.error("Incorrect userType passed to method");
-			extent.extentLogger("incorrectUser", "Incorrect userType passed to method");
-		}
-	}
-
-	public void playContentsToTriggerRecoApi() throws Exception {
-		extent.HeaderChildNode("Play different contents to trigger Recommendation API");
-		playAContentFromTab("Music");
-		playAContentFromTab("Home");
-		playAContentFromTab("News");
-	}
-
-	public void playAContentFromTab(String tabName) throws Exception {
-		logger.info("Playing content from tab: " + tabName);
-		extent.extentLogger("contentplay", "Playing content from tab: " + tabName);
-		String contentPlayed = "";
-		navigateToAnyScreenOnWeb(tabName);
-		waitTime(5000);
-		if (tabName.equalsIgnoreCase("music") || tabName.equalsIgnoreCase("news")) {
-			swipeTillElementAndClick(10, PWAHomePage.objMinutelyContentNonPremium, "Content card");
-		} else
-			swipeTillElementAndClick(10, PWAHomePage.objContentNonPremium, "Content card");
-		if (waitForElementPresence(PWAPlayerPage.objContentTitleInConsumptionPage, 30, "Player screen")) {
-			contentPlayed = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
-			logger.info("Content played: " + contentPlayed);
-			extent.extentLogger("contentPlayed", "Content played: " + contentPlayed);
-			waitTime(30000);
-			waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 30,
-					"Close in Register/Premium Pop Up");
-		}
-	}
-
-	public void verifyRecoTrayAndPlayContentWithoutAPI(String userType, String tabName, String recoTrayTitle,
-			boolean verifyContentDetails) throws Exception {
-		extent.HeaderChildNode(tabName + " tab: Validation of \"" + recoTrayTitle + "\" tray");
-		boolean trayFoundInUI = false;
-		waitForElementAndClickIfPresent(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, 2, "Back to Top");
-		if (navigateToAnyScreenOnWeb(tabName)) {
-			trayFoundInUI = swipeTillElement(15, PWALandingPages.objTrayTitleInUIContains(recoTrayTitle),
-					"\"" + recoTrayTitle + "\" tray");
-			if (trayFoundInUI == true) {
-				extent.HeaderChildNode(tabName + " tab: Validation of content play in \"" + recoTrayTitle + "\" tray");
-				swipeTillElementAndClick(3, PWALandingPages.objFirstAssetInTrayIndex(recoTrayTitle),
-						"First Asset in tray");
-				String nextPageTitle = "";
-				if (waitForElementPresence(PWAShowsPage.objShowsTitle, 2, "Shows Details page")) {
-					nextPageTitle = getText(PWAShowsPage.objShowsTitle);
-				} else if (waitForElementPresence(PWAPlayerPage.objContentTitleInConsumptionPage, 2, "Player screen")) {
-					nextPageTitle = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
-				}
-				if (!nextPageTitle.equals("")) {
-					logger.info("Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
-					extent.extentLogger("playerScreen",
-							"Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
-					waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 5, "Close in Register Pop Up");
-					String contentURL = getDriver().getCurrentUrl();
-					String[] abc = contentURL.split("/");
-					String contentID = abc[abc.length - 1];
-					System.out.println("contentID fetched from URL: " + contentID);
-					if (verifyContentDetails)
-						verifyRecoTraysFromDetailsPage(userType, contentID);
-				} else {
-					logger.error("Failed to navigate to consumption/details page: \"" + nextPageTitle + "\"");
-					extent.extentLoggerFail("playerScreen",
-							"Failed to navigate to consumption/details page: \"" + nextPageTitle + "\"");
-				}
-			}
-		}
-	}
-
-	/**
-	 * Validation of Recommendation tray and playing content from recommendation
-	 * tray
-	 */
-	@SuppressWarnings("unused")
-	public void verifyRecoTrayAndPlayContent(String userType, String tabName, String recoTrayTitle, String contentLangs,
-			boolean verifyContentDetails) throws Exception {
-		extent.HeaderChildNode(tabName + " tab: Validation of \"" + recoTrayTitle + "\" tray");
-		boolean trayFoundInUI = false;
-		boolean detailsScreenFoundInUI = false;
-		String recoTrayTitleAPI = "", firstAssetTitleAPI = "", firstAssetTypeAPI = "", firstAssetID = "";
-		ArrayList<Integer> xyOfTray = new ArrayList<Integer>();
-		waitTime(10000);
-		Response recoResp = ResponseInstance.getRecoDataFromTab(userType, tabName, contentLangs);
-		ArrayList<String> trayDetails = returnRecoTrayFirstAssetDetails(recoResp, recoTrayTitle);
-		if (trayDetails != null) {
-			recoTrayTitleAPI = trayDetails.get(0);
-			firstAssetTitleAPI = trayDetails.get(1);
-			firstAssetTypeAPI = trayDetails.get(2);
-			firstAssetID = trayDetails.get(3);
-			waitForElementAndClickIfPresent(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, 2, "Back to Top");
-			if (navigateToAnyScreenOnWeb(tabName)) {
-				trayFoundInUI = swipeTillElement(15, PWALandingPages.objTrayTitleInUI(recoTrayTitleAPI),
-						"\"" + recoTrayTitleAPI + "\" tray");
-				Swipe("UP", 1);
-				Thread.sleep(5000);
-			}
-		}
-		if (trayFoundInUI == true) {
-			extent.HeaderChildNode(tabName + " tab: Validation of content play in \"" + recoTrayTitle + "\" tray");
-			if (verifyContentPlayFromRecoTray(userType, recoTrayTitleAPI, firstAssetTitleAPI, firstAssetTypeAPI)) {
-				if (verifyContentDetails)
-					verifyRecoTraysFromDetailsPage(userType, firstAssetID);
-			} else {
-				logger.error("Failed to validate the Reco APIs in consumption/details page");
-				extent.extentLoggerFail("recoInDetailsFailed",
-						"Failed to validate the Reco APIs in consumption/details page");
-			}
-		}
-	}
-
-	public boolean swipeTillElement(int noOfSwipes, By locator, String message) throws Exception {
-		for (int i = 0; i <= noOfSwipes; i++) {
-			if (waitForElementPresence(locator, 1, message)) {
-				return true;
-			} else {
-				PartialSwipe("UP", 1);
-				waitTime(5000);
-				if (i == noOfSwipes) {
-					logger.error("Failed to locate " + message);
-					extent.extentLoggerFail("failedToLocate", "Failed to locate " + message);
-				}
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Function to return reco tray title and first asset title
-	 */
-	public ArrayList<String> returnRecoTrayFirstAssetDetails(Response response, String requiredTray) {
-		ArrayList<String> trayTitleAndFirstContent = new ArrayList<String>();
-		boolean found = false;
-		int numberOfTrays = 0;
-		String trayTitleAPI = "", firstAssetTitleAPI = "", firstAssetTypeAPI = "", firstAssetID = "";
-		try {
-			numberOfTrays = response.jsonPath().get("buckets.size()");
-		} catch (Exception e) {
-			logger.error("API error observed");
-			extent.extentLoggerFail("apValue", "API error observed");
-			return null;
-		}
-		for (int trays = 0; trays < numberOfTrays; trays++) {
-			if (response.jsonPath().get("buckets[" + trays + "].title").toString().toLowerCase()
-					.contains(requiredTray.toLowerCase())) {
-				trayTitleAPI = response.jsonPath().get("buckets[" + trays + "].title").toString();
-				logger.info("Reco Tray fetched from API: \"" + trayTitleAPI + "\"");
-				extent.extentLogger("apValue", "Reco Tray fetched from API: \"" + trayTitleAPI + "\"");
-
-				firstAssetTitleAPI = response.jsonPath().get("buckets[" + trays + "].items[0].title").toString();
-				logger.info("First Asset Title fetched from API: \"" + firstAssetTitleAPI + "\"");
-				extent.extentLogger("apValue", "First Asset Title fetched from API: \"" + firstAssetTitleAPI + "\"");
-
-				firstAssetTypeAPI = response.jsonPath().get("buckets[" + trays + "].items[0].asset_subtype").toString();
-				logger.info("First Asset Type fetched from API: \"" + firstAssetTypeAPI + "\"");
-				extent.extentLogger("apValue", "First Asset Type fetched from API: \"" + firstAssetTypeAPI + "\"");
-
-				firstAssetID = response.jsonPath().get("buckets[" + trays + "].items[0].id").toString();
-				logger.info("First Asset ID fetched from API: \"" + firstAssetID + "\"");
-				extent.extentLogger("apValue", "First Asset ID fetched from API: \"" + firstAssetID + "\"");
-
-				found = true;
-				break;
-			}
-		}
-		if (found == false) {
-			logger.info("Required tray details not present Reco Response");
-			extent.extentLogger("apValue", "Required tray details not present Reco Response");
-			return null;
-		}
-		trayTitleAndFirstContent.add(trayTitleAPI);
-		trayTitleAndFirstContent.add(firstAssetTitleAPI);
-		trayTitleAndFirstContent.add(firstAssetTypeAPI);
-		trayTitleAndFirstContent.add(firstAssetID);
-		return trayTitleAndFirstContent;
-	}
-
-	public void verifyRecoTraysFromDetailsPage(String userType, String firstAssetID) throws Exception {
-		extent.HeaderChildNode(
-				"Detail/Consumption screen: Validation of Reco trays and playing content from Reco tray");
-		Response recoResp = ResponseInstance.getRecoTraysInDetailsPage(userType, firstAssetID);
-		ArrayList<String> recoTraysInDetailsPage = getAllRecoTraysFromDetails(recoResp);
-		boolean foundTray;
-		for (int tray = 0; tray < recoTraysInDetailsPage.size(); tray++) {
-			foundTray = false;
-			String trayTitleAPI = recoTraysInDetailsPage.get(tray);
-			foundTray = swipeTillElement(10, PWALandingPages.objTrayTitleInUI(trayTitleAPI),
-					"\"" + trayTitleAPI + "\" tray");
-			if (tray == (recoTraysInDetailsPage.size() - 1) && foundTray == true) {// Verify content play for one reco
-																					// tray in content details
-				swipeTillElement(5, PWALandingPages.objFirstAssetInTrayIndex(trayTitleAPI), "First Asset in tray");
-				String title = getElementPropertyToString("data-minutelytitle",
-						PWALandingPages.objFirstAssetInTrayIndex(trayTitleAPI), "First Asset title").toString();
-				waitForElementAndClick(PWALandingPages.objFirstAssetInTrayIndex(trayTitleAPI), 5,
-						"First asset " + title);
-				String nextPageTitle = "";
-				if (waitForElementPresence(PWAShowsPage.objShowsTitle, 2, "Shows Details page")) {
-					nextPageTitle = getText(PWAShowsPage.objShowsTitle);
-				} else if (waitForElementPresence(PWAPlayerPage.objContentTitleInConsumptionPage, 2, "Player screen")) {
-					nextPageTitle = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
-				}
-				if (nextPageTitle.equals(title)) {
-					logger.info("Navigated to the correct consumption/details page: \"" + title + "\"");
-					extent.extentLogger("playerScreen",
-							"Navigated to the correct consumption/details page: \"" + title + "\"");
-				} else {
-					logger.error("Failed to navigate to consumption/details page: \"" + title + "\"");
-					extent.extentLoggerFail("playerScreen",
-							"Failed to navigate to consumption/details page: \"" + title + "\"");
-				}
-				Back(1);
-			}
-		}
-		Back(1);
-	}
-
-	public ArrayList<String> getAllRecoTraysFromDetails(Response response) {
-		int numberOfTrays = 0;
-		ArrayList<String> recoTrays = new ArrayList<String>();
-		try {
-			numberOfTrays = response.jsonPath().get("buckets.size()");
-		} catch (Exception e) {
-			logger.error("API error observed");
-			extent.extentLoggerFail("apValue", "API error observed");
-			return null;
-		}
-		for (int tray = 0; tray < numberOfTrays; tray++) {
-			recoTrays.add(response.jsonPath().get("buckets[" + tray + "].title").toString());
-
-		}
-		logger.info("Reco trays in details page fetched from API: " + recoTrays);
-		extent.extentLogger("apValue", "Reco trays in details page fetched from API: " + recoTrays);
-		return recoTrays;
-	}
-
-	public boolean verifyContentPlayFromRecoTray(String userType, String recoTrayTitleAPI, String firstAssetTitleAPI,
-			String firstAssetTypeAPI) throws Exception {
-		if (swipeTillElementAndClick(3, PWALandingPages.objFirstAssetInTray(recoTrayTitleAPI, firstAssetTitleAPI),
-				"First Asset \"" + firstAssetTitleAPI + "\"")) {
-			String nextPageTitle = "";
-			if (firstAssetTypeAPI.equals("tvshow")) {
-				if (waitForElementPresence(PWAShowsPage.objShowsTitle, 30, "Shows Details page"))
-					nextPageTitle = getText(PWAShowsPage.objShowsTitle);
-			} else {
-				if (waitForElementPresence(PWAPlayerPage.objContentTitleInConsumptionPage, 30, "Player screen"))
-					nextPageTitle = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
-			}
-			if (nextPageTitle.equals(firstAssetTitleAPI) && !nextPageTitle.equals("")) {
-				logger.info("Navigated to the correct consumption/details page: \"" + nextPageTitle + "\"");
-				extent.extentLogger("playerScreen",
-						"Navigated to the correct consumption/details page: \"" + nextPageTitle + "\"");
-				if (!userType.equals("SubscribedUser")) {
-					waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 5, "Close in Premium Pop Up");
-				}
-				return true;
-			} else {
-				logger.error("Navigated to the incorrect consumption/details page: \"" + nextPageTitle + "\"");
-				extent.extentLoggerFail("playerScreen",
-						"Navigated to the incorrect consumption/details page: \"" + nextPageTitle + "\"");
-				if (!userType.equals("SubscribedUser")) {
-					waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 5, "Close in Premium Pop Up");
-				}
-				return false;
-			}
-		} else
-			return false;
-	}
-
-	public boolean swipeTillElementAndClick(int noOfSwipes, By locator, String message) throws Exception {
-		for (int i = 0; i <= noOfSwipes; i++) {
-			if (waitForElementAndClickIfPresent(locator, 5, message))
-				return true;
-			else {
-				Swipe("UP", 1);
-				waitTime(5000);
-				if (i == noOfSwipes) {
-					logger.error("Failed to locate and click on " + message);
-					extent.extentLoggerFail("failedToLocate", "Failed to locate and click on " + message);
-				}
-			}
-		}
-		return false;
-	}
 
 //--------------------------------------------------------SANITY FUNCUIONALITY----------------------------------------------------------
 
@@ -12738,134 +12420,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		WebHomepageTrayTitleAndContentValidationWithApiData(ResponseInstance.getResponse());
 	}
 
-	/**
-	 * ===============================TEJAS
-	 * Recommendation============================
-	 * 
-	 */
-
-	public void verificationOfRecoTalamoosWeb(String userType) throws Exception {
-		// playAnyContentAndVerifyTrendingOnZee5Tray();
-		String contentLangs = allSelectedLanguages();
-		if (userType.equals("Guest")) {
-			playContentsToTriggerRecoApiweb(userType);
-			verifyRecoTrayAndPlayContentweb(userType, "Home", "Trending on ZEE5", contentLangs, true);
-			verifyRecoTrayAndPlayContentweb(userType, "Premium", "Trending Now", contentLangs, false);
-			verifyRecoTrayAndPlayContentweb(userType, "Shows", "Trending Shows", contentLangs, false);
-			verifyRecoTrayAndPlayContentweb(userType, "Movies", "Trending Movies", contentLangs, false);
-			verifyRecoTrayAndPlayContentWithoutAPIweb(userType, "Music", "Recommended for you", false);
-			verifyRecoTrayAndPlayContentWithoutAPIweb(userType, "News", "Recommended for you", false);
-		} else if (userType.equals("NonSubscribedUser")) {
-			playContentsToTriggerRecoApiweb(userType);
-			verifyRecoTrayAndPlayContentweb(userType, "Home", "Trending on ZEE5", contentLangs, true);
-			verifyRecoTrayAndPlayContentweb(userType, "Premium", "Trending Now", contentLangs, false);
-			verifyRecoTrayAndPlayContentweb(userType, "Shows", "Trending Shows", contentLangs, false);
-			verifyRecoTrayAndPlayContentweb(userType, "Movies", "Trending Movies", contentLangs, false);
-			verifyRecoTrayAndPlayContentweb(userType, "Music", "Recommended for you", contentLangs, false);
-			verifyRecoTrayAndPlayContentweb(userType, "News", "Recommended for you", contentLangs, false);
-		} else if (userType.equals("SubscribedUser")) {
-			playContentsToTriggerRecoApiweb(userType);
-			verifyRecoTrayAndPlayContentweb(userType, "Home", "Trending on ZEE5", contentLangs, true);
-			verifyRecoTrayAndPlayContentweb(userType, "Home", "You may also like", contentLangs, false);
-			verifyRecoTrayAndPlayContentweb(userType, "Home", "Recommended for you", contentLangs, false);
-			verifyRecoTrayAndPlayContentweb(userType, "Shows", "Recommended for you", contentLangs, false);
-			verifyRecoTrayAndPlayContentweb(userType, "Premium", "Recommended for you", contentLangs, false);
-			verifyRecoTrayAndPlayContentweb(userType, "Movies", "Recommended for you", contentLangs, false);
-			verifyRecoTrayAndPlayContentweb(userType, "Music", "Recommended for you", contentLangs, false);
-			verifyRecoTrayAndPlayContentweb(userType, "News", "Recommended for you", contentLangs, false);
-			verifyRecoTrayAndPlayContentWithoutAPIweb(userType, "Home", "Because you watched", false);
-
-		} else {
-			logger.error("Incorrect userType passed to method");
-			extent.extentLogger("incorrectUser", "Incorrect userType passed to method");
-		}
-	}
-
-	public void playContentsToTriggerRecoApiweb(String userType) throws Exception {
-		extent.HeaderChildNode("Play different contents to trigger Recommendation API");
-		mandatoryRegistrationPopUp(userType);
-		playAContentFromTabWeb("Music");
-		mandatoryRegistrationPopUp(userType);
-		playAContentFromTabWeb("Home");
-		playAContentFromTabWeb("News");
-	}
-
-	public void verifyRecoTrayAndPlayContentweb(String userType, String tabName, String recoTrayTitle,
-			String contentLangs, boolean verifyContentDetails) throws Exception {
-		extent.HeaderChildNode(tabName + " tab: Validation of \"" + recoTrayTitle + "\" tray");
-		boolean trayFoundInUI = false;
-		String recoTrayTitleAPI = "", firstAssetTitleAPI = "", firstAssetTypeAPI = "", firstAssetID = "";
-		waitTime(10000);
-		Response recoResp = ResponseInstance.getRecoDataFromTab(userType, tabName, contentLangs);
-		ArrayList<String> trayDetails = returnRecoTrayFirstAssetDetails(recoResp, recoTrayTitle);
-		if (trayDetails != null) {
-			recoTrayTitleAPI = trayDetails.get(0);
-			firstAssetTitleAPI = trayDetails.get(1);
-			firstAssetTypeAPI = trayDetails.get(2);
-			firstAssetID = trayDetails.get(3);
-			waitForElementAndClickIfPresent(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, 2, "Back to Top");
-			if (navigateToAnyScreen(tabName)) {
-				trayFoundInUI = swipeTillElementWeb(15, PWALandingPages.objTrayTitleInUI(recoTrayTitleAPI),
-						"\"" + recoTrayTitleAPI + "\" tray");
-				scrollUp();
-				Thread.sleep(5000);
-			}
-		}
-		if (trayFoundInUI == true) {
-			extent.HeaderChildNode(tabName + " tab: Validation of content play in \"" + recoTrayTitle + "\" tray");
-			if (verifyContentPlayFromRecoTray(userType, recoTrayTitleAPI, firstAssetTitleAPI, firstAssetTypeAPI)) {
-				if (verifyContentDetails)
-					verifyRecoTraysFromDetailsPageWEB(userType, firstAssetID);
-			} else {
-				logger.error("Failed to validate the Reco APIs in consumption/details page");
-				extent.extentLoggerFail("recoInDetailsFailed",
-						"Failed to validate the Reco APIs in consumption/details page");
-			}
-		}
-	}
 
 	public static void scrollUp() {
 		js.executeScript("window.scrollBy(0,-250)", "");
 	}
 
-	public void verifyRecoTrayAndPlayContentWithoutAPIweb(String userType, String tabName, String recoTrayTitle,
-			boolean verifyContentDetails) throws Exception {
-		extent.HeaderChildNode(tabName + " tab: Validation of \"" + recoTrayTitle + "\" tray");
-		boolean trayFoundInUI = false;
-		mandatoryRegistrationPopUp(userType);
-		waitForElementAndClickIfPresent(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, 2, "Back to Top");
-		if (navigateToAnyScreen(tabName)) {
-			trayFoundInUI = swipeTillElement(15, PWALandingPages.objTrayTitleInUIContains(recoTrayTitle),
-					"\"" + recoTrayTitle + "\" tray");
-			if (trayFoundInUI == true) {
-				extent.HeaderChildNode(tabName + " tab: Validation of content play in \"" + recoTrayTitle + "\" tray");
-				swipeTillElementAndClickWeb(3, PWALandingPages.objFirstAssetInTrayIndex(recoTrayTitle),
-						"First Asset in tray");
-				String nextPageTitle = "";
-				if (waitForElementPresence(PWAShowsPage.objShowsTitle, 2, "Shows Details page")) {
-					nextPageTitle = getText(PWAShowsPage.objShowsTitle);
-				} else if (waitForElementPresence(PWAPlayerPage.objContentTitleInConsumptionPage, 2, "Player screen")) {
-					nextPageTitle = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
-				}
-				if (!nextPageTitle.equals("")) {
-					logger.info("Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
-					extent.extentLogger("playerScreen",
-							"Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
-					waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 5, "Close in Register Pop Up");
-					String contentURL = getDriver().getCurrentUrl();
-					String[] abc = contentURL.split("/");
-					String contentID = abc[abc.length - 1];
-					System.out.println("contentID fetched from URL: " + contentID);
-					if (verifyContentDetails)
-						verifyRecoTraysFromDetailsPageWEB(userType, contentID);
-				} else {
-					logger.error("Failed to navigate to consumption/details page: \"" + nextPageTitle + "\"");
-					extent.extentLoggerFail("playerScreen",
-							"Failed to navigate to consumption/details page: \"" + nextPageTitle + "\"");
-				}
-			}
-		}
-	}
 
 	public void BackWeb(int x) {
 
@@ -12881,45 +12440,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyRecoTraysFromDetailsPageWEB(String userType, String firstAssetID) throws Exception {
-		extent.HeaderChildNode(
-				"Detail/Consumption screen: Validation of Reco trays and playing content from Reco tray");
-		Response recoResp = ResponseInstance.getRecoTraysInDetailsPage(userType, firstAssetID);
-		ArrayList<String> recoTraysInDetailsPage = getAllRecoTraysFromDetails(recoResp);
-		boolean foundTray;
-		for (int tray = 0; tray < recoTraysInDetailsPage.size(); tray++) {
-			foundTray = false;
-			String trayTitleAPI = recoTraysInDetailsPage.get(tray);
-			foundTray = swipeTillElement(10, PWALandingPages.objTrayTitleInUI(trayTitleAPI),
-					"\"" + trayTitleAPI + "\" tray");
-			if (tray == (recoTraysInDetailsPage.size() - 1) && foundTray == true) {// Verify content play for one reco
-																					// tray in content details
-				swipeTillElement(5, PWALandingPages.objFirstAssetInTrayIndex(trayTitleAPI), "First Asset in tray");
-				String title = getElementPropertyToString("data-minutelytitle",
-						PWALandingPages.objFirstAssetInTrayIndex(trayTitleAPI), "First Asset title").toString();
-				waitForElementAndClick(PWALandingPages.objFirstAssetInTrayIndex(trayTitleAPI), 5,
-						"First asset " + title);
-				String nextPageTitle = "";
-				if (waitForElementPresence(PWAShowsPage.objShowsTitle, 2, "Shows Details page")) {
-					nextPageTitle = getText(PWAShowsPage.objShowsTitle);
-				} else if (waitForElementPresence(PWAPlayerPage.objContentTitleInConsumptionPage, 2, "Player screen")) {
-					nextPageTitle = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
-				}
-				if (nextPageTitle.equals(title)) {
-					logger.info("Navigated to the correct consumption/details page: \"" + title + "\"");
-					extent.extentLogger("playerScreen",
-							"Navigated to the correct consumption/details page: \"" + title + "\"");
-				} else {
-					logger.error("Failed to navigate to consumption/details page: \"" + title + "\"");
-					extent.extentLoggerFail("playerScreen",
-							"Failed to navigate to consumption/details page: \"" + title + "\"");
-				}
-				BackWeb(1);
-			}
-		}
-		BackWeb(1);
-	}
-
+		
 	public boolean navigateToAnyScreen(String screen) throws Exception {
 		for (int i = 0; i < 3; i++) {
 			try {
@@ -12938,57 +12459,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		return false;
 	}
 
-	public boolean swipeTillElementWeb(int noOfSwipes, By locator, String message) throws Exception {
-		for (int i = 0; i <= noOfSwipes; i++) {
-			if (waitForElementPresence(locator, 1, message)) {
-				return true;
-			} else {
-				scrollDownWEB();
-				waitTime(5000);
-				if (i == noOfSwipes) {
-					logger.error("Failed to locate " + message);
-					extent.extentLoggerFail("failedToLocate", "Failed to locate " + message);
-				}
-			}
-		}
-		return false;
-	}
 
-	public boolean swipeTillElementAndClickWeb(int noOfSwipes, By locator, String message) throws Exception {
-		for (int i = 0; i <= noOfSwipes; i++) {
-			if (waitForElementAndClickIfPresent(locator, 5, message))
-				return true;
-			else {
-				scrollUp();
-				waitTime(5000);
-				if (i == noOfSwipes) {
-					logger.error("Failed to locate and click on " + message);
-					extent.extentLoggerFail("failedToLocate", "Failed to locate and click on " + message);
-				}
-			}
-		}
-		return false;
-	}
-
-	public void playAContentFromTabWeb(String tabName) throws Exception {
-		logger.info("Playing content from tab: " + tabName);
-		extent.extentLogger("contentplay", "Playing content from tab: " + tabName);
-		String contentPlayed = "";
-		navigateToAnyScreen(tabName);
-		waitTime(5000);
-		if (tabName.equalsIgnoreCase("music") || tabName.equalsIgnoreCase("news")) {
-			swipeTillElementAndClickWeb(10, PWAHomePage.objMinutelyContentNonPremium, "Content card");
-		} else
-			swipeTillElementAndClickWeb(10, PWAHomePage.objContentNonPremium, "Content card");
-		if (waitForElementPresence(PWAPlayerPage.objContentTitleInConsumptionPage, 30, "Player screen")) {
-			contentPlayed = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
-			logger.info("Content played: " + contentPlayed);
-			extent.extentLogger("contentPlayed", "Content played: " + contentPlayed);
-			waitTime(30000);
-			waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 30,
-					"Close in Register/Premium Pop Up");
-		}
-	}
 
 	@SuppressWarnings("rawtypes")
 	public void swipeOnTab(String dire) throws InterruptedException {
@@ -13032,7 +12503,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			Navigate_to_HomeScreen_using_Zee5Logo();
 			navigateToAnyScreen("Shows");
 			RotateTrayValidation();
-
 		} else if (userType.contentEquals("NonSubscribedUser")) {
 			extent.HeaderChildNode("Non subscribed scenarios");
 			logger.info("Accessing as Non subscribed User");
@@ -13063,7 +12533,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		verifyElementPresentAndClick(PWAHomePage.objTabName(tabName), tabName);
 		// waitTime(5000);
-
 		String tab = getText(PWAHomePage.objActiveTab);
 		System.out.println(tab);
 		logger.info(tab + " tab is highlighted");
@@ -13073,7 +12542,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		if (verifyElementExist(PWAPremiumPage.objViewAllBtn, "View All Button")) {
 			click(PWAPremiumPage.objViewAllBtn, "View All Button");
-
 			if (verifyElementExist(PWAPremiumPage.objViewAllPage, "View All Page")) {
 				logger.info("Navigated to View All Page");
 				extent.extentLogger("View All", "Navigated to View All Page");
@@ -13081,7 +12549,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				logger.info("Not navigated to View All Page");
 				extent.extentLogger("View All", "Not navigated to View All Page");
 			}
-
 		}
 		waitTime(3000);
 		Back(1);
@@ -13091,13 +12558,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				logger.info("Premium tag is displayed");
 				extent.extentLogger("Premium Tag", "Premium Tag is displayed");
 				break;
-
 			} else {
 				logger.info("Premium tag is not displayed");
 				extent.extentLogger("Premium Tag", "Premium Tag is not displayed");
 				partialScroll();
 			}
-
 		}
 
 		// waitTime(2000);
@@ -13118,7 +12583,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				extent.extentLogger("Minute content", "Minute content is not displayed");
 				partialScroll();
 			}
-
 		}
 		// waitTime(5000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
@@ -13402,4 +12866,355 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		getWebDriver().get(url);
 	}
 
+	
+	/**
+	 * Modified reco scripts
+	 */
+	
+	/**
+	 * ===============================Tanisha Recommendation Web============================
+	 * 
+	 */
+
+	public void verificationOfRecoTalamoosWeb(String userType) throws Exception {
+		if (userType.equals("Guest")) {	
+			playContentsToTriggerRecoApiWeb(userType);
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Home", "Trending on ZEE5");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Shows", "Trending Shows");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Movies", "Trending Movies");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Music", "Recommended for you");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "News", "Recommended for you");		
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Premium", "Trending Now");
+			verifyRecoTrayAndPlayContentInDetailsPage(userType,"consumptionsPage");
+		} else if (userType.equals("NonSubscribedUser")) {
+			playContentsToTriggerRecoApiWeb(userType);
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Home", "Trending on ZEE5");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Premium", "Trending Now");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Shows", "Trending Shows");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Movies", "Trending Movies");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Music", "Recommended for you");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "News", "Recommended for you");
+			verifyRecoTrayAndPlayContentInDetailsPage(userType,"consumptionsPage");
+		} else if (userType.equals("SubscribedUser")) {
+			playContentsToTriggerRecoApiWeb(userType);
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Home", "Trending on ZEE5");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Home", "You may also like");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Home", "Recommended for you");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Shows", "Recommended for you");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Home", "Because you watched");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Premium", "Recommended for you");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Movies", "Recommended for you");		
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "News", "Recommended for you");		
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Music", "Recommended for you");
+			verifyRecoTrayAndPlayContentInDetailsPage(userType,"consumptionsPage");
+		} else {
+			logger.error("Incorrect userType passed to method");
+			extent.extentLogger("incorrectUser", "Incorrect userType passed to method");
+		}
+	}
+
+	public void playContentsToTriggerRecoApiWeb(String userType) throws Exception {
+		extent.HeaderChildNode("Play different contents to trigger Recommendation API");
+		playAContentForRecoWeb("Music",Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("musicToTriggerReco"),userType);
+		playAContentForRecoWeb("Movies",Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("movieToTriggerReco"),userType);
+		playAContentForRecoWeb("News",Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("newsToTriggerReco"),userType);
+	}
+
+	public void verifyRecoTrayAndPlayContentWithoutAPIWeb(String userType, String tabName, String recoTrayTitle) throws Exception {
+		extent.HeaderChildNode(tabName + " tab: Validation of \"" + recoTrayTitle + "\" tray");
+		logger.info(tabName+" tab: Verification of "+recoTrayTitle);
+		extent.extentLogger("recoverification",tabName+" : Verification of "+recoTrayTitle);
+		String nextPageTitle = "";
+		boolean firstAssetClicked=false;
+		if (navigateToAnyScreenOnWeb(tabName)) {
+			firstAssetClicked = swipeTillTrayAndClickFirstAsset(userType,15, recoTrayTitle,"\"" + recoTrayTitle + "\" tray",tabName);
+			if(firstAssetClicked) {											
+				try {
+					nextPageTitle = getText(PWAShowsPage.objShowsTitle);
+					logger.info("Shows Details page is displayed");
+					extent.extentLogger("showDetails","Shows Details page is displayed");
+				}
+				catch(Exception e) {
+					try {
+						nextPageTitle = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
+						logger.info("Player screen is displayed");
+						extent.extentLogger("playerScreen","Player screen is displayed");
+					}
+					catch(Exception e1) {
+						nextPageTitle="";
+					}
+				}
+			}
+			if (!nextPageTitle.equals("")) {
+				logger.info("Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
+				extent.extentLogger("playerScreen","Navigated to the consumption/details page: \"" + nextPageTitle + "\"");	
+				if(!userType.equals("SubscribedUser"))
+					try {getWebDriver().findElement(PWASearchPage.objClosePremiumDialog).click();} catch (Exception e) {}
+				try {getWebDriver().findElement(By.xpath("//a[text()='Home']")).click();} catch (Exception e) {}
+			} else {
+				logger.error("Failed to navigate to consumption/details page: \"" + nextPageTitle + "\"");
+				extent.extentLoggerFail("playerScreen","Failed to navigate to consumption/details page: \"" + nextPageTitle + "\"");
+			}	
+		}
+	}
+
+
+	public void verifyRecoTrayAndPlayContentInDetailsPage(String userType, String page) throws Exception {
+		extent.HeaderChildNode("Verification of talamoos trays in : Consumptions page");
+		String content="";
+		if(page.equals("detailsPage"))
+			content=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("consumptionsShow");
+		else
+			content=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("musicToTriggerReco");
+		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, content + "\n", "Search Edit box: " + content);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchedResult(content), 10, "Search Result");
+		String contentPlayed="";
+		//handle mandatory pop up
+		mandatoryRegistrationPopUp(userType);
+		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(content), "Search Result");
+		if(page.equals("consumptionsPage")) {
+			click(PWASearchPage.objCloseRegisterDialog, "Close in Pop Up");
+			if (waitForElementPresence(PWAPlayerPage.objContentTitleInConsumptionPage, 30, "Player screen")) {
+				contentPlayed = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
+				logger.info("Content played: " + contentPlayed);
+				extent.extentLogger("contentPlayed", "Content played: " + contentPlayed);
+			}
+		}
+		if(page.equals("detailsPage")) {
+			if (waitForElementPresence(PWAShowsPage.objShowsTitle, 2, "Shows Details page")) {
+				contentPlayed = getText(PWAShowsPage.objShowsTitle);
+				logger.info("Show Details page displayed: " + contentPlayed);
+				extent.extentLogger("showDetails", "Show Details page displayed: " + contentPlayed);
+			}
+		}
+		String contentURL = getWebDriver().getCurrentUrl();
+		String[] abc = contentURL.split("/");
+		String contentID = abc[abc.length - 1];
+		logger.info("Content ID fetched from URL: " + contentID);
+		extent.extentLogger("contentPlayed", "Content ID fetched from URL: " + contentID);
+		verifyRecoTraysFromDetailsPage(userType, contentID);	
+		try{getWebDriver().findElement(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn).click();}catch(Exception e) {}	
+	}
+
+
+	public void playAContentForRecoWeb(String contentType, String searchKey, String userType) throws Exception {
+		logger.info("Playing content to initiate Reco API: " + contentType);
+		//handle mandatory pop up
+		mandatoryRegistrationPopUp(userType);
+		extent.extentLogger("contentplay", "Playing content to initiate Reco API: " + contentType);
+		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, searchKey + "\n", "Search Edit box: " + searchKey);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchedResult(searchKey), 10, "Search Result");
+		String contentPlayed="";
+		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(searchKey), "Search Result");
+		if(!userType.equals("SubscribedUser"))
+			try {getWebDriver().findElement(PWASearchPage.objClosePremiumDialog).click();} catch (Exception e) {}
+		if (waitForElementPresence(PWAPlayerPage.objContentTitleInConsumptionPage, 30, "Player screen")) {
+			contentPlayed = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
+			logger.info("Content played: " + contentPlayed);
+			extent.extentLogger("contentPlayed", "Content played: " + contentPlayed);
+			waitForPlayerAdToComplete("Video Player");
+			logger.info("Playing content for some time to trigger Reco API");
+			extent.extentLogger("contentPlayed", "Playing content for some time to trigger Reco API");
+			waitTime(30000);
+		}
+	}
+
+
+	public boolean swipeTillTrayAndClickFirstAsset(String userType, int noOfSwipes, String trayTitle, String message, String tab) throws Exception {
+		int swipeCount=0;
+		String trayTitleInUI="",temp="";
+		boolean found=false, titleDisplayed=false;
+		List<WebElement> trays;
+		ArrayList<String> titles=new ArrayList<String>();
+		for (int i = 0; i <= noOfSwipes; i++) {
+			trays=new ArrayList<WebElement>();
+			trays=getWebDriver().findElements(PWALandingPages.objTrayTitle);
+			for(int tr=0;tr<trays.size();tr++) {
+				try {titles.add(trays.get(tr).getAttribute("innerText"));}catch(Exception e) {}	
+			}
+			for(int traycount=0;traycount<titles.size();traycount++) {		
+				temp=titles.get(traycount);
+				if(temp.toLowerCase().contains(trayTitle.toLowerCase())) {
+					trayTitleInUI=temp;
+					if(!titleDisplayed) {
+						logger.info(trayTitleInUI+ " is present in "+tab+" page");
+						extent.extentLogger("trayfound",trayTitleInUI+ " is present in "+tab+" page");
+						titleDisplayed=true;
+					}
+					if(trayTitle.equals("Shows")) {
+						try {
+							//handle mandatory pop up
+							mandatoryRegistrationPopUp(userType);
+							getWebDriver().findElement(PWALandingPages.objFirstAssetInTrayIndex(trayTitleInUI)).click();
+							found=true;
+						}
+						catch(Exception e) {}
+					}				
+					else {
+						//handle mandatory pop up
+						mandatoryRegistrationPopUp(userType);
+						try {
+							if(userType.equals("Guest")) {
+								Actions actions = new Actions(getWebDriver());
+								WebElement elementLocator = getWebDriver().findElement(PWALandingPages.objFirstAssetInTrayIndex(trayTitleInUI));
+								actions.contextClick(elementLocator).perform();
+								try {getWebDriver().findElement(PWALandingPages.objFirstAssetInTrayPlayIcon(trayTitleInUI)).click();}catch (Exception e) {}
+							}
+							else {
+								getWebDriver().findElement(PWALandingPages.objFirstAssetInTrayIndex(trayTitleInUI)).click();
+								try {getWebDriver().findElement(PWALandingPages.objFirstAssetInTrayPlayIcon(trayTitleInUI)).click();}catch (Exception e) {}
+							}
+							if(!userType.equals("SubscribedUser")) {
+								try {getWebDriver().findElement(PWASearchPage.objClosePremiumDialog).click();} catch (Exception e) {}	}
+							found=true;
+						}catch (Exception e1) {}							
+					}
+					if(found==true) {
+						logger.info("Located tray : "+trayTitleInUI);
+						extent.extentLogger("trayfound","Located tray : "+trayTitleInUI);
+						//handle mandatory pop up
+						mandatoryRegistrationPopUp(userType);
+						logger.info("Clicked on first card");
+						extent.extentLogger("clicked","Clicked on first card");
+						waitTime(2000);
+						return true;
+					}
+					else {
+						scrollDownByY(150);
+					}
+				}
+			}
+			scrollDownByY(350);
+			waitTime(5000);
+			swipeCount++;
+			logger.info("Scrolled down");
+			extent.extentLogger("scrolled","Scrolled down");					
+			if (swipeCount == noOfSwipes) {
+				logger.error("Failed to locate reco tray "+trayTitle);
+				extent.extentLoggerFail("failedToLocate", "Failed to locate reco card "+trayTitle);
+				logger.error("Failed to locate first card");
+				extent.extentLoggerFail("failedToLocate", "Failed to locate first card");
+			}
+		}
+		return false;
+	}
+
+
+	public void verifyRecoTraysFromDetailsPage(String userType, String firstAssetID) throws Exception {
+		Response recoResp = ResponseInstance.getRecoTraysInDetailsPage(userType, firstAssetID);
+		ArrayList<String> recoTraysInDetailsPage = getAllRecoTraysFromDetails(recoResp);
+		String trayTitleUI="",title="";
+		for (int tray = 0; tray < recoTraysInDetailsPage.size(); tray++) {
+			String trayTitleAPI = recoTraysInDetailsPage.get(tray);
+			trayTitleUI = swipeTillTray(5, trayTitleAPI,"\"" + trayTitleAPI + "\" tray");
+			if (tray == 0 && !trayTitleUI.equals("")) {// Verify content play for one reco tray in content details
+				try {
+					title = getWebDriver().findElement(PWALandingPages.objFirstAssetInTrayTitle(trayTitleUI)).getAttribute("data-minutelytitle").toString();
+				}catch(Exception e) {}
+				//handle mandatory pop up
+				mandatoryRegistrationPopUp(userType);
+				waitForElementAndClick(PWALandingPages.objFirstAssetInTrayIndex(trayTitleAPI), 5,"First asset " + title);
+				try {getWebDriver().findElement(PWASearchPage.objClosePremiumDialog).click();} catch (Exception e) {}
+				String nextPageTitle = "";
+				if (waitForElementPresence(PWAShowsPage.objShowsTitle, 2, "Shows Details page")) {
+					nextPageTitle = getText(PWAShowsPage.objShowsTitle);
+				} else if (waitForElementPresence(PWAPlayerPage.objContentTitleInConsumptionPage, 2, "Player screen")) {
+					nextPageTitle = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
+				}
+				if (nextPageTitle.equals(title)) {
+					logger.info("Navigated to the correct consumption/details page: \"" + title + "\"");
+					extent.extentLogger("playerScreen","Navigated to the correct consumption/details page: \"" + title + "\"");
+				} else {
+					logger.error("Failed to navigate to consumption/details page: \"" + title + "\"");
+					extent.extentLoggerFail("playerScreen","Failed to navigate to consumption/details page: \"" + title + "\"");
+				}
+				Back(1);
+				try {getWebDriver().findElement(PWASearchPage.objClosePremiumDialog).click();} catch (Exception e) {}
+			}
+		}
+	}
+
+
+	public ArrayList<String> getAllRecoTraysFromDetails(Response response) {
+		int numberOfTrays = 0;
+		ArrayList<String> recoTrays = new ArrayList<String>();
+		try {
+			numberOfTrays = response.jsonPath().get("buckets.size()");
+		} catch (Exception e) {
+			logger.error("API error observed");
+			extent.extentLoggerFail("apValue", "API error observed");
+			return null;
+		}
+		for (int tray = 0; tray < numberOfTrays; tray++) {
+			recoTrays.add(response.jsonPath().get("buckets[" + tray + "].title").toString());
+
+		}
+		logger.info("Reco trays in details page fetched from API: " + recoTrays);
+		extent.extentLogger("apValue", "Reco trays in details page fetched from API: " + recoTrays);
+		return recoTrays;
+	}
+
+
+	public String swipeTillTray(int noOfSwipes, String trayTitle, String message) throws Exception {
+		boolean foundTray=false;
+		int i=0,j=0;
+		String trayTitleInUI="";	
+		main: for (i = 0; i <= noOfSwipes; i++) {
+			ArrayList<WebElement> trays=new ArrayList<WebElement>();				
+			trays=(ArrayList<WebElement>) getWebDriver().findElements(PWALandingPages.objTrayTitle);
+			for(int traycount=0;traycount<trays.size();traycount++) {
+				if(trays.get(traycount).getAttribute("innerText").equalsIgnoreCase(trayTitle)) {
+					trayTitleInUI=trays.get(traycount).getText();
+					foundTray=true;
+					break main;
+				}
+			}			
+			scrollDownByY(200);
+			waitTime(2000);
+			logger.info("Scrolled down");
+			extent.extentLogger("scrolled","Scrolled down");
+			if (i == noOfSwipes) {
+				logger.error(message+" is not displayed");
+				extent.extentLoggerFail("failedToLocate", message+" is not displayed");
+			}
+		}
+		if(foundTray==true) {
+			for (j = i; j <= noOfSwipes; j++) {
+				if (waitForElementPresence(PWALandingPages.objTrayTitleInUI(trayTitleInUI), 1, trayTitleInUI+" tray")) {
+					break;
+				} else {
+					scrollDownByY(150);
+					waitTime(2000);
+					logger.info("Scrolled down");
+					extent.extentLogger("scrolled","Scrolled down");
+					if (j == noOfSwipes) {
+						logger.error(message+" is not displayed");
+						extent.extentLoggerFail("failedToLocate", message+" is not displayed");
+					}
+				}
+			}
+		}	
+		if (!trayTitleInUI.equals("")) {//Scroll till first card of the tray
+			for (int k = j; k <= noOfSwipes; k++) {
+				try {
+					getWebDriver().findElement(PWALandingPages.objFirstAssetInTrayIndex(trayTitleInUI));
+					logger.info("Located first asset under "+trayTitleInUI);
+					extent.extentLogger("firstAsset","Located first asset under "+trayTitleInUI);
+					scrollDownByY(150);
+					return trayTitleInUI;
+				}
+				catch(Exception e) {
+					scrollDownByY(150);
+					waitTime(2000);
+					logger.info("Scrolled down");
+					extent.extentLogger("scrolled","Scrolled down");
+				}
+			}
+		}
+		return "";
+	}
 }

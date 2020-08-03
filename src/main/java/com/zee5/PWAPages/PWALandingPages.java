@@ -95,4 +95,7 @@ public class PWALandingPages {
 		return By.xpath("//a[contains(text(),\"" + apiTrayTitle+ "\")]//parent::*//parent::div//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index='1']//*[contains(@data-minutelytitle,\""+ apiContentTitle + "\")]");
 	}
 
+	public static By objFirstAssetInTrayPlayIcon(String trayTitleUI) {
+		return By.xpath("//h2[contains(text(),\"" + trayTitleUI+ "\")]//parent::div//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index='0']//div[@title='Play']");
+	}
 }
