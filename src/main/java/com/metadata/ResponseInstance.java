@@ -398,5 +398,14 @@ public class ResponseInstance {
 	}
 
 	
+	public static Response getResponseForUpcomingPage() {
+		Response respCarousel = null;
+	
+		String	Url = "https://gwapi.zee5.com/content/collection/0-8-3367?page=1&limit=10&item_limit=20&translation=en&country=IN&languages=en,kn&version=6&";
+		respCarousel = given().urlEncodingEnabled(false).when().get(Url);
+		return respCarousel;
+	}
+	
+	
 	
 }

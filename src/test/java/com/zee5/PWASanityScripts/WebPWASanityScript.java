@@ -111,18 +111,20 @@ public class WebPWASanityScript {
 		}
 		
 		//-------------------------MANASA Subscription--------------------------
-		@Test(priority = 8)
-		@Parameters({"userType"})
-		public void subscriptionPageValidation(String userType) throws Exception {
-			//SMOKE
+	@Test(priority = 8)
+	@Parameters({ "userType" })
+	public void subscriptionPageValidation(String userType) throws Exception {
+		// SMOKE
 		Zee5WEBPWASanityBusinessLogic.WEBPWAValidatingSubscriptionAndTransaction(userType);
 		Zee5WEBPWASanityBusinessLogic.WEBPWAValidatingSubscribeLinks(userType);
-		//SANITY
+		// SMOKE SubscriptionModule //SATISH
+		Zee5WEBPWASanityBusinessLogic.zeePWASubscriptionSuite(userType);
+		// SANITY
 		Zee5WEBPWASanityBusinessLogic.contentLanguageVerify(userType);
 		Zee5WEBPWASanityBusinessLogic.verifyUIofMySubscriptionPage(userType);
 		Zee5WEBPWASanityBusinessLogic.validatingActiveAndExpiredCardsinMyTransactionPage(userType);
 		Zee5WEBPWASanityBusinessLogic.verifyUIofZEESubscriptionPage(userType);
-		}
+	}
 	
 		//-------------------------SUSHMA Onboarding--------------------------
 		@Test(priority = 9)
@@ -234,7 +236,7 @@ public class WebPWASanityScript {
   	
   	//-------------------------SATISH SubscriptionPopup--------------------------
 	
-//  	@Test(priority = 16)
+  //@Test(priority = 16)
   	@Parameters({ "userType"})
   	public void SubscriptionPopup(String userType) throws Exception {
   		//Sanity
@@ -244,8 +246,8 @@ public class WebPWASanityScript {
 			Zee5WEBPWASanityBusinessLogic.zeePWAVerifySubscriptionPopupAfterTrailerPlaybackIsComplete(userType);
 		}
 		
-		//SMOKE SubscriptionModule //SATISH
-		Zee5WEBPWASanityBusinessLogic.zeePWASubscriptionSuite(userType);
+//		//SMOKE SubscriptionModule //SATISH
+//		Zee5WEBPWASanityBusinessLogic.zeePWASubscriptionSuite(userType);
    	}
   	
   	

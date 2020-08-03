@@ -1839,21 +1839,21 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 
 		// Scenario no. 95
-		HeaderChildNode(
-				"Navigate to Subscription Flow From Subscription Get premium CTA below the player at consumption screen");
-		zeeSearchForContentAndClickOnFirstResult("Ondh Kathe Hella");
-		waitTime(2000);
-		waitForElementAndClick(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen, 30,
-				"Get Premium Link below the Player");
-//		verifyElementPresentAndClick(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen, "Get Premium Link below the Player");
-		waitTime(2000);
-		zeeVerifyGetPremiumPopup();
-		waitTime(2000);
-		if (userType.equalsIgnoreCase("Guest")) {
-			zeeAccountInfoPageValidationAndNavigateToHomePage();
-		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-			zeePaymentPageValidationAndNavigateToHomePage();
-		}
+//		HeaderChildNode(
+//				"Navigate to Subscription Flow From Subscription Get premium CTA below the player at consumption screen");
+//		zeeSearchForContentAndClickOnFirstResult("Ondh Kathe Hella");
+//		waitTime(2000);
+//		waitForElementAndClick(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen, 30,
+//				"Get Premium Link below the Player");
+////		verifyElementPresentAndClick(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen, "Get Premium Link below the Player");
+//		waitTime(2000);
+//		zeeVerifyGetPremiumPopup();
+//		waitTime(2000);
+//		if (userType.equalsIgnoreCase("Guest")) {
+//			zeeAccountInfoPageValidationAndNavigateToHomePage();
+//		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+//			zeePaymentPageValidationAndNavigateToHomePage();
+//		}
 
 	}
 
@@ -10523,7 +10523,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		} else if (getPlatform().equalsIgnoreCase("Web")) {
 			navigateToAnyScreenOnWeb("Live TV");
 		}
-
+		if (verifyElementExist(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup") == true) {
+			click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
+		}
 		// Click on Channel guide
 		click(PWALiveTVPage.objChannelGuideToggle, "Channel Guide");
 		if (findElement(PWALiveTVPage.objChannelGuideToggle).getAttribute("class").contains("active")) {
@@ -12563,13 +12565,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		try {
 			mouseHover();
 			waitTime(5000);
-			click(PWAPlayerPage.maximizeBtn, "Maximize button");
+			JSClick(PWAPlayerPage.maximizeBtn, "Maximize button");
 			waitTime(2000);
 			mouseHover();
 			click(PWAPlayerPage.minimizeBtn, "Minimize button");
 		} catch (Exception e) {
 		}
 	}
+	
+	
 
 	public void newsTrayValidation() throws Exception {
 		extent.HeaderChildNode("Verifing the trays displayed in News Tab");
@@ -13328,18 +13332,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objMoreSettingInHamburger,
 				"More settings in settings section");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objContentLanguage, "content language");
-
-		if (verifyElementExist(PWALandingPages.objHindiInContentLanguageSelected, "Hindi")) {
-			logger.info("Hindi language is already selected");
-			extent.extentLogger("Hindi", "Hindi language is already selected");
-		} else {
-			verifyElementExist(PWALandingPages.objHindiInContentLanguageNotSelected, "Hindi language");
-			click(PWALandingPages.objHindiInContentLanguageNotSelected, "Hindi language");
-		}
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objApplybutton, "Apply button on content language screen");
-		verifyElementPresentAndClick(PWAShowsPage.objShows, "Shows tab");
-		getWebDriver().navigate().refresh();
+		verifyElementPresent(PWAHamburgerMenuPage.objLanguageBtn, "Language button");
+		waitTime(2000);
+		JSClick(PWAHamburgerMenuPage.objLanguageBtn, "Language button");
 		waitTime(3000);
 //	Swipe("UP", 1);
 //	Swipe("DOWN", 1);

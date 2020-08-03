@@ -98,4 +98,16 @@ public class AMDDownloadPage {
 	public static By objPauseIconOnPlayer = By.xpath("//*[@id='icon_pause']");
 	public static By objPlayIconOnPlayer = By.xpath("//*[@id='icon_play']");
 	public static By objBackOnPlayer = By.xpath("//*[@id='icon_down']");
+	
+	public static By objTitleoftheShow = By.xpath("//*[@id='tv_title']");
+	public static By objThumbnailOfShows = By.xpath("//*[@id='img_show']");
+	public static By objNoOfEpisodes = By.xpath("//*[@id='tv_episode']");
+	public static By objSizeOfEpiodes = By.xpath("//*[@id='tv_size']");
+	public static By objRightArrowinDownloads = By.xpath("//*[@id='img_right_arrow']");
+	public static By objNewEpisodeTag = By.xpath("//*[@id='tv_new_epiosode']");
+	public static By objDownloadNowbbtn = By.xpath("//*[@id='tv_download_Now']");
+	public static By objNewEpisodeContent = By.xpath("//*[@id='rl_new_episode']");	
+	public static By objDownloadMoreCTA = By.xpath("//*[@id='btn_download_more_episode']");
+	public static By objClosebtn = By.xpath("//*[@id='img_close']");
+	public static By objThumbnailOfLatestEpisode = By.xpath("//*[@class='android.widget.RelativeLayout' and ./*[@id='img_show']]");
 }

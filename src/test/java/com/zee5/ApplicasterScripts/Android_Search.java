@@ -46,12 +46,12 @@ public class Android_Search {
 	}
 	
 	@Test(priority = 3)		// Manasa
-	@Parameters({ "userType" })		
-	public void searchResultScreenValidation(String userType) throws Exception {
+	@Parameters({ "userType","invalidSearchKeyword","partlySpeltSearchKeyword","searchModuleKeyword"})		
+	public void searchResultScreenValidation(String userType, String searchModuleKeyword, String partlySpeltSearchKeyword, String invalidSearchKeyword) throws Exception {
 		System.out.println("\nVerify Search Result screen");
-		ZEE5ApplicasterBusinessLogic.noSearchResults("@$_-(;_+");
-		ZEE5ApplicasterBusinessLogic.searchPageValidation("Kam");
-		ZEE5ApplicasterBusinessLogic.searchResultsAllTabs("Kamali");
+		ZEE5ApplicasterBusinessLogic.noSearchResults(invalidSearchKeyword);
+		ZEE5ApplicasterBusinessLogic.searchPageValidation(partlySpeltSearchKeyword);
+		ZEE5ApplicasterBusinessLogic.searchResultsAllTabs(searchModuleKeyword);
 		
 	}
 	

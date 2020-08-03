@@ -2,12 +2,14 @@ package com.business.zee;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.apache.log4j.Logger;
@@ -20,6 +22,8 @@ import com.deviceDetails.DeviceDetails;
 import com.driverInstance.CommandBase;
 import com.emailReport.GmailInbox;
 import com.extent.ExtentReporter;
+import com.jayway.restassured.response.Response;
+import com.metadata.ResponseInstance;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.Utilities;
 import com.zee5.ApplicasterPages.*;
@@ -2699,7 +2703,6 @@ List of Functions Created
 		verifyElementExist(AMDHomePage.objDownload, "Download");
 		verifyElementExist(AMDHomePage.objMoreMenu, "More Menu");
 
-		
 		click(AMDHomePage.objUpcoming, "Upcoming");
 		verifyElementExist(AMDOfflineScreen.objYouAreOffline, "You are Offline");
 		click(AMDHomePage.objMoreMenu, "More Menu");
@@ -3023,10 +3026,8 @@ List of Functions Created
 			logger.info("Searched keyword has results for the particular category");
 			extent.extentLogger("Search Results message", "Searched keyword has results for the particular category");
 		
-		}
-		
+		}		
 		verifyElementPresentAndClick(AMDSearchScreen.objClearSearch, "Clear Search");
-		
 	}
 	
 	
@@ -3924,6 +3925,7 @@ List of Functions Created
 		}	
 		//offline
 		Runtime.getRuntime().exec("adb shell svc wifi disable");
+		waitTime(3000);
 		verifyElementExist(AMDDownloadPage.objDownloadFailedText,"Download Failed text");
 		verifyElementExist(AMDDownloadPage.objDownloadErrorText,"Download Error text");
 		click(AMDDownloadPage.objDownloadErrorText,"Download Error text");
@@ -3941,7 +3943,7 @@ List of Functions Created
 		click(AMDDownloadPage.objDownloadingCircularBar,"Downloading circular bar");
 		click(AMDDownloadPage.objCancelDownloadOption,"Call out with Cancel Download CTA");
 		waitTime(8000);
-		if(verifyElementExist(AMDDownloadPage.objDownloadingConents("Comedy Kiladigalu Championship - Episode 8"),"Downloaded content") == false)
+		if(verifyElementNotPresent(AMDDownloadPage.objDownloadingConents("Comedy Kiladigalu Championship - Episode 8"),5) )
 		{
 			extent.extentLogger("Cancel Download","Content Downloaded is deleted");
 			logger.info("Content Downloaded is deleted");
@@ -4064,9 +4066,73 @@ List of Functions Created
 			extent.extentLogger("Cancel Download","Downloaded content is deleted");
 			logger.info("Downloaded content is deleted");
 		}			
+		Back(1);
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2,"Search Icon");			
+		waitTime(3000);
+		click(AMDSearchScreen.objSearchEditBox,"Search edit");
+		type(AMDSearchScreen.objSearchBoxBar,"Comedy Kiladigalu Championship - Episode 11", "Search Field");
+		waitTime(5000);
+		hideKeyboard();
+		click(AMDDownloadPage.objSpecificSearch("Comedy Kiladigalu Championship - Episode 11"), "Searched Show");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon,"Download button");
+		waitTime(2000);
+		click(AMDDownloadPage.objDownloadVideoQualityPopup,"Download video quality Pop up");
+		click(AMDDownloadPage.objStartDownloadCTA,"Start Download CTA");
+		Back(1);
+		click(AMDHomePage.objDownloadBtn,"Downloads tab");
+		waitTime(15000);
+		verifyElementExist(AMDDownloadPage.objTitleoftheShow,"Title of the show");
+		System.out.println("Title of the Show " + getText(AMDDownloadPage.objTitleoftheShow));
+		verifyElementExist(AMDDownloadPage.objNoOfEpisodes,"Number of Episodes");
+		System.out.println("Number of Episodes" + getText(AMDDownloadPage.objNoOfEpisodes));
+		verifyElementExist(AMDDownloadPage.objSizeOfEpiodes,"Size of Episodes");
+		System.out.println("Size of Episodes" + getText(AMDDownloadPage.objSizeOfEpiodes));
+		verifyElementExist(AMDDownloadPage.objRightArrowinDownloads,"Right Arrow");
+		verifyElementExist(AMDDownloadPage.objThumbnailOfShows,"Thumbnail of the Show");
+		waitTime(2000);
+		click(AMDDownloadPage.objTitleoftheShow,"Title of the show");
+		if(verifyElementExist(AMDDownloadPage.objDownloadMoreCTA,"Download More CTA"))
+		{
+			extent.extentLogger("Download More","Show name is Tappable");
+			logger.info("Show name is Tappable");
+		}	
+		Back(1);
+		click(AMDDownloadPage.objThumbnailOfShows,"Thumbnail of the Show");
+		if(verifyElementExist(AMDDownloadPage.objDownloadMoreCTA,"Download More CTA"))
+		{
+			extent.extentLogger("Download More","Thumbnail is Tappable");
+			logger.info("Thumbnail is Tappable");
+		}	
+		Back(1);
+		click(AMDDownloadPage.objRightArrowinDownloads,"Right Arrow");
+		if(verifyElementExist(AMDDownloadPage.objDownloadMoreCTA,"Download More CTA"))
+		{
+			extent.extentLogger("Download More","Right Arrow Tappable");
+			logger.info("Right Arrow is Tappable");
+		}	
+		waitTime(2000);
+		verifyElementExist(AMDDownloadPage.objNewEpisodeContent,"New Episode on top");
+		verifyElementExist(AMDDownloadPage.objNewEpisodeTag,"'New Episode' text");
+		verifyElementExist(AMDDownloadPage.objThumbnailOfLatestEpisode,"Thumbnail of Latest Episode");
+		verifyElementExist(AMDDownloadPage.objDownloadNowbbtn,"Download Now button");
+		verifyElementExist(AMDDownloadPage.objClosebtn,"Cancel button (X)");
+		click(AMDDownloadPage.objDownloadNowbbtn,"Download Now button");
+		if(verifyElementExist(AMDDownloadPage.objDownloadVideoQualityPopup,"Download popup"))
+		{
+			extent.extentLogger("Download Now ","Download Now button is functional");
+			logger.info("Download Now button is functional");
+		}
+		Back(1);
+		click(AMDDownloadPage.objClosebtn,"Cancel button (X)");
+		if(verifyElementNotPresent(AMDDownloadPage.objNewEpisodeContent, 5))
+		{
+			extent.extentLogger("Cancel button","Cancel button is Tappable");
+			logger.info("Cancel button is Tappable");
+		}	
 		}	 	
 			
-		} 				
+		} 			
 	
 	
 	/**
@@ -4089,13 +4155,13 @@ List of Functions Created
 			extent.extentLoggerFail("Shows Tab",
 					"user is not able to navigate to Shows screen by tapping on Shows tab displayed in the top navigation bar");
 		}
-		
-        verifyElementPresent(AMDHomePage.objCarouselUnit, "Carousel unit as first unit on Shows screen");
-		waitTime(1000);
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			verifyElementExist(AMDShowsScreen.objMastheadAD, "Masthead ad");
+		closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
+        if(verifyElementDisplayed(AMDHomePage.objBannerAd)) {
+			verifyElementPresent(AMDHomePage.objCarouselUnitwithmastHeadAdbanner, "Carousel unit as first unit on Shows screen");
+		}else {
+			verifyElementPresent(AMDHomePage.objCarouselUnitwhenNomastHeadAdbanner, "Carousel unit as first unit on Shows screen");
 		}
-		
+
 		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			if(verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
 				logger.info("subscribe icon is dislayed");
@@ -4124,23 +4190,23 @@ List of Functions Created
 			verifyElementExist(AMDShowsScreen.objProgressBar,"Progress bar is displayed on the Continue Watchinh tray card to indicate the content watched portion");
 		}
 		
-		for(int j=0;j<3;j++)
+		for(int k=0;k<3;k++)
 		{
-		   if(verifyElementExist(AMDHomePage.objBeforeTVTray, "Shows BeforeTV tray"))
-		   {
-			   logger.info("Shows Before Tv tray is displayed in Shows landing screen");
-	    	   extent.extentLogger("Shows Screen", "shows Before Tv tray is displayed in Shows landing screen");
-	    		break; 
-		   }
-		   else
-		   {
-			   logger.info("Shows Before Tv tray is not displayed in Shows landing screen");
-	    	   extent.extentLogger("Shows Screen", "shows Before Tv tray is not displayed in Shows landing screen");
-	    	   PartialSwipe("UP",1);  
-		   }
+			if(verifyElementExist(AMDHomePage.objBeforeTVTray, "Shows BeforeTV tray"))
+			   {
+				   logger.info("Shows Before Tv tray is displayed in Shows landing screen");
+		    	   extent.extentLogger("Shows Screen", "shows Before Tv tray is displayed in Shows landing screen");
+		    		break; 
+			   }
+			   else
+			   {
+				   logger.info("Shows Before Tv tray is not displayed in Shows landing screen");
+		    	   extent.extentLogger("Shows Screen", "shows Before Tv tray is not displayed in Shows landing screen");
+		    	   PartialSwipe("UP",1);  
+			   }
 		}
 		
-		   verifyElementExist(AMDHomePage.objBeforeTVTray, "BeforeTV tray");       
+		
 		   for(int i=0;i<3;i++)  
 		     {
 		    	if(verifyElementExist(AMDShowsScreen.objTrendingShowsTray, "Trending shows tray"))  
@@ -4156,9 +4222,9 @@ List of Functions Created
 		    		PartialSwipe("UP",1);
 		    	}
 		    	
-		   }
-		        
-	}
+		    }
+	  }
+
 
 	public void verifyConsumptionScreen(String userType) throws Exception	
 	{
@@ -4269,6 +4335,8 @@ List of Functions Created
 	 */
 	public void upcomingSectionValidation() throws Exception {
 		extent.HeaderChildNode("Upcoming Screen Validation");
+		waitTime(5000);
+		
 		verifyElementPresentAndClick(AMDHomePage.objUpcoming, "Upcoming tab");
 		
 		WebElement element = findElement(AMDHomePage.objUpcoming);
@@ -4300,70 +4368,48 @@ List of Functions Created
 			logger.error("Search icon is not displayed at top right of the screen");
 			extent.extentLoggerFail("Search icon", "Search icon is not displayed at top right of the screen");
 		}
+		Response resp = ResponseInstance.getResponseForUpcomingPage();
 		
-		String title = getText(AMDUpcomingPage.objItemPrimaryText);
-		System.out.println(title);
+		String titleWithTrailer = resp.jsonPath().getString("buckets[0].items[0].original_title");
+		System.out.println("API Title " +titleWithTrailer);
 		
-		verifyElementPresentAndClick(AMDUpcomingPage.objContentCard, "Content Card");
+		
+		verifyElementPresentAndClick(AMDUpcomingPage.objContentCard1, "Content Card");
 		
 		String titleConsumptionScreen = getText(AMDUpcomingPage.objContentCardTitle);
 		System.out.println(titleConsumptionScreen);
 		
-		String showTrailer = "Trailer";
-		String showTeaser = "Teaser";
-		
-		if(titleConsumptionScreen.contains(title)) {
-			logger.info("Navigated to appropriate consumption screen");
-			extent.extentLogger("Title", "Navigated to appropriate consumption screen");
-		}else {
-			logger.info("Not navigated to appropriate consumption screen");
-			extent.extentLoggerFail("Title", "Not navigated to appropriate consumption screen");
-		}
-		
-		if(titleConsumptionScreen.contains(showTrailer) || titleConsumptionScreen.contains(showTeaser)) {
+		if(titleConsumptionScreen.contains(titleWithTrailer)) {
+			logger.info("Navigated to appropriate consumption screen on tapping anywhere on any content card");
+			extent.extentLogger("Title", "Navigated to appropriate consumption screen on tapping anywhere on any content card");
 			logger.info("Trailer/Teaser playback is played");
 			extent.extentLogger("Trailer/Teaser", "Trailer/Teaser playback is played");
+			
 		}else {
+			logger.info("Not navigated to appropriate consumption screen on tapping anywhere on any content card");
+			extent.extentLoggerFail("Title", "Not navigated to appropriate consumption screen on tapping anywhere on any content card");
 			logger.info("Trailer/Teaser playback is not played");
 			extent.extentLoggerFail("Trailer/Teaser", "Trailer/Teaser playback is not played");
 		}
+		
+		
+		verifyElementExist(AMDMoreMenu.objDownloadIcon, "Download icon");
 		
 		Back(1);
 
 	    verifyElementPresentAndClick(AMDUpcomingPage.objContentCardTitle, "Metadata");
 		
 		
-		if(titleConsumptionScreen.contains(title)) {
-			logger.info("Navigated to appropriate consumption screen");
-			extent.extentLogger("Title", "Navigated to appropriate consumption screen");
+		if(titleConsumptionScreen.contains(titleWithTrailer)) {
+			logger.info("Navigated to appropriate consumption screen on tapping anywhere on the metadata");
+			extent.extentLogger("Title", "Navigated to appropriate consumption screen on tapping anywhere on the metadata");
 		}else {
-			logger.info("Not navigated to appropriate consumption screen");
-			extent.extentLoggerFail("Title", "Not navigated to appropriate consumption screen");
+			logger.info("Not navigated to appropriate consumption screen on tapping anywhere on the metadata");
+			extent.extentLoggerFail("Title", "Not navigated to appropriate consumption screen on tapping anywhere on the metadata");
 		}
 		
 		Back(1);
 		
-		PartialSwipe("UP", 1);
-		
-		List<WebElement> contentCards = findElements(AMDUpcomingPage.objItemPrimaryText);
-		System.out.println(contentCards.size());
-		
-		for(int i=1; i<=contentCards.size(); i++) {
-			
-			String releaseDate = getText(By.xpath("(//*[@resource-id='com.graymatrix.did:id/tv_releasing_date'])["+i+"]"));
-			logger.info("Release Date : " +releaseDate);
-			extent.extentLogger("Release Date", "Release Date : " + releaseDate);
-			
-			String contentName = getText(By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])["+i+"]"));
-			logger.info("Content Name : " +contentName);
-			extent.extentLogger("Content Name", "Content Name : " + contentName);
-			
-			String contentDescription = getText(By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_secondary_text'])["+i+"]"));
-			logger.info("Content Description : " +contentDescription);
-			extent.extentLogger("Content Description", "Content Description : " + contentDescription);
-			
-			PartialSwipe("UP", 1);
-		}
 		
 		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search icon");
 		
@@ -4376,6 +4422,7 @@ List of Functions Created
 			extent.extentLogger("Search landing screen",
 					"Search landing screen is not displayed after denying audio permission");
 		}
+		Back(1);
 	}
 	
 	public void moreSectionValidation() throws Exception {
@@ -4571,6 +4618,12 @@ List of Functions Created
 			extent.extentLoggerFail("News Tab",
 					"user is not able to navigate to News screen by tapping on News tab displayed in the top navigation bar");
 		}
+		
+		if(verifyElementDisplayed(AMDHomePage.objBannerAd)) {
+			verifyElementPresent(AMDHomePage.objCarouselUnitwithmastHeadAdbanner, "Carousel unit as first unit on Shows screen");
+		}else {
+			verifyElementPresent(AMDHomePage.objCarouselUnitwhenNomastHeadAdbanner, "Carousel unit as first unit on Shows screen");
+		}
 
 		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			if(verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
@@ -4592,17 +4645,22 @@ List of Functions Created
 		carouselValidation(userType,"News");
 	}
 	
-	public void verifyTraysInNewsScreen(String userType, String lang1) throws Exception
+	public void verifyTraysInNewsScreen(String userType) throws Exception
 	{
 		extent.HeaderChildNode("Verify Trays Present in News Landing Screen");
 		System.out.println("Verify Trays Present in News Landing Screen");
 		waitTime(6000);
-		
-		selectContentLang_MoreMenu("lang1");
-	    verifyElementExist(AMDNewsPage.objTodaysHeadlinesTray,"Todays Headlines Tray");
+		if(userType.equals("Guest"))
+		{
+			selectContentLang_MoreMenu("Hindi");
+			verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
+			waitTime(20000);
+			verifyElementExist(AMDNewsPage.objTodaysHeadlinesTray,"Todays Headlines Tray");
+		}
+		verifyElementExist(AMDNewsPage.objTodaysHeadlinesTray,"Todays Headlines Tray");
 		for(int i=0;i<2;i++)
 		{
-			if(verifyElementExist(AMDNewsPage.objEntertainmentNewsTray,"Entertainment News Tray"))
+		    if(verifyElementExist(AMDNewsPage.objEntertainmentNewsTray,"Entertainment News Tray"))
 			{
 				logger.info("Entertainment News Tray present on news landing screen");
 				extent.extentLogger("News Screen","Entertainment News Tray present on news landing screen" );
@@ -4852,4 +4910,123 @@ List of Functions Created
 		Back(1);
 		click(AMDHomePage.HomeIcon, "Home button");
 }
+	
+	/**
+	 * Author :Manasa
+	 */
+	
+public void upcomingContentValidationWithAPIData() throws Exception {
+		
+		extent.HeaderChildNode("Upcoming Content Validation With API Data");	
+		
+		
+		Response resp = ResponseInstance.getResponseForUpcomingPage();
+		List<String> apiTitle = new LinkedList<String>();
+		List<String> apiMetadata = new LinkedList<String>();
+		List<String> contentList = resp.jsonPath().getList("buckets[0].items");
+		System.out.println(contentList.size());
+		
+		for(int i=0;i< contentList.size();i++) {
+			String title = resp.jsonPath().getString("buckets[0].items[" + i + "].title");
+			System.out.println("API Title " +title);
+			apiTitle.add(title);
+			
+			String metadata = resp.jsonPath().getString("buckets[0].items[" + i + "].description");
+			System.out.println("API Metadata " +metadata);
+			apiMetadata.add(metadata);
+			
+			String releaseDate = resp.jsonPath().getString("buckets[0].items[" + i + "].release_date");
+			String[] releaseDateSplit = releaseDate.split("T");
+			
+		
+			String contentName = apiTitle.get(i);
+			
+			String contentDescription = apiMetadata.get(i);
+			
+			List<WebElement>meta = findElements(AMDUpcomingPage.objItemSecondaryText);
+			System.out.println(meta.size());
+			String UIMetadata = getText(AMDUpcomingPage.objContentCardMetadata);
+				
+			if(verifyElementExist(AMDUpcomingPage.objTitle(contentName), "Title")) {
+				logger.info("Title on the content card matches with Api data");
+				extent.extentLogger("Title", "Title on the content card matches with Api data");
+			} else {
+				logger.info("Title on the content card does not match with Api data");
+				extent.extentLoggerFail("Title", "Title on the content card does not match with Api data");
+			}
+			
+			
+			if(UIMetadata.contains(contentDescription)) {
+				logger.info("Metadata on the content card matches with Api data");
+				extent.extentLogger("Metadata", "Metadata on the content card matches with Api data");
+			} else {
+				logger.info("Metadata on the content card does not match with Api data");
+				extent.extentLoggerFail("Metadata", "Metadata on the content card does not match with Api data");
+			}
+			
+			if(meta.size()>0) {
+				for(int j=0;j< meta.size();j++) {
+					
+					String UIdata = getText(By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_secondary_text'])["+(j+1)+"]"));
+					System.out.println(UIdata);
+					if(UIMetadata.contains(UIdata)) {
+						logger.info("Metadata on the content card matches with Api data");
+						extent.extentLogger("Metadata", "Metadata on the content card matches with Api data");
+					} else {
+						logger.info("Metadata on the content card does not match with Api data");
+						extent.extentLoggerFail("Metadata", "Metadata on the content card does not match with Api data");
+					}
+					
+					String genre = getText(By.xpath("(//*[@resource-id='com.graymatrix.did:id/info_genre'])["+(j+1)+"]"));
+					logger.info("Content Genre : " + genre);
+					extent.extentLogger("Genre", "Content Genre : " + genre);
+					
+					String certificate = getText(By.xpath("(//*[@resource-id='com.graymatrix.did:id/info_age_rating'])["+(j+1)+"]"));
+					logger.info("Content Certificate : " + certificate);
+					extent.extentLogger("Certificate", "Content Certificate : " + certificate);
+				}
+			}
+			
+//			String genre = getText(AMDUpcomingPage.objGenre);
+//			logger.info("Content Genre : " + genre);
+//			extent.extentLogger("Genre", "Content Genre : " + genre);
+//			
+//			String certificate = getText(AMDUpcomingPage.objCertificate);
+//			logger.info("Content Certificate : " + certificate);
+//			extent.extentLogger("Certificate", "Content Certificate : " + certificate);
+//			
+			
+			
+			System.out.println("Release Date " +releaseDateSplit[0]);
+			logger.info("Release Date " +releaseDateSplit[0]);
+			extent.extentLogger("Release Date", "Release Date " +releaseDateSplit[0]);
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date upcomingReleaseDate = sdf.parse(releaseDateSplit[0]);
+			Date dateToday = sdf.parse(date());
+			
+			if (upcomingReleaseDate.compareTo(dateToday) <= 0) {
+				logger.info("Previously released content is listed in the upcoming section");
+				extent.extentLogger("Release Date", "Previously released content is listed in the upcoming section");
+			} else {
+				logger.info("Previously released content is not listed in the upcoming section");
+				extent.extentLoggerFail("Release Date", "Previously released content is not listed in the upcoming section");
+			}
+			
+			
+			swipeByElements(findElement(AMDUpcomingPage.objGenre),findElement(AMDHomePage.objSearchBtn));
+			waitTime(3000);
+		}
+	}
+
+	public static String date() {
+		Date date = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+		String strDate = formatter.format(date);
+		formatter = new SimpleDateFormat("yyyy-MM-dd");
+		strDate = formatter.format(date);
+		System.out.println(strDate);
+
+		return strDate;
+	}
 }

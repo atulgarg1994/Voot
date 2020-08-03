@@ -138,4 +138,9 @@ public class AMDHomePage {
 			public static By objTrendingOnZee5Tray = By.xpath("//*[@text='Trending on Zee5']");
 			
 			public static By objCarouselTitle = By.xpath("//*[@id='item_primary_text']");
-}
+			
+			public static By objCarouselUnitwithmastHeadAdbanner = By.xpath("(//*[@resource-id='com.graymatrix.did:id/tabLayout']/following-sibling::*/child::*/child::*/child::*/child::*)[2]");
+			
+			public static By objCarouselUnitwhenNomastHeadAdbanner = By.xpath("(//*[@resource-id='com.graymatrix.did:id/tabLayout']/following-sibling::*/child::*/child::*/child::*/child::*)[1]");
+			
+	}

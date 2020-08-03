@@ -66,7 +66,7 @@ public class PWAHomePage {
 
 	// Content Title on carousel
 	public static By objContTitleOnCarousel = By
-			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
+			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
 
 	// Carousel Banner
 	public static By objCarouselBanner = By.xpath("//div[@class=\"carouselMain\"]");

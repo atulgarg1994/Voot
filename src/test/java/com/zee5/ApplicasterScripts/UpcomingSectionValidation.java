@@ -35,5 +35,6 @@ public class UpcomingSectionValidation {
 	public void upcomingScreenValidation() throws Exception {
 		System.out.println("\nVerify Upcoming Screen");
 		ZEE5ApplicasterBusinessLogic.upcomingSectionValidation();
+		ZEE5ApplicasterBusinessLogic.upcomingContentValidationWithAPIData();
 	}
 }

@@ -25,5 +25,16 @@ public class AMDUpcomingPage {
 	public static By objContentCardTitle = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[1]");	
 	
 	
+	public static By objContentCardMetadata = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_secondary_text'])[1]");
+	
+	public static By objGenre = By.xpath("(//*[@resource-id='com.graymatrix.did:id/info_genre'])[1]");
+	
+	public static By objCertificate = By.xpath("(//*[@resource-id='com.graymatrix.did:id/info_age_rating'])[1]");
+	
+	public static By objTitle(String title) {
+		return By.xpath("//*[@text='"+title +"']");
+	}
+	public static By objContentCard1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[1]");
+	
 	
 }

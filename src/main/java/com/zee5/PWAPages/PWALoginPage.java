@@ -120,8 +120,11 @@ public class PWALoginPage {
     public static By objLoginBtnWEB = By.xpath("//*[@class='loginBtn noSelect' and text()='Login']");
 
 	public static By objFacebookLoginEmailWEB = By.xpath("//*[@id='email']");
+	
 	public static By objFacebookLoginpasswordWEB = By.xpath("//*[@id='pass']");
+	
 	public static By objFacebookLoginButtonInFbPageWEB = By.xpath("//*[@id='loginbutton']");
+	
 	public static By objLoginPageLoginBtn = By.xpath("//div[@class='gradientBtnContainer']//span[contains(text(),'Login')]");
 	
 //	====================================================================================================
@@ -167,6 +170,7 @@ public class PWALoginPage {
 	public static By objSetNewPasswordButton = By.xpath("//span[text()='Set New Password']");
 	
 	public static By objCountryCode = By.xpath("//*[@class='countryfield']");
+	
 	public static By objCountryCodeIndia = By.xpath("//*[@class='react-dropdown-select-type-single' and text()='91']");
 	
 	public static By objCountryCodeDropDown = By.xpath("//*[@class='dropDownWrapper']");
@@ -176,7 +180,6 @@ public class PWALoginPage {
 	public static By objCountryCodeAndoora = By.xpath("//*[@class='react-dropdown-select-type-single' and text()='376']");
 	
 	public static By objShowPasswordButton = By.xpath("//span[contains(@class,'showPwd')]");
-	
 	// PasswordField entered
 	public static By objPasswordFieldFilled = By.xpath("//input[@name='password']");
 }

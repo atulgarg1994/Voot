@@ -34,6 +34,10 @@
 	<parameter name="PrepaidCode" value="Z5PWATI9WlD"/>
 	<parameter name="RSVODUser" value="9663128823" />
 	<parameter name="RSVODPassword" value="ABCD1234" />
+	<parameter name="searchKeyword" value="Aditya praises paaru" />
+	<parameter name="invalidSearchKeyword" value="@$_-(;_+" />
+	<parameter name="partlySpeltSearchKeyword" value="Kam" />
+	<parameter name="searchModuleKeyword" value="Kamali" />
 
 	
 	<listeners>
