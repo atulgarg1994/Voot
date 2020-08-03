@@ -27,11 +27,18 @@ public class Android_LandingPage {
 	}
 
 	@Test(priority = 1)
-	@Parameters({ "userType" })
-	public void landingScreen(String userType) throws Exception
+	@Parameters({ "userType" , "tabName"})
+	public void landingScreen(String userType, String tabName) throws Exception
 	{
-		ZEE5ApplicasterBusinessLogic.homeLandingScreen(userType);
-		ZEE5ApplicasterBusinessLogic.moviesLandingScreen(userType);
+		ZEE5ApplicasterBusinessLogic.homeLandingScreen(userType, tabName);
+		ZEE5ApplicasterBusinessLogic.moviesLandingScreen(userType, tabName);
+	}
+	
+	@Test(priority = 2)//only for Guest and NonSubscribedUser
+	@Parameters({"tabName"})
+	public void AdBannerVerification(String tabName) throws Exception
+	{
+		ZEE5ApplicasterBusinessLogic.adBannerVerify(tabName);
 	}
 	
 	

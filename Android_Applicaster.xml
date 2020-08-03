@@ -38,6 +38,7 @@
 	<parameter name="invalidSearchKeyword" value="@$_-(;_+" />
 	<parameter name="partlySpeltSearchKeyword" value="Kam" />
 	<parameter name="searchModuleKeyword" value="Kamali" />
+	<parameter name="tabName" value="Home" />
 
 	
 	<listeners>
