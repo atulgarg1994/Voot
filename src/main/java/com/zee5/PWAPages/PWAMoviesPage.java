@@ -52,7 +52,7 @@ public class PWAMoviesPage {
 	public static By objNotNow = By.xpath(".//*[contains(@text,'Not Now')]");
 	
 //	SUSHMA
-	public static By objPremiumContentCard =By.xpath("(//div[@class='cardPremiumContent']/preceding-sibling::*/child::*/child::img)[1]");
+	public static By objPremiumContentCard =By.xpath("(//div[@class='content']//parent::figure[@class='placeHolderRatio2X3'])[1]");
 	
 	@SuppressWarnings("unused")
 	public static By TextToXpath(String text) throws Exception {

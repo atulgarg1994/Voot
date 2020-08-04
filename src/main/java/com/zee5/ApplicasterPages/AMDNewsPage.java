@@ -28,6 +28,7 @@ public class AMDNewsPage {
 	
 	public static By objTopStoriesTray = By.xpath("//*[@text='Top Stories']");
 	
-	public static By objTodaysHeadlinesTray = By.xpath("//*[@text=concat(\" Today's Headlines\")]");
+	public static By objTodaysHeadlinesTray =By.xpath("//*[contains(@text,\"Today's Headlines\")]");
 	
+	public static By objCarouselCollectionContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/indicator']/child::*)[1]");
 }

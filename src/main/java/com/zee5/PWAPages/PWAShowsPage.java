@@ -38,10 +38,6 @@ public class PWAShowsPage {
 	  // Facebook app for Share in Show Details Page public static By
 	  public static By objFacebookApp = By.xpath("//*[@text='Facebook' or @text='News Feed' or @text='Post']");
 	 
-
-	// POST button in Facebook app
-	public static By objFacebookPostBtn = By.xpath("//*[@text='POST' or @text='Post']");
-	
 	// Native Share window
 	public static By nativeShareWindow = By.xpath("//*[@class='android.widget.LinearLayout' and @index='3']//*[@class='android.widget.ImageView']");
 
@@ -110,4 +106,11 @@ public class PWAShowsPage {
 
 	public static By objWatchLatestCTAPlayicon= By.xpath("//div[@class='playWrap']//div[@class='playBtn']");
 	
+	public static By objTwitterCloseBtn = By.xpath("//*[@class='android.widget.ImageButton' and @content-desc='Navigate up']");
+	
+	public static By objTwitterDeletePost = By.xpath("//*[@text='DELETE']");
+	// POST button in Facebook app
+	public static By objFacebookPostBtn = By.xpath("//*[@text='POST' or @text='Post' or @text='SHARE']");
+
+	public static By metainfolist=By.xpath("//div[contains(@class,'metaInfo')]//span");
 }

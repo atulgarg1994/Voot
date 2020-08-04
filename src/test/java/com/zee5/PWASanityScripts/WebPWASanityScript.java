@@ -259,7 +259,7 @@ public class WebPWASanityScript {
   		if(userType.equals("Guest")) {
 //			Zee5PWASanityBusinessLogic.validateDisplayLanguagePopup();
   			Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
-  			Zee5WEBPWASanityBusinessLogic.UserActionGuestUser();
+  			Zee5WEBPWASanityBusinessLogic.UserActionGuestUser(userType);
 		}
 		else if(userType.equals("NonSubscribedUser")) {
 			Zee5WEBPWASanityBusinessLogic.UserActionLoggedInUser();

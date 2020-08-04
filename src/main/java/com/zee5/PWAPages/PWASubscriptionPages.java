@@ -176,6 +176,8 @@ public class PWASubscriptionPages {
 	
 	public static By objPackAmount = By.xpath("(//p[@class='currency'])");
 	
+	public static By objPackAmount1 = By.xpath("(//p[@class='currency'])[1]");
+	
 //	MANASA
 	public static By objPackType(int i) {
 		return By.xpath("(//div[@class='categoryContainer']//child::*[@class='noSelect'])["+i+"]");
@@ -254,4 +256,9 @@ public class PWASubscriptionPages {
 	
 	// Get Subscribe Pop Up Title
 	public static By objSubscribePopupTitle = By.xpath("//h2[contains(@class,'popupTitle bigTitle') and contains(text(), 'Subscribe')]");
+	
+	public static By objLoginSectionInPopup= By.xpath("//div[contains(@class,'loginContainer')]");
+
+	public static By objLoginButtonInPopup= By.xpath("//div[contains(@class,'popupBtn accentBtn')]");
+
 }

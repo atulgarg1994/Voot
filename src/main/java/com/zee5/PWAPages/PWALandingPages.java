@@ -98,4 +98,6 @@ public class PWALandingPages {
 	public static By objFirstAssetInTrayPlayIcon(String trayTitleUI) {
 		return By.xpath("//h2[contains(text(),\"" + trayTitleUI+ "\")]//parent::div//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index='0']//div[@title='Play']");
 	}
+	
+	
 }

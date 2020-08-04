@@ -406,6 +406,111 @@ public class ResponseInstance {
 		return respCarousel;
 	}
 	
+	public static Response getResponseForApplicasterPages(String userType, String page) {
+		Response respHome = null;
+		String language = getLanguage(userType);
+		String Uri = "https://gwapi.zee5.com/content/collection/0-8-"+page+"?page=1&limit=10&item_limit=20&translation=en&country=IN&version=6&languages="+language;
+		//System.out.println(Uri);
+
+		String xAccessToken = getXAccessTokenWithApiKey();
+		if (userType.equalsIgnoreCase("Guest")) {
+			respHome= given().headers("x-access-token", xAccessToken).when().get(Uri);
+		} else if (userType.equalsIgnoreCase("SubscribedUser")) 
+		{
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+			String bearerToken = getBearerToken(email, password);
+			respHome = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) 
+		{
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
+			String bearerToken = getBearerToken(email, password);
+			respHome = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
+		} else {
+			System.out.println("Incorrect user type passed to method");
+		}
+		return respHome;
+	}
 	
-	
+	// Getting Content Language API response for the NonSubscribedUser and
+	// SubscribedUser ..
+
+	// Getting API response ::
+
+	public static Response getUserinfoforNonSubORSub(String userType) {
+		Response resp = null;
+
+		String url = "https://userapi.zee5.com/v1/settings";
+
+		String xAccessToken = getXAccessTokenWithApiKey();
+//					if (userType.equalsIgnoreCase("Guest")) {
+//						resp = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when()
+//								.get(url);
+//					} else
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+//						String email="zeetest998@test.com";
+//						String password ="123456";
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedPassword");
+			String bearerToken = getBearerToken(email, password);
+			resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+//						String email="igstesting001@gmail.com";
+			// String password ="igs@12345";
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedPassword");
+			String bearerToken = getBearerToken(email, password);
+			resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+		} else {
+			System.out.println("Incorrect user type passed to method");
+		}
+
+		return resp;
+
+	}
+
+	// Fetching language from response ::
+
+	public static String getLanguage(String userType) {
+		String language = null;
+		if (userType.contains("Guest")) {
+			language = "en,kn";
+		} else {
+			Response resplanguage = getUserinfoforNonSubORSub(userType);
+			// System.out.println(resplanguage.print());
+
+			// System.out.println(resplanguage.jsonPath().getList("array").size());
+
+			for (int i = 0; i < resplanguage.jsonPath().getList("array").size(); i++) {
+
+				String key = resplanguage.jsonPath().getString("[" + i + "].key");
+				// System.out.println(language);
+				if (key.contains("content_language")) {
+					language = resplanguage.jsonPath().getString("[" + i + "].value");
+					System.out.println("UserType Language: " + language);
+					break;
+				}
+			}
+		}
+		return language;
+	}
+
+	public static String getXAccessTokenWithApiKey() {
+		Response respToken = null, respForKey = null;
+		// get APi-KEY
+		String Uri = "https://gwapi.zee5.com/user/getKey?=aaa";
+		respForKey = given().urlEncodingEnabled(false).when().post(Uri);
+		String rawApiKey = respForKey.getBody().asString();
+		String apiKeyInResponse = rawApiKey.substring(0, rawApiKey.indexOf("<br>airtel "));
+		String finalApiKey = apiKeyInResponse.replaceAll("<br>rel - API-KEY : ", "");
+		String UriForToken = "http://gwapi.zee5.com/user/getToken";
+		respToken = given().headers("API-KEY", finalApiKey).when().get(UriForToken);
+		String xAccessToken = respToken.jsonPath().getString("X-ACCESS-TOKEN");
+		return xAccessToken;
+	}
 }

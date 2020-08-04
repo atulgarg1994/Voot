@@ -65,8 +65,12 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("music","Nenne Monneya Ninna Parichaya - Giftbox | Ameeta Kulal | Ritvvikk Mathad | Bindu Malini");
 			params.put("timedAnchorEpisode", "Paarvathi kisses Aditya - Paaru");
 			params.put("timedAnchorMusic", "Appa Lyrical - Punith Shetty");		
-			params.put("timedAnchorMovie", "Robin Hood");	
+			params.put("timedAnchorMovie", "Robin Hood");
 			
+			params.put("ExpiredUserName", "zee5latest@gmail.com");
+			params.put("ExpiredUserPassword", "User@123");
+			params.put("audioTrackContent", "Episode 13 - Agent Raghav");
+
 		}
 		if(region.equals("MH")) {
 			params.put("searchModuleSearchKey", "Kundali Bhagya");
@@ -100,6 +104,10 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("timedAnchorEpisode", "Paarvathi kisses Aditya - Paaru");
 			params.put("timedAnchorMusic", "Appa Lyrical - Punith Shetty");		
 			params.put("timedAnchorMovie", "Robin Hood");
+			
+			params.put("ExpiredUserName", "zee5latest@gmail.com");
+			params.put("ExpiredUserPassword", "User@123");
+			params.put("audioTrackContent", "Episode 13 - Agent Raghav");
 		}
         suite.setParameters(params);	
 	}

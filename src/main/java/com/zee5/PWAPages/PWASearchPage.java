@@ -159,8 +159,6 @@ public class PWASearchPage {
 	public static By objAssetTitleSearchNavigationTab = By.xpath(
 			"(//div[@class='listingGrid']//div[@class='metaData']//h3[contains(@class,'cardTitle')]//span[@class='highLight'])[1]");
 
-	public static By objSearchResultScreen = By.xpath("//*[@class='searchCategoryLanding']");
-
 	// Search result based on Search key
 	public static By objSearchedResult(String keyword) {
 		return By.xpath("((//div[@class='listingGrid']//a[contains(text(),\""+keyword+"\")])[1] | (//div[@class='listingGrid']//span[contains(text(),\""+keyword+"\")])[1])[1]");
@@ -252,4 +250,13 @@ public class PWASearchPage {
     }
 	
 	public static By objActivePrograme = By.xpath("(//*[@class='programInner active'])[1]//*[@class='title']");
+	
+	public static By objSubscribepopup= By.xpath("//div[@class='popupContent upgradePopupContent']");
+	public static By objSubscribepopupCLoseButton = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
+	
+	public static By objSearchResultScreen = By.xpath("//*[@class='searchCategoryLanding']");
+	
+	public static By objMandatoryPopup = By.xpath("//div[@class='poupWrapper']");
+	
+	public static By objMandatoryPopupCloseButton = By.xpath("//div[@class='manCloseIcon']");
 }

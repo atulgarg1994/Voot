@@ -29,7 +29,10 @@ public class PWAHomePage {
 	public static By objLanguageTextEnglishGetvalue(String trayName) {
 		return By.xpath("//*[contains(text(),'" + trayName + "')]");
 	}
-
+	public static By objOverlayTrayActive(String text)
+	{
+		return By.xpath(" //span[@class='noSelect active' and contains(text(),'"+text+"')]");
+	}
 	public static By objTabContBar = By.xpath("//div[@class='navMenuWrapper ']");
 
 	public static By objDownloadIcon = By
@@ -427,4 +430,16 @@ public class PWAHomePage {
 		public static By objsearchcontent=By.xpath("//*[@title='Krishna Balram: The Warrier Princess']");
 		
 		public static By objPlayCarousel = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Play')]");
+
+		public static By objHoverMenu(String text)
+		{
+			return By.xpath("//a[contains(@class,'noSelect')][contains(text(),'"+text+"')]//following-sibling::*[@class='megaMenu megaMenuCards cardTypetvshows']");
+		}
+		
+		public static By objOverlayTray = By.xpath("//span[contains(text(),'Top Zee')]");
+		
+		public static By objOverlayTray2 = By.xpath("(//span[@class='noSelect ' and contains(text(),'Latest')])[1]");
+		
+		public static By objHomeInHambugerMenu = By.xpath("//*[contains(@class,'menuGroup')]//a[contains(@class,'active')]//div[contains(text(),'Home')]");
 }
+

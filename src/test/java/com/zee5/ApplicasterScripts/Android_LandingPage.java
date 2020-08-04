@@ -42,6 +42,27 @@ public class Android_LandingPage {
 	}
 	
 	
+	@Test(priority = 3)		// Manasa
+	public void upcomingScreenValidation() throws Exception {
+		System.out.println("\nVerify Upcoming Screen");
+		ZEE5ApplicasterBusinessLogic.upcomingSectionValidation();
+		ZEE5ApplicasterBusinessLogic.upcomingContentValidationWithAPIData();
+	}
+	
+	@Test(priority = 4)	
+	@Parameters({ "userType","searchKeyword" })	// Manasa
+	public void parentalPinValidation(String userType,String searchKeyword) throws Exception {
+		System.out.println("\nParental Pin Validation");
+		ZEE5ApplicasterBusinessLogic.parentalPinValidation(userType, searchKeyword);
+	}
+	
+	@Test(priority = 5)		// Manasa
+	public void moreScreenValidation() throws Exception {
+		System.out.println("\nVerify More Screen");
+		ZEE5ApplicasterBusinessLogic.moreSectionValidation();
+		
+	}
+	
 	
 	@AfterTest
 	public void tearDownApp() {

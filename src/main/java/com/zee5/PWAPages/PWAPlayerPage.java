@@ -14,7 +14,7 @@ public class PWAPlayerPage {
 
 //	 Playback Video Overlay
 	public static By objPlaybackVideoOverlay = By.xpath("//*[@class='kaltura-player-container']");
-
+	public static By objPlayerQualityButton = By.xpath("//span[contains(text(),'Quality')]");
 //	 Play button
 	public static By playBtn = By.xpath("//*[@class='playkit-icon playkit-icon-play']");
 //	 Pause button
@@ -72,7 +72,11 @@ public class PWAPlayerPage {
 	public static By objContentCardsOnPlayback(int index) {
 		return By.xpath("(//div[@class='carousel-slider']//div)[" + index + "]");
 	}
-
+	public static By objBetterQualityOption = By
+			.xpath("//div[contains(text(),'Better')]");
+	
+	public static By objBestQualityOption = By
+			.xpath("//div[text()='Best']");
 //	 Ad Present
 	public static By objPlayerAdPresent = By
 			.xpath("//div[contains(@id,'ads-container') and contains(@style,'visible')]");
@@ -84,9 +88,6 @@ public class PWAPlayerPage {
 
 	// Consumption page content title for Live News Card
 	public static By objContentTitleLiveTV = By.xpath("//div[@class='channelConsumptionMetaDiv']//h2");
-
-	// Consumption page show title
-	public static By objContentShowTitle = By.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo']//a");
 
 	// Consumption page content meta data episode number
 	public static By objContentMetaEpisode = By.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo']//p[1]");
@@ -190,8 +191,6 @@ public static By objPlayer = By.xpath("//div[@class='playkit-overlay-action']");
 	
 	public static By objPlayerScrubber = By.xpath("//a[@class='playkit-scrubber']");
 	public static By objPlayerQualities = By.xpath("//*[contains(@class,'subMenuWrapper')]//div");
-	public static By objPlayerSelectedQuality = By.xpath("//*[contains(@class,'subMenuWrapper') and contains(@class,'tickMark')]//div");
-	public static By objPlayerUnSelectedQuality = By.xpath("//*[contains(@class,'subMenuWrapper') and not(contains(@class,'tickMark'))]");
 	
 //	=========================================================================================
 	
@@ -292,5 +291,41 @@ public static By objPlayer = By.xpath("//div[@class='playkit-overlay-action']");
 	public static By objfasterclosePopUp = By.xpath("//div[@class='adoric_element element-shape closeLightboxButton editing']");
 	
 	public static By objfasterPopUp = By.xpath("//div[@class='adoric_element element-text selected editing']");
+	
+	// Consumptions page show title
+	public static By objConsumptionsShowTitle = By.xpath("//div[@class='metaInfo']//a");
+	
+	// Show details page show title
+	public static By objContentShowTitle = By
+			.xpath("//div[@class='showDetails']//div[contains(@class,'bannerTitle')]//h1");
+
+	public static By objPlayerSelectedQuality = By
+			.xpath("//*[contains(@class,'subMenuWrapper') and contains(@class,'tickMark')]//div");
+	
+	public static By objPlayerUnSelectedQuality = By
+			.xpath("//*[contains(@class,'subMenuWrapper') and not(contains(@class,'tickMark'))]//div");
+
+	public static By objPlayerUnSelectedQuality(String quality) {
+		return By.xpath("//*[contains(@class,'subMenuWrapper') and not(contains(@class,'tickMark'))]//div[.='" + quality
+				+ "']");
+	}
+
+	public static By objPlayerAudioTrack = By.xpath("//span[@class='menuTitle' and .='Audio Track']");
+	
+	public static By objPlayerAudioTrackIcon = By.xpath("//span[@class='menuTitle' and .='Audio Track']");
+	public static By objPlayerAudioTracksAvailable = By.xpath("//*[contains(@class,'subMenuWrapper')]//div");
+	public static By objPlayerSelectedAudioTrack = By.xpath("//*[contains(@class,'subMenuWrapper') and contains(@class,'tickMark')]//div");
+	public static By objPlayerUnSelectedAudioTrack = By.xpath("//*[contains(@class,'subMenuWrapper') and not(contains(@class,'tickMark'))]//div");
+	public static By objPlayerUnSelectedAudioTrack(String track) {
+		return By.xpath("//*[contains(@class,'subMenuWrapper') and not(contains(@class,'tickMark'))]//div[.='"+track+"']");
+	}
+	
+	public static By objFirstCardFreeChnnels = By.xpath("(((((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='FREE Channels']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content'])[1])");
+
+	public static By watchListLoginPopup = By.xpath("//div[@class='popupContent watchListLoginCheckContent']");
+	
+	public static By watchListLoginButton = By.xpath("//div[contains(text(),'Login')]");
+	
+	public static By watchListLoginPopupCloseButton = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 	
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="1" parallel="false" name="MPWA">
+<suite name="MPWA" parallel="false" thread-count="1">
 
 	<!-- name="Android" name="Web" name="MPWA" -->
 
@@ -9,7 +10,7 @@
 
 	<parameter name="browserType" value="chrome" />
 
-	<parameter name="userType" value="NonSubscribedUser" />
+	<parameter name="userType" value="SubscribedUser" />
 
 	<!-- Guest/NonSubscribedUser/SubscribedUser -->
 
@@ -22,7 +23,7 @@
 	<parameter name="NonsubscribedUserName"
 		value="impact0314@gmail.com" />
 
-	<parameter name="NonsubscribedPassword" value="impact03141" />
+	<parameter name="NonsubscribedPassword" value="impact123" />
 
 	<!-- Subscribed User -->
 
@@ -30,7 +31,7 @@
 	<parameter name="SubscribedUserName"
 		value="thomas.cutinha1@gmail.com" />
 
-	<parameter name="SubscribedPassword" value="tani991" />
+	<parameter name="SubscribedPassword" value="tani123" />
 
 	<parameter name="devicePin" value="1619" />
 
@@ -51,10 +52,14 @@
 	<parameter name="consumptionsContentWithMetaData"
 		value="Jothe Jotheyali" />
 
-	<parameter name="freeMovie" value="Krishna Balram: The Warrier Princess"/>
-	<parameter name="freeMovie2" value="Manthan"/>
-	<parameter name="freeMovie3" value="Pup Scouts"/>
-	<parameter name="freeMovie4" value="Robin Hood"/>
+	<parameter name="freeMovie"
+		value="Krishna Balram: The Warrier Princess" />
+
+	<parameter name="freeMovie2" value="Manthan" />
+
+	<parameter name="freeMovie3" value="Pup Scouts" />
+
+	<parameter name="freeMovie4" value="Robin Hood" />
 
 	<parameter name="premiumMovie" value="The Road Within" />
 
@@ -100,27 +105,35 @@
 	<parameter name="musicToTriggerReco"
 		value="Nenne Monneya Ninna Parichaya - Giftbox | Ameeta Kulal | Ritvvikk Mathad | Bindu Malini" />
 
-	<parameter name="movieToTriggerReco" value="Lava Kusha" />
+	<parameter name="movieToTriggerReco"
+		value="Monsters And Pirates" />
 
 	<parameter name="newsToTriggerReco"
 		value="Amid coronavirus, cong holds massive 'cycle rally' to protest against fuel price hike in Bengaluru" />
 
-	<parameter name="episodeToTriggerReco" value="Aditya-Paarvathi challenge themselves for fun" />
+	<parameter name="episodeToTriggerReco"
+		value="Aditya-Paarvathi challenge themselves for fun" />
 
-	<parameter name="timedAnchorEpisode" value="Paarvathi kisses Aditya - Paaru" />
-	<parameter name="timedAnchorMusic" value="Appa Lyrical - Punith Shetty" />
+	<parameter name="timedAnchorEpisode"
+		value="Paarvathi kisses Aditya - Paaru" />
+
+	<parameter name="timedAnchorMusic"
+		value="Appa Lyrical - Punith Shetty" />
+
 	<parameter name="timedAnchorMovie" value="Robin Hood" />
+
+	<parameter name="audioTrackContent"
+		value="Episode 13 - Agent Raghav" />
 
 	<listeners>
 		<listener class-name="com.extent.ParameterInjector" />
 		<listener class-name="com.extent.ExtentReporter" />
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
-
+	
 	<test name="AndroidPWASanityScript">
 		<classes>
 			<class name="com.zee5.PWASanityScripts.AndroidPWASanityScript" />
 		</classes>
 	</test>
-
 </suite>

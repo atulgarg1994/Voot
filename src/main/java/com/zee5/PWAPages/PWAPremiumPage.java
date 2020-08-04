@@ -112,5 +112,5 @@ public class PWAPremiumPage {
 	public static By objContentCardWatchlistBtn = By.xpath("//span[@class='noSelect btnIcon iconInitialLoad-ic_add_Watchlist']");
 	public static By objWEBMastheadCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']");
 	
-	
+	public static By obj1stContentInViewAllPage = By.xpath("(//div[@class='movieCard card marginRight minutelyUrl zoomCardHover'])[1]");
 }

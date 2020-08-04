@@ -36,5 +36,21 @@ public class AMDUpcomingPage {
 	}
 	public static By objContentCard1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[1]");
 	
+	public static By objContentCardTitle(String title) {
+		return By.xpath("(//*[@text='"+title+"']//parent::*//child::*)[3]");
+	}
+	
+	public static By objContentGenre(String title) {
+		return By.xpath("(//*[@text='"+title+"']//parent::*//child::*)[5]");
+	}
+	
+	public static By objContentCertificate(String title) {
+		return By.xpath("(//*[@text='"+title+"']//parent::*//child::*)[7]");
+	}
+	
+	public static By objContentReleaseDate(String title) {
+	return By.xpath("(//*[@text='"+title+"']//parent::*//child::*)[1]");
+	}
+	
 	
 }

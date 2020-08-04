@@ -143,4 +143,7 @@ public class AMDHomePage {
 			
 			public static By objCarouselUnitwhenNomastHeadAdbanner = By.xpath("(//*[@resource-id='com.graymatrix.did:id/tabLayout']/following-sibling::*/child::*/child::*/child::*/child::*)[1]");
 			
+			public static By objLoginButtonOnPlayerscreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/login_button']");
+			
+			public static By objWatchTrailerIconOnPlayerscreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/watchTrailerTv']");
 	}

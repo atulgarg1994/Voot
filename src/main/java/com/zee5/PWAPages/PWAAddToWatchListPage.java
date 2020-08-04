@@ -16,6 +16,9 @@ public class PWAAddToWatchListPage {
 	public static By objWatchListed(String contentTitle) {
 		return By.xpath("//a[text()=\"" + contentTitle + "\"]");
 	}
+	public static By objTooltip(String Text) {
+		return By.xpath("//img[@title='"+Text+"']");
+	}
 
 //		VINAY 
 

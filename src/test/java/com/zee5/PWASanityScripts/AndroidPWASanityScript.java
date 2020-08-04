@@ -20,7 +20,7 @@ public class AndroidPWASanityScript {
 	public void Login(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.ZeePWALogin("E-mail", userType);
 	}
-	/*	
+
 	@Test(priority = 1) // SHREENIDHI
 	@Parameters({ "userType" })
 	public void PWAOnboardingScenarios(String userType) throws Exception {
@@ -38,8 +38,31 @@ public class AndroidPWASanityScript {
 	public void PWAMandatoryRegistration(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.registerPopUpScenarios(userType);
 	}
-*/	
-	@Test(priority = 4)
+	
+	@Test(priority = 4) // BASAVARAJ
+	@Parameters({ "userType" })
+	public void PWAKalturaPlayability(String userType) throws Exception {
+		Zee5PWASanityBusinessLogic.Kaltura(userType);
+		//smoke Vinay
+		Zee5PWASanityBusinessLogic.playerValidations(userType);
+		Zee5PWASanityBusinessLogic.UpnextRail();
+	}
+/*
+	@Test(priority = 5) // BASAVARAJ
+	@Parameters({"url", "userType", "devicePin", "consumptionsEpisode","consumptionsShow","consumptionsFreeContent","consumptionsPremiumContent"}) 
+	public void PWAContentDetails(String url, String userType, String devicePin, String consumptionsEpisode,String consumptionsShow,String consumptionsFreeContent,String consumptionsPremiumContent)throws Exception {
+		Zee5PWASanityBusinessLogic.ContentDetails(userType);
+		Zee5PWASanityBusinessLogic.checkDurationInLivetv();
+		Zee5PWASanityBusinessLogic.checkDurationandProgressVideo(userType);
+		//smoke Tanisha
+		Zee5PWASanityBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Episode", consumptionsEpisode); // Episode //Mahira accuses Preeta of// trying to kill Mahesh //Neil gets// emotional while apologising to Jhende
+		Zee5PWASanityBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Live TV", ""); // Live TV Card
+		Zee5PWASanityBusinessLogic.verifyNoSubscriptionPopupForFreeContent(userType, consumptionsFreeContent);
+		Zee5PWASanityBusinessLogic.verifySubscriptionPopupForPremiumContent(userType, consumptionsPremiumContent);
+		Zee5PWASanityBusinessLogic.verifyCTAandMetaDataInDetailsAndConsumption(consumptionsShow);
+	}
+		
+	@Test(priority = 6)
 	@Parameters({ "userType" ,"url"}) // MANAS
 	public void PWACarousel(String userType, String url) throws Exception {
 		//Zee5PWASanityBusinessLogic.ValidatingCarousalinalltabs(userType);
@@ -48,7 +71,7 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Home");
 		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Movies");
 		//Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Free Movies");
-		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Videos");
+		//Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Videos");
 		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Shows");
 		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Premium");
 		Zee5PWASanityBusinessLogic.verifyAutoroatingOnCarousel("Play");
@@ -61,7 +84,7 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("Premium");
 		Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("Shows");
 		//Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("Free Movies");
-		Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("Videos");
+		//Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("Videos");
 		Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("Movies");
 		Zee5PWASanityBusinessLogic.verifyPlayIconFunctionality("Home");
 		// premium icon functionality
@@ -78,7 +101,7 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Premium","premiumcontents", languageSmallText);
 		Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Shows", "tvshows", languageSmallText);
 		//Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Free Movies", "freemovies", languageSmallText);
-		Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Videos", "videos", languageSmallText);
+		//Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Videos", "videos", languageSmallText);
 		Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Movies", "movies", languageSmallText);
 		Zee5PWASanityBusinessLogic.verifyMetadataOnCarousel("Home", "home", languageSmallText);	
 		//Zee5PWASanityBusinessLogic.verifyMetadataOnNews("News", "news", languageSmallText);
@@ -86,26 +109,33 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.verifyLeftRightFunctionality("News", url);
 		System.out.println(">>>> 4th method completed");
 	}
-/*	
-	@Test(priority = 5)// VINAY
+	
+	@Test(priority = 7)// VINAY
 	@Parameters({ "userType"})
     public void PWALanguageModule(String UserType) throws Exception {
 		Zee5PWASanityBusinessLogic.LanguageModule(UserType);
     }
+	
+	@Test(priority = 8)
+	@Parameters({"userType"})
+	public void PWAMoviesPageValidation(String userType) throws Exception  //SUSHMA MOVIES
+	{
+		Zee5PWASanityBusinessLogic.Moviepage(userType, "Movies");
+	}
 
-	@Test(priority = 6) // TANISHA
+	@Test(priority = 9) // TANISHA
 	@Parameters({ "userType" })
 	public void PWARecoTalamoosModule(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.verificationOfRecoTalamoos(userType);
 	}
 	
-	@Test(priority = 7) // BHAVANA
+	@Test(priority = 10) // BHAVANA
 	@Parameters({"userType"})
 	public void PWAStaticPagesInMenuAndFooterSection(String userType) throws Exception{
 		Zee5PWASanityBusinessLogic.staticPagesandFooterSectionValidation(userType); 		
 	}	
 	
-	@Test(priority = 8) // SHREENIDHI
+	@Test(priority = 11) // SHREENIDHI
 	@Parameters({ "userType" })
 	public void PWAProfile(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.myProfileScenarios(userType);
@@ -136,12 +166,7 @@ public class AndroidPWASanityScript {
 		
 	}
 	
-	@Test(priority = 4)
-	@Parameters({"userType"})
-	public void PWAMoviesPageValidation(String userType) throws Exception  //SUSHMA MOVIES
-	{
-		Zee5PWASanityBusinessLogic.Moviepage(userType, "Movies");
-	}
+
 	
 	@Test(priority = 5)
 	@Parameters({ "userType" }) // MANASA
@@ -215,29 +240,6 @@ public class AndroidPWASanityScript {
 	@Test(priority = 17) // BASAVARAJ
 	public void PWAVIL() throws Exception {
 		Zee5PWASanityBusinessLogic.verifyingVodafoneNativeApp();
-	}
-
-	@Test(priority = 18) // BASAVARAJ
-	@Parameters({ "userType" })
-	public void PWAKalturaPlayability(String userType) throws Exception {
-		Zee5PWASanityBusinessLogic.Kaltura(userType);
-		//smoke Vinay
-		Zee5PWASanityBusinessLogic.playerValidations(userType);
-		Zee5PWASanityBusinessLogic.UpnextRail();
-	}
-
-	@Test(priority = 19) // BASAVARAJ
-	@Parameters({"url", "userType", "devicePin", "consumptionsEpisode","consumptionsShow","consumptionsFreeContent","consumptionsPremiumContent"}) 
-	public void PWAContentDetails(String url, String userType, String devicePin, String consumptionsEpisode,String consumptionsShow,String consumptionsFreeContent,String consumptionsPremiumContent)throws Exception {
-		Zee5PWASanityBusinessLogic.ContentDetails(userType);
-		Zee5PWASanityBusinessLogic.checkDurationInLivetv();
-		Zee5PWASanityBusinessLogic.checkDurationandProgressVideo(userType);
-		//smoke Tanisha
-		Zee5PWASanityBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Episode", consumptionsEpisode); // Episode //Mahira accuses Preeta of// trying to kill Mahesh //Neil gets// emotional while apologising to Jhende
-		Zee5PWASanityBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Live TV", ""); // Live TV Card
-		Zee5PWASanityBusinessLogic.verifyNoSubscriptionPopupForFreeContent(userType, consumptionsFreeContent);
-		Zee5PWASanityBusinessLogic.verifySubscriptionPopupForPremiumContent(userType, consumptionsPremiumContent);
-		Zee5PWASanityBusinessLogic.verifyCTAandMetaDataInDetailsAndConsumption(consumptionsShow);
 	}
 
 	@Test(priority = 20) // BASAVARAJ
