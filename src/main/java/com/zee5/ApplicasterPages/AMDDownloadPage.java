@@ -76,11 +76,22 @@ public class AMDDownloadPage {
 		}
 	public static By objCalloutPopup = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Pause All']]");
 	public static By objPauseAllOption = By.xpath("//*[@id='tvPauseAll']");
-	public static By objPausedIcon(String str){
-			return By.xpath("//*[@id='rl_end' and (./preceding-sibling::* | ./following-sibling::*)[./*[@text='" + str + "']]]");
-		}
 	public static By objDownloadingConents(String str){
 			return By.xpath("//*[@class='android.widget.RelativeLayout' and ./*[./*[@class='android.view.ViewGroup']] and ./*[./*[@text='" + str + "']]]");
+		}
+	
+	public static By objPackExpiredText = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_days']");
+	public static By objRemaindMeLater = By.xpath("//*[@id='btn_remind_me_later']");
+	public static By objDownloadedTickMark = By.xpath("(//*[@resource-id='com.graymatrix.did:id/img_state'])[1]");
+	public static By objDeleteDownloadOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/tvDeleteDownload']");
+	public static By objDownloadTextIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/iconTextView_download']");
+	public static By objSearchedContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[2]");
+	public static By objQueuedbar(String str){
+		return By.xpath("//*[@id='circularProgressbar' and ./parent::*[./parent::*[./parent::*[(./preceding-sibling::* | ./following-sibling::*)[./*[@text='" + str + "']]]]]]");
+		}
+
+	public static By objPausedIcon(String str){
+			return By.xpath("//*[@id='img_state' and ./parent::*[./parent::*[(./preceding-sibling::* | ./following-sibling::*)[./*[@text='" + str + "']]]]]");
 		}
 	
 	/**
@@ -110,4 +121,12 @@ public class AMDDownloadPage {
 	public static By objDownloadMoreCTA = By.xpath("//*[@id='btn_download_more_episode']");
 	public static By objClosebtn = By.xpath("//*[@id='img_close']");
 	public static By objThumbnailOfLatestEpisode = By.xpath("//*[@class='android.widget.RelativeLayout' and ./*[@id='img_show']]");
+	
+	public static By objEnterPinCTA = By.xpath("//*[@id='btnAction']");
+	public static By objRemindMeLaterCTA = By.xpath("//*[@id='btn_remind_me_later']");
+	public static By objSubscriptionExpiry = By.xpath("//*[@id='tv_days']");
+	public static By objSubscriptionExpiryMessage = By.xpath("//*[@text='Please remember to renew your subscription to access your downloads.']");
+	
+	
+	
 }

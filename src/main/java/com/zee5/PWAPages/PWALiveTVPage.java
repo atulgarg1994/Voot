@@ -282,4 +282,9 @@ public class PWALiveTVPage {
 		public static By objTwitterPasswordField1 = By.xpath("//input[@name='session[password]']");
 		public static By objFacebookEmailField1 = By.xpath("//input[@id='email']");		
 		public static By objChromeOpenWith = By.xpath("//*[@text='Chrome' or contains(@text,'JUST ONCE')]");
+		
+		// My remainder option
+		public static By objMyRemainder = By.xpath("//*[@class='noSelect menuItem   ' and text()='My Reminders']");
+		
+		public static By objBengaliShow1 = By.xpath("(//*[@title='Zee Bangla']//parent::*//parent::*//following-sibling::*//div)[2]");
 }

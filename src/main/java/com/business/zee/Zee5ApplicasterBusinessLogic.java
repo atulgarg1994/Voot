@@ -2682,6 +2682,24 @@ List of Functions Created
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
 			waitTime(3000);
 			break;
+			
+		case "SubscribedUserWith15daysExpiry":
+			extent.HeaderChildNode("Login as Subscribed User With less than 15 days of Expiry");
+
+			String SubscribedUserWith15daysExpiryUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserWith15daysExpiryUsername");
+			String SubscribedUserWith15daysExpiryPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserWith15daysExpiryPassword");
+
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, SubscribedUserWith15daysExpiryUsername, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, SubscribedUserWith15daysExpiryPassword, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
 		}
 	}
 
@@ -3501,12 +3519,12 @@ List of Functions Created
 	 * @throws Exception
 	 */ 
 	public void homeLandingScreen(String userType, String tabName) throws Exception {
-		extent.HeaderChildNode("Home landing screen");
-		System.out.println("Home Landing screen");
+		extent.HeaderChildNode("Navigating to Home screen and verifing the Subscribe icon");
+		System.out.println("Home Landing screen and verifing the subscribe icon");
 		
 		verifyElementPresentAndClick(AMDHomePage.objHomeTab, tabName+" Tab");
 		String activeTab = getText(AMDHomePage.objSelectedTab);
-		if (activeTab.equalsIgnoreCase("Home")) {
+		if (activeTab.equalsIgnoreCase(tabName)) {
 			logger.info(
 					"user is able to navigate to "+tabName+" screen by tapping on "+tabName+" tab displayed in the top navigation bar");
 			extent.extentLogger(tabName+" Tab",
@@ -3538,11 +3556,9 @@ List of Functions Created
 			}
 		}
 		
-		waitTime(10000);
-		
 		carouselValidation(userType, tabName);
 		
-		String courselContentTitle = carouselValidationWithApi(userType);
+		String courselContentTitle = carouselValidationWithApi(userType, "homepage");
 	    verifyElementPresentAndClick(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content");
 	    
 	    if(verifyElementExist(AMDHomePage.objWatchTrailerIconOnPlayerscreen, "Watch Trailer button")) {
@@ -3567,37 +3583,104 @@ List of Functions Created
             Back(1);
 	    }
 		
+	    extent.HeaderChildNode("Verifing the availability of trays in the screen");
 		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Continue Watching"), AMDHomePage.objCarouselConetentCard, "Continue watching tray", "MastheadCarousel", userType);
 		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Trending on Zee5"), AMDHomePage.objCarouselConetentCard, "Trending on Zee5 tray", "MastheadCarousel", userType);
 		findingTrayInscreen(25, AMDHomePage.objTrayTitle("Trending Trailers"), AMDHomePage.objCarouselConetentCard, "Trending Trailers and Teasers tray", "Mastheadcarousel", userType);
-		selectContentLang_MoreMenu("English,Malayalam");
-		waitTime(5000);
-		closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
-		findingTrayInscreen(25, AMDHomePage.objTrayTitle("Live Channels"), AMDHomePage.objCarouselConetentCard, "Live Channels tray", "Mastheadcarousel", userType);
-		findingTrayInscreen(25, AMDHomePage.objTrayTitle("Malayalam Movie Bonanza"), AMDHomePage.objCarouselConetentCard, "Malayalam Movie Bonanza tray", "Mastheadcarousel", userType);
-		deselectContentLang_MoreMenuAndSelectDefaultLanguage("English,Malayalam");
+	
+		if(userType.equalsIgnoreCase("Guest")) {
+			selectContentLang_MoreMenu2("English,Malayalam");
+			waitTime(5000);
+			closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
+			findingTrayInscreen(25, AMDHomePage.objTrayTitle("Live Channels"), AMDHomePage.objCarouselConetentCard, "Live Channels tray", "Mastheadcarousel", userType);
+			findingTrayInscreen(25, AMDHomePage.objTrayTitle("Malayalam Movie Bonanza"), AMDHomePage.objCarouselConetentCard, "Malayalam Movie Bonanza tray", "Mastheadcarousel", userType);
+			deselectContentLang_MoreMenuAndSelectDefaultLanguage("English,Malayalam");
+		}
+		
 	}
 	
-	public static String carouselValidationWithApi(String userType)
+public void selectContentLang_MoreMenu2(String planguage) throws Exception {
+		
+		click(AMDHomePage.HomeIcon, "Home button");
+		click(AMDHomePage.MoreMenuIcon, "More Menu");
+		Swipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings CTA");
+		verifyElementPresent(AMDGenericObjects.objScreenTitleName("Settings"), "Settings Screen");
+		Swipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objContentLang, "Content language");
+		verifyElementPresent(AMDGenericObjects.objScreenTitleName("Content Language"), "Content language screen");
+
+		// ***** UnSelecting default content languages *****
+		if (pUserType.contains("Guest")) {
+			click(AMDOnboardingScreen.objSelectContentLang("English"), "English");
+			PartialSwipe("UP", 2);
+			waitTime(1000);
+			click(AMDOnboardingScreen.objSelectContentLang("Kannada"), "Kannada");
+			Swipe("DOWN", 1);
+		}
+
+		// ***** Selecting required language *****
+		if (planguage.contains(",")) {
+			Swipe("DOWN", 1);
+			String[] pLanguages = planguage.split(",");
+			int n = pLanguages.length;
+			for (int i = 0; i < n; i++) {
+				
+				for(int j=0;j<5;j++)
+				{
+					if(getDriver().findElements(AMDOnboardingScreen.objSelectContentLang(pLanguages[i])).size()==0) {
+						PartialSwipe("UP", 1);
+					}else
+					{
+						verifyElementPresentAndClick(AMDOnboardingScreen.objSelectContentLang(pLanguages[i]),
+								pLanguages[i]);
+						break;
+					}
+				}
+			}
+		} else {
+			outerLoop: for (int i = 1; i <= 4; i++) {
+				int totalLanguages = getCount(AMDOnboardingScreen.objContentLangBtns);
+				for (int j = 1; j <= totalLanguages; j++) {
+					String visibleLang = getText(AMDOnboardingScreen.objgetContentLangName(j));
+					if (planguage.equalsIgnoreCase(visibleLang)) {
+						verifyElementPresentAndClick(AMDOnboardingScreen.objSelectContentLang(planguage),
+								planguage);
+						break outerLoop;
+					}
+				}
+				PartialSwipe("UP", 1);
+			}
+		}
+
+		waitTime(1000);
+		verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button");
+		waitTime(1000);
+//	click(AMDGenericObjects.objBackBtn, "Back button");
+		Back(1);
+		click(AMDHomePage.HomeIcon, "Home button");
+}
+
+	public static String carouselValidationWithApi(String userType, String pagenameforApi)
 	{
-		Response respPage = ResponseInstance.getResponseForApplicasterPages(userType, "homepage");
+		Response respPage = ResponseInstance.getResponseForApplicasterPages(userType, pagenameforApi);
 	//	System.out.println(respPage);
 		
 		List<String> bucketsSize = respPage.jsonPath().getList("buckets");
-	    System.out.println("bucketsSize: "+bucketsSize);
+	    //System.out.println("bucketsSize: "+bucketsSize);
 	    String carouselContentTitle = null;
 		main: for (int i = 0; i < bucketsSize.size(); i++) {
 			String description = respPage.jsonPath().getString("buckets["+i+"].description");
-			if(description.equalsIgnoreCase("Home Page Slider")) {
-				List<String> carouselItems = respPage.jsonPath().getList("buckets["+i+"].items");
-				System.out.println("carouselItems: "+carouselItems);
+			if((description.equalsIgnoreCase("Home Page Slider"))| (description.equalsIgnoreCase("Movies Banner"))) {
+//				List<String> carouselItems = respPage.jsonPath().getList("buckets["+i+"].items");
+				//System.out.println("carouselItems: "+carouselItems);
 				
 				for (int j = 0; j < 7; j++) {
 					carouselContentTitle = respPage.jsonPath().getString("buckets["+i+"].items["+j+"].title");
-					System.out.println(carouselContentTitle);
+					//System.out.println(carouselContentTitle);
 					
 					String CarouselContentBusinessType = respPage.jsonPath().getString("buckets["+i+"].items["+j+"].business_type");
-					System.out.println(CarouselContentBusinessType);
+					//System.out.println(CarouselContentBusinessType);
 					
 					if (CarouselContentBusinessType.equalsIgnoreCase("premium_downloadable")) {
 						break main;
@@ -3605,7 +3688,6 @@ List of Functions Created
 				}
 			}
 		}
-	    
 	    return carouselContentTitle;
 	}
 	
@@ -3670,134 +3752,136 @@ public void deselectContentLang_MoreMenuAndSelectDefaultLanguage(String planguag
 		click(AMDHomePage.HomeIcon, "Home button");
 }
 
-	public void carouselValidation(String UserType,String tabName) throws Exception {
-		waitForElementDisplayed(AMDHomePage.objCarouselDots, 10);
-		waitTime(10000);
-		
-		if(verifyElementDisplayed(AMDHomePage.objBannerAd)) {
-			verifyElementPresent(AMDHomePage.objCarouselUnitwithmastHeadAdbanner, "Carousel unit as first unit on "+tabName+" screen");
-		}else {
-			verifyElementPresent(AMDHomePage.objCarouselUnitwhenNomastHeadAdbanner, "Carousel unit as first unit on "+tabName+" screen");
-		}
-		
-		// Validating Carousel manual swipe
-		String width = getAttributValue("width", AMDHomePage.objCarouselConetentCard);
-		
-		String bounds = getAttributValue("bounds", AMDHomePage.objCarouselConetentCard);
-		String b = bounds.replaceAll(","," ").replaceAll("]"," ");
-		String height = b.split(" ")[1];
-		System.out.println(height);  
-        waitTime(4000);
-		String Carouseltitle1 = getText(AMDHomePage.objCarouselTitle1);
-		System.out.println(Carouseltitle1);
-		carouselSwipe("LEFT", 1, width, height);
-		String Carouseltitle2 = getText(AMDHomePage.objCarouselTitle1);
-		System.out.println(Carouseltitle2);
-		carouselSwipe("RIGHT", 1, width, height);
-		String Carouseltitle3 = getText(AMDHomePage.objCarouselTitle1);
-		System.out.println(Carouseltitle3);
-		if (!(Carouseltitle1.equalsIgnoreCase(Carouseltitle2)))
-		{
-			if (Carouseltitle3.equalsIgnoreCase(Carouseltitle1)) {
-				logger.info("user is able to manually swipe banners from right to left or vice versa.");
-				extent.extentLogger("Carousel swipe",
-						"user is able to manually swipe banners from right to left or vice versa.");
-			} else {
-				logger.info("user is not able to manually swipe banners from right to left or vice versa.");
-				extent.extentLoggerFail("Carousel swipe",
-						"user is not able to manually swipe banners from right to left or vice versa.");
-			}
+public void carouselValidation(String UserType,String tabName) throws Exception {
+	extent.HeaderChildNode("Carousel validation");
+	
+	waitForElementDisplayed(AMDHomePage.objCarouselDots, 10);
+	waitTime(10000);
+	
+	if(verifyElementDisplayed(AMDHomePage.objBannerAd)) {
+		verifyElementPresent(AMDHomePage.objCarouselUnitwithmastHeadAdbanner, "Carousel unit as first unit on "+tabName+" screen");
+	}else {
+		verifyElementPresent(AMDHomePage.objCarouselUnitwhenNomastHeadAdbanner, "Carousel unit as first unit on "+tabName+" screen");
+	}
+	
+	// Validating Carousel manual swipe
+	String width = getAttributValue("width", AMDHomePage.objCarouselConetentCard);
+	
+	String bounds = getAttributValue("bounds", AMDHomePage.objCarouselConetentCard);
+	String b = bounds.replaceAll(","," ").replaceAll("]"," ");
+	String height = b.split(" ")[1];
+	System.out.println(height);  
+    waitTime(4000);
+	String Carouseltitle1 = getText(AMDHomePage.objCarouselTitle1);
+	System.out.println(Carouseltitle1);
+	carouselSwipe("LEFT", 1, width, height);
+	String Carouseltitle2 = getText(AMDHomePage.objCarouselTitle1);
+	System.out.println(Carouseltitle2);
+	carouselSwipe("RIGHT", 1, width, height);
+	String Carouseltitle3 = getText(AMDHomePage.objCarouselTitle1);
+	System.out.println(Carouseltitle3);
+	if (!(Carouseltitle1.equalsIgnoreCase(Carouseltitle2)))
+	{
+		if (Carouseltitle3.equalsIgnoreCase(Carouseltitle1)) {
+			logger.info("user is able to manually swipe banners from right to left or vice versa.");
+			extent.extentLogger("Carousel swipe",
+					"user is able to manually swipe banners from right to left or vice versa.");
 		} else {
 			logger.info("user is not able to manually swipe banners from right to left or vice versa.");
 			extent.extentLoggerFail("Carousel swipe",
 					"user is not able to manually swipe banners from right to left or vice versa.");
 		}
-		// Validating Pagination dot, Play icon and GetPremium on Carousel
-		int noofCarouselContents = findElements(AMDHomePage.objCarouselDots).size();
-		System.out.println(noofCarouselContents);
+	} else {
+		logger.info("user is not able to manually swipe banners from right to left or vice versa.");
+		extent.extentLoggerFail("Carousel swipe",
+				"user is not able to manually swipe banners from right to left or vice versa.");
+	}
+	// Validating Pagination dot, Play icon and GetPremium on Carousel
+	int noofCarouselContents = findElements(AMDHomePage.objCarouselDots).size();
+	System.out.println(noofCarouselContents);
+	for (int i = 0; i < noofCarouselContents; i++) {
+		System.out.println(getText(AMDHomePage.objCarouselTitle1));
+		verifyElementExist(AMDHomePage.objCarouselDots, "Pagination dot");
+		carouselSwipe("LEFT", 1, width, height);
+	}
+
+	for (int i = 0; i < noofCarouselContents; i++) {
+
+		System.out.println(getText(AMDHomePage.objCarouselTitle1));
+		verifyElementExist(AMDHomePage.objPlayBtn, "Play icon");
+		carouselSwipe("LEFT", 1, width, height);
+	}
+	if(tabName.equals("Kids")) {
+		extent.extentLogger("Verify Get Premium tag","Get Premium tag is not configured for " +tabName+ " tab");
+		logger.info("Get Premium tag is not configured for " +tabName+ " tab");
+		
+	}else {
+	if ((UserType.equalsIgnoreCase("Guest")) | (UserType.equalsIgnoreCase("NonSubscribedUser"))) {
 		for (int i = 0; i < noofCarouselContents; i++) {
+
 			System.out.println(getText(AMDHomePage.objCarouselTitle1));
-			verifyElementExist(AMDHomePage.objCarouselDots, "Pagination dot");
+			verifyElementExist(AMDHomePage.objGetPremium, "GetPremium tag");
 			carouselSwipe("LEFT", 1, width, height);
 		}
-
-		for (int i = 0; i < noofCarouselContents; i++) {
-
-			System.out.println(getText(AMDHomePage.objCarouselTitle1));
-			verifyElementExist(AMDHomePage.objPlayBtn, "Play icon");
-			carouselSwipe("LEFT", 1, width, height);
-		}
-		if(tabName.equals("Kids")) {
-			extent.extentLogger("Verify Get Premium tag","Get Premium tag is not configured for " +tabName+ " tab");
-			logger.info("Get Premium tag is not configured for " +tabName+ " tab");
-			
-		}else {
-		if ((UserType.equalsIgnoreCase("Guest")) | (UserType.equalsIgnoreCase("NonSubscribedUser"))) {
-			for (int i = 0; i < noofCarouselContents; i++) {
-
-				System.out.println(getText(AMDHomePage.objCarouselTitle1));
-				verifyElementExist(AMDHomePage.objGetPremium, "GetPremium tag");
-				carouselSwipe("LEFT", 1, width, height);
-			}
-			click(AMDHomePage.objGetPremium, "GetPremium tag");
-			verifyElementPresent(AMDSubscibeScreen.objSubscribeHeader, "Subscription screen");
-			Back(1);
-		}
-		else {
-			for (int i = 0; i < noofCarouselContents; i++) {
-
-				System.out.println(getText(AMDHomePage.objCarouselTitle1));
-				verifyElementNotPresent(AMDHomePage.objGetPremium, 2);
-				carouselSwipe("LEFT", 1, width, height);
-			}
-		  }
-		}
-
-		// navigation to consumption screen of selected content
-		String CarouselTitle = getText(AMDHomePage.objCarouselPlayIconContentCard);
-		click(AMDHomePage.objCarouselPlayIconContentCard, "Carousel content");
-		verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
-		String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
-
-		if (CarouselTitle.equalsIgnoreCase(consumptionScreenTitle)) {
-			logger.info("Consumption Screen is displayed for the selected content");
-			extent.extentLogger("Consumption screen", "Consumption Screen is displayed for the selected content");
-		} else {
-			logger.info("Consumption Screen is not displayed for the selected content");
-			extent.extentLoggerFail("Consumption screen",
-					"Consumption Screen is not displayed for the selected content");
-		}
+		click(AMDHomePage.objGetPremium, "GetPremium tag");
+		verifyElementPresent(AMDSubscibeScreen.objSubscribeHeader, "Subscription screen");
 		Back(1);
+	}
+	else {
+		for (int i = 0; i < noofCarouselContents; i++) {
 
-		// Validating Carousel Auto scroll
-		String title1 = getText(AMDHomePage.objCarouselTitle1);
-		System.out.println(title1);
-		waitTime(4000);
-		String title2 = getText(AMDHomePage.objCarouselTitle2);
-		System.out.println(title2);
-		waitTime(4000);
-		String title3 = getText(AMDHomePage.objCarouselTitle3);
-		System.out.println(title3);
+			System.out.println(getText(AMDHomePage.objCarouselTitle1));
+			verifyElementNotPresent(AMDHomePage.objGetPremium, 2);
+			carouselSwipe("LEFT", 1, width, height);
+		}
+	  }
+	}
 
-		if (!(title1.equalsIgnoreCase(title2))) {
-			if (!(title2.equalsIgnoreCase(title3))) {
-				logger.info(
-						"Banners available in feature carousel unit rotates from right to left at a fixed time interval");
-				extentLogger("Carousel unit Autorotation",
-						"Banners available in feature carousel unit rotate from right to left at a fixed time interval");
-			} else {
-				logger.info(
-						"Banners available in feature carousel unit are not rotating from right to left at a fixed time interval");
-				extentLoggerFail("Carousel unit Autorotation",
-						"Banners available in feature carousel unit are not rotating from right to left at a fixed time interval");
-			}
+	// navigation to consumption screen of selected content
+	String CarouselTitle = getText(AMDHomePage.objCarouselPlayIconContentCard);
+	click(AMDHomePage.objCarouselPlayIconContentCard, "Carousel content");
+	verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
+	String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
+
+	if (CarouselTitle.equalsIgnoreCase(consumptionScreenTitle)) {
+		logger.info("Consumption Screen is displayed for the selected content");
+		extent.extentLogger("Consumption screen", "Consumption Screen is displayed for the selected content");
+	} else {
+		logger.info("Consumption Screen is not displayed for the selected content");
+		extent.extentLoggerFail("Consumption screen",
+				"Consumption Screen is not displayed for the selected content");
+	}
+	Back(1);
+
+	// Validating Carousel Auto scroll
+	String title1 = getText(AMDHomePage.objCarouselTitle1);
+	System.out.println(title1);
+	waitTime(4000);
+	String title2 = getText(AMDHomePage.objCarouselTitle2);
+	System.out.println(title2);
+	waitTime(4000);
+	String title3 = getText(AMDHomePage.objCarouselTitle3);
+	System.out.println(title3);
+
+	if (!(title1.equalsIgnoreCase(title2))) {
+		if (!(title2.equalsIgnoreCase(title3))) {
+			logger.info(
+					"Banners available in feature carousel unit rotates from right to left at a fixed time interval");
+			extentLogger("Carousel unit Autorotation",
+					"Banners available in feature carousel unit rotate from right to left at a fixed time interval");
 		} else {
 			logger.info(
 					"Banners available in feature carousel unit are not rotating from right to left at a fixed time interval");
 			extentLoggerFail("Carousel unit Autorotation",
 					"Banners available in feature carousel unit are not rotating from right to left at a fixed time interval");
 		}
+	} else {
+		logger.info(
+				"Banners available in feature carousel unit are not rotating from right to left at a fixed time interval");
+		extentLoggerFail("Carousel unit Autorotation",
+				"Banners available in feature carousel unit are not rotating from right to left at a fixed time interval");
 	}
+}
 			
 	@SuppressWarnings("rawtypes")
 	public void carouselSwipe(String direction, int count, String width, String height) throws Exception {
@@ -3923,229 +4007,341 @@ public void deselectContentLang_MoreMenuAndSelectDefaultLanguage(String planguag
 	 * Author : Bhavana
 	 * Module : Download Screen Validation
 	 */
-	public void DownloadScreenValidation(String userType) throws Exception {
-		extent.HeaderChildNode("Verify the UI/UX of Download landing screen");
-		if (userType.equals("Guest")) {
-			click(AMDLoginScreen.objSkipButton, "Skip button");
-			waitTime(10000);
-			verifyElementExist(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
-			click(AMDHomePage.objDownloadBtn, "Downloads tab");
-			waitTime(5000);
-			verifyElementExist(AMDDownloadPage.objDwnloadsHeader,
-					"Downloads header at the top on center of the screen");
-			verifyElementExist(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
-			verifyElementExist(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
-			verifyElementExist(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen ");
-			waitTime(5000);
-			String getPropertyValue = getAttributValue("enabled", AMDDownloadPage.objshowstab);
-			if (getPropertyValue.equalsIgnoreCase("true")) {
-				extent.extentLogger("Shows tab", "Shows tab is by default highlighted");
-				logger.info("Shows tab is by default highlighted");
-			} else {
-				extent.extentLoggerFail("Shows tab", "Shows tab fails to highlight by default");
-				logger.error("Shows tab fails to highlight by default");
-			}
-			waitTime(2000);
-			verifyElementPresentAndClick(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
-			verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
-			waitTime(3000);
-			verifyElementPresentAndClick(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
-			verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
-			waitTime(3000);
-			verifyElementPresentAndClick(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
-			verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
-			waitTime(3000);
-			// Browse to Download CTA functionality
+	public void VerifyUIUXDownloadScreen(String userType) throws Exception {
+		extent.HeaderChildNode("Verify the UI/UX of Download landing screen as "+userType);
+		System.out.println("\nVerify the UI/UX of Download landing screen as "+userType);
+		waitTime(5000);
+		verifyElementExist(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		waitTime(3000);
+		verifyElementExist(AMDDownloadPage.objDwnloadsHeader,"Downloads header at the top on center of the screen");
+		verifyElementExist(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
+		verifyElementExist(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
+		verifyElementExist(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen ");
+		String getPropertyValue = getAttributValue("enabled", AMDDownloadPage.objshowstab);
+		if (getPropertyValue.equalsIgnoreCase("true")) {
+			extent.extentLogger("Shows tab", "Shows tab is by default highlighted");
+			logger.info("Shows tab is by default highlighted");
+		} else {
+			extent.extentLoggerFail("Shows tab", "Shows tab fails to highlight by default");
+			logger.error("Shows tab fails to highlight by default");
+		}
+		verifyElementPresentAndClick(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
+		verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
+		verifyElementPresentAndClick(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
+		verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
+		verifyElementPresentAndClick(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
+		verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
+	
+	}
 
-			extent.HeaderChildNode("Verify Browse to Download CTA functionality");
-			System.out.println("Verify Browse to Download CTA functionality");
-			verifyElementPresentAndClick(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
-			verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn,
-					"Browse to Download CTA under Shows tab");
-			waitTime(3000);
-			String getProperty = getAttributValue("enabled", AMDDownloadPage.objshowstab);
-			if (getProperty.equalsIgnoreCase("true")) {
-				extent.extentLogger("Shows tab", "User is navigated to Shows landing page");
-				logger.info("User is navigated to Shows landing page");
-			} else {
-				extent.extentLoggerFail("Shows tab", "User fails to navigate to Shows landing page");
-				logger.error("User fails to navigate to Shows landing page");
-			}
-			waitTime(3000);
-			click(AMDHomePage.objDownloadBtn, "Downloads tab");
-			verifyElementPresentAndClick(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
-			verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn,
-					"Browse to Download CTA under Movies tab");
-			waitTime(3000);
-			String getPropertymovies = getAttributValue("enabled", AMDDownloadPage.objmoviestab);
-			if (getPropertymovies.equalsIgnoreCase("true")) {
-				extent.extentLogger("Movies tab", "User is navigated to Movies landing page");
-				logger.info("User is navigated to Movies landing page");
-			} else {
-				extent.extentLoggerFail("Movies tab", "User fails to navigate to Movies landing page");
-				logger.error("User fails to navigate to Movies landing page");
-			}
-			waitTime(3000);
-			click(AMDHomePage.objDownloadBtn, "Downloads tab");
-			verifyElementPresentAndClick(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
-			verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn,
-					"Browse to Download CTA under Videos tab");
-			waitTime(3000);
-			String getPropertyvideos = getAttributValue("enabled", AMDDownloadPage.objvideostab);
-			if (getPropertyvideos.equalsIgnoreCase("true")) {
-				extent.extentLogger("Videos tab", "User is navigated to videos landing page");
-				logger.info("User is navigated to Videos landing page");
-			} else {
-				extent.extentLoggerFail("Movies tab", "User fails to navigate to Videos landing page");
-				logger.error("User fails to navigate to Videos landing page");
-			}
-			waitTime(3000);
-			click(AMDHomePage.objDownloadBtn, "Downloads tab");
+	public void VerifyBrowseToDownloadFunctionality(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Browse to Download CTA functionality as "+userType);
+		System.out.println("\nVerify Browse to Download CTA functionality as "+userType);
+		String getSelectedTabName;
+		verifyElementPresentAndClick(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
+		verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn,"Browse to Download CTA under Shows tab");
+		waitTime(3000);
+		getSelectedTabName = getText(AMDHomePage.objSelectedTab);
+		if (getSelectedTabName.equalsIgnoreCase("Shows")) {
+			extent.extentLogger("Shows tab","User is navigated to Shows landing page");
+			logger.info("User is navigated to Shows landing page");
+		} else {
+			extent.extentLoggerFail("Shows tab", "User fails to navigate to Shows landing page and instead displayed : "+getSelectedTabName+" landing screen");
+			logger.error("User fails to navigate to Shows landing page and instead displayed : "+getSelectedTabName+" landing screen");
+		}
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		verifyElementPresentAndClick(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
+		verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn,"Browse to Download CTA under Movies tab");
+		waitTime(3000);
+		getSelectedTabName = getText(AMDHomePage.objSelectedTab);
+		if (getSelectedTabName.equalsIgnoreCase("Movies")){
+			extent.extentLogger("Movies tab", "User is navigated to Movies landing page");
+			logger.info("User is navigated to Movies landing page");
+		} else {
+			extent.extentLoggerFail("Movies tab", "User fails to navigate to Movies landing page and instead displayed : "+getSelectedTabName+" landing screen");
+			logger.error("User fails to navigate to Movies landing page and instead displayed : "+getSelectedTabName+" landing screen");
+		}
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		verifyElementPresentAndClick(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
+		verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn,"Browse to Download CTA under Videos tab");
+		waitTime(3000);
+		getSelectedTabName = getText(AMDHomePage.objSelectedTab);
+		if (getSelectedTabName.equalsIgnoreCase("Videos")) {
+			extent.extentLogger("Videos tab", "User is navigated to videos landing page");
+			logger.info("User is navigated to Videos landing page");
+		} else {
+			extent.extentLoggerFail("Movies tab", "User fails to navigate to Videos landing page and instead displayed : "+getSelectedTabName+" landing screen");
+			logger.error("User fails to navigate to Videos landing page and instead displayed : "+getSelectedTabName+" landing screen");
+		}
+	}
+	
+	public void EmptystateScreenValidation(String userType) throws Exception {
+		click(AMDHomePage.objDownloadBtn, "Downloads button");
+		waitTime(3000);
+		if (verifyElementExist(AMDDownloadPage.objDwnloadsHeader,
+				"Downloads header at the top on center of the screen")) {
+			extent.extentLogger("Downloads tab",
+					"User is navigated to Downloads screen on tapping Downloads button present in the bottom navigation bar");
+			logger.info(
+					"User is navigated to Downloads screen on tapping Downloads button present in the bottom navigation bar");
+		} else {
+			extent.extentLoggerFail("Downloads tab", "User fails to navigate to Downloads screen");
+			logger.error("User fails to navigate to Downloads screen");
+		}
+		Back(1);
+		click(AMDHomePage.objDownloadBtn, "Downloads button");
+
+		if (verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn,
+				"Browse to Download CTA in Empty-state screen to download")) {
+			extent.extentLogger("Downloads screen",
+					"User is navigated to Empty-state screen when no downloaded contents are present");
+			logger.info("User is navigated to Empty-state screen when no downloaded contents are present");
+		} else {
+			extent.extentLoggerFail("Downloads screen",
+					"User fails to navigate to Empty-state screen when no downloaded contents are present");
+			logger.error("User fails to navigate to Empty-state screen when no downloaded contents are present");
+		}
+		verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn,
+				"Browse to Download CTA in Empty-state screen");
+		waitTime(3000);
+		String getPropertyshows = getAttributValue("enabled", AMDDownloadPage.objshowstab);
+		if (getPropertyshows.equalsIgnoreCase("true")) {
+			extent.extentLogger("Shows tab",
+					"“Browse to Download” button is be tappable in the Empty-state screen to Download the content ");
+			logger.info(
+					"“Browse to Download” button is be tappable in the Empty-state screen to Download the contents");
+		} else {
+			extent.extentLoggerFail("Shows tab", "User fails to tap the 'Browse to Download' button");
+			logger.error("User fails to tap the 'Browse to Download' button");
+		}
+		click(AMDHomePage.objDownloadBtn, "Downloads button");
+	}
+
+	public void validationofDownloadingContent() throws Exception {
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search Icon");
+		waitTime(3000);
+		click(AMDSearchScreen.objSearchEditBox, "Search edit");
+		type(AMDSearchScreen.objSearchBoxBar, "Comedy Kiladigalu Championship - Episode 8 - July 29, 2018",
+				"Search Field");
+		waitTime(5000);
+		hideKeyboard();
+		click(AMDDownloadPage.objSpecificSearch("Comedy Kiladigalu Championship - Episode 8 - July 29, 2018"),
+				"Searched Show");
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDDownloadPage.objDownloadVideoQualityPopup, "Download video quality Pop up");
+		verifyElementPresentAndClick(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
+		waitTime(2000);
+		click(AMDDownloadPage.objGreyedThumbnail, "Greyed Thumbnail");
+		verifyElementPresentAndClick(AMDDownloadPage.objGoToDownloadsOption, "Go To Downloads option");
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		verifyElementExist(AMDDownloadPage.objDownloadingText, "'Downloading' text");
+		click(AMDDownloadPage.objDownloadingText, "Downloading text");
+		verifyElementExist(AMDDownloadPage.objDownloadingCircularBar, "Downloading circular bar");
+		click(AMDDownloadPage.objDownloadingCircularBar, "Downloading circular bar");
+		if (verifyElementExist(AMDDownloadPage.objPauseDownloadoption, "Call out with Pause option")) {
+			extent.extentLogger("Pause", "Pause option is displayed when user taps Downloding content");
+			logger.info("Pause option is displayed when user taps Downloding content");
+		}
+		waitTime(2000);
+		if (verifyElementExist(AMDDownloadPage.objCancelDownloadOption, "Call out with Cancel Download option")) {
+			extent.extentLogger("Pause", "Cancel Download is displayed when user taps Downloding content");
+			logger.info("Cancel Download is displayed when user taps Downloding content");
+		}
+		click(AMDDownloadPage.objPauseDownloadoption, "Pause option");
+		verifyElementExist(AMDDownloadPage.objPausedText, "'Paused' text");
+		if (verifyElementExist(AMDDownloadPage.objPausedBar, "Paused bar")) {
+			extent.extentLogger("Pause", "User is able to Pause the Downloading content on tapping 'Pause' option");
+			logger.info("User is able to Pause the Downloading content on tapping 'Pause' option");
+		}
+		click(AMDDownloadPage.objPausedBar, "Paused bar");
+		verifyElementPresentAndClick(AMDDownloadPage.objContinueOption, "Continue option");
+		if (verifyElementExist(AMDDownloadPage.objDownloadingCircularBar, "Downloading circular bar")) {
+			extent.extentLogger("Re-start", "User is able to re-start the Paused content");
+			logger.info("User is able to re-start the Paused content");
+		}
+	}
+
+	public void DownloadContent(String str) throws Exception {
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search Icon");
+		waitTime(3000);
+		click(AMDSearchScreen.objSearchEditBox, "Search edit");
+		type(AMDSearchScreen.objSearchBoxBar, str, "Search Field");
+		waitTime(5000);
+		hideKeyboard();
+		click(AMDDownloadPage.objSpecificSearch(str), "Searched Show");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
+		verifyElementExist(AMDDownloadPage.objDownloadVideoQualityPopup, "Download video quality Pop up");
+		click(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
+		waitTime(3000);
+		Back(1);
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+	}
+
+	public void pauseAllAndCancelDownload() throws Exception {
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDDownloadPage.objDownloadingCircularBar, "Downloading Icon");
+		verifyElementExist(AMDDownloadPage.objCalloutPopupwhileDownloading, "Call out Pop up");
+		verifyElementExist(AMDDownloadPage.objPauseAllOption, "Pause All CTA");
+		verifyElementExist(AMDDownloadPage.objCancelDownloadOption, "Cancel Download CTA");
+		click(AMDDownloadPage.objPauseAllOption, "Pause All CTA");
+		if (verifyElementExist(AMDDownloadPage.objPausedText, "'Paused' text")) {
+			extent.extentLogger("Pause All", "Queued contents are Paused and in Paused state");
+			logger.info("Queued contents are Paused and in Paused state");
+		}
+		click(AMDDownloadPage.objPausedIcon("Comedy Kiladigalu Championship Episode 24"), "Paused icon");
+		click(AMDDownloadPage.objRetryCTA, "Continue option");
+		click(AMDDownloadPage.objDownloadingCircularBar, "Downloading Icon");
+		click(AMDDownloadPage.objCancelDownloadOption, "Cancel Download CTA");
+		waitTime(3000);
+//			if(verifyElementExist(AMDDownloadPage.objDownloadingConents("Comedy Kiladigalu Championship - Episode 24"),"Downloaded content") == false)
+//			{
+//				extent.extentLogger("Cancel Download","Downloading content is deleted");
+//				logger.info("Downloading content is deleted");
+//			}
+	}
+
+	public void DownloadsSection() throws Exception {
+		verifyElementExist(AMDDownloadPage.objTitleoftheShow, "Title of the show");
+		System.out.println("Title of the Show " + getText(AMDDownloadPage.objTitleoftheShow));
+		verifyElementExist(AMDDownloadPage.objNoOfEpisodes, "Number of Episodes");
+		System.out.println("Number of Episodes" + getText(AMDDownloadPage.objNoOfEpisodes));
+		verifyElementExist(AMDDownloadPage.objSizeOfEpiodes, "Size of Episodes");
+		System.out.println("Size of Episodes" + getText(AMDDownloadPage.objSizeOfEpiodes));
+		verifyElementExist(AMDDownloadPage.objRightArrowinDownloads, "Right Arrow");
+		verifyElementExist(AMDDownloadPage.objThumbnailOfShows, "Thumbnail of the Show");
+		waitTime(2000);
+		click(AMDDownloadPage.objTitleoftheShow, "Title of the show");
+		if (verifyElementExist(AMDDownloadPage.objDownloadMoreCTA, "Download More CTA")) {
+			extent.extentLogger("Download More", "Show name is Tappable");
+			logger.info("Show name is Tappable");
+		}
+		Back(1);
+		click(AMDDownloadPage.objThumbnailOfShows, "Thumbnail of the Show");
+		if (verifyElementExist(AMDDownloadPage.objDownloadMoreCTA, "Download More CTA")) {
+			extent.extentLogger("Download More", "Thumbnail is Tappable");
+			logger.info("Thumbnail is Tappable");
+		}
+		Back(1);
+		click(AMDDownloadPage.objRightArrowinDownloads, "Right Arrow");
+		if (verifyElementExist(AMDDownloadPage.objDownloadMoreCTA, "Download More CTA")) {
+			extent.extentLogger("Download More", "Right Arrow Tappable");
+			logger.info("Right Arrow is Tappable");
 		}
 
-		if (userType.contentEquals("NonSubscribedUser")) {
-			waitTime(2000);
-			verifyElementExist(AMDHomePage.objDownloadBtn, "Downloads option with Icon at the bottom navigation bar");
-			click(AMDHomePage.objDownloadBtn, "Downloads button");
-			waitTime(3000);
-			if (verifyElementExist(AMDDownloadPage.objDwnloadsHeader,
-					"Downloads header at the top on center of the screen")) {
-				extent.extentLogger("Downloads tab",
-						"User is navigated to Downloads screen on tapping Downloads button present in the bottom navigation bar");
-				logger.info(
-						"User is navigated to Downloads screen on tapping Downloads button present in the bottom navigation bar");
-			} else {
-				extent.extentLoggerFail("Downloads tab", "User fails to navigate to Downloads screen");
-				logger.error("User fails to navigate to Downloads screen");
-			}
-			Back(1);
-			click(AMDHomePage.objDownloadBtn, "Downloads button");
+	}
 
-			if (verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn,
-					"Browse to Download CTA in Empty-state screen to download")) {
-				extent.extentLogger("Downloads screen",
-						"User is navigated to Empty-state screen when no downloaded contents are present");
-				logger.info("User is navigated to Empty-state screen when no downloaded contents are present");
-			} else {
-				extent.extentLoggerFail("Downloads screen",
-						"User fails to navigate to Empty-state screen when no downloaded contents are present");
-				logger.error("User fails to navigate to Empty-state screen when no downloaded contents are present");
-			}
-			verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn,
-					"Browse to Download CTA in Empty-state screen");
-			waitTime(3000);
-			String getPropertyshows = getAttributValue("enabled", AMDDownloadPage.objshowstab);
-			if (getPropertyshows.equalsIgnoreCase("true")) {
-				extent.extentLogger("Shows tab",
-						"“Browse to Download” button is be tappable in the Empty-state screen to Download the content ");
-				logger.info(
-						"“Browse to Download” button is be tappable in the Empty-state screen to Download the contents");
-			} else {
-				extent.extentLoggerFail("Shows tab", "User fails to tap the 'Browse to Download' button");
-				logger.error("User fails to tap the 'Browse to Download' button");
-			}
+	public void LatestEpisode() throws Exception {
+		verifyElementExist(AMDDownloadPage.objNewEpisodeContent, "New Episode on top");
+		verifyElementExist(AMDDownloadPage.objNewEpisodeTag, "'New Episode' text");
+		verifyElementExist(AMDDownloadPage.objThumbnailOfLatestEpisode, "Thumbnail of Latest Episode");
+		verifyElementExist(AMDDownloadPage.objDownloadNowbbtn, "Download Now button");
+		verifyElementExist(AMDDownloadPage.objClosebtn, "Cancel button (X)");
+		click(AMDDownloadPage.objDownloadNowbbtn, "Download Now button");
+		if (verifyElementExist(AMDDownloadPage.objDownloadVideoQualityPopup, "Download popup")) {
+			extent.extentLogger("Download Now ", "Download Now button is functional");
+			logger.info("Download Now button is functional");
+		}
+		Back(1);
+		click(AMDDownloadPage.objClosebtn, "Cancel button (X)");
+		if (verifyElementNotPresent(AMDDownloadPage.objNewEpisodeContent, 3)) {
+			extent.extentLogger("Cancel button", "Cancel button is Tappable");
+			logger.info("Cancel button is Tappable");
+		}
+		if (verifyElementNotPresent(AMDDownloadPage.objNewEpisodeContent, 3)) {
+			extent.extentLogger("New Episode", "Latest Epiosde is not displayed on the top");
+			logger.info("Latest Epiosde is not displayed on the top");
+		}
+		Back(1);
+		click(AMDDownloadPage.objRightArrowinDownloads, "Right Arrow");
+		waitTime(2000);
+		click(AMDDownloadPage.objDownloadNowbbtn, "Download Now button");
+		waitTime(3000);
+		click(AMDDownloadPage.objDownloadVideoQualityPopup, "Download video quality Pop up");
+		click(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
+		waitTime(2000);
+		verifyElementExist(AMDDownloadPage.objDownloadingCircularBar, "Downloading Icon");
+		Back(1);
+		verifyElementExist(AMDDownloadPage.objDownloadingText, "Downloading text");
+		click(AMDDownloadPage.objDownloadingText, "Downloading text");
+		if (verifyElementNotPresent(AMDDownloadPage.objClosebtn, 5)) {
+			extent.extentLogger("Close button", "Cross (X) icon is not displayed when download is in progress");
+			logger.info("Cross (X) icon is not displayed when download is in progress");
+		}
+	}
 
-			waitTime(2000);
-			click(AMDHomePage.objDownloadBtn, "Downloads tab");
-			verifyElementExist(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
-			verifyElementExist(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
-			verifyElementExist(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen ");
+	public void verifyDownloadsSubscribeUser() throws Exception {
+		extent.HeaderChildNode("Verify the download screen");
+		System.out.println("\nVerify the download screen");
+		verifyElementExist(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		waitTime(2000);
+		String SubscriptionExpierstext = getDriver().findElement(AMDDownloadPage.objPackExpiredText).getText();
+		System.out.println(SubscriptionExpierstext);
+		if (SubscriptionExpierstext.equalsIgnoreCase("Your Subscription expires in 10 days")) {
+			logger.info("Your Premium subscription expires in XX days text message is displayed");
+			extent.extentLogger("Download Screen",
+					"Your Premium subscription expires in XX days text message is displayed");
+		} else {
+			logger.error("Your Premium subscription expires in XX days text message is displayed");
+			extent.extentLoggerFail("Download Screen",
+					"Your Premium subscription expires in XX days text message is displayed");
+		}
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search Icon");
+		waitTime(3000);
+		click(AMDSearchScreen.objSearchEditBox, "Search edit");
+		type(AMDSearchScreen.objSearchBoxBar, "Dil Bechara - Title Track", "Search Field");
+		waitTime(5000);
+		hideKeyboard();
+		click(AMDDownloadPage.objSearchedContent, "Searched Show");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
+		waitTime(2000);
+		click(AMDDownloadPage.objDownloadVideoQualityPopup, "Download video quality Pop up");
+		click(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
+		waitTime(1000);
+		Back(1);
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		verifyElementExist(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen ");
+		waitTime(2000);
+		verifyElementExist(AMDDownloadPage.objDownloadedTickMark, "Tick Mark on the downloaded content");
+		click(AMDDownloadPage.objDownloadedTickMark, "Tick Mark on the downloaded content");
+		verifyElementExist(AMDDownloadPage.objDeleteDownloadOption, "Delete downloaded content");
+		click(AMDDownloadPage.objDeleteDownloadOption, "Delete downloaded content");
+		waitTime(4000);
+		if (verifyElementExist(AMDDownloadPage.objDownloadTextIcon, "Download Icon")) {
+			logger.info("Content is deleted by tapping on delete download");
+			extent.extentLogger("Download Screen", "Content is deleted by tapping on delete download");
+		} else {
+			logger.error("Content is deleted by tapping on delete download");
+			extent.extentLoggerFail("Download Screen", "Content is deleted by tapping on delete download");
+		}
+		verifyElementExist(AMDDownloadPage.objRemaindMeLater, "Remaind Me Later");
+		click(AMDDownloadPage.objRemaindMeLater, "Remaind Me Later");
+		if (verifyElementExist(AMDDownloadPage.objPackExpiredText, "Premium pack expires Text")) {
+			logger.info("Premium pack expires text is not displayed by tapping on Remaind Me Later");
+			extent.extentLogger("Download Screen",
+					"Premium pack expires text is not displayed by tapping on Remaind Me Later");
+		} else {
+			logger.error("Premium pack expires text is not displayed by tapping on Remaind Me Later");
+			extent.extentLoggerFail("Download Screen",
+					"Premium pack expires text is not displayed by tapping on Remaind Me Later");
+		}
 
-			waitTime(2000);
-			verifyElementPresentAndClick(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
-			verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
-			waitTime(3000);
-			verifyElementPresentAndClick(AMDDownloadPage.objmoviestab, "Movies tab in Downloads landing screen");
-			verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
-			waitTime(3000);
-			verifyElementPresentAndClick(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
-			verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
-			waitTime(3000);
+	}
 
-			verifyElementPresentAndClick(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
-			verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn,
-					"Browse to Download CTA under Shows tab");
-			waitTime(3000);
-			String getProperty = getAttributValue("enabled", AMDDownloadPage.objshowstab);
-			if (getProperty.equalsIgnoreCase("true")) {
-				extent.extentLogger("Shows tab", "User is navigated to Shows landing page");
-				logger.info("User is navigated to Shows landing page");
-			} else {
-				extent.extentLoggerFail("Shows tab", "User fails to navigate to Shows landing page");
-				logger.error("User fails to navigate to Shows landing page");
-			}
-			waitTime(3000);
-			click(AMDHomePage.objDownloadBtn, "Downloads tab");
-			verifyElementPresentAndClick(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
-			verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn,
-					"Browse to Download CTA under Movies tab");
-			waitTime(3000);
-			String getPropertymovies = getAttributValue("enabled", AMDDownloadPage.objmoviestab);
-			if (getPropertymovies.equalsIgnoreCase("true")) {
-				extent.extentLogger("Movies tab", "User is navigated to Movies landing page");
-				logger.info("User is navigated to Movies landing page");
-			} else {
-				extent.extentLoggerFail("Movies tab", "User fails to navigate to Movies landing page");
-				logger.error("User fails to navigate to Movies landing page");
-			}
-			waitTime(3000);
-			click(AMDHomePage.objDownloadBtn, "Downloads tab");
-			waitTime(5000);
-			String getPropertyValue = getAttributValue("enabled", AMDDownloadPage.objshowstab);
-			if (getPropertyValue.equalsIgnoreCase("true")) {
-				extent.extentLogger("Shows tab", "Shows tab is by default highlighted");
-				logger.info("Shows tab is by default highlighted");
-			} else {
-				extent.extentLoggerFail("Shows tab", "Shows tab fails to highlight by default");
-				logger.error("Shows tab fails to highlight by default");
-			}
-//			
-			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search Icon");
-			waitTime(3000);
-			// type(AMDDownloadPage.objSearchIcononDownloadsScreen, keyword, "Search
-			// Field");
-			click(AMDSearchScreen.objSearchEditBox, "Search edit");
-			type(AMDSearchScreen.objSearchBoxBar, "Comedy Kiladigalu Championship - Episode 8 - July 29, 2018",
-					"Search Field");
-			waitTime(5000);
-			hideKeyboard();
-			click(AMDDownloadPage.objSpecificSearch("Comedy Kiladigalu Championship - Episode 8 - July 29, 2018"),
-					"Searched Show");
-			waitTime(5000);
-			verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
+	public void DownloadScreenValidation(String userType) throws Exception {
+		System.out.println("\nDownloadLanding Screen Validation");
+		VerifyUIUXDownloadScreen(userType);
+		VerifyBrowseToDownloadFunctionality(userType);
+		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
 			waitTime(2000);
-			verifyElementPresentAndClick(AMDDownloadPage.objDownloadVideoQualityPopup, "Download video quality Pop up");
-			verifyElementPresentAndClick(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
-			waitTime(2000);
-			click(AMDDownloadPage.objGreyedThumbnail, "Greyed Thumbnail");
-			verifyElementPresentAndClick(AMDDownloadPage.objGoToDownloadsOption, "Go To Downloads option");
-			click(AMDHomePage.objDownloadBtn, "Downloads tab");
-			verifyElementExist(AMDDownloadPage.objDownloadingText, "'Downloading' text");
-			click(AMDDownloadPage.objDownloadingText, "Downloading text");
-			verifyElementExist(AMDDownloadPage.objDownloadingCircularBar, "Downloading circular bar");
-			click(AMDDownloadPage.objDownloadingCircularBar, "Downloading circular bar");
-			if (verifyElementExist(AMDDownloadPage.objPauseDownloadoption, "Call out with Pause option")) {
-				extent.extentLogger("Pause", "Pause option is displayed when user taps Downloding content");
-				logger.info("Pause option is displayed when user taps Downloding content");
-			}
-			waitTime(2000);
-			if (verifyElementExist(AMDDownloadPage.objCancelDownloadOption, "Call out with Cancel Download option")) {
-				extent.extentLogger("Pause", "Cancel Download is displayed when user taps Downloding content");
-				logger.info("Cancel Download is displayed when user taps Downloding content");
-			}
-			click(AMDDownloadPage.objPauseDownloadoption, "Pause option");
-			if (verifyElementExist(AMDDownloadPage.objPausedBar, "Paused bar")) {
-				extent.extentLogger("Pause", "User is able to Pause the Downloading content on tapping 'Pause' option");
-				logger.info("User is able to Pause the Downloading content on tapping 'Pause' option");
-			}
-			verifyElementExist(AMDDownloadPage.objPausedText, "'Paused' text");
-			click(AMDDownloadPage.objPausedBar, "Paused bar");
-			verifyElementPresentAndClick(AMDDownloadPage.objContinueOption, "Continue option");
-			if (verifyElementExist(AMDDownloadPage.objDownloadingCircularBar, "Downloading circular bar")) {
-				extent.extentLogger("Re-start", "User is able to re-start the Paused content");
-				logger.info("User is able to re-start the Paused content");
-			}
-			// offline
+			EmptystateScreenValidation(userType);
+			validationofDownloadingContent();
+			// Verifying in offline Mode
 			Runtime.getRuntime().exec("adb shell svc wifi disable");
 			waitTime(3000);
 			verifyElementExist(AMDDownloadPage.objDownloadFailedText, "Download Failed text");
@@ -4153,7 +4349,7 @@ public void deselectContentLang_MoreMenuAndSelectDefaultLanguage(String planguag
 			click(AMDDownloadPage.objDownloadErrorText, "Download Error text");
 			verifyElementExist(AMDDownloadPage.objRetryCTA, "Call out with Retry CTA");
 			verifyElementExist(AMDDownloadPage.objCancelDownloadOption, "Call out with Cancel Download CTA");
-			// online
+			// Back to online
 			waitTime(2000);
 			Runtime.getRuntime().exec("adb shell svc wifi enable");
 			waitTime(2000);
@@ -4163,15 +4359,20 @@ public void deselectContentLang_MoreMenuAndSelectDefaultLanguage(String planguag
 						"User is able to tap the Retry CTA and re-start Downloading the content");
 				logger.info("User is able to tap the Retry CTA and re-start Downloading the content");
 			}
+
 			click(AMDDownloadPage.objDownloadingCircularBar, "Downloading circular bar");
 			click(AMDDownloadPage.objCancelDownloadOption, "Call out with Cancel Download CTA");
-			waitTime(8000);
-			if (verifyElementNotPresent(
-					AMDDownloadPage.objDownloadingConents("Comedy Kiladigalu Championship - Episode 8"), 5)) {
-				extent.extentLogger("Cancel Download", "Content Downloaded is deleted");
-				logger.info("Content Downloaded is deleted");
-			}
-
+			waitTime(2000);
+//		if(verifyElementExist(AMDDownloadPage.objDownloadingCircularBar,"Downloading circular bar") == false )
+//		{
+//			extent.extentLogger("Cancel Download","Content Downloaded is deleted");
+//			logger.info("Content Downloaded is deleted");
+//		} 
+//		if(verifyElementExist(AMDDownloadPage.objDownloadingConents("Comedy Kiladigalu Championship - Episode 8 - July 29, 2018"),"Downloading content") == false )
+//		{
+//			extent.extentLogger("Cancel Download","Content Downloaded is deleted");
+//			logger.info("Content Downloaded is deleted");
+//		} 				
 			Back(1);
 			String getProperty1 = getAttributValue("enabled", AMDHomePage.objDownloadBtn);
 			if (getProperty1.equalsIgnoreCase("true")) {
@@ -4181,194 +4382,84 @@ public void deselectContentLang_MoreMenuAndSelectDefaultLanguage(String planguag
 				extent.extentLoggerFail("Downloads tab", "No Downloads active page without content downloading");
 				logger.error("No Downloads active page without content downloading");
 			}
-			// search content
-			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search Icon");
-			waitTime(3000);
-			click(AMDSearchScreen.objSearchEditBox, "Search edit");
-			type(AMDSearchScreen.objSearchBoxBar, "Comedy Kiladigalu Championship - Episode 24", "Search Field");
-			waitTime(5000);
-			hideKeyboard();
-			click(AMDDownloadPage.objSpecificSearch("Comedy Kiladigalu Championship - Episode 24 "), "Searched Show");
-			waitTime(3000);
-			verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
-			click(AMDDownloadPage.objDownloadVideoQualityPopup, "Download video quality Pop up");
-			click(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
-			waitTime(2000);
-			Back(1);
-			click(AMDHomePage.objDownloadBtn, "Downloads tab");
 
-			// search content
-			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search Icon");
-			waitTime(3000);
-			click(AMDSearchScreen.objSearchEditBox, "Search edit");
-			type(AMDSearchScreen.objSearchBoxBar, "Comedy Kiladigalu Championship - Episode 9", "Search Field");
-			waitTime(5000);
-			hideKeyboard();
-			click(AMDDownloadPage.objSpecificSearch("Comedy Kiladigalu Championship - Episode 9"), "Searched Show");
-			waitTime(3000);
-			verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
-			waitTime(2000);
-			click(AMDDownloadPage.objDownloadVideoQualityPopup, "Download video quality Pop up");
-			click(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
-			Back(1);
-			click(AMDHomePage.objDownloadBtn, "Downloads tab");
-
+			DownloadContent("Comedy Kiladigalu Championship - Episode 24 - September 30, 2018");
+			waitTime(4000);
+			DownloadContent("Comedy Kiladigalu Championship - Episode 9 - August 04, 2018");
+			waitTime(6000);
 			click(AMDDownloadPage.objDownloadingText, "Downloading text");
 			if (verifyElementExist(AMDDownloadPage.objDownloadingCircularBar, "Downloading Icon")) {
 				extent.extentLogger("Queued", "User is able to Download only one content at a time");
 				logger.info("User is able to Download only one content at a time");
 			}
-			if (verifyElementExist(AMDDownloadPage.objPausedIcon("Comedy Kiladigalu Championship - Episode 9"),
+			if (verifyElementExist(AMDDownloadPage.objQueuedbar("Comedy Kiladigalu Championship Episode 9"),
 					"Paused icon")) {
 				extent.extentLogger("Queued", "Contents are Queued up in a line ");
 				logger.info("Contents are Queued up in a line ");
 			}
-			verifyElementPresentAndClick(AMDDownloadPage.objDownloadingCircularBar, "Downloading Icon");
-			verifyElementExist(AMDDownloadPage.objCalloutPopupwhileDownloading, "Call out Pop up");
-			verifyElementExist(AMDDownloadPage.objPauseAllOption, "Pause All CTA");
-			verifyElementExist(AMDDownloadPage.objCancelDownloadOption, "Cancel Download CTA");
-			click(AMDDownloadPage.objPauseAllOption, "Pause All CTA");
-			if (verifyElementExist(AMDDownloadPage.objPausedText, "'Paused' text")) {
-				extent.extentLogger("Pause All", "Queued contents are Paused and in Paused state");
-				logger.info("Queued contents are Paused and in Paused state");
-			}
-			click(AMDDownloadPage.objPausedIcon("Comedy Kiladigalu Championship - Episode 24"), "Paused icon");
-			click(AMDDownloadPage.objRetryCTA, "Continue option");
-			click(AMDDownloadPage.objDownloadingCircularBar, "Downloading Icon");
-			click(AMDDownloadPage.objCancelDownloadOption, "Cancel Download CTA");
-			if (verifyElementExist(AMDDownloadPage.objDownloadingConents("Comedy Kiladigalu Championship - Episode 24"),
-					"Downloaded content") == false) {
-				extent.extentLogger("Cancel Download", "Downloading content is deleted");
-				logger.info("Downloading content is deleted");
-			}
-			click(AMDDownloadPage.objPausedIcon("Comedy Kiladigalu Championship - Episode 9"), "Paused icon");
-			click(AMDDownloadPage.objRetryCTA, "Continue option");
-			waitTime(12000);
-			waitForElementDisplayed(AMDDownloadPage.objTickIcon, 10);
-			click(AMDDownloadPage.objTickIcon, "Tick Icon");
-			verifyElementExist(AMDDownloadPage.objCalloutAfterDownload, "Call out Popup");
-			verifyElementExist(AMDDownloadPage.objPlayCTA, "Play CTA");
-			verifyElementExist(AMDDownloadPage.objDeleteDownloadCTA, "Delete Download CTA");
-			// play tcs
-//		click(AMDDownloadPage.objDeleteDownloadCTA,"Delete Download CTA");
-//		if(verifyElementExist(AMDDownloadPage.objDownloadingConents("Comedy Kiladigalu Championship - Episode 9"),"Downloaded content") == false)
-//		{
-//			extent.extentLogger("Cancel Download","Downloaded content is deleted");
-//			logger.info("Downloaded content is deleted");
-//		}
-
-			Back(1);
-			// search
-			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search Icon");
 			waitTime(3000);
-			click(AMDSearchScreen.objSearchEditBox, "Search edit");
-			type(AMDSearchScreen.objSearchBoxBar, "Comedy Kiladigalu Championship - Episode 10", "Search Field");
-			waitTime(5000);
-			hideKeyboard();
-			click(AMDDownloadPage.objSpecificSearch("Comedy Kiladigalu Championship - Episode 10"), "Searched Show");
+			pauseAllAndCancelDownload();
+			click(AMDDownloadPage.objPausedBar, "Paused icon");
+			click(AMDDownloadPage.objRetryCTA, "Continue option");
 			waitTime(3000);
-			verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
-			waitTime(2000);
-			click(AMDDownloadPage.objDownloadVideoQualityPopup, "Download video quality Pop up");
-			click(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
 			Back(1);
-			click(AMDHomePage.objDownloadBtn, "Downloads tab");
+			DownloadContent("Comedy Kiladigalu Championship - Episode 10 - August 05, 2018");
+			waitTime(3000);
 			click(AMDDownloadPage.objDownloadingText, "Downloading text");
 			if (verifyElementExist(AMDDownloadPage.objDownloadingCircularBar, "Downloading Icon")) {
 				extent.extentLogger("Downloading", "Incomplete Downloads are available");
 				logger.info("Incomplete Downloads are available");
 			}
 			click(AMDDownloadPage.objDownloadingCircularBar, "Downloading Icon");
-			if (verifyElementExist(AMDDownloadPage.objPlayCTA, "Play CTA") == false) {
-				extent.extentLogger("Downloading", "Incomplete Downloads are NOT allowed to be Play");
-				logger.info("Incomplete Downloads are NOT allowed to be Play");
+//		if(verifyElementExist(AMDDownloadPage.objPlayCTA,"Play CTA")== false){
+//			extent.extentLogger("Downloading","Incomplete Downloads are NOT allowed to be Play");
+//			logger.info("Incomplete Downloads are NOT allowed to be Play");
+//		}
+//		else{
+//			extent.extentLoggerFail("Downloading","Incomplete Downloads are allowed to be Play");
+//			logger.error("Incomplete Downloads are allowed to be Play");
+//		}
+			waitTime(5000);
+			// Shuffling network wifi to data
+			Runtime.getRuntime().exec("adb shell svc wifi disable");
+			Runtime.getRuntime().exec("adb shell svc data enable");
+			if (verifyElementExist(AMDDownloadPage.objDownloadingCircularBar, "Downloading Icon")) {
+				extent.extentLogger("Downloading", "User is able to continue the download on shuffling wifi to data");
+				logger.info("User is able to continue the download on shuffling wifi to data");
 			}
+			waitTime(2000);
+			// data to wifi
+			Runtime.getRuntime().exec("adb shell svc data disable");
+			Runtime.getRuntime().exec("adb shell svc wifi enable");
+			if (verifyElementExist(AMDDownloadPage.objDownloadingCircularBar, "Downloading Icon")) {
+				extent.extentLogger("Downloading", "User is able to continue the download on shuffling wifi to data");
+				logger.info("User is able to continue the download on shuffling wifi to data");
+			}
+			waitTime(8000);
+
+			waitForElementDisplayed(AMDDownloadPage.objTickIcon, 15);
+			click(AMDDownloadPage.objTickIcon, "Tick Icon");
+			verifyElementExist(AMDDownloadPage.objCalloutAfterDownload, "Call out Popup");
+			verifyElementExist(AMDDownloadPage.objPlayCTA, "Play CTA");
+			verifyElementExist(AMDDownloadPage.objDeleteDownloadCTA, "Delete Download CTA");
+
+			waitTime(10000);
 			click(AMDDownloadPage.objTickIcon, "Tick Icon");
 			click(AMDDownloadPage.objDeleteDownloadCTA, "Delete Download CTA");
-			if (verifyElementExist(AMDDownloadPage.objDownloadingConents("Comedy Kiladigalu Championship - Episode 9"),
-					"Downloaded content") == false) {
-				extent.extentLogger("Cancel Download", "Downloaded content is deleted");
-				logger.info("Downloaded content is deleted");
-			}
+//		if(verifyElementExist(AMDDownloadPage.objDownloadingConents("Comedy Kiladigalu Championship - Episode 9"),"Downloaded content") == false)
+//		{
+//			extent.extentLogger("Cancel Download","Downloaded content is deleted");
+//			logger.info("Downloaded content is deleted");
+//		}			
 			Back(1);
-			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search Icon");
-			waitTime(3000);
-			click(AMDSearchScreen.objSearchEditBox, "Search edit");
-			type(AMDSearchScreen.objSearchBoxBar, "Comedy Kiladigalu Championship - Episode 11", "Search Field");
-			waitTime(5000);
-			hideKeyboard();
-			click(AMDDownloadPage.objSpecificSearch("Comedy Kiladigalu Championship - Episode 11"), "Searched Show");
-			waitTime(3000);
-			verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
+			DownloadContent("Comedy Kiladigalu Championship - Episode 11 - August 11, 2018");
+			waitTime(10000);
+			DownloadsSection();
 			waitTime(2000);
-			click(AMDDownloadPage.objDownloadVideoQualityPopup, "Download video quality Pop up");
-			click(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
-			Back(1);
-			click(AMDHomePage.objDownloadBtn, "Downloads tab");
-			waitTime(15000);
-			verifyElementExist(AMDDownloadPage.objTitleoftheShow, "Title of the show");
-			System.out.println("Title of the Show " + getText(AMDDownloadPage.objTitleoftheShow));
-			verifyElementExist(AMDDownloadPage.objNoOfEpisodes, "Number of Episodes");
-			System.out.println("Number of Episodes" + getText(AMDDownloadPage.objNoOfEpisodes));
-			verifyElementExist(AMDDownloadPage.objSizeOfEpiodes, "Size of Episodes");
-			System.out.println("Size of Episodes" + getText(AMDDownloadPage.objSizeOfEpiodes));
-			verifyElementExist(AMDDownloadPage.objRightArrowinDownloads, "Right Arrow");
-			verifyElementExist(AMDDownloadPage.objThumbnailOfShows, "Thumbnail of the Show");
-			waitTime(2000);
-			click(AMDDownloadPage.objTitleoftheShow, "Title of the show");
-			if (verifyElementExist(AMDDownloadPage.objDownloadMoreCTA, "Download More CTA")) {
-				extent.extentLogger("Download More", "Show name is Tappable");
-				logger.info("Show name is Tappable");
-			}
-			Back(1);
-			click(AMDDownloadPage.objThumbnailOfShows, "Thumbnail of the Show");
-			if (verifyElementExist(AMDDownloadPage.objDownloadMoreCTA, "Download More CTA")) {
-				extent.extentLogger("Download More", "Thumbnail is Tappable");
-				logger.info("Thumbnail is Tappable");
-			}
-			Back(1);
-			click(AMDDownloadPage.objRightArrowinDownloads, "Right Arrow");
-			if (verifyElementExist(AMDDownloadPage.objDownloadMoreCTA, "Download More CTA")) {
-				extent.extentLogger("Download More", "Right Arrow Tappable");
-				logger.info("Right Arrow is Tappable");
-			}
-			waitTime(2000);
-			verifyElementExist(AMDDownloadPage.objNewEpisodeContent, "New Episode on top");
-			verifyElementExist(AMDDownloadPage.objNewEpisodeTag, "'New Episode' text");
-			verifyElementExist(AMDDownloadPage.objThumbnailOfLatestEpisode, "Thumbnail of Latest Episode");
-			verifyElementExist(AMDDownloadPage.objDownloadNowbbtn, "Download Now button");
-			verifyElementExist(AMDDownloadPage.objClosebtn, "Cancel button (X)");
-			click(AMDDownloadPage.objDownloadNowbbtn, "Download Now button");
-			if (verifyElementExist(AMDDownloadPage.objDownloadVideoQualityPopup, "Download popup")) {
-				extent.extentLogger("Download Now ", "Download Now button is functional");
-				logger.info("Download Now button is functional");
-			}
-			Back(1);
-			click(AMDDownloadPage.objClosebtn, "Cancel button (X)");
-			if (verifyElementNotPresent(AMDDownloadPage.objNewEpisodeContent, 5)) {
-				extent.extentLogger("Cancel button", "Cancel button is Tappable");
-				logger.info("Cancel button is Tappable");
-			}
-			if (verifyElementNotPresent(AMDDownloadPage.objNewEpisodeContent, 5)) {
-				extent.extentLogger("New Episode", "Latest Epiosde is not displayed on the top");
-				logger.info("Latest Epiosde is not displayed on the top");
-			}
-			Back(1);
-			click(AMDDownloadPage.objRightArrowinDownloads, "Right Arrow");
-			waitTime(2000);
-			click(AMDDownloadPage.objDownloadNowbbtn, "Download Now button");
-			waitTime(3000);
-			click(AMDDownloadPage.objDownloadVideoQualityPopup, "Download video quality Pop up");
-			click(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
-			waitTime(2000);
-			verifyElementExist(AMDDownloadPage.objDownloadingCircularBar, "Downloading Icon");
-			Back(1);
-			verifyElementExist(AMDDownloadPage.objDownloadingText, "Downloading text");
-			click(AMDDownloadPage.objDownloadingText, "Downloading text");
-			if (verifyElementNotPresent(AMDDownloadPage.objClosebtn, 5)) {
-				extent.extentLogger("Close button", "Cross (X) icon is not displayed when download is in progress");
-				logger.info("Cross (X) icon is not displayed when download is in progress");
-			}
+			LatestEpisode();
+		}
+		if (userType.equals("SubscribedUser")) {
+			verifyDownloadsSubscribeUser();
 		}
 	}
 	
@@ -4717,74 +4808,111 @@ public void deselectContentLang_MoreMenuAndSelectDefaultLanguage(String planguag
 		verifyElementExist(AMDMoreMenu.objBuildVersion, "Build Version");
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void parentalPinValidation(String userType,String searchKeyword) throws Exception {
 		extent.HeaderChildNode("Parental Pin Validation");
 		
-		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
-		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, searchKeyword+"\n", "Search bar");
-		waitTime(2000);
+		if((userType.equalsIgnoreCase("NonSubscribedUser") || (userType.equalsIgnoreCase("SubscribedUser")))){
+			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+			verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, searchKeyword+"\n", "Search bar");
+			waitTime(2000);
+			hideKeyboard();
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			
+			verifyElementPresentAndClick(AMDMoreMenu.objRelatedSearchResult, "Search result");
+			
+			verifyElementPresentAndClick(AMDMoreMenu.objDownloadIcon, "Download icon");
+			verifyElementPresentAndClick(AMDMoreMenu.objDataSaver, "Data Saver option");
+			verifyElementPresentAndClick(AMDMoreMenu.objStartDownload, "Start Download");
+			
+			Back(1);
+			verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu tab");
+			verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+			waitTime(5000);
+			Swipe("UP",1);
+			verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
+			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
+			String password = "";
+			if (userType.equals("NonSubscribedUser")) {
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+			}
+			click(AMDMoreMenu.objPasswordField, "Password field");
+			getDriver().getKeyboard().sendKeys(password);
 		
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-		hideKeyboard();
-		verifyElementPresentAndClick(AMDMoreMenu.objRelatedSearchResult, "Search result");
+			hideKeyboard();
+			click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
+			waitTime(2000);
 		
-		verifyElementPresentAndClick(AMDMoreMenu.objDownloadIcon, "Download icon");
-		verifyElementPresentAndClick(AMDMoreMenu.objDataSaver, "Data Saver option");
-		verifyElementPresentAndClick(AMDMoreMenu.objStartDownload, "Start Download");
+			verifyElementPresentAndClick(AMDMoreMenu.objRestrictAllContent, "Restrict All Content option");
+			verifyElementPresentAndClick(AMDMoreMenu.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			
+			verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin");
+			type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
+			hideKeyboard();
+			waitTime(4000);
+			verifyElementPresentAndClick(AMDMoreMenu.objSetPinContinueBtn, "Continue Button");
+			waitTime(2000);
+			
+			verifyElementPresentAndClick(AMDMoreMenu.objParentalLockDone, "Done Button");
+			Back(2);
+			
+			verifyElementPresentAndClick(AMDHomePage.objDownload, "Downloads tab");
+			verifyElementPresentAndClick(AMDDownloadPage.objvideostab, "Videos tab");
+			waitForElementDisplayed(AMDMoreMenu.objDownloadDoneIcon, 20);
+			verifyElementPresentAndClick(AMDDownloadPage.objDownloadedContent, "Downloaded Content");
+			verifyElementPresentAndClick(AMDDownloadPage.objPlayDownloadedContent, "Play Downloaded Content");
+			
+			waitTime(2000);
+			Back(1);
+			verifyElementPresentAndClick(AMDDownloadPage.objEnterPinCTA, "Play Downloaded Content");
+			
+			type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
+			hideKeyboard();
+			click(AMDMoreMenu.objSetPinContinueBtn, "Continue button");
+			waitTime(5000);
+			Back(1);
+			verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu tab");
+			verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+			waitTime(5000);
+			Swipe("UP",1);
+			verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
+			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
+			
+			if (userType.equals("NonSubscribedUser")) {
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+			}
+			click(AMDMoreMenu.objPasswordField, "Password field");
+			getDriver().getKeyboard().sendKeys(password);
 		
-		waitForElementDisplayed(AMDMoreMenu.objDownloadedIcon, 10);
-		waitForElementDisplayed(AMDMoreMenu.objDownloadedIcon, 10);
-		Back(1);
-		verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu tab");
-		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
-		Swipe("UP",1);
-		verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
-		verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
-		String password = "";
-		if (userType.equals("NonSubscribedUser")) {
-			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
-		} else if (userType.equals("SubscribedUser")) {
-			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+			hideKeyboard();
+			click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
+			waitTime(2000);
+		
+			verifyElementPresentAndClick(AMDMoreMenu.objNoRestriction, "No Restriction");
+			verifyElementPresentAndClick(AMDMoreMenu.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			verifyElementPresentAndClick(AMDMoreMenu.objParentalLockDone, "Done Button");
+			
+			Back(2);
 		}
-		type(AMDMoreMenu.objPasswordField, password+"\n", "Password field");
-		hideKeyboard();
-		click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
-		waitTime(2000);
-	
-		verifyElementPresentAndClick(AMDMoreMenu.objRestrictAllContent, "Restrict All Content option");
-		verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin");
-		type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
-		hideKeyboard();
-		type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
-		hideKeyboard();
-		type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
-		hideKeyboard();
-		type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
-		hideKeyboard();
-		waitTime(4000);
-		verifyElementPresentAndClick(AMDMoreMenu.objContinueBtn, "Continue Button");
-		waitTime(2000);
-		
-		verifyElementPresentAndClick(AMDMoreMenu.objParentalLockDone, "Done Button");
-		Back(2);
-		
-		verifyElementPresentAndClick(AMDHomePage.objDownload, "Downloads tab");
-		verifyElementPresentAndClick(AMDDownloadPage.objvideostab, "Videos tab");
-		verifyElementPresentAndClick(AMDDownloadPage.objDownloadedContent, "Downloaded Content");
-		verifyElementPresentAndClick(AMDDownloadPage.objPlayDownloadedContent, "Play Downloaded Content");
-		
-		type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
-		hideKeyboard();
-		type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
-		hideKeyboard();
-		type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
-		hideKeyboard();
-		type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
-		hideKeyboard();
-		waitTime(4000);
-		
-		verifyElementPresentAndClick(AMDMoreMenu.objPlayerBackBtn, "Back button");
 	}
 	
 	/**
@@ -4793,12 +4921,15 @@ public void deselectContentLang_MoreMenuAndSelectDefaultLanguage(String planguag
 	 * @param UserType
 	 */
 	
+/*===========Premium tab screen validations===========*/
+	
 	public void PremiumTabScreen(String UserType) throws Exception{
 		
 		extent.HeaderChildNode("Verifying Premium tab screen");
 		System.out.println("Navigated to home page");
 		//Verify user is navigated to Premium tab 
 		click(AMDHomePage.objPremiumTab,"Premium tab");
+		closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
 		String activeTab = getText(AMDHomePage.objSelectedTab);
 		if (activeTab.equalsIgnoreCase("Premium")) {
 			extent.extentLogger("Verify user is navigated to Premium tab", "User is navigated to Premium tab on clicking premium tab");
@@ -4807,6 +4938,7 @@ public void deselectContentLang_MoreMenuAndSelectDefaultLanguage(String planguag
 			extent.extentLoggerFail("Verify user is navigated to Premium tab", "Failed to navigate to Premium tab on clicking premium tab");
 			logger.info("Failed to navigate to Premium tab on clicking premium tab");
 		}
+		 
 		//Verify Subscribe icon is displayed 
 		verifyElementPresent(AMDHomePage.objSubscribeIcon, "Subscribe icon in premium tab");
 		//Verify continue watching tray is not displayed for guest user
@@ -4822,7 +4954,7 @@ public void deselectContentLang_MoreMenuAndSelectDefaultLanguage(String planguag
 		}*/
 		//Verify Trending now tray is displayed
 		verifyElementPresent(AMDHomePage.objTrendingNowTray, "Trending Now tray");
-		carouselValidation(UserType ,"Premium");	
+		carouselValidation(UserType ,"Premium");
 	}
 	
 	/*========Kids tab validations========*/
@@ -4831,6 +4963,7 @@ public void deselectContentLang_MoreMenuAndSelectDefaultLanguage(String planguag
 		extent.HeaderChildNode("Verifying Kids tab screen");
 		//Verify user is navigated to Premium tab 
 		click(AMDHomePage.objKidsTab,"Kids tab");
+		closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
 		String activeTab = getText(AMDHomePage.objSelectedTab);
 		if (activeTab.equalsIgnoreCase("Kids")) {
 			extent.extentLogger("Verify user is navigated to Kids tab", "User is navigated to Kids tab on clicking Kids tab");
@@ -4854,7 +4987,8 @@ public void deselectContentLang_MoreMenuAndSelectDefaultLanguage(String planguag
 			verifyElementExist(AMDHomePage.objPlayBtn, "Play icon");
 			carouselSwipe("LEFT", 1, width, height);
 		}
-		carouselValidation(UserType,"Kids");	
+		
+		carouselValidation(UserType,"Kids");		
 	}
 	
 	/**
@@ -5027,12 +5161,14 @@ public void deselectContentLang_MoreMenuAndSelectDefaultLanguage(String planguag
 	 * Module : Movies
 	 */
 	public void moviesLandingScreen(String userType, String tabName) throws Exception {
-		extent.HeaderChildNode("Movies landing screen");
-		System.out.println("Movies Landing screen");
+		extent.HeaderChildNode("Navigating to Home screen and verifing the Subscribe icon");
+		System.out.println("Movies Landing screen and checking the Subscribe icon");
+		
+		closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
 		
 		verifyElementPresentAndClick(AMDHomePage.objMoviesTab, tabName+" Tab");
 		String activeTab = getText(AMDHomePage.objSelectedTab);
-		if (activeTab.equalsIgnoreCase("tabName")) {
+		if (activeTab.equalsIgnoreCase(tabName)) {
 			logger.info(
 					"user is able to navigate to "+tabName+" screen by tapping on "+tabName+" tab displayed in the top navigation bar");
 			extent.extentLogger(tabName+" Tab",
@@ -5043,7 +5179,7 @@ public void deselectContentLang_MoreMenuAndSelectDefaultLanguage(String planguag
 			extent.extentLoggerFail(tabName+" Tab",
 					"user is not able to navigate to "+tabName+" screen by tapping on "+tabName+" tab displayed in the top navigation bar");
 		}
-		waitTime(15000);
+		waitTime(10000);
 		closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
 		
 		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
@@ -5064,9 +5200,35 @@ public void deselectContentLang_MoreMenuAndSelectDefaultLanguage(String planguag
 			}
 		}
 	
-		waitTime(10000);
+		
 		carouselValidation(userType, tabName);
 		
+		String courselContentTitle = carouselValidationWithApi(userType, "movies");
+	    verifyElementPresentAndClick(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content");
+	    
+	    if(verifyElementExist(AMDHomePage.objWatchTrailerIconOnPlayerscreen, "Watch Trailer button")) {
+	    	if (verifyElementNotPresent(AMDHomePage.objLoginButtonOnPlayerscreen, 10)) {
+	    		logger.info("Content playback is not initiated for the guest user post tapping on premium content which is having trailer");
+				extentLoggerFail("Trailer", "Content playback is not initiated for the guest user post tapping on premium content which is having trailer");
+			}
+	    	else
+	    	{
+	    		logger.info("Content playback is initiated for the guest user post tapping on premium content which is having trailer");
+				extentLogger("Trailer", "Content playback is initiated for the guest user post tapping on premium content which is having trailer");
+	    	}
+	       Back(1);
+	    }else {
+            if (verifyElementExist(AMDHomePage.objLoginButtonOnPlayerscreen, "Login button")) {
+				logger.info("Content playback is not initiated for the guest user post tapping on premium content which is not having trailer");
+			    extentLogger("Trailer", "Content playback is not initiated for the guest user post tapping on premium content which is not having trailer");
+            }else {
+            	logger.info("Content playback is initiated for the guest user post tapping on premium content which is not having trailer");
+			    extentLoggerFail("Trailer", "Content playback is initiated for the guest user post tapping on premium content which is not having trailer");
+            }
+            Back(1);
+	    }
+	    
+	    extent.HeaderChildNode("Verifing the availability of tray in the screen");
 		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Trending Movies"), AMDHomePage.objCarouselConetentCard, "Trending Movies tray", "MastheadCarousel", userType);
 			
 	}
@@ -5227,9 +5389,90 @@ public void upcomingContentValidationWithAPIData() throws Exception {
 	/**
 	 * Author : Hitesh
 	 * Module : Live TV
+	 * @throws Exception 
 	 */
-	public void LiveTV() {
+	public void LiveTV() throws Exception {
+		
+		extent.HeaderChildNode("Verifying Live TV Landing screen");
+		System.out.println("\nVerifying Live TV Landing screen");
+		
+		verifyElementPresentAndClick(AMDHomePage.objLiveTvTab,"Music tab");
+		if(verifyElementDisplayed(AMDLiveTVScreen.objChannelGuide)) {
+			logger.info("Navigated to Live TV Screen");
+			extentLogger("Navigation to Live TV", "Navigated to Live TV Screen");
+		}else {
+			logger.info("Unable to navigated to Live TV Screen");
+			extentLoggerFail("Navigation to Live TV", "Unable to navigated to Live TV Screen");
+		}
+		
+		verifyElementExist(AMDLiveTVScreen.objSubscribeIcon,"Subscribe Icon");
+		verifyElementExist(AMDLiveTVScreen.objChannelGuide,"Channel Guide toggle option");
+		click(AMDLiveTVScreen.objChannelGuide,"Channel Guide");
+		if(findElement(AMDLiveTVScreen.objChannelGuide).isSelected()) {
+			logger.info("Channel Guide is Selected");
+			extentLogger("Verify Toogle options", "Channel Guide is Selected");
+		}else {
+			logger.info("Channel Guide is not Selected");
+			extentLoggerFail("Verify Toogle options", "Channel Guide is not Selected");
+		}
+		verifyElementExist(AMDLiveTVScreen.objTray("FREE Channels"),"FREE Channels tray");
+		verifyElementExist(AMDLiveTVScreen.objTray("Music"),"Music tray");
+		verifyElementExist(AMDLiveTVScreen.objTray("News"),"News tray");
 		
 	}
+
 	
-}
+	/**
+	 * Author : Manasa
+	 * Module : 
+	 */
+	public void verifySubscriptionReminderInDownloads() throws Exception {
+		
+		extent.HeaderChildNode("Verify Subscription Reminder In Downloads");
+		System.out.println("\nVerify Subscription Reminder In Downloads");
+		
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDHomePage.objDownload, "Downloads tab");
+		
+		String subscriptionExpiry = getText(AMDDownloadPage.objSubscriptionExpiry);
+		logger.info("Subscription Expiry Message : " + subscriptionExpiry + " is displayed");
+		extent.extentLogger("Subscription Expiry Message","Subscription Expiry Message : " + subscriptionExpiry + " is displayed");
+		
+		verifyElementExist(AMDDownloadPage.objSubscriptionExpiryMessage, "Subscription Renewal Message");
+		verifyElementPresentAndClick(AMDDownloadPage.objRemindMeLaterCTA, "Remind Me Later CTA");
+		
+//		if(verifyElementExist(AMDDownloadPage.objSubscriptionExpiryMessage, "Subscription Reminder Message")) {
+//			logger.info("Subscription Reminder Message is hidden");
+//			extent.extentLogger("Subscription Reminder Message","Subscription Reminder Message is hidden");
+//		}else {
+//			logger.info("Subscription Reminder Message is not hidden");
+//			extent.extentLogger("Subscription Reminder Message","Subscription Reminder Message is not hidden");	
+//		}
+	}
+	
+	/**
+	 * Author : Vinay
+	 * Module : Music Landing screen
+	 * 
+	 */
+	public void MusicLandingScreen(String userType) throws Exception{
+		//Verify user is navigated to Music landing screen
+		click(AMDHomePage.objMusicTab,"Music tab");
+		closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
+		//Verify user is navigated to Premium tab 
+		
+		String activeTab = getText(AMDHomePage.objSelectedTab);
+		if (activeTab.equalsIgnoreCase("Music")) {
+			extent.extentLogger("Verify user is navigated to Music tab", "User is navigated to Music tab on clicking Music tab");
+			logger.info("User is navigated to Music tab on clicking Music tab");
+		}else {
+			extent.extentLoggerFail("Verify user is navigated to Music tab", "Failed to navigate to Music tab on clicking Music tab");
+			logger.info("Failed to navigate to Music tab on clicking Music tab");
+		} 
+		//Verify Subscribe icon is displayed on Music landing screen
+		verifyElementPresent(AMDHomePage.objSubscribeIcon, "Subscribe icon in premium tab");
+		
+		//Verify ZEE5 Original Music tray is displayed
+		//verifyElementPresent(AMDHomePage.objZEEOriginalMusicTray, "ZEE5 Original Music tray");
+	}
+	}

@@ -68,4 +68,7 @@ public class AMDMoreMenu {
 	public static By objClearSearchHistory = By.xpath("//*[@id='searchHistoryAction']");
 	public static By objResetDefault = By.xpath("//*[@id='resetSettingAction']");
 	
+	public static By objSetPinContinueBtn = By.xpath("//*[@id='btn_set_pin_continue']");
+	public static By objNoRestriction = By.xpath("//*[@text='No Restriction']");
+	public static By objDownloadDoneIcon = By.xpath("//*[@id='img_state']");
 }

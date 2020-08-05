@@ -6069,6 +6069,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			verifyElementExist(PWAHamburgerMenuPage.objExploreOptions("Free Movies"), "Free Movies option");
 			verifyElementExist(PWAHamburgerMenuPage.objExploreOptions("Live TV"), "LiveTv option");
 			verifyElementExist(PWAHamburgerMenuPage.objExploreOptions(" ZEE5 Originals"), " ZEE5 Originals option");
+			verifyElementExist(PWAHamburgerMenuPage.objExploreOptions("Club"), "Club option");
+			verifyElementExist(PWAHamburgerMenuPage.objExploreOptions("Play"), "Play option");
+			verifyElementExist(PWAHamburgerMenuPage.objExploreOptions("Stories"), "Stories option");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		}
 	}
@@ -8800,8 +8803,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAMoviesPage.objPremiumContentCard, 30);
 		verifyElementExist(PWAMoviesPage.objPremiumContentCard, "PremiumContent");
 		mandatoryRegistrationPopUp(userType);
-		JSClick(PWAMoviesPage.objPremiumContentCard, "PremiumContent");
 		if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+			getWebDriver().get("https://newpwa.zee5.com/kids/kids-movies/ramayana/0-0-72648"); //changed
 			if (BROWSER.equals("Chrome")) {
 				if (verifyElementPresent(PWAPlayerPage.objPlayerscreen, "Playback Overlay")) {
 					moviePausePlayer();
@@ -8825,6 +8828,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				}
 			}
 		}
+		JSClick(PWAMoviesPage.objPremiumContentCard, "PremiumContent"); //changed
 		extent.HeaderChildNode("Verifing that premium content videos in landscape mode");
 		if (verifyElementExist(PWAPremiumPage.objPremiumPopUp, "Premium PopUp")) {
 			verifyElementPresentAndClick(PWAPremiumPage.objClosePremiumPopup, "Premium PopUp Close icon");
@@ -10290,10 +10294,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWALiveTVPage.objPopupCloseButton, "Close button");
 		// Click on date
 		click(PWALiveTVPage.objTomorrowDate, "Tomorrow date");
-		FilterLanguage("Punjabi");
+		FilterLanguage("Bengali");
 		// Verify Share and Reminder option is available
-		click(PWALiveTVPage.objPunjabiShow1, "Show detail");
-		verifyElementPresent(PWALiveTVPage.objShareOption, "Share option");
+		click(PWALiveTVPage.objBengaliShow1, "Show detail"); 
 		verifyElementPresent(PWALiveTVPage.objRemainderButton, "Reminder option for upcoming show ");
 
 		// Verify user can click on Reminder option
@@ -13370,12 +13373,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		logout();
 	}
 	public void watchlistCheck(String userType) throws Exception {
-		
 		 watchlistMovies("Gooli",userType);
 		 watchlistEpisode("Anika tries to be careful",userType);
 		 watchlistVideo("Top 10 funny life",userType);
 		 watchlistMusic("Yennenu soda",userType);
-	
 }
 
 
@@ -13632,4 +13633,6 @@ public void audioTrackSelection() throws Exception {
 			}
 		}
  }
+
+
 }
