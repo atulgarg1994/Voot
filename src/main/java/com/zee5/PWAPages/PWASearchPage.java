@@ -259,4 +259,27 @@ public class PWASearchPage {
 	public static By objMandatoryPopup = By.xpath("//div[@class='poupWrapper']");
 	
 	public static By objMandatoryPopupCloseButton = By.xpath("//div[@class='manCloseIcon']");
+	
+	public static By recentSearchItem1 = By.xpath("(//div[@class='recentSearchWrapper']//div[contains(@class,'searchitem')])[1]");
+	
+	public static By recentSearchItem (int i){
+		return By.xpath("(//div[@class='recentSearchWrapper']//div[contains(@class,'searchitem')])["+i+"]");
+	}
+	
+	public static By recentSearchItem(String keyword) {
+		return By.xpath("//div[@class='recentSearchWrapper']//div[contains(@class,'searchitem') and .='"+keyword+"']");
+	}
+	public static By recentSearchsLabel = By.xpath("//div[@class='recentSearchLbl' and .='Recent Searches']");
+	
+	public static By recentSearchItems = By.xpath("//div[@class='recentSearchWrapper']//div[contains(@class,'searchitem')]");
+
+	public static By objSearchShowsTab = By.xpath("//div[contains(@class,'tabMenuItem') and @id='tvshows']");
+	
+	public static By objSearchPlaceHolderText = By.xpath("//div[@class='searchInputBox']//input");
+	
+	public static By objSearchPageFooter = By.xpath("//div[@class='footerMenu']");
+	
+	public static By recentSearchItem(String keyword,int i) {
+		return By.xpath("//div[@class='recentSearchWrapper']//li["+i+"]//div[contains(@class,'searchitem') and .='"+keyword+"']");
+	}
 }

@@ -393,12 +393,12 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(5000);
 		waitForPlayerAdToComplete("Video Player");
 		playerTap();
-		if (verifyElementExist(PWAPlayerPage.pauseBtn, "Pause icon")) {
+		if (verifyElementExist(PWAPlayerPage.playBtn, "Play icon")) {
 			logger.info("Playback is played after entering parental lock");
 			extent.extentLogger("Playback", "Playback is played after entering parental lock");
 		} else {
-			logger.info("Playback is not started after entering parental lock");
-			extent.extentLogger("Playback", "Playback is not started after entering parental lock");
+			logger.error("Playback is not started after entering parental lock");
+			extent.extentLoggerFail("Playback", "Playback is not started after entering parental lock");
 		}
 		click(PWAHomePage.objZeeLogo, "zee logo");
 		waitTime(5000);
@@ -558,9 +558,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			type(PWALoginPage.objPasswordField, password+"\n", "Password field");
 			hideKeyboard();
 			waitTime(5000);
-			getDriver().context("NATIVE_APP");		
-			directClickReturnBoolean(PWASearchPage.objallow, "Allow in pop up");	
-			getDriver().context("CHROMIUM");
+			dismissSystemPopUp();
 			directClickReturnBoolean(PWALoginPage.objLoginBtn, "Login Button");
 			waitTime(10000);
 			break;
@@ -744,9 +742,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	public void dismissDisplayContentLanguagePopUp() throws Exception {
 		waitForElementAndClickIfPresent(PWAHomePage.objContinueDisplayContentLangPopup, 60,"Continue on Display Language Pop Up");
 		Thread.sleep(5000);
-		getDriver().context("NATIVE_APP");		
-		directClickReturnBoolean(PWASearchPage.objallow, "Allow in pop up");	
-		getDriver().context("CHROMIUM");
+		dismissSystemPopUp(); 
 		waitForElementAndClickIfPresent(PWAHomePage.objContinueDisplayContentLangPopup, 10,"Continue on Content Language Pop Up");
 	}
 
@@ -755,19 +751,60 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	public void landingOnSearchScreen() throws Exception {
 		extent.HeaderChildNode("Validating that user lands on search landing screen");
 		waitTime(3000);
-		if (!verifyElementExist(PWAHomePage.objSearchBtn, "Search icon")) {
-			getDriver().get("http://newpwa.zee5.com/Home");
-		}
+		verifyElementExist(PWAHomePage.objSearchBtn, "Search icon");
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
 		if (verifyElementExist(PWASearchPage.objSearchEditBox, "Search EditBox")) {
 			logger.info("User landed on Search landing screen post tapping on search icon");
 			extent.extentLogger("Search landingscreen","User landed on Search landing screen post tapping on search icon");
 		}
+		//from gaps
+		extent.HeaderChildNode("Validating the placeholder text in search box");
+		String placeHolderText=findElement(PWASearchPage.objSearchPlaceHolderText).getAttribute("placeholder").toString();
+		String expectedPlaceHolderText="Search for Movies, Shows, Channels etc.";
+		if(placeHolderText.equals(expectedPlaceHolderText)) {
+			logger.info("Verified that placeholder text is: "+placeHolderText);
+			extent.extentLogger("","Verified that placeholder text is: "+placeHolderText);
+		}
+		else {
+			logger.error("Placeholder text displayed is: '"+placeHolderText+"' instead of '"+expectedPlaceHolderText+"'");
+			extent.extentLoggerFail("","Placeholder text displayed is: '"+placeHolderText+"' instead of '"+expectedPlaceHolderText+"'");
+		}
+		//from gaps
+		extent.HeaderChildNode("Validating the back button functionality in search page");
+		verifyElementPresentAndClick(PWASearchPage.objBackButton,"Back in Search box");
+		if(verifyElementExist(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo")) {
+			logger.info("Verified app Back button functionality");
+			extent.extentLogger("","Verified app Back button functionality");
+		}
+		else {
+			logger.error("App Back button functionality verification failed");
+			extent.extentLoggerFail("","App Back button functionality verification failed");
+		}
+		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
+		Back(1);
+		if(verifyElementExist(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo")) {
+			logger.info("Verified system Back button functionality");
+			extent.extentLogger("","Verified system Back button functionality");
+		}
+		else {
+			logger.error("System Back button functionality verification failed");
+			extent.extentLoggerFail("","System Back button functionality verification failed");
+		}
+		//from gaps
+		extent.HeaderChildNode("Validating the presence of footer in search page");
+		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
+		if(verifyElementExist(PWASearchPage.objSearchPageFooter, "Footer menu")) {
+			logger.info("Verified presence of Footer menu in Search Page");
+			extent.extentLogger("","Verified presence of Footer menu in Search Page");
+		}
+		else {
+			logger.error("Failed to verify presence of Footer menu in Search Page");
+			extent.extentLoggerFail("","Failed to verify presence of Footer menu in Search Page");
+		}
 	}
 
 	public void movieSearchResult(String title) throws Exception {
-
 		extent.HeaderChildNode("Validating that user is able to search Movie");
 		waitTime(3000);
 		type(PWASearchPage.objSearchEditBox, title+"\n", "Search bar");
@@ -906,29 +943,22 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 * Validating that user is able search Live channel
 	 */
 	public void searchLiveTvChannels(String Channel) throws Exception {
-		extent.HeaderChildNode("Validating that user is able to search LiveTv Channel");
-
+		extent.HeaderChildNode("Validating that user is able to search Live TV Channel");
 		waitTime(3000);
-
 		type(PWASearchPage.objSearchEditBox, Channel+"\n", "Search bar");
-
 		waitForElementDisplayed(PWASearchPage.objSearchNavigationTab("All"), 5);
-
 		if (getPlatform().equals("Android")) {
 			getDriver().hideKeyboard();
 			logger.info("Hiding keyboard was Successfull");
 			extent.extentLogger("hideKeyboard", "Hiding keyboard was Successfull");
 		}
-		verifyElementExist(PWALiveTVPage.objrelatedChannel(Channel), "related Live Tv Channel");
-
+		verifyElementExist(PWALiveTVPage.objrelatedChannel(Channel), "Related Live Tv Channel");
 		clearField(PWASearchPage.objSearchEditBox, "Search Bar");
-
 		if (getPlatform().equals("Android")) {
 			getDriver().hideKeyboard();
 			logger.info("Hiding keyboard was Successfull");
 			extent.extentLogger("hideKeyboard", "Hiding keyboard was Successfull");
 		}
-
 	}
 
 	/*
@@ -1044,10 +1074,12 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 
 	public String fetchLiveChannelname() throws Exception {
-		extent.HeaderChildNode("Fetch Live Content Name");
+		logger.info("Fetching Live Content Name for Search data");
+		extent.extentLogger("", "Fetching Live Content Name for Search data");
 		navigateToAnyScreen("Live TV");
 		waitTime(4000);
 		waitForElementDisplayed(PWAHomePage.objHighlightedTab("Live TV"), 10);
+		waitTime(10000);
 		String liveChannelName = getText(PWALiveTVPage.objLiveChannelnameaboveCard);
 		System.out.println(liveChannelName);
 		return liveChannelName;
@@ -4280,8 +4312,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 																											// originals
 																											// subscribed
 			System.out.println("Navigated to Title : " + getText(PWAHomePage.objKalGetTitle));
-			extent.extentLogger("Navigated to Title : " + getText(PWAHomePage.objKalGetTitle),
-					"Navigated to Title : " + getText(PWAHomePage.objKalGetTitle));
+			extent.extentLogger("","Navigated to Title : " + getText(PWAHomePage.objKalGetTitle));
 			waitTime(5000);
 			//handle mandatory pop up
 			mandatoryRegistrationPopUp(userType);
@@ -4358,20 +4389,25 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					waitTime(5000);
 					if (verifyElementExist(PWAHomePage.objKalKalturaPlayer, "Kaltura Player")) {
 						extent.extentLogger("Navigated to Kaltura Player", "Navigated to Kaltura Player");
+						extent.extentLogger("","Playing : " + getText(PWAHomePage.objKalLivetvPlaying));
+						extent.extentLogger("","Channel :" + getText(PWAHomePage.objKalLivetvChannel));
+						logger.info("Playing : " + getText(PWAHomePage.objKalLivetvPlaying));
+						logger.info("Channel :" + getText(PWAHomePage.objKalLivetvChannel));
 					} else {
 						extent.extentLoggerFail("Not Navigated to Kaltura Player", "Not Navigated to Kaltura Player");
 					}
-					System.out.println("Playing : " + getText(PWAHomePage.objKalLivetvPlaying));
-					System.out.println("Channel :" + getText(PWAHomePage.objKalLivetvChannel));
+					
 				} else { // subscribed
 					waitTime(5000);
 					if (verifyElementExist(PWAHomePage.objKalKalturaPlayer, "Kaltura Player")) {
 						extent.extentLogger("Navigated to Kaltura Player", "Navigated to Kaltura Player");
+						extent.extentLogger("","Playing : " + getText(PWAHomePage.objKalLivetvPlaying));
+						extent.extentLogger("","Channel :" + getText(PWAHomePage.objKalLivetvChannel));
+						logger.info("Playing : " + getText(PWAHomePage.objKalLivetvPlaying));
+						logger.info("Channel :" + getText(PWAHomePage.objKalLivetvChannel));
 					} else {
 						extent.extentLoggerFail("Not Navigated to Kaltura Player", "Not Navigated to Kaltura Player");
 					}
-					System.out.println("Playing : " + getText(PWAHomePage.objKalLivetvPlaying));
-					System.out.println("Channel :" + getText(PWAHomePage.objKalLivetvChannel));
 				}
 			}
 		}
@@ -6417,6 +6453,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 * Function for Onboarding scenarios
 	 */
 	public void OnboardingScenario(String userType) throws Exception {
+		dismissSystemPopUp();
 		switch (userType) {
 		case "Guest":
 			navigationToMyPlanFromHome("NewRegister");
@@ -6444,9 +6481,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			break;
 
 		case "NonSubscribedUser":
-			getDriver().context("NATIVE_APP");		
-			directClickReturnBoolean(PWASearchPage.objallow, "Allow in pop up");	
-			getDriver().context("CHROMIUM");
+			dismissSystemPopUp();
 			verificationOfLoggedIn();
 			myaccountOptionsVerification(userType);
 			NavigateToMyProfilePage();
@@ -6457,9 +6492,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			break;
 
 		case "SubscribedUser":
-			getDriver().context("NATIVE_APP");		
-			directClickReturnBoolean(PWASearchPage.objallow, "Allow in pop up");	
-			getDriver().context("CHROMIUM");
+			dismissSystemPopUp();
 			verificationOfLoggedIn();
 			myaccountOptionsVerification(userType);
 			NavigateToMyProfilePage();
@@ -6508,9 +6541,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 * Function To check the functionality of EditProfile option .
 	 */
 	public void editProfileFunctionality() throws Exception {
-		getDriver().context("NATIVE_APP");		
-		directClickReturnBoolean(PWASearchPage.objallow, "Allow in pop up");	
-		getDriver().context("CHROMIUM");
+		dismissSystemPopUp();
 		extent.HeaderChildNode("Edit Profile Funcionality");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objProfileEditBtn, "Edit button");
 		verifyElementPresent(PWAHamburgerMenuPage.objEditProfileText, "Edit profile page");
@@ -6550,6 +6581,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	public void changePasswordFunctionality() throws Exception {
 		extent.HeaderChildNode("Change Password Functionality");
 		waitTime(3000);
+		Swipe("UP",1);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objChangePasswordBtn, "Change password button");
 		verifyElementPresent(PWAHamburgerMenuPage.objChangePasswordText, "Change password page");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objChangeOldPassword, "Current password field");
@@ -7518,7 +7550,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
     /**
 	 * Main Function to verify player validations
 	 */	
-    public void playerValidations(String userType) throws Exception {
+    @SuppressWarnings("unused")
+	public void playerValidations(String userType) throws Exception {
 			extent.HeaderChildNode("Player Validation");
 			//handle mandatory pop up
 			mandatoryRegistrationPopUp(userType);
@@ -7532,7 +7565,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	        waitTime(6000);
 			//if(userType.equals("Guest"))
 			//waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 30, "Close in Register Pop Up");
-			getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,"Content Title").toString();
+			String consumptionPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,"Content Title").toString();
 			PlayerIconVaidations();
 			//Verify Player controls are not displaying after some time
 			Thread.sleep(5000);
@@ -8637,33 +8670,33 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	public void searchScreen(String UserType) throws Exception {
 		String keyword=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("premiumMovie");
+		extent.HeaderChildNode("Search Module verification for "+UserType);
 		switch (UserType) {
 		case "Guest":
-			extent.HeaderChildNode("Guest user");
-			extent.extentLogger("Accessing as Guest User", "Accessing as Guest User");
-			logger.info("Accessing as Guest User");
 			String Channelname = fetchLiveChannelname();
-			landingOnSearchScreen();
+			/*landingOnSearchScreen();
 			voiceInput();		
 			movieSearchResult(keyword);
 			searchLiveTvChannels(Channelname);
-			searchLanguage("Kannada");
+			searchLiveFromChannelGuide();//from gaps */
+			verifyRecentSearches();//from gaps
+			/*searchLanguage("Kannada");
 			searchGenre("Comedy");
-			partlySpeltSearchResult("Natas");
+			partlySpeltSearchResult("Natas");*/
 			Back(1);
 			break;
 
 		case "NonSubscribedUser":
-			extent.HeaderChildNode("NonSubscribedUser");
-			extent.extentLogger("Accessing as NonSubscribedUser User", "Accessing as NonSubscribedUser User");
-			logger.info("Accessing as NonSubscribedUser User");
 			String NonSubChannelname = fetchLiveChannelname();
 			landingOnSearchScreen();
 			voiceInput();
 			movieSearchResult(keyword);
 			searchLiveTvChannels(NonSubChannelname);
+			searchLiveFromChannelGuide();//from gaps
+			verifyRecentSearches();//from gaps
 			searchLanguage("Kannada");
 			searchGenre("Comedy");
 			partlySpeltSearchResult("Natas");
@@ -8671,19 +8704,224 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			break;
 
 		case "SubscribedUser":
-			extent.HeaderChildNode("SubscribedUser");
-			extent.extentLogger("Accessing as SubscribedUser User", "Accessing as SubscribedUser User");
-			logger.info("Accessing as SubscribedUser User");
 			String SubChannelname = fetchLiveChannelname();
 			landingOnSearchScreen();
 			voiceInput();
 			movieSearchResult(keyword);
 			searchLiveTvChannels(SubChannelname);
+			searchLiveFromChannelGuide();//from gaps
+			verifyRecentSearches();//from gaps
 			searchLanguage("Kannada");
 			searchGenre("Comedy");
 			partlySpeltSearchResult("Natas");
 			emptystateScreen(keyword);
 			Back(1);
+		}
+	}
+	
+	public void verifyRecentSearches() throws Exception{
+		String keywordA="Punar Vivaha";
+		String keywordB="Gattimela";		
+		//4. Validate that Recent search does not appear by only searching a keyword. 
+		extent.HeaderChildNode("Recent Search: Validate keyword does not get added unless Search result is clicked");
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		clearField(PWASearchPage.objSearchEditBox, "Search Bar");
+		type(PWASearchPage.objSearchEditBox, keywordA, "Search edit box");
+		verifyElementPresent(PWASearchPage.objSearchedResult(keywordA), "Search Result "+keywordA);
+		click(PWASearchPage.objBackButton,"Back in Search box");
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		if(verifyElementExist(PWASearchPage.recentSearchItem1,"First Recent Search Item")) {
+			if(getText(PWASearchPage.recentSearchItem1).equals(keywordA)) {
+				logger.error(keywordA+" is displayed under Recent Searches even though search result wasnt clicked");
+				extent.extentLoggerFail("", keywordA+" is displayed under Recent Searches even though search result wasnt clicked");
+			}
+			else {
+				logger.info(keywordA+" is not the first item under Recent Searches");
+				extent.extentLogger("", keywordA+" is not the first item under Recent Searches");
+				logger.info("Verified that keyword does not get displayed under Recent Search unless Search result is clicked");
+				extent.extentLogger("","Verified that keyword does not get displayed under Recent Search unless Search result is clicked");
+			}
+		}
+		else {
+			logger.info("Verified that keyword does not get displayed under Recent Search unless Search result is clicked");
+			extent.extentLogger("","Verified that keyword does not get displayed under Recent Search unless Search result is clicked");
+		}
+		
+		//1. Validate "Recent Searches" text.
+		//2. Validate "Clear All" text.
+		//5. Validate that Recent Search appears only if we tap on a search result.
+		extent.HeaderChildNode("Recent Search: Validate 'Recent Searches' text and 'Clear All' text after tapping on Search Result");
+		clearField(PWASearchPage.objSearchEditBox, "Search Bar");
+		type(PWASearchPage.objSearchEditBox, keywordB, "Search edit box");
+		verifyElementPresentAndClick(PWASearchPage.objSearchShowsTab, "Shows tab");
+		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keywordB), "Search Result "+keywordB);
+		waitTime(2000);
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		verifyElementPresent(PWASearchPage.recentSearchsLabel,"Recent Searches tray");
+		verifyElementPresent(PWASearchPage.objClearAllTextofRecentSearches,"Clear All text");
+		if(verifyElementExist(PWASearchPage.recentSearchItem1,"First Recent Search Item")) {
+			if(getText(PWASearchPage.recentSearchItem1).equals(keywordB)) {
+				logger.info(keywordB+" is displayed under Recent Searches as expected");
+				extent.extentLogger("", keywordB+" is displayed under Recent Searches as expected");
+			}
+			else {
+				logger.error(keywordB+" is not the first item under Recent Searches");
+				extent.extentLoggerFail("", keywordB+" is not the first item under Recent Searches");
+			}
+		}
+		else {
+			logger.error("There is no item under Recent Searches");
+			extent.extentLoggerFail("","There is no item under Recent Searches");
+		}
+		//6. Validate the order of the Recent Searches for all the 5 keywords. (latest on top and descending order)
+		String keyword1="Kundali Bhagya";
+		String keyword2="Kumkum Bhagya";
+		String keyword3="Paaru";
+		String keyword4="Robin Hood";
+		String keyword5="Jothe Jotheyali";
+		String keyword6="Naaginn";
+		extent.HeaderChildNode("Recent Search: Validate only 5 keywords get added and order of keywords");
+		ArrayList<String> keywords=new ArrayList<String>();
+		keywords.add(keyword1); keywords.add(keyword2); keywords.add(keyword3); keywords.add(keyword4); keywords.add(keyword5); keywords.add(keyword6);
+		for(int i=0;i<=5;i++) {
+			String key=keywords.get(i).toString();
+			logger.info("Search for keyword "+(i+1));
+			extent.extentLogger("", "Search for keyword "+(i+1));
+			clearField(PWASearchPage.objSearchEditBox, "Search Bar");
+			type(PWASearchPage.objSearchEditBox, key, "Search edit box");
+			verifyElementPresentAndClick(PWASearchPage.objSearchShowsTab, "Shows tab");
+			waitTime(5000);
+			verifyElementPresentAndClick(PWASearchPage.objSearchedResult(key), "Search Result "+key);
+			waitTime(2000);
+			click(PWAHomePage.objSearchBtn, "Search icon");
+		}
+		List<WebElement> recentSearchItems=findElements(PWASearchPage.recentSearchItems);
+		int size=recentSearchItems.size();
+		if(size==5) {
+			logger.info("5 items are displayed under Recent Searches as expected");
+			extent.extentLogger("", "5 items are displayed under Recent Searches as expected");
+		}
+		else {
+			logger.error(size+" items are displayed under Recent Searches instead of 5");
+			extent.extentLoggerFail("",size+" items are displayed under Recent Searches instead of 5");
+		}
+		//verify order
+		logger.info("Expected Order Required: "+keyword6+", "+keyword5+", "+keyword4+", "+keyword3+", "+keyword2);
+		extent.extentLogger("","Expected Order Required: "+keyword6+", "+keyword5+", "+keyword4+", "+keyword3+", "+keyword2);
+		String actual=getText(PWASearchPage.recentSearchItem(1));
+		String expected=keywords.get(5);
+		if(actual.equals(expected)) {
+			logger.info("Recent Searches Order is maintained for item 5: "+actual);
+			extent.extentLogger("","Recent Searches Order is maintained for item 5: "+actual);
+		}
+		else {
+			logger.error(actual+" is displayed instead of "+expected+", Recent Searches Order not maintained for item 5");
+			extent.extentLoggerFail("",actual+" is displayed instead of "+expected+", Recent Searches Order not maintained for item 5");
+		}
+		actual=getText(PWASearchPage.recentSearchItem(2));
+		expected=keywords.get(4);
+		if(actual.equals(expected)) {
+			logger.info("Recent Searches Order is maintained for item 4: "+actual);
+			extent.extentLogger("","Recent Searches Order is maintained for item 4: "+actual);
+		}
+		else {
+			logger.error(actual+" is displayed instead of "+expected+", Recent Searches Order not maintained for item 4");
+			extent.extentLoggerFail("",actual+" is displayed instead of "+expected+", Recent Searches Order not maintained for item 4");
+		}
+		actual=getText(PWASearchPage.recentSearchItem(3));
+		expected=keywords.get(3);
+		if(actual.equals(expected)) {
+			logger.info("Recent Searches Order is maintained for item 3: "+actual);
+			extent.extentLogger("","Recent Searches Order is maintained for item 3: "+actual);
+		}
+		else {
+			logger.error(actual+" is displayed instead of "+expected+", Recent Searches Order not maintained for item 3");
+			extent.extentLoggerFail("",actual+" is displayed instead of "+expected+", Recent Searches Order not maintained for item 3");
+		}
+		actual=getText(PWASearchPage.recentSearchItem(4));
+		expected=keywords.get(2);
+		if(actual.equals(expected)) {
+			logger.info("Recent Searches Order is maintained for item 2: "+actual);
+			extent.extentLogger("","Recent Searches Order is maintained for item 2: "+actual);
+		}
+		else {
+			logger.error(actual+" is displayed instead of "+expected+", Recent Searches Order not maintained for item 2");
+			extent.extentLoggerFail("",actual+" is displayed instead of "+expected+", Recent Searches Order not maintained for item 2");
+		}
+		actual=getText(PWASearchPage.recentSearchItem(5));
+		expected=keywords.get(1);
+		if(actual.equals(expected)) {
+			logger.info("Recent Searches Order is maintained for item 1: "+actual);
+			extent.extentLogger("","Recent Searches Order is maintained for item 1: "+actual);
+		}
+		else {
+			logger.error(actual+" is displayed instead of "+expected+", Recent Searches Order not maintained for item 1");
+			extent.extentLoggerFail("",actual+" is displayed instead of "+expected+", Recent Searches Order not maintained for item 1");
+		}
+		//3. Validate 5 keywords get added. Search for 6 but only 5 recent searches must be present.	
+		if(!verifyElementExist(PWASearchPage.recentSearchItem(keywords.get(0)),"First searched keyword "+keywords.get(0))){
+			logger.info("Keyword searched initially is not displayed, FIFO maintained");
+			extent.extentLogger("","Keyword searched initially is not displayed, FIFO maintained");
+		}
+		else {
+			logger.error("Keyword searched initially is displayed even after searching 5 keywords after that, FIFO not maintained");
+			extent.extentLoggerFail("","Keyword searched initially is displayed even after searching 5 keywords after that, FIFO not maintained");
+		}
+		//8. Click on a recent search-> the keyword must fill the search edit field and search results must be displayed.
+		//9. Click on a recent search->Click on a search result and navigate back-> The Recent Search keyword order must change and be displayed at the top.
+		extent.HeaderChildNode("Recent Search: Validate click on Recent search Keyword functionality");
+		String recent0=getText(PWASearchPage.recentSearchItem(5));
+		click(PWASearchPage.recentSearchItem(5),"Recent Searches Bottom most item: "+recent0);
+		waitTime(4000);
+		verifyElementPresent(PWASearchPage.objSearchedResult(recent0), "Search Result "+recent0);
+		verifyElementPresentAndClick(PWASearchPage.objSearchCloseButton,"Close Icon");
+		if(verifyElementExist(PWASearchPage.recentSearchItem(recent0,1), "Recent Searches item "+recent0+" in top position")) {
+			logger.info("Verified the clicked Recent Searches item takes the top most position under Recent Searches");
+			extent.extentLogger("","Verified the clicked Recent Searches item takes the top most position under Recent Searches");
+		}
+		else {
+			logger.error("Clicked Recent Searches item has not taken the top most position, FIFO not maintained");
+			extent.extentLoggerFail("","Clicked Recent Searches item has not taken the top most position, FIFO not maintained");
+		}
+		//7. Validate Clear All functionality-> Keywords, Recent Searches Text, Clear All must not be displayed after clear all functionality is performed. Only Trending search must be present after clear all functionality.
+		click(PWASearchPage.objClearAllTextofRecentSearches,"Clear All text");
+		if(verifyElementExist(PWASearchPage.recentSearchsLabel,"Recent Searches tray")) {
+			logger.error("Recent Searches tray is displayed even after clicking Clear All text");
+			extent.extentLoggerFail("", "Recent Searches tray is displayed even after clicking Clear All text");
+		}
+		if(verifyElementExist(PWASearchPage.objClearAllTextofRecentSearches,"Clear All text")) {
+			logger.error("Clear All text is displayed even after clicking Clear All text");
+			extent.extentLoggerFail("", "Clear All text is displayed even after clicking Clear All text");
+		}
+		recentSearchItems=findElements(PWASearchPage.recentSearchItems);
+		size=recentSearchItems.size();
+		if(size>0) {
+			logger.error(size+ "keywords found under Recent Searches");
+			extent.extentLoggerFail("", size+ "keywords found under Recent Searches");
+		}
+		else {
+			logger.info("No keywords found under Recent Searches");
+			extent.extentLogger("","No keywords found under Recent Searches");
+		}
+	}
+	
+	public void searchLiveFromChannelGuide() throws Exception{
+		extent.HeaderChildNode("Fetch Live Show from Channel Guide and verify Search");
+		click(PWASearchPage.objBackButton,"Back in Search box");
+		navigateToAnyScreen("Live TV");
+		waitTime(10000);
+		verifyElementPresentAndClick(PWALiveTVPage.objChannelGuideToggle,"Channel Guide");
+		String liveshow = null;
+		liveshow=getText(PWALiveTVPage.objOngoingLiveTvShowTitle);
+		if(liveshow!=null) {
+			logger.info("Live Show title fetched from Channel Guide screen : "+liveshow);
+			extent.extentLogger("","Live Show title fetched from Channel Guide screen : "+liveshow);
+			click(PWAHomePage.objSearchBtn, "Search icon");
+			type(PWASearchPage.objSearchEditBox, liveshow+"\n", "Search edit box");
+			waitForElementDisplayed(PWASearchPage.objSearchNavigationTab("All"), 5);
+			verifyElementPresent(PWASearchPage.objSearchedResult(liveshow), "Search Result "+liveshow);
+			verifyElementPresent(PWALiveTVPage.objLiveLabel(liveshow),"LIVE Label for Search result "+liveshow);
+			verifyElementPresent(PWALiveTVPage.objLiveProgressBar(liveshow),"Progress Bar for Search result "+liveshow);
 		}
 	}
 	
@@ -8782,7 +9020,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(5000);
 		Back(1);
 		waitTime(5000);
-
 		verifyElementExist(PWASearchPage.objRecentSearchesOverlay, "Recent Searches overlay");
 		click(PWASearchPage.objClearAllTextofRecentSearches, "Clear All icon of Recent Searches");
 	}
@@ -9069,7 +9306,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 						+ getDriver().findElement(By.xpath("(//p[@class='currency'])[" + i + "]")).getText());
 			}
 			
-			verifyElementPresentAndClick(PWASubscriptionPages.objPackAmount1, "Discounted pack");
+			verifyElementPresentAndClick(PWASubscriptionPages.objPackAmount2, "Discounted pack");
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			
 			paymentPageValidation();
@@ -10518,8 +10755,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	
 	public void Kaltura(String userType) throws Exception
 	{
+		dismissSystemPopUp();
 		String url=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
 		extent.HeaderChildNode("Kaltura Playability");
+		
 		String keyword1=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("premiumMovieNoTrailer3");
 		searchvideoandselect(keyword1, userType, "Movie");
 		
@@ -10548,10 +10787,13 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		navigateToAnyScreen("Live TV");
 		waitTime(5000);
 		logger.info("Selecting Free content from Live TV tray and validating Kaltura playability");
-		extent.extentLogger("Selecting Free content from Live TV tray and validating Kaltura playability", "Selecting Free content from Live TV tray and validating Kaltura playability");
-		Value =	getText(PWAPlayerPage.objFirstCardFreeChnnels);
-		waitTime(5000);
+		extent.extentLogger("Selecting Free content from Live TV tray and validating Kaltura playability", "Selecting Free content from Live TV tray and validating Kaltura playability");	
+		waitTime(10000);
+		Value =	findElement(PWAPlayerPage.objFirstCardFreeChnnelName).getAttribute("title");
 		if(Value != null){
+			logger.info("Free content from Live TV tray : "+Value);
+			extent.extentLogger("","Free content from Live TV tray : "+Value);
+			click(PWAPlayerPage.objFirstCardFreeChnnels,""+Value);
 			PremiumFreeZeeOriginalKaltura(Value,userType);		
 		}else
 		{
@@ -10631,6 +10873,15 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		
 		if (verifyElementExist(PWAHomePage.objKalKalturaPlayer, "Kaltura Player")) {
 			extent.extentLogger("Navigated to Kaltura Player", "Navigated to Kaltura Player");
+			//gap covered
+			playerTap();
+			if (verifyElementExist(PWAPlayerPage.playBtn, "Play icon")) {
+				logger.info("Playback is verified and player has been paused successfully");
+				extent.extentLogger("Playback", "Playback is verified and player has been paused successfully");
+			} else {
+				logger.error("Playback could not be verified because player pause is unsuccessful");
+				extent.extentLoggerFail("Playback", "Playback could not be verified because player pause is unsuccessful");
+			}
 		} else {
 			extent.extentLoggerFail("Not Navigated to Kaltura Player", "Not Navigated to Kaltura Player");
 		}
@@ -11251,27 +11502,23 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 	
 	public void voiceInput() throws Exception {
-
 		extent.HeaderChildNode("Validating that user is asked to give the voice input post tapping on microphone icon");
-
 		verifyElementPresentAndClick(PWASearchPage.objVoiceSearchButton, "Voice seach icon");
-
-		getDriver().context("NATIVE_APP");
-		
-		verifyElementPresentAndClick(PWASearchPage.objallow, "Allow");
-		verifyElementPresentAndClick(PWASearchPage.objallow, "Allow");
-		
-		getDriver().context("WEBVIEW_1");
-		
+		waitTime(2000);
+		getDriver().context("NATIVE_APP");		
+		verifyElementPresentAndClick(PWASearchPage.objallow, "Allow");		
+		getDriver().context("WEBVIEW_1");		
 		String searchBarText = getAttributValue("placeholder", PWASearchPage.objSearchEditBox);
-		System.out.println(searchBarText);
-
 		if (searchBarText.equalsIgnoreCase("Speak to Search on ZEE5")) {
+			logger.info("'Speak to Search on ZEE5' is displayed on search edit box");
+			extent.extentLogger("Voice input", "'Speak to Search on ZEE5' is displayed on search edit box");
 			logger.info("User is asked to give the voice input");
 			extent.extentLogger("Voice input", "User is asked to give the voice input");
 		} else {
-			logger.info("User is not asked to give the voice input");
-			extent.extentLogger("Voice input", "User is not asked to give the voice input");
+			logger.error("'Speak to Search on ZEE5' is not displayed on search edit box");
+			extent.extentLoggerFail("Voice input", "'Speak to Search on ZEE5' is not displayed on search edit box");
+			logger.error("User is not asked to give the voice input");
+			extent.extentLoggerFail("Voice input", "User is not asked to give the voice input");
 		}
 	}
 	
@@ -11434,6 +11681,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 	}
 	
-
+	public void dismissSystemPopUp()  throws Exception{
+		System.out.println(getDriver().getContext());
+		getDriver().context("NATIVE_APP");		
+		directClickReturnBoolean(PWASearchPage.objallow, "Allow in pop up");	
+		getDriver().context("CHROMIUM");
+	}
 	
 }

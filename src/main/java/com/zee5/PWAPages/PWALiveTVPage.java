@@ -287,4 +287,11 @@ public class PWALiveTVPage {
 		public static By objMyRemainder = By.xpath("//*[@class='noSelect menuItem   ' and text()='My Reminders']");
 		
 		public static By objBengaliShow1 = By.xpath("(//*[@title='Zee Bangla']//parent::*//parent::*//following-sibling::*//div)[2]");
+		
+		public static By objLiveLabel(String liveshow) {
+			return By.xpath("//img[@title='"+liveshow+"']//parent::a//div//div[@class='liveLogo ' and .='LIVE']");
+		}
+		public static By objLiveProgressBar(String liveshow) {
+			return By.xpath("//img[@title='"+liveshow+"']//parent::a//div//div[@class='progressBar']//div[@class='filler']");
+		}
 }

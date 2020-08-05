@@ -328,4 +328,5 @@ public static By objPlayer = By.xpath("//div[@class='playkit-overlay-action']");
 	
 	public static By watchListLoginPopupCloseButton = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 	
+	public static By objFirstCardFreeChnnelName= By.xpath("(((((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='FREE Channels']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content']//img)[1])");
 }
