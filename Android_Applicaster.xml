@@ -53,12 +53,6 @@
 			<class name="com.zee5.ApplicasterScripts.Android_AppLaunch" /> 	 		
 		</classes>
 	</test> -->
-
-	<test name="Android_LandingPage">
-		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_LandingPage" />
-		</classes>
-	</test>
 	
   	 <test name="Android_Onboarding_Suite1">
 		<classes>	
@@ -72,24 +66,27 @@
 		</classes>
 	</test>	
 	
-<!--	<test name="Android_Onboarding_Suite3">
+	<test name="Android_Onboarding_Suite3">
 		<classes>	
 			<class name="com.zee5.ApplicasterScripts.Android_Onboarding_Suite3" /> 	
 		</classes>
-	</test>	
-	
-	<test name="Android_Subscription">
-		<classes>	
-		 	<class name="com.zee5.ApplicasterScripts.Android_Subscription" /> 	
-		</classes>
-	</test>	
+	</test>
+
+<test name="Android_Subscription">
+	<classes>
+		<class name="com.zee5.ApplicasterScripts.Android_Subscription" />
+	</classes>
+</test>	
 	
 	<test name="Android_Search">
-		<classes>	
-		 	<class name="com.zee5.ApplicasterScripts.Android_Search" /> 	
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_Search" />
 		</classes>
 	</test>	
+	 	
 	
+	
+<!-- 	
   <test name="DeepLinkValidation">
     <classes>
       <class name="com.zee5.ApplicasterScripts.DeepLinkValidation"/>
