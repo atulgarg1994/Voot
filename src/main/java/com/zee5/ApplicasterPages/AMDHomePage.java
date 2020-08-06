@@ -146,4 +146,8 @@ public class AMDHomePage {
 			public static By objLoginButtonOnPlayerscreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/login_button']");
 			
 			public static By objWatchTrailerIconOnPlayerscreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/watchTrailerTv']");
-	}
+			
+			public static By objContentTitleOfCWTray(String title) {
+				return  By.xpath("//*[@text='Continue Watching']/parent::*/parent::*/following-sibling::*/child::*/child::*/child::*/following-sibling::*[@text=\""+title+"\"]");
+			}
+}

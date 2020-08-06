@@ -52,6 +52,7 @@ public class HomePage {
 		return By.xpath("//*[@id='header_arrow' and (./preceding-sibling::* | ./following-sibling::*)[@text='"+ContainerName+"']]");
 	}
 	
-	
+	// Content Title on carousel
+	public static By objContTitleOnCarousel = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
 	
 }

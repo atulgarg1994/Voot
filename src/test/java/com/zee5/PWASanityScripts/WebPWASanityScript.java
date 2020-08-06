@@ -377,8 +377,8 @@ public class WebPWASanityScript {
   	}
   	
   	
-  //-------------------------YASHASWINI NewsPage--------------------------
-//  	@Test(priority = 24)
+  	 //-------------------------YASHASWINI NewsPage--------------------------
+  	@Test(priority = 24)
 	@Parameters({"userType"})
 	public void newsPageValidation(String userType) throws Exception {
   		System.out.println("newsPageValidation");
@@ -386,7 +386,7 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
   		Zee5WEBPWASanityBusinessLogic.newsPageValidation("News");
 		Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
-  		Zee5WEBPWASanityBusinessLogic.trayTitleAndContentValidationWithApiData("News", "news");
+  		Zee5WEBPWASanityBusinessLogic.trayTitleAndContentValidationWithApiDataNews("News", "news");
 	}
   	
     //-------------------------YASHASWINI LandingPage--------------------------

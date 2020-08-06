@@ -196,7 +196,7 @@
 				<configuration>
 					<suiteXmlFiles>
 						<!-- TestNG suite XML files -->
-						<suiteXmlFile>pwaSanityAndroid.xml</suiteXmlFile>
+						<suiteXmlFile>pwaSanityWeb.xml</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>
 			</plugin>

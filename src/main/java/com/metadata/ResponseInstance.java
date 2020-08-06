@@ -513,4 +513,40 @@ public class ResponseInstance {
 		String xAccessToken = respToken.jsonPath().getString("X-ACCESS-TOKEN");
 		return xAccessToken;
 	}
+	
+	public static Response getRespofCWTray(String userType) {
+		Response respCW = null;
+		String language = getLanguage(userType);
+		
+		String Uri = "https://gwapi.zee5.com/user/v2/watchhistory?country=IN&translation=en&languages="+language;
+		
+		String xAccessToken = getXAccessTokenWithApiKey();
+		
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+//			String email = "zeetest998@test.com";
+//			String password = "123456";
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedPassword");
+			String bearerToken = getBearerToken(email, password);
+			respCW = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+					.get(Uri);
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			
+//			String email = "igstesting001@gmail.com";
+//			String password = "igs@12345";
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedPassword");
+			String bearerToken = getBearerToken(email, password);
+			respCW = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+					.get(Uri);
+		} else {
+			System.out.println("Incorrect user type passed to method");
+		}
+		
+		return respCW;
+	}
 }

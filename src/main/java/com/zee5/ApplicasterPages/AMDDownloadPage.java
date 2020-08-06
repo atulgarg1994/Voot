@@ -94,6 +94,8 @@ public class AMDDownloadPage {
 			return By.xpath("//*[@id='img_state' and ./parent::*[./parent::*[(./preceding-sibling::* | ./following-sibling::*)[./*[@text='" + str + "']]]]]");
 		}
 	
+	
+	
 	/**
 	 * Manasa
 	 */

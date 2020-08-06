@@ -67,10 +67,6 @@ public class PWAHomePage {
 	public static By objGetPremium = By.xpath(
 			"//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Get premium')]");
 
-	// Content Title on carousel
-	public static By objContTitleOnCarousel = By
-			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
-
 	// Carousel Banner
 	public static By objCarouselBanner = By.xpath("//div[@class=\"carouselMain\"]");
 
@@ -441,5 +437,8 @@ public class PWAHomePage {
 		public static By objOverlayTray2 = By.xpath("(//span[@class='noSelect ' and contains(text(),'Latest')])[1]");
 		
 		public static By objHomeInHambugerMenu = By.xpath("//*[contains(@class,'menuGroup')]//a[contains(@class,'active')]//div[contains(text(),'Home')]");
+		
+		// Content Title on carousel
+		public static By objContTitleOnCarousel = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
 }
 

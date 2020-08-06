@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 import com.business.zee.Zee5ApplicasterBusinessLogic;
 import com.utility.Utilities;
 
+//Login with SubscribedUserWith15daysExpiry credentials
+
 public class VerifySubscriptionReminderInDownloadScreen {
 
 	private Zee5ApplicasterBusinessLogic ZEE5ApplicasterBusinessLogic;

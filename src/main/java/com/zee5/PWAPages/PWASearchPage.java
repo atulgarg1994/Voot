@@ -282,4 +282,6 @@ public class PWASearchPage {
 	public static By recentSearchItem(String keyword,int i) {
 		return By.xpath("//div[@class='recentSearchWrapper']//li["+i+"]//div[contains(@class,'searchitem') and .='"+keyword+"']");
 	}
+	
+	public static By emptyStateScreenText = By.xpath("//div[@class='textArea']");
 }

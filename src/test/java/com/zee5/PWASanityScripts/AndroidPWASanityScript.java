@@ -20,7 +20,7 @@ public class AndroidPWASanityScript {
 	public void Login(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.ZeePWALogin("E-mail", userType);
 	}
-
+/*
 	@Test(priority = 1) // SHREENIDHI
 	@Parameters({ "userType" })
 	public void PWAOnboardingScenarios(String userType) throws Exception {
@@ -45,9 +45,10 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.Kaltura(userType);
 		//smoke Vinay
 		Zee5PWASanityBusinessLogic.playerValidations(userType);
-		Zee5PWASanityBusinessLogic.UpnextRail();
+		//Zee5PWASanityBusinessLogic.UpnextRail();
 	}
-/*
+*/
+
 	@Test(priority = 5) // BASAVARAJ
 	@Parameters({"url", "userType", "devicePin", "consumptionsEpisode","consumptionsShow","consumptionsFreeContent","consumptionsPremiumContent"}) 
 	public void PWAContentDetails(String url, String userType, String devicePin, String consumptionsEpisode,String consumptionsShow,String consumptionsFreeContent,String consumptionsPremiumContent)throws Exception {
@@ -61,7 +62,7 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.verifySubscriptionPopupForPremiumContent(userType, consumptionsPremiumContent);
 		Zee5PWASanityBusinessLogic.verifyCTAandMetaDataInDetailsAndConsumption(consumptionsShow);
 	}
-		
+/*		
 	@Test(priority = 6)
 	@Parameters({ "userType" ,"url"}) // MANAS
 	public void PWACarousel(String userType, String url) throws Exception {
@@ -141,18 +142,11 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.myProfileScenarios(userType);
 	}
 	
-
-/*
 	@Test(priority = 2)
 	@Parameters({"userType","searchModuleSearchKey","url"}) // SUSHMA SEARCH
 	public void PWASearch(String userType,String searchKey,String url) throws Exception {
 		Zee5PWASanityBusinessLogic.searchScreen(userType);
-		//smoke
-		String liveContentName = Zee5PWASanityBusinessLogic.fetchLiveContent();
-		System.out.println("Live content : "+liveContentName);
-		Zee5PWASanityBusinessLogic.landingOnSearchScreen();
 		Zee5PWASanityBusinessLogic.searchResultScreen(searchKey);
-		Zee5PWASanityBusinessLogic.liveTv(liveContentName);
 		Zee5PWASanityBusinessLogic.navigationToConsumptionScreenThroughTrendingSearches();		
 	}
 	
@@ -165,9 +159,7 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.verifyLiveTvAndChannelGuideScreen();
 		
 	}
-	
 
-	
 	@Test(priority = 5)
 	@Parameters({ "userType" }) // MANASA
 	public void PWASubscriptionPageValidation(String userType) throws Exception {

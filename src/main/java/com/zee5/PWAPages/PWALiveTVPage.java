@@ -178,14 +178,6 @@ public class PWALiveTVPage {
 
 		public static By objLiveChannelnameaboveCard = By.xpath("(//div[@class='cardAboveMeta'])[1]");
 
-
-
-
-		public static By objrelatedChannel(String Channel) {
-			return By.xpath(
-					"//div[@class='metaData']/child::*/child::span/child::span[contains(text(), '" + Channel + "')]");
-		}
-
 		public static By objTodayDate = By.xpath("//div[text()='Today']");
 		public static By objTomorrowDate = By.xpath("(//div[@class='active']//parent::*//following-sibling::*)[1]");
 		public static By objShowName = By.xpath("(//*[@title='Suvarna News' or @title='India Today' or @title='Republic TV' or @title='WION' or @title='DD India']//parent::*//parent::*//following-sibling::*//div)[2]");
@@ -293,5 +285,12 @@ public class PWALiveTVPage {
 		}
 		public static By objLiveProgressBar(String liveshow) {
 			return By.xpath("//img[@title='"+liveshow+"']//parent::a//div//div[@class='progressBar']//div[@class='filler']");
+		}
+		
+		public static By objrelatedChannel(String Channel) {
+			return By.xpath("//div[@class='metaData']//span[contains(text(), '" + Channel + "')]");
+		}
+		public static By objrelatedChannelLiveLogo(String Channel) {
+			return By.xpath("//span[.='"+Channel+"']//ancestor::div[@class='metaData']//preceding-sibling::figure//div[contains(@class,'liveLogo')]");
 		}
 }
