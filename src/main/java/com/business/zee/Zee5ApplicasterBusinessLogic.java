@@ -39,7 +39,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public Zee5ApplicasterBusinessLogic(String Application) {
 		new CommandBase(Application);
-		init();
+		init(); 
 	}
 
 	private int timeout;
