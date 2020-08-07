@@ -113,4 +113,6 @@ public class PWAShowsPage {
 	public static By objFacebookPostBtn = By.xpath("//*[@text='POST' or @text='Post' or @text='SHARE']");
 
 	public static By metainfolist=By.xpath("//div[contains(@class,'metaInfo')]//span");
+	
+	public static By objThirdContentInTray=By.xpath("//div[@data-index='2']//img");
 }

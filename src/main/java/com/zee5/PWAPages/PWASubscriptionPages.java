@@ -108,11 +108,6 @@ public class PWASubscriptionPages {
 	// PayTm Wallet Radio Btn
 	public static By objPaytmWalletOption = By.xpath("//img[contains(@alt, 'Paytm')]");
 
-	// Get Premium popup on playing premium content
-
-	// Get Premium Popup Title
-	public static By objGetPremiumPopupTitle = By.xpath("//h2[contains(text(), 'Get premium')]");
-
 	// Default Selected Pack
 	public static By objDefaultSelectedPack = By
 			.xpath("//div[contains(@class, 'upgradeCard active')]//span[contains(@class, 'price')]");
@@ -153,7 +148,7 @@ public class PWASubscriptionPages {
 	public static By objAppliedSuccessfullyMessage = By.xpath("//div[contains(text(),'Applied Successfully')]");
 	
 	public static By objSearchResultPremiumContent = By.xpath("//div[@class='cardPremiumContent']/parent::*");
-	public static By objPopup99Plan = By.xpath("//p[contains(@class, 'planDescription ')]/span[contains(@class, 'currency')]/span[text()='99']");
+	public static By objPopup99Plan = By.xpath("//p[contains(@class, 'planDescription')]/span[contains(@class, 'currency')]/span[text()='99']");
 	
 	// Get Premium popup close button
 	public static By objGetPremiumPopupCloseButton = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close' and (./preceding-sibling: | ./following-sibling::*)[contains(@class,'popupContent upgradePopupContent')]/h2[contains(text(),'Get premium')]]");
@@ -260,5 +255,8 @@ public class PWASubscriptionPages {
 	public static By objLoginSectionInPopup= By.xpath("//div[contains(@class,'loginContainer')]");
 
 	public static By objLoginButtonInPopup= By.xpath("//div[contains(@class,'popupBtn accentBtn')]");
+	
+	// Get Premium Popup Title
+		public static By objGetPremiumPopupTitle = By.xpath("//h2[contains(text(), 'Subscribe')]");
 
 }

@@ -15,24 +15,25 @@ public class PWAHomePage {
 
 	// Hamburger menu
 	public static By objHamburgerMenu = By.xpath("//*[text()='Open Menu']");
-	
+
 	// Select tab by text
 	public static By objTabName(String tabName) {
-		return By.xpath("//*[@class='navMenuWrapper ']//*[text()='"+ tabName +"']");
+		return By.xpath("//*[@class='navMenuWrapper ']//*[text()='" + tabName + "']");
 	}
 
 	public static By objLiveTVtab = By.xpath("//a[contains(text(),'Live TV')]");
-	
+
 	// h3[@class="cardTitle cardTitleMultiline"]
 
 	// Select tray by text
 	public static By objLanguageTextEnglishGetvalue(String trayName) {
 		return By.xpath("//*[contains(text(),'" + trayName + "')]");
 	}
-	public static By objOverlayTrayActive(String text)
-	{
-		return By.xpath(" //span[@class='noSelect active' and contains(text(),'"+text+"')]");
+
+	public static By objOverlayTrayActive(String text) {
+		return By.xpath(" //span[@class='noSelect active' and contains(text(),'" + text + "')]");
 	}
+
 	public static By objTabContBar = By.xpath("//div[@class='navMenuWrapper ']");
 
 	public static By objDownloadIcon = By
@@ -54,9 +55,11 @@ public class PWAHomePage {
 				"//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle') and contains(text(),\""
 						+ text + "\")]");
 	}
-	
+
 	public static By objContTitleWithPlayIconCarousel(String text) {
-		return By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle') and contains(text(),\""+ text + "\")]//parent::*//following-sibling::div//div[@class='playIcon']");
+		return By.xpath(
+				"//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle') and contains(text(),\""
+						+ text + "\")]//parent::*//following-sibling::div//div[@class='playIcon']");
 	}
 
 	// Play Btn On carousel
@@ -76,7 +79,8 @@ public class PWAHomePage {
 	public static By objSearchField = By.xpath("//input[@type='text']");
 
 	// Subscribe Btn in Top Header
-	public static By objSubscribeBtnTopHeader = By.xpath("//*[contains(@class,'subscribeBtn noSelect')]//span[contains(text(), 'Subscribe')]");
+	public static By objSubscribeBtnTopHeader = By
+			.xpath("//*[contains(@class,'subscribeBtn noSelect')]//span[contains(text(), 'Subscribe')]");
 
 	// Continue in Display/Content language popup
 	public static By objContinueDisplayContentLangPopup = By
@@ -87,7 +91,8 @@ public class PWAHomePage {
 			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Get premium')]");
 
 	// Masthead carousel current content
-	public static By objMastheadCarouselCurrentContent = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'content')]//img");
+	public static By objMastheadCarouselCurrentContent = By.xpath(
+			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'content')]//img");
 	// Display Language popup Title
 	public static By objDisplayLanguagePopupTitle = By.xpath(
 			"//div[contains(@class, 'popupContent langFilterPopupWrapper')]//div[contains(text(), 'Display Language')]");
@@ -137,6 +142,7 @@ public class PWAHomePage {
 				"//*[@class='moreMenuBtn iconInitialLoad-ic_Bento']/following-sibling::*/child::*/child::*[text()='"
 						+ tabName + "']");
 	}
+
 	public static By objMoreMenuIcon = By.xpath("//*[@class='moreMenuBtn iconInitialLoad-ic_Bento']");
 
 	public static By objFirstAssetTrendingOnZEE5 = By.xpath(
@@ -149,7 +155,7 @@ public class PWAHomePage {
 	public static By objPopUpMobileField = By.xpath("//input[@id='textField']");
 	public static By objPopUpPasswordField = By.xpath("//input[@name='inputPassword']");
 	public static By objPopUpProceedButton = By.xpath("//button[@class='noSelect buttonGradient ']");
-	
+
 //	public static By objPopUpProceedButton = By.xpath("//div[@class='registerLoginContainer']//button[@class='noSelect buttonGradient null']");
 	public static By objOtpPopUp = By.xpath("//div[@class='poupWrapper']");
 
@@ -242,9 +248,11 @@ public class PWAHomePage {
 	}
 
 	public static By objspecificTumbnail1(String str, int i) {
-		return By.xpath("((//div[@class='trayHeader']//h2[.='"+str+"'])//parent::*//parent::*//div[@class='continueWatchCard card positionRelative marginRight zoomCardHover minutelyUrl']//a)["+i+"]");
-		}
-	
+		return By.xpath("((//div[@class='trayHeader']//h2[.='" + str
+				+ "'])//parent::*//parent::*//div[@class='continueWatchCard card positionRelative marginRight zoomCardHover minutelyUrl']//a)["
+				+ i + "]");
+	}
+
 	public static By objtumnails(String str) {
 		return By.xpath("((//div[@class='trayHeader']//h2[.='" + str
 				+ "'])//parent::*//parent::*//div[@class='noSelect clickWrapper' or @class='clickWrapper'])//figure");
@@ -253,12 +261,15 @@ public class PWAHomePage {
 	// ------------------------------------------------------
 	public static By objKalGetPremium = By.xpath("//a[@class='premiumBtn']");
 	public static By objKalGetTitle = By.xpath("//h1[@class='title']");
-	public static By objKalGetPremiumPlayicon = By.xpath("//div[@class='iconsWrap getPremiumBtn']//child::*[@class='playIcon']");
+	public static By objKalGetPremiumPlayicon = By
+			.xpath("//div[@class='iconsWrap getPremiumBtn']//child::*[@class='playIcon']");
 	public static By objKalKalturaPlayer = By.xpath("//div[@class='kaltura-player-container']");
 	public static By objKalconsumptionMetaDiv = By.xpath("//div[@class='consumptionMetaDiv']//h1");
 	public static By objKalconsumptionMetainfo = By.xpath("(//div[@class='metaInfo']//p)[1]");
-	public static By objKalGetFirstEpisode = By.xpath("//div[@class='showDetailIcon']//p[contains(text(),'Watch First Episode')]");
-	public static By objKalGetFirstEpisodePlayicon = By.xpath("//div[@class='showDetailIcon']//child::*[@class='playIcon']");
+	public static By objKalGetFirstEpisode = By
+			.xpath("//div[@class='showDetailIcon']//p[contains(text(),'Watch First Episode')]");
+	public static By objKalGetFirstEpisodePlayicon = By
+			.xpath("//div[@class='showDetailIcon']//child::*[@class='playIcon']");
 	public static By objKalLivetvPlaying = By.xpath("//div[@class='channelConsumptionMetaDiv']//h2");
 	public static By objKalLivetvChannel = By.xpath("//div[@class='channelConsumptionMetaDiv']//h1");
 
@@ -269,74 +280,76 @@ public class PWAHomePage {
 
 //		TANISHA
 	// Minutely
-	public static By objMinutelyContentNonPremium = By.xpath("//div[contains(@class,'latestEpisodeTray')]//*[contains(@class,'clickWrapper') and not(.//div[@class='cardPremiumContent'])]");
-	
-	public static By objContentNonPremium = By.xpath("//div[contains(@class,'clickWrapper') and not(.//div[@class='cardPremiumContent'])]");
-	
-	public static By objAllTabs = By.xpath("//div[contains(@class,'navMenuWrapper')]//div[contains(@class,'noSelect')]");
+	public static By objMinutelyContentNonPremium = By.xpath(
+			"//div[contains(@class,'latestEpisodeTray')]//*[contains(@class,'clickWrapper') and not(.//div[@class='cardPremiumContent'])]");
+
+	public static By objContentNonPremium = By
+			.xpath("//div[contains(@class,'clickWrapper') and not(.//div[@class='cardPremiumContent'])]");
+
+	public static By objAllTabs = By
+			.xpath("//div[contains(@class,'navMenuWrapper')]//div[contains(@class,'noSelect')]");
 
 	public static By objPWANews = By.xpath("//div[contains(text(),'News')]");
 
 //		SUSHMA SANITY LIVETV MODULE
 	public static By objBackToTopArrow = By.xpath("//div[@class='iconNavi-ic_arrow_back']");
-	
+
 	// Footer section of home page
 
-		// Download Apps text UI
-		public static By objDownloadApps = By.xpath("//h3[contains(text(),'Download Apps')]");
-		
-		// public static By objTwitterIcon =
-		// By.xpath("//span[contains(text(),'twitter')]");
+	// Download Apps text UI
+	public static By objDownloadApps = By.xpath("//h3[contains(text(),'Download Apps')]");
 
-		// Up Arrow
-		public static By objUpArrow = By.xpath("//div[@class='iconNavi-ic_arrow_back']");
+	// public static By objTwitterIcon =
+	// By.xpath("//span[contains(text(),'twitter')]");
 
-		// Copy right text
-		public static By objCopyRightText = By.xpath("//div[@class='copyRightTxt']");
+	// Up Arrow
+	public static By objUpArrow = By.xpath("//div[@class='iconNavi-ic_arrow_back']");
 
-	//Facebook page
-		public static By objFacebookPage = By.xpath("(//*[@text='Log In'])[2]");
+	// Copy right text
+	public static By objCopyRightText = By.xpath("//div[@class='copyRightTxt']");
 
-		// Instagram page
-		public static By objInstagramPage = By.xpath("//button[contains(text(),'Follow')]");
+	// Facebook page
+	public static By objFacebookPage = By.xpath("(//*[@text='Log In'])[2]");
 
-		// Twitter page
+	// Instagram page
+	public static By objInstagramPage = By.xpath("//button[contains(text(),'Follow')]");
 
-		public static By objTwitterPage = By.xpath("//*[@resource-id='com.twitter.android:id/button_bar_follow']");
+	// Twitter page
 
-		// Help Center in Footer section
-		public static By objHelp = By.xpath("//a[@class='noSelect'][contains(text(),'Help Center')]");
-		// Help Center screen
-		public static By objHelpScreen = By.xpath("//h2[contains(text(),'Help Center')]");
+	public static By objTwitterPage = By.xpath("//*[@resource-id='com.twitter.android:id/button_bar_follow']");
 
-		// write to us
-		public static By objwritetous = By.xpath("//img[contains(@class,'img1')]");
+	// Help Center in Footer section
+	public static By objHelp = By.xpath("//a[@class='noSelect'][contains(text(),'Help Center')]");
+	// Help Center screen
+	public static By objHelpScreen = By.xpath("//h2[contains(text(),'Help Center')]");
 
-		// contact us page
-		public static By objcontactus = By.xpath("//*[@text='Contact Us']");
+	// write to us
+	public static By objwritetous = By.xpath("//img[contains(@class,'img1')]");
 
-		// About Us in Footer Section
-		public static By objAboutUsInFooterSection = By.xpath("//a[@class='noSelect'][contains(text(),'About Us')]");
-		// AboutUsScreen
-		public static By objAboutUs = By.xpath("//h1[contains(text(),'About Us')]");
+	// contact us page
+	public static By objcontactus = By.xpath("//*[@text='Contact Us']");
 
-		// Privacy Policy in Footer Section
-		public static By objPrivacyPolicyInFooterSection = By
-				.xpath("//a[@class='noSelect'][contains(text(),'Privacy Policy')]");
-		// PrivacyPolicyScreen
-		public static By objPrivacyPolicy = By.xpath("//h1[contains(text(),'Privacy Policy')]");
-		// TermsOfUse in Footer Section
-		public static By objTermsOfUseInfooterSection = By
-				.xpath("//a[@class='noSelect'][contains(text(),'Terms of Use')]");
-		// TermsOfUSeScreen
-		public static By objTerms = By.xpath("//h1[contains(text(),'Terms of Use')]");
+	// About Us in Footer Section
+	public static By objAboutUsInFooterSection = By.xpath("//a[@class='noSelect'][contains(text(),'About Us')]");
+	// AboutUsScreen
+	public static By objAboutUs = By.xpath("//h1[contains(text(),'About Us')]");
+
+	// Privacy Policy in Footer Section
+	public static By objPrivacyPolicyInFooterSection = By
+			.xpath("//a[@class='noSelect'][contains(text(),'Privacy Policy')]");
+	// PrivacyPolicyScreen
+	public static By objPrivacyPolicy = By.xpath("//h1[contains(text(),'Privacy Policy')]");
+	// TermsOfUse in Footer Section
+	public static By objTermsOfUseInfooterSection = By.xpath("//a[@class='noSelect'][contains(text(),'Terms of Use')]");
+	// TermsOfUSeScreen
+	public static By objTerms = By.xpath("//h1[contains(text(),'Terms of Use')]");
 
 	// Home page continue watching tray
 	public static By objContinueWatchingTray = By.xpath("//h2[contains(text(),'Continue Watching')]");
-	
-	//Android google play store
+
+	// Android google play store
 	public static By objGooglePlayStore = By.xpath("//*[@text='ZEE5 - Latest Movies, Originals & TV Shows']");
-	
+
 	public static By objActiveTab = By.xpath("//a[contains(@class,'noSelect active')]");
 
 	public static By objAndroidPlayStoreIcon = By.xpath("//*[@class='playstoreIcon']//a[@class='noSelect content']");
@@ -348,97 +361,104 @@ public class PWAHomePage {
 	public static By objInstagramIcon = By.xpath("//*[@class='noSelect instagramIcon iconSocial-ic_social_instagram']");
 
 	public static By objTwitterIcon = By.xpath("//*[@class='noSelect twittercon iconSocial-ic_social_twitter']");
-	
+
 	public static By objHighlightedTab(String tabname) {
 		return By.xpath("//*[@class=\"noSelect active\"]");
 	}
-	
+
 	public static By objSearchResultWeb = By.xpath("//div[@class='searchListingNewsWrap']//img[@title='Ramayana']");
-	
-	//Subscribe PopUp Home Page
-	public static By objSubscripePopupHomePage = By.xpath("//div[(contains(@style,'display: block'))]//child::div[contains(@id,'adoric_smartbox_')]");
-	//Subscribe PopUp close button Home Page
-	public static By objSubscripePopupCloseButtonHomePage = By.xpath("//div[(contains(@style,'display: block'))]//div[@class='adoric_element element-text editing closeLightboxButton']//child::*[@class='inner-element']");
-	
-					
-	public static By objWhatWonderingPopUp = By.xpath("//div[(contains(@style,'display: block'))]//child::div[contains(@id,'adoric_smartbox_')]");
 
-	public static By objWhatWonderingPopUpCloseIcon = By.xpath("//div[(contains(@style,'display: block'))]//child::div[@aria-label='close']");
-	
-	public static By objPlayiconAfterMouseHover = By.xpath(".//*[@class='noSelect btnIcon playBtnIcon']//child::*[@class='btnText']");
+	// Subscribe PopUp Home Page
+	public static By objSubscripePopupHomePage = By
+			.xpath("//div[(contains(@style,'display: block'))]//child::div[contains(@id,'adoric_smartbox_')]");
+	// Subscribe PopUp close button Home Page
+	public static By objSubscripePopupCloseButtonHomePage = By.xpath(
+			"//div[(contains(@style,'display: block'))]//div[@class='adoric_element element-text editing closeLightboxButton']//child::*[@class='inner-element']");
 
-	public static By objShareiconAfterMouseHover = By.xpath(".//*[@class='shareCompIcon iconInitialLoad-ic_share']//child::*[@class='shareLabel']");
-	
+	public static By objWhatWonderingPopUp = By
+			.xpath("//div[(contains(@style,'display: block'))]//child::div[contains(@id,'adoric_smartbox_')]");
+
+	public static By objWhatWonderingPopUpCloseIcon = By
+			.xpath("//div[(contains(@style,'display: block'))]//child::div[@aria-label='close']");
+
+	public static By objPlayiconAfterMouseHover = By
+			.xpath(".//*[@class='noSelect btnIcon playBtnIcon']//child::*[@class='btnText']");
+
+	public static By objShareiconAfterMouseHover = By
+			.xpath(".//*[@class='shareCompIcon iconInitialLoad-ic_share']//child::*[@class='shareLabel']");
+
 	public static By objWEBSubscribeBtn = By.xpath("//a[@class='subscribeBtn noSelect']");
 
 	public static By objMoreMenuBtn = By.xpath("//div[@class='moreMenu']");
 
-	public static By objWhatToWatchPopUp= By.xpath("//div[(contains(@style,'display: block'))]//child::div[contains(@id,'adoric_smartbox_')]");
+	public static By objWhatToWatchPopUp = By
+			.xpath("//div[(contains(@style,'display: block'))]//child::div[contains(@id,'adoric_smartbox_')]");
 
-	 public static By objWhatToWatchCloseButton=  By.xpath("//div[(contains(@style,'display: block'))]//child::div[@aria-label='close']");
-	
-	
-		public static By objLanguage = By.xpath("//div[@id='languageBtn']");
-		public static By objKannadaWEB = By.xpath("//span[contains(@class,'commonName')][contains(text(),'Kannada')]");
-		public static By objEnglishWEB = By.xpath("//span[contains(text(),'English')]");
+	public static By objWhatToWatchCloseButton = By
+			.xpath("//div[(contains(@style,'display: block'))]//child::div[@aria-label='close']");
 
-	
-		public static By objGooglePlayLogo= By.xpath("//a[@title='Google Play Logo']");
-	
-		public static By objCarousel = By.xpath("//*[contains(@class,'heroBannerCarousel minutelyUrl')]");
-	
-		public static By objPageHighlighted(String PageName) {
-			return By.xpath("//*[@class='noSelect active' and text()='"+PageName+"']");
-			}
-		
-		public static By objLanguageChangeContentPopup()
-		{
-			return By.xpath("//div[@class='popupContent languageChangeContentPopup']");
-		}
-		public static By objLanguageChangeContentPopupCloseicon()
-		{
-			return By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
-		}
+	public static By objLanguage = By.xpath("//div[@id='languageBtn']");
+	public static By objKannadaWEB = By.xpath("//span[contains(@class,'commonName')][contains(text(),'Kannada')]");
+	public static By objEnglishWEB = By.xpath("//span[contains(text(),'English')]");
 
-		public static By objLanguagePop = By.xpath("//div[@class='popupContent langFilterPopupWrapper']");
-		
-		// Subscribe Now
-		public static By objSubscribeNow = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Subscribe Now')]");
-		
-		
-		public static By objTwitterFollowWeb = By.xpath("//*[text()='Follow']");
-		
-		public static By objAddToWatchlistButtonOnTrayContentCard(String trayName)
-		{
-			return By.xpath("(//*[contains(@class,'trayHeader')]//*[contains(text(),'"+trayName+"')]//parent::*//following-sibling::*//*[contains(@class, 'noSelect btnIcon iconInitialLoad-ic_add_Watchlist')])[1]");
-		}
-		public static By objLoginRequiredPopUpHeader= By.xpath("//*[contains(text(), 'Login Required')]");
-		
-		public static By objPopupCloseicon()
-		{
-			return By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
-		}
-		public static By objFirstContentCardOfTray(String trayName)
-		{
-			return By.xpath("(//*[contains(@class,'trayHeader')]//*[contains(text(),'"+trayName+"')]//parent::*//following-sibling::*//*[contains(@class, 'showCard')])[1]");
-		}
-		
-		public static By objsearchcontent=By.xpath("//*[@title='Krishna Balram: The Warrier Princess']");
-		
-		public static By objPlayCarousel = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Play')]");
+	public static By objGooglePlayLogo = By.xpath("//a[@title='Google Play Logo']");
 
-		public static By objHoverMenu(String text)
-		{
-			return By.xpath("//a[contains(@class,'noSelect')][contains(text(),'"+text+"')]//following-sibling::*[@class='megaMenu megaMenuCards cardTypetvshows']");
-		}
-		
-		public static By objOverlayTray = By.xpath("//span[contains(text(),'Top Zee')]");
-		
-		public static By objOverlayTray2 = By.xpath("(//span[@class='noSelect ' and contains(text(),'Latest')])[1]");
-		
-		public static By objHomeInHambugerMenu = By.xpath("//*[contains(@class,'menuGroup')]//a[contains(@class,'active')]//div[contains(text(),'Home')]");
-		
-		// Content Title on carousel
-		public static By objContTitleOnCarousel = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
+	public static By objCarousel = By.xpath("//*[contains(@class,'heroBannerCarousel minutelyUrl')]");
+
+	public static By objPageHighlighted(String PageName) {
+		return By.xpath("//*[@class='noSelect active' and text()='" + PageName + "']");
+	}
+
+	public static By objLanguageChangeContentPopup() {
+		return By.xpath("//div[@class='popupContent languageChangeContentPopup']");
+	}
+
+	public static By objLanguageChangeContentPopupCloseicon() {
+		return By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
+	}
+
+	public static By objLanguagePop = By.xpath("//div[@class='popupContent langFilterPopupWrapper']");
+
+	// Subscribe Now
+	public static By objSubscribeNow = By.xpath(
+			"//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Subscribe Now')]");
+
+	public static By objTwitterFollowWeb = By.xpath("//*[text()='Follow']");
+
+	public static By objAddToWatchlistButtonOnTrayContentCard(String trayName) {
+		return By.xpath("(//*[contains(@class,'trayHeader')]//*[contains(text(),'" + trayName
+				+ "')]//parent::*//following-sibling::*//*[contains(@class, 'noSelect btnIcon iconInitialLoad-ic_add_Watchlist')])[1]");
+	}
+
+	public static By objLoginRequiredPopUpHeader = By.xpath("//*[contains(text(), 'Login Required')]");
+
+	public static By objPopupCloseicon() {
+		return By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
+	}
+
+	public static By objFirstContentCardOfTray(String trayName)
+	{
+		return By.xpath("(//*[contains(@class,'trayHeader')]//*[contains(text(),'"+trayName+"')]//parent::*//parent::*//following-sibling::*//*[contains(@class, 'content')])[1]");
+	}
+
+	public static By objsearchcontent = By.xpath("//*[@title='Krishna Balram: The Warrier Princess']");
+
+	public static By objPlayCarousel = By.xpath(
+			"//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Play')]");
+
+	public static By objHoverMenu(String text) {
+		return By.xpath("//a[contains(@class,'noSelect')][contains(text(),'" + text
+				+ "')]//following-sibling::*[@class='megaMenu megaMenuCards cardTypetvshows']");
+	}
+
+	public static By objOverlayTray = By.xpath("//span[contains(text(),'Top Zee')]");
+
+	public static By objOverlayTray2 = By.xpath("(//span[@class='noSelect ' and contains(text(),'Latest')])[1]");
+
+	public static By objHomeInHambugerMenu = By
+			.xpath("//*[contains(@class,'menuGroup')]//a[contains(@class,'active')]//div[contains(text(),'Home')]");
+
+	// Content Title on carousel
+	public static By objContTitleOnCarousel = By
+			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
 }
-

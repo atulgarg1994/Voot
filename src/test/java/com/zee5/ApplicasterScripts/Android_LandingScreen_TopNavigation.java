@@ -47,6 +47,8 @@ public class Android_LandingScreen_TopNavigation {
 	public void LandingScreen(String userType) throws Exception
 	{
 		ZEE5ApplicasterBusinessLogic.verifyShowsScreen(userType);
+		ZEE5ApplicasterBusinessLogic.verifyConsumptionScreenOfBeforeTVContent(userType);
+		ZEE5ApplicasterBusinessLogic.ShowsScreenValidationwithApiData(userType);
 		ZEE5ApplicasterBusinessLogic.verifyNewsLandingScreen(userType);
 		ZEE5ApplicasterBusinessLogic.verifyTraysInNewsScreen( userType);
 		ZEE5ApplicasterBusinessLogic.verifyListingCollectionScreen(userType);
@@ -59,6 +61,7 @@ public class Android_LandingScreen_TopNavigation {
 		ZEE5ApplicasterBusinessLogic.LiveTV(); //In Progress
 	}
 		
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("Quit the App");

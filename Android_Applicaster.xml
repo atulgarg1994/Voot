@@ -13,7 +13,7 @@
 	<parameter name="RegisteredMobile" value="7892215214"/>
 	<parameter name="RegisteredMobilePassword" value="User@123"/>
 	<parameter name="UnRegisteredMobile" value="8073661163"/>
-	<parameter name="PromoCode" value="ZEE5FLAT50"/>
+	<parameter name="PromoCode" value="PNB20"/>
 	<parameter name="NonsubscribedPassword" value="igs@12345"/>
 	<parameter name="SubscribedUserName" value="zeetest998@test.com"/>
 	<parameter name="SubscribedPassword" value="123456"/>

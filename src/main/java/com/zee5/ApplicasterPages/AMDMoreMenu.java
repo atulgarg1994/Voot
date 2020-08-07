@@ -26,7 +26,6 @@ public class AMDMoreMenu {
 	
 	public static By objInviteAFriend = By.xpath("//*[@text='Invite a Friend']");
 	public static By objAboutUs = By.xpath("//*[@text='About Us']");
-	public static By objHelpCentre = By.xpath("//*[@text='Help Centre']");
 	public static By objTermsOfUse = By.xpath("//*[@id='termsofuse']");
 	public static By objPrivacyPolicy = By.xpath("//*[@id='privacypolicy']");
 	public static By objBuildVersion = By.xpath("//*[@id='version']");
@@ -71,4 +70,6 @@ public class AMDMoreMenu {
 	public static By objSetPinContinueBtn = By.xpath("//*[@id='btn_set_pin_continue']");
 	public static By objNoRestriction = By.xpath("//*[@text='No Restriction']");
 	public static By objDownloadDoneIcon = By.xpath("//*[@id='img_state']");
+	
+	public static By objHelpCentre = By.xpath("//*[@text='Help Centre'] | //*[@text='Help Center']");
 }

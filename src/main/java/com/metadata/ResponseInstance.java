@@ -284,20 +284,21 @@ public class ResponseInstance {
 	 * Method to get content details passing content ID
 	 * 
 	 */
-	public static Response getContentDetails(String contentID) {
+	public static Response getContentDetails(String contentID,String contentType) {
 		Response respContentDetails = null;
-		String Uri = "https://gwapi.zee5.com/content/details/"+contentID+"?translation=en&country=IN";	
+		String Uri="";
+		if(contentType.equals("original")) {
+			Uri = "https://gwapi.zee5.com/content/tvshow/"+contentID+"?translation=en&country=IN";
+		}
+		else {
+			Uri = "https://gwapi.zee5.com/content/details/"+contentID+"?translation=en&country=IN";	
+		}		
 		respContentDetails = given().when().get(Uri);
 		System.out.println("Content Details API Response: "+respContentDetails.getBody().asString());
 		return respContentDetails;
 	}
 	
-	/**
-	 * Function to return response for different pages
-	 * 
-	 * @param page
-	 * @return
-	 */
+
 	/**
 	 * Function to return response for different pages
 	 * 
@@ -319,7 +320,7 @@ public class ResponseInstance {
 			page = "5011";
 		}else if(page.equals("play")) {
 			page = "4603";
-		}else if(page.equals("zeeoriginals")) {
+		}else if(page.equals("zeeoriginals") || page.equals("zee5 originals")) {
 			page = "zeeoriginals";
 		}else if(page.equals("videos")) {
 			page = "videos";
@@ -331,7 +332,8 @@ public class ResponseInstance {
 		if(page.equals("stories")) {
 			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
 		}else {
-			Uri = "https://gwapi.zee5.com/content/collection/0-8-"+ page+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages="+contLang+"&version=7";
+			Uri = "https://gwapi.zee5.com/content/collection/0-8-"+ page+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages="+contLang+"&version=8";
+			System.out.println(Uri);
 		}	
 		respCarousel = given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(Uri);
 		System.out.println("Response status : "+respCarousel.statusCode());

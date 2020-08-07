@@ -1316,7 +1316,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			String[] abc = contentURL.split("/");
 			String contentID = abc[abc.length - 1].split("\\?")[0];
 			System.out.println("contentID fetched from URL: " + contentID);
-			Response resp=ResponseInstance.getContentDetails(contentID);
+			Response resp = ResponseInstance.getContentDetails(contentID,"content");
 			System.out.println(resp.body().jsonPath());
 			String titleAPI=resp.jsonPath().get("title").toString();
 			extent.extentLogger("apidata", "Episode title fetched from API: "+titleAPI);

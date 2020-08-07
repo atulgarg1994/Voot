@@ -94,6 +94,13 @@ public class AMDDownloadPage {
 			return By.xpath("//*[@id='img_state' and ./parent::*[./parent::*[(./preceding-sibling::* | ./following-sibling::*)[./*[@text='" + str + "']]]]]");
 		}
 	
+	public static By objNoOfEpisodeList = By.xpath("//*[@id='cardContentImage']");
+	
+	public static By objShowsDownloadPage = By.xpath("//*[@class='android.widget.RelativeLayout' and ./*[@id='cardContentImage']]");
+	
+	public static By objEpisodesList = By.xpath("//*[@id='rcl_show_downloaded']");
+	
+	public static By objDownloadedVideoContent = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_title']");
 	
 	
 	/**

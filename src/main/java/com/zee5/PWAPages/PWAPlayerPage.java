@@ -30,9 +30,9 @@ public class PWAPlayerPage {
 //	 Audio button
 	public static By audioBtn = By.xpath("//*[contains(@class,'playkit-volume-control')]//button");
 //	 Total Duration time
-	public static By totalDurationTime = By.xpath(".//div[@class='playkit-time-display']");
+	public static By totalDurationTime = By.xpath("//*[@class='totalDuration']//*[@class='playkit-time-display']//*");
 //	 Current duration time
-	public static By currentDurationTime = By.xpath("//*[contains(@class,'currentDuration')]//span");
+	public static By currentDurationTime = By.xpath("//*[@class='currentDuration']//*[@class='playkit-time-display']//*");
 //	 Settings button
 	public static By settingsBtn = By.xpath("//*[contains(@aria-label,'Settings')]");
 //	 Quality button on Settings menu
@@ -82,9 +82,6 @@ public class PWAPlayerPage {
 			.xpath("//div[contains(@id,'ads-container') and contains(@style,'visible')]");
 //	 Ad absent
 	public static By objPlayerAdAbsent = By.xpath("//div[contains(@id,'ads-container') and contains(@style,'hidden')]");
-
-	// Consumption page content title
-	public static By objContentTitle = By.xpath("//div[@class='consumptionMetaDiv']//h1");
 
 	// Consumption page content title for Live News Card
 	public static By objContentTitleLiveTV = By.xpath("//div[@class='channelConsumptionMetaDiv']//h2");
@@ -282,7 +279,7 @@ public static By objPlayer = By.xpath("//div[@class='playkit-overlay-action']");
 
 	public static By objLoginText = By.xpath("//span[@class='login-link']");
 	
-	public static By objSubscribeLink = By.xpath("//span[@class='subscribe-link']");
+	public static By objSubscribeLink = By.xpath("//*[@class='popupContent upgradePopupContent']");
 	
 	public static By objWatchPromo = By.xpath("//a[@class='showDetailIcon play']/child::div[@class='playIcon']");
 	
@@ -329,4 +326,7 @@ public static By objPlayer = By.xpath("//div[@class='playkit-overlay-action']");
 	public static By watchListLoginPopupCloseButton = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 	
 	public static By objFirstCardFreeChnnelName= By.xpath("(((((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='FREE Channels']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content']//img)[1])");
+	
+	// Consumption page content title
+	public static By objContentTitle = By.xpath("//div[@class='consumptionMetaDiv' or contains(@class,'bannerTitle')]//h1");
 }
