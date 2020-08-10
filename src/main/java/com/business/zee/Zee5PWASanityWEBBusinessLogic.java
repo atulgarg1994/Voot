@@ -6621,7 +6621,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(5000);
 		verifyElementPresentAndClick(PWALoginPage.objForgotPasswordTxt, "Forgot password");
 
-		type(PWALoginPage.objEmailField, "igszee@gmail.com", "Email field");
+		type(PWALoginPage.objEmailField, "igsss12345igs@gmail.com", "Email field");
 		click(PWALoginPage.objForgotPasswordLinkButtonWEB, "Reset password button");
 		try {
 			Boolean Message = getWebDriver().findElement(By.xpath("//*[@class='toastMessage']")).isDisplayed();
