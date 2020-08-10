@@ -10,7 +10,7 @@
 
 	<parameter name="browserType" value="chrome" />
 
-	<parameter name="userType" value="SubscribedUser" />
+	<parameter name="userType" value="Guest" />
 
 	<!-- Guest/NonSubscribedUser/SubscribedUser -->
 
@@ -18,7 +18,6 @@
 	<parameter name="runModule" value="Suite" />
 
 	<!-- NONSubscribed User -->
-
 
 	<parameter name="NonsubscribedUserName"
 		value="impact0314@gmail.com" />
@@ -130,7 +129,7 @@
 		<listener class-name="com.extent.ExtentReporter" />
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
-	
+
 	<test name="AndroidPWASanityScript">
 		<classes>
 			<class name="com.zee5.PWASanityScripts.AndroidPWASanityScript" />

@@ -41,7 +41,7 @@ public class ExtentReporter implements ITestListener {
 	public static String filePath;
 	public static String fileName;
 	private static String AppVersion;
-	
+
 	/** The Constant logger. */
 	final static Logger logger = Logger.getLogger("rootLogger");
 
@@ -64,12 +64,12 @@ public class ExtentReporter implements ITestListener {
 	public void setPlatform(String platform) {
 		this.platform = platform;
 	}
-	
+
 	@SuppressWarnings("static-access")
 	public String getAppVersion() {
 		return this.AppVersion;
 	}
-	
+
 	@SuppressWarnings("static-access")
 	public void setAppVersion(String versionName) {
 		this.AppVersion = versionName;
@@ -88,7 +88,7 @@ public class ExtentReporter implements ITestListener {
 			src = ((TakesScreenshot) getWebDriver()).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
 		} else if (getPlatform().equals("Android") || getPlatform().equals("PWA")) {
 			src = ((TakesScreenshot) getDriver()).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
-		}else if (getPlatform().equals("MPWA")) {
+		} else if (getPlatform().equals("MPWA")) {
 			src = ((TakesScreenshot) getDriver()).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
 		}
 	}
@@ -97,17 +97,20 @@ public class ExtentReporter implements ITestListener {
 	public void onStart(ITestContext context) {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();
-		currentDate = dateFormat.format(date).toString().replaceFirst(" ", "_").replaceAll("/", "_").replaceAll(":","_");
+		currentDate = dateFormat.format(date).toString().replaceFirst(" ", "_").replaceAll("/", "_").replaceAll(":",
+				"_");
 		setReport(context.getName());
 		setPlatform(context.getSuite().getName());
 		appVersion();
-		
-		filePath = System.getProperty("user.dir") + "/Reports" + "/" +currentDate+"/"+ getPlatform() + "/"
+
+		filePath = System.getProperty("user.dir") + "/Reports" + "/" + currentDate + "/" + getPlatform() + "/"
 				+ context.getCurrentXmlTest().getParameter("userType") + "/" + context.getName() + "/"
-				+context.getCurrentXmlTest().getParameter("userType")+"_"+context.getName() + "_" +getAppVersion()+"_"+getDate() + ".html";
-		
-		fileName = context.getCurrentXmlTest().getParameter("userType")+"_"+context.getName() + "_" +getAppVersion()+"_"+getDate() + ".html";
-		
+				+ context.getCurrentXmlTest().getParameter("userType") + "_" + context.getName() + "_" + getAppVersion()
+				+ "_" + getDate() + ".html";
+
+		fileName = context.getCurrentXmlTest().getParameter("userType") + "_" + context.getName() + "_"
+				+ getAppVersion() + "_" + getDate() + ".html";
+
 		htmlReport.set(new ExtentHtmlReporter(filePath));
 		htmlReport.get().loadXMLConfig(new File(System.getProperty("user.dir") + "/ReportsConfig.xml"), true);
 		extent.set(new ExtentReports());
@@ -122,11 +125,10 @@ public class ExtentReporter implements ITestListener {
 	@Override
 	public void onTestStart(ITestResult result) {
 		System.out.println("onTestStart");
-		if(Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals))
-		{
-			logger.info(":::::::::Test "+result.getName()+" Started::::::::");
+		if (Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals)) {
+			logger.info(":::::::::Test " + result.getName() + " Started::::::::");
 			test.set(extent.get().createTest(result.getName()));
-		}else {
+		} else {
 			runmode = false;
 			throw new SkipException("");
 		}
@@ -136,15 +138,15 @@ public class ExtentReporter implements ITestListener {
 	public void onTestSuccess(ITestResult result) {
 		screencapture();
 		childTest.get().log(Status.PASS, result.getName() + " is PASSED");
-		logger.info("::::::::::Test "+result.getName()+" PASSED::::::::::");
+		logger.info("::::::::::Test " + result.getName() + " PASSED::::::::::");
 	}
 
 	@Override
 	public void onTestFailure(ITestResult result) {
-		if((getDriver() != null) || (getWebDriver() != null)) {
-		screencapture();
-		childTest.get().log(Status.FAIL, result.getName() + " is FAILED");
-		logger.info("::::::::::Test "+result.getName()+" FAILED::::::::::");
+		if ((getDriver() != null) || (getWebDriver() != null)) {
+			screencapture();
+			childTest.get().log(Status.FAIL, result.getName() + " is FAILED");
+			logger.info("::::::::::Test " + result.getName() + " FAILED::::::::::");
 		}
 	}
 
@@ -157,8 +159,13 @@ public class ExtentReporter implements ITestListener {
 		}
 	}
 
+	public void extentLoggerWarning(String stepName, String details) {
+		childTest.get().log(Status.WARNING, details);
+	}
+
 	public void HeaderChildNode(String header) {
-		if(test.get() != null)childTest.set(test.get().createNode(header));
+		if (test.get() != null)
+			childTest.set(test.get().createNode(header));
 	}
 
 	public void extentLogger(String stepName, String details) {
@@ -174,7 +181,7 @@ public class ExtentReporter implements ITestListener {
 		if (!getPlatform().equals("Web")) {
 			extent.get().setSystemInfo("Device Info ", DeviceDetails.DeviceInfo(context.getName()));
 			extent.get().setSystemInfo("App version : ", getAppVersion().replace("Build", ""));
-		}else if(getPlatform().equals("Web")){
+		} else if (getPlatform().equals("Web")) {
 			extent.get().setSystemInfo("Browser Info ", BrowserType);
 		}
 		extent.get().flush();
@@ -185,8 +192,7 @@ public class ExtentReporter implements ITestListener {
 	public void onTestFailedButWithinSuccessPercentage(ITestResult context) {
 	}
 
-	public static String getDate() 
-	{
+	public static String getDate() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
 		String name = dateFormat.format(date).toString().replaceFirst(" ", "_").replaceAll("/", "_").replaceAll(":",
@@ -198,7 +204,7 @@ public class ExtentReporter implements ITestListener {
 		try {
 			initExtentDriver();
 			org.apache.commons.io.FileUtils.copyFile(src,
-					new File(System.getProperty("user.dir") + "/Reports" + "/"+currentDate+"/" + getPlatform() + "/"
+					new File(System.getProperty("user.dir") + "/Reports" + "/" + currentDate + "/" + getPlatform() + "/"
 							+ Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 									.getParameter("userType")
 							+ "/" + getReport() + "/Screenshots/" + getReport() + "_" + getDate() + ".jpg"));
@@ -224,16 +230,16 @@ public class ExtentReporter implements ITestListener {
 			return null;
 		}
 	}
-	
+
 	public void appVersion() {
 		if (getPlatform().equals("Android")) {
 			PropertyFileReader handler = new PropertyFileReader("properties/AppPackageActivity.properties");
-			setAppVersion("Build " + DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim().replace("versionName=",""));
+			setAppVersion("Build " + DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim()
+					.replace("versionName=", ""));
 			logger.info(getAppVersion());
 		} else {
 			setAppVersion("");
 		}
 	}
-	
 
 }

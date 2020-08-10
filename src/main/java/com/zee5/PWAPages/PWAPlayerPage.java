@@ -4,13 +4,14 @@ import org.openqa.selenium.By;
 
 public class PWAPlayerPage {
 
-    //Verify ad Present
+	// Verify ad Present
 	public static By objAd = By.xpath("//div[contains(@class,'playkit-ad-break')]");
-	
-	//Player loader
-	public static By objPlayLoader = By.xpath("//div[contains(@class,'playkit-state-idle') or contains(@class,'playkit-state-paused')]");
-	
-	//Play
+
+	// Player loader
+	public static By objPlayLoader = By
+			.xpath("//div[contains(@class,'playkit-state-idle') or contains(@class,'playkit-state-paused')]");
+
+	// Play
 
 //	 Playback Video Overlay
 	public static By objPlaybackVideoOverlay = By.xpath("//*[@class='kaltura-player-container']");
@@ -29,10 +30,6 @@ public class PWAPlayerPage {
 	public static By forward10SecBtn = By.xpath("//*[@class='playkit-icon playkit-icon-forward-10']");
 //	 Audio button
 	public static By audioBtn = By.xpath("//*[contains(@class,'playkit-volume-control')]//button");
-//	 Total Duration time
-	public static By totalDurationTime = By.xpath("//*[@class='totalDuration']//*[@class='playkit-time-display']//*");
-//	 Current duration time
-	public static By currentDurationTime = By.xpath("//*[@class='currentDuration']//*[@class='playkit-time-display']//*");
 //	 Settings button
 	public static By settingsBtn = By.xpath("//*[contains(@aria-label,'Settings')]");
 //	 Quality button on Settings menu
@@ -61,10 +58,10 @@ public class PWAPlayerPage {
 	public static By objWhyRegister = By.xpath("//div[@class='heading']");
 //	 Close button
 	public static By objCloseBtn = By.xpath("//div[@class='manCloseIcon']");
-	
+
 	// Mute button
 	public static By objMuteButton = By.xpath("//button[@class='playkit-control-button' and @aria-label='Mute']");
-	
+
 	// Unmute button
 	public static By objUnmuteButton = By.xpath("//button[@class='playkit-control-button' and @aria-label='Unmute']");
 
@@ -72,11 +69,10 @@ public class PWAPlayerPage {
 	public static By objContentCardsOnPlayback(int index) {
 		return By.xpath("(//div[@class='carousel-slider']//div)[" + index + "]");
 	}
-	public static By objBetterQualityOption = By
-			.xpath("//div[contains(text(),'Better')]");
-	
-	public static By objBestQualityOption = By
-			.xpath("//div[text()='Best']");
+
+	public static By objBetterQualityOption = By.xpath("//div[contains(text(),'Better')]");
+
+	public static By objBestQualityOption = By.xpath("//div[text()='Best']");
 //	 Ad Present
 	public static By objPlayerAdPresent = By
 			.xpath("//div[contains(@id,'ads-container') and contains(@style,'visible')]");
@@ -87,29 +83,32 @@ public class PWAPlayerPage {
 	public static By objContentTitleLiveTV = By.xpath("//div[@class='channelConsumptionMetaDiv']//h2");
 
 	// Consumption page content meta data episode number
-	public static By objContentMetaEpisode = By.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo']//p[1]");
-	
+	public static By objContentMetaEpisode = By
+			.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo']//p[1]");
+
 	// Consumption page content meta data episode number
 	public static By objContentMetaDate = By.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo']//p[2]");
 
 	// Consumption page content meta data duration
-	public static By objContentMetaDuration = By.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo']//p[3]");
-	
+	public static By objContentMetaDuration = By
+			.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo']//p[3]");
+
 	// Consumption page content meta data duration
 	public static By objContentMetaGenre = By.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo']//p[4]");
 
 	// Consumption page content meta data duration
-	public static By objContentMetaAgeRating = By.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo']//p[5]");
-
+	public static By objContentMetaAgeRating = By
+			.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo']//p[5]");
 
 	// Player loader
 	public static By objPlayerLoader = By.xpath("//div[@class='playkit-spinner']");
-	
+
 	// Player
 	// public static By objPlayer =
 	// By.xpath("//div[@class='playkit-overlay-action']");
-	//public static By objPlayer = By.xpath("//*[@class='kaltura-player-container']");
-public static By objPlayer = By.xpath("//div[@class='playkit-overlay-action']");
+	// public static By objPlayer =
+	// By.xpath("//*[@class='kaltura-player-container']");
+	public static By objPlayer = By.xpath("//div[@class='playkit-overlay-action']");
 
 	// Player pause
 	public static By objPlayerPause = By.xpath("//i[contains(@class,'playkit-icon-pause')]");
@@ -168,7 +167,7 @@ public static By objPlayer = By.xpath("//div[@class='playkit-overlay-action']");
 	// Close button for Login Pop up
 	public static By objCloseBtnLoginPopup = By
 			.xpath("//div[contains(@class,'noSelect closePupup iconInitialLoad-ic_close')]");
-	
+
 	public static By objCloseBtnLoginPopupWeb = By
 			.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 	// Ad
@@ -178,24 +177,25 @@ public static By objPlayer = By.xpath("//div[@class='playkit-overlay-action']");
 	// Content cards on player
 	public static By objContentCardsOnPlayer = By.xpath("//*[@class='carousel-slider']");
 	// First content on player
-	public static By objfirstContent = By.xpath("(//*[@class='mainCarouselDiv']//parent::*[@class='mainCarouselDiv'])[1]");
+	public static By objfirstContent = By
+			.xpath("(//*[@class='mainCarouselDiv']//parent::*[@class='mainCarouselDiv'])[1]");
 	// Content Name below the Playback
 	public static By objContentName = By.xpath("//div[@class='consumptionMetaDiv']//h1");
 
 	// Get Premium CTA Below the Player Screen
 	public static By objGetPremiumCTABelowPlayerScreen = By
 			.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'GET PREMIUM')]");
-	
+
 	public static By objPlayerScrubber = By.xpath("//a[@class='playkit-scrubber']");
 	public static By objPlayerQualities = By.xpath("//*[contains(@class,'subMenuWrapper')]//div");
-	
+
 //	=========================================================================================
-	
+
 //	NETWORK
 	public static By objcurrenttime = By.xpath("//div[@class='currentDuration']//span");
-	
+
 //	public static By objcurrenttime1 = By.xpath("//div[@class='playkit-time-display']//span");
-	
+
 //	BINDU
 	// Subscription popup
 	public static By objSubscriptionpopup = By.xpath("//h2[contains(@class,'popupTitle') and text()='Get premium']");
@@ -224,81 +224,90 @@ public static By objPlayer = By.xpath("//div[@class='playkit-overlay-action']");
 
 	// Close icon in register dialog
 	public static By objCloseRegisterDialog = By.xpath("//div[@class='manCloseIcon']");
-	
+
 //	SUSHMA MOVIE MODULE
-	public static By objRegisterPopUp = By.xpath("//div[@class='ReactModal__Content ReactModal__Content--after-open mandatoryRegisterPopup ']");
-    
-	public static By objRegisterPopUpCloseIcon = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
-	
+	public static By objRegisterPopUp = By
+			.xpath("//div[@class='ReactModal__Content ReactModal__Content--after-open mandatoryRegisterPopup ']");
+
+	public static By objRegisterPopUpCloseIcon = By
+			.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
+
 //	BHAVANA SHOWS MODULE
-	//Watch latest Episode CTA
+	// Watch latest Episode CTA
 	public static By objWatchLatestEpisode = By.xpath("//p[contains(text(),'Watch Latest Episode')]");
-	
+
 	public static By objlatestepisode = By.xpath("//p[contains(text(),'Watch Latest Episode')]");
-	
+
 	public static By objWhyRegisterPopUp = By.xpath("//div[.='Sign Up']");
-	
-	public static By objPopUpafterPlayer = By.xpath("//div[@class='ReactModal__Content ReactModal__Content--after-open popupModal']");
-	
+
+	public static By objPopUpafterPlayer = By
+			.xpath("//div[@class='ReactModal__Content ReactModal__Content--after-open popupModal']");
+
 	public static By oblClosePopup = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
-	
+
 	public static By objWEBCloseBtnLoginPopup = By.xpath("//div[@class='manCloseIcon']");
-	
+
 	public static By objtotaltime = By.xpath("//div[@class='totalDuration']//span");
 	public static By objprogressBar = By.xpath("//div[@class='playkit-progress-bar']");
 	public static By objprogressProgress = By.xpath("//div[@class='playkit-progress']");
 	public static By objtimedanchors = By.xpath("(//div[@playermarkertag='timer']//div)");
-	public static By objtimedAnchor(int i)
-	{
-		return By.xpath("(//div[@playermarkertag='timer']//div)["+i+"]");
+
+	public static By objtimedAnchor(int i) {
+		return By.xpath("(//div[@playermarkertag='timer']//div)[" + i + "]");
 	}
-	public static By vootCarouselContent=By.xpath("(//div[contains(@class,'slick-center')]//img[contains(@class,'image-transition')])[2]");
-	public static By startPlayer=By.xpath("//div[@class='playkit-pre-playback-play-overlay']//i[contains(@class,'playkit-icon playkit-icon-play')]");
-	public static By vootPlayer=By.xpath("//div[contains(@class,'playkit-overlay-action')]");
-	public static By vootPlayerPause=By.xpath("//div[@class='playkit-playback-controls']//i[contains(@class,'playkit-icon-pause')]");
-	public static By objWouldYouLikeClosePopup = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
+
+	public static By vootCarouselContent = By
+			.xpath("(//div[contains(@class,'slick-center')]//img[contains(@class,'image-transition')])[2]");
+	public static By startPlayer = By.xpath(
+			"//div[@class='playkit-pre-playback-play-overlay']//i[contains(@class,'playkit-icon playkit-icon-play')]");
+	public static By vootPlayer = By.xpath("//div[contains(@class,'playkit-overlay-action')]");
+	public static By vootPlayerPause = By
+			.xpath("//div[@class='playkit-playback-controls']//i[contains(@class,'playkit-icon-pause')]");
+	public static By objWouldYouLikeClosePopup = By
+			.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 	public static By objWebZeeLogo = By.xpath("//div[@class='zeeLogo noSelect']//child::*");
 	public static By objZeeLogo = By.xpath("//div[@class='zeeLogo noSelect']");
 	public static By objSpinner = By.xpath(".//*[@class='playkit-spinner']");
 	public static By objContentTitleInConsumptionPage = By.xpath("//div[@class='consumptionMetaDiv']//h1");
 	public static By objLiveTag = By.xpath("//*[@class='playkit-live-tag']");
 
-
 	public static By objCompleteProfile = By.xpath("//div[contains(text(),'Complete profile')]");
 	public static By objCompleteProfileCloseIcon = By.xpath("//div[@class='manCloseIcon']");
 
 	public static By objGetPremium = By.xpath("//div//button[@class='subscribe-teaser-button']");
-	
+
 	public static By objSkipAd = By.xpath("//button[@aria-label='Skip Ad']");
-	
-	public static By objAdultView=By.xpath("//span[contains(text(),'This content is for Adult viewing only. Please login to continue. ')]");
+
+	public static By objAdultView = By
+			.xpath("//span[contains(text(),'This content is for Adult viewing only. Please login to continue. ')]");
 
 	public static By objPlayerscreen = By.xpath("//div[@class='playkit-overlay-action']");
 
 	public static By objUpnextCard = By.xpath("(//div[@class='mainCarouselDiv'])[1]");
 
 	public static By objLoginText = By.xpath("//span[@class='login-link']");
-	
+
 	public static By objSubscribeLink = By.xpath("//*[@class='popupContent upgradePopupContent']");
-	
+
 	public static By objWatchPromo = By.xpath("//a[@class='showDetailIcon play']/child::div[@class='playIcon']");
-	
-	public static By subscribePopUp =  By.xpath("//*[contains(@class,'popupTitle') and .='Subscribe']");
-	
-	public static By objfasterclosePopUp = By.xpath("//div[@class='adoric_element element-shape closeLightboxButton editing']");
-	
+
+	public static By subscribePopUp = By.xpath("//*[contains(@class,'popupTitle') and .='Subscribe']");
+
+	public static By objfasterclosePopUp = By
+			.xpath("//div[@class='adoric_element element-shape closeLightboxButton editing']");
+
 	public static By objfasterPopUp = By.xpath("//div[@class='adoric_element element-text selected editing']");
-	
+
 	// Consumptions page show title
 	public static By objConsumptionsShowTitle = By.xpath("//div[@class='metaInfo']//a");
-	
+
 	// Show details page show title
 	public static By objContentShowTitle = By
 			.xpath("//div[@class='showDetails']//div[contains(@class,'bannerTitle')]//h1");
 
 	public static By objPlayerSelectedQuality = By
 			.xpath("//*[contains(@class,'subMenuWrapper') and contains(@class,'tickMark')]//div");
-	
+
 	public static By objPlayerUnSelectedQuality = By
 			.xpath("//*[contains(@class,'subMenuWrapper') and not(contains(@class,'tickMark'))]//div");
 
@@ -308,25 +317,42 @@ public static By objPlayer = By.xpath("//div[@class='playkit-overlay-action']");
 	}
 
 	public static By objPlayerAudioTrack = By.xpath("//span[@class='menuTitle' and .='Audio Track']");
-	
+
 	public static By objPlayerAudioTrackIcon = By.xpath("//span[@class='menuTitle' and .='Audio Track']");
 	public static By objPlayerAudioTracksAvailable = By.xpath("//*[contains(@class,'subMenuWrapper')]//div");
-	public static By objPlayerSelectedAudioTrack = By.xpath("//*[contains(@class,'subMenuWrapper') and contains(@class,'tickMark')]//div");
-	public static By objPlayerUnSelectedAudioTrack = By.xpath("//*[contains(@class,'subMenuWrapper') and not(contains(@class,'tickMark'))]//div");
+	public static By objPlayerSelectedAudioTrack = By
+			.xpath("//*[contains(@class,'subMenuWrapper') and contains(@class,'tickMark')]//div");
+	public static By objPlayerUnSelectedAudioTrack = By
+			.xpath("//*[contains(@class,'subMenuWrapper') and not(contains(@class,'tickMark'))]//div");
+
 	public static By objPlayerUnSelectedAudioTrack(String track) {
-		return By.xpath("//*[contains(@class,'subMenuWrapper') and not(contains(@class,'tickMark'))]//div[.='"+track+"']");
+		return By.xpath(
+				"//*[contains(@class,'subMenuWrapper') and not(contains(@class,'tickMark'))]//div[.='" + track + "']");
 	}
-	
-	public static By objFirstCardFreeChnnels = By.xpath("(((((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='FREE Channels']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content'])[1])");
+
+	public static By objFirstCardFreeChnnels = By.xpath(
+			"(((((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='FREE Channels']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content'])[1])");
 
 	public static By watchListLoginPopup = By.xpath("//div[@class='popupContent watchListLoginCheckContent']");
-	
+
 	public static By watchListLoginButton = By.xpath("//div[contains(text(),'Login')]");
-	
-	public static By watchListLoginPopupCloseButton = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
-	
-	public static By objFirstCardFreeChnnelName= By.xpath("(((((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='FREE Channels']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content']//img)[1])");
-	
+
+	public static By watchListLoginPopupCloseButton = By
+			.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
+
+	public static By objFirstCardFreeChnnelName = By.xpath(
+			"(((((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='FREE Channels']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content']//img)[1])");
+
 	// Consumption page content title
-	public static By objContentTitle = By.xpath("//div[@class='consumptionMetaDiv' or contains(@class,'bannerTitle')]//h1");
+	public static By objContentTitle = By
+			.xpath("//div[@class='consumptionMetaDiv' or contains(@class,'bannerTitle')]//h1");
+
+//	 Total Duration time
+	public static By totalDurationTime = By.xpath("//*[@class='totalDuration']//*[@class='playkit-time-display']//*");
+//	 Current duration time
+	public static By currentDurationTime = By
+			.xpath("//*[@class='currentDuration']//*[@class='playkit-time-display']//*");
+//Play or Pause
+	public static By objPlayOrPause = By
+			.xpath("//*[@class='playkit-icon playkit-icon-pause' or @class='playkit-icon playkit-icon-play']");
 }

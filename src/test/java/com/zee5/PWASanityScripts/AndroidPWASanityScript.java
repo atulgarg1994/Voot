@@ -47,7 +47,7 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.playerValidations(userType);
 		//Zee5PWASanityBusinessLogic.UpnextRail();
 	}
-*/
+
 
 	@Test(priority = 5) // BASAVARAJ
 	@Parameters({"url", "userType", "devicePin", "consumptionsEpisode","consumptionsShow","consumptionsFreeContent","consumptionsPremiumContent"}) 
@@ -62,7 +62,7 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.verifySubscriptionPopupForPremiumContent(userType, consumptionsPremiumContent);
 		Zee5PWASanityBusinessLogic.verifyCTAandMetaDataInDetailsAndConsumption(consumptionsShow);
 	}
-/*		
+		
 	@Test(priority = 6)
 	@Parameters({ "userType" ,"url"}) // MANAS
 	public void PWACarousel(String userType, String url) throws Exception {
@@ -123,7 +123,39 @@ public class AndroidPWASanityScript {
 	{
 		Zee5PWASanityBusinessLogic.Moviepage(userType, "Movies");
 	}
+	
+	@Test(priority = 7)
+	@Parameters({ "userType" }) // HITESH
+	public void PWAMusicPageValidation(String userType) throws Exception {
+		Zee5PWASanityBusinessLogic.MusicPageValidation(userType,"Music");
+	}
 
+	@Test(priority = 9)
+	@Parameters({ "userType" }) // MANASA
+	public void PWAPremiumPageValidation(String userType) throws Exception {
+		Zee5PWASanityBusinessLogic.premiumPageValidation(userType, "Premium");	
+	}
+	
+	@Test(priority = 12)
+	@Parameters({ "userType" }) // BHAVANA
+	public void PWAShowsPageValidation(String userType) throws Exception {
+		Zee5PWASanityBusinessLogic.ShowsValidation(userType);
+	}
+		
+	@Test(priority = 10)
+	@Parameters({ "userType" }) // MANASA
+	public void PWALandingPagesHomeValidation(String userType) throws Exception {	
+		Zee5PWASanityBusinessLogic.ValidatingLandingPages(userType);//Tejas
+		Zee5PWASanityBusinessLogic.verifyUIofHomePage(); // manasa default home
+		
+	}
+	
+	@Test(priority = 6)
+	@Parameters({ "userType" }) // YASHASHWINI
+	public void PWANewsPageValidation(String userType) throws Exception {
+		Zee5PWASanityBusinessLogic.newsPageValidation(userType,"News");
+	}
+	
 	@Test(priority = 9) // TANISHA
 	@Parameters({ "userType" })
 	public void PWARecoTalamoosModule(String userType) throws Exception {
@@ -163,43 +195,19 @@ public class AndroidPWASanityScript {
 	@Test(priority = 5)
 	@Parameters({ "userType" }) // MANASA
 	public void PWASubscriptionPageValidation(String userType) throws Exception {
-		Zee5PWASanityBusinessLogic.ZeePWALogin("E-mail", userType);
 		Zee5PWASanityBusinessLogic.contentLanguageVerify(userType);
 		Zee5PWASanityBusinessLogic.verifyUIofZEESubscriptionPage(userType);
 		Zee5PWASanityBusinessLogic.verifyUIofMySubscriptionPage(userType);
 		Zee5PWASanityBusinessLogic.validatingActiveAndExpiredCardsinMyTransactionPage(userType);
 	}
-
-	@Test(priority = 6)
-	@Parameters({ "userType" }) // YASHASHWINI
-	public void PWANewsPageValidation(String userType) throws Exception {
-		Zee5PWASanityBusinessLogic.newsPageValidation("News");
-	}
-
-	@Test(priority = 7)
-	@Parameters({ "userType" }) // HITESH
-	public void PWAMusicPageValidation(String userType) throws Exception {
-		Zee5PWASanityBusinessLogic.navigateToMusicTab(userType);
-		Zee5PWASanityBusinessLogic.landingPagesValidation("Music");
-	}
-
-	@Test(priority = 9)
-	@Parameters({ "userType" }) // MANASA
-	public void PWAPremiumPageValidation(String userType) throws Exception {
-		Zee5PWASanityBusinessLogic.landingPagesValidation("Premium");
-		Zee5PWASanityBusinessLogic.landingPagesTrailerAndPopUpValidation(userType,"Premium");
-		//smoke
-		Zee5PWASanityBusinessLogic.ValidatingLandingPages(userType);//Tejas
-		Zee5PWASanityBusinessLogic.verifyUIofHomePage(); // manasa default home
-		
-	}
+	
 
 	@Test(priority = 10)
 	@Parameters({ "userType" }) // SHREENIDHI
 	public void PWANetworkInterruptions(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.networkInterruptionScenarios(userType);
 	}
-
+*/
 	@Test(priority = 11)
 	@Parameters({ "userType" }) // SATHISH
 	public void PWASubscriptionPopUp(String userType) throws Exception {
@@ -208,13 +216,7 @@ public class AndroidPWASanityScript {
 		//smoke
 		Zee5PWASanityBusinessLogic.zeePWASubscriptionSuite(userType); 
 	}
-
-	@Test(priority = 12)
-	@Parameters({ "userType" }) // BHAVANA
-	public void PWAShowsPageValidation(String userType) throws Exception {
-		Zee5PWASanityBusinessLogic.ShowsValidation(userType);
-	}
-
+/*
 	@Test(priority = 13)
 	@Parameters({ "userType" }) // BHAVANA
 	public void PWAExternalLinks(String userType) throws Exception {
@@ -250,8 +252,8 @@ public class AndroidPWASanityScript {
     public void PWAZeeOriginalsPageValidation(String UserType) throws Exception {
 		Zee5PWASanityBusinessLogic.Zee5OriginalsScreen(UserType, "ZEE5 Originals");
     }
-*/
-		
+
+*/		
 	@AfterClass
 	public void tearDown() {
 		Zee5PWASanityBusinessLogic.tearDown();

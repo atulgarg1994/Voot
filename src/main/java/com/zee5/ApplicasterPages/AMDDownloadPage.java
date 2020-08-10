@@ -50,7 +50,7 @@ public class AMDDownloadPage {
 	public static By objGreyedThumbnail = By.xpath("//*[@id='downloadView' and @class='android.view.View']");
 	public static By objdownloadpopup = By
 			.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Pause Download']]");
-	public static By objPauseDownloadoption = By.xpath("//*[@id='tvPauseDownload']");
+	public static By objPauseDownloadoption = By.xpath("//*[@resource-id='com.graymatrix.did:id/tvPauseAll']");
 	public static By objCancelDownloadOption = By.xpath("//*[@id='tvCancelDownload']");
 	
 	public static By objDownloadbtn = By.xpath("//*[@id='downlowd_image']");

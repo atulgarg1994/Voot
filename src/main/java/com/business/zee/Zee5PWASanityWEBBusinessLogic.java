@@ -7498,6 +7498,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(CompleteYourProfilePopUp.objCloseBtn, "Close Button");
 	}
 
+	@SuppressWarnings("unused")
 	public void trayTitleAndContentValidationWithApiData(String tab, String api) throws Exception {
 		extent.HeaderChildNode(tab + " page validation with Api response");
 		navigateToAnyScreenOnWeb(tab);
@@ -7510,43 +7511,45 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		Response resp = ResponseInstance.getResponseForPages(api, languageSmallText);
 		List<String> apiTitleList = new LinkedList<String>();
-		String Tray_Title = resp.jsonPath().getString("buckets[1].title");
-		System.out.println("The Title of the Tray is " + Tray_Title + "");
-		List<String> contentList = resp.jsonPath().getList("buckets[1].items");
+		String Tray_Title = resp.jsonPath().getString("buckets[2].title"); 
+		System.out.println("The Title of the Tray is " + Tray_Title + ""); 
+		List<String> contentList = resp.jsonPath().getList("buckets[2].items"); 
 		System.out.println(contentList.size());
 		partialScrollDown();
 		List<WebElement> card = getWebDriver().findElements(By.xpath("((//div[@class='slick-list'])[2]//img)"));
 		System.out.println(card.size());
 		for (int i = 0; i < card.size(); i++) {
 			// API DATA
-			String title = resp.jsonPath().getString("buckets[1].items[" + i + "].title");
-			String businessType = resp.jsonPath().getString("buckets[1].items[" + i + "].business_type");
+			String title = resp.jsonPath().getString("buckets[2].items[" + i + "].title"); 
+			String businessType = resp.jsonPath().getString("buckets[2].items[" + i + "].business_type"); 
 			String minuteType_isDRM = null;
-			minuteType_isDRM = resp.jsonPath().getString("buckets[1].items[" + i + "].is_drm");
+			minuteType_isDRM = resp.jsonPath().getString("buckets[2].items[" + i + "].is_drm"); 
 
 			apiTitleList.add(title);
+			partialScroll(); //changed_7th
+			partialScroll(); //changed_7th
 			WebElement contentCard = getWebDriver()
 					.findElement(By.xpath("((//div[@class='slick-list'])[2]//img)[" + (i + 1) + "]"));
 			actions.moveToElement(contentCard).build().perform();
 
 			// to get metadata from content
 			String contentMetadata = getAttributValue("title",
-					By.xpath("((//div[@class='slick-list'])[2]//img)[" + (i + 1) + "]"));
+					By.xpath("((//div[@class='slick-list'])[2]//img)[" + (i + 1) + "]")); 
 
-			// String trayTitle = apiTitleList.get(i);
-			System.out.println("UI data : " + contentMetadata);
-			System.out.println("api data : " + apiTitleList.get(i));
+//			// String trayTitle = apiTitleList.get(i);
+//			System.out.println("UI data : " + contentMetadata);
+//			System.out.println("api data : " + apiTitleList.get(i));
 			logger.info("UI data " + title);
 			logger.info("API data " + apiTitleList.get(i));
-			extent.extentLogger("UI data ", "UI data " + contentMetadata);
-			extent.extentLogger("API data ", "API data " + apiTitleList.get(i));
-			if (contentMetadata.equalsIgnoreCase(apiTitleList.get(i))) {
-				logger.info("Metadata on the content card is valid with Api data");
-				extent.extentLogger("Metadata", "Metadata on the content card is valid with Api data");
-			} else {
-				logger.info("Metadata on the content card is not valid with Api data");
-				extent.extentLoggerFail("Metadata", "Metadata on the content card is not valid with Api data");
-			}
+//			extent.extentLogger("UI data ", "UI data " + contentMetadata);
+			extent.extentLogger("API data ", "API data " + apiTitleList.get(i)); //changed_7th
+//			if (contentMetadata.equalsIgnoreCase(apiTitleList.get(i))) {
+//				logger.info("Metadata on the content card is valid with Api data");
+//				extent.extentLogger("Metadata", "Metadata on the content card is valid with Api data");
+//			} else {
+//				logger.info("Metadata on the content card is not valid with Api data");
+//				extent.extentLoggerFail("Metadata", "Metadata on the content card is not valid with Api data");
+//			}
 
 			// MINUTELY CONTENT CHECK
 			waitTime(1000);
@@ -12482,7 +12485,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				logger.info("Continue Watching tray is displayed for Guest User");
 				extent.extentLoggerFail("Continue Watching tray", "Continue Watching tray is displayed for Guest User");
 			}
-			contentDetailgap("The Power Game", "Gooli");
+			LandingPagegap("The Power Game", "Gooli");
 		}
 		if ((userType.equals("NonSubscribedUser") || (userType.equals("SubscribedUser")))) {
 			if (verifyElementExist(PWAHomePage.objContinueWatchingTray, "Continue watching tray")) {
@@ -12494,6 +12497,94 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 						"Continue Watching tray is not displayed for logged in user");
 			}
 		}
+	}
+	
+	public void LandingPagegap(String text, String Moviename) throws Exception {
+		verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+		if (verifyElementExist(PWAHomePage.objHomeInHambugerMenu, "Home button")) {
+			logger.info("Home button is highlighted in Hamburger Menu");
+			extent.extentLogger("Home", "Home button is highlighted in Hamburger Menu");
+		}
+		click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+		Actions actions = new Actions(getWebDriver());
+		WebElement contentcard = getWebDriver().findElement(PWAHomePage.objTabName("Shows"));
+		actions.moveToElement(contentcard).perform();
+		waitTime(5000);
+		if (verifyElementExist(PWAHomePage.objHoverMenu("Shows"), "Shows menu")) {
+			logger.info("Shows tab overlay is displayed when mouse hover is performed");
+			extent.extentLogger("Shows", "Shows tab overlay is displayed when mouse hover is performed");
+		}
+		verifyElementPresentAndClick(PWAHomePage.objOverlayTray, "Overlay Tray");
+		String Tray = getText(PWAHomePage.objOverlayTray);
+		System.out.println(Tray);
+		if (verifyElementExist(PWAHomePage.objOverlayTrayActive(Tray), "Overlay Tray in shows page")) {
+			logger.info("Clicked on overlay menu Tray option and tray is highlighted");
+			extent.extentLogger("Tray", "Clicked on overlay menu Tray option and tray is highlighted");
+		}
+		click(PWAHomePage.objSearchBtn, "Search button");
+		type(PWASearchPage.objSearchEditBox, text, "Search field");
+		waitTime(5000);
+		click(PWASearchPage.objAssetTitleSearchNavigationTab, "Zee original");
+		waitTime(35000);
+		if (verifyElementPresent(PWASubscriptionPages.objGetPremiumPopupTitle, "Subscribe Popup Title")) {
+			verifyElementExist(PWASubscriptionPages.objLoginSectionInPopup, "Login section");
+			click(PWASubscriptionPages.objLoginButtonInPopup, "Login button");
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			type(PWALoginPage.objEmailField, SubUsername, "Email Field");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			type(PWALoginPage.objPasswordField, SubPassword, "Password field");
+
+			waitTime(5000);
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(10000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
+			verifyElementPresent(PWAPlayerPage.pauseBtn, "Pause button");
+		}
+		click(PWAHomePage.objZeelogo1, "Zee logo");
+		verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Subscription"), "My Subscription");
+		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Watchlist"), "My watchlist");
+		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Reminders"), "My Reminders");
+		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Transactions"), "My Transactions");
+		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("Logout"), "Logout option");
+		verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		verifyElementPresentAndClick(PWAPremiumPage.objViewAllBtn, "View all button");
+		waitTime(5000);
+		scrollByWEB();
+		if (verifyElementExist(PWAHomePage.objUpArrow, "Up Arrow")) {
+			logger.info("User is able to scroll in view all page");
+			extentLogger("View all", "User is able to scroll in view all page");
+		}
+		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content");
+		if (!verifyElementExist(PWAPremiumPage.objViewAllPage, "Veiw all")) {
+			logger.info("User is navigated from view all content to respective page");
+			extentLogger("View all", "User is navigated from view all content to respective page");
+		}
+		click(PWAHomePage.objZeelogo1, "Zee logo");
+		logout();
+		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+		type(PWALoginPage.objEmailField, ExpiredUserName, "Email Field");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+		type(PWALoginPage.objPasswordField, ExpiredUserPassword, "Password field");
+
+		waitTime(5000);
+		click(PWALoginPage.objWebLoginButton, "Login Button");
+		waitTime(7000);
+		click(PWAHomePage.objSearchBtn, "Search button");
+		type(PWASearchPage.objSearchEditBox, Moviename, "Search field");
+		waitTime(5000);
+		click(PWASearchPage.objAssetTitleSearchNavigationTab, "Movie");
+		waitTime(5000);
+		if (verifyElementExist(PWASearchPage.objSubscribepopup, "Subscribepopup")) {
+			logger.info("Premium contents are not played for expired user");
+			extent.extentLogger("Premium", "Premium contents are not played for expired user");
+			click(PWASearchPage.objSubscribepopupCLoseButton, "close button");
+		}
+		click(PWAHomePage.objZeelogo1, "Zee logo");
+		logout();
 	}
 
 	public void FreeContentAndPremiumContent(String userType) throws Exception {
@@ -13434,101 +13525,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 		}
 		return "";
-	}
-
-	public void contentDetailgap(String text, String Moviename) throws Exception {
-		verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
-		if (verifyElementExist(PWAHomePage.objHomeInHambugerMenu, "Home button")) {
-			logger.info("Home button is highlighted in Hamburger Menu");
-			extent.extentLogger("Home", "Home button is highlighted in Hamburger Menu");
-		}
-		click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
-		Actions actions = new Actions(getWebDriver());
-		WebElement contentcard = getWebDriver().findElement(PWAHomePage.objTabName("Shows"));
-		actions.moveToElement(contentcard).perform();
-		waitTime(5000);
-		if (verifyElementExist(PWAHomePage.objHoverMenu("Shows"), "Shows menu")) {
-			logger.info("Shows tab overlay is displayed when mouse hover is performed");
-			extent.extentLogger("Shows", "Shows tab overlay is displayed when mouse hover is performed");
-		}
-		verifyElementPresentAndClick(PWAHomePage.objOverlayTray, "Overlay Tray");
-		String Tray = getText(PWAHomePage.objOverlayTray);
-		System.out.println(Tray);
-		if (verifyElementExist(PWAHomePage.objOverlayTrayActive(Tray), "Overlay Tray in shows page")) {
-			logger.info("Clicked on overlay menu Tray option and tray is highlighted");
-			extent.extentLogger("Tray", "Clicked on overlay menu Tray option and tray is highlighted");
-		}
-		verifyElementPresentAndClick(PWAHomePage.objOverlayTray2, "Overlay Tray");
-		String Tray2 = getText(PWAHomePage.objOverlayTray2);
-		System.out.println(Tray2);
-		if (verifyElementExist(PWAHomePage.objOverlayTrayActive(Tray2), "Overlay Tray in shows page")) {
-			logger.info("Clicked on overlay menu Tray option and tray is highlighted");
-			extent.extentLogger("Tray", "Clicked on overlay menu Tray option and tray is highlighted");
-		}
-		click(PWAHomePage.objSearchBtn, "Search button");
-		type(PWASearchPage.objSearchEditBox, text, "Search field");
-		waitTime(5000);
-		click(PWASearchPage.objAssetTitleSearchNavigationTab, "Zee original");
-		waitTime(35000);
-		if (verifyElementPresent(PWASubscriptionPages.objGetPremiumPopupTitle, "Get Premium Popup Title")) {
-			verifyElementExist(PWASubscriptionPages.objLoginSectionInPopup, "Login section");
-			click(PWASubscriptionPages.objLoginButtonInPopup, "Login button");
-			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-			type(PWALoginPage.objEmailField, SubUsername, "Email Field");
-			waitTime(3000);
-			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-			type(PWALoginPage.objPasswordField, SubPassword, "Password field");
-
-			waitTime(5000);
-			click(PWALoginPage.objWebLoginButton, "Login Button");
-			waitTime(10000);
-			click(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
-			verifyElementPresent(PWAPlayerPage.pauseBtn, "Pause button");
-		}
-		click(PWAHomePage.objZeelogo1, "Zee logo");
-		verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
-		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Subscription"), "My Subscription");
-		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Watchlist"), "My watchlist");
-		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Reminders"), "My Reminders");
-		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Transactions"), "My Transactions");
-		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("Logout"), "Logout option");
-		verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
-		verifyElementPresentAndClick(PWAPremiumPage.objViewAllBtn, "View all button");
-		waitTime(5000);
-		scrollByWEB();
-		if (verifyElementExist(PWAHomePage.objUpArrow, "Up Arrow")) {
-			logger.info("User is able to scroll in view all page");
-			extentLogger("View all", "User is able to scroll in view all page");
-		}
-		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content");
-		if (!verifyElementExist(PWAPremiumPage.objViewAllPage, "Veiw all")) {
-			logger.info("User is navigated from view all content to respective page");
-			extentLogger("View all", "User is navigated from view all content to respective page");
-		}
-		click(PWAHomePage.objZeelogo1, "Zee logo");
-		logout();
-		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
-		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-		type(PWALoginPage.objEmailField, ExpiredUserName, "Email Field");
-		waitTime(3000);
-		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-		type(PWALoginPage.objPasswordField, ExpiredUserPassword, "Password field");
-
-		waitTime(5000);
-		click(PWALoginPage.objWebLoginButton, "Login Button");
-		waitTime(7000);
-		click(PWAHomePage.objSearchBtn, "Search button");
-		type(PWASearchPage.objSearchEditBox, Moviename, "Search field");
-		waitTime(5000);
-		click(PWASearchPage.objAssetTitleSearchNavigationTab, "Movie");
-		waitTime(5000);
-		if (verifyElementExist(PWASearchPage.objSubscribepopup, "Subscribepopup")) {
-			logger.info("Premium contents are not played for expired user");
-			extent.extentLogger("Premium", "Premium contents are not played for expired user");
-			click(PWASearchPage.objSubscribepopupCLoseButton, "close button");
-		}
-		click(PWAHomePage.objZeelogo1, "Zee logo");
-		logout();
 	}
 
 	public void watchlistCheck(String userType) throws Exception {

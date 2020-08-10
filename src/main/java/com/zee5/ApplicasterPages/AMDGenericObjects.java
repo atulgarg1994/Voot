@@ -43,4 +43,6 @@ public class AMDGenericObjects {
 	
 
 	public static By objCloseInterstitialAd = By.xpath("//*[@contentDescription='Interstitial close button'] | //*[@content-desc='Interstitial close button']");
+	
+	public static By objWifiToggle = By.xpath("//*[@id='switch_widget']");
 }

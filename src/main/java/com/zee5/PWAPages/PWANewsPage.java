@@ -32,4 +32,7 @@ public class PWANewsPage {
 	public static By objNonLiveNews = By.xpath("(//div[@class='content'])[6]");
 	public static By objSeekbar = By.xpath("//div[@class='playkit-progress-bar']");
 	public static By ContentPlayer = By.xpath("//div[@id='player-placeholder']");
+
+	public static By objLiveNewsCard = By.xpath("//div[@data-minutelytitle]");
+	public static By objLiveNewsConsumptionsTitle = By.xpath("//div[@class='channelConsumptionMetaDiv']//h1");
 }

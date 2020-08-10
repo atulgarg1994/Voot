@@ -290,11 +290,14 @@ public class ResponseInstance {
 		if(contentType.equals("original")) {
 			Uri = "https://gwapi.zee5.com/content/tvshow/"+contentID+"?translation=en&country=IN";
 		}
+		else if(contentType.contentEquals("Manual")) {
+			Uri = "https://gwapi.zee5.com/content/collection/"+contentID+"?translation=en&country=IN";
+		}
 		else {
 			Uri = "https://gwapi.zee5.com/content/details/"+contentID+"?translation=en&country=IN";	
 		}		
 		respContentDetails = given().when().get(Uri);
-		System.out.println("Content Details API Response: "+respContentDetails.getBody().asString());
+		//System.out.println("Content Details API Response: "+respContentDetails.getBody().asString());
 		return respContentDetails;
 	}
 	
@@ -309,7 +312,7 @@ public class ResponseInstance {
 		Response respCarousel = null;
 		String Uri = "";
 		if (page.equals("news")) {
-			page = "626";
+			page = "5857";
 		} else if (page.equals("music")) {
 			page = "2707";
 		} else if (page.equals("home")) {
@@ -328,6 +331,8 @@ public class ResponseInstance {
 			page = "movies";
 		}else if(page.equals("shows")) {
 			page = "tvshows";
+		}else if(page.equals("premium")) {
+			page = "premiumcontents";
 		}
 		if(page.equals("stories")) {
 			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";

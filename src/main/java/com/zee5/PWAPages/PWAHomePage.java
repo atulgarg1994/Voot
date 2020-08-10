@@ -66,10 +66,6 @@ public class PWAHomePage {
 	public static By objPlayBtn = By
 			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'playIcon')]");
 
-	// Get premium btn
-	public static By objGetPremium = By.xpath(
-			"//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Get premium')]");
-
 	// Carousel Banner
 	public static By objCarouselBanner = By.xpath("//div[@class=\"carouselMain\"]");
 
@@ -436,9 +432,9 @@ public class PWAHomePage {
 		return By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 	}
 
-	public static By objFirstContentCardOfTray(String trayName)
-	{
-		return By.xpath("(//*[contains(@class,'trayHeader')]//*[contains(text(),'"+trayName+"')]//parent::*//parent::*//following-sibling::*//*[contains(@class, 'content')])[1]");
+	public static By objFirstContentCardOfTray(String trayName) {
+		return By.xpath("(//*[contains(@class,'trayHeader')]//*[contains(text(),'" + trayName
+				+ "')]//parent::*//parent::*//following-sibling::*//*[contains(@class, 'content')])[1]");
 	}
 
 	public static By objsearchcontent = By.xpath("//*[@title='Krishna Balram: The Warrier Princess']");
@@ -461,4 +457,8 @@ public class PWAHomePage {
 	// Content Title on carousel
 	public static By objContTitleOnCarousel = By
 			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
+
+	// Get premium btn
+	public static By objGetPremium = By.xpath(
+			"//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Subscribe Now')]");
 }
