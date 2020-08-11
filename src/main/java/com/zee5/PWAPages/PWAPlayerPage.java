@@ -182,10 +182,6 @@ public class PWAPlayerPage {
 	// Content Name below the Playback
 	public static By objContentName = By.xpath("//div[@class='consumptionMetaDiv']//h1");
 
-	// Get Premium CTA Below the Player Screen
-	public static By objGetPremiumCTABelowPlayerScreen = By
-			.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'GET PREMIUM')]");
-
 	public static By objPlayerScrubber = By.xpath("//a[@class='playkit-scrubber']");
 	public static By objPlayerQualities = By.xpath("//*[contains(@class,'subMenuWrapper')]//div");
 
@@ -355,4 +351,12 @@ public class PWAPlayerPage {
 //Play or Pause
 	public static By objPlayOrPause = By
 			.xpath("//*[@class='playkit-icon playkit-icon-pause' or @class='playkit-icon playkit-icon-play']");
+
+	// Get Premium CTA Below the Player Screen
+	public static By objGetPremiumCTABelowPlayerScreen = By
+			.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Subscribe')]");
+
+	// Watchlist button already added
+	public static By watchListBtnAlreadyAdded = By
+			.xpath("//div[contains(@class,'ic_watchlist')]//p[contains(text(),'Watchlist')]");
 }

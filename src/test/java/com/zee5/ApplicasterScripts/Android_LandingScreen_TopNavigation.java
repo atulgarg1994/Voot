@@ -48,7 +48,6 @@ public class Android_LandingScreen_TopNavigation {
 	{
 		ZEE5ApplicasterBusinessLogic.verifyShowsScreen(userType);
 		ZEE5ApplicasterBusinessLogic.verifyConsumptionScreenOfBeforeTVContent(userType);
-		ZEE5ApplicasterBusinessLogic.ShowsScreenValidationwithApiData(userType);
 		ZEE5ApplicasterBusinessLogic.verifyNewsLandingScreen(userType);
 		ZEE5ApplicasterBusinessLogic.verifyTraysInNewsScreen( userType);
 		ZEE5ApplicasterBusinessLogic.verifyListingCollectionScreen(userType);

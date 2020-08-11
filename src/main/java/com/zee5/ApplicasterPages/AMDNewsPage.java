@@ -22,8 +22,6 @@ public class AMDNewsPage {
 	
 	public static By objNewsContentCardTitle = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[2]");
 	
-	public static By objEntertainmentNewsTray = By.xpath("//*[@text='Entertainment News']");
-	
 	public static By objLiveNewsTray = By.xpath("//*[@text='Live News Channels']");
 	
 	public static By objTopStoriesTray = By.xpath("//*[@text='Top Stories']");
@@ -31,4 +29,6 @@ public class AMDNewsPage {
 	public static By objTodaysHeadlinesTray =By.xpath("//*[contains(@text,\"Today's Headlines\")]");
 	
 	public static By objCarouselCollectionContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/indicator']/child::*)[1]");
+	
+	public static By objEntertainmentNewsTray = By.xpath("//*[@text=' Entertainment News']");
 }

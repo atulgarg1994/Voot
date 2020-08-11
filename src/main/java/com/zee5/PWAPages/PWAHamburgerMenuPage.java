@@ -208,7 +208,6 @@ public class PWAHamburgerMenuPage {
 	public static By objApplyButtonInContentLangugaePopup = By.xpath("//div[@class='popupBtn noSelect']");
 	public static By objCancelButtonInContentLangugaePopup = By.xpath("//div[@class='popupBtn accentBtn noSelect']");
 	public static By objAuthenticateDevice = By.xpath("//div[contains(text(),'Authenticate Device')]");
-	public static By objContinueButtonInVerifyAccount = By.xpath("//div[@class='noSelect popupBtn']");
 	public static By objParentControlPageTitle = By.xpath("//h2[contains(@class,'pageTitle')]");
 	public static By objNoRestrictionSelected = By.xpath("//div[contains(text(),'No Restrictions')]//child::*");
 	public static By objRestrictAll = By.xpath("//div[contains(text(),'Restrict All Content')]");
@@ -616,4 +615,5 @@ public class PWAHamburgerMenuPage {
 	
 	public static By myAccount = By.xpath("//div[contains(@class,'menuTitle')]//*[.='My Account']");
 
+	public static By objContinueButtonInVerifyAccount = By.xpath("//div[@class='noSelect popupBtn' and .='Continue']");
 }

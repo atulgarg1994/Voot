@@ -284,4 +284,7 @@ public class PWASearchPage {
 	}
 	
 	public static By emptyStateScreenText = By.xpath("//div[@class='textArea']");
+	
+	public static By objSearchEpisodesTab = By.xpath("//div[contains(@class,'tabMenuItem') and @id='episodes']");
+	public static By objSearchVideosTab = By.xpath("//div[contains(@class,'tabMenuItem') and @id='videos']");
 }

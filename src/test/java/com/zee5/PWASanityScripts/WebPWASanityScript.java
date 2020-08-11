@@ -24,7 +24,7 @@ public class WebPWASanityScript {
 	}
 
 	// --------------------------BASAVARAJ TimedAnchors--------------------------
-	@Test(priority = 2)
+//	@Test(priority = 2)
 	@Parameters({ "userType" })
 	public void PWATimedAnchors(String userType) throws Exception {
 		System.out.println("PWATimedAnchors");
@@ -66,7 +66,7 @@ public class WebPWASanityScript {
 
 	// -------------------------BHAVANA External links--------------------------
 
-	@Test(priority = 6)
+//	@Test(priority = 6)
 	@Parameters({ "userType" })
 	public void ExternalLinks(String userType) throws Exception {
 		System.out.println("ExternalLinks");
@@ -76,7 +76,7 @@ public class WebPWASanityScript {
 
 	// -------------------------BHAVANA Static,Footer--------------------------
 
-	@Test(priority = 7)
+//	@Test(priority = 7)
 	@Parameters({ "userType" })
 	public void staticPagesInMenuAndFooterSectionValidation(String userType) throws Exception {
 		System.out.println("staticPagesInMenuAndFooterSectionValidation");
@@ -86,7 +86,7 @@ public class WebPWASanityScript {
 
 	// --------------------------SHREENIDHI Profile-------------------------- Last
 	// Module
-	@Test(priority = 8)
+//	@Test(priority = 8)
 	@Parameters({ "userType" })
 	public void PWAProfile(String userType) throws Exception {
 		System.out.println("PWAProfile");
@@ -95,7 +95,7 @@ public class WebPWASanityScript {
 	}
 
 	// -------------------------SUSHMA LiveTV--------------------------
-	@Test(priority = 7)
+//	@Test(priority = 7)
 	@Parameters({ "userType" })
 	public void LiveTvPage(String userType) throws Exception {
 		// SANITY
@@ -110,7 +110,7 @@ public class WebPWASanityScript {
 	}
 
 	// -------------------------MANASA Subscription--------------------------
-	@Test(priority = 8)
+//	@Test(priority = 8)
 	@Parameters({ "userType" })
 	public void subscriptionPageValidation(String userType) throws Exception {
 		// SMOKE
@@ -143,7 +143,7 @@ public class WebPWASanityScript {
 	}
 
 	// -------------------------MANASA PremiumPage--------------------------
-	@Test(priority = 10)
+//	@Test(priority = 10)
 	@Parameters({ "userType" })
 	public void premiumPageValidation(String userType) throws Exception {
 		// SMOKE DEFAULT HOME PAGE : MANASA
@@ -166,7 +166,7 @@ public class WebPWASanityScript {
 	}
 
 	// -------------------------VINAY KALTURA--------------------------
-	@Test(priority = 13)
+//	@Test(priority = 13)
 	@Parameters({ "userType" })
 	public void PWAkalturaValidation(String userType) throws Exception {
 		// SANITY
@@ -201,7 +201,7 @@ public class WebPWASanityScript {
 //	
 	// -------------------------BINDU Zee5Originals--------------------------
 
-	 @Test(priority = 15)
+//	 @Test(priority = 15)
 	@Parameters({ "userType" })
 	public void Zee5Originals(String userType) throws Exception {
 		System.out.println("Zee5Originals");
@@ -212,7 +212,7 @@ public class WebPWASanityScript {
 
 	// -------------------------SATISH SubscriptionPopup--------------------------
 
-	 @Test(priority = 16)
+//	 @Test(priority = 16)
 	@Parameters({ "userType" })
 	public void SubscriptionPopup(String userType) throws Exception {
 		// Sanity
@@ -322,7 +322,7 @@ public class WebPWASanityScript {
 
 	// -------------------------BHAVANA Content Details--------------------------
 
-	 @Test(priority = 23)
+//	@Test(priority = 23)
 	@Parameters({ "browserType", "url", "userType", "devicePin", "consumptionsEpisode", "consumptionsShow",
 			"consumptionsFreeContent", "consumptionsPremiumContent" })
 	public void PWAContentDetails(String browser, String url, String userType, String devicePin,
@@ -343,7 +343,7 @@ public class WebPWASanityScript {
 	}
 
 	// -------------------------YASHASWINI NewsPage--------------------------
-	@Test(priority = 24)
+//	@Test(priority = 24)
 	@Parameters({ "userType" })
 	public void newsPageValidation(String userType) throws Exception {
 		System.out.println("newsPageValidation");

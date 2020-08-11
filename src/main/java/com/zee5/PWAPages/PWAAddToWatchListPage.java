@@ -16,8 +16,9 @@ public class PWAAddToWatchListPage {
 	public static By objWatchListed(String contentTitle) {
 		return By.xpath("//a[text()=\"" + contentTitle + "\"]");
 	}
+
 	public static By objTooltip(String Text) {
-		return By.xpath("//img[@title='"+Text+"']");
+		return By.xpath("//img[@title='" + Text + "']");
 	}
 
 //		VINAY 
@@ -41,5 +42,16 @@ public class PWAAddToWatchListPage {
 	public static By objCloseBtnForVideoClipPopup = By
 			.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 	public static By objTotalContents = By.xpath("(//h3[contains(@class,'cardTitle overflowEllipsis')])");
+
+	public static By objWatchlistedItem(String title) {
+		return By.xpath("//*[contains(@class,'cardTitle')]//*[text()=\"" + title + "\"]");
+	}
+
+	public static By objWatchlistedItemCancel(String title) {
+		return By.xpath("//*[contains(@class,'cardTitle')]//*[text()=\"" + title
+				+ "\"]//parent::*//parent::div[@class='metaData']//following-sibling::span[contains(@class,'close')]");
+	}
+
+	public static By objEmptyWatchlistPage = By.xpath("//div[contains(text(),'Nothing to watch')]");
 
 }

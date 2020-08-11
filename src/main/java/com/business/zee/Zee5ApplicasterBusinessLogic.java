@@ -2701,7 +2701,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("\nOffline Screen Validation");
 
 		Runtime.getRuntime().exec("adb shell svc wifi disable");
-		if(getOEMName.equalsIgnoreCase("Sony")) {
+		if (getOEMName.equalsIgnoreCase("Sony")) {
 			Wifi_TurnOFFnON();
 		}
 
@@ -2736,7 +2736,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDHomePage.objHome, "Home Tab");
 		verifyElementPresentAndClick(AMDOfflineScreen.objTryAgain, "Try Again");
 		Runtime.getRuntime().exec("adb shell svc wifi enable");
-		if(getOEMName.equalsIgnoreCase("Sony")) {
+		if (getOEMName.equalsIgnoreCase("Sony")) {
 			Wifi_TurnOFFnON();
 		}
 		waitTime(5000);
@@ -2751,9 +2751,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLogger("Page", "Appropriate page is not loaded");
 		}
 	}
-	
-	public void Wifi_TurnOFFnON() throws Exception{
-		Runtime.getRuntime().exec("adb shell am start -a android.intent.action.MAIN -n com.android.settings/.wifi.WifiSettings");
+
+	public void Wifi_TurnOFFnON() throws Exception {
+		Runtime.getRuntime()
+				.exec("adb shell am start -a android.intent.action.MAIN -n com.android.settings/.wifi.WifiSettings");
 		waitTime(2000);
 //		Runtime.getRuntime().exec("adb shell input keyevent 23");
 		verifyElementPresentAndClick(AMDGenericObjects.objWifiToggle, "Wifi-Toggle button");
@@ -2930,15 +2931,18 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
-	public void searchResultsAllTabs(String searchKeyword) throws Exception {
+	@SuppressWarnings("deprecation")
+	public void searchResultsAllTabs(String searchModuleKeyword) throws Exception {
 
 		extent.HeaderChildNode("Validating that user is able to find the searched content in all the tabs");
 
-		type(AMDSearchScreen.objSearchBoxBar, searchKeyword + "\n", "Search bar");
-		waitTime(2000);
+		// type(AMDSearchScreen.objSearchBoxBar, searchModuleKeyword + "\n", "Search
+		// bar");
+		getDriver().getKeyboard().sendKeys(searchModuleKeyword);
 
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 		hideKeyboard();
+
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);
 
 		boolean allTabHighlighted = findElement(AMDSearchScreen.objAllTab).isSelected();
 
@@ -3009,7 +3013,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 								.getText();
 				System.out.println(searchResults);
 
-				if (searchResults.contains(searchKeyword)) {
+				if (searchResults.contains(searchModuleKeyword)) {
 					logger.info("Search Results  Keyword has results in " + tabName + " tab");
 					extent.extentLogger("Related search results",
 							"Search Results  Keyword has results in " + tabName + " tab");
@@ -3044,15 +3048,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	}
 
-	public void noSearchResults(String searchKeyword) throws Exception {
+	@SuppressWarnings("deprecation")
+	public void noSearchResults(String invalidSearchKeyword) throws Exception {
 		extent.HeaderChildNode(
 				"Validating the category tab is not displayed if the searched keyword don’t have results for the particular category");
 
 		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search Icon");
 
 		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, searchKeyword + "\n", "Search bar");
-		waitTime(5000);
+		getDriver().getKeyboard().sendKeys(invalidSearchKeyword);
+		hideKeyboard();
+		// type(AMDSearchScreen.objSearchBoxBar, invalidSearchKeyword + "\n", "Search
+		// bar");
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);
 
 		if (verifyElementExist(AMDSearchScreen.objNoSearchResults, "No Search Results message")) {
 			String noResults = getText(AMDSearchScreen.objNoSearchResults);
@@ -3090,9 +3098,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				.release().perform();
 	}
 
-	public void searchPageValidation(String searchKeyword) throws Exception {
+	@SuppressWarnings("deprecation")
+	public void searchPageValidation(String partlySpeltSearchKeyword) throws Exception {
 		extent.HeaderChildNode("Search Result Screen Validation");
-		type(AMDSearchScreen.objSearchBoxBar, searchKeyword + "\n", "Search bar");
+		getDriver().getKeyboard().sendKeys(partlySpeltSearchKeyword);
+//		type(AMDSearchScreen.objSearchBoxBar, partlySpeltSearchKeyword + "\n", "Search bar");
 //		verifyElementExist(AMDSearchScreen.objSearchResultPage, "Search Result Screen");
 
 //		if(verifyElementExist(AMDSearchScreen.objRecentSearch, "Recent Search Overlay")==false) {
@@ -3102,13 +3112,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //			extent.extentLoggerFail("Recent Search Overlay", "Recent Search Overlay is available in search results screen");
 //			logger.error("Recent Search Overlay is available in search results screen");
 //		}
-		waitTime(5000);
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+
 		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);
+
 //		String enteredValue = getAttributValue("value", AMDSearchScreen.objSearchBoxBar);
-		System.out.println(searchKeyword.length());
+		System.out.println(partlySpeltSearchKeyword.length());
 		waitTime(20000);
-		if (searchKeyword.length() >= 3) {
+		if (partlySpeltSearchKeyword.length() >= 3) {
 
 			System.out.println(getDriver().findElements(AMDSearchScreen.objRelatedSearchResult).size());
 
@@ -3611,20 +3622,21 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		extent.HeaderChildNode("Verifing the availability of trays in the screen");
 		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Continue Watching"), AMDHomePage.objCarouselConetentCard,
-				"Continue watching tray", "MastheadCarousel", userType);
+				"Continue watching tray", "MastheadCarousel", userType, tabName);
 		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Trending on Zee5"), AMDHomePage.objCarouselConetentCard,
-				"Trending on Zee5 tray", "MastheadCarousel", userType);
+				"Trending on Zee5 tray", "MastheadCarousel", userType, tabName);
 		findingTrayInscreen(25, AMDHomePage.objTrayTitle("Trending Trailers"), AMDHomePage.objCarouselConetentCard,
-				"Trending Trailers and Teasers tray", "Mastheadcarousel", userType);
+				"Trending Trailers and Teasers tray", "Mastheadcarousel", userType, tabName);
 
 		if (userType.equalsIgnoreCase("Guest")) {
 			selectContentLang_MoreMenu2("English,Malayalam");
 			waitTime(5000);
 			closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
 			findingTrayInscreen(25, AMDHomePage.objTrayTitle("Live Channels"), AMDHomePage.objCarouselConetentCard,
-					"Live Channels tray", "Mastheadcarousel", userType);
+					"Live Channels tray", "Mastheadcarousel", userType, tabName);
 			findingTrayInscreen(25, AMDHomePage.objTrayTitle("Malayalam Movie Bonanza"),
-					AMDHomePage.objCarouselConetentCard, "Malayalam Movie Bonanza tray", "Mastheadcarousel", userType);
+					AMDHomePage.objCarouselConetentCard, "Malayalam Movie Bonanza tray", "Mastheadcarousel", userType,
+					tabName);
 			deselectContentLang_MoreMenuAndSelectDefaultLanguage("English,Malayalam");
 		}
 
@@ -3950,8 +3962,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
-	public void findingTrayInscreen(int j, By byLocator1, By byLocator2, String str1, String str2, String userType)
-			throws Exception {
+	public void findingTrayInscreen(int j, By byLocator1, By byLocator2, String str1, String str2, String userType,
+			String tabName) throws Exception {
 		boolean tray = false;
 		for (int i = 0; i < j; i++) {
 			if (findElements(byLocator1).size() == 0) {
@@ -3959,47 +3971,50 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			} else {
 				verifyElementExist(byLocator1, str1);
 				tray = true;
-				if (str1.equalsIgnoreCase("Continue watching tray")) {
+				if (tabName.equalsIgnoreCase("Home")) {
+					if (str1.equalsIgnoreCase("Continue watching tray")) {
 
-					Response respCW = ResponseInstance.getRespofCWTray(userType);
+						Response respCW = ResponseInstance.getRespofCWTray(userType);
 
-					List<String> ApinoOfContentsInCW = respCW.jsonPath().getList("array");
-					logger.info("no.of contents in CW tray in Api " + ApinoOfContentsInCW.size());
+						List<String> ApinoOfContentsInCW = respCW.jsonPath().getList("array");
+						logger.info("no.of contents in CW tray in Api " + ApinoOfContentsInCW.size());
 
-					ArrayList<String> listOfContentsInCW = new ArrayList<String>();
+						ArrayList<String> listOfContentsInCW = new ArrayList<String>();
 
-					for (int k = 0; k < ApinoOfContentsInCW.size(); k++) {
+						for (int k = 0; k < ApinoOfContentsInCW.size(); k++) {
 
-						String title = respCW.jsonPath().getString("[" + k + "].title");
-						listOfContentsInCW.add(title);
-					}
-
-					logger.info(listOfContentsInCW);
-
-					for (int p = 0; p < ApinoOfContentsInCW.size(); p++) {
-
-						verifyElementExist(AMDHomePage.objContentTitleOfCWTray(listOfContentsInCW.get(p)),
-								"content title");
-
-						if (verifyElementDisplayed(AMDHomePage.objLeftTimeOfFirstContentOfCWTray)) {
-							logger.info("Left watch time info on cards is available");
-							extent.extentLogger("Left watch time info", "Left watch time info on cards is available");
-						} else {
-							logger.info("Left watch time info on cards is not available");
-							extent.extentLoggerFail("Left watch time info",
-									"Left watch time info on cards is not available");
+							String title = respCW.jsonPath().getString("[" + k + "].title");
+							listOfContentsInCW.add(title);
 						}
-						if (verifyElementDisplayed(AMDHomePage.objProgressBarOfFirstContentOfCWTray)) {
-							logger.info("Progress bar is displayed to indicate the content watched portion");
-							extent.extentLogger("Progress bar",
-									"Progress bar is displayed to indicate the content watched portion");
-						} else {
-							logger.info("Progress bar is not displayed to indicate the content watched portion");
-							extent.extentLoggerFail("Progress bar",
-									"Progress bar is not displayed to indicate the content watched portion");
-						}
-						if (p != (ApinoOfContentsInCW.size() - 1)) {
-							SwipeRail(AMDHomePage.objContentTitleOfCWTray(listOfContentsInCW.get(p + 1)));
+
+						logger.info(listOfContentsInCW);
+
+						for (int p = 0; p < ApinoOfContentsInCW.size(); p++) {
+
+							verifyElementExist(AMDHomePage.objContentTitleOfCWTray(listOfContentsInCW.get(p)),
+									"content title");
+
+							if (verifyElementDisplayed(AMDHomePage.objLeftTimeOfFirstContentOfCWTray)) {
+								logger.info("Left watch time info on cards is available");
+								extent.extentLogger("Left watch time info",
+										"Left watch time info on cards is available");
+							} else {
+								logger.info("Left watch time info on cards is not available");
+								extent.extentLoggerFail("Left watch time info",
+										"Left watch time info on cards is not available");
+							}
+							if (verifyElementDisplayed(AMDHomePage.objProgressBarOfFirstContentOfCWTray)) {
+								logger.info("Progress bar is displayed to indicate the content watched portion");
+								extent.extentLogger("Progress bar",
+										"Progress bar is displayed to indicate the content watched portion");
+							} else {
+								logger.info("Progress bar is not displayed to indicate the content watched portion");
+								extent.extentLoggerFail("Progress bar",
+										"Progress bar is not displayed to indicate the content watched portion");
+							}
+							if (p != (ApinoOfContentsInCW.size() - 1)) {
+								SwipeRail(AMDHomePage.objContentTitleOfCWTray(listOfContentsInCW.get(p + 1)));
+							}
 						}
 					}
 				}
@@ -4016,24 +4031,28 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					extent.extentLoggerFail("Tray", str1 + " is not displayed");
 				}
 			} else {
-				if (str1.equalsIgnoreCase("Continue watching tray")) {
+				if (tabName.equalsIgnoreCase("Home")) {
 
-					Response respCW = ResponseInstance.getRespofCWTray(userType);
+					if (str1.equalsIgnoreCase("Continue watching tray")) {
 
-					List<String> ApinoOfContentsInCW = respCW.jsonPath().getList("array");
-					logger.info("no.of contents in CW tray in Api " + ApinoOfContentsInCW.size());
+						Response respCW = ResponseInstance.getRespofCWTray(userType);
 
-					if (ApinoOfContentsInCW.size() == 0) {
+						List<String> ApinoOfContentsInCW = respCW.jsonPath().getList("array");
+						logger.info("no.of contents in CW tray in Api " + ApinoOfContentsInCW.size());
 
-						logger.info(str1 + " is not displayed for this user");
-						extent.extentLogger("Tray", str1 + " is not displayed for this user");
-					} else {
-						logger.info(str1 + " is not displayed for this user");
-						extent.extentLoggerFail("Tray", str1 + " is not displayed for this user");
+						if (ApinoOfContentsInCW.size() == 0) {
+
+							logger.info(str1 + " is not displayed for this user");
+							extent.extentLogger("Tray", str1 + " is not displayed for this user");
+						} else {
+							logger.info(str1 + " is not displayed for this user");
+							extent.extentLoggerFail("Tray", str1 + " is not displayed for this user");
+						}
 					}
+					logger.info(str1 + " is not displayed");
+					extent.extentLoggerFail("Tray", str1 + " is not displayed");
 				}
-				logger.info(str1 + " is not displayed");
-				extent.extentLoggerFail("Tray", str1 + " is not displayed");
+
 			}
 		}
 		for (int i = 0; i < j; i++) {
@@ -4247,7 +4266,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
 		verifyElementExist(AMDDownloadPage.objDownloadVideoQualityPopup, "Download video quality Pop up");
 		click(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
-		waitTime(4000);
 		click(AMDDownloadPage.objGreyedThumbnail, "Greyed Thumbnail");
 		verifyElementPresentAndClick(AMDDownloadPage.objGoToDownloadsOption, "Go To Downloads option");
 		click(AMDHomePage.objDownloadBtn, "Downloads tab");
@@ -4492,6 +4510,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Cancel Download", "Downloading content is NOT deleted");
 				logger.error("Downloading content is NOT deleted");
 			}
+			waitTime(2000);
 			Back(1);
 			String getProperty1 = getAttributValue("enabled", AMDHomePage.objDownloadBtn);
 			if (getProperty1.equalsIgnoreCase("true")) {
@@ -4545,7 +4564,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			if (verifyElementExist(AMDDownloadPage.objCalloutAfterDownload, "Play CTA") == false) {
 				extent.extentLogger("Downloading", "Incomplete Downloads are NOT allowed to be Play");
 				logger.info("Incomplete Downloads are NOT allowed to be Play");
-			} else {
+			}else {
 				extent.extentLoggerFail("Downloading", "Incomplete Downloads are allowed to be Play");
 				logger.error("Incomplete Downloads are allowed to be Play");
 			}
@@ -4665,14 +4684,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Shows Tab",
 					"user is not able to navigate to Shows screen by tapping on Shows tab displayed in the top navigation bar");
 		}
-		closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
-		if (verifyElementDisplayed(AMDHomePage.objBannerAd)) {
-			verifyElementPresent(AMDHomePage.objCarouselUnitwithmastHeadAdbanner,
-					"Carousel unit as first unit on Shows screen");
-		} else {
-			verifyElementPresent(AMDHomePage.objCarouselUnitwhenNomastHeadAdbanner,
-					"Carousel unit as first unit on Shows screen");
-		}
 
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			if (verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
@@ -4691,17 +4702,49 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLogger("Subscribe icon", "subscribe icon is not dislayed");
 			}
 		}
-		verifyCarouselCollectionListingscreen(userType);
-		carouselValidation(userType, "Shows");
-		verifyElementPresent(AMDShowsScreen.objContinueWatchingTray, "Continue Watching Tray");
-		if ((userType.equalsIgnoreCase("NonSubscribedUser")) | (userType.equalsIgnoreCase("SubscribedUser"))) {
-			verifyElementPresent(AMDShowsScreen.objContinueWatchingTray, "Continue Watching Tray");
-			waitTime(2000);
-			verifyElementExist(AMDShowsScreen.objLeftWatchTime,
-					"Left watch time info available on the Continue Watching tray card");
-			verifyElementExist(AMDShowsScreen.objProgressBar,
-					"Progress bar is displayed on the Continue Watchinh tray card to indicate the content watched portion");
+		String CarouselTitle = ShowsScreenValidationwithApiData(userType);
+		if(CarouselTitle==null) {
+			logger.info("No premium content present in the carousel");
 		}
+		else {
+			verifyElementPresentAndClick(AMDHomePage.objContentTitle(CarouselTitle), "Carousel content");
+           if (verifyElementExist(AMDHomePage.objWatchTrailerIconOnPlayerscreen, "Watch Trailer button")) {
+			if (verifyElementNotPresent(AMDHomePage.objLoginButtonOnPlayerscreen, 10)) {
+				logger.info(
+						"Content playback is not initiated for the guest user post tapping on premium content which is having trailer");
+				extentLoggerFail("Trailer",
+						"Content playback is not initiated for the guest user post tapping on premium content which is having trailer");
+			} else {
+				logger.info(
+						"Content playback is initiated for the guest user post tapping on premium content which is having trailer");
+				extentLogger("Trailer",
+						"Content playback is initiated for the guest user post tapping on premium content which is having trailer");
+			}
+			Back(1);
+		} else {
+			if (verifyElementExist(AMDHomePage.objLoginButtonOnPlayerscreen, "Login button")) {
+				logger.info(
+						"Content playback is not initiated for the guest user post tapping on premium content which is not having trailer");
+				extentLogger("Trailer",
+						"Content playback is not initiated for the guest user post tapping on premium content which is not having trailer");
+			} else {
+				logger.info(
+						"Content playback is initiated for the guest user post tapping on premium content which is not having trailer");
+				extentLoggerFail("Trailer",
+						"Content playback is initiated for the guest user post tapping on premium content which is not having trailer");
+			}
+			Back(1);
+		}
+	}
+		verifyElementPresent(AMDShowsScreen.objContinueWatchingTray, "Continue Watching Tray");
+//		if ((userType.equalsIgnoreCase("NonSubscribedUser")) | (userType.equalsIgnoreCase("SubscribedUser"))) {
+//			verifyElementPresent(AMDShowsScreen.objContinueWatchingTray, "Continue Watching Tray");
+//			waitTime(2000);
+//			verifyElementExist(AMDShowsScreen.objLeftWatchTime,
+//					"Left watch time info available on the Continue Watching tray card");
+//			verifyElementExist(AMDShowsScreen.objProgressBar,
+//					"Progress bar is displayed on the Continue Watchinh tray card to indicate the content watched portion");
+//		}
 
 		for (int k = 0; k < 4; k++) {
 			if (verifyElementExist(AMDHomePage.objBeforeTVTray, "Shows BeforeTV tray")) {
@@ -4845,58 +4888,30 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		Back(2);
 	}
 
-	public String ShowsScreenValidationwithApiData(String userType) throws Exception {
-		extent.HeaderChildNode("Shows Premium Content validation with API Data");
-		verifyElementPresentAndClick(AMDHomePage.objShowsTab, "Shows Tab");
+	@SuppressWarnings("unused")
+	public  String ShowsScreenValidationwithApiData(String userType) throws Exception
+	{
+	    extent.HeaderChildNode("Shows Premium Content validation with API Data");
+	//	verifyElementPresentAndClick(AMDHomePage.objShowsTab, "Shows Tab");
 		Response resp = ResponseInstance.getResponseForApplicasterPages(userType, "tvshows");
-		List<String> apitotaltrays = resp.jsonPath().getList("buckets");
+        List<String> apitotaltrays = resp.jsonPath().getList("buckets");
 		System.out.println(apitotaltrays.size());
 		String CarouselTitle = null;
 		boolean Carousel = false;
 		for (int i = 0; i < 7; i++) {
-
+			
 			String businessType = resp.jsonPath().getString("buckets[" + i + "].items");
-			if (businessType.equalsIgnoreCase("premium_downloadable")) {
-				Carousel = true;
-				CarouselTitle = resp.jsonPath().getString("buckets[" + i + "].items[" + i + "].title");
-				System.out.println(CarouselTitle);
-				verifyElementPresentAndClick(AMDHomePage.objContentTitle(CarouselTitle), "Carousel content");
-
-				if (verifyElementExist(AMDHomePage.objWatchTrailerIconOnPlayerscreen, "Watch Trailer button")) {
-					if (verifyElementNotPresent(AMDHomePage.objLoginButtonOnPlayerscreen, 10)) {
-						logger.info(
-								"Content playback is not initiated for the guest user post tapping on premium content which is having trailer");
-						extentLoggerFail("Trailer",
-								"Content playback is not initiated for the guest user post tapping on premium content which is having trailer");
-					} else {
-						logger.info(
-								"Content playback is initiated for the guest user post tapping on premium content which is having trailer");
-						extentLogger("Trailer",
-								"Content playback is initiated for the guest user post tapping on premium content which is having trailer");
-					}
-					Back(1);
-				} else {
-					if (verifyElementExist(AMDShowsScreen.objLoginLink, "Login link")) {
-						logger.info(
-								"Content playback is not initiated for the guest user post tapping on premium content which is not having trailer");
-						extentLogger("Trailer",
-								"Content playback is not initiated for the guest user post tapping on premium content which is not having trailer");
-					} else {
-						logger.info(
-								"Content playback is initiated for the guest user post tapping on premium content which is not having trailer");
-						extentLoggerFail("Trailer",
-								"Content playback is initiated for the guest user post tapping on premium content which is not having trailer");
-					}
-					Back(1);
-				}
-
-			}
+		    if (businessType.equalsIgnoreCase("premium_downloadable")) 
+			{
+		    	 Carousel = true;	
+				 CarouselTitle=resp.jsonPath().getString("buckets[" + i + "].items[" + i + "].title");
+				 System.out.println(CarouselTitle);
+		    	break;
+		     }
 		}
-		if (Carousel == false) {
-			System.out.println("No Premium Content present in the Carousel");
-		}
-		return CarouselTitle;
-	}
+          return CarouselTitle;
+	 }	
+
 
 	/**
 	 * Author : Manasa
@@ -4997,10 +5012,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("\nMore Section Validation");
 
 		Runtime.getRuntime().exec("adb shell svc wifi disable");
-		if(getOEMName.equalsIgnoreCase("Sony")) {
+		if (getOEMName.equalsIgnoreCase("Sony")) {
 			Wifi_TurnOFFnON();
 		}
-		
+
 		waitTime(5000);
 		verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu tab");
 
@@ -5010,7 +5025,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDOfflineScreen.objGoToDownloads, "Go to Downloads");
 
 		Runtime.getRuntime().exec("adb shell svc wifi enable");
-		if(getOEMName.equalsIgnoreCase("Sony")) {
+		if (getOEMName.equalsIgnoreCase("Sony")) {
 			Wifi_TurnOFFnON();
 		}
 		waitTime(5000);
@@ -5255,15 +5270,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"user is not able to navigate to News screen by tapping on News tab displayed in the top navigation bar");
 		}
 
-		if (verifyElementDisplayed(AMDHomePage.objBannerAd)) {
-			verifyElementPresent(AMDHomePage.objCarouselUnitwithmastHeadAdbanner,
-					"Carousel unit as first unit on Shows screen");
-		} else {
-			verifyElementPresent(AMDHomePage.objCarouselUnitwhenNomastHeadAdbanner,
-					"Carousel unit as first unit on Shows screen");
-		}
-
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+       if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			if (verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
 				logger.info("subscribe icon is dislayed");
 				extent.extentLogger("Subscribe icon", "subscribe icon is dislayed");
@@ -5289,11 +5296,26 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(6000);
 		if (userType.equals("Guest")) {
 			selectContentLang_MoreMenu("Hindi");
-			verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
-			waitTime(20000);
-			verifyElementExist(AMDNewsPage.objTodaysHeadlinesTray, "Todays Headlines Tray");
 		}
-		verifyElementExist(AMDNewsPage.objTodaysHeadlinesTray, "Todays Headlines Tray");
+			verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
+			//waitTime(2000);
+			for (int i = 0; i < 3; i++) {
+				if (verifyElementExist(AMDNewsPage.objTodaysHeadlinesTray, "Todays Headlines Tray")) {
+					logger.info("Todays Headlines Tray present on news landing screen");
+					extent.extentLogger("News Screen", "Todays Headlines Tray present on news landing screen");
+					
+					break;
+				} else {
+					logger.info("Todays Headlines Tray is not present on news landing screen");
+					extent.extentLogger("News Screen", "Todays Headlines Tray present on news landing screen");
+					PartialSwipe("UP", 1);
+				}
+
+			}
+	    
+		Swipe("DOWN",2);
+		
+		verifyElementExist(AMDNewsPage.objEntertainmentNewsTray, "Entertainment News Tray");
 		for (int i = 0; i < 2; i++) {
 			if (verifyElementExist(AMDNewsPage.objEntertainmentNewsTray, "Entertainment News Tray")) {
 				logger.info("Entertainment News Tray present on news landing screen");
@@ -5304,12 +5326,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLogger("News Screen", "Entertainment News Tray present on news landing screen");
 				PartialSwipe("UP", 1);
 			}
-
+            
 		}
+		Swipe("DOWN",2);
 		for (int j = 0; j < 4; j++) {
 			if (verifyElementExist(AMDNewsPage.objLiveNewsTray, "Live News Tray")) {
 				logger.info("Live News Tray present on news landing screen");
 				extent.extentLogger("News Screen", "Live News Tray present on news landing screen");
+				
 				break;
 			} else {
 				logger.info("Live News Tray is not present on news landing screen");
@@ -5318,6 +5342,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			}
 		}
+		Swipe("DOWN",2);
 		for (int k = 0; k < 2; k++) {
 			if (verifyElementExist(AMDNewsPage.objTopStoriesTray, "Top stories Tray")) {
 				logger.info("Top Stories Tray present on news landing screen");
@@ -5330,7 +5355,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			}
 		}
+		Swipe("DOWN",2);
 	}
+
 
 	public void verifyListingCollectionScreen(String userType) throws Exception {
 		extent.HeaderChildNode("Verify user navigated to Listing collection Screen");
@@ -5462,8 +5489,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 
 		extent.HeaderChildNode("Verifing the availability of tray in the screen");
+
+		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Continue Watching"), AMDHomePage.objCarouselConetentCard,
+				"Continue watching tray", "MastheadCarousel", userType, tabName);
 		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Trending Movies"), AMDHomePage.objCarouselConetentCard,
-				"Trending Movies tray", "MastheadCarousel", userType);
+				"Trending Movies tray", "MastheadCarousel", userType, tabName);
 
 	}
 
@@ -5545,7 +5575,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		for (int i = 0; i < contentList.size(); i++) {
 			String title = resp.jsonPath().getString("buckets[0].items[" + i + "].title");
 			System.out.println("Show Title " + title);
-		
+
 			apiTitle.add(title);
 
 			String metadata = resp.jsonPath().getString("buckets[0].items[" + i + "].description");
@@ -5561,7 +5591,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			String UIMetadata = getText(AMDUpcomingPage.objContentCardTitle(contentName));
 
-			if (verifyElementExist(AMDUpcomingPage.objTitle(contentName), "Show Title : " +title)) {
+			if (verifyElementExist(AMDUpcomingPage.objTitle(contentName), "Show Title : " + title)) {
 				logger.info("Title on the content card matches with Api data");
 				extent.extentLogger("Title", "Title on the content card matches with Api data");
 			} else {
@@ -5597,7 +5627,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("Previously released content is listed in the upcoming section");
 				extent.extentLoggerFail("Release Date",
 						"Previously released content is listed in the upcoming section");
-				
+
 			} else {
 				logger.info("Previously released content is not listed in the upcoming section");
 				extent.extentLogger("Release Date",

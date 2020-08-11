@@ -289,5 +289,7 @@ public class PWASubscriptionPages {
 	public static By objMobilePaytmNumberField = By.xpath("//*[@class='android.widget.EditText']");
 	public static By objMobilePaytmSendOTP = By.xpath("//*[@text='SEND OTP']");
 	public static By objPackType = By.xpath("//div[@class='categoryContainer']//child::*[@class='noSelect']");
+	
+	public static By objMobilePayTMRecurrenceMessage = By.xpath("//*[@text='You will be charged every billing cycle until you cancel']");
 
 }

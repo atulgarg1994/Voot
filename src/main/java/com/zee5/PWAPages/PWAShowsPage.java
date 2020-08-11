@@ -115,4 +115,7 @@ public class PWAShowsPage {
 	public static By metainfolist=By.xpath("//div[contains(@class,'metaInfo')]//span");
 	
 	public static By objThirdContentInTray=By.xpath("//div[@data-index='2']//img");
+	
+	public static By objFirstContentInTray=By.xpath("//div[@data-index='0']//img");
+	public static By objSecondSetEpisodeTray = By.xpath("//div[@class='dropDownWrapper']//span[2]");
 }
