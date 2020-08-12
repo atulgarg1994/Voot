@@ -4,8 +4,6 @@ import org.openqa.selenium.By;
 
 public class AMDNewsPage {
 	
-	public static By objRightArrowBtn = By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_arrow'])[2]");
-	
 	public static By objListingScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/title']");
 	
 	public static By objThumbNailImg = By.xpath("(//*[@id='item_image' and @resource-id='com.graymatrix.did:id/item_image' and @index=1])[1]");
@@ -31,4 +29,9 @@ public class AMDNewsPage {
 	public static By objCarouselCollectionContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/indicator']/child::*)[1]");
 	
 	public static By objEntertainmentNewsTray = By.xpath("//*[@text=' Entertainment News']");
+	
+	public static By objRightArrowBtn = By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_arrow'])[1]");
+	
+	public static By objTrayHeader = By.xpath("//*[@id='item_primary_text']");
+
 }

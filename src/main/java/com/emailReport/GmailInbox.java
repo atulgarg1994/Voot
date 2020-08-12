@@ -73,7 +73,6 @@ public class GmailInbox {
 			e.printStackTrace();
 		}
 		return plainText;
-
 	}
 
 	public String fetchPassword(String Message){

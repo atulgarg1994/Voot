@@ -148,8 +148,8 @@ public class PWASubscriptionPages {
 	public static By objAppliedSuccessfullyMessage = By.xpath("//div[contains(text(),'Applied Successfully')]");
 
 	public static By objSearchResultPremiumContent = By.xpath("//div[@class='cardPremiumContent']/parent::*");
-	public static By objPopup99Plan = By
-			.xpath("//p[contains(@class, 'planDescription')]/span[contains(@class, 'currency')]/span[text()='99']");
+	
+	public static By objPopup99Plan = By.xpath("//p[contains(@class, 'planDescription')]//span[contains(@class, 'currency')]/span[text()='99']");
 
 	// Get Premium popup close button
 	public static By objGetPremiumPopupCloseButton = By.xpath(

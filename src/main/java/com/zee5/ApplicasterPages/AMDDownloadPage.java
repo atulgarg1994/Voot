@@ -136,6 +136,6 @@ public class AMDDownloadPage {
 	public static By objSubscriptionExpiry = By.xpath("//*[@id='tv_days']");
 	public static By objSubscriptionExpiryMessage = By.xpath("//*[@text='Please remember to renew your subscription to access your downloads.']");
 	
-	
+	public static By objtitleofNewEpisode = By.xpath("//*[@id='rl_show_details']//*[@id='tv_title']");
 	
 }

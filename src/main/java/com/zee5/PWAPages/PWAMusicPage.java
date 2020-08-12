@@ -93,10 +93,12 @@ public class PWAMusicPage {
 	public static By objRecommendedVideos = By.xpath("//div[@class='recommendCol']");
 	public static By objMusicTabInSearch = By.xpath("(//*[@id='music'])");
 
-	// Music card from music tray
-	public static By objMusicCardInMusicTab = By.xpath("(//div[@class='latestEpisodeTrayWrapper'])[1]//img");
+	//Music card from music tray
+	public static By objMusicCardInMusicTab = By.xpath("((//div[@class='latestEpisodeTrayWrapper'])[1]//img)[1]");
 
 	// Music card name from music tray
 	public static By objMusicCardTitleInMusicTab = By.xpath(
 			"(//div[@class='latestEpisodeTrayWrapper'])[1]//div[@data-index='0']//div[@class='episodeMetaWrap']//h3");
+	
+	
 }

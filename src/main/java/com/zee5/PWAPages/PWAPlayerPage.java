@@ -359,4 +359,8 @@ public class PWAPlayerPage {
 	// Watchlist button already added
 	public static By watchListBtnAlreadyAdded = By
 			.xpath("//div[contains(@class,'ic_watchlist')]//p[contains(text(),'Watchlist')]");
+
+	// Watchlist button not added
+	public static By watchListBtnNotAdded = By
+			.xpath("//div[contains(@class,'add_Watchlist')]//p[contains(text(),'Watchlist')]");
 }

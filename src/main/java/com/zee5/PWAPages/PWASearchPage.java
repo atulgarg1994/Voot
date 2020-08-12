@@ -65,11 +65,11 @@ public class PWASearchPage {
 		return By.xpath("//div[@class='menuGrid']//h3[text()=\"" + objCollapsibleItems
 				+ "\"]//following-sibling::div//li//div");
 	}
-	
+
 	public static By objSearchMoviesTab = By.xpath("//div[contains(@class,'tabMenuItem') and @id='movies']");
-	
+
 	// Close icon in get premium dialog
-	public static By objSubscribeDialog = By.xpath("//*[contains(@class,'popupTitle') and .='Subscribe']");	
+	public static By objSubscribeDialog = By.xpath("//*[contains(@class,'popupTitle') and .='Subscribe']");
 
 	// Movies By Language
 	public static By objMoviesByLang = By.xpath("//h3[text()='Movies By Language']");
@@ -161,7 +161,8 @@ public class PWASearchPage {
 
 	// Search result based on Search key
 	public static By objSearchedResult(String keyword) {
-		return By.xpath("((//div[@class='listingGrid']//a[contains(text(),\""+keyword+"\")])[1] | (//div[@class='listingGrid']//span[contains(text(),\""+keyword+"\")])[1])[1]");
+		return By.xpath("((//div[@class='listingGrid']//a[contains(text(),\"" + keyword
+				+ "\")])[1] | (//div[@class='listingGrid']//span[contains(text(),\"" + keyword + "\")])[1])[1]");
 	}
 
 	public static By objFirstContentAfterSearch = By.xpath("//*[@text='Bhinna']");
@@ -169,62 +170,70 @@ public class PWASearchPage {
 	public static By Obj_Pwa_Get_Premium_btn = By.xpath("//*[@text='GET PREMIUM']");
 
 	// First content card name
-	public static By objFirstContentCardNameAfterSearch = By.xpath("//h3[contains(@class,'cardTitle')]//parent::div//preceding-sibling::figure");
-	
-	public static By objFirstContentCardNameAfterSearch(int index) { 
-	     return  By.xpath("(//h3[contains(@class,'cardTitle')])["+index+"]");
+	public static By objFirstContentCardNameAfterSearch = By
+			.xpath("//h3[contains(@class,'cardTitle')]//parent::div//preceding-sibling::figure");
+
+	public static By objFirstContentCardNameAfterSearch(int index) {
+		return By.xpath("(//h3[contains(@class,'cardTitle')])[" + index + "]");
 	}
+
 	public static By watchTrailer = By.xpath("//div[@class='bindDiv']");
-	
+
 	// First searched asset Title
-	public static By objFirstSearchedAssetTitle = By.xpath("//div[contains(@class,'searchCategoryLanding')]//h3[contains(@class,'cardTitle')]//span[contains(@class,'highLight')]");
-	
+	public static By objFirstSearchedAssetTitle = By.xpath(
+			"//div[contains(@class,'searchCategoryLanding')]//h3[contains(@class,'cardTitle')]//span[contains(@class,'highLight')]");
+
 	// Buy Subscription Option
-	public static By objBuySubscriptionOption = By.xpath("//div[contains(text(),'Buy Subscription') and (./preceding-sibling::* | ./following-sibling::*)[contains(@class,'menuTitle noSelect menuForPlans ')]]");
-	
+	public static By objBuySubscriptionOption = By.xpath(
+			"//div[contains(text(),'Buy Subscription') and (./preceding-sibling::* | ./following-sibling::*)[contains(@class,'menuTitle noSelect menuForPlans ')]]");
+
 	public static By objClearAllTextofRecentSearches = By.xpath("//div[text()='Clear All']");
+
 	public static By objEpisodeTitleInconsumptionPage(String title) {
 		return By.xpath("//h1[contains(text(),'" + title + "')] | //a[text()='" + title + "']");
 	}
+
 	public static By objWEBWatchTrailerBtn = By.xpath("//p[contains(text(),'Watch Trailer')]");
+
 	public static By objFirstContentCardNameAfterSearch1(int index) {
-		return By.xpath("(//div[@class='metaData'])["+index+"]");
+		return By.xpath("(//div[@class='metaData'])[" + index + "]");
 	}
+
 	public static By objEmptyStateScreenErrormsg = By.xpath("//div[@class='errorPageContainer']");
-	
+
 //	====================================================================================================================
 //	SANITY SUSHMA LIVETV MODULE
 	public static By objShowTitleInconsumptionPage(String title) {
-		
-		return By.xpath("//h2[contains(text(),'"+title+"')]");
+
+		return By.xpath("//h2[contains(text(),'" + title + "')]");
 	}
-	
+
 //	MandatoryRegistration
 	public static By objRegisterDialogAfterchangedLanguage = By.xpath("//div[.='ಏಕೆ ನೋಂದಾಯಿಸಬೇಕು?']");
-	
-	public static By objUpgradePopup = By.xpath("//div[@class='ReactModal__Content ReactModal__Content--after-open popupModal']");
-	
-	public static By objUpgradePopupCloseButton = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
-	
+
+	public static By objUpgradePopup = By
+			.xpath("//div[@class='ReactModal__Content ReactModal__Content--after-open popupModal']");
+
+	public static By objUpgradePopupCloseButton = By
+			.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
+
 //	BASAVARAJ VIL MODULE
 	public static By objSpecificSearch(String str) {
 		return By.xpath("((//div[@class='searchCategoryLanding']//img)[@title='" + str + "'])[1]");
 	}
 
-	public static By objSpecificSearch1(String str)
-	{
+	public static By objSpecificSearch1(String str) {
 		return By.xpath("//h3[@class='cardTitle overflowEllipsis ']//span[contains(text(),'" + str + "')]");
 	}
-	
+
 	public static By objspecificSearch = By.xpath("(//div[@class='metaData'])[1]");
-	
+
 	public static By objSearchTextBox = By.xpath("//input[@name='search']");
 
-	
 	public static By objfirstdata = By.xpath("(//div[@class='listingGrid']//h3)[1]");
-	
+
 	public static By objSearchNewsTab = By.xpath("(//div[@id='news'])");
-	
+
 	public static By objSearchBtn = By.xpath("//*[contains(@class,'noSelect searchBtn iconInitialLoad-ic_search')]");
 
 	public static By objSearchEditBox = By.xpath("//*[@id='searchInput']");
@@ -232,59 +241,66 @@ public class PWASearchPage {
 	public static By objSearchResultPremiumContent = By.xpath("//*[@class='cardPremiumContent']/parent::*");
 
 	public static By objShowTitle(String title) {
-        return By.xpath("//h1[text()='"+title+"']");
-    }
-	
+		return By.xpath("//h1[text()='" + title + "']");
+	}
+
 	// Show title in Consumption Page
 	public static By objShowTitleInConsumptionPage = By.xpath("(//div[@class='metaInfo']/child::a)[1]");
-	
+
 	public static By objallow = By.xpath("//*[@text='Allow']");
 
-
 	public static By objSearchBtnWEB = By.xpath("//a[@class='noSelect searchBtn iconInitialLoad-ic_search']");
-	
+
 	public static By objPremiumSearchResult = By.xpath("//*[@title='RX Soori']");
-	
+
 	public static By objPremiumSearchResult(String keyword) {
-        return By.xpath("//*[@title=\""+keyword+"\"]");
-    }
-	
+		return By.xpath("//*[@title=\"" + keyword + "\"]");
+	}
+
 	public static By objActivePrograme = By.xpath("(//*[@class='programInner active'])[1]//*[@class='title']");
-	
-	public static By objSubscribepopup= By.xpath("//div[@class='popupContent upgradePopupContent']");
-	public static By objSubscribepopupCLoseButton = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
-	
+
+	public static By objSubscribepopup = By.xpath("//div[@class='popupContent upgradePopupContent']");
+	public static By objSubscribepopupCLoseButton = By
+			.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
+
 	public static By objSearchResultScreen = By.xpath("//*[@class='searchCategoryLanding']");
-	
+
 	public static By objMandatoryPopup = By.xpath("//div[@class='poupWrapper']");
-	
+
 	public static By objMandatoryPopupCloseButton = By.xpath("//div[@class='manCloseIcon']");
-	
-	public static By recentSearchItem1 = By.xpath("(//div[@class='recentSearchWrapper']//div[contains(@class,'searchitem')])[1]");
-	
-	public static By recentSearchItem (int i){
-		return By.xpath("(//div[@class='recentSearchWrapper']//div[contains(@class,'searchitem')])["+i+"]");
+
+	public static By recentSearchItem1 = By
+			.xpath("(//div[@class='recentSearchWrapper']//div[contains(@class,'searchitem')])[1]");
+
+	public static By recentSearchItem(int i) {
+		return By.xpath("(//div[@class='recentSearchWrapper']//div[contains(@class,'searchitem')])[" + i + "]");
 	}
-	
+
 	public static By recentSearchItem(String keyword) {
-		return By.xpath("//div[@class='recentSearchWrapper']//div[contains(@class,'searchitem') and .='"+keyword+"']");
+		return By.xpath(
+				"//div[@class='recentSearchWrapper']//div[contains(@class,'searchitem') and .='" + keyword + "']");
 	}
+
 	public static By recentSearchsLabel = By.xpath("//div[@class='recentSearchLbl' and .='Recent Searches']");
-	
-	public static By recentSearchItems = By.xpath("//div[@class='recentSearchWrapper']//div[contains(@class,'searchitem')]");
+
+	public static By recentSearchItems = By
+			.xpath("//div[@class='recentSearchWrapper']//div[contains(@class,'searchitem')]");
 
 	public static By objSearchShowsTab = By.xpath("//div[contains(@class,'tabMenuItem') and @id='tvshows']");
-	
+
 	public static By objSearchPlaceHolderText = By.xpath("//div[@class='searchInputBox']//input");
-	
+
 	public static By objSearchPageFooter = By.xpath("//div[@class='footerMenu']");
-	
-	public static By recentSearchItem(String keyword,int i) {
-		return By.xpath("//div[@class='recentSearchWrapper']//li["+i+"]//div[contains(@class,'searchitem') and .='"+keyword+"']");
+
+	public static By recentSearchItem(String keyword, int i) {
+		return By.xpath("//div[@class='recentSearchWrapper']//li[" + i + "]//div[contains(@class,'searchitem') and .='"
+				+ keyword + "']");
 	}
-	
+
 	public static By emptyStateScreenText = By.xpath("//div[@class='textArea']");
-	
+
 	public static By objSearchEpisodesTab = By.xpath("//div[contains(@class,'tabMenuItem') and @id='episodes']");
 	public static By objSearchVideosTab = By.xpath("//div[contains(@class,'tabMenuItem') and @id='videos']");
+
+	public static By objallowCaps = By.xpath("//*[@text='ALLOW']");
 }

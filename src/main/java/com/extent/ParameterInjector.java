@@ -30,7 +30,6 @@ public class ParameterInjector implements IAlterSuiteListener  {
 		params.put("devicePin", suite.getParameter("devicePin"));
 		params.put("runModule", suite.getParameter("runModule"));
 		
-		
 		// Pass region specific data
 		Response regionResponse=given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
 		String region=regionResponse.getBody().jsonPath().getString("state_code");
@@ -66,6 +65,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("timedAnchorEpisode", "Paarvathi kisses Aditya - Paaru");
 			params.put("timedAnchorMusic", "Appa Lyrical - Punith Shetty");		
 			params.put("timedAnchorMovie", "Robin Hood");
+			params.put("episodeToTriggerReco", "Aditya-Paarvathi challenge themselves for fun");
 			
 			params.put("ExpiredUserName", "zee5latest@gmail.com");
 			params.put("ExpiredUserPassword", "User@123");
@@ -104,6 +104,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("timedAnchorEpisode", "Paarvathi kisses Aditya - Paaru");
 			params.put("timedAnchorMusic", "Appa Lyrical - Punith Shetty");		
 			params.put("timedAnchorMovie", "Robin Hood");
+			params.put("episodeToTriggerReco", "Aditya-Paarvathi challenge themselves for fun");
 			
 			params.put("ExpiredUserName", "zee5latest@gmail.com");
 			params.put("ExpiredUserPassword", "User@123");

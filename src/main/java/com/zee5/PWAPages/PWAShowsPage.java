@@ -118,4 +118,8 @@ public class PWAShowsPage {
 	
 	public static By objFirstContentInTray=By.xpath("//div[@data-index='0']//img");
 	public static By objSecondSetEpisodeTray = By.xpath("//div[@class='dropDownWrapper']//span[2]");
+	
+	public static By objallowCaps = By.xpath("//*[@text='ALLOW']");
+	
+	public static By objEpisodesSetTray = By.xpath("//div[@class='allEpisodeSelect']");
 }

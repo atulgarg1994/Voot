@@ -33,7 +33,7 @@
 	<parameter name="freeMovie3" value="Ee Preethi Yeke Bhoomi Melide"/>
 	<parameter name="freeMovie4" value="Rabin hood"/>
 	<parameter name="premiumMovie" value="Natasaarvabhowma"/>
-	<parameter name="premiumMovie2" value="Bhinna"/>	
+	<parameter name="premiumMovie2" value="Bhinna"/>
 	<parameter name="premiumMovieNoTrailer" value="RX Soori"/>
 	<parameter name="premiumMovieNoTrailer2" value="Londonalli Lambodara"/>
 	<parameter name="premiumMovieNoTrailer3" value="Raambo 2"/>	
@@ -54,7 +54,7 @@
 	<parameter name="timedAnchorEpisode" value="Paarvathi kisses Aditya - Paaru" />
 	<parameter name="timedAnchorMusic" value="Appa Lyrical - Punith Shetty" />
 	<parameter name="timedAnchorMovie" value="Robin Hood" />
-	
+	<parameter name="episodeToTriggerReco" value="Aditya-Paarvathi challenge themselves for fun" />
 	<parameter name="ExpiredUserName" value="zee5latest@gmail.com"/>
 	<parameter name="ExpiredUserPassword" value="User@123"/>
 	<parameter name="audioTrackContent" value="Episode 13 - Agent Raghav"/>
@@ -67,7 +67,7 @@
 
 	<test name="WebPWASanityScript">
 		<classes>
-			<class name="com.zee5.PWASanityScripts.WebPWASanityScript" />	
+			<class name="com.zee5.PWASanityScripts.WebPWASanityScript" />
 		</classes>
 	</test> 
 </suite>

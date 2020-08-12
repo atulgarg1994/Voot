@@ -114,7 +114,6 @@ public class ResponseInstance {
 		respString=respString.split("\"gwapiPlatformToken\":\"")[1];
 		xAccessToken=respString.split("\"")[0];
 		return xAccessToken;
-		
 	}
 
 	/**

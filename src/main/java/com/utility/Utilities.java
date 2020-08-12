@@ -242,6 +242,19 @@ public class Utilities extends ExtentReporter {
 		return false;
 	}
 
+	public boolean checkElementExist(By byLocator, String str) throws Exception {
+
+		try {
+			WebElement element = findElement(byLocator);
+			if (element.isDisplayed()) {
+				return true;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+		return false;
+	}
+	
 	/**
 	 * Check element present and click.
 	 *

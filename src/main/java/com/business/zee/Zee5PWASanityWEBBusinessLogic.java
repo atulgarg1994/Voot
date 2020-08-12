@@ -335,37 +335,37 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 			break;
 
-		case "Twitter":
-			extent.HeaderChildNode("Login through Twitter");
-			verifyElementPresentAndClick(PWALoginPage.objTwitterIcon, "Twitter icon");
-			waitTime(7000);
-			switchToWindow(2);
-			waitTime(5000);
-			if (verifyElementExist(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger")) {
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
-				verifyElementPresent(PWAHamburgerMenuPage.objProfilePageIcon, "Profile icon");
-				logger.info("User Logged in Successfully");
-				extent.extentLogger("Logged in", "User Logged in Successfully");
-			} else if (verifyElementExist(PWALoginPage.objTwitterAuthorizeButton, "Authorize app")) {
-				click(PWALoginPage.objTwitterAuthorizeButton, "Authorize app");
-				regestrationfromSocialMedia();
-			} else if (verifyElementExist(PWALoginPage.objTwitterEmaildField, "Twitter Email field")) {
-				type(PWALoginPage.objTwitterEmaildField, "Zee5latest@gmail.com", "Email Field");
-				hideKeyboard();
-				verifyElementPresentAndClick(PWALoginPage.objTwitterPasswordField, "Twitter Password field");
-				type(PWALoginPage.objTwitterPasswordField, "User@123", "Password field");
-				click(PWALoginPage.objTwitterSignInButton, "Sign in button");
-				waitTime(5000);
-				verifyElementExist(PWAHomePage.objZeeLogo, "Home page");
-				waitTime(5000);
-				verifyElementPresentAndClick(PWALoginPage.objLoginBtnWEB, "Login");
-				verifyElementPresentAndClick(PWALoginPage.objTwitterIcon, "Twitter icon");
-				waitTime(10000);
-				verifyElementPresent(PWAHamburgerMenuPage.objProfileIconWEB, "Profile");
-				logger.info("User Logged in Successfully");
-				extent.extentLogger("Logged in", "User Logged in Successfully");
-			}
-			break;
+//		case "Twitter":
+//			extent.HeaderChildNode("Login through Twitter");
+//			verifyElementPresentAndClick(PWALoginPage.objTwitterIcon, "Twitter icon");
+//			waitTime(7000);
+//			switchToWindow(2);
+//			waitTime(5000);
+//			if (verifyElementExist(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger")) {
+//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+//				verifyElementPresent(PWAHamburgerMenuPage.objProfilePageIcon, "Profile icon");
+//				logger.info("User Logged in Successfully");
+//				extent.extentLogger("Logged in", "User Logged in Successfully");
+//			} else if (verifyElementExist(PWALoginPage.objTwitterAuthorizeButton, "Authorize app")) {
+//				click(PWALoginPage.objTwitterAuthorizeButton, "Authorize app");
+//				regestrationfromSocialMedia();
+//			} else if (verifyElementExist(PWALoginPage.objTwitterEmaildField, "Twitter Email field")) {
+//				type(PWALoginPage.objTwitterEmaildField, "Zee5latest@gmail.com", "Email Field");
+//				hideKeyboard();
+//				verifyElementPresentAndClick(PWALoginPage.objTwitterPasswordField, "Twitter Password field");
+//				type(PWALoginPage.objTwitterPasswordField, "User@123", "Password field");
+//				click(PWALoginPage.objTwitterSignInButton, "Sign in button");
+//				waitTime(5000);
+//				verifyElementExist(PWAHomePage.objZeeLogo, "Home page");
+//				waitTime(5000);
+//				verifyElementPresentAndClick(PWALoginPage.objLoginBtnWEB, "Login");
+//				verifyElementPresentAndClick(PWALoginPage.objTwitterIcon, "Twitter icon");
+//				waitTime(10000);
+//				verifyElementPresent(PWAHamburgerMenuPage.objProfileIconWEB, "Profile");
+//				logger.info("User Logged in Successfully");
+//				extent.extentLogger("Logged in", "User Logged in Successfully");
+//			}
+//			break;
 		}
 	}
 

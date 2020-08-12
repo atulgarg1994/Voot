@@ -54,4 +54,5 @@ public class PWAAddToWatchListPage {
 
 	public static By objEmptyWatchlistPage = By.xpath("//div[contains(text(),'Nothing to watch')]");
 
+	public static By objWatchlistedItems = By.xpath("//*[contains(@class,'cardTitle')]//*");
 }
