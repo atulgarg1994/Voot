@@ -1,24 +1,4 @@
-2020-08-12 22:18:15,209 - rootLogger - INFO - Build 17.0.0.134
-2020-08-12 22:18:25,233 - rootLogger - INFO - PlatForm :: Android
-2020-08-12 22:18:25,248 - rootLogger - INFO - Running Test :: Android_LandingScreen_TopNavigation
-2020-08-12 22:18:25,248 - rootLogger - INFO - Run Mode :: YES
-2020-08-12 22:18:25,424 - rootLogger - INFO - APK INSTALLED..
-2020-08-12 22:20:18,196 - rootLogger - INFO - :::::::::Test Login Started::::::::
-2020-08-12 22:20:27,976 - rootLogger - INFO - Login link is displayed
-2020-08-12 22:20:28,488 - rootLogger - INFO - Clicked on Login link
-2020-08-12 22:20:33,906 - rootLogger - INFO - Hiding keyboard was Successfull
-2020-08-12 22:20:34,373 - rootLogger - INFO - Skip link is displayed
-2020-08-12 22:20:34,754 - rootLogger - INFO - Clicked on Skip link
-2020-08-12 22:20:38,511 - rootLogger - INFO - ::::::::::Test Login PASSED::::::::::
-2020-08-12 22:20:38,514 - rootLogger - INFO - :::::::::Test LandingScreenChannelGuide Started::::::::
-2020-08-12 22:20:46,791 - rootLogger - INFO - Live Tv is displayed
-2020-08-12 22:20:47,926 - rootLogger - INFO - Clicked on Live Tv
-2020-08-12 22:20:49,656 - rootLogger - INFO - Channel Guide toggle option is displayed
-2020-08-12 22:20:50,121 - rootLogger - INFO - Clicked on Channel Guide
-2020-08-12 22:20:51,703 - rootLogger - INFO - Channel Guide is Selected
-2020-08-12 22:20:53,233 - rootLogger - INFO - Subscribe Icon for Guest User is displayed
-2020-08-12 22:20:54,430 - rootLogger - ERROR - list of channels are not displayed in Channel Guide screen
-2020-08-12 22:20:56,607 - rootLogger - INFO - Music Tab is displayed
-2020-08-12 22:20:56,996 - rootLogger - INFO - Clicked on Music Tab
-2020-08-12 22:20:58,209 - rootLogger - INFO - User is able to navigate to any screen from channel guide screen
-2020-08-12 22:20:59,943 - rootLogger - INFO - ::::::::::Test LandingScreenChannelGuide PASSED::::::::::
+2020-08-13 11:32:25,519 - rootLogger - INFO - PlatForm :: Web
+2020-08-13 11:32:25,527 - rootLogger - INFO - Running Test :: WebPWASanityScript
+2020-08-13 11:32:25,528 - rootLogger - INFO - Run Mode :: YES
+2020-08-13 11:32:35,460 - rootLogger - INFO - :::::::::Test PWAWEBLogin Started::::::::
