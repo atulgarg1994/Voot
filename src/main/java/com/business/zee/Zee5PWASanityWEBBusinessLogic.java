@@ -1874,9 +1874,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			waitTime(10000);
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu Button");
 			waitTime(2000);
-			validateDisplayLanguagePopup();
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu Button");
-			waitTime(2000);
+//			validateDisplayLanguagePopup();
+//			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu Button");
+//			waitTime(2000);
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objWebBuySubscriptionOption,
 					"Buy Subscribe Option in Hamburger Menu");
 			zeeSubscriptionPageValidationAndNavigateToHomePage();
@@ -1895,8 +1895,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		// Scenario no. 91,92,94
 		HeaderChildNode("Navigate to Subscription Flow From Adoric Popup/Get Premium popup On Playing Premium Content");
-		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter("premiumMovieNoTrailer2");
+		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("premiumMovieNoTrailer2");
 		zeeSearchForContentAndClickOnFirstResult(keyword);
 		waitTime(2000);
 		zeeVerifyGetPremiumPopup();
@@ -1942,7 +1941,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 //		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 //			zeePaymentPageValidationAndNavigateToHomePage();
 //		}
-
 	}
 
 	/**

@@ -131,10 +131,6 @@ public class PWAPlayerPage {
 	// Live player Live tag
 	public static By objLivePlayerLiveTag = By.xpath("//div[@class='playkit-live-tag']");
 
-	// Subscribe Now Link on player
-	public static By objSubscribeNowLink = By
-			.xpath("//span[contains(@class,'subscribe-link') and contains(text(),'Subscribe Now')]");
-
 	// Player screen
 	public static By objPlayerControlScreen = By.xpath("//div[@class=\"playkit-video-player\"]");
 
@@ -352,10 +348,6 @@ public class PWAPlayerPage {
 	public static By objPlayOrPause = By
 			.xpath("//*[@class='playkit-icon playkit-icon-pause' or @class='playkit-icon playkit-icon-play']");
 
-	// Get Premium CTA Below the Player Screen
-	public static By objGetPremiumCTABelowPlayerScreen = By
-			.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Subscribe')]");
-
 	// Watchlist button already added
 	public static By watchListBtnAlreadyAdded = By
 			.xpath("//div[contains(@class,'ic_watchlist')]//p[contains(text(),'Watchlist')]");
@@ -363,4 +355,10 @@ public class PWAPlayerPage {
 	// Watchlist button not added
 	public static By watchListBtnNotAdded = By
 			.xpath("//div[contains(@class,'add_Watchlist')]//p[contains(text(),'Watchlist')]");
+	
+	// Subscribe Now Link on player
+	public static By objSubscribeNowLink = By.xpath("(//span[contains(@class,'subscribe-link') and contains(text(),'Subscribe Now')])[2]");
+	
+	// Get Premium CTA Below the Player Screen
+	public static By objGetPremiumCTABelowPlayerScreen = By.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Subscribe')]");
 }

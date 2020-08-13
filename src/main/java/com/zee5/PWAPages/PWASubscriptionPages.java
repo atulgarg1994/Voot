@@ -111,9 +111,6 @@ public class PWASubscriptionPages {
 	public static By objDefaultSelectedPack = By
 			.xpath("//div[contains(@class, 'upgradeCard active')]//span[contains(@class, 'price')]");
 
-	// Popup Proceed Btn
-	public static By objPopupProceedBtn = By.xpath("//div[contains(text(),'PROCEED') and contains(@class,'popupBtn')]");
-
 	// Enter Password Popup
 	public static By objGetPremiumCTAInPlater = By.xpath("//div[contains(@class,'teaser-grid2')]//button");
 
@@ -271,9 +268,6 @@ public class PWASubscriptionPages {
 
 	public static By objLoginButtonInPopup = By.xpath("//div[contains(@class,'popupBtn accentBtn')]");
 
-	// Get Premium Popup Title
-	public static By objGetPremiumPopupTitle = By.xpath("//h2[contains(text(), 'Subscribe')]");
-
 	public static By objMobileCreditDebitCardOption = By.xpath("//*[@text='Credit / Debit Card']");
 	public static By objMobileCreditDebitCardRecurrenceMessage = By
 			.xpath("//*[@text='You will be charged every billing cycle until you cancel']");
@@ -292,4 +286,9 @@ public class PWASubscriptionPages {
 	
 	public static By objMobilePayTMRecurrenceMessage = By.xpath("//*[@text='You will be charged every billing cycle until you cancel']");
 
+	// Get Premium Popup Title
+	public static By objGetPremiumPopupTitle = By.xpath("//h2[text() = 'Subscribe']");
+	
+	// Popup Proceed Btn
+	public static By objPopupProceedBtn = By.xpath("//div[contains(text(),'PROCEED') and contains(@class,'popupBtn') and @hidden='false']");
 }

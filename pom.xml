@@ -194,6 +194,18 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.20</version>
 				<configuration>
+					<!-- <systemPropertyVariables>
+						<UserType>${UserType}</UserType>
+						<UserType>Guest</UserType>
+						<runMode>${runMode}</runMode>
+						<runMode>Suite</runMode>
+						<runModule>${runModule}</runModule>
+						<runModule>Suites</runModule>
+					</systemPropertyVariables>
+					<suiteXmlFiles>
+						TestNG suite XML files
+						<suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+					</suiteXmlFiles> -->
 					<suiteXmlFiles>
 						<!-- TestNG suite XML files -->
 						<suiteXmlFile>pwaSanityWeb.xml</suiteXmlFile>
