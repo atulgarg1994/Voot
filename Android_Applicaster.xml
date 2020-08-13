@@ -2,10 +2,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Android" parallel="false" thread-count="1">  <!--  name="Android" -->
 
-	<parameter name="userType" value="Guest"/> <!--  Guest/NonSubscribedUser/SubscribedUser/SubscribedUserWith15daysExpiry -->
+
+	<!-- <parameter name="userType" value="${UserType}"/>  Guest/NonSubscribedUser/SubscribedUser/SubscribedUserWith15daysExpiry
+	<parameter name="runMode" value="${runMode}"/>	 -->
+
+	<parameter name="userType" value="Guest"/>  <!-- Guest/NonSubscribedUser/SubscribedUser/SubscribedUserWith15daysExpiry -->
+	<parameter name="runModule" value="Suite"/>
+	
 	<parameter name="SubscribedUserWith15daysExpiryUsername" value="zee5test@132.in"/>
 	<parameter name="SubscribedUserWith15daysExpiryPassword" value="123456"/>
-	<parameter name="runModule" value="Suite"/>
 	
 	<parameter name="NonsubscribedUserName" value="igstesting001@gmail.com"/>
 	<parameter name="RegisteredEmail" value="zee5latest@gmail.com"/>
@@ -48,7 +53,7 @@
 	<parameter name="searchcontent4" value="Comedy Kiladigalu Championship - Episode 9" />
 	<parameter name="searchcontent5" value="Comedy Kiladigalu Championship - Episode 10" />
 	<parameter name="searchcontent6" value="Comedy Kiladigalu Championship - Episode 11" />
-
+	<parameter name="tabName3" value="ZEE5 Originals" />
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
@@ -59,7 +64,7 @@
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_AppLaunch" /> 	 		
 		</classes>
-	</test> -->
+	</test> 
 	
   	 <test name="Android_Onboarding_Suite1">
 		<classes>	
@@ -90,7 +95,7 @@
 			<class name="com.zee5.ApplicasterScripts.Android_Search" />
 		</classes>
 	</test>	
-	 	
+	 	-->
 	
 	
 <!-- 	
@@ -99,5 +104,11 @@
       <class name="com.zee5.ApplicasterScripts.DeepLinkValidation"/>
     </classes> 
   </test>  -->
+  
+    <test name="Android_LandingScreen_TopNavigation">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation"/>
+    </classes>
+  </test>
 
 </suite>

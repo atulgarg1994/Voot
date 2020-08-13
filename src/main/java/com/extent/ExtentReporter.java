@@ -124,8 +124,8 @@ public class ExtentReporter implements ITestListener {
 
 	@Override
 	public void onTestStart(ITestResult result) {
-		System.out.println("onTestStart");
-		if (Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals)) {
+		if (Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals)
+				&& DriverInstance.startTest) {
 			logger.info(":::::::::Test " + result.getName() + " Started::::::::");
 			test.set(extent.get().createTest(result.getName()));
 		} else {
@@ -143,11 +143,9 @@ public class ExtentReporter implements ITestListener {
 
 	@Override
 	public void onTestFailure(ITestResult result) {
-		if ((getDriver() != null) || (getWebDriver() != null)) {
-			screencapture();
-			childTest.get().log(Status.FAIL, result.getName() + " is FAILED");
-			logger.info("::::::::::Test " + result.getName() + " FAILED::::::::::");
-		}
+		screencapture();
+		childTest.get().log(Status.FAIL, result.getName() + " is FAILED");
+		logger.info("::::::::::Test " + result.getName() + " FAILED::::::::::");
 	}
 
 	@Override
@@ -157,10 +155,6 @@ public class ExtentReporter implements ITestListener {
 			childTest.get().log(Status.SKIP, result.getName() + " is SKIPPED");
 			logger.info("::::::::::Test " + result.getName() + " SKIPPED::::::::::");
 		}
-	}
-
-	public void extentLoggerWarning(String stepName, String details) {
-		childTest.get().log(Status.WARNING, details);
 	}
 
 	public void HeaderChildNode(String header) {
@@ -174,6 +168,10 @@ public class ExtentReporter implements ITestListener {
 
 	public void extentLoggerFail(String stepName, String details) {
 		childTest.get().log(Status.FAIL, details);
+	}
+	
+	public void extentLoggerWarning(String stepName, String details) {
+		childTest.get().log(Status.WARNING, details);
 	}
 
 	@Override

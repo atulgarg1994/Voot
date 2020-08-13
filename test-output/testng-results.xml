@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Android" duration-ms="186640" started-at="2020-07-23T08:46:08Z" finished-at="2020-07-23T08:49:15Z">
+  <suite name="Android" duration-ms="171870" started-at="2020-08-12T16:48:14Z" finished-at="2020-08-12T16:51:06Z">
     <groups>
     </groups>
-    <test name="Android_LandingPage" duration-ms="186640" started-at="2020-07-23T08:46:08Z" finished-at="2020-07-23T08:49:15Z">
-      <class name="com.zee5.ApplicasterScripts.Android_LandingPage">
-        <test-method status="PASS" signature="AppLaunch()[pri:0, instance:com.zee5.ApplicasterScripts.Android_LandingPage@131276c2]" name="AppLaunch" is-config="true" duration-ms="90114" started-at="2020-07-23T14:16:15Z" finished-at="2020-07-23T14:17:45Z">
+    <test name="Android_LandingScreen_TopNavigation" duration-ms="171870" started-at="2020-08-12T16:48:14Z" finished-at="2020-08-12T16:51:06Z">
+      <class name="com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation">
+        <test-method status="PASS" signature="AppLaunch()[pri:0, instance:com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation@26aa12dd]" name="AppLaunch" is-config="true" duration-ms="116130" started-at="2020-08-12T22:18:22Z" finished-at="2020-08-12T22:20:18Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- AppLaunch -->
-        <test-method status="PASS" signature="Login(java.lang.String)[pri:0, instance:com.zee5.ApplicasterScripts.Android_LandingPage@131276c2]" name="Login" duration-ms="21447" started-at="2020-07-23T14:17:45Z" finished-at="2020-07-23T14:18:07Z">
+        <test-method status="PASS" signature="Login(java.lang.String)[pri:0, instance:com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation@26aa12dd]" name="Login" duration-ms="19568" started-at="2020-08-12T22:20:18Z" finished-at="2020-08-12T22:20:37Z">
           <params>
             <param index="0">
               <value>
@@ -22,15 +22,22 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Login -->
-        <test-method status="PASS" signature="Home()[pri:1, instance:com.zee5.ApplicasterScripts.Android_LandingPage@131276c2]" name="Home" duration-ms="45453" started-at="2020-07-23T14:18:10Z" finished-at="2020-07-23T14:18:55Z">
+        <test-method status="PASS" signature="LandingScreenChannelGuide(java.lang.String)[pri:9, instance:com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation@26aa12dd]" name="LandingScreenChannelGuide" duration-ms="19698" started-at="2020-08-12T22:20:38Z" finished-at="2020-08-12T22:20:58Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Guest]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Home -->
-        <test-method status="PASS" signature="tearDownApp()[pri:0, instance:com.zee5.ApplicasterScripts.Android_LandingPage@131276c2]" name="tearDownApp" is-config="true" duration-ms="16739" started-at="2020-07-23T14:18:58Z" finished-at="2020-07-23T14:19:15Z">
+        </test-method> <!-- LandingScreenChannelGuide -->
+        <test-method status="PASS" signature="tearDownApp()[pri:0, instance:com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation@26aa12dd]" name="tearDownApp" is-config="true" duration-ms="6642" started-at="2020-08-12T22:20:59Z" finished-at="2020-08-12T22:21:06Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownApp -->
-      </class> <!-- com.zee5.ApplicasterScripts.Android_LandingPage -->
-    </test> <!-- Android_LandingPage -->
+      </class> <!-- com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation -->
+    </test> <!-- Android_LandingScreen_TopNavigation -->
   </suite> <!-- Android -->
 </testng-results>

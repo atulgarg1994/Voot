@@ -20,7 +20,7 @@ public class Android_Subscription {
 	
 	@Test(priority = 1)
 	@Parameters({ "userType", })
-	public void verificationOfLoginPage(String userType) throws Exception {
+	public void SubscriptionScreenValidation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.subscribeEntryPointsValidations(userType);
 	}

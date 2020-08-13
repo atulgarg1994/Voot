@@ -28,62 +28,68 @@ public class Android_LandingScreen_TopNavigation {
 	}
 
 	@Test(priority = 1) // Sushma
-	@Parameters({ "userType", "tabName1"})
-	public void landingScreenHome(String userType, String tabName1) throws Exception {
+	@Parameters({ "userType", "tabName1" })
+	public void Home_LandingScreen(String userType, String tabName1) throws Exception {
 		System.out.println("\n---Verify Home landing screen---\n");
 		ZEE5ApplicasterBusinessLogic.homeLandingScreen(userType, tabName1);
-		
+
 	}
-	
+
 	@Test(priority = 2)
-	@Parameters({ "userType" }) //Bindu
+	@Parameters({ "userType" }) // Bindu
 	public void LandingScreenShows(String userType) throws Exception {
 		System.out.println("\n---Verify Shows landing screen---\n");
 		ZEE5ApplicasterBusinessLogic.verifyShowsScreen(userType);
-		ZEE5ApplicasterBusinessLogic.verifyConsumptionScreenOfBeforeTVContent(userType);
-		
+		// ZEE5ApplicasterBusinessLogic.verifyConsumptionScreenOfBeforeTVContent(userType);
 	}
-	
+
 	@Test(priority = 3) // Sushma
 	@Parameters({ "userType", "tabName2" })
-	public void landingScreenMovies(String userType, String tabName2) throws Exception {
+	public void Movies_LandingScreen(String userType, String tabName2) throws Exception {
 		System.out.println("\n---Verify Movies landing screen---\n");
 		ZEE5ApplicasterBusinessLogic.moviesLandingScreen(userType, tabName2);
 	}
 
 	@Test(priority = 4)
-	@Parameters({ "userType" }) //Vinay
-	public void PremiumTabScreen(String userType) throws Exception {
+	@Parameters({ "userType" }) // Vinay
+	public void Premium_LandingScreen(String userType) throws Exception {
 		System.out.println("\n---Verify Premium landing screen---\n");
 		ZEE5ApplicasterBusinessLogic.PremiumTabScreen(userType);
 	}
 
 	@Test(priority = 5)
-	@Parameters({ "userType" }) //Bindu
+	@Parameters({ "userType" }) // Bindu
 	public void LandingScreenNews(String userType) throws Exception {
 		System.out.println("\n---Verify News landing screen---\n");
 		ZEE5ApplicasterBusinessLogic.verifyNewsLandingScreen(userType);
-		ZEE5ApplicasterBusinessLogic.verifyTraysInNewsScreen(userType);
-		ZEE5ApplicasterBusinessLogic.verifyListingCollectionScreen(userType);
+//		ZEE5ApplicasterBusinessLogic.verifyTraysInNewsScreen(userType);
+//		ZEE5ApplicasterBusinessLogic.verifyListingCollectionScreen(userType);
 	}
-	
+
 	@Test(priority = 6)
-	@Parameters({ "userType" }) //Vinay
-	public void KidsTabScreen(String userType) throws Exception {
+	@Parameters({ "userType" }) // Vinay
+	public void Kids_LandingScreen(String userType) throws Exception {
 		System.out.println("\n---Verify Kids landing screen---\n");
 		ZEE5ApplicasterBusinessLogic.KidsTabScreen(userType);
 	}
 
-	@Test(priority = 7)
-	@Parameters({ "userType" }) //Vinay
-	public void MusicLandingScreen(String userType) throws Exception {
+	// @Test(priority = 7)
+	@Parameters({ "userType" }) // Vinay
+	public void Music_LandingScreen(String userType) throws Exception {
 		System.out.println("\n---Verify Music landing screen---\n");
 		ZEE5ApplicasterBusinessLogic.MusicLandingScreen(userType);
 	}
-	//@Test(priority = 8)
-	@Parameters({ "userType" }) //Hitesh
+
+	// @Test(priority = 8)
+	@Parameters({ "userType" }) // Hitesh
 	public void LandingScreenLiveTV(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.LiveTV(); // In Progress
+		ZEE5ApplicasterBusinessLogic.LiveTV(userType);
+	}
+
+	@Test(priority = 9)
+	@Parameters({ "userType" }) // Hitesh
+	public void LandingScreenChannelGuide(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.channelGuideScreenValidation(userType);
 	}
 
 	@AfterTest

@@ -113,8 +113,6 @@ public class PWALiveTVPage {
 
 	public static By objLiveChannelCardTitle = By.xpath("(//h3[@class=\"cardTitle\"])[1]");
 
-	public static By objLiveChannelConsumptionPageTitle = By.xpath("(//div[@class=\"channelConsumptionMetaDiv\"])//h2");
-
 	public static By objUpcomingLiveProgramDate = By.xpath("(//div[@class='date'])[10]");
 
 	public static By objUpcomingLiveProgram = By.xpath("(//div[@class=\"programMeta\"])[1]");
@@ -318,4 +316,6 @@ public class PWALiveTVPage {
 
 	public static By objBanglaShow1 = By
 			.xpath("(//*[@title='Zee Bangla']//parent::*//parent::*//following-sibling::*//div)[2]");
+	
+	public static By objLiveChannelConsumptionPageTitle = By.xpath("//div[@class='channelConsumptionMetaDiv']//h2");
 }

@@ -35,6 +35,8 @@ public class Drivertools {
 	public static String runModule;
 	private URLConnection connection;
 	private URL connectURL;
+	public static boolean startTest = false;
+	private static String runMode = "null";
 
 	public String getTestName() {
 		return testName;
@@ -171,6 +173,9 @@ public class Drivertools {
 	protected String getURL() {
 		return this.url;
 	}
+	protected String runMode() {
+		return this.runMode();
+	}
 	
 	@SuppressWarnings("static-access")
 	protected void setRunModule(String runModule){
@@ -179,6 +184,15 @@ public class Drivertools {
 	
 	public static String getRunModule() {
 		return runModule;
+	}
+	
+	@SuppressWarnings("static-access")
+	public void setRunMode(String runMode) {
+		this.runMode = runMode;
+	}
+	@SuppressWarnings("static-access")
+	public String getRunMode() {
+		return this.runMode;
 	}
 
 	public Drivertools(String application) {
@@ -201,6 +215,8 @@ public class Drivertools {
 		setBrowserType(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browserType"));
 		setURL(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url"));
 		setRunModule(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runModule"));
+		setRunMode(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runMode"));
+		System.out.println(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runMode"));
 		try {
 			connectURL = new URL("https://www.google.com");
 			connection = connectURL.openConnection();
@@ -213,22 +229,22 @@ public class Drivertools {
 		
 		logger.info("PlatForm :: " + getPlatform());
 		
-		if (Stream.of("Android", "ios", "Web", "MPWA").anyMatch(getPlatform()::equals)) {
-
-//			try {
+		if (Stream.of("Android", "ios", "Web", "MPWA").anyMatch(getPlatform()::equals)) 
+		{
 				setHandler(new PropertyFileReader("properties/ExecutionControl.properties"));
-				if (getHandler().getproperty(getTestName()).equals("Y")) {
+				System.out.println("Run Mode "+getRunMode());
+				System.out.println(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite());
+				if ((getRunMode().contentEquals(getTestName())) || (getRunMode().contentEquals("Suites"))) {
 					logger.info("Running Test :: " + getTestName());
 					logger.info("Run Mode :: YES");
+					startTest = true;
 				} else {
+					
 					logger.info(getTestName() + " : Test Skipped");
 					logger.info("RunMode is :: No");
+					startTest = false;
 					throw new SkipException(getTestName() + " : Test Skipped ");
 				}
-//			} catch (Exception e) {
-//				logger.info("RunMode is required.");
-//				throw new SkipException("Run mode is required...");
-//			}
 		} else {
 			throw new SkipException("PlatForm not matched...");
 		}

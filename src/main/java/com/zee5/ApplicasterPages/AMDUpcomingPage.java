@@ -32,24 +32,28 @@ public class AMDUpcomingPage {
 	public static By objCertificate = By.xpath("(//*[@resource-id='com.graymatrix.did:id/info_age_rating'])[1]");
 	
 	public static By objTitle(String title) {
-		return By.xpath("//*[@text='"+title +"']");
+		return By.xpath(title);
 	}
 	public static By objContentCard1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[1]");
 	
-	public static By objContentCardTitle(String title) {
-		return By.xpath("(//*[@text='"+title+"']//parent::*//child::*)[3]");
+	public static String objContentCardTitle(String title) {
+		return ("("+title+"//parent::*//child::*)[3]");
 	}
 	
-	public static By objContentGenre(String title) {
-		return By.xpath("(//*[@text='"+title+"']//parent::*//child::*)[5]");
+	public static String objContentGenre(String title) {
+		return ("("+title+"//parent::*//child::*)[5]");
 	}
 	
-	public static By objContentCertificate(String title) {
-		return By.xpath("(//*[@text='"+title+"']//parent::*//child::*)[7]");
+	public static String objContentCertificate(String title) {
+		return ("("+title+"//parent::*//child::*)[7]");
 	}
 	
-	public static By objContentReleaseDate(String title) {
-	return By.xpath("(//*[@text='"+title+"']//parent::*//child::*)[1]");
+	public static String objContentReleaseDate(String title) {
+	return ("("+title+"//parent::*//child::*)[1]");
+	}
+	
+	public static By objShowTitle(String text) {
+		return By.xpath("//*[@id='item_primary_text' and contains(text(),\"" + text + "\")]");
 	}
 	
 	

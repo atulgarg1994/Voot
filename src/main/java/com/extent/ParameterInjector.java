@@ -66,6 +66,8 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("timedAnchorMusic", "Appa Lyrical - Punith Shetty");		
 			params.put("timedAnchorMovie", "Robin Hood");
 			params.put("episodeToTriggerReco", "Aditya-Paarvathi challenge themselves for fun");
+			params.put("movieToTriggerReco", "Monsters And Pirates");
+			params.put("episodeToTriggerReco", "Aditya-Paarvathi challenge themselves for fun");
 			
 			params.put("ExpiredUserName", "zee5latest@gmail.com");
 			params.put("ExpiredUserPassword", "User@123");
@@ -104,6 +106,8 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("timedAnchorEpisode", "Paarvathi kisses Aditya - Paaru");
 			params.put("timedAnchorMusic", "Appa Lyrical - Punith Shetty");		
 			params.put("timedAnchorMovie", "Robin Hood");
+			params.put("episodeToTriggerReco", "Aditya-Paarvathi challenge themselves for fun");
+			params.put("movieToTriggerReco", "Monsters And Pirates");
 			params.put("episodeToTriggerReco", "Aditya-Paarvathi challenge themselves for fun");
 			
 			params.put("ExpiredUserName", "zee5latest@gmail.com");

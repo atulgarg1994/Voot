@@ -12,14 +12,12 @@ import org.testng.SkipException;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.Utilities;
 import com.zee5.ApplicasterPages.AMDOnboardingScreen;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class DriverInstance extends Drivertools {
@@ -32,7 +30,7 @@ public class DriverInstance extends Drivertools {
 			case "Android":
 				tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),
 						this.generateAndroidCapabilities(Application)));
-				util.waitForElementDisplayed(AMDOnboardingScreen.objWaitForSplashScreenDisapear, 180);
+				util.waitForElementDisplayed(AMDOnboardingScreen.objWaitForSplashScreenDisapear, 240);
 				break;
 
 			case "MPWA":
@@ -90,7 +88,7 @@ public class DriverInstance extends Drivertools {
 		setHandler(new PropertyFileReader("properties/AppPackageActivity.properties"));
 		if (browserName.equalsIgnoreCase("Firefox")) {
 			WebDriverManager.firefoxdriver().version("0.26.0").setup();
-			tlWebDriver.set(new FirefoxDriver());
+//			tlWebDriver.set(new FirefoxDriver());
 		} else if (browserName.equalsIgnoreCase("Chrome")) {
 			WebDriverManager.chromedriver().version("83.0.4103.39").setup();
 			ChromeOptions options = new ChromeOptions();
@@ -101,9 +99,6 @@ public class DriverInstance extends Drivertools {
 			options.addArguments("--disable-dev-shm-usage");
 			options.addArguments("--disable-browser-side-navigation");
 			options.addArguments("--disable-gpu");
-//			options.addArguments("--headless");
-//			options.addArguments("--start-maximized");
-//			options.addArguments("--window-size=1616, 876");
 			options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 			tlWebDriver.set(new ChromeDriver(options));
 		}
