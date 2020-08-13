@@ -28,7 +28,8 @@ public class ParameterInjector implements IAlterSuiteListener  {
 		params.put("SubscribedUserName", suite.getParameter("SubscribedUserName"));
 		params.put("SubscribedPassword", suite.getParameter("SubscribedPassword"));
 		params.put("devicePin", suite.getParameter("devicePin"));
-		params.put("runModule", suite.getParameter("runModule"));
+		params.put("runModule", suite.getParameter("Suite"));
+		params.put("runMode", suite.getParameter("Suites"));
 		
 		// Pass region specific data
 		Response regionResponse=given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");

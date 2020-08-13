@@ -216,7 +216,6 @@ public class Drivertools {
 		setURL(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url"));
 		setRunModule(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runModule"));
 		setRunMode(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runMode"));
-		System.out.println(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runMode"));
 		try {
 			connectURL = new URL("https://www.google.com");
 			connection = connectURL.openConnection();
@@ -232,8 +231,7 @@ public class Drivertools {
 		if (Stream.of("Android", "ios", "Web", "MPWA").anyMatch(getPlatform()::equals)) 
 		{
 				setHandler(new PropertyFileReader("properties/ExecutionControl.properties"));
-				System.out.println("Run Mode "+getRunMode());
-				System.out.println(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite());
+				
 				if ((getRunMode().contentEquals(getTestName())) || (getRunMode().contentEquals("Suites"))) {
 					logger.info("Running Test :: " + getTestName());
 					logger.info("Run Mode :: YES");

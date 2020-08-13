@@ -16,6 +16,8 @@
 
 
 	<parameter name="runModule" value="Suite" />
+	
+	<parameter name="runMode" value="Suites"/>
 
 	<!-- NONSubscribed User -->
 

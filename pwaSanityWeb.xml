@@ -10,6 +10,8 @@
 	
 	<parameter name="runModule" value="Suite"/>
 	
+	<parameter name="runMode" value="Suites"/>
+	
 	<!-- NONSubscribed User -->
 	<parameter name="NonsubscribedUserName" value="basavaraj.pn5@gmail.com"/>
 	<parameter name="NonsubscribedPassword" value="igsindia123"/>
