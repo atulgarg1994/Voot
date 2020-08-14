@@ -232,7 +232,7 @@ public class Drivertools {
 		{
 				setHandler(new PropertyFileReader("properties/ExecutionControl.properties"));
 				
-				if ((getRunMode().contentEquals(getTestName())) || (getRunMode().contentEquals("Suites"))) {
+				if (getHandler().getproperty(getTestName()).equals("Y") && (getRunMode().contentEquals(getTestName())) || (getRunMode().contentEquals("Suites"))) {
 					logger.info("Running Test :: " + getTestName());
 					logger.info("Run Mode :: YES");
 					startTest = true;

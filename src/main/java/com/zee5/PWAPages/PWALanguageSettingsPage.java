@@ -39,5 +39,9 @@ public class PWALanguageSettingsPage {
 	//Language pop up overlay
 	public static By objLanguagePopupOverlay = By.xpath("//div[contains(@class,'contentWrapouter')]");
 	public static By objLanguagePopupOverlay1 = By.xpath("//div[contains(@class,'contentWrapouter')]");
+	
+	public static By objNonSelectedEng = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='English']");
+	public static By objNonSelectedHin = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='Hindi']");
+	public static By objNonSelectedKan = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='Kannada']");
 
 }

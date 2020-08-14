@@ -166,4 +166,8 @@ public class AMDHomePage {
 
 	public static By objBeforeTVTray = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/header_primary_text' and contains(text(),'Before')]");
+
+	public static By objTab1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[1]");
+
+	public static By objTab5 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[5]");
 }

@@ -4,6 +4,11 @@
 	<parameter name="browserType" value="chrome"/>
 	<parameter name="url" value="http://newpwa.zee5.com/"/>
 	
+	<!-- <parameter name="userType" value="${UserType}"/>  Guest/NonSubscribedUser/SubscribedUser/SubscribedUserWith15daysExpiry
+	<parameter name="runMode" value="${runMode}"/>	
+	<parameter name="runModule" value="${runModule}"/>
+	<parameter name="browserType" value="${browserType}"/> -->
+	
 	<parameter name="userType" value="SubscribedUser"/> <!--  Guest/NonSubscribedUser/SubscribedUser -->
 	
 	<parameter name="runModule" value="Suite"/>

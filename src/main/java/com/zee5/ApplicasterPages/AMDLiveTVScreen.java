@@ -13,8 +13,6 @@ public class AMDLiveTVScreen {
 		return By.xpath("//*[@resource-id='com.graymatrix.did:id/header_primary_text' and @text='"+trayName+"']");
 	}
 	
-	public static By objChannelLogo = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_image']");
-	
 	public static By objSubscribeIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribeiconlayout']");
 	
 	public static By objFirstContent = By.xpath("(//*[@id='horizontal_list_10_parent'])[1]");
@@ -27,5 +25,6 @@ public class AMDLiveTVScreen {
 	
 	public static By objTimeFrame = By.xpath("//*[@id='tvsubTitle']");
 	
+	public static By objChannelLogo = By.xpath("//*[@resource-id='com.graymatrix.did:id/img_channel']");
 	
 }

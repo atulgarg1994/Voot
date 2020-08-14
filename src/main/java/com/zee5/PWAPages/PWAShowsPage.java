@@ -122,4 +122,8 @@ public class PWAShowsPage {
 	public static By objallowCaps = By.xpath("//*[@text='ALLOW']");
 	
 	public static By objEpisodesSetTray = By.xpath("//div[@class='allEpisodeSelect']");
+	
+	public static By objEpisodeCard = By.xpath("//div[@data-index='0']//img");
+	
+	public static By objEpisodeCardTwo = By.xpath("//div[@data-index='1']//img");
 }

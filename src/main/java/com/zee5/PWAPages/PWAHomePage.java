@@ -105,8 +105,6 @@ public class PWAHomePage {
 	public static By objWEBWatchTrailerBtn = By.xpath("//p[contains(text(),'Watch Trailer')]");
 	public static By objWEBCarouselTitle = By.xpath(
 			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle ')]");
-	public static By objWEBGetPremium = By.xpath(
-			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(text(),'Get premium')]");
 	public static By objWEBPlayBtn = By.xpath(
 			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'playIcon')]");
 
@@ -461,4 +459,9 @@ public class PWAHomePage {
 	// Get premium btn
 	public static By objGetPremium = By.xpath(
 			"//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Subscribe Now')]");
+	
+	public static By objWEBGetPremium = By.xpath("//div[contains(@class,'slick-active')]//*[contains(text(),'Subscribe Now')]");
+	
+	public static By objWEBShowsPagePlayCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'premiumBtn')]");
+	
 }

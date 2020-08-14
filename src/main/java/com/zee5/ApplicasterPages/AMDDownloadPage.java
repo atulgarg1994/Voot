@@ -110,7 +110,7 @@ public class AMDDownloadPage {
 	public static By objPlayDownloadedContent = By.xpath("//*[@id='tvPlay']");
 	public static By objDeleteDownloadedContent = By.xpath("//*[@id='tvDeleteDownload']");
 	
-	public static By objCalloutPopupwhileDownloading = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Pause All']]");
+	public static By objCalloutPopupwhileDownloading = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Pause']]");
 	public static By objTickIcon= By.xpath("//*[@id='img_state']");
 	public static By objCalloutAfterDownload = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Play']]");
 	public static By objPlayCTA = By.xpath("//*[@id='tvPlay']");
@@ -137,5 +137,8 @@ public class AMDDownloadPage {
 	public static By objSubscriptionExpiryMessage = By.xpath("//*[@text='Please remember to renew your subscription to access your downloads.']");
 	
 	public static By objtitleofNewEpisode = By.xpath("//*[@id='rl_show_details']//*[@id='tv_title']");
-	
+
+	public static By objIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/iconTextView_download']");		
+	public static By objCallOutwithPauseAll = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Pause All']]");
+	public static By objSearchIcon = By.xpath("//*[@id='title' and @text='Downloads']//following::*[1]");
 }
