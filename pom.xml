@@ -196,11 +196,8 @@
 				<configuration>
 					<!-- <systemPropertyVariables>
 						<UserType>${UserType}</UserType>
-						<UserType>Guest</UserType>
 						<runMode>${runMode}</runMode>
-						<runMode>Suite</runMode>
 						<runModule>${runModule}</runModule>
-						<runModule>Suites</runModule>
 					</systemPropertyVariables>
 					<suiteXmlFiles>
 						TestNG suite XML files

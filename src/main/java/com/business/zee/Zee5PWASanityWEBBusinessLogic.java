@@ -1794,33 +1794,29 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 */
 	public void zeePWAGuestUserSubscriptionFlow() throws Exception {
 //		HeaderChildNode("PWA Subscription Flow");
-
 		zeePWASelectPackPageValidation();
 		zeePWAAccountInfoPageValidation();
 		zeePWAPaymentPageValidation();
-
 	}
 
-	public void SubscriptionPopupScenarios(String userType) throws Exception{
-		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+	public void SubscriptionPopupScenarios(String userType) throws Exception {
+		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 			selectLanguages();
 			zeePWAVerifySubscriptionPopUpAfterTwentySecondsPlayback(userType);
 			zeePWAVerifyNavigationToSubscriptionFlowFromSubscriptionPopupFullscreenPlayer(userType);
 			if (userType.equalsIgnoreCase("Guest")) {
 				zeePWAVerifySubscriptionPopupAfterTrailerPlaybackIsComplete(userType);
 			}
-		}		
+		}
 	}
-	
+
 	/**
 	 * Non-Subscribed User Subscription Flow
 	 */
 	public void zeePWANonSubscribedUserSubscriptionFlow() throws Exception {
 //		HeaderChildNode("PWA Subscription Flow");
-
 		zeePWASelectPackPageValidation();
 		zeePWAPaymentPageValidation();
-
 	}
 
 	/**
@@ -1828,7 +1824,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 */
 	public void zeePWASubscriptionScenariosValidation(String userType, String platform) throws Exception {
 //		HeaderChildNode("PWA Subscription Scenarios Validation");
-
 //		if(userType.equalsIgnoreCase("Non-Subscribed")) {
 //			ZeePWALogin("E-mail", userType);
 //		}
@@ -11819,46 +11814,42 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 	}
 //
-	/*
-	 * Function to verify internal links
-	 */
-
 	public void InternalLinksValidation() throws Exception {
 
 		extent.HeaderChildNode("Internal Links Validation");
 		waitTime(2000);
 		verifyElementPresent(PWAHomePage.objAboutUsInFooterSection, "About Us in footer section");
-		for (int i = 0; i < 6; i++) {
-			scrollDownWEB();
-			waitTime(6000);
-			if (verifyElementExist(PWAHomePage.objWhatToWatchPopUp, "wondering what to watch pop up")) {
-				verifyElementExist(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
-				waitTime(4000);
-				click(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
-				break;
-			}
+		// for (int i = 0; i < 6; i++) {
+		// scrollDownWEB();
+		// waitTime(6000);
+		if (verifyElementExist(PWAHomePage.objWhatToWatchPopUp, "wondering what to watch pop up")) {
+			verifyElementExist(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
+			waitTime(4000);
+			click(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
+			// break;
 		}
+		// }
 		waitTime(2000);
-		click(PWAHomePage.objAboutUsInFooterSection, "About Us in footer section");
+		JSClick(PWAHomePage.objAboutUsInFooterSection, "About Us in footer section");
 		waitTime(4000);
 		if (verifyElementExist(PWAHomePage.objAboutUs, "About Us screen")) {
 			logger.info("User is navigated to About Us Screen");
 		}
 		Back(1);
 		scrollDownWEB();
-		for (int i = 0; i < 6; i++) {
-			scrollDownWEB();
-			waitTime(6000);
-			if (verifyElementExist(PWAHomePage.objWhatToWatchPopUp, "wondering what to watch pop up")) {
-				verifyElementExist(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
-				waitTime(4000);
-				click(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
-				break;
-			}
+		// for (int i = 0; i < 6; i++) {
+		// scrollDownWEB();
+		// waitTime(6000);
+		if (verifyElementExist(PWAHomePage.objWhatToWatchPopUp, "wondering what to watch pop up")) {
+			verifyElementExist(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
+			waitTime(4000);
+			click(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
+			// break;
 		}
+		// }
 		waitTime(5000);
 		verifyElementPresent(PWAHomePage.objHelp, "Help Center in footer section");
-		click(PWAHomePage.objHelp, "Help Center in footer section");
+		JSClick(PWAHomePage.objHelp, "Help Center in footer section");
 		waitTime(8000);
 		switchToWindow(2);
 		waitTime(5000);
@@ -11872,7 +11863,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if (verifyElementExist(PWAHomePage.objWhatToWatchPopUp, "wondering what to watch pop up")) {
 			verifyElementPresentAndClick(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
 		}
-		click(PWAHomePage.objPrivacyPolicyInFooterSection, "Privacy Policy in footer section");
+		JSClick(PWAHomePage.objPrivacyPolicyInFooterSection, "Privacy Policy in footer section");
 		if (verifyElementExist(PWAHomePage.objPrivacyPolicy, "Privacy Policy screen")) {
 			logger.info("User is navigated to Privacy Policy Screen");
 		}
@@ -11885,9 +11876,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		Back(1);
 	}
 
-	/*
+	/**
 	 * Function to verify external links
 	 */
+	
 	public void ExternalLinksValidation() throws Exception {
 		extent.HeaderChildNode("External Links Validation");
 		waitTime(5000);
@@ -11897,7 +11889,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
 		}
 		waitTime(5000);
-		verifyElementPresentAndClick(PWAHomePage.objInstagramIcon, "Instagram icon");
+		verifyElementPresent(PWAHomePage.objInstagramIcon, "Instagram icon");
+		JSClick(PWAHomePage.objInstagramIcon, "Instagram icon");
 		waitTime(3000);
 		switchToWindow(2);
 		waitTime(3000);
@@ -11909,7 +11902,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		// Twitter
 		partialScroll();
 		scrollDownWEB();
-		verifyElementPresentAndClick(PWAHomePage.objTwitterIcon, "Twitter icon");
+		verifyElementPresent(PWAHomePage.objTwitterIcon, "Twitter icon");
+		JSClick(PWAHomePage.objTwitterIcon, "Twitter icon");
 		waitTime(3000);
 		switchToWindow(2);
 		if (verifyElementExist(PWAHomePage.objTwitterPage, "Twitter page follow button")) {
@@ -11921,7 +11915,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		scrollDownWEB();
 		// Facebook
 		waitTime(5000);
-		verifyElementPresentAndClick(PWAHomePage.objFacebookIcon, "Facebook icon");
+		verifyElementPresent(PWAHomePage.objFacebookIcon, "Facebook icon");
+		JSClick(PWAHomePage.objFacebookIcon, "Facebook icon");
 		waitTime(3000);
 		switchToWindow(2);
 		String facebook = getWebDriver().getCurrentUrl();
@@ -11933,7 +11928,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		switchToParentWindow();
 		waitTime(5000);
 		// android play store
-		verifyElementPresentAndClick(PWAHomePage.objAndroidPlayStoreIcon, "Google play store icon");
+		verifyElementPresent(PWAHomePage.objAndroidPlayStoreIcon, "Google play store icon");
+		JSClick(PWAHomePage.objAndroidPlayStoreIcon, "Google play store icon");
 		waitTime(3000);
 		switchToWindow(2);
 		if (verifyElementExist(PWAHomePage.objGooglePlayLogo, "Android Google Play icon") == true) {
@@ -11944,7 +11940,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		switchToParentWindow();
 		waitTime(5000);
 		// iOS app store
-		verifyElementPresentAndClick(PWAHomePage.objIoSAppStoreIcon, "iOS app store icon");
+		verifyElementPresent(PWAHomePage.objIoSAppStoreIcon, "iOS app store icon");
+		JSClick(PWAHomePage.objIoSAppStoreIcon, "iOS app store icon");
 		waitTime(3000);
 		switchToWindow(2);
 		String iOSURL = getWebDriver().getCurrentUrl();
