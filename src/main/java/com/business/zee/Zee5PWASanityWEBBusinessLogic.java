@@ -1801,6 +1801,17 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	}
 
+	public void SubscriptionPopupScenarios(String userType) throws Exception{
+		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			selectLanguages();
+			zeePWAVerifySubscriptionPopUpAfterTwentySecondsPlayback(userType);
+			zeePWAVerifyNavigationToSubscriptionFlowFromSubscriptionPopupFullscreenPlayer(userType);
+			if (userType.equalsIgnoreCase("Guest")) {
+				zeePWAVerifySubscriptionPopupAfterTrailerPlaybackIsComplete(userType);
+			}
+		}		
+	}
+	
 	/**
 	 * Non-Subscribed User Subscription Flow
 	 */

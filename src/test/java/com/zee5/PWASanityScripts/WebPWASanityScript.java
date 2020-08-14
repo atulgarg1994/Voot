@@ -216,15 +216,7 @@ public class WebPWASanityScript {
 	@Parameters({ "userType" })
 	public void SubscriptionPopup(String userType) throws Exception {
 		// Sanity
-		Zee5WEBPWASanityBusinessLogic.zeePWAVerifySubscriptionPopUpAfterTwentySecondsPlayback(userType);
-		Zee5WEBPWASanityBusinessLogic
-				.zeePWAVerifyNavigationToSubscriptionFlowFromSubscriptionPopupFullscreenPlayer(userType);
-		if (userType.equalsIgnoreCase("Guest")) {
-			Zee5WEBPWASanityBusinessLogic.zeePWAVerifySubscriptionPopupAfterTrailerPlaybackIsComplete(userType);
-		}
-
-//		//SMOKE SubscriptionModule //SATISH
-//		Zee5WEBPWASanityBusinessLogic.zeePWASubscriptionSuite(userType);
+		Zee5WEBPWASanityBusinessLogic.SubscriptionPopupScenarios(userType);
 	}
 
 	// -------------------------SATISH UserActions--------------------------
