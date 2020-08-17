@@ -462,7 +462,7 @@ public class PWAHamburgerMenuPage {
 	public static By objApplyBtn = By.xpath("//div[contains(text(),'APPLY')]");
 
 	// My remainder option
-	public static By objMyRemainder = By.xpath("//div[contains(text(),'My Reminders')]");
+	public static By objMyRemainder = By.xpath("//*[contains(@class, 'noSelect menuItem') and contains(text(),'My Reminders')]");
 
 	public static By objkannadalanguage = By.xpath("//span[@class='commonName'][contains(text(),'Kannada')]");
 

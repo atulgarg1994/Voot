@@ -271,8 +271,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			waitTime(1000);
 			verifyElementExist(PWAHamburgerMenuPage.objExploreOptions("Stories"), "Stories option");
 			waitTime(1000);
-			verifyElementExist(PWAHamburgerMenuPage.objExploreOptions("Videos"), "Videos option");
-			waitTime(1000);
 			verifyElementExist(PWAHamburgerMenuPage.objExploreOptions(" ZEE5 Originals"), "ZEE5 Originals option");
 			waitTime(3000);
 			click(PWAHamburgerMenuPage.objCloseHamburgerMenu, "Hamburger close button");
@@ -2526,21 +2524,39 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	/**
 	 * Validation of Sign Up Pop Up Functionality
 	 */
+	@SuppressWarnings("unused")
 	public void registerPopUpFunctionality() throws Exception {
-		extent.HeaderChildNode("Premium content popup functionality");
+		extent.HeaderChildNode("Verification of Subscribe Pop Up");
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		waitTime(2000);
+		// handle mandatory pop up
+		String user = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		// mandatoryRegistrationPopUp(user);
 		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter("premiumMovie");
+				.getParameter("premiumMovieNoTrailer");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Field");
-		waitTime(3000);
-		click(PWASearchPage.objSearchResultPremiumContent, "Premium content");
-		if (verifyElementExist(PWASearchPage.objCloseRegisterDialog, "Pop Up") == false) {
-			logger.info("Sign Up Pop Up is not displayed for premium content");
-			extent.extentLogger("Pop-Up", "Sign Up Pop Up is not displayed for premium content");
-
+		waitForElement(PWASearchPage.objSearchedResult(keyword), 30, "Premium content");
+		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Premium content: " + keyword);
+		waitForElementDisplayed(PWAPlayerPage.objSubscriptionpopup, 30);
+		logger.info("Waited for 30 seconds");
+		extent.extentLogger("", "Waited for 30 seconds");
+		if (verifyElementExist(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up")) {
+			logger.info("Verified that Subscribe Pop up is displayed for Premium content");
+			extent.extentLogger("Subscription Popup",
+					"Verified that Subscribe Pop up is displayed for Premium content");
+			click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
+		} else {
+			if (verifyElementExist(PWAPlayerPage.objWatchingATrailerMessage,
+					"'You're watching a trailer' message on the player")) {
+				logger.info("Subscribe Pop up is not displayed for Premium content because trailer is still playing");
+				extent.extentLogger("Subscribe Pop pup",
+						"Subscribe Pop up is not displayed for Premium content because trailer is still playing");
+			} else {
+				logger.error("Premium content is played with no Subscribe Pop Up displayed");
+				extent.extentLogger("", "Premium content is played with no Subscribe Pop Up displayed");
+			}
 		}
-		extent.HeaderChildNode("Register-PopUp Funtionality");
+		extent.HeaderChildNode("Verification of Sign Up Pop Up: Entering mobile number of already Registered User");
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		verifyElementExist(PWAHomePage.objSearchField, "Search field");
 		String keyword1 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -2550,44 +2566,65 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(10000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword1), "Search Result");
 		waitTime(6000);
-		if (verifyElementExist(PWASearchPage.objCloseRegisterDialog, "Pop Up")) {
-			logger.info("Sign Up Pop Up is displayed");
-			extent.extentLogger("Pop-Up", "Sign Up Pop Up is displayed");
-			logger.info("PopUp is verifed in portrait mode");
-			extent.extentLogger("Popup", "PopUp is verifed in portrait mode");
-			verifyElementExist(PWAHomePage.objPopUpMobileField, "Mobile field in pop up");
-			type(PWAHomePage.objPopUpMobileField, "7892215214\n", "Mobile field");
+		if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Sign Up Pop Up")) {
+			logger.info("Sign Up Pop Up is verifed in portrait mode");
+			extent.extentLogger("Popup", "Sign Up Pop Up is verifed in portrait mode");
+			verifyElementExist(PWAHomePage.objPopUpMobileField, "Mobile Number field");
+			type(PWAHomePage.objPopUpMobileField, "7892215214\n", "Mobile Number field");
 			hideKeyboard();
-			verifyElementExist(PWAHomePage.objPopUpPasswordField, "Password field in pop up");
+			verifyElementExist(PWAHomePage.objPopUpPasswordField, "Password field");
 			type(PWAHomePage.objPopUpPasswordField, "User@123\n", "Password field");
 			hideKeyboard();
-			verifyElementPresentAndClick(PWAHomePage.objPopUpProceedButton, "Proceed button");
+			verifyElementExist(CompleteYourProfilePopUp.objFirstName, "First Name Field");
+			type(CompleteYourProfilePopUp.objFirstName, "Test1\n", "First Name Field");
+			hideKeyboard();
+			verifyElementExist(CompleteYourProfilePopUp.objLastName, "Last Name Field");
+			type(CompleteYourProfilePopUp.objLastName, "User\n", "Last Name Field");
+			hideKeyboard();
+			verifyElementExist(CompleteYourProfilePopUp.objDOBField, "Date of Birth Field");
+			type(CompleteYourProfilePopUp.objDOBField, "17092000", "Date of Birth Field");
+			hideKeyboard();
+			verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderDropDown, "Gender drop down");
+			verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderfemale, "Female option");
+			verifyElementPresentAndClick(CompleteYourProfilePopUp.objSendOtp, "Send OTP button");
 			try {
 				Boolean SavedChangesToastMessage = getDriver().findElement(By.xpath("//*[@class='toastMessage']"))
 						.isDisplayed();
 				if (SavedChangesToastMessage == true) {
-					extent.extentLogger("Toast", "User Already exist Toast Message displayed");
-					logger.info("User Already exist Toast Message displayed");
+					extent.extentLogger("Toast", "User Already exist Toast Message is displayed");
+					logger.info("User Already exist Toast Message is displayed");
 				}
 			} catch (Exception e) {
-				System.out.println("Toast message is not displayed");
+			}
+			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Sign Up Pop Up")) {
+				logger.info("Since User already exists Sign Up Pop Up is not dismissed");
+				extent.extentLogger("", "Since User already exists Sign Up Pop Up is not dismissed");
+			} else {
+				logger.error("Sign Up Pop Up is dismissed");
+				extent.extentLoggerFail("", "Sign Up Pop Up is dismissed");
 			}
 			if (verifyElementExist(PWALoginPage.objFacebookIcon, "Facebook icon") == false) {
 				logger.info("Social media login is not displayed in Sign Up Pop Up");
 				extent.extentLogger("Social media icon", "Social media login is not displayed in Sign Up Pop Up");
+			} else {
+				logger.error("Social media login is displayed in Sign Up Pop Up");
+				extent.extentLoggerFail("Social media icon", "Social media login is displayed in Sign Up Pop Up");
 			}
+			extent.HeaderChildNode("Verification of Sign Up Pop Up: Entering mobile number of Non Registered User");
 			getDriver().findElement(PWAHomePage.objPopUpMobileField).clear();
 			waitTime(5000);
 			type(PWAHomePage.objPopUpMobileField, "8660863575\n", "Mobile field");
+			logger.info("Edited mobile number field with non registered number");
+			extent.extentLogger("", "Edited mobile number field with non registered number");
 			hideKeyboard();
-			verifyElementPresentAndClick(PWAHomePage.objPopUpProceedButton, "Proceed button");
+			verifyElementPresentAndClick(CompleteYourProfilePopUp.objSendOtp, "Send OTP button");
 			waitTime(2000);
-			if (verifyElementExist(PWAHomePage.objOtpPopUp, "PopUp")) {
-				logger.info("Otp screen is displayed");
-				extent.extentLogger("Popup", "Otp screen is displayed");
+			if (!verifyElementExist(CompleteYourProfilePopUp.objOTPScreen, "OTP Pop Up")) {
+				logger.error("OTP Pop Up is not displayed");
+				extent.extentLoggerFail("Popup", "OTP Pop Up is not displayed");
 			}
-			click(PWASearchPage.objCloseRegisterDialog, "Close button");
-			click(PWAHomePage.objZeeLogo, "Zee logo");
+			verifyElementPresentAndClick(CompleteYourProfilePopUp.objCloseBtn, "Close button in OTP Pop Up");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 			changeLanguageAndVerifyPopUp();
 		} else {
 			logger.info("Sign Up Pop Up is not displayed");
@@ -2629,6 +2666,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objResetSettingsToDefault, "Reset Settings to Default");
 		waitTime(5000);
 		click(PWAHomePage.objZeeLogo, "Zee logo");
+		// handle mandatory pop up
+		String user = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		mandatoryRegistrationPopUp(user);
 	}
 
 	public void simpleTest(String UserType) {
@@ -2677,9 +2717,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
 		type(PWALoginPage.objPasswordField, "123456\n", "Password field");
-		// hideKeyboard();
-		// waitTime(5000);
-		// directClickReturnBoolean(PWALoginPage.objLoginBtn, "Login Button");
+		hideKeyboard();
+		directClickReturnBoolean(PWALoginPage.objLoginBtn, "Login Button");
 		waitTime(8000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		verifyElementExist(PWAHomePage.objSearchField, "Search field");
@@ -2704,9 +2743,15 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			click(CompleteYourProfilePopUp.objDateSelector, "Year");
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderFemale, "Gender Field");
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objMobileNo, "Mobile Number");
-			type(CompleteYourProfilePopUp.objMobileNo, "95839633299\n", "Mobile Number");
+			type(CompleteYourProfilePopUp.objMobileNo, "95839633299", "Mobile Number");
+			hideKeyboard();
 			waitTime(3000);
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objCloseBtn, "Close Button");
+			verifyElementPresentAndClick(CompleteYourProfilePopUp.objSendOtp, "Send OTP button");
+			if (!verifyElementExist(CompleteYourProfilePopUp.objOTPScreen, "OTP Pop Up")) {
+				logger.error("OTP Pop Up is not displayed");
+				extent.extentLoggerFail("Popup", "OTP Pop Up is not displayed");
+			}
+			verifyElementPresentAndClick(CompleteYourProfilePopUp.objCloseBtn, "Close button in OTP Pop Up");
 			click(PWAHomePage.objZeeLogo, "Zee logo");
 		} else {
 			logger.info("Complete Profile pop up is not displayed");
@@ -3915,8 +3960,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 		} else {
 			if (verifyElementExist(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up")) {
-				logger.error("Subscribe Pop up is displayed for Premium Show, second content for Subscribed User");
-				extent.extentLoggerFail("",
+				logger.info("Subscribe Pop up is displayed for Premium Show, second content for Subscribed User");
+				extent.extentLogger("",
 						"Verified that Subscribe Pop up is displayed for Premium Show, second content for Subscribed User");
 				click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
 			} else {
@@ -3969,7 +4014,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 
 	public void LinksValidation(String userType) throws Exception {
-
 		InternalLinksValidation();
 		ExternalLinksValidation();
 	}
@@ -4562,7 +4606,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				logger.info("Navigated to Title : " + getText(PWAHomePage.objPlaybackLIVETVTitle1));
 				extent.extentLogger("", "Navigated to Title : " + getText(PWAHomePage.objPlaybackLIVETVTitle1));
 				// added from gaps for live tv
-				if (!verifyElementExist(PWAPlayerPage.progressBar, "Progress bar for Live TV")) {
+				if (verifyElementExist(PWAPlayerPage.progressBar, "Progress bar for Live TV")) {
 					extent.extentLoggerFail("", "Progress bar should not be dispayed for Live TV, but is displayed");
 				}
 				if (verifyElementExist(PWAHamburgerMenuPage.objSubscribeNowLink, "Subscription Link") == true) { // guest
@@ -8156,6 +8200,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		pausePlayer();
 		click(PWAPlayerPage.rewind10SecBtn, "Rewind 10 seconds");
+		waitTime(2000);
 		// Get the current time duration after clicking the rewind button
 		String currentDuration4 = getElementPropertyToString("innerText", PWAPlayerPage.currentDurationTime,
 				"current duration");
@@ -10358,29 +10403,55 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 */
 
 	public void InternalLinksValidation() throws Exception {
+		String url = "";
 		// Internal Links
 		extent.HeaderChildNode("Internal Links Validation");
 		swipeToBottomOfPage();
+		swipeALittleDownForLinks();
 		verifyElementPresentAndClick(PWAHomePage.objAboutUsInFooterSection, "About Us in footer section");
+		url = getDriver().getCurrentUrl();
+		extent.extentLogger("", "URL navigated: " + url);
+		logger.info("URL navigated: " + url);
 		if (verifyElementExist(PWAHomePage.objAboutUs, "About Us screen")) {
 			logger.info("User is navigated to About Us Screen");
 		}
 		Back(1);
 		swipeToBottomOfPage();
+		swipeALittleDownForLinks();
 		verifyElementPresentAndClick(PWAHomePage.objHelp, "Help Center in footer section");
+		getDriver().context("NATIVE_APP");
+		try {
+			getDriver().findElement(PWALiveTVPage.objChromeOpenWith).click();
+			waitTime(2000);
+			getDriver().findElement(PWALiveTVPage.objChromeOpenWith).click();
+
+		} catch (Exception e) {
+		}
+		getDriver().context("CHROMIUM");
+		url = getDriver().getCurrentUrl();
+		extent.extentLogger("", "URL navigated: " + url);
+		logger.info("URL navigated: " + url);
 		androidSwitchTab();
 		if (verifyElementPresent(PWAHomePage.objHelpScreen, "Help Center screen")) {
 			logger.info("User is navigated to Help Center Screen");
 		}
 		AndroidSwitchToParentWindow();
 		swipeToBottomOfPage();
+		swipeALittleDownForLinks();
 		verifyElementPresentAndClick(PWAHomePage.objPrivacyPolicyInFooterSection, "Privacy Policy in footer section");
+		url = getDriver().getCurrentUrl();
+		extent.extentLogger("", "URL navigated: " + url);
+		logger.info("URL navigated: " + url);
 		if (verifyElementPresent(PWAHomePage.objPrivacyPolicy, "Privacy Policy screen")) {
 			logger.info("User is navigated to Privacy Policy Screen");
 		}
 		Back(1);
 		swipeToBottomOfPage();
+		swipeALittleDownForLinks();
 		verifyElementPresentAndClick(PWAHomePage.objTermsOfUseInfooterSection, "Terms of Use in footer section");
+		url = getDriver().getCurrentUrl();
+		extent.extentLogger("", "URL navigated: " + url);
+		logger.info("URL navigated: " + url);
 		if (verifyElementPresent(PWAHomePage.objTerms, "Terms of Use screen")) {
 			logger.info("User is navigated to Terms of Use Screen");
 		}
@@ -10393,60 +10464,83 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	public void ExternalLinksValidation() throws Exception {
 		extent.HeaderChildNode("External Links Validation");
 		swipeToBottomOfPage();
+		swipeALittleDownForLinks();
 		verifyElementPresentAndClick(PWAHomePage.objInstagramIcon, "Instagram icon");
 		waitTime(5000);
 		androidSwitchTab();
-		verifyElementExist(PWAHomePage.objInstagramPage, "Instagram page follow button");
+		if (verifyElementExist(PWAHomePage.objInstagramPage, "Instagram page follow button")) {
+			logger.info("User is redirected to Instagram page");
+			extent.extentLogger("", "User is redirected to Instagram page");
+		} else {
+			logger.error("User is not redirected to Instagram page");
+			extent.extentLoggerFail("", "User is not redirected to Instagram page");
+		}
 		AndroidSwitchToParentWindow();
-
 		// Twitter
-		Swipe("UP", 2);
 		swipeToBottomOfPage();
+		swipeALittleDownForLinks();
 		verifyElementPresentAndClick(PWAHomePage.objTwitterIcon, "Twitter icon");
+		getDriver().context("NATIVE_APP");
+		try {
+			getDriver().findElement(PWALiveTVPage.objTwitterOpenWith).click();
+		} catch (Exception e) {
+		}
+		getDriver().context("CHROMIUM");
 		waitTime(5000);
 		if (getCurrentActivity().contains("com.twitter.android")) {
 			getDriver().context("NATIVE_APP");
-			verifyElementExist(PWAHomePage.objTwitterPage, "Twitter page follow button");
-			getDriver().context("WEBVIEW_1");
+			verifyElementExist(PWAHomePage.objTwitterPage, "Twitter app Follow button");
+			Back(1);
+			getDriver().context("CHROMIUM");
 		} else {
 			androidSwitchTab();
-			verifyElementExist(PWAHomePage.objTwitterPage, "Twitter page follow button");
+			verifyElementExist(PWAHomePage.objTwitterPage, "Twitter page Follow button");
+			AndroidSwitchToParentWindow();
 		}
-		AndroidSwitchToParentWindow();
-		Back(1);
 		swipeToBottomOfPage();
-
+		swipeALittleDownForLinks();
 		// Facebook
 		verifyElementPresentAndClick(PWAHomePage.objFacebookIcon, "Facebook icon");
 		waitTime(3000);
 		androidSwitchTab();
 		String facebook = getDriver().getCurrentUrl();
 		if (facebook.contains("facebook")) {
-			logger.info("User is redirected to facebook page");
-			extent.extentLogger("Facebook", "User is redirected to facebook page");
+			logger.info("User is redirected to Facebook page");
+			extent.extentLogger("Facebook", "User is redirected to Facebook page");
+		} else {
+			logger.error("User is not navigated to Facebook page");
+			extent.extentLogger("", "User is not navigated to Facebook page");
 		}
 		AndroidSwitchToParentWindow();
-
+		swipeToBottomOfPage();
+		swipeALittleDownForLinks();
+		swipeALittleDownForLinks();
 		// android play store
 		verifyElementPresentAndClick(PWAHomePage.objAndroidPlayStoreIcon, "Android play store icon");
 		getDriver().context("NATIVE_APP");
-		if (verifyElementExist(PWAHomePage.objGooglePlayStore, "Android Google play store")) {
-			logger.info("User is navigated to Android Google Play store");
+		if (verifyElementExist(PWAHomePage.objGooglePlayStore, "Android Google Play store")) {
+			logger.info("User is navigated to Android Google Play Store application");
+			Back(1);
 		} else {
-			logger.info("User is not navigated to Android Google Play store");
+			logger.error("User is not navigated to Android Google Play Store application");
+			extent.extentLogger("", "User is not navigated to Android Google Play Store application");
 		}
-		Back(1);
-		getDriver().context("WEBVIEW_1");
+		getDriver().context("CHROMIUM");
 		AndroidSwitchToParentWindow();
-
 		// iOS app store
+		swipeToBottomOfPage();
+		swipeALittleDownForLinks();
+		swipeALittleDownForLinks();
 		verifyElementPresentAndClick(PWAHomePage.objIoSAppStoreIcon, "iOS app store icon");
 		waitTime(3000);
 		androidSwitchTab();
 		String apple = getDriver().getCurrentUrl();
 		if (apple.contains("apple")) {
-			logger.info("User is redirected to iOS app store");
-			extent.extentLogger("Facebook", "User is redirected to iOS app store");
+			logger.info("User is redirected to iOS App Store");
+			extent.extentLogger("", "User is redirected to iOS App Store");
+		} else {
+			logger.error("User is not navigated to iOS App Store");
+			extent.extentLogger("", "User is not navigated to iOS App Store");
 		}
 		Back(2);
 	}
@@ -11338,7 +11432,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	public void SubscribedUserAboutUsScreenValidation() throws Exception {
 		HeaderChildNode("About us screen");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-		Swipe("UP", 1);
+		// Swipe("UP", 1);
+		swipeToBottomOfPage();
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objAboutUsOption, "About Us option");
 		verifyElementPresent(PWAHamburgerMenuPage.objAboutUsTextInPage, "About Us Screen page");
 		String contextname = getDriver().getContext();
@@ -11346,14 +11441,20 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info("About Us screen is opened in webview");
 		}
 		verifyElementPresent(PWAHamburgerMenuPage.objAboutUsInfo, "Brief information of the application");
-		swipeToBottomOfPage();
-		scrollToTopOfPage();
 		verifyElementExist(PWAHamburgerMenuPage.objHyperLink, "Hyperlink on About Us Screen");
 		getText(PWAHamburgerMenuPage.objHyperLink);
 		logger.info("Hyperlink present on About Us screen is: " + getText(PWAHamburgerMenuPage.objHyperLink));
 		extent.extentLogger("",
 				"Hyperlink present on About Us screen is: " + getText(PWAHamburgerMenuPage.objHyperLink));
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHyperLink, "Hyperlink");
+		getDriver().context("NATIVE");
+		try {
+			getDriver().findElement(PWALiveTVPage.objChromeOpenWith).click();
+			waitTime(2000);
+
+		} catch (Exception e) {
+		}
+		getDriver().context("CHROMIUM");
 		logger.info("User is navigated to respective page" + getDriver().getCurrentUrl());
 		extent.extentLogger("", "User is navigated to respective page" + getDriver().getCurrentUrl());
 		Back(1);
@@ -11543,6 +11644,14 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		verifyElementPresent(PWAHamburgerMenuPage.objLinkOnPrivacyPolicy, "Hyper link in Privacy Policy Screen");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objLinkOnPrivacyPolicy, "Hyperlink");
+		getDriver().context("NATIVE");
+		try {
+			getDriver().findElement(PWALiveTVPage.objChromeOpenWith).click();
+			waitTime(2000);
+
+		} catch (Exception e) {
+		}
+		getDriver().context("CHROMIUM");
 		String link = getDriver().getCurrentUrl();
 		if (link.contains("pagenotfound")) {
 			logger.error("User is not able to navigate to the respective page of Hyper link");
@@ -11570,6 +11679,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		logger.info("Build version is : " + version);
 		extent.extentLogger("version", "Build version is : " + version);
 		click(PWAHamburgerMenuPage.objCloseHamburger, "Hamburger Close button");
+
 	}
 
 	/**
@@ -12159,7 +12269,18 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		click(PWALiveTVPage.objSelectLang(lang), lang + " language");
 		click(PWALiveTVPage.objApplyBtn, "Apply button");
-//		click(PWALiveTVPage.objApplyBtn,"Apply button");
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void swipeALittleDownForLinks() {
+		Dimension size = getDriver().manage().window().getSize();
+		TouchAction touchAction = new TouchAction(getDriver());
+		int starty = (int) (size.height * 0.5);
+		int endy = (int) (size.height * 0.7);
+		int startx = size.width / 2;
+		touchAction.press(PointOption.point(startx, starty))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000))).moveTo(PointOption.point(startx, endy))
+				.release().perform();
 	}
 
 }

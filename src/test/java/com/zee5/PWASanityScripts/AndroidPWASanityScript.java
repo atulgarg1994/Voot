@@ -11,9 +11,13 @@ public class AndroidPWASanityScript {
 	private Zee5PWASanityAndroidBusinessLogic Zee5PWASanityBusinessLogic;
 
 	@BeforeTest
-	@Parameters({ "userType" })
-	public void init(String userType) throws Exception {
+	public void init() throws Exception {
 		Zee5PWASanityBusinessLogic = new Zee5PWASanityAndroidBusinessLogic("Chrome");
+	}
+
+	@Test(priority = 0)
+	@Parameters({ "userType" })
+	public void Login(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.ZeePWALogin("E-mail", userType);
 	}
 /*

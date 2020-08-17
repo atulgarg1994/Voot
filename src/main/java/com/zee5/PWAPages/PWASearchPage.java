@@ -208,8 +208,8 @@ public class PWASearchPage {
 		return By.xpath("//h2[contains(text(),'" + title + "')]");
 	}
 
-//	MandatoryRegistration
-	public static By objRegisterDialogAfterchangedLanguage = By.xpath("//div[.='ಏಕೆ ನೋಂದಾಯಿಸಬೇಕು?']");
+	//	MandatoryRegistration
+	public static By objRegisterDialogAfterchangedLanguage = By.xpath("//div[.='ಸೈನ್ ಅಪ್ ಮಾಡಿ']");
 
 	public static By objUpgradePopup = By
 			.xpath("//div[@class='ReactModal__Content ReactModal__Content--after-open popupModal']");

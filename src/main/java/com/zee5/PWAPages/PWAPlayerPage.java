@@ -355,10 +355,15 @@ public class PWAPlayerPage {
 	// Watchlist button not added
 	public static By watchListBtnNotAdded = By
 			.xpath("//div[contains(@class,'add_Watchlist')]//p[contains(text(),'Watchlist')]");
-	
+
 	// Subscribe Now Link on player
-	public static By objSubscribeNowLink = By.xpath("(//span[contains(@class,'subscribe-link') and contains(text(),'Subscribe Now')])[2]");
-	
+	public static By objSubscribeNowLink = By
+			.xpath("(//span[contains(@class,'subscribe-link') and contains(text(),'Subscribe Now')])[2]");
+
 	// Get Premium CTA Below the Player Screen
-	public static By objGetPremiumCTABelowPlayerScreen = By.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Subscribe')]");
+	public static By objGetPremiumCTABelowPlayerScreen = By
+			.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Subscribe')]");
+
+	public static By objWatchingATrailerMessage = By
+			.xpath("//div[@class='trailerInfoContainer' and contains(text(),'watching a trailer')]");
 }

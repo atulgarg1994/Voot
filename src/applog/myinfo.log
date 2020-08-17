@@ -1,4 +1,5 @@
-2020-08-13 11:32:25,519 - rootLogger - INFO - PlatForm :: Web
-2020-08-13 11:32:25,527 - rootLogger - INFO - Running Test :: WebPWASanityScript
-2020-08-13 11:32:25,528 - rootLogger - INFO - Run Mode :: YES
-2020-08-13 11:32:35,460 - rootLogger - INFO - :::::::::Test PWAWEBLogin Started::::::::
+2020-08-14 16:22:26,707 - rootLogger - INFO - PlatForm :: MPWA
+2020-08-14 16:22:26,761 - rootLogger - INFO - Running Test :: AndroidPWASanityScript
+2020-08-14 16:22:26,761 - rootLogger - INFO - Run Mode :: YES
+2020-08-14 16:24:27,701 - rootLogger - INFO - Loaded the following properties TimeOut :10 RetryCount :5
+2020-08-14 16:24:27,788 - rootLogger - INFO - :::::::::Test Login Started::::::::

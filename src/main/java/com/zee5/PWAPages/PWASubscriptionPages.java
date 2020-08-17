@@ -290,5 +290,5 @@ public class PWASubscriptionPages {
 	public static By objGetPremiumPopupTitle = By.xpath("//h2[text() = 'Subscribe']");
 	
 	// Popup Proceed Btn
-	public static By objPopupProceedBtn = By.xpath("//div[contains(text(),'PROCEED') and contains(@class,'popupBtn') and @hidden='false']");
+	public static By objPopupProceedBtn = By.xpath("//div[contains(text(),'PROCEED') and contains(@class,'popupBtn')]");
 }

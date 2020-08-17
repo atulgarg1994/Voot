@@ -341,9 +341,6 @@ public class PWAHomePage {
 	// Home page continue watching tray
 	public static By objContinueWatchingTray = By.xpath("//h2[contains(text(),'Continue Watching')]");
 
-	// Android google play store
-	public static By objGooglePlayStore = By.xpath("//*[@text='ZEE5 - Latest Movies, Originals & TV Shows']");
-
 	public static By objActiveTab = By.xpath("//a[contains(@class,'noSelect active')]");
 
 	public static By objAndroidPlayStoreIcon = By.xpath("//*[@class='playstoreIcon']//a[@class='noSelect content']");
@@ -463,5 +460,7 @@ public class PWAHomePage {
 	public static By objWEBGetPremium = By.xpath("//div[contains(@class,'slick-active')]//*[contains(text(),'Subscribe Now')]");
 	
 	public static By objWEBShowsPagePlayCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'premiumBtn')]");
-	
+
+	// Android google play store
+	public static By objGooglePlayStore = By.xpath("//*[@text='Latest Movies, TV Shows, Originals, News, HiPi']");
 }

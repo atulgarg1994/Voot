@@ -541,7 +541,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if ((userType.equals("Guest") || (userType.equals("NonSubscribedUser")))) {
 			extent.HeaderChildNode("Validation of Get Premium CTA on Carousel");
 			List<WebElement> ele = getWebDriver().findElements(By.xpath(
-					"(//*[@class='slick-slide slick-active slick-center slick-current']//*[.='Get premium'][1])[2]"));
+					"(//*[@class='slick-slide slick-active slick-center slick-current']//*[.='Subscribe Now'][1])[2]"));
 			System.out.println(ele.size());
 			if (ele.size() == 0) {
 				System.out.println("Get Premium CTA on Carousel is not displayed");
@@ -10614,19 +10614,19 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 */
 
 	public void UserActionGuestUser() throws Exception {
-		extent.HeaderChildNode("User Action module- Guest user Validataions");
+		extent.HeaderChildNode("User Action module- Guest user Validations");
 		// Validate Continue watching tray is not displayed for Guest user
 
 		if (getPlatform().equalsIgnoreCase("Web")) {
-			scrollToTheElementWEB(PWAHomePage.objFirstContentCardOfTray("Trending on Zee5"));
-			if (verifyElementExist(PWAHomePage.objFirstContentCardOfTray("Trending on Zee5"),
-					"First Content Card Of Recommended Movies Tray")) {
-				validateDisplayLanguagePopup();
+			scrollToTheElementWEB(PWAHomePage.objFirstContentCardOfTray("Trending on ZEE5"));
+			if (verifyElementExist(PWAHomePage.objFirstContentCardOfTray("Trending on ZEE5"),
+					"First Content Card Of Trending on ZEE5 Tray")) {
+				//validateDisplayLanguagePopup();
 				Actions action = new Actions(getWebDriver());
-				action.moveToElement(findElement(PWAHomePage.objFirstContentCardOfTray("Trending on Zee5")));
+				action.moveToElement(findElement(PWAHomePage.objFirstContentCardOfTray("Trending on ZEE5")));
 				action.perform();
 
-				if (verifyElementExist(PWAHomePage.objAddToWatchlistButtonOnTrayContentCard("Trending on Zee5"),
+				if (verifyElementExist(PWAHomePage.objAddToWatchlistButtonOnTrayContentCard("Trending on ZEE5"),
 						"Add To Watchlist icon on tray 1st content card")) {
 					extent.extentLogger("Verify Add To Watchlist icon on tray content card",
 							"Add To Watchlist icon on tray content card is displayed for guest user");
@@ -10637,7 +10637,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					logger.info("Add To Watchlist icon on tray content card is not displaying for guest user");
 				}
 
-				click(PWAHomePage.objAddToWatchlistButtonOnTrayContentCard("Trending on Zee5"),
+				click(PWAHomePage.objAddToWatchlistButtonOnTrayContentCard("Trending on ZEE5"),
 						"Add To Watchlist icon on tray 1st content card");
 				if (verifyElementExist(PWAHomePage.objLoginRequiredPopUpHeader, "Login Required PopUp Header")) {
 					extent.extentLogger(
@@ -10697,7 +10697,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("Reminder button is displayed for the Guest user");
 
 		}
-
 	}
 
 	public void ContinueWatching() throws Exception {

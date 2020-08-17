@@ -30,7 +30,9 @@ public class Android_Downloads {
 	@Test(priority = 1)
 	@Parameters({ "userType"})
 	public void DonwloadsLandingScreen(String userType) throws Exception {
-			ZEE5ApplicasterBusinessLogic.DownloadScreenValidation(userType);
+		ZEE5ApplicasterBusinessLogic.DownloadScreenUIUXValidation(userType);
+		ZEE5ApplicasterBusinessLogic.BrowseToDownloadFunctionality(userType);
+		ZEE5ApplicasterBusinessLogic.DownloadScreenValidation(userType);
 	}
 	
 	@AfterTest

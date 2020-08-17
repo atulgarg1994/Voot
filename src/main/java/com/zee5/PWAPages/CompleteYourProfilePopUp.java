@@ -27,4 +27,14 @@ public class CompleteYourProfilePopUp {
 	public static By objCloseBtn = By.xpath(" //div[@class='manCloseIcon']");
 	
 	public static By objDateSelector = By.xpath("(//span[@role='option'])[3]");
+	
+	public static By objDOBField = By.xpath("//input[@name='dateOfBirth']");
+	
+	public static By objSendOtp = By.xpath("//*[text()='Send OTP']");
+	
+	public static By objGenderDropDown = By.xpath("(//div[contains(@class,'react-dropdown-select-dropdown-handle')])[2]");
+	
+	public static By objGenderfemale = By.xpath("//span[text()='Female']");
+	
+	public static By objOTPScreen = By.xpath("//input[@name='otp1']");
 }

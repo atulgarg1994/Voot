@@ -141,4 +141,15 @@ public class AMDDownloadPage {
 	public static By objIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/iconTextView_download']");		
 	public static By objCallOutwithPauseAll = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Pause All']]");
 	public static By objSearchIcon = By.xpath("//*[@id='title' and @text='Downloads']//following::*[1]");
+	
+	/**
+	 * Kushal
+	 */
+	
+	public static By objDownloadQualityOptions(String Quality) {
+		return By.xpath("//*[@id='radioButton_downlaodQuality' and @text='"+Quality+"']");
+	}
+	public static By objAlwaysAskCheckBox = By.xpath("//*[@id='checkBox_rememberThis']");
+	
+	public static By objDownloadProgressIcon = By.xpath("//*[@id='circularProgressbar']");
 }

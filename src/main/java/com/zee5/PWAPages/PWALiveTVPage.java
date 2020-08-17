@@ -318,4 +318,6 @@ public class PWALiveTVPage {
 			.xpath("(//*[@title='Zee Bangla']//parent::*//parent::*//following-sibling::*//div)[2]");
 	
 	public static By objLiveChannelConsumptionPageTitle = By.xpath("//div[@class='channelConsumptionMetaDiv']//h2");
+	
+	public static By objTwitterOpenWith = By.xpath("//*[@text='Twitter']");
 }

@@ -390,6 +390,38 @@ public class Utilities extends ExtentReporter {
 
 		return Otp;
 	}
+	
+	public boolean verifyElementIsNotDisplayed(By by) {
+	    try {
+	    	getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+	        return getDriver().findElements(by).isEmpty();
+	    } finally {
+	    	getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	    }
+	}
+	
+	public static boolean verifyIsElementDisplayed(By by) {
+		getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+		List<WebElement> list = getDriver().findElements(by);
+		getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		if (list.size() == 0) {
+	        return false;
+	    } else {
+	        return list.get(0).isDisplayed();
+	    }
+	}
+	
+	public boolean checkElementExist(By byLocator) throws Exception {
+		try {
+			WebElement element = findElement(byLocator);
+			if (element.isDisplayed()) {
+				return true;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+		return false;
+	}
 
 	/**
 	 * Kill or start an application using activity
@@ -942,6 +974,7 @@ public class Utilities extends ExtentReporter {
 					logger.info("Swiping screen in " + " " + dire + " direction" + " " + (j + 1) + " times");
 					extent.extentLogger("SwipeDown",
 							"Swiping screen in " + " " + dire + " direction" + " " + (j + 1) + " times");
+					
 				}
 			}
 
