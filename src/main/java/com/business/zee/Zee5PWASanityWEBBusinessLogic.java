@@ -12914,24 +12914,23 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	}
 
-	public void verifyLandscapeforFreeContentWeb() throws Exception {
-		String userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+	public void verifyLandscapeforFreeContentWeb() throws Exception {		
+		String userType=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
 		mandatoryRegistrationPopUp(userType);
-		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter("consumptionsShow");
+		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("consumptionsShow");
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 		waitTime(4000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("Shows"), "Shows Tab");
 		waitTime(4000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
-		waitTime(4000);
+		waitTime(4000);	
 		partialScroll();
 		verifyElementExist(PWAShowsPage.objShowDetailEpisodeDropdown, "Episode Dropdown");
 		click(PWAShowsPage.objShowDetailEpisodeDropdown, "Episode Dropdown");
-		click(PWAShowsPage.objShowDetailNonSelectedEpisodeDropdownValues(1), "Second Episode set");
+		click(PWAShowsPage.objShowDetailNonSelectedEpisodeDropdownValues(1),"Second Episode set");
 		waitTime(2000);
-		click(PWAShowsPage.objEpisodeCard, "First Episode Card");
+		click(PWAShowsPage.objEpisodeCard,"First Episode Card");
 		waitForPlayerAdToComplete("Video Player");
 		mouseHover();
 		click(PWAPlayerPage.pauseBtn, "Pause button");
@@ -12939,11 +12938,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(2000);
 		mouseHover();
 		click(PWAPlayerPage.minimizeBtn, "Minimize button");
-		BackWeb(1);
-		waitTime(3000);
-		BackWeb(1);
-		waitTime(3000);
-		BackWeb(1);
+		click(PWAHomePage.objZeelogo1, "Zee Logo");
 	}
 
 //public void FullScreen() throws Exception {
