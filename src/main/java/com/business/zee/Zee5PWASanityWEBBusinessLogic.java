@@ -1838,6 +1838,27 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(2000);
 		zeeSubscriptionPageValidationAndNavigateToHomePage();
 
+		// Scenario no. 86
+		HeaderChildNode("Navigate to Subscription Flow on playing BeforeTV content");
+		waitTime(2000);
+		scrollToTheElementWEB(PWAHomePage.objFirstContentCardOfTray("Before"));
+		if (verifyElementExist(PWAHomePage.objFirstContentCardOfTray("Before"),
+				"First Content Card Of Before TV Tray")) {
+			click(PWAHomePage.objFirstContentCardOfTray("Before"), "First Content Card Of Before TV Tray");
+			waitForElement(PWASubscriptionPages.objGetPremiumPopupTitle, 40, "Get Premium Popup Title");
+			zeeVerifyGetPremiumPopup();
+			waitTime(2000);
+			if (userType.equalsIgnoreCase("Guest")) {
+				zeeAccountInfoPageValidationAndNavigateToHomePage();
+			} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+				zeePaymentPageValidationAndNavigateToHomePage();
+			}
+
+		} else {
+			logger.info("Clicked on " + "Get Premium CTA On MastHead Carousel");
+			extent.extentLoggerFail("Scrolling till BeforeTV Rail", "BeforeTV Rail does not exist");
+		}
+
 		// Scenario no. 90,98
 		HeaderChildNode("Navigate to Subscription Flow from Home Page Get Premium CTA On Carousel");
 		waitTime(2000);
@@ -2540,7 +2561,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				.getParameter("freeMovie4");
 		type(PWASearchPage.objSearchEditBox, keyword, "Search edit");
 		waitTime(3000);
-		click(PWASearchPage.objSearchMoviesTab,"Movies tab");
+		click(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		click(PWASearchPage.objspecificSearch, "Searched content");
 		Thread.sleep(6000);
 		// Verify the Pop up behavior
@@ -8551,48 +8572,48 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 //			waitTime(8000);
 //			//ScrollToTheElement(TextToXpath(str));
 //		}
-	String ValueOfPremiumTumbnail = null;
-	System.out.println("Check premium and select");
-	List<WebElement> tumnails = getWebDriver()
-			.findElements(By.xpath("(((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='" + str
-					+ "']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']"));
-	System.out.println("Number of Tumbnails : " + tumnails.size());
-	boolean flag = false;
-	for (int j = 1; j <= 5; j++) {
-		for (int i = 1; i <= tumnails.size(); i++) {
-			WebElement specificTumbnail = getWebDriver().findElement(
-					By.xpath("(((((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='" + str
-							+ "']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content'])["
-							+ i + "])"));
-			if (verifyElementExist(PWAHomePage.objLIVETVIsPremiumTumbnail(str, i), "Premium") == true) {
-				System.out.println("premium Tumbnail");
-				// System.out.println(getAttributValue("title",
-				// PWAHomePage.objTumbnailTitle(str, i)));
-				ValueOfPremiumTumbnail = getAttributValue("title", PWAHomePage.objLIVETvTumbnailTitle(str, i));
-				System.out.println("Premium LIVETV Tumbnail Title : " + ValueOfPremiumTumbnail);
-				if (premiumORfree.equals("PREMIUM")) {
-					clickByElement(specificTumbnail, "Specific Tumbnail from Premium");
-					flag = true;
-					break;
-				}
-			} else if (verifyElementExist(PWAHomePage.objLIVETVIsPremiumTumbnail(str, i), "Premium") == false) {
-				System.out.println("No premium Tumbnail");
-				ValueOfPremiumTumbnail = getAttributValue("title", PWAHomePage.objLIVETvTumbnailTitle(str, i));
-				System.out.println("Non-Premium LIVETV Tumbnail Title : " + ValueOfPremiumTumbnail);
-				if (premiumORfree.equals("FREE")) {
-					clickByElement(specificTumbnail, "Specific Tumbnail from Free");
-					flag = true;
-					break;
+		String ValueOfPremiumTumbnail = null;
+		System.out.println("Check premium and select");
+		List<WebElement> tumnails = getWebDriver()
+				.findElements(By.xpath("(((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='" + str
+						+ "']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']"));
+		System.out.println("Number of Tumbnails : " + tumnails.size());
+		boolean flag = false;
+		for (int j = 1; j <= 5; j++) {
+			for (int i = 1; i <= tumnails.size(); i++) {
+				WebElement specificTumbnail = getWebDriver().findElement(
+						By.xpath("(((((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='" + str
+								+ "']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content'])["
+								+ i + "])"));
+				if (verifyElementExist(PWAHomePage.objLIVETVIsPremiumTumbnail(str, i), "Premium") == true) {
+					System.out.println("premium Tumbnail");
+					// System.out.println(getAttributValue("title",
+					// PWAHomePage.objTumbnailTitle(str, i)));
+					ValueOfPremiumTumbnail = getAttributValue("title", PWAHomePage.objLIVETvTumbnailTitle(str, i));
+					System.out.println("Premium LIVETV Tumbnail Title : " + ValueOfPremiumTumbnail);
+					if (premiumORfree.equals("PREMIUM")) {
+						clickByElement(specificTumbnail, "Specific Tumbnail from Premium");
+						flag = true;
+						break;
+					}
+				} else if (verifyElementExist(PWAHomePage.objLIVETVIsPremiumTumbnail(str, i), "Premium") == false) {
+					System.out.println("No premium Tumbnail");
+					ValueOfPremiumTumbnail = getAttributValue("title", PWAHomePage.objLIVETvTumbnailTitle(str, i));
+					System.out.println("Non-Premium LIVETV Tumbnail Title : " + ValueOfPremiumTumbnail);
+					if (premiumORfree.equals("FREE")) {
+						clickByElement(specificTumbnail, "Specific Tumbnail from Free");
+						flag = true;
+						break;
+					}
 				}
 			}
+			if (flag == true) {
+				break;
+			}
+			swipeLIVETVTumbnailToLeft(str);
 		}
-		if (flag == true) {
-			break;
-		}
-		swipeLIVETVTumbnailToLeft(str);
+		return ValueOfPremiumTumbnail;
 	}
-	return ValueOfPremiumTumbnail;
-}
 
 	public void PremiumFreeZeeOriginalKaltura(String Value, String userType) throws Exception {
 		// Thread.sleep(10000);
@@ -8903,10 +8924,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("checkDurationandProgressVideo");
 		verifyElementPresentAndClick(PWASearchPage.objSearchBtn, "Search button");
 		waitTime(2000);
-		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie4");
+		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+				.getParameter("freeMovie4");
 		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchMoviesTab,"Movies tab");
+		click(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		waitTime(5000);
 		mandatoryRegistrationPopUp(userType);
 		click(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
@@ -9192,21 +9214,21 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	public void premiumAndFreeMovie(String userType, String Tab) throws Exception {
 		extent.HeaderChildNode("Verifing movies premium content");
 		navigateToAnyScreenOnWeb("Movies"); // changed
-		//navigateToAnyScreenOnWeb("Movies");
+		// navigateToAnyScreenOnWeb("Movies");
 		Actions actions = new Actions(getWebDriver());
-		WebElement contentCard = getWebDriver()
-				.findElement(PWAHamburgerMenuPage.objZeeLogo1);
+		WebElement contentCard = getWebDriver().findElement(PWAHamburgerMenuPage.objZeeLogo1);
 		actions.moveToElement(contentCard).build().perform();
-		
+
 		waitForElementDisplayed(PWAMoviesPage.objPremiumContentCard, 30);
 		verifyElementExist(PWAMoviesPage.objPremiumContentCard, "PremiumContent");
 		mandatoryRegistrationPopUp(userType);
 		JSClick(PWAMoviesPage.objPremiumContentCard, "PremiumContent");
 		if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
-			//getWebDriver().get("https://newpwa.zee5.com/kids/kids-movies/ramayana/0-0-72648"); // changed
+			// getWebDriver().get("https://newpwa.zee5.com/kids/kids-movies/ramayana/0-0-72648");
+			// // changed
 			if (BROWSER.equals("Chrome")) {
 				if (verifyElementPresent(PWAPlayerPage.objPlayerscreen, "Playback Overlay")) {
-					//waitForPlayerLoaderToComplete();
+					// waitForPlayerLoaderToComplete();
 					waitTime(5000);
 					moviePausePlayer();
 					WebElement scrubber = getWebDriver().findElement(PWAPlayerPage.objPlayerScrubber);
