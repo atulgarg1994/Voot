@@ -10,7 +10,6 @@ public class PWAPremiumPage {
 	public static By objHeoCarouselCard(String titleName) {
 		return By.xpath("//h2[text()='" + titleName + "']/ancestor::div[@aria-hidden='false']");
 	}
-	
 
 	public static By objHeroCarouselTitle(String titleName) {
 
@@ -20,7 +19,7 @@ public class PWAPremiumPage {
 	}
 
 	public static By objGetPremium = By.xpath("//button[text()='Subscribe']");
-	
+
 	public static By objHerocarouselPlayBtn(String titleName) {
 		return By.xpath("//div[@aria-hidden='false']/following::h2[text()='" + titleName
 				+ "']/parent::div/following-sibling::div/child::div[@class='playIcon']");
@@ -45,10 +44,11 @@ public class PWAPremiumPage {
 	}
 
 	// Premium popup
-	public static By objPremiumPopUp = By.xpath("//h2[contains(@class,'popupTitle bigTitle') and text()='Subscribe']");
+	public static By objPremiumPopUp = By.xpath("//h2[contains(@class,'popupTitle bigTitle')]/child::*");
 
 //	SANITY SUSHMA LIVETV MODULE
-	public static By objClosePremiumPopup = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close' or @class='manCloseIcon']");
+	public static By objClosePremiumPopup = By
+			.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close' or @class='manCloseIcon']");
 
 //	MANASA
 	// Premium popup
@@ -67,7 +67,6 @@ public class PWAPremiumPage {
 
 	public static By objSubscribeNowAndGoAdFree = By.xpath("//span[contains(text(),'Subscribe now and Go Ad Free')]");
 
-
 	public static By objCarouselTitle = By
 			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
 
@@ -85,32 +84,40 @@ public class PWAPremiumPage {
 		return By.xpath("//div[contains(@class,'trayContentWrap')]//*[contains(text(),'" + text + "')]");
 	}
 
-	public static By specificContentisMinuteimage(String str,int i){
-		return By.xpath("(((//a[@class='titleLink'][contains(text(),'"+str+"')]//parent::*//parent::*//parent::*)//div[2]//div[@class='slick-track']//figure//div)["+i+"])//div[@class='minute-container']");
+	public static By specificContentisMinuteimage(String str, int i) {
+		return By.xpath("(((//a[@class='titleLink'][contains(text(),'" + str
+				+ "')]//parent::*//parent::*//parent::*)//div[2]//div[@class='slick-track']//figure//div)[" + i
+				+ "])//div[@class='minute-container']");
 	}
-	
-	public static By specificContentPremiumIcon(String str,int i){
-		return By.xpath("((//a[@class='titleLink'][contains(text(),'"+str+"')]//parent::*//parent::*//parent::*)//div[2]//div[@class='slick-track']//div//div[@class='cardPremiumContent'])["+i+"]");
+
+	public static By specificContentPremiumIcon(String str, int i) {
+		return By.xpath("((//a[@class='titleLink'][contains(text(),'" + str
+				+ "')]//parent::*//parent::*//parent::*)//div[2]//div[@class='slick-track']//div//div[@class='cardPremiumContent'])["
+				+ i + "]");
 	}
-	
+
 	public static By objTrayTitle(int i) {
-		return By.xpath("(//div[contains(@class,'trayContentWrap')]//div[@class='trayHeader'])["+i+"]");
+		return By.xpath("(//div[contains(@class,'trayContentWrap')]//div[@class='trayHeader'])[" + i + "]");
 	}
-	
-	public static By objMastheadCarousel = By.xpath("//div[contains(@class,'slick-current')]//div[@class='legend legendWrapper']");
-	
-	public static By objNewsMastheadCarousel = By.xpath("//div[contains(@class,'slick-active')]//div[@class='carouselMain']");
+
+	public static By objMastheadCarousel = By
+			.xpath("//div[contains(@class,'slick-current')]//div[@class='legend legendWrapper']");
+
+	public static By objNewsMastheadCarousel = By
+			.xpath("//div[contains(@class,'slick-active')]//div[@class='carouselMain']");
 
 	public static By objViewAllBtn = By.xpath("(//*[@class='arrow iconInitialLoad-ic_viewall noSelect'])[1]");
 
-	
 	public static By objNextArrowBtn = By.xpath("(//button[@class='slick-arrow slick-next'])[2]");
-	public static By objPreviousArrowBtn = By.xpath("(//button[@class='slick-arrow slick-prev'])[2]");
+	public static By objPreviousArrowBtn = By.xpath("(//button[@class='slick-arrow slick-prev'])[1]");
 	public static By objContentCard = By.xpath("//div[@class='slick-slide slick-active slick-current']");
 	public static By objContentCardPlayBtn = By.xpath("//div[@class='noSelect btnIcon playBtnIcon']");
 	public static By objContentCardShareBtn = By.xpath("//div[@class='shareCompIcon iconInitialLoad-ic_share']");
-	public static By objContentCardWatchlistBtn = By.xpath("//span[@class='noSelect btnIcon iconInitialLoad-ic_add_Watchlist']");
-	public static By objWEBMastheadCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']");
-	
-	public static By obj1stContentInViewAllPage = By.xpath("(//div[@class='movieCard card marginRight minutelyUrl zoomCardHover'])[1]");
+	public static By objContentCardWatchlistBtn = By
+			.xpath("//span[@class='noSelect btnIcon iconInitialLoad-ic_add_Watchlist']");
+	public static By objWEBMastheadCarousel = By
+			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']");
+
+	public static By obj1stContentInViewAllPage = By
+			.xpath("(//div[@class='movieCard card marginRight minutelyUrl zoomCardHover'])[1]");
 }

@@ -40,7 +40,7 @@ public class Android_LandingScreen_TopNavigation {
 	public void Shows_LandinScreen(String userType) throws Exception {
 		System.out.println("\n---Verify Shows landing screen---\n");
 		ZEE5ApplicasterBusinessLogic.verifyShowsScreen(userType);
-		// ZEE5ApplicasterBusinessLogic.verifyConsumptionScreenOfBeforeTVContent(userType);
+		 ZEE5ApplicasterBusinessLogic.verifyConsumptionScreenOfBeforeTVContent(userType);
 	}
 
 	@Test(priority = 3) // Sushma
@@ -66,8 +66,8 @@ public class Android_LandingScreen_TopNavigation {
 			ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		}
 		ZEE5ApplicasterBusinessLogic.verifyNewsLandingScreen(userType);
-//		ZEE5ApplicasterBusinessLogic.verifyTraysInNewsScreen(userType);
-//		ZEE5ApplicasterBusinessLogic.verifyListingCollectionScreen(userType);
+		ZEE5ApplicasterBusinessLogic.verifyTraysInNewsScreen(userType);
+		ZEE5ApplicasterBusinessLogic.verifyListingCollectionScreen(userType);
 	}
 
 	@Test(priority = 6)

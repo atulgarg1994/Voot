@@ -269,11 +269,10 @@ public class PWALiveTVPage {
 
 	public static By objparticularTime = By.xpath("//div[@class='timeSlot']/child::div[text()='8:00 PM']");
 	public static By objShowNameweb = By.xpath(
-			"(//*[@title='Zee News']//parent::*//parent::*//following-sibling::*//div[@class='noSelect programOuter']/child::*/child::*/child::div[contains(text(),'08:00 PM')])[2]");
+			"(//*[@title='Zee Kannada']//parent::*//parent::*//following-sibling::*//div[@class='noSelect programOuter']/child::*/child::*/child::div[contains(text(),'08:00 PM')])[2]");
 
 	public static By objTwitterEmailField = By.xpath("//input[@name='session[username_or_email]']");
 	public static By objTwitterPasswordField = By.xpath("//input[@name='session[password]']");
-	public static By objTwitterLoginButton = By.xpath("//span[text()='Log in']");
 	public static By objTweetButton = By.xpath("//span[text()='Tweet']");
 
 	public static By objPunjabiShow1 = By
@@ -316,8 +315,11 @@ public class PWALiveTVPage {
 
 	public static By objBanglaShow1 = By
 			.xpath("(//*[@title='Zee Bangla']//parent::*//parent::*//following-sibling::*//div)[2]");
-	
+
 	public static By objLiveChannelConsumptionPageTitle = By.xpath("//div[@class='channelConsumptionMetaDiv']//h2");
-	
+
 	public static By objTwitterOpenWith = By.xpath("//*[@text='Twitter']");
+
+	public static By objTwitterLoginButton = By.xpath("//div[@role=\"button\"]//span[text()='Log in']");
+
 }

@@ -93,12 +93,16 @@ public class PWAMusicPage {
 	public static By objRecommendedVideos = By.xpath("//div[@class='recommendCol']");
 	public static By objMusicTabInSearch = By.xpath("(//*[@id='music'])");
 
-	//Music card from music tray
+	// Music card from music tray
 	public static By objMusicCardInMusicTab = By.xpath("((//div[@class='latestEpisodeTrayWrapper'])[1]//img)[1]");
 
 	// Music card name from music tray
 	public static By objMusicCardTitleInMusicTab = By.xpath(
 			"(//div[@class='latestEpisodeTrayWrapper'])[1]//div[@data-index='0']//div[@class='episodeMetaWrap']//h3");
-	
-	
+
+	public static By objTrayTitle(String trayTitle) {
+		return By.xpath("//a[contains(text(),'" + trayTitle + "')]");
+	}
+
+	public static By objFreeMusicContentCard = By.xpath("(//div[@class='bannerPlusTray topTenSongsTray']//img)[1]");
 }

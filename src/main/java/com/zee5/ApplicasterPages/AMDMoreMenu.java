@@ -85,4 +85,12 @@ public class AMDMoreMenu {
 	public static By objSearchHistroyLabel = By.xpath("//*[@resource-id='com.graymatrix.did:id/searchHistoryLabel']");
 	public static By objResetSettingsToDefault = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/resetSettingLabel']");
+	// About Us Screen
+	public static By objAboutUsHeader = By.xpath("//*[@text='About us']");
+	// Logout
+
+	public static By objLogoutPopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_logout_header']");
+	public static By objCancelButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/logoutCancelButton']");
+	public static By objLogoutButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/logoutButton']");
+	public static By objProfileHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
 }

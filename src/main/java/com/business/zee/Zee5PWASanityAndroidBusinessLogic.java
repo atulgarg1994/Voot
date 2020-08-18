@@ -8313,7 +8313,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 							"Play button is displayed instead of Subscribe Now button for Subscribed users");
 				}
 			} else {
-				waitForElementAndClick(PWAHomePage.objSubscribeNow, 20, "Subscribe Now button");
+				waitForElementAndClick(PWAHomePage.objGetPremiumGetClubButton, 20, "Get Premium/Club button");
 			}
 			if (userType.equalsIgnoreCase("NonSubscribedUser") || userType.equalsIgnoreCase("Guest")) {
 				if (verifyElementPresent(PWAHomePage.objSubscriptionPage, "Subscription page")) {
@@ -10303,14 +10303,14 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(5000);
 		if (verifyElementExist(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop up Title")) {
 			click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
-			waitTime(2000);
-			logger.info("Next content begin to play");
-			extent.extentLogger("Consumption Screen", "Next content begin to play");
+			logger.info("Unable to verify landscape mode for Premium content for " + user);
+			extent.extentLoggerWarning("", "Unable to verify landscape mode for Premium content for " + user);
 			waitTime(5000);
+		} else {
+			waitForPlayerAdToComplete("Video Player");
+			screenOrientation();
+			waitTime(3000);
 		}
-		waitForPlayerAdToComplete("Video Player");
-		screenOrientation();
-		waitTime(3000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 	}
 
@@ -11017,6 +11017,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		if (userType.contains("NonSubscribedUser") || (userType.contains("Guest"))) {
 			verifyElementExist(PWAPremiumPage.objGetPremium, "Subscribe Button");
+		}
+		if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "Subscribe Pop Up")) {
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "Subscribe Pop Up Close button");
 		}
 	}
 
@@ -12269,6 +12272,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		click(PWALiveTVPage.objSelectLang(lang), lang + " language");
 		click(PWALiveTVPage.objApplyBtn, "Apply button");
+//		click(PWALiveTVPage.objApplyBtn,"Apply button");
 	}
 
 	@SuppressWarnings("rawtypes")

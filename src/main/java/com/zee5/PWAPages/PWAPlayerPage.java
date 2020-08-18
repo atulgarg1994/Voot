@@ -15,6 +15,7 @@ public class PWAPlayerPage {
 
 //	 Playback Video Overlay
 	public static By objPlaybackVideoOverlay = By.xpath("//*[@class='kaltura-player-container']");
+	
 	public static By objPlayerQualityButton = By.xpath("//span[contains(text(),'Quality')]");
 //	 Play button
 	public static By playBtn = By.xpath("//*[@class='playkit-icon playkit-icon-play']");

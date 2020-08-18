@@ -170,4 +170,6 @@ public class AMDHomePage {
 	public static By objTab1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[1]");
 
 	public static By objTab5 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[5]");
+	
+	public static By objSubscribePopUpInConsumptionPage = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title' and @text='Subscribe']");
 }
