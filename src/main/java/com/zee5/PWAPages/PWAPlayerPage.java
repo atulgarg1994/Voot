@@ -191,7 +191,7 @@ public class PWAPlayerPage {
 
 //	BINDU
 	// Subscription popup
-	public static By objSubscriptionpopup = By.xpath("//h2[contains(@class,'popupTitle') and text()='Get premium']");
+	public static By objSubscriptionpopup = By.xpath("//h2[contains(@class,'popupTitle bigTitle')]//p[text()='Subscribe']");
 
 	// Subscription popup close icon
 	public static By ObjSubscriptionpopupCloseIcon = By

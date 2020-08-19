@@ -832,7 +832,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWALiveTVPage.objChannelGuideToggle, "Channel Guide Toggle");
 		verifyElementExist(PWALiveTVPage.objChannelDayStrip, "Channel/Day Strip");
 		JSClick(PWALiveTVPage.objChannelDayStrip, "Channel/Day Strip");
-		click(PWALiveTVPage.objUpcomingLiveProgramDate, "Upcoming Live Program Date");
+		JSClick(PWALiveTVPage.objUpcomingLiveProgramDate, "Upcoming Live Program Date");
 		extent.HeaderChildNode("Validating Channel Guide Sort Option");
 		verifyElementPresentAndClick(PWALiveTVPage.objChannelGuideSortOption, "Sort Option");
 		verifyElementPresent(PWALiveTVPage.objSortByPopularity, "Sort By Popularity Option");
@@ -982,7 +982,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	public void searchActive() throws Exception {
 		Back(1);
 		waitTime(5000);
-		partialScroll();
+		// partialScroll();
 		waitTime(2000);
 		if (verifyElementExist(PWAHomePage.objHomeBarText("Live TV"), "Live TV Tab")) {
 			click(PWAHomePage.objHomeBarText("Live TV"), "Live TV Tab");
@@ -1100,6 +1100,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					"Complete Your Profile pop up")) {
 				click(CompleteYourProfilePopUp.objCloseBtn, "Complete your profile popup Close Button");
 
+			}
+
+			if (verifyElementExist(PWAPlayerPage.subscribePopUp, "Subscription popup")) {
+				waitTime(3000);
+				click(PWAPlayerPage.ObjSubscriptionpopupCloseIcon, "Subscription popup close icon");
 			}
 
 			if (verifyElementExist(PWASearchPage.objShowTitleInConsumptionPage, "Show title In Consumption")) {
@@ -1853,7 +1858,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 				zeePaymentPageValidationAndNavigateToHomePage();
 			}
-
 		} else {
 			logger.info("Clicked on " + "Get Premium CTA On MastHead Carousel");
 			extent.extentLoggerFail("Scrolling till BeforeTV Rail", "BeforeTV Rail does not exist");
@@ -6898,9 +6902,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void pause() {
 		Actions actions = new Actions(getWebDriver());
-		WebElement menuOption = getWebDriver().findElement(By.xpath("//div[@class='playkit-overlay-action']"));
+		WebElement menuOption = getWebDriver().findElement(By.xpath("//*[@class='kaltura-player-container']"));
 		actions.moveToElement(menuOption).perform();
-
 		getWebDriver().findElement(By.xpath("//i[@class='playkit-icon playkit-icon-pause']")).click();
 	}
 
@@ -9914,6 +9917,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				}
 			}
 		}
+		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("All"), "All Tab");
+		clearField(PWASearchPage.objSearchEditBox, "Search Bar");
+		Back(1);
 	}
 
 //This method is only for Subscribed User
@@ -14007,10 +14013,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		action.moveToElement(player).build().perform();
 	}
 
-	public void Watchlistlogin(String userType, String text) throws Exception {
+	public void Watchlistlogin(String userType, String searchText) throws Exception {
+		extent.HeaderChildNode("Logging in as "+userType+" user on clicking Add to Watchlist icon");
 		click(PWAHomePage.objZeelogo1, "zee logo");
 		click(PWAHomePage.objSearchBtn, "Search button");
-		type(PWASearchPage.objSearchEditBox, text, "Search field");
+		type(PWASearchPage.objSearchEditBox, searchText, "Search field");
 		waitTime(5000);
 		click(PWASearchPage.objAssetTitleSearchNavigationTab, "Movie");
 		waitTime(8000);
@@ -14037,8 +14044,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				if (verifyElementExist(PWASearchPage.objSubscribepopup, "Subscribepopup")) {
 					click(PWASearchPage.objSubscribepopupCLoseButton, "close button");
 				}
-			}
-			if (userType.equals("Subscribe")) {
+			}else if (userType.equals("Subscribe")) {
 				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
 				type(PWALoginPage.objEmailField, SubUsername, "Email Field");
 				waitTime(3000);
@@ -14049,13 +14055,29 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				click(PWALoginPage.objWebLoginButton, "Login Button");
 				waitTime(5000);
 			}
+			waitTime(5000);
 			String contentName2 = getElementPropertyToString("innerText", PWAPlayerPage.objContentName, "Title");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objProfileIconWEB, "Profile icon");
+			waitTime(3000);
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
+			waitTime(3000);
 			click(PWAAddToWatchListPage.objMoviesTab, "Movies tab");
-			String ContentNameInWatchlist = getElementPropertyToString("innerText",
-					PWAAddToWatchListPage.objFirstContentInWatchlist, "Content title");
-			if (contentName2.equals(ContentNameInWatchlist)) {
+			String ContentNameAddedToWatchlist = null;
+			
+			
+			List<WebElement> contentsInWatchlist = findElements(By.xpath("(//h3[contains(@class,'cardTitle overflowEllipsis')]//a)"));
+			ArrayList<String> ContentNameInWatchlist = new ArrayList<String>();
+			for (int i = 0; i < contentsInWatchlist.size(); i++) {
+				ContentNameInWatchlist.add(contentsInWatchlist.get(i).getText());
+			}
+			for (int i = 0; i < ContentNameInWatchlist.size(); i++) {
+				
+				if (contentName2.equals(ContentNameInWatchlist.get(i))) {
+					ContentNameAddedToWatchlist = ContentNameInWatchlist.get(i);
+				}
+				
+			}
+			if (contentName2.equals(ContentNameAddedToWatchlist)) {
 				extent.extentLogger("Verify Watchlist", "Added content is displayed in Watchlist screen");
 				logger.info("Added content is displayed in Watchlist screen");
 			} else {
@@ -14065,7 +14087,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		click(PWAHomePage.objZeelogo1, "zee logo");
 		click(PWAHomePage.objSearchBtn, "Search button");
-		type(PWASearchPage.objSearchEditBox, text, "Search field");
+		type(PWASearchPage.objSearchEditBox, searchText, "Search field");
 		waitTime(5000);
 		click(PWASearchPage.objAssetTitleSearchNavigationTab, "Movie");
 		waitTime(5000);
@@ -14078,9 +14100,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 		click(PWAAddToWatchListPage.objMoviesTab, "Movies tab");
 		if (!verifyElementExist(PWAAddToWatchListPage.objTooltip(contentName2), "Added movie")) {
-			logger.info("Watchlist is removed when user taps on highlighted watchlist button in consumption page");
-			extent.extentLogger("Watchlist",
-					"Watchlist is removed when user taps on highlighted watchlist button in consumption page");
+			logger.info("Content is removed from My Watchlist when user taps on highlighted watchlist button in consumption page");
+			extent.extentLogger("Watchlist", "Content is removed from My Watchlist when user taps on highlighted watchlist button in consumption page");
 		}
 		click(PWAHomePage.objZeelogo1, "Zee logo");
 		logout();

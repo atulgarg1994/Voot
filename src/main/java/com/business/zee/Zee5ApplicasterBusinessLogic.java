@@ -5140,11 +5140,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String CarouselTitle = getText(AMDHomePage.objCarouselPlayIconContentCard);
 		click(AMDHomePage.objCarouselPlayIconContentCard, "Carousel content");
 
-		if (!(verifyElementIsNotDisplayed(AMDHomePage.objSubscribePopUpInConsumptionPage))) {
+		if (!(verifyIsElementDisplayed(AMDSubscibeScreen.objSubscribeHeader))) {
 			Back(1);
 		}
+
 		verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
 		String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
+		System.out.println(consumptionScreenTitle);
 
 		if (CarouselTitle.equalsIgnoreCase(consumptionScreenTitle)) {
 			logger.info("Consumption Screen is displayed for the selected content");
@@ -6293,8 +6295,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void zee5OriginalsLandingScreen(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Navigating to Zee5 Originals screen and verifing the Subscribe icon");
 		System.out.println("Zee5 Originals Landing screen and verifing the subscribe icon");
-		// swipeByElements(findElement(AMDHomePage.objNewsTab),
-		// findElement(AMDHomePage.objHomeTab));
+//		 swipeByElements(findElement(AMDHomePage.objNewsTab),
+//		 findElement(AMDHomePage.objHomeTab));
 		waitTime(2000);
 		verifyElementPresentAndClick(AMDHomePage.objZee5OriginalsTab, tabName + " Tab");
 		String activeTab = getText(AMDHomePage.objSelectedTab);
@@ -6313,59 +6315,61 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		// closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			if (verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
-				logger.info("Subscribe icon is dislayed");
-				extent.extentLogger("Subscribe icon", "Subscribe icon is dislayed");
+				logger.info("Subscribe icon is displayed");
+				extent.extentLogger("Subscribe icon", "Subscribe icon is displayed");
 			} else {
-				logger.info("Subscribe icon is not dislayed");
-				extent.extentLoggerFail("Subscribe icon", "Subscribe icon is not dislayed");
+				logger.info("Subscribe icon is not displayed");
+				extent.extentLoggerFail("Subscribe icon", "Subscribe icon is not displayed");
+			}
+		} else {
+			if (verifyElementIsNotDisplayed(AMDHomePage.objSubscribeTeaser)) {
+				logger.info("Subscribe icon is not displayed");
+				extent.extentLogger("Subscribe icon", "Subscribe icon is not displayed");
+
+			} else {
+				logger.info("Subscribe icon is displayed");
+				extent.extentLoggerFail("Subscribe icon", "Subscribe icon is displayed");
 			}
 		}
-//		else {
-//			if (verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
-//				logger.info("Subscribe icon is dislayed");
-//				extent.extentLogger("Subscribe icon", "Subscribe icon is dislayed");
-//			} else {
-//				logger.info("Subscribe icon is not dislayed");
-//				extent.extentLoggerFail("Subscribe icon", "Subscribe icon is not dislayed");
-//			}
-//		}
+
 		carouselValidation(userType, tabName);
-//		String courselContentTitle = zeeOriginalsCarouselValidationWithApi(userType, "zeeoriginals");
-//		verifyElementPresentAndClick(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content");
-//
-//		if (verifyElementExist(AMDHomePage.objWatchTrailerIconOnPlayerscreen, "Watch Trailer button")) {
-//			if (verifyElementNotPresent(AMDHomePage.objLoginButtonOnPlayerscreen, 10)) {
-//				logger.info(
-//						"Content playback is not initiated for the guest user post tapping on premium content which is having trailer");
-//				extentLoggerFail("Trailer",
-//						"Content playback is not initiated for the guest user post tapping on premium content which is having trailer");
-//			} else {
-//				logger.info(
-//						"Content playback is initiated for the guest user post tapping on premium content which is having trailer");
-//				extentLogger("Trailer",
-//						"Content playback is initiated for the guest user post tapping on premium content which is having trailer");
-//			}
-//			Back(1);
-//		} else {
-//			if (verifyElementExist(AMDHomePage.objLoginButtonOnPlayerscreen, "Login button")) {
-//				logger.info(
-//						"Content playback is not initiated for the guest user post tapping on premium content which is not having trailer");
-//				extentLogger("Trailer",
-//						"Content playback is not initiated for the guest user post tapping on premium content which is not having trailer");
-//			} else {
-//				logger.info(
-//						"Content playback is initiated for the guest user post tapping on premium content which is not having trailer");
-//				extentLoggerFail("Trailer",
-//						"Content playback is initiated for the guest user post tapping on premium content which is not having trailer");
-//			}
-//			Back(1);
-//		}
+		String courselContentTitle = zeeOriginalsCarouselValidationWithApi(userType, "zeeoriginals");
+		verifyElementPresentAndClick(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content");
+
+		if (!(verifyElementIsNotDisplayed(AMDHomePage.objWatchTrailerIconOnPlayerscreen))) {
+			if (verifyElementIsNotDisplayed(AMDHomePage.objLoginButtonOnPlayerscreen)) {
+				logger.info(
+						"Content playback is initiated for the guest user post tapping on premium content which is having trailer");
+				extentLogger("Trailer",
+						"Content playback is initiated for the guest user post tapping on premium content which is having trailer");
+
+			} else {
+				logger.info(
+						"Content playback is not initiated for the guest user post tapping on premium content which is having trailer");
+				extentLoggerFail("Trailer",
+						"Content playback is not initiated for the guest user post tapping on premium content which is having trailer");
+			}
+			Back(1);
+		} else {
+			if (!(verifyElementIsNotDisplayed(AMDHomePage.objLoginButtonOnPlayerscreen))) {
+				logger.info(
+						"Content playback is not initiated for the guest user post tapping on premium content which is not having trailer");
+				extentLogger("Trailer",
+						"Content playback is not initiated for the guest user post tapping on premium content which is not having trailer");
+			} else {
+				logger.info(
+						"Content playback is initiated for the guest user post tapping on premium content which is not having trailer");
+				extentLoggerFail("Trailer",
+						"Content playback is initiated for the guest user post tapping on premium content which is not having trailer");
+			}
+			Back(1);
+		}
 		extent.HeaderChildNode("Verifying the availability of trays in the screen");
 		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Best of ZEE5 Originals"), AMDHomePage.objCarouselConetentCard,
 				"Best of ZEE5 Originals", "MastheadCarousel", userType, tabName);
 		// PartialSwipe("UP", 1);
-//		findingTrayInscreen(25, AMDHomePage.objTrayTitle("ZEE5 Original Music"), AMDHomePage.objCarouselConetentCard,
-//				"ZEE5 Original Music tray", "Mastheadcarousel", userType, tabName);
+		findingTrayInscreen(25, AMDHomePage.objTrayTitle("ZEE5 Original Music"), AMDHomePage.objCarouselConetentCard,
+				"ZEE5 Original Music tray", "Mastheadcarousel", userType, tabName);
 	}
 
 	public static String zeeOriginalsCarouselValidationWithApi(String userType, String pagenameforApi) {
@@ -6411,9 +6415,29 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
 		verifyElementPresentAndClick(AMDMoreMenu.objAboutUs, "About Us");
 		verifyElementExist(AMDMoreMenu.objAboutUsHeader, "About Us Header");
-		System.out.println(getDriver().getContextHandles());
-		getDriver().findElement(By.xpath("//*[@class='android.webkit.WebView' and ./*[@id='iframe_div']]"))
-				.getAttribute(userType);
+		if (checkElementExist(AMDMoreMenu.objAboutUsHeader, "About Us Header")) {
+			logger.info("User is navigated to About Us screen");
+			extent.extentLogger("About Us", "User is navigated to About Us screen");
+		} else {
+			logger.error("User is unable to navigate to About Us screen");
+			extent.extentLoggerFail("About Us", "User is unable to navigate to About Us screen");
+		}
+		verifyElementExist(AMDMoreMenu.objcloseButton, "Close button in About Us Screen");
+		verifyElementExist(AMDMoreMenu.objAboutUsDescription, "Breif' Description about Application");
+		// verifyElementExist(AMDMoreMenu.objHyperLinkInAboutUsScreen,"Hyper link in
+		// About Us screen");
+		String str = getText(AMDMoreMenu.objHyperLinkInAboutUsScreen);
+		System.out.println("Hyper link in About us Sceen is " + str);
+		verifyElementPresentAndClick(AMDMoreMenu.objHyperLinkInAboutUsScreen, "Hyper link in About Us screen");
+		if (verifyElementExist(AMDMoreMenu.objPageNotFoundMsg, "ERROR,Page not found")) {
+			logger.error("On clicking the Hyper link,user is unable to navigate to the respective page of Hyper link");
+			extent.extentLoggerFail("Hyper Link",
+					"On clicking the Hyper link,user is unable to navigate to the respective page of Hyper link");
+		} else {
+			logger.info("User is navigated to the respective page of the Hyper link");
+			extent.extentLogger("Hyper link", "User is navigated to the respective page of the Hyper link");
+		}
+		Back(1);
 	}
 
 	@SuppressWarnings("unused")
@@ -6461,8 +6485,140 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			if (value.equalsIgnoreCase("Guest")) {
 				logger.info("Logout button is tappable and user is logged out successfully");
 				extent.extentLogger(" Logout button", "Logout button is tappable and user is logged out successfully");
+			} else {
+				logger.error("Logout button is NOT tappable and user is unable to logout");
+				extent.extentLoggerFail(" Logout button", "Logout button is NOT tappable and user is unable to logout");
 			}
 		}
 	}
 
+	/**
+	 * Author : MANASA Module : Download
+	 */
+	public void downloadSettingsValidation() throws Exception {
+		extent.HeaderChildNode("To verify if Quality in Downloads is set to Ask Everytime by default");
+
+		String quality = getText(AMDMoreMenu.objDownloads_Quality);
+		logger.info("Download Quality is set to " + quality + " by default");
+		extent.extentLogger("Download Quality", "Download Quality is set to " + quality + " by default");
+		verifyElementPresentAndClick(AMDMoreMenu.objDownloads_Quality, "Download Quality Settings option");
+
+		extent.HeaderChildNode("To verify if Select Download Video Quality screen is displayed");
+		if (verifyElementExist(AMDSettingsScreen.objSelectVideoQualityLabel, "Select Video Download Quality")) {
+			logger.info("Navigated to Select Download Video Quality screen");
+			extent.extentLogger("Quality", "Navigated to Select Download Video Quality screen");
+		} else {
+			logger.error("Not navigated to Select Download Video Quality screen");
+			extent.extentLoggerFail("Quality", "Not navigated to Select Download Video Quality screen");
+		}
+		verifyElementExist(AMDSettingsScreen.objVideoQualityBest, "Best Quality Option");
+		verifyElementExist(AMDSettingsScreen.objVideoQualityBetter, "Better Quality Option");
+		verifyElementExist(AMDSettingsScreen.objVideoQualityGood, "Good Quality Option");
+		verifyElementExist(AMDSettingsScreen.objVideoQualityDatasaver, "Data Saver Quality Option");
+		verifyElementExist(AMDSettingsScreen.objVideoQualityAskEachTime, "Ask Each Time Option");
+		verifyElementPresentAndClick(AMDSettingsScreen.objXButton, "X Button");
+	}
+
+	/**
+	 * Author : Bindu Module : Exit
+	 */
+	public void verifyDisplayLanguageScreen(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Display Language Screen");
+		System.out.println("\nVerify Display Language Screen");
+		accessDeviceLocationPopUp("Allow", userType);
+		verifyElementExist(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button (Display-LanguageScreen)");
+		Back(1);
+		waitTime(2000);
+		verifyElementExist(AMDOnboardingScreen.objExitPopup, "Exit Popup is displayed");
+		String Exitpopup = getDriver().findElement(AMDOnboardingScreen.objExitPopup).getText();
+		System.out.println(Exitpopup);
+		if (Exitpopup.equalsIgnoreCase("Are you sure you want to exit ZEE5?")) {
+			logger.info("Exit popup is displayed with message");
+			extent.extentLogger("Exit Popup", "Exit popup is displayed with message");
+		} else {
+			logger.info("Exit popup is not displayed with message");
+			extent.extentLoggerFail("Exit Popup", "Exit popup is not displayed with message");
+		}
+		verifyElementExist(AMDOnboardingScreen.objExitYes, "Exit Popup with Yes CTA");
+		verifyElementExist(AMDOnboardingScreen.objExitNo, "Exit Popup with No CTA");
+
+		extent.HeaderChildNode("Verify Exip popup closes on tapping on NO CTA");
+		click(AMDOnboardingScreen.objExitNo, "Exit Popup with No CTA");
+		waitTime(2000);
+		verifyElementNotPresent(AMDOnboardingScreen.objExitPopup, 2);
+		logger.info("Exit Popup closes when user taps on No CTA");
+		Back(1);
+		verifyElementExist(AMDOnboardingScreen.objExitPopup, "Exit Popup is displayed");
+
+		extent.HeaderChildNode(" Verify Exit Popuop closes on tapping device back button");
+		Back(1);
+		verifyElementNotPresent(AMDOnboardingScreen.objExitPopup, 2);
+		logger.info("Exit Popup closes when user taps on device back button");
+	}
+
+	public void LoginAfterLogout(String userType) throws Exception {
+
+		if (userType.contentEquals("NonSubscribedUser")) {
+			click(AMDMoreMenu.objProfile, "Profile");
+
+			String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedUserName");
+			String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedPassword");
+
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, Password, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+		}
+
+		if (userType.contentEquals("SubscribedUser")) {
+			click(AMDMoreMenu.objProfile, "Profile");
+
+			String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserName");
+			String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedPassword");
+
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+		}
+	}
+
+	public void logoutOfflineValidation(String userType) throws Exception {
+
+		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
+			extent.HeaderChildNode("Offline Validation of Logout option as " + userType);
+			System.out.println("Offline Validation of Logout option as " + userType);
+			click(AMDHomePage.objMoreMenu, "More menu");
+			Swipe("UP", 1);
+			click(AMDMoreMenu.objLogout, "Logout option in More menu");
+			setWifiConnectionToONOFF("Off");
+			verifyElementExist(AMDMoreMenu.objNetworkerrormsg, "Internet connectivity error message");
+			if (checkElementExist(AMDMoreMenu.objNetworkerrormsg, "Internet connectivity error message")) {
+				logger.info(
+						"Internet connectivity ERROR message is displayed on clicking Logout button without Internet");
+				extent.extentLogger(" Logout button",
+						"Internet connectivity ERROR message is displayed on clicking Logout button without Internet");
+			} else {
+				logger.error(
+						"Internet connectivity ERROR message is NOT displayed on clicking Logout button without Internet");
+				extent.extentLoggerFail(" Logout button",
+						"Internet connectivity ERROR message is NOT displayed on clicking Logout button without Internet");
+			}
+			setWifiConnectionToONOFF("On");
+			Back(1);
+			click(AMDHomePage.HomeIcon, "Home Icon");
+		}
+	}
 }

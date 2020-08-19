@@ -93,4 +93,10 @@ public class AMDMoreMenu {
 	public static By objCancelButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/logoutCancelButton']");
 	public static By objLogoutButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/logoutButton']");
 	public static By objProfileHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
+	
+	public static By objcloseButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_exit']");
+	public static By objAboutUsDescription = By.xpath("//*[@resource-id='iframe_div']");
+	public static By objHyperLinkInAboutUsScreen =  By.xpath("//*[@class='android.view.View']//*[@contentDescription='www.zee5.com']");
+	public static By objPageNotFoundMsg = By.xpath("//*[@class='android.view.View']//*[@text='404! Not Found']");
+	public static By objNetworkerrormsg = By.xpath("//*[@resource-id='android:id/message']");
 }

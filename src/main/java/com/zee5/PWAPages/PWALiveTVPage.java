@@ -178,8 +178,7 @@ public class PWALiveTVPage {
 
 	public static By objClosePremiumPopup = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 
-	public static By objPlayerInlineSubscriptionLink = By.xpath("//div[@class='subscribe-msg-premium']");
-
+	public static By objPlayerInlineSubscriptionLink = By.xpath("(//div[@class='main-container-1'])[1]");
 //		SUSHMA
 	public static By objLiveChannelCard = By.xpath("(//*[@class=\"noSelect content\"])[1]");
 

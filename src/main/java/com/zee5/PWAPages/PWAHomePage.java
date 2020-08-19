@@ -459,7 +459,7 @@ public class PWAHomePage {
 			"//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Subscribe Now')]");
 
 	public static By objWEBGetPremium = By
-			.xpath("//div[contains(@class,'slick-active')]//*[contains(text(),'Subscribe Now')]");
+			.xpath("//div[contains(@class,'slick-active')]//a[contains(@class,'premiumBtn')]");
 
 	public static By objWEBShowsPagePlayCarousel = By.xpath(
 			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'premiumBtn')]");

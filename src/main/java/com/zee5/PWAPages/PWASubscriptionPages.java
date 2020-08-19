@@ -179,7 +179,7 @@ public class PWASubscriptionPages {
 	}
 
 	// ZEE5 Subscription Text
-	public static By objZEE5Subscription = By.xpath("//h2[contains(text(),'ZEE5 Subscription')]");
+	public static By objZEE5Subscription = By.xpath("//*[contains(text(),'ZEE5 Subscription') and contains(@class,'pageTitle')]");
 
 	public static By objSubscribeBtnTopHeader = By
 			.xpath("//*[contains(@class,'subscribeBtn noSelect')]//span[contains(text(), 'Subscribe')]");
@@ -262,7 +262,7 @@ public class PWASubscriptionPages {
 
 	// Get Subscribe Pop Up Title
 	public static By objSubscribePopupTitle = By
-			.xpath("//h2[contains(@class,'popupTitle bigTitle') and contains(text(), 'Subscribe')]");
+			.xpath("//h2[contains(@class,'popupTitle bigTitle')]//p[text()='Subscribe']");
 
 	public static By objLoginSectionInPopup = By.xpath("//div[contains(@class,'loginContainer')]");
 

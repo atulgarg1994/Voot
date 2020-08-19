@@ -94,10 +94,8 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.myProfileScenarios(userType);
 	}
 
-//========================================================================================================================
-
 	// --------------------------BASAVARAJ TimedAnchors--------------------------
-//	@Test(priority = 2)
+	@Test(priority = 9)
 	@Parameters({ "userType" })
 	public void PWATimedAnchors(String userType) throws Exception {
 		System.out.println("PWATimedAnchors");
@@ -110,7 +108,7 @@ public class WebPWASanityScript {
 	}
 
 	// -------------------------MANASA Subscription--------------------------
-//	@Test(priority = 8)
+	@Test(priority = 10)
 	@Parameters({ "userType" })
 	public void subscriptionPageValidation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -127,7 +125,7 @@ public class WebPWASanityScript {
 	}
 
 	// -------------------------SUSHMA Onboarding--------------------------
-//	@Test(priority = 26)
+	@Test(priority = 11)
 	@Parameters({ "userType" })
 	public void Onboarding(String userType) throws Exception {
 		System.out.println("Onboarding");
@@ -137,14 +135,14 @@ public class WebPWASanityScript {
 	}
 
 	// -------------------------SUSHMA MoviePage--------------------------
-//	@Test(priority = 8)
+	@Test(priority = 12)
 	@Parameters({ "userType" })
 	public void Movies(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.Moviepage(userType, "Movies");
 	}
 
-	@Test(priority = 10)
+	@Test(priority = 13)
 	@Parameters({ "userType" })
 	public void premiumPageValidation(String userType) throws Exception {
 		// SMOKE DEFAULT HOME PAGE : MANASA
@@ -157,7 +155,7 @@ public class WebPWASanityScript {
 	}
 
 	// -------------------------MANASA MusicPage--------------------------
-	@Test(priority = 11)
+	@Test(priority = 14)
 	@Parameters({ "userType" })
 	public void musicPageValidation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.landingPagesValidation("Music");
@@ -168,7 +166,7 @@ public class WebPWASanityScript {
 	}
 
 	// -------------------------VINAY KALTURA--------------------------
-//	@Test(priority = 13)
+	@Test(priority = 15)
 	@Parameters({ "userType" })
 	public void PWAkalturaValidation(String userType) throws Exception {
 		// SANITY
@@ -184,7 +182,7 @@ public class WebPWASanityScript {
 	}
 
 	// -------------------------BINDU Search--------------------------
-//	@Test(priority = 14)
+	@Test(priority = 16)
 	@Parameters({ "userType" })
 	public void Search(String userType) throws Exception {
 		System.out.println("Search");
@@ -203,7 +201,7 @@ public class WebPWASanityScript {
 //
 //	
 	// -------------------------BINDU Zee5Originals--------------------------
-//	@Test(priority = 15)
+	@Test(priority = 17)
 	@Parameters({ "userType" })
 	public void Zee5Originals(String userType) throws Exception {
 		System.out.println("Zee5Originals");
@@ -214,7 +212,7 @@ public class WebPWASanityScript {
 
 	// -------------------------SATISH SubscriptionPopup--------------------------
 
-//	@Test(priority = 16)
+	@Test(priority = 18)
 	@Parameters({ "userType" })
 	public void SubscriptionPopup(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -224,7 +222,7 @@ public class WebPWASanityScript {
 
 	// -------------------------SATISH UserActions--------------------------
 
-//	@Test(priority = 17)
+	@Test(priority = 19)
 	@Parameters({ "userType" })
 	public void UserActions(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -243,7 +241,7 @@ public class WebPWASanityScript {
 
 	// -------------------------TEJAS Carousel--------------------------
 
-//	@Test(priority = 18)
+	@Test(priority = 20)
 	@Parameters({ "userType" })
 	public void WebPWACarouselAndLanding(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -303,7 +301,7 @@ public class WebPWASanityScript {
 
 	// -------------------------TEJAS Recommendation--------------------------
 
-//	@Test(priority = 19)
+	@Test(priority = 21)
 	@Parameters({ "userType" })
 	public void PWARecoTalamoosModule(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -312,7 +310,7 @@ public class WebPWASanityScript {
 
 	// -------------------------TEJAS ShowsPage--------------------------
 
-//	@Test(priority = 20)
+	@Test(priority = 22)
 	@Parameters({ "userType" })
 	public void showsPage(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -321,7 +319,7 @@ public class WebPWASanityScript {
 
 	// -------------------------BHAVANA Content Details--------------------------
 
-//	@Test(priority = 23)
+	@Test(priority = 23)
 	@Parameters({ "browserType", "url", "userType", "devicePin", "consumptionsEpisode", "consumptionsShow",
 			"consumptionsFreeContent", "consumptionsPremiumContent" })
 	public void PWAContentDetails(String browser, String url, String userType, String devicePin,
@@ -342,7 +340,7 @@ public class WebPWASanityScript {
 	}
 
 	// -------------------------YASHASWINI NewsPage--------------------------
-//	@Test(priority = 24)
+	@Test(priority = 24)
 	@Parameters({ "userType" })
 	public void newsPageValidation(String userType) throws Exception {
 		System.out.println("newsPageValidation");
@@ -354,7 +352,7 @@ public class WebPWASanityScript {
 	}
 
 	// -------------------------YASHASWINI LandingPage--------------------------
-//	@Test(priority = 25)
+	@Test(priority = 25)
 	@Parameters({ "userType" })
 	public void landingPageValidation(String userType) throws Exception {
 		// SMOKE LANDINGPAGE : TEJAS

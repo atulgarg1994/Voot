@@ -17,8 +17,8 @@ public class PWAAddToWatchListPage {
 		return By.xpath("//a[text()=\"" + contentTitle + "\"]");
 	}
 
-	public static By objTooltip(String Text) {
-		return By.xpath("//img[@title='" + Text + "']");
+	public static By objTooltip(String tooltipText) {
+		return By.xpath("//img[@alt='" + tooltipText + "']");
 	}
 
 //		VINAY 
@@ -34,7 +34,7 @@ public class PWAAddToWatchListPage {
 		return By.xpath("(//span[@class='noSelect iconInitialLoad-ic_close'])[" + index + "]");
 	}
 
-	public static By objFirstContentInWatchlist = By.xpath("(//h3[contains(@class,'cardTitle overflowEllipsis')])[1]");
+	public static By objFirstContentInWatchlist = By.xpath("(//h3[contains(@class,'cardTitle overflowEllipsis')]//a)[1]");
 	public static By objContentName = By.xpath("//h1[contains(text(),\"\")]");
 	public static By objCompleteProfilePopUp = By.xpath("//div[contains(@class,'formHeader')]");
 	public static By objClosePopup = By.xpath("//div[contains(@class,'manCloseIcon')]");

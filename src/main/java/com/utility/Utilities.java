@@ -117,6 +117,7 @@ public class Utilities extends ExtentReporter {
 		} catch (Exception e) {
 			logger.error(text + " " + "is not clilcked");
 			extent.extentLogger("checkElementNotPresent", "" + text + "is not clicked");
+			screencapture();
 		}
 	}
 	
@@ -276,6 +277,7 @@ public class Utilities extends ExtentReporter {
 			softAssert.assertEquals(false, true, "Element" + validationtext + " " + " is not visible");
 			logger.error("Element " + validationtext + " " + " is not visible");
 			extent.extentLogger("checkElementPresent", "" + validationtext + " is not displayed");
+			screencapture();
 //			softAssert.assertAll();
 			return false;
 		}
@@ -311,6 +313,7 @@ public class Utilities extends ExtentReporter {
 			extent.extentLogger("click", "Clicked on " + validationtext);
 		} catch (Exception e) {
 			logger.error(e);
+			screencapture();
 		}
 	}
 
@@ -373,7 +376,6 @@ public class Utilities extends ExtentReporter {
 		waitTime(3000);
 		List<WebElement> allnotifications = getDriver()
 				.findElements(By.xpath("(//*[@resource-id='android:id/message_text'])[1]"));
-
 		System.out.println("Size : " + allnotifications.size());
 		String Otp = null;
 		for (WebElement webElement : allnotifications) {
@@ -384,10 +386,8 @@ public class Utilities extends ExtentReporter {
 				break;
 			}
 		}
-
 		Back(1);
 		getDriver().context("WEBVIEW_1");
-
 		return Otp;
 	}
 	
@@ -442,7 +442,6 @@ public class Utilities extends ExtentReporter {
 				Runtime.getRuntime().exec(cmd);
 				logger.info("Executed the App switch");
 				extent.extentLogger("adbKill", "Executed the App switch");
-
 			}
 		} catch (Exception e) {
 			logger.error(e);
@@ -507,7 +506,6 @@ public class Utilities extends ExtentReporter {
 			extent.extentLogger("", "Typed the value "+text+" into "+ FieldName);
 		} catch (Exception e) {
 			logger.error(e);
-
 		}
 	}
 
@@ -621,6 +619,7 @@ public class Utilities extends ExtentReporter {
 			}
 		} catch (Exception e) {
 			logger.error(e);
+			screencapture();
 		}
 	}
 
@@ -801,6 +800,7 @@ public class Utilities extends ExtentReporter {
 //			softAssert.assertAll();
 			logger.error(byLocator + " " + "is visible");
 			extent.extentLogger("checkElementNotPresent", "" + byLocator + "is displayed");
+			screencapture();
 		}
 	}
 
@@ -1065,6 +1065,7 @@ public class Utilities extends ExtentReporter {
 //			softAssert.assertAll();
 			logger.error("The screen Orientation is not " + ScreenOrientation);
 			extent.extentLogger("Screen Orientation", "The screen Orientation is not " + ScreenOrientation);
+			screencapture();
 		}
 	}
 
@@ -1538,6 +1539,7 @@ public class Utilities extends ExtentReporter {
 			extent.extentLogger("click", "Clicked on the <b> " + validationtext);
 		} catch (Exception e) {
 			logger.error(e);
+			screencapture();
 		}
 	}
 
@@ -1593,6 +1595,7 @@ public class Utilities extends ExtentReporter {
 			extent.extentLogger("click", "Clicked on the <b> " + validationtext);
 		} catch (Exception e) {
 			logger.error(e);
+			screencapture();
 		}
 	}
 	
@@ -1657,6 +1660,7 @@ public class Utilities extends ExtentReporter {
 		}catch(Exception e)
 		{
 			logger.error(e);
+			screencapture();
 		}
 		return false;
 	}

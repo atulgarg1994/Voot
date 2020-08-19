@@ -44,7 +44,7 @@ public class PWAPremiumPage {
 	}
 
 	// Premium popup
-	public static By objPremiumPopUp = By.xpath("//h2[contains(@class,'popupTitle bigTitle')]/child::*");
+	public static By objPremiumPopUp = By.xpath("//h2[contains(@class,'popupTitle bigTitle')]//p[text()='Subscribe']");
 
 //	SANITY SUSHMA LIVETV MODULE
 	public static By objClosePremiumPopup = By

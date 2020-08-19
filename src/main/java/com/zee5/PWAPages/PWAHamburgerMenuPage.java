@@ -581,15 +581,6 @@ public class PWAHamburgerMenuPage {
 	public static By objUserNameInMyProfileWeb = By
 			.xpath("//div[@class='userDetails']//div[contains(@class,'userName')]");
 
-	public static By objTermsInKannada2 = By
-			.xpath("//div[@class='menuGroup active'][2]//a[@class='noSelect menuItem   '][3]");
-
-	public static By objPrivacyPolicyInKannadA2 = By
-			.xpath("//div[@class='menuGroup active'][2]//a[@class='noSelect menuItem   '][4]");
-
-	public static By objAboutUsinKannada2 = By
-			.xpath("//div[@class='menuGroup active'][2]//a[@class='noSelect menuItem   '][1]");
-
 	public static By objHomeInOpenMenuTab = By.xpath("//a[@class='noSelect menuItem  active']//div[.='Home']");
 
 	public static By objProfileText = By.xpath("//div[@class='noSelect pageLink' and contains(text(),'My Profile')]");
@@ -616,4 +607,10 @@ public class PWAHamburgerMenuPage {
 	public static By myAccount = By.xpath("//div[contains(@class,'menuTitle')]//*[.='My Account']");
 
 	public static By objContinueButtonInVerifyAccount = By.xpath("//div[@class='noSelect popupBtn' and .='Continue']");
+	
+	public static By objTermsInKannada2 = By.xpath("//div[@class='menuGroup active'][2]//a[3]");
+
+	public static By objPrivacyPolicyInKannadA2 = By.xpath("//div[@class='menuGroup active'][2]//a[4]");
+
+	public static By objAboutUsinKannada2 = By.xpath("//div[@class='menuGroup active'][2]//a[1]");
 }
