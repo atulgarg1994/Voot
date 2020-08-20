@@ -3882,9 +3882,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String CarouselTitle = getText(AMDHomePage.objCarouselPlayIconContentCard);
 		click(AMDHomePage.objCarouselPlayIconContentCard, "Carousel content");
 
-		if (!(verifyElementIsNotDisplayed(AMDHomePage.objSubscribePopUpInConsumptionPage))) {
+		if (verifyElementExist(AMDHomePage.objSubscribePopup, "Subscribe Popup")) {
 			Back(1);
 		}
+		waitTime(5000);
 		verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
 		String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
 
@@ -5152,9 +5153,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String CarouselTitle = getText(AMDHomePage.objCarouselPlayIconContentCard);
 		click(AMDHomePage.objCarouselPlayIconContentCard, "Carousel content");
 
-		if (verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page")) {
+		if (verifyElementExist(AMDHomePage.objSubscribePopup, "Subscribe Popup")) {
 			Back(1);
 		}
+		waitTime(5000);
 
 		verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
 		String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
