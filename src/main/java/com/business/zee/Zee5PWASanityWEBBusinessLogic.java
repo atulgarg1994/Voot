@@ -1245,7 +1245,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 				.getParameter("premiumMovieNoTrailer2");
 		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
-		waitTime(3000);
+		waitTime(6000);
 		String user = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
 		mandatoryRegistrationPopUp(user);
 		click(PWASearchPage.objPremiumSearchResult(keyword), "Premium content");
@@ -5165,7 +5165,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		verifyElementExist(PWAHomePage.objSearchField, "Search field");
 		String keyword1 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter("freeMovie");
+				.getParameter("freeMovie2");
 		type(PWAHomePage.objSearchField, keyword1, "Search");
 		waitTime(10000);
 		//mandatoryRegistrationPopUp(userType);
