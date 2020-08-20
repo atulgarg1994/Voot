@@ -105,4 +105,20 @@ public class PWAMusicPage {
 	}
 
 	public static By objFreeMusicContentCard = By.xpath("(//div[@class='bannerPlusTray topTenSongsTray']//img)[1]");
+	
+	public static By musicTrayContentCard(String trayTitle, int i) {
+		return By.xpath("(((((//div[@class='trayHeader']//h2[.='"+trayTitle+"'])//parent::*//parent::*//div[@class='cardCarousel Wrapper'])//div//div[@class='slick-list'])//div)//div//figure)["+i+"]");
+	}
+
+	public static By musicTrayContentCards(String trayTitle) {
+		return By.xpath("(((((//div[@class='trayHeader']//h2[.='"+trayTitle+"'])//parent::*//parent::*//div[@class='cardCarousel Wrapper'])//div//div[@class='slick-list'])//div)//div//figure)");
+	}
+
+	public static By musicTrayContentCardTitle(String trayTitle, int i) {
+		return By.xpath("((((((//div[@class='trayHeader']//h2[.='"+trayTitle+"'])//parent::*//parent::*//div[@class='cardCarousel Wrapper'])//div//div[@class='slick-list'])//div)//div//figure)//a//img[@title])["+i+"]");
+	}
+	
+	public static By musicTrayContentCardWatchListBtn(String trayTitle, int i) {
+		return By.xpath("(((((((//div[@class='trayHeader']//h2[.='"+trayTitle+"'])//parent::*//parent::*//div[@class='cardCarousel Wrapper'])//div//div[@class='slick-list'])//div)//div//figure)["+i+"])//parent::*//parent::*)//div[@class='cardPopupWrap']//div[@class='popupButton']//span[@title='Watchlist']");
+	}
 }

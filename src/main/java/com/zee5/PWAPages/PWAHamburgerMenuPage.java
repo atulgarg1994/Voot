@@ -247,8 +247,7 @@ public class PWAHamburgerMenuPage {
 			.xpath("//div[contains(@class,'userDetails')]//div[contains(@class,'userName')]");
 	public static By objEditProfileTextWEB = By.xpath("//h2[contains(@class,'pageSubTitle')]");
 	public static By objChangePasswordTextWEB = By.xpath("//h2[contains(@class,'pageSubTitle')]");
-	public static By objWebBuySubscriptionOption = By
-			.xpath("//*[@class='noSelect menuItem   menuForPlans' and text()='Buy Subscription']");
+	public static By objWebBuySubscriptionOption = By.xpath("//*[text()='Buy Subscription']");
 	public static By objLanguageBtnWEB = By.xpath("//div[contains(@class,'languageBtn')]");
 	public static By objContentLanguageWrapper = By.xpath("//div[@id='contentWrapLanguage']");
 	// Display language btn
@@ -497,12 +496,11 @@ public class PWAHamburgerMenuPage {
 
 	public static By objMyTransactionPage = By.xpath("//*[@class='pageTitle' and //*[text()='My Transactions']]");
 
-	public static By objGetPremiumPopup = By
-			.xpath("//h2[contains(@class,'popupTitle bigTitle') and text()='Subscribe']");
+	public static By objGetPremiumPopup = By.xpath("//h2[contains(@class,'popupTitle bigTitle')]//p[text()='Subscribe']");
 
 	public static By objPopupClose = By.xpath("//*[@class='noSelect closePupup iconInitialLoad-ic_close']");
 
-	public static By objSubscribeNowLink = By.xpath("//*[@class='subscribe-link']");
+	public static By objSubscribeNowLink = By.xpath("(//*[@class='subscribe-link'])[1]");
 
 	public static By objLanguageBtn = By.xpath("//*[@class='noSelect menuItem  languageMenu ']");
 

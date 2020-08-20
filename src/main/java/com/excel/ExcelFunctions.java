@@ -24,10 +24,8 @@ public class ExcelFunctions {
 				Sheet s = wb.getSheet(sheet);
 				rc = s.getLastRowNum();
 			} catch (Exception e) {
-				
 //				System.out.println(e);
 			}
-
 			return rc;
 		}
 
@@ -37,13 +35,9 @@ public class ExcelFunctions {
 			try {
 				@SuppressWarnings("resource")
 				XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlPath));
-				
 				XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
-				
 				data = myExcelSheet.getRow(row).getCell(col).toString();
-				
 			}
-
 			catch (Exception e) {
 //				System.out.println(e);
 			}
@@ -51,23 +45,17 @@ public class ExcelFunctions {
 		}
 
 		public static void writeData(String xlpath, String sheet, int row, int col, String data) {
-
 			try {
 				XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
 				FileOutputStream output = new FileOutputStream(xlpath);
-				
 				XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
-				
 				myExcelSheet.createRow(row).createCell(col).setCellValue(data);	
 				myExcelBook.write(output);
-				myExcelBook.close();
-				
+				myExcelBook.close();	
 			}
-
 			catch (Exception e) {
 				System.out.println(e);
 			}
-
 		}
 		
 		
@@ -75,13 +63,9 @@ public class ExcelFunctions {
 		{
 			@SuppressWarnings("resource")
 			XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlPath));
-			
 			XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
-
 			XSSFRow myExcelRow = myExcelSheet.getRow(rownum);
-		
 			int colNum = myExcelRow.getLastCellNum();
-	    
 			return colNum;
 		}
 

@@ -36,7 +36,7 @@
 	<parameter name="musicToTriggerReco" value="Nenne Monneya Ninna Parichaya - Giftbox | Ameeta Kulal | Ritvvikk Mathad | Bindu Malini"/>
 	<parameter name="newsToTriggerReco" value="Amid coronavirus, cong holds massive 'cycle rally' to protest against fuel price hike in Bengaluru"/>
 	<parameter name="freeMovie" value="Gooli"/>
-	<parameter name="freeMovie2" value="Doddmane Hudga"/>
+	<parameter name="freeMovie2" value="Bablu Dablu - Robo Rumble"/>
 	<parameter name="freeMovie3" value="Ee Preethi Yeke Bhoomi Melide"/>
 	<parameter name="freeMovie4" value="Rabin hood"/>
 	<parameter name="premiumMovie" value="Natasaarvabhowma"/>
@@ -59,8 +59,8 @@
 	<parameter name="movieToTriggerReco" value="Lava Kusha"/>
 	<parameter name="newsToTriggerReco" value="Amid coronavirus, cong holds massive 'cycle rally' to protest against fuel price hike in Bengaluru"/>
 	<parameter name="timedAnchorEpisode" value="Paarvathi kisses Aditya - Paaru" />
-	<parameter name="timedAnchorMusic" value="Appa Lyrical - Punith Shetty" />
-	<parameter name="timedAnchorMovie" value="Robin Hood" />
+	<parameter name="timedAnchorMusic" value="Kanneeraa - Kavacha | Shivaraj Kumar" />
+	<parameter name="timedAnchorMovie" value="Bablu Dablu - Robo Rumble" />
 	<parameter name="episodeToTriggerReco" value="Aditya-Paarvathi challenge themselves for fun" />
 	<parameter name="ExpiredUserName" value="zee5latest@gmail.com"/>
 	<parameter name="ExpiredUserPassword" value="User@123"/>

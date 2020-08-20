@@ -154,12 +154,10 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.premiumPageTrayTitleAndContentValidationWithApiData("Premium", "premiumcontents");
 	}
 
-	// -------------------------MANASA MusicPage--------------------------
 	@Test(priority = 14)
 	@Parameters({ "userType" })
 	public void musicPageValidation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.landingPagesValidation("Music");
-		Zee5WEBPWASanityBusinessLogic.trayTitleAndContentValidationWithApiDataGuest("Music", "music", userType);
 		Zee5WEBPWASanityBusinessLogic.musicPageTrayTitleAndContentValidationWithApiData("Music", "music", userType);
 		Zee5WEBPWASanityBusinessLogic.musicPageValidation("Music", userType,
 				"Kalede Hode Naanu - Chambal | Sathish Ninasam | Sonu Gowda");

@@ -303,4 +303,8 @@ public class PWASearchPage {
 	public static By objSearchVideosTab = By.xpath("//div[contains(@class,'tabMenuItem') and @id='videos']");
 
 	public static By objallowCaps = By.xpath("//*[@text='ALLOW']");
+	
+	public static By objSearchedResultChangedLanguage(String keyword) {
+		return By.xpath("((//div[@class='listingGrid']//a[contains(text(),'')])[1] | (//div[@class='listingGrid']//span[contains(text(),\"" + keyword + "\")])[1])[1]");
+	}
 }

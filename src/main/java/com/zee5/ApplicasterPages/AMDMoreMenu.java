@@ -99,4 +99,14 @@ public class AMDMoreMenu {
 	public static By objHyperLinkInAboutUsScreen =  By.xpath("//*[@class='android.view.View']//*[@contentDescription='www.zee5.com']");
 	public static By objPageNotFoundMsg = By.xpath("//*[@class='android.view.View']//*[@text='404! Not Found']");
 	public static By objNetworkerrormsg = By.xpath("//*[@resource-id='android:id/message']");
+	
+	//Terms of Use Screen
+	public static By objTermsOfUseHeader = By.xpath("//*[@text='Terms of Use']");
+	public static By objTermsDescription = By.xpath("//*[@id='iframe_div' and ./*[@text='Terms of Use']]");
+	public static By objsupportHyperlinkInTermsOfUse = By.xpath("//*[@text='support.in@zee5.com']");
+	public static By objfeedbackLinkInTermsOfUse = By.xpath("//*[@text='feedback.yono@sbi.co.in']");
+	public static By objzee5HyperlinkinTermsOfUse = By.xpath("(//*[@text='www.zee5.com'])[1]");
+	public static By objsubscribelinkInTermsofUse = By.xpath("//*[@text='https://www.zee5.com/myaccount/subscription']");
+	public static By objInternetErrormsg = By.xpath("//*[@text='You are not connected to internet']");
+
 }

@@ -4975,64 +4975,76 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"user is not able to navigate to Shows screen by tapping on Shows tab displayed in the top navigation bar");
 		}
 
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		if ((userType.equalsIgnoreCase("Guest")) | (userType.equalsIgnoreCase("NonSubscribedUser"))) {
 			if (verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
-				logger.info("subscribe icon is dislayed");
-				extent.extentLogger("Subscribe icon", "subscribe icon is dislayed");
+				logger.info("Subscribe icon is dislayed on the header of the Shows Landing Screen");
+				extent.extentLogger("Subscribe icon",
+						"Subscribe icon is dislayed on the header of the Shows Landing Screen");
 			} else {
-				logger.info("subscribe icon is not dislayed");
-				extent.extentLoggerFail("Subscribe icon", "subscribe icon is not dislayed");
+				logger.info("Subscribe icon is not dislayed on the header of the Shows Landing Screen");
+				extent.extentLoggerFail("Subscribe icon",
+						"Subscribe icon is not dislayed on the header of the Shows Landing Screen");
 			}
 		} else {
 
-			verifyElementIsNotDisplayed(AMDHomePage.objSubscribeTeaser);
-			logger.info("subscribe icon is not dislayed");
-			extent.extentLogger("Subscribe icon", "subscribe icon is not dislayed");
-//			if (verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
-//				logger.info("subscribe icon is dislayed");
-//				extent.extentLoggerFail("Subscribe icon", "subscribe icon is dislayed");
-//			} else {
-//				logger.info("subscribe icon is not dislayed");
-//				extent.extentLogger("Subscribe icon", "subscribe icon is not dislayed");
-//			}
+			if (verifyElementIsNotDisplayed(AMDHomePage.objSubscribeTeaser)) {
+				logger.info("Subscribe icon is not dislayed on the header of the Shows Landing Screen");
+				extent.extentLogger("Subscribe icon",
+						"Subscribe icon is not dislayed on the header of the Shows Landing Screen");
+
+			} else {
+				logger.info("Subscribe icon is dislayed on the header of the Shows Landing Screen");
+				extent.extentLoggerFail("Subscribe icon",
+						"Subscribe icon is dislayed on the header of the Shows Landing Screen");
+			}
 		}
 		carouselValidationforShowsAndNews(userType, "Shows");
 		String CarouselTitle = ShowsScreenValidationwithApiData(userType);
 		if (CarouselTitle == null) {
-			logger.info("No premium content present in the carousel");
+			logger.info("No premium content present in the carousel to validate Content Playback");
 		} else {
 			verifyElementPresentAndClick(AMDHomePage.objContentTitle(CarouselTitle), "Carousel content");
-			if (verifyElementExist(AMDHomePage.objWatchTrailerIconOnPlayerscreen, "Watch Trailer button")) {
-				if (verifyElementNotPresent(AMDHomePage.objLoginButtonOnPlayerscreen, 10)) {
-					logger.info(
-							"Content playback is not initiated for the guest user post tapping on premium content which is having trailer");
-					extentLoggerFail("Trailer",
-							"Content playback is not initiated for the guest user post tapping on premium content which is having trailer");
-				} else {
-					logger.info(
-							"Content playback is initiated for the guest user post tapping on premium content which is having trailer");
-					extentLogger("Trailer",
-							"Content playback is initiated for the guest user post tapping on premium content which is having trailer");
+			if (!(verifyElementIsNotDisplayed(AMDHomePage.objWatchTrailerIconOnPlayerscreen))) {
+				if (userType.equals("Guest")) {
+					if (verifyElementIsNotDisplayed(AMDHomePage.objLoginButtonOnPlayerscreen)) {
+						logger.info(
+								"Content playback is initiated for the guest user post tapping on premium content which is having trailer");
+						extentLogger("Trailer",
+								"Content playback is initiated for the guest user post tapping on premium content which is having trailer");
+
+					} else {
+						logger.info(
+								"Content playback is not initiated for the guest user post tapping on premium content which is having trailer");
+						extentLoggerFail("Trailer",
+								"Content playback is not initiated for the guest user post tapping on premium content which is having trailer");
+					}
+					Back(1);
 				}
-				Back(1);
+				if (userType.equals("NonSubscribedUser")) {
+					if (verifyElementIsNotDisplayed(AMDShowsScreen.objSubscribeNowlink)) {
+						logger.info(
+								"Content playback is initiated  tapping on premium content which is having trailer");
+						extentLogger("Trailer",
+								"Content playback is initiated  tapping on premium content which is having trailer");
+					} else {
+						logger.info(
+								"Content playback is not initiated  tapping on premium content which is having trailer");
+						extentLoggerFail("Trailer",
+								"Content playback is not initiated  tapping on premium content which is having trailer");
+					}
+					Back(1);
+				}
 			} else {
-				if (verifyElementExist(AMDHomePage.objLoginButtonOnPlayerscreen, "Login button")) {
-					logger.info(
-							"Content playback is not initiated for the guest user post tapping on premium content which is not having trailer");
-					extentLogger("Trailer",
-							"Content playback is not initiated for the guest user post tapping on premium content which is not having trailer");
-				} else {
-					logger.info(
-							"Content playback is initiated for the guest user post tapping on premium content which is not having trailer");
-					extentLoggerFail("Trailer",
-							"Content playback is initiated for the guest user post tapping on premium content which is not having trailer");
-				}
-				Back(1);
+				logger.info("Content playback is initiated for the SubscribedUser post tapping on Premium Content");
+				extentLogger("Trailer",
+						"Content playback is initiated for the SubscribedUser post tapping on Premium Content");
 			}
+			Back(1);
 		}
+
 		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Continue Watching"), AMDHomePage.objCarouselConetentCard,
 				"Continue watching tray", "MastheadCarousel", userType, "Shows");
-		findingTrayInscreen(4, AMDHomePage.objTrayTitle("Before"), AMDHomePage.objCarouselConetentCard,
+		findingTrayInscreen(6, AMDHomePage.objTrayTitle("Before"), AMDHomePage.objCarouselConetentCard,
 				"Before TV tray", "MastheadCarousel", userType, "Shows");
 		findingTrayInscreen(3, AMDHomePage.objTrayTitle("Trending Shows"), AMDHomePage.objCarouselConetentCard,
 				"Trending shows tray", "MastheadCarousel", userType, "Shows");
@@ -5140,7 +5152,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String CarouselTitle = getText(AMDHomePage.objCarouselPlayIconContentCard);
 		click(AMDHomePage.objCarouselPlayIconContentCard, "Carousel content");
 
-		if (!(verifyIsElementDisplayed(AMDSubscibeScreen.objSubscribeHeader))) {
+		if (verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page")) {
 			Back(1);
 		}
 
@@ -5247,58 +5259,61 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
-	@SuppressWarnings("unused")
 	public void verifyConsumptionScreenOfBeforeTVContent(String userType) throws Exception {
 		extent.HeaderChildNode("Verify content Playback in Shows Before TV");
 		System.out.println("\nVerify content Playback in Shows Before TV");
-		findingTrayInscreen(4, AMDHomePage.objTrayTitle("Before"), AMDHomePage.objCarouselConetentCard, "Before TV",
-				"MastheadCarousel", userType, "Shows");
-		if (verifyElementExist(AMDHomePage.objBeforeTVTray, "BeforeTV tray")) {
-			waitTime(5000);
-			String beforeTVtrayName = findElement(AMDGenericObjects.objTrayTitle("Before")).getText();
-//				click(AMDGenericObjects.objViewAllBtn(beforeTVtrayName), "View All_Before TV Show");
-			click(AMDHomePage.objBeforeTVTray, "BeforeTV tray");
-			waitTime(4000);
-			click(AMDShowsScreen.objBeforeTVContent1, "BeforeTV content");
-			waitTime(5000);
-			if (verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page")) {
-				Back(1);
-			}
+		verifyElementPresentAndClick(AMDHomePage.objShowsTab, "Shows Tab");
 
-			if (userType.equals("Guest")) {
-
-				if (verifyElementExist(AMDShowsScreen.objLoginLink, "Login link")) {
-					logger.info(
-							"User navigated to consumption screen with login link on the player tapping on Before TV Content");
-					extent.extentLogger("Consumption Screen",
-							"User navigated to consumption screen with login link on the player tapping on Before TV Content");
-				} else {
-					logger.info(
-							"User not navigated to consumption screen with login link on the player tapping on Before TV Content");
-					extent.extentLoggerFail("Consumption Screen",
-							"User not navigated to consumption screen with login link on the player tapping on Before TV Content");
-				}
-			} else if (userType.equals("NonSubscribedUser")) {
-				if (verifyElementExist(AMDShowsScreen.objSubscribeNowlink, "Subscribe Now link")) {
-					logger.info(
-							"User navigated to consumption screen with Subscribe Now link on the player tapping on Before TV Content");
-					extent.extentLogger("Consumption Screen",
-							"User navigated to consumption screen with Subscribe Now link on the player tapping on Before TV Content");
-				} else {
-					logger.info(
-							"User not navigated to consumption screen with Subscribe Now link on the player tapping on Before TV Content");
-					extent.extentLoggerFail("Consumption Screen",
-							"User not navigated to consumption screen with Subscribe Now link on the player tapping on Before TV Content");
-				}
+		for (int i = 0; i < 6; i++) {
+			if (verifyElementIsNotDisplayed(AMDHomePage.objBeforeTVTray)) {
+				PartialSwipe("UP", 1);
+				// break;
 			} else {
-				logger.info("Content playback is initiated for the subscribed user on tapping any Before Tv Content");
-				extent.extentLogger("Consumption Screen",
-						"Content playback is initiated for the subscribed user on tapping any Before Tv Content");
+				waitTime(5000);
+//				String beforeTVtrayName = findElement(AMDGenericObjects.objTrayTitle("Before TV")).getText();
+//				click(AMDGenericObjects.objViewAllBtn(beforeTVtrayName), "View All_Before TV Show");
+				click(AMDHomePage.objBeforeTVTray, "BeforeTV tray");
+				waitTime(4000);
+				click(AMDShowsScreen.objBeforeTVContent1, "BeforeTV content");
+				waitTime(5000);
+				if (verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page")) {
+					Back(1);
+				}
+
+				if (userType.equals("Guest")) {
+
+					if (verifyElementExist(AMDShowsScreen.objLoginLink, "Login link")) {
+						logger.info(
+								"User navigated to consumption screen with login link on the player tapping on Before TV Content");
+						extent.extentLogger("Consumption Screen",
+								"User navigated to consumption screen with login link on the player tapping on Before TV Content");
+					} else {
+						logger.info(
+								"User not navigated to consumption screen with login link on the player tapping on Before TV Content");
+						extent.extentLoggerFail("Consumption Screen",
+								"User not navigated to consumption screen with login link on the player tapping on Before TV Content");
+					}
+				} else if (userType.equals("NonSubscribedUser")) {
+					if (verifyElementExist(AMDShowsScreen.objSubscribeNowlink, "Subscribe Now link")) {
+						logger.info(
+								"User navigated to consumption screen with Subscribe Now link on the player tapping on Before TV Content");
+						extent.extentLogger("Consumption Screen",
+								"User navigated to consumption screen with Subscribe Now link on the player tapping on Before TV Content");
+					} else {
+						logger.info(
+								"User not navigated to consumption screen with Subscribe Now link on the player tapping on Before TV Content");
+						extent.extentLoggerFail("Consumption Screen",
+								"User not navigated to consumption screen with Subscribe Now link on the player tapping on Before TV Content");
+					}
+				}
+
+				else {
+					logger.info(
+							"Content playback is initiated for the subscribed user on tapping any Before Tv Content");
+					extent.extentLogger("Consumption Screen",
+							"Content playback is initiated for the subscribed user on tapping any Before Tv Content");
+				}
 			}
-		} else {
-			logger.info("Shows Before TV Tray is not  displayed");
-			extent.extentLogger("Shows screen", "Shows Before TV Tray is not displayed");
-			PartialSwipe("UP", 1);
 		}
 		Back(2);
 	}
@@ -5725,25 +5740,28 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"user is not able to navigate to News screen by tapping on News tab displayed in the top navigation bar");
 		}
 
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		if ((userType.equalsIgnoreCase("Guest")) | (userType.equalsIgnoreCase("NonSubscribedUser"))) {
 			if (verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
-				logger.info("subscribe icon is dislayed");
-				extent.extentLogger("Subscribe icon", "subscribe icon is dislayed");
+				logger.info("Subscribe icon is dislayed on the header of the News Landing Screen");
+				extent.extentLogger("Subscribe icon",
+						"Subscribe icon is dislayed on the header of the News Landing Screen");
 			} else {
-				logger.info("subscribe icon is not dislayed");
-				extent.extentLoggerFail("Subscribe icon", "subscribe icon is not dislayed");
+				logger.info("Subscribe icon is not dislayed on the header of the News Landing Screen");
+				extent.extentLoggerFail("Subscribe icon",
+						"Subscribe icon is not dislayed on the header of the News Landing Screen");
 			}
 		} else {
-			verifyElementIsNotDisplayed(AMDHomePage.objSubscribeTeaser);
-			logger.info("subscribe icon is not dislayed");
-			extent.extentLogger("Subscribe icon", "subscribe icon is not dislayed");
-//			if (verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
-//				logger.info("subscribe icon is dislayed");
-//				extent.extentLoggerFail("Subscribe icon", "subscribe icon is dislayed");
-//			} else {
-//				logger.info("subscribe icon is not dislayed");
-//				extent.extentLogger("Subscribe icon", "subscribe icon is not dislayed");
-//			}
+
+			if (verifyElementIsNotDisplayed(AMDHomePage.objSubscribeTeaser)) {
+				logger.info("Subscribe icon is not dislayed on the header of the News Landing Screen");
+				extent.extentLogger("Subscribe icon",
+						"Subscribe icon is not dislayed on the header of the News Landing Screen");
+
+			} else {
+				logger.info("Subscribe icon is dislayed on the header of the News Landing Screen");
+				extent.extentLoggerFail("Subscribe icon",
+						"Subscribe icon is dislayed on the header of the News Landing Screen");
+			}
 		}
 		carouselValidationforShowsAndNews(userType, "News");
 	}
@@ -5755,10 +5773,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (userType.equals("Guest")) {
 			selectContentLang_MoreMenu("Hindi");
 		}
+		click(AMDHomePage.objPremiumTab, "Premium tab");
 		verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
 
-		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Continue Watching"), AMDHomePage.objCarouselConetentCard,
-				"Continue watching tray", "MastheadCarousel", userType, "News");
 		findingTrayInscreen(10, AMDHomePage.objTrayTitle("Today's Headlines"), AMDHomePage.objCarouselConetentCard,
 				"Today's Headlines tray", "MastheadCarousel", userType, "News");
 		findingTrayInscreen(10, AMDHomePage.objTrayTitle("Entertainment News"), AMDHomePage.objCarouselConetentCard,
@@ -5771,63 +5788,75 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (userType.equals("Guest")) {
 			deselectContentLang_MoreMenuAndSelectDefaultLanguage("Hindi");
 		}
+		click(AMDHomePage.objPremiumTab, "Premium tab");
 	}
 
 	public void verifyListingCollectionScreen(String userType) throws Exception {
 		extent.HeaderChildNode("Verify user navigated to Listing collection Screen");
 		System.out.println("Verify user navigated to Listing collection Screen");
 		verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
-		waitTime(2000);
+		waitTime(20000);
 		PartialSwipe("UP", 1);
 		verifyElementPresent(AMDNewsPage.objRightArrowBtn, "Right arrow");
 		click(AMDNewsPage.objRightArrowBtn, "Right arrow");
 		waitTime(4000);
-		verifyElementPresent(AMDNewsPage.objListingScreen, "Screen Header");
-		logger.info("Listing Collection Screen is displayed by clicking on right arrow for the trays");
-		extent.extentLogger("Listing Collection screen",
-				"Listing Collection Screen is displayed by clicking on right arrow for the trays");
-
-		Swipe("UP", 1);
-		verifyElementExist(AMDNewsPage.objNextContentImg, "Next Content");
-		logger.info("User can able to swipe the screen to view the next content");
-		extent.extentLogger("Listing Collection screen", "User can able to swipe the screen to view the next content");
-
-		Swipe("DOWN", 1);
-		verifyElementPresent(AMDNewsPage.objThumbnailImg1, "Thumbnail Image");
-		click(AMDNewsPage.objThumbnailImg1, "Thumbnail Image");
-		verifyElementExist(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
-		logger.info("user can able to tap on Thumb Nail Image");
-		extent.extentLogger("Listing Collection screen", "user can able to tap on Thumb Nail Image");
-		Back(1);
-
+		if (verifyElementPresent(AMDNewsPage.objListingScreen, "Screen Header")) {
+			logger.info("Listing Collection Screen is displayed by clicking on right arrow for the trays");
+			extent.extentLogger("Listing Collection screen",
+					"Listing Collection Screen is displayed by clicking on right arrow for the trays");
+		} else {
+			logger.info("Listing Collection Screen is not displayed by clicking on right arrow for the trays");
+			extent.extentLoggerFail("Listing Collection screen",
+					"Listing Collection Screen is not displayed by clicking on right arrow for the trays");
+		}
 		if (verifyElementIsNotDisplayed(AMDNewsPage.objMetaData)) {
 			logger.info("MetaData like Title,Year,Duration is not displayed in listing collection screen");
 			extent.extentLogger("Listing Collection screen",
 					"MetaData like Title,Year,Duration is not displayed in listing collection screen");
+		} else {
+			logger.info("MetaData like Title,Year,Duration is displayed in listing collection screen");
+			extent.extentLoggerFail("Listing Collection screen",
+					"MetaData like Title,Year,Duration is displayed in listing collection screen");
 		}
-
+		Swipe("UP", 1);
+		if (verifyElementExist(AMDNewsPage.objNextContentImg, "Next Content")) {
+			logger.info("User can able to swipe the screen to view the next content in the Collection Listing Screen");
+			extent.extentLogger("Listing Collection screen",
+					"User can able to swipe the screen to view the next content");
+		} else {
+			logger.info("No content present on the Collection Listing Screen after swiping the screen");
+			extent.extentLoggerFail("Listing Collection screen",
+					"No content present on the Collection Listing Screen after swiping the screen");
+		}
+		Swipe("DOWN", 1);
 		verifyElementPresent(AMDNewsPage.objThumbnailImg1, "Thumbnail Image");
 		// waitTime(6000);
 		click(AMDNewsPage.objThumbnailImg1, "Thumbnail Image");
 		waitTime(2000);
 		if (verifyElementPresent(AMDNewsPage.objConsumptionScreenTitle, "Consumption Screen Title")) {
-			logger.info("User navigated to consumption screen tapping on thumbnail image in listing screen");
+			logger.info(
+					"User can able to Tap on Thumbnail imagee and user navigated to consumption screen tapping on thumbnail image in listing screen");
 			extent.extentLogger("Consumption Screen",
-					"User navigated to consumption screen tapping on thumbnail image in listing screen");
-
+					"User can able to Tap on Thumbnail imagee and user navigated to consumption screen tapping on thumbnail image in listing screen");
 		} else {
-			logger.info("User not navigated to consumption screen tapping on thumbnail image in listing screen");
-			extent.extentLogger("Consumption Screen",
-					"User not navigated to consumption screen tapping on thumbnail image in listing screen");
+			logger.info(
+					"User cannot able to Tap on Thumbnail imagee and user not navigated to consumption screen tapping on thumbnail image in listing screen");
+			extent.extentLoggerFail("Consumption Screen",
+					"User cannot able to Tap on Thumbnail imagee and user not navigated to consumption screen tapping on thumbnail image in listing screen");
 		}
 		Back(1);
 		verifyElementPresent(AMDLoginScreen.objBackBtn, "Back Button");
 		click(AMDLoginScreen.objBackBtn, "Back Button");
 		waitTime(2000);
-		verifyElementPresent(AMDHomePage.objNewsTab, "News Tab");
-		logger.info("User navigated to News Landing screen tapping on back icon available on listing screen");
-		extent.extentLogger("Listing Screen",
-				"User navigated to News Landing screen tapping on back icon available on listing screen");
+		if (verifyElementPresent(AMDHomePage.objNewsTab, "News Tab")) {
+			logger.info("User navigated to News Landing screen tapping on back icon available on listing screen");
+			extent.extentLogger("Listing Screen",
+					"User navigated to News Landing screen tapping on back icon available on listing screen");
+		} else {
+			logger.info("User not navigated to News Landing screen tapping on back icon available on listing screen");
+			extent.extentLogger("Listing Screen",
+					"User not navigated to News Landing screen tapping on back icon available on listing screen");
+		}
 	}
 
 	/**
@@ -6413,7 +6442,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verifying About Us screen as \" + userType");
 		System.out.println("Verifying About Us screen as " + userType);
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
-		verifyElementPresentAndClick(AMDMoreMenu.objAboutUs, "About Us");
+		verifyElementPresentAndClick(AMDMoreMenu.objAboutUs, "About Us option in More menu");
 		verifyElementExist(AMDMoreMenu.objAboutUsHeader, "About Us Header");
 		if (checkElementExist(AMDMoreMenu.objAboutUsHeader, "About Us Header")) {
 			logger.info("User is navigated to About Us screen");
@@ -6423,12 +6452,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("About Us", "User is unable to navigate to About Us screen");
 		}
 		verifyElementExist(AMDMoreMenu.objcloseButton, "Close button in About Us Screen");
-		verifyElementExist(AMDMoreMenu.objAboutUsDescription, "Breif' Description about Application");
-		// verifyElementExist(AMDMoreMenu.objHyperLinkInAboutUsScreen,"Hyper link in
-		// About Us screen");
+		verifyElementExist(AMDMoreMenu.objAboutUsDescription,
+				"Breif Description about the Application in About Use Screen");
+		verifyElementExist(AMDMoreMenu.objHyperLinkInAboutUsScreen, "Hyper link in About Us screen");
 		String str = getText(AMDMoreMenu.objHyperLinkInAboutUsScreen);
 		System.out.println("Hyper link in About us Sceen is " + str);
-		verifyElementPresentAndClick(AMDMoreMenu.objHyperLinkInAboutUsScreen, "Hyper link in About Us screen");
+		click(AMDMoreMenu.objHyperLinkInAboutUsScreen, "Hyper link");
 		if (verifyElementExist(AMDMoreMenu.objPageNotFoundMsg, "ERROR,Page not found")) {
 			logger.error("On clicking the Hyper link,user is unable to navigate to the respective page of Hyper link");
 			extent.extentLoggerFail("Hyper Link",
@@ -6490,6 +6519,59 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail(" Logout button", "Logout button is NOT tappable and user is unable to logout");
 			}
 		}
+	}
+
+	public void TermsOfUseScreen(String userType) throws Exception {
+		extent.HeaderChildNode("Verifying Terms of Use screen as " + userType);
+		System.out.println("Verifying Terms of Use screen as " + userType);
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+		Swipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objTermsOfUse, "Terms of Use option in More menu");
+		verifyElementExist(AMDMoreMenu.objTermsOfUseHeader, "Terms Of Use Header");
+		if (checkElementExist(AMDMoreMenu.objTermsOfUseHeader, "Terms Of Use Header")) {
+			logger.info("User is navigated to Terms of Use screen");
+			extent.extentLogger("Terms of Use", "User is navigated to Terms of Use screen");
+		} else {
+			logger.error("User is unable to navigate to Terms of Use screen");
+			extent.extentLoggerFail("Terms of Use", "User is unable to navigate to Terms of Use screen");
+		}
+		verifyElementExist(AMDMoreMenu.objcloseButton, "Close button in Terms of Use Screen");
+		verifyElementExist(AMDMoreMenu.objTermsDescription,
+				"Breif information of the Application in Terms Of Use Screen");
+		Swipe("UP", 6);
+		// hyperlink 1
+		String str1 = getText(AMDMoreMenu.objsupportHyperlinkInTermsOfUse);
+		System.out.println(str1);
+		verifyElementExist(AMDMoreMenu.objsupportHyperlinkInTermsOfUse, str1 + " Hyperlink");
+		click(AMDMoreMenu.objsupportHyperlinkInTermsOfUse, "Hyperlink " + str1);
+		if (verifyElementExist(AMDMoreMenu.objInternetErrormsg,
+				"Although network is connected , 'Oops! Your are not connected to internet' text")) {
+			logger.error("On clicking the Hyperlink " + str1
+					+ " User is unable to navigate to the respective page of Hyperlink");
+			extent.extentLoggerFail("HyperLink", "On clicking the Hyperlink " + str1
+					+ " User is unable to navigate to the respective page of Hyperlink");
+		} else {
+			logger.info("User is navigated to the respective page of the Hyperlink " + str1);
+			extent.extentLogger("Hyperlink", "User is navigated to the respective page of the Hyperlink " + str1);
+		}
+		Back(1);
+		Swipe("UP", 10);
+		// hyperlink 2
+		String str2 = getText(AMDMoreMenu.objfeedbackLinkInTermsOfUse);
+		System.out.println(str2);
+		verifyElementExist(AMDMoreMenu.objsupportHyperlinkInTermsOfUse, str2 + " Hyperlink");
+		click(AMDMoreMenu.objsupportHyperlinkInTermsOfUse, "Hyperlink " + str2);
+		if (verifyElementExist(AMDMoreMenu.objInternetErrormsg,
+				"Although network is connected , 'Oops! Your are not connected to internet' text")) {
+			logger.error("On clicking the Hyperlink " + str2
+					+ " User is unable to navigate to the respective page of Hyperlink");
+			extent.extentLoggerFail("HyperLink", "On clicking the Hyperlink " + str2
+					+ " User is unable to navigate to the respective page of Hyperlink");
+		} else {
+			logger.info("User is navigated to the respective page of the Hyperlink " + str2);
+			extent.extentLogger("Hyperlink", "User is navigated to the respective page of the Hyperlink " + str2);
+		}
+		Back(1);
 	}
 
 	/**
@@ -6619,6 +6701,206 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			setWifiConnectionToONOFF("On");
 			Back(1);
 			click(AMDHomePage.HomeIcon, "Home Icon");
+		}
+	}
+
+	/**
+	 * Author : Kushal
+	 * 
+	 * @throws Exception
+	 */
+
+	public void ListingCollectionValidationFromLandingScreen(String userType) throws Exception {
+		extent.HeaderChildNode("Listing Collection validation from Landing Screen");
+		System.out.println("\nListing Collection validation from Landing Screen");
+
+		verifyElementPresentAndClick(AMDHomePage.objHome, "Home button");
+
+		boolean liveTV = false, loadingIcon = false;
+		int noOfTabs = getCount(AMDHomePage.objTitle);
+		String getTrayName = null, getPageTitle;
+
+		System.out.println("\nLanding Page Headers: " + noOfTabs);
+		for (int i = 1; i <= 10; i++) {
+			String tabName = null;
+			if (i == noOfTabs) {
+				if (!liveTV) {
+					i = noOfTabs - 1;
+				}
+				WebElement eleTab = getDriver()
+						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
+				eleTab.click();
+				tabName = getText(AMDHomePage.objSelectedTab);
+			} else {
+				WebElement eleTab = getDriver()
+						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
+				eleTab.click();
+				tabName = getText(AMDHomePage.objSelectedTab);
+			}
+
+			System.out.println(getText(AMDHomePage.objSelectedTab));
+
+			waitTime(3000);
+			if (verifyIsElementDisplayed(AMDGenericObjects.objFirstTrayTitle)) {
+				loadingIcon = false;
+			} else if (verifyIsElementDisplayed(AMDGenericObjects.objPageLoadingIcon)) {
+				loadingIcon = true;
+				System.out.println("\nContinuous Loading screen displayed");
+			}
+
+			if (!loadingIcon) {
+				if (userType.equalsIgnoreCase("Guest")) {
+					getTrayName = getText(AMDGenericObjects.objFirstTrayTitle);
+					click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
+				} else {
+					PartialSwipe("UP", 1);
+					waitTime(2000);
+					int noOfTrays = getCount(AMDGenericObjects.objNoOfTrays);
+					if (noOfTrays > 0) {
+						if (tabName.contains("Live TV")) {
+							getTrayName = getText(AMDGenericObjects.objFirstTrayTitle);
+						} else {
+							getTrayName = getText(AMDGenericObjects.objTrayTitleByIndx(noOfTrays));
+						}
+						click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
+					}
+				}
+
+				getPageTitle = getText(AMDHomePage.objTitle);
+				if (getTrayName.contains(getPageTitle)) {
+					extent.extentLogger("Listing Collection", tabName + ": " + userType
+							+ " is able to navigate to listing collection: " + getTrayName + " Screen");
+					logger.info(
+							userType + " User is able to navigate to listing collection: " + getTrayName + " Screen");
+				} else {
+					extent.extentLoggerFail("Listing Collection", tabName + ": " + userType
+							+ " failed to navigate to listing collection: " + getTrayName + " Screen");
+					logger.error(
+							userType + " User failed to navigate to listing collection: " + getTrayName + " Screen");
+				}
+
+				// Navigates back to landing screen
+				Back(1);
+			} else {
+				extent.extentLoggerFail("Listing Collection", tabName + ": Failed to load the Page");
+				logger.error(tabName + ": FAILED to Load the page");
+			}
+
+			// Following code is to break the loop after last tab validation in the landing
+			// screen
+			if (liveTV) {
+				break;
+			}
+			if (tabName.equalsIgnoreCase("Live TV")) {
+				liveTV = true;
+			}
+
+		}
+	}
+
+	public void ListingCollectionValidationFromConsumptionScreen(String userType) throws Exception {
+		extent.HeaderChildNode("Listing Collection Screen validation from ConsumptionScreen");
+		System.out.println("\nListing Collection Screen validation from ConsumptionScreen");
+
+		verifyElementPresentAndClick(AMDHomePage.objHome, "Home button");
+
+		boolean liveTV = false, loadingIcon = false;
+		int noOfTabs = getCount(AMDHomePage.objTitle);
+		String getTrayName = null, getPageTitle;
+
+		System.out.println("\nLanding Page Headers: " + noOfTabs);
+		for (int i = 1; i <= 10; i++) {
+			String tabName = null;
+			if (i == noOfTabs) {
+				if (!liveTV) {
+					i = noOfTabs - 1;
+				}
+				WebElement eleTab = getDriver()
+						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
+				eleTab.click();
+				tabName = getText(AMDHomePage.objSelectedTab);
+			} else {
+				WebElement eleTab = getDriver()
+						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
+				eleTab.click();
+				tabName = getText(AMDHomePage.objSelectedTab);
+			}
+
+			System.out.println(getText(AMDHomePage.objSelectedTab));
+
+			waitTime(3000);
+			if (verifyIsElementDisplayed(AMDGenericObjects.objFirstTrayTitle)) {
+				loadingIcon = false;
+			} else if (verifyIsElementDisplayed(AMDGenericObjects.objPageLoadingIcon)) {
+				loadingIcon = true;
+				System.out.println("\nContinuous Loading screen displayed");
+			}
+
+			if (!loadingIcon) {
+
+				click(AMDHomePage.objCarouselTitle, getText(AMDHomePage.objCarouselTitle));
+				if (userType.contains("Guest") | userType.contains("NonSubscribedUser")) {
+					waitTime(2000);
+					if (verifyIsElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
+						click(AMDGenericObjects.objPopUpDivider, "Subcription Pop Up");
+						extent.extentLogger("Subscription PopUp", userType
+								+ "Subcription PopUp is displayed in the comsumption screen and popup is closed");
+						logger.info("Subcription PopUp is displayed in the comsumption screen and popup is closed");
+					}
+				}
+				if (tabName.contains("News") | tabName.contains("Live TV")) {
+					extent.extentLogger("Listing Trays", "Listing Trays are unavailable in NEWS Consumption screen");
+					logger.info("Listing Trays are unavailable in NEWS Consumption screen");
+				} else {
+
+					if (userType.equalsIgnoreCase("Guest")) {
+						getTrayName = getText(AMDGenericObjects.objFirstTrayTitle);
+						click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
+					} else {
+						PartialSwipe("UP", 1);
+						waitTime(2000);
+						int noOfTrays = getCount(AMDGenericObjects.objNoOfTrays);
+						if (noOfTrays > 0) {
+							if (tabName.contains("Live TV")) {
+								getTrayName = getText(AMDGenericObjects.objFirstTrayTitle);
+							} else {
+								getTrayName = getText(AMDGenericObjects.objTrayTitleByIndx(noOfTrays));
+							}
+							click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
+						}
+					}
+
+					getPageTitle = getText(AMDHomePage.objTitle);
+					if (getTrayName.contains(getPageTitle)) {
+						extent.extentLogger("Listing Collection", tabName + ": " + userType
+								+ " is able to navigate to listing collection: " + getTrayName + " Screen");
+						logger.info(tabName + ": " + userType + " User is able to navigate to listing collection: "
+								+ getTrayName + " Screen");
+					} else {
+						extent.extentLoggerFail("Listing Collection", tabName + ": " + userType
+								+ " failed to navigate to listing collection: " + getTrayName + " Screen");
+						logger.error(tabName + ": " + userType + " User failed to navigate to listing collection: "
+								+ getTrayName + " Screen");
+					}
+				}
+
+				// Navigates back to landing screen
+				waitTime(2000);
+				Back(1);
+			} else {
+				extent.extentLoggerFail("Listing Collection", tabName + ": Failed to load the Page");
+				logger.error(tabName + ": FAILED to Load the page");
+			}
+
+			// Following code is to break the loop after last tab validation in the landing
+			// screen
+			if (liveTV) {
+				break;
+			}
+			if (tabName.equalsIgnoreCase("Live TV")) {
+				liveTV = true;
+			}
+
 		}
 	}
 }

@@ -112,11 +112,11 @@ public class Utilities extends ExtentReporter {
 	public void JSClick(By byLocator,String text) {
 		try {
 			js.executeScript("arguments[0].click();", findElement(byLocator));
-			logger.info("" + text + " " + "is clicked");
-			extent.extentLogger("checkElementNotPresent", "" + text + "is clicked");
+			logger.info("" + text + " " + " is clicked");
+			extent.extentLogger("checkElementNotPresent", "" + text + " is clicked");
 		} catch (Exception e) {
-			logger.error(text + " " + "is not clilcked");
-			extent.extentLogger("checkElementNotPresent", "" + text + "is not clicked");
+			logger.error(text + " " + " is not clilcked");
+			extent.extentLogger("checkElementNotPresent", "" + text + " is not clicked");
 			screencapture();
 		}
 	}
@@ -391,12 +391,14 @@ public class Utilities extends ExtentReporter {
 		return Otp;
 	}
 	
+	@SuppressWarnings("finally")
 	public boolean verifyElementIsNotDisplayed(By by) {
 	    try {
 	    	getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 	        return getDriver().findElements(by).isEmpty();
 	    } finally {
 	    	getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	    	return false;
 	    }
 	}
 	

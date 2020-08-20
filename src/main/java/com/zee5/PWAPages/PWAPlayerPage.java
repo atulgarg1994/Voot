@@ -15,7 +15,7 @@ public class PWAPlayerPage {
 
 //	 Playback Video Overlay
 	public static By objPlaybackVideoOverlay = By.xpath("//*[@class='kaltura-player-container']");
-	
+
 	public static By objPlayerQualityButton = By.xpath("//span[contains(text(),'Quality')]");
 //	 Play button
 	public static By playBtn = By.xpath("//*[@class='playkit-icon playkit-icon-play']");
@@ -191,7 +191,8 @@ public class PWAPlayerPage {
 
 //	BINDU
 	// Subscription popup
-	public static By objSubscriptionpopup = By.xpath("//h2[contains(@class,'popupTitle bigTitle')]//p[text()='Subscribe']");
+	public static By objSubscriptionpopup = By
+			.xpath("//h2[contains(@class,'popupTitle bigTitle')]//p[text()='Subscribe']");
 
 	// Subscription popup close icon
 	public static By ObjSubscriptionpopupCloseIcon = By
@@ -359,7 +360,7 @@ public class PWAPlayerPage {
 
 	// Subscribe Now Link on player
 	public static By objSubscribeNowLink = By
-			.xpath("(//span[contains(@class,'subscribe-link') and contains(text(),'Subscribe Now')])[2]");
+			.xpath("(//span[contains(@class,'subscribe-link') and contains(text(),'Subscribe to')])[2]");
 
 	// Get Premium CTA Below the Player Screen
 	public static By objGetPremiumCTABelowPlayerScreen = By

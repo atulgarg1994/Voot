@@ -43,8 +43,8 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("consumptionsContentWithMetaData", "Jothe Jotheyali");
 			params.put("musicToTriggerReco", "Nenne Monneya Ninna Parichaya - Giftbox | Ameeta Kulal | Ritvvikk Mathad | Bindu Malini");
 			params.put("newsToTriggerReco", "Amid coronavirus, cong holds massive 'cycle rally' to protest against fuel price hike in Bengaluru");
-			params.put("freeMovie","Ramayana");
-			params.put("freeMovie2","Manthan");
+			params.put("freeMovie","Gooli");
+			params.put("freeMovie2","Bablu Dablu - Robo Rumble");
 			params.put("freeMovie3","Pup Scouts");
 			params.put("freeMovie4","Robin Hood");
 			params.put("premiumMovie","The Road Within");
@@ -64,12 +64,11 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("trailerOfPremiumMovie","Bhinna - Trailer");
 			params.put("music","Nenne Monneya Ninna Parichaya - Giftbox | Ameeta Kulal | Ritvvikk Mathad | Bindu Malini");
 			params.put("timedAnchorEpisode", "Paarvathi kisses Aditya - Paaru");
-			params.put("timedAnchorMusic", "Appa Lyrical - Punith Shetty");		
-			params.put("timedAnchorMovie", "Robin Hood");
+			params.put("timedAnchorMusic", "Kanneeraa - Kavacha | Shivaraj Kumar");		
+			params.put("timedAnchorMovie", "Bablu Dablu - Robo Rumble");
 			params.put("episodeToTriggerReco", "Aditya-Paarvathi challenge themselves for fun");
 			params.put("movieToTriggerReco", "Monsters And Pirates");
 			params.put("episodeToTriggerReco", "Aditya-Paarvathi challenge themselves for fun");
-			
 			params.put("ExpiredUserName", "zee5latest@gmail.com");
 			params.put("ExpiredUserPassword", "User@123");
 			params.put("audioTrackContent", "Episode 13 - Agent Raghav");
@@ -110,7 +109,6 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("episodeToTriggerReco", "Aditya-Paarvathi challenge themselves for fun");
 			params.put("movieToTriggerReco", "Monsters And Pirates");
 			params.put("episodeToTriggerReco", "Aditya-Paarvathi challenge themselves for fun");
-			
 			params.put("ExpiredUserName", "zee5latest@gmail.com");
 			params.put("ExpiredUserPassword", "User@123");
 			params.put("audioTrackContent", "Episode 13 - Agent Raghav");

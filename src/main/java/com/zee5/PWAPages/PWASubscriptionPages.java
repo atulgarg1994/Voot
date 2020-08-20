@@ -287,7 +287,7 @@ public class PWASubscriptionPages {
 	public static By objMobilePayTMRecurrenceMessage = By.xpath("//*[@text='You will be charged every billing cycle until you cancel']");
 
 	// Get Premium Popup Title
-	public static By objGetPremiumPopupTitle = By.xpath("//h2[@class='popupTitle bigTitle null']");
+	public static By objGetPremiumPopupTitle = By.xpath("//h2[contains(@class,'popupTitle bigTitle')]//p[text()='Subscribe']");
 	
 	// Popup Proceed Btn
 	public static By objPopupProceedBtn = By.xpath("//div[contains(text(),'PROCEED') and contains(@class,'popupBtn')]");

@@ -85,7 +85,7 @@ public class PWAHomePage {
 	public static By objLanguageBtn = By.xpath("//div[@id='languageBtn']");
 
 	public static By objGetPremiumWeb = By.xpath(
-			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Subscribe Now')]");
+			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Get premium')]");
 
 	// Masthead carousel current content
 	public static By objMastheadCarouselCurrentContent = By.xpath(

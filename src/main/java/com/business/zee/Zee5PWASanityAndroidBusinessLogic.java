@@ -9729,12 +9729,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			extent.HeaderChildNode(
 					"Validating if Empty state screen is displayed when user has No Active Subscriptions");
 			verifyElementExist(PWAHamburgerMenuPage.objEmptyStateScreen, "Empty State Screen");
-			extent.HeaderChildNode("Validating if Browse all packs option is displayed in My subscription");
 			verifyElementExist(PWAHamburgerMenuPage.objBrowseAllPacks, "Browse All Packs");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objSubscriptionTeaserBanner,
 					"Subscription Teaser Banner");
-			extent.HeaderChildNode(
-					"Validating if user is navigated to Zee Subscription screen post tapping on subscription teaser banner");
+			extent.HeaderChildNode("Validating if user is navigated to Zee Subscription screen post tapping on subscription teaser banner");
 			if (verifyElementPresent(PWASubscriptionPages.objZEE5Subscription, "Zee Subscription Page") == true) {
 				logger.info("Navigated to Zee Subscription Page");
 				extent.extentLogger("Subscription Page", "Navigated to Zee Subscription Page");
@@ -9890,7 +9888,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		getDriver().context("NATIVE_APP");
 		verifyElementPresentAndClick(PWASubscriptionPages.objMobileCreditDebitCardOption,
 				"'Credit / Debit Card' option");
-		verifyElementPresent(PWASubscriptionPages.objMobileAddCardText, "Add Card header");
+//		verifyElementPresent(PWASubscriptionPages.objMobileAddCardText, "Add Card header");
 		verifyElementPresent(PWASubscriptionPages.objMobileCardNumberText, "Card Number");
 		type(PWASubscriptionPages.objMobileCardNumberEditBox, "9876543210", "Card Number field");
 		hideKeyboard();

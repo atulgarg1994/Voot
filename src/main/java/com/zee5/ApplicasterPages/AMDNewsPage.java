@@ -30,7 +30,7 @@ public class AMDNewsPage {
 	
 	public static By objEntertainmentNewsTray = By.xpath("//*[@text=' Entertainment News']");
 	
-	public static By objRightArrowBtn = By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_arrow'])[1]");
+	public static By objRightArrowBtn = By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_arrow'])[2]");
 	
 	public static By objTrayHeader = By.xpath("//*[@id='item_primary_text']");
 	
