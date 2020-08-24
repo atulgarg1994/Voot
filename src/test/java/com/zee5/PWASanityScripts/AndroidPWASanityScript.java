@@ -229,9 +229,9 @@ public class AndroidPWASanityScript {
 	@Test(priority = 20) // BASAVARAJ
 	@Parameters({ "userType" })
 	public void PWATimedAnchors(String userType) throws Exception {	
+		Zee5PWASanityBusinessLogic.TimedAnchors(userType);
 		Zee5PWASanityBusinessLogic.ShowsTimeperiodProvided(userType);
 		Zee5PWASanityBusinessLogic.musicTimeperiodProvided(userType);
-		Zee5PWASanityBusinessLogic.TimedAnchors(userType);
 		Zee5PWASanityBusinessLogic.moviesTimeperiodProvided(userType);
 		Zee5PWASanityBusinessLogic.continueWatchingtrayData(userType);
 		

@@ -137,5 +137,10 @@ public class AMDOnboardingScreen {
 	public static By objExitYes = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_exit_yes']");
 
 	public static By objExitNo = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_exit_no']");
+	
+	public static By objExitPopupDivider = By.xpath("//*[@resource-id='com.graymatrix.did:id/dialog_divider']");
+
+
+
 
 }

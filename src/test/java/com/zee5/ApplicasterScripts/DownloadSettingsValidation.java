@@ -9,7 +9,7 @@ import com.utility.Utilities;
 
 public class DownloadSettingsValidation {
 	
-	private Zee5ApplicasterBusinessLogic ZEE5ApplicasterBusinessLogic;
+private Zee5ApplicasterBusinessLogic ZEE5ApplicasterBusinessLogic;
 	
 	@BeforeTest
 	public void AppLaunch() throws InterruptedException {
@@ -22,17 +22,16 @@ public class DownloadSettingsValidation {
 	@Parameters({ "userType" }) // Manasa
 	public void Login(String userType) throws Exception {
 		System.out.println("\nVerify Display Language Screen and login flow for various usertypes");
-		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();;
+//		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+//		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();;
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 	}
 
 	@Test(priority = 2)
 	@Parameters({ "userType", "tabName3" }) // Manasa
 	public void zee5OriginalsLandingScreenValidation(String userType, String tabName) throws Exception {
-		System.out.println("\nVerify Zee5 Originals Landing Screen");
+		System.out.println("\nVerify Download Settings");
 		ZEE5ApplicasterBusinessLogic.downloadSettingsValidation();
-
 	}
 
 	@AfterTest

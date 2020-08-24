@@ -49,7 +49,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("freeMovie4","Robin Hood");
 			params.put("premiumMovie","The Road Within");
 			params.put("premiumMovie2","Bhinna");
-			params.put("premiumMovieNoTrailer","RX Soori");
+			params.put("premiumMovieNoTrailer","Mugulu Nage");
 			params.put("premiumMovieNoTrailer2","Londonalli Lambodara");
 			params.put("premiumMovieNoTrailer3","Raambo 2");
 			params.put("premiumMovieWithTrailer","Premier Padmini");			

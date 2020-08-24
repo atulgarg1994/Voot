@@ -5,6 +5,7 @@
   <parameter name="SubscribedUserWith15daysExpiryPassword" value="123456"/>
   <parameter name="SubscribedPassword" value="123456"/>
   <parameter name="invalidSearchKeyword" value="@$_-(;_+"/>
+  <parameter name="MovieName" value="O God Ganesha 2"/>
   <parameter name="PromoCode" value="PNB20"/>
   <parameter name="RegisteredEmail" value="zee5latest@gmail.com"/>
   <parameter name="tabName1" value="Home"/>
@@ -37,11 +38,13 @@
   <parameter name="PrepaidCode" value="Z5PWATI9WlD"/>
   <parameter name="displayLanguageSelection2" value="Marathi"/>
   <parameter name="NonsubscribedPassword" value="igs@12345"/>
+  <parameter name="runMode" value="Suites"/>
   <parameter name="regPassword" value="123456"/>
   <parameter name="inValidPhnNumber" value="7892215"/>
+  <parameter name="VideoQuality" value="Data saver"/>
   <parameter name="RegisteredMobilePassword" value="User@123"/>
   <parameter name="RegisteredEmailPassword" value="User@123"/>
-  <parameter name="SubscribedUserWith15daysExpiryUsername" value="zee5test@132.in"/>
+  <parameter name="SubscribedUserWith15daysExpiryUsername" value="testzee5_4@gmail.com"/>
   <parameter name="userType" value="Guest"/>
   <parameter name="LastName" value="UserZee"/>
   <parameter name="RegisteredMobile" value="7892215214"/>
@@ -53,4 +56,15 @@
       <class name="com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation"/>
     </classes>
   </test> <!-- Android_LandingScreen_TopNavigation -->
+  <test name="Android_LandingScreen_TopNavigation(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation">
+        <methods>
+          <include name="tearDownApp"/>
+          <include name="Home_LandingScreen" invocation-numbers="0"/>
+          <include name="AppLaunch"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation -->
+    </classes>
+  </test> <!-- Android_LandingScreen_TopNavigation(failed) -->
 </suite> <!-- Failed suite [Android] -->

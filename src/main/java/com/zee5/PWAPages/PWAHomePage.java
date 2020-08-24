@@ -5,10 +5,10 @@ import org.openqa.selenium.By;
 public class PWAHomePage {
 
 	// Zee logo
-	public static By objZeeLogo = By.xpath("//*[contains(@class,'zeeLogo')]//img[@title=\"ZEE5 Logo\"]");
+	public static By objZeeLogo = By.xpath("//*[contains(@class,'zeeLogo')]//img[@title='ZEE5 Logo']");
 
 	// Subscribe Btn
-	public static By objSubscribeBtn = By.xpath("//*[@class=\"subscribeBtn noSelect\"]");
+	public static By objSubscribeBtn = By.xpath("//*[@class='subscribeBtn noSelect']");
 
 	// Search Btn
 	public static By objSearchBtn = By.xpath("//*[contains(@class,'searchBtn')]");
@@ -462,7 +462,7 @@ public class PWAHomePage {
 			.xpath("//div[contains(@class,'slick-active')]//a[contains(@class,'premiumBtn')]");
 
 	public static By objWEBShowsPagePlayCarousel = By.xpath(
-			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'premiumBtn')]");
+			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'carouselMain')]");
 
 	// Android google play store
 	public static By objGooglePlayStore = By.xpath("//*[@text='Latest Movies, TV Shows, Originals, News, HiPi']");

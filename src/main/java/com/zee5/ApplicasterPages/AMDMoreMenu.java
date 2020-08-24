@@ -108,5 +108,19 @@ public class AMDMoreMenu {
 	public static By objzee5HyperlinkinTermsOfUse = By.xpath("(//*[@text='www.zee5.com'])[1]");
 	public static By objsubscribelinkInTermsofUse = By.xpath("//*[@text='https://www.zee5.com/myaccount/subscription']");
 	public static By objInternetErrormsg = By.xpath("//*[@text='You are not connected to internet']");
+	public static By objYesBtnResetDefault  = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_exit_yes']");
+	
+	public static By objPrivacyDescription = By.xpath("//*[@resource-id='iframe_div']");
+	public static By objHyperlinkInPrivacyPolicy = By.xpath("(//*[@text='Privacy Policy'])[2]");
+	public static By objPrivacyPolicyPageWithinbrowser = By.xpath("//*[@class='android.view.View' and ./*[@text='Privacy Policy']]");
+	public static By objHelpCenterHeader = By.xpath("//*[@text='Help Center']");
+	public static By objPrivacyPolicyHeader = By.xpath("//*[@text='Privacy Policy']");
+	public static By objSettingsInKannada = By.xpath("//*[@text='ಸೆಟ್ಟಿಂಗ್ಗಳು']");
+	public static By objAboutUsInKannada = By.xpath("(//*[@resource-id='com.graymatrix.did:id/list_item'])[9]");
+	public static By objHelpCenterInKannada = By.xpath("(//*[@resource-id='com.graymatrix.did:id/list_item'])[10]");
+	public static By objTermsInKannada = By.xpath("//*[@resource-id='com.graymatrix.did:id/termsofuse']");
+	public static By objPrivacyPolicyInKannada = By.xpath("//*[@resource-id='com.graymatrix.did:id/privacypolicy']");
+	public static By objBackbtnInSettings = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_back']");
+	public static By objTextInAboutUsScreen = By.xpath("//*[@text='Zee5 can be accessed at ']");
 
 }

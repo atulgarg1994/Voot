@@ -359,8 +359,7 @@ public class PWAPlayerPage {
 			.xpath("//div[contains(@class,'add_Watchlist')]//p[contains(text(),'Watchlist')]");
 
 	// Subscribe Now Link on player
-	public static By objSubscribeNowLink = By
-			.xpath("(//span[contains(@class,'subscribe-link') and contains(text(),'Subscribe to')])[2]");
+	public static By objSubscribeNowLink = By.xpath("//span[contains(@class,'subscribe-link') and contains(text(),'Subscribe')]");
 
 	// Get Premium CTA Below the Player Screen
 	public static By objGetPremiumCTABelowPlayerScreen = By

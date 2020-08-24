@@ -61,7 +61,7 @@
 	<parameter name="freeMovie"
 		value="Krishna Balram: The Warrier Princess" />
 
-	<parameter name="freeMovie2" value="Manthan" />
+	<parameter name="freeMovie2" value="Bablu Dablu - Robo Rumble" />
 
 	<parameter name="freeMovie3" value="Pup Scouts" />
 
@@ -71,7 +71,7 @@
 
 	<parameter name="premiumMovie2" value="Bhinna" />
 
-	<parameter name="premiumMovieNoTrailer" value="RX Soori" />
+	<parameter name="premiumMovieNoTrailer" value="Mugulu Nage" />
 
 	<parameter name="premiumMovieNoTrailer2"
 		value="Londonalli Lambodara" />
@@ -124,9 +124,9 @@
 		value="Paarvathi kisses Aditya - Paaru" />
 
 	<parameter name="timedAnchorMusic"
-		value="Appa Lyrical - Punith Shetty" />
+		value="Kanneeraa - Kavacha | Shivaraj Kumar" />
 
-	<parameter name="timedAnchorMovie" value="Robin Hood" />
+	<parameter name="timedAnchorMovie" value="Bablu Dablu - Robo Rumble" />
 
 	<parameter name="audioTrackContent"
 		value="Episode 13 - Agent Raghav" />

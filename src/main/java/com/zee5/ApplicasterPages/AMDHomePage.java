@@ -21,13 +21,13 @@ public class AMDHomePage {
 	public static By objHomeBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[1]");
 	public static By objUpcomingBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[2]");
 	public static By objDownloadBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[3]");
-	public static By objMoreMenuBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[4]");
+	public static By objMoreMenuBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[5]");
 
 	// Bottom Navigation ICONS
 	public static By HomeIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[1]");
 	public static By UpcomingIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[2]");
 	public static By DownloadIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[3]");
-	public static By MoreMenuIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[4]");
+	public static By MoreMenuIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[5]");
 
 	public static By objHome = By.xpath("(//*[@text='Home']//parent::*)[1]");
 	public static By objUpcoming = By.xpath("(//*[@text='Upcoming']//parent::*)[1]");

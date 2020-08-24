@@ -349,8 +349,7 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.trayTitleAndContentValidationWithApiDataNews("News", "news");
 	}
 
-	// -------------------------YASHASWINI LandingPage--------------------------
-	@Test(priority = 25)
+	// @Test(priority = 25)
 	@Parameters({ "userType" })
 	public void landingPageValidation(String userType) throws Exception {
 		// SMOKE LANDINGPAGE : TEJAS
@@ -358,7 +357,12 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.landingpagePropertiesValidation(userType);
 		// SANITY
 		Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
-		Zee5WEBPWASanityBusinessLogic.trayTitleAndContentValidationWithApiData("Home", "homepage");
+		if (userType == "Guest") { // changed next 5 lines.
+			Zee5WEBPWASanityBusinessLogic.guesttrayTitleAndContentValidationWithApiData("Home", "homepage");
+			Zee5WEBPWASanityBusinessLogic.LandingPagegap("The Power Game", "Gooli", "Guest"); // changes
+		} else {
+			Zee5WEBPWASanityBusinessLogic.trayTitleAndContentValidationWithApiData("Home", "homepage");
+		}
 		Zee5WEBPWASanityBusinessLogic.ContinuewatchingTray(userType);
 		Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
 		Zee5WEBPWASanityBusinessLogic.FreeContentAndPremiumContent(userType);

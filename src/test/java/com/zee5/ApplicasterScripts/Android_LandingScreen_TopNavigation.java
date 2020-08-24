@@ -35,7 +35,7 @@ public class Android_LandingScreen_TopNavigation {
 
 	}
 
-	@Test(priority = 2)
+//	@Test(priority = 2)
 	@Parameters({ "userType" }) // Bindu
 	public void Shows_LandinScreen(String userType) throws Exception {
 		System.out.println("\n---Verify Shows landing screen---\n");
@@ -57,7 +57,7 @@ public class Android_LandingScreen_TopNavigation {
 		ZEE5ApplicasterBusinessLogic.PremiumTabScreen(userType);
 	}
 
-	@Test(priority = 5)
+//	@Test(priority = 5)
 	@Parameters({ "userType" }) // Bindu
 	public void News_LandingScreen(String userType) throws Exception {
 		System.out.println("\n---Verify News landing screen---\n");

@@ -3788,13 +3788,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitForElementDisplayed(AMDHomePage.objCarouselDots, 10);
 		waitTime(10000);
 
-		if ((verifyElementIsNotDisplayed(AMDHomePage.objBannerAd))) {
-			verifyElementPresent(AMDHomePage.objCarouselUnitwhenNomastHeadAdbanner,
-					"Carousel unit as first unit on " + tabName + " screen");
-		} else {
-			verifyElementPresent(AMDHomePage.objCarouselUnitwithmastHeadAdbanner,
-					"Carousel unit as first unit on " + tabName + " screen");
-		}
+//		if (verifyElementDisplayed(AMDHomePage.objBannerAd)) {
+//			verifyElementPresent(AMDHomePage.objCarouselUnitwithmastHeadAdbanner,
+//					"Carousel unit as first unit on " + tabName + " screen");
+//		} else {
+//			verifyElementPresent(AMDHomePage.objCarouselUnitwhenNomastHeadAdbanner,
+//					"Carousel unit as first unit on " + tabName + " screen");
+//		}
 
 		// Validating Carousel manual swipe
 		String width = getAttributValue("width", AMDHomePage.objCarouselConetentCard);
@@ -3803,9 +3803,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String b = bounds.replaceAll(",", " ").replaceAll("]", " ");
 		String height = b.split(" ")[1];
 		// System.out.println(height);
-		waitTime(4000);
-
-		carouselSwipe("RIGHT", 1, width, height);
+		waitTime(3000);
 		String Carouseltitle1 = getText(AMDHomePage.objCarouselTitle1);
 		logger.info(Carouseltitle1);
 		extentLogger("Carousel Title", Carouseltitle1);
@@ -3847,45 +3845,38 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementExist(AMDHomePage.objPlayBtn, "Play icon");
 			carouselSwipe("LEFT", 1, width, height);
 		}
-		if ((tabName.equals("Kids")) | (tabName.equals("Music"))) {
-			extent.extentLogger("Verify Get Premium tag", "Get Premium tag is not configured for " + tabName + " tab");
-			logger.info("Get Premium tag is not configured for " + tabName + " tab");
 
-		} else {
-			if ((UserType.equalsIgnoreCase("Guest")) | (UserType.equalsIgnoreCase("NonSubscribedUser"))) {
-				for (int i = 0; i < noofCarouselContents; i++) {
+		if ((UserType.equalsIgnoreCase("Guest")) | (UserType.equalsIgnoreCase("NonSubscribedUser"))) {
+			for (int i = 0; i < noofCarouselContents; i++) {
 
-					logger.info(getText(AMDHomePage.objCarouselTitle1));
+				if (tabName.equals("Music")) {
+					extent.extentLogger("Verify Get Premium tag",
+							"Get Premium tag is not configured for " + tabName + " tab");
+					logger.info("Get Premium tag is not configured for " + tabName + " tab");
+					break;
+
+				} else {
 					verifyElementExist(AMDHomePage.objGetPremium, "GetPremium tag");
+					logger.info(getText(AMDHomePage.objCarouselTitle1));
 					carouselSwipe("LEFT", 1, width, height);
 				}
 				click(AMDHomePage.objGetPremium, "GetPremium tag");
 				verifyElementPresent(AMDSubscibeScreen.objSubscribeHeader, "Subscription screen");
 				Back(1);
-			} else {
-				for (int i = 0; i < noofCarouselContents; i++) {
-
-					System.out.println(getText(AMDHomePage.objCarouselTitle1));
-					if (verifyElementIsNotDisplayed(AMDHomePage.objGetPremium)) {
-						logger.info("Get Premium tag is not displayed");
-						extent.extentLogger("GetPremium tag", "Get Premium tag is not displayed");
-					} else {
-						logger.info("Get Premium tag is displayed");
-						extent.extentLoggerFail("GetPremium tag", "Get Premium tag is displayed");
-					}
-					carouselSwipe("LEFT", 1, width, height);
-				}
 			}
+		} else {
+			for (int i = 0; i < noofCarouselContents; i++) {
+
+				System.out.println(getText(AMDHomePage.objCarouselTitle1));
+				// verifyElementNotPresent(AMDHomePage.objGetPremium, 2);
+				carouselSwipe("LEFT", 1, width, height);
+			}
+
 		}
 
 		// navigation to consumption screen of selected content
 		String CarouselTitle = getText(AMDHomePage.objCarouselPlayIconContentCard);
 		click(AMDHomePage.objCarouselPlayIconContentCard, "Carousel content");
-
-		if (verifyElementExist(AMDHomePage.objSubscribePopup, "Subscribe Popup")) {
-			Back(1);
-		}
-		waitTime(5000);
 		verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
 		String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
 
@@ -5666,10 +5657,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void KidsTabScreen(String UserType) throws Exception {
 
 		extent.HeaderChildNode("Verifying Kids tab screen");
-		click(AMDHomePage.objPremiumTab, "Premium tab");
-		waitTime(3000);
-		click(AMDHomePage.objNewsTab, "News Tab");
-		waitTime(3000);
+		// Selecting Marathi language as content language
+		selectContentLang_MoreMenu2("Marathi");
+		// selectContentLang_MoreMenu("Marathi");
+
 		// Verify user is navigated to Premium tab
 		click(AMDHomePage.objKidsTab, "Kids tab");
 		// closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
@@ -5685,39 +5676,24 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 
 		// Verify Subscribe icon is displayed
-		// verifyElementPresent(AMDHomePage.objSubscribeIcon, "Subscribe icon in premium
-		// tab");
-		if (!(UserType.equalsIgnoreCase("SubscribedUser"))) {
-			if (verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
-				logger.info("subscribe icon is dislayed");
-				extent.extentLogger("Subscribe icon", "subscribe icon is dislayed");
-			} else {
-				logger.info("subscribe icon is not dislayed");
-				extent.extentLoggerFail("Subscribe icon", "subscribe icon is not dislayed");
-			}
-		}
-//		else {
-//			if (verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
-//				logger.info("subscribe icon is dislayed");
-//				extent.extentLoggerFail("Subscribe icon", "subscribe icon is dislayed");
-//			} else {
-//				logger.info("subscribe icon is not dislayed");
-//				extent.extentLogger("Subscribe icon", "subscribe icon is not dislayed");
-//			}
-//		}
+		verifyElementPresent(AMDHomePage.objSubscribeIcon, "Subscribe icon in Kids tab");
 		// Verify Trending on ZEE5 tray is displayed
 		// verifyElementPresent(AMDHomePage.objTrendingOnZee5Tray, "Trending on Zee5");
 		// Verify Play icon is displayed
-//		String width = getAttributValue("width", AMDHomePage.objCarouselConetentCard);
-//		String height = getAttributValue("height", AMDHomePage.objCarouselConetentCard);
-//
-//		int noofCarouselContents = findElements(AMDHomePage.objCarouselDots).size();
-//		for (int i = 0; i < noofCarouselContents; i++) {
-//			System.out.println(getText(AMDHomePage.objCarouselTitle));
-//			verifyElementExist(AMDHomePage.objPlayBtn, "Play icon");
-//			carouselSwipe("LEFT", 1, width, height);
-//		}
 		carouselValidation(UserType, "Kids");
+		ResetSettings();
+	}
+
+	public void ResetSettings() throws Exception {
+		click(AMDHomePage.MoreMenuIcon, "More Menu");
+		Swipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings CTA");
+		verifyElementPresent(AMDGenericObjects.objScreenTitleName("Settings"), "Settings Screen");
+		Swipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objResetDefault, "Reset settings to Default");
+		click(AMDMoreMenu.objYesBtnResetDefault, "Yes button");
+		Back(1);
+		click(AMDHomePage.HomeIcon, "Home button");
 	}
 
 	/**
@@ -6561,8 +6537,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		// hyperlink 2
 		String str2 = getText(AMDMoreMenu.objfeedbackLinkInTermsOfUse);
 		System.out.println(str2);
-		verifyElementExist(AMDMoreMenu.objsupportHyperlinkInTermsOfUse, str2 + " Hyperlink");
-		click(AMDMoreMenu.objsupportHyperlinkInTermsOfUse, "Hyperlink " + str2);
+		verifyElementExist(AMDMoreMenu.objfeedbackLinkInTermsOfUse, str2 + " Hyperlink");
+		click(AMDMoreMenu.objfeedbackLinkInTermsOfUse, "Hyperlink " + str2);
 		if (verifyElementExist(AMDMoreMenu.objInternetErrormsg,
 				"Although network is connected , 'Oops! Your are not connected to internet' text")) {
 			logger.error("On clicking the Hyperlink " + str2
@@ -6574,6 +6550,41 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLogger("Hyperlink", "User is navigated to the respective page of the Hyperlink " + str2);
 		}
 		Back(1);
+		// hyper link 3
+		Swipe("UP", 45);
+		String str3 = getText(AMDMoreMenu.objsubscribelinkInTermsofUse);
+		System.out.println(str3);
+		verifyElementExist(AMDMoreMenu.objsubscribelinkInTermsofUse, str3 + " Hyperlink");
+		click(AMDMoreMenu.objsubscribelinkInTermsofUse, "Hyperlink " + str3);
+		if (verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe Header")) {
+			logger.info("On clicking the Hyperlink " + str3 + " User is navigated succesfully to the respective page: "
+					+ getText(AMDSubscibeScreen.objSubscribeHeader));
+			extent.extentLogger("HyperLink",
+					"On clicking the Hyperlink " + str3 + " User is navigated succesfully to the respective page: "
+							+ getText(AMDSubscibeScreen.objSubscribeHeader));
+		} else {
+			logger.error("User is unable to navigate to the respective page of the Hyperlink " + str3);
+			extent.extentLoggerFail("Hyperlink",
+					"User is unable to navigate to the respective page of the Hyperlink " + str3);
+		}
+		Back(1);
+		// hyper link 4
+		Swipe("UP", 45);
+		String str4 = getText(AMDMoreMenu.objzee5HyperlinkinTermsOfUse);
+		System.out.println(str4);
+		verifyElementExist(AMDMoreMenu.objzee5HyperlinkinTermsOfUse, str4 + " Hyperlink");
+		click(AMDMoreMenu.objzee5HyperlinkinTermsOfUse, "Hyperlink " + str4);
+		if (verifyElementExist(AMDHomePage.objHomeTab, "Home Tab")) {
+			logger.info("On clicking the Hyperlink " + str4 + " User is navigated succesfully to the respective page: "
+					+ getText(AMDHomePage.objHomeTab));
+			extent.extentLogger("HyperLink", "On clicking the Hyperlink " + str4
+					+ " User is navigated succesfully to the respective page: " + getText(AMDHomePage.objHomeTab));
+		} else {
+			logger.error("User is unable to navigate to the respective page of the Hyperlink " + str4);
+			extent.extentLoggerFail("Hyperlink",
+					"User is unable to navigate to the respective page of the Hyperlink " + str4);
+		}
+		Back(1);
 	}
 
 	/**
@@ -6581,12 +6592,45 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 */
 	public void downloadSettingsValidation() throws Exception {
 		extent.HeaderChildNode("To verify if Quality in Downloads is set to Ask Everytime by default");
-
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
 		String quality = getText(AMDMoreMenu.objDownloads_Quality);
-		logger.info("Download Quality is set to " + quality + " by default");
-		extent.extentLogger("Download Quality", "Download Quality is set to " + quality + " by default");
-		verifyElementPresentAndClick(AMDMoreMenu.objDownloads_Quality, "Download Quality Settings option");
+		System.out.println(quality);
+		if (quality.equalsIgnoreCase("Ask each time")) {
+			logger.info("Download Quality is set to " + quality + " by default");
+			extent.extentLogger("Download Quality", "Download Quality is set to " + quality + " by default");
 
+		} else {
+			logger.info("Download Quality is not set to Ask Each Time  by default");
+			extent.extentLoggerFail("Download Quality", "Download Quality is not set to Ask Each Time  by default");
+		}
+
+		String state = getText(AMDMoreMenu.objDownloads_WifiOnly);
+		System.out.println(state);
+		if (state.equalsIgnoreCase("OFF")) {
+			logger.info("Download over WiFi only option is in  " + state + " state by default");
+			extent.extentLogger("On/Off", "Download over WiFi only option is in  " + state + " state by default");
+
+		} else {
+			logger.info("Download over WiFi only option is not in OFF state by default ");
+			extent.extentLoggerFail("On/Off", "Download over WiFi only option is not in OFF state by default ");
+		}
+
+		WebElement onOffToggle = findElement(AMDMoreMenu.objDownloads_WifiOnly);
+		int toggleRightX = onOffToggle.getLocation().getX();
+		System.out.println(toggleRightX);
+		Dimension sizee = getDriver().manage().window().getSize();
+		System.out.println(sizee.getWidth());
+		int sizeee = sizee.getWidth() - 300;
+
+		if (toggleRightX >= sizeee) {
+			logger.info("On/Off displayed at right of the option");
+			extent.extentLogger("On/Off Toggle", "On/Off displayed at right of the option");
+		} else {
+			logger.error("On/Off is not displayed at right of the option");
+			extent.extentLoggerFail("On/Off Toggle", "On/Off is not displayed at right of the option");
+		}
+		verifyElementPresentAndClick(AMDMoreMenu.objDownloads_Quality, "Download Quality Settings option");
 		extent.HeaderChildNode("To verify if Select Download Video Quality screen is displayed");
 		if (verifyElementExist(AMDSettingsScreen.objSelectVideoQualityLabel, "Select Video Download Quality")) {
 			logger.info("Navigated to Select Download Video Quality screen");
@@ -6600,13 +6644,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDSettingsScreen.objVideoQualityGood, "Good Quality Option");
 		verifyElementExist(AMDSettingsScreen.objVideoQualityDatasaver, "Data Saver Quality Option");
 		verifyElementExist(AMDSettingsScreen.objVideoQualityAskEachTime, "Ask Each Time Option");
+		verifyElementExist(AMDSettingsScreen.objTickMark, "Tick mark");
 		verifyElementPresentAndClick(AMDSettingsScreen.objXButton, "X Button");
 	}
 
 	/**
-	 * Author : Bindu Module : Exit
+	 * Author : Bindu Module : Exit_PopUp
 	 */
-	public void verifyDisplayLanguageScreen(String userType) throws Exception {
+	public void verifyDisplayLanguageScreenExitPopup(String userType) throws Exception {
 		extent.HeaderChildNode("Verify Display Language Screen");
 		System.out.println("\nVerify Display Language Screen");
 		accessDeviceLocationPopUp("Allow", userType);
@@ -6704,6 +6749,117 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Back(1);
 			click(AMDHomePage.HomeIcon, "Home Icon");
 		}
+	}
+
+	public void PrivacyPolicyScreen(String userType) throws Exception {
+		extent.HeaderChildNode("Validation of Logout option as " + userType);
+		System.out.println("Validation of Logout option as " + userType);
+		click(AMDHomePage.objMoreMenu, "More menu");
+		Swipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objPrivacyPolicy, "Privacy Policy option in More menu");
+		waitTime(4000);
+		verifyElementExist(AMDMoreMenu.objPrivacyPolicyHeader, "Privacy Policy Header");
+		if (checkElementExist(AMDMoreMenu.objPrivacyPolicyHeader, "Privacy Policy Header")) {
+			logger.info("User is navigated to Privacy Policy screen");
+			extent.extentLogger("Terms of Use", "User is navigated to Privacy Policy screen");
+		} else {
+			logger.error("User is unable to navigate to Privacy Policy screen");
+			extent.extentLoggerFail("Terms of Use", "User is unable to navigate to Privacy Policy screen");
+		}
+		verifyElementExist(AMDMoreMenu.objcloseButton, "Close button in Privacy Policy Screen");
+		verifyElementExist(AMDMoreMenu.objPrivacyDescription,
+				"Breif Description about the Application in Privacy Policy Screen");
+		verifyElementExist(AMDMoreMenu.objHyperlinkInPrivacyPolicy, "Hyper link in Privacy Policy");
+		String str1 = getText(AMDMoreMenu.objHyperlinkInPrivacyPolicy);
+		System.out.println(str1);
+		verifyElementExist(AMDMoreMenu.objHyperlinkInPrivacyPolicy, str1 + " Hyperlink");
+		click(AMDMoreMenu.objHyperlinkInPrivacyPolicy, "Hyperlink " + str1);
+		if (verifyElementExist(AMDMoreMenu.objPrivacyPolicyPageWithinbrowser, "Privacy Policy Page")) {
+			logger.info("On clicking the Hyperlink " + str1 + " , User is able to navigate to the respective page");
+			extent.extentLogger("HyperLink",
+					"On clicking the Hyperlink " + str1 + " , User is able to navigate to the respective page");
+		} else {
+			logger.error("User is unable to navigate to the respective page of the Hyperlink " + str1);
+			extent.extentLoggerFail("Hyperlink",
+					"User is unable to navigate to the respective page of the Hyperlink " + str1);
+		}
+		waitTime(2000);
+		Back(1);
+	}
+
+	public void staticPagesInDisplayLanguage() throws Exception {
+		click(AMDHomePage.objMoreMenu, "More menu");
+		click(AMDMoreMenu.objSettings, "Settings");
+		click(AMDMoreMenu.objDisplayLang, "Display Language");
+		click(AMDOnboardingScreen.objSelectDisplayLang("Kannada"), "Kannada language");
+		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "[Display Language] Continue Button");
+		click(AMDMoreMenu.objBackbtnInSettings, "Back button");
+		// About Us
+		verifyElementPresentAndClick(AMDMoreMenu.objAboutUsInKannada, "About Us option in Kannada");
+		if (checkElementExist(AMDMoreMenu.objTextInAboutUsScreen)) {
+			logger.error("Content of the About Us Page is not according to the display language set by user");
+			extent.extentLoggerFail("About Us",
+					"Content of the About Us Page is not according to the display language set by user");
+		} else {
+			logger.info("Content of the About Us page is according to display language set by user");
+			extent.extentLogger("About Us",
+					"Content of the About Us page is according to display language set by user");
+		}
+		click(AMDMoreMenu.objcloseButton, "Close button");
+		Swipe("UP", 1);
+		// Help Center
+		verifyElementPresentAndClick(AMDMoreMenu.objHelpCenterInKannada, "Help Center option in Kannada");
+		waitTime(3000);
+		String title = getText(AMDMoreMenu.objHelpCenterHeader);
+		if (title.contains("Help Center")) {
+			logger.info("Title of the page displayed: " + title);
+			extent.extentLogger("pagetitle", "Title of the page displayed: " + title);
+			logger.error("Content of Help Center page is not according to the display language set by user");
+			extent.extentLoggerFail("Help Center",
+					"Content of Help Center page is not according to the display language set by user");
+		} else {
+			logger.info("Content of the Help Center page is according to display language set by user");
+			extent.extentLogger("About Us",
+					"Content of the Help Center page is according to display language set by user");
+		}
+		click(AMDMoreMenu.objcloseButton, "Close button");
+		Swipe("UP", 1);
+		// Terms of Use
+		verifyElementPresentAndClick(AMDMoreMenu.objTermsInKannada, "Terms of Use option in Kannada");
+		String title2 = getText(AMDMoreMenu.objTermsOfUseHeader);
+		if (title2.contains("Terms of Use")) {
+			logger.info("Title of the page displayed: " + title2);
+			extent.extentLogger("pagetitle", "Title of the page displayed: " + title2);
+			logger.error("Content of the Terms of Use page is not according to the display language set by user");
+			extent.extentLoggerFail("Terms of Use",
+					"Content of the Terms of Use page is not according to the display language set by user");
+		} else {
+			logger.info("Content of the Terms of Use page is according to display language set by user");
+			extent.extentLogger("About Us",
+					"Content of the Terms of Use page is according to display language set by user");
+		}
+		click(AMDMoreMenu.objcloseButton, "Close button");
+		// Privacy Policy
+		verifyElementPresentAndClick(AMDMoreMenu.objPrivacyPolicyInKannada, "Privacy Policy option in Kannada");
+		String title3 = getText(AMDMoreMenu.objPrivacyPolicyHeader);
+		if (title3.contains("Terms of Use")) {
+			logger.info("Title of the page displayed: " + title3);
+			extent.extentLogger("pagetitle", "Title of the page displayed: " + title3);
+			logger.error("Content of the Privacy Policy page is not according to the display language set by user");
+			extent.extentLoggerFail("Privacy Policy",
+					"Content of the Privacy Policy page is not according to the display language set by user");
+		} else {
+			logger.info("Content of the Privacy Policy page is according to display language set by user");
+			extent.extentLogger("About Us",
+					"Content of the Privacy Policy page is according to display language set by user");
+		}
+		click(AMDMoreMenu.objcloseButton, "Close button");
+		// Changing to English
+		click(AMDMoreMenu.objSettingsInKannada, "Settings");
+		click(AMDMoreMenu.objDisplayLang, "Display Language");
+		click(AMDOnboardingScreen.objSelectDisplayLang("English"), "English language");
+		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "[Display Language] Continue Button");
+		Back(1);
 	}
 
 	/**
@@ -6902,6 +7058,73 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			if (tabName.equalsIgnoreCase("Live TV")) {
 				liveTV = true;
 			}
+		}
+	}
+
+	/**
+	 * Author : Bindu
+	 * @param userType
+	 * @throws Exception
+	 */
+	public void verifyExitPopupInAnyOfTheLandingScreen(String userType) throws Exception {
+		extent.HeaderChildNode("Validating ExitPopup in any of the Landing Screen");
+		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button (Display-LanguageScreen)");
+		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+		waitTime(2000);
+		verifyElementPresent(AMDHomePage.objHomeTab, "Home Tab");
+		Back(1);
+		if (verifyElementExist(AMDOnboardingScreen.objExitPopup, "Exit Popup is displayed")) {
+			logger.info("Exit Popup appears when user taps on device back button");
+			extent.extentLogger("Display Language Screen", "Exit Popup appears when user taps on device back button");
+		} else {
+			logger.info("Exit Popup not appeared when user taps on device back button");
+			extent.extentLoggerFail("Display Language Screen",
+					"Exit Popup not appeared when user taps on device back button");
+
+		}
+		extent.HeaderChildNode("verify Exit Popup Comnprises of Text Message");
+		verifyElementExist(AMDOnboardingScreen.objExitPopup, "Exit Popup is displayed");
+		String Exitpopup = getDriver().findElement(AMDOnboardingScreen.objExitPopup).getText();
+		System.out.println(Exitpopup);
+		if (Exitpopup.equalsIgnoreCase("Are you sure you want to exit ZEE5?")) {
+			logger.info("Exit popup is displayed with message");
+			extent.extentLogger("Exit Popup", "Exit popup is displayed with message");
+		} else {
+			logger.info("Exit popup is not displayed with message");
+			extent.extentLoggerFail("Exit Popup", "Exit popup is not displayed with message");
+		}
+		verifyElementExist(AMDOnboardingScreen.objExitYes, "Exit Popup with Yes CTA");
+		verifyElementExist(AMDOnboardingScreen.objExitNo, "Exit Popup with No CTA");
+		extent.HeaderChildNode("verify Exit Popup closes when user taps on No CTA");
+		if (verifyElementIsNotDisplayed(AMDOnboardingScreen.objExitPopup)) {
+			logger.info("Exit Popup closes when user taps on No CTA");
+			extent.extentLogger("Display Language Screen", "Exit popup when user taps on No CTA");
+		} else {
+			logger.info("Exit Popup not closed when user taps on No CTA");
+			extent.extentLoggerFail("Display Language Screen", "Exit Popup not closed when user taps on No CTA");
+		}
+		Back(1);
+		verifyElementExist(AMDOnboardingScreen.objExitPopup, "Exit Popup is displayed");
+		verifyElementPresentAndClick(AMDOnboardingScreen.objExitPopupDivider, "ExitPopup Divider");
+		if (verifyElementIsNotDisplayed(AMDOnboardingScreen.objExitPopup)) {
+			logger.info("Exit Popup closes by tapping on the screen");
+			extent.extentLogger("Display Language Screen", "Exit Popup closes by tapping on the screen");
+		} else {
+			logger.info("Exit Popup not closed by tapping on the screen");
+			extent.extentLoggerFail("Display Language Screen", "Exit Popup not closed by tapping on the screen");
+		}
+		extent.HeaderChildNode(" Verify Exit Popuop closes on tapping device back button");
+		Back(1);
+		if (verifyElementExist(AMDOnboardingScreen.objExitPopup, "Exit Popup is displayed")) {
+			logger.info("Exit Popup appears when user taps on device back button");
+			extent.extentLogger("Display Language Screen", "Exit Popup appears when user taps on device back button");
+		} else {
+			logger.info("Exit Popup not appeared when user taps on device back button");
+			extent.extentLoggerFail("Display Language Screen",
+					"Exit Popup not appeared when user taps on device back button");
 
 		}
 	}

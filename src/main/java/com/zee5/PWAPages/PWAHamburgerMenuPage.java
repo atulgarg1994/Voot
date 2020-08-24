@@ -190,8 +190,7 @@ public class PWAHamburgerMenuPage {
 	public static By objMyTransactionPackStatus = By.xpath("//div[@class='billRow']//p[2]");
 
 	// Buy Subscription Option
-	public static By objBuySubscriptionOption = By
-			.xpath("//*[contains(@class,'noSelect menuItem   menuForPlans') and contains(text(),'Buy Subscription')]");
+	public static By objBuySubscriptionOption = By.xpath("//*[contains(@class,'menuItem') and contains(text(),'Buy Subscription')]");
 
 	public static By objProfileIconWEB = By.xpath("(//button[.='Open Menu'])[2]");
 	public static By objMyAccountOption = By.xpath("//div[contains(@class,'menuForMyAccount')]");
@@ -461,7 +460,7 @@ public class PWAHamburgerMenuPage {
 	public static By objApplyBtn = By.xpath("//div[contains(text(),'APPLY')]");
 
 	// My remainder option
-	public static By objMyRemainder = By.xpath("//*[contains(@class, 'noSelect menuItem') and contains(text(),'My Reminders')]");
+	public static By objMyRemainder = By.xpath("//a[contains(text(),'My Reminders')]");
 
 	public static By objkannadalanguage = By.xpath("//span[@class='commonName'][contains(text(),'Kannada')]");
 
@@ -500,7 +499,7 @@ public class PWAHamburgerMenuPage {
 
 	public static By objPopupClose = By.xpath("//*[@class='noSelect closePupup iconInitialLoad-ic_close']");
 
-	public static By objSubscribeNowLink = By.xpath("(//*[@class='subscribe-link'])[1]");
+	public static By objSubscribeNowLink = By.xpath("(//span[contains(@class,'subscribe-link') and contains(text(),'Subscribe to')])[1]");
 
 	public static By objLanguageBtn = By.xpath("//*[@class='noSelect menuItem  languageMenu ']");
 

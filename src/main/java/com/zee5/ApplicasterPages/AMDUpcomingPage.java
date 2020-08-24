@@ -55,6 +55,4 @@ public class AMDUpcomingPage {
 	public static By objShowTitle(String text) {
 		return By.xpath("//*[@id='item_primary_text' and contains(text(),\"" + text + "\")]");
 	}
-	
-	
 }

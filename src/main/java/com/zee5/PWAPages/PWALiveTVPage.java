@@ -252,7 +252,7 @@ public class PWALiveTVPage {
 	public static By objShowDesc = By.xpath("//div[@class='programDescription']");
 	// Movie name
 	public static By objMovieShow = By
-			.xpath("(//*[@title=\"Zee Picchar\"]//parent::*//parent::*//following-sibling::*//div)[2]");
+			.xpath("(//*[@title=\"Zee Cinemalu\"]//parent::*//parent::*//following-sibling::*//div)[2]");
 
 	public static By objLiveTVMenu = By.xpath("//a[contains(text(),'Live TV')]");
 

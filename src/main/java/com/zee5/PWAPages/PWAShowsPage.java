@@ -85,7 +85,7 @@ public class PWAShowsPage {
 	
 	
 	// First asset image from second content rail
-		public static By objSecondAssetImageFirstRail = By.xpath("(//div[@class='slick-list'])[1]//div[@data-index='1']//img");
+	public static By objSecondAssetImageFirstRail = By.xpath("(//div[@class='slick-list'])[1]//div[@data-index='1']");
 
 	public static By objBackToTopArrow = By.xpath("//div[@class='iconNavi-ic_arrow_back']");
 	public static By objTwitterApp = By.xpath("//*[@text='Tweet']");

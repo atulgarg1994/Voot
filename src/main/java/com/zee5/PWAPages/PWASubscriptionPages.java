@@ -145,8 +145,9 @@ public class PWASubscriptionPages {
 	public static By objAppliedSuccessfullyMessage = By.xpath("//div[contains(text(),'Applied Successfully')]");
 
 	public static By objSearchResultPremiumContent = By.xpath("//div[@class='cardPremiumContent']/parent::*");
-	
-	public static By objPopup99Plan = By.xpath("//p[contains(@class, 'planDescription')]//span[contains(@class, 'currency')]/span[text()='99']");
+
+	public static By objPopup99Plan = By
+			.xpath("//p[contains(@class, 'planDescription')]//span[contains(@class, 'currency')]/span[text()='99']");
 
 	// Get Premium popup close button
 	public static By objGetPremiumPopupCloseButton = By.xpath(
@@ -179,7 +180,8 @@ public class PWASubscriptionPages {
 	}
 
 	// ZEE5 Subscription Text
-	public static By objZEE5Subscription = By.xpath("//*[contains(text(),'ZEE5 Subscription') and contains(@class,'pageTitle')]");
+	public static By objZEE5Subscription = By
+			.xpath("//*[contains(text(),'ZEE5 Subscription') and contains(@class,'pageTitleSmall')]");
 
 	public static By objSubscribeBtnTopHeader = By
 			.xpath("//*[contains(@class,'subscribeBtn noSelect')]//span[contains(text(), 'Subscribe')]");
@@ -247,7 +249,7 @@ public class PWASubscriptionPages {
 
 	public static By objProceedBtnInSubscriptionPage = By.xpath("//*[@class='noSelect buttonGradient ']");
 
-	public static By objLoginLinkInPlayer = By.xpath("//*[@class='login-link']");
+	public static By objLoginLinkInPlayer = By.xpath("(//*[@class='login-link'])[2]");
 
 	public static By objPasswordPopupInSubscriptionPage = By.xpath("//*[@class='popupContent parentalControlPopup']");
 	public static By objPasswordField = By.xpath("//*[@type='password']");
@@ -283,12 +285,14 @@ public class PWASubscriptionPages {
 	public static By objMobilePaytmNumberField = By.xpath("//*[@class='android.widget.EditText']");
 	public static By objMobilePaytmSendOTP = By.xpath("//*[@text='SEND OTP']");
 	public static By objPackType = By.xpath("//div[@class='categoryContainer']//child::*[@class='noSelect']");
-	
-	public static By objMobilePayTMRecurrenceMessage = By.xpath("//*[@text='You will be charged every billing cycle until you cancel']");
+
+	public static By objMobilePayTMRecurrenceMessage = By
+			.xpath("//*[@text='You will be charged every billing cycle until you cancel']");
 
 	// Get Premium Popup Title
-	public static By objGetPremiumPopupTitle = By.xpath("//h2[contains(@class,'popupTitle bigTitle')]//p[text()='Subscribe']");
-	
+	public static By objGetPremiumPopupTitle = By
+			.xpath("//h2[contains(@class,'popupTitle bigTitle')]//p[text()='Subscribe']");
+
 	// Popup Proceed Btn
 	public static By objPopupProceedBtn = By.xpath("//div[contains(text(),'PROCEED') and contains(@class,'popupBtn')]");
 }
