@@ -31,16 +31,64 @@ public class Android_MoreScreen {
 	@Parameters({ "userType" })
 	public void AboutUsValidation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.TermsOfUseScreen(userType);
-		//ZEE5ApplicasterBusinessLogic.AboutUsScreenValidation(userType);
+		// ZEE5ApplicasterBusinessLogic.AboutUsScreenValidation(userType);
 	}
 
-//	@Test(priority = 2)
-//	@Parameters({ "userType" })
-//	public void LogoutValidation(String userType) throws Exception {
-//		ZEE5ApplicasterBusinessLogic.LogoutValidation(userType);
-//		ZEE5ApplicasterBusinessLogic.LoginAfterLogout(userType);
-//		ZEE5ApplicasterBusinessLogic.logoutOfflineValidation(userType);//
-//	}
+	@Test(priority = 3)
+	@Parameters({ "userType" })
+	public void HelpCenterValidation(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.HelpCenterScreen(userType);
+	}
+
+	@Test(priority = 4)
+	@Parameters({ "userType" })
+	public void TermsOfUseValidation(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.TermsOfUseScreen(userType);
+	}
+
+	@Test(priority = 5)
+	@Parameters({ "userType" })
+	public void PrivacyPolicyValidation(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.PrivacyPolicyScreen(userType);
+	}
+
+	@Test(priority = 6)
+	@Parameters({ "userType" })
+	public void StaticPagesInDisplayLanguage(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.staticPagesInDisplayLanguage();
+	}
+
+	@Test(priority = 7)
+	@Parameters({ "userType" })
+	public void LogoutValidation(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.LogoutValidation(userType);
+		ZEE5ApplicasterBusinessLogic.LoginAfterLogout(userType);
+		ZEE5ApplicasterBusinessLogic.logoutOfflineValidation(userType);//
+	}
+
+	@Test(priority = 8)
+	@Parameters({ "userType" })
+	public void MyWatchlist(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.myWatchList(userType);
+	}
+
+	@Test(priority = 9)
+	@Parameters({ "userType" })
+	public void MyReminders(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.myReminders(userType);
+	}
+
+	@Test(priority = 10)
+	@Parameters({ "userType" })
+	public void Haveaprepaidcode(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.Haveaprepaidcode(userType);
+	}
+
+	@Test(priority = 11)
+	@Parameters({ "userType" })
+	public void Settings(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.Settings(userType);
+	}
 
 	@AfterTest
 	public void tearDownApp() {

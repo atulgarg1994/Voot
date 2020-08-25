@@ -55,10 +55,32 @@ public class AMDMoreMenu {
 	public static By objEnterPinCTA = By.xpath("//*[@text='Enter PIN']");
 
 	// ----- Sub-Menu under settings
-	public static By objVideo_Quality = By.xpath("//*[@id='qualityPixels']");
+	// --------video streaming sub menu---------//
+	public static By objvideoQualityOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/videoQuality']");
+	public static By objVideoStreamOverWifiOnlyOption = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/videoOverWifi']");
+	public static By objVideoAutoPlay = By.xpath("//*[@resource-id='com.graymatrix.did:id/autoPlayLabel']");
+
+	public static By objVideo_Quality(String QualityOption) {
+		return By.xpath("//*[@id='qualityPixels' and @text='" + QualityOption + "']");
+	}
+
 	public static By objVideo_WifiOnly = By.xpath("//*[@id='videoOverWifiSwitch']");
 	public static By objVideo_Autoply = By.xpath("//*[@id='autoPlaySwitch']");
 
+	// ------------Video quality screen---------//
+	public static By objVideoQualityScreenTitle = By
+			.xpath("//*[@id='selector_screen_title' and @text='Select Video Quality']");
+	public static By objAutoOption = By.xpath("//*[@text='Auto']");
+	public static By objCloseButtonInVideoQualityScreen = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/selector_selection']");
+
+	public static By objSelectedVideoQualityOption(String qualityOption) {
+		return By.xpath("//*[@text='" + qualityOption
+				+ "']/preceding-sibling::*[@resource-id='com.graymatrix.did:id/selectionImageSelector']");
+	}
+
+	// ------------Downloads Sub menu-----------//
 	public static By objDownloads_Quality = By.xpath("//*[@id='downloadLabel']");
 	public static By objDownloads_WifiOnly = By.xpath("//*[@id='downloadOverWifiSwitch']");
 
@@ -75,7 +97,7 @@ public class AMDMoreMenu {
 	public static By objHelpCentre = By.xpath("//*[@text='Help Centre'] | //*[@text='Help Center']");
 
 	// developed by Sushma
-
+	public static By objBackButtonInSettingsScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_back']");
 	public static By objSettingsScreenTitle = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and @text='Settings']");
 	public static By objVideoStreamingMenuTitle = By
@@ -93,26 +115,29 @@ public class AMDMoreMenu {
 	public static By objCancelButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/logoutCancelButton']");
 	public static By objLogoutButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/logoutButton']");
 	public static By objProfileHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
-	
+
 	public static By objcloseButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_exit']");
 	public static By objAboutUsDescription = By.xpath("//*[@resource-id='iframe_div']");
-	public static By objHyperLinkInAboutUsScreen =  By.xpath("//*[@class='android.view.View']//*[@contentDescription='www.zee5.com']");
+	public static By objHyperLinkInAboutUsScreen = By
+			.xpath("//*[@class='android.view.View']//*[@contentDescription='www.zee5.com']");
 	public static By objPageNotFoundMsg = By.xpath("//*[@class='android.view.View']//*[@text='404! Not Found']");
 	public static By objNetworkerrormsg = By.xpath("//*[@resource-id='android:id/message']");
-	
-	//Terms of Use Screen
+
+	// Terms of Use Screen
 	public static By objTermsOfUseHeader = By.xpath("//*[@text='Terms of Use']");
 	public static By objTermsDescription = By.xpath("//*[@id='iframe_div' and ./*[@text='Terms of Use']]");
 	public static By objsupportHyperlinkInTermsOfUse = By.xpath("//*[@text='support.in@zee5.com']");
 	public static By objfeedbackLinkInTermsOfUse = By.xpath("//*[@text='feedback.yono@sbi.co.in']");
 	public static By objzee5HyperlinkinTermsOfUse = By.xpath("(//*[@text='www.zee5.com'])[1]");
-	public static By objsubscribelinkInTermsofUse = By.xpath("//*[@text='https://www.zee5.com/myaccount/subscription']");
+	public static By objsubscribelinkInTermsofUse = By
+			.xpath("//*[@text='https://www.zee5.com/myaccount/subscription']");
 	public static By objInternetErrormsg = By.xpath("//*[@text='You are not connected to internet']");
-	public static By objYesBtnResetDefault  = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_exit_yes']");
-	
+	public static By objYesBtnResetDefault = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_exit_yes']");
+
 	public static By objPrivacyDescription = By.xpath("//*[@resource-id='iframe_div']");
 	public static By objHyperlinkInPrivacyPolicy = By.xpath("(//*[@text='Privacy Policy'])[2]");
-	public static By objPrivacyPolicyPageWithinbrowser = By.xpath("//*[@class='android.view.View' and ./*[@text='Privacy Policy']]");
+	public static By objPrivacyPolicyPageWithinbrowser = By
+			.xpath("//*[@class='android.view.View' and ./*[@text='Privacy Policy']]");
 	public static By objHelpCenterHeader = By.xpath("//*[@text='Help Center']");
 	public static By objPrivacyPolicyHeader = By.xpath("//*[@text='Privacy Policy']");
 	public static By objSettingsInKannada = By.xpath("//*[@text='ಸೆಟ್ಟಿಂಗ್ಗಳು']");
@@ -122,5 +147,22 @@ public class AMDMoreMenu {
 	public static By objPrivacyPolicyInKannada = By.xpath("//*[@resource-id='com.graymatrix.did:id/privacypolicy']");
 	public static By objBackbtnInSettings = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_back']");
 	public static By objTextInAboutUsScreen = By.xpath("//*[@text='Zee5 can be accessed at ']");
+	// Help Center
+	public static By objSearchBarInHelpCenter = By.xpath("//*[@class='android.widget.EditText']");
+
+	public static By objQueriesHeader(String text) {
+		return By.xpath("//*[contains(text(),'" + text + "')]");
+	}
+
+	public static By objArticleTitle(String title) {
+		return By.xpath("//*[contains(@text,'" + title + "')]");
+	}
+
+	public static By objGettingStartedHeader = By.xpath("//*[@text='Getting Started   ']");
+	public static By objMyAccountHeader = By.xpath("//*[@text='My Account   ']");
+	public static By objsupportlinkInprivacypolicy = By.xpath("//*[@text='support@zee5.com.']");
+	public static By objPrivacyPolicyHeaderText= By.xpath("//*[@text='Privacy Policy' and @class='android.view.View']");
+	
+	public static By objPrepaidCodePopUp = By.xpath("//*[@id='txt_prepaid_code']");
 
 }

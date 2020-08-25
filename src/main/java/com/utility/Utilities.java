@@ -984,7 +984,27 @@ public class Utilities extends ExtentReporter {
 			logger.error(e);
 
 		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public void SwipeRailContentCards(By From) throws Exception {
 
+		Dimension size = getDriver().manage().window().getSize();
+		int screenWidth = (int) (size.width * 0.8);
+		
+		WebElement element = findElement(From);
+		String eleX = element.getAttribute("x");
+		String eleY = element.getAttribute("y");
+		int currentPosX = Integer.parseInt(eleX);
+		int currentPosY = Integer.parseInt(eleY);
+		
+		currentPosX = currentPosX + screenWidth;
+		currentPosY = currentPosY + 150;
+		
+		touchAction = new TouchAction(getDriver());
+		touchAction.press(PointOption.point(currentPosX, currentPosY))
+		.waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000))).moveTo(PointOption.point(0, currentPosY))
+		.release().perform();
 	}
 
 	/**

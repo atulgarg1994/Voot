@@ -13,7 +13,6 @@ public class AMDGenericObjects {
 		return By.xpath("//*[@id='screen_title' and @text='" + title + "']");
 	}
 
-
 	// Device Backout button
 	public static By objDeviceBackBtn = By.xpath("//*[@resource-id='com.android.systemui:id/back']");
 
@@ -57,6 +56,11 @@ public class AMDGenericObjects {
 	}
 
 	public static By objPopUpDivider = By.xpath("//*[@id='dialog_divider']");
-	
+
 	public static By objFirstTrayTitle = By.xpath("(//*[@id='header_primary_text'])[1]");
+
+	public static By objPremiumTags = By.xpath("//*[@id='special_image_1']");
+
+	public static By objMetaData = By.xpath(
+			"//*[@id='main_genre_tv'] | //*[@id='release_year_tv'] | //*[@id='duration_tv'] | //*[@id='genresTv'] | //*[@id='ageRatingTv']");
 }

@@ -2364,12 +2364,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		// Scenario no. 103
 //		waitTime(5000);
-		verifyElementPresent(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
+		verifyElementExist(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
 //		waitTime(3000);
 		zeePWASelectedPackDisplayValidation();
 //		verifyElementPresent(PWASubscriptionPages.objAccountInfoText, "Account Info Text in Payments Section");
 //		waitTime(3000);
-		verifyElementPresent(PWASubscriptionPages.objAccountInfoDetails, "Account Info Details in Payments Section");
+		verifyElementExist(PWASubscriptionPages.objAccountInfoDetails, "Account Info Details in Payments Section");
 ////		waitTime(3000);
 //		verifyElementPresent(PWASubscriptionPages.objCreditCardRadioBtn, "Credit Card Radio Button");
 ////		waitTime(3000);
@@ -2404,10 +2404,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		verifyElementPresentAndClick(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
 		waitTime(5000);
-		verifyElementPresent(PWASubscriptionPages.objEnterCreditAndDebitCardDetails, "Enter Credit/Debit Card Details");
-		verifyElementPresent(PWASubscriptionPages.objCardNumber, "Enter Card Number Field");
-		verifyElementPresent(PWASubscriptionPages.objExpiry, "Expiry Field");
-		verifyElementPresent(PWASubscriptionPages.objCVV, "CVV Field");
+		verifyElementExist(PWASubscriptionPages.objEnterCreditAndDebitCardDetails, "Enter Credit/Debit Card Details");
+		verifyElementExist(PWASubscriptionPages.objCardNumber, "Enter Card Number Field");
+		verifyElementExist(PWASubscriptionPages.objExpiry, "Expiry Field");
+		verifyElementExist(PWASubscriptionPages.objCVV, "CVV Field");
 //		Back(1);
 		waitTime(5000);
 		if (getPlatform().equals("Android")) {
@@ -2426,7 +2426,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 //		waitTime(5000);
 //		// PayTM Page
 //		verifyElementPresent(PWASubscriptionPages.objPaytmWalletOption, "PayTM Wallet option");
-
 	}
 
 	public void navigateBackFromPayTmWalletAndLogout(String platform, String userType) throws Exception {
@@ -6330,7 +6329,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie");
 		type(PWAHomePage.objSearchField, keyword, "Search");
 		waitTime(10000);
-		verifyElementPresentAndClick(PWAHomePage.objSearchResult, "Search result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search content");
 		waitTime(5000);
 		if (verifyElementExist(PWAHamburgerMenuPage.objParentalLockPopUpInPlayer, "Parent control Popup")) {
 			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
@@ -7298,9 +7297,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			verifyElementExist(PWAHamburgerMenuPage.objEmptyStateScreen, "Empty State Screen");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objSubscriptionTeaserBanner,
 					"Subscription Teaser Banner");
-			extent.HeaderChildNode(
-					"Validating if user is navigated to Zee Subscription screen post tapping on subscription teaser banner");
-			if (verifyElementPresent(PWASubscriptionPages.objZEE5Subscription, "Zee Subscription Page") == true) {
+			waitTime(10000);
+			if (verifyElementExist(PWASubscriptionPages.objZEE5Subscription, "Zee Subscription Page") == true) {
 				logger.info("Navigated to Zee Subscription Page");
 				extent.extentLogger("Subscription Page", "Navigated to Zee Subscription Page");
 			} else {
@@ -7850,6 +7848,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if (verifyElementExist(PWAPremiumPage.objWEBMastheadCarousel, "Carousel")) {
 			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel");
 			mandatoryRegistrationPopUp(userType);
+			
 			waitTime(10000);
 
 			if (BROWSER.equals("Firefox")) {
@@ -7878,12 +7877,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 			Back(1);
 		} else {
-			musicFreeContentPlaybackValidation();
+			musicFreeContentPlaybackValidation(userType);
 		}
 		verifyElementPresentAndClick(PWASearchPage.objSearchBtn, "Search button");
 		waitTime(2000);
 		type(PWASearchPage.objSearchEditBox, searchText, "Search Field");
-		mandatoryRegistrationPopUp(userType);
+		
 		click(PWAMusicPage.objMusicTabInSearch, "Music");
 		if (findElements(PWAMusicPage.objPremiumTagContentCard(searchText)).size() > 0) {
 			logger.info("Premium tag is displayed");
@@ -7916,10 +7915,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 	}
 
-	public void musicFreeContentPlaybackValidation() throws Exception {
+	public void musicFreeContentPlaybackValidation(String userType) throws Exception {
 		extent.HeaderChildNode("Free Content Playback Validation");
 
 		verifyElementPresentAndClick(PWAMusicPage.objFreeMusicContentCard, "Free Content Card");
+		mandatoryRegistrationPopUp(userType);
+		
+		
 		waitTime(10000);
 		if (BROWSER.equals("Firefox")) {
 			waitForPlayerLoaderToComplete();

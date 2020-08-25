@@ -13,4 +13,6 @@ public class AMDSettingsScreen {
 	public static By objXButton = By.xpath("//*[@text='D']");
 	public static By objTickMark = By.xpath("//*[@id='selectionImageSelector']");
 	public static By objDownloadOverWifiToggle = By.xpath("//*[@id='downloadOverWifiSwitch']");
+	
+	public static By objSettingsScreenTitle = By.xpath("//*[@id='screen_title' and //*[@text='Settings']]");
 }
