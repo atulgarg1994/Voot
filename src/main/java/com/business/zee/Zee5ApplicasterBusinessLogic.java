@@ -5256,12 +5256,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify content Playback in Shows Before TV");
 		System.out.println("\nVerify content Playback in Shows Before TV");
 		verifyElementPresentAndClick(AMDHomePage.objShowsTab, "Shows Tab");
-
-		for (int i = 0; i < 6; i++) {
-			if (verifyElementIsNotDisplayed(AMDHomePage.objBeforeTVTray)) {
-				PartialSwipe("UP", 1);
-				// break;
-			} else {
+		waitTime(30000);
+		for (int i = 1; i < 6; i++) {
+			if (verifyElementIsNotDisplayed(AMDHomePage.objBeforeTVTray)) 
+			{
+				Swipe("UP",1);
+			//	break;
+		    }
+			
+			else {
 				waitTime(5000);
 //				String beforeTVtrayName = findElement(AMDGenericObjects.objTrayTitle("Before TV")).getText();
 //				click(AMDGenericObjects.objViewAllBtn(beforeTVtrayName), "View All_Before TV Show");
@@ -5301,14 +5304,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				}
 
 				else {
-					logger.info(
-							"Content playback is initiated for the subscribed user on tapping any Before Tv Content");
+					logger.info("Content playback is initiated for the subscribed user on tapping any Before Tv Content");
 					extent.extentLogger("Consumption Screen",
 							"Content playback is initiated for the subscribed user on tapping any Before Tv Content");
 				}
+                 break;
 			}
 		}
-		Back(2);
+        verifyElementPresentAndClick(AMDLoginScreen.objBackBtn, "Back Button");
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDLoginScreen.objBackBtn, "Back Button");
+	//	Back(2);
 	}
 
 	@SuppressWarnings("unused")
