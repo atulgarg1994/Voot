@@ -140,6 +140,7 @@ public class AMDOnboardingScreen {
 	
 	public static By objExitPopupDivider = By.xpath("//*[@resource-id='com.graymatrix.did:id/dialog_divider']");
 
+	public static By objExitPopupHorizontalLinebar = By.xpath("(//*[@class='android.view.View'])[2]");
 
 
 

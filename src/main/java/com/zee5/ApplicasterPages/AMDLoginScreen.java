@@ -165,4 +165,7 @@ public class AMDLoginScreen {
 	public static By objTwitterPassword = By.xpath("//*[@class='android.widget.EditText' and @resource-id='password']");
 
 	public static By objTwitterLoginBtn = By.xpath("//*[@class='android.widget.Button' and @text='Authorize app']");
+	
+	public static By objTickmarkforSelectedDisplayLanguage = By.xpath("//*[@resource-id='com.graymatrix.did:id/selectionImage']");
+
 }

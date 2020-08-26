@@ -8,13 +8,13 @@ import com.business.zee.Zee5ApplicasterBusinessLogic;
 import com.utility.Utilities;
 
 public class DownloadSettingsValidation {
-	
-private Zee5ApplicasterBusinessLogic ZEE5ApplicasterBusinessLogic;
-	
+
+	private Zee5ApplicasterBusinessLogic ZEE5ApplicasterBusinessLogic;
+
 	@BeforeTest
 	public void AppLaunch() throws InterruptedException {
 		System.out.println("Launching Android App");
-	    Utilities.relaunch = true; // Clear App Data on First Launch
+		Utilities.relaunch = true; // Clear App Data on First Launch
 		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
 
@@ -32,6 +32,9 @@ private Zee5ApplicasterBusinessLogic ZEE5ApplicasterBusinessLogic;
 	public void zee5OriginalsLandingScreenValidation(String userType, String tabName) throws Exception {
 		System.out.println("\nVerify Download Settings");
 		ZEE5ApplicasterBusinessLogic.downloadSettingsValidation();
+		ZEE5ApplicasterBusinessLogic.searchHistoryValidation(userType);
+		ZEE5ApplicasterBusinessLogic.authenticateDeviceValidation(userType);
+		ZEE5ApplicasterBusinessLogic.resetSettingsValidation(userType);
 	}
 
 	@AfterTest

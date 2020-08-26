@@ -12,6 +12,33 @@ public class AMDWatchlistPage {
 	public static By objTitle = By.xpath("//*[@id='txt_reminder_item_title']");
 	public static By objForwardIcon = By.xpath("//*[@id='icon_ic_forward_button']");
 	public static By objSelectAllIcon = By.xpath("//*[@id='txt_select_all']");
+	public static By objDeleteAllBtn = By.xpath("//*[@id='txt_delete']");
+	public static By objSelectItemsToDeleteTxt = By.xpath("//*[@text='Select Items to Delete']");
+	public static By objCloseIcon = By.xpath("//*[@id='icon_close']");
+	public static By objTitleOfContent =By.xpath("//*[@id='txt_reminder_item_title']");
 	
+	public static By objIterateEpisode(int i) {
+		return By.xpath("(//*[@id='txt_episode_duration'])["+i+"]");
+	}
+	public static By objIterateTitle(int i) {
+		return By.xpath("(//*[@id='txt_reminder_item_title'])["+i+"]");
+	}
+	public static By objEpisodeCount = By.xpath("//*[@id='txt_episode_duration']");
+	public static By objSelectCheckBox = By.xpath("//*[@id='check_box_item_selector']");
+	public static By objSelectContentByIndex(int i) {
+		return By.xpath("(//*[@id='check_box_item_selector'])["+i+"]");
+	}
+	public static By objContentThumbnail = By.xpath("//*[@id='img_reminder_item']");
 	
+	public static By objTabs(int i) {
+		return By.xpath("(//*[@class='android.support.v7.app.ActionBar$b']//*[@class='android.widget.TextView'])["+i+"]");
+	}
+	
+	public static By objNumberOfTabs = By.xpath("//*[@class='android.support.v7.app.ActionBar$b']");
+	
+	public static By objDurationtxt = By.xpath("(//*[@id='skip_link']//ancestor::*[@class='android.widget.RelativeLayout']//following-sibling::*[@class='android.view.ViewGroup']//following-sibling::*[@id='txt_episode_duration'])[2]");
+	
+	public static By objTitleTxt = By.xpath("(//*[@id='skip_link']//ancestor::*[@class='android.widget.RelativeLayout']//following-sibling::*[@class='android.view.ViewGroup']//following::*[@id='txt_reminder_item_title'])[2]");
+	
+	public static By objSelectedTab = By.xpath("(//*[@class='android.support.v7.app.ActionBar$b']//*[@class='android.widget.TextView' and @selected='true'])");
 }

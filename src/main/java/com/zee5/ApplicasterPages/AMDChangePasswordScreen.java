@@ -24,4 +24,5 @@ public class AMDChangePasswordScreen {
 	
 	//Update Button
 	public static By objUpdateBtn = By.xpath("//*[@id='btnUpdate']");
+	
 }

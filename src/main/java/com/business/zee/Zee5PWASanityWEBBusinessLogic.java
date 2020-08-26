@@ -1821,7 +1821,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void SubscriptionPopupScenarios(String userType) throws Exception {
 		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
-			selectLanguages();
+//			selectLanguages();
 			zeePWAVerifyNavigationToSubscriptionFlowFromSubscriptionPopupFullscreenPlayer(userType);
 			zeePWAVerifySubscriptionPopupAfterTrailerPlaybackIsComplete(userType);
 		}
@@ -7848,7 +7848,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if (verifyElementExist(PWAPremiumPage.objWEBMastheadCarousel, "Carousel")) {
 			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel");
 			mandatoryRegistrationPopUp(userType);
-			
+
 			waitTime(10000);
 
 			if (BROWSER.equals("Firefox")) {
@@ -7882,7 +7882,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWASearchPage.objSearchBtn, "Search button");
 		waitTime(2000);
 		type(PWASearchPage.objSearchEditBox, searchText, "Search Field");
-		
+
 		click(PWAMusicPage.objMusicTabInSearch, "Music");
 		if (findElements(PWAMusicPage.objPremiumTagContentCard(searchText)).size() > 0) {
 			logger.info("Premium tag is displayed");
@@ -7920,8 +7920,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		verifyElementPresentAndClick(PWAMusicPage.objFreeMusicContentCard, "Free Content Card");
 		mandatoryRegistrationPopUp(userType);
-		
-		
+
 		waitTime(10000);
 		if (BROWSER.equals("Firefox")) {
 			waitForPlayerLoaderToComplete();
@@ -10618,7 +10617,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		for (int i = 0; !(totalDuration.equals(currentTime)); i++) {
 			waitTime(5000);
 			playerTap();
-			currentTime = findElement(PWAPlayerPage.objPlayerCurrentDuration).getText();
+			currentTime = findElement(PWAPlayerPage.objPlayerCurrentDuration).getAttribute("innerText");
 			logger.info("Current duration of the trailer is: " + currentTime);
 			extent.extentLogger("", "Current duration of the trailer is: " + currentTime);
 			waitTime(10000);
@@ -11094,6 +11093,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		Watchlistlogin("Subscribe", "Gooli");
 		registerandCheckCW();
 		if (getPlatform().equalsIgnoreCase("Web")) {
+			extent.HeaderChildNode("Validating Add to Watchlist icon on tray content card");
 			scrollToTheElementWEB(PWAHomePage.objFirstContentCardOfTray("Trending on ZEE5"));
 			if (verifyElementExist(PWAHomePage.objFirstContentCardOfTray("Trending on ZEE5"),
 					"First Content Card Of Trending on ZEE5 Tray")) {
@@ -11113,6 +11113,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					logger.info("Add To Watchlist icon on tray content card is not displaying for guest user");
 				}
 
+				extent.HeaderChildNode(
+						"Validating Login popup after clicking on Add to Watchlist icon on tray content card");
 				click(PWAHomePage.objAddToWatchlistButtonOnTrayContentCard("Trending on ZEE5"),
 						"Add To Watchlist icon on tray 1st content card");
 				if (verifyElementExist(PWAHomePage.objLoginRequiredPopUpHeader, "Login Required PopUp Header")) {
@@ -11129,11 +11131,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					logger.info(
 							"Login popup is not displayed when clicked on 'Add to Watchlist' icon on tray content card");
 				}
-
 			}
 			verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "Zee5 Logo");
 		}
-
+		extent.HeaderChildNode("Validating Continue Watching Tray for Guest User");
 		waitTime(3000);
 		if (verifyElementExist(PWAHomePage.objContinueWatchingTray, "Continue Watching tray") == false) {
 			extent.extentLogger("Verify Continue Watching tray",
@@ -11146,6 +11147,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("Continue watching tray is displaying for guest user");
 		}
 //		validateDisplayLanguagePopup();
+		extent.HeaderChildNode("Validating Add to Reminder button for Guest User");
 		// Verify Add to Reminder is not displayed for guest user
 		// Click on live tv tab
 		if (getPlatform().equalsIgnoreCase("Android")) {

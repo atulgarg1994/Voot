@@ -14,14 +14,14 @@ public class Android_ExitPop {
 	@BeforeTest
 	public void AppLaunch() throws InterruptedException {
 		System.out.println("Launching Andriod App");
-		Utilities.relaunch = true;	// Clear App Data on First Launch
+		Utilities.relaunch = true; // Clear App Data on First Launch
 		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
 
-	
 	@Test(priority = 0)
-	@Parameters({ "userType" }) 
-	public void accessDeviceLocation(String userType) throws Exception {
+	@Parameters({ "userType" })
+	public void Login(String userType) throws Exception {
+
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
@@ -29,14 +29,15 @@ public class Android_ExitPop {
 
 	@Test(priority = 1)
 	@Parameters({ "userType" })
-	public void ExitModule(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.verifyDisplayLanguageScreenExitPopup(userType);
-		
+	public void ExipPopup(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.verifyDisplayLanguageScreenExitPopup(userType);// Only for Guest User
+		ZEE5ApplicasterBusinessLogic.verifyExitPopupInAnyOfTheLandingScreen(userType);
 	}
+
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println("Quit the App");
+		System.out.println("\nQuit the App\n");
 		ZEE5ApplicasterBusinessLogic.tearDown();
 	}
-	
+
 }

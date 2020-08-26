@@ -250,9 +250,10 @@ public class PWALiveTVPage {
 	public static By objShowName2 = By.xpath(
 			"(//*[@title=\"Zee Keralam\"]//parent::*//parent::*//following-sibling::*//following-sibling::*)[1]");
 	public static By objShowDesc = By.xpath("//div[@class='programDescription']");
+
 	// Movie name
-	public static By objMovieShow = By
-			.xpath("(//*[@title=\"Zee Cinemalu\"]//parent::*//parent::*//following-sibling::*//div)[2]");
+	public static By objMovieShow = By.xpath(
+			"(//*[@title=\"Zee Cinemalu\" or @title=\"Zee Picchar\" or @title=\"Zee Cinema\" or @title=\"Zee Talkies\"]//parent::*//parent::*//following-sibling::*//div)[2]");
 
 	public static By objLiveTVMenu = By.xpath("//a[contains(text(),'Live TV')]");
 
@@ -320,5 +321,12 @@ public class PWALiveTVPage {
 	public static By objTwitterOpenWith = By.xpath("//*[@text='Twitter']");
 
 	public static By objTwitterLoginButton = By.xpath("//div[@role=\"button\"]//span[text()='Log in']");
+
+	public static By objOngoingLiveTvShowTitles = By
+			.xpath("//div[@class='programInner active']/child::*/child::div[@class='title']");
+
+	public static By objOngoingLiveTvShowTitles(int i) {
+		return By.xpath("(//div[@class='programInner active'])[" + i + "]/child::*/child::div[@class='title']");
+	}
 
 }

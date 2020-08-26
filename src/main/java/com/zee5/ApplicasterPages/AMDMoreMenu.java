@@ -164,5 +164,8 @@ public class AMDMoreMenu {
 	public static By objPrivacyPolicyHeaderText= By.xpath("//*[@text='Privacy Policy' and @class='android.view.View']");
 	
 	public static By objPrepaidCodePopUp = By.xpath("//*[@id='txt_prepaid_code']");
+	
+	public static By objDisplayLanguageOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/displayLanguage']");
+	public static By objContentLanguageOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/contentLanguage']");
 
 }

@@ -190,7 +190,8 @@ public class PWAHamburgerMenuPage {
 	public static By objMyTransactionPackStatus = By.xpath("//div[@class='billRow']//p[2]");
 
 	// Buy Subscription Option
-	public static By objBuySubscriptionOption = By.xpath("//*[contains(@class,'menuItem') and contains(text(),'Buy Subscription')]");
+	public static By objBuySubscriptionOption = By
+			.xpath("//*[contains(@class,'menuItem') and contains(text(),'Buy Subscription')]");
 
 	public static By objProfileIconWEB = By.xpath("(//button[.='Open Menu'])[2]");
 	public static By objMyAccountOption = By.xpath("//div[contains(@class,'menuForMyAccount')]");
@@ -495,11 +496,13 @@ public class PWAHamburgerMenuPage {
 
 	public static By objMyTransactionPage = By.xpath("//*[@class='pageTitle' and //*[text()='My Transactions']]");
 
-	public static By objGetPremiumPopup = By.xpath("//h2[contains(@class,'popupTitle bigTitle')]//p[text()='Subscribe']");
+	public static By objGetPremiumPopup = By
+			.xpath("//h2[contains(@class,'popupTitle bigTitle')]//p[text()='Subscribe']");
 
 	public static By objPopupClose = By.xpath("//*[@class='noSelect closePupup iconInitialLoad-ic_close']");
 
-	public static By objSubscribeNowLink = By.xpath("(//span[contains(@class,'subscribe-link') and contains(text(),'Subscribe to')])[1]");
+	public static By objSubscribeNowLink = By
+			.xpath("(//span[contains(@class,'subscribe-link') and contains(text(),'Subscribe to')])[1]");
 
 	public static By objLanguageBtn = By.xpath("//*[@class='noSelect menuItem  languageMenu ']");
 
@@ -588,7 +591,7 @@ public class PWAHamburgerMenuPage {
 
 	// terms of use in Sign up screen
 	public static By objTermsOfServicesInSignupScreen = By.xpath("//span[text()='Terms of Services']");
-	
+
 	// Privacy policy in Sign up screen
 	public static By objPrivacyPolicyInSignupScreen = By.xpath("//span[text()='Privacy Policy']");
 
@@ -596,18 +599,20 @@ public class PWAHamburgerMenuPage {
 			.xpath("//*[contains(@class,'settingleft') and contains(text(),'Display Language')]");
 
 	public static By carouselFirstDot = By.xpath("(//*[contains(@class,'carouselDots')])[1]");
-	
+
 	public static By objArticleTitle(String title) {
-		return By.xpath("//*[contains(@text,'"+title+"')]");
+		return By.xpath("//*[contains(@text,'" + title + "')]");
 	}
-	
+
 	public static By myAccount = By.xpath("//div[contains(@class,'menuTitle')]//*[.='My Account']");
 
 	public static By objContinueButtonInVerifyAccount = By.xpath("//div[@class='noSelect popupBtn' and .='Continue']");
-	
+
 	public static By objTermsInKannada2 = By.xpath("//div[@class='menuGroup active'][2]//a[3]");
 
 	public static By objPrivacyPolicyInKannadA2 = By.xpath("//div[@class='menuGroup active'][2]//a[4]");
 
 	public static By objAboutUsinKannada2 = By.xpath("//div[@class='menuGroup active'][2]//a[1]");
+
+	public static By objMyProfile = By.xpath("//div[contains(@class,'userEmail')]");
 }
