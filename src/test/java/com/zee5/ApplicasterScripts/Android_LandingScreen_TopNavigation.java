@@ -32,15 +32,14 @@ public class Android_LandingScreen_TopNavigation {
 	public void Home_LandingScreen(String userType, String tabName1) throws Exception {
 		System.out.println("\n---Verify Home landing screen---\n");
 		ZEE5ApplicasterBusinessLogic.homeLandingScreen(userType, tabName1);
-
 	}
 
-//	@Test(priority = 2)
+	@Test(priority = 2)
 	@Parameters({ "userType" }) // Bindu
 	public void Shows_LandinScreen(String userType) throws Exception {
 		System.out.println("\n---Verify Shows landing screen---\n");
 		ZEE5ApplicasterBusinessLogic.verifyShowsScreen(userType);
-		 ZEE5ApplicasterBusinessLogic.verifyConsumptionScreenOfBeforeTVContent(userType);
+		ZEE5ApplicasterBusinessLogic.verifyConsumptionScreenOfBeforeTVContent(userType);
 	}
 
 	@Test(priority = 3) // Sushma
@@ -57,14 +56,12 @@ public class Android_LandingScreen_TopNavigation {
 		ZEE5ApplicasterBusinessLogic.PremiumTabScreen(userType);
 	}
 
-//	@Test(priority = 5)
+	@Test(priority = 5)
 	@Parameters({ "userType" }) // Bindu
 	public void News_LandingScreen(String userType) throws Exception {
 		System.out.println("\n---Verify News landing screen---\n");
 		ZEE5ApplicasterBusinessLogic.relaunch(false);
-		if(userType.equalsIgnoreCase("Guest")) {
-			ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
-		}
+		ZEE5ApplicasterBusinessLogic.navigateToHomecreenFromIntroScreen();
 		ZEE5ApplicasterBusinessLogic.verifyNewsLandingScreen(userType);
 		ZEE5ApplicasterBusinessLogic.verifyTraysInNewsScreen(userType);
 		ZEE5ApplicasterBusinessLogic.verifyListingCollectionScreen(userType);
@@ -74,10 +71,7 @@ public class Android_LandingScreen_TopNavigation {
 	@Parameters({ "userType" }) // Vinay
 	public void Kids_LandingScreen(String userType) throws Exception {
 		System.out.println("\n---Verify Kids landing screen---\n");
-		ZEE5ApplicasterBusinessLogic.relaunch(false);
-		if(userType.equalsIgnoreCase("Guest")) {
-			ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
-		}
+//		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.KidsTabScreen(userType);
 	}
 
@@ -104,7 +98,7 @@ public class Android_LandingScreen_TopNavigation {
 
 	@Test(priority = 10)
 	@Parameters({ "userType", "tabName3" }) // Manasa
-	public void Zee5Originals_LandingScreen( String userType, String tabName) throws Exception {
+	public void Zee5Originals_LandingScreen(String userType, String tabName) throws Exception {
 		System.out.println("\nVerify Zee5 Originals Landing Screen");
 		ZEE5ApplicasterBusinessLogic.zee5OriginalsLandingScreen(userType, tabName);
 

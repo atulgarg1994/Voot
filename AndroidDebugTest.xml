@@ -7,7 +7,7 @@
 		<parameter name="runMode" value="${runMode}"/>
 		<parameter name="runModule" value="${runModule}"/> -->
 
-	<parameter name="userType" value="Guest"/>  <!-- Guest/NonSubscribedUser/SubscribedUser -->
+	<parameter name="userType" value="NonSubscribedUser"/>  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite"/>
 	<parameter name="runMode" value="Suites"/>
 	
@@ -47,7 +47,7 @@
 	<parameter name="PrepaidCode" value="Z5PWATI9WlD"/>
 	<parameter name="RSVODUser" value="9663128823" />
 	<parameter name="RSVODPassword" value="ABCD1234" />
-	<parameter name="searchKeyword" value="Aditya praises paaru" />
+	<parameter name="searchKeyword" value="Aditya praises Paaru" />
 	<parameter name="invalidSearchKeyword" value="@$_-(;_+" />
 	<parameter name="partlySpeltSearchKeyword" value="Kam" />
 	<parameter name="searchModuleKeyword" value="Kamali" />
@@ -65,6 +65,12 @@
 	<parameter name="searchcontent4" value="Comedy Kiladigalu Championship - Episode 9" />
 	<parameter name="searchcontent5" value="Comedy Kiladigalu Championship - Episode 10" />
 	<parameter name="searchcontent6" value="Comedy Kiladigalu Championship - Episode 11" />
+	
+	<parameter name="NonsubscribedUserWithInActivePackUsername" value="zeetestww@test.com" />
+	<parameter name="NonsubscribedUserWithInActivePackPassword" value="123456" />
+	
+	<parameter name="NonsubscribedUserWithNoTransactionUsername" value="zeebuild@gmail.com" />
+	<parameter name="NonsubscribedUserWithNoTransactionPassword" value="User@123" />
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
@@ -85,9 +91,9 @@
 	<!-- <test name="DeepLinkValidation"> <classes> <class name="com.zee5.ApplicasterScripts.DeepLinkValidation"/> 
 		</classes> </test> -->
 
-	<test name="Android_Downloads">
+	<test name="Android_MoreScreen">
 		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_Downloads" />
+			<class name="com.zee5.ApplicasterScripts.Android_MoreScreen" />
 		</classes>
 	</test>
 

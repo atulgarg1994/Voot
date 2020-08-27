@@ -45,26 +45,15 @@
   <parameter name="RegisteredMobilePassword" value="User@123"/>
   <parameter name="RegisteredEmailPassword" value="User@123"/>
   <parameter name="SubscribedUserWith15daysExpiryUsername" value="testzee5_4@gmail.com"/>
-  <parameter name="userType" value="Guest"/>
+  <parameter name="userType" value="NonSubscribedUser"/>
   <parameter name="LastName" value="UserZee"/>
   <parameter name="RegisteredMobile" value="7892215214"/>
   <listeners>
     <listener class-name="com.extent.ExtentReporter"/>
   </listeners>
-  <test name="Android_LandingScreen_TopNavigation">
+  <test name="Android_MoreScreen">
     <classes>
-      <class name="com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation"/>
+      <class name="com.zee5.ApplicasterScripts.Android_MoreScreen"/>
     </classes>
-  </test> <!-- Android_LandingScreen_TopNavigation -->
-  <test name="Android_LandingScreen_TopNavigation(failed)">
-    <classes>
-      <class name="com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation">
-        <methods>
-          <include name="tearDownApp"/>
-          <include name="Home_LandingScreen" invocation-numbers="0"/>
-          <include name="AppLaunch"/>
-        </methods>
-      </class> <!-- com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation -->
-    </classes>
-  </test> <!-- Android_LandingScreen_TopNavigation(failed) -->
+  </test> <!-- Android_MoreScreen -->
 </suite> <!-- Failed suite [Android] -->

@@ -196,7 +196,6 @@ public class ResponseInstance {
 			respReco = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else {
-			System.out.println("Incorrect user type passed to method");
 		}
 		respReco.body().print();
 		return respReco;
@@ -528,7 +527,9 @@ public class ResponseInstance {
 		
 		String xAccessToken = getXAccessTokenWithApiKey();
 		
-		if (userType.equalsIgnoreCase("SubscribedUser")) {
+		if (userType.equalsIgnoreCase("Guest")) {
+			respCW= given().headers("x-access-token", xAccessToken).when().get(Uri);
+		}else if (userType.equalsIgnoreCase("SubscribedUser")) {
 //			String email = "zeetest998@test.com";
 //			String password = "123456";
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -552,7 +553,6 @@ public class ResponseInstance {
 		} else {
 			System.out.println("Incorrect user type passed to method");
 		}
-		
 		return respCW;
 	}
 }

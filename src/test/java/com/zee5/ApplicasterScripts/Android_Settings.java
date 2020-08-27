@@ -30,12 +30,14 @@ public class Android_Settings {
 
 	@Test(priority = 1)
 	@Parameters({ "userType", "displayLanguageSelection1", "displayLanguageSelection2" })
-	public void Setting_Screen(String userType, String displayLanguageSelection1, String displayLanguageSelection2) throws Exception {
+	public void Setting_Screen(String userType, String displayLanguageSelection1, String displayLanguageSelection2)
+			throws Exception {
 
 		ZEE5ApplicasterBusinessLogic.settings(userType);
-		ZEE5ApplicasterBusinessLogic.videoStreamingValidation();
+		ZEE5ApplicasterBusinessLogic.videoStreamingValidation(userType);
 		ZEE5ApplicasterBusinessLogic.settings_Language(displayLanguageSelection1, displayLanguageSelection2);
 	}
+
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("Quit the App");

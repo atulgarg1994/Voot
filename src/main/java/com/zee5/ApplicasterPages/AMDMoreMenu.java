@@ -168,4 +168,24 @@ public class AMDMoreMenu {
 	public static By objDisplayLanguageOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/displayLanguage']");
 	public static By objContentLanguageOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/contentLanguage']");
 
+	public static By objSearchResult(String title) {
+		return By.xpath("//*[@id='item_primary_text' and contains(text(), '"+title+"')]");
+	}
+	
+	public static By objshareOptions = By.xpath("//*[@id='resolver_slide']");
+	
+	public static By objWhatsAppMessage = By.xpath("//*[@id='content' and ./*[@text='WhatsApp']]");
+	
+	public static By objTransactionDate1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_invoicedate'])[1]");
+	public static By objTransactionPackName1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_txt_allaccesspack'])[1]");
+	public static By objTransactionPackDuration1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_duration'])[1]");
+	public static By objTransactionPackRental1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_amount'])[1]");
+	public static By objTransactionPackPaymentMode1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_paymentmode'])[1]");
+	public static By objTransactionPackCountry1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_countryvalue'])[1]");
+	public static By objTransactionPackAutoRenewal1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_renewl_type'])[1]");
+	public static By objTransactionPackStatus1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_status_value'])[1]");
+	public static By objDownloadInvoice1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/btn_dialog_done'])[1]");
+	
+	public static By objSubscribeNowCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_sub_now']");
+	public static By objMyTransactionsHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and contains(text(),'My Transactions')]");
 }

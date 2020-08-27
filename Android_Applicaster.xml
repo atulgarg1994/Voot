@@ -48,10 +48,10 @@
 	<parameter name="PrepaidCode" value="Z5PWATI9WlD"/>
 	<parameter name="RSVODUser" value="9663128823" />
 	<parameter name="RSVODPassword" value="ABCD1234" />
-	<parameter name="searchKeyword" value="Aditya praises paaru" />
 	<parameter name="invalidSearchKeyword" value="@$_-(;_+" />
 	<parameter name="partlySpeltSearchKeyword" value="Kam" />
 	<parameter name="searchModuleKeyword" value="Kamali" />
+	<parameter name="searchKeyword" value="Aditya praises Paaru" />
 	
 	<parameter name="tabName1" value="Home" />
 	<parameter name="tabName2" value="Movies" />
@@ -66,6 +66,12 @@
 	<parameter name="searchcontent4" value="Comedy Kiladigalu Championship - Episode 9" />
 	<parameter name="searchcontent5" value="Comedy Kiladigalu Championship - Episode 10" />
 	<parameter name="searchcontent6" value="Comedy Kiladigalu Championship - Episode 11" />
+	
+	<parameter name="NonsubscribedUserWithInActivePackUsername" value="zeetestww@test.com" />
+	<parameter name="NonsubscribedUserWithInActivePackPassword" value="123456" />
+	
+	<parameter name="NonsubscribedUserWithNoTransactionUsername" value="zeebuild@gmail.com" />
+	<parameter name="NonsubscribedUserWithNoTransactionPassword" value="User@123" />
 	
 	
 	<listeners>

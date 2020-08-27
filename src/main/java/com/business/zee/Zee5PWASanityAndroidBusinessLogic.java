@@ -1936,8 +1936,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				// Verify Recommended trays in consumptions page
 				if (verifyElementExist(PWAMusicPage.objRecommendedTrayHeader, "Recommended Videos tray")) {
 					logger.info("Verified that Recommended Videos tray is displayed in Music Consumptions page");
-					extent.extentLogger("Recommended tray",
-							"Verified that Recommended Videos tray is displayed in Music Consumptions page");
+					extent.extentLogger("Recommended tray","Verified that Recommended Videos tray is displayed in Music Consumptions page");
 				} else {
 					logger.error("Recommended Videos is not displayed in Music Consumptions page");
 					extent.extentLoggerFail("Recommended tray",

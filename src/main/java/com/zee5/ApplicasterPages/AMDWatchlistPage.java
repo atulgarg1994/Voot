@@ -25,6 +25,7 @@ public class AMDWatchlistPage {
 	}
 	public static By objEpisodeCount = By.xpath("//*[@id='txt_episode_duration']");
 	public static By objSelectCheckBox = By.xpath("//*[@id='check_box_item_selector']");
+	
 	public static By objSelectContentByIndex(int i) {
 		return By.xpath("(//*[@id='check_box_item_selector'])["+i+"]");
 	}
@@ -36,9 +37,13 @@ public class AMDWatchlistPage {
 	
 	public static By objNumberOfTabs = By.xpath("//*[@class='android.support.v7.app.ActionBar$b']");
 	
-	public static By objDurationtxt = By.xpath("(//*[@id='skip_link']//ancestor::*[@class='android.widget.RelativeLayout']//following-sibling::*[@class='android.view.ViewGroup']//following-sibling::*[@id='txt_episode_duration'])[2]");
+	public static By objDurationtxt = By.xpath("(//*[@id='skip_link']//ancestor::*[@class='android.widget.RelativeLayout']//following-sibling::*[@class='android.view.ViewGroup']//following-sibling::*[@id='txt_episode_duration'])");
 	
-	public static By objTitleTxt = By.xpath("(//*[@id='skip_link']//ancestor::*[@class='android.widget.RelativeLayout']//following-sibling::*[@class='android.view.ViewGroup']//following::*[@id='txt_reminder_item_title'])[2]");
+	public static By objTitleTxt = By.xpath("(//*[@id='skip_link']//ancestor::*[@class='android.widget.RelativeLayout']//following-sibling::*[@class='android.view.ViewGroup']//following::*[@id='txt_reminder_item_title'])");
 	
 	public static By objSelectedTab = By.xpath("(//*[@class='android.support.v7.app.ActionBar$b']//*[@class='android.widget.TextView' and @selected='true'])");
+
+	public static By objPlayerScreen = By.xpath("//*[@id='exo_overlay']");
+	
+	public static By objWatchlistIcon = By.xpath("//*[@id='watchListView']");
 }

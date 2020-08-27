@@ -55,7 +55,7 @@ public class Utilities extends ExtentReporter {
 	public TouchAction touchAction;
 
 	private SoftAssert softAssert = new SoftAssert();
-	
+
 	public static boolean relaunch = false;
 
 	/** The Constant logger. */
@@ -97,19 +97,18 @@ public class Utilities extends ExtentReporter {
 	static WebDriverWait wait;
 
 	public static JavascriptExecutor js;
-	
+
 	public void initDriver() {
 		if (getPlatform().equals("Web")) {
 			wait = new WebDriverWait(getWebDriver(), getTimeout());
-			js = (JavascriptExecutor)getWebDriver();
+			js = (JavascriptExecutor) getWebDriver();
 		} else if (getPlatform().equals("Android") || getPlatform().equals("MPWA")) {
 			wait = new WebDriverWait(getDriver(), getTimeout());
-			js = (JavascriptExecutor)getDriver();
+			js = (JavascriptExecutor) getDriver();
 		}
 	}
 
-
-	public void JSClick(By byLocator,String text) {
+	public void JSClick(By byLocator, String text) {
 		try {
 			js.executeScript("arguments[0].click();", findElement(byLocator));
 			logger.info("" + text + " " + " is clicked");
@@ -120,7 +119,7 @@ public class Utilities extends ExtentReporter {
 			screencapture();
 		}
 	}
-	
+
 	public WebElement findElement(By byLocator) throws Exception {
 //		try{
 		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(byLocator));
@@ -223,9 +222,10 @@ public class Utilities extends ExtentReporter {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * boolean return type for conditions
+	 * 
 	 * @param byLocator
 	 * @return
 	 * @throws Exception
@@ -255,7 +255,7 @@ public class Utilities extends ExtentReporter {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Check element present and click.
 	 *
@@ -345,13 +345,13 @@ public class Utilities extends ExtentReporter {
 		Value = element.getText();
 		return Value;
 	}
-	
+
 	public void hidePwdKeyboard() {
 		try {
-			
-			if(getDriver().findElement(AMDGenericObjects.objHideKeyboard).isDisplayed()) {
+
+			if (getDriver().findElement(AMDGenericObjects.objHideKeyboard).isDisplayed()) {
 				click(AMDGenericObjects.objHideKeyboard, "HideKeyboard");
-			}else {
+			} else {
 				getDriver().hideKeyboard();
 			}
 			logger.info("Hiding keyboard was Successfull");
@@ -390,29 +390,29 @@ public class Utilities extends ExtentReporter {
 		getDriver().context("WEBVIEW_1");
 		return Otp;
 	}
-	
+
 	@SuppressWarnings("finally")
 	public boolean verifyElementIsNotDisplayed(By by) {
-	    try {
-	    	getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-	        return getDriver().findElements(by).isEmpty();
-	    } finally {
-	    	getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	    	return false;
-	    }
+		try {
+			getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+			return getDriver().findElements(by).isEmpty();
+		} finally {
+			getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			return false;
+		}
 	}
-	
+
 	public static boolean verifyIsElementDisplayed(By by) {
 		getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 		List<WebElement> list = getDriver().findElements(by);
 		getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		if (list.size() == 0) {
-	        return false;
-	    } else {
-	        return list.get(0).isDisplayed();
-	    }
+			return false;
+		} else {
+			return list.get(0).isDisplayed();
+		}
 	}
-	
+
 	public boolean checkElementExist(By byLocator) throws Exception {
 		try {
 			WebElement element = findElement(byLocator);
@@ -503,9 +503,9 @@ public class Utilities extends ExtentReporter {
 		try {
 			WebElement element = findElement(byLocator);
 			element.sendKeys(text);
-			text=text.split("\n")[0];
-			logger.info("Typed the value "+text+" into "+ FieldName);
-			extent.extentLogger("", "Typed the value "+text+" into "+ FieldName);
+			text = text.split("\n")[0];
+			logger.info("Typed the value " + text + " into " + FieldName);
+			extent.extentLogger("", "Typed the value " + text + " into " + FieldName);
 		} catch (Exception e) {
 			logger.error(e);
 		}
@@ -569,13 +569,13 @@ public class Utilities extends ExtentReporter {
 	}
 
 	public List<WebElement> findElements(By byLocator) {
-		if(getPlatform().equals("Android")  || getPlatform().equals("MPWA")) {
+		if (getPlatform().equals("Android") || getPlatform().equals("MPWA")) {
 			return getDriver().findElements(byLocator);
-		}else {
+		} else {
 			return getWebDriver().findElements(byLocator);
 		}
 	}
-	
+
 	/**
 	 * @param i
 	 * @param byLocator
@@ -607,12 +607,12 @@ public class Utilities extends ExtentReporter {
 
 		try {
 			if (getPlatform().equals("Web")) {
-			for (int i = 0; i < x; i++) {
-				getWebDriver().navigate().back();
-				logger.info("Back button is tapped");
-				extent.extentLogger("Back", "Back button is tapped");
-			}
-			}else if (getPlatform().equals("Android") || getPlatform().equals("MPWA")) {
+				for (int i = 0; i < x; i++) {
+					getWebDriver().navigate().back();
+					logger.info("Back button is tapped");
+					extent.extentLogger("Back", "Back button is tapped");
+				}
+			} else if (getPlatform().equals("Android") || getPlatform().equals("MPWA")) {
 				for (int i = 0; i < x; i++) {
 					getDriver().navigate().back();
 					logger.info("Back button is tapped");
@@ -892,7 +892,7 @@ public class Utilities extends ExtentReporter {
 		}
 
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public void SwipeRail(By From) throws Exception {
 
@@ -976,7 +976,7 @@ public class Utilities extends ExtentReporter {
 					logger.info("Swiping screen in " + " " + dire + " direction" + " " + (j + 1) + " times");
 					extent.extentLogger("SwipeDown",
 							"Swiping screen in " + " " + dire + " direction" + " " + (j + 1) + " times");
-					
+
 				}
 			}
 
@@ -985,26 +985,26 @@ public class Utilities extends ExtentReporter {
 
 		}
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public void SwipeRailContentCards(By From) throws Exception {
 
 		Dimension size = getDriver().manage().window().getSize();
 		int screenWidth = (int) (size.width * 0.8);
-		
+
 		WebElement element = findElement(From);
 		String eleX = element.getAttribute("x");
 		String eleY = element.getAttribute("y");
 		int currentPosX = Integer.parseInt(eleX);
 		int currentPosY = Integer.parseInt(eleY);
-		
+
 		currentPosX = currentPosX + screenWidth;
 		currentPosY = currentPosY + 150;
-		
+
 		touchAction = new TouchAction(getDriver());
 		touchAction.press(PointOption.point(currentPosX, currentPosY))
-		.waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000))).moveTo(PointOption.point(0, currentPosY))
-		.release().perform();
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000))).moveTo(PointOption.point(0, currentPosY))
+				.release().perform();
 	}
 
 	/**
@@ -1185,26 +1185,18 @@ public class Utilities extends ExtentReporter {
 		return Value;
 	}
 
-	/*public void captureScreenshotAndCompare(String SSName) throws InterruptedException {
-		Thread.sleep(10000);
-		File src = getDriver().getScreenshotAs(OutputType.FILE);
-		String dir = System.getProperty("user.dir");
-		String fileName = dir + "/Applitool/baseLine/" + SSName + ".png";
-		System.out.println(fileName);
-		try {
-			FileUtils.copyFile(src, new File(fileName));
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-		BufferedImage img;
-		try {
-			img = ImageIO.read(new File(fileName));
-			getEye().checkImage(img, SSName);
-			extent.extentLogger("UI Validation", "UI for " + SSName + " is validated");
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-	}*/
+	/*
+	 * public void captureScreenshotAndCompare(String SSName) throws
+	 * InterruptedException { Thread.sleep(10000); File src =
+	 * getDriver().getScreenshotAs(OutputType.FILE); String dir =
+	 * System.getProperty("user.dir"); String fileName = dir +
+	 * "/Applitool/baseLine/" + SSName + ".png"; System.out.println(fileName); try {
+	 * FileUtils.copyFile(src, new File(fileName)); } catch (IOException e) {
+	 * System.out.println(e.getMessage()); } BufferedImage img; try { img =
+	 * ImageIO.read(new File(fileName)); getEye().checkImage(img, SSName);
+	 * extent.extentLogger("UI Validation", "UI for " + SSName + " is validated"); }
+	 * catch (IOException e) { System.out.println(e.getMessage()); } }
+	 */
 
 	public void SwipeAnElement(WebElement element, int posx, int posy) {
 		AndroidTouchAction touch = new AndroidTouchAction(getDriver());
@@ -1250,9 +1242,7 @@ public class Utilities extends ExtentReporter {
 		}
 		return iselementPresent;
 	}
-	
 
-	
 //====================================================================================================================================
 	/** ::::::::::::::::Web Utilities:::::::::::: */
 
@@ -1378,13 +1368,14 @@ public class Utilities extends ExtentReporter {
 	public static void scrollToBottomOfPage() {
 		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
 	}
+
 	/**
 	 * Function to scroll to top of the page
 	 */
 	public static void scrollToTopOfPageWEB() {
 		js.executeScript("window.scrollBy(0,-250)", "");
 	}
-	
+
 	public static void scrollToTopOfPage() {
 		js.executeScript("window.scrollBy(0,-250)", "");
 	}
@@ -1478,7 +1469,7 @@ public class Utilities extends ExtentReporter {
 		StringBuilder strRandomNumber = new StringBuilder(9);
 		strRandomNumber.append(strNumbers.charAt(rnd.nextInt(strNumbers.length())));
 		String s1 = strRandomNumber.toString().toUpperCase();
-		for (int i = 1; i <size; i++) {
+		for (int i = 1; i < size; i++) {
 			strRandomNumber.append(strNumbers.charAt(rnd.nextInt(strNumbers.length())));
 		}
 		return s1 + strRandomNumber.toString();
@@ -1584,31 +1575,27 @@ public class Utilities extends ExtentReporter {
 
 		}
 	}
-	
-	
-	public static int timeToSec(String s) {
-	    String[] t = s.split(":");
-	    int num=0;
-	    System.out.println(t.length);
-	    
-	    if(t.length == 2)
-	    {
-	    	num =  Integer.parseInt(t[0]) * 60 + Integer.parseInt(t[1]); // minutes since 00:00	    	
-	    }
-	    if(t.length == 3)
-	    {
-	    	num = (( Integer.parseInt(t[0]) * 60 ) * 60 ) + Integer.parseInt(t[1]) * 60 + Integer.parseInt(t[2]);
-	    }
 
-	    return num;
+	public static int timeToSec(String s) {
+		String[] t = s.split(":");
+		int num = 0;
+		System.out.println(t.length);
+
+		if (t.length == 2) {
+			num = Integer.parseInt(t[0]) * 60 + Integer.parseInt(t[1]); // minutes since 00:00
+		}
+		if (t.length == 3) {
+			num = ((Integer.parseInt(t[0]) * 60) * 60) + Integer.parseInt(t[1]) * 60 + Integer.parseInt(t[2]);
+		}
+
+		return num;
 	}
 
 	public static void partialScrollDown() {
 		JavascriptExecutor jse = (JavascriptExecutor) getWebDriver();
 		jse.executeScript("window.scrollBy(0,500)", "");
 	}
-	
-	
+
 	public void clickByElement(WebElement ele, String validationtext) throws Exception {
 		try {
 			WebElement element = ele;
@@ -1620,8 +1607,7 @@ public class Utilities extends ExtentReporter {
 			screencapture();
 		}
 	}
-	
-	
+
 	public boolean verifyElementEnabled(By byLocator, String str) throws Exception {
 
 		try {
@@ -1638,8 +1624,7 @@ public class Utilities extends ExtentReporter {
 		}
 		return false;
 	}
-	
-	
+
 	public int getCountweb(By byLocator) {
 
 		int count = 0;
@@ -1652,11 +1637,11 @@ public class Utilities extends ExtentReporter {
 		}
 		return count;
 	}
-	
-	
-	public boolean waitForElementAndClickIfPresent(By locator, int seconds, String message) throws InterruptedException {
-		try{
-			if(getPlatform().equals("Web")){
+
+	public boolean waitForElementAndClickIfPresent(By locator, int seconds, String message)
+			throws InterruptedException {
+		try {
+			if (getPlatform().equals("Web")) {
 				for (int time = 0; time <= seconds; time++) {
 					try {
 						getWebDriver().findElement(locator).click();
@@ -1666,8 +1651,8 @@ public class Utilities extends ExtentReporter {
 					} catch (Exception e) {
 						Thread.sleep(1000);
 					}
-				}				
-			}else if(getPlatform().equals("Android") || getPlatform().equals("MPWA")){
+				}
+			} else if (getPlatform().equals("Android") || getPlatform().equals("MPWA")) {
 				for (int time = 0; time <= seconds; time++) {
 					try {
 						getDriver().findElement(locator).click();
@@ -1679,31 +1664,26 @@ public class Utilities extends ExtentReporter {
 					}
 				}
 			}
-		}catch(Exception e)
-		{
+		} catch (Exception e) {
 			logger.error(e);
 			screencapture();
 		}
 		return false;
 	}
-	
-	public String  RandomStringGenerator(int n) {
+
+	public String RandomStringGenerator(int n) {
 		{
-			
+
 			String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";
 			StringBuilder sb = new StringBuilder(n);
 			for (int i = 0; i < n; i++) {
-				int index
-					= (int)(AlphaNumericString.length()
-							* Math.random());
-				
-				sb.append(AlphaNumericString
-							.charAt(index));
+				int index = (int) (AlphaNumericString.length() * Math.random());
+
+				sb.append(AlphaNumericString.charAt(index));
 			}
 			return sb.toString();
 		}
 	}
-
 
 	public void swipeToBottomOfPage() throws Exception {
 		for (int i = 0; i < 5; i++) {
@@ -1711,14 +1691,13 @@ public class Utilities extends ExtentReporter {
 			waitTime(4000);
 		}
 	}
-	
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void androidSwitchTab() {
 		ArrayList<String> window = new ArrayList(getDriver().getWindowHandles());
 		getDriver().switchTo().window(window.get(window.size() - 1));
 	}
-	
+
 	/**
 	 * Function to switch to parent Window
 	 */
@@ -1731,8 +1710,7 @@ public class Utilities extends ExtentReporter {
 			System.out.println("\n No window is displayed!");
 		}
 	}
-	
-	
+
 	public static String getTheOSVersion() {
 		String version = null;
 		try {
@@ -1752,38 +1730,32 @@ public class Utilities extends ExtentReporter {
 		return version;
 	}
 
-
-	
-	public void TurnOFFWifi() throws IOException
-	{
+	public void TurnOFFWifi() throws IOException {
 		String Deviceversion = getTheOSVersion();
 		System.out.println("Turn off wifi");
-		 if(Deviceversion.contains("6"))
-         {
-	            Runtime.getRuntime().exec("adb shell am broadcast -a io.appium.settings.wifi --es setstatus disable");
-	            logger.info("Turning off wifi");
-	            extent.extentLogger("Turning off wifi", "Turning off wifi");
-         }else{
-	            Runtime.getRuntime().exec("adb shell svc wifi disable");	            	
-	            logger.info("Turning off wifi");
-	            extent.extentLogger("Turning off wifi", "Turning off wifi");
-         }
+		if (Deviceversion.contains("6")) {
+			Runtime.getRuntime().exec("adb shell am broadcast -a io.appium.settings.wifi --es setstatus disable");
+			logger.info("Turning off wifi");
+			extent.extentLogger("Turning off wifi", "Turning off wifi");
+		} else {
+			Runtime.getRuntime().exec("adb shell svc wifi disable");
+			logger.info("Turning off wifi");
+			extent.extentLogger("Turning off wifi", "Turning off wifi");
+		}
 	}
 
-	public void TurnONWifi() throws IOException
-	{
+	public void TurnONWifi() throws IOException {
 		String Deviceversion = getTheOSVersion();
 		System.out.println("Turn on wifi");
-		 if(Deviceversion.contains("6"))
-         {
-	            Runtime.getRuntime().exec("adb shell am broadcast -a io.appium.settings.wifi --es setstatus enable");
-	            logger.info("Turning ON wifi");
-	            extent.extentLogger("Turning ON wifi", "Turning ON wifi");
-         }else{
-	            Runtime.getRuntime().exec("adb shell svc wifi enable");	            	
-	            logger.info("Turning ON wifi");
-	            extent.extentLogger("Turning ON wifi", "Turning ON wifi");
-         }
+		if (Deviceversion.contains("6")) {
+			Runtime.getRuntime().exec("adb shell am broadcast -a io.appium.settings.wifi --es setstatus enable");
+			logger.info("Turning ON wifi");
+			extent.extentLogger("Turning ON wifi", "Turning ON wifi");
+		} else {
+			Runtime.getRuntime().exec("adb shell svc wifi enable");
+			logger.info("Turning ON wifi");
+			extent.extentLogger("Turning ON wifi", "Turning ON wifi");
+		}
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -1829,20 +1801,20 @@ public class Utilities extends ExtentReporter {
 							"Swiping screen in " + " " + dire + " direction" + " " + (j + 1) + " times");
 				}
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			logger.error(e);
 
 		}
-  }
-	
+	}
+
 	public void ScrollToTheElementWEB(By element) throws Exception {
 		js.executeScript("arguments[0].scrollIntoView(true);", findElement(element));
 		js.executeScript("window.scrollBy(0,-250)", "");
 	}
-	
+
 	/**
 	 * Function to Initialize mandatoryRegistrationPopUp count to one
+	 * 
 	 * @param userType
 	 */
 	public void mandatoryRegistrationPopUp(String userType) {
@@ -1850,5 +1822,5 @@ public class Utilities extends ExtentReporter {
 			js.executeScript("window.localStorage.setItem('mandatoryRegistrationPopupCount','1')");
 		}
 	}
-	
+
 }
