@@ -156,8 +156,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	public void ZeeWEBPWALogin(String LoginMethod) throws Exception {
 		String UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
 		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
-		extent.HeaderChildNode("Login Functionality for User-Type : " + UserType+", Environment: "+url);
-		
+		extent.HeaderChildNode("Login Functionality for User-Type : " + UserType + ", Environment: " + url);
+
 		if (UserType.equals("Guest")) {
 			extent.extentLogger("userType", "UserType : Guest");
 //			return;
@@ -7441,7 +7441,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		getWebDriver().switchTo().defaultContent();
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+		if(userType.equals("Guest")) {
 		logout();
+		}
 	}
 
 	/**
