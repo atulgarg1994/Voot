@@ -54,12 +54,18 @@ public class AMDGenericObjects {
 	public static By objTrayTitleByIndx(int index) {
 		return By.xpath("(//*[@id='header_primary_text'])[" + index + "]");
 	}
+
 	public static By objPopUpDivider = By.xpath("//*[@id='dialog_divider']");
 	public static By objFirstTrayTitle = By.xpath("(//*[@id='header_primary_text'])[1]");
 	public static By objPremiumTags = By.xpath("//*[@id='special_image_1']");
 	public static By objMetaData = By.xpath(
-				"//*[@id='main_genre_tv'] | //*[@id='release_year_tv'] | //*[@id='duration_tv'] | //*[@id='genresTv'] | //*[@id='ageRatingTv']");
+			"//*[@id='main_genre_tv'] | //*[@id='release_year_tv'] | //*[@id='duration_tv'] | //*[@id='genresTv'] | //*[@id='ageRatingTv']");
+
 	public static By objPageTitle(String title) {
-			return By.xpath("//*[@id='title' and @text='"+title+"']");
+		return By.xpath("//*[@id='title' and @text='" + title + "']");
+	}
+
+	public static By objCarouselTitle(String title) {
+		return By.xpath("//*[@id='item_primary_text'and @text='" + title + "']");
 	}
 }

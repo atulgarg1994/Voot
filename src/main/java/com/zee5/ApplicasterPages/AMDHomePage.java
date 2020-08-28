@@ -178,4 +178,5 @@ public class AMDHomePage {
 	public static By objPauseIconOnPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_pause']");
 	public static By objOpenWithDevicePopUp = By.xpath("//*[@text='Open with']");
 	public static By objAdBannerAboveCarousel =By.xpath("//*[@resource-id='com.graymatrix.did:id/ad_image']//following::*[@id='indicator']");
+	public static By objMaximizeIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_fullscreen']");
 }

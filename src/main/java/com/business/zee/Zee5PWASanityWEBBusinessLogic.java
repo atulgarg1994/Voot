@@ -1185,6 +1185,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				waitTime(5000);
 				getWebDriver().get(URL);
 				waitTime(8000);
+				if (!verifyElementExist(PWALoginPage.objLoginBtnWEB, "Login")) {
+					logout();
+				}
+				waitTime(4000);
 				// SANITY
 				phoneNumberRegistration();
 				emailRegistration();
@@ -1763,17 +1767,17 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					extent.extentLogger("Logged in", "User is successfully changed password and logged in");
 				} else {
 					logger.info("User is not logged in");
-					extentLoggerFail("Logged in", "User is not logged in");
+					extentLoggerWarning("Logged in", "User is not logged in");
 				}
 			} else {
 				logger.info("Reset password link expired");
-				extent.extentLoggerFail("Reset link", "Reset password link expired");
+				extent.extentLoggerWarning("Reset link", "Reset password link expired");
 			}
 		} else {
 			logger.info("User is not received the mail or the mail content is read");
-			extent.extentLoggerFail("Logged in", "User is not received the mail or the mail content is read");
+			extent.extentLoggerWarning("Logged in", "User is not received the mail or the mail content is read");
 			logger.info("User is not logged in");
-			extent.extentLoggerFail("Logged in", "User is not logged in");
+			extent.extentLoggerWarning("Logged in", "User is not logged in");
 		}
 	}
 
@@ -6216,7 +6220,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(5000);
 		scrollDownWEB();
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-		if (verifyElementExist(PWAHamburgerMenuPage.objExploreBtn, "Explore option")) {
+		if (verifyElementExist(PWAHamburgerMenuPage.objExploreBtn, "Explore option")) { //TC_1
 			click(PWAHamburgerMenuPage.objExploreBtn, "Explore option");
 			verifyElementExist(PWAHamburgerMenuPage.objExploreOptions("Premium"), "Premium option");
 			verifyElementExist(PWAHamburgerMenuPage.objExploreOptions("Shows"), "Shows option");

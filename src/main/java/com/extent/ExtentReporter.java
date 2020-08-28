@@ -125,7 +125,7 @@ public class ExtentReporter implements ITestListener {
 	@Override
 	public void onTestStart(ITestResult result) {
 		if ((Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals)
-				&& DriverInstance.startTest) || result.getName().equals("Login") || result.getName().equals("PWAWEBLogin")) { 
+				&& DriverInstance.startTest) || result.getName().equals("Login") || result.getName().equals("PWAWEBLogin")) {
 			logger.info(":::::::::Test " + result.getName() + " Started::::::::");
 			test.set(extent.get().createTest(result.getName()));
 		} else {

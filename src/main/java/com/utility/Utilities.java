@@ -391,15 +391,15 @@ public class Utilities extends ExtentReporter {
 		return Otp;
 	}
 
-	@SuppressWarnings("finally")
 	public boolean verifyElementIsNotDisplayed(By by) {
 		try {
 			getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 			return getDriver().findElements(by).isEmpty();
-		} finally {
+		} catch (Exception e) {
 			getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			System.out.println("CATCH - FALSE");
 			return false;
-		}
+		} 
 	}
 
 	public static boolean verifyIsElementDisplayed(By by) {

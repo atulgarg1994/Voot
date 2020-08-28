@@ -9,7 +9,7 @@ import com.utility.Utilities;
 
 public class ParentalPinValidationForDownloadedContent {
 
-	private Zee5ApplicasterBusinessLogic ZEE5ApplicasterBusinessLogic;
+private Zee5ApplicasterBusinessLogic ZEE5ApplicasterBusinessLogic;
 	
 	@BeforeTest
 	public void AppLaunch() throws InterruptedException {
@@ -34,10 +34,12 @@ public class ParentalPinValidationForDownloadedContent {
 	}
 	
 	@Test(priority = 2)	
-	@Parameters({ "userType","searchKeyword" })	// Manasa
-	public void parentalPinValidation(String userType,String searchKeyword) throws Exception {
+	@Parameters({ "userType","searchKeyword", "searchKeyword1" })	// Manasa
+	public void parentalPinValidation(String userType,String searchKeyword,String searchKeyword1) throws Exception {
 		System.out.println("\nParental Pin Validation");
+		ZEE5ApplicasterBusinessLogic.DownloadOverWiFiOnlyONValidation(userType, searchKeyword1);
 		ZEE5ApplicasterBusinessLogic.parentalPinValidation(userType, searchKeyword);
+		
 	}
 	
 	@AfterTest
