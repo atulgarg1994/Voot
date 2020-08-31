@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Android" duration-ms="109332" started-at="2020-08-26T10:29:26Z" finished-at="2020-08-26T10:31:16Z">
+  <suite name="Android" duration-ms="361461" started-at="2020-08-28T10:09:04Z" finished-at="2020-08-28T10:15:05Z">
     <groups>
     </groups>
-    <test name="Android_MoreScreen" duration-ms="109332" started-at="2020-08-26T10:29:26Z" finished-at="2020-08-26T10:31:16Z">
+    <test name="Android_MoreScreen" duration-ms="361461" started-at="2020-08-28T10:09:04Z" finished-at="2020-08-28T10:15:05Z">
       <class name="com.zee5.ApplicasterScripts.Android_MoreScreen">
-        <test-method status="PASS" signature="AppLaunch()[pri:0, instance:com.zee5.ApplicasterScripts.Android_MoreScreen@7f13d6e]" name="AppLaunch" is-config="true" duration-ms="46791" started-at="2020-08-26T15:59:33Z" finished-at="2020-08-26T16:00:20Z">
+        <test-method status="PASS" signature="AppLaunch()[pri:0, instance:com.zee5.ApplicasterScripts.Android_MoreScreen@7f13d6e]" name="AppLaunch" is-config="true" duration-ms="245765" started-at="2020-08-28T15:39:11Z" finished-at="2020-08-28T15:43:16Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- AppLaunch -->
-        <test-method status="PASS" signature="MyReminders(java.lang.String)[pri:9, instance:com.zee5.ApplicasterScripts.Android_MoreScreen@7f13d6e]" name="MyReminders" duration-ms="48577" started-at="2020-08-26T16:00:20Z" finished-at="2020-08-26T16:01:08Z">
+        <test-method status="PASS" signature="MyWatchlist(java.lang.String)[pri:8, instance:com.zee5.ApplicasterScripts.Android_MoreScreen@7f13d6e]" name="MyWatchlist" duration-ms="99836" started-at="2020-08-28T15:43:16Z" finished-at="2020-08-28T15:44:56Z">
           <params>
             <param index="0">
               <value>
@@ -21,8 +21,8 @@
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- MyReminders -->
-        <test-method status="PASS" signature="tearDownApp()[pri:0, instance:com.zee5.ApplicasterScripts.Android_MoreScreen@7f13d6e]" name="tearDownApp" is-config="true" duration-ms="5245" started-at="2020-08-26T16:01:10Z" finished-at="2020-08-26T16:01:16Z">
+        </test-method> <!-- MyWatchlist -->
+        <test-method status="PASS" signature="tearDownApp()[pri:0, instance:com.zee5.ApplicasterScripts.Android_MoreScreen@7f13d6e]" name="tearDownApp" is-config="true" duration-ms="7862" started-at="2020-08-28T15:44:57Z" finished-at="2020-08-28T15:45:05Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownApp -->

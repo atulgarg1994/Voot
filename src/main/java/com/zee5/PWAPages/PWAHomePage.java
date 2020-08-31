@@ -455,7 +455,8 @@ public class PWAHomePage {
 			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
 
 	// Get premium btn
-	public static By objGetPremium = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')]");
+	public static By objGetPremium = By
+			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'noSelect premiumBtn')]");
 	public static By objWEBGetPremium = By
 			.xpath("//div[contains(@class,'slick-active')]//a[contains(@class,'premiumBtn')]");
 
@@ -467,4 +468,6 @@ public class PWAHomePage {
 
 	public static By objGetPremiumGetClubButton = By
 			.xpath("//div[contains(@class,'slick-active')]//a[contains(@class,'premiumBtn')]");
+
+	public static By obj3xfasterPopUpNoThanks = By.xpath("//*[@text='NO THANKS\\n']");
 }

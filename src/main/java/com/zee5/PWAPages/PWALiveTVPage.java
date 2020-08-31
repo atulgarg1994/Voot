@@ -329,4 +329,36 @@ public class PWALiveTVPage {
 		return By.xpath("(//div[@class='programInner active'])[" + i + "]/child::*/child::div[@class='title']");
 	}
 
+	public static By objChannelForReminder = By.xpath("//img[@title='Zee TV HD']");
+	public static By objShowZEETVHDShow1ForReminder = By.xpath(
+			"(//img[@title='Zee TV HD']//ancestor::*[@class='channelPngDiv']//following-sibling::*[@class='epgOuter']//div[@title])[1]");
+	public static By objShowZEETVHDShow2ForReminder = By.xpath(
+			"(//img[@title='Zee TV HD']//ancestor::*[@class='channelPngDiv']//following-sibling::*[@class='epgOuter']//div[@title])[3]");
+	public static By objeMovieForReminder = By.xpath(
+			"//img[@title='Zee Cinema']//ancestor::div[@class='channelPngDiv']//following-sibling::div[@class='epgOuter']//div[contains(@class,'programOuter')]");
+
+	public static By objOngoingShow(String activeTime) {
+		return By.xpath("//div[@class='timeInterval' and contains(text(),'" + activeTime
+				+ " -')]//ancestor::*[contains(@class,'programInner active')]//div[@class='title']");
+	}
+
+	public static By objOngoingShowTiming(String activeTime) {
+		return By.xpath("//div[@class='timeInterval' and contains(text(),'" + activeTime
+				+ " -')]//ancestor::*[contains(@class,'programInner active')]//div[@class='timeInterval']");
+	}
+
+	public static By objUpcomingShow(String futureTime) {
+		return By.xpath("(//div[@class='timeInterval' and contains(text(),'" + futureTime
+				+ " -')]//ancestor::*[contains(@class,'programOuter')]//div[@class='title'])[2]");
+	}
+
+	public static By objUpcomingShowTiming(String futureTime) {
+		return By.xpath("(//div[@class='timeInterval' and contains(text(),'" + futureTime
+				+ " -')]//ancestor::*[contains(@class,'programOuter')]//div[@class='timeInterval'])[2]");
+	}
+
+	public static By objActiveTimeSlot = By.xpath("//div[@class='timeSlot']//div[@class='active']");
+	public static By objUpcominfTimeSlot = By.xpath(
+			"(//div[@class='timeSlot']//div[@class='active']//parent::*//following-sibling::div[@class='timeSlot']//div)[1]");
+	public static By objEPG = By.xpath("//div[@class='epgOuter']");
 }

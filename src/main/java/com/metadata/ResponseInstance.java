@@ -415,7 +415,7 @@ public class ResponseInstance {
 		Response respHome = null;
 		String language = getLanguage(userType);
 		String Uri = "https://gwapi.zee5.com/content/collection/0-8-"+page+"?page=1&limit=10&item_limit=20&translation=en&country=IN&version=6&languages="+language;
-		//System.out.println(Uri);
+		System.out.println(Uri);
 
 		String xAccessToken = getXAccessTokenWithApiKey();
 		if (userType.equalsIgnoreCase("Guest")) {
@@ -436,6 +436,10 @@ public class ResponseInstance {
 			System.out.println("Incorrect user type passed to method");
 		}
 		return respHome;
+	}
+	
+	public static void main(String[] args) {
+		getResponseForApplicasterPages("Guest","3673").print();
 	}
 	
 	// Getting Content Language API response for the NonSubscribedUser and

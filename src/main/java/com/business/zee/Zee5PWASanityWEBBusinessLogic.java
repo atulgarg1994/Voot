@@ -9384,8 +9384,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			click(PWAPlayerPage.maximizeBtn, "Maximize icon");
 			for (int i = 0; i < 5; i++) {
 				if (verifyElementExist(PWAPlayerPage.minimizeBtn, "Minimize icon")) {
-					logger.info("User is able to watch premium content in landscape mode");
-					extent.extentLogger("Landscape mode", "User is able to watch premium content in landscape mode");
+					if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+						logger.info("User is able to watch Trailer for premium content in landscape mode");
+						extent.extentLogger("Landscape mode", "User is able to watch Trailer for premium content in landscape mode");
+					}else {
+						logger.info("User is able to watch premium content in landscape mode");
+						extent.extentLogger("Landscape mode", "User is able to watch premium content in landscape mode");
+					}
+					
 					waitTime(3000);
 					click(PWAPlayerPage.minimizeBtn, "Minimize icon");
 					break;

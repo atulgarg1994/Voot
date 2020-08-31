@@ -307,4 +307,6 @@ public class PWASearchPage {
 	public static By objSearchedResultChangedLanguage(String keyword) {
 		return By.xpath("((//div[@class='listingGrid']//a[contains(text(),'')])[1] | (//div[@class='listingGrid']//span[contains(text(),\"" + keyword + "\")])[1])[1]");
 	}
+	
+	public static By objShowTitleInconsumptionPage=By.xpath("//div[@class='channelConsumptionMetaDiv']//h2");
 }

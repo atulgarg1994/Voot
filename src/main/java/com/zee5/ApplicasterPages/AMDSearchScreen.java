@@ -72,8 +72,7 @@ public class AMDSearchScreen {
 
 	public static By objNoSearchResults = By.xpath("//*[@id='tvNoResults']");
 
-	public static By objRelatedSearchResult = By.xpath("//*[@id='searchResultsContent']//following-sibling::*[@id='item_primary_text']");
-	
+	public static By objRelatedSearchResult = By.xpath("//*[@id='item_primary_text']");
 	
 	//***** Objects SearchPage by Manasa
 	public static By objSearchInKeyboard = By.xpath("//*[@contentDescription='Search']");
@@ -182,4 +181,13 @@ public class AMDSearchScreen {
 	public static By objNoOftraysInSearchpage = By.xpath("//*[@resource-id='com.graymatrix.did:id/header_primary_text']");
 	
 	public static By objSelectFirstEpisodeResult = By.xpath("//*[@id='item_secondary_text'][1]");
+	
+	public static By objSearchResult(String title) {
+		return By.xpath("//*[@id='item_primary_text' and contains(text(), \""+title+"\")]");
+	}
+	
+	public static void main(String[] args) {
+		String title = "f";
+		System.out.println("//*[@id='item_primary_text' and contains(text(), "+title+")]");
+	}
 }

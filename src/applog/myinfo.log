@@ -1,21 +1,57 @@
-2020-08-26 15:59:26,950 - rootLogger - INFO - Build 18.0.0.12
-2020-08-26 15:59:36,866 - rootLogger - INFO - PlatForm :: Android
-2020-08-26 15:59:36,873 - rootLogger - INFO - Running Test :: Android_MoreScreen
-2020-08-26 15:59:36,874 - rootLogger - INFO - Run Mode :: YES
-2020-08-26 15:59:36,977 - rootLogger - INFO - APK INSTALLED..
-2020-08-26 16:00:20,363 - rootLogger - INFO - :::::::::Test MyReminders Started::::::::
-2020-08-26 16:00:23,989 - rootLogger - INFO - More menu is displayed
-2020-08-26 16:00:25,273 - rootLogger - INFO - Clicked on More menu
-2020-08-26 16:00:27,969 - rootLogger - INFO - Clicked on My Remainders
-2020-08-26 16:00:29,056 - rootLogger - INFO - User navigated to login or register screen post taping on My Remainders
-2020-08-26 16:01:00,804 - rootLogger - INFO - Edit button is displayed
-2020-08-26 16:01:01,808 - rootLogger - INFO - Title of the content in reminder screen is displayed
-2020-08-26 16:01:02,247 - rootLogger - INFO - Date of the content in reminder screen is displayed
-2020-08-26 16:01:02,850 - rootLogger - INFO - Clicked on Edit button
-2020-08-26 16:01:03,912 - rootLogger - INFO - Select All is displayed
-2020-08-26 16:01:04,326 - rootLogger - INFO - Clicked on Select All
-2020-08-26 16:01:05,573 - rootLogger - INFO - Delete Icon is displayed
-2020-08-26 16:01:06,172 - rootLogger - INFO - Check box is checked
-2020-08-26 16:01:07,701 - rootLogger - INFO - Clicked on Close icon
-2020-08-26 16:01:08,930 - rootLogger - INFO - User navigated to edit screen
-2020-08-26 16:01:10,865 - rootLogger - INFO - ::::::::::Test MyReminders PASSED::::::::::
+2020-08-28 15:39:04,444 - rootLogger - INFO - Build 18.0.0.12
+2020-08-28 15:39:18,260 - rootLogger - INFO - PlatForm :: Android
+2020-08-28 15:39:18,263 - rootLogger - INFO - Running Test :: Android_MoreScreen
+2020-08-28 15:39:18,265 - rootLogger - INFO - Run Mode :: YES
+2020-08-28 15:39:18,354 - rootLogger - INFO - APK INSTALLED..
+2020-08-28 15:43:16,855 - rootLogger - INFO - :::::::::Test MyWatchlist Started::::::::
+2020-08-28 15:43:21,325 - rootLogger - INFO - More menu is displayed
+2020-08-28 15:43:21,781 - rootLogger - INFO - Clicked on More menu
+2020-08-28 15:43:23,323 - rootLogger - INFO - Clicked on My Watchlist
+2020-08-28 15:43:25,283 - rootLogger - INFO - Shows tab is selected default
+2020-08-28 15:43:26,219 - rootLogger - INFO - User navigated to my watchlist screen
+2020-08-28 15:43:27,175 - rootLogger - INFO - watchlist screen displayed with Empty Watchlist icon
+2020-08-28 15:43:27,507 - rootLogger - INFO - No Reminder Icon is displayed
+2020-08-28 15:43:27,938 - rootLogger - INFO - No Reminder Text is displayed
+2020-08-28 15:43:28,755 - rootLogger - INFO - Back button is tapped
+2020-08-28 15:43:29,329 - rootLogger - INFO - Back button is tapped
+2020-08-28 15:43:30,698 - rootLogger - INFO - Clicked on Search icon
+2020-08-28 15:43:35,240 - rootLogger - INFO - Clicked on Search Box
+2020-08-28 15:43:46,857 - rootLogger - INFO - Clicked on content
+2020-08-28 15:43:55,807 - rootLogger - INFO - Watchlist icon is displayed
+2020-08-28 15:43:56,195 - rootLogger - INFO - Clicked on Watchlist icon
+2020-08-28 15:44:08,592 - rootLogger - INFO - More menu is displayed
+2020-08-28 15:44:09,048 - rootLogger - INFO - Clicked on More menu
+2020-08-28 15:44:10,529 - rootLogger - INFO - Clicked on My Watchlist
+2020-08-28 15:44:11,674 - rootLogger - INFO - Clicked on Back button
+2020-08-28 15:44:13,294 - rootLogger - INFO - User successfully navigated to previous screen
+2020-08-28 15:44:13,681 - rootLogger - INFO - Clicked on watchlist
+2020-08-28 15:44:15,434 - rootLogger - INFO - Edit button is displayed
+2020-08-28 15:44:15,766 - rootLogger - INFO - Clicked on Edit button
+2020-08-28 15:44:16,717 - rootLogger - INFO - Select All is displayed
+2020-08-28 15:44:17,054 - rootLogger - INFO - Clicked on Select All
+2020-08-28 15:44:18,329 - rootLogger - INFO - 1st content is selected
+2020-08-28 15:44:19,384 - rootLogger - INFO - Clicking Select All button will select all the contents in the current screen for deletion
+2020-08-28 15:44:19,866 - rootLogger - INFO - Clicked on Close icon
+2020-08-28 15:44:21,073 - rootLogger - INFO - Shows is selected by default
+2020-08-28 15:44:22,911 - rootLogger - INFO - Clicked on 2nd tab
+2020-08-28 15:44:23,491 - rootLogger - INFO - Movies is selected
+2020-08-28 15:44:26,392 - rootLogger - INFO - Clicked on 3nd tab
+2020-08-28 15:44:26,982 - rootLogger - INFO - Videos is selected
+2020-08-28 15:44:28,301 - rootLogger - INFO - Clicked on Shows tab
+2020-08-28 15:44:29,951 - rootLogger - INFO - First content in shows tab is displayed
+2020-08-28 15:44:30,913 - rootLogger - INFO - Clicked on First content in shows tab
+2020-08-28 15:44:31,925 - rootLogger - INFO - Duration of episode is : 18m 56s
+2020-08-28 15:44:32,925 - rootLogger - INFO - Clicked on Back button
+2020-08-28 15:44:34,641 - rootLogger - INFO - User navigated to previous screen
+2020-08-28 15:44:36,943 - rootLogger - INFO - Edit button is displayed
+2020-08-28 15:44:38,142 - rootLogger - INFO - Clicked on Edit button
+2020-08-28 15:44:40,522 - rootLogger - INFO - Content of the Screen is editable
+2020-08-28 15:44:42,400 - rootLogger - INFO - Check box is displayed for the 1st content
+2020-08-28 15:44:44,055 - rootLogger - INFO - Clicked on close icon
+2020-08-28 15:44:47,980 - rootLogger - INFO - Content Duration : 18m 56s
+ Content title : Aditya-Paarvathi challenge themselves for fun - Paaru
+2020-08-28 15:44:49,215 - rootLogger - INFO - First content of Shows screen is displayed
+2020-08-28 15:44:50,475 - rootLogger - INFO - Clicked on First content of Shows screen
+2020-08-28 15:44:55,168 - rootLogger - ERROR - unable to navigated to Consumption screen
+2020-08-28 15:44:56,678 - rootLogger - INFO - Back button is tapped
+2020-08-28 15:44:57,796 - rootLogger - INFO - ::::::::::Test MyWatchlist PASSED::::::::::

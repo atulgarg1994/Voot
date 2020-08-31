@@ -64,13 +64,13 @@ public class Android_MoreScreen {
 		ZEE5ApplicasterBusinessLogic.logoutOfflineValidation(userType);//
 	}
 
-//	@Test(priority = 8)
+	@Test(priority = 8)
 	@Parameters({ "userType" })
 	public void MyWatchlist(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.myWatchList(userType);
 	}
 
-	@Test(priority = 9)
+//	@Test(priority = 9)
 	@Parameters({ "userType" })
 	public void MyReminders(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.myReminders(userType);
@@ -88,13 +88,13 @@ public class Android_MoreScreen {
 		ZEE5ApplicasterBusinessLogic.Settings(userType);
 	}
 
-	@Test(priority = 12)
+//	@Test(priority = 12)
 	@Parameters({ "userType" }) // in-progress
 	public void InviteAFriend(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.Invite_a_Friend(userType);
 	}
 
-	@Test(priority = 13)
+//	@Test(priority = 13)
 	@Parameters({ "userType" })
 	public void MyTransactions(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.verifyMyTransactions(userType);

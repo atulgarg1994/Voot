@@ -29,13 +29,18 @@ public class Android_Settings {
 	}
 
 	@Test(priority = 1)
-	@Parameters({ "userType", "displayLanguageSelection1", "displayLanguageSelection2" })
-	public void Setting_Screen(String userType, String displayLanguageSelection1, String displayLanguageSelection2)
+	@Parameters({ "userType", "displayLanguageSelection1", "displayLanguageSelection2", "searchKeyword", "searchKeyword1",  })
+	public void Setting_Screen(String userType, String displayLanguageSelection1, String displayLanguageSelection2,String searchKeyword,String searchKeyword1)
 			throws Exception {
-
 		ZEE5ApplicasterBusinessLogic.settings(userType);
 		ZEE5ApplicasterBusinessLogic.videoStreamingValidation(userType);
+		ZEE5ApplicasterBusinessLogic.downloadSettingsValidation();
+		ZEE5ApplicasterBusinessLogic.DownloadOverWiFiOnlyONValidation(userType, searchKeyword1);
+		ZEE5ApplicasterBusinessLogic.parentalPinValidation(userType, searchKeyword);
 		ZEE5ApplicasterBusinessLogic.settings_Language(displayLanguageSelection1, displayLanguageSelection2);
+		ZEE5ApplicasterBusinessLogic.searchHistoryValidation(userType);
+		ZEE5ApplicasterBusinessLogic.authenticateDeviceValidation(userType);
+		ZEE5ApplicasterBusinessLogic.resetSettingsValidation(userType);
 	}
 
 	@AfterTest

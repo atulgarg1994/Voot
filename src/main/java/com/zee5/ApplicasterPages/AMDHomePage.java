@@ -179,4 +179,7 @@ public class AMDHomePage {
 	public static By objOpenWithDevicePopUp = By.xpath("//*[@text='Open with']");
 	public static By objAdBannerAboveCarousel =By.xpath("//*[@resource-id='com.graymatrix.did:id/ad_image']//following::*[@id='indicator']");
 	public static By objMaximizeIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_fullscreen']");
+	
+	public static By objFirstPrimaryText = By.xpath("(//*[@id='item_primary_text'])[1]");
+	public static By objKidsContentCard = By.xpath("//*[@id='header_primary_text']//following::*[6]");
 }
