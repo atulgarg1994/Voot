@@ -1201,9 +1201,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				"User is navigated to Login/register Screen Tapping on the Login link present on the Intro Screen");
 		verifyElementPresentAndClick(AMDLoginScreen.objSkipButton, "Skip button");
 		// waitTime(4000);
-		verifyElementPresent(AMDLoginScreen.objHomeTab, "Home Tab");
+		if(verifyElementPresent(AMDLoginScreen.objHomeTab, "Home Tab"))
+		{
 		logger.info("User navigated to Home Tab by clicking on the Skip button");
 		extent.extentLogger("Home Tab", "User navigated to Home Tab by clicking on the Skip button");
+		}
+		else
+		{
+			logger.info("User not navigated to Home Tab by clicking on the Skip button");
+			extent.extentLoggerFail("Home Tab", "User not navigated to Home Tab by clicking on the Skip button");
+			
+		}
 
 		waitTime(2000);
 		extent.HeaderChildNode(
@@ -1214,10 +1222,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objMenu, "Menu icon");
 		verifyElementPresent(AMDLoginScreen.objProfileIcon, "Login Button");
 		click(AMDLoginScreen.objProfileIcon, "Login Button");
-		verifyElementPresent(AMDLoginScreen.objLoginPage, "Login Page");
-		logger.info("User is navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
-		extent.extentLogger("Login/Register Screen",
-				"User is navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
+		if(verifyElementPresent(AMDLoginScreen.objLoginPage, "Login Page")) {
+			logger.info("User is navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
+			extent.extentLogger("Login/Register Screen",
+					"User is navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
+		}else {
+			
+			logger.info("User not  navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
+			extent.extentLoggerFail("Login/Register Screen",
+					"User not navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
+		}
+		
 
 		extent.HeaderChildNode("Validating UI/UX of Login Page");
 
@@ -1270,11 +1285,16 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		logger.info("Validated the UI/UX of Login Page");
 		extent.extentLogger("Login/Register Screen", "Validated the UI/UX of Login page");
 
-		extent.HeaderChildNode("Validating EmailID/Mobile No field is displayed");
-		verifyElementPresent(AMDLoginScreen.objEmailIdField, "Email Field");
+		extent.HeaderChildNode("Validating EmailID/Mobile No field is displayed on Login/Register screen");
+		if(verifyElementPresent(AMDLoginScreen.objEmailIdField, "Email Field"))
+		{
 		logger.info("EmailID/Mobile No field is dispalyed");
 		extent.extentLogger("Login/Register Screen", "EmailID/Mobile No field is dispalyed");
-
+		}else {
+			logger.info("EmailID/Mobile No field is not dispalyed");
+			extent.extentLoggerFail("Login/Register Screen", "EmailID/Mobile No field is not dispalyed");
+		}
+		
 		extent.HeaderChildNode("Validating usen can enter EmailID or Mobile NO");
 		click(AMDLoginScreen.objEmailIdField, "Email Field");
 		hideKeyboard();
@@ -1373,6 +1393,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(2000);
 		verifyElementPresentAndClick(AMDLoginScreen.objBackBtn, "Back Button");
 	}
+
 
 	public void SearchBox(String userType) throws Exception {
 		extent.HeaderChildNode("validating the UI/UX of search Landing screen");

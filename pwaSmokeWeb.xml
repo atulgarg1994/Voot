@@ -9,7 +9,7 @@
 	<parameter name="browserType" value="${browserType}"/> -->
 	
 	<parameter name="userType" value="Guest"/> <!--  Guest/NonSubscribedUser/SubscribedUser -->
-	<parameter name="runModule" value="PWAlanguageSettingsValidation"/>
+	<parameter name="runModule" value="Suite"/>
 	<parameter name="runMode" value="Suites"/>
 	
 	<parameter name="NonsubscribedUserName" value="igstesting001@gmail.com"/>

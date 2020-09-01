@@ -6220,7 +6220,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(5000);
 		scrollDownWEB();
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-		if (verifyElementExist(PWAHamburgerMenuPage.objExploreBtn, "Explore option")) { //TC_1
+		if (verifyElementExist(PWAHamburgerMenuPage.objExploreBtn, "Explore option")) {
 			click(PWAHamburgerMenuPage.objExploreBtn, "Explore option");
 			verifyElementExist(PWAHamburgerMenuPage.objExploreOptions("Premium"), "Premium option");
 			verifyElementExist(PWAHamburgerMenuPage.objExploreOptions("Shows"), "Shows option");
@@ -6330,7 +6330,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		verifyElementExist(PWAHomePage.objSearchField, "Search field");
-		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie");
+		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie2");
 		type(PWAHomePage.objSearchField, keyword, "Search");
 		waitTime(10000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search content");
