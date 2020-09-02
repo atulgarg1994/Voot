@@ -21,7 +21,6 @@ public class Android_ExitPop {
 	@Test(priority = 0)
 	@Parameters({ "userType" })
 	public void Login(String userType) throws Exception {
-
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
@@ -29,8 +28,13 @@ public class Android_ExitPop {
 
 	@Test(priority = 1)
 	@Parameters({ "userType" })
-	public void ExipPopup(String userType) throws Exception {
+	public void ExipPopup_DisplayLanguage(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.verifyDisplayLanguageScreenExitPopup(userType);// Only for Guest User
+	}
+
+	@Test(priority = 2)
+	@Parameters({ "userType" })
+	public void ExipPopup_LandingScreen(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.verifyExitPopupInAnyOfTheLandingScreen(userType);
 	}
 

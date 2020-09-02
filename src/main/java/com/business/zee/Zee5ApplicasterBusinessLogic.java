@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -34,7 +33,6 @@ import com.propertyfilereader.PropertyFileReader;
 import com.utility.Utilities;
 import com.zee5.ApplicasterPages.*;
 import com.zee5.PWAPages.PWAPlayerPage;
-
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
@@ -7918,12 +7916,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		if (userType.equalsIgnoreCase("Guest")) {
 			accessDeviceLocationPopUp("Allow", userType);
-			click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button (Display-LanguageScreen)");
-			click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-			waitTime(2000);
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
-			waitTime(2000);
+			navigateToIntroScreen_DisplaylangScreen();
+			navigateToHomecreenFromIntroScreen();
 		}
 		extent.HeaderChildNode("Validating ExitPopup in any of the Landing Screen");
 		System.out.println("\nverify Landing Screen Exit Popup");
@@ -8016,14 +8010,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		Back(1);
 		verifyElementPresentAndClick(AMDOnboardingScreen.objExitYes, "Exit Popup with Yes CTA");
 		waitTime(2000);
-		if (!(verifyElementIsNotDisplayed(AMDOnboardingScreen.objExitPopup))) {
-			logger.info("User exists from the app when user taps on Yes CTA");
-			extent.extentLogger("Landing Screen", "User exists from the app when user taps on Yes CTA");
+		if (verifyElementIsNotDisplayed(AMDOnboardingScreen.objExitPopup)) {
+			logger.info("User Exits from the app when user taps on Yes CTA");
+			extent.extentLogger("Landing Screen", "User Exits from the app when user taps on Yes CTA");
 		} else {
-			logger.info("User exists from the app when user taps on Yes CTA");
-			extent.extentLoggerFail("Landing Screen", "User exists from the app when user taps on Yes CTA");
+			logger.error("User fails to exit from the app when user taps on Yes CTA");
+			extent.extentLoggerFail("Landing Screen", "User fails to exit from the app when user taps on Yes CTA");
 		}
-
 	}
 
 	/**
