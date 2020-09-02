@@ -7994,7 +7994,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		} else {
 			logger.info("Exit Popup not closed by tapping on the screen");
 			extent.extentLoggerFail("Landing Screen", "Exit Popup not closed by tapping on the screen");
-		}
+		} 
 
 		extent.HeaderChildNode("Verify Exit Popup closes when user taps on device back button");
 		Back(2);

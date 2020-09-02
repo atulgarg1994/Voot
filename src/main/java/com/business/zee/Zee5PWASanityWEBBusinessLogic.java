@@ -47,7 +47,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	public Zee5PWASanityWEBBusinessLogic(String Application) throws InterruptedException {
 		new CommandBase(Application);
 		init();
-	}
+	} 
 
 	private int timeout;
 

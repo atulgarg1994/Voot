@@ -11211,7 +11211,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		String keyword6 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("news");
 		searchvideoandselect(keyword6, userType, "news");
 		String Value = null;
-		waitTime(5000);
+		waitTime(5000); 
 //		navigateToAnyScreen("Live TV");
 //		waitTime(10000);
 //		logger.info("Selecting Free content from Live TV tray and validating Kaltura playability");
