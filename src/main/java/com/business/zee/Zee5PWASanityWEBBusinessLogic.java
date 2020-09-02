@@ -3821,9 +3821,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Home page validation with Api response");
 		String languageSmallText = allSelectedLanguages();
 		System.out.println(languageSmallText);
-		Response resp = ApiData;
+		//Response resp = ApiData;
 		new LinkedList<String>();
-		// Response resp =ResponseInstance.getResponseForPages(api, languageSmallText);
+		Response resp =ResponseInstance.getResponseForPages("home", languageSmallText);
 		String Tray_Title = resp.jsonPath().getString("buckets[1].title");
 		System.out.println("The Title of the Tray is " + Tray_Title + "");
 		waitTime(3000);
@@ -3863,7 +3863,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("Didn't Navigate back to the Top of Application");
 			extent.extentLogger("Back to top", "Didn't Navigate back to the Top of Application");
 		}
-
 	}
 
 	public void WebHomepageTrayTitleAndContentValidationWithApiDataForSubcribedUser(Response ApiData) throws Exception {
@@ -13183,7 +13182,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void PremiumContent(String userType) throws Exception {
 		type(PWASearchPage.objSearchEditBox, "kurukshetra", "Search Field");
-		click(PWASearchPage.objSpecificSearch("kurukshetra"), "Searched Show");
+		click(PWASearchPage.objSpecificSearch2("kurukshetra"), "Searched Show");
 		waitTime(3000);
 		if (userType == "Guest" || userType == "NonSubscribedUser") {
 			verifyElementExist(PWAPlayerPage.objGetPremium, "Get Premium Button");

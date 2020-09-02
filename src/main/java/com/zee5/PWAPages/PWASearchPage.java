@@ -309,4 +309,8 @@ public class PWASearchPage {
 	}
 	
 	public static By objShowTitleInconsumptionPage=By.xpath("//div[@class='channelConsumptionMetaDiv']//h2");
+	
+	public static By objSpecificSearch2(String str) {
+		return By.xpath("((//div[@class='searchCategoryLanding']//img)[@title='" + str + "'])[2]"); //added
+	}
 }

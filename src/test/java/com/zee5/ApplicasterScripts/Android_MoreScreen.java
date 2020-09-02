@@ -64,25 +64,25 @@ public class Android_MoreScreen {
 		ZEE5ApplicasterBusinessLogic.logoutOfflineValidation(userType);//
 	}
 
-	@Test(priority = 8)
+	@Test(priority = 8) //Hitesh
 	@Parameters({ "userType" })
 	public void MyWatchlist(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.myWatchList(userType);
 	}
 
-//	@Test(priority = 9)
+//	@Test(priority = 9) //Hitesh
 	@Parameters({ "userType" })
 	public void MyReminders(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.myReminders(userType);
 	}
 
-//	@Test(priority = 10)
+//	@Test(priority = 10) //Hitesh
 	@Parameters({ "userType" })
 	public void Haveaprepaidcode(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.Haveaprepaidcode(userType);
 	}
 
-//	@Test(priority = 11)
+//	@Test(priority = 11)  //Hitesh
 	@Parameters({ "userType" })
 	public void Settings(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.Settings(userType);
@@ -98,6 +98,13 @@ public class Android_MoreScreen {
 	@Parameters({ "userType" })
 	public void MyTransactions(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.verifyMyTransactions(userType);
+	}
+	
+//	@Test(priority = 14)
+	@Parameters({ "userType" }) // Vinay
+	public void More_Screen(String userType) throws Exception {
+		System.out.println("\n---Verify More screen---\n");
+		ZEE5ApplicasterBusinessLogic.AccountDetails(userType);
 	}
 
 	@AfterTest

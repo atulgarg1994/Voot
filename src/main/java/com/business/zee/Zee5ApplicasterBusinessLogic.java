@@ -13,10 +13,15 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.testng.Reporter;
 import com.deviceDetails.DeviceDetails;
@@ -28,6 +33,8 @@ import com.metadata.ResponseInstance;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.Utilities;
 import com.zee5.ApplicasterPages.*;
+import com.zee5.PWAPages.PWAPlayerPage;
+
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
@@ -1201,16 +1208,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				"User is navigated to Login/register Screen Tapping on the Login link present on the Intro Screen");
 		verifyElementPresentAndClick(AMDLoginScreen.objSkipButton, "Skip button");
 		// waitTime(4000);
-		if(verifyElementPresent(AMDLoginScreen.objHomeTab, "Home Tab"))
-		{
-		logger.info("User navigated to Home Tab by clicking on the Skip button");
-		extent.extentLogger("Home Tab", "User navigated to Home Tab by clicking on the Skip button");
-		}
-		else
-		{
+		if (verifyElementPresent(AMDLoginScreen.objHomeTab, "Home Tab")) {
+			logger.info("User navigated to Home Tab by clicking on the Skip button");
+			extent.extentLogger("Home Tab", "User navigated to Home Tab by clicking on the Skip button");
+		} else {
 			logger.info("User not navigated to Home Tab by clicking on the Skip button");
 			extent.extentLoggerFail("Home Tab", "User not navigated to Home Tab by clicking on the Skip button");
-			
+
 		}
 
 		waitTime(2000);
@@ -1222,17 +1226,18 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objMenu, "Menu icon");
 		verifyElementPresent(AMDLoginScreen.objProfileIcon, "Login Button");
 		click(AMDLoginScreen.objProfileIcon, "Login Button");
-		if(verifyElementPresent(AMDLoginScreen.objLoginPage, "Login Page")) {
-			logger.info("User is navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
+		if (verifyElementPresent(AMDLoginScreen.objLoginPage, "Login Page")) {
+			logger.info(
+					"User is navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
 			extent.extentLogger("Login/Register Screen",
 					"User is navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
-		}else {
-			
-			logger.info("User not  navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
+		} else {
+
+			logger.info(
+					"User not  navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
 			extent.extentLoggerFail("Login/Register Screen",
 					"User not navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
 		}
-		
 
 		extent.HeaderChildNode("Validating UI/UX of Login Page");
 
@@ -1286,15 +1291,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.extentLogger("Login/Register Screen", "Validated the UI/UX of Login page");
 
 		extent.HeaderChildNode("Validating EmailID/Mobile No field is displayed on Login/Register screen");
-		if(verifyElementPresent(AMDLoginScreen.objEmailIdField, "Email Field"))
-		{
-		logger.info("EmailID/Mobile No field is dispalyed");
-		extent.extentLogger("Login/Register Screen", "EmailID/Mobile No field is dispalyed");
-		}else {
+		if (verifyElementPresent(AMDLoginScreen.objEmailIdField, "Email Field")) {
+			logger.info("EmailID/Mobile No field is dispalyed");
+			extent.extentLogger("Login/Register Screen", "EmailID/Mobile No field is dispalyed");
+		} else {
 			logger.info("EmailID/Mobile No field is not dispalyed");
 			extent.extentLoggerFail("Login/Register Screen", "EmailID/Mobile No field is not dispalyed");
 		}
-		
+
 		extent.HeaderChildNode("Validating usen can enter EmailID or Mobile NO");
 		click(AMDLoginScreen.objEmailIdField, "Email Field");
 		hideKeyboard();
@@ -1376,7 +1380,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.error("Skip button is not displayed at top right of the screen");
 			extent.extentLoggerFail("Skip button", "Skip button is not displayed at top right of the screen");
 		}
-
 		verifyElementPresent(AMDLoginScreen.objGoogleBtn, "Google Button");
 		verifyElementPresent(AMDLoginScreen.objfbBtn, "Facebook Button");
 		verifyElementPresent(AMDLoginScreen.objtwitterBtn, "Twitter Button");
@@ -1393,7 +1396,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(2000);
 		verifyElementPresentAndClick(AMDLoginScreen.objBackBtn, "Back Button");
 	}
-
 
 	public void SearchBox(String userType) throws Exception {
 		extent.HeaderChildNode("validating the UI/UX of search Landing screen");
@@ -6583,7 +6585,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	/**
 	 * Author : Sushma Module : Settings
 	 */
-	@SuppressWarnings("unused")
 	public void settings(String usertype) throws Exception {
 		extent.HeaderChildNode("Settings screen validation");
 
@@ -7727,7 +7728,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDHomePage.objHome, "Home button");
 
 		waitTime(5000); // To Load the landing page completely
-		boolean liveTV = false, loadingIcon = false, navigationFlag = false;
+		boolean liveTV = false, loadingIcon = false;
 		int noOfTabs = getCount(AMDHomePage.objTitle);
 		String getTrayName = null, getPageTitle;
 		String width = null, height = null, bounds, getboundvalue;
@@ -7735,6 +7736,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("\nTop Nagivation Tabs: " + noOfTabs);
 		for (int i = 1; i <= 10; i++) {
 			String tabName = null, pageNameAPI = null;
+			boolean navigationFlag = false;
 			if (i == noOfTabs) {
 				if (!liveTV) {
 					i = noOfTabs - 1;
@@ -7755,11 +7757,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(6000);
 			if (verifyIsElementDisplayed(AMDGenericObjects.objFirstTrayTitle)) {
 				loadingIcon = false;
-
-				width = getAttributValue("width", AMDHomePage.objCarouselConetentCard);
-				bounds = getAttributValue("bounds", AMDHomePage.objCarouselConetentCard);
-				getboundvalue = bounds.replaceAll(",", " ").replaceAll("]", " ");
-				height = getboundvalue.split(" ")[1];
+				if (!tabName.equalsIgnoreCase("Live TV")) {
+					width = getAttributValue("width", AMDHomePage.objCarouselConetentCard);
+					bounds = getAttributValue("bounds", AMDHomePage.objCarouselConetentCard);
+					getboundvalue = bounds.replaceAll(",", " ").replaceAll("]", " ");
+					height = getboundvalue.split(" ")[1];
+				}
 
 			} else if (verifyIsElementDisplayed(AMDGenericObjects.objPageLoadingIcon)) {
 				loadingIcon = true;
@@ -7830,9 +7833,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //				}
 
 				if (tabName.equalsIgnoreCase("Live TV")) {
-//					waitTime(2000);
-//					waitForElementDisplayed(AMDGenericObjects.objNoOfTrays, 3000);
-//					click(AMDHomePage.objFirstPrimaryText, "First available channel");
+					waitTime(2000);
+					waitForElementDisplayed(AMDGenericObjects.objNoOfTrays, 3000);
+					click(AMDHomePage.objFirstChannelCard, "First available channel");
 				} else if (tabName.equalsIgnoreCase("Kids")) {
 					click(AMDHomePage.objKidsContentCard, "Kids Content card");
 				} else {
@@ -7847,9 +7850,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						logger.info("Subcription PopUp is displayed in the comsumption screen and popup is closed");
 					}
 				}
-				if (tabName.contains("News")) {
+				if (tabName.contains("News") | tabName.contains("Live TV")) {
 					extent.extentLogger("Listing Trays", "Listing Trays are unavailable in NEWS Consumption screen");
 					logger.info("Listing Trays are unavailable in NEWS Consumption screen");
+					navigationFlag = true;
 				} else {
 
 					if (userType.equalsIgnoreCase("Guest")) {
@@ -8537,6 +8541,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitForElementDisplayed(AMDHomePage.objCarouselTitle, 2000);
 
 		waitTime(2000);
+		if (verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray)
+				| verifyIsElementDisplayed(AMDHomePage.objBannerAd)) {
+			Swipe("UP", 1);
+			waitTime(2000);
+		}
 		// Swipe Tray content cards
 		SwipeRailContentCards(AMDGenericObjects.objFirstTrayTitle);
 
@@ -8606,8 +8615,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("Collection listing screen is dislayed on navigating back from Consumption screen");
 		} else {
 			extent.extentLoggerFail("Listing Collection",
-					"Collection listing screen failed to dislay on navigating back from Consumption screen");
-			logger.error("Collection listing screen failed to dislay on navigating back from Consumption screen");
+					"Collection listing screen failed to display on navigating back from Consumption screen");
+			logger.error("Collection listing screen failed to display on navigating back from Consumption screen");
 		}
 		Back(1);
 	}
@@ -8638,16 +8647,37 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 * Author : Bindu Module : More Screen Screen : My Transactions
 	 */
 	public void verifyMyTransactions(String userType) throws Exception {
-		ZNALogoutMethod();
-		ValidateMyTransactionWithInActivePack();
+		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			ZNALogoutMethod();
+			click(AMDHomePage.objMoreMenu, "More Menu");
+			click(AMDMoreMenu.objProfile, "Profile");
+			waitTime(2000);
+
+			String NonsubscribedUserWithInactivePackUserName = Reporter.getCurrentTestResult().getTestContext()
+					.getCurrentXmlTest().getParameter("NonsubscribedUserWithInActivePackUsername");
+			String NonsubscribedUserWithInActivePackPassword = Reporter.getCurrentTestResult().getTestContext()
+					.getCurrentXmlTest().getParameter("NonsubscribedUserWithInActivePackPassword");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+
+			LoginWithEmailID(NonsubscribedUserWithInactivePackUserName, NonsubscribedUserWithInActivePackPassword);
+		}
 		extent.HeaderChildNode("Verify My transactions Screen");
 		waitTime(2000);
 		verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu");
 		waitTime(2000);
-		verifyElementPresentAndClick(AMDMoreMenu.objMyTransactions, "My TransactionsOption");
+		if (verifyElementExist(AMDMoreMenu.objMyTransactions, "My TransactionsOption")) {
+			logger.info("My Transactions option is availabel on More button");
+			extent.extentLogger("MoreMenu Screen", "My Transactions option is availabel on More button");
+
+		} else {
+			logger.info("My Transactions option is not availabel on More button");
+			extent.extentLoggerFail("MoreMenu Screen", "My Transactions option is not availabel on More button");
+		}
+		click(AMDMoreMenu.objMyTransactions, "My TransactionsOption");
 		waitTime(2000);
 
 		if (verifyElementExist(AMDMoreMenu.objMyTransactionsHeader, "My Transactions Page")) {
+
 			logger.info("User navigated to My Transactions Page on tapping My Transactions");
 			extent.extentLogger("MyTransactions Screen",
 					"User navigated to My Transactions Page on tapping My Transactions");
@@ -8656,6 +8686,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("MyTransactions Screen",
 					"User not navigated to My Transactions Page on tapping My Transactions");
 		}
+		MyTransactionsWithDetails();
 
 		extent.HeaderChildNode("Verify Date of Transaction for every transaction done by the user");
 		String TransactionDate = getDriver().findElement(AMDMoreMenu.objTransactionDate1).getText();
@@ -8687,7 +8718,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		String TransactionPackduration = getDriver().findElement(AMDMoreMenu.objTransactionPackDuration1).getText();
 		logger.info(TransactionPackduration);
-		if (verifyElementExist(AMDMoreMenu.objTransactionPackDuration1, "Transaction Pack date")) {
+		if (verifyElementExist(AMDMoreMenu.objTransactionPackDuration1, "Transaction Pack duration")) {
 			logger.info(TransactionPackduration + " : Transaction pack duration is displayed for the user ");
 			extent.extentLogger("MyTransactions Screen",
 					TransactionPackduration + " : Transaction pack duration is displayed for the user ");
@@ -8783,24 +8814,111 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"Download invoice CTA is not displayed under My Transactions Screen");
 		}
 		click(AMDMoreMenu.objDownloadInvoice1, "Download invoice");
-		Back(4);
+		Back(3);
+
 		ZNALogoutMethod();
 		ValidateMyTransactionScreenWithSubscribeNowCTA();
+		ZNALogoutMethod();
+		ValidateDiscountPack(userType);
 	}
 
-	public void ValidateMyTransactionWithInActivePack() throws Exception {
-		extent.HeaderChildNode("Validating My Transactions Screen with Active Pack");
-		click(AMDHomePage.objMoreMenu, "More Menu");
-		click(AMDMoreMenu.objProfile, "Profile");
-		waitTime(2000);
+	public void MyTransactionsWithDetails() throws Exception {
+		extent.HeaderChildNode("Verify My Transactions with details");
+		for (int i = 0; i < findElements(AMDMoreMenu.objTransactionDate).size(); i++) {
+			if (findElements(AMDMoreMenu.objTransactionDate).get(i).isDisplayed()) {
+				logger.info("Date of transaction in My Transaction page is displayed");
+				extent.extentLogger("My Transactions", "Date of transaction in My Transaction page is displayed");
+			} else {
+				logger.error("Date of transaction in My Transaction page is displayed");
+				extent.extentLoggerFail("My Transactions", "Date of transaction in My Transaction page is displayed");
+			}
+		}
+		for (int j = 0; j < findElements(AMDMoreMenu.objTransactionPackName).size(); j++) {
+			if (findElements(AMDMoreMenu.objTransactionPackName).get(j).isDisplayed()) {
+				logger.info("Transaction pack name in My Transaction page is displayed");
+				extent.extentLogger("My Transactions", "Transaction pack name in My Transaction page is displayed");
+			} else {
+				logger.error("Transaction pack name in My Transaction page is displayed");
+				extent.extentLoggerFail("My Transactions", "Transaction pack name in My Transaction page is displayed");
+			}
+		}
+		for (int k = 0; k < findElements(AMDMoreMenu.objTransactionPackDuration).size(); k++) {
+			if (findElements(AMDMoreMenu.objTransactionPackDuration).get(k).isDisplayed()) {
+				logger.info("Transaction pack duration in My Transaction page is displayed");
+				extent.extentLogger("My Transactions", "Transaction pack duration in My Transaction page is displayed");
+			} else {
+				logger.error("Transaction pack duration in My Transaction page is displayed");
+				extent.extentLoggerFail("My Transactions",
+						"Transaction pack duration in My Transaction page is displayed");
+			}
+		}
+		Swipe("UP", 1);
 
-		String NonsubscribedUserWithInactivePackUserName = Reporter.getCurrentTestResult().getTestContext()
-				.getCurrentXmlTest().getParameter("NonsubscribedUserWithInActivePackUsername");
-		String NonsubscribedUserWithInActivePackPassword = Reporter.getCurrentTestResult().getTestContext()
-				.getCurrentXmlTest().getParameter("NonsubscribedUserWithInActivePackPassword");
-		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+		for (int l = 0; l < findElements(AMDMoreMenu.objTransactionPackRental).size(); l++) {
+			if (findElements(AMDMoreMenu.objTransactionPackRental).get(l).isDisplayed()) {
+				logger.info("Transaction pack rental details in My Transaction page is displayed");
+				extent.extentLogger("My Transactions",
+						"Transaction pack rental details in My Transaction page is displayed");
+			} else {
+				logger.error("Transaction pack rental details in My Transaction page is displayed");
+				extent.extentLoggerFail("My Transaction",
+						"Transaction pack rental details in My Transaction page is displayed");
+			}
+		}
+		for (int m = 0; m < findElements(AMDMoreMenu.objTransactionPackPaymentMode).size(); m++) {
+			if (findElements(AMDMoreMenu.objTransactionPackPaymentMode).get(m).isDisplayed()) {
+				logger.info("Transaction pack payment mode details in My Transaction page is displayed");
+				extent.extentLogger("My Transactions",
+						"Transaction pack payment mode details in My Transaction page is displayed");
+			} else {
+				logger.error("Transaction pack payment mode details in My Transaction page is displayed");
+				extent.extentLoggerFail("My Transactions",
+						"Transaction pack payment mode details in My Transaction page is displayed");
+			}
+		}
 
-		LoginWithEmailID(NonsubscribedUserWithInactivePackUserName, NonsubscribedUserWithInActivePackPassword);
+		for (int n = 0; n < findElements(AMDMoreMenu.objTransactionPackCountry).size(); n++) {
+			if (findElements(AMDMoreMenu.objTransactionPackCountry).get(n).isDisplayed()) {
+				logger.info("Transaction pack Country details in My Transaction page is displayed");
+				extent.extentLogger("My Transactions",
+						"Transaction pack Country details in My Transaction page is displayed");
+			} else {
+				logger.error("Transaction pack Country details in My Transaction page is displayed");
+				extent.extentLoggerFail("My Transactions",
+						"Transaction pack Country details in My Transaction page is displayed");
+			}
+		}
+		for (int o = 0; o < findElements(AMDMoreMenu.objTransactionPackAutoRenewal).size(); o++) {
+			if (findElements(AMDMoreMenu.objTransactionPackAutoRenewal).get(o).isDisplayed()) {
+				logger.info("Transaction pack auto renewal details in My Transaction page is displayed");
+				extent.extentLogger("My Transactions",
+						"Transaction pack auto renewal details in My Transaction page is displayed");
+			} else {
+				logger.error("Transaction pack auto renewal details in My Transaction page is displayed");
+				extent.extentLoggerFail("My Transactions",
+						"Transaction pack auto renewal details in My Transaction page is displayed");
+			}
+		}
+		for (int p = 0; p < findElements(AMDMoreMenu.objTransactionPackStatus).size(); p++) {
+			if (findElements(AMDMoreMenu.objTransactionPackStatus).get(p).isDisplayed()) {
+				logger.info("Transaction pack status in My Transaction page is displayed");
+				extent.extentLogger("My Transactions", "Transaction pack status in My Transaction page is displayed");
+			} else {
+				logger.error("Transaction pack status in My Transaction page is displayed");
+				extent.extentLoggerFail("My Transactions",
+						"Transaction pack status in My Transaction page is displayed");
+			}
+		}
+		for (int q = 0; q < findElements(AMDMoreMenu.objDownloadInvoice).size(); q++) {
+			if (findElements(AMDMoreMenu.objDownloadInvoice).get(q).isDisplayed()) {
+				logger.info("Download Invoice CTA My in Transaction page is displayed");
+				extent.extentLogger("My Transactions", "Download Invoice CTA in My Transaction page is displayed");
+			} else {
+				logger.error("Download Invoice CTA in My Transaction page is displayed");
+				extent.extentLoggerFail("My Transactions", "Download Invoice CTA My in Transaction page is displayed");
+			}
+		}
+		Swipe("DOWN", 1);
 	}
 
 	public void ValidateMyTransactionScreenWithSubscribeNowCTA() throws Exception {
@@ -8833,6 +8951,64 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("MyTransactions Screen",
 					"Subscribe Now CTA is not displayed under My Transactions Screen for no transaction done by the registered user");
 		}
+		Back(2);
+	}
+
+	public void ValidateDiscountPack(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Discount rentals shown for the purchased pack");
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			click(AMDHomePage.objMoreMenu, "More Menu");
+			click(AMDMoreMenu.objProfile, "Profile");
+			waitTime(2000);
+
+			String PackwithDiscountAmountUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("PackWithDiscountUsername");
+			String PackwithDiscountAmountPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("PackWithDiscountPassword");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+
+			LoginWithEmailID(PackwithDiscountAmountUsername, PackwithDiscountAmountPassword);
+
+			verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu");
+			waitTime(2000);
+			verifyElementPresentAndClick(AMDMoreMenu.objMyTransactions, "My TransactionsOption");
+			waitTime(2000);
+
+			String TransactionPackRental = getDriver().findElement(AMDMoreMenu.objTransactionPackRental1).getText();
+			logger.info(TransactionPackRental);
+			if (verifyElementExist(AMDMoreMenu.objTransactionPackRental1, "Transaction PackRental")) {
+				logger.info(TransactionPackRental + " : Discount Transaction pack rental is displayed for the user ");
+				extent.extentLogger("MyTransactions Screen",
+						TransactionPackRental + " : Discount Transaction pack rental is displayed for the user ");
+			} else {
+
+				logger.info(
+						TransactionPackRental + " : Discount Transaction pack rental is not displayed for the user ");
+				extent.extentLoggerFail("MyTransactions Screen",
+						TransactionPackRental + " : Discount Transaction pack rental is not displayed for the user ");
+			}
+			Back(2);
+		} else {
+			logger.info("Discount rental pack details is not applicable for the " + userType);
+			extent.extentLogger("MyTransactions Screen",
+					"Discount rental pack details is not applicable for the " + userType);
+		}
+
+	}
+
+	public void ValidateMyTransactionWithInActivePack() throws Exception {
+		extent.HeaderChildNode("Validating My Transactions Screen with Active Pack");
+		click(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDMoreMenu.objProfile, "Profile");
+		waitTime(2000);
+
+		String NonsubscribedUserWithInactivePackUserName = Reporter.getCurrentTestResult().getTestContext()
+				.getCurrentXmlTest().getParameter("NonsubscribedUserWithInActivePackUsername");
+		String NonsubscribedUserWithInActivePackPassword = Reporter.getCurrentTestResult().getTestContext()
+				.getCurrentXmlTest().getParameter("NonsubscribedUserWithInActivePackPassword");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+
+		LoginWithEmailID(NonsubscribedUserWithInactivePackUserName, NonsubscribedUserWithInActivePackPassword);
 	}
 
 	public void navigateToHomecreenFromIntroScreen() throws Exception {
@@ -8914,5 +9090,1174 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 			Back(1);
 		}
+	}
+
+	/**
+	 * Author : Sushma Module : Player
+	 */
+	public void PlayerPotrait() throws Exception {
+
+		SelectTopNavigationTab("Shows");
+		for (int i = 0; i < 5; i++) {
+			if (verifyIsElementDisplayed(AMDHomePage.objTrayTitle("Trending Shows"))) {
+				click(AMDPlayerScreen.objfirstContentcardOfParticularTray("Trending Shows"), "show content");
+				break;
+			} else {
+				Swipe("UP", 1);
+			}
+		}
+
+		waitTime(3000);
+		if (verifyElementExist(AMDPlayerScreen.objPlayer, "Player screen")) {
+			waitTime(3000);
+			click(AMDPlayerScreen.objPlayer, "Player screen");
+			if (verifyElementDisplayed(AMDPlayerScreen.objPauseIcon)) {
+				logger.info("Pause icon is displayed when playback starts");
+				extentLogger("Pause icon", "Pause icon is displayed when playback starts");
+			} else {
+				logger.info("Pause icon is not displayed when playback starts");
+				extentLoggerFail("Pause icon", "Pause icon is not displayed when playback starts");
+			}
+			waitTime(3000);
+			click(AMDPlayerScreen.objPlayer, "Player screen");
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			if (verifyElementDisplayed(AMDPlayerScreen.objPlayIcon)) {
+				logger.info("Play icon is displayed when user pause the content playback");
+				extentLogger("Play icon", "Play icon is displayed when user pause the content playback");
+			} else {
+				logger.info("Play icon is not displayed when user pause the content playback");
+				extentLoggerFail("Play icon", "Play icon is not displayed when user pause the content playback");
+			}
+		}
+	}
+
+	/**
+	 * Author : Manasa Module : Player
+	 */
+	public void playerValidationInFullScreenMode() throws Exception {
+		extent.HeaderChildNode("Player Validation in Fullscreen Mode");
+
+		verifyElementPresentAndClick(AMDHomePage.objShowsTab, "Shows Tab");
+		for (int i = 0; i < 5; i++) {
+			if (verifyIsElementDisplayed(AMDHomePage.objTrayTitle("Top Zee Kannada Shows"))) {
+				click(AMDPlayerScreen.objfirstContentcardOfParticularTray("Top Zee Kannada Shows"), "show content");
+				break;
+			} else {
+				Swipe("UP", 1);
+			}
+		}
+		waitTime(5000);
+		// waitForPlayerAdToComplete("Video Player");
+		waitForElementDisplayed(AMDPlayerScreen.objPauseIcon, 20);
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayer, "Player");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
+		verifyElementExist(AMDPlayerScreen.objProgressBar, "Progress/Seek Bar");
+		verifyElementExist(AMDPlayerScreen.objNextIcon, "Next Icon");
+		verifyElementExist(AMDPlayerScreen.objChromeCastIcon, "Chromecast Icon");
+		verifyElementExist(AMDPlayerScreen.objThreeDotsOnPlayer, "Player option with three dots");
+		verifyElementExist(AMDPlayerScreen.objTitleOnPlayer, "Content Title on player");
+		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Minimize Icon");
+		waitTime(2000);
+		GetAndVerifyOrientation("Portrait");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+	}
+
+	/**
+	 * Video Player or Live Player Ad verify
+	 * 
+	 * @param playerType
+	 * @throws Exception
+	 */
+	public void waitForPlayerAdToComplete(String playerType) throws Exception {
+		boolean adWasDisplayed = false;
+		boolean playerDisplayed = false;
+		int confirmCount = 0;
+		waitTime(5000);
+		main: for (int trial = 0; trial < 120; trial++) {
+			try {
+				findElement(PWAPlayerPage.objAd);
+				adWasDisplayed = true;
+				if (trial == 5) {
+					logger.info("Ad play in progress");
+					extent.extentLogger("AdPlayInProgress", "Ad play in progress");
+					try {
+						getWebDriver().findElement(PWAPlayerPage.objAd);
+					} catch (Exception e) {
+					}
+				}
+				if (Math.floorMod(trial, 15) == 0)
+					System.out.println("Ad play in progress");
+				Thread.sleep(1000);
+
+//				//SkipAD
+//				if(verifyElementExist(PWAPlayerPage.objSkipAd, "SkipAd")){
+//					Thread.sleep(5000);
+//					click(PWAPlayerPage.objSkipAd, "SkipButton");					
+//				}
+//				else
+//				{
+//					System.out.println("No Skip Button Displayed");
+//				}
+
+			} catch (Exception e) {
+				try {
+					if (playerType.equals("Live Player")) {
+						findElement(PWAPlayerPage.objLivePlayerLiveTag);
+					} else if (playerType.equals("Video Player")) {
+						findElement(PWAPlayerPage.objPlayerSeekBar);
+					}
+					playerDisplayed = true;
+					confirmCount++;
+					if (confirmCount == 1) {
+						if (adWasDisplayed == false) {
+							logger.info("Ad did not play");
+							extent.extentLogger("AdDidNotPlay", "Ad did not play");
+						} else {
+							logger.info("Ad play complete");
+							extent.extentLogger("AdPlayComplete", "Ad play complete");
+						}
+						break main;
+					}
+				} catch (Exception e1) {
+				}
+			}
+		}
+		if (playerDisplayed == false && adWasDisplayed == false) {
+			logger.error("Ad did not play");
+			extent.extentLogger("Ad", "Ad did not play");
+		}
+	}
+
+	/**
+	 * Get the Mobile Orientation
+	 */
+	public void GetAndVerifyOrientation(String Value) {
+		ScreenOrientation orientation = getDriver().getOrientation();
+		String ScreenOrientation = orientation.toString();
+		System.out.println(ScreenOrientation);
+		try {
+			logger.info("The screen Orientation is " + ScreenOrientation);
+			extent.extentLogger("Screen Orientation", "The screen Orientation is " + ScreenOrientation);
+		} catch (Exception e) {
+			logger.error("The screen Orientation is not " + ScreenOrientation);
+			extent.extentLogger("Screen Orientation", "The screen Orientation is not " + ScreenOrientation);
+		}
+	}
+
+	/**
+	 * Author : Vinay Module : More screen Screen : Account details , Buy
+	 * subscription, My subscription , My Transaction
+	 */
+	public void AccountDetails(String userType) throws Exception {
+		if (userType.equals("Guest")) {
+			MoreScreenGuestUserValidations(userType);
+		} else {
+			AccountDetailsLoggedInUser(userType);
+		}
+	}
+
+	public void MoreScreenGuestUserValidations(String userType) throws Exception {
+		/*
+		 * Account Details section
+		 */
+		extent.HeaderChildNode("Account Details Validation for User type : " + userType);
+		// Click on More button
+		click(AMDHomePage.MoreMenuIcon, "More icon");
+		// Verify Login/Register for better experience is displayed in Profile screen
+		verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+		// Verify user is navigated to Login/Register screen post tapping Login/Register
+		// link
+		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+		String header = getText(AMDGenericObjects.objgetScreenTitle);
+		if (header.equals("Login/Register")) {
+			extent.extentLogger("Verify navigation", "User is navigated to " + header
+					+ " screen post tapping Login/Register link from more menu screen ");
+			logger.info("User is navigated to " + header
+					+ " screen post tapping Login/Register link from more menu screen");
+		} else {
+			extent.extentLoggerFail("Verify navigation",
+					"User is not navigated to Login/Register screen post tapping Login/Register link from more menu screen ");
+			logger.info(
+					"User is not navigated to Login/Register screen post tapping Login/Register link from more menu screen");
+		}
+
+		// Verify user is navigated back to previous screen on clicking back button
+		// click back button
+		click(AMDGenericObjects.objBackBtn, "Back button");
+		if (verifyElementExist(AMDMoreMenu.objProfile, "Profile icon")) {
+			extent.extentLogger("Verify navigation",
+					"User is navigate back to the previous screen post tapping back button from Login/Register screen");
+			logger.info(
+					"User is navigate back to the previous screen post tapping back button from Login/Register screen");
+		} else {
+			extent.extentLoggerFail("Verify navigation",
+					"User is not navigated back to the previous screen post tapping back button from Login/Register screen");
+			logger.info(
+					"User is not navigated back to the previous screen post tapping back button from Login/Register screen");
+		}
+
+		BuySubscription(userType);
+
+		/*
+		 * My Subscription section
+		 */
+		extent.HeaderChildNode("My Subscription screen validations for user type : " + userType);
+		// Verify User is navigated to Login/Register screen post tapping My
+		// Subscription
+		extent.HeaderChildNode("My Subscription screen");
+		verifyElementPresentAndClick(AMDMoreMenu.objMySubscription, "My Subscription");
+		if (header.equals("Login/Register")) {
+			extent.extentLogger("Verify navigation",
+					"User is navigated to " + header + " screen post tapping My Subscription from more menu screen ");
+			logger.info(
+					"User is navigated to " + header + " screen post tapping My Subscription from more menu screen");
+		} else {
+			extent.extentLoggerFail("Verify navigation",
+					"User is not navigated to Login/Register screen post tapping My Subscription from more menu screen ");
+			logger.info(
+					"User is not navigated to Login/Register screen post tapping My Subscription from more menu screen");
+		}
+
+		// Verify user is navigated back to More menu screen on clicking back button
+		// click back button
+		verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
+		if (verifyElementExist(AMDMoreMenu.objProfile, "Profile icon")) {
+			extent.extentLogger("Verify navigation",
+					"User is navigate back to the More menu screen post tapping back button from Login/Register screen");
+			logger.info(
+					"User is navigate back to the More menu screen post tapping back button from Login/Register screen");
+		} else {
+			extent.extentLoggerFail("Verify navigation",
+					"User is not navigated back to the More menu screen post tapping back button from Login/Register screen");
+			logger.info(
+					"User is not navigated back to the More menu screen post tapping back button from Login/Register screen");
+		}
+
+		/*
+		 * My Transactions section
+		 */
+		extent.HeaderChildNode("My Transactions screen validations for user type : " + userType);
+		// Verify User is navigated to Login/Register screen post tapping My
+		// Transactions
+		extent.HeaderChildNode("My Transactions screen");
+		verifyElementPresentAndClick(AMDMoreMenu.objMyTransactions, "My Transactions");
+		if (header.equals("Login/Register")) {
+			extent.extentLogger("Verify navigation",
+					"User is navigated to " + header + " screen post tapping My Transactions from more menu screen ");
+			logger.info(
+					"User is navigated to " + header + " screen post tapping My Transactions from more menu screen");
+		} else {
+			extent.extentLoggerFail("Verify navigation",
+					"User is not navigated to Login/Register screen post tapping My Transactions from more menu screen ");
+			logger.info(
+					"User is not navigated to Login/Register screen post tapping My Transactions from more menu screen");
+		}
+
+		// Verify user is navigated back to More menu screen on clicking back button
+		// click back button
+		verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
+		if (verifyElementExist(AMDMoreMenu.objProfile, "Profile icon")) {
+			extent.extentLogger("Verify navigation",
+					"User is navigate back to the More menu screen post tapping back button from Login/Register screen");
+			logger.info(
+					"User is navigate back to the More menu screen post tapping back button from Login/Register screen");
+		} else {
+			extent.extentLoggerFail("Verify navigation",
+					"User is not navigated back to the More menu screen post tapping back button from Login/Register screen");
+			logger.info(
+					"User is not navigated back to the More menu screen post tapping back button from Login/Register screen");
+		}
+
+	}
+
+	/**
+	 * Buy subscription section
+	 */
+	public void BuySubscription(String userType) throws Exception {
+		extent.HeaderChildNode("Buy Subscription screen validations for user type :" + userType);
+
+		// Verify User is navigated to subscribe screen post tapping Buy Subscription
+		verifyElementPresentAndClick(AMDMoreMenu.objBuySubscription, "Buy Subscription");
+		String screenTitle = getText(AMDGenericObjects.objgetScreenTitle);
+		if (screenTitle.equals("Subscribe")) {
+			extent.extentLogger("Verify Navigation",
+					"User is navigated to Subscribe screen post tapping Buy subscription from more menu");
+			logger.info("User is navigated to Subscribe screen post tapping Buy subscription from more menu");
+		} else {
+			extent.extentLoggerFail("Verify Navigation",
+					"User is not navigated to Subscribe screen post tapping Buy subscription from more menu");
+			logger.info("User is not navigated to Subscribe screen post tapping Buy subscription from more menu");
+		}
+		// Verify the back button functionality
+
+		verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
+		if (verifyElementExist(AMDMoreMenu.objProfile, "Profile icon")) {
+			extent.extentLogger("Verify navigation",
+					"User is navigate back to More menu screen post tapping back button from Subscribe screen");
+			logger.info("User is navigate back to More menu screen post tapping back button from Subscribe screen");
+		} else {
+			extent.extentLoggerFail("Verify navigation",
+					"User is not navigated back to the More menu screen post tapping back button from Subscribe screen");
+			logger.info(
+					"User is not navigated back to the More menu screen post tapping back button from Subscribe screen");
+		}
+	}
+
+	public void AccountDetailsLoggedInUser(String userType) throws Exception {
+		extent.HeaderChildNode("More Menu - Profile validations for user type : " + userType);
+		// Verify that Profile details are displayed
+		click(AMDMoreMenu.objMoreMenuIcon, "More tab screen");
+
+		// Verify user name is displayed
+		if (verifyElementPresent(AMDMoreMenu.objUserName, "User name")) {
+			String profileName = getText(AMDMoreMenu.objUserName);
+			extent.extentLogger("Verify profile name is displayed",
+					"Profile name for the logged in user is :" + profileName);
+			logger.info("Profile name for the logged in user is :" + profileName);
+		} else {
+			extent.extentLoggerFail("Verify profile name is displayed",
+					"Profile name is not displayed for the logged in user");
+			logger.info("Profile name is not diaplayed for the logged in user");
+		}
+		// Verify Email id displayed
+		if (verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Email ID")) {
+			String EmailID = getText(AMDMoreMenu.objLoginRegisterText);
+			extent.extentLogger("Verify Email ID is displayed", "Email ID for the logged in user is :" + EmailID);
+			logger.info("Email ID for the logged in user is :" + EmailID);
+		} else {
+			extent.extentLoggerFail("Verify Email ID is displayed", "Email ID is not displayed for the logged in user");
+			logger.info("Emial ID is not diaplayed for the logged in user");
+		}
+		// click on profile
+		verifyElementPresentAndClick(AMDMoreMenu.objLoginRegisterText, "Profile Icon");
+		if (userType.equals("SubscribedUser")) {
+			extent.HeaderChildNode("Plan Info unit validations for" + userType);
+			// verify plan info unit is displayed
+			if (verifyIsElementDisplayed(AMDMyProfileScreen.aobjAccessPackDetailsInfo)) {
+				extent.extentLogger("Verify access details pack unit",
+						"Plan Info unit is displayed for the Subscribed user");
+				logger.info("Plan Info unit is displayed for the Subscribed user");
+
+				// Verify Plan Info unit
+				String planType = getText(AMDMyProfileScreen.objPlanType);
+				String duration = getText(AMDMyProfileScreen.objPlanDuration);
+				String price = getText(AMDMyProfileScreen.objPlanPrice);
+				String validity = getText(AMDMyProfileScreen.objPackStatus);
+				extent.extentLogger("Verify the plan type", "The Paln type :" + planType);
+				logger.info("The Paln type :" + planType);
+				extent.extentLogger("Verify the plan duration", "The  duration of the Paln  :" + duration);
+				logger.info("The  duration of the Paln  : " + duration);
+				extent.extentLogger("Verify the plan price", "The Paln price :" + price);
+				logger.info("The Paln price :" + price);
+				extent.extentLogger("Verify the plan validity", "The Paln validity :" + validity);
+				logger.info("The Paln validity :" + validity);
+
+				// Verify Details CTA
+				verifyElementPresentAndClick(AMDMyProfileScreen.objDetailsCTA, "Details CTA");
+				// Verify user is navigated to My subscription page
+				String header = getText(AMDGenericObjects.objgetScreenTitle);
+				if (header.equals("My Subscriptions")) {
+					extent.extentLogger("Verify Navigation", "User is navigated to  screen : " + header);
+					logger.info("User is navigated to  screen : " + header);
+				} else {
+					extent.extentLoggerFail("Verify Navigation",
+							"User is navigated not navigated to My Subscription screen");
+					logger.info("User is navigated not navigated to My Subscription screen");
+				}
+
+			} else {
+				extent.extentLoggerFail("Verify access details pack unit",
+						"Plan Info unit is not displayed for the Subscribed user");
+				logger.info("Plan Info unit is  not displayed for the Subscribed user");
+			}
+			Back(1);
+		}
+
+		ChangePasswordScreen();
+		MobileAndOTPScreenValidations();
+		Back(1);
+		Swipe("Down", 1);
+		MyProfileScreen(userType);
+		EditProfileScreen(userType);
+		SocialLoginValidationsForEditProfileScreen(userType);
+		Back(1);
+		Swipe("Down", 1);
+		BuySubscription(userType);
+		if (userType.equals("SubscribedUser")) {
+			verifyMySubscription(userType);
+		}
+		if (userType.equals("NonSubscribedUser")) {
+			MySubscriptionValidations(userType);
+		}
+		verifyMyTransactions(userType);
+	}
+
+	/**
+	 * Change Password screen
+	 */
+	public void ChangePasswordScreen() throws Exception {
+		// Verify Change password screen
+		extent.HeaderChildNode("Change Password Screen validations");
+		// click(AMDMoreMenu.objLoginRegisterText,"Profile");
+		verifyElementPresentAndClick(AMDMyProfileScreen.objChangePassword, "Change Password");
+		// Verify the header
+		String header = getText(AMDGenericObjects.objgetScreenTitle);
+		if (header.equals("Change Password")) {
+			extent.extentLogger("Verify Header", "The header of the screen is : " + header);
+			logger.info("The header of the screen is : " + header);
+		} else {
+			extent.extentLoggerFail("Verify Header", "Change Password header is not displayed");
+			logger.info("Change Password header is not displayed");
+		}
+		// verify back button is displayed
+		verifyElementPresent(AMDGenericObjects.objBackBtn, "Back button");
+		// Verify Current, New and Confirm fields are displayed
+		verifyElementPresent(AMDChangePasswordScreen.objCurrentPwdField, "Current Password field");
+		verifyElementPresent(AMDChangePasswordScreen.objNewPwdField, "New Password field");
+		verifyElementPresent(AMDChangePasswordScreen.objConfirmPwdField, "Confirm Password field");
+		// Verify user can enter password in all the text fields
+		// Old Password field
+		VerifySpecialCharactersInString(AMDChangePasswordScreen.objCurrentPwdField, "1234%23abcd", "Current Password");
+		// New Password field
+		VerifySpecialCharactersInString(AMDChangePasswordScreen.objNewPwdField, "&*&1234abcd", "New Password");
+		// Confirm password field
+		VerifySpecialCharactersInString(AMDChangePasswordScreen.objConfirmPwdField, "1234@343%slv", "Confirm Password");
+		Back(1);
+	}
+
+	/**
+	 * My Profile screen validations
+	 */
+
+	public void MyProfileScreen(String userType) throws Exception {
+		extent.HeaderChildNode("My Profile Screen validations");
+		// Verify that profile detail screen is displayed post tapping Profile
+		// click on profile
+		click(AMDMoreMenu.objLoginRegisterText, "Profile");
+		// Verify user is navigated to My Profile screen
+		String headerTitle = getText(AMDGenericObjects.objgetScreenTitle);
+		if (headerTitle.equals("My Profile")) {
+			extent.extentLogger("Verify Navigation",
+					"User is navigated to " + headerTitle + " post tapping profile form more menu");
+			logger.info("User is navigated to " + headerTitle + " post tapping profile form more menu");
+		} else {
+			extent.extentLoggerFail("Verify Navigation",
+					"User is not navigated to My Profile screen post tapping profile form more menu");
+			logger.info("User is not navigated to My Profile screen post tapping profile form more menu");
+		}
+		// Verify user profile information
+		// Verify user name is displayed
+		if (verifyElementDisplayed(AMDMyProfileScreen.objUserName)) {
+			String profileName = getText(AMDMyProfileScreen.objUserName);
+			extent.extentLogger("Verify Profile Name is displayed",
+					"Profile Name :" + profileName + " is displayed for the logged in user");
+			logger.info("Profile Name :" + profileName + " is displayed for the logged in user");
+		} else {
+			extent.extentLoggerFail("Verify Profile Name is displayed",
+					"Profile Name is not displayed for logged in user");
+			logger.info("Profile Name is not displayed for logged in user");
+		}
+		// Verify user ID is displayed
+		if (verifyElementDisplayed(AMDMyProfileScreen.objUserID)) {
+			String userID = getText(AMDMyProfileScreen.objUserID);
+			extent.extentLogger("Verify User ID is displayed",
+					"User ID :" + userID + " is displayed for the logged in user");
+			logger.info("User ID :" + userID + " is displayed for the logged in user");
+		} else {
+			extent.extentLoggerFail("Verify User ID is displayed", "User ID is not displayed for logged in user");
+			logger.info("User ID is not displayed for logged in user");
+		}
+		// Verify Edit CTA button
+		if (verifyElementDisplayed(AMDMyProfileScreen.objEditProfileButton)) {
+			extent.extentLogger("Verify Edit CTA", "Edit CTA is displayed in My Profile screen");
+			logger.info("Edit CTA is displayed in My Profile screen");
+		} else {
+			extent.extentLoggerFail("Verify Edit CTA", "Edit CTA is not displayed in My Profile screen");
+			logger.info("Edit CTA is  not displayed in My Profile screen");
+		}
+		// Verify user is navigated to Edit profile screen post tapping Edit CTA button
+		// Click on Edit CTA
+		click(AMDMyProfileScreen.objEditProfileButton, "Edit CTA button");
+		// Verify user is navigated to Edit profile screen
+		String headerName = getText(AMDGenericObjects.objgetScreenTitle);
+		if (headerName.equals("Edit Profile")) {
+			extent.extentLogger("Verify User navigation", "User is navigated to " + headerName + " screen");
+			logger.info("User is navigated to " + headerName + " screen");
+		} else {
+			extent.extentLoggerFail("Verify User navigation", "User is not navigated screen");
+			logger.info("User is not navigated to Edit Profile screen");
+		}
+		Back(1);
+	}
+
+	public void MobileAndOTPScreenValidations() throws Exception {
+		extent.HeaderChildNode("Mobile Screen and OTP validataions");
+		// Verify user can see the Country code drop down
+		// Click on edit
+		verifyElementPresentAndClick(AMDMyProfileScreen.objEditProfileButton, "Edit CTA");
+		verifyElementPresent(AMDEditProfileScreen.objMobileNOCountry, "Country drop down");
+		// Verify different country code are displayed
+		click(AMDEditProfileScreen.objMobileNOCountry, "Country drop down");
+		int size = findElements(By.xpath("//*[@id='selector_content']")).size();
+		for (int i = 1; i <= size; i++) {
+			if (verifyIsElementDisplayed(AMDEditProfileScreen.objDifferentCountries(i))) {
+				extent.extentLogger("Verify Country codes",
+						"Country code : " + getText(AMDEditProfileScreen.objDifferentCountries(i)) + " is displayed");
+				logger.info(
+						"Country code :" + getText(AMDEditProfileScreen.objDifferentCountries(i)) + " is displayed");
+			} else {
+				extent.extentLoggerFail("Verify Country code", "Country code is not displayed in drop down menu");
+				logger.info("Country code is not displayed in drop down menu");
+			}
+
+		}
+		click(AMDEditProfileScreen.objClosedropDownBtn, "Close button");
+		hideKeyboard();
+		// Verify user can edit the Mobile number field
+		String OldNUmber = getText(AMDEditProfileScreen.objMobileNumberField);
+		click(AMDEditProfileScreen.objMobileNumberField, "Mobile number field");
+		type(AMDEditProfileScreen.objMobileNumberField, "9980353990", "Mobile Number Field");
+		hideKeyboard();
+		String NewNumber = getText(AMDEditProfileScreen.objMobileNumberField);
+		if (!OldNUmber.equals(NewNumber)) {
+			extent.extentLogger("Verify Mobile Number field", "User can edit Mobile number field");
+			extent.extentLogger("Verify Mobile Number field",
+					"Old Mobile number is : " + OldNUmber + " is updated to new number :" + NewNumber);
+			logger.info("Old Mobile number is : " + OldNUmber + " is updated to new number :" + NewNumber);
+		} else {
+			extentLoggerFail("Verify Mobile Number field", "User can not edit the mobile number field");
+			logger.info("User can not edit the mobile number field");
+		}
+		// Set Text
+		clearField(AMDEditProfileScreen.objFirstNameField, "FirstName");
+		type(AMDEditProfileScreen.objFirstNameField, "FirstName", "First Name");
+		hideKeyboard();
+		// Verify Save Changes is highlighted
+		String saveChanges = getElementPropertyToString("enabled", AMDEditProfileScreen.objSaveChanges,
+				"Save Changes CTA");
+		if (saveChanges.equals("true")) {
+			extent.extentLogger("Verify Save Changes CTA", "Save Changes CTA is Highlighted");
+			logger.info("Save Changes CTA is Highlighted");
+		} else {
+			extent.extentLoggerFail("Verify Save Changes CTA", "Save Changes CTA is not Highlighted");
+			logger.info("Save Changes CTA is not Highlighted");
+		}
+		click(AMDEditProfileScreen.objSaveChanges, "Save Changes CTA");
+		// Verify user is navigated to Verify Mobile screen
+		String header = getText(AMDGenericObjects.objgetScreenTitle);
+		extent.extentLogger("Verify user navigation", "User is navigated to " + header);
+		logger.info("User is navigated to " + header);
+		// Verify the OTP Validations
+
+		verifyElementExist(AMDRegistrationScreen.objOTPTimer, "OTP timer");
+		String OTPTimer1 = getText(AMDRegistrationScreen.objOTPTimer);
+		logger.info(OTPTimer1);
+		click(AMDRegistrationScreen.objVerifyOtpButton, "Verify button");
+		waitTime(10000);
+		String OTPTimer2 = getText(AMDRegistrationScreen.objOTPTimer);
+		logger.info(OTPTimer2);
+		boolean Time = OTPTimer1.equals(OTPTimer2);
+		if (Time == false) {
+			logger.info("The Otp timer is displayed in Verify mobile screen");
+			extentLogger("OtpTimer", "The Otp timer is displayed in Verify mobile screen");
+		} else {
+			logger.info("The Otp timer is not displayed in Verify mobile screen");
+			extentLoggerFail("OtpTimer", "The Otp timer is not displayed in Verify mobile screen");
+		}
+		type(AMDRegistrationScreen.objOTPField1, "1", "OTP box1");
+		type(AMDRegistrationScreen.objOTPField2, "1", "OTP box2");
+		type(AMDRegistrationScreen.objOTPField3, "1", "OTP box3");
+		type(AMDRegistrationScreen.objOTPField4, "1", "OTP box4");
+		hideKeyboard();
+		waitTime(2000);
+		if (findElement(AMDRegistrationScreen.objVerifyOtpButton).isEnabled() == true) {
+			logger.info("Verify Button is highlighted");
+			extent.extentLogger("Verify", "Verify Button is highlighted");
+		}
+
+		Back(1);
+	}
+
+	public void VerifySpecialCharactersInString(By by, String pwd, String field) {
+		getDriver().findElement(by).sendKeys(pwd);
+		String text = getDriver().findElement(by).getText();
+		Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+		Matcher passWord = p.matcher(text);
+		boolean b = passWord.find();
+		if (b) {
+			System.out.println("There is a special character in my string");
+			extent.extentLogger("Verify password field",
+					"User can enter Numbers, Special characters and Characters into " + field + " field");
+			logger.info("User can enter Numbers, Special characters and Characters into " + field + " Passworrd field");
+		} else {
+			extent.extentLogger("Verify password field",
+					"User can not enter Numbers, Special characters and Characters into " + field + " field");
+			logger.info("User can not enter Numbers, Special characters and Characters into" + field + " field");
+		}
+	}
+
+	/*
+	 * Edit Profile screen validations
+	 */
+	public void EditProfileScreen(String userType) throws Exception {
+		extent.HeaderChildNode("Edit Profile screen validations for user type :" + userType);
+		verifyElementPresentAndClick(AMDMyProfileScreen.objEditProfileButton, "Edit CTA");
+		// Verify header
+		verifyElementPresent(AMDEditProfileScreen.objEditProfileTitle, "Edit Profile header");
+		// Text field First name
+		verifyElementPresent(AMDEditProfileScreen.objFirstNameField, "First Name text field");
+		// Text field Last name
+		verifyElementPresent(AMDEditProfileScreen.objLastNameField, "Last Name text field");
+		// Email text field
+		verifyElementPresent(AMDEditProfileScreen.objEmailIDField, "Email text field");
+		// Mobile number text field
+		verifyElementPresent(AMDEditProfileScreen.objMobileNoField, "Mobile number text field");
+		// Date of Birth field
+		verifyElementPresent(AMDEditProfileScreen.objDOBTxtField, " DOB text field");
+		// Gender field
+		verifyElementPresent(AMDEditProfileScreen.objGenderDropdown, "Gender field");
+		// Verify Save changes button
+		verifyElementPresent(AMDEditProfileScreen.objSaveChanges, "Save Changes button");
+		// Verify Save changes button is disabled
+		String disabled = getElementPropertyToString("enabled", AMDEditProfileScreen.objSaveChanges, "Save Changes");
+		if (disabled.equals("false")) {
+			extent.extentLogger("Verify Save Changes is disabled", "Save Changes CTA is disabled");
+			logger.info("Save Changes CTA is disabled");
+		} else {
+			extent.extentLoggerFail("Verify Save Changes is disabled", "Save Changes CTA is enabled");
+			logger.info("Save Changes CTA is enabled");
+		}
+		// Verify First name is displayed
+		String firstName = getText(AMDEditProfileScreen.objFirstNameField);
+		if (!firstName.equalsIgnoreCase("null")) {
+			extent.extentLogger("Verify First name is displayed",
+					"First name :" + firstName + " is displayed in the First name text field");
+			logger.info("First name :" + firstName + " is displayed in the First name text field");
+		} else {
+			extent.extentLoggerFail("Verify First name is displayed",
+					"First name is not displayed in the First name text field");
+			logger.info("First name is not displayed in the First name text field");
+		}
+		// Verify Last name is displayed for the registered user
+		String lastName = getText(AMDEditProfileScreen.objLastNameField);
+		if (!lastName.equalsIgnoreCase("null")) {
+			extent.extentLogger("Verify Last name is displayed",
+					"Last name :" + lastName + " is displayed in the First name text field");
+			logger.info("Last name :" + lastName + " is displayed in the Last name text field");
+		} else {
+			extent.extentLoggerFail("Verify Last name is displayed",
+					"Last name is not displayed in the Last name text field");
+			logger.info("Last name is not displayed in the Last name text field");
+		}
+		// Back(1);
+		// Verify the back button functionality
+		verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
+		String headerTitle = getText(AMDGenericObjects.objgetScreenTitle);
+		if (headerTitle.equals("My Profile")) {
+			extent.extentLogger("Verify Navigation",
+					"User is navigated to " + headerTitle + " post tapping back button from Edit Profile screen");
+			logger.info("User is navigated to " + headerTitle + " post tapping back button from Edit Profile screen");
+		} else {
+			extent.extentLoggerFail("Verify Navigation",
+					"User is not navigated to My Profile screen post tapping back button from Edit Profile screen");
+			logger.info("User is not navigated to My Profile post tapping back button from Edit Profile screen");
+		}
+		Back(1);
+
+	}
+
+	/*
+	 * Social Login Validations
+	 */
+	public void SocialLoginValidationsForEditProfileScreen(String userType) throws Exception {
+		extent.HeaderChildNode("Social Login Validations for Edit Profile screen");
+		Swipe("UP", 1);
+		verifyElementPresentAndClick(AMDHomePage.objLogout, "Logout");
+		verifyElementPresentAndClick(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
+		Swipe("DOWN", 1);
+		click(AMDMoreMenu.objLoginRegisterText, "Login/Register link");
+		LoginMethod("SocialLogin");
+		click(AMDMoreMenu.objMoreMenuIcon, "More tab screen");
+		click(AMDMoreMenu.objLoginRegisterText, "Profile");
+		click(AMDMyProfileScreen.objEditProfileButton, "Edit profile");
+
+		// Social Login validations
+
+		VerifyFieldsAreEditable(AMDEditProfileScreen.objFirstNameField, "First Name", "NewFirstName");
+		VerifyFieldsAreEditable(AMDEditProfileScreen.objLastNameField, "Last Name", "NewLastName");
+		// Verify Email field is in proper format
+		String email = getText(AMDEditProfileScreen.objEmailFieldForEmailLogin);
+		boolean isEmailValid = emailValidator(email);
+		if (isEmailValid) {
+			extent.extentLogger("Veridy email", "Email field is in proper format");
+			logger.info("Email field is in proper format");
+
+		} else {
+			extent.extentLoggerFail("Verify Email", "Email field is not in proper format");
+			logger.info("Email field is not in proper format");
+		}
+		VerifyFieldsAreEditable(AMDEditProfileScreen.objEmailFieldForEmailLogin, "Email ID", "newemail@gmail.com");
+
+		// Verify DOB field is editable
+
+		String OldDate = getText(AMDEditProfileScreen.objDOBTxtField);
+		// Verify the given DOB is displayed in DD/MM/YYYY format
+		System.out.println(OldDate);
+		/*
+		 * //boolean dateFormat = isValidDateFormat("DD/MM/YYYY",
+		 * OldDate,Locale.ENGLISH); if(dateFormat) {
+		 * extent.extentLogger("Verify DOB field"
+		 * ,"The DOB field is displayed in DD/MM/YYYY format");
+		 * logger.info("The DOB field is displayed in DD/MM/YYYY format"); }else {
+		 * extent.extentLoggerFail("Verify DOB format"
+		 * ,"The DOB field is not displayed in DD/MM/YYYY format");
+		 * logger.info("The DOB field is not displayed in DD/MM/YYYY format"); }
+		 */
+		click(AMDEditProfileScreen.objDOBTxtField, "DOB field");
+		// Verify the calendar is displayed on clicking calendar option
+		verifyElementPresent(AMDEditProfileScreen.objCalenderPopUp, "Calendar option");
+
+		// Select New date
+		type(AMDEditProfileScreen.objYearField, "1950", "Year field");
+		click(AMDEditProfileScreen.objOkBtnCalender, "OK button");
+		String newDate = getText(AMDEditProfileScreen.objDOBTxtField);
+		if (!OldDate.equals(newDate)) {
+			extent.extentLogger("Verify DOB field", "DOB field can be editable");
+			extent.extentLogger("DOB", "The DOB : " + OldDate + " is updated to new DOB : " + newDate);
+			logger.info("DOB field can be editable");
+			logger.info("The DOB : " + OldDate + " is updated to new DOB : " + newDate);
+		} else {
+			extent.extentLoggerFail("Verify DOB field", "DOB field can not be editable");
+			logger.info("DOB field can not be editable");
+		}
+		// Verify the Gender field is editable
+		String oldGender = getText(AMDEditProfileScreen.objGederTxtField);
+		System.out.println(oldGender);
+		click(AMDEditProfileScreen.objGederTxtField, "Gender field");
+		if (oldGender.equals("Male")) {
+			click(AMDEditProfileScreen.objFemale, "Female gender option");
+		} else {
+			click(AMDEditProfileScreen.objMale, "Male gender option");
+		}
+		String NewGender = getText(AMDEditProfileScreen.objGederTxtField);
+		if (!oldGender.equals(NewGender)) {
+			extent.extentLogger("Verify Gender field", "Gender field can be editable");
+			extent.extentLogger("Gender", "The gender : " + oldGender + " is updated to new gender : " + NewGender);
+			logger.info("Gender field can be editable");
+			logger.info("The gender : " + oldGender + " is updated to new gender : " + NewGender);
+		} else {
+			extent.extentLoggerFail("Verify Gender field", "Gender field can not be editable");
+			logger.info("Gender field can not be editable");
+		}
+		Back(1);
+	}
+
+	public void LoginMethod(String loginMethod) throws Exception {
+
+		switch (loginMethod) {
+		case "Email":
+			extent.HeaderChildNode("Login through Email ID");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, "zee5latest@gmail.com", "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, "User@123", "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
+		case "Mobile":
+			extent.HeaderChildNode("Login through registered Mobile number");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, "9880710182", "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, "User@123", "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
+
+		case "SocialLogin": // extent.HeaderChildNode("Social Media login - Google account login");
+			verifyElementPresentAndClick(AMDLoginScreen.objGoogleBtn, "Gmail icon");
+			if (verifyElementExist(AMDLoginScreen.objGmailAccount, "Gmail Account")) {
+				click(AMDLoginScreen.objGmailAccount, "Gmail Account");
+				waitTime(5000);
+			} else if (verifyElementPresent(AMDLoginScreen.objGmailSignIn, "Gmail Sign In")) {
+				verifyElementPresentAndClick(AMDLoginScreen.objGmailEmailField, "Email Field");
+				type(AMDLoginScreen.objGmailEmailField, "zeetest55@gmail.com", "Email Field");
+				verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
+				verifyElementPresentAndClick(AMDLoginScreen.objGmailPasswordField, "Password Field");
+				type(AMDLoginScreen.objGmailPasswordField, "zeetest123", "Password Field");
+				verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
+
+				if (verifyElementPresent(AMDLoginScreen.objGmailAddPhoneNumber, "Add Phone Number")) {
+					verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip Button");
+				}
+				if (verifyElementPresent(AMDLoginScreen.objAgreeBtn, "Agree Button")) {
+					click(AMDLoginScreen.objAgreeBtn, "Agree Button");
+				}
+
+				if (verifyElementPresent(AMDLoginScreen.objAcceptBtn, "Accept Button")) {
+					click(AMDLoginScreen.objAcceptBtn, "Accept Button");
+				}
+			}
+
+			if (verifyElementExist(AMDHomePage.objHome, "Home Tab")) {
+				logger.info("User logged in successfully");
+				extent.extentLogger("Login", "User logged in successfully using Google account");
+			}
+			break;
+
+		}
+	}
+
+	public void VerifyFieldsAreEditable(By by, String fieldType, String text) {
+		String oldText = getDriver().findElement(by).getText();
+		getDriver().findElement(by).click();
+		getDriver().findElement(by).clear();
+		getDriver().findElement(by).sendKeys(text);
+		String newText = getDriver().findElement(by).getText();
+		if (oldText.equals(newText)) {
+			extent.extentLoggerFail("Verify Fields are editable", "The field " + fieldType + " is not editable");
+			logger.info("The field " + fieldType + " is not editable");
+		} else {
+			extent.extentLogger("Verify Fields are editable", "The field " + fieldType + " is editable");
+			extent.extentLogger("Verify the fields",
+					"The old text is : " + oldText + " updated to New text : " + newText);
+			logger.info("The old text is : " + oldText + " updated to New text : " + newText);
+			logger.info("The field " + fieldType + " is editable");
+		}
+	}
+
+	public static boolean emailValidator(String email) {
+
+		// Get an EmailValidator
+		EmailValidator validator = EmailValidator.getInstance();
+		// Validate specified String containing an email address
+		if (!validator.isValid(email)) {
+			return false;
+		}
+		return true;
+	}
+
+	public void verifyMySubscription(String userType) throws Exception {
+		extent.HeaderChildNode("Verify My Subscription Screen");
+//		verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu");
+//		waitTime(2000);
+		ZNALogoutMethod();
+		ZeeApplicasterLogin(userType);
+		if (verifyIsElementDisplayed(AMDMoreMenu.objMySubscription)) {
+			logger.info("My subscription option is available on More menu screen");
+			extent.extentLogger("Mysubscription Screen", "My subscription option is available on More menu screen");
+		} else {
+			logger.info("My subscription option is not available on More menu screen");
+			extent.extentLoggerFail("Mysubscription Screen",
+					"My subscription option is not available on More menu screen");
+		}
+
+		verifyElementPresentAndClick(AMDMoreMenu.objMySubscription, "My Subscription");
+		waitTime(2000);
+		if (verifyElementExist(AMDMoreMenu.objMySubscriptionsHeader, "My Transactions Page")) {
+			logger.info("User navigated to My Subscriptions Page on tapping My Subscriptions");
+			extent.extentLogger("MySubscriptions Screen",
+					"User navigated to My Subscriptions Page on tapping My Subscriptions");
+		} else {
+			logger.info("User navigated to My Subscriptions Page on tapping My Subscriptions");
+			extent.extentLoggerFail("MySubscriptions Screen",
+					"User navigated to My Subscriptions Page on tapping My Subscriptions");
+		}
+
+		String SubscriptionPackStatus = getDriver().findElement(AMDMoreMenu.objsubscriptionPackStatus).getText();
+		if (verifyElementExist(AMDMoreMenu.objsubscriptionPackStatus, "My subscription Pack Status")) {
+			logger.info(
+					SubscriptionPackStatus + " : My Subscription pack Status details is displayed for the " + userType);
+			extent.extentLogger("MySubscription Screen",
+					SubscriptionPackStatus + " : My Subscription pack Status details is displayed for the " + userType);
+		} else {
+
+			logger.info(
+					SubscriptionPackStatus + " : My Subscription pack Status details is displayed for the " + userType);
+			extent.extentLoggerFail("MySubscription Screen",
+					SubscriptionPackStatus + " : My Subscription pack Status details is displayed for the " + userType);
+		}
+
+		verifyElementPresentAndClick(AMDLoginScreen.objBackBtn, "Back Button");
+		if (verifyElementExist(AMDHomePage.MoreMenuIcon, "More Menu")) {
+			logger.info("User navigated to prevoius screen on tapping back icon present in My Subscriptions screen");
+			extent.extentLogger("MySubscriptions Screen",
+					"User navigated to prevoius screen on tapping back icon present in My Subscriptions screen");
+		} else {
+			logger.info("User navigated to prevoius screen on tapping back icon present in My Subscriptions screen");
+			extent.extentLoggerFail("MySubscriptions Screen",
+					"User navigated to prevoius screen on tapping back icon present in My Subscriptions screen");
+		}
+
+		extent.HeaderChildNode("verify My Subscription pack details");
+		verifyElementPresentAndClick(AMDMoreMenu.objMySubscription, "My Subscription");
+		String SubscriptionPackPrice = getDriver().findElement(AMDMoreMenu.objSubscriptionPackPrice).getText();
+
+		if (verifyElementExist(AMDMoreMenu.objSubscriptionPackPrice, "My subscription Pack Price")) {
+			logger.info(SubscriptionPackPrice + " : My Subscription pack price is displayed for the " + userType);
+			extent.extentLogger("MySubscription Screen",
+					SubscriptionPackPrice + " : My Subscription pack price is displayed for the " + userType);
+		} else {
+
+			logger.info(SubscriptionPackPrice + " : My Subscription pack price is displayed for the " + userType);
+			extent.extentLoggerFail("MySubscription Screen",
+					SubscriptionPackPrice + " : My Subscription pack price is displayed for the " + userType);
+		}
+
+		String SubscriptionPackDuration = getDriver().findElement(AMDMoreMenu.objSubscriptionPackDuration).getText();
+
+		if (verifyElementExist(AMDMoreMenu.objSubscriptionPackDuration, "My subscription Pack Duration")) {
+			logger.info(SubscriptionPackDuration + " : My Subscription pack duration is displayed for the " + userType);
+			extent.extentLogger("MySubscription Screen",
+					SubscriptionPackDuration + " : My Subscription pack duration is displayed for the " + userType);
+		} else {
+
+			logger.info(SubscriptionPackDuration + " : My Subscription pack duration is displayed for the " + userType);
+			extent.extentLoggerFail("MySubscription Screen",
+					SubscriptionPackDuration + " : My Subscription pack duration is displayed for the " + userType);
+		}
+
+		Swipe("Up", 1);
+
+		String SubscriptionPackExpiryDate = getDriver().findElement(AMDMoreMenu.objSubscriptionPackExpiryDate)
+				.getText();
+
+		if (verifyElementExist(AMDMoreMenu.objSubscriptionPackExpiryDate, "My subscription Pack Expiry Date")) {
+			logger.info(SubscriptionPackExpiryDate + " : My Subscription pack expiry date is displayed for the "
+					+ userType);
+			extent.extentLogger("MySubscription Screen",
+					SubscriptionPackExpiryDate + " : My Subscription pack expiry date is displayed for the" + userType);
+		} else {
+
+			logger.info(SubscriptionPackExpiryDate + " : My Subscription pack expiry date is displayed for the "
+					+ userType);
+			extent.extentLoggerFail("MySubscription Screen", SubscriptionPackExpiryDate
+					+ " : My Subscription pack expiry date is displayed for the " + userType);
+		}
+
+		Swipe("DOWN", 1);
+
+		String SubscriptionPackCountryDetails = getDriver().findElement(AMDMoreMenu.objSubscriptionPackCountry)
+				.getText();
+
+		if (verifyElementExist(AMDMoreMenu.objSubscriptionPackCountry, "My subscription Pack Country")) {
+			logger.info(SubscriptionPackCountryDetails + " : My Subscription pack Country details is displayed for the "
+					+ userType);
+			extent.extentLogger("MySubscription Screen", SubscriptionPackCountryDetails
+					+ " : My Subscription pack Country details is displayed for the " + userType);
+		} else {
+
+			logger.info(SubscriptionPackCountryDetails + " : My Subscription pack Country details is displayed for the "
+					+ userType);
+			extent.extentLoggerFail("MySubscription Screen", SubscriptionPackCountryDetails
+					+ " : My Subscription pack Country details is displayed for the " + userType);
+		}
+
+		String SubscriptionPackPaymentMode = getDriver().findElement(AMDMoreMenu.objSubscriptionPackPaymentMode)
+				.getText();
+
+		if (verifyElementExist(AMDMoreMenu.objSubscriptionPackPaymentMode, "My subscription Pack Payment Mode")) {
+			logger.info(SubscriptionPackPaymentMode + " : My Subscription pack payment mode is displayed for the "
+					+ userType);
+			extent.extentLogger("MySubscription Screen", SubscriptionPackPaymentMode
+					+ " : My Subscription pack payment mode is displayed for the " + userType);
+		} else {
+
+			logger.info(SubscriptionPackPaymentMode + " : My Subscription pack payment mode is displayed for the "
+					+ userType);
+			extent.extentLoggerFail("MySubscription Screen", SubscriptionPackPaymentMode
+					+ " : My Subscription pack payment mode is displayed for the " + userType);
+		}
+
+		String SubscriptionPackOfferings = getDriver().findElement(AMDMoreMenu.objSubscriptionPackOfferings).getText();
+
+		if (verifyElementExist(AMDMoreMenu.objSubscriptionPackOfferings, "My subscription pack Offerings")) {
+			logger.info(
+					SubscriptionPackOfferings + " : My Subscription pack offerings is displayed for the " + userType);
+			extent.extentLogger("MySubscription Screen",
+					SubscriptionPackOfferings + " : My Subscription pack offerings is displayed for the " + userType);
+		} else {
+
+			logger.info(
+					SubscriptionPackOfferings + " : My Subscription pack offerings is displayed for the" + userType);
+			extent.extentLoggerFail("MySubscription Screen",
+					SubscriptionPackOfferings + " : My Subscription pack offerings is displayed for the" + userType);
+		}
+		Back(2);
+		verifySubscribeToMultipleAccessPacks(userType);
+	}
+
+	@SuppressWarnings("unused")
+	public void verifySubscribeToMultipleAccessPacks(String userType) throws Exception {
+
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			ZNALogoutMethod();
+
+			click(AMDHomePage.objMoreMenu, "More Menu");
+			click(AMDMoreMenu.objProfile, "Profile");
+			waitTime(2000);
+
+			String SubscriptionPackwithMultipleAccessPaclsUsername = Reporter.getCurrentTestResult().getTestContext()
+					.getCurrentXmlTest().getParameter("SubscriptionPackwithMultipleAccessPaclsUsername");
+			String SubscriptionPackwithMultipleAccessPaclsPassword = Reporter.getCurrentTestResult().getTestContext()
+					.getCurrentXmlTest().getParameter("SubscriptionPackwithMultipleAccessPaclsPassword");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+
+			LoginWithEmailID(SubscriptionPackwithMultipleAccessPaclsUsername,
+					SubscriptionPackwithMultipleAccessPaclsPassword);
+			waitTime(2000);
+			verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu");
+			waitTime(2000);
+			verifyElementPresentAndClick(AMDMoreMenu.objMySubscription, "My Subscription");
+			waitTime(4000);
+		}
+
+		extent.HeaderChildNode("Verify user can able to see the packs by Swiping card left to right");
+		String width = getAttributValue("width", AMDMoreMenu.objMySubscriptionPack);
+		String bounds = getAttributValue("bounds", AMDMoreMenu.objMySubscriptionPack);
+		String b = bounds.replaceAll(",", " ").replaceAll("]", " ");
+		String height = b.split(" ")[1];
+
+		Swipe("LEFT", 1);
+		// carouselCardsSwipe("LEFT", 1, width, height);
+		// carouselSwipe("Right", 1, width, height);
+
+		waitTime(2000);
+		Swipe("UP", 1);
+		verifyElementExist(AMDMoreMenu.objsubscriptionPackDotBelowTheCard, "Dot below the Subscription Pack Card");
+
+		String getPropertyValue = getAttributValue("enabled", AMDMoreMenu.objsubscriptionPackDotBelowTheCard);
+		if (getPropertyValue.equalsIgnoreCase("true")) {
+			logger.info(userType
+					+ " User can able to swipe the card, dot below the card is moved as per the position of the card");
+			extent.extentLogger("MySubscription Screen", userType
+					+ " User can able to swipe the card, dot below the card is moved as per the position of the card");
+		} else {
+			logger.info(userType
+					+ " User cannot able to swipe the card, dot below the card is not moved as per the position of the card");
+			extent.extentLoggerFail("MySubscription Screen", userType
+					+ " User cannot able to swipe the card, dot below the card is not moved as per the position of the card");
+		}
+
+		Swipe("RIGHT", 1);
+		// carouselCardsSwipe("Right", 1, width, height);
+		// carouselSwipe("Left", 1, width, height);
+		Swipe("UP", 1);
+		String getPropertyValue1 = getAttributValue("enabled", AMDMoreMenu.objsubscriptionPackDotBelowTheSecondCard);
+		if (getPropertyValue1.equalsIgnoreCase("true")) {
+			logger.info(userType
+					+ " User can able to swipe the card in reverse direction, dot below the card is moved as per the position of the card");
+			extent.extentLogger("MySubscription Screen", userType
+					+ " User can able to swipe the card in reverse direction, dot below the card is moved as per the position of the card");
+		} else {
+			logger.info(userType
+					+ " User cannot able to swipe the card in reverse direction, dot below the card is not moved as per the position of the card");
+			extent.extentLoggerFail("MySubscription Screen", userType
+					+ " User cannot able to swipe the card in reverse direction, dot below the card is not moved as per the position of the card");
+		}
+		Swipe("LEFT", 1);
+		Swipe("UP", 1);
+
+		extent.HeaderChildNode("Verify Cancel Renewal CTA is available");
+		if (verifyElementExist(AMDMoreMenu.objSubscriptionPackCancelRenewal, "Cancel Renewal CTA")) {
+			logger.info("Cancel Renewal CTA is available based on the pack Selection");
+			extent.extentLogger("MySubscription Screen", "Cancel Renewal CTA is available based on the pack Selection");
+		} else {
+
+			logger.info("Cancel Renewal CTA is not available based on the pack Selection");
+			extent.extentLogger("MySubscription Screen",
+					"Cancel Renewal CTA is not available based on the pack Selection");
+		}
+
+		extent.HeaderChildNode("Verify Browse All Packs CTA is displayed on the Screen");
+		if (verifyElementExist(AMDMoreMenu.objBrowseAllPacks, "Browse All Packs CTA")) {
+			logger.info("Browse All Packs CTA is present in the bottom of the Screen");
+			extent.extentLogger("MySubscription Screen", "Browse All Packs CTA is present in the bottom of the Screen");
+		} else {
+
+			logger.info("Browse All Packs CTA is present in the bottom of the Screen");
+			extent.extentLogger("MySubscription Screen", "Browse All Packs CTA is present in the bottom of the Screen");
+		}
+
+		Back(2);
+	}
+
+	/**
+	 * My Subscription screen validations
+	 */
+	public void MySubscriptionValidations(String userType) throws Exception {
+
+		extent.HeaderChildNode("My Subscriptions screen validations for user type :" + userType);
+		// Verify User is navigated to Login/Register screen post tapping My
+		// Subscription
+		verifyElementPresentAndClick(AMDMoreMenu.objMySubscription, "My Subscription");
+		String header = getText(AMDGenericObjects.objgetScreenTitle);
+		if (header.equals("My Subscriptions")) {
+			extent.extentLogger("Verify navigation",
+					"User is navigated to " + header + " screen post tapping My Subscription from more menu screen ");
+			logger.info(
+					"User is navigated to " + header + " screen post tapping My Subscription from more menu screen");
+		} else {
+			extent.extentLoggerFail("Verify navigation",
+					"User is not navigated to My Subscriptions screen post tapping My Subscription from more menu screen ");
+			logger.info(
+					"User is not navigated to My Subscriptions screen post tapping My Subscription from more menu screen");
+		}
+		// Verify Subscribe now and No Active subscription is displayed
+		if (verifyIsElementDisplayed(AMDMoreMenu.objNoActivePlans)) {
+			String NoactivePlans = getText(AMDMoreMenu.objNoActivePlans);
+			extent.extentLogger("Verify No active Subscription",
+					"The message : " + NoactivePlans + " is displayed in My Subscription screen");
+			logger.info("The message : " + NoactivePlans + " is displayed in My Subscription screen");
+		} else {
+			extent.extentLoggerFail("Verify No active Subscription",
+					"The message No Active Subscription is not displayed in My Subscription screen");
+			logger.info("The message No Active Subscription is not displayed in My Subscription screen");
+		}
+		if (verifyIsElementDisplayed(AMDMoreMenu.objSubscribeNowCTA)) {
+			extent.extentLogger("Verify No active Subscription",
+					"Subscribe Now CTA is displayed in My Subscription screen");
+			logger.info("Subscribe Now CTA is displayed in My Subscription screen");
+		} else {
+			extent.extentLoggerFail("Verify No active Subscription",
+					"Subscribe Now CTA is not displayed in My Subscription screen");
+			logger.info("Subscribe Now CTA is not displayed in My Subscription screen");
+		}
+		// Verify User is navigated to subscribe screen post tapping Subscribe Now CTA
+		verifyElementPresentAndClick(AMDMoreMenu.objSubscribeNowCTA, "Subscribe Now CTA");
+		String screenTitle = getText(AMDGenericObjects.objgetScreenTitle);
+		if (screenTitle.equals("Subscribe")) {
+			extent.extentLogger("Verify Navigation",
+					"User is navigated to Subscribe screen post tapping Subscribe Now CTA from My Subscription screen");
+			logger.info(
+					"User is navigated to Subscribe screen post tapping Subscribe Now CTA from My Subscription screen");
+		} else {
+			extent.extentLoggerFail("Verify Navigation",
+					"User is not navigated to Subscribe screen post tapping Subscribe Now CTA from My Subscription screen");
+			logger.info(
+					"User is not navigated to Subscribe screen post tapping Subscribe Now CTA from My Subscription screen");
+		}
+		Back(1);
+		// Verify user is navigated back to More menu screen on clicking back button
+		verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
+		if (verifyElementExist(AMDMoreMenu.objProfile, "Profile icon")) {
+			extent.extentLogger("Verify navigation",
+					"User is navigate back to the More menu screen post tapping back button from My Subscription screen");
+			logger.info(
+					"User is navigate back to the More menu screen post tapping back button from Login/Register screen");
+		} else {
+			extent.extentLoggerFail("Verify navigation",
+					"User is not navigated back to the More menu screen post tapping back button from My Subscription screen");
+			logger.info(
+					"User is not navigated back to the More menu screen post tapping back button from My Subscription screen");
+		}
+
 	}
 }

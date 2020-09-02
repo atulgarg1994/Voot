@@ -164,8 +164,6 @@ public class PWASubscriptionPages {
 	public static By objPaymentFailureCloseBtn = By
 			.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 
-	public static By objHaveACodeCloseBtn = By.xpath("//span[@class='noSelect iconInitialLoad-ic_close']");
-
 	public static By objPackTitle = By.xpath("(//div[@class='planDescription'])");
 
 	public static By objPackAmount2 = By.xpath("(//p[@class='currency'])[2]");
@@ -295,4 +293,6 @@ public class PWASubscriptionPages {
 	
 	// Get Subscribe Pop Up Title
 	public static By objSubscribePopupTitle = By.xpath("//div[contains(@class,'popup')]//*[text()='Subscribe']");
+	
+	public static By objHaveACodeCloseBtn = By.xpath("//div[contains(@class,'applyPromo')]//following-sibling::span[contains(@class,'close')]");
 }

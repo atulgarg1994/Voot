@@ -1141,6 +1141,14 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 */
 	public String fetchLiveContent() throws Exception {
 		navigateToAnyScreen("Live TV");
+
+		waitTime(10000);
+		waitTime(10000);
+		waitTime(10000);
+		waitTime(10000);
+		waitTime(10000);
+		waitTime(10000);
+
 		waitForElementDisplayed(PWAHomePage.objHighlightedTab("Live TV"), 10);
 		waitTime(10000);
 		String liveTVContentName = "";
@@ -2305,7 +2313,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 		// Verify user can click on remainder option
 		// click on Remainder option
-		click(PWALiveTVPage.objRemainderButton, "Remainder option");
+		JSClick(PWALiveTVPage.objRemainderButton, "Remainder option");
 		if (getDriver().findElement(PWALiveTVPage.objRemainderButton).getAttribute("class").contains("btnIconActive")) {
 			extent.extentLogger("Verify user can Click on remainder option", "User can click on Remainder option");
 			logger.info("User can click on Remainder option");
@@ -2333,7 +2341,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	public void premiumPopUp() throws Exception {
 		extent.HeaderChildNode(
 				"Verifing that Subscribe now or Login pop is displayed when user click on premium content");
-		for (int scroll = 0; scroll <= 4; scroll++) {
+		for (int scroll = 0; scroll <= 8; scroll++) {
 			if (directClickReturnBoolean(PWALiveTVPage.objFirstPremiumCardinTray, "Premium Content")) {
 				logger.info("Clicked on Premium Content Card");
 				extent.extentLogger("", "Clicked on Premium Content Card");
@@ -2371,6 +2379,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 		}
 		Back(1);
+		if (verifyElementExist(PWAHomePage.objBackToTopArrow, "Back to Top arrow")) {
+			click(PWAHomePage.objBackToTopArrow, "Back to Top arrow");
+		}
 		extent.HeaderChildNode("Verifing that user is able to watch the free Content");
 		verifyElementPresentAndClick(PWALiveTVPage.objFilterOption("FREE Channels"), "Free Channels filter");
 		waitForElementDisplayed(PWALiveTVPage.objFirstfreeContentCard, 5);
@@ -2970,15 +2981,20 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		boolean adWasDisplayed = false;
 		boolean playerDisplayed = false;
 		int confirmCount = 0;
-		main: for (int trial = 0; trial < 90; trial++) {
+		main: for (int trial = 0; trial < 200; trial++) {
 			try {
 				getDriver().findElement(PWAPlayerPage.objAd);
+				if (verifyIsElementDisplayed(PWAPlayerPage.objSkipAdButton)) {
+					getDriver().context("NATIVE");
+					directClickReturnBoolean(PWAPlayerPage.objSkipAdButton, "Skip Ad button");
+					getDriver().context("CHROMIUM");
+				}
 				adWasDisplayed = true;
 				if (trial == 5) {
 					logger.info("Ad play in progress");
 					extent.extentLogger("AdPlayInProgress", "Ad play in progress");
 				}
-				if (Math.floorMod(trial, 10) == 0)
+				if (Math.floorMod(trial, 40) == 0)
 					System.out.println("Ad play in progress");
 				Thread.sleep(1000);
 			} catch (Exception e) {
@@ -3002,7 +3018,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 						break main;
 					}
 				} catch (Exception e1) {
-					Thread.sleep(1000);
+					waitTime(2000);
 				}
 			}
 		}
@@ -5170,7 +5186,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			System.out.println("Not Navigated to other Player");
 			extent.extentLogger("Not Navigated to other Player", "Not Navigated to other Player");
 		}
-		getDriver().get("https://newpwa.zee5.com/movies/details/doddmane-hudga/0-0-2677?t=60");
+		// getDriver().get("https://newpwa.zee5.com/movies/details/doddmane-hudga/0-0-2677?t=60");
+		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
+		String urlToHit = url + "kids/kids-movies/robin-hood-enemies-forever/0-0-103560?t=60";
+		getDriver().get(urlToHit);
 		Thread.sleep(5000);
 	}
 
@@ -9117,9 +9136,14 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Fetch Live Show from Channel Guide and verify Search");
 		click(PWASearchPage.objBackButton, "Back in Search box");
 		navigateToAnyScreen("Live TV");
-		waitTime(10000);
+		waitTime(3000);
 		verifyElementPresentAndClick(PWALiveTVPage.objChannelGuideToggle, "Channel Guide");
 		String liveshow = null;
+		waitTime(10000);
+		waitTime(10000);
+		waitTime(10000);
+		waitTime(10000);
+		waitTime(10000);
 		waitTime(10000);
 		try {
 			liveshow = getText(PWALiveTVPage.objOngoingLiveTvShowTitle);
@@ -9243,7 +9267,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, liveContentName + "\n", "Search bar");
 		hideKeyboard();
-		waitTime(4000);
+		waitTime(10000);
+		waitTime(10000);
 		verifyElementPresent(PWALiveTVPage.objrelatedChannel(liveContentName), "Live Show " + liveContentName);
 		verifyElementPresent(PWALiveTVPage.objrelatedChannelLiveLogo(liveContentName),
 				"LIVE Logo for " + liveContentName);
@@ -9500,8 +9525,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWASubscriptionPages.objApplyBtn, "Apply Button");
 			verifyElementPresent(PWASubscriptionPages.objAppliedCodeFailureMessage, "Failure message");
 			String failureMsg = getText(PWASubscriptionPages.objAppliedCodeFailureMessage);
-			logger.info(failureMsg);
-			extent.extentLogger("Failure Message", failureMsg + " is displayed");
+			logger.info("Failure message: " + failureMsg + " is displayed");
+			extent.extentLogger("Failure Message", "Failure message: " + failureMsg + " is displayed");
 			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACodeCloseBtn, "Close Button");
 
 			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "Have A Code section");
@@ -9511,7 +9536,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			boolean ele1 = verifyElementPresent(PWASubscriptionPages.objAppliedSuccessfullyMessage,
 					"Applied Successfully message");
 			String successMessage = getText(PWASubscriptionPages.objAppliedSuccessfullyMessage);
-			logger.info(successMessage);
+			logger.info(successMessage + " is displayed");
 			extent.extentLogger("Success Message", successMessage + " is displayed");
 			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACodeCloseBtn, "Close Button");
 			type(PWASubscriptionPages.objHaveACode, "pNB20", "Prepaid Code");
@@ -9532,17 +9557,16 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			extent.HeaderChildNode(
 					"Validating the plans with discounted amount is displayed if applied code is successful.");
 			List<WebElement> discountedPackAmount = getDriver().findElements(PWASubscriptionPages.objPackAmount);
+			waitTime(4000);
 			System.out.println(discountedPackAmount.size());
-			for (int i = 1; i <= discountedPackAmount.size(); i++) {
+			for (int i = 0; i < discountedPackAmount.size(); i++) {
 				logger.info("Discounted Pack Amount : "
-						+ getDriver().findElement(By.xpath("(//p[@class='currency'])[" + i + "]")).getText());
+						+ getDriver().findElement(By.xpath("(//p[@class='currency'])[" + (i + 1) + "]")).getText());
 				extent.extentLogger("Discounted Pack Amount", "Discounted Pack Amount : "
-						+ getDriver().findElement(By.xpath("(//p[@class='currency'])[" + i + "]")).getText());
+						+ getDriver().findElement(By.xpath("(//p[@class='currency'])[" + (i + 1) + "]")).getText());
 			}
-
-			verifyElementPresentAndClick(PWASubscriptionPages.objPackAmount2, "Discounted pack");
+			verifyElementPresentAndClick(PWASubscriptionPages.objPackAmount1, "Discounted pack");
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-
 			paymentPageValidation();
 		}
 
@@ -9783,10 +9807,12 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	public void newsPageValidation(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("News Page Validation");
 		navigateToAnyScreen("News");
-		waitTime(3000);
+		waitTime(7000);
+		waitForElement(PWANewsPage.objLiveNewsCard, 60, "News Card");
 		String newsCardTitle = getElementPropertyToString("data-minutelytitle", PWANewsPage.objLiveNewsCard,
 				"News Card Title");
 		click(PWANewsPage.objLiveNewsCard, "News Card Title");
+		waitTime(10000);
 		if (verifyElementPresent(PWAPlayerPage.objPlayerControlScreen, "Player control containing screen")) {
 			String newsConsumptionsTitle = getText(PWANewsPage.objLiveNewsConsumptionsTitle);
 			if (newsCardTitle.equals(newsConsumptionsTitle)) {
@@ -10015,7 +10041,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			remainderOptionOnUpcomingShow();
-			click(PWALiveTVPage.objTodayDate, "Today's date");
+			JSClick(PWALiveTVPage.objTodayDate, "Today's date");
 		}
 		extent.HeaderChildNode("Validating that user is able to scroll trough the channel list");
 
@@ -10101,6 +10127,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				int endy = starty;
 				for (int i = 0; i < 2; i++) {
 					try {
+						Swipe("UP", 1);
 						getDriver().findElement(PWAShowsPage.objFacebookApp).click();
 						break;
 					} catch (Exception e) {
@@ -11152,6 +11179,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	public void Kaltura(String userType) throws Exception {
 		dismissSystemPopUp();
 		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
@@ -11184,44 +11212,48 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		searchvideoandselect(keyword6, userType, "news");
 		String Value = null;
 		waitTime(5000);
-		navigateToAnyScreen("Live TV");
-		waitTime(10000);
-		logger.info("Selecting Free content from Live TV tray and validating Kaltura playability");
-		extent.extentLogger("Selecting Free content from Live TV tray and validating Kaltura playability",
-				"Selecting Free content from Live TV tray and validating Kaltura playability");
-		waitTime(10000);
-		waitTime(10000);
-		waitTime(10000);
-		Value = findElement(PWAPlayerPage.objFirstCardFreeChnnelName).getAttribute("title");
-		if (Value != null) {
-			logger.info("Free content from Live TV tray : " + Value);
-			extent.extentLogger("", "Free content from Live TV tray : " + Value);
-			click(PWAPlayerPage.objFirstCardFreeChnnels, "" + Value);
-			if (verifyElementExist(PWAHomePage.objPlaybackLIVETVTitle1, "Live TV title") == true) {
-				logger.info("Navigated to Title : " + getText(PWAHomePage.objPlaybackLIVETVTitle1));
-				extent.extentLogger("", "Navigated to Title : " + getText(PWAHomePage.objPlaybackLIVETVTitle1));
-				pauseLiveTVPlayer();
-				// added from gaps for live tv
-				if (verifyElementExist(PWAPlayerPage.progressBar, "Progress bar for Live TV")) {
-					extent.extentLoggerFail("", "Progress bar should not be dispayed for Live TV, but is displayed");
-				}
-				waitTime(5000);
-				if (verifyElementExist(PWAHomePage.objKalKalturaPlayer, "Kaltura Player")) {
-					extent.extentLogger("Navigated to Kaltura Player", "Navigated to Kaltura Player");
-					extent.extentLogger("", "Playing : " + getText(PWAHomePage.objKalLivetvPlaying));
-					extent.extentLogger("", "Channel :" + getText(PWAHomePage.objKalLivetvChannel));
-					logger.info("Playing : " + getText(PWAHomePage.objKalLivetvPlaying));
-					logger.info("Channel :" + getText(PWAHomePage.objKalLivetvChannel));
-				} else {
-					extent.extentLoggerFail("Not Navigated to Kaltura Player", "Not Navigated to Kaltura Player");
-					logger.error("Not Navigated to Kaltura Player");
-				}
-			}
-		} else {
-			extent.extentLoggerFail("", "Failed to fetch title from Card of Free Channels");
-			logger.error("Failed to fetch title from Card of Free Channels");
-			getDriver().get(url);
-		}
+//		navigateToAnyScreen("Live TV");
+//		waitTime(10000);
+//		logger.info("Selecting Free content from Live TV tray and validating Kaltura playability");
+//		extent.extentLogger("Selecting Free content from Live TV tray and validating Kaltura playability","Selecting Free content from Live TV tray and validating Kaltura playability");
+//		waitTime(10000);
+//		waitTime(10000);
+//		waitTime(10000);
+//		waitTime(10000);
+//		waitTime(10000);
+//		waitTime(10000);
+//		waitTime(10000);
+//		waitTime(10000);
+//		Value = findElement(PWAPlayerPage.objFirstCardFreeChnnelName).getAttribute("title");
+//		if (Value != null) {
+//			logger.info("Free content from Live TV tray : " + Value);
+//			extent.extentLogger("", "Free content from Live TV tray : " + Value);
+//			click(PWAPlayerPage.objFirstCardFreeChnnels, "" + Value);
+//			if (verifyElementExist(PWAHomePage.objPlaybackLIVETVTitle1, "Live TV title") == true) {
+//				logger.info("Navigated to Title : " + getText(PWAHomePage.objPlaybackLIVETVTitle1));
+//				extent.extentLogger("", "Navigated to Title : " + getText(PWAHomePage.objPlaybackLIVETVTitle1));
+//				pauseLiveTVPlayer();
+//				// added from gaps for live tv
+//				if (verifyElementExist(PWAPlayerPage.progressBar, "Progress bar for Live TV")) {
+//					extent.extentLoggerFail("", "Progress bar should not be dispayed for Live TV, but is displayed");
+//				}
+//				waitTime(5000);
+//				if (verifyElementExist(PWAHomePage.objKalKalturaPlayer, "Kaltura Player")) {
+//					extent.extentLogger("Navigated to Kaltura Player", "Navigated to Kaltura Player");
+//					extent.extentLogger("", "Playing : " + getText(PWAHomePage.objKalLivetvPlaying));
+//					extent.extentLogger("", "Channel :" + getText(PWAHomePage.objKalLivetvChannel));
+//					logger.info("Playing : " + getText(PWAHomePage.objKalLivetvPlaying));
+//					logger.info("Channel :" + getText(PWAHomePage.objKalLivetvChannel));
+//				} else {
+//					extent.extentLoggerFail("Not Navigated to Kaltura Player", "Not Navigated to Kaltura Player");
+//					logger.error("Not Navigated to Kaltura Player");
+//				}
+//			}
+//		} else {
+//			extent.extentLoggerFail("", "Failed to fetch title from Card of Free Channels");
+//			logger.error("Failed to fetch title from Card of Free Channels");
+//			getDriver().get(url);
+//		}
 	}
 
 	public void searchvideoandselect(String str, String userType, String type) throws Exception {
@@ -11270,6 +11302,13 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		 * verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose,
 		 * "Subscribe Pop Up Close button"); } }
 		 */
+
+		if (!userType.equals("SubscribedUser")) {
+			if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle)) {
+				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "Subscribe Pop Up Close button");
+			}
+		}
+		waitForPlayerAdToComplete("Video Player");
 		if (verifyElementExist(PWAHomePage.objKalKalturaPlayer, "Kaltura Player")) {
 			extent.extentLogger("Navigated to Kaltura Player", "Navigated to Kaltura Player");
 			boolean playerpaused = false;
@@ -11803,6 +11842,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 * Function to verify the FAQ's in Help Center Screen under Quick Links category
 	 */
 	public void quickLinksVerifications() throws Exception {
+		PartialSwipe("UP", 1);
+		PartialSwipe("UP", 1);
 		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Quick Links"), "'Quick Links' tab");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How Can I"), "'How Can I?'");
 		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How Can I"),
@@ -11812,6 +11853,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		Back(1);
 		waitTime(2000);
+		PartialSwipe("UP", 1);
+		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
@@ -11828,6 +11871,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
+		PartialSwipe("UP", 1);
+		PartialSwipe("UP", 1);
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Contests"),
 				"'Games, Quizzes & Contests'");
@@ -11841,6 +11886,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
+		PartialSwipe("UP", 1);
+		PartialSwipe("UP", 1);
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Before TV"), "'Before TV'");
 		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Before TV"),
@@ -11850,6 +11897,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		Back(1);
 		waitTime(2000);
+		PartialSwipe("UP", 1);
+		PartialSwipe("UP", 1);
+		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
@@ -11867,6 +11917,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 	@SuppressWarnings("rawtypes")
 	public void contactUsScreenVerification() throws Exception {
+		PartialSwipe("UP", 1);
+		waitTime(1000);
+		PartialSwipe("UP", 1);
+		waitTime(1000);
 		PartialSwipe("UP", 1);
 		waitTime(1000);
 		PartialSwipe("UP", 1);
@@ -12052,9 +12106,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		} else if (userType.equals("NonSubscribedUser")) {
 			UserActionLoggedInUser();
 		} else {
-			// ContinueWatching();
-			MyReminderUpdated();
-			// MyWatchlistSubscribedUser();
+			ContinueWatching();
+			MyReminder();
+			MyWatchlistSubscribedUser();
 		}
 	}
 

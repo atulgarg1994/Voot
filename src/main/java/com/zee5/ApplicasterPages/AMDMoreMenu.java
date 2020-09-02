@@ -188,4 +188,30 @@ public class AMDMoreMenu {
 	
 	public static By objSubscribeNowCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_sub_now']");
 	public static By objMyTransactionsHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and contains(text(),'My Transactions')]");
+	public static By objLoginRegisterText = By.xpath("//*[@resource-id='com.graymatrix.did:id/sub_header']");
+	public static By objUserName = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
+	
+	public static By objTransactionPackDuration = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_duration']");
+	public static By objTransactionPackRental = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_amount']");
+	public static By objTransactionPackPaymentMode = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_paymentmode']");
+	public static By objTransactionPackCountry = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_countryvalue']");
+	public static By objTransactionPackAutoRenewal = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_renewl_type']");
+	public static By objTransactionPackStatus = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_status_value']");
+	public static By objDownloadInvoice = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_dialog_done']");
+	public static By objTransactionDate = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_invoicedate']");
+	public static By objTransactionPackName = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_txt_allaccesspack']");
+	public static By objSubscriptionPackDuration = By.xpath("//*[@resource-id='com.graymatrix.did:id/pack_duration']");
+	public static By objSubscriptionPackPrice = By.xpath("//*[@resource-id='com.graymatrix.did:id/pack_amount']");
+	public static By objSubscriptionPackExpiryDate = By.xpath("//*[@resource-id='com.graymatrix.did:id/renewal_date']");
+	public static By objSubscriptionPackCountry = By.xpath("//*[@resource-id='com.graymatrix.did:id/pack_country']");
+	public static By objSubscriptionPackPaymentMode = By.xpath("//*[@resource-id='com.graymatrix.did:id/payment_mode']");
+	public static By objSubscriptionPackOfferings = By.xpath("//*[@resource-id='com.graymatrix.did:id/benefits']");
+	public static By objsubscriptionPackDotBelowTheCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/dot_v3']");
+	public static By objMySubscriptionPack = By.xpath("(//*[@class='android.widget.LinearLayout'])[4]");
+	public static By objSubscriptionPackCancelRenewal = By.xpath("//*[@resource-id='com.graymatrix.did:id/cancel_renewal']");
+	public static By objBrowseAllPacks = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_browse_packs']");
+	public static By objsubscriptionPackDotBelowTheSecondCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/dot_v1']");
+	public static By objNoActivePlans = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_nosubscription_title']");
+	public static By objMySubscriptionsHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and contains(text(),'My Subscriptions')]");
+	public static By objsubscriptionPackStatus = By.xpath("//*[@resource-id='com.graymatrix.did:id/status']");
 }
