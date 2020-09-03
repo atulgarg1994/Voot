@@ -6331,7 +6331,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementExist(PWAHomePage.objSearchField, "Search field");
 		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie2");
 		type(PWAHomePage.objSearchField, keyword, "Search");
-		waitTime(10000);
+		waitTime(15000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search content");
 		waitTime(5000);
 		if (verifyElementExist(PWAHamburgerMenuPage.objParentalLockPopUpInPlayer, "Parent control Popup")) {
