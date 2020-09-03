@@ -3,11 +3,11 @@
 <suite name="Android" parallel="false" thread-count="1">  <!-- name="Android" -->
 
 
-	<!-- <parameter name="userType" value="${UserType}"/> Guest/NonSubscribedUser/SubscribedUser/SubscribedUserWith15daysExpiry 
+	<!-- <parameter name="userType" value="${UserType}"/> Guest/NonSubscribedUser/SubscribedUser 
 		<parameter name="runMode" value="${runMode}"/>
 		<parameter name="runModule" value="${runModule}"/> -->
 
-	<parameter name="userType" value="NonSubscribedUser"/>  <!-- Guest/NonSubscribedUser/SubscribedUser -->
+	<parameter name="userType" value="SubscribedUser"/>  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite"/>
 	<parameter name="runMode" value="Suites"/>
 	
@@ -52,6 +52,7 @@
 	<parameter name="partlySpeltSearchKeyword" value="Kam" />
 	<parameter name="searchModuleKeyword" value="Kamali" />
 	<parameter name="searchKeyword1" value="Paaru gets tipsy" />
+	<parameter name="searchKeyword2" value="Jodi Hakki" />
 	
 	<parameter name="tabName1" value="Home" />
 	<parameter name="tabName2" value="Movies" />
@@ -72,6 +73,12 @@
 	
 	<parameter name="NonsubscribedUserWithNoTransactionUsername" value="zeebuild@gmail.com" />
 	<parameter name="NonsubscribedUserWithNoTransactionPassword" value="User@123" />
+	
+	<parameter name="SettingsNonsubscribedUserName" value="zeetest@gmail.com"/>
+	<parameter name="SettingsNonsubscribedPassword" value="zee12345"/>
+	
+	<parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com"/>
+	<parameter name="SettingsSubscribedPassword" value="123456"/>
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
@@ -92,10 +99,19 @@
 	<!-- <test name="DeepLinkValidation"> <classes> <class name="com.zee5.ApplicasterScripts.DeepLinkValidation"/> 
 		</classes> </test> -->
 
-	<test name="Android_MoreScreen">
+	<test name="Android_LandingScreen_TopNavigation">
 		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_MoreScreen" />
+			<class name="com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation" />
 		</classes>
 	</test>
-
+	
+	
+<!--
+	<test name="DeepLinkValidation">
+    	<classes>
+      		<class name="com.zee5.ApplicasterScripts.DeepLinkValidation"/>
+    	</classes> 
+  </test> 
+  -->
+	
 </suite>

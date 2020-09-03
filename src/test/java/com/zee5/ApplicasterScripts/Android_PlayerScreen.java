@@ -14,17 +14,17 @@ public class Android_PlayerScreen {
 	@BeforeTest
 	public void AppLaunch() throws InterruptedException {
 		System.out.println("Launching Android App");
-		Utilities.relaunch = true; // Clear App Data on First Launch
+		 Utilities.relaunch = true; // Clear App Data on First Launch
 		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
 
-	@Test(priority = 0)
+//	@Test(priority = 0)
 	@Parameters({ "userType" })
 	public void accessDeviceLocation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 	}
 
-	@Test(priority = 1)
+//	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void Login(String userType) throws Exception {
 		System.out.println("\nVerify Display Language Screen and login flow for various usertypes");
@@ -33,10 +33,10 @@ public class Android_PlayerScreen {
 	}
 
 	@Test(priority = 2)
-	@Parameters({ "userType" }) // Manasa
-	public void verifyPlayerScreenInFullscreen() throws Exception {
-		System.out.println("\nVerify Player Functionality");
-		ZEE5ApplicasterBusinessLogic.playerValidationInFullScreenMode();
+	@Parameters({ "userType", "searchKeyword2" }) // Manasa
+	public void verifyPlayerScreenInLandscapeMode(String userType, String searchKeyword2) throws Exception {
+		System.out.println("\nVerify Player Functionality in Landscape Mode");
+		ZEE5ApplicasterBusinessLogic.playerValidationInFullScreenMode(userType, searchKeyword2);
 	}
 
 	@AfterTest

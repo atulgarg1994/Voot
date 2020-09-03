@@ -190,4 +190,6 @@ public class AMDSearchScreen {
 		String title = "f";
 		System.out.println("//*[@id='item_primary_text' and contains(text(), "+title+")]");
 	}
+	
+	public static By objFirstContentInSearchResult = By.xpath("(//*[@resource-id='com.graymatrix.did:id/tabLayout_container']/following-sibling::*/child::*/child::*/child::*/child::*)[1]/child::*[@resource-id='com.graymatrix.did:id/item_primary_text']");
 }

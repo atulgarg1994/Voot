@@ -53,6 +53,7 @@
 	<parameter name="searchModuleKeyword" value="Kamali" />
 	<parameter name="searchKeyword" value="Aditya praises Paaru" />
 	<parameter name="searchKeyword1" value="Paaru gets tipsy" />
+	<parameter name="searchKeyword2" value="Jodi Hakki" />
 	
 	<parameter name="tabName1" value="Home" />
 	<parameter name="tabName2" value="Movies" />
@@ -74,13 +75,19 @@
 	<parameter name="NonsubscribedUserWithNoTransactionUsername" value="zeebuild@gmail.com" />
 	<parameter name="NonsubscribedUserWithNoTransactionPassword" value="User@123" />
 	
+	<parameter name="SettingsNonsubscribedUserName" value="zeetest@gmail.com"/>
+	<parameter name="SettingsNonsubscribedPassword" value="zee12345"/>
+	
+	<parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com"/>
+	<parameter name="SettingsSubscribedPassword" value="123456"/>
+	
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners> 
 	
-	<!--  <test name="Android_AppLaunch">
+	  <test name="Android_AppLaunch">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_AppLaunch" /> 	 		
 		</classes>
@@ -126,21 +133,38 @@
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_Downloads" />
 		</classes>
-	</test> -->
+	</test> 
 	
 	<test name="Android_LandingScreen_TopNavigation">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation" />
 		</classes>
 	</test>
-	 	
 	
-<!-- 	
+	<test name="Android_ListingScreen">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_ListingScreen" />
+		</classes>
+	</test>
+	
+	<test name="Android_Settings">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_Settings" />
+		</classes>
+	</test>
+	 	
+	 <test name="Android_ExitPop">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_ExitPop" />
+		</classes>
+	</test>
+	
+	
   <test name="DeepLinkValidation">
     <classes>
       <class name="com.zee5.ApplicasterScripts.DeepLinkValidation"/>
     </classes> 
-  </test>  -->
+  </test>  
   
     
 </suite>

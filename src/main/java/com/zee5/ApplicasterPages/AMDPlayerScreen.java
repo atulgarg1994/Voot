@@ -23,4 +23,15 @@ public class AMDPlayerScreen {
 	}
 	public static By objThreeDotsOnPlayer = By.xpath("//*[@id='icon_more']");
 	public static By objTitleOnPlayer = By.xpath("//*[@id='title_main']");
+	public static By objPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/player_root']");
+	
+	public static By objAd = By.xpath("(//*[contains(text(),'Ad')])[1]");
+	public static By objQuality = By.xpath("//*[@id='icon_quality_text']");
+	public static By objQualityOptions = By.xpath("//*[@id='textView2']");
+	public static By objQualityOptions(int i) {
+		return By.xpath("//*[@id='textView2']");
+	}
+	public static By objAddToWatchlist = By.xpath("//*[@id='icon_add_to_watch_list_text']");
+	public static By objPlaybackRate = By.xpath("//*[@id='icon_playback_rate_text']");
+	public static By objPlaybackRateSelected = By.xpath("//*[@id='icon_selected']//parent::*");
 }

@@ -25,13 +25,14 @@ public class Android_Settings {
 
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
-		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLoginForSettings(userType);
 	}
 
 	@Test(priority = 1)
-	@Parameters({ "userType", "displayLanguageSelection1", "displayLanguageSelection2", "searchKeyword", "searchKeyword1",  })
-	public void Setting_Screen(String userType, String displayLanguageSelection1, String displayLanguageSelection2,String searchKeyword,String searchKeyword1)
-			throws Exception {
+	@Parameters({ "userType", "displayLanguageSelection1", "displayLanguageSelection2", "searchKeyword",
+			"searchKeyword1", })
+	public void Settings_Screen(String userType, String displayLanguageSelection1, String displayLanguageSelection2,
+			String searchKeyword, String searchKeyword1) throws Exception {
 		ZEE5ApplicasterBusinessLogic.settings(userType);
 		ZEE5ApplicasterBusinessLogic.videoStreamingValidation(userType);
 		ZEE5ApplicasterBusinessLogic.downloadSettingsValidation();
