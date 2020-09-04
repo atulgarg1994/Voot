@@ -252,13 +252,14 @@ public class Drivertools {
 			System.exit(0);
 		}
 
-		if (getPlatform().equals("Android")) {
+		if (!getPlatform().equals("Android")) {
 			if (getURL().equals("https://newpwa.zee5.com/")) {
 				setENV(getURL());
-			} else if (getURL().equals("https://zee5.com/")) {
+			} else if (getURL().equals("https://www.zee5.com/")) {
 				setENV(getURL());
 			}
 		}
+		
 		logger.info("PlatForm :: " + getPlatform());
 		if (Stream.of("Android", "ios", "Web", "MPWA").anyMatch(getPlatform()::equals)) {
 			setHandler(new PropertyFileReader("properties/ExecutionControl.properties"));
@@ -277,5 +278,4 @@ public class Drivertools {
 			throw new SkipException("PlatForm not matched...");
 		}
 	}
-
 }
