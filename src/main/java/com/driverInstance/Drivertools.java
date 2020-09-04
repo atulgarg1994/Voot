@@ -31,7 +31,7 @@ public class Drivertools {
 	private PropertyFileReader handler;
 	private String testName;
 	private String browserType;
-	private String url;
+	private String url = "";
 	public static String runModule;
 	private URLConnection connection;
 	private URL connectURL;
@@ -252,12 +252,13 @@ public class Drivertools {
 			System.exit(0);
 		}
 
-		if (getURL().equals("https://newpwa.zee5.com/")) {
-			setENV(getURL());
-		} else if (getURL().equals("https://zee5.com/")) {
-			setENV(getURL());
+		if (getPlatform().equals("Android")) {
+			if (getURL().equals("https://newpwa.zee5.com/")) {
+				setENV(getURL());
+			} else if (getURL().equals("https://zee5.com/")) {
+				setENV(getURL());
+			}
 		}
-		
 		logger.info("PlatForm :: " + getPlatform());
 		if (Stream.of("Android", "ios", "Web", "MPWA").anyMatch(getPlatform()::equals)) {
 			setHandler(new PropertyFileReader("properties/ExecutionControl.properties"));
