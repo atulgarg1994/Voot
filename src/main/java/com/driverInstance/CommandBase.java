@@ -1,9 +1,9 @@
 package com.driverInstance;
 
-import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import com.extent.ExtentReporter;
 import com.propertyfilereader.PropertyFileReader;
+import com.utility.LoggingUtils;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
@@ -19,7 +19,8 @@ public class CommandBase extends DriverInstance {
 	ExtentReporter extent = new ExtentReporter();
 
 	/** The Constant logger. */
-	final static Logger logger = Logger.getLogger("rootLogger");
+//	final static Logger logger = Logger.getLogger("rootLogger");
+	static LoggingUtils logger = new LoggingUtils();
 
 	/** The Android driver. */
 	public AndroidDriver<AndroidElement> androidDriver;

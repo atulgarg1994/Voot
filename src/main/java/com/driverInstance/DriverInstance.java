@@ -90,7 +90,7 @@ public class DriverInstance extends Drivertools {
 			WebDriverManager.firefoxdriver().version("0.26.0").setup();
 //			tlWebDriver.set(new FirefoxDriver());
 		} else if (browserName.equalsIgnoreCase("Chrome")) {
-			WebDriverManager.chromedriver().version("83.0.4103.39").setup();
+			WebDriverManager.chromedriver().version(getDriverVersion()).setup();
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("start-maximized");
 			options.addArguments("enable-automation");
@@ -104,6 +104,7 @@ public class DriverInstance extends Drivertools {
 //			options.addArguments("--window-size=1616, 876");
 			options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 			tlWebDriver.set(new ChromeDriver(options));
+			
 		}
 
 		else if (browserName.equalsIgnoreCase("IE")) {

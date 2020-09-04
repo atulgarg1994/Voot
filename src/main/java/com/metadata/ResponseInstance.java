@@ -484,7 +484,6 @@ public class ResponseInstance {
 	}
 
 	// Fetching language from response ::
-
 	public static String getLanguage(String userType) {
 		String language = null;
 		if (userType.contains("Guest")) {

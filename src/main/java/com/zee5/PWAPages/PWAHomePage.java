@@ -248,6 +248,10 @@ public class PWAHomePage {
 				+ i + "]");
 	}
 
+	public static By objspecificTumbnail2(String str, int i) {
+		return By.xpath("((//div[@class='trayHeader']//h2[.='"+str+"'])//parent::*//parent::*//div[@class='slick-slider continueWatchTray slick-initialized']//div[@class='slick-track']//div//div//a)["+i+"]");
+	}
+	
 	public static By objtumnails(String str) {
 		return By.xpath("((//div[@class='trayHeader']//h2[.='" + str
 				+ "'])//parent::*//parent::*//div[@class='noSelect clickWrapper' or @class='clickWrapper'])//figure");

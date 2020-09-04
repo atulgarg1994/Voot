@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.stream.Stream;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -13,6 +12,7 @@ import org.testng.SkipException;
 import com.applitools.eyes.images.Eyes;
 import com.extent.ExtentReporter;
 import com.propertyfilereader.PropertyFileReader;
+import com.utility.LoggingUtils;
 import com.utility.Utilities;
 import io.appium.java_client.AppiumDriver;
 
@@ -37,6 +37,7 @@ public class Drivertools {
 	private URL connectURL;
 	public static boolean startTest = false;
 	private static String runMode = "null";
+	private static String driverVersion = "";
 
 	public String getTestName() {
 		return testName;
@@ -58,8 +59,11 @@ public class Drivertools {
 
 	protected Utilities util = new Utilities();
 
+	private static String ENV = "";
+
 	/** The Constant logger. */
-	final static Logger logger = Logger.getLogger("rootLogger");
+//	final static Logger logger = Logger.getLogger("rootLogger");
+	static LoggingUtils logger = new LoggingUtils();
 
 	public static AppiumDriver<WebElement> getDriver() {
 		return tlDriver.get();
@@ -157,42 +161,62 @@ public class Drivertools {
 	protected void setHandler(PropertyFileReader handler) {
 		this.handler = handler;
 	}
-	
+
 	protected void setBrowserType(String BrowserType) {
 		this.browserType = BrowserType;
 	}
-	
+
 	protected String getBrowserType() {
 		return this.browserType;
 	}
-	
+
 	protected void setURL(String url) {
 		this.url = url;
 	}
-	
+
 	protected String getURL() {
 		return this.url;
 	}
+
 	protected String runMode() {
 		return this.runMode();
 	}
-	
+
 	@SuppressWarnings("static-access")
-	protected void setRunModule(String runModule){
+	protected void setRunModule(String runModule) {
 		this.runModule = runModule;
 	}
-	
+
 	public static String getRunModule() {
 		return runModule;
 	}
-	
+
 	@SuppressWarnings("static-access")
 	public void setRunMode(String runMode) {
 		this.runMode = runMode;
 	}
+
 	@SuppressWarnings("static-access")
 	public String getRunMode() {
 		return this.runMode;
+	}
+
+	@SuppressWarnings("static-access")
+	public void setENV(String env) {
+		this.ENV = env;
+	}
+
+	public static String getENV() {
+		return ENV;
+	}
+
+	public static String getDriverVersion() {
+		return driverVersion;
+	}
+
+	@SuppressWarnings("static-access")
+	public void setDriverVersion(String driverVersion) {
+		this.driverVersion = driverVersion;
 	}
 
 	public Drivertools(String application) {
@@ -207,6 +231,7 @@ public class Drivertools {
 		setAppActivity(getHandler().getproperty(application + "Activity"));
 		setAppVersion(getHandler().getproperty(application + "Version"));
 		setAPKName(getHandler().getproperty(application + "apkfile"));
+		setDriverVersion(getHandler().getproperty(application + "DriverVersion"));
 	}
 
 	{
@@ -216,6 +241,7 @@ public class Drivertools {
 		setURL(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url"));
 		setRunModule(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runModule"));
 		setRunMode(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runMode"));
+
 		try {
 			connectURL = new URL("https://www.google.com");
 			connection = connectURL.openConnection();
@@ -225,24 +251,27 @@ public class Drivertools {
 			System.out.println("<<<<<<---- Network is Down  ---->>>>>>>");
 			System.exit(0);
 		}
+
+		if (getURL().equals("https://newpwa.zee5.com/")) {
+			setENV(getURL());
+		} else if (getURL().equals("https://zee5.com/")) {
+			setENV(getURL());
+		}
 		
 		logger.info("PlatForm :: " + getPlatform());
-		
-		if (Stream.of("Android", "ios", "Web", "MPWA").anyMatch(getPlatform()::equals)) 
-		{
-				setHandler(new PropertyFileReader("properties/ExecutionControl.properties"));
-				
-				if (getHandler().getproperty(getTestName()).equals("Y") && (getRunMode().contentEquals(getTestName())) || (getRunMode().contentEquals("Suites"))) {
-					logger.info("Running Test :: " + getTestName());
-					logger.info("Run Mode :: YES");
-					startTest = true;
-				} else {
-					
-					logger.info(getTestName() + " : Test Skipped");
-					logger.info("RunMode is :: No");
-					startTest = false;
-					throw new SkipException(getTestName() + " : Test Skipped ");
-				}
+		if (Stream.of("Android", "ios", "Web", "MPWA").anyMatch(getPlatform()::equals)) {
+			setHandler(new PropertyFileReader("properties/ExecutionControl.properties"));
+			if (getHandler().getproperty(getTestName()).equals("Y") && (getRunMode().contentEquals(getTestName()))
+					|| (getRunMode().contentEquals("Suites"))) {
+				logger.info("Running Test :: " + getTestName());
+				logger.info("Run Mode :: YES");
+				startTest = true;
+			} else {
+				logger.info(getTestName() + " : Test Skipped");
+				logger.info("RunMode is :: No");
+				startTest = false;
+				throw new SkipException(getTestName() + " : Test Skipped ");
+			}
 		} else {
 			throw new SkipException("PlatForm not matched...");
 		}

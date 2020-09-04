@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.stream.Stream;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,6 +23,7 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.deviceDetails.DeviceDetails;
 import com.driverInstance.DriverInstance;
 import com.propertyfilereader.PropertyFileReader;
+import com.utility.LoggingUtils;
 import io.appium.java_client.AppiumDriver;
 
 public class ExtentReporter implements ITestListener {
@@ -43,7 +43,8 @@ public class ExtentReporter implements ITestListener {
 	private static String AppVersion;
 
 	/** The Constant logger. */
-	final static Logger logger = Logger.getLogger("rootLogger");
+//	final static Logger logger = Logger.getLogger("rootLogger");
+	static LoggingUtils logger = new LoggingUtils();
 
 	@SuppressWarnings("static-access")
 	public void setReport(String report) {
@@ -125,9 +126,10 @@ public class ExtentReporter implements ITestListener {
 	@Override
 	public void onTestStart(ITestResult result) {
 		if ((Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals)
-				&& DriverInstance.startTest) || result.getName().equals("Login") || result.getName().equals("PWAWEBLogin")) {
+				&& DriverInstance.startTest) || result.getName().equals("Login")
+				|| result.getName().equals("PWAWEBLogin")) {
 			logger.info(":::::::::Test " + result.getName() + " Started::::::::");
-			test.set(extent.get().createTest(result.getName()));
+			test.set(extent.get().createTest(result.getName(),"<h5>"+"ENV : "+DriverInstance.getENV()+"<h5>"));
 		} else {
 			runmode = false;
 			throw new SkipException("");
@@ -165,12 +167,16 @@ public class ExtentReporter implements ITestListener {
 	public void extentLogger(String stepName, String details) {
 		childTest.get().log(Status.INFO, details);
 	}
+	
+	public void extentLoggerPass(String stepName, String details) {
+		childTest.get().log(Status.PASS, details);
+	}
 
 	public void extentLoggerFail(String stepName, String details) {
 		childTest.get().log(Status.FAIL, details);
 		screencapture();
 	}
-	
+
 	public void extentLoggerWarning(String stepName, String details) {
 		childTest.get().log(Status.WARNING, details);
 	}
@@ -181,7 +187,8 @@ public class ExtentReporter implements ITestListener {
 			extent.get().setSystemInfo("Device Info ", DeviceDetails.DeviceInfo(context.getName()));
 			extent.get().setSystemInfo("App version : ", getAppVersion().replace("Build", ""));
 		} else if (getPlatform().equals("Web")) {
-			extent.get().setSystemInfo("Browser Info ", BrowserType);
+			extent.get().setSystemInfo("Browser Name ", BrowserType);
+//			extent.get().setSystemInfo("Browser Version ", BrowserType);
 		}
 		extent.get().flush();
 //		MailReport.EmailReport();
@@ -194,8 +201,7 @@ public class ExtentReporter implements ITestListener {
 	public static String getDate() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
-		String name = dateFormat.format(date).toString().replaceFirst(" ", "_").replaceAll("/", "_").replaceAll(":",
-				"_");
+		String name = dateFormat.format(date).toString().replaceFirst(" ", "_").replaceAll("/", "_").replaceAll(":","_");
 		return name;
 	}
 
@@ -208,6 +214,7 @@ public class ExtentReporter implements ITestListener {
 									.getParameter("userType")
 							+ "/" + getReport() + "/Screenshots/" + getReport() + "_" + getDate() + ".jpg"));
 			childTest.get().addScreenCaptureFromBase64String(base64Encode(src));
+			logger.log(src, "Attachment");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

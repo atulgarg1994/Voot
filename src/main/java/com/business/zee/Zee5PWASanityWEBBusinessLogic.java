@@ -155,12 +155,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void ZeeWEBPWALogin(String LoginMethod) throws Exception {
 		String UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
-		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
-		extent.HeaderChildNode("Login Functionality for User-Type : " + UserType + ", Environment: " + url);
+		extent.HeaderChildNode("Login Functionality for User-Type : " + UserType);
 
 		if (UserType.equals("Guest")) {
 			extent.extentLogger("userType", "UserType : Guest");
-//			return;
+			return;
 		}
 
 		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
@@ -6110,7 +6109,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				ScrollToTheElementWEB(By.xpath("//div[@class='trayHeader']//h2[contains(text(),'Continue Watching')]"));
 
 				Thread.sleep(2000);
-				click(PWAHomePage.objspecificTumbnail1("Continue Watching", 1), "Continue watching content");
+				click(PWAHomePage.objspecificTumbnail2("Continue Watching", 1), "Continue watching content");
 
 				if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
 					verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");

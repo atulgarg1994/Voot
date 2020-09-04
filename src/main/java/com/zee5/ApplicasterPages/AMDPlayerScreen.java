@@ -17,7 +17,6 @@ public class AMDPlayerScreen {
 	public static By objShareIcon = By.xpath("//*[@id='native_share_button']");
 	public static By objWatchlistIcon = By.xpath("//*[@id='watch_list_image']");
 	public static By objDownloadIcon = By.xpath("//*[@id='downlowd_image']");
-
 	public static By objfirstContentcardOfParticularTray(String trayTitle) {
 		return By.xpath("(//*[@text="+trayTitle+"]/parent::*/parent::*/following-sibling::*/child::*/child::*/child::*/child::*)[1]");
 	}
@@ -29,7 +28,7 @@ public class AMDPlayerScreen {
 	public static By objQuality = By.xpath("//*[@id='icon_quality_text']");
 	public static By objQualityOptions = By.xpath("//*[@id='textView2']");
 	public static By objQualityOptions(int i) {
-		return By.xpath("//*[@id='textView2']");
+		return By.xpath("(//*[@id='textView2'])["+i+"]");
 	}
 	public static By objAddToWatchlist = By.xpath("//*[@id='icon_add_to_watch_list_text']");
 	public static By objPlaybackRate = By.xpath("//*[@id='icon_playback_rate_text']");

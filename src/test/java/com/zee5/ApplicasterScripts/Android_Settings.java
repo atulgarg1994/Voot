@@ -22,7 +22,6 @@ public class Android_Settings {
 	@Test(priority = 0)
 	@Parameters({ "userType" })
 	public void Login(String userType) throws Exception {
-
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLoginForSettings(userType);

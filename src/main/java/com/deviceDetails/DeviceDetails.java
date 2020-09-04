@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
-import org.apache.log4j.Logger;
+import com.utility.LoggingUtils;
 
 public class DeviceDetails {
 
@@ -24,7 +24,8 @@ public class DeviceDetails {
 	public static String OEM;
 
 	/** The Constant logger. */
-	final static Logger logger = Logger.getLogger("rootLogger");
+//	final static Logger logger = Logger.getLogger("rootLogger");
+	static LoggingUtils logger = new LoggingUtils();
 
 	public static String getAppDetails(String str) {
 		try {

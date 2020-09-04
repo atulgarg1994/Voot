@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -59,7 +58,8 @@ public class Utilities extends ExtentReporter {
 	public static boolean relaunch = false;
 
 	/** The Constant logger. */
-	final static Logger logger = Logger.getLogger("rootLogger");
+//	final static Logger logger = Logger.getLogger("rootLogger");
+	static LoggingUtils logger = new LoggingUtils();
 
 	/** The Android driver. */
 	public AndroidDriver<AndroidElement> androidDriver;
@@ -108,15 +108,17 @@ public class Utilities extends ExtentReporter {
 		}
 	}
 
-	public void JSClick(By byLocator, String text) {
+	public boolean JSClick(By byLocator, String text) {
 		try {
 			js.executeScript("arguments[0].click();", findElement(byLocator));
 			logger.info("" + text + " " + " is clicked");
 			extent.extentLogger("checkElementNotPresent", "" + text + " is clicked");
+			return true;
 		} catch (Exception e) {
-			logger.error(text + " " + " is not clilcked");
+			logger.error(text + " " + " is not clicked");
 			extent.extentLogger("checkElementNotPresent", "" + text + " is not clicked");
 			screencapture();
+			return false;
 		}
 	}
 

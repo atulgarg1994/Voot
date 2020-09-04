@@ -2,31 +2,31 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Android" duration-ms="361461" started-at="2020-08-28T10:09:04Z" finished-at="2020-08-28T10:15:05Z">
+  <suite name="Web" duration-ms="18790" started-at="2020-09-03T17:48:29Z" finished-at="2020-09-03T17:48:48Z">
     <groups>
     </groups>
-    <test name="Android_MoreScreen" duration-ms="361461" started-at="2020-08-28T10:09:04Z" finished-at="2020-08-28T10:15:05Z">
-      <class name="com.zee5.ApplicasterScripts.Android_MoreScreen">
-        <test-method status="PASS" signature="AppLaunch()[pri:0, instance:com.zee5.ApplicasterScripts.Android_MoreScreen@7f13d6e]" name="AppLaunch" is-config="true" duration-ms="245765" started-at="2020-08-28T15:39:11Z" finished-at="2020-08-28T15:43:16Z">
+    <test name="WebPWASanityScript" duration-ms="18790" started-at="2020-09-03T17:48:29Z" finished-at="2020-09-03T17:48:48Z">
+      <class name="com.zee5.PWASanityScripts.WebPWASanityScript">
+        <test-method status="PASS" signature="init()[pri:0, instance:com.zee5.PWASanityScripts.WebPWASanityScript@7180e701]" name="init" is-config="true" duration-ms="17345" started-at="2020-09-03T23:18:29Z" finished-at="2020-09-03T23:18:47Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- AppLaunch -->
-        <test-method status="PASS" signature="MyWatchlist(java.lang.String)[pri:8, instance:com.zee5.ApplicasterScripts.Android_MoreScreen@7f13d6e]" name="MyWatchlist" duration-ms="99836" started-at="2020-08-28T15:43:16Z" finished-at="2020-08-28T15:44:56Z">
+        </test-method> <!-- init -->
+        <test-method status="PASS" signature="PWAWEBLogin(java.lang.String)[pri:1, instance:com.zee5.PWASanityScripts.WebPWASanityScript@7180e701]" name="PWAWEBLogin" duration-ms="37" started-at="2020-09-03T23:18:47Z" finished-at="2020-09-03T23:18:47Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[NonSubscribedUser]]>
+                <![CDATA[Guest]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- MyWatchlist -->
-        <test-method status="PASS" signature="tearDownApp()[pri:0, instance:com.zee5.ApplicasterScripts.Android_MoreScreen@7f13d6e]" name="tearDownApp" is-config="true" duration-ms="7862" started-at="2020-08-28T15:44:57Z" finished-at="2020-08-28T15:45:05Z">
+        </test-method> <!-- PWAWEBLogin -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.zee5.PWASanityScripts.WebPWASanityScript@7180e701]" name="tearDown" is-config="true" duration-ms="781" started-at="2020-09-03T23:18:47Z" finished-at="2020-09-03T23:18:48Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- tearDownApp -->
-      </class> <!-- com.zee5.ApplicasterScripts.Android_MoreScreen -->
-    </test> <!-- Android_MoreScreen -->
-  </suite> <!-- Android -->
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.zee5.PWASanityScripts.WebPWASanityScript -->
+    </test> <!-- WebPWASanityScript -->
+  </suite> <!-- Web -->
 </testng-results>
