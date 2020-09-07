@@ -164,9 +164,6 @@ public class AMDHomePage {
 						+ title + "\"]");
 	}
 
-	public static By objBeforeTVTray = By
-			.xpath("//*[@resource-id='com.graymatrix.did:id/header_primary_text' and contains(text(),'Before')]");
-
 	public static By objTab1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[1]");
 
 	public static By objTab5 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[5]");
@@ -182,4 +179,6 @@ public class AMDHomePage {
 	
 	public static By objFirstChannelCard  = By.xpath("(//*[@id='item_primary_text'])[1]");
 	public static By objKidsContentCard = By.xpath("//*[@id='header_primary_text']//following::*[6]");
+	
+	public static By objBeforeTVTray = By.xpath("//*[@resource-id='com.graymatrix.did:id/header_primary_text' and contains(text(),'Before')]");
 }

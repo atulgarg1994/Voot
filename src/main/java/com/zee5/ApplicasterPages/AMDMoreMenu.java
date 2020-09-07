@@ -94,8 +94,6 @@ public class AMDMoreMenu {
 	public static By objNoRestriction = By.xpath("//*[@text='No Restriction']");
 	public static By objDownloadDoneIcon = By.xpath("//*[@id='img_state']");
 
-	public static By objHelpCentre = By.xpath("//*[@text='Help Centre'] | //*[@text='Help Center']");
-
 	// developed by Sushma
 	public static By objBackButtonInSettingsScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_back']");
 	public static By objSettingsScreenTitle = By
@@ -214,4 +212,6 @@ public class AMDMoreMenu {
 	public static By objNoActivePlans = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_nosubscription_title']");
 	public static By objMySubscriptionsHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and contains(text(),'My Subscriptions')]");
 	public static By objsubscriptionPackStatus = By.xpath("//*[@resource-id='com.graymatrix.did:id/status']");
+	
+	public static By objHelpCentre = By.xpath("//*[@text='Help Centre'] | //*[@text='Help Center']");
 }

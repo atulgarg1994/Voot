@@ -40,7 +40,7 @@ public class Android_ExitPop {
 
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println("\nQuit the App\n");
+		System.out.println("\nExecution Complete - Closing the App");
 		ZEE5ApplicasterBusinessLogic.tearDown();
 	}
 

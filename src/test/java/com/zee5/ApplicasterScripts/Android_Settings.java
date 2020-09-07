@@ -45,7 +45,7 @@ public class Android_Settings {
 
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println("Quit the App");
+		System.out.println("\nExecution Complete - Closing the App");
 		ZEE5ApplicasterBusinessLogic.tearDown();
 	}
 }

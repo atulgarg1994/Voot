@@ -5432,87 +5432,50 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void parentalPinValidation(String userType, String searchKeyword) throws Exception {
-
-		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Parental Pin Validation");
-			verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu tab");
-			verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
-			waitTime(2000);
-			verifyElementPresentAndClick(AMDSettingsScreen.objDownloadOverWifiToggle, "Wifi Off toggle");
-			Back(1);
-			waitTime(3000);
-			Back(1);
+	public void parentalPinValidation(String userType,String searchKeyword) throws Exception {
+		extent.HeaderChildNode("Parental Pin Validation");
+		
+		if((userType.equalsIgnoreCase("NonSubscribedUser") || (userType.equalsIgnoreCase("SubscribedUser")))){
 			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
 			verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
-			type(AMDSearchScreen.objSearchBoxBar, searchKeyword + "\n", "Search bar");
+			type(AMDSearchScreen.objSearchBoxBar, searchKeyword+"\n", "Search bar");
 			waitTime(2000);
 			hideKeyboard();
 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-
-			verifyElementPresentAndClick(AMDMoreMenu.objSearchResult(searchKeyword), "Search result");
-
+			
+			verifyElementPresentAndClick(AMDMoreMenu.objRelatedSearchResult, "Search result");
+			
 			verifyElementPresentAndClick(AMDMoreMenu.objDownloadIcon, "Download icon");
 			verifyElementPresentAndClick(AMDMoreMenu.objDataSaver, "Data Saver option");
 			verifyElementPresentAndClick(AMDMoreMenu.objStartDownload, "Start Download");
-
-			String wifi = "";
-			String cmd = "adb shell dumpsys \"wifi | grep 'Wi-Fi is'\"";
-			Process p = Runtime.getRuntime().exec(cmd);
-			System.out.println(cmd);
-			BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			wifi = br.readLine();
-			logger.info("Wifi status :: " + wifi.toString());
-
-			if (wifi.equalsIgnoreCase("Wi-Fi is enabled")) {
-				logger.info("Content is downloading on Wifi network");
-				extent.extentLogger("Download", "Content is downloading on Wifi network");
-			} else {
-				logger.info("Content is not downloading on Wifi network");
-				extent.extentLoggerFail("Download", "Content is not downloading on Wifi network");
-			}
+			
 			Back(1);
-
 			verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu tab");
 			verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
 			waitTime(5000);
-			Swipe("UP", 1);
+			Swipe("UP",1);
 			verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
 			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
 			String password = "";
 			if (userType.equals("NonSubscribedUser")) {
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SettingsNonsubscribedPassword");
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
 			} else if (userType.equals("SubscribedUser")) {
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SettingsSubscribedPassword");
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
 			}
 			click(AMDMoreMenu.objPasswordField, "Password field");
 			getDriver().getKeyboard().sendKeys(password);
-
+		
 			hideKeyboard();
-			if (getOEMName.contains("vivo")) {
+			if(getOEMName.contains("vivo")) {
 				hidePwdKeyboard();
 			}
 			click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
 			waitTime(2000);
-
-			String state = getText(AMDMoreMenu.objNoRestriction);
-			System.out.println(state);
-			if (state.equalsIgnoreCase("No Restriction")) {
-				logger.info(state + " is selected by default");
-				extent.extentLogger("Parental Pin", state + " is selected by default");
-
-			} else {
-				logger.info(state + " is not selected by default");
-				extent.extentLoggerFail("Parental Pin", state + " is not selected by default");
-
-			}
-
+		
 			verifyElementPresentAndClick(AMDMoreMenu.objRestrictAllContent, "Restrict All Content option");
 			verifyElementPresentAndClick(AMDMoreMenu.objContinueBtn, "Continue Button");
 			waitTime(2000);
-
+			
 			verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin");
 			type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
 			hideKeyboard();
@@ -5525,22 +5488,20 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(4000);
 			verifyElementPresentAndClick(AMDMoreMenu.objSetPinContinueBtn, "Continue Button");
 			waitTime(2000);
-
+			
 			verifyElementPresentAndClick(AMDMoreMenu.objParentalLockDone, "Done Button");
-			Back(1);
-			waitTime(3000);
-			Back(1);
-
+			Back(2);
+			
 			verifyElementPresentAndClick(AMDHomePage.objDownload, "Downloads tab");
 			verifyElementPresentAndClick(AMDDownloadPage.objvideostab, "Videos tab");
 			waitForElementDisplayed(AMDMoreMenu.objDownloadDoneIcon, 20);
 			verifyElementPresentAndClick(AMDDownloadPage.objDownloadedContent, "Downloaded Content");
 			verifyElementPresentAndClick(AMDDownloadPage.objPlayDownloadedContent, "Play Downloaded Content");
-
+			
 			waitTime(2000);
 			Back(1);
-			verifyElementPresentAndClick(AMDDownloadPage.objEnterPinCTA, "Enter Pin CTA");
-
+			verifyElementPresentAndClick(AMDDownloadPage.objEnterPinCTA, "Play Downloaded Content");
+			
 			type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
 			hideKeyboard();
 			type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
@@ -5555,31 +5516,31 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu tab");
 			verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
 			waitTime(5000);
-			Swipe("UP", 1);
+			Swipe("UP",1);
 			verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
 			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
-
+			
 			if (userType.equals("NonSubscribedUser")) {
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SettingsNonsubscribedPassword");
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
 			} else if (userType.equals("SubscribedUser")) {
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SettingsSubscribedPassword");
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
 			}
 			click(AMDMoreMenu.objPasswordField, "Password field");
 			getDriver().getKeyboard().sendKeys(password);
-
+		
 			hideKeyboard();
-			if (getOEMName.contains("vivo")) {
+			if(getOEMName.contains("vivo")) {
 				hidePwdKeyboard();
 			}
 			click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
 			waitTime(2000);
+		
 			verifyElementPresentAndClick(AMDMoreMenu.objNoRestriction, "No Restriction");
 			verifyElementPresentAndClick(AMDMoreMenu.objContinueBtn, "Continue Button");
 			waitTime(2000);
 			verifyElementPresentAndClick(AMDMoreMenu.objParentalLockDone, "Done Button");
-			// Back(1);
+			
+			Back(2);
 		}
 	}
 
