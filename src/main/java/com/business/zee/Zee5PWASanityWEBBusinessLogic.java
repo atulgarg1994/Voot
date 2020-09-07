@@ -47,7 +47,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	public Zee5PWASanityWEBBusinessLogic(String Application) throws InterruptedException {
 		new CommandBase(Application);
 		init();
-	} 
+	}
 
 	private int timeout;
 
@@ -1172,6 +1172,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		switch (userType) {
 		case "Guest":
 			extent.HeaderChildNode("Guest user ");
+			launchCheck(userType);
 			navigationToMyPlanFromHome("NewRegister");
 			navigationToMyPlanFromHome("Logged in");
 			playerInLineLoginCheck();
@@ -1200,6 +1201,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Non-Subscribed user ");
 			waitTime(3000);
+			launchCheck(userType);
 			myaccountOptionsVerification();
 			NavigateToMyProfilePage();
 			verificationsInMyProfilePage();
@@ -1210,6 +1212,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		case "SubscribedUser":
 			extent.HeaderChildNode("Subscribed user ");
 			waitTime(3000);
+			launchCheck(userType);
 			myaccountOptionsVerification();
 			NavigateToMyProfilePage();
 			verificationsInMyProfilePage();
@@ -3820,9 +3823,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Home page validation with Api response");
 		String languageSmallText = allSelectedLanguages();
 		System.out.println(languageSmallText);
-		//Response resp = ApiData;
+		// Response resp = ApiData;
 		new LinkedList<String>();
-		Response resp =ResponseInstance.getResponseForPages("home", languageSmallText);
+		Response resp = ResponseInstance.getResponseForPages("home", languageSmallText);
 		String Tray_Title = resp.jsonPath().getString("buckets[1].title");
 		System.out.println("The Title of the Tray is " + Tray_Title + "");
 		waitTime(3000);
@@ -5727,8 +5730,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				.getParameter("timedAnchorEpisode");
 		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
 		waitTime(5000);
-		hideKeyboard();
-		waitTime(3000);
+		// hideKeyboard();
+		waitTime(5000);
 		click(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
 		waitTime(3000);
 		String currenturl = getWebDriver().getCurrentUrl();
@@ -5837,8 +5840,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				.getParameter("timedAnchorMusic");
 		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
 		waitTime(5000);
-		hideKeyboard();
-		waitTime(3000);
+		// hideKeyboard();
+		waitTime(4000);
 		click(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
 		waitTime(3000);
 		String currenturl = getWebDriver().getCurrentUrl();
@@ -5943,8 +5946,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				.getParameter("timedAnchorMovie");
 		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
 		waitTime(5000);
-		hideKeyboard();
-		waitTime(3000);
+		// hideKeyboard();
+		waitTime(4000);
 		click(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
 		waitTime(3000);
 
@@ -6328,7 +6331,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		verifyElementExist(PWAHomePage.objSearchField, "Search field");
-		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie2");
+		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+				.getParameter("freeMovie2");
 		type(PWAHomePage.objSearchField, keyword, "Search");
 		waitTime(15000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search content");
@@ -7443,8 +7447,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		getWebDriver().switchTo().defaultContent();
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
-		if(userType.equals("Guest")) {
-		logout();
+		if (userType.equals("Guest")) {
+			logout();
 		}
 	}
 
@@ -9384,12 +9388,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				if (verifyElementExist(PWAPlayerPage.minimizeBtn, "Minimize icon")) {
 					if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
 						logger.info("User is able to watch Trailer for premium content in landscape mode");
-						extent.extentLogger("Landscape mode", "User is able to watch Trailer for premium content in landscape mode");
-					}else {
+						extent.extentLogger("Landscape mode",
+								"User is able to watch Trailer for premium content in landscape mode");
+					} else {
 						logger.info("User is able to watch premium content in landscape mode");
-						extent.extentLogger("Landscape mode", "User is able to watch premium content in landscape mode");
+						extent.extentLogger("Landscape mode",
+								"User is able to watch premium content in landscape mode");
 					}
-					
+
 					waitTime(3000);
 					click(PWAPlayerPage.minimizeBtn, "Minimize icon");
 					break;
@@ -14489,6 +14495,38 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 		}
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+	}
+
+	public void launchCheck(String userType) throws Exception {
+		HeaderChildNode("Verifying that on launch user can see signup/login option");
+		if (userType.equals("Guest")) {
+			if (verifyElementExist(PWALoginPage.objSignUpBtnWEB, "Sign up button")) {
+				logger.info("Guest user can see option signup after launch");
+				extentLogger("Launch", "Guest user can see option signup after launch");
+			} else {
+				logger.info("Something went wrong");
+			}
+			if (verifyElementExist(PWALoginPage.objLoginBtnWEB, "Login button")) {
+				logger.info("Guest user can see option signup after launch");
+				extentLogger("Launch", "Guest user can see option signup after launch");
+			} else {
+				logger.info("Something went wrong");
+			}
+		}
+		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+			if (!verifyElementExist(PWALoginPage.objSignUpBtnWEB, "Sign up button")) {
+				logger.info(userType + "cannot see option signup after launch");
+				extentLogger("Launch", userType + "cannot see option signup after launch");
+			} else {
+				logger.info("Something went wrong");
+			}
+			if (!verifyElementExist(PWALoginPage.objLoginBtnWEB, "Login button")) {
+				logger.info(userType + "cannot see option login after launch");
+				extentLogger("Launch", userType + "cannot see option login after launch");
+			} else {
+				logger.info("Something went wrong");
+			}
+		}
 	}
 
 }

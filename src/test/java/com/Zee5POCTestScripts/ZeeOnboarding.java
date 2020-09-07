@@ -10,7 +10,7 @@ public class ZeeOnboarding {
 	private ZeeBusinessLogic zeeBusinesscaller;
 
 	@BeforeTest
-	public void init() throws InterruptedException{
+	public void init() throws InterruptedException {
 		zeeBusinesscaller = new ZeeBusinessLogic("zee");
 	}
 
@@ -22,7 +22,6 @@ public class ZeeOnboarding {
 	@Test(priority = 2)
 	public void WelcomeScreen() throws Exception {
 		zeeBusinesscaller.WelcomeScreenValidation();
-
 	}
 
 	@Test(priority = 3)
@@ -52,10 +51,10 @@ public class ZeeOnboarding {
 	public void Verify_UpdateLanguage_From_HomePage() throws Exception {
 		zeeBusinesscaller.SelectedContentLanguageValidation();
 	}
-	
+
 	@AfterTest
-	public void tearDown(){
+	public void tearDown() {
 		zeeBusinesscaller.tearDown();
 	}
-	
+
 }

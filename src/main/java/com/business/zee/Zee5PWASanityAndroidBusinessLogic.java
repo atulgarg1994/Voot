@@ -4552,9 +4552,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info("API fetched Age Rating is " + ageRating + " is not displayed in UI");
 		}
 
-		
-		
-		
 		extent.HeaderChildNode("Verification of Reco Trays in Show Details Page");
 		Response recoResp = ResponseInstance.getRecoTraysInDetailsPage(userType, contentID);
 		ArrayList<String> recoTraysInDetailsPage = getAllRecoTraysFromDetails(recoResp);
@@ -4563,12 +4560,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		System.out.println(recoTraysInDetailsPage.size());
 		for (int tray = 0; tray < recoTraysInDetailsPage.size(); tray++) {
 			String trayTitleAPI = recoTraysInDetailsPage.get(tray);
-			System.out.println("TrayTitle from API : "+trayTitleAPI);
+			System.out.println("TrayTitle from API : " + trayTitleAPI);
 			swipeTillTray(10, trayTitleAPI, "\"" + trayTitleAPI + "\" tray");
 		}
-		scrolltillBackToArrowAppears();	
-		
-		
+		scrolltillBackToArrowAppears();
+
 //		// check for reco trays
 //		extent.HeaderChildNode("Verification of Reco Trays in Show Details Page");
 //		Response recoResp = ResponseInstance.getRecoTraysInDetailsPage(userType, contentID);
@@ -4579,8 +4575,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 //		}
 	}
 
-	
-	
 	public void scrolltillBackToArrowAppears() throws Exception {
 		PartialSwipe("UP", 3);
 		for (int i = 1; i <= 10; i++) {
@@ -5574,23 +5568,23 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 	public String swipeTillTray(int noOfSwipes, String trayTitle, String message) throws Exception {
 		boolean foundTray = false;
-		for(int i=0; i<=noOfSwipes; i++){
+		for (int i = 0; i <= noOfSwipes; i++) {
 			String Traytitle = trayTitle;
-			if(verifyElementExist(PWALandingPages.objTrayTitleInUI(Traytitle), Traytitle)){
-				System.out.println(Traytitle+" tray is displayed in show detail page");
-				extent.extentLogger("", Traytitle+" tray is displayed in show detail page");
+			if (verifyElementExist(PWALandingPages.objTrayTitleInUI(Traytitle), Traytitle)) {
+				System.out.println(Traytitle + " tray is displayed in show detail page");
+				extent.extentLogger("", Traytitle + " tray is displayed in show detail page");
 				foundTray = true;
 				break;
-			}else{
+			} else {
 				Swipe("UP", 1);
-			}	
+			}
 		}
-		
-		if(foundTray==true){
-			extent.extentLogger("", trayTitle+" Reco tray is displayed in show detail page");
+
+		if (foundTray == true) {
+			extent.extentLogger("", trayTitle + " Reco tray is displayed in show detail page");
 			logger.info("Reco tray is displayed in show detail page");
-		}else{
-			extent.extentLoggerFail("", trayTitle+"Reco tray is not displayed in show detail page");
+		} else {
+			extent.extentLoggerFail("", trayTitle + "Reco tray is not displayed in show detail page");
 			logger.error("Reco tray is not displayed in show detail page");
 		}
 //		main: for (int i = 0; i <= noOfSwipes; i++) {
@@ -9205,6 +9199,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		for (int i = 0; i < onGoingShows.size(); i++) {
 			try {
 				liveshow = onGoingShows.get(i).getText();
+				System.out.println(liveshow);
 				if (liveshow != null && !liveshow.equals("")) {
 					foundShow = true;
 					break;
@@ -9329,32 +9324,43 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		type(PWASearchPage.objSearchEditBox, liveContentName + "\n", "Search bar");
 		hideKeyboard();
 		waitTime(10000);
-		waitTime(10000);
-		verifyElementPresent(PWALiveTVPage.objrelatedChannel(liveContentName), "Live Show " + liveContentName);
-		verifyElementPresent(PWALiveTVPage.objrelatedChannelLiveLogo(liveContentName),
-				"LIVE Logo for " + liveContentName);
-		waitTime(3000);
-		click(PWALiveTVPage.objrelatedChannelLiveLogo(liveContentName), "LIVE Logo");
-		waitTime(4000);
-		waitForElement(PWAPlayerPage.objContentTitleLiveTV, 20, "Content title");
-		String consumptionsTitle = "";
-		try {
-			consumptionsTitle = getText(PWAPlayerPage.objContentTitleLiveTV);
-		} catch (Exception e) {
+		for (int scroll = 0; scroll < 4; scroll++) {
+			if (verifyIsElementDisplayed(PWALiveTVPage.objrelatedChannel(liveContentName))) {
+				break;
+			} else {
+				Swipe("UP", 1);
+				waitTime(2000);
+			}
 		}
-		;
-		if (consumptionsTitle.equals(liveContentName)) {
-			logger.info("Navigated to Consumption screen " + consumptionsTitle);
-			extent.extentLogger("", "Navigated to Consumption screen " + consumptionsTitle);
+		if (verifyElementPresent(PWALiveTVPage.objrelatedChannel(liveContentName), "Live Show " + liveContentName)) {
+			verifyElementPresent(PWALiveTVPage.objrelatedChannelLiveLogo(liveContentName),
+					"LIVE Logo for " + liveContentName);
+			waitTime(3000);
+			JSClick(PWALiveTVPage.objrelatedChannelLiveLogo(liveContentName), "LIVE Logo");
+			waitTime(4000);
+			waitForElement(PWAPlayerPage.objContentTitleLiveTV, 20, "Content title");
+			String consumptionsTitle = "";
+			try {
+				consumptionsTitle = getText(PWAPlayerPage.objContentTitleLiveTV);
+			} catch (Exception e) {
+			}
+			;
+			if (consumptionsTitle.equals(liveContentName)) {
+				logger.info("Navigated to Consumption screen " + consumptionsTitle);
+				extent.extentLogger("", "Navigated to Consumption screen " + consumptionsTitle);
 
+			} else {
+				logger.error("Failed to navigate to Consumption screen " + consumptionsTitle);
+				extent.extentLoggerFail("", "Failed to navigate to Consumption screen " + consumptionsTitle);
+			}
+			if (verifyElementExist(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up")) {
+				click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
+			}
+			click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 		} else {
-			logger.error("Failed to navigate to Consumption screen " + consumptionsTitle);
-			extent.extentLoggerFail("", "Failed to navigate to Consumption screen " + consumptionsTitle);
+			Back(1);
 		}
-		if (verifyElementExist(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up")) {
-			click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
-		}
-		click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+
 	}
 
 	/**
@@ -10066,7 +10072,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	public void liveLandingPage() throws Exception {
 		extent.HeaderChildNode("Verifing whether user is able to navigate Live Tv landing page");
 		navigateToAnyScreen("Live TV");
-		waitTime(10000);
+		waitforLiveTabToLoad();
 		waitForElementDisplayed(PWAHomePage.objHighlightedTab("Live TV"), 10);
 		if (verifyElementPresent(PWAHomePage.objHighlightedTab("Live TV"), "Live TV")) {
 			logger.info("Live Tv tab is highlighted, user is able to navigate Live Tv landing page");
@@ -10136,7 +10142,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		for (int i = 0; i < ongoingshows.size(); i++) {
 			onGoingLiveTvShowCardTitle = ongoingshows.get(i).getAttribute("innerText");
 			System.out.println(onGoingLiveTvShowCardTitle);
-			if (directClickReturnBoolean(PWALiveTVPage.objOngoingLiveTvShowTitles(i + 1),
+			if (JSClick(PWALiveTVPage.objOngoingLiveTvShowTitles(i + 1),
 					"Ongoing Live TV Show card: " + onGoingLiveTvShowCardTitle)) {
 				break;
 			}
@@ -11243,7 +11249,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 	}
 
-	@SuppressWarnings("unused")
 	public void Kaltura(String userType) throws Exception {
 		dismissSystemPopUp();
 		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");

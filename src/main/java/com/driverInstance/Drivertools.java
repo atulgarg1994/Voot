@@ -38,6 +38,7 @@ public class Drivertools {
 	public static boolean startTest = false;
 	private static String runMode = "null";
 	private static String driverVersion = "";
+	public static boolean click = true;
 
 	public String getTestName() {
 		return testName;
@@ -218,6 +219,10 @@ public class Drivertools {
 	public void setDriverVersion(String driverVersion) {
 		this.driverVersion = driverVersion;
 	}
+	
+	public static String getENvironment() {
+		return "<h5> ENV : <a href=\""+getENV()+"\" onclick='return "+click+";'\">"+getENV()+"</a></h5>";
+	}
 
 	public Drivertools(String application) {
 		setHandler(new PropertyFileReader("properties/Execution.properties"));
@@ -231,7 +236,7 @@ public class Drivertools {
 		setAppActivity(getHandler().getproperty(application + "Activity"));
 		setAppVersion(getHandler().getproperty(application + "Version"));
 		setAPKName(getHandler().getproperty(application + "apkfile"));
-		setDriverVersion(getHandler().getproperty(application + "DriverVersion"));
+		setDriverVersion(getHandler().getproperty("DriverVersion"));
 	}
 
 	{
@@ -252,12 +257,18 @@ public class Drivertools {
 			System.exit(0);
 		}
 
-		if (!getPlatform().equals("Android")) {
+		if (getPlatform().equals("Web")) {
 			if (getURL().equals("https://newpwa.zee5.com/")) {
 				setENV(getURL());
 			} else if (getURL().equals("https://www.zee5.com/")) {
 				setENV(getURL());
 			}
+		} else if (getPlatform().equals("Android")){
+			setENV("Native App");
+			click = false;
+		}else if (getPlatform().equals("MPWA")){
+			setENV("Chrome Application");
+			click = false;
 		}
 		
 		logger.info("PlatForm :: " + getPlatform());

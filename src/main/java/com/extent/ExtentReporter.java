@@ -129,7 +129,7 @@ public class ExtentReporter implements ITestListener {
 				&& DriverInstance.startTest) || result.getName().equals("Login")
 				|| result.getName().equals("PWAWEBLogin")) {
 			logger.info(":::::::::Test " + result.getName() + " Started::::::::");
-			test.set(extent.get().createTest(result.getName(),"<h5>"+"ENV : "+DriverInstance.getENV()+"<h5>"));
+			test.set(extent.get().createTest(result.getName(),DriverInstance.getENvironment()));
 		} else {
 			runmode = false;
 			throw new SkipException("");
