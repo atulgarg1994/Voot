@@ -106,13 +106,13 @@ public class ResponseInstance {
 	 */
 	public static String getXAccessToken() {
 		Response resp = null;
-		String xAccessToken="";
+		String xAccessToken = "";
 		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
 		resp = given().urlEncodingEnabled(false).when().get(url);
 		String respString = resp.getBody().asString();
-		respString=respString.replace("\"gwapiPlatformToken\":\"\"", "");
-		respString=respString.split("\"gwapiPlatformToken\":\"")[1];
-		xAccessToken=respString.split("\"")[0];
+		respString = respString.replace("\"gwapiPlatformToken\":\"\"", "");
+		respString = respString.split("\"gwapiPlatformToken\":\"")[1];
+		xAccessToken = respString.split("\"")[0];
 		return xAccessToken;
 	}
 
@@ -165,33 +165,42 @@ public class ResponseInstance {
 		} else if (tab.equalsIgnoreCase("news")) {
 			tab = "626";
 		}
-		Response regionResponse=given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
-		String region=regionResponse.getBody().jsonPath().getString("state_code");
-		String Uri = "https://gwapi.zee5.com/content/reco?country=IN&translation=en&languages=" + contLang+ "&version=6&collection_id=0-8-" + tab + "&region="+region;
+		Response regionResponse = given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
+		String region = regionResponse.getBody().jsonPath().getString("state_code");
+		String Uri = "https://gwapi.zee5.com/content/reco?country=IN&translation=en&languages=" + contLang
+				+ "&version=6&collection_id=0-8-" + tab + "&region=" + region;
 		System.out.println("Hitting api:\n" + Uri);
 		String xAccessToken = getXAccessToken();
 		if (userType.equalsIgnoreCase("Guest")) {
-			//Get Guest Token
+			// Get Guest Token
 			JSONObject requestParams = new JSONObject();
-			requestParams.put("aid", "91955485578"); 
-			requestParams.put("apikey", "6BAE650FFC9A3CAA61CE54D");			 
+			requestParams.put("aid", "91955485578");
+			requestParams.put("apikey", "6BAE650FFC9A3CAA61CE54D");
 			requestParams.put("DekeyVal", "Z5G211");
 			requestParams.put("UserAgent", "pwaweb");
 			RequestSpecification request = RestAssured.given();
-			request.header("Content-Type","application/json");
-			request.config(com.jayway.restassured.RestAssured.config().encoderConfig(com.jayway.restassured.config.EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)));
+			request.header("Content-Type", "application/json");
+			request.config(com.jayway.restassured.RestAssured.config()
+					.encoderConfig(com.jayway.restassured.config.EncoderConfig.encoderConfig()
+							.appendDefaultContentCharsetToContentTypeIfUndefined(false)));
 			request.body(requestParams.toString());
 			Response response = request.post("https://whapi-prod-node.zee5.com/fetchGuestToken");
-			String guestToken=response.jsonPath().get("guest_user").toString();
-			respReco = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", guestToken).when().get(Uri);
+			String guestToken = response.jsonPath().get("guest_user").toString();
+			respReco = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", guestToken).when()
+					.get(Uri);
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
-			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
-			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respReco = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
+			respReco = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+					.get(Uri);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
-			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
 			respReco = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
@@ -277,28 +286,26 @@ public class ResponseInstance {
 		respCarousel = given().urlEncodingEnabled(false).when().get(Uri);
 		return respCarousel;
 	}
-	
+
 	/**
 	 * Method to get content details passing content ID
 	 * 
 	 */
-	public static Response getContentDetails(String contentID,String contentType) {
+	public static Response getContentDetails(String contentID, String contentType) {
 		Response respContentDetails = null;
-		String Uri="";
-		if(contentType.equals("original")) {
-			Uri = "https://gwapi.zee5.com/content/tvshow/"+contentID+"?translation=en&country=IN";
+		String Uri = "";
+		if (contentType.equals("original")) {
+			Uri = "https://gwapi.zee5.com/content/tvshow/" + contentID + "?translation=en&country=IN";
+		} else if (contentType.contentEquals("Manual")) {
+			Uri = "https://gwapi.zee5.com/content/collection/" + contentID + "?translation=en&country=IN";
+		} else {
+			Uri = "https://gwapi.zee5.com/content/details/" + contentID + "?translation=en&country=IN";
 		}
-		else if(contentType.contentEquals("Manual")) {
-			Uri = "https://gwapi.zee5.com/content/collection/"+contentID+"?translation=en&country=IN";
-		}
-		else {
-			Uri = "https://gwapi.zee5.com/content/details/"+contentID+"?translation=en&country=IN";	
-		}		
 		respContentDetails = given().when().get(Uri);
-		//System.out.println("Content Details API Response: "+respContentDetails.getBody().asString());
+		// System.out.println("Content Details API Response:
+		// "+respContentDetails.getBody().asString());
 		return respContentDetails;
 	}
-	
 
 	/**
 	 * Function to return response for different pages
@@ -315,32 +322,33 @@ public class ResponseInstance {
 			page = "2707";
 		} else if (page.equals("home")) {
 			page = "homepage";
-		} else if(page.equals("kids")) {
+		} else if (page.equals("kids")) {
 			page = "3673";
-		}else if(page.equals("freemovies")) {
+		} else if (page.equals("freemovies")) {
 			page = "5011";
-		}else if(page.equals("play")) {
+		} else if (page.equals("play")) {
 			page = "4603";
-		}else if(page.equals("zeeoriginals") || page.equals("zee5 originals")) {
+		} else if (page.equals("zeeoriginals") || page.equals("zee5 originals")) {
 			page = "zeeoriginals";
-		}else if(page.equals("videos")) {
+		} else if (page.equals("videos")) {
 			page = "videos";
-		}else if(page.equals("movies")) {
+		} else if (page.equals("movies")) {
 			page = "movies";
-		}else if(page.equals("shows")) {
+		} else if (page.equals("shows")) {
 			page = "tvshows";
-		}else if(page.equals("premium")) {
+		} else if (page.equals("premium")) {
 			page = "premiumcontents";
 		}
-		if(page.equals("stories")) {
+		if (page.equals("stories")) {
 			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
-		}else {
-			Uri = "https://gwapi.zee5.com/content/collection/0-8-"+ page+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages="+contLang+"&version=8";
+		} else {
+			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page
+					+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages=" + contLang + "&version=8";
 			System.out.println(Uri);
-		}	
+		}
 		respCarousel = given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(Uri);
-		System.out.println("Response status : "+respCarousel.statusCode());
-	//	System.out.println("Response Body : "+respCarousel.getBody().asString());
+		System.out.println("Response status : " + respCarousel.statusCode());
+		// System.out.println("Response Body : "+respCarousel.getBody().asString());
 		return respCarousel;
 	}
 
@@ -353,28 +361,28 @@ public class ResponseInstance {
 	public static List<String> traysTitleCarousel(String page, String contLang) {
 		Response responseCarouselTitle = getResponseForPages(page, contLang);
 		List<String> titleOnCarouselList = new LinkedList<String>();
-		int numberOfCarouselSlides =0;
+		int numberOfCarouselSlides = 0;
 		String title = "";
-		if(page.equals("stories")) {
+		if (page.equals("stories")) {
 			numberOfCarouselSlides = responseCarouselTitle.jsonPath().getList("posts").size();
-		}else {
+		} else {
 			numberOfCarouselSlides = responseCarouselTitle.jsonPath().getList("buckets[0].items").size();
 		}
 		System.out.println("api size : " + numberOfCarouselSlides);
-		if(numberOfCarouselSlides>7) numberOfCarouselSlides=7;
-		for (int i = 0; i < numberOfCarouselSlides; i++) {  //Only 7 tray visible on UI
-			if(page.equals("stories")) {
+		if (numberOfCarouselSlides > 7)
+			numberOfCarouselSlides = 7;
+		for (int i = 0; i < numberOfCarouselSlides; i++) { // Only 7 tray visible on UI
+			if (page.equals("stories")) {
 				title = responseCarouselTitle.jsonPath().getString("posts[" + i + "].title");
-			}else {
+			} else {
 				title = responseCarouselTitle.jsonPath().getString("buckets[0].items[" + i + "].title");
 			}
 			titleOnCarouselList.add(title);
 		}
 		return titleOnCarouselList;
 	}
-	
-	
-	public static Response getResponseForPages2(String page, String contLang,int q) {
+
+	public static Response getResponseForPages2(String page, String contLang, int q) {
 		Response respCarousel = null;
 		String Uri = "";
 		if (page.equals("news")) {
@@ -383,65 +391,70 @@ public class ResponseInstance {
 			page = "2707";
 		} else if (page.equals("home")) {
 			page = "homepage";
-		} else if(page.equals("kids")) {
+		} else if (page.equals("kids")) {
 			page = "3673";
-		}else if(page.equals("freemovies")) {
+		} else if (page.equals("freemovies")) {
 			page = "5011";
-		}else if(page.equals("play")) {
+		} else if (page.equals("play")) {
 			page = "4603";
 		}
-		
-		if(page.equals("stories")) {
+
+		if (page.equals("stories")) {
 			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
-		}else {
-			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page+ "?page="+q+"&limit=5&item_limit=20&country=IN&translation=en&languages="+contLang+"&version=6";
+		} else {
+			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page + "?page=" + q
+					+ "&limit=5&item_limit=20&country=IN&translation=en&languages=" + contLang + "&version=6";
 		}
-		
+
 		respCarousel = given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(Uri);
-		System.out.println("Response status : "+respCarousel.statusCode());
+		System.out.println("Response status : " + respCarousel.statusCode());
 		return respCarousel;
 	}
 
-	
 	public static Response getResponseForUpcomingPage() {
 		Response respCarousel = null;
-	
-		String	Url = "https://gwapi.zee5.com/content/collection/0-8-3367?page=1&limit=10&item_limit=20&translation=en&country=IN&languages=en,kn&version=6&";
+
+		String Url = "https://gwapi.zee5.com/content/collection/0-8-3367?page=1&limit=10&item_limit=20&translation=en&country=IN&languages=en,kn&version=6&";
 		respCarousel = given().urlEncodingEnabled(false).when().get(Url);
 		return respCarousel;
 	}
-	
+
 	public static Response getResponseForApplicasterPages(String userType, String page) {
 		Response respHome = null;
 		String language = getLanguage(userType);
-		String Uri = "https://gwapi.zee5.com/content/collection/0-8-"+page+"?page=1&limit=10&item_limit=20&translation=en&country=IN&version=6&languages="+language;
+		String Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page
+				+ "?page=1&limit=10&item_limit=20&translation=en&country=IN&version=6&languages=" + language;
 		System.out.println(Uri);
 
 		String xAccessToken = getXAccessTokenWithApiKey();
 		if (userType.equalsIgnoreCase("Guest")) {
-			respHome= given().headers("x-access-token", xAccessToken).when().get(Uri);
-		} else if (userType.equalsIgnoreCase("SubscribedUser")) 
-		{
-			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
-			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+			respHome = given().headers("x-access-token", xAccessToken).when().get(Uri);
+		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respHome = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
-		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) 
-		{
-			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
-			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
+			respHome = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+					.get(Uri);
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respHome = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
+			respHome = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+					.get(Uri);
 		} else {
 			System.out.println("Incorrect user type passed to method");
 		}
 		return respHome;
 	}
-	
+
 	public static void main(String[] args) {
-		getResponseForApplicasterPages("Guest","3673").print();
+		getResponseForApplicasterPages("Guest", "3673").print();
 	}
-	
+
 	// Getting Content Language API response for the NonSubscribedUser and
 	// SubscribedUser ..
 
@@ -521,18 +534,18 @@ public class ResponseInstance {
 		String xAccessToken = respToken.jsonPath().getString("X-ACCESS-TOKEN");
 		return xAccessToken;
 	}
-	
+
 	public static Response getRespofCWTray(String userType) {
 		Response respCW = null;
 		String language = getLanguage(userType);
-		
-		String Uri = "https://gwapi.zee5.com/user/v2/watchhistory?country=IN&translation=en&languages="+language;
-		
+
+		String Uri = "https://gwapi.zee5.com/user/v2/watchhistory?country=IN&translation=en&languages=" + language;
+
 		String xAccessToken = getXAccessTokenWithApiKey();
-		
+
 		if (userType.equalsIgnoreCase("Guest")) {
-			respCW= given().headers("x-access-token", xAccessToken).when().get(Uri);
-		}else if (userType.equalsIgnoreCase("SubscribedUser")) {
+			respCW = given().headers("x-access-token", xAccessToken).when().get(Uri);
+		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
 //			String email = "zeetest998@test.com";
 //			String password = "123456";
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -543,7 +556,7 @@ public class ResponseInstance {
 			respCW = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-			
+
 //			String email = "igstesting001@gmail.com";
 //			String password = "igs@12345";
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -557,5 +570,67 @@ public class ResponseInstance {
 			System.out.println("Incorrect user type passed to method");
 		}
 		return respCW;
+	}
+
+	public static Response getResponseForApplicasterPagesVersion2(String userType, String page, String pUsername,
+			String pPassword) {
+		Response respHome = null;
+		String language = getLanguageVersion2(userType, pUsername, pPassword);
+		String Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page
+				+ "?page=1&limit=10&item_limit=20&translation=en&country=IN&version=6&languages=" + language;
+		System.out.println(Uri);
+
+		String xAccessToken = getXAccessTokenWithApiKey();
+		if (userType.equalsIgnoreCase("Guest")) {
+			respHome = given().headers("x-access-token", xAccessToken).when().get(Uri);
+		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
+			String bearerToken = getBearerToken(pUsername, pPassword);
+			respHome = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+					.get(Uri);
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			String bearerToken = getBearerToken(pUsername, pPassword);
+			respHome = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+					.get(Uri);
+		} else {
+			System.out.println("Incorrect user type passed to method");
+		}
+		return respHome;
+	}
+
+	public static String getLanguageVersion2(String userType, String pUsername, String pPassword) {
+		String language = null;
+		if (userType.contains("Guest")) {
+			language = "en,kn";
+		} else {
+			Response resplanguage = getUserinfoforNonSubORSubversion2(userType, pUsername, pPassword);
+			// System.out.println(resplanguage.print());
+			// System.out.println(resplanguage.jsonPath().getList("array").size());
+
+			for (int i = 0; i < resplanguage.jsonPath().getList("array").size(); i++) {
+
+				String key = resplanguage.jsonPath().getString("[" + i + "].key");
+				// System.out.println(language);
+				if (key.contains("content_language")) {
+					language = resplanguage.jsonPath().getString("[" + i + "].value");
+					System.out.println("UserType Language: " + language);
+					break;
+				}
+			}
+		}
+		return language;
+	}
+
+	public static Response getUserinfoforNonSubORSubversion2(String userType, String pUsername, String pPassword) {
+		Response resp = null;
+		String url = "https://userapi.zee5.com/v1/settings";
+		String xAccessToken = getXAccessTokenWithApiKey();
+
+		if (userType.equalsIgnoreCase("SubscribedUser") | userType.equalsIgnoreCase("NonSubscribedUser")) {
+			String bearerToken = getBearerToken(pUsername, pPassword);
+			resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+		} else {
+			System.out.println("Incorrect user type passed to method");
+		}
+		return resp;
 	}
 }

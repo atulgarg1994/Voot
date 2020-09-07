@@ -48,4 +48,5 @@ public class AMDPlayerScreen {
 	public static By objFacebookPost = By.xpath("//*[@text='POST']");
 	public static By objCopyToClipboard = By.xpath("//*[@text='Copy to clipboard']");
 	public static By objRetryBtn = By.xpath("//*[@id='zretry']");
+	public static By objSkipIntro = By.xpath("//*[@id='skipintro']");
 }

@@ -99,12 +99,17 @@
 	<!-- <test name="DeepLinkValidation"> <classes> <class name="com.zee5.ApplicasterScripts.DeepLinkValidation"/> 
 		</classes> </test> -->
 
-	<test name="Android_LandingScreen_TopNavigation">
+	<!-- <test name="Android_LandingScreen_TopNavigation">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation" />
 		</classes>
-	</test>
+	</test> -->
 	
+	<test name="Android_MoreScreen">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_MoreScreen" />
+		</classes>
+	</test>
 	
 <!--
 	<test name="DeepLinkValidation">

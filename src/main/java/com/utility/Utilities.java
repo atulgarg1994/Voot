@@ -233,7 +233,6 @@ public class Utilities extends ExtentReporter {
 	 * @throws Exception
 	 */
 	public boolean verifyElementDisplayed(By byLocator) throws Exception {
-
 		try {
 			WebElement element = findElement(byLocator);
 			if (element.isDisplayed()) {
