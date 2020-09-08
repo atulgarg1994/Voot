@@ -7741,12 +7741,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					waitTime(2000);
 					int noOfTrays = getCount(AMDGenericObjects.objNoOfTrays);
 					if (noOfTrays > 0) {
-						if (tabName.contains("Live TV")) {
+						if (tabName.contains("Live TV") | tabName.contains("News")) {
 							getTrayName = getText(AMDGenericObjects.objFirstTrayTitle);
+							click(AMDGenericObjects.objFirstTrayTitle, getText(AMDGenericObjects.objFirstTrayTitle));
 						} else {
 							getTrayName = getText(AMDGenericObjects.objTrayTitleByIndx(noOfTrays));
+							click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
 						}
-						click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
+						
 					}
 				}
 
@@ -7773,8 +7775,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.error(tabName + ": FAILED to Load the page");
 			}
 
-			// Following code is to break the loop after last tab validation in the landing
-			// screen
+			// Following code is to break the loop after last tab validation in the landing screen
 			if (liveTV) {
 				break;
 			}
@@ -7905,6 +7906,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					click(AMDHomePage.objKidsContentCard, "Kids Content card");
 				} else {
 					click(AMDHomePage.objCarouselTitle, getText(AMDHomePage.objCarouselTitle));
+					waitForElementDisplayed(AMDGenericObjects.objFirstTrayTitle, 3000);
 				}
 				if (userType.contains("Guest") | userType.contains("NonSubscribedUser")) {
 					waitTime(2000);
@@ -7962,8 +7964,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.error(tabName + ": FAILED to Load the page");
 			}
 
-			// Following code is to break the loop after last tab validation in the landing
-			// screen
+			// Following code is to break the loop after last tab validation in the landingscreen
 			if (liveTV) {
 				break;
 			}
@@ -8657,6 +8658,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		// To click on any content card displayed under collection screen
 		findElements(AMDGenericObjects.objPremiumTags).get(0).click();
+		waitTime(2000);
+		if (verifyIsElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
+			click(AMDGenericObjects.objPopUpDivider, "Subcription Pop Up");
+			extent.extentLogger("Subscription PopUp", "Subcription PopUp is displayed in the comsumption screen and popup is closed");
+			logger.info("Subcription PopUp is displayed in the comsumption screen and popup is closed");
+		}
 
 		if (verifyElementDisplayed(AMDConsumptionScreen.objWatchlistBtn)) {
 			extent.extentLogger("Consumption Screen",
