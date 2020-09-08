@@ -37,6 +37,7 @@ public class DriverInstance extends Drivertools {
 				tlDriver.set(((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),
 						this.generateAndroidCapabilities(Application))));
 				tlDriver.get().get(getURL());
+//				tlDriver.set(EventFiringWebDriverFactory.getEventFiringWebDriver(tlDriver.get(), new AppiumEventListener()));
 				break;
 
 			case "Web":
@@ -104,7 +105,8 @@ public class DriverInstance extends Drivertools {
 //			options.addArguments("--window-size=1616, 876");
 			options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 			tlWebDriver.set(new ChromeDriver(options));
-			
+//			WebDriverEventListener popupListener = new PopUpListener();
+//			tlWebDriver.set(new EventFiringWebDriver(new ChromeDriver(options)).register(popupListener));
 		}
 
 		else if (browserName.equalsIgnoreCase("IE")) {

@@ -48,5 +48,16 @@ public class AMDPlayerScreen {
 	public static By objFacebookPost = By.xpath("//*[@text='POST']");
 	public static By objCopyToClipboard = By.xpath("//*[@text='Copy to clipboard']");
 	public static By objRetryBtn = By.xpath("//*[@id='zretry']");
+	
+	public static By objSubtitleOption = By.xpath("//*[@id='icon_subtitle_text']");
 	public static By objSkipIntro = By.xpath("//*[@id='skipintro']");
+	public static By objReplay = By.xpath("//*[@id='icon_replay']");
+	public static By objSubtitlePopUp = By.xpath("//*[@id='popup_title']");
+	public static By objEnglishSubtitle = By.xpath("//*[@text='English']");
+	public static By objSubscribeButtonBelowThePlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/get_premium_button']");
+	public static By objSubtitleDefaultSelected = By.xpath("(//*[@id='icon_selected']//parent::*//child::*)[2]");
+	public static By objPlaybackRate2 = By.xpath("//*[@text='2.0X']");
+	public static By objLoginCTA = By.xpath("//*[@id='get_premium_login']");
+
+
 }

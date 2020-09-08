@@ -164,7 +164,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 		waitTime(3000);
-		verifyElementPresent(PWALoginPage.objWebLoginPageText, "Login page");
+//		verifyElementPresent(PWALoginPage.objWebLoginPageText, "Login page");
 
 		switch (LoginMethod) {
 		case "Guest":

@@ -140,7 +140,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 */
 
 	public void playerClick(By byLocator, String validationtext) throws Exception {
-
 		try {
 			WebElement element = findElement(byLocator);
 			element.click();
@@ -180,7 +179,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	/** ==============================LOGIN================================ */
 	public void ZeePWALogin(String LoginMethod) throws Exception {
 		extent.HeaderChildNode("Login");
-
 //		String UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
 //		if(UserType.equals("Guest")) {
 //			return;
@@ -10977,7 +10975,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "Subscribe Pop Up Close button");
 				}
 			}
-			if (verifyElementExist(PWAPremiumPage.objWatchTrailerBtn, "Watch Trailer Button")) {
+			if (!verifyElementExist(PWAPremiumPage.objWatchTrailerBtn, "Watch Trailer Button")) {
 				logger.error("Watch Trailer button is displayed in UI");
 				extent.extentLoggerFail("Trailer", "Watch Trailer button is displayed in UI");
 			} else {

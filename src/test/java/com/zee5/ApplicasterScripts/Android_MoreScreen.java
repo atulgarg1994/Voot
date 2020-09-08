@@ -13,7 +13,7 @@ public class Android_MoreScreen {
 	@BeforeTest
 	public void AppLaunch() throws InterruptedException {
 		System.out.println("Launching Andriod App");
-//		Utilities.relaunch = true; // Clear App Data on First Launch
+		Utilities.relaunch = true; // Clear App Data on First Launch
 		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
 

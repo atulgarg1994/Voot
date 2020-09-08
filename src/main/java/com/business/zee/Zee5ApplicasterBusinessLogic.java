@@ -6739,18 +6739,22 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		verifyElementExist(AMDHomePage.objHomeTab, "Home Tab");
 		waitTime(10000);
-		String email = null,password = null;
-		if(userType.contains("NonSubscribedUser")) {
-			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SettingsNonsubscribedUserName");
-			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SettingsNonsubscribedPassword");
-		}else if(userType.contains("SubscribedUser")) {
-			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SettingsSubscribedUserName");
-			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SettingsSubscribedPassword");
+		String email = null, password = null;
+		if (userType.contains("NonSubscribedUser")) {
+			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SettingsNonsubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SettingsNonsubscribedPassword");
+		} else if (userType.contains("SubscribedUser")) {
+			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SettingsSubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SettingsSubscribedPassword");
 		}
 		String courselContentTitle = getCarouselTitleFromAPI(userType, "homepage", email, password);
 //		String courselContentTitle = carouselValidationWithApi(userType, "homepage");
 		System.out.println(courselContentTitle);
-		if(courselContentTitle!=null) {
+		if (courselContentTitle != null) {
 			waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(courselContentTitle), 10, "Carousel content");
 			for (int i = 0; i < 2; i++) {
 				if (verifyElementPresent(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content")) {
@@ -6759,11 +6763,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			}
 //			click(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content");
-		}else {
+		} else {
 			click(AMDGenericObjects.objCarouselTitle("Shivaji Surathkal"), "Carousel content");
 		}
-		
-		
+
 		String wifi = "";
 		String cmd = "adb shell dumpsys \"wifi | grep 'Wi-Fi is'\"";
 		Process p = Runtime.getRuntime().exec(cmd);
@@ -6814,7 +6817,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		verifyElementExist(AMDHomePage.objHomeTab, "Home Tab");
 		waitTime(10000);
-		if(courselContentTitle!=null) {
+		if (courselContentTitle != null) {
 			for (int i = 0; i < 2; i++) {
 				if (verifyElementPresent(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content")) {
 					break;
@@ -6822,10 +6825,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			}
 			click(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content");
-		}else {
+		} else {
 			click(AMDGenericObjects.objCarouselTitle("Shivaji Surathkal"), "Carousel content");
 		}
-	
+
 		String wifii = "";
 		String cmdd = "adb shell dumpsys \"wifi | grep 'Wi-Fi is'\"";
 		Process pp = Runtime.getRuntime().exec(cmdd);
@@ -6897,9 +6900,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extentLoggerFail("Video Auto Play", "the default state of the 'Auto Play' option is not in ON state");
 		}
 	}
-	
-	public static String getCarouselTitleFromAPI(String userType, String pagenameforApi,String pUsername, String pPassword) {
-		Response respPage = ResponseInstance.getResponseForApplicasterPagesVersion2(userType, pagenameforApi, pUsername, pPassword);
+
+	public static String getCarouselTitleFromAPI(String userType, String pagenameforApi, String pUsername,
+			String pPassword) {
+		Response respPage = ResponseInstance.getResponseForApplicasterPagesVersion2(userType, pagenameforApi, pUsername,
+				pPassword);
 		List<String> bucketsSize = respPage.jsonPath().getList("buckets");
 		logger.info("bucketsSize: " + bucketsSize.size());
 		String carouselContentTitle = null;
@@ -7342,7 +7347,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			System.out.println("\nReset Settings Validation");
 			verifyElementExist(AMDSettingsScreen.objResetSettings, "Reset Setting to Default");
 			verifyElementPresentAndClick(AMDSettingsScreen.objDefaultSetting, "Default Setting Link");
-			verifyElementExist(AMDSettingsScreen.objResetSettingPopUp,"Are you sure you want to reset your settings?  popup");
+			verifyElementExist(AMDSettingsScreen.objResetSettingPopUp,
+					"Are you sure you want to reset your settings?  popup");
 			verifyElementPresentAndClick(AMDSettingsScreen.objNoCTA, "No CTA");
 			verifyElementPresentAndClick(AMDSettingsScreen.objDefaultSetting, "Default Setting Link");
 			verifyElementPresentAndClick(AMDSettingsScreen.objYesCTA, "Yes CTA");
@@ -8281,7 +8287,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			HeaderChildNode("Validate My Reminder");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
 			click(AMDMoreMenu.objMyRemainders, "My Remainders");
-			if (verifyElementDisplayed(AMDLoginScreen.objLoginOrRegisterPageTitle)) {
+			if (verifyIsElementDisplayed(AMDLoginScreen.objLoginOrRegisterPageTitle)) {
 				logger.info("User navigated to login or register screen post taping on My Remainders");
 				extent.extentLogger("My Remainders",
 						"User navigated to login or register screen post taping on My Remainders");
@@ -8292,7 +8298,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objBackBtn, "Back button");
-			if (verifyElementDisplayed(AMDMoreMenu.objMyRemainders)) {
+			if (verifyIsElementDisplayed(AMDMoreMenu.objMyRemainders)) {
 				logger.info("User is navigate back to more menu");
 				extent.extentLogger("watchlist", "User is navigate back to more menu");
 			} else {
@@ -8314,7 +8320,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
 		click(AMDMoreMenu.objMyRemainders, "My Remainders");
-		if (verifyElementDisplayed(AMDMyReminderPage.objReminberHeaderTitle)) {
+		if (verifyIsElementDisplayed(AMDMyReminderPage.objReminberHeaderTitle)) {
 			logger.info("User navigated to login or register screen post taping on My Remainders");
 			extent.extentLogger("My Remainders",
 					"User navigated to login or register screen post taping on My Remainders");
@@ -9156,7 +9162,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		// ----Searching for content to navigate to consumption page----//
 		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
 		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal" + "\n", "Search bar");
+		type(AMDSearchScreen.objSearchBoxBar, "Paaru gets tipsy" + "\n", "Search bar");
 		hideKeyboard();
 		// closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
@@ -9164,12 +9170,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(3000);
 
 		// ----verifying Player screen-----//
+
 		if (verifyElementExist(AMDPlayerScreen.objPlayer, "Player screen")) {
 			waitTime(3000);
 			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			waitTime(8000);
-			if (verifyIsElementDisplayed(AMDPlayerScreen.objPlayer)) {
+			if (verifyIsElementDisplayed(AMDPlayerScreen.objFullscreenIcon)) {
 				logger.info("Player controls are not auto hide after keeping the player ideal for few sec's");
 				extentLoggerFail("Player controls Auto hide",
 						"Player controls are not auto hide after keeping the player ideal for few sec's");
@@ -9228,9 +9235,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Content duration", "Content duration on right corner is not displayed");
 			}
 
-			ForwardAndRewindThePlayerByDoubleTapping(1);
-			waitTime(3000);
-			ForwardAndRewindThePlayerByDoubleTapping(2);
+			if (findElement(AMDPlayerScreen.objChromeCastIcon).isEnabled() == false) {
+				logger.info("Chrome cast icon is displayed in disable state");
+				extent.extentLogger("Chrome cast", "Chrome cast icon is displayed in disable state");
+			} else {
+				logger.error("Chrome cast icon is not displayed in disable state");
+				extent.extentLoggerFail("Chrome cast", "Chrome cast icon is not displayed in disable state");
+			}
 
 			click(AMDPlayerScreen.objPlayIcon, "Play icon");
 
@@ -9238,27 +9249,35 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(5000);
 			verifyPlaybackAfterMinimzeAndMaximizeAppFromBackground();
 			waitTime(5000);
-			verifyPlaybackAfterNetworkInterruption();
+			// verifyPlaybackAfterNetworkInterruption();
 
-			// ------verifying the seek functionality of the Progressbar------//
-
-			seekVideo(AMDPlayerScreen.objProgressBar);
-			waitTime(3000);
+			waitTime(5000);
 			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+
+			ForwardAndRewindThePlayerByDoubleTapping(1);
 			waitTime(3000);
-			seekVideoTillLast(AMDPlayerScreen.objProgressBar);
+			ForwardAndRewindThePlayerByDoubleTapping(2);
+
+			// ------verifying the seek functionality of the Progressbar------//
 			click(AMDPlayerScreen.objPlayIcon, "Play icon");
-			verifyElementExist(AMDPlayerScreen.objGetPremiumPopUp,
-					"Get Premium popup at the end of the non premum trailer content playback");
-//			verifyElementPresentAndClick(AMDPlayerScreen.objBackButton, "Back button");
-//			if(verifyIsElementDisplayed(AMDSearchScreen.objFirstContentInSearchResult)) {
-//				logger.info("User is navigated back to the previous screen from where the content is accessed post tapping on Back button in Player screen");
-//				extentLogger("Back button", "User is navigated back to the previous screen from where the content is accessed post tapping on Back button in Player screen");
-//			}else {
-//				logger.info("User is not navigated back to the previous screen from where the content is accessed post tapping on Back button in Player screen");
-//				extentLoggerFail("Back button", "User is not navigated back to the previous screen from where the content is accessed post tapping on Back button in Player screen");
-//			}
+			waitTime(3000);
+			seekVideo(AMDPlayerScreen.objProgressBar);
+			waitTime(5000);
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+
+			verifyElementPresentAndClick(AMDPlayerScreen.objBackButton, "Back button");
+			if (verifyIsElementDisplayed(AMDSearchScreen.objFirstContentInSearchResult)) {
+				logger.info(
+						"User is navigated back to the previous screen from where the content is accessed post tapping on Back button in Player screen");
+				extentLogger("Back button",
+						"User is navigated back to the previous screen from where the content is accessed post tapping on Back button in Player screen");
+			} else {
+				logger.info(
+						"User is not navigated back to the previous screen from where the content is accessed post tapping on Back button in Player screen");
+				extentLoggerFail("Back button",
+						"User is not navigated back to the previous screen from where the content is accessed post tapping on Back button in Player screen");
+			}
 		}
 	}
 
@@ -9328,13 +9347,33 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		Back(1);
 	}
 
-	public void seekVideoTillLast(By byLocator1) {
+	public void seekVideoTillLast(By byLocator1) throws Exception {
+
+		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
+		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
+
 		WebElement element = getDriver().findElement(byLocator1);
 		Dimension size = element.getSize();
 		int startx = (int) (size.width);
 		int startX = startx + 100;
 		System.out.println(startX);
 		SwipeAnElement(element, startX, 0);
+
+		waitTime(2000);
+		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time after seeking in seconds : " + timeToSec(afterSeek));
+		extent.extentLogger("Seek", "Current time after seeking in seconds : " + timeToSec(afterSeek));
+
+		String totalDur = findElement(AMDPlayerScreen.objTotalDuration).getText();
+		if (timeToSec(afterSeek) > (timeToSec(totalDur) - 40)) {
+			logger.info("seeked the video till last");
+			extentLogger("Seeking the video till last", "seeked the video till last");
+		} else {
+			logger.info("not seeked the video till last");
+			extentLoggerFail("Seeking the video till last", "not seeked the video till last");
+		}
+
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -9410,7 +9449,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
-	
 	public void skipIntroValidation(String searchKeyword3) throws Exception {
 		extent.HeaderChildNode("Validation of Skip Intro CTA");
 		waitTime(5000);
@@ -9428,6 +9466,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		waitTime(2000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
 		
 		String time1 = getText(AMDPlayerScreen.objTimer);
 		int startTime = timeToSec(time1);
@@ -9436,6 +9475,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extentLogger("Time", "Time before clicking on Skip Intro CTA : " + startTime);
 		
 		verifyElementPresentAndClick(AMDPlayerScreen.objSkipIntro, "Skip Intro CTA");
+		waitTime(2000);
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		
 		String time2 = getText(AMDPlayerScreen.objTimer);
@@ -9453,7 +9493,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 
 	}
-	
+
 	/**
 	 * Author : Manasa Module : Player
 	 */
@@ -9533,8 +9573,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDPlayerScreen.objThreeDotsOnPlayer, "Player option with three dots");
 			String quality = getText(AMDPlayerScreen.objQuality);
 			if (quality.contains("Auto")) {
-				logger.info("Video Quality is set to Auto by default");
-				extent.extentLogger("Video Quality", "Video Quality is set to Auto by default");
+				logger.info("Video Quality is set to " +quality+" by default");
+				extent.extentLogger("Video Quality", "Video Quality is set to " +quality+" by default");
 
 			} else {
 				logger.info("Video Quality is not set to Auto by default");
@@ -9574,17 +9614,18 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			for (int i = 0; i < playbackRate.size(); i++) {
 				String options = getText(AMDPlayerScreen.objQualityOptions(i + 1));
 				logger.info("Playback Rate option : " + options);
-				extent.extentLogger("Video Quality", "Quality options : " + options);
+				extent.extentLogger("Playback Rate", "Playback Rate option : " + options);
 			}
 			String rate = getText(AMDPlayerScreen.objPlaybackRateSelected);
 			System.out.println(rate);
 			if (rate.equalsIgnoreCase("1.0X")) {
 				logger.info("Playback rate is set to " + rate + " by default");
-				extent.extentLogger("Video Quality", "Playback rate is set to " + rate + " by default");
+				extent.extentLogger("Playback Rate", "Playback rate is set to " + rate + " by default");
 			} else {
 				logger.info("Playback rate is not set to 1.0X by default");
 				extent.extentLoggerFail("Playback rate", "Playback rate is not set to 1.0X by default");
 			}
+			
 			Back(1);
 			click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
 
@@ -9596,6 +9637,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			click(AMDPlayerScreen.objShareIcon, "Share Icon");
 			verifyElementPresent(AMDPlayerScreen.objSharePopUp, "Share Pop Up");
+			verifyElementPresent(AMDPlayerScreen.objCopyToClipboard, "Copy to clipboard");
 			verifyElementPresentAndClick(AMDPlayerScreen.objFacebook, "Facebook Icon");
 			waitTime(5000);
 			verifyElementPresentAndClick(AMDPlayerScreen.objFacebookPost, "Post Icon");
@@ -10843,13 +10885,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		getDriver().runAppInBackground(Duration.ofSeconds(10));
 
-		click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
-
 		String time2 = getText(AMDPlayerScreen.objTimer);
 		int elapsedTime = timeToSec(time2);
 
 		logger.info("Time after maximizing app from background : " + elapsedTime);
 		extentLogger("Time", "Time after maximizing app from background : " + elapsedTime);
+
+		if ((elapsedTime - startTime) < 10) {
+			logger.info("content playback is paused on minimize the app");
+			extentLogger("Minimize the app", "content playback is paused on minimize the app");
+		} else {
+			logger.info("content playback is not  paused on minimize the app");
+			extentLoggerFail("Minimize the app", "content playback is not paused on minimize the app");
+		}
 
 		if (elapsedTime > startTime) {
 			logger.info("Content playback is resumed after maximizing the app from background");
@@ -10862,23 +10910,34 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void verifyPlaybackAfterLockAndUnlock() throws Exception {
 		extent.HeaderChildNode("Validation of content playback after lock and unlocking the device screen");
+
 		String time1 = getText(AMDPlayerScreen.objTimer);
 		int startTime = timeToSec(time1);
 		System.out.println(startTime);
+
 		logger.info("Time before locking the device screen : " + startTime);
 		extentLogger("Time", "Time before locking the device screen : " + startTime);
+
 		adbKeyevents(26);
 		waitTime(7000);
 		adbKeyevents(26);
 		waitTime(3000);
 		Swipe("Up", 1);
-		waitTime(5000);
-		click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
+		// waitTime(5000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		String time2 = getText(AMDPlayerScreen.objTimer);
 		int elapsedTime = timeToSec(time2);
 
 		logger.info("Time after unlocking the device screen : " + elapsedTime);
 		extentLogger("Time", "Time before unlocking the device screen : " + elapsedTime);
+
+		if ((elapsedTime - startTime) < 10) {
+			logger.info("content playback is paused on locking the device");
+			extentLogger("Minimize the app", "content playback is paused on locking the device");
+		} else {
+			logger.info("content playback is not  paused on locking the device");
+			extentLoggerFail("Minimize the app", "content playback is not paused on locking the device");
+		}
 
 		if (elapsedTime > startTime) {
 			logger.info("Content playback is resumed after unlocking the device screen");
@@ -10904,4 +10963,196 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.error(e);
 		}
 	}
+
+	public void premiumContentwithTrailer(String userType) throws Exception {
+
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("verifing Get Premium popup at the end of the non premium trailer content playback");
+
+			verifyElementPresent(AMDSearchScreen.objSearchBoxBar, "Search Box");
+			clearField(AMDSearchScreen.objSearchBoxBar, "Search box");
+			type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal" + "\n", "Search bar");
+			hideKeyboard();
+			// closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			verifyElementPresentAndClick(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+			waitTime(3000);
+			if (verifyElementExist(AMDPlayerScreen.objPlayer, "Player screen")) {
+				waitTime(5000);
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+				click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+				seekVideoTillLast(AMDPlayerScreen.objProgressBar);
+				click(AMDPlayerScreen.objPlayIcon, "Play icon");
+				verifyElementExist(AMDPlayerScreen.objGetPremiumPopUp,
+						"Get Premium popup at the end of the non premium trailer content playback");
+				Swipe("UP", 1);
+				verifyElementExist(AMDPlayerScreen.objLoginCTA, "Login CTA");
+				Back(1);
+				waitTime(2);
+				Back(1);
+			} else {
+				logger.info("Player screen is not displayed");
+				extentLoggerFail("Player screen", "Player screen is not displayed");
+			}
+		}
+	}
+
+	public void premiumContentWithoutTrailer(String userType) throws Exception {
+
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verifing Premium content without Trailer");
+
+			waitTime(2000);
+			verifyElementPresent(AMDSearchScreen.objSearchBoxBar, "Search Box");
+			clearField(AMDSearchScreen.objSearchBoxBar, "Search box");
+
+			type(AMDSearchScreen.objSearchBoxBar, "Chemistry of Kariyappa" + "\n", "Search bar");
+			hideKeyboard();
+			// closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			verifyElementPresentAndClick(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+			waitTime(3000);
+			verifyElementExist(AMDPlayerScreen.objSubscribeButtonBelowThePlayer, "Subscribe CTA");
+
+			verifyElementExist(AMDPlayerScreen.objPremiumTextOnPlayer, "Subscription required text");
+			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowLinkOnPlayer, "Subscribe Now Link");
+			if (verifyElementExist(AMDPlayerScreen.objGetPremiumPopUp, "Get Premium popUp")) {
+				logger.info("User is navigated to Get premium popup post tapping on Subscribe Now Link");
+				extentLogger("GetPremium popUp",
+						"User is navigated to Get premium popup post tapping on Subscribe Now Link");
+			} else {
+				logger.info("User is not navigated to Get premium popup post tapping on Subscribe Now Link");
+				extentLoggerFail("GetPremium popUp",
+						"User is not navigated to Get premium popup post tapping on Subscribe Now Link");
+			}
+			Back(1);
+			verifyElementExist(AMDPlayerScreen.objLoginTextOnPlayer, "Login required text");
+			verifyElementPresentAndClick(AMDPlayerScreen.objLoginLinkOnPlayer, "Login link");
+			if (verifyElementExist(AMDLoginScreen.objLoginOrRegisterPageTitle, "Login/Register screen")) {
+				logger.info("User is navigated to Login/Register screen post tapping on Login link");
+				extentLogger("Login/Register screen",
+						"User is navigated to Login/Register screen post tapping on Login link");
+			} else {
+				logger.info("User is navigated to Login/Register screen post tapping on Login link");
+				extentLoggerFail("Login/Register screen",
+						"User is navigated to Login/Register screen post tapping on Login link");
+			}
+			Back(1);
+			waitTime(2000);
+			Back(1);
+		}
+	}
+	
+public void premiumContentWithoutTrailerInLandscapeMode(String userType, String searchKeyword5) throws Exception {
+		
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		extent.HeaderChildNode("Verifying Premium content without Trailer in Landscape mode");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, searchKeyword5 + "\n", "Search bar");
+		waitTime(2000);
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+
+		verifyElementPresentAndClick(AMDMoreMenu.objSearchResult(searchKeyword5), "Search result");
+		waitTime(2000);
+		verifyElementExist(AMDPlayerScreen.objSubscribeButtonBelowThePlayer, "Subscribe CTA");
+		Runtime.getRuntime().exec("adb shell content insert --uri content://settings/system --bind name:s:user_rotation --bind value:i:1");
+		
+		waitTime(3000);
+		
+		verifyElementExist(AMDPlayerScreen.objPremiumTextOnPlayer, "Subscription required text");
+		verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowLinkOnPlayer, "Subscribe Now Link");
+		if(verifyElementExist(AMDPlayerScreen.objGetPremiumPopUp, "Get Premium popUp")){
+			logger.info("User is navigated to Get premium popup post tapping on Subscribe Now Link");
+			extentLogger("GetPremium popUp", "User is navigated to Get premium popup post tapping on Subscribe Now Link");
+		}else {
+			logger.info("User is not navigated to Get premium popup post tapping on Subscribe Now Link");
+			extentLoggerFail("GetPremium popUp", "User is not navigated to Get premium popup post tapping on Subscribe Now Link");
+		}
+		Back(1);
+		if(userType.equals("Guest")) {
+			verifyElementExist(AMDPlayerScreen.objLoginTextOnPlayer, "Login required text");
+			verifyElementPresentAndClick(AMDPlayerScreen.objLoginLinkOnPlayer, "Login link");
+			if(verifyElementExist(AMDLoginScreen.objLoginOrRegisterPageTitle, "Login/Register screen")) {
+				logger.info("User is navigated to Login/Register screen post tapping on Login link");
+				extentLogger("Login/Register screen", "User is navigated to Login/Register screen post tapping on Login link");
+			}else {
+				logger.info("User is navigated to Login/Register screen post tapping on Login link");
+				extentLoggerFail("Login/Register screen", "User is navigated to Login/Register screen post tapping on Login link");
+			}
+			Back(1);
+			Runtime.getRuntime().exec("adb shell content insert --uri content://settings/system --bind name:s:user_rotation --bind value:i:0");
+			waitTime(2000);
+		}
+		Back(1);
+	  }
+	}
+
+public void subtitleAndPlaybackRateValidation(String searchKeyword4) throws Exception {
+	extent.HeaderChildNode("Validation of Subtitle option on player");
+	waitTime(5000);
+	verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+	verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+	type(AMDSearchScreen.objSearchBoxBar, searchKeyword4 + "\n", "Search bar");
+	waitTime(2000);
+	hideKeyboard();
+	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+
+	verifyElementPresentAndClick(AMDMoreMenu.objSearchResult(searchKeyword4), "Search result");
+	waitTime(5000);
+	
+	click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+
+	verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+	waitTime(2000);
+	verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
+	verifyElementPresentAndClick(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
+	verifyElementPresentAndClick(AMDPlayerScreen.objSubtitleOption, "Subtitle option");
+	String defaultSelected = getText(AMDPlayerScreen.objSubtitleDefaultSelected);
+	if (defaultSelected.equalsIgnoreCase("Off")) {
+		logger.info("Subtitle is set to "+defaultSelected+" by default");
+		extent.extentLogger("Subtitle", "Subtitle is set to "+defaultSelected+" by default");
+
+	} else {
+		logger.info("Subtitle is not set to off by default");
+		extent.extentLoggerFail("Subtitle", "Subtitle is not set to off by default");
+	}
+
+	verifyElementPresentAndClick(AMDPlayerScreen.objEnglishSubtitle, "English subtitle language");
+	
+	String time1 = getText(AMDPlayerScreen.objTimer);
+	int startTime = timeToSec(time1);
+	
+	logger.info("Time before increasing the Playback rate : " + startTime);
+	extentLogger("Time", "Time before increasing the Playback rate : " + startTime);
+	
+	click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
+	verifyElementPresentAndClick(AMDPlayerScreen.objPlaybackRate, "Playback Rate option");
+	verifyElementPresentAndClick(AMDPlayerScreen.objPlaybackRate2, "Playback Rate 2.0X option");
+	waitTime(5000);
+	
+	click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+	String time2 = getText(AMDPlayerScreen.objTimer);
+	int elapsedTime = timeToSec(time2);
+
+	logger.info("Time after increasing the Playback rate : " + elapsedTime);
+	extentLogger("Time", "Time after increasing the Playback rate : " + elapsedTime);
+	
+	if(elapsedTime > 2*startTime){
+		logger.info("Content playback is fast forwarded based on the speed set");
+		extentLogger("Elapsed time", "Content playback is fast forwarded based on the speed set");
+	} else {
+		logger.info("Content playback is not fast forwarded based on the speed set");
+		extentLoggerFail("Elapsed time", "Content playback is not fast forwarded based on the speed set");
+	}
+	click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+	seekVideoTillLast(AMDPlayerScreen.objProgressBar);
+	click(AMDPlayerScreen.objPlayIcon, "Play icon");
+	verifyElementPresent(AMDPlayerScreen.objGetPremiumPopUp, "Get Premium popup at the end of the non premium trailer content playback");
+	Swipe("UP",3);
+	verifyElementPresent(AMDPlayerScreen.objLoginCTA, "Login CTA");
+	Back(1);
+
+}
 }
