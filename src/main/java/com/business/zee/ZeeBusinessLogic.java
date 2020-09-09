@@ -1914,7 +1914,7 @@ public class ZeeBusinessLogic extends Utilities {
 	}
 
 	public void AdVerify() throws Exception {
-//		verifyElementNotPresent(PlayerPage.objAd, 60);
+		verifyElementNotPresent(PlayerPage.objAd, 60);
 	}
 
 }

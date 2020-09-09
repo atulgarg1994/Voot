@@ -38,7 +38,7 @@ public class Android_Player_LandscapeMode {
 		System.out.println("\nVerify Player Functionality in Landscape Mode");
 		ZEE5ApplicasterBusinessLogic.playerValidationInFullScreenMode(userType, searchKeyword1);
 		ZEE5ApplicasterBusinessLogic.skipIntroValidation(searchKeyword3);
-		ZEE5ApplicasterBusinessLogic.subtitleAndPlaybackRateValidation(searchKeyword4);
+		ZEE5ApplicasterBusinessLogic.subtitleAndPlaybackRateValidation(searchKeyword4,userType);
 		ZEE5ApplicasterBusinessLogic.premiumContentWithoutTrailerInLandscapeMode(userType,searchKeyword5);
 	}
 

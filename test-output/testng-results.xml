@@ -1,32 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Web" duration-ms="10504" started-at="2020-09-04T11:17:11Z" finished-at="2020-09-04T11:17:21Z">
+  <suite name="Android" duration-ms="327266" started-at="2020-09-07T06:17:08Z" finished-at="2020-09-07T06:22:35Z">
     <groups>
     </groups>
-    <test name="WebPWASanityScript" duration-ms="10504" started-at="2020-09-04T11:17:11Z" finished-at="2020-09-04T11:17:21Z">
-      <class name="com.zee5.PWASanityScripts.WebPWASanityScript">
-        <test-method status="PASS" signature="init()[pri:0, instance:com.zee5.PWASanityScripts.WebPWASanityScript@7180e701]" name="init" is-config="true" duration-ms="9107" started-at="2020-09-04T16:47:11Z" finished-at="2020-09-04T16:47:20Z">
+    <test name="Android_MoreScreen" duration-ms="327266" started-at="2020-09-07T06:17:08Z" finished-at="2020-09-07T06:22:35Z">
+      <class name="com.zee5.ApplicasterScripts.Android_MoreScreen">
+        <test-method status="PASS" signature="AppLaunch()[pri:0, instance:com.zee5.ApplicasterScripts.Android_MoreScreen@34e9fd99]" name="AppLaunch" is-config="true" duration-ms="123070" started-at="2020-09-07T11:47:15Z" finished-at="2020-09-07T11:49:18Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- init -->
-        <test-method status="PASS" signature="PWAWEBLogin(java.lang.String)[pri:1, instance:com.zee5.PWASanityScripts.WebPWASanityScript@7180e701]" name="PWAWEBLogin" duration-ms="33" started-at="2020-09-04T16:47:20Z" finished-at="2020-09-04T16:47:20Z">
+        </test-method> <!-- AppLaunch -->
+        <test-method status="PASS" signature="Login(java.lang.String)[pri:0, instance:com.zee5.ApplicasterScripts.Android_MoreScreen@34e9fd99]" name="Login" duration-ms="129169" started-at="2020-09-07T11:49:18Z" finished-at="2020-09-07T11:51:27Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[Guest]]>
+                <![CDATA[SubscribedUser]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- PWAWEBLogin -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.zee5.PWASanityScripts.WebPWASanityScript@7180e701]" name="tearDown" is-config="true" duration-ms="704" started-at="2020-09-04T16:47:21Z" finished-at="2020-09-04T16:47:21Z">
+        </test-method> <!-- Login -->
+        <test-method status="PASS" signature="MyReminders(java.lang.String)[pri:3, instance:com.zee5.ApplicasterScripts.Android_MoreScreen@34e9fd99]" name="MyReminders" duration-ms="52414" started-at="2020-09-07T11:51:28Z" finished-at="2020-09-07T11:52:21Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[SubscribedUser]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- com.zee5.PWASanityScripts.WebPWASanityScript -->
-    </test> <!-- WebPWASanityScript -->
-  </suite> <!-- Web -->
+        </test-method> <!-- MyReminders -->
+        <test-method status="PASS" signature="tearDownApp()[pri:0, instance:com.zee5.ApplicasterScripts.Android_MoreScreen@34e9fd99]" name="tearDownApp" is-config="true" duration-ms="12298" started-at="2020-09-07T11:52:23Z" finished-at="2020-09-07T11:52:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownApp -->
+      </class> <!-- com.zee5.ApplicasterScripts.Android_MoreScreen -->
+    </test> <!-- Android_MoreScreen -->
+  </suite> <!-- Android -->
 </testng-results>

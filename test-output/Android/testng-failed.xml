@@ -6,6 +6,7 @@
   <parameter name="invalidSearchKeyword" value="@$_-(;_+"/>
   <parameter name="MovieName" value="O God Ganesha 2"/>
   <parameter name="RegisteredEmail" value="zee5latest@gmail.com"/>
+  <parameter name="searchKeyword2" value="Jodi Hakki"/>
   <parameter name="searchKeyword1" value="Paaru gets tipsy"/>
   <parameter name="tabName1" value="Home"/>
   <parameter name="tabName2" value="Movies"/>
@@ -17,11 +18,12 @@
   <parameter name="RSVODPassword" value="ABCD1234"/>
   <parameter name="displayLanguageSelection2" value="Marathi"/>
   <parameter name="NonsubscribedPassword" value="igs@12345"/>
+  <parameter name="SettingsNonsubscribedUserName" value="zeetest@gmail.com"/>
   <parameter name="runMode" value="Suites"/>
   <parameter name="RegisteredMobilePassword" value="User@123"/>
   <parameter name="NonsubscribedUserWithInActivePackPassword" value="123456"/>
   <parameter name="RegisteredEmailPassword" value="User@123"/>
-  <parameter name="userType" value="NonSubscribedUser"/>
+  <parameter name="userType" value="SubscribedUser"/>
   <parameter name="LastName" value="UserZee"/>
   <parameter name="NonsubscribedUserWithNoTransactionPassword" value="User@123"/>
   <parameter name="SubscribedPassword" value="123456"/>
@@ -37,7 +39,9 @@
   <parameter name="validPassword" value="User@123"/>
   <parameter name="searchcontent5" value="Comedy Kiladigalu Championship - Episode 10"/>
   <parameter name="NonsubscribedUserWithNoTransactionUsername" value="zeebuild@gmail.com"/>
+  <parameter name="SettingsNonsubscribedPassword" value="zee12345"/>
   <parameter name="partlySpeltSearchKeyword" value="Kam"/>
+  <parameter name="SettingsSubscribedPassword" value="123456"/>
   <parameter name="otp3" value="3"/>
   <parameter name="searchcontent2" value="Comedy Kiladigalu Championship - Episode 8"/>
   <parameter name="otp4" value="4"/>
@@ -48,6 +52,7 @@
   <parameter name="regUserName" value="igszeefive3@gmail.com"/>
   <parameter name="FirstName" value="Zee"/>
   <parameter name="PrepaidCode" value="Z5PWATI9WlD"/>
+  <parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com"/>
   <parameter name="regPassword" value="123456"/>
   <parameter name="inValidPhnNumber" value="7892215"/>
   <parameter name="VideoQuality" value="Data saver"/>

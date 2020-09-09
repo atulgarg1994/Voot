@@ -1,59 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="1" guice-stage="DEVELOPMENT" name="Failed suite [Web]">
-  <parameter name="SubscribedPassword" value="123456"/>
-  <parameter name="timedAnchorMusic" value="Kanneeraa - Kavacha | Shivaraj Kumar"/>
-  <parameter name="premiumMovieNoTrailer" value="Mugulu Nage"/>
-  <parameter name="premiumMovieNoTrailer3" value="Raambo 2"/>
-  <parameter name="premiumMovieNoTrailer2" value="Londonalli Lambodara"/>
-  <parameter name="ExpiredUserPassword" value="User@123"/>
-  <parameter name="freeMovie" value="Gooli"/>
-  <parameter name="browserType" value="Chrome"/>
-  <parameter name="premiumMovie2" value="Bhinna"/>
-  <parameter name="ExpiredUserName" value="zee5latest@gmail.com"/>
-  <parameter name="premiumMovieWithTrailer" value="Premier Padmini"/>
-  <parameter name="music" value="Nenne Monneya Ninna Parichaya - Giftbox | Ameeta Kulal | Ritvvikk Mathad | Bindu Malini"/>
-  <parameter name="episodeToTriggerReco" value="Aditya-Paarvathi challenge themselves for fun"/>
-  <parameter name="consumptionsFreeContent" value="Robin Hood"/>
-  <parameter name="SubscribedUserName" value="zeetest10@test.com"/>
-  <parameter name="runModule" value="Suite"/>
-  <parameter name="consumptionsContentWithMetaData" value="Jothe Jotheyali"/>
-  <parameter name="tvshow" value="Nisha"/>
-  <parameter name="freeEpisode2" value="Everyone delighted about Adya&#039;s pregnancy - Gattimela"/>
-  <parameter name="audioTrackContent" value="Episode 13 - Agent Raghav"/>
-  <parameter name="freeEpisode1" value="Comedy Kiladigalu Championship - Episode 1 - July 7, 2018 - Full Episode"/>
-  <parameter name="freeEpisode4" value="Aditya shares his feelings - Paaru"/>
-  <parameter name="NonsubscribedUserName" value="basavaraj.pn5@gmail.com"/>
-  <parameter name="consumptionsShow" value="Paaru"/>
-  <parameter name="freeEpisode3" value="Jhende admits defeat - Jothe Jotheyali"/>
-  <parameter name="timedAnchorEpisode" value="Paarvathi kisses Aditya - Paaru"/>
-  <parameter name="devicePin" value="1619"/>
-  <parameter name="news" value="R News"/>
-  <parameter name="livetv" value="TV9 Kannada"/>
-  <parameter name="newsToTriggerReco" value="Amid coronavirus, cong holds massive &#039;cycle rally&#039; to protest against fuel price hike in Bengaluru"/>
-  <parameter name="premiumMovie" value="The Road Within"/>
-  <parameter name="consumptionsEpisode" value="Digvijay stunned on hearing Sambhashiva"/>
-  <parameter name="NonsubscribedPassword" value="igsindia123"/>
-  <parameter name="url" value="https://newpwa.zee5.com/"/>
+<suite thread-count="1" guice-stage="DEVELOPMENT" name="Failed suite [Android]">
+  <parameter name="searchModuleKeyword" value="Kamali"/>
+  <parameter name="SubscribedUserWith15daysExpiryPassword" value="123456"/>
+  <parameter name="invalidSearchKeyword" value="@$_-(;_+"/>
+  <parameter name="MovieName" value="O God Ganesha 2"/>
+  <parameter name="RegisteredEmail" value="zee5latest@gmail.com"/>
+  <parameter name="searchKeyword2" value="Jodi Hakki"/>
+  <parameter name="searchKeyword1" value="Paaru gets tipsy"/>
+  <parameter name="tabName1" value="Home"/>
+  <parameter name="tabName2" value="Movies"/>
+  <parameter name="tabName3" value="ZEE5 Originals"/>
+  <parameter name="validPhnNumber" value="7892215214"/>
+  <parameter name="SubscribedUserName" value="zeetest998@test.com"/>
+  <parameter name="UnRegisteredMobile" value="8073661163"/>
+  <parameter name="NonsubscribedUserName" value="igstesting001@gmail.com"/>
+  <parameter name="RSVODPassword" value="ABCD1234"/>
+  <parameter name="displayLanguageSelection2" value="Marathi"/>
+  <parameter name="NonsubscribedPassword" value="igs@12345"/>
+  <parameter name="SettingsNonsubscribedUserName" value="zeetest@gmail.com"/>
   <parameter name="runMode" value="Suites"/>
-  <parameter name="freeMovie3" value="Pup Scouts"/>
-  <parameter name="freeMovie2" value="Bablu Dablu - Robo Rumble"/>
-  <parameter name="episodeSpoiler" value="Paaru - April 06, 2020 - Episode Spoiler"/>
-  <parameter name="freeMovie4" value="Robin Hood"/>
-  <parameter name="searchModuleSearchKey" value="Kamali"/>
-  <parameter name="trailerOfPremiumMovie" value="Bhinna - Trailer"/>
-  <parameter name="musicToTriggerReco" value="Nenne Monneya Ninna Parichaya - Giftbox | Ameeta Kulal | Ritvvikk Mathad | Bindu Malini"/>
-  <parameter name="consumptionsPremiumContent" value="Huliraya"/>
-  <parameter name="movieToTriggerReco" value="Monsters And Pirates"/>
-  <parameter name="userType" value="Guest"/>
-  <parameter name="timedAnchorMovie" value="Bablu Dablu - Robo Rumble"/>
+  <parameter name="RegisteredMobilePassword" value="User@123"/>
+  <parameter name="NonsubscribedUserWithInActivePackPassword" value="123456"/>
+  <parameter name="RegisteredEmailPassword" value="User@123"/>
+  <parameter name="userType" value="SubscribedUser"/>
+  <parameter name="LastName" value="UserZee"/>
+  <parameter name="NonsubscribedUserWithNoTransactionPassword" value="User@123"/>
+  <parameter name="SubscribedPassword" value="123456"/>
+  <parameter name="PromoCode" value="PNB20"/>
+  <parameter name="searchKeyword" value="Aditya praises Paaru"/>
+  <parameter name="RSVODUser" value="9663128823"/>
+  <parameter name="otp1" value="1"/>
+  <parameter name="displayLanguageSelection1" value="English"/>
+  <parameter name="otp2" value="2"/>
+  <parameter name="NonsubscribedUserWithInActivePackUsername" value="zeetestww@test.com"/>
+  <parameter name="runModule" value="Suite"/>
+  <parameter name="searchcontent6" value="Comedy Kiladigalu Championship - Episode 11"/>
+  <parameter name="validPassword" value="User@123"/>
+  <parameter name="searchcontent5" value="Comedy Kiladigalu Championship - Episode 10"/>
+  <parameter name="NonsubscribedUserWithNoTransactionUsername" value="zeebuild@gmail.com"/>
+  <parameter name="SettingsNonsubscribedPassword" value="zee12345"/>
+  <parameter name="partlySpeltSearchKeyword" value="Kam"/>
+  <parameter name="SettingsSubscribedPassword" value="123456"/>
+  <parameter name="otp3" value="3"/>
+  <parameter name="searchcontent2" value="Comedy Kiladigalu Championship - Episode 8"/>
+  <parameter name="otp4" value="4"/>
+  <parameter name="searchcontent1" value="Dil Bechara – Title Track"/>
+  <parameter name="searchcontent4" value="Comedy Kiladigalu Championship - Episode 9"/>
+  <parameter name="searchcontent3" value="Comedy Kiladigalu Championship - Episode 24"/>
+  <parameter name="loginThrough" value="login"/>
+  <parameter name="regUserName" value="igszeefive3@gmail.com"/>
+  <parameter name="FirstName" value="Zee"/>
+  <parameter name="PrepaidCode" value="Z5PWATI9WlD"/>
+  <parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com"/>
+  <parameter name="regPassword" value="123456"/>
+  <parameter name="inValidPhnNumber" value="7892215"/>
+  <parameter name="VideoQuality" value="Data saver"/>
+  <parameter name="SubscribedUserWith15daysExpiryUsername" value="testzee5_4@gmail.com"/>
+  <parameter name="RegisteredMobile" value="7892215214"/>
   <listeners>
     <listener class-name="com.extent.ExtentReporter"/>
-    <listener class-name="com.extent.ParameterInjector"/>
   </listeners>
-  <test name="WebPWASanityScript">
+  <test name="Android_MoreScreen">
     <classes>
-      <class name="com.zee5.PWASanityScripts.WebPWASanityScript"/>
+      <class name="com.zee5.ApplicasterScripts.Android_MoreScreen"/>
     </classes>
-  </test> <!-- WebPWASanityScript -->
-</suite> <!-- Failed suite [Web] -->
+  </test> <!-- Android_MoreScreen -->
+</suite> <!-- Failed suite [Android] -->

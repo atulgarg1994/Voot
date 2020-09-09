@@ -36,7 +36,6 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
-import static com.jayway.restassured.RestAssured.given;
 
 public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
@@ -3138,7 +3137,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	/*
 	 * Validation of SignUp screen using Phone number
 	 */
-	@SuppressWarnings("static-access")
 	public void phoneNumberRegistration() throws Exception {
 		extent.HeaderChildNode("Phone Number Registration");
 		click(PWALoginPage.objSignUpBtn, "Sign up button");
@@ -3188,27 +3186,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		click(PWALoginPage.objCountryCodeAndoora, "Andoora country code");
 		click(PWALoginPage.objCountryCode, "Country code field");
 		click(PWALoginPage.objCountryCodeIndia, "India country code");
-		type(PWALoginPage.objPasswordField, "Igsindia123", "Password Field");
-		click(PWALoginPage.objShowPasswordButton, "Show Password icon");
-		hideKeyboard();
-		waitTime(3000);
-		calenderFunctionality();
-		String SelectedDate = getText(PWALoginPage.objDateOfBirthField);
-		if (SelectedDate != null) {
-			logger.info("Value in date of birth field is entered correctly");
-			extent.extentLogger("DateOfField", "Value in date of birth field is entered correctly");
-		}
-		if (getDriver().findElement(PWASignupPage.objSignUpButtonNotHighlighted).isEnabled() == false) {
-			logger.info("SignUp button is not highlighted when user does not enter details in all field");
-			extent.extentLogger("Continue button",
-					"SignUp button is not highlighted when user does not enter details in all field");
-		} else {
-			logger.info("Signup button is highlighted even when user does not enter details in all field");
-			extentLoggerFail("Button",
-					"Signup button is highlighted even when user does not enter details in all field");
-		}
-
-		click(PWASignupPage.objGenderMaleBtn, "Gender Option");
 
 		if (getDriver().findElement(PWASignupPage.objSignUpButtonHighlighted).isEnabled()) {
 			logger.info("SignUp button is highlighted");
@@ -3225,12 +3202,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		type(PWALoginPage.objEmailField, "7892215214\n", "PhoneNumber Field");
 		hideKeyboard();
 		waitTime(3000);
-		type(PWALoginPage.objPasswordField, "Igsindia123\n", "Password Field");
-		click(PWALoginPage.objShowPasswordButton, "Show Password icon");
-		hideKeyboard();
-		waitTime(3000);
-		calenderFunctionality();
-		click(PWASignupPage.objGenderMaleBtn, "Gender Option");
 		click(PWASignupPage.objSignUpButtonHighlighted, "Continue Button");
 		waitTime(2000);
 		hideKeyboard();
@@ -3252,48 +3223,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		if (getDriver().findElement(PWASignupPage.objResendOtpOption).isEnabled() == true) {
 			logger.info("ResendOtp option is active after 60seconds");
 			extent.extentLogger("ResendOtp", "ResendOtp option is active after 60seconds");
-		}
-		try {
-			String OTP = gmail.readEmail(OTPNotification());
-			System.out.println(OTP.length());
-
-			logger.info("OTP is recieved from Telecom service");
-			extent.extentLogger("Service provider", "OTP is recieved from Telecom service");
-			Response regionResponse = given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
-			String region = regionResponse.getBody().jsonPath().getString("state");
-			logger.info("Location :" + region);
-			extentLogger("Location", "Location :" + region);
-			char Otp1 = OTP.charAt(13);
-			char Otp2 = OTP.charAt(14);
-			char Otp3 = OTP.charAt(15);
-			char Otp4 = OTP.charAt(16);
-			String OTP1 = Character.toString(Otp1);
-			String OTP2 = Character.toString(Otp2);
-			String OTP3 = Character.toString(Otp3);
-			String OTP4 = Character.toString(Otp4);
-			System.out.println("OTP is" + " " + OTP1 + OTP2 + OTP3 + OTP4);
-			type(PWASignupPage.objOTP1, OTP1, "OTP box1");
-			type(PWASignupPage.objOTP2, OTP2, "OTP box2");
-			type(PWASignupPage.objOTP3, OTP3, "OTP box3");
-			type(PWASignupPage.objOTP4, OTP4 + "\n", "OTP box4");
-			hideKeyboard();
-
-			if (getDriver().findElement(PWASignupPage.objSignUpButtonHighlighted).isEnabled() == true) {
-				logger.info("Verify Button is highlighted");
-				extent.extentLogger("Verify", "Verify Button is highlighted");
-				getDriver().findElement(PWASignupPage.objOTP1).clear();
-				getDriver().findElement(PWASignupPage.objOTP2).clear();
-				getDriver().findElement(PWASignupPage.objOTP3).clear();
-				getDriver().findElement(PWASignupPage.objOTP4).clear();
-				waitTime(5000);
-			}
-		} catch (Exception e) {
-			System.out.println("OTP is not recieved");
-
-			Response regionResponse = given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
-			String region = regionResponse.getBody().jsonPath().getString("state");
-			logger.info("Location :" + region);
-			extentLogger("Location", "Location :" + region);
 		}
 
 		type(PWASignupPage.objOTP1, "a", "OTP box1");
@@ -3416,7 +3345,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWALoginPage.objForgotPasswordTxt, "Forgot password");
 		Back(1);
 		waitTime(5000);
-		if (verifyElementExist(PWALoginPage.objLoginTxt, "Login")) {
+		if (verifyElementExist(PWALoginPage.objEmailField, "Login")) {
 			logger.info("User is redirected to login page");
 			extent.extentLogger("Login", "User is redirected to login page");
 		}
@@ -6688,7 +6617,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				logger.info("User is not logged in");
 				noLogoutOption();
 				phoneNumberRegistration();
-				emailRegistration();
+	//			emailRegistration();
 				forgotPasswordEmailSanity();
 				forgotPasswordMobileNumberSanity();
 				facebookLogin();
@@ -6995,7 +6924,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		verifyElementPresentAndClick(PWASubscriptionPages.objLoginLinkInPlayer, "Login link");
 		waitTime(5000);
-		if (verifyElementExist(PWALoginPage.objLoginTxt, "Login")) {
+		if (verifyElementExist(PWALoginPage.objEmailField, "Login")) {
 			logger.info("User is redirected to login page");
 			extent.extentLogger("Login", "User is redirected to login page");
 		}
@@ -10975,7 +10904,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "Subscribe Pop Up Close button");
 				}
 			}
-			if (!verifyElementExist(PWAPremiumPage.objWatchTrailerBtn, "Watch Trailer Button")) {
+			if (verifyElementExist(PWAPremiumPage.objWatchTrailerBtn, "Watch Trailer Button")) {
 				logger.error("Watch Trailer button is displayed in UI");
 				extent.extentLoggerFail("Trailer", "Watch Trailer button is displayed in UI");
 			} else {

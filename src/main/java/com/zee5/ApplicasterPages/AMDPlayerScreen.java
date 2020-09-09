@@ -41,11 +41,11 @@ public class AMDPlayerScreen {
 	
 	public static By objPlaybackRateSelected = By.xpath("(//*[@id='icon_selected']//parent::*//child::*)[2]");
 	public static By objPlayerLoader = By.xpath("//*[@id='player_loading_progress']");
-	public static By objSharePopUp = By.xpath("//*[@id='resolver_list']");
+	public static By objSharePopUp = By.xpath("//*[@text='Share using']");
 	public static By objTwitter = By.xpath("//*[@text='Tweet']");
 	public static By objTweetButton = By.xpath("//*[@id='button_tweet']");
-	public static By objFacebook = By.xpath("//*[@text='News Feed']");
-	public static By objFacebookPost = By.xpath("//*[@text='POST']");
+	public static By objFacebook = By.xpath("//*[@text='News Feed' or @text='Facebook']");
+	public static By objFacebookPost = By.xpath("//*[@text='POST' or @text='Post' or @text='Share' or @text='SHARE']");
 	public static By objCopyToClipboard = By.xpath("//*[@text='Copy to clipboard']");
 	public static By objRetryBtn = By.xpath("//*[@id='zretry']");
 	
@@ -59,5 +59,8 @@ public class AMDPlayerScreen {
 	public static By objPlaybackRate2 = By.xpath("//*[@text='2.0X']");
 	public static By objLoginCTA = By.xpath("//*[@id='get_premium_login']");
 
+	public static By objSubscribeNowButtonOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribe_now_action']");
+	public static By objSubtitleOptionInPotraitMode = By.xpath("//*[@resource-id='com.graymatrix.did:id/subtitlesTv']");
+	public static By objSubtitleValueInPotraitMode = By.xpath("//*[@resource-id='com.graymatrix.did:id/subtitlesValueTv']");
 
 }

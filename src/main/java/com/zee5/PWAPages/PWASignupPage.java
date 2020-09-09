@@ -54,7 +54,7 @@ public class PWASignupPage {
 
 	public static By objSignUpButtonNotHighlightedWeb = By.xpath("//div[@class='regBottom']/following-sibling::div[@class='buttonContainer']/child::*/child::*");
 	
-	public static By objSignUpButtonHighlightedWeb = By.xpath("//div[@class='regBottom']/following-sibling::div[@class='buttonContainer']/child::*/child::*");
-
+	public static By objSignUpButtonHighlightedWeb = By.xpath("//button[contains(@class,'noSelect buttonGradient')]");
+	
 	public static By objVerifyBtnWeb = By.xpath("//div[@class='verifyBtn']/child::*");
 }
