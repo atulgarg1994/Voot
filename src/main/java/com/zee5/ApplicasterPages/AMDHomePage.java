@@ -9,7 +9,7 @@ public class AMDHomePage {
 	// ZEE5 Logo
 	public static By objZee5Logo = By.xpath("//*[@contentDescription='LOGO']");
 
-	// Subscribe Teaser
+	// Subscribe Teaser 
 	public static By objSubscribeTeaser = By.xpath("//*[@text='SUBSCRIBE']");
 
 	// Search Button

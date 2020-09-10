@@ -30,7 +30,7 @@ public class AMDUpcomingPage {
 	public static By objGenre = By.xpath("(//*[@resource-id='com.graymatrix.did:id/info_genre'])[1]");
 	
 	public static By objCertificate = By.xpath("(//*[@resource-id='com.graymatrix.did:id/info_age_rating'])[1]");
-	
+	 
 	public static By objTitle(String title) {
 		return By.xpath(title);
 	}

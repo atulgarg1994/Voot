@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 public class AMDConsumptionScreen {
 
 	public static By objWatchlistBtn = By.xpath("//*[@id='watchListTv']");
-	
+	 
 	public static By objShareBtn = By.xpath("//*[@id='shareText']");
 	
 	public static By objDownloadBtn = By.xpath("//*[@id='downloadTv']");

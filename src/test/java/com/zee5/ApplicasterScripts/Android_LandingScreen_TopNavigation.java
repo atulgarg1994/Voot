@@ -74,7 +74,7 @@ public class Android_LandingScreen_TopNavigation {
 //		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.KidsTabScreen(userType);
 	}
-
+ 
 	@Test(priority = 7)
 	@Parameters({ "userType" }) // Vinay
 	public void Music_LandingScreen(String userType) throws Exception {

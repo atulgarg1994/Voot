@@ -7,7 +7,7 @@ public class AMDGenericObjects {
 
 	// Get Screen title across all screen
 	public static By objgetScreenTitle = By.xpath("//*[@id='screen_title']");
-
+ 
 	// Verifying page title displayed
 	public static By objScreenTitleName(String title) {
 		return By.xpath("//*[@id='screen_title' and @text='" + title + "']");

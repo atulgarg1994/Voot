@@ -145,7 +145,7 @@ public class ExtentReporter implements ITestListener {
 	}
 
 	@Override
-	public void onTestFailure(ITestResult result) {
+	public void onTestFailure(ITestResult result) { 
 		screencapture();
 		childTest.get().log(Status.FAIL, result.getName() + " is FAILED");
 		logger.info("::::::::::Test " + result.getName() + " FAILED::::::::::");

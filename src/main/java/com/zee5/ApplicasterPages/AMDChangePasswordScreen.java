@@ -21,7 +21,7 @@ public class AMDChangePasswordScreen {
 	
 	//Get Error text from Change Password screen
 	public static By objErrTxt = By.xpath("//*[@id='textinput_error']");
-	
+	 
 	//Update Button
 	public static By objUpdateBtn = By.xpath("//*[@id='btnUpdate']");
 	

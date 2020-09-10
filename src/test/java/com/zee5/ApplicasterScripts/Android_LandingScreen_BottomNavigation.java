@@ -26,7 +26,7 @@ public class Android_LandingScreen_BottomNavigation {
 
 	
 	@Test(priority = 1)
-	@Parameters({ "userType" })		// Manasa
+	@Parameters({ "userType" })		// Manasa 
 	public void Login(String userType) throws Exception {
 		System.out.println("\nVerify Display Language Screen and login flow for various usertypes");
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();

@@ -11,7 +11,7 @@ public class AMDLiveTVScreen {
 	
 	public static By objTray(String trayName) {
 		return By.xpath("//*[@resource-id='com.graymatrix.did:id/header_primary_text' and @text='"+trayName+"']");
-	}
+	} 
 	
 	public static By objSubscribeIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribeiconlayout']");
 	

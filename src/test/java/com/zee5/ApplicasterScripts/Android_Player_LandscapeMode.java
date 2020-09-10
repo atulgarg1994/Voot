@@ -23,7 +23,7 @@ public class Android_Player_LandscapeMode {
 	public void accessDeviceLocation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 	}
-
+ 
 	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void Login(String userType) throws Exception {

@@ -70,6 +70,6 @@ public class AMDPlayerScreen {
 	public static By objUpnextContentCardTitle = By.xpath("(//*[@id='title_similar'])[3]");
 	public static By objUpnextRail = By.xpath("//*[@id='similarcontentlistView']");
 	public static By objContentTitle = By.xpath("//*[@id='title_main']");
-	public static By objShareIconOnPlayer = By.xpath("//*[@id='icon_share']");
+	public static By objShareIconOnPlayer = By.xpath("//*[@id='icon_share']"); 
 	public static By objShareNowFb = By.xpath("//*[@contentDescription='SHARE NOW']");
 }

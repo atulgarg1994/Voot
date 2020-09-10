@@ -11662,7 +11662,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLogger("Register Pop Up", "Register Pop Up is displayed");
 			Back(1);
 		}
-	}
+	} 
 
 	public void upnextRailValidationInLandscapeMode(String searchKeyword6) throws Exception {
 		extent.HeaderChildNode("Validation of Upnext Rail in Landscape Mode");

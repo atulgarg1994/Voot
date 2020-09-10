@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 public class AMDDownloadPage {
 	
 	public static By objBrowseToDownloadBtn = By.xpath("//*[@id='btn_browse_to_download']");
-	
+	 
 	public static By objCardContentImage = By.xpath("//*[@id='cardContentImage']");
 	
 	public static By objShowDetails = By.xpath("//*[@id='rl_show_details']");

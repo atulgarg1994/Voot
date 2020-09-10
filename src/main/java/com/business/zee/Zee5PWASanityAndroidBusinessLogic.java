@@ -12023,7 +12023,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Validating that user is asked to give the voice input post tapping on microphone icon");
 		verifyElementPresentAndClick(PWASearchPage.objVoiceSearchButton, "Voice seach icon");
 		waitTime(4000);
-		getDriver().context("NATIVE_APP");
+		getDriver().context("NATIVE_APP"); 
 		directClickReturnBoolean(PWASearchPage.objallow, "Allow in pop up");
 		directClickReturnBoolean(PWASearchPage.objallowCaps, "ALLOW in pop up");
 		getDriver().context("CHROMIUM");

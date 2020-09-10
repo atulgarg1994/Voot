@@ -14,7 +14,7 @@ public class AMDProfileScreen {
 	//Get Profile Name
 	public static By objUserNameTxt = By.xpath("//*[@id='txt_profile_user_name']");
 
-	//Get Profile Email-ID 
+	//Get Profile Email-ID  
 	public static By objProfileEmailId = By.xpath("//*[@id='txt_profile_user_email_id']");
 	
 	//Edit Button

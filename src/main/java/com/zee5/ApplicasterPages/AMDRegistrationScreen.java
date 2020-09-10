@@ -16,7 +16,7 @@ public class AMDRegistrationScreen {
 	public static By objInvalidEmailIDErrorMsg = By.xpath("//*[@id='txtMessage']");
 	public static By objProceedBtn  = By.xpath("//*[@id='btnProceed']");
 	
-	//Register screen 
+	//Register screen  
 	public static By objEmailIDHeaderTxt = By.xpath("//*[@id='txtHeader']");
 	public static By objFirstNameTxtField = By.xpath("//*[@id='first_name_input']");
 	public static By objFirstNameErrorMsg = By.xpath("//*[@id='textinput_error']");

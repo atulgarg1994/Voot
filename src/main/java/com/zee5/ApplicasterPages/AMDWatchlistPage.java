@@ -26,7 +26,7 @@ public class AMDWatchlistPage {
 	public static By objEpisodeCount = By.xpath("//*[@id='txt_episode_duration']");
 	public static By objSelectCheckBox = By.xpath("//*[@id='check_box_item_selector']");
 	
-	public static By objSelectContentByIndex(int i) {
+	public static By objSelectContentByIndex(int i) { 
 		return By.xpath("(//*[@id='check_box_item_selector'])["+i+"]");
 	}
 	public static By objContentThumbnail = By.xpath("//*[@id='img_reminder_item']");

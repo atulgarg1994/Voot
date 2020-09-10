@@ -10,7 +10,7 @@ public class AMDShowsScreen {
 	 public static By objTrays(int i) {
 			return By.xpath("(//*[@id='recyclerView']//*[@id='header_primary_text'])["+i+"]");
 		}
-
+ 
 	 public static By objContentImages(int i) {
 			return By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])["+i+"]");
 		}

@@ -24,7 +24,7 @@ public class ExcelUpdate {
 	static int row = (getRowCount()+1);
 	static int counter = 1;
 
-	public static void creatExcel() {
+	public static void creatExcel() { 
 		try {
 			File file = new File(System.getProperty("user.dir") + "\\DFPExcelDump\\Analysed_Reports.xlsx");
 			if (!file.exists()) {

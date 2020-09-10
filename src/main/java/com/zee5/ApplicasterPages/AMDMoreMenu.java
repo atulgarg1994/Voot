@@ -15,7 +15,7 @@ public class AMDMoreMenu {
 	public static By objMyTransactions = By.xpath("//*[@text='My Transactions']");
 	public static By objWatchlist = By.xpath("//*[@text='Watchlist']");
 	public static By objMyRemainders = By.xpath("//*[@text='My Reminders']");
-	public static By objHaveaPrepaidCode = By.xpath("//*[@text='Have a Prepaid Code?']");
+	public static By objHaveaPrepaidCode = By.xpath("//*[@text='Have a Prepaid Code?']"); 
 	public static By objSettings = By.xpath("//*[@text='Settings']");
 	public static By objHomeIcon = By.xpath("//*[@text='Home']");
 	public static By objUpcomingIcon = By.xpath("//*[@text='Upcoming' and @id='bb_bottom_bar_title']");

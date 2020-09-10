@@ -9,7 +9,7 @@ public class AMDLoginScreen {
 	// Back Icon
 	public static By objBackBtn = By.xpath("//*[@id='icon_back']|//*[@id='action_icon']");
 
-	// Skip Button in Login Screen
+	// Skip Button in Login Screen 
 	public static By objLoginLnk = By.xpath("//*[@id='skip_link']");
 
 	// Get Email Id label description

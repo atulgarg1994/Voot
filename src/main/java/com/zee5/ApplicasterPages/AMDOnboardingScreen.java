@@ -16,7 +16,7 @@ public class AMDOnboardingScreen {
 	// Selected Display Language
 	public static By objSelectedDisplayLang = By
 			.xpath("//*[@id='selectionImage']//following::*[@id='display_language_content'][1]");
-
+ 
 	// Get Screen Title
 	public static By objScreenTitle = By.xpath("//*[@id='screen_title']");
 

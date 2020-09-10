@@ -28,7 +28,7 @@ public class AMDSearchScreen {
 	public static By objSearchBoxEdit = By.xpath("//*[@resource-id='com.graymatrix.did:id/searchToolbarTitle']");
 
 	public static By objVoiceSearchBackButton = By.xpath("//*[@id='backIv']");
-
+ 
 	public static By objRecentsearchOverlay = By
 			.xpath("//*[@id='header_primary_text' and contains(text(),'Recent Searches')]");
 

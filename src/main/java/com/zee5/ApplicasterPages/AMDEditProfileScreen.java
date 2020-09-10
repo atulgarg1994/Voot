@@ -16,7 +16,7 @@ public class AMDEditProfileScreen {
     public static By objMobileNOCountry = By.xpath("//*[@id='tv_countryDropDown']");
     public static By objDifferentCountries(int index) {
     	return By.xpath("(//*[@id='selector_content'])["+index+"]");
-    }
+    } 
     public static By objClosedropDownBtn = By.xpath("//*[@resource-id='com.graymatrix.did:id/selector_selection']");
     public static By objDOBTxtField = By.xpath("//*[@id='dobTextView']");
     public static By objMonthField = By.xpath("(//*[@id='numberpicker_input'])[1]");

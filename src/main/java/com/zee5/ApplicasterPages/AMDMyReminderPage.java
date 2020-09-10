@@ -18,6 +18,6 @@ public class AMDMyReminderPage {
 	public static By objNoReminderIcon = By.xpath("//*[@id='icon_ic_no_reminder']");
 	public static By objNoReminderTxt = By.xpath("//*[@id='txt_no_reminder']");
 	
-	
+	 
 	
 }

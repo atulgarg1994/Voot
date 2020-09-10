@@ -80,7 +80,7 @@
 	<parameter name="NonsubscribedUserWithNoTransactionPassword" value="User@123" />
 	
 	<parameter name="SettingsNonsubscribedUserName" value="zeetest@gmail.com"/>
-	<parameter name="SettingsNonsubscribedPassword" value="zee12345"/>
+	<parameter name="SettingsNonsubscribedPassword" value="zee12345"/> 
 	
 	<parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com"/>
 	<parameter name="SettingsSubscribedPassword" value="123456"/>

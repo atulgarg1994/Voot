@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 public class AMDSubscibeScreen {
 	
-	//Select pack
+	//Select pack 
 	public static By objSubscribeHeader = By.xpath("//*[@text='Subscribe']");
 	
 	public static By objSubscribePageBackButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_back']");
