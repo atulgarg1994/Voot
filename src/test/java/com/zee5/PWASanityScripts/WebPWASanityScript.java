@@ -187,7 +187,6 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		// Sanity
 		Zee5WEBPWASanityBusinessLogic.SearchResultsScreen(userType);
-
 		// Smoke : sushma
 		String liveContentName = Zee5WEBPWASanityBusinessLogic.fetchLiveContent();
 		Zee5WEBPWASanityBusinessLogic.landingOnSearchScreen();

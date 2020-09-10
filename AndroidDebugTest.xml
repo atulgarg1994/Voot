@@ -70,6 +70,8 @@
 	<parameter name="searchcontent4" value="Comedy Kiladigalu Championship - Episode 9" />
 	<parameter name="searchcontent5" value="Comedy Kiladigalu Championship - Episode 10" />
 	<parameter name="searchcontent6" value="Comedy Kiladigalu Championship - Episode 11" />
+	<parameter name="searchKeyword7" value="Paaru" />
+	<parameter name="searchKeyword8" value="Shivaji Surathkal" />
 	
 	<parameter name="NonsubscribedUserWithInActivePackUsername" value="zeetestww@test.com" />
 	<parameter name="NonsubscribedUserWithInActivePackPassword" value="123456" />

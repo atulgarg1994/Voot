@@ -2545,37 +2545,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			verifyElementExist(PWAHomePage.objPopUpMobileField, "Mobile Number field");
 			type(PWAHomePage.objPopUpMobileField, "7892215214\n", "Mobile Number field");
 			hideKeyboard();
-			verifyElementExist(PWAHomePage.objPopUpPasswordField, "Password field");
-			type(PWAHomePage.objPopUpPasswordField, "User@123\n", "Password field");
-			hideKeyboard();
-			verifyElementExist(CompleteYourProfilePopUp.objFirstName, "First Name Field");
-			type(CompleteYourProfilePopUp.objFirstName, "Test1\n", "First Name Field");
-			hideKeyboard();
-			verifyElementExist(CompleteYourProfilePopUp.objLastName, "Last Name Field");
-			type(CompleteYourProfilePopUp.objLastName, "User\n", "Last Name Field");
-			hideKeyboard();
-			verifyElementExist(CompleteYourProfilePopUp.objDOBField, "Date of Birth Field");
-			type(CompleteYourProfilePopUp.objDOBField, "17092000", "Date of Birth Field");
-			hideKeyboard();
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderDropDown, "Gender drop down");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderfemale, "Female option");
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objSendOtp, "Send OTP button");
-			try {
-				Boolean SavedChangesToastMessage = getDriver().findElement(By.xpath("//*[@class='toastMessage']"))
-						.isDisplayed();
-				if (SavedChangesToastMessage == true) {
-					extent.extentLogger("Toast", "User Already exist Toast Message is displayed");
-					logger.info("User Already exist Toast Message is displayed");
-				}
-			} catch (Exception e) {
-			}
-			if (verifyElementExist(PWAPlayerPage.objWhyRegisterPopUp, "Sign Up Pop Up")) {
-				logger.info("Since User already exists Sign Up Pop Up is not dismissed");
-				extent.extentLogger("", "Since User already exists Sign Up Pop Up is not dismissed");
-			} else {
-				logger.error("Sign Up Pop Up is dismissed");
-				extent.extentLoggerFail("", "Sign Up Pop Up is dismissed");
-			}
 			if (verifyElementExist(PWALoginPage.objFacebookIcon, "Facebook icon") == false) {
 				logger.info("Social media login is not displayed in Sign Up Pop Up");
 				extent.extentLogger("Social media icon", "Social media login is not displayed in Sign Up Pop Up");
@@ -2583,21 +2553,12 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				logger.error("Social media login is displayed in Sign Up Pop Up");
 				extent.extentLoggerFail("Social media icon", "Social media login is displayed in Sign Up Pop Up");
 			}
-			extent.HeaderChildNode("Verification of Sign Up Pop Up: Entering mobile number of Non Registered User");
-			getDriver().findElement(PWAHomePage.objPopUpMobileField).clear();
-			waitTime(5000);
-			type(PWAHomePage.objPopUpMobileField, "8660863575\n", "Mobile field");
-			logger.info("Edited mobile number field with non registered number");
-			extent.extentLogger("", "Edited mobile number field with non registered number");
-			hideKeyboard();
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objSendOtp, "Send OTP button");
-			waitTime(2000);
-			if (!verifyElementExist(CompleteYourProfilePopUp.objOTPScreen, "OTP Pop Up")) {
-				logger.error("OTP Pop Up is not displayed");
-				extent.extentLoggerFail("Popup", "OTP Pop Up is not displayed");
+			if (verifyElementExist(PWAHomePage.objverifyNumberPopup, "PopUp")) {
+				logger.info("Otp screen is displayed");
+				extent.extentLogger("Popup", "Otp screen is displayed");
 			}
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objCloseBtn, "Close button in OTP Pop Up");
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			click(PWASearchPage.objCloseRegisterDialog, "Close button");
+			click(PWAHomePage.objZeeLogo, "Zee logo");
 			changeLanguageAndVerifyPopUp();
 		} else {
 			logger.info("Sign Up Pop Up is not displayed");
@@ -2671,7 +2632,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 		}
 	}
-
 	/**
 	 * Validation of Complete Profile Popup Functionality
 	 */
@@ -2682,7 +2642,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login button");
 		waitTime(3000);
-		verifyElementPresent(PWALoginPage.objLoginTxt, "Login page");
 		extent.HeaderChildNode("Login through incomplete profile account");
 		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
 		type(PWALoginPage.objEmailField, "indaus24@gmail.com", "Email Field");
@@ -2706,24 +2665,15 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verification of complete profile popup in potrait mode");
 			logger.info("PopUp is verifed in portrait mode");
 			extent.extentLogger("Popup", "PopUp is verifed in portrait mode");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objFirstName, "First Name Field");
+			verifyElementPresentAndClick(CompleteYourProfilePopUp.objFullName, "Full name Field");
 			type(CompleteYourProfilePopUp.objFirstName, "Test", "First Name Field");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objLastName, "Last Name Field");
-			type(CompleteYourProfilePopUp.objLastName, "User", "Last Name Field");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objDay, "Day Field");
-			click(CompleteYourProfilePopUp.objDateSelector, "Date");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objYear, "Year Field");
-			click(CompleteYourProfilePopUp.objDateSelector, "Year");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderFemale, "Gender Field");
+			verifyElementPresentAndClick(CompleteYourProfilePopUp.objDOBField, "DOB Field");
+			type(CompleteYourProfilePopUp.objDOBField, "15101997", "DOB Field");
+			verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderDropDown, "Gender drop down");
+			verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderfemale, "Female option");
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objMobileNo, "Mobile Number");
 			type(CompleteYourProfilePopUp.objMobileNo, "95839633299", "Mobile Number");
 			hideKeyboard();
-			waitTime(3000);
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objSendOtp, "Send OTP button");
-			if (!verifyElementExist(CompleteYourProfilePopUp.objOTPScreen, "OTP Pop Up")) {
-				logger.error("OTP Pop Up is not displayed");
-				extent.extentLoggerFail("Popup", "OTP Pop Up is not displayed");
-			}
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objCloseBtn, "Close button in OTP Pop Up");
 			click(PWAHomePage.objZeeLogo, "Zee logo");
 		} else {
@@ -9251,17 +9201,17 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		type(PWASearchPage.objSearchEditBox, liveContentName + "\n", "Search bar");
 		hideKeyboard();
 		waitTime(10000);
-		for (int scroll = 0; scroll < 4; scroll++) {
-			if (verifyIsElementDisplayed(PWALiveTVPage.objrelatedChannel(liveContentName))) {
+		for(int scroll=0;scroll<4;scroll++) {
+			if(verifyIsElementDisplayed(PWALiveTVPage.objrelatedChannel(liveContentName))) {
 				break;
-			} else {
-				Swipe("UP", 1);
+			}
+			else {
+				Swipe("UP",1);
 				waitTime(2000);
 			}
 		}
-		if (verifyElementPresent(PWALiveTVPage.objrelatedChannel(liveContentName), "Live Show " + liveContentName)) {
-			verifyElementPresent(PWALiveTVPage.objrelatedChannelLiveLogo(liveContentName),
-					"LIVE Logo for " + liveContentName);
+		if(verifyElementPresent(PWALiveTVPage.objrelatedChannelLiveLogo(liveContentName),"LIVE Logo for " + liveContentName)) {
+			verifyElementPresent(PWALiveTVPage.objrelatedChannel(liveContentName), "Live Show " + liveContentName);
 			waitTime(3000);
 			JSClick(PWALiveTVPage.objrelatedChannelLiveLogo(liveContentName), "LIVE Logo");
 			waitTime(4000);
@@ -9269,25 +9219,25 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			String consumptionsTitle = "";
 			try {
 				consumptionsTitle = getText(PWAPlayerPage.objContentTitleLiveTV);
-			} catch (Exception e) {
-			}
-			;
+				logger.info("Consumptions title fetched: " + consumptionsTitle);
+				extent.extentLogger("", "Consumptions title fetched: " + consumptionsTitle);
+			} catch (Exception e) {}
 			if (consumptionsTitle.equals(liveContentName)) {
-				logger.info("Navigated to Consumption screen " + consumptionsTitle);
-				extent.extentLogger("", "Navigated to Consumption screen " + consumptionsTitle);
+				logger.info("Navigated to Consumption screen successfully");
+				extent.extentLogger("", "Navigated to Consumption screensuccessfully");
 
 			} else {
-				logger.error("Failed to navigate to Consumption screen " + consumptionsTitle);
-				extent.extentLoggerFail("", "Failed to navigate to Consumption screen " + consumptionsTitle);
+				logger.error("Failed to navigate to right Consumption screen");
+				extent.extentLoggerFail("", "Failed to navigate to right Consumption screen");
 			}
 			if (verifyElementExist(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up")) {
 				click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
 			}
 			click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
-		} else {
-			Back(1);
 		}
-
+		else {
+			Back(1);
+		}	
 	}
 
 	/**
@@ -12072,11 +12022,13 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	public void voiceInput() throws Exception {
 		extent.HeaderChildNode("Validating that user is asked to give the voice input post tapping on microphone icon");
 		verifyElementPresentAndClick(PWASearchPage.objVoiceSearchButton, "Voice seach icon");
-		waitTime(2000);
+		waitTime(4000);
 		getDriver().context("NATIVE_APP");
 		directClickReturnBoolean(PWASearchPage.objallow, "Allow in pop up");
 		directClickReturnBoolean(PWASearchPage.objallowCaps, "ALLOW in pop up");
 		getDriver().context("CHROMIUM");
+		waitTime(6000);
+		click(PWASearchPage.objVoiceSearchButton, "Voice seach icon");
 		String searchBarText = getAttributValue("placeholder", PWASearchPage.objSearchEditBox);
 		if (searchBarText.equalsIgnoreCase("Speak to Search on ZEE5")) {
 			logger.info("'Speak to Search on ZEE5' is displayed on search edit box");

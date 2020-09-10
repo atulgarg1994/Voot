@@ -1073,7 +1073,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Navigation to Consumption Screen through Trending Searches");
 		waitTime(3000);
 		mandatoryRegistrationPopUp(userType);
-		if (verifyElementExist(PWASearchPage.objTrendingSearchesTray, "Trending Searches tray")) {
+		if (verifyElementPresent(PWASearchPage.objTrendingSearchesTray, "Trending Searches tray")) {
 
 			verifyElementExist(PWASearchPage.objFirstAssetThumbnailTrendingSearch,
 					"First asset thumbnail of Trending searches tray");
@@ -5145,7 +5145,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 				.getParameter("premiumMovie");
 		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
-		Thread.sleep(10000);
+		waitTime(13000);
 
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search content");
 
@@ -5177,45 +5177,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLogger("Popup", "PopUp is verifed in portrait mode");
 			verifyElementExist(PWAHomePage.objPopUpMobileField, "Mobile field in pop up");
 			type(PWAHomePage.objPopUpMobileField, "7892215214", "Mobile field");
-			verifyElementExist(PWAHomePage.objPopUpPasswordField, "Password field in pop up");
-			type(PWAHomePage.objPopUpPasswordField, "User@123", "Password field");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objFirstName, "First Name Field");
-			type(CompleteYourProfilePopUp.objFirstName, "Test", "First Name Field");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objLastName, "Last Name Field");
-			type(CompleteYourProfilePopUp.objLastName, "User", "Last Name Field");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objDOBField, "Date of Birth Field");
-			type(CompleteYourProfilePopUp.objDOBField, "17091997", "Date of Birth Field");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderDropDown, "Gender drop down");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderfemale, "Female option");
 			verifyElementPresentAndClick(PWAHomePage.objPopUpProceedButton, "Proceed button");
-			try {
-				Boolean SavedChangesToastMessage = getWebDriver().getPageSource()
-						.contains("//*[@class='toastMessage']");
-				if (SavedChangesToastMessage == true) {
-					extent.extentLogger("Toast", "User Already exist Toast Message displayed");
-					logger.info("User Already exist Toast Message displayed");
-				} else {
-					extent.extentLogger("Toast", "User Already exist Toast Message is not displayed");
-					logger.info("User Already exist Toast Message is not displayed");
-				}
-
-			} catch (Exception e) {
-				System.out.println("Toast message is not displayed");
-			}
-			if (verifyElementExist(PWALoginPage.objFacebookIcon, "Facebook icon") == false) {
-				logger.info("Social media login is not displayed in register popup");
-				extent.extentLogger("Social media icon", "Social media login is not displayed in register popup");
-			}
-			int lenText = findElement(PWAHomePage.objPopUpMobileField).getAttribute("value").length();
-			for (int i = 0; i < lenText; i++) {
-				getWebDriver().findElement(PWAHomePage.objPopUpMobileField).sendKeys(Keys.BACK_SPACE);
-			}
-
-			waitTime(5000);
-			type(PWAHomePage.objPopUpMobileField, "8660863575", "Mobile field");
-			verifyElementPresentAndClick(PWAHomePage.objPopUpProceedButton, "Proceed button");
-			waitTime(2000);
-			if (verifyElementExist(PWAHomePage.objOtpPopUp, "PopUp")) {
+			if (verifyElementExist(PWAHomePage.objverifyNumberPopup, "PopUp")) {
 				logger.info("Otp screen is displayed");
 				extent.extentLogger("Popup", "Otp screen is displayed");
 			}
@@ -5268,8 +5231,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		logout();
 		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
-		waitTime(2000);
-		verifyElementPresent(PWALoginPage.objWebLoginPageText, "Login page");
 		waitTime(3000);
 		extent.HeaderChildNode("Login through incomplete profile account");
 		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -5280,7 +5241,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		verifyElementExist(PWAHomePage.objSearchField, "Search field");
-		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie");
+		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie2");
 		type(PWAHomePage.objSearchField, keyword, "Search");
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchResult, "Search result");
@@ -5289,15 +5250,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verification of complete profile popup in potrait mode");
 			logger.info("PopUp is verifed in portrait mode");
 			extent.extentLogger("Popup", "PopUp is verifed in portrait mode");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objFirstName, "First Name Field");
+			verifyElementPresentAndClick(CompleteYourProfilePopUp.objFullName, "Full name Field");
 			type(CompleteYourProfilePopUp.objFirstName, "Test", "First Name Field");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objLastName, "Last Name Field");
-			type(CompleteYourProfilePopUp.objLastName, "User", "Last Name Field");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objDay, "Day Field");
-			click(CompleteYourProfilePopUp.objDateSelector, "Date");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objYear, "Year Field");
-			click(CompleteYourProfilePopUp.objDateSelector, "Year");
-			verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderFemale, "Gender Field");
+			verifyElementPresentAndClick(CompleteYourProfilePopUp.objDOBField, "DOB Field");
+			type(CompleteYourProfilePopUp.objDOBField, "15101997", "DOB Field");
+			verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderDropDown, "Gender drop down");
+			verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderfemale, "Female option");
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objMobileNo, "Mobile Number");
 			type(CompleteYourProfilePopUp.objMobileNo, "95839633299", "Mobile Number");
 			waitTime(3000);
@@ -5310,7 +5268,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		logout();
 	}
-
 	/**
 	 * Validation of Upgrage Popup Functionality for RSVOD user
 	 */
@@ -9654,8 +9611,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 
 		else {
-			logger.info("Voice Search Icon is not applicable for Firefox Browser");
-			extent.extentLogger("Voice Search icon", "Voice Search Icon is not applicable for Firefox Browser");
+			logger.error("Voice Search Icon is not applicable for Firefox Browser");
+			extent.extentLoggerFail("Voice Search icon", "Voice Search Icon is not applicable for Firefox Browser");
 
 		}
 
@@ -10978,9 +10935,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		// Verify Add to Watch list is displayed in Content consumption screen
 		// Search any content
 		extent.HeaderChildNode("Verifying Add to Watch list in Content consumption screen for NonSubscribed user");
-		waitTime(6000);
 		click(PWAHomePage.objSearchBtn, "Search button");
 		type(PWASearchPage.objSearchEditBox, "Ondh Kathe Hella", "Search box");
+		waitTime(6000);
 		// Click on content
 		click(PWASearchPage.objFirstContentCardNameAfterSearch1(1), "Content");
 		String contentName = getElementPropertyToString("innerText", PWAPlayerPage.objContentName, "Title");
@@ -11046,7 +11003,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		watchlistCheck(userType);
 		Watchlistlogin("NonSubscribe", "Gooli");
 		Watchlistlogin("Subscribe", "Gooli");
-		registerandCheckCW();
+//		registerandCheckCW();
 		if (getPlatform().equalsIgnoreCase("Web")) {
 			extent.HeaderChildNode("Validating Add to Watchlist icon on tray content card");
 			scrollToTheElementWEB(PWAHomePage.objFirstContentCardOfTray("Trending on ZEE5"));

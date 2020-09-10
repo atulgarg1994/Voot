@@ -9,7 +9,7 @@ public class CompleteYourProfilePopUp {
 	public static By objFirstName = By.xpath("//input[@name='firstName']");
 	
 	public static By objLastName = By.xpath("//input[@name='lastName']");
-	
+	public static By objFullName = By.xpath("//input[@name='fullName']");
 	public static By objDay = By.xpath("(//div[@class='inputItem selectWrapper'])[1]");
 	
 	public static By objMonth = By.xpath("(//div[@class='inputItem selectWrapper'])[2]");

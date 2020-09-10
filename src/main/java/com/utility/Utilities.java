@@ -112,11 +112,11 @@ public class Utilities extends ExtentReporter {
 		try {
 			js.executeScript("arguments[0].click();", findElement(byLocator));
 			logger.info("" + text + " " + " is clicked");
-			extent.extentLogger("checkElementNotPresent", "" + text + " is clicked");
+			extent.extentLoggerPass("checkElementPresent", "" + text + " is clicked");
 			return true;
 		} catch (Exception e) {
 			logger.error(text + " " + " is not clicked");
-			extent.extentLogger("checkElementNotPresent", "" + text + " is not clicked");
+			extent.extentLoggerFail("checkElementNotPresent", "" + text + " is not clicked");
 			screencapture();
 			return false;
 		}
@@ -141,14 +141,14 @@ public class Utilities extends ExtentReporter {
 				Runtime.getRuntime().exec(cmd);
 				waitTime(5000);
 				logger.info("Wifi Data toggle is Switched On");
-				extent.extentLogger("Wifi Toggle", "Wifi Data toggle is Switched On");
+				extent.extentLoggerPass("Wifi Toggle", "Wifi Data toggle is Switched On");
 			} else if (Value.equalsIgnoreCase("Off")) {
 				System.out.println("Switching Off Wifi");
 				String cmd = "adb shell svc wifi disable";
 				Runtime.getRuntime().exec(cmd);
 				waitTime(3000);
 				logger.info("Wifi Data toggle is Switched Off");
-				extent.extentLogger("Wifi Toggle", "Wifi Data toggle is Switched Off");
+				extent.extentLoggerPass("Wifi Toggle", "Wifi Data toggle is Switched Off");
 			}
 		} catch (Exception e) {
 			logger.error(e);
@@ -178,6 +178,7 @@ public class Utilities extends ExtentReporter {
 	 */
 	public boolean verifyElementNotPresent(By byLocator, int iTimeOut) {
 		try {
+			WebDriverWait wait = new WebDriverWait(getDriver(), iTimeOut);
 			wait.until(ExpectedConditions.invisibilityOfElementLocated(byLocator));
 			return false;
 		} catch (NoSuchElementException e) {
@@ -197,7 +198,7 @@ public class Utilities extends ExtentReporter {
 			WebElement element = findElement(byLocator);
 			softAssert.assertEquals(element.isDisplayed(), true, "" + validationtext + " " + " is displayed");
 			logger.info(validationtext + " is displayed");
-			extent.extentLogger("checkElementPresent", validationtext + " is displayed");
+			extent.extentLoggerPass("checkElementPresent", validationtext + " is displayed");
 			return true;
 		} catch (Exception e) {
 			softAssert.assertEquals(false, true, validationtext + " " + " is not displayed");
@@ -213,12 +214,12 @@ public class Utilities extends ExtentReporter {
 		try {
 			WebElement element = findElement(byLocator);
 			if (element.isDisplayed()) {
-				extent.extentLogger("checkElementPresent", "" + str + " is displayed");
+				extent.extentLoggerPass("checkElementPresent", "" + str + " is displayed");
 				logger.info("" + str + " is displayed");
 				return true;
 			}
 		} catch (Exception e) {
-			extent.extentLogger("checkElementPresent", "" + str + " is not displayed");
+			extent.extentLoggerFail("checkElementPresent", "" + str + " is not displayed");
 			logger.info(str + " is not displayed");
 			return false;
 		}
@@ -249,9 +250,13 @@ public class Utilities extends ExtentReporter {
 		try {
 			WebElement element = findElement(byLocator);
 			if (element.isDisplayed()) {
+				extent.extentLogger("checkElementPresent", "" + str + " is displayed");
+				logger.info("" + str + " is displayed");
 				return true;
 			}
 		} catch (Exception e) {
+			extent.extentLogger("checkElementPresent", "" + str + " is displayed");
+			logger.info("" + str + " is displayed");
 			return false;
 		}
 		return false;
@@ -271,13 +276,13 @@ public class Utilities extends ExtentReporter {
 			extent.extentLogger("checkElementPresent", "" + validationtext + " is displayed");
 			findElement(byLocator).click();
 			logger.info("Clicked on " + validationtext);
-			extent.extentLogger("click", "Clicked on " + validationtext);
+			extent.extentLoggerPass("click", "Clicked on " + validationtext);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			softAssert.assertEquals(false, true, "Element" + validationtext + " " + " is not visible");
 			logger.error("Element " + validationtext + " " + " is not visible");
-			extent.extentLogger("checkElementPresent", "" + validationtext + " is not displayed");
+			extent.extentLoggerFail("checkElementPresent", "" + validationtext + " is not displayed");
 			screencapture();
 //			softAssert.assertAll();
 			return false;

@@ -20,7 +20,7 @@ public class PWAHomePage {
 	public static By objTabName(String tabName) {
 		return By.xpath("//*[@class='navMenuWrapper ']//*[text()='" + tabName + "']");
 	}
-
+	public static By objverifyNumberPopup = By.xpath("//div[@class='formHeader' and text()='Verify Mobile Number']");
 	public static By objLiveTVtab = By.xpath("//a[contains(text(),'Live TV')]");
 
 	// h3[@class="cardTitle cardTitleMultiline"]

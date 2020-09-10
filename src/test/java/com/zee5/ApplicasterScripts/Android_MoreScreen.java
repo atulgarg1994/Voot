@@ -28,36 +28,28 @@ public class Android_MoreScreen {
 	@Test(priority = 1) // Vinay
 	@Parameters({ "userType" })
 	public void AccountDetails(String userType) throws Exception {
-
 		ZEE5ApplicasterBusinessLogic.AccountDetails(userType);
-
 	}
 
 	@Test(priority = 2) // Vinay
 	@Parameters({ "userType" })
 	public void BuySubscription(String userType) throws Exception {
-
 		ZEE5ApplicasterBusinessLogic.BuySubscription(userType);
-
 	}
 
 	@Test(priority = 3) // Vinay
 	@Parameters({ "userType" })
 	public void MySubscription(String userType) throws Exception {
-
 		ZEE5ApplicasterBusinessLogic.MySubscription(userType);
-
 	}
 
 	@Test(priority = 4) // Vinay
 	@Parameters({ "userType" })
 	public void MyTransactions(String userType) throws Exception {
-
 		ZEE5ApplicasterBusinessLogic.MyTransactions(userType);
-
 	}
 
-	@Test(priority = 5)
+	@Test(priority = 5) //Hitesh
 	@Parameters({ "userType" })
 	public void MyWatchlist(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.myWatchList(userType);
@@ -82,45 +74,45 @@ public class Android_MoreScreen {
 	}
 
 	@Test(priority = 9)
-	@Parameters({ "userType" }) // in-progress
+	@Parameters({ "userType" }) // Yashaswini
 	public void InviteAFriend(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.Invite_a_Friend(userType);
 	}
 
 	@Test(priority = 10)
-	@Parameters({ "userType" })
+	@Parameters({ "userType" }) //Bhavana
 	public void AboutUsValidation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.AboutUsScreenValidation(userType);
 	}
 
 	@Test(priority = 11)
-	@Parameters({ "userType" })
+	@Parameters({ "userType" }) //Bhavana
 	public void HelpCenterValidation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.HelpCenterScreen(userType);
 	}
 
 	@Test(priority = 12)
-	@Parameters({ "userType" })
+	@Parameters({ "userType" }) //Bhavana
 	public void LogoutValidation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.LogoutValidation(userType);
 		ZEE5ApplicasterBusinessLogic.LoginAfterLogout(userType);
-		ZEE5ApplicasterBusinessLogic.logoutOfflineValidation(userType);//
+		ZEE5ApplicasterBusinessLogic.logoutOfflineValidation(userType);
 	}
 
 	@Test(priority = 13)
-	@Parameters({ "userType" })
+	@Parameters({ "userType" }) //Bhavana
 	public void PrivacyPolicyValidation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.PrivacyPolicyScreen(userType);
 	}
 
 //	@Test(priority = 14)
-	@Parameters({ "userType" })
+	@Parameters({ "userType" })  //Bhavana
 	public void StaticPagesInDisplayLanguage(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.staticPagesInDisplayLanguage();
 	}
 
 	@Test(priority = 15)
-	@Parameters({ "userType" })
+	@Parameters({ "userType" }) //Bhavana
 	public void TermsOfUseValidation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.TermsOfUseScreen(userType);
 	}

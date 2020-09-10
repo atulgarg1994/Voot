@@ -22,17 +22,14 @@ public class Android_Search {
 	@Test(priority = 0)	 
 	@Parameters({ "userType" })
 	public void Login(String userType) throws Exception {
-		
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
-		
 	}
 	
 	@Test(priority = 1)	 
 	@Parameters({ "userType" })
 	public void SearchScreen(String userType) throws Exception {
-
 	    ZEE5ApplicasterBusinessLogic.verifySearchOption(userType);
 		ZEE5ApplicasterBusinessLogic.verifySearchLandingScreen(userType);
 		ZEE5ApplicasterBusinessLogic.SearchBox(userType);
@@ -65,9 +62,6 @@ public class Android_Search {
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.voiceSearchDenyValidation();
 	}
-	
-
-	
 	
 	@AfterTest
 	public void tearDownApp() {

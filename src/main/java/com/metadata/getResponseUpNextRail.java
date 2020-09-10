@@ -24,7 +24,6 @@ import com.jayway.restassured.response.Response;
 			return resp;
 	}
 		
-		
 		public static String getMediaContentName(){
 			String mediaContentName = null;
 			int itemsSize = resp.jsonPath().get("items.size()");
