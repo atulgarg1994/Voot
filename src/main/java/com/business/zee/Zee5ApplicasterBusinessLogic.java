@@ -167,7 +167,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.extentLogger("User Type", "UserType : " + userType);
 		logger.info("UserType : " + userType);
 		System.out.println("Access Device Location PopUp");
-		if (verifyElementDisplayed(AMDOnboardingScreen.objAllowBtn)) {
+		if (checkElementExist(AMDOnboardingScreen.objAllowBtn)) {
 			Wait(5000);
 			verifyElementPresent(AMDOnboardingScreen.objAllowBtn, "Allow button");
 			verifyElementPresent(AMDOnboardingScreen.objDenyBtn, "Deny button");
