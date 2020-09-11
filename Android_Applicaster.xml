@@ -35,12 +35,10 @@
 	<parameter name="RegisteredMobilePassword" value="User@123" />
 	<parameter name="UnRegisteredMobile" value="8073661163" />
 	<parameter name="PromoCode" value="PNB20" />
-	<parameter
-		name="SubscriptionPackwithMultipleAccessPaclsUsername"
-		value="testzee5_cp@gmail.com" />
-	<parameter
-		name="SubscriptionPackwithMultipleAccessPaclsPassword" value="123456" />
-
+	<parameter name="SubscriptionPackwithMultipleAccessPaclsUsername" value="testzee5_cp@gmail.com" />
+	<parameter name="SubscriptionPackwithMultipleAccessPaclsPassword" value="123456"/>
+	<parameter name="PackWithDiscountUsername" value="dmgowthu@mailinator.com" />
+	<parameter name="PackWithDiscountPassword" value="12345678" />
 	<!-- ======Test Data====== -->
 	<parameter name="displayLanguageSelection1" value="English" />
 	<parameter name="displayLanguageSelection2" value="Marathi" />

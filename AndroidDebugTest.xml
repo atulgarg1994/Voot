@@ -84,6 +84,12 @@
 	
 	<parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com"/>
 	<parameter name="SettingsSubscribedPassword" value="123456"/>
+	
+	<parameter name="SubscriptionPackwithMultipleAccessPaclsUsername" value="testzee5_cp@gmail.com" />
+	<parameter name="SubscriptionPackwithMultipleAccessPaclsPassword" value="123456"/>
+	
+	<parameter name="PackWithDiscountUsername" value="dmgowthu@mailinator.com" />
+	<parameter name="PackWithDiscountPassword" value="12345678" />
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
