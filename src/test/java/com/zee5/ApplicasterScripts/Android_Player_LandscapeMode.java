@@ -23,7 +23,7 @@ public class Android_Player_LandscapeMode {
 	public void accessDeviceLocation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 	}
- 
+
 	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void Login(String userType) throws Exception {
@@ -33,13 +33,14 @@ public class Android_Player_LandscapeMode {
 	}
 
 	@Test(priority = 2)
-	@Parameters({ "userType", "searchKeyword1", "searchKeyword3", "searchKeyword4", "searchKeyword5" }) // Manasa
-	public void verifyPlayerScreenInLandscapeMode(String userType, String searchKeyword1,String searchKeyword3,String searchKeyword4,String searchKeyword5) throws Exception {
+	@Parameters({ "userType", "searchKeyword1", "searchKeyword3", "searchKeyword4", "searchKeyword5", "searchKeyword8" }) // Manasa
+	public void verifyPlayerScreenInLandscapeMode(String userType, String searchKeyword1,String searchKeyword3,String searchKeyword4,String searchKeyword5,String searchKeyword8) throws Exception {
 		System.out.println("\nVerify Player Functionality in Landscape Mode");
-		ZEE5ApplicasterBusinessLogic.playerValidationInFullScreenMode(userType, searchKeyword1);
-		ZEE5ApplicasterBusinessLogic.skipIntroValidation(searchKeyword3);
+		ZEE5ApplicasterBusinessLogic.skipIntroValidationInLandscapeMode(searchKeyword3,userType);
 		ZEE5ApplicasterBusinessLogic.subtitleAndPlaybackRateValidation(searchKeyword4,userType);
 		ZEE5ApplicasterBusinessLogic.premiumContentWithoutTrailerInLandscapeMode(userType,searchKeyword5);
+		ZEE5ApplicasterBusinessLogic.upnextRailValidationInLandscapeMode(searchKeyword8);
+		ZEE5ApplicasterBusinessLogic.playerValidationInFullScreenMode(userType, searchKeyword1);
 	}
 
 	@AfterTest

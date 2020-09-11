@@ -40,6 +40,13 @@ public class Android_LandingScreen_BottomNavigation {
 		ZEE5ApplicasterBusinessLogic.upcomingContentValidationWithAPIData();
 	}
 	
+	@Test(priority = 3)	
+	@Parameters({ "userType", "searchKeyword" })	// Manasa
+	public void downloadScreenAndParentalPinValidation(String userType,String searchKeyword) throws Exception {
+		System.out.println("\nVerify Download and parental Pin Validation");
+		ZEE5ApplicasterBusinessLogic.parentalPinValidation(userType, searchKeyword);
+	}
+	
 	@Test(priority = 4)		// Manasa
 	public void moreScreenValidation() throws Exception {
 		System.out.println("\nVerify More Screen");

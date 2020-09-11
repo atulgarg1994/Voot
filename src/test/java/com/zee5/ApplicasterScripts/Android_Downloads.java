@@ -20,11 +20,9 @@ public class Android_Downloads {
 	@Test(priority = 0)	 
 	@Parameters({ "userType" })
 	public void Login(String userType) throws Exception {
-		
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
-		
 	}
 	
 	@Test(priority = 1)

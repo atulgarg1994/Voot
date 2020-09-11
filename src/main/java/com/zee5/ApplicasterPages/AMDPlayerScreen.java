@@ -24,7 +24,7 @@ public class AMDPlayerScreen {
 	public static By objTitleOnPlayer = By.xpath("//*[@id='title_main']");
 	public static By objPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerElevationParent']");
 	
-	public static By objAd = By.xpath("(//*[contains(text(),'Ad')])[1]");
+	public static By objAd = By.xpath("(//*[contains(text(),'Ad :')])");
 	public static By objQuality = By.xpath("//*[@id='icon_quality_text']");
 	public static By objQualityOptions = By.xpath("//*[@id='textView2']");
 	public static By objQualityOptions(int i) {
@@ -72,4 +72,7 @@ public class AMDPlayerScreen {
 	public static By objContentTitle = By.xpath("//*[@id='title_main']");
 	public static By objShareIconOnPlayer = By.xpath("//*[@id='icon_share']"); 
 	public static By objShareNowFb = By.xpath("//*[@contentDescription='SHARE NOW']");
+
+	public static By objcontentTitleInconsumptionPage = By.xpath("//*[@resource-id='com.graymatrix.did:id/contentCl']/child::*[@resource-id='com.graymatrix.did:id/item_primary_text']");
+	public static By objCompleteProfilePopUp = By.xpath("//*[@id='tellUsMoreContainer']");
 }

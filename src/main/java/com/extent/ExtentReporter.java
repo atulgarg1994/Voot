@@ -22,6 +22,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.deviceDetails.DeviceDetails;
 import com.driverInstance.DriverInstance;
+import com.excel.ExcelUpdate;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.LoggingUtils;
 import io.appium.java_client.AppiumDriver;
@@ -130,7 +131,7 @@ public class ExtentReporter implements ITestListener {
 				|| result.getName().equals("PWAWEBLogin")) {
 			logger.info(":::::::::Test " + result.getName() + " Started::::::::");
 			test.set(extent.get().createTest(result.getName(),DriverInstance.getENvironment()));
-//			ExcelUpdate.creatExcel();
+			ExcelUpdate.creatExcel();
 		} else {
 			runmode = false;
 			throw new SkipException("");
@@ -163,12 +164,12 @@ public class ExtentReporter implements ITestListener {
 	public void HeaderChildNode(String header) {
 		if (test.get() != null)
 			childTest.set(test.get().createNode(header));
-//			ExcelUpdate.Node(header);
+			ExcelUpdate.Node(header);
 	}
 
 	public void extentLogger(String stepName, String details) {
 		childTest.get().log(Status.INFO, details);
-//		ExcelUpdate.writeData(details, "Pass", "");
+		ExcelUpdate.writeData(details, "Pass", "");
 	}
 	
 	public void extentLoggerPass(String stepName, String details) {
@@ -178,12 +179,12 @@ public class ExtentReporter implements ITestListener {
 	public void extentLoggerFail(String stepName, String details) {
 		childTest.get().log(Status.FAIL, details);
 		screencapture();
-//		ExcelUpdate.writeData("", "Fail", details);
+		ExcelUpdate.writeData("", "Fail", details);
 	}
 
 	public void extentLoggerWarning(String stepName, String details) {
 		childTest.get().log(Status.WARNING, details);
-//		ExcelUpdate.writeData("", "Warning", details);
+		ExcelUpdate.writeData("", "Warning", details);
 	}
 
 	@Override

@@ -29,15 +29,13 @@ public class Android_Player_PotraitMode {
 
 	@Test(priority = 1)
 	@Parameters({ "userType", "searchKeyword1", "searchKeyword4", "searchKeyword5", "searchKeyword3",
-			"searchKeyword6" })
+			"searchKeyword7" })
 	public void Player_Potrait(String userType, String searchKeyword1, String searchKeyword4, String searchKeyword5,
-			String searchKeyword3, String searchKeyword6) throws Exception {
-		ZEE5ApplicasterBusinessLogic.PlayerPotrait(searchKeyword1);
+			String searchKeyword3, String searchKeyword7) throws Exception {
+		ZEE5ApplicasterBusinessLogic.PlayerPotrait(searchKeyword1, userType);
 		ZEE5ApplicasterBusinessLogic.premiumContentwithTrailer(userType, searchKeyword4);
 		ZEE5ApplicasterBusinessLogic.premiumContentWithoutTrailer(userType, searchKeyword5);
-		ZEE5ApplicasterBusinessLogic.skipIntroValidationInPotraitMode(searchKeyword3);
-		ZEE5ApplicasterBusinessLogic.NextIconAndReplayIcon(searchKeyword6, userType);
-
+		ZEE5ApplicasterBusinessLogic.skipIntroValidationInPotraitMode(searchKeyword3, userType);
 	}
 
 	@AfterTest

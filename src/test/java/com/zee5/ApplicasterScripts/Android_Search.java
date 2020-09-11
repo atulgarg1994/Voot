@@ -28,7 +28,7 @@ public class Android_Search {
 	}
 	
 	@Test(priority = 1)	 
-	@Parameters({ "userType" })
+	@Parameters({ "userType" }) //Bindu
 	public void SearchScreen(String userType) throws Exception {
 	    ZEE5ApplicasterBusinessLogic.verifySearchOption(userType);
 		ZEE5ApplicasterBusinessLogic.verifySearchLandingScreen(userType);
@@ -36,7 +36,7 @@ public class Android_Search {
 	}
 	
 	@Test(priority = 2)
-	@Parameters({ "userType"})
+	@Parameters({ "userType"}) //Sushma
 	public void  TopAndTrendingSearches(String UserType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.TopSearches(UserType);
 		ZEE5ApplicasterBusinessLogic.TrendingSearches();

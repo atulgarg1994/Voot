@@ -108,7 +108,8 @@ public class AMDMoreMenu {
 	public static By objResetSettingsToDefault = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/resetSettingLabel']");
 	// About Us Screen
-	public static By objAboutUsHeader = By.xpath("//*[@content-desc='About us']");
+	public static By objAboutUsHeader = By.xpath("//*[@content-desc='About us' or @text='About us']");
+
 	// Logout
 
 	public static By objLogoutPopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_logout_header']");
@@ -117,28 +118,12 @@ public class AMDMoreMenu {
 	public static By objProfileHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
 
 	public static By objcloseButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_exit']");
-	public static By objAboutUsDescription = By.xpath("//*[contains(@content-desc,'At Zee5')]");
-	public static By objHyperLinkInAboutUsScreen = By
-			.xpath("//*[@class='android.view.View']//*[@contentDescription='www.zee5.com']");
-	public static By objPageNotFoundMsg = By.xpath("//*[contains(@content-desc,'404! Not Found')]");
-	public static By objNetworkerrormsg = By.xpath("//*[@resource-id='android:id/message']");
-	public static By objGoHome = By.xpath("//*[@content-desc='GO HOME']");
+	public static By objAboutUsDescription = By.xpath("//*[contains(@content-desc,'At Zee5')] | //*[contains(@text,'At Zee5')]");
 	// Terms of Use Screen
-	public static By objTermsOfUseHeader = By.xpath("//*[@content-desc='Terms of Use']");
-	public static By objTermsDescription = By.xpath("//*[contains(@content-desc,'Welcome to ZEE5')]");
-	public static By objsupportHyperlinkInTermsOfUse = By.xpath("//*[@content-desc='support.in@zee5.com']");
-	public static By objfeedbackLinkInTermsOfUse = By.xpath("//*[@content-desc='feedback.yono@sbi.co.in']");
-	public static By objzee5HyperlinkinTermsOfUse = By.xpath("//*[@content-desc='www.ZEE5.com']");
-	public static By objsubscribelinkInTermsofUse = By
-			.xpath("//*[@content-desc='https://www.zee5.com/myaccount/subscription']");
-	public static By objInternetErrormsg = By.xpath("//*[@content-desc='You are not connected to internet']");
 	public static By objYesBtnResetDefault = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_exit_yes']");
 
-	public static By objPrivacyDescription = By.xpath("//*[contains(@content-desc,'We')]");
-	public static By objHyperlinkInPrivacyPolicy = By.xpath("(//*[@content-desc='Privacy Policy'])[2]");
 	public static By objPrivacyPolicyPageWithinbrowser = By
 			.xpath("//*[@class='android.view.View' and ./*[@text='Privacy Policy']]");
-	public static By objHelpCenterHeader = By.xpath("//*[@content-desc='Help Center']");
 //	public static By objPrivacyPolicyHeader = By.xpath("//*[@text='Privacy Policy']");
 	public static By objSettingsInKannada = By.xpath("//*[@text='ಸೆಟ್ಟಿಂಗ್ಗಳು']");
 	public static By objAboutUsInKannada = By.xpath("//*[@text='ನಮ್ಮ ಬಗ್ಗೆ']");
@@ -149,18 +134,6 @@ public class AMDMoreMenu {
 	public static By objTextInAboutUsScreen = By.xpath("//*[@text='Zee5 can be accessed at ']");
 	// Help Center
 	public static By objSearchBarInHelpCenter = By.xpath("//*[@class='android.widget.EditText']");
-
-	public static By objQueriesHeader(String text) {
-		return By.xpath("//*[contains(@contentDescription,'" + text + "')]");
-	}
-
-	public static By objArticleTitle(String title) {
-		return By.xpath("(//*[contains(@content-desc,'"+title+"')])[2]");
-	}
-
-	public static By objGettingStartedHeader = By.xpath("//*[contains(@content-desc,'Getting Started')]");
-	public static By objMyAccountHeader = By.xpath("//*[@content-desc='My Account ']");
-	public static By objsupportlinkInprivacypolicy = By.xpath("//*[@content-desc='support@zee5.com.']");
 	
 	public static By objPrepaidCodePopUp = By.xpath("//*[@id='txt_prepaid_code']");
 	
@@ -170,8 +143,6 @@ public class AMDMoreMenu {
 	public static By objSearchResult(String title) {
 		return By.xpath("//*[@id='item_primary_text' and contains(text(), '"+title+"')]");
 	}
-	
-	public static By objshareOptions = By.xpath("//*[@resource-id='android:id/tw_resolver_pagemode_page_list']");
 	
 	public static By objWhatsAppMessage = By.xpath("//*[@id='content' and ./*[@text='WhatsApp']]");
 	
@@ -214,13 +185,58 @@ public class AMDMoreMenu {
 	public static By objNoActivePlans = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_nosubscription_title']");
 	public static By objMySubscriptionsHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and contains(text(),'My Subscriptions')]");
 	public static By objsubscriptionPackStatus = By.xpath("//*[@resource-id='com.graymatrix.did:id/status']");
-	
-	public static By objShareOptions = By.xpath("//*[@id='text1']");
-	public static By objShareOptions(int index ) {
-		return By.xpath("(//*[@id='text1'])["+index+"]");
-	}
+
 	public static By objDot2InShareOptions = By.xpath("(//*[@id='tw_resolver_page_navi']/*[@class='android.widget.ImageView'])[2]");
 	public static By objFacebook = By.xpath("//*[@id='content' and ./*[@text='News Feed']]");
 	public static By objShareLink = By.xpath("//*[@contentDescription='Shared Link: Watch TV Serials, Original Shows, Movies, News & Live TV Online, 100,000+ hours of TV Shows from ZEE network, Movies, International & Original content, music");
-	public static By objPrivacyPolicyHeader = By.xpath("(//*[contains(@content-desc,'Privacy Policy')])[1]");
+	
+	public static By objCompleteProfilePopUp = By.xpath("//*[@id='tellUsMoreContainer']");
+	public static By objShareIconOnPlayer = By.xpath("//*[@id='icon_share']");
+	public static By objShareNowFb = By.xpath("//*[@contentDescription='SHARE NOW']");
+	public static By objWatchCreditsCTA = By.xpath("//*[@text='Watch Credits']");
+	public static By objUpNext = By.xpath("//*[@text='Up Next']");
+	public static By objTitleInLandscape(String title) {
+		return By.xpath("//*[@id='title_main' and contains(text(), '"+title+"')]");
+	}
+	public static By objHyperLinkInAboutUsScreen = By
+			.xpath("//*[@class='android.view.View']//*[@contentDescription='www.zee5.com'] | //*[@text='www.zee5.com']");
+	public static By objPageNotFoundMsg = By.xpath("//*[contains(@text,'404! Not Found')] | //*[contains(@content-desc,'404! Not Found')]");
+	public static By objNetworkerrormsg = By.xpath("//*[@resource-id='android:id/message']");
+	public static By objTermsOfUseHeader = By.xpath("//*[@text='Terms of Use'] | //*[@content-desc='Terms of Use']");
+	public static By objTermsDescription = By.xpath("//*[contains(@content-desc,'Welcome to ZEE5')] | //*[contains(@text,'Welcome to ZEE5')]");
+	public static By objsupportHyperlinkInTermsOfUse = By.xpath("//*[@text='support.in@zee5.com'] | //*[@content-desc='support.in@zee5.com']");
+	public static By objfeedbackLinkInTermsOfUse = By.xpath("//*[@content-desc='feedback.yono@sbi.co.in']");
+	public static By objzee5HyperlinkinTermsOfUse = By.xpath("//*[@content-desc='www.ZEE5.com'] |//*[@text='www.zee5.com']");
+	public static By objsubscribelinkInTermsofUse = By
+			.xpath("//*[@content-desc='https://www.zee5.com/myaccount/subscription']");
+	public static By objInternetErrormsg = By.xpath("//*[@content-desc='You are not connected to internet'] | //*[@text='You are not connected to internet']");
+	
+	public static By objPrivacyDescription = By.xpath("//*[contains(@content-desc,'We')] | //*[contains(@text,'We')]");
+	public static By objHyperlinkInPrivacyPolicy = By.xpath("(//*[@content-desc='Privacy Policy' or @text='Privacy Policy'])[2]");
+	public static By objHelpCenterHeader = By.xpath("//*[@content-desc='Help Center'] | //*[@text='Help Center']");
+	
+	public static By objQueriesHeader(String text) {
+		return By.xpath("(//*[contains(@contentDescription,'" + text + "')] | //*[contains(text(),'"+text+"')])");
+	}
+
+	public static By objArticleTitle(String title) {
+		return By.xpath("(//*[contains(@content-desc,'"+title+"')] | //*[contains(@text,'"+title+"')])[2]");
+	}
+	
+	public static By objGettingStartedHeader = By.xpath("//*[@content-desc='Getting Started ' or @text='Getting Started ']");
+	public static By objMyAccountHeader = By.xpath("//*[@content-desc='My Account ' or @text='My Account ']");
+	public static By objsupportlinkInprivacypolicy = By.xpath("//*[@content-desc='support@zee5.com.']");
+	public static By objPrivacyPolicyHeader = By.xpath("(//*[contains(@content-desc,'Privacy Policy')] | //*[contains(@text,'Privacy Policy')])[1]");
+	
+	public static By objshareOptions = By.xpath("//*[@resource-id='android:id/tw_resolver_pagemode_page_list' or @id='resolver_slide']");
+
+	public static By objShareOptions = By.xpath("//*[@id='text1']");
+	public static By objShareOptions(int index ) {
+			return By.xpath("(//*[@id='text1'])["+index+"]");
+		}
+
+	public static By objDotsInShareOptions = By.xpath("//*[@id='tw_resolver_page_navi']/*[@class='android.widget.ImageView']");
+	public static By objDotsInShareOptions(int index) {
+		return By.xpath("(//*[@id='tw_resolver_page_navi']/*[@class='android.widget.ImageView'])["+index+"]");
+	}
 }

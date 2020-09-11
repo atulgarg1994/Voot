@@ -14,12 +14,13 @@ import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.testng.Reporter;
 
 public class ExcelUpdate {
 
 	static String xlpath = System.getProperty("user.dir") + "\\DFPExcelDump\\Analysed_Reports.xlsx";
-	static String sheet = "Analysed_Reports"; // Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
-	static String UserType = "NonSubscribedUser";// Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+	static String sheet = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType"); //"Analysed_Reports";
+	static String UserType =  Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType"); //"NonSubscribedUser";
 	static String ModuleName = "Onboarding";
 	static int row = (getRowCount()+1);
 	static int counter = 1;
