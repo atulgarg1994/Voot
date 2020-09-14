@@ -293,7 +293,7 @@ public class PWAPlayerPage {
 	public static By objfasterPopUp = By.xpath("//div[@class='adoric_element element-text selected editing']");
 
 	// Consumptions page show title
-	public static By objConsumptionsShowTitle = By.xpath("//div[@class='metaInfo']//a");
+	public static By objConsumptionsShowTitle = By.xpath("//div[@class='metaInfo']//a[contains(@href,'details')]");
 
 	// Show details page show title
 	public static By objContentShowTitle = By

@@ -4,7 +4,10 @@ import org.openqa.selenium.By;
 
 public class CompleteYourProfilePopUp {
 	
-	public static By objCompleteYourProfileTxt = By.xpath("//div[.='Complete profile']");
+	public static By objCompleteYourProfileTxt = By.xpath("//div[.='Complete your profile']");
+
+
+
 
 	public static By objFirstName = By.xpath("//input[@name='firstName']");
 	

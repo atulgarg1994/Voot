@@ -118,6 +118,8 @@ public class ExtentReporter implements ITestListener {
 		extent.set(new ExtentReports());
 		extent.get().attachReporter(htmlReport.get());
 		BrowserType = context.getCurrentXmlTest().getParameter("browserType");
+		ExcelUpdate.UserType = context.getCurrentXmlTest().getParameter("userType");
+		ExcelUpdate.ModuleName = context.getCurrentXmlTest().getName();
 		if (!getPlatform().equals("Web")) {
 			DeviceDetails.getTheDeviceManufacturer();
 			DeviceDetails.getTheDeviceOSVersion();
@@ -174,6 +176,7 @@ public class ExtentReporter implements ITestListener {
 	
 	public void extentLoggerPass(String stepName, String details) {
 		childTest.get().log(Status.PASS, details);
+//		ExcelUpdate.writeData(details, "Pass", "");
 	}
 
 	public void extentLoggerFail(String stepName, String details) {

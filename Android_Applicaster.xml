@@ -17,8 +17,8 @@
 		value="123456" />
 
 	<parameter name="NonsubscribedUserName"
-		value="igstesting001@gmail.com" />
-	<parameter name="NonsubscribedPassword" value="igs@12345" />
+		value="zee5latest@gmail.com" />
+	<parameter name="NonsubscribedPassword" value="User@123" />
 
 	<parameter name="SubscribedUserName"
 		value="zeetest998@test.com" />
@@ -61,11 +61,12 @@
 	<parameter name="searchKeyword" value="Aditya praises Paaru" />
 	<parameter name="searchKeyword1" value="Paaru gets tipsy" />
 	<parameter name="searchKeyword2" value="Jodi Hakki" />
-	<parameter name="searchKeyword3"
-		value="Bablu Dablu - Robo Rumble" />
+	<parameter name="searchKeyword3" value="Bablu Dablu - Robo Rumble" />
 	<parameter name="searchKeyword4" value="Bhinna" />
 	<parameter name="searchKeyword5"
 		value="Chemistry of Kariyappa" />
+	<parameter name="searchKeyword6" value="Jamai 2.0" />
+	<parameter name="searchKeyword9" value="Jamai 2.0" />
 
 	<parameter name="tabName1" value="Home" />
 	<parameter name="tabName2" value="Movies" />

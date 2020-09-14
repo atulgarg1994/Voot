@@ -209,7 +209,7 @@ public class PWASearchPage {
 	}
 
 	//	MandatoryRegistration
-	public static By objRegisterDialogAfterchangedLanguage = By.xpath("//div[.='ಸೈನ್ ಅಪ್ ಮಾಡಿ']");
+	public static By objRegisterDialogAfterchangedLanguage = By.xpath("//div[@class='heading' and text()='ಹೊಸ ಖಾತೆಯನ್ನು ತೆರೆಯಿರಿ']");
 
 	public static By objUpgradePopup = By
 			.xpath("//div[@class='ReactModal__Content ReactModal__Content--after-open popupModal']");

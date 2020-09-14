@@ -14,16 +14,15 @@ import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.testng.Reporter;
 
 public class ExcelUpdate {
 
 	static String xlpath = System.getProperty("user.dir") + "\\DFPExcelDump\\Analysed_Reports.xlsx";
-	static String sheet = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType"); //"Analysed_Reports";
-	static String UserType =  Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType"); //"NonSubscribedUser";
-	static String ModuleName = "Onboarding";
+	static String sheet = "Analysed_Reports"; //Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType"); //"Analysed_Reports";
+	public static String UserType = "NA"; //Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType"); //"NonSubscribedUser";
+	public static String ModuleName = "NA";
 	static int row = (getRowCount()+1);
-	static int counter = 1;
+	static int counter = 0;
 
 	public static void creatExcel() { 
 		try {
@@ -213,15 +212,14 @@ public class ExcelUpdate {
 //		for (int i = 1; i < 100; i++) {
 //			System.out.println(getCellValue(i, 0));
 //		}
-
 //		System.out.println(new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()));
 //		writeData(2102,7,"Pass");
 //		EnterResult("TC_1130", "Pass");
 //		EnterResult("TC_1108");
 //		EnterResult("TC_1028");
 //		System.out.println(new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()));
-		System.out.println((getRowCount()+1));
-		row = (getRowCount()+1);
+//		System.out.println((getRowCount()+1));
+//		row = (getRowCount()+1);
 		writeData("ABC","Fail","Error");
 	}
 

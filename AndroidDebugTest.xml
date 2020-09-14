@@ -7,15 +7,15 @@
 		<parameter name="runMode" value="${runMode}"/>
 		<parameter name="runModule" value="${runModule}"/> -->
 
-	<parameter name="userType" value="Guest"/>  <!-- Guest/NonSubscribedUser/SubscribedUser -->
+	<parameter name="userType" value="SubscribedUser"/>  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite"/>
 	<parameter name="runMode" value="Suites"/>
 	
 	<parameter name="SubscribedUserWith15daysExpiryUsername" value="testzee5_4@gmail.com" />
 	<parameter name="SubscribedUserWith15daysExpiryPassword" value="123456" />
 	
-	<parameter name="NonsubscribedUserName" value="igstesting001@gmail.com"/>
-	<parameter name="NonsubscribedPassword" value="igs@12345"/>
+	<parameter name="NonsubscribedUserName" value="zee5latest@gmail.com"/>
+	<parameter name="NonsubscribedPassword" value="User@123"/>
 	
 	<parameter name="SubscribedUserName" value="zeetest998@test.com"/>
 	<parameter name="SubscribedPassword" value="123456"/>
@@ -130,9 +130,9 @@
   </test> 
   -->
   
-  <test name="Android_ListingScreen">
+  <test name="Android_Settings">
 		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_ListingScreen" />
+			<class name="com.zee5.ApplicasterScripts.Android_Settings" />
 		</classes>
 	</test>
 	

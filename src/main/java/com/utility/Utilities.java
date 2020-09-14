@@ -247,18 +247,21 @@ public class Utilities extends ExtentReporter {
 	public boolean checkElementExist(By byLocator, String str) throws Exception {
 
 		try {
-			WebElement element = findElement(byLocator);
-			if (element.isDisplayed()) {
+			getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+			List<WebElement> list = getDriver().findElements(byLocator);
+			getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			if (list.size() == 0) {
+				extent.extentLogger("checkElementPresent", "" + str + " is not displayed");
+				logger.info("" + str + " is not displayed");
+				return false;
+			} else {
 				extent.extentLogger("checkElementPresent", "" + str + " is displayed");
 				logger.info("" + str + " is displayed");
-				return true;
+				return list.get(0).isDisplayed();
 			}
 		} catch (Exception e) {
-			extent.extentLogger("checkElementPresent", "" + str + " is displayed");
-			logger.info("" + str + " is displayed");
 			return false;
 		}
-		return false;
 	}
 
 	/**
@@ -404,7 +407,7 @@ public class Utilities extends ExtentReporter {
 			getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			System.out.println("CATCH - FALSE");
 			return false;
-		} 
+		}
 	}
 
 	public static boolean verifyIsElementDisplayed(By by) {
@@ -414,6 +417,21 @@ public class Utilities extends ExtentReporter {
 		if (list.size() == 0) {
 			return false;
 		} else {
+			return list.get(0).isDisplayed();
+		}
+	}
+	
+	public static boolean verifyIsElementDisplayed(By by,String validationtext) {
+		getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+		List<WebElement> list = getDriver().findElements(by);
+		getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		if (list.size() == 0) {
+			logger.info("Element " + validationtext + " " + " is not displayed");
+			extent.extentLogger("checkElementPresent", "" + validationtext + " is not displayed");
+			return false;
+		} else {			
+			logger.info("" + validationtext + " " + "is displayed");
+			extent.extentLogger("checkElementPresent", "" + validationtext + " is displayed");
 			return list.get(0).isDisplayed();
 		}
 	}
