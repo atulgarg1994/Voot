@@ -182,4 +182,8 @@ public class PWALoginPage {
 	public static By objShowPasswordButton = By.xpath("//span[contains(@class,'showPwd')]");
 	// PasswordField entered
 	public static By objPasswordFieldFilled = By.xpath("//input[@name='password']");
+	
+	public static By objSkip = By.xpath("//*[@class='iconInitialLoad-ic_close']");
+	
+	public static By objCloseRegisterPopup = By.xpath("//*[@class='manCloseIcon']");
 }

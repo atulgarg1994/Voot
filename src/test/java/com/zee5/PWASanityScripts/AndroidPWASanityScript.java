@@ -21,7 +21,7 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.ZeePWALogin("E-mail", userType);
 		Zee5PWASanityBusinessLogic.selectLanguages();
 	}
-
+/*
 	@Test(priority = 1)
 	@Parameters({ "userType" }) // SHREENIDHI
 	public void PWAMandatoryRegistration(String userType) throws Exception {
@@ -108,12 +108,12 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.Kaltura(userType);
 		//smoke Vinay
 		Zee5PWASanityBusinessLogic.playerValidations(userType);
-		Zee5PWASanityBusinessLogic.UpnextRail();
+		//Zee5PWASanityBusinessLogic.UpnextRail();
 	}
 
 	@Test(priority = 9) // BASAVARAJ
 	@Parameters({"url", "userType", "devicePin", "consumptionsEpisode","consumptionsShow","consumptionsFreeContent","consumptionsPremiumContent"}) 
-	public void PWAContentDetails(String url, String userType, String devicePin, String consumptionsEpisode,String consumptionsShow,String consumptionsFreeContent,String consumptionsPremiumContent)throws Exception {
+	public void PWAContentDetails(String url, String userType, String devicePin, String consumptionsEpisode,String consumptionsShow,String consumptionsFreeContent,String consumptionsPremiumContent) throws Exception {
 		Zee5PWASanityBusinessLogic.reloadHome();
 		Zee5PWASanityBusinessLogic.ContentDetails(userType);
 		Zee5PWASanityBusinessLogic.checkDurationInLivetv();
@@ -213,7 +213,7 @@ public class AndroidPWASanityScript {
 		
 	}
 
-	@Test(priority = 21)
+	@Test(priority = 22)
 	@Parameters({ "userType" }) // MANASA
 	public void PWASubscriptionPageValidation(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.reloadHome();
@@ -222,9 +222,8 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.verifyUIofMySubscriptionPage(userType);
 		Zee5PWASanityBusinessLogic.validatingActiveAndExpiredCardsinMyTransactionPage(userType);
 	}
-	
-
-	@Test(priority = 22)
+		
+	@Test(priority = 21)
 	@Parameters({ "userType" }) // SATHISH
 	public void PWASubscriptionPopUp(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.reloadHome();
@@ -233,7 +232,7 @@ public class AndroidPWASanityScript {
 		//smoke
 		Zee5PWASanityBusinessLogic.zeePWASubscriptionSuite(userType); 
 	}
-
+*/	
 	@Test(priority = 23)
 	@Parameters({ "userType" }) // BHAVANA
 	public void PWAExternalLinks(String userType) throws Exception {
@@ -249,7 +248,7 @@ public class AndroidPWASanityScript {
 	}
 
 
-	@Test(priority = 25) // BASAVARAJ
+	//@Test(priority = 25) // BASAVARAJ
 	public void PWAVIL() throws Exception {
 		Zee5PWASanityBusinessLogic.reloadHome();
 		Zee5PWASanityBusinessLogic.verifyingVodafoneNativeApp();

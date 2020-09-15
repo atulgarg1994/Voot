@@ -276,7 +276,6 @@ public class PWASubscriptionPages {
 	public static By objMobileProceedToPayButton = By.xpath("//*[@text='Proceed to pay']");
 	public static By objMobileWalletsOption = By.xpath("//*[@text='Wallets']");
 	public static By objMobilePaytmOption = By.xpath("//*[@text='Paytm']");
-	public static By objMobileLinkPaytmOption = By.xpath("//*[@text='Link PAYTM Wallet']");
 	public static By objMobilePaytmNumberField = By.xpath("//*[@class='android.widget.EditText']");
 	public static By objMobilePaytmSendOTP = By.xpath("//*[@text='SEND OTP']");
 	public static By objPackType = By.xpath("//div[@class='categoryContainer']//child::*[@class='noSelect']");
@@ -295,4 +294,6 @@ public class PWASubscriptionPages {
 	public static By objSubscribePopupTitle = By.xpath("//div[contains(@class,'popup')]//*[text()='Subscribe']");
 	
 	public static By objHaveACodeCloseBtn = By.xpath("//div[contains(@class,'applyPromo')]//following-sibling::span[contains(@class,'close')]");
+	
+	public static By objMobileLinkPaytmOption = By.xpath("//*[@text='Link Wallet']");
 }

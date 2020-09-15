@@ -451,10 +451,6 @@ public class ResponseInstance {
 		return respHome;
 	}
 
-	public static void main(String[] args) {
-		getResponseForApplicasterPages("Guest", "3673").print();
-	}
-
 	// Getting Content Language API response for the NonSubscribedUser and
 	// SubscribedUser ..
 
@@ -633,4 +629,28 @@ public class ResponseInstance {
 		}
 		return resp;
 	}
+	
+	public static ArrayList<String> BeforeTV(String UserType,String tabName) {
+		Response resp = null;
+		ArrayList<String> titleOfTray = new ArrayList<String>();
+		String xAccessToken = getXAccessTokenWithApiKey();
+		if(tabName.equals("Home")) {
+			resp = given().headers("x-access-token", xAccessToken).when().get(
+					"https://gwapi.zee5.com/content/collection/0-8-homepage?page=1&limit=10&item_limit=20&translation=en&country=IN&version=6&languages=en,kn&");
+		}else if(tabName.equals("Show")) {
+			resp = given().headers("x-access-token", xAccessToken).when().get(
+					"https://gwapi.zee5.com/content/collection/0-8-tvshows?page=1&limit=10&item_limit=20&translation=en&country=IN&version=6&languages=en,kn&");
+		}
+		System.out.println(resp.jsonPath().getList("buckets").size());
+		for(int i=0;i<resp.jsonPath().getList("buckets").size(); i++) {
+			titleOfTray.add(resp.jsonPath().getString("buckets["+i+"].title"));
+		}
+		return titleOfTray;
+	}
+	
+	public static void main(String[] args) {
+//		getResponseForApplicasterPages("Guest", "3673").print();
+		System.out.println(BeforeTV("Guest","Home"));
+	}
+
 }

@@ -181,4 +181,14 @@ public class AMDHomePage {
 	public static By objKidsContentCard = By.xpath("//*[@id='header_primary_text']//following::*[6]");
 	
 	public static By objBeforeTVTray = By.xpath("//*[@resource-id='com.graymatrix.did:id/header_primary_text' and contains(text(),'Before')]");
+	
+	public static By BeforeTVTrayTitle = By.xpath("//*[@id='header_primary_text' and  contains(text(),'Premiere Episodes | Before Zee')]");
+	
+	public static By objBeforeTVViewAllArraowIcon = By.xpath("//*[@id='header_primary_text' and @text='Premiere Episodes | Before Zee Kannada']//parent::*[@class='android.view.ViewGroup']//*[@id='header_arrow']");
+	
+	public static By objViewAllScreen = By.xpath("//*[@id='title' and @text='Premiere Episodes | Before Zee Kannada']");
+	
+	public static By objFirstContentOfBeforeTvTray = By.xpath("(//*[@id='header_primary_text' and  contains(text(),'Premiere Episodes | Before Zee')]//following::*)[4]");
+	
+	
 }

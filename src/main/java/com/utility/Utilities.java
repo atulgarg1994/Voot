@@ -56,6 +56,8 @@ public class Utilities extends ExtentReporter {
 	private SoftAssert softAssert = new SoftAssert();
 
 	public static boolean relaunch = false;
+	
+	public static String setPlatform = "";
 
 	/** The Constant logger. */
 //	final static Logger logger = Logger.getLogger("rootLogger");
@@ -1846,4 +1848,20 @@ public class Utilities extends ExtentReporter {
 		}
 	}
 
+	public boolean checkElementDisplayed(By byLocator, String str) throws Exception {
+
+		try {
+			WebElement element = findElement(byLocator);
+			if (element.isDisplayed()) {
+				extent.extentLogger("checkElementPresent", "" + str + " is displayed");
+				logger.info("" + str + " is displayed");
+				return true;
+			}
+		} catch (Exception e) {
+			extent.extentLogger("checkElementPresent", "" + str + " is not displayed");
+			logger.info("" + str + " is not displayed");
+			return false;
+		}
+		return false;
+	}
 }

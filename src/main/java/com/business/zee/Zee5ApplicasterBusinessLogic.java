@@ -12118,8 +12118,54 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		Back(2);
 	}
-
-	public void ValidateBeforeTV() {
-
+	
+/**
+ * Author : Hitesh
+ * Module : BeforeTV
+ * @throws Exception 
+ */
+	public void ValidateBeforeTV(String userType) throws Exception {
+		System.out.println("Validating BeforeTv Tray");
+		HeaderChildNode("Validating BeforeTv Tray");
+		ArrayList<String> title = ResponseInstance.BeforeTV(userType,"Home");
+		if(title.contains("Premiere Episodes | Before Zee")) {
+			findTray(AMDHomePage.objBeforeTVTray);
+			click(AMDHomePage.objBeforeTVViewAllArraowIcon,"View All icon");
+			if(verifyIsElementDisplayed(AMDHomePage.objViewAllScreen)) {
+				logger.info("View All screen is displayed");
+				extent.extentLoggerPass("ViewAll", "View All screen is displayed");
+				click(AMDHomePage.objFirstContentOfBeforeTvTray,"First content");
+				if(verifyIsElementDisplayed(AMDConsumptionScreen.objconfirmationPopUp)) {
+					click(AMDConsumptionScreen.objOkBtn,"Ok button in add this device to yoour list pop up");
+				}
+				verifyElementExist(AMDConsumptionScreen.objDownloadbtn, "Download icon");
+				verifyElementExist(AMDConsumptionScreen.getClubCTA, "Get Club CTA");
+				click(AMDConsumptionScreen.getClubCTA, "Get Club CTA");
+				verifyElementExist(AMDConsumptionScreen.objPopUpSubscribed,"Subscribe PopUp");
+				Swipe("UP",1);
+				verifyElementExist(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+				verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+				if(verifyIsElementDisplayed(AMDLoginScreen.objLoginScreenTitle, "LoginPage")) {
+					logger.info("Navigate to login/register screen");
+					extent.extentLoggerPass("Login Screen", "Navigate to login/register screen");
+				}else {
+					logger.error("Not Navigate to login/register screen");
+					extent.extentLoggerFail("Login screen", "Not Navigate to login/register screen");
+				}
+			}else {
+				logger.error("View All screen is not displayed");
+				extent.extentLoggerFail("ViewAll", "View All screen is not displayed");
+			}
+		}
+	}
+	
+	public void findTray(By byLocator) {
+		for (int i = 0; i < 2; i++) {
+			if (!(verifyIsElementDisplayed(byLocator))) {
+				Swipe("UP", 1);
+			}else {
+				break;
+			}
+		}
 	}
 }

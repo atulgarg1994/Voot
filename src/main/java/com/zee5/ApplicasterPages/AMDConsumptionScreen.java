@@ -23,4 +23,16 @@ public class AMDConsumptionScreen {
 	public static By objAudioLang= By.xpath("//*[@id='languageTV']");
 	
 	public static By objSubtitles = By.xpath("//*[@id='subtitlesTv']");
+	
+	public static By objconfirmationPopUp = By.xpath("//*[@text='CONFIRMATION']");
+	
+	public static By objOkBtn = By.xpath("//*[@id='okButton']");
+	
+	public static By objDownloadbtn = By.xpath("//*[@id='downlowd_image']");
+	
+	public static By getClubCTA = By.xpath("//*[@id='get_premium_button' and @text='Get Club']");
+	
+	public static By objPopUpSubscribed = By.xpath("//*[@id='popup_title']");
+	
+	public static By objLoginCTA = By.xpath("//*[@id='get_premium_login']");
 }

@@ -29,7 +29,7 @@ public class WebPWASanityScript {
 	public void PWARegistrationPopUp(String userType) throws Exception {
 		System.out.println("PWARegistrationPopUp");
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-//		Zee5WEBPWASanityBusinessLogic.registerPopUpScenarios(userType);
+		Zee5WEBPWASanityBusinessLogic.registerPopUpScenarios(userType);
 	}
 
 	// --------------------------SHREENIDHI Menu&Settings--------------------------

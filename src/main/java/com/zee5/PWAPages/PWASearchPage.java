@@ -313,4 +313,8 @@ public class PWASearchPage {
 	public static By objSpecificSearch2(String str) {
 		return By.xpath("((//div[@class='searchCategoryLanding']//img)[@title='" + str + "'])[2]"); //added
 	}
+	
+	public static By objSearchResult(String title) {
+		return By.xpath("(//*[@class='highLight' and contains(text(), '"+title+"')])[1]");
+	}
 }

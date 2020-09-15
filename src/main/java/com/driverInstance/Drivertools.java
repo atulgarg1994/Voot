@@ -246,6 +246,9 @@ public class Drivertools {
 		setURL(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url"));
 		setRunModule(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runModule"));
 		setRunMode(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runMode"));
+		if(getTestName().equals("")) {
+			setPlatfrom(Utilities.setPlatform);
+		}
 
 		try {
 			connectURL = new URL("https://www.google.com");
@@ -263,10 +266,10 @@ public class Drivertools {
 			} else if (getURL().equals("https://www.zee5.com/")) {
 				setENV(getURL());
 			}
-		} else if (getPlatform().equals("Android")){
+		} else if (getPlatform().equals("Android")) {
 			setENV("Native App");
 			click = false;
-		}else if (getPlatform().equals("MPWA")){
+		} else if (getPlatform().equals("MPWA")) {
 			setENV("Chrome Application");
 			click = false;
 		}

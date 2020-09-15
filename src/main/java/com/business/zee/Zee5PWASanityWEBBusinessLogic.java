@@ -168,7 +168,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
-			verifyElementPresent(PWALoginPage.objWebLoginPageText, "Login page");
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
 			type(PWALoginPage.objEmailField, Username, "Email Field");
 			waitTime(3000);
@@ -185,7 +184,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
-			verifyElementPresent(PWALoginPage.objWebLoginPageText, "Login page");
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
 			type(PWALoginPage.objEmailField, SubscribedUsername, "Email Field");
 			waitTime(3000);
@@ -1006,7 +1004,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			navigationToMyPlanFromHome("Logged in");
 			playerInLineLoginCheck();
 			navigationToCTAInPlayerFromSearch(userType);
-			if (checkElementExist(PWALoginPage.objLoginBtnWEB, "Login")) {
+			if (checkElementDisplayed(PWALoginPage.objLoginBtnWEB, "Login")) {
 				extent.extentLogger("Not Logged in", "User is not logged in");
 				logger.info("User is not logged in");
 				noLogoutOption();
@@ -1014,7 +1012,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				waitTime(5000);
 				getWebDriver().get(URL);
 				waitTime(8000);
-				if (!checkElementExist(PWALoginPage.objLoginBtnWEB, "Login")) {
+				if (!checkElementDisplayed(PWALoginPage.objLoginBtnWEB, "Login")) {
 					logout();
 				}
 				waitTime(4000);
@@ -1318,7 +1316,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	public void subscribeCTAFuncionality() throws Exception {
 		extent.HeaderChildNode("subscribe CTA Funcionality");
 		System.out.println("subscribeCTAFuncionality");
-		if (checkElementExist(PWAHamburgerMenuPage.objSubscritionBtn, "Subscribe cta")) {
+		if (checkElementDisplayed(PWAHamburgerMenuPage.objSubscritionBtn, "Subscribe cta")) {
 			verifyElementPresent(PWALoginPage.objsubscription, "subscriptions page");
 			// BackButton(1);
 			waitTime(5000);
@@ -1360,7 +1358,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("Logout"), "Logout option");
 		waitTime(3000);
-		verifyElementNotPresent(PWAHamburgerMenuPage.objProfileIconWEB, 5);
 		if (verifyElementPresent(PWALoginPage.objLoginBtnWEB, "Logout")) {
 			logger.info("User successfuly logged out");
 			extent.extentLogger("Log out", "User successfuly logged out");
@@ -1373,7 +1370,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 */
 	public void myPlanVerification() throws Exception {
 		extent.HeaderChildNode("My Plan Verification");
-		if (checkElementExist(PWAHamburgerMenuPage.objMyplanText, "My plan")) {
+		if (checkElementDisplayed(PWAHamburgerMenuPage.objMyplanText, "My plan")) {
 			verifyElementPresent(PWAHamburgerMenuPage.objMyActivePlan, "My active plan");
 			verifyElementPresent(PWAHamburgerMenuPage.objMyAccountOptionsText("My Profile"), "My Profile page");
 		} else {
@@ -4980,7 +4977,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search content");
 
 		Thread.sleep(2000);
-		if (checkElementExist(PWASearchPage.objCloseRegisterDialog, "Pop Up") == false) {
+		if (checkElementDisplayed(PWASearchPage.objCloseRegisterDialog, "Pop Up") == false) {
 			logger.info("Register Popup is not displayed for premium content");
 			extent.extentLogger("Pop-Up", "Register Popup is not displayed for premium content");
 
@@ -4992,7 +4989,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("SignUp-PopUp Funtionality");
 		Thread.sleep(2000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
-		checkElementExist(PWAHomePage.objSearchField, "Search field");
+		checkElementDisplayed(PWAHomePage.objSearchField, "Search field");
 		String keyword1 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 				.getParameter("freeMovie2");
 		type(PWAHomePage.objSearchField, keyword1, "Search");
@@ -5000,15 +4997,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		// mandatoryRegistrationPopUp(userType);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword1), "Search Result");
 		waitTime(10000);
-		if (checkElementExist(PWASearchPage.objCloseRegisterDialog, "Pop Up")) {
+		if (checkElementDisplayed(PWASearchPage.objCloseRegisterDialog, "Pop Up")) {
 			logger.info("Register Popup is displayed");
 			extent.extentLogger("Pop-Up", "Register Popup is displayed");
 			logger.info("PopUp is verifed in portrait mode");
 			extent.extentLogger("Popup", "PopUp is verifed in portrait mode");
-			checkElementExist(PWAHomePage.objPopUpMobileField, "Mobile field in pop up");
-			type(PWAHomePage.objPopUpMobileField, "7892215214", "Mobile field");
+			checkElementDisplayed(PWAHomePage.objPopUpMobileField, "Mobile field in pop up");
+			type(PWAHomePage.objPopUpMobileField, "9964955239", "Mobile field");
 			verifyElementPresentAndClick(PWAHomePage.objPopUpProceedButton, "Proceed button");
-			if (checkElementExist(PWAHomePage.objverifyNumberPopup, "PopUp")) {
+			if (checkElementDisplayed(PWAHomePage.objverifyNumberPopup, "PopUp")) {
 				logger.info("Otp screen is displayed");
 				extent.extentLogger("Popup", "Otp screen is displayed");
 			}
@@ -5034,14 +5031,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply buttton");
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
-		checkElementExist(PWAHomePage.objSearchField, "Search field");
-		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie");
+		checkElementDisplayed(PWAHomePage.objSearchField, "Search field");
+		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie2");
 		type(PWAHomePage.objSearchField, keyword, "Search");
 		waitTime(5000);
 		waitForElement(PWASearchPage.objSearchedResultChangedLanguage(keyword), 30, "Search Result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResultChangedLanguage(keyword), "Search Result");
 		waitTime(4000);
-		if (checkElementExist(PWASearchPage.objRegisterDialogAfterchangedLanguage, "Pop Up")) {
+		if (checkElementDisplayed(PWASearchPage.objRegisterDialogAfterchangedLanguage, "Pop Up")) {
 			logger.info("Register Popup is validated after changing language");
 			extent.extentLogger("Pop-Up", "Register Popup is validated after changing language");
 		}
@@ -5070,18 +5067,17 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWALoginPage.objWebLoginButton, "Login Button");
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
-		checkElementExist(PWAHomePage.objSearchField, "Search field");
+		checkElementDisplayed(PWAHomePage.objSearchField, "Search field");
 		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie2");
 		type(PWAHomePage.objSearchField, keyword, "Search");
 		waitTime(5000);
-		verifyElementPresentAndClick(PWAHomePage.objSearchResult, "Search result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
 		waitTime(3000);
-		if ((checkElementExist(CompleteYourProfilePopUp.objCompleteYourProfileTxt, "Complete Your Profile") == true)) {
+		if ((checkElementDisplayed(CompleteYourProfilePopUp.objCompleteYourProfileTxt, "Complete Your Profile") == true)) {
 			extent.HeaderChildNode("Verification of complete profile popup in potrait mode");
 			logger.info("PopUp is verifed in portrait mode");
 			extent.extentLogger("Popup", "PopUp is verifed in portrait mode");
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objFullName, "Full name Field");
-			type(CompleteYourProfilePopUp.objFirstName, "Test", "First Name Field");
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objDOBField, "DOB Field");
 			type(CompleteYourProfilePopUp.objDOBField, "15101997", "DOB Field");
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objGenderDropDown, "Gender drop down");
@@ -6224,23 +6220,23 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				"verifing that user is able to enter Mobile number, Password, date of birth, gender in Registration page");
 		click(PWALoginPage.objSignUpBtnWEB, "Sign up button");
 		waitForElementDisplayed(PWALoginPage.objEmailField, 5);
-		checkElementExist(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+		checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
 		type(PWALoginPage.objEmailField, "7892215", "PhoneNumber Field");
 		String PhoneNumberField = getText(PWALoginPage.objEmailField);
 		if (PhoneNumberField != null) {
 			logger.info("User is allowed to enter PhoneNumber");
 			extentLogger("PhoneNumber", "User is allowed to enter PhoneNumber in PhoneNumber Field");
 		}
-		checkElementExist(PWALoginPage.objIncorrectPhoneNumberMessage,
+		checkElementDisplayed(PWALoginPage.objIncorrectPhoneNumberMessage,
 				"When User Enter Invalid PhoneNumber, Error Message");
 		type(PWALoginPage.objEmailField, "214", "PhoneNumber Field");
-		if (checkElementExist(PWALoginPage.objIncorrectPhoneNumberMessage, "PhoneNumber Error Message") == false) {
+		if (checkElementDisplayed(PWALoginPage.objIncorrectPhoneNumberMessage, "PhoneNumber Error Message") == false) {
 			logger.info("User is allowed to enter valid PhoneNumber");
 			extent.extentLogger("PhoneNumber", "User is allowed to enter valid PhoneNumber");
 		}
-		checkElementExist(PWALoginPage.objCountryCode, "Country code field");
+		checkElementDisplayed(PWALoginPage.objCountryCode, "Country code field");
 		click(PWALoginPage.objCountryCode, "Country code field");
-		checkElementExist(PWALoginPage.objCountryCodeDropDown, "Drop down of country code");
+		checkElementDisplayed(PWALoginPage.objCountryCodeDropDown, "Drop down of country code");
 		click(PWALoginPage.objCountryCodeAlgeria, "Algeria country code");
 		click(PWALoginPage.objCountryCode, "Country code field");
 		click(PWALoginPage.objCountryCodeAndoora, "Andoora country code");
@@ -6381,28 +6377,27 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Login through Facebook");
 		getWebDriver().get(URL);
 		verifyElementPresentAndClick(PWALoginPage.objLoginBtnWEB, "Login button");
-		waitForElementDisplayed(PWALoginPage.objLoginPageheader, 10);
 
 		waitForElementDisplayed(PWALoginPage.objFacebookIcon, 10);
 
-		checkElementExist(PWALoginPage.objGoogleIcon, "Google icon");
+		checkElementDisplayed(PWALoginPage.objGoogleIcon, "Google icon");
 		waitTime(1000);
-		checkElementExist(PWALoginPage.objTwitterIcon, "Twitter icon");
-		waitTime(1000);
-		checkElementExist(PWALoginPage.objFacebookIcon, "Facebook icon");
+		checkElementDisplayed(PWALoginPage.objTwitterIcon, "Twitter icon");
+	
+		checkElementDisplayed(PWALoginPage.objFacebookIcon, "Facebook icon");
 
 		waitTime(10000);
 		click(PWALoginPage.objFacebookIcon, "Facebook Icon");
 		switchToWindow(2);
 
-		if (checkElementExist(PWALandingPages.objWebProfileIcon, "Profile icon")) {
+		if (checkElementDisplayed(PWALandingPages.objWebProfileIcon, "Profile icon")) {
 			logger.info("User Logged in Successfully");
 			extent.extentLogger("Logged in", "User Logged in Successfully");
 
 		}
 
 		else {
-			checkElementExist(PWALoginPage.objFacebookPageVerificationWeb, "Facebook page");
+			checkElementDisplayed(PWALoginPage.objFacebookPageVerificationWeb, "Facebook page");
 			verifyElementPresent(PWALoginPage.objFacebookLoginEmailWeb, " Email Field");
 			type(PWALoginPage.objFacebookLoginEmailWeb, "igstesttt@gmail.com", "Emial Field");
 			verifyElementPresent(PWALoginPage.objFacebookLoginpasswordWeb, " Password Field");
@@ -6456,7 +6451,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		type(PWALoginPage.objEmailField, ".com", "Email field");
 
-		if (checkElementExist(PWALoginPage.objForgotPasswordMessage, "Message")) {
+		if (checkElementDisplayed(PWALoginPage.objForgotPasswordMessage, "Message")) {
 			logger.info("Supporting description is displayed");
 			extent.extentLogger("Forgot password", "Supporting description is displayed");
 		}
@@ -6497,7 +6492,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 
 		type(PWALoginPage.objEmailField, "5214", "Email field");
-		if (checkElementExist(PWALoginPage.objForgotPasswordMessage, "Message")) {
+		if (checkElementDisplayed(PWALoginPage.objForgotPasswordMessage, "Message")) {
 			logger.info("Supporting description is displayed");
 			extent.extentLogger("Forgot password", "Supporting description is displayed");
 		}
@@ -6507,11 +6502,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		click(PWALoginPage.objForgotPasswordLinkButtonWEB, "Continue button");
 		waitTime(3000);
-		checkElementExist(PWALoginPage.objNewPasswordField, "New password page");
+		checkElementDisplayed(PWALoginPage.objNewPasswordField, "New password page");
 		type(PWALoginPage.objNewPasswordField, "User@123", "Password field");
 		type(PWALoginPage.objConfirmNewPasswordField, "User@123", "Confirm Password field");
 		click(PWALoginPage.objSetNewPasswordButton, "Continue button");
-		if (checkElementExist(PWALoginPage.objOTPVerifyPage, "OTP verification page")) {
+		if (checkElementDisplayed(PWALoginPage.objOTPVerifyPage, "OTP verification page")) {
 			logger.info("User is redirected to verify otp page");
 			extent.extentLogger("OTP", "User is redirected to verify otp page");
 		}
