@@ -79,4 +79,6 @@ public class AMDPlayerScreen {
 	public static By objUpNextCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/upnext']");
 	public static By objFirstContentCardTitleInUpnextTray = By.xpath("((//*[@resource-id='com.graymatrix.did:id/header_primary_text' and @text='Up Next']/parent::*/parent::*/following-sibling::*)[1]/child::*/child::*/child::*[@resource-id='com.graymatrix.did:id/item_primary_text'])[1]");
 	public static By objCountDownTimerInUpNextCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/counddownwatchcredit']");
+	
+	public static By objfbLoginPage = By.xpath("//*[@content-desc='Create New Facebook Account'] | //*[@content-desc='Log In'] | //*[@text='Log In'] | //*[@text='Create New Facebook Account']");
 }

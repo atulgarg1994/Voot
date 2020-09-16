@@ -39,6 +39,21 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 4)
+	@Parameters({ "userType" })
+	public void verifyLoginInitiatedEventForValidCredentials(String userType) throws Exception {
+		System.out.println("Verify Login Initiated Event for Valid Credentials");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginInitiatedEventForValidCredentials(userType);
+	}
+	
+	
+	@Test(priority = 5)
+	@Parameters({ "userType" })
+	public void verifyTVAuthenticationScreenDisplayEvent(String userType) throws Exception {
+		System.out.println("Verify TV Authentication Screen Display Event");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyTVAuthenticationScreenDisplayEvent(userType);
+	}
+	
+	@Test(priority = 6)
 	@Parameters({ "userType", "keyword1", "keyword2" })
 	public void verifySubscriptionPageViewedEvent(String userType,String keyword1,String keyword2) throws Exception {
 		System.out.println("Verify Subscription Page Viewed Event");

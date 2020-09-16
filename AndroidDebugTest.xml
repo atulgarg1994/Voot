@@ -14,8 +14,8 @@
 	<parameter name="SubscribedUserWith15daysExpiryUsername" value="testzee5_4@gmail.com" />
 	<parameter name="SubscribedUserWith15daysExpiryPassword" value="123456" />
 	
-	<parameter name="NonsubscribedUserName" value="zee5latest@gmail.com"/>
-	<parameter name="NonsubscribedPassword" value="User@123"/>
+	<parameter name="NonsubscribedUserName" value="igszee23@yopmail.com"/>
+	<parameter name="NonsubscribedPassword" value="123456"/>
 	
 	<parameter name="SubscribedUserName" value="zeetest998@test.com"/>
 	<parameter name="SubscribedPassword" value="123456"/>
@@ -51,11 +51,15 @@
 	<parameter name="invalidSearchKeyword" value="@$_-(;_+" />
 	<parameter name="partlySpeltSearchKeyword" value="Kam" />
 	<parameter name="searchModuleKeyword" value="Kamali" />
+	<parameter name="searchKeyword" value="Aditya praises Paaru" />
 	<parameter name="searchKeyword1" value="Paaru gets tipsy" />
 	<parameter name="searchKeyword2" value="Jodi Hakki" />
 	<parameter name="searchKeyword3" value="Bablu Dablu - Robo Rumble" />
 	<parameter name="searchKeyword4" value="Bhinna" />
-	<parameter name="searchKeyword5" value="Chemistry of Kariyappa" />
+	<parameter name="searchKeyword5"
+		value="Chemistry of Kariyappa" />
+	<parameter name="searchKeyword6" value="Jamai 2.0" />
+	<parameter name="searchKeyword9" value="Jamai 2.0" />
 	
 	<parameter name="tabName1" value="Home" />
 	<parameter name="tabName2" value="Movies" />
@@ -130,9 +134,9 @@
   </test> 
   -->
   
-  <test name="Android_Settings">
+  <test name="Android_Player_LandscapeMode">
 		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_Settings" />
+			<class name="com.zee5.ApplicasterScripts.Android_Player_LandscapeMode" />
 		</classes>
 	</test>
 	

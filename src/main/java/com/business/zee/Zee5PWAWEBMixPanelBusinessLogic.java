@@ -1,7 +1,6 @@
 package com.business.zee;
 
 import java.util.concurrent.TimeUnit;
-
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
-
 import com.driverInstance.CommandBase;
 import com.extent.ExtentReporter;
 import com.propertyfilereader.PropertyFileReader;
@@ -20,6 +18,7 @@ import com.zee5.PWAPages.PWALandingPages;
 import com.zee5.PWAPages.PWALoginPage;
 import com.zee5.PWAPages.PWAPlayerPage;
 import com.zee5.PWAPages.PWASearchPage;
+import com.zee5.PWAPages.PWASignupPage;
 import com.zee5.PWAPages.PWASubscriptionPages;
 
 public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
@@ -29,6 +28,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		init();
 	}
 	
+	String URL = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
+
 	private int timeout;
 
 	/** Retry Count */
@@ -400,8 +401,207 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASubscriptionPages.objHaveACode, "PNB20", "Prepaid Code");
 			verifyElementPresentAndClick(PWASubscriptionPages.objApplyBtn, "Apply Button");
 			waitTime(2000);
-			
+			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
+			waitTime(5000);
 		}
 	}
 	
+	public void verifyTVAuthenticationScreenDisplayEvent(String userType) throws Exception {
+		if(!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify TV Authentication Screen Display Event");
+			click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objAuthenticateDevice, "Authenticate Device");
+			Back(1);
+		}
+	}
+	
+	
+	public void facebookLogin() throws Exception {
+		extent.HeaderChildNode("Login through Facebook");
+		getWebDriver().get(URL);
+		verifyElementPresentAndClick(PWALoginPage.objLoginBtnWEB, "Login button");
+
+		waitForElementDisplayed(PWALoginPage.objFacebookIcon, 10);
+
+		checkElementDisplayed(PWALoginPage.objGoogleIcon, "Google icon");
+		waitTime(1000);
+		checkElementDisplayed(PWALoginPage.objTwitterIcon, "Twitter icon");
+	
+		checkElementDisplayed(PWALoginPage.objFacebookIcon, "Facebook icon");
+
+		waitTime(10000);
+		click(PWALoginPage.objFacebookIcon, "Facebook Icon");
+		switchToWindow(2);
+
+		if (checkElementDisplayed(PWALandingPages.objWebProfileIcon, "Profile icon")) {
+			logger.info("User Logged in Successfully");
+			extent.extentLogger("Logged in", "User Logged in Successfully");
+
+		}
+
+		else {
+			checkElementDisplayed(PWALoginPage.objFacebookPageVerificationWeb, "Facebook page");
+			verifyElementPresent(PWALoginPage.objFacebookLoginEmailWeb, " Email Field");
+			type(PWALoginPage.objFacebookLoginEmailWeb, "igstesttt@gmail.com", "Emial Field");
+			verifyElementPresent(PWALoginPage.objFacebookLoginpasswordWeb, " Password Field");
+			type(PWALoginPage.objFacebookLoginpasswordWeb, "Igs123!@#", "Password Field");
+			verifyElementPresentAndClick(PWALoginPage.objFacebookLoginButtonInFbPageWeb, "Login Button");
+			switchToWindow(1);
+			waitForElementDisplayed(PWALandingPages.objWebProfileIcon, 20);
+			if (verifyElementPresent(PWALandingPages.objWebProfileIcon, "Profile icon")) {
+				logger.info("User Logged in Successfully");
+				extent.extentLogger("Logged in", "User Logged in Successfully");
+			}
+		}
+		logout();
+	}
+	
+	public void phoneNumberRegistration() throws Exception {
+		extent.HeaderChildNode(
+				"verifing that user is able to enter Mobile number, Password, date of birth, gender in Registration page");
+		click(PWALoginPage.objSignUpBtnWEB, "Sign up button");
+		waitForElementDisplayed(PWALoginPage.objEmailField, 5);
+		checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+		type(PWALoginPage.objEmailField, "7892215", "PhoneNumber Field");
+		String PhoneNumberField = getText(PWALoginPage.objEmailField);
+		if (PhoneNumberField != null) {
+			logger.info("User is allowed to enter PhoneNumber");
+			extentLogger("PhoneNumber", "User is allowed to enter PhoneNumber in PhoneNumber Field");
+		}
+		checkElementDisplayed(PWALoginPage.objIncorrectPhoneNumberMessage,
+				"When User Enter Invalid PhoneNumber, Error Message");
+		type(PWALoginPage.objEmailField, "214", "PhoneNumber Field");
+		if (checkElementDisplayed(PWALoginPage.objIncorrectPhoneNumberMessage, "PhoneNumber Error Message") == false) {
+			logger.info("User is allowed to enter valid PhoneNumber");
+			extent.extentLogger("PhoneNumber", "User is allowed to enter valid PhoneNumber");
+		}
+		checkElementDisplayed(PWALoginPage.objCountryCode, "Country code field");
+		click(PWALoginPage.objCountryCode, "Country code field");
+		checkElementDisplayed(PWALoginPage.objCountryCodeDropDown, "Drop down of country code");
+		click(PWALoginPage.objCountryCodeAlgeria, "Algeria country code");
+		click(PWALoginPage.objCountryCode, "Country code field");
+		click(PWALoginPage.objCountryCodeAndoora, "Andoora country code");
+		click(PWALoginPage.objCountryCode, "Country code field");
+		click(PWALoginPage.objCountryCodeIndia, "India country code");
+
+		if (getWebDriver().findElement(PWASignupPage.objSignUpButtonHighlightedWeb).isEnabled()) {
+			logger.info("SignUp button is highlighted");
+			extent.extentLogger("Continue button", "SignUp button is highlighted");
+		}
+		click(PWASignupPage.objSignUpButtonHighlightedWeb, "SignUp Button");
+		extent.HeaderChildNode(
+				"Verifing that user is allowed to update the mobile number, password, date of birth and gender post navigating back from change number button");
+		waitTime(10000);
+		click(PWASignupPage.objChangeNumberLink, "Change number link");
+		waitTime(5000);
+		type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
+		click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
+		extent.HeaderChildNode("verifing OTP Screen");
+		waitForElementDisplayed(PWASignupPage.objOTPTimer, 5);
+		checkElementDisplayed(PWASignupPage.objOTPTimer, "OTP timer");
+		String otpTimer1 = getText(PWASignupPage.objOTPTimer);
+		String OtpTimer1 = otpTimer1.substring(3);
+		int otp1 = Integer.parseInt(OtpTimer1);
+		System.out.println(otp1);
+		waitTime(6000);
+		String otpTimer2 = getText(PWASignupPage.objOTPTimer);
+		String OtpTimer2 = otpTimer2.substring(3);
+		int otp2 = Integer.parseInt(OtpTimer2);
+		System.out.println(otp2);
+		if (!otpTimer1.equals(otpTimer2)) {
+			logger.info("The Otp timer is in reverse order");
+			extentLogger("OtpTimer", "The Otp timer is in reverse order");
+		}
+		waitTime(60000);
+		if (verifyElementPresent(PWASignupPage.objResendOtpOption, "Resend button")) {
+			logger.info("ResendOtp option is active after 60seconds");
+			extent.extentLogger("ResendOtp", "ResendOtp option is active after 60seconds");
+		}
+		type(PWASignupPage.objOTP1, "a", "OTP box1");
+		type(PWASignupPage.objOTP2, "b", "OTP box2");
+		type(PWASignupPage.objOTP3, "c", "OTP box3");
+		type(PWASignupPage.objOTP4, "d", "OTP box4");
+		waitTime(2000);
+		if (getWebDriver().findElement(PWASignupPage.objSignUpButtonHighlighted).isEnabled() == false) {
+			logger.info("Verify Button is not highlighted when user enter non numeric value in otp section");
+			extent.extentLogger("Verify",
+					"Verify Button is not highlighted when user enter non numeric value in otp section");
+		}
+		type(PWASignupPage.objOTP1, "1", "OTP box1");
+		type(PWASignupPage.objOTP2, "2", "OTP box2");
+		type(PWASignupPage.objOTP3, "3", "OTP box3");
+		type(PWASignupPage.objOTP4, "4", "OTP box4");
+		waitTime(3000);
+		if (getWebDriver().findElement(PWASignupPage.objVerifyBtnWeb).isEnabled() == true) {
+			logger.info("Verify Button is highlighted");
+			extent.extentLogger("Verify", "Verify Button is highlighted");
+			verifyElementPresentAndClick(PWASignupPage.objVerifyBtnWeb, "Verified Button");
+			try {
+				Boolean Message = getWebDriver().findElement(By.xpath("//*[@class='toastMessage']")).isDisplayed();
+				if (Message == true) {
+					extent.extentLogger("Toast", "Toast message displayed");
+					logger.info("Toast message displayed");
+				} else {
+					System.out.println("Toast message is not displayed");
+				}
+			} catch (Exception e) {
+				System.out.println("Toast message is not displayed");
+			}
+		}
+		Back(2);
+	}
+	
+	public void twitterLogin() throws Exception {
+		extent.HeaderChildNode("Login through Twitter");
+
+		verifyElementPresentAndClick(PWALoginPage.objLoginBtnWEB, "Login button");
+		waitForElementDisplayed(PWALoginPage.objLoginPageheader, 10);
+
+		waitForElementDisplayed(PWALoginPage.objTwitterIcon, 10);
+		checkElementDisplayed(PWALoginPage.objTwitterIcon, "Twitter icon");
+		waitTime(1000);
+
+		click(PWALoginPage.objTwitterIcon, "twitter Icon");
+		switchToWindow(2);
+
+		if (checkElementDisplayed(PWALandingPages.objWebProfileIcon, "Profile icon")) {
+			logger.info("User Logged in Successfully");
+			extent.extentLogger("Logged in", "User Logged in Successfully");
+			logout();
+
+		}
+
+		else {
+			verifyElementPresent(PWALoginPage.objTwitterEmaildField, " Email Field");
+			type(PWALoginPage.objTwitterEmaildField, "Zee5latest@gmail.com", "Emial Field");
+
+			verifyElementPresent(PWALoginPage.objTwitterPasswordField, " Password Field");
+			type(PWALoginPage.objTwitterPasswordField, "User@123", "Password Field");
+
+			verifyElementPresentAndClick(PWALoginPage.objTwitterSignInButton, "Login Button");
+			getWebDriver().close();
+			switchToParentWindow();
+			waitForElementDisplayed(PWALandingPages.objWebProfileIcon, 20);
+			if (checkElementDisplayed(PWALandingPages.objWebProfileIcon, "Profile icon")) {
+				logger.info("User Logged in Successfully");
+				extent.extentLogger("Logged in", "User Logged in Successfully");
+				logout();
+			} else {
+				logger.info("User is not logged in Successfully");
+				extent.extentLoggerFail("Logged in", "User is not logged in Successfully");
+				Back(1);
+			}
+		}
+
+	}
+
+	public void verifyLoginInitiatedEventForValidCredentials(String userType) throws Exception {
+		if(userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Initiated Event for Valid Credentials");
+			twitterLogin();
+			facebookLogin();
+			phoneNumberRegistration();
+		}
+	}
 }

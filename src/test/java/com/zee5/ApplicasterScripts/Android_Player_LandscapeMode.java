@@ -59,7 +59,7 @@ public class Android_Player_LandscapeMode {
 	
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println("Quit the App");
+		System.out.println("\nExecution Complete - Quiting the App");
 		ZEE5ApplicasterBusinessLogic.tearDown();
 	}
 }

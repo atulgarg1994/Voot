@@ -1268,6 +1268,14 @@ public class Utilities extends ExtentReporter {
 		return iselementPresent;
 	}
 
+	public void switchtoLandscapeMode() throws IOException {
+		Runtime.getRuntime().exec("adb shell content insert --uri content://settings/system --bind name:s:user_rotation --bind value:i:1");
+	}
+	
+	public void switchtoPortraitMode() throws IOException {
+		Runtime.getRuntime().exec("adb shell content insert --uri content://settings/system --bind name:s:user_rotation --bind value:i:0");
+	}
+	
 //====================================================================================================================================
 	/** ::::::::::::::::Web Utilities:::::::::::: */
 
@@ -1761,11 +1769,11 @@ public class Utilities extends ExtentReporter {
 		if (Deviceversion.contains("6")) {
 			Runtime.getRuntime().exec("adb shell am broadcast -a io.appium.settings.wifi --es setstatus disable");
 			logger.info("Turning off wifi");
-			extent.extentLogger("Turning off wifi", "Turning off wifi");
+			extent.extentLoggerPass("Turning off wifi", "Turning off wifi");
 		} else {
 			Runtime.getRuntime().exec("adb shell svc wifi disable");
 			logger.info("Turning off wifi");
-			extent.extentLogger("Turning off wifi", "Turning off wifi");
+			extent.extentLoggerPass("Turning off wifi", "Turning off wifi");
 		}
 	}
 
@@ -1775,11 +1783,11 @@ public class Utilities extends ExtentReporter {
 		if (Deviceversion.contains("6")) {
 			Runtime.getRuntime().exec("adb shell am broadcast -a io.appium.settings.wifi --es setstatus enable");
 			logger.info("Turning ON wifi");
-			extent.extentLogger("Turning ON wifi", "Turning ON wifi");
+			extent.extentLoggerPass("Turning ON wifi", "Turning ON wifi");
 		} else {
 			Runtime.getRuntime().exec("adb shell svc wifi enable");
 			logger.info("Turning ON wifi");
-			extent.extentLogger("Turning ON wifi", "Turning ON wifi");
+			extent.extentLoggerPass("Turning ON wifi", "Turning ON wifi");
 		}
 	}
 

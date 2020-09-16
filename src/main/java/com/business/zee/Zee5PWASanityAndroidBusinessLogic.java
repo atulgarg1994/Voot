@@ -3020,13 +3020,12 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			HeaderChildNode("Navigate to Subscription Flow From Subscription Popup in full screen player");
 			System.out.println("Navigate to Subscription Flow From Subscription Popup in full screen player");
 			reloadHome();
-			// handle mandatory pop up
+			// handle mandatory pop upPhoneNumber Field
 			mandatoryRegistrationPopUp(userType);
-			String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("premiumMovieWithTrailer");
+			String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("premiumMovieWithTrailer");
 			zeeSearchForContentAndClickOnFirstResult(keyword);
-			waitTime(10000);
-			waitForPlayerAdToComplete();
+			//waitTime(10000);
+			//waitForPlayerAdToComplete();
 			pausePlayer();
 			verifyElementPresentAndClick(PWAPlayerPage.maximizeBtn, "Maximize window icon");
 			waitTime(4000);
@@ -5752,10 +5751,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchedResult(episode1), 30, "Search Result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(episode1), "Search Result");
-		if (verifyIsElementDisplayed(PWAPlayerPage.watchListBtnNotAdded, "Add to Watchlist")) {
+		waitTime(3000);
+		if (checkElementDisplayed(PWAPlayerPage.watchListBtnNotAdded, "Add to Watchlist")) {
 			click(PWAPlayerPage.watchListBtnNotAdded, "Add to Watch list");
 		} else {
-			if (verifyIsElementDisplayed(PWAPlayerPage.watchListBtnAlreadyAdded, "Added to Watchlist")) {
+			if (checkElementDisplayed(PWAPlayerPage.watchListBtnAlreadyAdded, "Added to Watchlist")) {
 				extent.extentLogger("", "Content is already added to Watchlist");
 				logger.info("Content is already added to Watchlist");
 			}
@@ -5769,6 +5769,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchedResult(episode2), 30, "Search Result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(episode2), "Search Result");
+		waitTime(3000);
 		if (verifyIsElementDisplayed(PWAPlayerPage.watchListBtnNotAdded, "Add to Watchlist")) {
 			click(PWAPlayerPage.watchListBtnNotAdded, "Add to Watch list");
 		} else {
@@ -5786,6 +5787,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchedResult(movie1), 30, "Search Result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(movie1), "Search Result");
+		waitTime(3000);
 		if (verifyIsElementDisplayed(PWAPlayerPage.watchListBtnNotAdded, "Add to Watchlist")) {
 			click(PWAPlayerPage.watchListBtnNotAdded, "Add to Watch list");
 		} else {
@@ -5803,6 +5805,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchedResult(movie2), 30, "Search Result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(movie2), "Search Result");
+		waitTime(3000);
 		if (verifyIsElementDisplayed(PWAPlayerPage.watchListBtnNotAdded, "Add to Watchlist")) {
 			click(PWAPlayerPage.watchListBtnNotAdded, "Add to Watch list");
 		} else {
@@ -5820,6 +5823,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchedResult(video1), 30, "Search Result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(video1), "Search Result");
+		waitTime(3000);
 		if (verifyIsElementDisplayed(PWAPlayerPage.watchListBtnNotAdded, "Add to Watchlist")) {
 			click(PWAPlayerPage.watchListBtnNotAdded, "Add to Watch list");
 		} else {
@@ -5837,6 +5841,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchedResult(video2), 30, "Search Result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(video2), "Search Result");
+		waitTime(3000);
 		if (verifyIsElementDisplayed(PWAPlayerPage.watchListBtnNotAdded, "Add to Watchlist")) {
 			click(PWAPlayerPage.watchListBtnNotAdded, "Add to Watch list");
 		} else {
@@ -7707,10 +7712,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			extent.extentLogger("quality", "Audio Tracks unavailable");
 		} else {
 			for (int i = 1; i <= size; i++) {
-				logger.info("Audio Tracks available : "
-						+ getAttributValue("innerText", PWAPlayerPage.objAllQualityOptions(i)));
-				extent.extentLogger("audio", "Audio Tracks available : "
-						+ getAttributValue("innerText", PWAPlayerPage.objAllQualityOptions(i)));
+				logger.info("Audio Tracks available : "+ getAttributValue("innerText", PWAPlayerPage.objAllQualityOptions(i)));
+				extent.extentLogger("audio", "Audio Tracks available : "+ getAttributValue("innerText", PWAPlayerPage.objAllQualityOptions(i)));
 			}
 			// Select audio tracks
 			List<WebElement> unselected = findElements(PWAPlayerPage.objPlayerUnSelectedAudioTrack);
@@ -7729,8 +7732,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				click(PWAPlayerPage.settingsBtn, "Settings icon");
 				click(PWAPlayerPage.objPlayerAudioTrackIcon, "Audio Track icon");
 				waitTime(5000);
-				String selectedTrackAfter = getElementPropertyToString("innerText",
-						PWAPlayerPage.objPlayerSelectedAudioTrack, "Selected Audio Track");
+				String selectedTrackAfter = getElementPropertyToString("innerText",PWAPlayerPage.objPlayerSelectedAudioTrack, "Selected Audio Track");
 				logger.info("Audio Track after selection : " + selectedTrackAfter);
 				extent.extentLogger("quality", "Quality option after selection: " + selectedTrackAfter);
 				if (selectedTrackBefore.equals(selectedTrackAfter)) {
@@ -10213,7 +10215,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		// android play store
 		verifyElementPresentAndClick(PWAHomePage.objAndroidPlayStoreIcon, "Android play store icon");
 		getDriver().context("NATIVE_APP");
-		if (verifyIsElementDisplayed(PWAHomePage.objGooglePlayStore, "Android Google Play store")) {
+		if (checkElementDisplayed(PWAHomePage.objGooglePlayStore, "Android Google Play store")) {
 			logger.info("User is navigated to Android Google Play Store application");
 			Back(1);
 		} else {
