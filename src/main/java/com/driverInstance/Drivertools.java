@@ -247,9 +247,9 @@ public class Drivertools {
 		setRunModule(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runModule"));
 		setRunMode(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runMode"));
 		
-		if(getTestName().equals("Android_UserSessionManagement")) {
-			setPlatfrom(Utilities.setPlatform);
-		}
+//		if(getTestName().equals("Android_UserSessionManagement")) {
+//			setPlatfrom(Utilities.setPlatform);
+//		}
 
 		try {
 			connectURL = new URL("https://www.google.com");
@@ -260,7 +260,7 @@ public class Drivertools {
 			System.out.println("<<<<<<---- Network is Down  ---->>>>>>>");
 			System.exit(0);
 		}
-
+System.out.println("Platform is" + getPlatform());
 		if (getPlatform().equals("Web")) {
 			if (getURL().equals("https://newpwa.zee5.com/")) {
 				setENV(getURL());

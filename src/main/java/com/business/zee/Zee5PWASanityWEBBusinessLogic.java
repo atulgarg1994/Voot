@@ -32,6 +32,7 @@ import com.metadata.ResponseInstance;
 import com.metadata.getResponseUpNextRail;
 import com.metadata.responseWatchlist;
 import com.propertyfilereader.PropertyFileReader;
+import com.utility.LoggingUtils;
 import com.utility.Utilities;
 import com.zee5.PWAPages.*;
 import io.appium.java_client.TouchAction;
@@ -58,7 +59,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	private SoftAssert softAssert = new SoftAssert();
 
 	/** The Constant logger. */
-	final static Logger logger = Logger.getLogger("rootLogger");
+	//final static Logger logger = Logger.getLogger("rootLogger");
+	static LoggingUtils logger = new LoggingUtils();
 
 	/** The Android driver. */ 
 	public AndroidDriver<AndroidElement> androidDriver;

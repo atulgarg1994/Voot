@@ -12222,6 +12222,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(5000);
 			findTray(AMDHomePage.objBeforeTVTray);
 			click(AMDHomePage.objBeforeTVViewAllArraowIcon, "View All icon");
+			waitTime(2000);
 			if (verifyIsElementDisplayed(AMDHomePage.objViewAllScreen)) {
 				logger.info("View All screen is displayed");
 				extent.extentLoggerPass("ViewAll", "View All screen is displayed");

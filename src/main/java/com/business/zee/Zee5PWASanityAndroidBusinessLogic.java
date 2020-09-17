@@ -21,6 +21,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
 import org.testng.asserts.SoftAssert;
+
+import com.utility.LoggingUtils;
 import com.utility.Utilities;
 import com.zee5.PWAPages.*;
 import com.driverInstance.CommandBase;
@@ -55,8 +57,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	private SoftAssert softAssert = new SoftAssert();
 
 	/** The Constant logger. */
-	final static Logger logger = Logger.getLogger("rootLogger");
-
+//	final static Logger logger = Logger.getLogger("rootLogger");
+	static LoggingUtils logger = new LoggingUtils();
 	/** The Android getDriver(). */
 	public AndroidDriver<AndroidElement> androidDriver;
 

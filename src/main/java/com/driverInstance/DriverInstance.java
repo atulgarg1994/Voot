@@ -26,6 +26,7 @@ public class DriverInstance extends Drivertools {
 	public DriverInstance(String Application) {
 		super(Application);
 		try {
+			System.out.println("Platform is " + getPlatform());
 			switch (getPlatform()) {
 			case "Android":
 				tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),
