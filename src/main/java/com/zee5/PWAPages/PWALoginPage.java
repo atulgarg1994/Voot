@@ -186,4 +186,10 @@ public class PWALoginPage {
 	public static By objSkip = By.xpath("//*[@class='iconInitialLoad-ic_close']");
 	
 	public static By objCloseRegisterPopup = By.xpath("//*[@class='manCloseIcon']");
+	
+	public static By objRegisterLink = By.xpath("//*[@class='noSelect redirectLink' and contains(text(),'Register')]");
+	
+	public static By objLoginLink = By.xpath("//*[@class='noSelect registerRedirectlink' and contains(text(),'Login')]");
+	
+	public static By objLoginCTAInPremiumPopup = By.xpath("//*[@class='popupBtn accentBtn' and contains(text(),'Login')]");
 }

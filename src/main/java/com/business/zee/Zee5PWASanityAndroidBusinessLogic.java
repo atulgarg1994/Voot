@@ -153,8 +153,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 * The method s for element and clicks if present. Returns no error if not
 	 * present. Implemented for random popups
 	 */
-	public boolean waitForElementAndClickIfPresent(By locator, int seconds, String message)
-			throws InterruptedException {
+	public boolean waitForElementAndClickIfPresent(By locator, int seconds, String message)throws InterruptedException {
 		for (int time = 0; time <= seconds; time++) {
 			try {
 				getDriver().findElement(locator).click();
@@ -571,7 +570,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					.getParameter("NonsubscribedPassword");
 		}
 		if (userType.equalsIgnoreCase("SubscribedUser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
-			if (!verifyIsElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
+			if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
 				verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 			}
 			verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login button");
@@ -590,8 +589,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				waitTime(5000);
 				dismissSystemPopUp();
 				directClickReturnBoolean(PWALoginPage.objLoginBtn, "Login Button");
-				waitTime(10000);
-				dismissSystemPopUp();
+				waitTime(3000);
+				//waitTime(10000);
+				//dismissSystemPopUp();
 				break;
 
 			case "Mobile":
@@ -772,19 +772,32 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 
 	public void dismissDisplayContentLanguagePopUp() throws Exception {
-		waitForElementAndClickIfPresent(PWAHomePage.objContinueDisplayContentLangPopup, 60,
-				"Continue on Display Language Pop Up");
+		try {
+			WebElement displayContentLang = (new WebDriverWait(getDriver(), 60)).until(ExpectedConditions.presenceOfElementLocated(PWAHomePage.objContinueDisplayContentLangPopup));
+			if (displayContentLang.isDisplayed() == true) {
+				click(PWAHomePage.objContinueDisplayContentLangPopup,"Continue on Display Language Pop Up");
+				dismissSystemPopUp();
+				waitForElementAndClickIfPresent(PWAHomePage.objContinueDisplayContentLangPopup, 10,"Continue on Content Language Pop Up");
+			}
+		}
+		catch(Exception e) {
+			
+		}
+		
+
+		/*waitForElementDisplayed(PWAHomePage.objContinueDisplayContentLangPopup, 60,"Continue on Display Language Pop Up");
+		waitForElementAndClickIfPresent(PWAHomePage.objContinueDisplayContentLangPopup, 60,"Continue on Display Language Pop Up");
 		Thread.sleep(5000);
 		dismissSystemPopUp();
-		waitForElementAndClickIfPresent(PWAHomePage.objContinueDisplayContentLangPopup, 10,
-				"Continue on Content Language Pop Up");
+		waitForElementAndClickIfPresent(PWAHomePage.objContinueDisplayContentLangPopup, 10,"Continue on Content Language Pop Up");*/
 	}
 
 	public void dismiss3xPopUp() throws Exception {
 		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
 		if (!url.contains("newpwa")) {
 			getDriver().context("NATIVE_APP");
-			waitForElementAndClickIfPresent(PWAHomePage.obj3xfasterPopUpNoThanks, 3, "NO THANKS in 3x Pop Up");
+			waitTime(3000);
+			directClickReturnBoolean(PWAHomePage.obj3xfasterPopUpNoThanks, "NO THANKS in 3x Pop Up");
 			getDriver().context("CHROMIUM");
 		}
 	}
@@ -2604,8 +2617,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			String carouselTitleAPI = allMetaTitleOnCarouselAPI.get(i);
 			for (int j = 0; j < 7; j++) {
 				try {
-					WebElement mastHeadEle = (new WebDriverWait(getDriver(), 30)).until(ExpectedConditions
-							.presenceOfElementLocated(PWAHomePage.objContTitleWithPlayIconCarousel(carouselTitleAPI)));
+					WebElement mastHeadEle = (new WebDriverWait(getDriver(), 30)).until(ExpectedConditions.presenceOfElementLocated(PWAHomePage.objContTitleWithPlayIconCarousel(carouselTitleAPI)));
 					isIconDisplayed = mastHeadEle.isDisplayed();
 					if (isIconDisplayed == true) {
 						System.out.println("Content " + carouselTitleAPI + ": Play icon position for X : "
@@ -4523,8 +4535,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					getDriver().findElement(PWAPlayerPage.pauseBtn).click();
 					try {
 						if (!getText(PWAPlayerPage.objcurrenttime).equals("")) {
-							extent.extentLogger("playerPaused", "Paused the Player");
-							logger.info("Paused the Player");
+							String time=getText(PWAPlayerPage.objcurrenttime);
+							extent.extentLogger("playerPaused", "Paused the Player "+time);
+							logger.info("Paused the Player "+time);
 							playerPaused = true;
 							break;
 						}
@@ -4537,8 +4550,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				} catch (Exception e) {
 					try {
 						if (!getText(PWAPlayerPage.objcurrenttime).equals("")) {
-							extent.extentLogger("playerPaused", "Paused the Player");
-							logger.info("Paused the Player");
+							String time=getText(PWAPlayerPage.objcurrenttime);
+							extent.extentLogger("playerPaused", "Paused the Player "+time);
+							logger.info("Paused the Player "+time);
 							playerPaused = true;
 							break;
 						}
@@ -4588,12 +4602,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					}
 				} catch (Exception e) {
 					try {
-						if (!getText(PWAPlayerPage.objcurrenttime).equals("")) {
-							extent.extentLogger("playerPaused", "Paused the Player");
-							logger.info("Paused the Player");
-							playerPaused = true;
-							break;
-						}
+						getDriver().findElement(PWAPlayerPage.playBtn);
+						extent.extentLogger("playerPaused", "Paused the Player");
+						logger.info("Paused the Player");
+						playerPaused = true;
+						break;
 					} catch (Exception e1) {
 						if (trial == 20) {
 							extent.extentLogger("errorOccured", "Player not paused");
@@ -6537,7 +6550,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		dismissSystemPopUp();
 		switch (userType) {
 		case "Guest":
-			launchCheck(userType);
+		launchCheck(userType);
 			navigationToMyPlanFromHome("NewRegister");
 			navigationToMyPlanFromHome("Logged in");
 			playerInLineLoginCheck();
@@ -7687,10 +7700,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 	public void audioTrackSelection() throws Exception {
 		HeaderChildNode("Validating the Audio Track Selection");
-		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter("audioTrackContent");
+		//String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("audioTrackContent");
+		String keyword="Episode 13 - Agent Raghav";
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
-		type(PWAHomePage.objSearchField, keyword + "\n", "Search");
+		type(PWAHomePage.objSearchField, keyword, "Search");
 		waitTime(5000);
 		for (int i = 0; i < 2; i++) {
 			try {
@@ -11664,6 +11677,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
+		PartialSwipe("UP", 1);
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Contests"),
 				"'Games, Quizzes & Contests'");
@@ -11679,6 +11693,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
+		PartialSwipe("UP", 1);
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Before TV"), "'Before TV'");
 		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Before TV"),
@@ -11688,6 +11703,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		Back(1);
 		waitTime(2000);
+		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
 		PartialSwipe("UP", 1);
@@ -11720,6 +11736,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(1000);
 		PartialSwipe("UP", 1);
 		waitTime(1000);
+		PartialSwipe("UP", 1);
+		waitTime(3000);
 		PartialSwipe("UP", 1);
 		waitTime(3000);
 		try {

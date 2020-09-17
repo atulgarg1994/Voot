@@ -98,7 +98,7 @@ public class Drivertools {
 		this.deviceName = deviceName;
 	}
 
-	protected static String getPlatform() {
+	public static String getPlatform() {
 		return platform;
 	}
 
@@ -246,7 +246,8 @@ public class Drivertools {
 		setURL(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url"));
 		setRunModule(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runModule"));
 		setRunMode(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runMode"));
-		if(getTestName().equals("")) {
+		
+		if(getTestName().equals("Android_UserSessionManagement")) {
 			setPlatfrom(Utilities.setPlatform);
 		}
 

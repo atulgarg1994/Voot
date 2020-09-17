@@ -25,12 +25,6 @@ public class PWAPremiumPage {
 				+ "']/parent::div/following-sibling::div/child::div[@class='playIcon']");
 	}
 
-	public static By objTrayTitle(String trayTitle) {
-
-		return By.xpath("//div[text()='" + trayTitle + "']");
-
-	}
-
 	public static By objTrayAssetCard(String assetTitle) {
 
 		return By.xpath("//img[@title='" + assetTitle
@@ -123,4 +117,14 @@ public class PWAPremiumPage {
 	
 	
 	public static By objUpgradeToPremiumCloseBtn = By.xpath("//div[@class='noSelect playBtn']");
+	
+	public static By obj1stContentInShowsPage = By
+			.xpath("(//div[@class='showCard sameEpisodeCard underMetaSameCard sameEpisode zoomCardHover minutelyUrl card marginRight positionRelative'])[1]");
+
+	public static By objTrayTitle(String trayTitle) {
+		return By.xpath("//*[text()='" + trayTitle + "']");
+	}
+	
+	public static By obj1stContentInShowDetailPage = By
+			.xpath("(//*[@class='showCard sameEpisodeCard underMetaSameCard sameEpisode zoomCardHover minutelyUrl card marginRight positionRelative'])[1]");
 }

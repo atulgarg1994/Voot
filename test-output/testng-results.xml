@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Android" duration-ms="991928" started-at="2020-09-11T11:49:47Z" finished-at="2020-09-11T12:06:19Z">
+  <suite name="Android" duration-ms="169041" started-at="2020-09-16T14:27:13Z" finished-at="2020-09-16T14:30:02Z">
     <groups>
     </groups>
-    <test name="Android_Settings" duration-ms="991928" started-at="2020-09-11T11:49:47Z" finished-at="2020-09-11T12:06:19Z">
-      <class name="com.zee5.ApplicasterScripts.Android_Settings">
-        <test-method status="PASS" signature="AppLaunch()[pri:0, instance:com.zee5.ApplicasterScripts.Android_Settings@22555ebf]" name="AppLaunch" is-config="true" duration-ms="46186" started-at="2020-09-11T17:19:55Z" finished-at="2020-09-11T17:20:41Z">
+    <test name="Android_BeforeTV" duration-ms="169041" started-at="2020-09-16T14:27:13Z" finished-at="2020-09-16T14:30:02Z">
+      <class name="com.zee5.ApplicasterScripts.Android_BeforeTV">
+        <test-method status="PASS" signature="AppLaunch()[pri:0, instance:com.zee5.ApplicasterScripts.Android_BeforeTV@22555ebf]" name="AppLaunch" is-config="true" duration-ms="80304" started-at="2020-09-16T19:57:22Z" finished-at="2020-09-16T19:58:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- AppLaunch -->
-        <test-method status="PASS" signature="Login(java.lang.String)[pri:0, instance:com.zee5.ApplicasterScripts.Android_Settings@22555ebf]" name="Login" duration-ms="54752" started-at="2020-09-11T17:20:41Z" finished-at="2020-09-11T17:21:36Z">
+        <test-method status="PASS" signature="Login(java.lang.String)[pri:0, instance:com.zee5.ApplicasterScripts.Android_BeforeTV@22555ebf]" name="Login" duration-ms="38201" started-at="2020-09-16T19:58:42Z" finished-at="2020-09-16T19:59:20Z">
           <params>
             <param index="0">
               <value>
@@ -22,42 +22,22 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Login -->
-        <test-method status="PASS" signature="Settings_Screen(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:1, instance:com.zee5.ApplicasterScripts.Android_Settings@22555ebf]" name="Settings_Screen" duration-ms="850302" started-at="2020-09-11T17:21:37Z" finished-at="2020-09-11T17:35:47Z">
+        <test-method status="PASS" signature="BeforeTV(java.lang.String)[pri:1, instance:com.zee5.ApplicasterScripts.Android_BeforeTV@22555ebf]" name="BeforeTV" duration-ms="33318" started-at="2020-09-16T19:59:21Z" finished-at="2020-09-16T19:59:55Z">
           <params>
             <param index="0">
               <value>
                 <![CDATA[SubscribedUser]]>
               </value>
             </param>
-            <param index="1">
-              <value>
-                <![CDATA[English]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[Marathi]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[Aditya praises Paaru]]>
-              </value>
-            </param>
-            <param index="4">
-              <value>
-                <![CDATA[Paaru gets tipsy]]>
-              </value>
-            </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Settings_Screen -->
-        <test-method status="PASS" signature="tearDownApp()[pri:0, instance:com.zee5.ApplicasterScripts.Android_Settings@22555ebf]" name="tearDownApp" is-config="true" duration-ms="20462" started-at="2020-09-11T17:35:59Z" finished-at="2020-09-11T17:36:19Z">
+        </test-method> <!-- BeforeTV -->
+        <test-method status="PASS" signature="tearDownApp()[pri:0, instance:com.zee5.ApplicasterScripts.Android_BeforeTV@22555ebf]" name="tearDownApp" is-config="true" duration-ms="5888" started-at="2020-09-16T19:59:56Z" finished-at="2020-09-16T20:00:02Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownApp -->
-      </class> <!-- com.zee5.ApplicasterScripts.Android_Settings -->
-    </test> <!-- Android_Settings -->
+      </class> <!-- com.zee5.ApplicasterScripts.Android_BeforeTV -->
+    </test> <!-- Android_BeforeTV -->
   </suite> <!-- Android -->
 </testng-results>

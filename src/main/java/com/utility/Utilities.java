@@ -96,6 +96,10 @@ public class Utilities extends ExtentReporter {
 		return DriverInstance.tlWebDriver.get();
 	}
 
+	public String getPlatform() {
+		return DriverInstance.getPlatform();
+	}
+	
 	static WebDriverWait wait;
 
 	public static JavascriptExecutor js;
@@ -426,7 +430,7 @@ public class Utilities extends ExtentReporter {
 	public static boolean verifyIsElementDisplayed(By by,String validationtext) {
 		getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 		List<WebElement> list = getDriver().findElements(by);
-		getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		if (list.size() == 0) {
 			logger.info("Element " + validationtext + " " + " is not displayed");
 			extent.extentLogger("checkElementPresent", "" + validationtext + " is not displayed");

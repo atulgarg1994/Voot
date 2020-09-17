@@ -72,6 +72,9 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("ExpiredUserName", "zee5latest@gmail.com");
 			params.put("ExpiredUserPassword", "User@123");
 			params.put("audioTrackContent", "Episode 13 - Agent Raghav");
+			params.put("keyword", "Jodi Hakki");
+			params.put("keyword1", "Shivaji Surathkal");
+			params.put("keyword2", "Chemistry of Kariyappa");
 
 		}
 		if(region.equals("MH")) {
@@ -112,6 +115,9 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("ExpiredUserName", "zee5latest@gmail.com");
 			params.put("ExpiredUserPassword", "User@123");
 			params.put("audioTrackContent", "Episode 13 - Agent Raghav");
+			params.put("keyword", "Jodi Hakki");
+			params.put("keyword1", "Shivaji Surathkal");
+			params.put("keyword2", "Chemistry of Kariyappa");
 		}
         suite.setParameters(params);	
 	}

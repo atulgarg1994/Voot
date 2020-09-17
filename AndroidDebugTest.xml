@@ -132,11 +132,17 @@
       		<class name="com.zee5.ApplicasterScripts.DeepLinkValidation"/>
     	</classes> 
   </test> 
-  -->
   
   <test name="Android_Player_LandscapeMode">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_Player_LandscapeMode" />
+		</classes>
+	</test>
+	-->
+	
+	<test name="Android_BeforeTV">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_BeforeTV" />
 		</classes>
 	</test>
 	

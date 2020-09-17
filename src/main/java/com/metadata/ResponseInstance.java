@@ -630,9 +630,9 @@ public class ResponseInstance {
 		return resp;
 	}
 	
-	public static ArrayList<String> BeforeTV(String UserType,String tabName) {
+	public static boolean BeforeTV(String UserType,String tabName) {
 		Response resp = null;
-		ArrayList<String> titleOfTray = new ArrayList<String>();
+		boolean title = false;
 		String xAccessToken = getXAccessTokenWithApiKey();
 		if(tabName.equals("Home")) {
 			resp = given().headers("x-access-token", xAccessToken).when().get(
@@ -641,11 +641,14 @@ public class ResponseInstance {
 			resp = given().headers("x-access-token", xAccessToken).when().get(
 					"https://gwapi.zee5.com/content/collection/0-8-tvshows?page=1&limit=10&item_limit=20&translation=en&country=IN&version=6&languages=en,kn&");
 		}
-		System.out.println(resp.jsonPath().getList("buckets").size());
+		
 		for(int i=0;i<resp.jsonPath().getList("buckets").size(); i++) {
-			titleOfTray.add(resp.jsonPath().getString("buckets["+i+"].title"));
+			title = resp.jsonPath().getString("buckets["+i+"].title").contains("Premiere Episodes | Before");
+			if(title) {
+				break;
+			}
 		}
-		return titleOfTray;
+		return title;
 	}
 	
 	public static void main(String[] args) {

@@ -64,9 +64,12 @@ public class ExtentReporter implements ITestListener {
 
 	@SuppressWarnings("static-access")
 	public void setPlatform(String platform) {
-		this.platform = platform;
+		this.platform = platform; 
 	}
 
+	public String getPlatformFromtools() {
+		return DriverInstance.getPlatform();
+	}
 	@SuppressWarnings("static-access")
 	public String getAppVersion() {
 		return this.AppVersion;
@@ -86,11 +89,11 @@ public class ExtentReporter implements ITestListener {
 	}
 
 	public void initExtentDriver() {
-		if (getPlatform().equals("Web")) {
+		if (getPlatformFromtools().equals("Web")) {
 			src = ((TakesScreenshot) getWebDriver()).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
-		} else if (getPlatform().equals("Android") || getPlatform().equals("PWA")) {
+		} else if (getPlatformFromtools().equals("Android") || getPlatformFromtools().equals("PWA")) {
 			src = ((TakesScreenshot) getDriver()).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
-		} else if (getPlatform().equals("MPWA")) {
+		} else if (getPlatformFromtools().equals("MPWA")) {
 			src = ((TakesScreenshot) getDriver()).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
 		}
 	}
@@ -128,6 +131,7 @@ public class ExtentReporter implements ITestListener {
 
 	@Override
 	public void onTestStart(ITestResult result) {
+		System.out.println(DriverInstance.getRunModule());
 		if ((Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals)
 				&& DriverInstance.startTest) || result.getName().equals("Login")
 				|| result.getName().equals("PWAWEBLogin")) {
@@ -192,10 +196,10 @@ public class ExtentReporter implements ITestListener {
 
 	@Override
 	public void onFinish(ITestContext context) {
-		if (!getPlatform().equals("Web")) {
+		if (!getPlatformFromtools().equals("Web")) {
 			extent.get().setSystemInfo("Device Info ", DeviceDetails.DeviceInfo(context.getName()));
 			extent.get().setSystemInfo("App version : ", getAppVersion().replace("Build", ""));
-		} else if (getPlatform().equals("Web")) {
+		} else if (getPlatformFromtools().equals("Web")) {
 			extent.get().setSystemInfo("Browser Name ", BrowserType);
 //			extent.get().setSystemInfo("Browser Version ", BrowserType);
 		}

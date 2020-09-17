@@ -4,6 +4,7 @@
   <parameter name="searchKeyword8" value="Shivaji Surathkal"/>
   <parameter name="searchKeyword7" value="Paaru"/>
   <parameter name="searchModuleKeyword" value="Kamali"/>
+  <parameter name="searchKeyword6" value="Jamai 2.0"/>
   <parameter name="SubscriptionPackwithMultipleAccessPaclsUsername" value="testzee5_cp@gmail.com"/>
   <parameter name="SubscribedUserWith15daysExpiryPassword" value="123456"/>
   <parameter name="invalidSearchKeyword" value="@$_-(;_+"/>
@@ -17,14 +18,15 @@
   <parameter name="tabName1" value="Home"/>
   <parameter name="tabName2" value="Movies"/>
   <parameter name="tabName3" value="ZEE5 Originals"/>
+  <parameter name="searchKeyword9" value="Jamai 2.0"/>
   <parameter name="validPhnNumber" value="7892215214"/>
   <parameter name="SubscribedUserName" value="zeetest998@test.com"/>
   <parameter name="SubscriptionPackwithMultipleAccessPaclsPassword" value="123456"/>
   <parameter name="UnRegisteredMobile" value="8073661163"/>
-  <parameter name="NonsubscribedUserName" value="zee5latest@gmail.com"/>
+  <parameter name="NonsubscribedUserName" value="igszee23@yopmail.com"/>
   <parameter name="RSVODPassword" value="ABCD1234"/>
   <parameter name="displayLanguageSelection2" value="Marathi"/>
-  <parameter name="NonsubscribedPassword" value="User@123"/>
+  <parameter name="NonsubscribedPassword" value="123456"/>
   <parameter name="SettingsNonsubscribedUserName" value="zeetest@gmail.com"/>
   <parameter name="runMode" value="Suites"/>
   <parameter name="RegisteredMobilePassword" value="User@123"/>
@@ -70,9 +72,9 @@
   <listeners>
     <listener class-name="com.extent.ExtentReporter"/>
   </listeners>
-  <test name="Android_Settings">
+  <test name="Android_BeforeTV">
     <classes>
-      <class name="com.zee5.ApplicasterScripts.Android_Settings"/>
+      <class name="com.zee5.ApplicasterScripts.Android_BeforeTV"/>
     </classes>
-  </test> <!-- Android_Settings -->
+  </test> <!-- Android_BeforeTV -->
 </suite> <!-- Failed suite [Android] -->
