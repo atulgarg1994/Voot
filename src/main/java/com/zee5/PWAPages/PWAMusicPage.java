@@ -38,6 +38,9 @@ public class PWAMusicPage {
 //	Recommended try header
 	public static By objRecommendedTrayHeader = By.xpath("//div[@class='recommendRow']//h2[.='Recommended Videos']");
 
+	// Music card name from music tray
+		public static By objMusicCardImageInMusicTab = By.xpath("(//div[@class='latestEpisodeTrayWrapper'])[1]//div[@data-index='0']");
+		
 //	Minute content
 	public static By objMinuteContent = By.xpath("(//video[@class='minute_apv'])[1]");
 

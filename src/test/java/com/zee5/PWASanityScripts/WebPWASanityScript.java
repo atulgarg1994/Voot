@@ -237,63 +237,63 @@ public class WebPWASanityScript {
 
 	// -------------------------TEJAS Carousel--------------------------
 
-	@Test(priority = 20)
-	@Parameters({ "userType" })
-	public void WebPWACarouselAndLanding(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-		// SANITY
-		Zee5WEBPWASanityBusinessLogic.ValidatingWebPwaCarousalinalltabs(userType);
+		@Test(priority = 26)
+		@Parameters({ "userType" })
+		public void WebPWACarouselAndLanding(String userType) throws Exception {
+			Zee5WEBPWASanityBusinessLogic.navigateToHome();
+			// SANITY
+			Zee5WEBPWASanityBusinessLogic.ValidatingWebPwaCarousalinalltabs(userType);
 
-		// SMOKE
-		// auto rotating
-		Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Home");
-		Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Movies");
-		Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Free Movies");
-		Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Shows");
-		Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Premium");
-		Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Play");
-		Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Kids");
-//  			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Stories");
-		Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("ZEE5 Originals");
-		// play icon functionality
-		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("ZEE5 Originals");
-		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Kids");
-		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Premium");
-		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Home");
-		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Shows");
-		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Free Movies");
-		;
-		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Movies");
-		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Home");
-		// premium icon functionality
-		Zee5WEBPWASanityBusinessLogic.verifyPremiumIconFunctionality("Home", userType);
-		Zee5WEBPWASanityBusinessLogic.verifyPremiumIconFunctionality("Premium", userType);
-		Zee5WEBPWASanityBusinessLogic.verifyPremiumIconFunctionality("Movies", userType);
-		Zee5WEBPWASanityBusinessLogic.verifyPremiumIconFunctionality("ZEE5 Originals", userType);
-		// left right functionality
-		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Home");
-		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Movies");
-		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Free Movies");
-		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Shows");
-		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Premium");
-		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Play");
-		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Kids");
-//  			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Stories");
-		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("ZEE5 Originals");
-		// zee5WebBusinessLogic.verifyLeftRightFunctionality("News");
-		// metadata
-		String languageSmallText = Zee5WEBPWASanityBusinessLogic.allSelectedLanguagesWEB();
-		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("ZEE5 Originals", "zeeoriginals", languageSmallText);
-//  			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Stories", "stories", "");
-		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Kids", "kids", languageSmallText);
-		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Play", "play", languageSmallText);
-		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Premium", "premiumcontents", languageSmallText);
-		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Shows", "tvshows", languageSmallText);
-		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Free Movies", "freemovies", languageSmallText);
-		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Movies", "movies", languageSmallText);
-		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Home", "home", languageSmallText);
-		// zee5WebBusinessLogic.verifyMetadataOnNews("News", "news", languageSmallText);
-	}
+			// SMOKE
+			// auto rotating
+			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Home");
+			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Movies");
+//			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Free Movies");
+			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Shows");
+			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Premium");
+			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Play");
+			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Kids");
+//	  			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Stories");
+			Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("ZEE5 Originals");
+			// play icon functionality
+			Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("ZEE5 Originals");
+			Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Kids");
+			Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Premium");
+			Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Home");
+			Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Shows");
+//			Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Free Movies");
+			;
+			Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Movies");
+			Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Home");
+			// premium icon functionality
+			Zee5WEBPWASanityBusinessLogic.verifyPremiumIconFunctionality("Home", userType);
+			Zee5WEBPWASanityBusinessLogic.verifyPremiumIconFunctionality("Premium", userType);
+			Zee5WEBPWASanityBusinessLogic.verifyPremiumIconFunctionality("Movies", userType);
+			Zee5WEBPWASanityBusinessLogic.verifyPremiumIconFunctionality("ZEE5 Originals", userType);
+			// left right functionality
+			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Home");
+			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Movies");
+//			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Free Movies");
+			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Shows");
+			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Premium");
+			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Play");
+			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Kids");
+//	  			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Stories");
+			Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("ZEE5 Originals");
+			// zee5WebBusinessLogic.verifyLeftRightFunctionality("News");
+			// metadata
+			String languageSmallText = Zee5WEBPWASanityBusinessLogic.allSelectedLanguagesWEB();
+			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("ZEE5 Originals", "zeeoriginals", languageSmallText);
+//	  			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Stories", "stories", "");
+			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Kids", "kids", languageSmallText);
+			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Play", "play", languageSmallText);
+			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Premium", "premiumcontents", languageSmallText);
+			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Shows", "tvshows", languageSmallText);
+//			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Free Movies", "freemovies", languageSmallText);
+			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Movies", "movies", languageSmallText);
+			Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Home", "home", languageSmallText);
+			// zee5WebBusinessLogic.verifyMetadataOnNews("News", "news", languageSmallText);
+		}
 
 	// -------------------------TEJAS Recommendation--------------------------
 

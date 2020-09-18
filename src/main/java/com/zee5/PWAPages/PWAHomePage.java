@@ -9,6 +9,8 @@ public class PWAHomePage {
 
 	// Subscribe Btn
 	public static By objSubscribeBtn = By.xpath("//*[@class='subscribeBtn noSelect']");
+	
+	public static By objAppInstallPopUpClose = By.xpath("(//div[@class='afb-close-accessibility-overlay'])[2]");
 
 	// Search Btn
 	public static By objSearchBtn = By.xpath("//*[contains(@class,'searchBtn')]");

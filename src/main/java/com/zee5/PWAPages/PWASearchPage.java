@@ -8,6 +8,8 @@ public class PWASearchPage {
 
 	// Back button in Search Edit box
 	public static By objBackButton = By.xpath("//div[contains(@class,'iconNavi-ic_back')]");
+	
+	public static By objSearchButton = By.xpath("//a[@class='noSelect searchBtn iconInitialLoad-ic_search']");
 
 	// Voice Search button in Search Edit box
 	public static By objVoiceSearchButton = By.xpath("//div[contains(@class,'searchMic')]");

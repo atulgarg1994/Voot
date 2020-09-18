@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -58,7 +57,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 	/** The Constant logger. */
 //	final static Logger logger = Logger.getLogger("rootLogger");
+	
 	static LoggingUtils logger = new LoggingUtils();
+
 	/** The Android getDriver(). */
 	public AndroidDriver<AndroidElement> androidDriver;
 
@@ -550,26 +551,19 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		// Get the email and password from properties
 		String email = "";
 		String password = "";
+		dismissAppInstallPopUp();
+		dismiss3xPopUp();
+		dismissDisplayContentLanguagePopUp();
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.extentLogger("Guest", "Accessing the application as Guest user");
-			dismiss3xPopUp();
-			dismissDisplayContentLanguagePopUp();
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
-			dismiss3xPopUp();
-			dismissDisplayContentLanguagePopUp();
 			extent.extentLogger("Subscribed", "Accessing the application as Subscribed user");
-			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedUserName");
-			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedPassword");
+			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-			dismiss3xPopUp();
-			dismissDisplayContentLanguagePopUp();
 			extent.extentLogger("Non-Subscribed", "Accessing the application as Non-Subscribed user");
-			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("NonsubscribedUserName");
-			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("NonsubscribedPassword");
+			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
 		}
 		if (userType.equalsIgnoreCase("SubscribedUser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
 			if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
@@ -591,9 +585,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				waitTime(5000);
 				dismissSystemPopUp();
 				directClickReturnBoolean(PWALoginPage.objLoginBtn, "Login Button");
-				waitTime(3000);
-				//waitTime(10000);
-				//dismissSystemPopUp();
+				waitTime(10000);
+				dismissSystemPopUp();
 				break;
 
 			case "Mobile":
@@ -802,6 +795,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			directClickReturnBoolean(PWAHomePage.obj3xfasterPopUpNoThanks, "NO THANKS in 3x Pop Up");
 			getDriver().context("CHROMIUM");
 		}
+	}
+	
+	public void dismissAppInstallPopUp() throws Exception{
+		directClickReturnBoolean(PWAHomePage.objAppInstallPopUpClose, "Close in App Install Pop Up");	
 	}
 
 	/** ===================SUSHMA - SEARCH===================================== */
@@ -1939,7 +1936,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		boolean clickedasset = false;
 		for (int i = 0; i < 5; i++) {
-			if (directClickReturnBoolean(PWAMusicPage.objMusicCardInMusicTab, "Music Card")) {
+			if (directClickReturnBoolean(PWAMusicPage.objMusicCardImageInMusicTab, "Music Card")) {
 				clickedasset = true;
 				break;
 			} else {
@@ -2290,6 +2287,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		liveLandingPage();
 		live();
 		premiumPopUp();
+		//navigateToAnyScreen("Live TV");
 		ChannelGuide(UserType);
 	}
 
@@ -2805,7 +2803,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		} else if (userType.equals("NonSubscribedUser")) {
 			extent.HeaderChildNode("Validating page loading functionality when data is turned off and on");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objProfileIcon, "Profile icon");
-			if (verifyIsElementDisplayed(PWALoginPage.objSpinnerInLogin, "Spinner")) {
+			if (checkElementExist(PWALoginPage.objSpinnerInLogin, "Spinner")) {
 				logger.info("Profile page is not loaded when internet is turned off");
 				extent.extentLogger("Profile", "Profile page is not loaded when internet is turned off");
 			}
@@ -8823,8 +8821,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 
 	public void searchScreen(String UserType) throws Exception {
-		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter("premiumMovie");
+		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("premiumMovie");
 		landingOnSearchScreen();
 		voiceInput();
 		movieSearchResult(keyword);

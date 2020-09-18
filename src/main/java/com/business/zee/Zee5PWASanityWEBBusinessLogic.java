@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9409,9 +9408,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		extent.HeaderChildNode("Validating that user is asked to give the voice input post tapping on microphone icon");
 
-		waitTime(5000);
-
 		if (BROWSER.equals("Chrome")) {
+			
+			waitTime(5000);
+			click(PWASearchPage.objSearchButton, "seach icon");
 			click(PWASearchPage.objVoiceSearchButton, "Voice seach icon");
 
 			logger.info("Voice Search Icon is present in Chrome Browser and clicked on Voice Search Icon ");
