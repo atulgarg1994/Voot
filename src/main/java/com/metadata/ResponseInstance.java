@@ -338,6 +338,8 @@ public class ResponseInstance {
 			page = "tvshows";
 		} else if (page.equals("premium")) {
 			page = "premiumcontents";
+		} else if (page.equals("club")) {
+			page = "5851";
 		}
 		if (page.equals("stories")) {
 			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";

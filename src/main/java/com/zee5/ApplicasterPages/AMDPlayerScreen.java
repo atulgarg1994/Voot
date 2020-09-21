@@ -24,7 +24,6 @@ public class AMDPlayerScreen {
 	public static By objTitleOnPlayer = By.xpath("//*[@id='title_main']");
 	public static By objPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerElevationParent']");
 	
-	public static By objAd = By.xpath("(//*[contains(text(),'Ad :')])");
 	public static By objQuality = By.xpath("//*[@id='icon_quality_text']");
 	public static By objQualityOptions = By.xpath("//*[@id='textView2']");
 	public static By objQualityOptions(int i) {
@@ -81,4 +80,6 @@ public class AMDPlayerScreen {
 	public static By objCountDownTimerInUpNextCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/counddownwatchcredit']");
 	
 	public static By objfbLoginPage = By.xpath("//*[@content-desc='Create New Facebook Account'] | //*[@content-desc='Log In'] | //*[@text='Log In'] | //*[@text='Create New Facebook Account']");
+
+	public static By objAd = By.xpath("(//*[contains(text(),'Ad :')]) | //*[contains(text(),'Ad')]");
 }

@@ -127,4 +127,7 @@ public class PWAPremiumPage {
 	
 	public static By obj1stContentInShowDetailPage = By
 			.xpath("(//*[@class='showCard sameEpisodeCard underMetaSameCard sameEpisode zoomCardHover minutelyUrl card marginRight positionRelative'])[1]");
+	public static By objThumbnail = By
+			.xpath("(//*[@class='showCard sameEpisodeCard underMetaSameCard sameEpisode zoomCardHover minutelyUrl card marginRight positionRelative' or @class='movieCard card marginRight minutelyUrl zoomCardHover'])[1]");
+
 }

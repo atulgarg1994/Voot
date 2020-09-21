@@ -4,8 +4,6 @@ import org.openqa.selenium.By;
 
 public class AMDSearchScreen {
 
-	public static By objSearchIcon = By.xpath(
-			"//*[@class='android.widget.ImageView' and ./parent::*[@class='android.support.v7.widget.LinearLayoutCompat']]");
 
 	public static By objHomeOption = By
 			.xpath("//*[@id='bb_bottom_bar_icon' and (./preceding-sibling::* | ./following-sibling::*)[@text='Home']]");
@@ -217,4 +215,6 @@ public class AMDSearchScreen {
 
 	public static By objFirstContentInSearchResult = By.xpath(
 			"(//*[@resource-id='com.graymatrix.did:id/tabLayout_container']/following-sibling::*/child::*/child::*/child::*/child::*)[1]/child::*[@resource-id='com.graymatrix.did:id/item_primary_text']");
+	
+	public static By objSearchIcon = By.xpath("//*[@id='title_and_logo_container']//following-sibling::*");
 }

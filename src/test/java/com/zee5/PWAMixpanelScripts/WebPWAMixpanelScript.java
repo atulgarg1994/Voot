@@ -80,12 +80,36 @@ public class WebPWAMixpanelScript {
 	}
 
 	@Test(priority = 10)
-	@Parameters({ "userType" })
-	public void verifyClearSearchHistoryEvent(String userType) throws Exception {
+	@Parameters({ "userType", "keyword2" })
+	public void verifyClearSearchHistoryEvent(String userType,String keyword2) throws Exception {
 		System.out.println("Verify Clear Search Histroy Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyThumbnailClickEvent(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyClearSearchHistoryEvent(userType, keyword2);
+		}
+	
+	@Test(priority = 11)
+	@Parameters({ "userType" })
+	public void verifyParentalRestrictionAndSettingChangedEvent(String userType) throws Exception {
+		System.out.println("Verify Parental Restriction And Setting Changed Event");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch(true);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalRestrictionAndSettingChangedEvent(userType);
 	}
 
+	@Test(priority = 12)
+	@Parameters({ "userType", "keyword1" })
+	public void verifyAddAndRemoveFomWatchlistAndShareEvent(String userType,String keyword1) throws Exception {
+		System.out.println("Verify Add And Remove Fom Watchlist And Share Event");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAddAndRemoveFomWatchlistAndShareEvent(userType, keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyShareEventFromShowDetailPage(userType, keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAddAndRemoveFomWatchlistAndShareEventByMouseHover(userType);
+		}
+	
+	@Test(priority = 13)
+	@Parameters({ "userType", "keyword1" })
+	public void verifyQualityChangeEvent(String userType,String keyword1) throws Exception {
+		System.out.println("Verify Quality Change Event");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyQualityChangeEvent(keyword1);
+		}
+	
 	@AfterClass
 	public void tearDown() {
 		Zee5PWAWEBMixPanelBusinessLogic.tearDown();
