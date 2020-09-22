@@ -319,4 +319,6 @@ public class PWASearchPage {
 	public static By objSearchResult(String title) {
 		return By.xpath("(//*[@class='highLight' and contains(text(), '"+title+"')])[1]");
 	}
+	
+	public static By objSearchCancel = By.xpath("//*[@class='noSelect backBtnDesktop iconInitialLoad-ic_close']");
 }

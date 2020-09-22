@@ -94,6 +94,9 @@
 	
 	<parameter name="PackWithDiscountUsername" value="dmgowthu@mailinator.com" />
 	<parameter name="PackWithDiscountPassword" value="12345678" />
+	<parameter name="SubscribedUserClubPackUserName" value="clubpacktesting1@gmail.com" />
+    <parameter name="SubscribedUserClubPackPassword" value="000000" /> 
+    <parameter name="keyword3" value="Kam" />
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
@@ -136,6 +139,12 @@
   <test name="Android_Player_LandscapeMode">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_Player_LandscapeMode" />
+		</classes>
+	</test>
+	
+		<test name="Android_ClubPack">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_ClubPack" />
 		</classes>
 	</test>
 	-->

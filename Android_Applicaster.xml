@@ -111,6 +111,11 @@
 	<parameter name="SVODMovie" value="47 days" />
 	<parameter name="SVODMusic"
 		value="Kalede Hode Naanu - Chambal | Sathish Ninasam | Sonu Gowda" />
+	<parameter name="SearchVODContent"  value="Ammana Mane" />
+
+	<parameter name="SubscribedUserClubPackUserName" value="clubpacktesting1@gmail.com" />
+    <parameter name="SubscribedUserClubPackPassword" value="000000" /> 
+    <parameter name="keyword3" value="Kam" />
 
 
 	<listeners>
@@ -212,6 +217,12 @@
 	<test name="Android_BeforeTV">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_BeforeTV" />
+		</classes>
+	</test>
+	
+	<test name="Android_ClubPack">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_ClubPack" />
 		</classes>
 	</test>
 -->

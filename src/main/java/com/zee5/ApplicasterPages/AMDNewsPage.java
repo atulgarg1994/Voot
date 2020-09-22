@@ -37,5 +37,8 @@ public class AMDNewsPage {
 	public static By objThumbnailImg1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[10]");
 	
 	public static By objNextContentImg = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_image']");
-
+	
+	public static By objWatchlistIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/watch_list_image' and (./preceding-sibling::* | ./following-sibling::*)[@text='Watchlist']]");
+	
+	public static By objDownlaodOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/downlowd_image' and (./preceding-sibling::* | ./following-sibling::*)[@text='Download']]");
 }

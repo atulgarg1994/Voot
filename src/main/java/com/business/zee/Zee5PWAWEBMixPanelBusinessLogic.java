@@ -17,12 +17,14 @@ import com.zee5.PWAPages.PWAAddToWatchListPage;
 import com.zee5.PWAPages.PWAHamburgerMenuPage;
 import com.zee5.PWAPages.PWAHomePage;
 import com.zee5.PWAPages.PWALandingPages;
+import com.zee5.PWAPages.PWALanguageSettingsPage;
 import com.zee5.PWAPages.PWALiveTVPage;
 import com.zee5.PWAPages.PWALoginPage;
 import com.zee5.PWAPages.PWAPlayerPage;
 import com.zee5.PWAPages.PWAPremiumPage;
 import com.zee5.PWAPages.PWAQualitySettingsPage;
 import com.zee5.PWAPages.PWASearchPage;
+import com.zee5.PWAPages.PWAShowsPage;
 import com.zee5.PWAPages.PWASignupPage;
 import com.zee5.PWAPages.PWASubscriptionPages;
 
@@ -516,38 +518,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWALoginPage.objSignUpBtnWEB, "Sign up button");
 		waitForElementDisplayed(PWALoginPage.objEmailField, 5);
 		checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
-		type(PWALoginPage.objEmailField, "7892215", "PhoneNumber Field");
-		String PhoneNumberField = getText(PWALoginPage.objEmailField);
-		if (PhoneNumberField != null) {
-			logger.info("User is allowed to enter PhoneNumber");
-			extentLogger("PhoneNumber", "User is allowed to enter PhoneNumber in PhoneNumber Field");
-		}
-		checkElementDisplayed(PWALoginPage.objIncorrectPhoneNumberMessage,
-				"When User Enter Invalid PhoneNumber, Error Message");
-		type(PWALoginPage.objEmailField, "214", "PhoneNumber Field");
-		if (checkElementDisplayed(PWALoginPage.objIncorrectPhoneNumberMessage, "PhoneNumber Error Message") == false) {
-			logger.info("User is allowed to enter valid PhoneNumber");
-			extent.extentLogger("PhoneNumber", "User is allowed to enter valid PhoneNumber");
-		}
-		checkElementDisplayed(PWALoginPage.objCountryCode, "Country code field");
-		click(PWALoginPage.objCountryCode, "Country code field");
-		checkElementDisplayed(PWALoginPage.objCountryCodeDropDown, "Drop down of country code");
-		click(PWALoginPage.objCountryCodeAlgeria, "Algeria country code");
-		click(PWALoginPage.objCountryCode, "Country code field");
-		click(PWALoginPage.objCountryCodeAndoora, "Andoora country code");
-		click(PWALoginPage.objCountryCode, "Country code field");
-		click(PWALoginPage.objCountryCodeIndia, "India country code");
-
-		if (getWebDriver().findElement(PWASignupPage.objSignUpButtonHighlightedWeb).isEnabled()) {
-			logger.info("SignUp button is highlighted");
-			extent.extentLogger("Continue button", "SignUp button is highlighted");
-		}
-		click(PWASignupPage.objSignUpButtonHighlightedWeb, "SignUp Button");
-		extent.HeaderChildNode(
-				"Verifing that user is allowed to update the mobile number, password, date of birth and gender post navigating back from change number button");
-		waitTime(10000);
-		click(PWASignupPage.objChangeNumberLink, "Change number link");
-		waitTime(5000);
 		type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
 		click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
 		extent.HeaderChildNode("verifing OTP Screen");
@@ -742,10 +712,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		
 	}
 
-	public void verifyClearSearchHistoryEvent(String userType, String keyword2) throws Exception {
-		extent.HeaderChildNode("Verify Clear Search History Event");
+	public void verifySearchExecutedAndClearSearchHistoryEvent(String userType, String keyword3) throws Exception {
+		extent.HeaderChildNode("Verify Serach Executed and Clear Search History Event");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword2 + "\n", "Search Edit box: " + keyword2);
+		type(PWASearchPage.objSearchEditBox, keyword3 + "\n", "Search Edit box: " + keyword3);
 		waitTime(4000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchCloseButton, "Clear Search Icon");
 	}
@@ -933,6 +903,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 	
 	public void verifyShareEventFromShowDetailPage(String userType, String keyword) throws Exception {
+		
+		extent.HeaderChildNode("Verify Search Cancelled Event");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		click(PWASearchPage.objSearchCancel, "Close Button");
+		
 		extent.HeaderChildNode("Verify Share Event From Show Detail Page");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
@@ -988,6 +963,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		verifyAlert();
 		switchToParentWindow();
 		Thread.sleep(2000);
+		
+		extent.HeaderChildNode("Verify Content Bucket Swipe Event in Show Detail page");
+		click(PWAPremiumPage.objRightArrowBtn, "Right Arrow Button");
+		click(PWAPremiumPage.objLeftArrowBtn, "Left Arrow Button");
+		
+		extent.HeaderChildNode("Verify Episode List Chosen Event in Show Detail page");
+		click(PWAShowsPage.objShowDetailEpisodeDropdown, "Episode Dropdown");
+		click(PWAShowsPage.objShowDetailEpisodeDropdownValues(2), "Episodes 11-20");
+		
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 		extent.HeaderChildNode("Verify Share Event By Mouse Hovering on a Content Card in Show Detail Page");
 		Actions actions = new Actions(getWebDriver());
@@ -1036,5 +1020,191 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPlayerPage.settingsBtn, "Setting icon");
 			click(PWAPlayerPage.qualityBtn, "Quality option");
 		}
+		extent.HeaderChildNode("Verify Content Bucket Swipe Event in Playback page");
+		click(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
+		click(PWAPremiumPage.objPreviousArrowBtn, "Left Arrow Button");
+	}
+	
+	
+	public void verifyDisplayAndContentLanguageChangeEvent() throws Exception {
+		extent.HeaderChildNode("Verify Display And Content Language Change Event");
+		verifyElementPresentAndClick(PWAHomePage.objLanguageBtn, "Language button");
+		JSClick(PWALanguageSettingsPage.objLanguage("Hindi"), "Hindi display language");
+		JSClick(PWALanguageSettingsPage.objApplyBtn, "Apply button");
+		JSClick(PWALanguageSettingsPage.objLanguage("Hindi"), "Hindi content language");
+		JSClick(PWALanguageSettingsPage.objApplyBtn, "Apply button");
+		
+		verifyElementPresentAndClick(PWAHomePage.objLanguageBtn, "Language button");
+		JSClick(PWALanguageSettingsPage.objLanguage("English"), "English display language");
+		JSClick(PWALanguageSettingsPage.objApplyBtn, "Apply button");
+		JSClick(PWALanguageSettingsPage.objLanguage("Hindi"), "Hindi content language");
+		JSClick(PWALanguageSettingsPage.objApplyBtn, "Apply button");
+	}
+	
+	public void verifyContentBucketSwipeEvent() throws Exception {
+		extent.HeaderChildNode("Verify Content Bucket Swipe Event Across tabs");
+		click(PWAPremiumPage.objNextArrowBtn, "Right Arrow Button");
+		click(PWAPremiumPage.objPreviousArrowBtn, "Left Arrow Button");
+		navigateToAnyScreenOnWeb("Shows");
+		click(PWAPremiumPage.objNextArrowBtn, "Right Arrow Button");
+		click(PWAPremiumPage.objPreviousArrowBtn, "Left Arrow Button");
+		navigateToAnyScreenOnWeb("Movies");
+		click(PWAPremiumPage.objNextArrowBtn, "Right Arrow Button");
+		click(PWAPremiumPage.objPreviousArrowBtn, "Left Arrow Button");
+		navigateToAnyScreenOnWeb("Premium");
+		click(PWAPremiumPage.objNextArrowBtn, "Right Arrow Button");
+		click(PWAPremiumPage.objPreviousArrowBtn, "Left Arrow Button");
+	}
+
+	public void verifyCarouselBannerSwipeEvent() throws Exception {
+		extent.HeaderChildNode("Verify Carousel Banner Swipe Event Across tabs");
+		click(PWAPremiumPage.objRightArrowBtn, "Right Arrow Button");
+		click(PWAPremiumPage.objLeftArrowBtn, "Left Arrow Button");
+		navigateToAnyScreenOnWeb("Shows");
+		click(PWAPremiumPage.objRightArrowBtn, "Right Arrow Button");
+		click(PWAPremiumPage.objLeftArrowBtn, "Left Arrow Button");
+		navigateToAnyScreenOnWeb("Movies");
+		click(PWAPremiumPage.objRightArrowBtn, "Right Arrow Button");
+		click(PWAPremiumPage.objLeftArrowBtn, "Left Arrow Button");
+		navigateToAnyScreenOnWeb("Premium");
+		click(PWAPremiumPage.objRightArrowBtn, "Right Arrow Button");
+		click(PWAPremiumPage.objLeftArrowBtn, "Left Arrow Button");
+	}
+	
+	public void verifyAdBannerImpressionEvent() throws Exception {
+		extent.HeaderChildNode("Verify Ad Banner Impression Event Across tabs");
+		checkElementDisplayed(PWAHomePage.objAdBanner, "Ad Banner");
+		navigateToAnyScreenOnWeb("Shows");
+		waitTime(5000);
+		checkElementDisplayed(PWAHomePage.objAdBanner, "Ad Banner");
+		navigateToAnyScreenOnWeb("Movies");
+		waitTime(5000);
+		checkElementDisplayed(PWAHomePage.objAdBanner, "Ad Banner");
+		navigateToAnyScreenOnWeb("Premium");
+		waitTime(5000);
+		checkElementDisplayed(PWAHomePage.objAdBanner, "Ad Banner");
+	}
+	
+	public void verifyDefaultSettingRestoredEvent(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Default Setting Restored Event");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWAHamburgerMenuPage.objMoreSettingInHamburger, "More settings");
+			click(PWAHamburgerMenuPage.objResetSettingsToDefault, "Reset Settings to Default");
+			waitTime(3000);
+		}
+	}
+	
+	public void FilterLanguage(String lang) throws Exception {
+		click(PWALiveTVPage.objFilterLanguageChannelGuide, "Filter language");
+		int size = findElements(PWALiveTVPage.objSelectedlang).size();
+		for (int i = 1; i <= size; i++) {
+			click(PWALiveTVPage.objSelectedlang, "Selected language");
+		}
+		click(PWALiveTVPage.objSelectLang(lang), lang + " language");
+		click(PWALiveTVPage.objApplyBtn, "Apply button");
+	}
+	
+	public void verifySetReminderAndShareEventForUpcomingLiveProgram(String userType) throws Exception {
+		
+		navigateToAnyScreenOnWeb("Live TV");
+		wouldYouLikeToPopupClose();
+		click(PWALiveTVPage.objChannelGuideToggle, "Channel Guide");
+		
+		click(PWALiveTVPage.objTomorrowDate, "Tomorrow date");
+		FilterLanguage("Bengali");
+		
+		click(PWALiveTVPage.objBanglaShow1, "Show detail");
+		
+		if(!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Set Reminder Event");
+			click(PWALiveTVPage.objRemainderButton, "Reminder option");
+		}
+		extent.HeaderChildNode("Verify Share Event For Upcoming Live Program");
+		click(PWALiveTVPage.objUpcomingLiveProgramShareBtn, "Share button");
+		waitTime(3000);
+		click(PWALiveTVPage.objFacebookShareBtn, "Share to Facebook");
+		waitTime(3000);
+		verifyAlert();
+		switchToWindow(2);
+		if (!checkElementDisplayed(PWALiveTVPage.objPostToFacebookBtn, "Post to Facebook")) {
+			click(PWALiveTVPage.objFacebookEmailField, "Facebook Email field");
+			getWebDriver().findElement(PWALiveTVPage.objFacebookEmailField).sendKeys("igszeetest@gmail.com");
+			click(PWALiveTVPage.objFacebookPasswordField, "Facebook Password field");
+			getWebDriver().findElement(PWALiveTVPage.objFacebookPasswordField).sendKeys("igs@12345");
+			click(PWALiveTVPage.objFacebookLoginBtn, "Facebook Login button");
+			waitTime(4000);
+		}
+		click(PWALiveTVPage.objPostToFacebookBtn, "Post to Facebook");
+		waitTime(7000);
+		acceptAlert();
+		waitTime(3000);
+		switchToParentWindow();
+		waitTime(3000);
+		
+		click(PWALiveTVPage.objUpcomingLiveProgramShareBtn, "Share button");
+		Thread.sleep(2000);
+		click(PWAPlayerPage.twitterShareBtn, "Twitter share option");
+		Thread.sleep(2000);
+		switchToWindow(2);
+		Thread.sleep(2000);
+		verifyAlert();
+		waitTime(3000);
+		
+		if (checkElementDisplayed(PWALiveTVPage.objTwitterEmailField, "Twitter Email field")) {
+			waitTime(2000);
+			click(PWALiveTVPage.objTwitterEmailField, "Twitter Email field");
+			getWebDriver().findElement(PWALiveTVPage.objTwitterEmailField).sendKeys("zee5latest@gmail.com");
+			waitTime(2000);
+			click(PWALiveTVPage.objTwitterPasswordField, "Twitter Password field");
+			getWebDriver().findElement(PWALiveTVPage.objTwitterPasswordField).sendKeys("User@123");
+			click(PWALiveTVPage.objTwitterLoginButton, "Twitter Login button");
+			waitTime(2000);
+			verifyAlert();
+			waitTime(2000);
+		}
+		click(PWALiveTVPage.objTweetButton, "Tweet button");
+		waitTime(2000);
+		verifyAlert();
+		switchToParentWindow();
+		Thread.sleep(2000);
+				
+		if (checkElementDisplayed(PWALiveTVPage.objUpcomingLiveProgramCloseBtn, "Popup Close Button")) {
+			click(PWALiveTVPage.objUpcomingLiveProgramCloseBtn, "Popup Close Button");
+		}
+		waitTime(3000);
+	}
+	
+	public void wouldYouLikeToPopupClose() throws Exception {
+		if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup") == true) {
+			click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
+		}
+	}
+	
+	public void verifyChangePasswordStartedAndPasswordResultEvent(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Change Password Started And Change Password Result Event");
+		click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		click(PWAHamburgerMenuPage.objProfileIconInProfilePage, "profile icon");
+		click(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
+		click(PWAHamburgerMenuPage.objChangeOldPassword, "password field");
+		type(PWAHamburgerMenuPage.objChangeOldPassword, "igsindia123", "Current password field");
+		click(PWAHamburgerMenuPage.objNewPassword, "new password field");
+		type(PWAHamburgerMenuPage.objNewPassword, "igszee5", "new password field");
+		click(PWAHamburgerMenuPage.objNewPassword, "confirm password field");
+		type(PWAHamburgerMenuPage.objConfirmNewPassword, "igszee5", "Current confirm field");
+		waitTime(3000);
+		click(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted, "Update password button");
+		waitTime(2000);
+		
+		click(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
+		click(PWAHamburgerMenuPage.objChangeOldPassword, "password field");
+		type(PWAHamburgerMenuPage.objChangeOldPassword, "igszee5", "Current password field");
+		click(PWAHamburgerMenuPage.objNewPassword, "new password field");
+		type(PWAHamburgerMenuPage.objNewPassword, "igsindia123", "new password field");
+		click(PWAHamburgerMenuPage.objNewPassword, "confirm password field");
+		type(PWAHamburgerMenuPage.objConfirmNewPassword, "igsindia123", "Current confirm field");
+		waitTime(3000);
+		click(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted, "Update password button");
+		waitTime(2000);
 	}
 }

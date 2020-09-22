@@ -130,4 +130,7 @@ public class PWAPremiumPage {
 	public static By objThumbnail = By
 			.xpath("(//*[@class='showCard sameEpisodeCard underMetaSameCard sameEpisode zoomCardHover minutelyUrl card marginRight positionRelative' or @class='movieCard card marginRight minutelyUrl zoomCardHover'])[1]");
 
+	public static By objRightArrowBtn = By.xpath("(//button[@class='slick-arrow slick-next'])[1]");
+		
+	public static By objLeftArrowBtn = By.xpath("(//button[@class='slick-arrow slick-prev'])[1]");
 }

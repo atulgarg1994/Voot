@@ -81,9 +81,9 @@ public class WebPWAMixpanelScript {
 
 	@Test(priority = 10)
 	@Parameters({ "userType", "keyword2" })
-	public void verifyClearSearchHistoryEvent(String userType,String keyword2) throws Exception {
+	public void verifyClearSearchHistoryEvent(String userType,String keyword3) throws Exception {
 		System.out.println("Verify Clear Search Histroy Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyClearSearchHistoryEvent(userType, keyword2);
+		Zee5PWAWEBMixPanelBusinessLogic.verifySearchExecutedAndClearSearchHistoryEvent(userType, keyword3);
 		}
 	
 	@Test(priority = 11)
@@ -109,6 +109,24 @@ public class WebPWAMixpanelScript {
 		System.out.println("Verify Quality Change Event");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyQualityChangeEvent(keyword1);
 		}
+	
+	@Test(priority = 14)
+	public void verifyDisplayAndContentLanguageChangeEvent() throws Exception {
+		System.out.println("Verify Display And Content Language Change Event");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyDisplayAndContentLanguageChangeEvent();
+	}
+	
+	@Test(priority = 15)
+	@Parameters({ "userType" })
+	public void verifyEvents(String userType) throws Exception {
+	
+		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerSwipeEvent();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyContentBucketSwipeEvent();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAdBannerImpressionEvent();	
+		Zee5PWAWEBMixPanelBusinessLogic.verifyDefaultSettingRestoredEvent(userType);	
+		Zee5PWAWEBMixPanelBusinessLogic.verifySetReminderAndShareEventForUpcomingLiveProgram(userType);	
+		Zee5PWAWEBMixPanelBusinessLogic.verifyChangePasswordStartedAndPasswordResultEvent(userType);	
+	}
 	
 	@AfterClass
 	public void tearDown() {

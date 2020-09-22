@@ -476,4 +476,6 @@ public class PWAHomePage {
 			.xpath("//div[contains(@class,'slick-active')]//a[contains(@class,'premiumBtn')]");
 
 	public static By obj3xfasterPopUpNoThanks = By.xpath("//*[@text='NO THANKS\\n']");
+	
+	public static By objAdBanner = By.xpath("(//*[@class='adContainer'])[1]");
 }
