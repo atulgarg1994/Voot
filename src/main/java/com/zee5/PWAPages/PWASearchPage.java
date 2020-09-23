@@ -249,8 +249,6 @@ public class PWASearchPage {
 	// Show title in Consumption Page
 	public static By objShowTitleInConsumptionPage = By.xpath("(//div[@class='metaInfo']/child::a)[1]");
 
-	public static By objallow = By.xpath("//*[@text='Allow']");
-
 	public static By objSearchBtnWEB = By.xpath("//a[@class='noSelect searchBtn iconInitialLoad-ic_search']");
 
 	public static By objPremiumSearchResult = By.xpath("//*[@title='RX Soori']");
@@ -321,4 +319,6 @@ public class PWASearchPage {
 	}
 	
 	public static By objSearchCancel = By.xpath("//*[@class='noSelect backBtnDesktop iconInitialLoad-ic_close']");
+	
+	public static By objallow = By.xpath("//*[@text='Allow' or @text()='ALLOW']");
 }

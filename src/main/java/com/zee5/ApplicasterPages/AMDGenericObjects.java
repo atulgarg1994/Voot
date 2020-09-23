@@ -65,7 +65,12 @@ public class AMDGenericObjects {
 		return By.xpath("//*[@id='title' and @text='" + title + "']");
 	}
 
+	
 	public static By objCarouselTitle(String title) {
-		return By.xpath("//*[@id='item_primary_text'and @text='" + title + "']");
+		return By.xpath("//*[@id='header_primary_text' and @text='"+title+"']");
+	}
+	public static By objContentNameInTray =  By.xpath("(//*[@id='header_primary_text']//following::*[@id='item_primary_text'])");
+	public static By objContentNameInTray(int index) {
+		return By.xpath("(//*[@id='header_primary_text']//following::*[@id='item_primary_text'])["+index+"]");
 	}
 }

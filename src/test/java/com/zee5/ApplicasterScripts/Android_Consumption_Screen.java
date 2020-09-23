@@ -29,29 +29,36 @@ public class Android_Consumption_Screen {
 
 	}
 
-//	@Test(priority = 1)
-//	@Parameters({ "userType", "SVODShow" })
-//	public void SVODConsumptionScreenForShowTab(String userType, String SVODShow) throws Exception {
-//		ZEE5ApplicasterBusinessLogic.SVODValidations(userType, "Shows", SVODShow);
-//	}
-//
-//	@Test(priority = 2)
-//	@Parameters({ "userType", "SVODEpisode" })
-//	public void SVODConsumptionScreenForEpisodeTab(String userType, String SVODEpisode) throws Exception {
-//		ZEE5ApplicasterBusinessLogic.SVODValidations(userType, "Episode", SVODEpisode);
-//	}
-//
-//	@Test(priority = 3)
-//	@Parameters({ "userType", "SVODMovie" })
-//	public void SVODConsumptionScreenForMoviesTab(String userType, String SVODMovie) throws Exception {
-//		ZEE5ApplicasterBusinessLogic.SVODValidations(userType, "Movies", SVODMovie);
-//	}
-//
-//	@Test(priority = 4)
-//	@Parameters({ "userType", "SVODMusic" })
-//	public void SVODConsumptionScreenForMusicTab(String userType, String SVODMusic) throws Exception {
-//		ZEE5ApplicasterBusinessLogic.SVODValidations(userType, "Music", SVODMusic);
-//	}
+	@Test(priority = 1)
+	@Parameters({ "userType", "SVODShow" })
+	public void SVODConsumptionScreenForShowTab(String userType, String SVODShow) throws Exception {
+		ZEE5ApplicasterBusinessLogic.SVODConsumptionScreen(userType, "Shows", SVODShow);
+	}
+
+	@Test(priority = 2)
+	@Parameters({ "userType", "SVODEpisode" })
+	public void SVODConsumptionScreenForEpisodeTab(String userType, String SVODEpisode) throws Exception {
+		ZEE5ApplicasterBusinessLogic.SVODConsumptionScreen(userType, "Episode", SVODEpisode);
+	}
+
+	@Test(priority = 3)
+	@Parameters({ "userType", "SVODMovie" })
+	public void SVODConsumptionScreenForMoviesTab(String userType, String SVODMovie) throws Exception {
+		ZEE5ApplicasterBusinessLogic.SVODConsumptionScreen(userType, "Movies", SVODMovie);
+	}
+
+	@Test(priority = 4)
+	@Parameters({ "userType", "SVODMusic" })
+	public void SVODConsumptionScreenForMusicTab(String userType, String SVODMusic) throws Exception {
+		ZEE5ApplicasterBusinessLogic.SVODConsumptionScreen(userType, "Music", SVODMusic);
+	}
+
+	@Test(priority = 5)
+	@Parameters({ "userType" })
+	public void ConsumptionScreen(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.verifyNonSVODConsumptionScreen(userType);
+		ZEE5ApplicasterBusinessLogic.verifySimilarChannels();
+	}
 
 	@AfterTest
 	public void tearDownApp() {

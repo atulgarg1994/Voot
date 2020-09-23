@@ -366,4 +366,6 @@ public class PWALiveTVPage {
 	public static By objMovie = By.xpath("(//*[contains(@title,'Cinema')]//parent::*//parent::*//following-sibling::*//div)[2]");
 
 	public static By objShowTimeInterval = By.xpath("(((//*[contains(@class,'programInner active')])[1]//parent::*)[1]//following-sibling::*)[2]//div[@class='timeInterval']");	
+	
+	public static By objLiveChannelConsumptionChannelTitle = By.xpath("//div[@class='channelConsumptionMetaDiv']//h1");
 }

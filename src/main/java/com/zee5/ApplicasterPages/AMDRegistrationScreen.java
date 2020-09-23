@@ -21,7 +21,6 @@ public class AMDRegistrationScreen {
 	public static By objFirstNameTxtField = By.xpath("//*[@id='first_name_input']");
 	public static By objFirstNameErrorMsg = By.xpath("//*[@id='textinput_error']");
 	public static By objLastNameTxtField = By.xpath("//*[@id='last_name_input']");
-	public static By objDOBTxtField = By.xpath("//*[@id='dobTextView']");
 	public static By objDOBCalenderBtn = By.xpath("//*[@id='dobClalander']");
 	public static By objGederTxtField = By.xpath("//*[@id='genderTextView']");
 	public static By objSelectGenderText = By.xpath("//*[@id='selector_screen_title']");
@@ -58,6 +57,6 @@ public class AMDRegistrationScreen {
 	public static By objMonthDayDate = By.xpath("//*[@id='date_picker_header_date']");
 	public static By objCancelBtn = By.xpath("//*[@text='CANCEL']");
 	public static By objOkBtn = By.xpath("//*[@text='OK']");
-	
+	public static By objDOBTxtField = By.xpath("//*[@id='dobTextView'] | //*[@id='dobEditText']");
 
 }

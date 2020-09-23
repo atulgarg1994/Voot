@@ -615,4 +615,8 @@ public class PWAHamburgerMenuPage {
 	public static By objAboutUsinKannada2 = By.xpath("//div[@class='menuGroup active'][2]//a[1]");
 
 	public static By objMyProfile = By.xpath("//div[contains(@class,'userEmail')]");
+	
+	public static By carouselDot (int i) {
+		return By.xpath("(//*[contains(@class,'carouselDots')])["+i+"]");
+	}
 }

@@ -370,5 +370,7 @@ public class PWAPlayerPage {
 			.xpath("//div[@class='trailerInfoContainer' and contains(text(),'watching a trailer')]");
 	
 	public static By objSkipAdButton = By.xpath("//*[@text='Skip Ad']");
+	
+	public static By objPlayButtonOfPausedPlayer = By.xpath("//button[@class='playkit-control-button']//*[@class='playkit-icon playkit-icon-play']");
 
 }

@@ -39,7 +39,7 @@ public class AMDLoginScreen {
 	public static By objPasswordField = By.xpath("//*[@id='txtET_password_input']");
 
 	// Show Password toggle button
-	public static By objShowPwdBtn = By.xpath("//*[@id='text_input_password_toggle']");
+	public static By objShowPwdBtn = By.xpath("//*[@id='text_input_password_toggle'] | //*[@id='text_input_end_icon']");
 
 	// Forgot Password button
 	public static By objForgetPwdBtn = By.xpath("//*[@id='tv_forgotPassword']");

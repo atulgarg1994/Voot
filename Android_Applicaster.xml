@@ -116,6 +116,10 @@
 	<parameter name="SubscribedUserClubPackUserName" value="clubpacktesting1@gmail.com" />
     <parameter name="SubscribedUserClubPackPassword" value="000000" /> 
     <parameter name="keyword3" value="Kam" />
+    <parameter name="SVODShow" value="Code M" />
+	<parameter name="SVODEpisode" value="Aditya apologises to Paarvathi - Paaru" />
+	<parameter name="SVODMovie" value="47 Days"/>
+	<parameter name="SVODMusic" value="Kalede Hode Naanu - Chambal | Sathish Ninasam | Sonu Gowda" />
 
 
 	<listeners>
@@ -226,4 +230,10 @@
 		</classes>
 	</test>
 -->
+
+<test name="Android_ConsumptionScreen">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_Consumption_Screen"/>
+    </classes>
+  </test>
 </suite>

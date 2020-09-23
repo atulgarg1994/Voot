@@ -46,4 +46,15 @@ public class AMDWatchlistPage {
 	public static By objPlayerScreen = By.xpath("//*[@id='player_root']");
 	
 	public static By objWatchlistIcon = By.xpath("//*[@id='watchListView']");
+	
+	public static By objMoviesTab = By.xpath("//*[@text='Movies']");
+	public static By objVideosTab = By.xpath("//*[@text='Videos']");
+	public static By objContentNames  = By.xpath("//*[@id='txt_reminder_item_title']");
+	public static By objShowsTab = By.xpath("//*[@text='Shows']");
+	
+	public static By objContentName(int index) {
+		return By.xpath("(//*[@id='txt_reminder_item_title'])["+index+"]");
+	}
+	
+	public static By objNoContentsMessage = By.xpath("//*[@id='txt_no_reminder']");
 }

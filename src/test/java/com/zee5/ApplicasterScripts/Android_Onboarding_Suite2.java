@@ -4,7 +4,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.business.zee.Zee5ApplicasterBusinessLogic;
 import com.utility.Utilities;
 
@@ -17,12 +16,18 @@ public class Android_Onboarding_Suite2 {
 		Utilities.relaunch = true;	// Clear App Data on First Launch
 		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
-
+	
+	@Test(priority = 0)
+	@Parameters({ "userType" })
+	public void Login(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLoginForOnboarding();
+	}
+	
 	@Test (priority = 1)
 	@Parameters({"userType"})	//  Kushal
 	public void HaveAPrepaidCodeUIVerification(String userType) throws Exception {
 		System.out.println("\nVerify Have a Prepaid Code PopUp Screen");
-		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.verifyHaveAPrepaidCodePopUp();
 	}
 	
@@ -30,9 +35,6 @@ public class Android_Onboarding_Suite2 {
 	@Parameters({"userType"})	//  Kushal
 	public void BrowseforFreeSkipLoginRegistration(String userType) throws Exception {
 		System.out.println("\nBrowse for Free - Skip Login/Register page to Home Screen");
-		ZEE5ApplicasterBusinessLogic.relaunch(true);
-		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Deny", userType);		
-		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.VerifySkipLoginRegistrationScreen();
 	}
 	
@@ -40,9 +42,7 @@ public class Android_Onboarding_Suite2 {
 	@Parameters({"userType","RegisteredEmail","RegisteredEmailPassword"})
 	public void BrowseforFreeLoginwithEmailID(String userType,String pEmailId,String pPassword) throws Exception {
 		System.out.println("\nBrowse for Free - Login with EmailID");
-		ZEE5ApplicasterBusinessLogic.relaunch(true);
-		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Deny", userType);		
-		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.VerifyLoginWithEmailId(pEmailId, pPassword);
 	}
 	
@@ -52,6 +52,7 @@ public class Android_Onboarding_Suite2 {
 		System.out.println("\nVerify Invalid Prepaid Code PopUp for registered user");
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Deny", userType);
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLoginForOnboarding();
 		ZEE5ApplicasterBusinessLogic.verifyInvalidPrepaidCodePopUpAfterLogin(pEmailId, pPassword);
 	}
 	
@@ -61,23 +62,23 @@ public class Android_Onboarding_Suite2 {
 		System.out.println("\nVerify Invalid Prepaid Code PopUp for unregistered user");
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Deny", userType);
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLoginForOnboarding();
 		ZEE5ApplicasterBusinessLogic.verifyInvalidPrepaidCodePopUpAfterRegistration();
 	}
 	
-	
-//	Need a VALID Prepaid Code to execute this test
-//	@Test (priority = 9)	//  Kushal
-//	@Parameters({"userType","PrepaidCode","regUserName","regPassword"})
-//	public void ApplyValidPrepaidCodeforRegisteredUser(String userType, String pCode, String pUserName, String pPassword) throws Exception {
-//		System.out.println("\nVerify Successful message for valid Prepaid Code for registered user");
-//		ZEE5ApplicasterBusinessLogic.relaunch(true);
-//		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-//		ZEE5ApplicasterBusinessLogic.verifyCongratulationPopupAppearsforValidPrepaidCode(pCode, pUserName, pPassword);
-//	}
+
+//	@Test (priority = 9)	//  Kushal  - [Need a VALID Prepaid Code to execute this test]
+	@Parameters({"userType","PrepaidCode","regUserName","regPassword"})
+	public void ApplyValidPrepaidCodeforRegisteredUser(String userType, String pCode, String pUserName, String pPassword) throws Exception {
+		System.out.println("\nVerify Successful message for valid Prepaid Code for registered user");
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.verifyCongratulationPopupAppearsforValidPrepaidCode(pCode, pUserName, pPassword);
+	}
 	
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println("\nQuit the App\n");
+		System.out.println("\nExecution Complete - Quiting the App");
 		ZEE5ApplicasterBusinessLogic.tearDown();
 	}
 }

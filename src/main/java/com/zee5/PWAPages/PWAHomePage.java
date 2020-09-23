@@ -478,4 +478,7 @@ public class PWAHomePage {
 	public static By obj3xfasterPopUpNoThanks = By.xpath("//*[@text='NO THANKS\\n']");
 	
 	public static By objAdBanner = By.xpath("(//*[@class='adContainer'])[1]");
+	
+	public static By objCreateNewAccountPopUpClose = By.xpath("//div[@class='manCloseIcon']");
+
 }
