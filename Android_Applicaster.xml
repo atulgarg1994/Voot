@@ -7,25 +7,20 @@
 		<parameter name="runMode" value="${runMode}"/> <parameter name="runModule" 
 		value="${runModule}"/> <parameter name="browserType" value="${browserType}"/> -->
 
-	<parameter name="userType" value="NonSubscribedUser" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
+	<parameter name="userType" value="Guest" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" />
 
-	<parameter name="SubscribedUserWith15daysExpiryUsername"
-		value="testzee5_4@gmail.com" />
-	<parameter name="SubscribedUserWith15daysExpiryPassword"
-		value="123456" />
+	<parameter name="SubscribedUserWith15daysExpiryUsername" value="testzee5_4@gmail.com" />
+	<parameter name="SubscribedUserWith15daysExpiryPassword" value="123456" />
 
-	<parameter name="NonsubscribedUserName"
-		value="zee5latest@gmail.com" />
+	<parameter name="NonsubscribedUserName" value="zee5latest@gmail.com" />
 	<parameter name="NonsubscribedPassword" value="User@123" />
 
-	<parameter name="SubscribedUserName"
-		value="zeetest998@test.com" />
+	<parameter name="SubscribedUserName" value="zeetest998@test.com" />
 	<parameter name="SubscribedPassword" value="123456" />
 
-	<parameter name="RegisteredEmail"
-		value="zee5latest@gmail.com" />
+	<parameter name="RegisteredEmail" value="zee5latest@gmail.com" />
 	<parameter name="RegisteredEmailPassword" value="User@123" />
 
 	<parameter name="regUserName" value="igszeefive3@gmail.com" />
@@ -33,12 +28,16 @@
 
 	<parameter name="RegisteredMobile" value="7892215214" />
 	<parameter name="RegisteredMobilePassword" value="User@123" />
+	
 	<parameter name="UnRegisteredMobile" value="8073661163" />
 	<parameter name="PromoCode" value="PNB20" />
+	
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsUsername" value="testzee5_cp@gmail.com" />
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsPassword" value="123456"/>
+	
 	<parameter name="PackWithDiscountUsername" value="dmgowthu@mailinator.com" />
 	<parameter name="PackWithDiscountPassword" value="12345678" />
+	
 	<!-- ======Test Data====== -->
 	<parameter name="displayLanguageSelection1" value="English" />
 	<parameter name="displayLanguageSelection2" value="Marathi" />
@@ -58,13 +57,13 @@
 	<parameter name="invalidSearchKeyword" value="@$_-(;_+" />
 	<parameter name="partlySpeltSearchKeyword" value="Kam" />
 	<parameter name="searchModuleKeyword" value="Kamali" />
+	
 	<parameter name="searchKeyword" value="Aditya praises Paaru" />
 	<parameter name="searchKeyword1" value="Paaru gets tipsy" />
 	<parameter name="searchKeyword2" value="Jodi Hakki" />
 	<parameter name="searchKeyword3" value="Bablu Dablu - Robo Rumble" />
 	<parameter name="searchKeyword4" value="Bhinna" />
-	<parameter name="searchKeyword5"
-		value="Chemistry of Kariyappa" />
+	<parameter name="searchKeyword5" value="Chemistry of Kariyappa" />
 	<parameter name="searchKeyword6" value="Jamai 2.0" />
 	<parameter name="searchKeyword9" value="Jamai 2.0" />
 
@@ -96,25 +95,22 @@
 	<parameter name="NonsubscribedUserWithNoTransactionUsername" value="zeebuild@gmail.com" />
 	<parameter name="NonsubscribedUserWithNoTransactionPassword" value="User@123" />
 
-	<parameter name="SettingsNonsubscribedUserName"
-		value="zeetest@gmail.com" />
-	<parameter name="SettingsNonsubscribedPassword"
-		value="zee12345" />
+	<parameter name="SettingsNonsubscribedUserName" value="zeetest@gmail.com" />
+	<parameter name="SettingsNonsubscribedPassword" value="zee12345" />
 
-	<parameter name="SettingsSubscribedUserName"
-		value="zeein7@mailnesia.com" />
+	<parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com" />
 	<parameter name="SettingsSubscribedPassword" value="123456" />
+	
+	<parameter name="ClubUserName" value="clubpacktesting1@gmail.com" />
+    <parameter name="ClubPassword" value="000000" />
 
 	<parameter name="SVODShow" value="Nisha" />
-	<parameter name="SVODEpisode"
-		value="Anu arrives at the old warehouse - Jothe jotheyali " />
+	<parameter name="SVODEpisode" value="Anu arrives at the old warehouse - Jothe jotheyali " />
 	<parameter name="SVODMovie" value="47 days" />
-	<parameter name="SVODMusic"
-		value="Kalede Hode Naanu - Chambal | Sathish Ninasam | Sonu Gowda" />
+	<parameter name="SVODMusic" value="Kalede Hode Naanu - Chambal | Sathish Ninasam | Sonu Gowda" />
+	
 	<parameter name="SearchVODContent"  value="Ammana Mane" />
-
-	<parameter name="SubscribedUserClubPackUserName" value="clubpacktesting1@gmail.com" />
-    <parameter name="SubscribedUserClubPackPassword" value="000000" /> 
+    <parameter name="SearchVODContent2"  value="Prema Baraha" />
     <parameter name="keyword3" value="Kam" />
     <parameter name="SVODShow" value="Code M" />
 	<parameter name="SVODEpisode" value="Aditya apologises to Paarvathi - Paaru" />
@@ -128,7 +124,7 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
-<!--	<test name="Android_AppLaunch">
+	<test name="Android_AppLaunch">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_AppLaunch" />
 		</classes>
@@ -139,8 +135,8 @@
 			<class
 				name="com.zee5.ApplicasterScripts.Android_Onboarding_Suite1" />
 		</classes>
-	</test> -->
-<!-- 
+	</test> 
+ 
 	<test name="Android_Onboarding_Suite2">
 		<classes>
 			<class
@@ -159,8 +155,8 @@
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_Subscription" />
 		</classes>
-	</test> -->
-<!-- 
+	</test> 
+ 
 	<test name="Android_Search">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_Search" />
@@ -191,14 +187,14 @@
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_ListingScreen" />
 		</classes>
-	</test> -->
+	</test> 
 
 	<test name="Android_Settings">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_Settings" />
 		</classes>
 	</test>
-<!-- 
+ 
 	<test name="Android_ExitPop">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_ExitPop" />
@@ -229,11 +225,5 @@
 			<class name="com.zee5.ApplicasterScripts.Android_ClubPack" />
 		</classes>
 	</test>
--->
 
-<test name="Android_ConsumptionScreen">
-    <classes>
-      <class name="com.zee5.ApplicasterScripts.Android_Consumption_Screen"/>
-    </classes>
-  </test>
 </suite>

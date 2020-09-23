@@ -23,20 +23,19 @@ public class Android_ClubPack {
 	public void Login(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
-		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLoginForClubPack(userType);
 	}
 
 	@Test(priority = 1) // Bhavana
-	@Parameters({ "userType" }) 	
-	public void clubpack(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.ClubPackValidation(userType,"Prema Baraha");
+	@Parameters({ "userType","SearchVODContent2" }) 	
+	public void ClubUpgradeToAllAccess(String userType,String SearchVODContent2) throws Exception {
+		ZEE5ApplicasterBusinessLogic.ClubPackValidation(userType,SearchVODContent2);
 		
 	}
 	
 	@Test(priority = 2) // Bindu
 	@Parameters({ "userType" , "SearchVODContent"})
 	public void ClubPack(String userType, String SearchVODContent) throws Exception {
-	
 		ZEE5ApplicasterBusinessLogic.ClubPack(userType, SearchVODContent);
 	}
 	

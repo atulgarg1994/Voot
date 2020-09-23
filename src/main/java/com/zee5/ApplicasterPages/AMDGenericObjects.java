@@ -73,4 +73,8 @@ public class AMDGenericObjects {
 	public static By objContentNameInTray(int index) {
 		return By.xpath("(//*[@id='header_primary_text']//following::*[@id='item_primary_text'])["+index+"]");
 	}
+	
+	public static By objContainText(String text) {
+		return By.xpath("//*[contains(text(),'" + text + "']");
+	}
 }

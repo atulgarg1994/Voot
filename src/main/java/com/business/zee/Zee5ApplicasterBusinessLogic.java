@@ -5037,7 +5037,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		PartialSwipe("UP", 2);
 		verifyElementPresentAndClick(AMDHomePage.objLogout, "Logout");
 		verifyElementPresentAndClick(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
-		verifyElementPresentAndClick(AMDHomePage.objHome, "Home tab");
+		verifyElementPresentAndClick(AMDHomePage.HomeIcon, "Home Icon");
 	}
 
 	public void ValidateSubscriptionExpireBanner(String LoginMethod) throws Exception {
@@ -12388,11 +12388,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 * Author : Bindu Module : club pack
 	 */
 	public void ClubPackValidation(String userType, String searchcontent) throws Exception {
-		System.out.println("Club pack validation");
-		HeaderChildNode("Club pack validation");
+		extent.HeaderChildNode("Club Pack Upgrade validation");
+		System.out.println("\nClub Pack Upgrade validation");
+		
 		if (userType.equals("SubscribedUser")) {
-			ZNALogoutMethod();
-			LoginWithClubUser();
 			verifyElementExist(AMDClubPack.objupgradeIcon, "Upgrade button on left side of header section");
 			verifyElementExist(AMDClubPack.objCrownIcon, "Upgrade button with Crown Icon");
 			click(AMDClubPack.objupgradeIcon, "Upgrade Icon");
@@ -12446,6 +12445,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 			click(AMDClubPack.objUpgradeCTABelowPlayer, "Upgrade CTA below the player");
 			ValidateUIOfUpgradePopup();
+			Back(2);
+		}else {
+			logger.info("Club Upgrade is not applicable for "+userType);
+			extent.extentLogger("Club Upgrade", "Club Upgrade is not applicable for "+userType);
 		}
 	}
 
@@ -12453,11 +12456,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(2000);
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 		click(AMDMoreMenu.objProfileHeader, "profile header");
-		String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter("ClubUserName");
-		String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter("ClubPassword");
-
+		String Username = getParameterFromXML("ClubUserName");
+ 		String Password = getParameterFromXML("ClubPassword");
 		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 		type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -12620,17 +12620,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void verifyClubPackAccountInfoScreen(String userType) throws Exception {
 		extent.HeaderChildNode("verify Account Info screen for Club Pack");
-		System.out.println("\nverify Account Info screen for Club Pack");
-		ZNALogoutMethod();
-		click(AMDMoreMenu.objMoreMenuIcon, "More tab screen");
-		click(AMDMoreMenu.objProfile, "Profile");
-		waitTime(2000);
+		System.out.println("\nVerify Account Info screen for Club Pack");
 
-		String SubscribedUserClubPackUserName = getParameterFromXML("SubscribedUserClubPackUserName");
-		String SubscribedUserClubPackPassword = getParameterFromXML("SubscribedUserClubPackPassword");
-		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-
-		LoginWithEmailID(SubscribedUserClubPackUserName, SubscribedUserClubPackPassword);
 		click(AMDMoreMenu.objMoreMenuIcon, "More tab screen");
 		verifyElementPresentAndClick(AMDMoreMenu.objBuySubscription, "Buy Subscription");
 		waitTime(4000);
@@ -14150,5 +14141,201 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 		}
 
+	}
+	
+	/**
+	 * Author : Bhavana
+	 * Module : Club package
+	 */
+	
+	public void clubPackFeaturesValidation(String userType, String searchcontent) throws Exception {
+		if (userType.equals("Guest") || userType.equals("NonSubscribedUser") ) {
+		System.out.println("Validating Subscribe CTA present on player for club content without trailer");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBar, searchcontent, "Search bar");
+		waitTime(2000);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Searched result");
+		waitTime(5000);
+		verifyElementExist(AMDClubPack.objSubscribeinfoOnPlayer,"Subscribe info on the player for Club content");
+		if (verifyIsElementDisplayed(AMDClubPack.objSubscribeinfoOnPlayer)) {
+			String text = getText(AMDClubPack.objSubscribeinfoOnPlayer);
+			System.out.println(text);
+			logger.info(text + " is displayed on player for club content");
+			extent.extentLoggerPass("Consumption screen", text + " is displayed on player for club content");
+		} else {
+			logger.error(getText(AMDClubPack.objSubscribeinfoOnPlayer)
+					+ " is NOT displayed on player for club content");
+			extent.extentLoggerFail("Consumption screen", getText(AMDClubPack.objSubscribeinfoOnPlayer)
+					+ " is NOT displayed on player for club content");
+		}
+		verifyElementExist(AMDClubPack.objSubscribetoClubCTAOnPlayer,"Subscribe to Club CTA on player for club content");
+		verifyElementExist(AMDClubPack.objLoginCTAOnPlayer, "Login CTA on player for club content");
+		verifyElementExist(AMDClubPack.objGetClubCTABelowPlayer,"Get Club CTA below the player");
+		if (verifyIsElementDisplayed(AMDClubPack.objSubscribetoClubCTAOnPlayer)) {
+			click(AMDClubPack.objSubscribetoClubCTAOnPlayer,"Subscribe to Club CTA on player for club content");		
+		}
+		waitTime(3000);
+		verifyElementExist(AMDClubPack.objSubscribePopup,"Subscribe popup");
+		verifyElementExist(AMDClubPack.objPlanlistonSubscribePopup,"Pack list");
+		verifyElementExist(AMDClubPack.objClubPackPlan,"Club Pack plan");
+		verifyElementExist(AMDClubPack.objClubIconforClubPlan,"Only Club Icon for Club pack plan");
+		verifyElementExist(AMDClubPack.objPremiumIconInSubscribePopup,"Premium Icon for All Acess plan");
+		verifyElementExist(AMDClubPack.objClubIconInSubscribePopup,"Club Icon for All Acess plan");
+		
+		String Plan1 = getText(AMDClubPack.objPack1InSubscribePopup);
+		System.out.println(Plan1);
+		logger.info("Plan 1 " + Plan1 + " is displayed");
+		extent.extentLogger("Subscribe to Club popup", "Plan 1 " + Plan1 + " is displayed");
+
+		String Plan2 = getText(AMDClubPack.objPack2InSubscribePopup);
+		System.out.println(Plan2);
+		logger.info("Plan 2 " + Plan2 + " is displayed");
+		extent.extentLogger("Subscribe to Club popup", "Plan 2 " + Plan2 + " is displayed");
+		
+		String Plan3 = getText(AMDClubPack.objPack3InSubscribePopup);
+		System.out.println(Plan3);
+		logger.info("Plan 3 " + Plan3 + " is displayed");
+		extent.extentLogger("Subscribe to Club popup", "Plan 3 " + Plan3 + " is displayed");
+		
+		String Plan4 = getText(AMDClubPack.objPack4InSubscribePopup);
+		System.out.println(Plan4);
+		logger.info("Plan 4 " + Plan4 + " is displayed");
+		extent.extentLogger("Subscribe to Club popup", "Plan 4 " + Plan4 + " is displayed");
+		
+		String Plan5 = getText(AMDClubPack.objPack5InSubscribePopup);
+		System.out.println(Plan5);
+		logger.info("Plan 5 " + Plan5 + " is displayed");
+		extent.extentLogger("Subscribe to Club popup", "Plan 5 " + Plan5 + " is displayed");
+		
+		if (verifyIsElementDisplayed(AMDClubPack.objProceedButtonInSubscribePopup)) {
+			click(AMDClubPack.objProceedButtonInSubscribePopup,"Proceed Button in Subcribe popup");		
+		}
+		waitTime(4000);
+		if (verifyIsElementDisplayed(AMDClubPack.objAcountInfoInSubscribePage)) {
+			logger.info("User is navigated to Acount info screen on selecting club plan");
+			extent.extentLoggerPass("Subscribe popup","User is navigated to Acount info screen on selecting club plan");	
+		}else {
+			logger.error("User is unable to navigate to Acount info screen on selecting club plan");
+			extent.extentLoggerFail("Subscribe popup","User is unable to navigate to Acount info screen on selecting club plan");
+		}
+		Back(1);
+		click(AMDClubPack.objLoginCTAOnPlayer, "Login CTA on player for club content");
+		waitTime(4000);
+		if (verifyIsElementDisplayed(AMDClubPack.objLoginScreen)) {    	 
+			String Username = getParameterFromXML("ClubUserName");
+			String Password = getParameterFromXML("ClubPassword");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, Password, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(5000);
+		}
+		if(verifyIsElementDisplayed(AMDPlayerScreen.objPlayerScreen)) {
+			logger.info("User is navigated back to consumption screen on successfull login");
+			extent.extentLoggerPass("Consumption screen","User is navigated back to consumption screen on successfull login");	 
+		}else {
+			logger.error("User fails to navigate back to consumption screen on successfull login");
+			extent.extentLoggerFail("Consumption screen","User fails to navigate back to consumption screen on successfull login");   	 
+		}
+		Back(1);
+		click(AMDHomePage.HomeIcon,"Home Icon");
+		ZNALogoutMethod();
+		waitTime(4000);
+		validateSubscribepopupForPremiumContent("Prema Baraha");
+		}
+     }
+     
+	public void validateSubscribepopupForPremiumContent(String searchcontent) throws Exception {
+		System.out.println("Validating Subscribe popup for Premium content");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBar, searchcontent, "Search bar");
+		waitTime(2000);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Searched result");
+		waitTime(5000);
+		click(AMDClubPack.objSubscribetoPremiumCTAOnPlayer,"Subscribe to Premium CTA");
+		verifyElementExist(AMDClubPack.objSubscribePopup,"Subscribe popup");
+		String Plan1 = getText(AMDClubPack.objPack1InSubscribePopup);
+		System.out.println(Plan1);
+		logger.info("Plan 1 " + Plan1 + " is displayed");
+		extent.extentLogger("Subscribe to Premium popup", "Plan 1 " + Plan1 + " is displayed");
+
+		String Plan2 = getText(AMDClubPack.objPack2InSubscribePopup);
+		System.out.println(Plan2);
+		logger.info("Plan 2 " + Plan2 + " is displayed");
+		extent.extentLogger("Subscribe to Premium popup", "Plan 2 " + Plan2 + " is displayed");
+		
+		String Plan3 = getText(AMDClubPack.objPack3InSubscribePopup);
+		System.out.println(Plan3);
+		logger.info("Plan 3 " + Plan3 + " is displayed");
+		extent.extentLogger("Subscribe to Premium popup", "Plan 3 " + Plan3 + " is displayed");
+		
+		String Plan4 = getText(AMDClubPack.objPack4InSubscribePopup);
+		System.out.println(Plan4);
+		logger.info("Plan 4 " + Plan4 + " is displayed");
+		extent.extentLogger("Subscribe to Premium popup", "Plan 4 " + Plan4 + " is displayed");
+		Back(2);
+		click(AMDHomePage.HomeIcon,"Home Icon");
+	}
+	
+	/**
+	 * Author : Kushal
+	 */
+	
+	public void ZeeApplicasterLoginForClubPack(String LoginMethod) throws Exception {
+		extent.HeaderChildNode("Login Functionality");
+		String UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		if (UserType.equals("Guest")) {
+			extent.extentLogger("userType", "UserType : Guest");
+		}
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+		waitTime(3000);
+
+		switch (LoginMethod) {
+		case "Guest":
+			extent.HeaderChildNode("Guest User");
+			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
+			waitTime(1000);
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+			waitTime(3000);
+			break;
+
+		case "NonSubscribedUser":
+			extent.HeaderChildNode("Login as Non-Subscribed User for Settings");
+			String SUsername = getParameterFromXML("NonsubscribedUserName");
+			String SPassword =  getParameterFromXML("NonsubscribedPassword");
+
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, SUsername, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, SPassword, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
+
+		case "SubscribedUser":
+			extent.HeaderChildNode("Login as Subscribed User for Settings");
+			String ClubUsername = getParameterFromXML("ClubUserName");		
+			String ClubPassword = getParameterFromXML("ClubPassword");
+			
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, ClubUsername, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, ClubPassword, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
+		}
 	}
 }

@@ -19,4 +19,24 @@ public class AMDClubPack {
 	public static By objClubpackDescinupgradepopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/containerForClubTypeNote']");
 	public static By objplan1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_packDescription'])[1]");
 	public static By objplan2 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_packDescription'])[2]");	
+	
+	 public static By objSubscribeinfoOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/static_premium_text']");
+		public static By objSubscribetoClubCTAOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribe_now_action']");
+		public static By objLoginCTAOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/login_button']");
+		public static By objGetClubCTABelowPlayer = By.xpath("//*[@class='android.widget.FrameLayout' and ./*[@text='Get Club']]");
+		public static By objSubscribePopup = By.xpath("//*[@class='android.view.ViewGroup' and ./*[@text='Subscribe']]");
+		public static By objLoginScreen = By.xpath("//*[@text='Login/Register']");
+		public static By objPlanlistonSubscribePopup = By.xpath("//*[@id='listview_sub']");
+		public static By objClubPackPlan = By.xpath("//*[@id='background_container' and (./preceding-sibling::* | ./following-sibling::*)[@id='imgOnlyClubPack']]");
+		public static By objClubIconforClubPlan = By.xpath("//*[@id='imgOnlyClubPack']");
+		public static By objPack1InSubscribePopup = By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_packDescription'])[1]");
+		public static By objPack2InSubscribePopup = By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_packDescription'])[2]");
+		public static By objPack3InSubscribePopup = By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_packDescription'])[3]");
+		public static By objPack4InSubscribePopup = By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_packDescription'])[4]");
+		public static By objPack5InSubscribePopup = By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_packDescription'])[5]");
+		public static By objPremiumIconInSubscribePopup = By.xpath("(//*[@resource-id='com.graymatrix.did:id/imgPremiumPack'])[1]");
+		public static By objClubIconInSubscribePopup = By.xpath("(//*[@resource-id='com.graymatrix.did:id/imgClubPack'])[1]");
+		public static By objProceedButtonInSubscribePopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/proceed']");
+		public static By objAcountInfoInSubscribePage = By.xpath("//*[@text='Account Info' and ./parent::*[@id='user_inputs_details_layout']]");
+		public static By objSubscribetoPremiumCTAOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribe_now_action']");
 }
