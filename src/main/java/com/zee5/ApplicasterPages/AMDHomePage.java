@@ -13,8 +13,8 @@ public class AMDHomePage {
 	public static By objSubscribeTeaser = By.xpath("//*[@text='SUBSCRIBE']");
 
 	// Search Button
-	public static By objSearchBtn = By
-			.xpath("//*[@class='android.support.v7.widget.LinearLayoutCompat']//*[@class='android.widget.ImageView']");
+	public static By objSearchBtn = By.xpath("//*[@id='logo']//following::*[1]");
+	
 	public static By objTitle = By.xpath("//*[@id='title']");
 
 	// Bottom Navigation TEXT Buttons

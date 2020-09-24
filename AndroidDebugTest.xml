@@ -117,6 +117,10 @@
 	<parameter name="SVODMovie" value="47 Days"/>
 	<parameter name="SVODMusic" value="Kalede Hode Naanu - Chambal | Sathish Ninasam | Sonu Gowda" />
  	<parameter name="SearchVODContent3"  value="Happy New Year" />
+ 	<parameter name="url" value="https://newpwa.zee5.com/" />
+	<parameter name="browserType" value="Chrome"/>  <!--  Chrome/Firefox -->
+ 	<parameter name="USMNonsubscribedUserName" value="starttestzee5@gmail.com" />
+	<parameter name="USMNonsubscribedPassword" value="123456" />
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

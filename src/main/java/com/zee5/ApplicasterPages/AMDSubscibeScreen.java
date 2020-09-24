@@ -77,8 +77,7 @@ public class AMDSubscibeScreen {
 	public static By objPaymentReccuringMsg = By.xpath("//*[@id='payment_recurring_msg']");
 	public static By objContinueBtnPaymentScreen = By.xpath("//*[@id='btnContinue_paymentdetails']");
 	
-	
-	
-
+	public static By objPlanPrice = By.id("value_plan_price");
+	public static By objTotalPayable = By.id("value_total_amount");
 	
 }
