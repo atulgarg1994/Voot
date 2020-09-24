@@ -7636,7 +7636,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				waitTime(1000);
 				click(PWAPlayerPage.minimizeBtn, "Minimize button");
 				waitTime(1000);
-				Back(1);
+				
 			}
 		}
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
