@@ -1,10 +1,8 @@
 package com.zee5.ApplicasterScripts;
 
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.business.zee.Zee5ApplicasterBusinessLogic;
 import com.utility.Utilities;
 
@@ -33,14 +31,30 @@ public class Android_ClubPack {
 		
 	}
 	
-	@Test(priority = 2) // Bindu
-	@Parameters({ "userType" , "SearchVODContent"})
-	public void ClubPack(String userType, String SearchVODContent) throws Exception {
-		ZEE5ApplicasterBusinessLogic.ClubPack(userType, SearchVODContent);
+	@Test(priority = 2) // Bhavana
+	@Parameters({ "userType","SearchVODContent3","SearchVODContent" }) 	
+	public void ValidateSubscribeAndLoginCTAForClubContent(String userType, String SearchVODContent3 , String SearchVODContent) throws Exception {
+		ZEE5ApplicasterBusinessLogic.ValidateSubscribeAndLoginCTAForClubContent(userType,SearchVODContent3);
+		ZEE5ApplicasterBusinessLogic.SubscribepopupForClubcontentWithTrailer(userType,SearchVODContent);
+	}
+
+	@Test(priority = 3) // Bhavana
+	@Parameters({ "userType"}) 	
+	public void ValidateClubIconForLandingPages(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.validateClubIconOnContentCards(userType);
+		ZEE5ApplicasterBusinessLogic.ValidateClubIconForRecoTray(userType);
 	}
 	
 	
-	@AfterTest
+	@Test(priority = 2) // Bindu
+	@Parameters({ "userType" , "SearchVODContent" , "ClubContent"})
+	public void ClubPack(String userType, String SearchVODContent, String ClubContent) throws Exception {
+		ZEE5ApplicasterBusinessLogic.ClubPack(userType, SearchVODContent, ClubContent);
+	
+	}
+	
+	
+//	@AfterTest
 	public void tearDownApp() {
 		System.out.println("Quit the App");
 		ZEE5ApplicasterBusinessLogic.tearDown();

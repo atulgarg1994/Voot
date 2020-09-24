@@ -116,6 +116,7 @@
 	<parameter name="SVODEpisode" value="Aditya apologises to Paarvathi - Paaru" />
 	<parameter name="SVODMovie" value="47 Days"/>
 	<parameter name="SVODMusic" value="Kalede Hode Naanu - Chambal | Sathish Ninasam | Sonu Gowda" />
+ 	<parameter name="SearchVODContent3"  value="Happy New Year" />
 
 
 	<listeners>

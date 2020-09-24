@@ -77,4 +77,8 @@ public class AMDGenericObjects {
 	public static By objContainText(String text) {
 		return By.xpath("//*[contains(text(),'" + text + "']");
 	}
+	
+	public static By objSearchcontentTitle(String title) {
+		return By.xpath("//*[@id='item_primary_text' and @text='"+title+"']");
+	}
 }

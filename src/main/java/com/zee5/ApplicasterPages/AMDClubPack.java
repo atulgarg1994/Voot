@@ -39,4 +39,11 @@ public class AMDClubPack {
 		public static By objProceedButtonInSubscribePopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/proceed']");
 		public static By objAcountInfoInSubscribePage = By.xpath("//*[@text='Account Info' and ./parent::*[@id='user_inputs_details_layout']]");
 		public static By objSubscribetoPremiumCTAOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribe_now_action']");
+		
+		public static By objpaymentScreenInSubscribepopup = By.xpath("//*[@text='Payment Options']");
+		public static By objBestOfZee5OriginalsTray = By.xpath("//*[@text='Best of ZEE5 Originals in Kannada']");
+		public static By objClubIconOnFirstCardOfTray = By.xpath("(//*[@resource-id='com.graymatrix.did:id/special_image_1'])[1]");
+		public static By objclubIconInContentListingScreen = By.xpath("(//*[@id='recyclerView' and ./parent::*[./parent::*[@class='android.widget.RelativeLayout' and ./parent::*[@id='content_frame']]]]/*/*/*[@id='special_image_1'])[1]");
+		public static By objRecoMovieTray = By.xpath("//*[@text='Recommended Movies']");
+		public static By objClubicononRecoTrays = By.xpath("((//*[@id='recyclerView']/*/*[@id='recyclerView'])[3]/*/*/*[@id='special_image_1'])[1]");
 }

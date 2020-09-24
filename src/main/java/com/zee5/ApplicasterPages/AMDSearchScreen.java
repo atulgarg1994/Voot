@@ -115,8 +115,6 @@ public class AMDSearchScreen {
 	public static By objYouWillBeChargedInfo = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/payment_recurring_msg']");
 
-	public static By objClearSearch = By.xpath("//*[@id='clearSearch']");
-
 	public static By objAllTab = By.xpath("(//*[@id='title'and @text='All'])");
 
 	public static By objEpsiodesTab = By.xpath("(//*[@id='title'and @text='Episodes'])");
@@ -223,4 +221,12 @@ public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.
 	}
 	
 	public static By objEpisodeSearch = By.xpath("//*[@id='item_secondary_text']");
+	
+public static By objClearSearch = By.xpath("//*[@id='clearSearch']");
+	
+	public static By objSearchMoviesTab = By.xpath("(//*[@text='Movies' and @id='title'])[2]");
+	
+	public static By objSearchShowsTab = By.xpath("(//*[@id='title' and @text='Shows'])[2]");
+	
+	public static By objSearchedClubContent = By.xpath("(//*[@id='special_image_1' and (./preceding-sibling::* | ./following-sibling::*)[@id='itemImageParent']]//following-sibling::*)[1]"); 
 }

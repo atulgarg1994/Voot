@@ -28,5 +28,7 @@ public class AMDClubPage {
     public static By objPostDiscountInINR = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_selected_pack_description']");
 	public static By objEmailIdSection = By.xpath("//*[@resource-id='com.graymatrix.did:id/selectedUserDetailsName']");
     public static By objSelectPaymentOption = By.xpath("(//*[@id='payment_radio_button_container']/*[@class='android.widget.RadioButton'])[1]") ; 
+ public static By objDownloadVideoQualityPopup = By.xpath("//*[@id='popup_title']");
     
+    public static By objSearchedClubContent = By.xpath("(//*[@id='special_image_1' and (./preceding-sibling::* | ./following-sibling::*)[@id='itemImageParent']]//following-sibling::*)[1]");  
 }
