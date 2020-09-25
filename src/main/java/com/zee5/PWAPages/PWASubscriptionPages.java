@@ -223,7 +223,7 @@ public class PWASubscriptionPages {
 	public static By objCreditAndDebitCardBtn = By.xpath(
 			"//*[@class='linearLayout sidebarItem_object ']//following-sibling::*//article[contains(text(),'Credit / Debit Card')]");
 	public static By objWallets = By.xpath(
-			"//div[@class='linearLayout sidebarItemWrap sidebarItemWrap_wallet ']//article[contains(text(),'Wallets')]");
+			"//*[contains(@class, 'linearLayout PaymentOptionViewNotList ')]//*[contains(text(), 'Wallets')]");
 	public static By objPaytmWallet = By.xpath(
 			"//*[@class='linearLayout sidebarItem_object ']//following-sibling::*//article[contains(text(),'Paytm')]");
 	public static By objPaymentPageProceedBtn = By

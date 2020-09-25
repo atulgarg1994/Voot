@@ -627,6 +627,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlayerPause, "Pause Icon");
 		click(PWAPlayerPage.maximizeBtn, "Maximize icon");
 		click(PWAPlayerPage.minimizeBtn, "Minimize icon");
+		extent.HeaderChildNode("Verify Video Watch Duration event when video is closed abruptly on playing Carousel Content");
 		Back(1);
 		navigateToAnyScreenOnWeb("Shows");
 		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
@@ -640,6 +641,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Thumbnail Click Event And Video View Event For content played from playback page");
 		verifyElementPresentAndClick(PWAPremiumPage.objThumbnail, "Thumbnail from playback page");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		extent.HeaderChildNode("Verify Video Watch Duration event when video is closed abruptly on playing Content from a tray");
 		Back(1);
 		
 		Back(1);
@@ -957,6 +959,19 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn,"Add to Watchlist icon");
 		click(PWALandingPages.objWebProfileIcon, "Profile icon");
 		click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+		
+		extent.HeaderChildNode("Verify Video View and Video Exit Event for Content from My Watchlist page");
+		click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
+		mandatoryRegistrationPopUp(userType);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		extent.HeaderChildNode("Verify Player View Changed Event For Content from My Watchlist page");	
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerPause, "Pause Icon");
+		click(PWAPlayerPage.maximizeBtn, "Maximize icon");
+		click(PWAPlayerPage.minimizeBtn, "Minimize icon");
+		extent.HeaderChildNode("Verify Video Watch Duration event when video is closed abruptly on playing Content from My Watchlist page");
+		Back(1);
 		verifyElementPresentAndClick(PWAAddToWatchListPage.objRemoveContentsInWatchList, "Remove From Watchlist option");
 		Back(1);
 		actions.moveToElement(contentCard).build().perform();
@@ -1201,18 +1216,20 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	
 	
 	public void verifyVideoViewAndVideoExitEvent(String userType,String keyword4,String keyword5) throws Exception {
-		extent.HeaderChildNode("Verify Video View and Video Exit Event For Free Content");
+		extent.HeaderChildNode("Verify Video View and Video Exit Event For Free Content/Content played from Search Page");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitTime(4000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		extent.HeaderChildNode("Verify Player View Changed Event For Free Content");	
+		extent.HeaderChildNode("Verify Player View Changed Event For Free Content/Content played from Search Page");	
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		click(PWAPlayerPage.objPlayerPause, "Pause Icon");
 		click(PWAPlayerPage.maximizeBtn, "Maximize icon");
 		click(PWAPlayerPage.minimizeBtn, "Minimize icon");
+		extent.HeaderChildNode("Verify Video Watch Duration event when video is closed abruptly on playing Free Content/Content played from Search Page");
 		Back(1);       
 		
 		if(userType.equalsIgnoreCase("SubscribedUser")) {
@@ -1228,6 +1245,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPlayerPage.objPlayerPause, "Pause Icon");
 			click(PWAPlayerPage.maximizeBtn, "Maximize icon");
 			click(PWAPlayerPage.minimizeBtn, "Minimize icon");
+			extent.HeaderChildNode("Verify Video Watch Duration event when video is closed abruptly on playing Premium Content");
 			Back(1);
 		}
 		
@@ -1244,7 +1262,33 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPlayerPage.objPlayerPause, "Pause Icon");
 			click(PWAPlayerPage.maximizeBtn, "Maximize icon");
 			click(PWAPlayerPage.minimizeBtn, "Minimize icon");
+			waitTime(2000);
+			extent.HeaderChildNode("Verify Video View event and Video Exit when page is refreshed");
+			getWebDriver().navigate().refresh();
+			extent.HeaderChildNode("Verify Video Watch Duration event when video is closed abruptly on playing Trailer");
 			Back(1);
 		}
+		
+		Actions actions = new Actions(getWebDriver());
+		WebElement contentCard = getWebDriver()
+				.findElement(PWAHomePage.objHomeBarText("Music"));
+		actions.moveToElement(contentCard).build().perform();
+		
+		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");	
+		waitForPlayerAdToComplete("Video Player");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		extent.HeaderChildNode("Verify Player View Changed Event For Trailer");	
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerPause, "Pause Icon");
+		click(PWAPlayerPage.maximizeBtn, "Maximize icon");
+		click(PWAPlayerPage.minimizeBtn, "Minimize icon");
+		waitTime(2000);
+		extent.HeaderChildNode("Verify Video View event and Video Exit when page is refreshed");
+		getWebDriver().navigate().refresh();
+		extent.HeaderChildNode("Verify Video Watch Duration event when video is closed abruptly on playing content from Megamenu");
+		Back(1);
 	}
+	
+	
 }

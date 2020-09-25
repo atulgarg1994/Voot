@@ -16,6 +16,8 @@ public class AMDHomePage {
 	public static By objSearchBtn = By.xpath("//*[@id='logo']//following::*[1]");
 	
 	public static By objTitle = By.xpath("//*[@id='title']");
+	
+	public static By objGetPremium = By.xpath("//*[@id='get_premium_hero_component']");
 
 	// Bottom Navigation TEXT Buttons
 	public static By objHomeBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[1]");
@@ -62,9 +64,6 @@ public class AMDHomePage {
 
 	// Play Button On carousel
 	public static By objPlayBtn = By.xpath("//*[@id='playImage']");
-
-	// Premium button
-	public static By objGetPremium = By.xpath("//*[@id='getPremiumButton']");
 
 	public static By objContentTitle(String title) {
 		return By.xpath("//*[@id='item_primary_text'and @text='" + title + "']");

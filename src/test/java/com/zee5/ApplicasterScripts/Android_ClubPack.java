@@ -25,20 +25,19 @@ public class Android_ClubPack {
 	}
 
 	@Test(priority = 1) // Bhavana
-	@Parameters({ "userType","SearchVODContent2" }) 	
-	public void ClubUpgradeToAllAccess(String userType,String SearchVODContent2) throws Exception {
-		ZEE5ApplicasterBusinessLogic.ClubPackValidation(userType,SearchVODContent2);
-		
+	@Parameters({ "userType","SearchVODContent2","SearchVODContent4" }) 	
+	public void ClubUpgradeToAllAccess(String userType,String SearchVODContent2, String SearchVODContent4) throws Exception {
+		ZEE5ApplicasterBusinessLogic.ClubPackValidation(userType,SearchVODContent2,SearchVODContent4);
+			
 	}
-	
-	@Test(priority = 2) // Bhavana
+	@Test(priority = 3) // Bhavana
 	@Parameters({ "userType","SearchVODContent3","SearchVODContent" }) 	
 	public void ValidateSubscribeAndLoginCTAForClubContent(String userType, String SearchVODContent3 , String SearchVODContent) throws Exception {
 		ZEE5ApplicasterBusinessLogic.ValidateSubscribeAndLoginCTAForClubContent(userType,SearchVODContent3);
 		ZEE5ApplicasterBusinessLogic.SubscribepopupForClubcontentWithTrailer(userType,SearchVODContent);
 	}
 
-	@Test(priority = 3) // Bhavana
+	@Test(priority = 4) // Bhavana
 	@Parameters({ "userType"}) 	
 	public void ValidateClubIconForLandingPages(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.validateClubIconOnContentCards(userType);
@@ -48,7 +47,7 @@ public class Android_ClubPack {
 	}
 	
 	
-	@Test(priority = 2) // Bindu
+	@Test(priority = 5) // Bindu
 	@Parameters({ "userType" , "SearchVODContent" , "ClubContent"})
 	public void ClubPack(String userType, String SearchVODContent, String ClubContent) throws Exception {
 		ZEE5ApplicasterBusinessLogic.ClubPack(userType, SearchVODContent, ClubContent);

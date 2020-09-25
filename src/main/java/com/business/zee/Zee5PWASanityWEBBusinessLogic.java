@@ -2112,6 +2112,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		String defaultSelectedPlan = findElement(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).getText();
 		System.out.println("Plan Selected By Default is: " + defaultSelectedPlan);
 		waitTime(3000);
+		verifyElementPresentAndClick(PWASubscriptionPages.objPackAmount2, "299 pack is selected");
 		ScrollToElement(PWASubscriptionPages.objContinueBtn, "Continue");
 		waitTime(3000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
@@ -7000,7 +7001,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWASubscriptionPages.objPackAmount1, "Discounted pack");
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(5000);
-			paymentPageValidation(userType);
+		//	paymentPageValidation(userType);
 		}
 	}
 

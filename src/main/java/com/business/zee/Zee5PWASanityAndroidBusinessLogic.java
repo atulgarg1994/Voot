@@ -5927,6 +5927,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	/*
 	 * My Reminder section for subscribed user
 	 */
+	@SuppressWarnings("unused")
 	public void MyReminder() throws Exception {
 		extent.HeaderChildNode("User Actions : My Reminder functionality validations");
 		// handle mandatory pop up

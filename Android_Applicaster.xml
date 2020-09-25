@@ -122,6 +122,8 @@
 
  	<parameter name="USMNonsubscribedUserName" value="starttestzee5@gmail.com" />
 	<parameter name="USMNonsubscribedPassword" value="123456" />
+	<parameter name="ClubContent" value="Paani Jaisa Pyaar" />
+	<parameter name="SearchVODContent4"  value="Kurukshetra" />
 
 
 	<listeners>
