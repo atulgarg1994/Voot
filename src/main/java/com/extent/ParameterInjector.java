@@ -75,6 +75,8 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("keyword", "Jodi Hakki");
 			params.put("keyword1", "Shivaji Surathkal");
 			params.put("keyword2", "Chemistry of Kariyappa");
+			params.put("keyword4", "Paaru gets tipsy");
+			params.put("keyword5", "Bhinna");
 
 		}
 		if(region.equals("MH")) {
@@ -118,6 +120,8 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("keyword", "Jodi Hakki");
 			params.put("keyword1", "Shivaji Surathkal");
 			params.put("keyword2", "Chemistry of Kariyappa");
+			params.put("keyword4", "Paaru gets tipsy");
+			params.put("keyword5", "Bhinna");
 		}
         suite.setParameters(params);	
 	}

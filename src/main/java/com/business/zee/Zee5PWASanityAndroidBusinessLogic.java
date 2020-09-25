@@ -176,70 +176,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		getDriver().quit();
 	}
 
-	/** ==============================LOGIN================================ */
-	public void ZeePWALogin(String LoginMethod) throws Exception {
-		extent.HeaderChildNode("Login");
-//		String UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
-//		if(UserType.equals("Guest")) {
-//			return;
-//		}
-		if (!verifyIsElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
-			waitTime(3000);
-			verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
-		}
-		waitTime(3000);
-		verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login button");
-		waitTime(3000);
-		verifyElementPresent(PWALoginPage.objLoginPageText, "Login page");
-
-		switch (LoginMethod) {
-		case "Guest":
-			extent.HeaderChildNode("Guest User");
-			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			getDriver().navigate().back();
-			waitTime(3000);
-			break;
-
-		case "NonSubscribedUser":
-			extent.HeaderChildNode("Login as NonSubscribed User");
-			String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("NonsubscribedUserName");
-			String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("NonsubscribedPassword");
-			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-			type(PWALoginPage.objEmailField, Username + "\n", "Email Field");
-			waitTime(3000);
-			hideKeyboard();
-			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-			type(PWALoginPage.objPasswordField, Password + "\n", "Password field");
-			hideKeyboard();
-			waitTime(5000);
-			click(PWALoginPage.objLoginButton, "Login Button");
-			waitTime(3000);
-			break;
-
-		case "SubscribedUser":
-			extent.HeaderChildNode("Login as Subscribed User");
-
-			String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedUserName");
-			String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedPassword");
-
-			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-			type(PWALoginPage.objEmailField, SubscribedUsername + "\n", "Email Field");
-			waitTime(3000);
-			hideKeyboard();
-			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-			type(PWALoginPage.objPasswordField, SubscribedPassword + "\n", "Password field");
-			waitTime(5000);
-			hideKeyboard();
-			click(PWALoginPage.objLoginButton, "Login Button");
-			waitTime(3000);
-			break;
-		}
-	}
-
 	/** ==================SHREENIDHI - MENU SETTINGS======================= */
 
 	public void verificationsOfExploreOptions() throws Exception {
@@ -779,11 +715,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		catch(Exception e) {
 			
 		}
-		/*waitForElementDisplayed(PWAHomePage.objContinueDisplayContentLangPopup, 60,"Continue on Display Language Pop Up");
-		waitForElementAndClickIfPresent(PWAHomePage.objContinueDisplayContentLangPopup, 60,"Continue on Display Language Pop Up");
-		Thread.sleep(5000);
-		dismissSystemPopUp();
-		waitForElementAndClickIfPresent(PWAHomePage.objContinueDisplayContentLangPopup, 10,"Continue on Content Language Pop Up");*/
 	}
 
 	public void dismiss3xPopUp() throws Exception {
@@ -2691,7 +2622,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login button");
 		waitTime(3000);
-		verifyElementPresent(PWALoginPage.objLoginTxt, "Login page");
+		verifyElementPresent(PWALoginPage.objEmailField, "Login page");
 		extent.HeaderChildNode("Login through RSVOD User");
 		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
 		type(PWALoginPage.objEmailField, "pwate44@mailnesia.com\n", "Email Field");
@@ -2792,7 +2723,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			waitTime(5000);
 			getDriver().navigate().refresh();
 			waitTime(5000);
-			if (verifyIsElementDisplayed(PWALoginPage.objLoginTxt, "Login text")) {
+			if (verifyIsElementDisplayed(PWALoginPage.objEmailField, "Login text")) {
 				logger.info("Login page is loaded when interent is turned on");
 				extent.extentLogger("Login", "Login page is loaded when interent is turned on");
 			}
@@ -3005,13 +2936,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 */
 	public void zeePWAVerifySubscriptionPopupAfterTrailerPlaybackIsComplete(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
-			HeaderChildNode(
-					"Verify Subscription Popup After Completion Of Trailer Playback Is Complete for non-logged in User");
-			System.out.println(
-					"Verify Subscription Popup After Completion Of Trailer Playback Is Complete for non-logged in User");
+			HeaderChildNode("Verify Subscription Popup After Completion Of Trailer Playback Is Complete for non-logged in User");
+			System.out.println("Verify Subscription Popup After Completion Of Trailer Playback Is Complete for non-logged in User");
 			click(PWASubscriptionPages.objZEE5Logo, "Zee5 Logo");
-			String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("premiumMovieWithTrailer");
+			String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("premiumMovieWithTrailer");
 			zeeSearchForContentAndClickOnFirstResult(keyword);
 			waitForElement(PWASubscriptionPages.objSubscribePopupTitle, 30, "Subscribe Pop up Title");
 			if (verifyElementPresent(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop up Title")) {
@@ -5198,20 +5126,15 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitForElementAndClick(PWAHamburgerMenuPage.objContentLanguageBtn, 2, "Content Languages");
 		waitTime(2000);
 		try {
-			getDriver()
-					.findElement(By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='Kannada']"))
-					.click();
+			getDriver().findElement(By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='Kannada']")).click();
 		} catch (Exception e) {
 		}
 		try {
-			getDriver()
-					.findElement(By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='English']"))
-					.click();
+			getDriver().findElement(By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='English']")).click();
 		} catch (Exception e) {
 		}
 		try {
-			getDriver().findElement(By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='Hindi']"))
-					.click();
+			getDriver().findElement(By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='Hindi']")).click();
 		} catch (Exception e) {
 		}
 		click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
@@ -6004,7 +5927,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	/*
 	 * My Reminder section for subscribed user
 	 */
-	@SuppressWarnings("unused")
 	public void MyReminder() throws Exception {
 		extent.HeaderChildNode("User Actions : My Reminder functionality validations");
 		// handle mandatory pop up
@@ -6969,7 +6891,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login button");
 		waitTime(2000);
-		verifyElementPresent(PWALoginPage.objLoginTxt, "Login page");
+		verifyElementPresent(PWALoginPage.objEmailField, "Login page");
 		verifyElementPresentAndClick(PWALoginPage.objForgotPasswordTxt, "Forgot password");
 		waitTime(3000);
 		verifyElementPresent(PWALoginPage.objForgotPassswordPage, "Forgot password page");
@@ -7054,6 +6976,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 */
 	public void ValidatingLandingPages(String UserType) throws Exception {
 		FirstTimeUserTrendingonzee5(UserType);
+		dismissSystemPopUp();
 		landingpagePropertiesValidation(UserType);
 		BackTOTop();
 		landingPagesValidation(UserType, "Home");
@@ -7422,10 +7345,20 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		String consumptionPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,
 				"Content Title").toString();
 		if (consumptionPageTitle.contains(contentTitle)) {
-			extent.extentLogger("correctNavigation",
-					"Successfully navigated to the correct Consumption page: " + consumptionPageTitle);
+			extent.extentLogger("correctNavigation","Successfully navigated to the correct Consumption page: " + consumptionPageTitle);
 			logger.info("Successfully navigated to the correct Consumption page: " + consumptionPageTitle);
-			waitForElementAbsence(PWASubscriptionPages.objSubscribePopupTitle, 5, "Subscribe Pop Up");
+			if(verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle)){
+				extent.extentLogger("","Subscribe Pop Up is located");
+				logger.info("Subscribe Pop Up is located");
+				extent.extentLoggerFail("", "Subscribe Pop is getting displayed for free content");
+				logger.error("Subscribe Pop is getting displayed for free content");
+			}
+			else {	
+				extent.extentLogger("","Subscribe Pop Up is not located");
+				logger.info("Subscribe Pop Up is not located");
+				extent.extentLogger("", "Expected behavior: Subscribe Pop for free content is not displayed");
+				logger.info("Expected behavior: Subscribe Pop for free content is not displayed");
+			}
 		} else {
 			extent.extentLoggerFail("incorrectNavigation",
 					"Navigated to incorrect Consumption page: " + consumptionPageTitle);
@@ -7550,11 +7483,14 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			waitTime(3000);
 			// Get API details
 			String contentURL = getDriver().getCurrentUrl();
+			System.out.println(contentURL);
 			String[] abc = contentURL.split("/");
-			String contentID = abc[abc.length - 1].split("\\?")[0];
+			//String contentID = abc[abc.length - 1].split("\\?")[0];
+			//https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paaru-september-10-2020/0-1-manual_16030f67bgc0
+			String contentID = abc[abc.length - 1];
 			System.out.println("contentID fetched from URL: " + contentID);
 			Response resp = ResponseInstance.getContentDetails(contentID, "content");
-			System.out.println(resp.body().jsonPath());
+			System.out.println(resp.getBody().asString());
 			String titleAPI = resp.jsonPath().get("title").toString();
 			extent.extentLogger("apidata", "Episode title fetched from API: " + titleAPI);
 			logger.info("Episode title fetched from API: " + titleAPI);
@@ -9287,7 +9223,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			extent.extentLogger("Live Channel Page", "Live Channel Card Title fetched: " + channelTitle);
 			verifyElementPresentAndClick(PWALiveTVPage.objLiveChannelCard, "Live Channel Card");
 			waitTime(7000);
-			String playerPageChannelTitle = getDriver().findElement(PWALiveTVPage.objLiveChannelConsumptionChannelTitle).getText();
+			String playerPageChannelTitle = getDriver().findElement(PWALiveTVPage.objLiveChannelConsumptionPageTitle).getText();
 			logger.info("Title fetched from Consumption page: " + playerPageChannelTitle);
 			extent.extentLogger("Live Channel Page", "Title fetched from Consumption page: " + playerPageChannelTitle);
 			if (channelTitle.equalsIgnoreCase(playerPageChannelTitle)) {
@@ -9787,15 +9723,19 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		navigateToAnyScreen("News");
 		waitTime(7000);
 		waitForElement(PWANewsPage.objLiveNewsCard, 60, "News Card");
-		String newsCardTitle = getElementPropertyToString("data-minutelytitle", PWANewsPage.objLiveNewsCard,
-				"News Card Title");
+		String newsCardTitle = getElementPropertyToString("data-minutelytitle", PWANewsPage.objLiveNewsCard,"News Card Title");
+		logger.info("News card title fetched: " + newsCardTitle);
+		extent.extentLogger("", "News card title fetched: " + newsCardTitle);
 		click(PWANewsPage.objLiveNewsCard, "News Card Title");
 		waitTime(10000);
 		if (verifyElementPresent(PWAPlayerPage.objPlayerControlScreen, "Player control containing screen")) {
+			waitforNewsConsumptionsToLoad();
 			String newsConsumptionsTitle = getText(PWANewsPage.objLiveNewsConsumptionsTitle);
+			logger.info("News title from consumptions page: " + newsConsumptionsTitle);
+			extent.extentLogger("", "News title from consumptions page: " + newsConsumptionsTitle);
 			if (newsCardTitle.equals(newsConsumptionsTitle)) {
-				logger.info("Navigated to Consumptions Page: " + newsConsumptionsTitle);
-				extent.extentLogger("Consumption Page", "Navigated to Consumption Page: " + newsConsumptionsTitle);
+				logger.info("Navigated to correct Consumptions Page");
+				extent.extentLogger("Consumption Page", "Navigated to correct Consumption Page");
 			} else {
 				logger.error("Navigated to incorrect Consumptions Page");
 				extent.extentLoggerFail("Consumption Page", "Navigated to incorrect Consumptions Page");
@@ -10032,7 +9972,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(2000);
 		click(PWAShowsPage.objSecondSetEpisodeTray, "Second Episode set");
 		waitTime(3000);
-		click(PWAShowsPage.objFirstContentInTray, "Free Content from tray");
+		JSClick(PWAShowsPage.objFirstContentInTray, "Free Content from tray");
 		waitTime(3000);
 		if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop up Title")) {
 			click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
@@ -10061,6 +10001,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(user);
 		verifyElementPresentAndClick(PWAShowsPage.objLatestepisode, "Watch latest Episode CTA");
 		waitTime(5000);
+		waitForElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle,30);
 		if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop up Title")) {
 			click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
 			logger.info("Unable to verify landscape mode for Premium content for " + user);
@@ -10546,6 +10487,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				if (directClickReturnBoolean(PWALandingPages.objViewAllPageFirstContent, "First asset")) {
 					logger.info("Clicked on first asset, hence Swiping Up is successful");
 					extent.extentLogger("View All", "Clicked on first asset, hence Swiping Up is successful");
+					waitForElementDisplayed(PWASubscriptionPages.objPopupCloseButton,30);
 					directClickReturnBoolean(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
 					String viewallnavigationtittle = getText(PWAPlayerPage.objContentTitle);
 					logger.info("Navigated to Consumption page from View All Page: " + viewallnavigationtittle);
@@ -12247,17 +12189,17 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 
 	public boolean directClickReturnBoolean(By byLocator, String validationtext) throws Exception {
-
 		try {
-			WebElement element = findElement(byLocator);
-			element.click();
-			logger.info("Clicked on " + validationtext);
-			extent.extentLogger("click", "Clicked on " + validationtext);
-			element = null;
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+			WebElement element = (new WebDriverWait(getDriver(), 1)).until(ExpectedConditions.presenceOfElementLocated(byLocator));
+			if (element.isDisplayed() == true) {
+				element.click();
+				logger.info("Clicked on " + validationtext);
+				extent.extentLogger("click", "Clicked on " + validationtext);
+				element = null;
+				return true;
+			}
+		} catch (Exception e) {}
+		return false;
 	}
 
 	public void dismissSystemPopUp() throws Exception {
@@ -12340,6 +12282,29 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		return false;
 	}
 	
+	public boolean waitforNewsConsumptionsToLoad() throws Exception {
+		for (int i = 0; i < 15; i++) {
+			if (verifyIsElementDisplayed(PWANewsPage.objLiveNewsConsumptionsTitle)) {
+				System.out.println(getText(PWANewsPage.objLiveNewsConsumptionsTitle));
+				if(getText(PWANewsPage.objLiveNewsConsumptionsTitle).equals("N\\/A")) {
+					logger.info("N/A is displayed as title, waiting for metdata to load");
+					extent.extentLogger("", "N/A is displayed as title, waiting for metdata to load");
+				}
+				else {
+					logger.info("News consumptions page metadata loaded");
+					extent.extentLogger("", "News consumptions page metadata loaded");
+					return true;
+				}			
+			} else {
+				waitTime(10000);
+				System.out.println("iteration "+i);
+			}
+		}
+		extent.extentLoggerFail("", "News consumptions page metadata failed to load even after waiting for 2 minutes");
+		logger.info("News consumptions page metadata failed to load even after waiting for 2 minutes");
+		return false;
+	}
+	
 	public void launchCheck(String userType) throws Exception {
 		HeaderChildNode("Verifying that on launch user can see signup/login option");
 		verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger menu");
@@ -12383,7 +12348,4 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(4000);
 	}	
 
-
-	
-	
 }

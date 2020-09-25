@@ -43,6 +43,8 @@ public class Android_ClubPack {
 	public void ValidateClubIconForLandingPages(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.validateClubIconOnContentCards(userType);
 		ZEE5ApplicasterBusinessLogic.ValidateClubIconForRecoTray(userType);
+		ZEE5ApplicasterBusinessLogic.ValidateClubIconForEpisodes(userType);
+		ZEE5ApplicasterBusinessLogic.ValidateClubIconForMovies(userType);
 	}
 	
 	

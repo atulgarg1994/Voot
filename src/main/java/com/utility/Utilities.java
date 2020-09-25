@@ -22,6 +22,7 @@ import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Reporter;
 import org.testng.asserts.SoftAssert;
 import com.driverInstance.DriverInstance;
 import com.extent.ExtentReporter;
@@ -417,7 +418,7 @@ public class Utilities extends ExtentReporter {
 	}
 
 	public static boolean verifyIsElementDisplayed(By by) {
-		getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+		getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		List<WebElement> list = getDriver().findElements(by);
 		getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		if (list.size() == 0) {
@@ -646,6 +647,7 @@ public class Utilities extends ExtentReporter {
 					getDriver().navigate().back();
 					logger.info("Back button is tapped");
 					extent.extentLogger("Back", "Back button is tapped");
+					waitTime(2000);
 				}
 			}
 		} catch (Exception e) {
@@ -1875,5 +1877,9 @@ public class Utilities extends ExtentReporter {
 			return false;
 		}
 		return false;
+	}
+	
+	public String getParameterFromXML(String param) {
+		return Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter(param);
 	}
 }

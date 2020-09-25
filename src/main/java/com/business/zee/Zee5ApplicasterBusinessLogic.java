@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -12529,10 +12530,56 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
 			verifyClubPack(userType, SearchVODContent);
 			verifyClubIconOnAllSeaerchScreenTabs(ClubContent, SearchVODContent);
-			verifyTwokindsOfPacks();
+			verifyAllAccessAndClubPacks();
 		} else if (userType.equals("SubscribedUser")) {
 			verifyClubPackAccountInfoScreen(userType);
 		}
+	}
+
+	public void verifyAllAccessAndClubPacks() throws Exception {
+		extent.HeaderChildNode("verify Two kinds of packs offered for the user");
+		System.out.println("\nVerify Two kinds of packs offreed for the user");
+		verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu");
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDMoreMenu.objBuySubscription, "Buy Subscription option");
+		waitTime(6000);
+		Swipe("UP", 1);
+		if (verifyElementPresent(AMDClubPage.objPremiumTab, "Premium tab")) {
+			extent.extentLoggerPass("verify Premium Tab", "Premium Tab is displayed under Buy Subscription Screen");
+			logger.info("Premium Tab is displayed under Buy Subscription Screen");
+		} else {
+			extent.extentLoggerFail("verify Premium Tab", "Premium Tab is not displayed under Buy Subscription Screen");
+			logger.info("Premium Tab is not displayed under Buy Subscription Screen");
+		}
+
+		if (verifyIsElementDisplayed(AMDClubPage.objAllAccessPack)) {
+			String PremiumPlan = getText(AMDClubPage.objAllAccessPack);
+			logger.info(PremiumPlan + " : Premium Plan is displayed in Premium Tab");
+			extent.extentLoggerPass("Premium Plan", PremiumPlan + " : Premium Plan is displayed in Premium Tab");
+		} else {
+			logger.info("Premium Plan is not displayed in Premium Tab");
+			extent.extentLoggerFail("Premium Plan", "Premium Plan is not displayed in Premium Tab");
+		}
+
+		click(AMDClubPage.objClubTab, "Club tab");
+		if (verifyElementPresent(AMDClubPage.objClubTab, "Club tab")) {
+			extent.extentLoggerPass("verify Club Tab", "Club Tab is displayed under Buy Subscription Screen");
+			logger.info("Club Tab is displayed under Buy Subscription Screen");
+		} else {
+			extent.extentLoggerFail("verify club Tab", "Club Tab is not displayed under Buy Subscription Screen");
+			logger.info("Club Tab is not displayed under Buy Subscription Screen");
+		}
+
+		if (verifyIsElementDisplayed(AMDClubPage.objClubPack)) {
+			String ClubPack = getText(AMDClubPage.objClubPack);
+			logger.info(ClubPack + " : Club Plan is displayed in Club Tab");
+			extent.extentLoggerPass("Club Plan", ClubPack + " : Club Plan is displayed in Club Tab");
+		} else {
+			extent.extentLoggerFail("Club Plan", "ClubPlan is not displayed in Club Tab");
+			logger.info("ClubPlan is not displayed in Club Tab");
+		}
+		Back(1);
+		verifyElementPresentAndClick(AMDSearchScreen.objHomeOption, "Bottom bar home option");
 	}
 
 	public void verifyClubPack(String userType, String SearchVODContent) throws Exception {
@@ -12551,7 +12598,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info(Content);
 			boolean clubIcon = verifyIsElementDisplayed(AMDClubPage.objClubIcon);
 			if (clubIcon) {
-				extent.extentLogger("Club Icon", "Club icon is displayed on club VOD Content card");
+				extent.extentLoggerPass("Club Icon", "Club icon is displayed on club VOD Content card");
 				logger.info("Club icon is displayed on club VOD Content card");
 			} else {
 				extent.extentLoggerFail("Club Icon", "Club icon is not displayed on club VOD Content card");
@@ -12578,7 +12625,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objBackBtn, "Back Button");
 
-			// Swipe("DOWN", 1);
+			// SwipeUntilFindElement(AMDNewsPage.objWatchlistIcon, "DOWN");
 			Back(1);
 			click(AMDClubPage.objClubIcon, "Club Content");
 			waitTime(2000);
@@ -12695,7 +12742,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 				boolean clubIcon = verifyIsElementDisplayed(AMDClubPage.objClubIcon);
 				if (clubIcon) {
-					extent.extentLogger("Club Icon",
+					extent.extentLoggerPass("Club Icon",
 							"Club icon is displayed in Movies Tab for the Searched content : " + SearchedContent + " ");
 					logger.info(
 							"Club icon is displayed in Movies Tab for the Searched content : " + SearchedContent + " ");
@@ -12761,7 +12808,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDMoreMenu.objMoreMenuIcon, "More tab screen");
 		// ###### Kushal #####
 		int getWaiverAmt = GetWaiverAmountForClubPackUpdgrade();
-		
+
 		verifyElementPresentAndClick(AMDMoreMenu.objBuySubscription, "Buy Subscription");
 		waitTime(3000);
 		SwipeUntilFindElement(AMDClubPage.objContinueButton, "UP");
@@ -12769,23 +12816,27 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		waitTime(5000);
 		Swipe("DOWN", 1);
-		String[] getPlanPrice = getText(AMDSubscibeScreen.objPlanPrice).replace("INR ","").trim().split("\\.");
-		String getTotalPayable = getText(AMDSubscibeScreen.objTotalPayable).replace("INR ","").trim();
-		
-		int newPlanPrice =  Integer.parseInt(getPlanPrice[0]);
+		String[] getPlanPrice = getText(AMDSubscibeScreen.objPlanPrice).replace("INR ", "").trim().split("\\.");
+		String getTotalPayable = getText(AMDSubscibeScreen.objTotalPayable).replace("INR ", "").trim();
+
+		int newPlanPrice = Integer.parseInt(getPlanPrice[0]);
 		int TotalPayableAmount = (newPlanPrice - getWaiverAmt);
 		int PayableAmountUI = Integer.parseInt(getTotalPayable);
-		
-		if(PayableAmountUI==TotalPayableAmount) {
-			logger.info("Calculated Total Payable amount and displayed amount in UI is correct with Waiver of INR "+getWaiverAmt);
+
+		if (PayableAmountUI == TotalPayableAmount) {
+			logger.info("Calculated Total Payable amount and displayed amount in UI is correct with Waiver of INR "
+					+ getWaiverAmt);
 			extent.extentLoggerPass("Total Payable Amount",
-					"Calculated Total Payable amount and displayed amount in UI is correct with Waiver of INR "+getWaiverAmt);
+					"Calculated Total Payable amount and displayed amount in UI is correct with Waiver of INR "
+							+ getWaiverAmt);
 		} else {
-			logger.error("Calculated Total Payable amount "+TotalPayableAmount+" and displayed amount "+PayableAmountUI+"in UI is incorrect with Waiver of INR "+getWaiverAmt);
+			logger.error("Calculated Total Payable amount " + TotalPayableAmount + " and displayed amount "
+					+ PayableAmountUI + "in UI is incorrect with Waiver of INR " + getWaiverAmt);
 			extent.extentLoggerFail("Total Payable Amount",
-					"Calculated Total Payable amount "+TotalPayableAmount+" and displayed amount "+PayableAmountUI+"in UI is incorrect with Waiver of INR "+getWaiverAmt);
+					"Calculated Total Payable amount " + TotalPayableAmount + " and displayed amount " + PayableAmountUI
+							+ "in UI is incorrect with Waiver of INR " + getWaiverAmt);
 		}
-		
+
 		waitTime(2000);
 		Swipe("DOWN", 2);
 		verifyElementPresent(AMDLoginScreen.objBackBtn, "Back Button in Account Info Screen");
@@ -12799,10 +12850,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		extent.HeaderChildNode("verify Selected Pack section Info for Club Pack");
 		System.out.println("\nVerify Selected Pack section Info for Club Pack");
+		// SwipeUntilFindElement(AMDClubPage.objSelectedPackName, "DOWN");
 		Swipe("DOWN", 2);
 		if (verifyElementDisplayed(AMDClubPage.objSelectedPackName)) {
 			String SelectedPackName = getText(AMDClubPage.objSelectedPackName);
-			extent.extentLogger("Verify Selected Pack Name",
+			extent.extentLoggerPass("Verify Selected Pack Name",
 					"Selected Pack Name \"" + SelectedPackName + "\" : is displayed in Account Info");
 			logger.info("Selected Pack Name \"" + SelectedPackName + "\" : is displayed in Account Info");
 		} else {
@@ -12813,7 +12865,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		if (verifyElementDisplayed(AMDClubPage.objSelectedPackName)) {
 			String SelectedPackValidity = getText(AMDClubPage.objSelectedPackValidity);
-			extent.extentLogger("Verify Selected Pack validity",
+			extent.extentLoggerPass("Verify Selected Pack validity",
 					"Selected Pack validity \"" + SelectedPackValidity + "\" : is displayed in Account Info");
 			logger.info("Selected Pack validity \"" + SelectedPackValidity + "\" : is displayed in Account Info");
 		} else {
@@ -12824,7 +12876,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		if (verifyElementDisplayed(AMDClubPage.objPlanPriceINR)) {
 			String SelectedPlanPriceINR = getText(AMDClubPage.objPlanPriceINR);
-			extent.extentLogger("Verify Selected Pack Price INR",
+			extent.extentLoggerPass("Verify Selected Pack Price INR",
 					"Selected Plan Price INR \"" + SelectedPlanPriceINR + "\" : is displayed in Account Info");
 			logger.info("Selected Pack Price INR \"" + SelectedPlanPriceINR + "\" : is displayed in Account Info");
 		} else {
@@ -12835,7 +12887,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		if (verifyElementDisplayed(AMDClubPage.objDiscountPlanINR)) {
 			String DiscountPlanINR = getText(AMDClubPage.objDiscountPlanINR);
-			extent.extentLogger("Verify Discount INR",
+			extent.extentLoggerPass("Verify Discount INR",
 					"Discount INR \"" + DiscountPlanINR + "\" : is displayed in Account Info");
 			logger.info("Discount INR \"" + DiscountPlanINR + "\" : is displayed in Account Info");
 		} else {
@@ -12845,7 +12897,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		if (verifyElementDisplayed(AMDClubPage.objRoundOffValue)) {
 			String RoundOffValue = getText(AMDClubPage.objRoundOffValue);
-			extent.extentLogger("Verify Round Off",
+			extent.extentLoggerPass("Verify Round Off",
 					"Round Off \"" + RoundOffValue + "\" : is displayed in Account Info");
 			logger.info("Round Off \"" + RoundOffValue + "\" : is displayed in Account Info");
 		} else {
@@ -12855,7 +12907,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		if (verifyElementDisplayed(AMDClubPage.objRevisedBillingSection)) {
 			String RevisiedBillingCycleInfo = getText(AMDClubPage.objRevisedBillingSection);
-			extent.extentLogger("Verify Revisied Billing Cycle Info",
+			extent.extentLoggerPass("Verify Revisied Billing Cycle Info",
 					"Revisied Billing Cycle Info \"" + RevisiedBillingCycleInfo + "\" : is displayed in Account Info");
 			logger.info(
 					"Revisied Billing Cycle Info \"" + RevisiedBillingCycleInfo + "\" : is displayed in Account Info");
@@ -12867,7 +12919,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		if (verifyElementDisplayed(AMDClubPage.objPostDiscountInINR)) {
 			String PostDiscountInINR = getText(AMDClubPage.objPostDiscountInINR);
-			extent.extentLogger("Verify Post Discount In INR",
+			extent.extentLoggerPass("Verify Post Discount In INR",
 					"Post Discount In INR \"" + PostDiscountInINR + "\" : is displayed in Account Info");
 			logger.info("Post Discount In INR \"" + PostDiscountInINR + "\" : is displayed in Account Info");
 		} else {
@@ -12878,17 +12930,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		if (verifyElementDisplayed(AMDClubPage.objEmailIdSection)) {
 			String EmailID = getText(AMDClubPage.objEmailIdSection);
-			extent.extentLogger("Verify EmailID", "Email ID \"" + EmailID + "\" : is displayed in Account Info");
+			extent.extentLoggerPass("Verify EmailID", "Email ID \"" + EmailID + "\" : is displayed in Account Info");
 			logger.info("Email ID \"" + EmailID + "\" : is displayed in Account Info");
 		} else {
 			extent.extentLoggerFail("Verify EmailID", "Post Discount INR is not displayed in Account Info screen");
 			logger.info("Email ID is not displayed in Account Info screen");
 		}
 		verifyPaymentOptions(userType);
-	}
-
-	public String getParameterFromXML(String param) {
-		return Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter(param);
 	}
 
 	public void verifyPaymentOptions(String userType) throws Exception {
@@ -12898,15 +12946,24 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				"\nVerify continue button highlighted on selecting any payment option in Account Info Screene");
 		SwipeUntilFindElement(AMDClubPage.objSelectPaymentOption, "UP");
 		verifyElementPresentAndClick(AMDClubPage.objSelectPaymentOption, "Payment option");
-		waitTime(2000);
-		if (getAttributValue("clickable", AMDClubPage.objAccountInfoScreenContinueButton).equals("true")) {
-			logger.info("Continue button is highlighted on selecting Payment Option");
-			extent.extentLoggerPass("Continue button", "Continue button is highlighted on selecting Payment Option");
-		} else {
-			logger.info("Continue button is highlighted on selecting Payment Option");
-			extent.extentLoggerFail("Continue button", "Continue button is highlighted on selecting Payment Option");
+		SwipeUntilFindElement(AMDClubPage.objAccountInfoScreenContinueButton, "UP");
+		boolean ContinueButton = verifyIsElementDisplayed(AMDClubPage.objAccountInfoScreenContinueButton);
+		if (ContinueButton) {
+			waitTime(2000);
+			if (getAttributValue("clickable", AMDClubPage.objAccountInfoScreenContinueButton).equals("true")) {
+				logger.info("Continue button is highlighted on selecting Payment Option");
+				extent.extentLoggerPass("Continue button",
+						"Continue button is highlighted on selecting Payment Option");
+			} else {
+				logger.info("Continue button is not highlighted on selecting Payment Option");
+				extent.extentLoggerFail("Continue button",
+						"Continue button is not highlighted on selecting Payment Option");
+			}
+			Back(1);
+			waitTime(2000);
+			Back(2);
+			verifyElementPresentAndClick(AMDSearchScreen.objHomeOption, "Bottom bar home option");
 		}
-		Back(3);
 	}
 
 	public void ZeeApplicasterLoginForOnboarding() throws Exception {
@@ -13225,7 +13282,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String ConsumptionScreenMetaData = getText(AMDNewsPage.objConsumptionScrnMetaDataOfLiveTv);
 		if (LiveChannelName.equalsIgnoreCase(ConsumptionScreenMetaData)) {
 			logger.info("Appropriate playback will be initiated for the clicked content");
-			extent.extentLogger("Consumption Screen", "Appropriate playback will be initiated for the clicked content");
+			extent.extentLoggerPass("Consumption Screen", "Appropriate playback will be initiated for the clicked content");
 		} else {
 			logger.info("Appropriate playback is not initiated for the clicked content");
 			extent.extentLoggerFail("Consumption Screen",
@@ -13241,29 +13298,29 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("Share CTA is not displayed in News Consumption Screen");
 		}
 
-		boolean Description = (verifyIsElementDisplayed(AMDNewsPage.objNewsConsumptionSrnDescription));
-		if (Description) {
-			String LiveNewsDescription = getText(AMDNewsPage.objNewsConsumptionSrnDescription);
-			logger.info(LiveNewsDescription
-					+ " : Short Description of the Live TV Content is displayed in Consumption Screen");
-			extent.extentLoggerPass("Short Description", LiveNewsDescription
-					+ " : Short Description of the Live TV Content is displayed in Consumption Screen");
-		} else {
-			logger.info("Short Description is not displayed in Live TV Consumption Screen");
-			extent.extentLoggerFail("Short Description",
-					"Short Description is not displayed in Live TV Consumption Screen");
-		}
-
-		boolean NewsChannel = (verifyIsElementDisplayed(AMDNewsPage.objChannelName));
-		if (NewsChannel) {
-			String ChannelName = getText(AMDNewsPage.objChannelName);
-			logger.info(ChannelName + " : Channel name is displayed in Live TV Consumption Screen");
-			extent.extentLoggerPass("Channel Name",
-					ChannelName + " : Channel name is displayed in Live TV Consumption Screen");
-		} else {
-			logger.info("Channel name is not displayed in Live TV Consumption Screen");
-			extent.extentLoggerFail("Channel Name", "Channel name is not displayed in Live TV Consumption Screen");
-		}
+//		boolean Description = (verifyIsElementDisplayed(AMDNewsPage.objNewsConsumptionSrnDescription));
+//		if (Description) {
+//			String LiveNewsDescription = getText(AMDNewsPage.objNewsConsumptionSrnDescription);
+//			logger.info(LiveNewsDescription
+//					+ " : Short Description of the Live TV Content is displayed in Consumption Screen");
+//			extent.extentLoggerPass("Short Description", LiveNewsDescription
+//					+ " : Short Description of the Live TV Content is displayed in Consumption Screen");
+//		} else {
+//			logger.info("Short Description is not displayed in Live TV Consumption Screen");
+//			extent.extentLoggerFail("Short Description",
+//					"Short Description is not displayed in Live TV Consumption Screen");
+//		}
+//
+//		boolean NewsChannel = (verifyIsElementDisplayed(AMDNewsPage.objChannelName));
+//		if (NewsChannel) {
+//			String ChannelName = getText(AMDNewsPage.objChannelName);
+//			logger.info(ChannelName + " : Channel name is displayed in Live TV Consumption Screen");
+//			extent.extentLoggerPass("Channel Name",
+//					ChannelName + " : Channel name is displayed in Live TV Consumption Screen");
+//		} else {
+//			logger.info("Channel name is not displayed in Live TV Consumption Screen");
+//			extent.extentLoggerFail("Channel Name", "Channel name is not displayed in Live TV Consumption Screen");
+//		}
 
 		boolean WatchlistIcon = (!(verifyIsElementDisplayed(AMDNewsPage.objWatchlistIcon)));
 		if (WatchlistIcon) {
@@ -13320,7 +13377,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						"User is not navigated to listing screen post tapping rail name displayed below the consumption screen ");
 			}
 		}
-
 		Back(1);
 		verifyChannelNames();
 	}
@@ -13346,7 +13402,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String secondContentName = getText(AMDGenericObjects.objContentNameInTray(3));
 		logger.info(secondContentName);
 		if (!firstContentName.equals(secondContentName)) {
-			extent.extentLogger("Swipe", "User can Swipe the content cards to access related contents from the rail");
+			extent.extentLoggerPass("Swipe", "User can Swipe the content cards to access related contents from the rail");
 			logger.info("User can Swipe the content cards to access related contents from the rail");
 		} else {
 			extent.extentLoggerFail("Swipe",
@@ -13397,13 +13453,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDSearchScreen.objEpisodeSearch, "Search result");
 		} else {
 			click(AMDSearchScreen.objFirstSearchResult(contentName), "Search result");
-		}
-
-		if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
-			if (verifyIsElementDisplayed(AMDConsumptionScreen.objSubscribePopUp)
-					| verifyIsElementDisplayed(AMDConsumptionScreen.objRegisterPopUp)) {
-				Back(1);
-			}
 		}
 
 		if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
@@ -13480,6 +13529,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		AudioLanguage(userType, contentName, tabName);
 		SubTitles(userType, contentName, tabName);
 		ValidateConfiguredRails(userType, tabName);
+		AvailableTraysInTabs(tabName, userType);
 		Back(3);
 		// click(AMDHomePage.objHome,"Home Icon");
 		waitTime(3000);
@@ -13490,7 +13540,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		HeaderChildNode("Verify the availability of CTA's in Consumption screen for the tab :\"" + tabName + "\"");
 		boolean shareCTA = verifyIsElementDisplayed(AMDConsumptionScreen.objShareBtn);
 		if (shareCTA) {
-			extent.extentLogger("Share CTA", "Share CTA is available for the content : " + contentName);
+			extent.extentLoggerPass("Share CTA", "Share CTA is available for the content : " + contentName);
 			logger.info("Share CTA is available for the content : " + contentName);
 		} else {
 			extent.extentLogger("Share CTA",
@@ -13499,7 +13549,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		boolean watchListCTA = verifyIsElementDisplayed(AMDConsumptionScreen.objWatchlistBtn);
 		if (watchListCTA) {
-			extent.extentLogger("Watchlist", "Watchlist CTA is available for the content : " + contentName);
+			extent.extentLoggerPass("Watchlist", "Watchlist CTA is available for the content : " + contentName);
 			logger.info("Watchlist CTA is available for the content : " + contentName);
 		} else {
 			extent.extentLogger("Watchlist CTA",
@@ -13509,7 +13559,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		boolean castCTA = verifyIsElementDisplayed(AMDConsumptionScreen.objCastBtn);
 		if (castCTA) {
-			extent.extentLogger("Cast CTA", "Cast CTA is available for the content : " + contentName);
+			extent.extentLoggerPass("Cast CTA", "Cast CTA is available for the content : " + contentName);
 			logger.info("Cast CTA is available for the content : " + contentName);
 		} else {
 			extent.extentLogger("Cast CTA",
@@ -13518,7 +13568,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		boolean downloadCTA = verifyIsElementDisplayed(AMDConsumptionScreen.objDownloadBtn);
 		if (downloadCTA) {
-			extent.extentLogger("Download CTA", "Download CTA is available for the content : " + contentName);
+			extent.extentLoggerPass("Download CTA", "Download CTA is available for the content : " + contentName);
 			logger.info("Download CTA is available for the content : " + contentName);
 		} else {
 			extent.extentLogger("Download CTA",
@@ -13528,7 +13578,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		boolean watchTrailerCTA = verifyIsElementDisplayed(AMDConsumptionScreen.objWatchTrialer);
 		if (watchTrailerCTA) {
-			extent.extentLogger("Watch Trailer CTA", "Watch Trailer CTA is available for the content : " + contentName);
+			extent.extentLoggerPass("Watch Trailer CTA",
+					"Watch Trailer CTA is available for the content : " + contentName);
 			logger.info("Watch Trailer CTA is available for the content : " + contentName);
 		} else {
 			extent.extentLogger("Watch Trailer CTA",
@@ -13750,6 +13801,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						+ "' user can not click on the Watchlist CTA for user type : " + userType);
 			} else if (tabName.equals("Shows") | tabName.equals("Episode")) {
 				verifyElementPresentAndClick(AMDConsumptionScreen.objWatchlistBtn, "Watchlist button");
+				Back(1);
 				watchListScreen(contentName, tabName);
 				waitTime(3000);
 			}
@@ -14188,7 +14240,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Configured trays for the tab : \"" + tabName + "\"");
 		if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
 			if (tabName.equals("Episode") | tabName.equals("Movies")) {
-				click(AMDPlayerScreen.objPlayer, "Player");
+				click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			}
 		}
 
@@ -14574,6 +14626,20 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementExist(AMDClubPack.objClubIconforClubPlan, "Only Club Icon for Club pack plan");
 			verifyElementExist(AMDClubPack.objPremiumIconInSubscribePopup, "Premium Icon for All Acess plan");
 			verifyElementExist(AMDClubPack.objClubIconInSubscribePopup, "Club Icon for All Acess plan");
+			if (getAttributValue("clickable", AMDClubPack.objPremiumIconInSubscribePopup).equals("false")) {
+				logger.info("Premium Icon is not clickable on Get premium popup");
+				extent.extentLoggerPass("Popup", "Premium Icon is not clickable on Get premium popup");
+			} else {
+				logger.error("Premium Icon is clickable on Get premium popup");
+				extent.extentLoggerFail("popup", "Premium Icon is clickable on Get premium popup");
+			}
+			if (getAttributValue("clickable", AMDClubPack.objClubIconInSubscribePopup).equals("false")) {
+				logger.info("Club Icon is not clickable on Get premium popup");
+				extent.extentLoggerPass("Popup", "Club Icon is not clickable on Get premium popup");
+			} else {
+				logger.error("Club Icon is clickable on Get premium popup");
+				extent.extentLoggerFail("popup", "Club Icon is clickable on Get premium popup");
+			}
 
 			String Plan1 = getText(AMDClubPack.objPack1InSubscribePopup);
 			System.out.println(Plan1);
@@ -14645,7 +14711,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					type(AMDLoginScreen.objPasswordField, Password, "Password field");
 					hideKeyboard();
 					verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
-					waitTime(5000);
+					waitTime(12000);
 				}
 				boolean objPlayer = verifyIsElementDisplayed(AMDPlayerScreen.objPlayerScreen);
 				if (objPlayer) {
@@ -14657,14 +14723,16 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					extent.extentLoggerFail("Consumption screen",
 							"User fails to navigate back to consumption screen on successfull login");
 				}
+				Back(1);
+				click(AMDHomePage.HomeIcon, "Home Icon");
+				ZNALogoutMethod();
+				waitTime(4000);
 			} else {
 				logger.info("Login CTA for club content is not applicable for " + userType);
 				extent.extentLogger("Login CTA", "Login CTA for club content is not applicable for " + userType);
+				Back(1);
 			}
-			Back(1);
 			click(AMDHomePage.HomeIcon, "Home Icon");
-			ZNALogoutMethod();
-			waitTime(4000);
 			validateSubscribepopupForPremiumContent("Prema Baraha");
 		} else {
 			logger.info("Validation of Subscribe and Login CTA for club content is not applicable for " + userType);
@@ -14758,7 +14826,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.error("Club icon is NOT displayed on club content card");
 				extent.extentLoggerFail("Landing screen", "Club icon is NOT displayed on club content card");
 			}
+			waitTime(3000);
 			click(AMDClubPack.objBestOfZee5OriginalsTray, "Best of ZEE5 Originals in Kannada tray");
+			waitTime(3000);
 			boolean result2 = verifyIsElementDisplayed(AMDClubPack.objclubIconInContentListingScreen);
 			if (result2) {
 				logger.info("Club icon is displayed in content listing screen");
@@ -14768,6 +14838,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Landing screen", "Club icon is NOT displayed in content listing screen");
 			}
 			Back(1);
+			click(AMDHomePage.HomeIcon, "Home Icon");
 		} else {
 			logger.info("Validating Club icon on Landing screen is not applicable for " + userType);
 			extent.extentLoggerPass("Landing page",
@@ -14781,6 +14852,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			System.out.println("Validating Club Icon for Reco rails/tray");
 			waitTime(6000);
 			SwipeUntilFindElement(AMDClubPack.objRecoMovieTray, "UP");
+			waitTime(3000);
 			boolean reco = verifyIsElementDisplayed(AMDClubPack.objClubicononRecoTrays);
 			if (reco) {
 				logger.info("Club icon is displayed on club content card under Reco Tray");
@@ -14795,6 +14867,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerPass("Landing page",
 					"Validating Club icon for Reco tray is not applicable for " + userType);
 		}
+		click(AMDHomePage.HomeIcon, "Home Icon");
 	}
 
 	public void ZeeWEBPWALogin(String LoginMethod) throws Exception {
@@ -14809,10 +14882,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
-			String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("USMNonsubscribedUserName");
-			String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("USMNonsubscribedPassword");
+			String Username = getParameterFromXML("USMNonsubscribedUserName");
+			String Password = getParameterFromXML("USMNonsubscribedPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(8000);
 			verifyElementPresent(AMDUserSessionManagement.objLoginPageHeader, "Login page");
@@ -14828,13 +14899,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		case "SubscribedUser":
 			extent.HeaderChildNode("Login as Subscribed User");
-			String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedUserName");
-			String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedPassword");
+			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
+			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
-			waitTime(3000);
-			verifyElementPresent(PWALoginPage.objWebLoginPageText, "Login page");
+			waitTime(8000);
+			verifyElementPresent(AMDUserSessionManagement.objLoginPageHeader, "Login page");
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
 			type(PWALoginPage.objEmailField, SubscribedUsername, "Email Field");
 			waitTime(3000);
@@ -15002,7 +15071,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("contents in Reminders page: " + WebPWAReminders);
 		} else {
 			logger.info("No contents in My Remainders page");
-			extentLogger("Videos tab", "No contents in My Remainders page");
+			extentLogger("Reminders", "No contents in My Remainders page");
 		}
 	}
 
@@ -15147,11 +15216,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			break;
 
 		case "NonSubscribedUser":
-			extent.HeaderChildNode("Login as NonSubscribed User for Settings");
-			String SUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("USMNonsubscribedUserName");
-			String SPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("USMNonsubscribedPassword");
+			extent.HeaderChildNode("Login as NonSubscribed User for User Session Management");
+			String SUsername = getParameterFromXML("USMNonsubscribedUserName");
+			String SPassword = getParameterFromXML("USMNonsubscribedPassword");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -15163,11 +15230,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			break;
 
 		case "SubscribedUser":
-			extent.HeaderChildNode("Login as Subscribed User for Settings");
-			String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedUserName");
-			String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedPassword");
+			extent.HeaderChildNode("Login as Subscribed User for User Session Management");
+			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
+			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -15662,48 +15727,152 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 
 	}
-	
+
 	/**
 	 * Author : Kushal
 	 */
-public int GetWaiverAmountForClubPackUpdgrade() throws Exception {
-		
+	public int GetWaiverAmountForClubPackUpdgrade() throws Exception {
+
 		click(AMDMoreMenu.objProfile, "My Profile");
 		waitTime(5000);
-		
+
 		String activePack = getText(AMDMyProfileScreen.objPlanPrice).replace("INR ", "").trim();
-		String activePackValidity = getText(AMDMyProfileScreen.objPlanDuration).replace("For", "").replace(" days", "").trim();
-		
+		String activePackValidity = getText(AMDMyProfileScreen.objPlanDuration).replace("For", "").replace(" days", "")
+				.trim();
+
 		click(AMDMyProfileScreen.objDetailsCTA, "Details");
 		waitTime(2000);
-		
-		String SubscribedDate = getText(AMDMySubscriptionPage.objDateOfPurchase).replace("Date of Purchase: ", "").trim();
+
+		String SubscribedDate = getText(AMDMySubscriptionPage.objDateOfPurchase).replace("Date of Purchase: ", "")
+				.trim();
 		System.out.println(SubscribedDate);
-		
+
 		int nPackPrice = Integer.parseInt(activePack);
 		int nPackValidity = Integer.parseInt(activePackValidity);
-		
-		SimpleDateFormat formatter=new SimpleDateFormat("dd MMM yyyy");
-		Date DateOfPurchase =formatter.parse(SubscribedDate);		
+
+		SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+		Date DateOfPurchase = formatter.parse(SubscribedDate);
 		Date currentDate = new Date();
-		
+
 		long difference = currentDate.getTime() - DateOfPurchase.getTime();
-		float NoOfDaysUsed = difference/(1000*60*60*24);
-		
+		float NoOfDaysUsed = difference / (1000 * 60 * 60 * 24);
+
 		// Formula to calculate the WAIVER Amount
-		int perDayPrice = nPackPrice/nPackValidity;
+		int perDayPrice = nPackPrice / nPackValidity;
 		int WaiverAmount = (int) (nPackPrice - NoOfDaysUsed) * perDayPrice;
 
-		logger.info("My Active Pack: "+ nPackPrice);
-		logger.info("My Pack Validity: "+ nPackValidity);
-		logger.info("Date of Purchase: "+ DateOfPurchase);
-		logger.info("Number of Days pack used: "+ NoOfDaysUsed);
-		logger.info("Waiver Amount: "+ WaiverAmount);
-		
-		logger.info("For an Active pack of INR "+nPackPrice+" with validity of "+nPackValidity+" days; the calculated Waiver Amount is "+WaiverAmount);
-		extent.extentLoggerPass("Waiver Amount for Active Pack","For an Active pack of INR "+nPackPrice+" with validity of "+nPackValidity+" days; the calculated Waiver Amount is "+WaiverAmount);
-		
+		logger.info("My Active Pack: " + nPackPrice);
+		logger.info("My Pack Validity: " + nPackValidity);
+		logger.info("Date of Purchase: " + DateOfPurchase);
+		logger.info("Number of Days pack used: " + NoOfDaysUsed);
+		logger.info("Waiver Amount: " + WaiverAmount);
+
+		logger.info("For an Active pack of INR " + nPackPrice + " with validity of " + nPackValidity
+				+ " days; the calculated Waiver Amount is " + WaiverAmount);
+		extent.extentLoggerPass("Waiver Amount for Active Pack", "For an Active pack of INR " + nPackPrice
+				+ " with validity of " + nPackValidity + " days; the calculated Waiver Amount is " + WaiverAmount);
+
 		Back(2);
 		return WaiverAmount;
+	}
+
+	public void AvailableTraysInTabs(String tabName, String userType) throws Exception {
+		extent.HeaderChildNode("Verify the available Trays in Consumption screen for tab \"" + tabName + "\"");
+
+		ArrayList<String> TrayName = new ArrayList<>();
+		int count = 0;
+		int VisibleTraySize = getDriver().findElements(AMDGenericObjects.objTrayTitle).size();
+		System.out.println(VisibleTraySize);
+		for (int i = 1; i <= VisibleTraySize; i++) {
+			TrayName.add(getText(AMDGenericObjects.objTrayTitleByIndex(i)));
+			Swipe("Up", 1);
+			waitTime(2000);
+			VisibleTraySize = getDriver().findElements(AMDGenericObjects.objTrayTitle).size();
+			System.out.println(TrayName);
+			for (int j = 1; j <= VisibleTraySize; j++) {
+				TrayName.add(getText(AMDGenericObjects.objTrayTitleByIndex(j)));
+
+			}
+			count++;
+			if (count == 5) {
+				System.out.println(count);
+				break;
+			}
+		}
+
+//	   Swipe("Down", count);
+		Set<String> set = new HashSet<>(TrayName);
+		TrayName.clear();
+		TrayName.addAll(set);
+		extent.extentLogger("Verify TrayNames", "Available Trays in consumption screen for tab : " + tabName + "\n");
+		for (int i = 0; i < TrayName.size(); i++) {
+			extent.extentLoggerPass("Verify TrayNames", TrayName.get(i) + "\n");
+			logger.info(TrayName.get(i));
+		}
+
+	}
+
+	/**
+	 * Author : Bhavana
+	 */
+	public void ValidateClubIconForEpisodes(String userType) throws Exception {
+		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			extent.HeaderChildNode("Validating Club Icon for Episodes");
+			System.out.println("Validating Club Icon for Episodes");
+			waitTime(6000);
+			click(AMDHomePage.objShowsTab, "Shows tab");
+			waitTime(10000);
+			SwipeUntilFindElement(AMDClubPack.objBeforeZeeKannadaTray, "UP");
+			verifyElementExist(AMDClubPack.objClubIconOnFirstCardOfTray, "Club Icon on Episodes tray");
+			waitTime(2000);
+			click(AMDClubPack.objBeforeZeeKannadaTray, "Before Zee Kannada tray");
+			waitTime(2000);
+			boolean result = verifyIsElementDisplayed(AMDClubPack.objclubIconInContentListingScreen);
+			if (result) {
+				logger.info("Club icon is displayed on club content card displayed on Episodes listing screeen");
+				extent.extentLoggerPass("Landing page",
+						"Club icon is displayed on club content card displayed on Episodes listing screeen");
+			} else {
+				logger.error("Club icon is NOT displayed on club content card displayed on Episodes listing screeen");
+				extent.extentLoggerFail("Landing screen",
+						"Club icon is NOT displayed on club content card displayed on Episodes listing screeen");
+			}
+			Back(1);
+			click(AMDHomePage.HomeIcon, "Home Icon");
+		} else {
+			logger.info("Validating Club icon for Episodes is not applicable for " + userType);
+			extent.extentLoggerPass("Landing page",
+					"Validating Club icon for Episodes is not applicable for " + userType);
+		}
+	}
+
+	public void ValidateClubIconForMovies(String userType) throws Exception {
+		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			extent.HeaderChildNode("Validating Club Icon for Movies");
+			System.out.println("Validating Club Icon for Movies");
+			waitTime(6000);
+			click(AMDHomePage.objMoviesTab, "Movies tab");
+			waitTime(10000);
+			SwipeUntilFindElement(AMDClubPack.objKannadaFamilyDrama, "UP");
+			waitTime(2000);
+			click(AMDClubPack.objKannadaFamilyDrama, "Kannada Family Dramas tray");
+			waitTime(3000);
+			boolean result = verifyIsElementDisplayed(AMDClubPack.objclubIconInContentListingScreen);
+			if (result) {
+				logger.info("Club icon is displayed on club content card displayed on Movies listing screeen");
+				extent.extentLoggerPass("Landing page",
+						"Club icon is displayed on club content card displayed on Movies listing screeen");
+			} else {
+				logger.error("Club icon is NOT displayed on club content card displayed on Movies listing screeen");
+				extent.extentLoggerFail("Landing screen",
+						"Club icon is NOT displayed on club content card displayed on Movies listing screeen");
+			}
+			Back(1);
+			click(AMDHomePage.HomeIcon, "Home Icon");
+		} else {
+			logger.info("Validating Club icon for Movies is not applicable for " + userType);
+			extent.extentLoggerPass("Landing page",
+					"Validating Club icon for Movies is not applicable for " + userType);
+		}
 	}
 }

@@ -167,8 +167,7 @@ public class AMDSearchScreen {
 			.xpath("//*[@resource-id='com.graymatrix.did:id/get_premium_button']");
 
 	// Search icon
-	public static By objSearchIcon2 = By
-			.xpath("//*[@class='android.support.v7.widget.LinearLayoutCompat']//*[@class='android.widget.ImageView']");
+	public static By objSearchIcon2 = By.xpath("//*[@id='logo']//following::*[1]");
 
 	// Trending searches tray
 	public static By objTrendingSearches = By.xpath(

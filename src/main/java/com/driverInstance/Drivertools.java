@@ -247,9 +247,9 @@ public class Drivertools {
 		setRunModule(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runModule"));
 		setRunMode(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runMode"));
 		
-//		if(getTestName().equals("Android_UserSessionManagement")) {
-//			setPlatfrom(Utilities.setPlatform);
-//		}
+		if(getTestName().equals("Android_UserSessionManagement")) {
+			setPlatfrom(Utilities.setPlatform);
+		}
 
 		try {
 			connectURL = new URL("https://www.google.com");

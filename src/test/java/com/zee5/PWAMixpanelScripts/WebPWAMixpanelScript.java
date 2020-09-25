@@ -69,14 +69,14 @@ public class WebPWAMixpanelScript {
 	@Parameters({ "userType" })
 	public void verifyCarouselBannerClickEvent(String userType) throws Exception {
 		System.out.println("Verify Carousel Banner Click Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEvent(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEventAndVideoViewEvent(userType);
 	}
 
 	@Test(priority = 9)
 	@Parameters({ "userType" })
 	public void verifyThumbnailClickEvent(String userType) throws Exception {
 		System.out.println("Verify Thumbnail Click Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyThumbnailClickEvent(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyThumbnailClickEventAndVideoViewEvent(userType);
 	}
 
 	@Test(priority = 10)
@@ -86,13 +86,7 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifySearchExecutedAndClearSearchHistoryEvent(userType, keyword3);
 		}
 	
-	@Test(priority = 11)
-	@Parameters({ "userType" })
-	public void verifyParentalRestrictionAndSettingChangedEvent(String userType) throws Exception {
-		System.out.println("Verify Parental Restriction And Setting Changed Event");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch(true);
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalRestrictionAndSettingChangedEvent(userType);
-	}
+	
 
 	@Test(priority = 12)
 	@Parameters({ "userType", "keyword1" })
@@ -117,15 +111,26 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 15)
-	@Parameters({ "userType" })
-	public void verifyEvents(String userType) throws Exception {
+	@Parameters({ "userType", "keyword4", "keyword5" })
+	public void verifyEvents(String userType,String keyword4,String keyword5) throws Exception {
 	
 		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerSwipeEvent();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyContentBucketSwipeEvent();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAdBannerImpressionEvent();	
 		Zee5PWAWEBMixPanelBusinessLogic.verifyDefaultSettingRestoredEvent(userType);	
 		Zee5PWAWEBMixPanelBusinessLogic.verifySetReminderAndShareEventForUpcomingLiveProgram(userType);	
-		Zee5PWAWEBMixPanelBusinessLogic.verifyChangePasswordStartedAndPasswordResultEvent(userType);	
+		Zee5PWAWEBMixPanelBusinessLogic.verifyChangePasswordStartedAndPasswordResultEvent(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyProfileUpdateResultEvent(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewAndVideoExitEvent(userType,keyword4,keyword5);
+	}
+	
+	@Test(priority = 16)
+	@Parameters({ "userType" })
+	public void verifyParentalRestrictionAndSettingChangedEvent(String userType) throws Exception {
+		System.out.println("Verify Parental Restriction And Setting Changed Event");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch(true);
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalRestrictionAndSettingChangedEvent(userType);
 	}
 	
 	@AfterClass

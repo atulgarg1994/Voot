@@ -81,4 +81,9 @@ public class AMDGenericObjects {
 	public static By objSearchcontentTitle(String title) {
 		return By.xpath("//*[@id='item_primary_text' and @text='"+title+"']");
 	}
+	
+	public static By objTrayTitle = By.xpath("//*[@id='header_primary_text']");
+	public static By objTrayTitleByIndex(int index) {
+		return By.xpath("(//*[@id='header_primary_text'])["+index+"]");
+	}
 }

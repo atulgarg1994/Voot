@@ -19,6 +19,8 @@
 	<!--  Subscribed User --> 
 	<parameter name="SubscribedUserName" value="zeetest10@test.com"/>
 	<parameter name="SubscribedPassword" value="123456"/>
+	<parameter name="keyword4" value="Paaru gets tipsy" />
+	<parameter name="keyword5" value="Bhinna" />
 
  
  <listeners>

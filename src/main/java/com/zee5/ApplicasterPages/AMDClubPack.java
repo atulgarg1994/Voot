@@ -46,4 +46,7 @@ public class AMDClubPack {
 		public static By objclubIconInContentListingScreen = By.xpath("(//*[@id='recyclerView' and ./parent::*[./parent::*[@class='android.widget.RelativeLayout' and ./parent::*[@id='content_frame']]]]/*/*/*[@id='special_image_1'])[1]");
 		public static By objRecoMovieTray = By.xpath("//*[@text='Recommended Movies']");
 		public static By objClubicononRecoTrays = By.xpath("((//*[@id='recyclerView']/*/*[@id='recyclerView'])[3]/*/*/*[@id='special_image_1'])[1]");
+		
+		public static By objBeforeZeeKannadaTray = By.xpath("//*[@text='Premiere Episodes | Before Zee Kannada']");
+		public static By objKannadaFamilyDrama = By.xpath("//*[@text='Kannada Family Dramas']");
 }

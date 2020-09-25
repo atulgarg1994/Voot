@@ -5358,7 +5358,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(5000);
 		hideKeyboard();
 		waitTime(3000);
-		click(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
+		JSClick(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
 		waitTime(3000);
 		String currenturl = getWebDriver().getCurrentUrl();
 		String timedurl = currenturl + "?t=60";
@@ -5515,7 +5515,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(5000);
 		// hideKeyboard();
 		waitTime(5000);
-		click(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
+		JSClick(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
 		waitTime(3000);
 		String currenturl = getWebDriver().getCurrentUrl();
 		String timedurl = currenturl + "?t=" + timeperiod;
@@ -5625,7 +5625,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(5000);
 		// hideKeyboard();
 		waitTime(4000);
-		click(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
+		JSClick(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
 		waitTime(3000);
 		String currenturl = getWebDriver().getCurrentUrl();
 		String timedurl = currenturl + "?t=" + timeperiod2;
@@ -5731,7 +5731,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(5000);
 		// hideKeyboard();
 		waitTime(4000);
-		click(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
+		JSClick(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
 		waitTime(3000);
 
 		String currenturl = getWebDriver().getCurrentUrl();

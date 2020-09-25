@@ -1,14 +1,10 @@
 package com.zee5.ApplicasterScripts;
 
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.business.zee.Zee5ApplicasterBusinessLogic;
-import com.business.zee.Zee5PWASanityAndroidBusinessLogic;
-import com.business.zee.Zee5PWASanityWEBBusinessLogic;
-import com.driverInstance.Drivertools;
 import com.utility.Utilities;
 
 public class Android_UserSessionManagement {
@@ -45,7 +41,7 @@ public class Android_UserSessionManagement {
 	}
 
 	
-	@Test(priority = 4)
+	@Test(priority = 3)
 	@Parameters({ "userType" })
 	public void launchZee5App(String userType) throws Exception {
 		System.out.println("Launching Zee5 App"); 
@@ -57,7 +53,7 @@ public class Android_UserSessionManagement {
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLoginForUSM(userType);
 	}
 	
-	@Test(priority = 5)
+	@Test(priority = 4)
 	@Parameters({ "userType" })
 	public void AppDetails(String userType) throws Exception {
 		System.out.println("Collecting App details and validating with Web details");
@@ -71,7 +67,7 @@ public class Android_UserSessionManagement {
 		
 	}
 	
-	@Test(priority = 6)
+	@Test(priority = 5)
 	@Parameters({ "userType" })
 	public void launchChromeApplication_2(String userType) throws Exception {
 		System.out.println("Launching Web chrome for second time and logging in"); 
@@ -81,7 +77,7 @@ public class Android_UserSessionManagement {
 		ZEE5ApplicasterBusinessLogic.ZeeWEBPWALogin(userType);
 	}
 	
-	@Test(priority = 7)
+	@Test(priority = 6)
 	public void Web_Update() throws Exception {
 		System.out.println("Updating web details");
 		//ZEE5ApplicasterBusinessLogic.webUpdateProfileDetails();
@@ -89,7 +85,7 @@ public class Android_UserSessionManagement {
 		ZEE5ApplicasterBusinessLogic.webRemoveReminders();
 	}
 	
-	@Test(priority = 8)
+	@Test(priority = 7)
 	@Parameters({ "userType" })
 	public void AppLoginSecondTime(String userType) throws Exception {
 		System.out.println("Launching App second time and logging in");
@@ -100,7 +96,7 @@ public class Android_UserSessionManagement {
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLoginForUSM(userType);
 	}
 	
-	@Test(priority = 9)
+	@Test(priority = 8)
 	public void App_Update() throws Exception {
 		System.out.println("validation of App details with updated Web details");
 		//ZEE5ApplicasterBusinessLogic.appUpdatedFirstName();
