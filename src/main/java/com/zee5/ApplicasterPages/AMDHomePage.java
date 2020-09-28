@@ -9,14 +9,14 @@ public class AMDHomePage {
 	// ZEE5 Logo
 	public static By objZee5Logo = By.xpath("//*[@contentDescription='LOGO']");
 
-	// Subscribe Teaser 
+	// Subscribe Teaser
 	public static By objSubscribeTeaser = By.xpath("//*[@text='SUBSCRIBE']");
 
 	// Search Button
 	public static By objSearchBtn = By.xpath("//*[@id='logo']//following::*[1]");
-	
+
 	public static By objTitle = By.xpath("//*[@id='title']");
-	
+
 	public static By objGetPremium = By.xpath("//*[@id='get_premium_hero_component']");
 
 	// Bottom Navigation TEXT Buttons
@@ -98,7 +98,6 @@ public class AMDHomePage {
 	public static By objCancelRenewal = By.xpath("//*[@resource-id='com.graymatrix.did:id/cancel_renewal']");
 	public static By objBrowseAllPack = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_browse_packs']");
 	public static By objMyProfileIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/iconSmile']");
-	public static By objGetPremiumCTAOnCarosel = By.xpath("//*[@resource-id='com.graymatrix.did:id/get_premium_hero_component']");
 	public static By objGetPremiumPopUP = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title']");
 	public static By objGetPremiumPopUPProceedButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/proceed']");
 	public static By objBeforeTVContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[2]");
@@ -166,28 +165,38 @@ public class AMDHomePage {
 	public static By objTab1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[1]");
 
 	public static By objTab5 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[5]");
-	
-	public static By objSubscribePopUpInConsumptionPage = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title' and @text='Subscribe']");
+
+	public static By objSubscribePopUpInConsumptionPage = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title' and @text='Subscribe']");
 
 	public static By objSubscribePopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title']");
 	public static By objPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/player_root']");
 	public static By objPauseIconOnPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_pause']");
 	public static By objOpenWithDevicePopUp = By.xpath("//*[@text='Open with']");
-	public static By objAdBannerAboveCarousel =By.xpath("//*[@resource-id='com.graymatrix.did:id/ad_image']//following::*[@id='indicator']");
+	public static By objAdBannerAboveCarousel = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/ad_image']//following::*[@id='indicator']");
 	public static By objMaximizeIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_fullscreen']");
-	
-	public static By objFirstChannelCard  = By.xpath("(//*[@id='item_primary_text'])[1]");
+
+	public static By objFirstChannelCard = By.xpath("(//*[@id='item_primary_text'])[1]");
 	public static By objKidsContentCard = By.xpath("//*[@id='header_primary_text']//following::*[6]");
-	
-	public static By objBeforeTVTray = By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text' and contains(text(),'Premiere Episodes | Before Zee')])[1]");
-	
-	public static By BeforeTVTrayTitle = By.xpath("(//*[@id='header_primary_text' and  contains(text(),'Premiere Episodes | Before Zee')])[1]");
-	
-	public static By objBeforeTVViewAllArraowIcon = By.xpath("(//*[@id='header_primary_text' and contains(text(),'Premiere Episodes | Before Zee')]//parent::*[@class='android.view.ViewGroup']//*[@id='header_arrow'])[1]");
-	
-	public static By objViewAllScreen = By.xpath("//*[@id='title' and contains(text(),'Premiere Episodes | Before Zee')]");
-	
-	public static By objFirstContentOfBeforeTvTray = By.xpath("(//*[@id='header_primary_text' and  contains(text(),'Premiere Episodes | Before Zee')]//following::*)[4]");
-	
-	
+
+	public static By objBeforeTVTray = By.xpath(
+			"(//*[@resource-id='com.graymatrix.did:id/header_primary_text' and contains(text(),'Premiere Episodes | Before Zee')])[1]");
+
+	public static By BeforeTVTrayTitle = By
+			.xpath("(//*[@id='header_primary_text' and  contains(text(),'Premiere Episodes | Before Zee')])[1]");
+
+	public static By objBeforeTVViewAllArraowIcon = By.xpath(
+			"(//*[@id='header_primary_text' and contains(text(),'Premiere Episodes | Before Zee')]//parent::*[@class='android.view.ViewGroup']//*[@id='header_arrow'])[1]");
+
+	public static By objViewAllScreen = By
+			.xpath("//*[@id='title' and contains(text(),'Premiere Episodes | Before Zee')]");
+
+	public static By objFirstContentOfBeforeTvTray = By.xpath(
+			"(//*[@id='header_primary_text' and  contains(text(),'Premiere Episodes | Before Zee')]//following::*)[4]");
+
+	public static By objGetClubInConsumptionScreen = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/get_premium_button']");
+	public static By objGetPremiumCTAOnCarosel = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/get_premium_hero_component']");
 }

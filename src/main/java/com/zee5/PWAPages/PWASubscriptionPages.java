@@ -247,7 +247,7 @@ public class PWASubscriptionPages {
 
 	public static By objProceedBtnInSubscriptionPage = By.xpath("//*[@class='noSelect buttonGradient ']");
 
-	public static By objLoginLinkInPlayer = By.xpath("(//*[@class='login-link'])[2]");
+	public static By objLoginLinkInPlayer = By.xpath("//*[@class='login-link']");
 
 	public static By objPasswordPopupInSubscriptionPage = By.xpath("//*[@class='popupContent parentalControlPopup']");
 	public static By objPasswordField = By.xpath("//*[@type='password']");

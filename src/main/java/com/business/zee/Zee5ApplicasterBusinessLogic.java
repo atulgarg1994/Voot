@@ -396,7 +396,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("\nSubscribeNow Functionality for UnRegistered Mobile number");
 		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in subscription page");
 		verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in subscribe page");
-		closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD - HANDLED HERE
+//		closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD - HANDLED HERE
 		verifyElementExist(AMDSubscibeScreen.objAdbanner, "Carosual in subscription page");
 		verifyElementExist(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo code in subscribe page");
 		verifyElementPresent(AMDSubscibeScreen.objApply, "Apply button is subscribe page");
@@ -474,7 +474,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		passwordScenario("Registered");
 		Wait(2000);
 		Back(1);
-		closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD - HANDLED HERE
+//		closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD - HANDLED HERE
 	}
 
 	public void closeInterstitialAd(By byLocator, int iTimeOut) throws Exception {
@@ -681,14 +681,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void subscribeEntryPointsValidations(String userType) throws Exception {
 		HeaderChildNode("Entry points");
-		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Display continue");
-		click(AMDOnboardingScreen.objContent_ContinueBtn, " Content Continue");
-		click(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for free");
 		if (userType.equals("Guest")) {
-			hideKeyboard();
-			click(AMDLoginScreen.objSkipButton, "Skip button");
 			waitTime(10000);
-//			closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD HANDLED HERE
 			verifyElementExist(AMDHomePage.objGetPremiumCTAOnCarosel, "Get Premium CTA on carosel");
 			click(AMDHomePage.objGetPremiumCTAOnCarosel, "Get Premium CTA on carosel");
 			verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page");
@@ -699,13 +693,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //			closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD - HANDLED HERE
 			PartialSwipe("UP", 1);
 			waitTime(5000);
-			if (checkElementExist(AMDHomePage.objBeforeTVTray, "BeforeTV tray")) {
+			boolean beforTV =verifyIsElementDisplayed(AMDHomePage.objBeforeTVTray);
+			if (beforTV) {
 				waitTime(5000);
 				String beforeTVtrayName = findElement(AMDGenericObjects.objTrayTitle("Before")).getText();
 				click(AMDGenericObjects.objViewAllBtn(beforeTVtrayName), "View All_Before TV Show");
 				waitTime(4000);
 				click(AMDHomePage.objBeforeTVContent, "BeforeTV content");
 				waitTime(5000);
+				verifyElementPresentAndClick(AMDHomePage.objGetClubInConsumptionScreen, "Get Premium icon");
 				verifyElementExist(AMDHomePage.objGetPremiumPopUP, "PremiumPopUp");
 				Swipe("UP", 1);
 				click(AMDHomePage.objGetPremiumPopUPProceedButton, "Proceed button");
@@ -745,15 +741,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 
 		else if (userType.equals("NonSubscribedUser")) {
-			click(AMDLoginScreen.objEmailIdField, "Email field");
-			type(AMDLoginScreen.objEmailIdField, NonsubscribedUserName, "Email field");
-			hideKeyboard();
-			click(AMDLoginScreen.objProceedBtn, "Proceed button");
-			click(AMDLoginScreen.objPasswordField, "Password field");
-			type(AMDLoginScreen.objPasswordField, NonsubscribedPassword, "Password field");
-			hideKeyboard();
-			click(AMDLoginScreen.objLoginBtn, "Login button");
-			waitTime(1000);
+			
 			verifyElementExist(AMDHomePage.objHomeBtn, "Home button");
 			click(AMDHomePage.objMoreMenu, "More menu");
 			click(AMDHomePage.objMyProfileIcon, "profile icon");
@@ -843,8 +831,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Swipe("UP", 2);
 			PartialSwipe("UP", 2);
 			verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
-			verifyElementExist(AMDSubscibeScreen.objAllAccessTab, "All access pack tab");
-			verifyElementExist(AMDSubscibeScreen.objRSVODPremiumPack, "RSVOD pack tab");
+			verifyElementExist(AMDSubscibeScreen.objPremiumTab , "Premium pack tab");
+			verifyElementExist(AMDSubscibeScreen.objClubTab , "Club pack tab");
 			Swipe("UP", 1);
 			verifyElementExist(AMDSubscibeScreen.obj30daysPack, "30 days premium plan tab");
 			verifyElementExist(AMDSubscibeScreen.obj180daysPack, "180 days premium plan tab");
@@ -893,16 +881,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 
 		if (userType.equals("SubscribedUser")) {
-			click(AMDLoginScreen.objEmailIdField, "Email field");
-			type(AMDLoginScreen.objEmailIdField, RSVODUser, "Email field");
-			hideKeyboard();
-			click(AMDLoginScreen.objProceedBtn, "Proceed button");
-			click(AMDLoginScreen.objPasswordField, "Password field");
-			type(AMDLoginScreen.objPasswordField, RSVODPassword, "Password field");
-			hideKeyboard();
-			click(AMDLoginScreen.objLoginButton, "Login button");
-			waitTime(1000);
-			verifyIsElementDisplayed(AMDHomePage.objHomeBtn);
+			
+//			click(AMDHomePage.objMoreMenu, "More menu");
+//			Swipe("UP", 2);
+//			click(AMDHomePage.objLogout, "Logout");
+//			click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
+//			Swipe("Down", 2);
+//			click(AMDMoreMenu.objProfile, "Profile");
+//			LoginWithEmailID(RSVODUser, RSVODPassword);
 			click(AMDHomePage.objMoreMenu, "More menu");
 			click(AMDHomePage.objMyProfileIcon, "profile icon");
 
@@ -936,7 +922,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("Apply button is not highlighted by default");
 				extent.extentLoggerPass("Highlighted", "Apply button is not highlighted by default");
 			}
-			click(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo");
+			/*click(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo");
 			type(AMDSubscibeScreen.objApplyPromoCodeTextbox, PromoCode, "Promo code");
 			hideKeyboard();
 			click(AMDSubscibeScreen.objApply, "Apply button");
@@ -947,8 +933,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			} else {
 				logger.error("Discounted price is not displayed after promo code is applied");
 				extent.extentLoggerFail("Promo", "Discounted price is not displayed after promo code is applied");
-			}
-			click(AMDSubscibeScreen.objCancelPromoCode, "Cancel promo");
+			}*/
+			//click(AMDSubscibeScreen.objCancelPromoCode, "Cancel promo");
+//			clearField(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo");
 			click(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo");
 			type(AMDSubscibeScreen.objApplyPromoCodeTextbox, "zee5flat5000", "Promo code");
 			hideKeyboard();
@@ -957,8 +944,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Swipe("UP", 1);
 			PartialSwipe("UP", 1);
 			verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
-			verifyElementExist(AMDSubscibeScreen.objAllAccessTab, "All access pack tab");
-			verifyElementExist(AMDSubscibeScreen.objRSVODPremiumPack, "RSVOD pack tab");
+			verifyElementExist(AMDSubscibeScreen.objPremiumTab , "Premium pack tab");
+//			verifyElementExist(AMDSubscibeScreen.objClubTab , "Club pack tab");
 			Swipe("UP", 1);
 			verifyElementExist(AMDSubscibeScreen.obj30daysPack, "30 days premium plan tab");
 			verifyElementExist(AMDSubscibeScreen.obj180daysPack, "180 days premium plan tab");
@@ -969,18 +956,18 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("Continue button is highlighted");
 				extent.extentLoggerPass("Highlighted", "Continue button is highlighted");
 			}
-			Swipe("DOWN", 1);
-			click(AMDSubscibeScreen.objRSVODPremiumPack, "RSVOD Pack tab");
-			verifyElementPresentAndClick(AMDSubscibeScreen.objRSVODPack1, "RSVOD Plan for 30 days");
-			PartialSwipe("UP", 2);
-			verifyElementExist(AMDSubscibeScreen.objRSVODPack2, "RSVOD Plan for 365 days");
-			Swipe("Down", 1);
-			verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
-			Swipe("UP", 2);
-			if (findElement(AMDSubscibeScreen.objContinueBtn).isEnabled()) {
-				logger.info("Continue button is highlighted");
-				extent.extentLoggerPass("Highlighted", "Continue button is highlighted");
-			}
+//			Swipe("DOWN", 1);
+//			click(AMDSubscibeScreen.objClubTab , "Club Pack tab");
+//			verifyElementPresentAndClick(AMDSubscibeScreen.objRSVODPack1, "RSVOD Plan for 30 days");
+//			PartialSwipe("UP", 2);
+//			verifyElementExist(AMDSubscibeScreen.objRSVODPack2, "RSVOD Plan for 365 days");
+//			Swipe("Down", 1);
+//			verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
+//			Swipe("UP", 2);
+//			if (findElement(AMDSubscibeScreen.objContinueBtn).isEnabled()) {
+//				logger.info("Continue button is highlighted");
+//				extent.extentLoggerPass("Highlighted", "Continue button is highlighted");
+//			}
 			click(AMDSubscibeScreen.objContinueBtn, "Continue button");
 			if (checkElementExist(AMDHomePage.objHomeBtn, "Home tab")) {
 				logger.info(
@@ -1015,7 +1002,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"90 days pack in upgrade popup");
 			verifyElementExist(AMDSearchScreen.objUpgradePopUpPacks("INR 599 for 180 days"),
 					"180 days pack in upgrade popup");
-			verifyElementExist(AMDSearchScreen.objUpgradePopUpPacks("INR 999 for 365 days"),
+			verifyElementExist(AMDSearchScreen.objUpgradePopUpPacks("INR 699 for 365 days"),
 					"365 days pack in upgrade popup");
 			Swipe("UP", 1);
 			PartialSwipe("UP", 1);
@@ -1124,8 +1111,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDSubscibeScreen.objInvalidPromoCodeText, "Invalid promo code error message");
 		Swipe("UP", 1);
 		verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
-		verifyElementExist(AMDSubscibeScreen.objAllAccessTab, "All access pack tab");
-		verifyElementExist(AMDSubscibeScreen.objRSVODPremiumPack, "RSVOD pack tab");
+		verifyElementExist(AMDSubscibeScreen.objPremiumTab, "Premium  pack tab");
+		verifyElementExist(AMDSubscibeScreen.objClubTab , "Club pack tab");
 		Swipe("UP", 1);
 		verifyElementExist(AMDSubscibeScreen.obj30daysPack, "30 days premium plan tab");
 		verifyElementExist(AMDSubscibeScreen.obj180daysPack, "180 days premium plan tab");
@@ -1137,7 +1124,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerPass("Highlighted", "Continue button is highlighted");
 		}
 		Swipe("DOWN", 1);
-		click(AMDSubscibeScreen.objRSVODPremiumPack, "RSVOD Pack tab");
+		click(AMDSubscibeScreen.objClubTab , "Club Pack tab");
 		verifyElementPresentAndClick(AMDSubscibeScreen.objRSVODPack1, "RSVOD Plan for 30 days");
 		PartialSwipe("UP", 1);
 		verifyElementExist(AMDSubscibeScreen.objRSVODPack2, "RSVOD Plan for 365 days");
@@ -1154,7 +1141,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in Account info screen");
 		verifyElementExist(AMDSubscibeScreen.objSelectedPackDesc, "Selected pack description in account info screen");
 		verifyElementExist(AMDSubscibeScreen.objEmailID, "Email id field in Account info screen");
-		hideKeyboard();
 		Swipe("UP", 1);
 		verifyElementExist(AMDSubscibeScreen.objORSeperator, "OR seperator in Account info screen");
 		verifyElementExist(AMDSubscibeScreen.objFacebookIcon, "FB icon in Account info screen");
@@ -2810,8 +2796,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Wifi_TurnOFFnON();
 		}
 
-		if (verifyIsElementDisplayed(AMDHomePage.objMoviesTab)) {
-			click(AMDHomePage.objMoviesTab, "Movies tab");
+		if (pUserType.contains("Guest")) {
+			verifyElementPresentAndClick(AMDHomePage.objMoviesTab, "Movies tab");
 		}
 
 		verifyElementExist(AMDOfflineScreen.objYouAreOffline, "You are Offline");
@@ -2831,14 +2817,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		// Downloads");
 
 		verifyElementPresentAndClick(AMDHomePage.objDownload, "Download");
-		if (verifyIsElementDisplayed(AMDOfflineScreen.objDownloadScreen)) {
+		if (verifyElementExist(AMDOfflineScreen.objDownloadScreen, "Download Section")) {
 			logger.info("Navigated to Download Section");
-			extent.extentLoggerPass("Download Section", "Navigated to Download Section");
+			extent.extentLogger("Download Section", "Navigated to Download Section");
 		} else {
 			logger.info("Not navigated to Download Section");
-			extent.extentLoggerFail("Download Section", "Not navigated to Download Section");
+			extent.extentLogger("Download Section", "Not navigated to Download Section");
 		}
-		click(AMDHomePage.objHome, "Home Tab");
+		verifyElementPresentAndClick(AMDHomePage.objHome, "Home Tab");
 		verifyElementPresentAndClick(AMDOfflineScreen.objTryAgain, "Try Again");
 		Runtime.getRuntime().exec("adb shell svc wifi enable");
 		if (getOEMName.equalsIgnoreCase("Sony")) {
@@ -2848,12 +2834,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDHomePage.objUpcoming, "Upcoming tab");
 
 		waitForElementDisplayed(AMDUpcomingPage.objContentCardTitle, 10);
-		if (verifyIsElementDisplayed(AMDUpcomingPage.objContentCardTitle)) {
+		if (verifyElementExist(AMDUpcomingPage.objContentCardTitle, "Upcoming Page Content Card")) {
 			logger.info("Appropriate page is loaded");
-			extent.extentLoggerPass("Page", "Appropriate page is loaded");
+			extent.extentLogger("Page", "Appropriate page is loaded");
 		} else {
 			logger.info("Appropriate page is not loaded");
-			extent.extentLoggerFail("Page", "Appropriate page is not loaded");
+			extent.extentLogger("Page", "Appropriate page is not loaded");
 		}
 	}
 

@@ -85,9 +85,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 * pwaSanityWeb.xml==================================
 	 * 
 	 */
-	String URL = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
+	String URL = getParameterFromXML("url");
 
-	String BROWSER = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browserType");
+	String BROWSER = getParameterFromXML("browserType");
 
 	String NonSubUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 			.getParameter("NonsubscribedUserName");
@@ -154,7 +154,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	}
 
 	public void ZeeWEBPWALogin(String LoginMethod) throws Exception {
-		String userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");	
+		String userType = getParameterFromXML("userType");	
 		switch (userType) {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
@@ -165,8 +165,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
-			String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
-			String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -181,8 +181,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		case "SubscribedUser":
 			extent.HeaderChildNode("Login as Subscribed User");
-			String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
-			String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
+			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -1081,7 +1081,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				.getParameter("premiumMovieNoTrailer2");
 		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
 		waitTime(6000);
-		String user = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String user = getParameterFromXML("userType");
 		mandatoryRegistrationPopUp(user);
 		click(PWASearchPage.objPremiumSearchResult(keyword), "Premium content");
 		waitTime(12000);
@@ -1825,7 +1825,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 */
 	public void zeeSearchForContentAndClickOnFirstResult(String contentName) throws Exception {
 		// handle mandatory pop up
-		String user = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String user = getParameterFromXML("userType");
 		mandatoryRegistrationPopUp(user);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
@@ -2421,7 +2421,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 //			click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Pop up close button");
 //		}
 		Thread.sleep(1000);
-		if (Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browserType")
+		if (getParameterFromXML("browserType")
 				.equalsIgnoreCase("Firefox")) {
 			click(PWAPlayerPage.objContentTitle, "Content Title");
 		}
@@ -2881,7 +2881,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 			}
 
-			if (Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browserType")
+			if (getParameterFromXML("browserType")
 					.equalsIgnoreCase("Firefox")) {
 				click(PWAPlayerPage.objContentTitle, "Content Title");
 			}
@@ -2957,7 +2957,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 //				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
 //			}
 
-			if (Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browserType")
+			if (getParameterFromXML("browserType")
 					.equalsIgnoreCase("Firefox")) {
 				click(PWAPlayerPage.objContentTitle, "Content Title");
 			}
@@ -5034,7 +5034,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		checkElementDisplayed(PWAHomePage.objSearchField, "Search field");
-		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie2");
+		String keyword = getParameterFromXML("freeMovie2");
 		type(PWAHomePage.objSearchField, keyword, "Search");
 		waitTime(5000);
 		waitForElement(PWASearchPage.objSearchedResultChangedLanguage(keyword), 30, "Search Result");
@@ -5070,7 +5070,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		checkElementDisplayed(PWAHomePage.objSearchField, "Search field");
-		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie2");
+		String keyword = getParameterFromXML("freeMovie2");
 		type(PWAHomePage.objSearchField, keyword, "Search");
 		waitTime(5000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
@@ -8229,7 +8229,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		searchvideoandselect(keyword1, userType, "Movie");
 
 		Thread.sleep(2000);
-		String keyword2 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("tvshow");
+		String keyword2 = getParameterFromXML("tvshow");
 		searchvideoandselect(keyword2, userType, "ZEE5 Originals");
 
 		Thread.sleep(2000);
@@ -8238,7 +8238,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		searchvideoandselect(keyword3, userType, "trailer");
 
 		Thread.sleep(2000);
-		String keyword4 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("music");
+		String keyword4 = getParameterFromXML("music");
 		searchvideoandselect(keyword4, userType, "Music");
 
 		Thread.sleep(2000);
@@ -8247,7 +8247,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		searchvideoandselect(keyword5, userType, "show");
 
 		Thread.sleep(2000);
-		String keyword6 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("news");
+		String keyword6 = getParameterFromXML("news");
 		searchvideoandselect(keyword6, userType, "news");
 
 		String Value = null;
@@ -8724,7 +8724,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(2000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchBtn, "Search button");
 		waitTime(2000);
-		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("livetv");
+		String keyword = getParameterFromXML("livetv");
 		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
 		waitTime(8000);
 		mandatoryRegistrationPopUp(userType);
@@ -10770,7 +10770,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWASearchPage.objFirstContentCardNameAfterSearch1(1), "Content");
 		String contentName = getElementPropertyToString("innerText", PWAPlayerPage.objContentName, "Title");
 		verifyElementPresentAndClick(PWAPlayerPage.watchListBtn, "Add to Watchlist");
-		if (Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browserType")
+		if (getParameterFromXML("browserType")
 				.equalsIgnoreCase("Firefox")) {
 			waitTime(100000);
 		} else {
@@ -13253,7 +13253,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	}
 
 	public void verifyLandscapeforFreeContentWeb() throws Exception {
-		String userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String userType = getParameterFromXML("userType");
 		mandatoryRegistrationPopUp(userType);
 		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 				.getParameter("consumptionsShow");
@@ -13348,7 +13348,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 //	}
 
 	public void verifyLandscapeforPremiumContentWeb() throws Exception {
-		String userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String userType = getParameterFromXML("userType");
 		mandatoryRegistrationPopUp(userType);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, "Baarish" + "\n", "Search Edit box Baarish");
@@ -13447,7 +13447,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 //}
 
 	public void navigateToHome() {
-		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
+		String url = getParameterFromXML("url");
 		getWebDriver().get(url);
 	}
 
@@ -13501,15 +13501,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	public void playContentsToTriggerRecoApiWeb(String userType) throws Exception {
 		extent.HeaderChildNode("Play different contents to trigger Recommendation API");
 		playAContentForRecoWeb("Music",
-				Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("musicToTriggerReco"),
+				getParameterFromXML("musicToTriggerReco"),
 				userType);
 		playAContentForRecoWeb("Movies",
-				Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("movieToTriggerReco"),
+				getParameterFromXML("movieToTriggerReco"),
 				userType);
 		playAContentForRecoWeb("Episode", Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 				.getParameter("episodeToTriggerReco"), userType);
 		playAContentForRecoWeb("News",
-				Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("newsToTriggerReco"),
+				getParameterFromXML("newsToTriggerReco"),
 				userType);
 	}
 

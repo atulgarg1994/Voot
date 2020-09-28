@@ -125,7 +125,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 	public void ZeeWEBPWALogin(String LoginMethod) throws Exception {
 		extent.HeaderChildNode("Login");
 
-		String UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String UserType = getParameterFromXML("userType");
 		if (UserType.equals("Guest")) {
 			extent.extentLogger("userType", "UserType : Guest");
 			return;
@@ -146,8 +146,8 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
 
-			String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
-			String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
 
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
 			type(PWALoginPage.objEmailField, Username, "Email Field");
@@ -2116,7 +2116,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 //			click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Pop up close button");
 //		}
 		Thread.sleep(1000);
-		if (Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browserType")
+		if (getParameterFromXML("browserType")
 				.equalsIgnoreCase("Firefox")) {
 			click(PWAPlayerPage.objContentTitle, "Content Title");
 		}
@@ -2543,7 +2543,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 			}
 
-			if (Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browserType")
+			if (getParameterFromXML("browserType")
 					.equalsIgnoreCase("Firefox")) {
 				click(PWAPlayerPage.objContentTitle, "Content Title");
 			}
@@ -2619,7 +2619,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 //				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
 //			}
 
-			if (Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browserType")
+			if (getParameterFromXML("browserType")
 					.equalsIgnoreCase("Firefox")) {
 				click(PWAPlayerPage.objContentTitle, "Content Title");
 			}

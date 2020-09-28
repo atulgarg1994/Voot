@@ -35,7 +35,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		init();
 	}
 
-	String URL = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
+	String URL = getParameterFromXML("url");
 
 	private int timeout;
 
@@ -73,7 +73,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 
 	public void ZeeWEBPWAMixPanelLogin(String LoginMethod) throws Exception {
-		String userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String userType = getParameterFromXML("userType");
 		switch (userType) {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
@@ -124,7 +124,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	
 	
 	public void ZeeWEBPWAMixPanelLoginForParentalControl(String LoginMethod) throws Exception {
-		String userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String userType = getParameterFromXML("userType");
 		switch (userType) {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
@@ -1289,6 +1289,5 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Video Watch Duration event when video is closed abruptly on playing content from Megamenu");
 		Back(1);
 	}
-	
 	
 }

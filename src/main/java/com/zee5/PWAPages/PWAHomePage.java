@@ -470,7 +470,7 @@ public class PWAHomePage {
 			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'carouselMain')]");
 
 	// Android google play store
-	public static By objGooglePlayStore = By.xpath("//*[@text='Latest Movies, TV Shows, Originals, News, HiPi']");
+	public static By objGooglePlayStore = By.xpath("//*[contains(@text,'HiPi, News, Movies, TV Shows, Web Series')]");	
 
 	public static By objGetPremiumGetClubButton = By
 			.xpath("//div[contains(@class,'slick-active')]//a[contains(@class,'premiumBtn')]");

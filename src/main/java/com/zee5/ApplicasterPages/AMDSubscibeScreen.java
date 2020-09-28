@@ -23,18 +23,17 @@ public class AMDSubscibeScreen {
 	public static By objApplyPromoCodeText = By.xpath("//*[@id='txtET_promocode_input'] and @text='Have a Promo Code?");
 	public static By objApply = By.xpath("//*[@resource-id='com.graymatrix.did:id/apply_promocode']");
 	public static By objDescriptionText = By.xpath("//*[@resource-id='com.graymatrix.did:id/deviceslayout']");
-	public static By objRSVODPremiumPack = By.xpath("(//*[@class='android.support.v7.app.ActionBar$b'])[2]");
+	public static By objClubTab  = By.xpath("//*[@text='Club']");
 	public static By objInvalidPromoCodeText = By.xpath("//*[@resource-id='com.graymatrix.did:id/textinput_error']");
 	public static By objSelectYourPreminumPackText = By.xpath("//*[@id='packsViewTextView']");
-	public static By objAllAccessTab = By.xpath("//*[@contentDescription='All Access']");
-	public static By objKannadaTab = By.xpath("//*[@contentDescription='Kannada']");
+	public static By objPremiumTab  = By.xpath("//*[@text='Premium']");
 	public static By obj30daysPack = By.xpath("//*[@id='holder_price' and ./*[./*[@text='INR 99 for 30 days']]]");
 	public static By objRadioBtn = By.xpath("//*[@id='selectionImageSelector']");
 	public static By obj180daysPack = By.xpath("//*[@id='holder_price' and ./*[./*[@text='INR 599 for 180 days']]]");
-	public static By obj365daysPack = By.xpath("//*[@id='holder_price' and ./*[./*[@text='INR 999 for 365 days']]]");
+	public static By obj365daysPack = By.xpath("//*[@id='holder_price' and ./*[./*[@text='INR 699 for 365 days']]]");
 	public static By objContinueBtn = By.xpath("//*[@id='btnContinue_PackSelection']");
 	public static By objRSVODPack1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/decription_tv'])[1]");
-	public static By objRSVODPack2 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/decription_tv'])[2]");
+	public static By objRSVODPack2 = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv']");
 	
 	//Account info
 	public static By objSelectPack = By.xpath("//*[@id='pack_selection_title']");
@@ -56,7 +55,7 @@ public class AMDSubscibeScreen {
 	public static By objEnterPassword = By.xpath("//*[@id='header_verify_pwd']");
 	public static By objPasswordTextField  = By.xpath("//*[@id='input_password']");
 	public static By objPasswordErrorMessage = By.xpath("//*[@resource-id='com.graymatrix.did:id/textinput_error']");
-	public static By objShowIcon = By.xpath("//*[@id='text_input_password_toggle']");
+	public static By objShowIcon = By.xpath("//*[@id='text_input_end_icon']");
 	public static By objProceedPWDScreen = By.xpath("//*[@id='subscription_plan_validate_password_button']");
 	public static By objVerifyOTPScreenProceed = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_verify_proceed']");
 	public static By objForgotPassword = By.xpath("//*[@id='option_forgot_password']");

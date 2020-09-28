@@ -20,7 +20,6 @@ import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Reporter;
 import org.testng.asserts.SoftAssert;
 import com.utility.Utilities;
 import com.zee5.PWAPages.NativeVodafonePlayPage;
@@ -454,7 +453,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	 * Generic PWALogin function.
 	 */
 	public void ZeePWALogin(String LoginMethod, String userType) throws Exception {
-		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
+		String url = getParameterFromXML("url");
 		extent.HeaderChildNode("User-Type : " + userType + ", Environment: " + url);
 		// Get the email and password from properties
 		String email = "";
@@ -467,12 +466,12 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			extent.extentLogger("Guest", "Accessing the application as Guest user");
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.extentLogger("Subscribed", "Accessing the application as Subscribed user");
-			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
-			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+			email = getParameterFromXML("SubscribedUserName");
+			password = getParameterFromXML("SubscribedPassword");
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.extentLogger("Non-Subscribed", "Accessing the application as Non-Subscribed user");
-			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
-			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
+			email = getParameterFromXML("NonsubscribedUserName");
+			password = getParameterFromXML("NonsubscribedPassword");
 		}
 		if (userType.equalsIgnoreCase("SubscribedUser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
 			if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
@@ -1346,7 +1345,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	public void verifyCTAandMetaDataInDetailsAndConsumption(String contentTitle) throws Exception {
 		extent.HeaderChildNode("Verify Watch Latest Episode CTA");
 		// handle mandatory pop up
-		String user = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String user = getParameterFromXML("userType");
 		mandatoryRegistrationPopUp(user);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);
@@ -4255,7 +4254,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	        extent.HeaderChildNode("Validating playback functionality when data is turned off and on");
 	        verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 	        checkElementExist(PWAHomePage.objSearchField, "Search field");
-	        String keyword1 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeMovie2");
+	        String keyword1 = getParameterFromXML("freeMovie2");
 			type(PWAHomePage.objSearchField, keyword1, "Search");
 			verifyElementPresentAndClick(PWASearchPage.objSearchMoviesTab, "Movies tab");
 			waitTime(10000);
@@ -5435,9 +5434,9 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			
 			public void playContentsToTriggerRecoApi(String userType) throws Exception {
 				extent.HeaderChildNode("Play different contents to trigger Recommendation API");
-				playAContentForReco("Music",Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("musicToTriggerReco"),userType);
-				playAContentForReco("Movies",Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("movieToTriggerReco"),userType);
-				playAContentForReco("News",Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("newsToTriggerReco"),userType);
+				playAContentForReco("Music",getParameterFromXML("musicToTriggerReco"),userType);
+				playAContentForReco("Movies",getParameterFromXML("movieToTriggerReco"),userType);
+				playAContentForReco("News",getParameterFromXML("newsToTriggerReco"),userType);
 			}
 			
 			
@@ -5963,7 +5962,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		}
 		
 		public void dismiss3xPopUp() throws Exception {
-			String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
+			String url = getParameterFromXML("url");
 			if (!url.contains("newpwa")) {
 				getDriver().context("NATIVE_APP");
 				waitTime(3000);
@@ -6019,7 +6018,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		}
 		
 		public void reloadHome() throws Exception {
-			String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
+			String url = getParameterFromXML("url");
 			System.out.println(getDriver());
 			getDriver().get(url);
 			waitTime(5000);
