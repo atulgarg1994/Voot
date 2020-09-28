@@ -494,7 +494,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("\nPassword Scenario");
 		verifyElementExist(AMDSubscibeScreen.objPasswordTextField, "Password field");
 		click(AMDSubscibeScreen.objPasswordTextField, "Password");
-		type(AMDSubscibeScreen.objPasswordTextField, "User", "Password field");
+		type(AMDSubscibeScreen.objPasswordTextField, "Use", "Password field");
+		boolean var = verifyIsElementDisplayed(AMDSubscibeScreen.objPasswordErrorMessage);
+		if (var == true) {
+			logger.info("“Password must be a minimum of 6 characters” error message is displayed");
+			extentLoggerPass("Password", "“Password must be a minimum of 6 characters” error message is displayed");
+		}
+		type(AMDSubscibeScreen.objPasswordTextField, "r", "Password field");
 		hideKeyboard();
 		System.out.println("DEVICE NAME : " + getOEMName);
 		if (getOEMName.contains("vivo")) {
@@ -543,6 +549,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDSubscibeScreen.objPaymentText, "Payment page");
 		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in Payment page");
 		verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in Payment page");
+		verifyElementExist(AMDSubscibeScreen.objSelectedPackText, "Selected Pack details");
 		Back(2);
 		click(AMDHomePage.objMoreMenu, "More Menu");
 		Swipe("UP", 2);
@@ -680,8 +687,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void subscribeEntryPointsValidations(String userType) throws Exception {
-		HeaderChildNode("Entry points");
+
 		if (userType.equals("Guest")) {
+			HeaderChildNode("Entry points");
 			waitTime(10000);
 			verifyElementExist(AMDHomePage.objGetPremiumCTAOnCarosel, "Get Premium CTA on carosel");
 			click(AMDHomePage.objGetPremiumCTAOnCarosel, "Get Premium CTA on carosel");
@@ -693,7 +701,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //			closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD - HANDLED HERE
 			PartialSwipe("UP", 1);
 			waitTime(5000);
-			boolean beforTV =verifyIsElementDisplayed(AMDHomePage.objBeforeTVTray);
+			boolean beforTV = verifyIsElementDisplayed(AMDHomePage.objBeforeTVTray);
 			if (beforTV) {
 				waitTime(5000);
 				String beforeTVtrayName = findElement(AMDGenericObjects.objTrayTitle("Before")).getText();
@@ -741,7 +749,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 
 		else if (userType.equals("NonSubscribedUser")) {
-			
+			HeaderChildNode("Entry points");
 			verifyElementExist(AMDHomePage.objHomeBtn, "Home button");
 			click(AMDHomePage.objMoreMenu, "More menu");
 			click(AMDHomePage.objMyProfileIcon, "profile icon");
@@ -831,8 +839,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Swipe("UP", 2);
 			PartialSwipe("UP", 2);
 			verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
-			verifyElementExist(AMDSubscibeScreen.objPremiumTab , "Premium pack tab");
-			verifyElementExist(AMDSubscibeScreen.objClubTab , "Club pack tab");
+			verifyElementExist(AMDSubscibeScreen.objPremiumTab, "Premium pack tab");
+			verifyElementExist(AMDSubscibeScreen.objClubTab, "Club pack tab");
 			Swipe("UP", 1);
 			verifyElementExist(AMDSubscibeScreen.obj30daysPack, "30 days premium plan tab");
 			verifyElementExist(AMDSubscibeScreen.obj180daysPack, "180 days premium plan tab");
@@ -877,21 +885,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Swipe("UP", 1);
 			click(AMDHomePage.objGetPremiumPopUPProceedButton, "Proceed button");
 			verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page");
-
 		}
-
 		if (userType.equals("SubscribedUser")) {
-			
-//			click(AMDHomePage.objMoreMenu, "More menu");
-//			Swipe("UP", 2);
-//			click(AMDHomePage.objLogout, "Logout");
-//			click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
-//			Swipe("Down", 2);
-//			click(AMDMoreMenu.objProfile, "Profile");
-//			LoginWithEmailID(RSVODUser, RSVODPassword);
+			extent.HeaderChildNode("Subscribed user with All Access pack validations");
 			click(AMDHomePage.objMoreMenu, "More menu");
 			click(AMDHomePage.objMyProfileIcon, "profile icon");
-
 			if (verifyIsElementDisplayed(AMDHomePage.objEditProfile)) {
 				logger.info("User is logged in successfully");
 				extent.extentLoggerPass("Edit", "User is logged in successfully");
@@ -922,20 +920,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("Apply button is not highlighted by default");
 				extent.extentLoggerPass("Highlighted", "Apply button is not highlighted by default");
 			}
-			/*click(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo");
-			type(AMDSubscibeScreen.objApplyPromoCodeTextbox, PromoCode, "Promo code");
-			hideKeyboard();
-			click(AMDSubscibeScreen.objApply, "Apply button");
-			verifyElementExist(AMDSubscibeScreen.objApplyPromoCodeappliedText, "Promo code applied successfully text");
-			if (checkElementExist(AMDSubscibeScreen.objApplyPromoCodeappliedText, "Promo")) {
-				logger.info("Discounted price is displayed after promo code is applied");
-				extent.extentLogger("Promo", "Discounted price is displayed after promo code is applied");
-			} else {
-				logger.error("Discounted price is not displayed after promo code is applied");
-				extent.extentLoggerFail("Promo", "Discounted price is not displayed after promo code is applied");
-			}*/
-			//click(AMDSubscibeScreen.objCancelPromoCode, "Cancel promo");
-//			clearField(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo");
+
 			click(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo");
 			type(AMDSubscibeScreen.objApplyPromoCodeTextbox, "zee5flat5000", "Promo code");
 			hideKeyboard();
@@ -944,62 +929,54 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Swipe("UP", 1);
 			PartialSwipe("UP", 1);
 			verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
-			verifyElementExist(AMDSubscibeScreen.objPremiumTab , "Premium pack tab");
+			verifyElementExist(AMDSubscibeScreen.objPremiumTab, "Premium pack tab");
 //			verifyElementExist(AMDSubscibeScreen.objClubTab , "Club pack tab");
 			Swipe("UP", 1);
 			verifyElementExist(AMDSubscibeScreen.obj30daysPack, "30 days premium plan tab");
 			verifyElementExist(AMDSubscibeScreen.obj180daysPack, "180 days premium plan tab");
 			verifyElementExist(AMDSubscibeScreen.obj365daysPack, "365 days premium plan tab");
-			Swipe("UP", 1);
 			verifyElementExist(AMDSubscibeScreen.objContinueBtn, "Continue button in subscribe page");
 			if (getDriver().findElement(AMDSubscibeScreen.objContinueBtn).isEnabled()) {
 				logger.info("Continue button is highlighted");
 				extent.extentLoggerPass("Highlighted", "Continue button is highlighted");
 			}
-//			Swipe("DOWN", 1);
-//			click(AMDSubscibeScreen.objClubTab , "Club Pack tab");
-//			verifyElementPresentAndClick(AMDSubscibeScreen.objRSVODPack1, "RSVOD Plan for 30 days");
-//			PartialSwipe("UP", 2);
-//			verifyElementExist(AMDSubscibeScreen.objRSVODPack2, "RSVOD Plan for 365 days");
-//			Swipe("Down", 1);
-//			verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
-//			Swipe("UP", 2);
-//			if (findElement(AMDSubscibeScreen.objContinueBtn).isEnabled()) {
-//				logger.info("Continue button is highlighted");
-//				extent.extentLoggerPass("Highlighted", "Continue button is highlighted");
-//			}
 			click(AMDSubscibeScreen.objContinueBtn, "Continue button");
 			if (checkElementExist(AMDHomePage.objHomeBtn, "Home tab")) {
 				logger.info(
-						"Subscribed user is navigated to home page after tapping on buy subscription continue button");
+						"Subscribed user with all access pack is navigated to home page after tapping on buy subscription continue button");
 				extent.extentLoggerPass("Home",
-						"Subscribed user is navigated to home page after tapping on buy subscription continue button");
+						"Subscribed user with all access pack is navigated to home page after tapping on buy subscription continue button");
 			} else {
 				logger.error(
-						"Subscribed user is not navigated to home page after tapping on buy subscription continue button");
+						"Subscribed user with all access pack is not navigated to home page after tapping on buy subscription continue button");
 				extent.extentLoggerFail("Home",
-						"Subscribed user is not navigated to home page after tapping on buy subscription continue button");
+						"Subscribed user with all access pack is not navigated to home page after tapping on buy subscription continue button");
 			}
-
+			click(AMDHomePage.objMoreMenu, "More menu");
+			Swipe("UP", 2);
+			click(AMDHomePage.objLogout, "Logout");
+			click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
+			Swipe("Down", 2);
+			click(AMDMoreMenu.objProfile, "Profile");
+			LoginWithEmailID(RSVODUser, RSVODPassword);
+			extent.HeaderChildNode("RSVOD user Validations");
 			waitTime(5000);
 			click(AMDHomePage.objSearchBtn, "Search button");
 			waitTime(5000);
 			click(AMDSearchScreen.objSearchEditBox, "Search box");
-			type(AMDSearchScreen.objSearchBoxBar, "Chintu ka Birthday\n", "Search field");
+			type(AMDSearchScreen.objSearchBoxBar, "Karan takes Mahira for the ritual - Kundali Bhagya \n",
+					"Search field");
 			hideKeyboard();
 			waitTime(7000);
-			click(AMDSearchScreen.objSearchResultPremiunm("Chintu Ka Birthday"), "Search result premium content");
+			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result premium content");
 			waitTime(5000);
-			verifyElementExist(AMDSearchScreen.objContentNameInPlayer("Chintu Ka Birthday"), "Content name in player");
-			waitTime(25000);
+			verifyElementExist(
+					AMDSearchScreen.objContentNameInPlayer("Karan takes Mahira for the ritual - Kundali Bhagya"),
+					"Content name in player");
+			click(AMDHomePage.objGetClubInConsumptionScreen, "Upgrade button");
 			verifyElementExist(AMDSearchScreen.objUpgradePopup, "Upgrade popup for RSVOD user");
-			verifyElementExist(AMDSearchScreen.objUpgradePopupTitle, "Upgrade text in upgrade popup");
 			verifyElementExist(AMDSearchScreen.objUpgradePopupDescription, "Upgrade popup description");
 			logger.info(getText(AMDSearchScreen.objUpgradePopupDescription));
-			verifyElementExist(AMDSearchScreen.objUpgradePopUpPacks("INR 99 for 30 days"),
-					"30 days pack in upgrade popup");
-			verifyElementExist(AMDSearchScreen.objUpgradePopUpPacks("INR 299 for 90 days"),
-					"90 days pack in upgrade popup");
 			verifyElementExist(AMDSearchScreen.objUpgradePopUpPacks("INR 599 for 180 days"),
 					"180 days pack in upgrade popup");
 			verifyElementExist(AMDSearchScreen.objUpgradePopUpPacks("INR 699 for 365 days"),
@@ -1021,11 +998,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementExist(AMDSearchScreen.objRoundoff, "Round off price detials in Subscribe page");
 			verifyElementExist(AMDSearchScreen.objTotalPayableAmount, "Total payable price detials in Subscribe page");
 			verifyElementExist(AMDSearchScreen.objAccountInfo, "Account info detials in Subscribe page");
-			Swipe("UP", 1);
-			verifyElementExist(AMDSearchScreen.objYouWillBeChargedInfo, "Recurring amount detials in Subscribe page");
-			relaunch(true);
-			accessDeviceLocationPopUp("Allow", userType);
-			subscribeAllaccessFunctionality();
+//			Swipe("UP", 1);
+//			verifyElementExist(AMDSearchScreen.objYouWillBeChargedInfo, "Recurring amount detials in Subscribe page");
 		}
 	}
 
@@ -1034,7 +1008,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Display continue");
 		click(AMDOnboardingScreen.objContent_ContinueBtn, " Content Continue");
 		click(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for free");
-
 		click(AMDLoginScreen.objEmailIdField, "Email field");
 		type(AMDLoginScreen.objEmailIdField, SubscribedUserName, "Email field");
 		hideKeyboard();
@@ -1047,7 +1020,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDHomePage.objHomeBtn, "Home button");
 		click(AMDHomePage.objMoreMenu, "More menu");
 		click(AMDHomePage.objMyProfileIcon, "profile icon");
-
 		if (checkElementExist(AMDHomePage.objEditProfile, "Edit profile")) {
 			logger.info("User is logged in successfully");
 			extent.extentLoggerPass("Edit", "User is logged in successfully");
@@ -1082,6 +1054,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in subscription page");
 		verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in subscribe page");
 		verifyElementExist(AMDSubscibeScreen.objAdbanner, "Carosual in subscription page");
+		verifyElementExist(AMDSubscibeScreen.objHaveAPromocode, "Have a code? text");
 		verifyElementExist(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo code in subscribe page");
 		verifyElementPresent(AMDSubscibeScreen.objApply, "Apply button is subscribe page");
 		if (verifyIsElementDisplayed(AMDSubscibeScreen.objApplybuttonNotHighlighted)) {
@@ -1112,7 +1085,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		Swipe("UP", 1);
 		verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
 		verifyElementExist(AMDSubscibeScreen.objPremiumTab, "Premium  pack tab");
-		verifyElementExist(AMDSubscibeScreen.objClubTab , "Club pack tab");
+		verifyElementExist(AMDSubscibeScreen.objClubTab, "Club pack tab");
 		Swipe("UP", 1);
 		verifyElementExist(AMDSubscibeScreen.obj30daysPack, "30 days premium plan tab");
 		verifyElementExist(AMDSubscibeScreen.obj180daysPack, "180 days premium plan tab");
@@ -1124,7 +1097,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerPass("Highlighted", "Continue button is highlighted");
 		}
 		Swipe("DOWN", 1);
-		click(AMDSubscibeScreen.objClubTab , "Club Pack tab");
+		click(AMDSubscibeScreen.objClubTab, "Club Pack tab");
 		verifyElementPresentAndClick(AMDSubscibeScreen.objRSVODPack1, "RSVOD Plan for 30 days");
 		PartialSwipe("UP", 1);
 		verifyElementExist(AMDSubscibeScreen.objRSVODPack2, "RSVOD Plan for 365 days");
@@ -2862,42 +2835,42 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
 		verifyElementPresentAndClick(AMDLoginScreen.objGoogleBtn, "Gmail icon");
 
-		if (checkElementExist(AMDLoginScreen.objGmailSignIn, "Gmail Sign In")) {
-			verifyElementPresentAndClick(AMDLoginScreen.objGmailEmailField, "Email Field");
-			type(AMDLoginScreen.objGmailEmailField, "zeetest55@gmail.com", "Email Field");
-			verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
-			verifyElementPresentAndClick(AMDLoginScreen.objGmailPasswordField, "Password Field");
-			type(AMDLoginScreen.objGmailPasswordField, "zeetest123", "Password Field");
-			verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
-
-			if (checkElementExist(AMDLoginScreen.objGmailAddPhoneNumber, "Add Phone Number")) {
-				verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip Button");
-			}
-			if (checkElementExist(AMDLoginScreen.objAgreeBtn, "Agree Button")) {
-				click(AMDLoginScreen.objAgreeBtn, "Agree Button");
-			}
-
-			if (checkElementExist(AMDLoginScreen.objAcceptBtn, "Accept Button")) {
-				click(AMDLoginScreen.objAcceptBtn, "Accept Button");
-			}
-		}
-
-		if (checkElementExist(AMDLoginScreen.objGmailAccount, "Gmail Account")) {
-			click(AMDLoginScreen.objGmailAccount, "Gmail Account");
-			waitTime(5000);
-		}
-		if (checkElementExist(AMDOnboardingScreen.objTellUsMore, "More info Screen")) {
-			if (checkElementExist(AMDLoginScreen.objEmailIdField, "Email Id field")) {
-				type(AMDLoginScreen.objEmailIdField, "zeetest@gmail.com", "Email Id field");
-			}
-			verifyElementPresentAndClick(AMDLoginScreen.objDOB, "Date of Birth");
-			verifyElementPresentAndClick(AMDLoginScreen.objDate, "Date");
-			verifyElementPresentAndClick(AMDLoginScreen.objDateOK, "OK button");
-			verifyElementPresentAndClick(AMDLoginScreen.objGender, "Gender Field");
-			verifyElementPresentAndClick(AMDLoginScreen.objGenderMale, "Male");
-			verifyElementExist(AMDLoginScreen.objSubmitButton, "Submit Button");
-			Back(1);
-		}
+//		if (checkElementExist(AMDLoginScreen.objGmailSignIn, "Gmail Sign In")) {
+//			verifyElementPresentAndClick(AMDLoginScreen.objGmailEmailField, "Email Field");
+//			type(AMDLoginScreen.objGmailEmailField, "zeetest55@gmail.com", "Email Field");
+//			verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
+//			verifyElementPresentAndClick(AMDLoginScreen.objGmailPasswordField, "Password Field");
+//			type(AMDLoginScreen.objGmailPasswordField, "zeetest123", "Password Field");
+//			verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
+//
+//			if (checkElementExist(AMDLoginScreen.objGmailAddPhoneNumber, "Add Phone Number")) {
+//				verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip Button");
+//			}
+//			if (checkElementExist(AMDLoginScreen.objAgreeBtn, "Agree Button")) {
+//				click(AMDLoginScreen.objAgreeBtn, "Agree Button");
+//			}
+//
+//			if (checkElementExist(AMDLoginScreen.objAcceptBtn, "Accept Button")) {
+//				click(AMDLoginScreen.objAcceptBtn, "Accept Button");
+//			}
+//		}
+//
+//		if (checkElementExist(AMDLoginScreen.objGmailAccount, "Gmail Account")) {
+//			click(AMDLoginScreen.objGmailAccount, "Gmail Account");
+//			waitTime(5000);
+//		}
+//		if (checkElementExist(AMDOnboardingScreen.objTellUsMore, "More info Screen")) {
+//			if (checkElementExist(AMDLoginScreen.objEmailIdField, "Email Id field")) {
+//				type(AMDLoginScreen.objEmailIdField, "zeetest@gmail.com", "Email Id field");
+//			}
+//			verifyElementPresentAndClick(AMDLoginScreen.objDOB, "Date of Birth");
+//			verifyElementPresentAndClick(AMDLoginScreen.objDate, "Date");
+//			verifyElementPresentAndClick(AMDLoginScreen.objDateOK, "OK button");
+//			verifyElementPresentAndClick(AMDLoginScreen.objGender, "Gender Field");
+//			verifyElementPresentAndClick(AMDLoginScreen.objGenderMale, "Male");
+//			verifyElementExist(AMDLoginScreen.objSubmitButton, "Submit Button");
+//			Back(1);
+//		}
 
 		if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
 			logger.info("User logged in successfully");
@@ -2912,46 +2885,49 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Swipe("Down", 2);
 			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
 
+		} else {
+			logger.info("Pre conditions not met, Account is not logged In");
+			extentLogger("Gmail", "Pre conditions not met, Account is not logged In");
 		}
 
 		verifyElementPresentAndClick(AMDLoginScreen.objtwitterBtn, "Twitter icon");
 		waitTime(5000);
 
-		if (checkElementExist(AMDLoginScreen.objTwitterAuthorize, "Authorize app")) {
-			click(AMDLoginScreen.objTwitterAuthorize, "Authorize app");
+		if (checkElementExist(AMDLoginScreen.objTwitterAutorizeAllowBtn, "Authorize app")) {
+			click(AMDLoginScreen.objTwitterAutorizeAllowBtn, "Authorize app");
 		}
 
-		if (checkElementExist(AMDLoginScreen.objTwitterEmail, "Email Id field")) {
-			click(AMDLoginScreen.objTwitterEmail, "Email Id field");
-			type(AMDLoginScreen.objTwitterEmail, "zee5latest@gmail.com", "Email Id field");
-			verifyElementPresentAndClick(AMDLoginScreen.objTwitterPassword, "Password Field");
-			type(AMDLoginScreen.objTwitterPassword, "User@123", "Password field");
-			verifyElementPresentAndClick(AMDLoginScreen.objTwitterLoginBtn, "Login Button");
-			waitTime(5000);
-			if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
-				logger.info("User logged in successfully");
-				extent.extentLoggerPass("Login", "User logged in successfully");
-				verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-				Swipe("UP", 2);
-				verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
-				verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout Button");
-				waitTime(5000);
-				Swipe("Down", 2);
-				verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
-			}
-		}
-
-		if (checkElementExist(AMDOnboardingScreen.objTellUsMore, "More info Screen")) {
-			if (checkElementExist(AMDLoginScreen.objEmailIdField, "Email Id field")) {
-				type(AMDLoginScreen.objEmailIdField, "zeetest@gmail.com", "Email Id field");
-			}
-			verifyElementPresentAndClick(AMDLoginScreen.objDOB, "Date of Birth");
-			verifyElementPresentAndClick(AMDLoginScreen.objDate, "Date");
-			verifyElementPresentAndClick(AMDLoginScreen.objDateOK, "OK button");
-			verifyElementPresentAndClick(AMDLoginScreen.objGender, "Gender Field");
-			verifyElementPresentAndClick(AMDLoginScreen.objGenderMale, "Male");
-			verifyElementExist(AMDLoginScreen.objSubmitButton, "Submit Button");
-		}
+//		if (checkElementExist(AMDLoginScreen.objTwitterEmail, "Email Id field")) {
+//			click(AMDLoginScreen.objTwitterEmail, "Email Id field");
+//			type(AMDLoginScreen.objTwitterEmail, "zee5latest@gmail.com", "Email Id field");
+//			verifyElementPresentAndClick(AMDLoginScreen.objTwitterPassword, "Password Field");
+//			type(AMDLoginScreen.objTwitterPassword, "User@123", "Password field");
+//			verifyElementPresentAndClick(AMDLoginScreen.objTwitterLoginBtn, "Login Button");
+//			waitTime(5000);
+//			if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
+//				logger.info("User logged in successfully");
+//				extent.extentLoggerPass("Login", "User logged in successfully");
+//				verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+//				Swipe("UP", 2);
+//				verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
+//				verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout Button");
+//				waitTime(5000);
+//				Swipe("Down", 2);
+//				verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
+//			}
+//		}
+//
+//		if (checkElementExist(AMDOnboardingScreen.objTellUsMore, "More info Screen")) {
+//			if (checkElementExist(AMDLoginScreen.objEmailIdField, "Email Id field")) {
+//				type(AMDLoginScreen.objEmailIdField, "zeetest@gmail.com", "Email Id field");
+//			}
+//			verifyElementPresentAndClick(AMDLoginScreen.objDOB, "Date of Birth");
+//			verifyElementPresentAndClick(AMDLoginScreen.objDate, "Date");
+//			verifyElementPresentAndClick(AMDLoginScreen.objDateOK, "OK button");
+//			verifyElementPresentAndClick(AMDLoginScreen.objGender, "Gender Field");
+//			verifyElementPresentAndClick(AMDLoginScreen.objGenderMale, "Male");
+//			verifyElementExist(AMDLoginScreen.objSubmitButton, "Submit Button");
+//		}
 
 		if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
 			logger.info("User logged in successfully");
@@ -2963,30 +2939,36 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(5000);
 			Swipe("Down", 2);
 			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
+		} else {
+			logger.info("Pre conditions not met, Account is not logged In");
+			extentLogger("Twitter", "Pre conditions not met, Account is not logged In");
 		}
 
 		verifyElementPresentAndClick(AMDLoginScreen.objfbBtn, "Facebook icon");
 		waitTime(5000);
-		if (checkElementExist(AMDLoginScreen.objFBLogIntoAnotherAccount, "Log Into Another Account")) {
-			click(AMDLoginScreen.objFBLogIntoAnotherAccount, "Log Into Another Account");
-			if (checkElementExist(AMDLoginScreen.objFBEmail, "Email Id field")) {
-				click(AMDLoginScreen.objFBEmail, "Email Id field");
-				type(AMDLoginScreen.objFBEmail, "igszeefive@gmail.com", "Email Id field");
-				verifyElementPresentAndClick(AMDLoginScreen.objFBPassword, "Password Field");
-				type(AMDLoginScreen.objFBPassword, "zeefive@igs", "Password field");
-				verifyElementPresentAndClick(AMDLoginScreen.objFBLoginBtn, "Login Button");
-			}
-		} else if (checkElementExist(AMDLoginScreen.objFBEmail, "Email Id field")) {
-			click(AMDLoginScreen.objFBEmail, "Email Id field");
-			type(AMDLoginScreen.objFBEmail, "igszeefive@gmail.com", "Email Id field");
-			verifyElementPresentAndClick(AMDLoginScreen.objFBPassword, "Password Field");
-			type(AMDLoginScreen.objFBPassword, "zeefive@igs", "Password field");
-			verifyElementPresentAndClick(AMDLoginScreen.objFBLoginBtn, "Login Button");
-		}
+//		if (checkElementExist(AMDLoginScreen.objFBLogIntoAnotherAccount, "Log Into Another Account")) {
+//			click(AMDLoginScreen.objFBLogIntoAnotherAccount, "Log Into Another Account");
+//			if (checkElementExist(AMDLoginScreen.objFBEmail, "Email Id field")) {
+//				click(AMDLoginScreen.objFBEmail, "Email Id field");
+//				type(AMDLoginScreen.objFBEmail, "igszeefive@gmail.com", "Email Id field");
+//				verifyElementPresentAndClick(AMDLoginScreen.objFBPassword, "Password Field");
+//				type(AMDLoginScreen.objFBPassword, "zeefive@igs", "Password field");
+//				verifyElementPresentAndClick(AMDLoginScreen.objFBLoginBtn, "Login Button");
+//			}
+//		} else if (checkElementExist(AMDLoginScreen.objFBEmail, "Email Id field")) {
+//			click(AMDLoginScreen.objFBEmail, "Email Id field");
+//			type(AMDLoginScreen.objFBEmail, "igszeefive@gmail.com", "Email Id field");
+//			verifyElementPresentAndClick(AMDLoginScreen.objFBPassword, "Password Field");
+//			type(AMDLoginScreen.objFBPassword, "zeefive@igs", "Password field");
+//			verifyElementPresentAndClick(AMDLoginScreen.objFBLoginBtn, "Login Button");
+//		}
 
 		if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
 			logger.info("User logged in successfully");
 			extent.extentLoggerPass("Login", "User logged in successfully");
+		} else {
+			logger.info("Pre conditions not met, Account is not logged In");
+			extentLogger("Facebook", "Pre conditions not met, Account is not logged In");
 		}
 
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
@@ -5257,7 +5239,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("No premium content present in the carousel to validate Content Playback");
 		} else {
 			verifyElementPresentAndClick(AMDHomePage.objContentTitle(CarouselTitle), "Carousel content");
-			if(userType.equalsIgnoreCase("Guest")) {
+			if (userType.equalsIgnoreCase("Guest")) {
 				if (verifyIsElementDisplayed(AMDHomePage.objWatchTrailerIconOnPlayerscreen)) {
 					if (verifyIsElementDisplayed(AMDHomePage.objLoginButtonOnPlayerscreen)) {
 						logger.error(
@@ -5283,7 +5265,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 								"Content playback is initiated for the user post tapping on premium content which is not having trailer");
 					}
 				}
-			}else if(userType.equalsIgnoreCase("NonSubscribedUser")){
+			} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 				if (verifyIsElementDisplayed(AMDHomePage.objWatchTrailerIconOnPlayerscreen)) {
 					if (verifyIsElementDisplayed(AMDShowsScreen.objSubscribeNowlink)) {
 						logger.error(
@@ -5595,10 +5577,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	@SuppressWarnings("deprecation")
 	public void parentalPinValidation(String userType, String searchKeyword) throws Exception {
-
+		extent.HeaderChildNode("Parental Pin Validation");
+		System.out.println("\nParental Pin Validation");
+		
 		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Parental Pin Validation");
-			System.out.println("\nParental Pin Validation");
 			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
 			click(AMDMoreMenu.objSettings, "Settings option");
 			waitTime(2000);
@@ -5743,6 +5725,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(2000);
 			click(AMDMoreMenu.objParentalLockDone, "Done Button");
 			// Back(1);
+		}else {
+			logger.info("Parental Pin Validation is NOT applicable for "+userType);
+			extent.extentLogger("Parental Pin","Parental Pin Validation is NOT applicable for "+userType);
 		}
 	}
 
@@ -5856,7 +5841,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 		}
 		// Verify Subscribe icon is displayed
-		//verifyElementPresent(AMDHomePage.objSubscribeIcon, "Subscribe icon in Kids tab");
+		// verifyElementPresent(AMDHomePage.objSubscribeIcon, "Subscribe icon in Kids
+		// tab");
 		// Verify Trending on ZEE5 tray is displayed
 		// verifyElementPresent(AMDHomePage.objTrendingOnZee5Tray, "Trending on Zee5");
 		// Verify Play icon is displayed
@@ -6255,7 +6241,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content");
 
 		waitTime(5000);
-		if(userType.equalsIgnoreCase("Guest")) {
+		if (userType.equalsIgnoreCase("Guest")) {
 			if (verifyIsElementDisplayed(AMDHomePage.objWatchTrailerIconOnPlayerscreen)) {
 				if (verifyIsElementDisplayed(AMDHomePage.objLoginButtonOnPlayerscreen)) {
 					logger.error(
@@ -6281,7 +6267,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 							"Content playback is initiated for the user post tapping on premium content which is not having trailer");
 				}
 			}
-		}else if(userType.equalsIgnoreCase("NonSubscribedUser")){
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			if (verifyIsElementDisplayed(AMDHomePage.objWatchTrailerIconOnPlayerscreen)) {
 				if (verifyIsElementDisplayed(AMDShowsScreen.objSubscribeNowlink)) {
 					logger.error(
@@ -6307,7 +6293,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 							"Content playback is initiated for the user post tapping on premium content which is not having trailer");
 				}
 			}
-		}else {
+		} else {
 			logger.info("Content playback is initiated for the SubscribedUser post tapping on Premium Content");
 			extentLoggerPass("Trailer",
 					"Content playback is initiated for the SubscribedUser post tapping on Premium Content");
@@ -6750,7 +6736,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //			Back(1);
 			click(AMDGenericObjects.objPopUpDivider, "Pop Up divider");
 		}
-		if(userType.equalsIgnoreCase("Guest")) {
+		if (userType.equalsIgnoreCase("Guest")) {
 			if (verifyIsElementDisplayed(AMDHomePage.objWatchTrailerIconOnPlayerscreen)) {
 				if (verifyIsElementDisplayed(AMDHomePage.objLoginButtonOnPlayerscreen)) {
 					logger.error(
@@ -6776,7 +6762,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 							"Content playback is initiated for the user post tapping on premium content which is not having trailer");
 				}
 			}
-		}else if(userType.equalsIgnoreCase("NonSubscribedUser")){
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			if (verifyIsElementDisplayed(AMDHomePage.objWatchTrailerIconOnPlayerscreen)) {
 				if (verifyIsElementDisplayed(AMDShowsScreen.objSubscribeNowlink)) {
 					logger.error(
@@ -6802,7 +6788,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 							"Content playback is initiated for the user post tapping on premium content which is not having trailer");
 				}
 			}
-		}else {
+		} else {
 			logger.info("Content playback is initiated for the SubscribedUser post tapping on Premium Content");
 			extentLoggerPass("Trailer",
 					"Content playback is initiated for the SubscribedUser post tapping on Premium Content");
@@ -14856,9 +14842,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void SubscribepopupForClubcontentWithTrailer(String userType, String searchContent) throws Exception {
-		if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
-			extent.HeaderChildNode("Validating subscribe popup for Club content having Trailer");
-			System.out.println("Validating subscribe popup for Club content having Trailer");
+		extent.HeaderChildNode("Validating subscribe popup for Club content having Trailer");
+		System.out.println("Validating subscribe popup for Club content having Trailer");
+
+		if (userType.equalsIgnoreCase("Guest") | userType.equalsIgnoreCase("NonSubscribedUser")) {
 			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
 			waitTime(2000);
 			verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -14902,9 +14889,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void validateClubIconOnContentCards(String userType) throws Exception {
+		extent.HeaderChildNode("Validating Club icon on Content tray and Content listing screen");
+		System.out.println("Validating Club icon on Content tray and Content listing screen");
+
 		if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
-			extent.HeaderChildNode("Validating Club icon on Content tray and Content listing screen");
-			System.out.println("Validating Club icon on Content tray and Content listing screen");
 			waitTime(6000);
 			SwipeUntilFindElement(AMDClubPack.objBestOfZee5OriginalsTray, "UP");
 			boolean result = verifyIsElementDisplayed(AMDClubPack.objClubIconOnFirstCardOfTray);
@@ -14936,9 +14924,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void ValidateClubIconForRecoTray(String userType) throws Exception {
+		extent.HeaderChildNode("Validating Club Icon for Reco rails/tray");
+		System.out.println("Validating Club Icon for Reco rails/tray");
+
 		if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
-			extent.HeaderChildNode("Validating Club Icon for Reco rails/tray");
-			System.out.println("Validating Club Icon for Reco rails/tray");
 			waitTime(6000);
 			SwipeUntilFindElement(AMDClubPack.objRecoMovieTray, "UP");
 			waitTime(3000);
@@ -15905,9 +15894,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 * Author : Bhavana
 	 */
 	public void ValidateClubIconForEpisodes(String userType) throws Exception {
+		extent.HeaderChildNode("Validating Club Icon for Episodes");
+		System.out.println("Validating Club Icon for Episodes");
+
 		if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
-			extent.HeaderChildNode("Validating Club Icon for Episodes");
-			System.out.println("Validating Club Icon for Episodes");
 			waitTime(6000);
 			click(AMDHomePage.objShowsTab, "Shows tab");
 			waitTime(10000);
@@ -15936,9 +15926,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void ValidateClubIconForMovies(String userType) throws Exception {
+		extent.HeaderChildNode("Validating Club Icon for Movies");
+		System.out.println("Validating Club Icon for Movies");
+
 		if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
-			extent.HeaderChildNode("Validating Club Icon for Movies");
-			System.out.println("Validating Club Icon for Movies");
 			waitTime(6000);
 			click(AMDHomePage.objMoviesTab, "Movies tab");
 			waitTime(10000);
@@ -15963,5 +15954,23 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerPass("Landing page",
 					"Validating Club icon for Movies is not applicable for " + userType);
 		}
+	}
+
+	public void scrubProgressBarTillEnd(By byLocator1) throws Exception {
+		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
+		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
+
+		WebElement element = getDriver().findElement(byLocator1);
+		String xDuration = getAttributValue("x", AMDPlayerScreen.objTotalDuration);
+		int endX = Integer.parseInt(xDuration) - 25;
+
+		System.out.println(endX);
+		SwipeAnElement(element, endX, 0);
+
+		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time after seeking : " + timeToSec(afterSeek));
+		extent.extentLogger("Seek", "Current time after seeking in seconds: " + timeToSec(afterSeek));
+		waitTime(5000);
 	}
 }

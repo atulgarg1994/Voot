@@ -13,7 +13,7 @@ public class AMDHomePage {
 	public static By objSubscribeTeaser = By.xpath("//*[@text='SUBSCRIBE']");
 
 	// Search Button
-	public static By objSearchBtn = By.xpath("//*[@id='logo']//following::*[1]");
+	public static By objSearchBtn= By.xpath("((//*[@id='title'] | //*[@id='logo'])//following::*)[1]");
 
 	public static By objTitle = By.xpath("//*[@id='title']");
 

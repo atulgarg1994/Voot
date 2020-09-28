@@ -47,4 +47,8 @@ public class PWALanguageSettingsPage {
 	public static By objLanguageSetting(String text) {
 		return By.xpath("//span[@class='nativeName'][contains(text(),'"+text+"')]");
 	}
+	
+	public static By objFirstLanguage = By.xpath("(//*[@class='nativeName'])[1]");
+	
+	public static By objSecondLanguage = By.xpath("(//*[@class='nativeName'])[2]");
 }

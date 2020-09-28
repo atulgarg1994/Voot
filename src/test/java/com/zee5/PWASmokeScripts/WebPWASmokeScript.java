@@ -20,10 +20,10 @@ public class WebPWASmokeScript {
 	public void IntegratedScript(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			zee5WebBusinessLogic.ZeeWEBPWALogin("SubscribedUser");
-			zee5WebBusinessLogic.verificationOfLoggedIn();
+			//zee5WebBusinessLogic.verificationOfLoggedIn();
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			zee5WebBusinessLogic.ZeeWEBPWALogin("NonSubscribedUser");
-			zee5WebBusinessLogic.verificationOfLoggedIn();
+			//zee5WebBusinessLogic.verificationOfLoggedIn();
 		} else {
 			zee5WebBusinessLogic.ZeeWEBPWALogin(userType);
 			zee5WebBusinessLogic.dismissDisplayContentLanguagePopUp();
@@ -49,14 +49,14 @@ public class WebPWASmokeScript {
 		zee5WebBusinessLogic.verifyShareAndMetaDataInDetailsAndConsumption(consumptionsContentWithMetaData);
 	}
 
-	@Test(priority = 3)
+	//@Test(priority = 3)
 	@Parameters({ "userType" })
 	public void WEBPWALandingPages(String userType) throws Exception {
 		zee5WebBusinessLogic.navigateHome();
 		zee5WebBusinessLogic.WebValidatingLandingPages(userType);
 	}
 
-	@Test(priority = 4)
+	//@Test(priority = 4)
 	@Parameters({ "userType" })
 	public void WEBPWACarousel(String userType) throws Exception {
 		zee5WebBusinessLogic.navigateHome();
@@ -174,7 +174,7 @@ public class WebPWASmokeScript {
 	@Test(priority = 10)
 	@Parameters({"userType","url"})
 	public void ShareFunctionalityValidation(String userType,String url) throws Exception {
-		zee5WebBusinessLogic.dismissDisplayContentLanguagePopUp();
+		//zee5WebBusinessLogic.dismissDisplayContentLanguagePopUp();
 		zee5WebBusinessLogic.ShareModule(userType);
 				
 	}
@@ -183,7 +183,7 @@ public class WebPWASmokeScript {
 	@Test(priority = 11)
 	@Parameters({"userType","url"})
 	public void StaticPagesValidation(String userType,String url) throws Exception {
-		zee5WebBusinessLogic.dismissDisplayContentLanguagePopUp();
+		//zee5WebBusinessLogic.dismissDisplayContentLanguagePopUp();
 		zee5WebBusinessLogic.StaticPages(userType);
 		
 	}
@@ -192,7 +192,7 @@ public class WebPWASmokeScript {
 		@Test(priority = 11)
 		@Parameters({"userType","url"})
 		public void UserAction(String userType,String url) throws Exception {
-			zee5WebBusinessLogic.dismissDisplayContentLanguagePopUp();
+			//zee5WebBusinessLogic.dismissDisplayContentLanguagePopUp();
 			zee5WebBusinessLogic.UserActionGuestUser();
 			
 		}

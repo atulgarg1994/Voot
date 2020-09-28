@@ -254,9 +254,9 @@ public class Utilities extends ExtentReporter {
 	public boolean checkElementExist(By byLocator, String str) throws Exception {
 
 		try {
-			getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+			getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			List<WebElement> list = getDriver().findElements(byLocator);
-			getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			if (list.size() == 0) {
 				extent.extentLogger("checkElementPresent", "" + str + " is not displayed");
 				logger.info("" + str + " is not displayed");

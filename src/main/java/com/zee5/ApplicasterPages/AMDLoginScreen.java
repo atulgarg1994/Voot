@@ -167,5 +167,7 @@ public class AMDLoginScreen {
 	public static By objTwitterLoginBtn = By.xpath("//*[@class='android.widget.Button' and @text='Authorize app']");
 	
 	public static By objTickmarkforSelectedDisplayLanguage = By.xpath("//*[@resource-id='com.graymatrix.did:id/selectionImage']");
+	
+	public static By objTwitterAutorizeAllowBtn = By.xpath("//*[@resource-id='com.twitter.android:id/ok_button']");
 
 }

@@ -69,14 +69,14 @@ public class WebPWAMixpanelScript {
 	@Parameters({ "userType" })
 	public void verifyCarouselBannerClickEvent(String userType) throws Exception {
 		System.out.println("Verify Carousel Banner Click Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEventAndVideoViewEvent(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEventAndVideoViewEvent(userType,"Home");
 	}
 
 	@Test(priority = 9)
 	@Parameters({ "userType" })
 	public void verifyThumbnailClickEvent(String userType) throws Exception {
 		System.out.println("Verify Thumbnail Click Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyThumbnailClickEventAndVideoViewEvent(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyThumbnailClickEventAndVideoViewEvent(userType,"Shows");
 	}
 
 	@Test(priority = 10)
@@ -89,11 +89,13 @@ public class WebPWAMixpanelScript {
 	
 
 	@Test(priority = 12)
-	@Parameters({ "userType", "keyword1" })
-	public void verifyAddAndRemoveFomWatchlistAndShareEvent(String userType,String keyword1) throws Exception {
+	@Parameters({ "userType", "keyword1", "keyword" })
+	public void verifyAddAndRemoveFomWatchlistAndShareEvent(String userType,String keyword1,String keyword) throws Exception {
 		System.out.println("Verify Add And Remove Fom Watchlist And Share Event");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAddAndRemoveFomWatchlistAndShareEvent(userType, keyword1);
-		Zee5PWAWEBMixPanelBusinessLogic.verifyShareEventFromShowDetailPage(userType, keyword1);
+		System.out.println("Verify Add And Remove Fom Watchlist And Share Event From Show Detail Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyShareEventFromShowDetailPage(userType, keyword);
+		System.out.println("Verify Add And Remove Fom Watchlist And Share Event By Mouse Hover");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAddAndRemoveFomWatchlistAndShareEventByMouseHover(userType);
 		}
 	
@@ -113,14 +115,21 @@ public class WebPWAMixpanelScript {
 	@Test(priority = 15)
 	@Parameters({ "userType", "keyword4", "keyword5" })
 	public void verifyEvents(String userType,String keyword4,String keyword5) throws Exception {
-	
+		System.out.println("Verify Carousel Banner Swipe Event");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerSwipeEvent();
+		System.out.println("Verify Content Bucket Swipe Event");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyContentBucketSwipeEvent();
+		System.out.println("Verify Ad Banner Impression Event");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAdBannerImpressionEvent();	
+		System.out.println("Verify Default Setting Restored Event");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyDefaultSettingRestoredEvent(userType);	
+		System.out.println("Verify Set Reminder And Share Event For Upcoming Live Program Event");
 		Zee5PWAWEBMixPanelBusinessLogic.verifySetReminderAndShareEventForUpcomingLiveProgram(userType);	
+		System.out.println("Verify Change Password Started And Password Result Event");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyChangePasswordStartedAndPasswordResultEvent(userType);
+		System.out.println("Verify Profile Update Result Event");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyProfileUpdateResultEvent(userType);
+		System.out.println("Verify Video View And Video Exit Event");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewAndVideoExitEvent(userType,keyword4,keyword5);
 	}
 	

@@ -79,4 +79,7 @@ public class AMDSubscibeScreen {
 	public static By objPlanPrice = By.id("value_plan_price");
 	public static By objTotalPayable = By.id("value_total_amount");
 	
+	public static By objSelectedPackText = By.xpath("//*[@resource-id='com.graymatrix.did:id/pack_selection_title']");
+	
+	public static By objHaveAPromocode = By.xpath("//*[@text='Have a code?']");
 }

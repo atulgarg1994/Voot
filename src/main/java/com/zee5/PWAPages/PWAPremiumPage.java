@@ -12,10 +12,8 @@ public class PWAPremiumPage {
 	}
 
 	public static By objHeroCarouselTitle(String titleName) {
-
 		return By.xpath(
 				"//div[@aria-hidden='false']/following::h2[@class='legendTitle ' and text()='" + titleName + "']");
-
 	}
 
 	public static By objGetPremium = By.xpath("//button[text()='Subscribe']");
@@ -101,7 +99,7 @@ public class PWAPremiumPage {
 			.xpath("//div[contains(@class,'slick-active')]//div[@class='carouselMain']");
 
 	public static By objViewAllBtn = By.xpath("(//*[@class='arrow iconInitialLoad-ic_viewall noSelect'])[1]");
-	
+
 	public static By objNextArrowBtn = By.xpath("(//button[@class='slick-arrow slick-next'])[2]");
 	public static By objPreviousArrowBtn = By.xpath("(//button[@class='slick-arrow slick-prev'])[2]");
 	public static By objContentCard = By.xpath("//div[@class='slick-slide slick-active slick-current']");
@@ -114,23 +112,23 @@ public class PWAPremiumPage {
 
 	public static By obj1stContentInViewAllPage = By
 			.xpath("(//div[@class='movieCard card marginRight minutelyUrl zoomCardHover'])[1]");
-	
-	
+
 	public static By objUpgradeToPremiumCloseBtn = By.xpath("//div[@class='noSelect playBtn']");
-	
-	public static By obj1stContentInShowsPage = By
-			.xpath("(//div[@class='showCard sameEpisodeCard underMetaSameCard sameEpisode zoomCardHover minutelyUrl card marginRight positionRelative'])[1]");
+
+	public static By obj1stContentInShowsPage = By.xpath(
+			"(//div[@class='showCard sameEpisodeCard underMetaSameCard sameEpisode zoomCardHover minutelyUrl card marginRight positionRelative'])[1]");
 
 	public static By objTrayTitle(String trayTitle) {
 		return By.xpath("//*[text()='" + trayTitle + "']");
 	}
-	
-	public static By obj1stContentInShowDetailPage = By
-			.xpath("(//*[@class='showCard sameEpisodeCard underMetaSameCard sameEpisode zoomCardHover minutelyUrl card marginRight positionRelative'])[1]");
-	public static By objThumbnail = By
-			.xpath("(//*[@class='showCard sameEpisodeCard underMetaSameCard sameEpisode zoomCardHover minutelyUrl card marginRight positionRelative' or @class='movieCard card marginRight minutelyUrl zoomCardHover'])[1]");
+
+	public static By objThumbnail = By.xpath(
+			"(//*[@class='showCard sameEpisodeCard underMetaSameCard sameEpisode zoomCardHover minutelyUrl card marginRight positionRelative' or @class='movieCard card marginRight minutelyUrl zoomCardHover'])[1]");
 
 	public static By objRightArrowBtn = By.xpath("(//button[@class='slick-arrow slick-next'])[1]");
-		
+
 	public static By objLeftArrowBtn = By.xpath("(//button[@class='slick-arrow slick-prev'])[1]");
+
+	public static By obj1stContentInShowDetailPage = By.xpath(
+			"(//*[@class='showCard sameEpisodeCard underMetaSameCard  zoomCardHover minutelyUrl card marginRight positionRelative'])[1]");
 }

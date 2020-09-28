@@ -100,6 +100,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	ArrayList<String> MastheadTitleApi = new ArrayList<String>();
 
 	public static boolean relaunchFlag = false;
+	
 	public static boolean appliTools = false;
 
 	public static boolean PopUp = false;

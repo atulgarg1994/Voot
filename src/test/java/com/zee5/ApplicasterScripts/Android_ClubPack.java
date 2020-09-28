@@ -1,5 +1,6 @@
 package com.zee5.ApplicasterScripts;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -30,6 +31,7 @@ public class Android_ClubPack {
 		ZEE5ApplicasterBusinessLogic.ClubPackValidation(userType,SearchVODContent2,SearchVODContent4);
 			
 	}
+	
 	@Test(priority = 3) // Bhavana
 	@Parameters({ "userType","SearchVODContent3","SearchVODContent" }) 	
 	public void ValidateSubscribeAndLoginCTAForClubContent(String userType, String SearchVODContent3 , String SearchVODContent) throws Exception {
@@ -55,9 +57,9 @@ public class Android_ClubPack {
 	}
 	
 	
-//	@AfterTest
+	@AfterTest
 	public void tearDownApp() {
-		System.out.println("Quit the App");
+		System.out.println("\nExecution Complete - Quiting the App");
 		ZEE5ApplicasterBusinessLogic.tearDown();
 	}
 }
