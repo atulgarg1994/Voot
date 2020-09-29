@@ -12,9 +12,13 @@ import java.util.regex.Pattern;
 //import org.apache.poi.xssf.usermodel.XSSFRow;
 //import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.json.JSONObject;
+
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.config.EncoderConfig;
+import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Response;
+
 
 public class Mixpanel {
 
@@ -26,6 +30,8 @@ public class Mixpanel {
 	static String xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
 	
 	public static void main(String[] args) {
+//		String s = "[en,hi,mr]";
+//		System.out.println(s.);
 		fetchEvent("5d94e150a85711e9a4028141f97a2ff1","Video View");
 	}
 
@@ -39,7 +45,7 @@ public class Mixpanel {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime now = LocalDateTime.now();
 		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
-
+		currentDate = "2020-09-28";
 		Response request = RestAssured.given().auth().preemptive().basic("58baafb02e6e8ce03d9e8adb9d3534a6", "")
 				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
 				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
@@ -51,8 +57,14 @@ public class Mixpanel {
 		if (request != null) {
 			String response = request.asString();
 			String s[] = response.split("\n");
-			System.out.println(s[s.length-1]);
-			parseResponse(s[s.length-1]);
+			System.out.println(s[s.length-10]);
+//			parseResponse(s[s.length-10]);
+			JSONObject json = new JSONObject(s[s.length-10]);
+			System.out.println(json.toString());
+			JsonPath result = JsonPath.from(json.toString().replaceAll("$", ""));
+			System.out.println(result);
+			System.out.println(result.getString("properties").length());
+			System.out.println(result);
 		}
 	}
 
@@ -63,7 +75,8 @@ public class Mixpanel {
 	 */
 	public static void parseResponse(String reponse) {
 		
-		String commaSplit[] = reponse.replace("$", "").replace("{", "").replace("}", "").replace(":", "=").replace("\"", "").replaceFirst("[.,](?=[^\\[]*\\])", "-").replace("properties=", "")
+		String commaSplit[] = reponse.replace("$", "").replace("{", "").replace("}", "").replace(":", "=").replace("\"", "")
+				.replaceAll("[.,](?=[^\\[]*\\])", "-").replace("properties=", "")
 				.split(",");
 //		creatExcel(); // Create an excel file
 		for (int i = 0; i < commaSplit.length; i++) {
@@ -73,7 +86,7 @@ public class Mixpanel {
 			}
 		}
 	}
-
+//	"New Content Language":["en","hi","mr"]
 	/**
 	 * Function to create excel file of format .xlsx Function to create sheet
 	 */
@@ -107,7 +120,7 @@ public class Mixpanel {
 //			if (row == null) {
 //				row = myExcelSheet.createRow(i); // create row if not created
 //			}
-			System.out.println(parameter[i]);
+//			System.out.println(parameter[i]);
 			if(parameter[i].contains("https")) {
 				Pattern p = Pattern.compile("\\b((?:https?|ftp|file)=//[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|])");
 				Matcher m = p.matcher(parameter[i]);

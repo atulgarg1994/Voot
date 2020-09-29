@@ -5129,17 +5129,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Play different contents to trigger Recommendation API");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 		selectLanguages();
-		playAContentForReco("Music",
-				getParameterFromXML("musicToTriggerReco"),
-				userType);
-		playAContentForReco("Movie",
-				getParameterFromXML("movieToTriggerReco"),
-				userType);
+		playAContentForReco("Music", getParameterFromXML("musicToTriggerReco"), userType);
+		playAContentForReco("Movie", getParameterFromXML("movieToTriggerReco"), userType);
 		playAContentForReco("Episode", Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 				.getParameter("episodeToTriggerReco"), userType);
-		playAContentForReco("News",
-				getParameterFromXML("newsToTriggerReco"),
-				userType);
+		playAContentForReco("News", getParameterFromXML("newsToTriggerReco"), userType);
 	}
 
 	public void selectLanguages() throws Exception {
@@ -7198,6 +7192,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				waitTime(4000);
 				waitForElement(PWAShowsPage.objFirstAssetTitleLiveTvCard, 30, "Content title");
 				contentTitle = getText(PWAShowsPage.objFirstAssetTitleLiveTvCard);
+				extent.extentLogger("", "Card Title fetched: " + contentTitle);
+				logger.info("Card Title fetched: " + contentTitle);
 				verifyElementPresentAndClick(PWAShowsPage.objFirstAssetTitleLiveTvCard, "Live TV Card");
 				waitForElement(PWAPlayerPage.objContentTitleLiveTV, 30, "Content title");
 				consumptionPageTitle = getText(PWAPlayerPage.objContentTitleLiveTV);
@@ -7531,27 +7527,27 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			System.out.println("contentID fetched from URL: " + contentID);
 			Response resp = ResponseInstance.getContentDetails(contentID, "content");
 			System.out.println(resp.getBody().asString());
-			String titleAPI = resp.jsonPath().get("title").toString();
+			String titleAPI = resp.jsonPath().get("title").toString().trim();
 			extent.extentLogger("apidata", "Episode title fetched from API: " + titleAPI);
 			logger.info("Episode title fetched from API: " + titleAPI);
 
-			String showtitleAPI = resp.jsonPath().get("tvshow.title").toString();
+			String showtitleAPI = resp.jsonPath().get("tvshow.title").toString().trim();
 			extent.extentLogger("apidata", "Show title fetched from API: " + showtitleAPI);
 			logger.info("Show title fetched from API: " + showtitleAPI);
 
-			String episodeNoAPI = resp.jsonPath().get("orderid").toString();
+			String episodeNoAPI = resp.jsonPath().get("orderid").toString().trim();
 			extent.extentLogger("apidata", "Episode number fetched from API: " + episodeNoAPI);
 			logger.info("Episode number fetched from API: " + episodeNoAPI);
 
-			String durationAPI = resp.jsonPath().get("duration").toString();
+			String durationAPI = resp.jsonPath().get("duration").toString().trim();
 			extent.extentLogger("apidata", "Duration fetched from API: " + durationAPI);
 			logger.info("Duration fetched from API: " + durationAPI);
 
-			String genreAPI = resp.jsonPath().get("genre[0].value").toString();
+			String genreAPI = resp.jsonPath().get("genre[0].value").toString().trim();
 			extent.extentLogger("apidata", "Genre fetched from API: " + genreAPI);
 			logger.info("Genre fetched from API: " + genreAPI);
 
-			String ageRatingAPI = resp.jsonPath().get("age_rating").toString();
+			String ageRatingAPI = resp.jsonPath().get("age_rating").toString().trim();
 			extent.extentLogger("apidata", "Age Rating fetched from API: " + ageRatingAPI);
 			logger.info("Age Rating fetched from API: " + ageRatingAPI);
 
@@ -10766,7 +10762,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 		}
 		if (watchTrailerbuttonPresent == true && watchTrailerbuttonClickable == true) {
-			if (verifyIsElementDisplayed(PWAPremiumPage.objWatchTrailerBtn, "Watch Trailer Button")) {
+			if (checkElementDisplayed(PWAPremiumPage.objWatchTrailerBtn, "Watch Trailer Button")) {
 				if (directClickReturnBoolean(PWAPremiumPage.objWatchTrailerBtn, "Watch Trailer Button")) {
 					logger.info("Verified that Watch Trailer button is clickable for " + userType);
 					extent.extentLogger("", "Verified that Watch Trailer button is clickable for " + userType);
@@ -10835,6 +10831,51 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 		}
 		verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "Zee5 Logo");
+	}
+
+	public void verifyCarouselAutoRotation() throws Exception {
+		// autorotating
+		verifyAutoroatingOnCarousel("Home");
+		verifyAutoroatingOnCarousel("Movies");
+		verifyAutoroatingOnCarousel("Shows");
+		verifyAutoroatingOnCarousel("Premium");
+		verifyAutoroatingOnCarousel("Play");
+		verifyAutoroatingOnCarousel("ZEE5 Originals");
+	}
+
+	public void verifyCarouselPlayIconFunctionality() throws Exception {
+		// play icon functionality
+		verifyPlayIconFunctionality("ZEE5 Originals");
+		verifyPlayIconFunctionality("Kids");
+		verifyPlayIconFunctionality("Premium");
+		verifyPlayIconFunctionality("Shows");
+		verifyPlayIconFunctionality("Movies");
+		verifyPlayIconFunctionality("Home");
+	}
+
+	public void verifyCarouselPremiumIconFunctionality() throws Exception {
+		// premium icon functionality
+		String userType = getParameterFromXML("userType");
+		verifyPremiumIconFunctionality("Home", userType);
+		verifyPremiumIconFunctionality("Premium", userType);
+		verifyPremiumIconFunctionality("Movies", userType);
+		verifyPremiumIconFunctionality("ZEE5 Originals", userType);
+	}
+
+	public void verifyCarouselMetaData() throws Exception {
+		// metadata
+		String languageSmallText = allSelectedLanguages();
+		verifyMetadataOnCarousel("ZEE5 Originals", "zeeoriginals", languageSmallText);
+		verifyMetadataOnCarousel("Play", "play", languageSmallText);
+		verifyMetadataOnCarousel("Premium", "premiumcontents", languageSmallText);
+		verifyMetadataOnCarousel("Shows", "tvshows", languageSmallText);
+		verifyMetadataOnCarousel("Movies", "movies", languageSmallText);
+		verifyMetadataOnCarousel("Home", "home", languageSmallText);
+	}
+
+	public void verifyCarouselLeftRightFunctionality() throws Exception {
+		String url = getParameterFromXML("url");
+		verifyLeftRightFunctionality("News", url);
 	}
 
 	/**
