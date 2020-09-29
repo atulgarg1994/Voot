@@ -4,10 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -652,6 +649,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void registerForFreeScreen(String user) throws Exception {
 		extent.HeaderChildNode("Register for free Page");
+		System.out.println("\nRegister for free Page");
 		if (user.equals("Email")) {
 			type(AMDRegistrationScreen.objEmailIDTextField, generateRandomString(5) + "@gmail.com", "Email field");
 			click(AMDRegistrationScreen.objProceedBtn, "Proceed button");
@@ -663,22 +661,25 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		hideKeyboard();
 		type(AMDRegistrationScreen.objLastNameTxtField, LastName, "Last name field");
 		hideKeyboard();
-//		click(AMDRegistrationScreen.objDOBTxtField, "calender field");
 		type(AMDRegistrationScreen.objDOBTxtField, "01/01/1990", "DOB");
-//		verifyElementPresent(AMDRegistrationScreen.objSelecteDOBPopup, "calender selection popup");
-//		verifyElementPresentAndClick(AMDRegistrationScreen.objDateSelection, "Date in calender popup");
-//		click(AMDRegistrationScreen.objOkButtonInCalenderPopUp, "Ok button");
 		verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
 		verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
 		click(AMDRegistrationScreen.objPasswordTxtField, "Passowrd");
 		type(AMDRegistrationScreen.objPasswordTxtField, "123456", "Password field");
-		click(AMDRegistrationScreen.objFirstNameTxtField, "First name"); // Clicking on First Name field to get device
-																			// devices
+		click(AMDRegistrationScreen.objFirstNameTxtField, "First name"); // Clicking on First Name field to get devices
 
 		hideKeyboard();
 		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(3000);
 		if (user.equals("Email")) {
-			verifyElementExist(AMDHomePage.objHomeTab, "Home Screen");
+			boolean verifyHomePage = verifyElementExist(AMDHomePage.objHomeTab, "Home Screen");
+			if (verifyHomePage) {
+				logger.info("New User Registerd to ZEE5 App successfully");
+				extent.extentLoggerPass("Registration", "New User Registerd to ZEE5 App successfully");
+			} else {
+				logger.error("New User failed to Register to ZEE5 App");
+				extent.extentLoggerFail("Registration", "New User failed to Register to ZEE5 App");
+			}
 		} else if (user.equals("Mobile")) {
 			logger.info("Mobile registration");
 		} else {
@@ -1235,207 +1236,194 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void VerifyLoginPage() throws Exception {
-
-		extent.HeaderChildNode(
-				"Validating the Navigation to Login or Register Screen Tapping on the Login link available in Intro Screen");
-		// waitTime(8000);
-		verifyElementPresent(AMDLoginScreen.objLoginLnk, "Login Link");
-		click(AMDLoginScreen.objLoginLnk, "Login Link");
-		if (verifyIsElementDisplayed(AMDLoginScreen.objLoginPage)) {
-			logger.info(
-					"User navigated to Login/Register Screen Tapping on the Login link present on the Intro Screen");
-			extent.extentLoggerPass("Login/Register Screen",
-					"User is navigated to Login/register Screen Tapping on the Login link present on the Intro Screen");
-		} else {
-			logger.error(
-					"User is not navigated to Login/Register Screen Tapping on the Login link present on the Intro Screen");
-			extent.extentLoggerFail("Login/Register Screen",
-					"User is not navigated to Login/register Screen Tapping on the Login link present on the Intro Screen");
-		}
-		click(AMDLoginScreen.objSkipButton, "Skip button");
-		// waitTime(4000);
-		if (verifyElementPresent(AMDLoginScreen.objHomeTab, "Home Tab")) {
-			logger.info("User navigated to Home Tab by clicking on the Skip button");
-			extent.extentLoggerPass("Home Tab", "User navigated to Home Tab by clicking on the Skip button");
-		} else {
-			logger.error("User not navigated to Home Tab by clicking on the Skip button");
-			extent.extentLoggerFail("Home Tab", "User not navigated to Home Tab by clicking on the Skip button");
-
-		}
-
-		waitTime(2000);
 		extent.HeaderChildNode(
 				"Validating the Navigation to Login or Register Screen Tapping on the Login link available in Menu Screen");
+		System.out.println(
+				"\nValidating the Navigation to Login or Register Screen Tapping on the Login link available in Menu Screen");
 
-		waitTime(2000);
-		verifyElementPresent(AMDLoginScreen.objMenu, "Menu icon");
-		click(AMDLoginScreen.objMenu, "Menu icon");
-		verifyElementPresent(AMDLoginScreen.objProfileIcon, "Login Button");
-		click(AMDLoginScreen.objProfileIcon, "Login Button");
-		if (verifyIsElementDisplayed(AMDLoginScreen.objLoginPage)) {
-			logger.info(
-					"User is navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
+		if (pUserType.equalsIgnoreCase("Guest")) {
+			waitTime(2000);
+			verifyElementPresent(AMDLoginScreen.objMenu, "Menu icon");
+			click(AMDLoginScreen.objMenu, "Menu icon");
+			verifyElementPresent(AMDLoginScreen.objProfileIcon, "Login Button");
+			click(AMDLoginScreen.objProfileIcon, "Login Button");
+			if (verifyIsElementDisplayed(AMDLoginScreen.objLoginPage)) {
+				logger.info(
+						"User is navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
+				extent.extentLoggerPass("Login/Register Screen",
+						"User is navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
+			} else {
+
+				logger.error(
+						"User not  navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
+				extent.extentLoggerFail("Login/Register Screen",
+						"User not navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
+			}
+
+			extent.HeaderChildNode("Validating UI/UX of Login Page");
+			System.out.println("\nValidating UI/UX of Login Page");
+
+			WebElement element = findElement(AMDLoginScreen.objLoginOrRegisterPageTitle);
+			int leftX = element.getLocation().getX();
+			int rightX = leftX + element.getSize().getWidth();
+			int middleX = (rightX + leftX) / 2;
+			Dimension size = getDriver().manage().window().getSize();
+			if (middleX == Integer.valueOf((size.width) / 2)) {
+				logger.info("Login/Register screen title is displayed at center of the screen");
+				extent.extentLoggerPass("Screen Title",
+						"Login/Register screen title is displayed at center of the screen");
+			} else {
+				logger.error("Login/Register screen title is not displayed at center of the screen");
+				extent.extentLoggerFail("Screen Title",
+						"Login/Register screen title is not displayed at center of the screen");
+			}
+
+			WebElement elementBackBtn = findElement(AMDLoginScreen.objBackBtn);
+			int BackBtnleftX = elementBackBtn.getLocation().getX();
+			int BAckBtnrightX = BackBtnleftX + elementBackBtn.getSize().getWidth();
+			int BackBtnmiddleX = (BAckBtnrightX + BackBtnleftX) / 2;
+
+			if (BackBtnmiddleX <= 200) {
+				logger.info("Back button is displayed at top left of the screen");
+				extent.extentLoggerPass("Back button", "Back button is displayed at top left of the screen");
+			} else {
+				logger.error("Back button is not displayed at top left of the screen");
+				extent.extentLoggerFail("Back button", "Back button is not displayed at top left of the screen");
+			}
+
+			WebElement elementSkipBtn = findElement(AMDLoginScreen.objLoginLnk);
+			int SkipBtnRightX = elementSkipBtn.getLocation().getX();
+			System.out.println(SkipBtnRightX);
+			Dimension sizee = getDriver().manage().window().getSize();
+			System.out.println(sizee.getWidth());
+			int sizeee = sizee.getWidth() - 300;
+			System.out.println(sizeee);
+
+			if (SkipBtnRightX >= sizeee) {
+				logger.info("Skip button is displayed at top right of the screen");
+				extent.extentLoggerPass("Skip button", "Skip button is displayed at top right of the screen");
+			} else {
+				logger.error("Skip button is not displayed at top right of the screen");
+				extent.extentLoggerFail("Skip button", "Skip button is not displayed at top right of the screen");
+			}
+
+			verifyElementPresent(AMDLoginScreen.objGoogleBtn, "Google Button");
+			verifyElementPresent(AMDLoginScreen.objfbBtn, "Facebook Button");
+			verifyElementPresent(AMDLoginScreen.objtwitterBtn, "Twitter Button");
+
+			extent.HeaderChildNode("Validating EmailID/Mobile No field is displayed on Login/Register screen");
+			System.out.println("\nValidating EmailID/Mobile No field is displayed on Login/Register screen");
+			if (verifyElementPresent(AMDLoginScreen.objEmailIdField, "Email Field")) {
+				logger.info("EmailID/Mobile No. field is dispalyed");
+				extent.extentLoggerPass("Login/Register Screen", "EmailID/Mobile No. field is dispalyed");
+			} else {
+				logger.error("EmailID/Mobile No. field is not dispalyed");
+				extent.extentLoggerFail("Login/Register Screen", "EmailID/Mobile No. field is not dispalyed");
+			}
+
+			extent.HeaderChildNode("Validating usen can enter EmailID or Mobile NO");
+			System.out.println("\nValidating usen can enter EmailID or Mobile NO");
+			click(AMDLoginScreen.objEmailIdField, "Email Field");
+			hideKeyboard();
+
+			type(AMDLoginScreen.objEmailIdField, "zeetest123@gmail.com", "Email Field");
+			if (verifyIsElementDisplayed(AMDLoginScreen.objProceedBtn)) {
+				logger.info("Proceed button is displayed , user entered the correct EmailID format");
+				extent.extentLoggerPass("Login/Register Screen",
+						"Proceed button is displayed , user entered the correct EmailID format");
+			} else {
+				logger.error("Proceed button is not displayed , user not entered the correct EmailID format");
+				extent.extentLogger("Login/Register Screen",
+						"Proceed button is not displayed , user not entered the correct EmailID format");
+
+			}
+
+			// Check Proceed Button in highlighted
+
+			if (getAttributValue("clickable", AMDRegistrationScreen.objProceedBtn).equals("true")) {
+				logger.info("Proceed CTA is displayed and is highlated");
+				extent.extentLoggerPass("Proceed button", "Proceed CTA is displayed and is highlighted");
+			} else {
+				logger.error("Proceed CTA is not activated");
+				extent.extentLoggerFail("Proceed button", "Proceed CTA is not activated");
+			}
+
+			extent.HeaderChildNode("Validating UI/UX of Login Page post changing the Display Language");
+			System.out.println("\nValidating UI/UX of Login Page post changing the Display Language");
+			waitTime(4000);
+			click(AMDLoginScreen.objBackBtn, "Back Button");
+			click(AMDLoginScreen.objSettings, "Settings Button");
+			SwipeUntilFindElement(AMDLoginScreen.objDisplayLang, "Up");
+			click(AMDLoginScreen.objDisplayLang, "Display Language");
+			waitTime(3000);
+			click(AMDLoginScreen.objLangHindi, "Display Language Hindi");
+			click(AMDLoginScreen.objLanguageContinueBtn, "Display Language Continue");
+			waitTime(2000);
+			click(AMDLoginScreen.objBackBtn, "Back Button");
+			waitTime(6000);
+			click(AMDLoginScreen.objMenuHindi, "Menu icon");
+			click(AMDLoginScreen.objProfileIcon, "Profile Icon");
+			waitTime(3000);
+
+			verifyElementPresent(AMDLoginScreen.objLoginTextChanged, "Login Text in other language");
+
+			Dimension size1 = getDriver().manage().window().getSize();
+			if (middleX == Integer.valueOf((size1.width) / 2)) {
+				logger.info("Login/Register screen title is displayed at center of the screen");
+				extent.extentLoggerPass("Screen Title",
+						"Login/Register screen title is displayed at center of the screen");
+			} else {
+				logger.error("Login/Register screen title is not displayed at center of the screen");
+				extent.extentLoggerFail("Screen Title",
+						"Login/Register screen title is not displayed at center of the screen");
+			}
+
+			WebElement elementBackBtn1 = findElement(AMDLoginScreen.objBackBtn);
+			int BackBtnleftX1 = elementBackBtn1.getLocation().getX();
+			int BAckBtnrightX1 = BackBtnleftX1 + elementBackBtn1.getSize().getWidth();
+			int BackBtnmiddleX1 = (BAckBtnrightX1 + BackBtnleftX1) / 2;
+
+			if (BackBtnmiddleX1 <= 200) {
+				logger.info("Back button is displayed at top left of the screen");
+				extent.extentLoggerPass("Back button", "Back button is displayed at top left of the screen");
+			} else {
+				logger.error("Back button is not displayed at top left of the screen");
+				extent.extentLoggerFail("Back button", "Back button is not displayed at top left of the screen");
+			}
+
+			WebElement elementSkipBtn1 = findElement(AMDLoginScreen.objLoginLnk);
+			int SkipBtnRightX1 = elementSkipBtn1.getLocation().getX();
+			System.out.println(SkipBtnRightX1);
+			Dimension sizee1 = getDriver().manage().window().getSize();
+			System.out.println(sizee1.getWidth());
+			int sizeee1 = sizee1.getWidth() - 300;
+			System.out.println(sizeee1);
+
+			if (SkipBtnRightX1 >= sizeee1) {
+				logger.info("Skip button is displayed at top right of the screen");
+				extent.extentLoggerPass("Skip button", "Skip button is displayed at top right of the screen");
+			} else {
+				logger.error("Skip button is not displayed at top right of the screen");
+				extent.extentLoggerFail("Skip button", "Skip button is not displayed at top right of the screen");
+			}
+			verifyElementPresent(AMDLoginScreen.objGoogleBtn, "Google Button");
+			verifyElementPresent(AMDLoginScreen.objfbBtn, "Facebook Button");
+			verifyElementPresent(AMDLoginScreen.objtwitterBtn, "Twitter Button");
+
+			click(AMDLoginScreen.objBackBtn, "Back Button");
+			click(AMDLoginScreen.objSettingsHindi, "Settings Button");
+			SwipeUntilFindElement(AMDLoginScreen.objDisplayLangHindi, "Up");
+			click(AMDLoginScreen.objDisplayLangHindi, "Display Language");
+			waitTime(3000);
+			click(AMDLoginScreen.objLangEnglish, "Display Language English");
+			click(AMDLoginScreen.objLanguageContinueBtn, "Display Language Continue");
+			waitTime(2000);
+			click(AMDLoginScreen.objBackBtn, "Back Button");
+		} else {
+			logger.info("Login/Register Screen is NOT applicable for " + pUserType);
 			extent.extentLoggerPass("Login/Register Screen",
-					"User is navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
-		} else {
-
-			logger.error(
-					"User not  navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
-			extent.extentLoggerFail("Login/Register Screen",
-					"User not navigated to Login/register Screen Tapping on the Login link present in the Menu Screen");
+					"Login/Register Screen is NOT applicable for " + pUserType);
 		}
-
-		extent.HeaderChildNode("Validating UI/UX of Login Page");
-
-		WebElement element = findElement(AMDLoginScreen.objLoginOrRegisterPageTitle);
-		int leftX = element.getLocation().getX();
-		int rightX = leftX + element.getSize().getWidth();
-		int middleX = (rightX + leftX) / 2;
-		Dimension size = getDriver().manage().window().getSize();
-		if (middleX == Integer.valueOf((size.width) / 2)) {
-			logger.info("Login/Register screen title is displayed at center of the screen");
-			extent.extentLoggerPass("Screen Title", "Login/Register screen title is displayed at center of the screen");
-		} else {
-			logger.error("Login/Register screen title is not displayed at center of the screen");
-			extent.extentLoggerFail("Screen Title",
-					"Login/Register screen title is not displayed at center of the screen");
-		}
-
-		WebElement elementBackBtn = findElement(AMDLoginScreen.objBackBtn);
-		int BackBtnleftX = elementBackBtn.getLocation().getX();
-		int BAckBtnrightX = BackBtnleftX + elementBackBtn.getSize().getWidth();
-		int BackBtnmiddleX = (BAckBtnrightX + BackBtnleftX) / 2;
-
-		if (BackBtnmiddleX <= 200) {
-			logger.info("Back button is displayed at top left of the screen");
-			extent.extentLoggerPass("Back button", "Back button is displayed at top left of the screen");
-		} else {
-			logger.error("Back button is not displayed at top left of the screen");
-			extent.extentLoggerFail("Back button", "Back button is not displayed at top left of the screen");
-		}
-
-		WebElement elementSkipBtn = findElement(AMDLoginScreen.objLoginLnk);
-		int SkipBtnRightX = elementSkipBtn.getLocation().getX();
-		System.out.println(SkipBtnRightX);
-		Dimension sizee = getDriver().manage().window().getSize();
-		System.out.println(sizee.getWidth());
-		int sizeee = sizee.getWidth() - 300;
-		System.out.println(sizeee);
-
-		if (SkipBtnRightX >= sizeee) {
-			logger.info("Skip button is displayed at top right of the screen");
-			extent.extentLoggerPass("Skip button", "Skip button is displayed at top right of the screen");
-		} else {
-			logger.error("Skip button is not displayed at top right of the screen");
-			extent.extentLoggerFail("Skip button", "Skip button is not displayed at top right of the screen");
-		}
-
-		verifyElementPresent(AMDLoginScreen.objGoogleBtn, "Google Button");
-		verifyElementPresent(AMDLoginScreen.objfbBtn, "Facebook Button");
-		verifyElementPresent(AMDLoginScreen.objtwitterBtn, "Twitter Button");
-
-		extent.HeaderChildNode("Validating EmailID/Mobile No field is displayed on Login/Register screen");
-		if (verifyElementPresent(AMDLoginScreen.objEmailIdField, "Email Field")) {
-			logger.info("EmailID/Mobile No. field is dispalyed");
-			extent.extentLoggerPass("Login/Register Screen", "EmailID/Mobile No. field is dispalyed");
-		} else {
-			logger.error("EmailID/Mobile No. field is not dispalyed");
-			extent.extentLoggerFail("Login/Register Screen", "EmailID/Mobile No. field is not dispalyed");
-		}
-
-		extent.HeaderChildNode("Validating usen can enter EmailID or Mobile NO");
-		click(AMDLoginScreen.objEmailIdField, "Email Field");
-		hideKeyboard();
-
-		type(AMDLoginScreen.objEmailIdField, "zeetest123@gmail.com", "Email Field");
-		if (verifyIsElementDisplayed(AMDLoginScreen.objProceedBtn)) {
-			logger.info("Proceed button is displayed , user entered the correct EmailID format");
-			extent.extentLoggerPass("Login/Register Screen",
-					"Proceed button is displayed , user entered the correct EmailID format");
-		} else {
-			logger.error("Proceed button is not displayed , user not entered the correct EmailID format");
-			extent.extentLogger("Login/Register Screen",
-					"Proceed button is not displayed , user not entered the correct EmailID format");
-
-		}
-
-		// Check Proceed Button in highlighted
-
-		if (getAttributValue("clickable", AMDRegistrationScreen.objProceedBtn).equals("true")) {
-			logger.info("Proceed CTA is displayed and is highlated");
-			extent.extentLoggerPass("Proceed button", "Proceed CTA is displayed and is highlighted");
-		} else {
-			logger.error("Proceed CTA is not activated");
-			extent.extentLoggerFail("Proceed button", "Proceed CTA is not activated");
-		}
-
-		extent.HeaderChildNode("Validating UI/UX of Login Page post changing the Display Language");
-		waitTime(4000);
-		click(AMDLoginScreen.objBackBtn, "Back Button");
-		click(AMDLoginScreen.objSettings, "Settings Button");
-		click(AMDLoginScreen.objDisplayLang, "Display Language");
-		waitTime(3000);
-		click(AMDLoginScreen.objLangHindi, "Display Language Hindi");
-		click(AMDLoginScreen.objLanguageContinueBtn, "Display Language Continue");
-		waitTime(2000);
-		click(AMDLoginScreen.objBackBtn, "Back Button");
-		waitTime(6000);
-		click(AMDLoginScreen.objMenuHindi, "Menu icon");
-		click(AMDLoginScreen.objProfileIcon, "Profile Icon");
-		waitTime(3000);
-
-		// verifyElementPresent(AMDLoginScreen.objLoginTextChanged, "Login Text");
-
-		Dimension size1 = getDriver().manage().window().getSize();
-		if (middleX == Integer.valueOf((size1.width) / 2)) {
-			logger.info("Login/Register screen title is displayed at center of the screen");
-			extent.extentLoggerPass("Screen Title", "Login/Register screen title is displayed at center of the screen");
-		} else {
-			logger.error("Login/Register screen title is not displayed at center of the screen");
-			extent.extentLoggerFail("Screen Title",
-					"Login/Register screen title is not displayed at center of the screen");
-		}
-
-		WebElement elementBackBtn1 = findElement(AMDLoginScreen.objBackBtn);
-		int BackBtnleftX1 = elementBackBtn1.getLocation().getX();
-		int BAckBtnrightX1 = BackBtnleftX1 + elementBackBtn1.getSize().getWidth();
-		int BackBtnmiddleX1 = (BAckBtnrightX1 + BackBtnleftX1) / 2;
-
-		if (BackBtnmiddleX1 <= 200) {
-			logger.info("Back button is displayed at top left of the screen");
-			extent.extentLoggerPass("Back button", "Back button is displayed at top left of the screen");
-		} else {
-			logger.error("Back button is not displayed at top left of the screen");
-			extent.extentLoggerFail("Back button", "Back button is not displayed at top left of the screen");
-		}
-
-		WebElement elementSkipBtn1 = findElement(AMDLoginScreen.objLoginLnk);
-		int SkipBtnRightX1 = elementSkipBtn1.getLocation().getX();
-		System.out.println(SkipBtnRightX1);
-		Dimension sizee1 = getDriver().manage().window().getSize();
-		System.out.println(sizee1.getWidth());
-		int sizeee1 = sizee1.getWidth() - 300;
-		System.out.println(sizeee1);
-
-		if (SkipBtnRightX1 >= sizeee1) {
-			logger.info("Skip button is displayed at top right of the screen");
-			extent.extentLoggerPass("Skip button", "Skip button is displayed at top right of the screen");
-		} else {
-			logger.error("Skip button is not displayed at top right of the screen");
-			extent.extentLoggerFail("Skip button", "Skip button is not displayed at top right of the screen");
-		}
-		verifyElementPresent(AMDLoginScreen.objGoogleBtn, "Google Button");
-		verifyElementPresent(AMDLoginScreen.objfbBtn, "Facebook Button");
-		verifyElementPresent(AMDLoginScreen.objtwitterBtn, "Twitter Button");
-
-		click(AMDLoginScreen.objBackBtn, "Back Button");
-		click(AMDLoginScreen.objSettingsHindi, "Settings Button");
-		click(AMDLoginScreen.objDisplayLangHindi, "Display Language");
-		waitTime(3000);
-		click(AMDLoginScreen.objLangEnglish, "Display Language English");
-		click(AMDLoginScreen.objLanguageContinueBtn, "Display Language Continue");
-		waitTime(2000);
-		click(AMDLoginScreen.objBackBtn, "Back Button");
 	}
 
 	public void SearchBox(String userType) throws Exception {
@@ -1795,12 +1783,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void loginOrRegisterScreen(String inValidPhnNo, String validPhnNo, String loginThrough, String userType)
 			throws Exception {
 		navigateToRegisterScreen(loginThrough);
-//	verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free button");
-//	String Browseforfreetxt = getText(AMDOnboardingScreen.objBrowseForFreeBtn);
-//	logger.info(Browseforfreetxt);
-//	click(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free button");
 		extent.HeaderChildNode("Validating Login/Registration screen");
-		if (userType.equals("Guest")) {
+		System.out.println("\nValidating Login/Registration screen");
+		if (userType.equalsIgnoreCase("Guest")) {
 			WebElement element = findElement(AMDLoginScreen.objLoginOrRegisterPageTitle);
 			int leftX = element.getLocation().getX();
 			int rightX = leftX + element.getSize().getWidth();
@@ -1882,6 +1867,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("Proceed button is not functional");
 				extentLoggerFail("Proceed button functionality", "Proceed button is not functional");
 			}
+		} else {
+			logger.info("Validation of Login/Registration screen is NOT applicable for " + userType);
+			extentLoggerPass("Login/Registration",
+					"Validation of Login/Registration screen is NOT applicable for " + userType);
 		}
 	}
 
@@ -2024,15 +2013,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extentLoggerFail("Cursor", "Cursor is not displayed on the first otp field by default");
 		}
 		click(AMDRegistrationScreen.objOTPField1, "First otp field");
-
-//		if (findElements(AMDRegistrationScreen.objNumericKeypad).size() <= 20) {
-//			logger.info("Numeric keypad is displayed in OTP screen");
-//			extent.extentLogger("Numeric Keypad", "Numeric Keybpad is displayed in OTP screen");
-//		}else {
-//			logger.error("Numeric keypad is displayed in OTP screen");
-//			extent.extentLoggerFail("Numeric Keypad", "Numeric keypad is not displayed in OTP screen");
-//		}
-
 		hideKeyboard();
 
 		if (!(getDriver().findElement(AMDLoginScreen.objVerifyBtn).isEnabled())) {
@@ -2122,7 +2102,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					checkElementExist(AMDSearchScreen.objContentCardTitleOfTopSearchesTray,
 							"Content card title of Top searches tray");
 
-			//		getText(AMDSearchScreen.objContentCardTitleOfTopSearchesTray);
+					// getText(AMDSearchScreen.objContentCardTitleOfTopSearchesTray);
 
 //					click(AMDSearchScreen.objContentCardTitleOfTopSearchesTray, "Content card of Top searches tray");
 //					waitForElementDisplayed(AMDSearchScreen.objConsumptionScreenTitle, 10);
@@ -2159,13 +2139,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void TrendingSearches() throws Exception {
 		extent.HeaderChildNode("Trending Searches module");
 		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search icon");
-         waitTime(5000);
+		waitTime(5000);
 		int noOfTrays = findElements(AMDSearchScreen.objNoOftraysInSearchpage).size();
 		System.out.println(noOfTrays);
 		boolean TrendingSearchFound = false;
 		for (int i = 1; i <= noOfTrays; i++) {
 			String traytitle = getDriver()
-					.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[" + i + "]")).getText();
+					.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[" + i + "]"))
+					.getText();
 			if (traytitle.equalsIgnoreCase("Trending Searches")) {
 				TrendingSearchFound = true;
 //				    verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -2205,11 +2186,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //				
 			}
 		}
-		  if (TrendingSearchFound == false) {
+		if (TrendingSearchFound == false) {
 			logger.error("Trending searches is not displayed");
 			extentLoggerFail("Trending searches tray", "Trending searches is not displayed");
 		}
-		  Back(1);
+		Back(1);
 	}
 
 	/*
@@ -2395,8 +2376,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 			Back(1);
 		} else {
-			extent.extentLoggerPass("Intro Screen", "Intro Screen is not displayed for Susbcribed/Non-Subscribed user");
-			logger.info("Intro Screen is not displayed for Susbcribed/Non-Subscribed user");
+			extent.extentLoggerPass("Intro Screen", "Intro Screen is not displayed for " + userType);
+			logger.info("Intro Screen is not displayed for " + userType);
 			System.out.println("Intro Screen is not displayed for Susbcribed/Non-Subscribed user");
 		}
 	}
@@ -2441,7 +2422,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void validateRegister(String firstName, String secoundName) throws Exception {
-		waitTime(8000);
+		extent.HeaderChildNode("Validate Registration screen UI/UX");
+		System.out.println("\nValidate Registration screen UI/UX");
+		waitTime(5000);
 		String pEmailID = generateRandomString(5) + "@gmail.com";
 		type(AMDRegistrationScreen.objEmailIDTextField, pEmailID, "Email field");
 		verifyElementPresentAndClick(AMDRegistrationScreen.objProceedBtn, "Proceed button");
@@ -2481,6 +2464,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("First Name field", "First Name field is not focused");
 		}
 
+		hideKeyboard();
 		checkRegisterButton();
 		verifyElementExist(AMDRegistrationScreen.objEmailIDTextField, "Email ID or Mobile number");
 
@@ -2511,71 +2495,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		checkRegisterButton();
 		type(AMDRegistrationScreen.objLastNameTxtField, secoundName, "Last Name field");
 		checkRegisterButton();
-		verifyElementExist(AMDRegistrationScreen.objDOBCalenderBtn, "DOB Icon");
 		click(AMDRegistrationScreen.objDOBTxtField, "Date of Birth");
-		verifyElementExist(AMDRegistrationScreen.objCalenderPopUp, "Calender PopUp");
-
-		// get a calendar instance, which defaults to "now"
-		Calendar calendar = Calendar.getInstance();
-		// add one day to the date/calendar
-		calendar.add(Calendar.DAY_OF_YEAR, 1);
-		// now get "tomorrow"
-		Date tomorrow = calendar.getTime();
-
-		verifyElementPresent(AMDOnboardingScreen.objNextDate(tomorrow.toString().split(" ")[2].replace("0", "")),
-				"Future date " + tomorrow.toString().split(" ")[2]);
-//	
-//    if(verifyElementExist(AMDOnboardingScreen.objNextBtnPopUpInCalender, "Next Button in calender")) 
-//    {
-//    	logger.info("Next Button in calender is not available to select Future date ");
-//		extent.extentLogger("Next button", "Next Button in calender is not available to select Future date ");
-//    }else {
-//    	logger.info("Next Button in calender is available to select Future date ");
-//		extent.extentLogger("Next button", "Next Button in calender is available to select Future date ");
-//    }
-
-		String DMD = getText(AMDRegistrationScreen.objMonthDayDate);
-		if (!DMD.contains(tomorrow.toString().substring(0, 11))) {
-			logger.info("Future date is not allowed for select");
-			extent.extentLoggerPass("Future button", "Future date is not allowed for select");
-		} else {
-			logger.error("Future date is allowed for select");
-			extent.extentLoggerFail("Future button", "Future date is allowed for select");
-		}
-
-		LocalDate currentDate = LocalDate.now();
-		int dom = currentDate.getDayOfMonth();
-		Month month = currentDate.getMonth();
-		int currentyear = currentDate.getYear();
-
-		int year = Integer.valueOf(getText(AMDRegistrationScreen.objHeaderYearTxt));
-
-		String DayMonth = DMD.split(",")[1];
-		if (DayMonth.toLowerCase().contains(month.toString().substring(0, 2).toLowerCase())) {
-			logger.info("Current Month is displayed");
-			extent.extentLoggerPass("Current Month", "Current Month is displayed");
-		} else {
-			logger.error("Current Month is not displayed");
-			extent.extentLoggerFail("Current month", "Current Month is not displayed");
-		}
-
-		if (DayMonth.contains(String.valueOf(dom))) {
-			logger.info("Current date is displayed");
-			extent.extentLoggerPass("Current date", "Current date is displayed");
-		} else {
-			logger.error("Current date is not displayed");
-			extent.extentLoggerFail("Current date", "Current date is not displayed");
-		}
-		if ((currentyear - 18) == year) {
-			logger.info("Current year is displayed");
-			extent.extentLoggerPass("Current year", "Current year is displayed");
-		} else {
-			logger.error("Current year is not displayed");
-			extent.extentLoggerFail("Current year", "Current year is not displayed");
-		}
-
-		verifyElementExist(AMDRegistrationScreen.objCancelBtn, "Cancel button in calender popUp");
-		verifyElementPresentAndClick(AMDRegistrationScreen.objOkBtn, "Ok button in calender popUp");
 
 		verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
 		verifyElementExist(AMDRegistrationScreen.objSelectGenderText, "Select your Gender screen");
@@ -2595,10 +2515,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"Select your gender screen title is not displayed at the center of the screen");
 		}
 
-		verifyElementExist(AMDRegistrationScreen.objSelecteGender, "Tick mark on the selected option");
-		String selectedGender = getText(AMDRegistrationScreen.objSelectedGenderName);
-		logger.info("Selected Gender : " + selectedGender);
-		extent.extentLogger("Select Gender", "Selected Gender : " + selectedGender);
+		click(AMDRegistrationScreen.objMale, "Male");
+		click(AMDRegistrationScreen.objGederTxtField, "Gender Field");
+		waitTime(1000);
+		boolean checkTickMark = verifyElementExist(AMDRegistrationScreen.objSelecteGender,
+				"Tick mark on the selected option");
+		if (checkTickMark) {
+			String selectedGender = getText(AMDRegistrationScreen.objSelectedGenderName);
+			logger.info("Selected Gender : " + selectedGender);
+			extent.extentLoggerPass("Select Gender", "Selected Gender : " + selectedGender);
+		} else {
+			logger.info("Gender is not selected");
+			extent.extentLoggerFail("Gender", "Gender is not selected");
+		}
 
 		WebElement CloseIconElement = findElement(AMDRegistrationScreen.objXMark);
 		int CloseIconupperY = CloseIconElement.getLocation().getY();
@@ -2637,16 +2566,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDRegistrationScreen.objEyeIcon, "Eye Icon");
 		}
 		click(AMDRegistrationScreen.objFirstNameTxtField, "First name"); // Clicking on First Name field to get device
-																			// keyboard
+																			// keys
+
 		hideKeyboard();
 		checkRegisterButton();
 		verifyElementPresent(AMDRegistrationScreen.objTermsOfUseAndPrivacyPolicy, "Terms and condition text ");
-//	if(relaunch) {
-//		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
-//		verifyElementPresent(AMDHomePage.objHomeTab, "Home page");
-//	}
 	}
-
+	
 	public void checkRegisterButton() throws Exception {
 		if (getAttributValue("clickable", AMDRegistrationScreen.objRegisterBtn).equals("false")) {
 			logger.info("Register CTA is displayed and is dehighlated by default");
@@ -2999,7 +2925,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Validating that user is able to find the searched content in all the tabs");
 		waitTime(5000);
 		type(AMDSearchScreen.objSearchBoxBar, searchModuleKeyword + "\n", "Search bar");
-	//	getDriver().getKeyboard().sendKeys(searchModuleKeyword);
+		// getDriver().getKeyboard().sendKeys(searchModuleKeyword);
 		hideKeyboard();
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);
 		boolean allTabHighlighted = findElement(AMDSearchScreen.objAllTab).isSelected();
@@ -3021,8 +2947,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		logger.info("User is able to scroll through the tabs");
 		extent.extentLoggerPass("Tabs", "User is able to scroll through the tabs");
-		
-        hideKeyboard();
+
+		hideKeyboard();
 		waitTime(5000);
 		List<WebElement> tabs = getDriver().findElements(AMDSearchScreen.objTabs);
 		System.out.println(tabs.size());
@@ -5575,7 +5501,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void parentalPinValidation(String userType, String searchKeyword) throws Exception {
 		extent.HeaderChildNode("Parental Pin Validation");
 		System.out.println("\nParental Pin Validation");
-		
+
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
 			click(AMDMoreMenu.objSettings, "Settings option");
@@ -5721,9 +5647,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(2000);
 			click(AMDMoreMenu.objParentalLockDone, "Done Button");
 			// Back(1);
-		}else {
-			logger.info("Parental Pin Validation is NOT applicable for "+userType);
-			extent.extentLogger("Parental Pin","Parental Pin Validation is NOT applicable for "+userType);
+		} else {
+			logger.info("Parental Pin Validation is NOT applicable for " + userType);
+			extent.extentLogger("Parental Pin", "Parental Pin Validation is NOT applicable for " + userType);
 		}
 	}
 
@@ -15969,7 +15895,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.extentLogger("Seek", "Current time after seeking in seconds: " + timeToSec(afterSeek));
 		waitTime(5000);
 	}
-	
+
 	/**
 	 * Author : Manasa
 	 */
@@ -15992,8 +15918,98 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objNextIcon, "Next Icon");
 		verifyElementPresent(AMDPlayerScreen.objPreviousIcon, "Previous Icon");
-		
+
 		waitTime(1000);
 		Back(3);
+	}
+
+	/**
+	 * Author : Kushal
+	 */
+	public void ZEE5AppLogin(String pUserType) throws Exception {
+
+		if (!pUserType.equals("Guest")) {
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+			waitTime(3000);
+		}
+
+		switch (pUserType) {
+		case "Guest":
+			extent.HeaderChildNode(
+					"Validating the Navigation to Login or Register Screen Tapping on the Login link available in Intro Screen");
+
+			verifyElementPresent(AMDLoginScreen.objLoginLnk, "Login Link");
+			click(AMDLoginScreen.objLoginLnk, "Login Link");
+			if (verifyIsElementDisplayed(AMDLoginScreen.objLoginPage)) {
+				logger.info(
+						"User navigated to Login/Register Screen Tapping on the Login link present on the Intro Screen");
+				extent.extentLoggerPass("Login/Register Screen",
+						"User is navigated to Login/register Screen Tapping on the Login link present on the Intro Screen");
+			} else {
+				logger.error(
+						"User is not navigated to Login/Register Screen Tapping on the Login link present on the Intro Screen");
+				extent.extentLoggerFail("Login/Register Screen",
+						"User is not navigated to Login/register Screen Tapping on the Login link present on the Intro Screen");
+			}
+			waitTime(1000);
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+			waitTime(5000);
+			if (verifyElementPresent(AMDLoginScreen.objHomeTab, "Home Tab")) {
+				logger.info("User navigated to Home Tab by clicking on the Skip button");
+				extent.extentLoggerPass("Home Tab", "User navigated to Home Tab by clicking on the Skip button");
+			} else {
+				logger.error("User not navigated to Home Tab by clicking on the Skip button");
+				extent.extentLoggerFail("Home Tab", "User not navigated to Home Tab by clicking on the Skip button");
+			}
+			break;
+
+		case "NonSubscribedUser":
+			extent.HeaderChildNode("Login as NonSubscribed User");
+
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
+
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, Password, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(5000);
+			if (verifyIsElementDisplayed(AMDHomePage.HomeIcon)) {
+				logger.info(Username + " logged into to ZEE5 App Successfully");
+				extent.extentLoggerPass("Registered User", Username + " logged into to ZEE5 App Successfully");
+			}
+			break;
+
+		case "SubscribedUser":
+			extent.HeaderChildNode("Login as Subscribed User");
+
+			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
+			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(5000);
+			if (verifyIsElementDisplayed(AMDHomePage.HomeIcon)) {
+				logger.info(SubscribedUsername + " logged into to ZEE5 App Successfully");
+				extent.extentLoggerPass("Registered User",
+						SubscribedUsername + " logged into to ZEE5 App Successfully");
+			}
+			break;
+		}
+	}
+	
+	public void loggerForNonGuestUserTypes(String featureName) {
+		extent.HeaderChildNode(featureName);
+		logger.info(featureName+" is NOT applicable for "+pUserType);
+		extent.extentLoggerPass(featureName, featureName+" is NOT applicable for "+pUserType);
 	}
 }

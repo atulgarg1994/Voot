@@ -85,8 +85,6 @@ public class AMDLoginScreen {
 	public static By objMenu = By
 			.xpath("//*[@id='bb_bottom_bar_icon' and (./preceding-sibling::* | ./following-sibling::*)[@text='More']]");
 
-	public static By objMenuHindi = By
-			.xpath("(//*[@id='bb_bottom_bar_item_container']/*/*[@id='bb_bottom_bar_icon'])[4]");
 
 	public static By objDisplayLangHindi = By.xpath("//*[@text='हिन्दी']");
 
@@ -170,4 +168,5 @@ public class AMDLoginScreen {
 	
 	public static By objTwitterAutorizeAllowBtn = By.xpath("//*[@resource-id='com.twitter.android:id/ok_button']");
 
+	public static By objMenuHindi = By.xpath("(//*[@id='bb_bottom_bar_icon'])[5]");
 }

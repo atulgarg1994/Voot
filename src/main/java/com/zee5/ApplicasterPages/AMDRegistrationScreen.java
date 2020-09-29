@@ -50,7 +50,6 @@ public class AMDRegistrationScreen {
 	public static By objCalenderPopUp = By.xpath("//*[@resource-id='android:id/datePicker']");
 	public static By objSelectedGenderName = By.xpath("//*[@id='selectionImageSelector']//following-sibling::*");
 	public static By objPasswordErrorMsg = By.xpath("//*[@text='Password has to be a minimum of 6 characters']");
-	public static By objEyeIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/text_input_password_toggle']");
 	public static By objTermsOfUseAndPrivacyPolicy = By.xpath("//*[@text='By creating this account you agree to our Terms of Use and Privacy Policy.']");
 	public static By objTitleOfTermsOfUseAndPrivacyPolicy = By.xpath("(//*[@resource-id='iframe_div']//child::*)[1]");
 	public static By objHeaderYearTxt = By.xpath("//*[@id='date_picker_header_year']");
@@ -58,5 +57,6 @@ public class AMDRegistrationScreen {
 	public static By objCancelBtn = By.xpath("//*[@text='CANCEL']");
 	public static By objOkBtn = By.xpath("//*[@text='OK']");
 	public static By objDOBTxtField = By.xpath("//*[@id='dobTextView'] | //*[@id='dobEditText']");
+	public static By objEyeIcon = By.xpath("//*[@id='text_input_end_icon']");
 
 }
