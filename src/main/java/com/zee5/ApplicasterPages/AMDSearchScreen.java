@@ -160,18 +160,18 @@ public class AMDSearchScreen {
 
 	public static By objVirtualKeypadLetter = By.xpath("//*[@id='key_pos_1_4']");
 
-	public static By objTabs = By
-			.xpath("//*[@id='searchResultsContent']//following-sibling::*[@id='tabLayout']//following-sibling::*");
+//	public static By objTabs = By
+//			.xpath("//*[@id='searchResultsContent']//following-sibling::*[@id='tabLayout']//following-sibling::*");
 
 	public static By objGetPremiumBelowThePlayer = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/get_premium_button']");
 
 	// Search icon
-	public static By objSearchIcon2 = By.xpath("//*[@id='logo']//following::*[1]");
+	public static By objSearchIcon2 = By.xpath("((//*[@id='title'] | //*[@id='logo'])//following::*)[1]");
 
 	// Trending searches tray
-	public static By objTrendingSearches = By.xpath(
-			"//*[@text='Recent Searches']/parent::*/parent::*/following-sibling::*[@class='android.widget.RelativeLayout']/child::*/child::*[@text='Trending Searches']");
+//	public static By objTrendingSearches = By.xpath(
+//			"//*[@text='Recent Searches']/parent::*/parent::*/following-sibling::*[@class='android.widget.RelativeLayout']/child::*/child::*[@text='Trending Searches']");
 
 	// title on Content card of Trending searches tray
 	public static By objContentCardTitleOfTrendingSearchesTray = By.xpath(
@@ -221,11 +221,16 @@ public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.
 	
 	public static By objEpisodeSearch = By.xpath("//*[@id='item_secondary_text']");
 	
-public static By objClearSearch = By.xpath("//*[@id='clearSearch']");
+	public static By objClearSearch = By.xpath("//*[@id='clearSearch']");
 	
 	public static By objSearchMoviesTab = By.xpath("(//*[@text='Movies' and @id='title'])[2]");
 	
 	public static By objSearchShowsTab = By.xpath("(//*[@id='title' and @text='Shows'])[2]");
 	
 	public static By objSearchedClubContent = By.xpath("(//*[@id='special_image_1' and (./preceding-sibling::* | ./following-sibling::*)[@id='itemImageParent']]//following-sibling::*)[1]"); 
+	
+	public static By objTabs = By
+			.xpath("((//*[@resource-id='com.graymatrix.did:id/tabLayout'])[1]/child::*/child::*/child::*/child::*)");
+
+	public static By objTrendingSearches = By.xpath("//*[@id='header_primary_text' and @text='Trending Searches']");
 }

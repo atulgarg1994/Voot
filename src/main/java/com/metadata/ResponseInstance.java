@@ -576,7 +576,6 @@ public class ResponseInstance {
 		String language = getLanguageVersion2(userType, pUsername, pPassword);
 		String Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page
 				+ "?page=1&limit=10&item_limit=20&translation=en&country=IN&version=6&languages=" + language;
-		System.out.println(Uri);
 
 		String xAccessToken = getXAccessTokenWithApiKey();
 		if (userType.equalsIgnoreCase("Guest")) {

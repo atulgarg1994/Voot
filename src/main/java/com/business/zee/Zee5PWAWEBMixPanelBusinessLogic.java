@@ -20,6 +20,7 @@ import com.zee5.PWAPages.PWALandingPages;
 import com.zee5.PWAPages.PWALanguageSettingsPage;
 import com.zee5.PWAPages.PWALiveTVPage;
 import com.zee5.PWAPages.PWALoginPage;
+import com.zee5.PWAPages.PWANewsPage;
 import com.zee5.PWAPages.PWAPlayerPage;
 import com.zee5.PWAPages.PWAPremiumPage;
 import com.zee5.PWAPages.PWAQualitySettingsPage;
@@ -1321,5 +1322,43 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				"Verify Video Watch Duration event when video is closed abruptly on playing content from Megamenu");
 		Back(1);
 	}
+	
+	
+	public void verifyCTAsEvent(String tabName,String userType) throws Exception {
+		extent.HeaderChildNode("Verify CTAs Event");
+		navigateToAnyScreenOnWeb(tabName);
+		
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		Back(1);
+		click(PWAHomePage.objLanguageBtn, "Language button");
+		
+		if(!(userType.equalsIgnoreCase("Guest"))) {
+			click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		}
+		
+		click(PWAHomePage.objSubscribeBtn, "Subscribe button");
+		
+		Back(1);
+		
+		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		
+		click(PWAHamburgerMenuPage.objMoreSettingInHamburger, "More settings");
+	}
+	
+	public void verifyBannerAutoplayAndMuteChangedEventForNewsContent(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Banner Autoplay And Mute Changed Event");
+		navigateToAnyScreenOnWeb("News");
+		
+		waitForElementDisplayed(PWANewsPage.objBannerUnMute, 20);
+		
+		if(checkElementDisplayed(PWANewsPage.objBannerUnMute, "Volume icon")==true) {
+			click(PWANewsPage.objBannerUnMute, "Mute Icon");
+		}else {
+			click(PWANewsPage.objBannerMute, "UnMute Icon");
+		}
+		
+	}
+	
+	
 
 }

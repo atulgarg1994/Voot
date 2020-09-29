@@ -83,7 +83,12 @@ public class AMDGenericObjects {
 	}
 	
 	public static By objTrayTitle = By.xpath("//*[@id='header_primary_text']");
+	
 	public static By objTrayTitleByIndex(int index) {
 		return By.xpath("(//*[@id='header_primary_text'])["+index+"]");
+	}
+	
+	public static By objBottomNavigation(String tabName) {
+		return By.xpath("//*[@id='bb_bottom_bar_title' and @text='"+tabName+"']");
 	}
 }

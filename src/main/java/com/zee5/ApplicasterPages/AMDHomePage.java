@@ -199,4 +199,8 @@ public class AMDHomePage {
 			.xpath("//*[@resource-id='com.graymatrix.did:id/get_premium_button']");
 	public static By objGetPremiumCTAOnCarosel = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/get_premium_hero_component']");
+	
+	public static By objBottomNavigation(String tabName) {
+		return By.xpath("//*[@id='bb_bottom_bar_title' and @text='"+tabName+"']");
+	}
 }

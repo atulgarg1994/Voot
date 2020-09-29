@@ -2109,15 +2109,20 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						.findElement(
 								By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[" + i + "]"))
 						.getText();
+//				String traytitle = getDriver()
+//						.findElement(
+//								By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[3]"))
+//						.getText();
+//				System.out.println(traytitle);
 
 				if (traytitle.equalsIgnoreCase("Top Searches")) {
 					TopSearchFound = true;
-					verifyElementExist(AMDSearchScreen.objTopSearches, "Top searches tray");
+					checkElementExist(AMDSearchScreen.objTopSearches, "Top searches tray");
 
-					verifyElementPresent(AMDSearchScreen.objContentCardTitleOfTopSearchesTray,
+					checkElementExist(AMDSearchScreen.objContentCardTitleOfTopSearchesTray,
 							"Content card title of Top searches tray");
 
-					getText(AMDSearchScreen.objContentCardTitleOfTopSearchesTray);
+			//		getText(AMDSearchScreen.objContentCardTitleOfTopSearchesTray);
 
 //					click(AMDSearchScreen.objContentCardTitleOfTopSearchesTray, "Content card of Top searches tray");
 //					waitForElementDisplayed(AMDSearchScreen.objConsumptionScreenTitle, 10);
@@ -2140,7 +2145,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					break;
 				}
 			}
-
 			if (TopSearchFound == false) {
 				logger.error("Top searches is not displayed");
 				extentLoggerFail("Top searches tray", "Top searches is not displayed");
@@ -2154,17 +2158,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void TrendingSearches() throws Exception {
 		extent.HeaderChildNode("Trending Searches module");
-
 		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search icon");
-
+         waitTime(5000);
 		int noOfTrays = findElements(AMDSearchScreen.objNoOftraysInSearchpage).size();
 		System.out.println(noOfTrays);
 		boolean TrendingSearchFound = false;
 		for (int i = 1; i <= noOfTrays; i++) {
 			String traytitle = getDriver()
-					.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[" + i + "]"))
-					.getText();
-
+					.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[" + i + "]")).getText();
 			if (traytitle.equalsIgnoreCase("Trending Searches")) {
 				TrendingSearchFound = true;
 //				    verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -2176,13 +2177,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //					waitTime(3000);
 //					verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search icon");
 //					
-//					verifyElementPresent(AMDSearchScreen.objTrendingSearches, "Trending Searches tray");
-
-				verifyElementPresent(AMDSearchScreen.objContentCardTitleOfTrendingSearchesTray,
+				checkElementExist(AMDSearchScreen.objTrendingSearches, "Trending Searches tray");
+				checkElementExist(AMDSearchScreen.objContentCardTitleOfTrendingSearchesTray,
 						"Content card title of Trending searches tray");
 
-				getText(AMDSearchScreen.objContentCardTitleOfTrendingSearchesTray);
-
+//			     String contentCardTitleofTrendingSearches =	getText(AMDSearchScreen.objContentCardTitleOfTrendingSearchesTray);
+//			     logger.info(contentCardTitleofTrendingSearches);
+//
 //					click(AMDSearchScreen.objContentCardTitleOfTrendingSearchesTray, "Content card of Trending searches tray");
 //					waitForElementDisplayed(AMDSearchScreen.objConsumptionScreenTitle, 10);
 //					
@@ -2192,23 +2193,23 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //						if(contentCardTitleofTrendingSearches.equalsIgnoreCase(consumptionScreenTitle))
 //						{
 //						    logger.info("user navigated to respective consumption/Landing screen post tapping on any Trending searches carousel");	
-//						    extent.extentLogger("Title", "user navigated to respective consumption/Landing screen post tapping on any Trending searches carousel");
+//						    extent.extentLoggerPass("Title", "user navigated to respective consumption/Landing screen post tapping on any Trending searches carousel");
 //						}
 //						else
 //						{
 //							logger.info("user is not navigated to respective consumption/Landing screen post tapping on any Trending searches carousel");	
 //						    extent.extentLoggerFail("Title", "user is not navigated to respective consumption/Landing screen post tapping on any Trending searches carousel");
 //						}
-
-				break;
+//
+//				break;
+//				
 			}
 		}
-
-		if (TrendingSearchFound == false) {
+		  if (TrendingSearchFound == false) {
 			logger.error("Trending searches is not displayed");
 			extentLoggerFail("Trending searches tray", "Trending searches is not displayed");
 		}
-		Back(1);
+		  Back(1);
 	}
 
 	/*
@@ -2994,19 +2995,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public void searchResultsAllTabs(String searchModuleKeyword) throws Exception {
-
 		extent.HeaderChildNode("Validating that user is able to find the searched content in all the tabs");
-
-		// type(AMDSearchScreen.objSearchBoxBar, searchModuleKeyword + "\n", "Search
-		// bar");
-		getDriver().getKeyboard().sendKeys(searchModuleKeyword);
-
+		waitTime(5000);
+		type(AMDSearchScreen.objSearchBoxBar, searchModuleKeyword + "\n", "Search bar");
+	//	getDriver().getKeyboard().sendKeys(searchModuleKeyword);
 		hideKeyboard();
-
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);
-
 		boolean allTabHighlighted = findElement(AMDSearchScreen.objAllTab).isSelected();
 
 		if (allTabHighlighted == true) {
@@ -3026,8 +3021,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		logger.info("User is able to scroll through the tabs");
 		extent.extentLoggerPass("Tabs", "User is able to scroll through the tabs");
-
-		waitTime(2000);
+		
+        hideKeyboard();
+		waitTime(5000);
 		List<WebElement> tabs = getDriver().findElements(AMDSearchScreen.objTabs);
 		System.out.println(tabs.size());
 		boolean News = false;
@@ -3043,10 +3039,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				}
 
 				WebElement eleTab = findElement(By.xpath(
-						"((//*[@resource-id='com.graymatrix.did:id/tabLayout'])[2]/child::*/child::*/child::*/child::*)["
+						"((//*[@resource-id='com.graymatrix.did:id/tabLayout'])[1]/child::*/child::*/child::*/child::*)["
 								+ i + "]"));
 				tabName = findElement(By.xpath(
-						"((//*[@resource-id='com.graymatrix.did:id/tabLayout'])[2]/child::*/child::*/child::*/child::*)["
+						"((//*[@resource-id='com.graymatrix.did:id/tabLayout'])[1]/child::*/child::*/child::*/child::*)["
 								+ i + "]")).getText();
 
 				System.out.println(tabName);
@@ -3054,10 +3050,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			} else {
 				WebElement eleTab = findElement(By.xpath(
-						"((//*[@resource-id='com.graymatrix.did:id/tabLayout'])[2]/child::*/child::*/child::*/child::*)["
+						"((//*[@resource-id='com.graymatrix.did:id/tabLayout'])[1]/child::*/child::*/child::*/child::*)["
 								+ i + "]"));
 				tabName = findElement(By.xpath(
-						"((//*[@resource-id='com.graymatrix.did:id/tabLayout'])[2]/child::*/child::*/child::*/child::*)["
+						"((//*[@resource-id='com.graymatrix.did:id/tabLayout'])[1]/child::*/child::*/child::*/child::*)["
 								+ i + "]")).getText();
 				System.out.println(tabName);
 				eleTab.click();
@@ -4330,7 +4326,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void EmptystateScreenValidation(String userType) throws Exception {
 		extent.HeaderChildNode("Downloads screen Empty-state validation as " + userType);
 		System.out.println("\nDownloads screen Empty-state validation as: " + userType);
-		click(AMDHomePage.objDownloadBtn, "Downloads button");
+		click(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab");
 		waitTime(3000);
 		if (verifyElementExist(AMDDownloadPage.objDwnloadsHeader,
 				"Downloads header at the top on center of the screen")) {
@@ -4343,7 +4339,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.error("User fails to navigate to Downloads screen");
 		}
 		Back(1);
-		click(AMDHomePage.objDownloadBtn, "Downloads button");
+		click(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab");
 
 		if (verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn,
 				"Browse to Download CTA in Empty-state screen to download")) {
@@ -4368,7 +4364,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Shows tab", "User fails to tap the 'Browse to Download' button");
 			logger.error("User fails to tap the 'Browse to Download' button");
 		}
-		click(AMDHomePage.objDownloadBtn, "Downloads button");
+		click(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab");
 	}
 
 	public void validationofDownloadingContent() throws Exception {
@@ -4851,7 +4847,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		DownloadVideoQualityPopUp(Quality, checkAlwaysAskOption);
 		waitTime(2000);
 		Back(1);
-		click(AMDHomePage.objDownloadBtn, "Downloads Tab");
+		click(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab");
 	}
 
 	public void DownloadVideoQualityPopUp(String Quality, boolean checkAlwaysAsk) throws Exception {
@@ -4972,8 +4968,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify the UI/UX of Download landing screen as " + userType);
 		System.out.println("\nVerify the UI/UX of Download landing screen as " + userType);
 		waitTime(5000);
-		verifyElementExist(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
-		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		verifyElementExist(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab at the bottom navigation bar");
+		click(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab");
 		waitTime(3000);
 		verifyElementExist(AMDDownloadPage.objDwnloadsHeader, "Downloads header at the top on center of the screen");
 		verifyElementExist(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
@@ -5012,7 +5008,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.error("User fails to navigate to Shows landing page and instead displayed : " + getSelectedTabName
 					+ " landing screen");
 		}
-		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		click(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab");
 		verifyElementPresentAndClick(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
 		verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Movies tab");
 		waitTime(3000);
@@ -5027,7 +5023,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.error("User fails to navigate to Movies landing page and instead displayed : " + getSelectedTabName
 					+ " landing screen");
 		}
-		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		click(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab");
 		verifyElementPresentAndClick(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
 		verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Videos tab");
 		waitTime(3000);
@@ -15972,5 +15968,32 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		logger.info("Current time after seeking : " + timeToSec(afterSeek));
 		extent.extentLogger("Seek", "Current time after seeking in seconds: " + timeToSec(afterSeek));
 		waitTime(5000);
+	}
+	
+	/**
+	 * Author : Manasa
+	 */
+	public void nextAndPreviousIconValidation(String searchKeyword8) throws Exception {
+		extent.HeaderChildNode("Validation of Next and Prevoius icons");
+		System.out.println("\n Validation of Next and Prevoius icons");
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, searchKeyword8 + "\n", "Search bar");
+		waitTime(2000);
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+
+		click(AMDMoreMenu.objSearchResult(searchKeyword8), "Search result");
+		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 10);
+		waitTime(5000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objNextIcon, "Next Icon");
+		verifyElementPresent(AMDPlayerScreen.objPreviousIcon, "Previous Icon");
+		
+		waitTime(1000);
+		Back(3);
 	}
 }
