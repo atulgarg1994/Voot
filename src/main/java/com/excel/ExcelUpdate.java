@@ -142,7 +142,6 @@ public class ExcelUpdate {
 	public int getMatchRow(String matchData) {
 		String data = "";
 		try {
-			@SuppressWarnings("resource")
 			XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
 			XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
 			for (int i = 0; i < getRowCount(); i++) {
@@ -160,7 +159,6 @@ public class ExcelUpdate {
 	public static String getCellValue(int row, int col) {
 		String data = "";
 		try {
-			@SuppressWarnings("resource")
 			XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
 			XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
 			data = myExcelSheet.getRow(row).getCell(col).toString();
@@ -182,7 +180,6 @@ public class ExcelUpdate {
 		return rc;
 	}
 
-	@SuppressWarnings("resource")
 	public static String Iterator(String toFind) throws IOException {
 //		String toFind = ID;
 		XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));

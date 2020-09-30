@@ -33,7 +33,6 @@ public class ExcelFunctions {
 		public static String getCellValue(String xlPath, String sheet, int row, int col) {
 			String data = "";
 			try {
-				@SuppressWarnings("resource")
 				XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlPath));
 				XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
 				data = myExcelSheet.getRow(row).getCell(col).toString();
@@ -61,7 +60,6 @@ public class ExcelFunctions {
 		
 		public static int columncount(String xlPath, String sheet, int rownum) throws FileNotFoundException, IOException
 		{
-			@SuppressWarnings("resource")
 			XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlPath));
 			XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
 			XSSFRow myExcelRow = myExcelSheet.getRow(rownum);

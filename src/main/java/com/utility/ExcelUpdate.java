@@ -42,7 +42,6 @@ public class ExcelUpdate {
 	public static String getCellValue(int row, int col) {
 		String data = "";
 		try {
-			@SuppressWarnings("resource")
 			XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
 			XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
 			data = myExcelSheet.getRow(row).getCell(col).toString();

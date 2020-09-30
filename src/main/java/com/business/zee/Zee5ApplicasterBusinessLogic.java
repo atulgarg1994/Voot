@@ -700,7 +700,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDHomePage.objShowsTab, "Shows Tab");
 			waitTime(5000);
 //			closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD - HANDLED HERE
-			PartialSwipe("UP", 1);
+			Swipe("UP", 1);
 			waitTime(5000);
 			boolean beforTV = verifyIsElementDisplayed(AMDHomePage.objBeforeTVTray);
 			if (beforTV) {
@@ -715,14 +715,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				Swipe("UP", 1);
 				click(AMDHomePage.objGetPremiumPopUPProceedButton, "Proceed button");
 				verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page");
-
+				Back(2);
 			} else {
 				logger.info("Before TV tray is not displayed");
 				extent.extentLoggerWarning("TV", "Before TV tray is not displayed");
 			}
-			Back(1);
-			waitTime(3000);
-			Back(1);
 			waitTime(3000);
 			click(AMDHomePage.HomeIcon, "Home Tab");
 			click(AMDHomePage.MoreMenuIcon, "More Menu");
@@ -1514,28 +1511,34 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Previous screen",
 					"User is not navigated to previous screen on tapping of back button available on the search screen");
 		}
+
+		if (userType.equalsIgnoreCase("Guest")) {
+
+			selectContentLang_MoreMenu("Hindi");
+		}
+
 		verifyElementPresent(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 
-//		waitTime(2000);
-//		if(verifyElementExist(AMDSearchScreen.objTrendingSearchOverlay,"Trending Search Overlay"))
-//		{
-//		logger.info("Trending search overlay is displayed");
-//		extent.extentLogger("Search screen","Trending search overlay is displayed");
-//		}else{
-//			logger.info("Trending search overlay is not displayed");
-//			extent.extentLoggerFail("Search screen","Trending search overlay is not displayed");
-//		}
-//		waitTime(2000);
-//		if(verifyElementExist(AMDSearchScreen.objTopSearchOverlay,"Top search Overlay"))
-//		{
-//			logger.info("Top search overlay is displayed");
-//			extent.extentLogger("Search screen","Top search overlay is displayed");
-//		}else{
-//			logger.info("Top search overlay is not displayed");
-//			extent.extentLoggerFail("Search screen","Top search overlay is not displayed");
-//			
-//		}
+		waitTime(2000);
+		if (checkElementExist(AMDSearchScreen.objTrendingSearchOverlay, "Trending Search Overlay")) {
+			logger.info("Trending search overlay is displayed");
+			extent.extentLoggerPass("Search screen", "Trending search overlay is displayed");
+		} else {
+			logger.info("Trending search overlay is not displayed");
+			extent.extentLoggerFail("Search screen", "Trending search overlay is not displayed");
+		}
+		waitTime(2000);
+		if (checkElementExist(AMDSearchScreen.objTopSearchOverlay, "Top search Overlay")) {
+			logger.info("Top search overlay is displayed");
+			extent.extentLoggerPass("Search screen", "Top search overlay is displayed");
+		} else {
+			logger.info("Top search overlay is not displayed");
+			extent.extentLoggerFail("Search screen", "Top search overlay is not displayed");
+		}
+		if (userType.equals("Guest")) {
+			deselectContentLang_MoreMenuAndSelectDefaultLanguage("Hindi");
+		}
 
 //		click(AMDSearchScreen.objSearchEditBox, "Search box");
 //		if(verifyElementExist(AMDSearchScreen.objVirtualKeyboard, "Keyboard"))
@@ -2099,8 +2102,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					TopSearchFound = true;
 					checkElementExist(AMDSearchScreen.objTopSearches, "Top searches tray");
 
-					checkElementExist(AMDSearchScreen.objContentCardTitleOfTopSearchesTray,
-							"Content card title of Top searches tray");
+//					checkElementExist(AMDSearchScreen.objContentCardTitleOfTopSearchesTray,
+//							"Content card title of Top searches tray");
 
 					// getText(AMDSearchScreen.objContentCardTitleOfTopSearchesTray);
 
@@ -2125,6 +2128,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					break;
 				}
 			}
+
 			if (TopSearchFound == false) {
 				logger.error("Top searches is not displayed");
 				extentLoggerFail("Top searches tray", "Top searches is not displayed");
@@ -2144,8 +2148,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println(noOfTrays);
 		boolean TrendingSearchFound = false;
 		for (int i = 1; i <= noOfTrays; i++) {
-			String traytitle = getDriver()
-					.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[" + i + "]"))
+			String traytitle = getDriver().findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[" + i + "]"))
 					.getText();
 			if (traytitle.equalsIgnoreCase("Trending Searches")) {
 				TrendingSearchFound = true;
@@ -2572,7 +2575,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		checkRegisterButton();
 		verifyElementPresent(AMDRegistrationScreen.objTermsOfUseAndPrivacyPolicy, "Terms and condition text ");
 	}
-	
+
 	public void checkRegisterButton() throws Exception {
 		if (getAttributValue("clickable", AMDRegistrationScreen.objRegisterBtn).equals("false")) {
 			logger.info("Register CTA is displayed and is dehighlated by default");
@@ -12657,7 +12660,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objBackBtn, "Back Button");
 
-			// SwipeUntilFindElement(AMDNewsPage.objWatchlistIcon, "DOWN");
+			SwipeUntilFindElement(AMDNewsPage.objWatchlistIcon, "DOWN");
 			Back(1);
 			click(AMDClubPage.objClubIcon, "Club Content");
 			waitTime(2000);
@@ -12687,9 +12690,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Download Option",
 						"Failed to navigate into respective screen after clicking Download Option");
 				logger.info("Failed to navigate into respective screen after clicking Download Option");
-
 			}
-
 		}
 		Back(2);
 	}
@@ -14663,6 +14664,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("Plan 5 " + Plan5 + " is displayed");
 			extent.extentLogger("Subscribe to Club popup", "Plan 5 " + Plan5 + " is displayed");
 
+			SwipeUntilFindElement(AMDGenericObjects.objText("Terms of Use"), "Up");
 			boolean objproceed = verifyIsElementDisplayed(AMDClubPack.objProceedButtonInSubscribePopup);
 			if (objproceed) {
 				click(AMDClubPack.objProceedButtonInSubscribePopup, "Proceed Button in Subcribe popup");
@@ -14681,6 +14683,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				}
 			}
 			if (userType.equals("NonSubscribedUser")) {
+				Swipe("DOWN", 1);
+				waitTime(1000);
 				boolean objpayment = verifyIsElementDisplayed(AMDClubPack.objpaymentScreenInSubscribepopup);
 				if (objpayment) {
 					logger.info("User is navigated to Payment options screen on selecting club plan");
@@ -14747,8 +14751,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		type(AMDSearchScreen.objSearchBar, searchContent, "Search bar");
 		waitTime(2000);
 		click(AMDSearchScreen.objFirstContentInSearchResult, "Searched result");
-		waitTime(5000);
-		scrubVideoToLast(AMDPlayerScreen.objProgressBar);
+		waitTime(2000);
+//		scrubVideoToLast(AMDPlayerScreen.objProgressBar);
+		scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
 		boolean objupgradePopup = verifyIsElementDisplayed(AMDClubPack.objUpgradepopuptitle);
 		if (objupgradePopup) {
 			logger.info("Upgarde popup is displayed at the end of trailer for Premium content ");
@@ -14775,7 +14780,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(2000);
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Searched result");
 			waitTime(5000);
-			scrubVideoToLast(AMDPlayerScreen.objProgressBar);
+//			scrubVideoToLast(AMDPlayerScreen.objProgressBar);
+			scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
 			boolean objSubscribePopup = verifyIsElementDisplayed(AMDClubPack.objSubscribePopup);
 			if (objSubscribePopup) {
 				logger.info("Subscribe popup is displayed at the end of trailer for Club content ");
@@ -14815,7 +14821,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("Validating Club icon on Content tray and Content listing screen");
 
 		if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
-			waitTime(6000);
+			waitTime(3000);
+			SelectTopNavigationTab("ZEE5 Originals");
+			waitTime(5000);
 			SwipeUntilFindElement(AMDClubPack.objBestOfZee5OriginalsTray, "UP");
 			boolean result = verifyIsElementDisplayed(AMDClubPack.objClubIconOnFirstCardOfTray);
 			if (result) {
@@ -15882,18 +15890,16 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
 		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
 		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
-
+		click(AMDPlayerScreen.objPauseIcon, "Pause");
 		WebElement element = getDriver().findElement(byLocator1);
 		String xDuration = getAttributValue("x", AMDPlayerScreen.objTotalDuration);
-		int endX = Integer.parseInt(xDuration) - 25;
-
-		System.out.println(endX);
+		int endX = Integer.parseInt(xDuration) - 30;
 		SwipeAnElement(element, endX, 0);
-
 		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
 		logger.info("Current time after seeking : " + timeToSec(afterSeek));
 		extent.extentLogger("Seek", "Current time after seeking in seconds: " + timeToSec(afterSeek));
-		waitTime(5000);
+		click(AMDPlayerScreen.objPlayIcon, "Play");
+		waitTime(6000);
 	}
 
 	/**
@@ -16006,10 +16012,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			break;
 		}
 	}
-	
+
 	public void loggerForNonGuestUserTypes(String featureName) {
 		extent.HeaderChildNode(featureName);
-		logger.info(featureName+" is NOT applicable for "+pUserType);
-		extent.extentLoggerPass(featureName, featureName+" is NOT applicable for "+pUserType);
+		logger.info(featureName + " is NOT applicable for " + pUserType);
+		extent.extentLoggerPass(featureName, featureName + " is NOT applicable for " + pUserType);
 	}
 }

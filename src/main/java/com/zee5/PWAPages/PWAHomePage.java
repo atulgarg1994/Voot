@@ -315,10 +315,6 @@ public class PWAHomePage {
 	// Instagram page
 	public static By objInstagramPage = By.xpath("//button[contains(text(),'Follow')]");
 
-	// Twitter page
-
-	public static By objTwitterPage = By.xpath("//*[@resource-id='com.twitter.android:id/button_bar_follow']");
-
 	// Help Center in Footer section
 	public static By objHelp = By.xpath("//a[@class='noSelect'][contains(text(),'Help Center')]");
 	// Help Center screen
@@ -480,5 +476,8 @@ public class PWAHomePage {
 	public static By objAdBanner = By.xpath("(//*[@class='adContainer'])[1]");
 	
 	public static By objCreateNewAccountPopUpClose = By.xpath("//div[@class='manCloseIcon']");
+
+	// Twitter page
+	public static By objTwitterPage = By.xpath("//*[@text='FOLLOW' or @text='Follow']");
 
 }

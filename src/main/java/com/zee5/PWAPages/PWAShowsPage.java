@@ -88,7 +88,6 @@ public class PWAShowsPage {
 	public static By objSecondAssetImageFirstRail = By.xpath("(//div[@class='slick-list'])[1]//div[@data-index='1']");
 
 	public static By objBackToTopArrow = By.xpath("//div[@class='iconNavi-ic_arrow_back']");
-	public static By objTwitterApp = By.xpath("//*[@text='Tweet']");
 
 	public static By objShowsTitle = By.xpath("//*[contains(@class,'bannerTitle')]//h1");
 
@@ -126,4 +125,6 @@ public class PWAShowsPage {
 	public static By objEpisodeCard = By.xpath("//div[@data-index='0']//img");
 	
 	public static By objEpisodeCardTwo = By.xpath("//div[@data-index='1']//img");
+	
+	public static By objTwitterApp = By.xpath("//*[@text='Tweet' or @text='Twitter']");
 }
