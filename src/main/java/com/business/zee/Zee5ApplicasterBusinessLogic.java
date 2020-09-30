@@ -10731,7 +10731,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 */
 	public void BuySubscription(String userType) throws Exception {
 		extent.HeaderChildNode("Buy Subscription screen validations for user type :" + userType);
-
 		// Verify User is navigated to subscribe screen post tapping Buy Subscription
 		verifyElementPresentAndClick(AMDMoreMenu.objBuySubscription, "Buy Subscription");
 		String screenTitle = getText(AMDGenericObjects.objgetScreenTitle);
@@ -11566,8 +11565,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("Browse All Packs CTA is present in the bottom of the Screen");
 			extent.extentLogger("MySubscription Screen", "Browse All Packs CTA is present in the bottom of the Screen");
 		}
-
-		Back(3);
+		Back(2);
 	}
 
 	/**

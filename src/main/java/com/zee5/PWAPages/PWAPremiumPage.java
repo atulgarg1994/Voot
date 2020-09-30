@@ -131,4 +131,6 @@ public class PWAPremiumPage {
 
 	public static By obj1stContentInShowDetailPage = By.xpath(
 			"(//*[@class='showCard sameEpisodeCard underMetaSameCard  zoomCardHover minutelyUrl card marginRight positionRelative'])[1]");
+
+	public static By objContentInPlaylist = By.xpath("(//*[@class='upNextCard'])[1]");
 }
