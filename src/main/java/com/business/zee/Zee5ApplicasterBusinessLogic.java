@@ -269,40 +269,43 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
-	public void mobileRegistration(String loginThrough) throws Exception {
-		extent.HeaderChildNode("Mobile Registration From Intro screen loginlink");
-		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
-		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in content language screen");
-		navigateToRegisterScreen(loginThrough);
-		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
-		type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
-		hideKeyboard();
-		click(AMDLoginScreen.objProceedBtn, "Proceed icon");
-		registerForFreeScreen("Mobile");
-		waitTime(3000);
-		otpScenarios();
-		Back(1);
-		waitTime(3000);
-		hideKeyboard();
-		Back(1);
-		int lenText = findElement(AMDLoginScreen.objEmailIdField).getAttribute("value").length();
-		for (int i = 0; i < lenText; i++) {
-			getDriver().findElement(AMDLoginScreen.objEmailIdField).sendKeys(Keys.BACK_SPACE);
+	public void mobileRegistration(String loginThrough, String userType) throws Exception {
+		if(userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Mobile Registration From Intro screen loginlink");
+			click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
+			click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in content language screen");
+			navigateToRegisterScreen(loginThrough);
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
+			type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
+			hideKeyboard();
+			click(AMDLoginScreen.objProceedBtn, "Proceed icon");
+			registerForFreeScreen("Mobile");
+			waitTime(3000);
+			otpScenarios();
+			Back(1);
+			waitTime(3000);
+			hideKeyboard();
+			Back(1);
+			int lenText = findElement(AMDLoginScreen.objEmailIdField).getAttribute("value").length();
+			for (int i = 0; i < lenText; i++) {
+				getDriver().findElement(AMDLoginScreen.objEmailIdField).sendKeys(Keys.BACK_SPACE);
+			}
+			type(AMDLoginScreen.objEmailIdField, RegisteredMobile, "Mobile number field");
+			click(AMDLoginScreen.objProceedBtn, "Proceed button");
+			type(AMDLoginScreen.objPasswordField, RegisteredMobilePassword, "Password field");
+			hideKeyboard();
+			click(AMDLoginScreen.objLoginBtn, "Login button");
+			verifyElementExist(AMDHomePage.objHomeTab, "Home tab");
+			click(AMDHomePage.objMoreMenu, "More Menu");
+			Swipe("UP", 1);
+			click(AMDHomePage.objLogout, "Logout");
+			click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
+			click(AMDHomePage.objHome, "Home tab");
 		}
-		type(AMDLoginScreen.objEmailIdField, RegisteredMobile, "Mobile number field");
-		click(AMDLoginScreen.objProceedBtn, "Proceed button");
-		type(AMDLoginScreen.objPasswordField, RegisteredMobilePassword, "Password field");
-		click(AMDLoginScreen.objLoginBtn, "Login button");
-		verifyElementExist(AMDHomePage.objHomeTab, "Home tab");
-		click(AMDHomePage.objMoreMenu, "More Menu");
-		Swipe("UP", 1);
-		click(AMDHomePage.objLogout, "Logout");
-		click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
-		click(AMDHomePage.objHome, "Home tab");
 	}
 
 	public void subscribeNowSceanrios(String userType) throws Exception {
-		extent.HeaderChildNode("SubscribeNow Functionality for Registered email-id");
+		extent.HeaderChildNode("navigation to Intro screen");
 
 		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
 		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in content language screen");
@@ -314,6 +317,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			subscribeFLowMobileNumber();
 		}
 		if (userType.equals("NonSubscribedUser")) {
+			extent.HeaderChildNode("Relaunch functionality");
 			verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login button");
 			click(AMDLoginScreen.objEmailIdField, "Email field");
 			verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
@@ -322,6 +326,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
 			waitTime(2000);
 			type(AMDLoginScreen.objPasswordField, NonsubscribedPassword, "Password field");
+			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login button");
 			verifyElementExist(AMDHomePage.objHomeTab, "Home tab");
 			relaunch(false);
@@ -337,9 +342,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Relaunch", "When " + userType
 						+ " relaunch the app Display/Content language and Intro screen is not skipped");
 			}
-
 		}
 		if (userType.equals("SubscribedUser")) {
+			extent.HeaderChildNode("Relaunch functionality");
 			verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login button");
 			click(AMDLoginScreen.objEmailIdField, "Email field");
 			verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
@@ -348,6 +353,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
 			waitTime(2000);
 			type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
+			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login button");
 			verifyElementExist(AMDHomePage.objHomeTab, "Home tab");
 			relaunch(false);
@@ -364,7 +370,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						+ " relaunch the app Display/Content language and Intro screen is not skipped");
 			}
 		}
-
 	}
 
 	public void unRegisteredEmailSubscribe() throws Exception {
@@ -542,7 +547,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		verifyElementPresentAndClick(AMDSubscibeScreen.objProceedPWDScreen, "Proceed button in password popup");
 		waitTime(3000);
-		PartialSwipe("DOWN", 3);
+		Swipe("DOWN", 3);
 		verifyElementExist(AMDSubscibeScreen.objPaymentText, "Payment page");
 		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in Payment page");
 		verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in Payment page");
@@ -2756,171 +2761,171 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		Runtime.getRuntime().exec("adb shell monkey -p com.graymatrix.did -c android.intent.category.LAUNCHER 1");
 	}
 
-	public void socialLoginValidation(String loginThrough) throws Exception {
-		extent.HeaderChildNode("Social Login Validation");
-		verifyElementPresentAndClick(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
-		verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn,
-				"Continue button in content language screen");
-		navigateToRegisterScreen(loginThrough);
-		// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-		verifyElementPresentAndClick(AMDLoginScreen.objGoogleBtn, "Gmail icon");
+	public void socialLoginValidation(String loginThrough, String usertype) throws Exception {
+		if(usertype.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Social Login Validation");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn,
+					"Continue button in content language screen");
+			navigateToRegisterScreen(loginThrough);
+			// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+			verifyElementPresentAndClick(AMDLoginScreen.objGoogleBtn, "Gmail icon");
 
-//		if (checkElementExist(AMDLoginScreen.objGmailSignIn, "Gmail Sign In")) {
-//			verifyElementPresentAndClick(AMDLoginScreen.objGmailEmailField, "Email Field");
-//			type(AMDLoginScreen.objGmailEmailField, "zeetest55@gmail.com", "Email Field");
-//			verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
-//			verifyElementPresentAndClick(AMDLoginScreen.objGmailPasswordField, "Password Field");
-//			type(AMDLoginScreen.objGmailPasswordField, "zeetest123", "Password Field");
-//			verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
-//
-//			if (checkElementExist(AMDLoginScreen.objGmailAddPhoneNumber, "Add Phone Number")) {
-//				verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip Button");
+//			if (checkElementExist(AMDLoginScreen.objGmailSignIn, "Gmail Sign In")) {
+//				verifyElementPresentAndClick(AMDLoginScreen.objGmailEmailField, "Email Field");
+//				type(AMDLoginScreen.objGmailEmailField, "zeetest55@gmail.com", "Email Field");
+//				verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
+//				verifyElementPresentAndClick(AMDLoginScreen.objGmailPasswordField, "Password Field");
+//				type(AMDLoginScreen.objGmailPasswordField, "zeetest123", "Password Field");
+//				verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
+	//
+//				if (checkElementExist(AMDLoginScreen.objGmailAddPhoneNumber, "Add Phone Number")) {
+//					verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip Button");
+//				}
+//				if (checkElementExist(AMDLoginScreen.objAgreeBtn, "Agree Button")) {
+//					click(AMDLoginScreen.objAgreeBtn, "Agree Button");
+//				}
+	//
+//				if (checkElementExist(AMDLoginScreen.objAcceptBtn, "Accept Button")) {
+//					click(AMDLoginScreen.objAcceptBtn, "Accept Button");
+//				}
 //			}
-//			if (checkElementExist(AMDLoginScreen.objAgreeBtn, "Agree Button")) {
-//				click(AMDLoginScreen.objAgreeBtn, "Agree Button");
-//			}
-//
-//			if (checkElementExist(AMDLoginScreen.objAcceptBtn, "Accept Button")) {
-//				click(AMDLoginScreen.objAcceptBtn, "Accept Button");
-//			}
-//		}
-//
-//		if (checkElementExist(AMDLoginScreen.objGmailAccount, "Gmail Account")) {
-//			click(AMDLoginScreen.objGmailAccount, "Gmail Account");
-//			waitTime(5000);
-//		}
-//		if (checkElementExist(AMDOnboardingScreen.objTellUsMore, "More info Screen")) {
-//			if (checkElementExist(AMDLoginScreen.objEmailIdField, "Email Id field")) {
-//				type(AMDLoginScreen.objEmailIdField, "zeetest@gmail.com", "Email Id field");
-//			}
-//			verifyElementPresentAndClick(AMDLoginScreen.objDOB, "Date of Birth");
-//			verifyElementPresentAndClick(AMDLoginScreen.objDate, "Date");
-//			verifyElementPresentAndClick(AMDLoginScreen.objDateOK, "OK button");
-//			verifyElementPresentAndClick(AMDLoginScreen.objGender, "Gender Field");
-//			verifyElementPresentAndClick(AMDLoginScreen.objGenderMale, "Male");
-//			verifyElementExist(AMDLoginScreen.objSubmitButton, "Submit Button");
-//			Back(1);
-//		}
-
-		if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
-			logger.info("User logged in successfully");
-			extent.extentLoggerPass("Login", "User logged in successfully");
-
-			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-			Swipe("UP", 2);
-
-			verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
-			verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout Button");
-			waitTime(5000);
-			Swipe("Down", 2);
-			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
-
-		} else {
-			logger.info("Pre conditions not met, Account is not logged In");
-			extentLogger("Gmail", "Pre conditions not met, Account is not logged In");
-		}
-
-		verifyElementPresentAndClick(AMDLoginScreen.objtwitterBtn, "Twitter icon");
-		waitTime(5000);
-
-		if (checkElementExist(AMDLoginScreen.objTwitterAutorizeAllowBtn, "Authorize app")) {
-			click(AMDLoginScreen.objTwitterAutorizeAllowBtn, "Authorize app");
-		}
-
-//		if (checkElementExist(AMDLoginScreen.objTwitterEmail, "Email Id field")) {
-//			click(AMDLoginScreen.objTwitterEmail, "Email Id field");
-//			type(AMDLoginScreen.objTwitterEmail, "zee5latest@gmail.com", "Email Id field");
-//			verifyElementPresentAndClick(AMDLoginScreen.objTwitterPassword, "Password Field");
-//			type(AMDLoginScreen.objTwitterPassword, "User@123", "Password field");
-//			verifyElementPresentAndClick(AMDLoginScreen.objTwitterLoginBtn, "Login Button");
-//			waitTime(5000);
-//			if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
-//				logger.info("User logged in successfully");
-//				extent.extentLoggerPass("Login", "User logged in successfully");
-//				verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-//				Swipe("UP", 2);
-//				verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
-//				verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout Button");
+	//
+//			if (checkElementExist(AMDLoginScreen.objGmailAccount, "Gmail Account")) {
+//				click(AMDLoginScreen.objGmailAccount, "Gmail Account");
 //				waitTime(5000);
-//				Swipe("Down", 2);
-//				verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
 //			}
-//		}
-//
-//		if (checkElementExist(AMDOnboardingScreen.objTellUsMore, "More info Screen")) {
-//			if (checkElementExist(AMDLoginScreen.objEmailIdField, "Email Id field")) {
-//				type(AMDLoginScreen.objEmailIdField, "zeetest@gmail.com", "Email Id field");
+//			if (checkElementExist(AMDOnboardingScreen.objTellUsMore, "More info Screen")) {
+//				if (checkElementExist(AMDLoginScreen.objEmailIdField, "Email Id field")) {
+//					type(AMDLoginScreen.objEmailIdField, "zeetest@gmail.com", "Email Id field");
+//				}
+//				verifyElementPresentAndClick(AMDLoginScreen.objDOB, "Date of Birth");
+//				verifyElementPresentAndClick(AMDLoginScreen.objDate, "Date");
+//				verifyElementPresentAndClick(AMDLoginScreen.objDateOK, "OK button");
+//				verifyElementPresentAndClick(AMDLoginScreen.objGender, "Gender Field");
+//				verifyElementPresentAndClick(AMDLoginScreen.objGenderMale, "Male");
+//				verifyElementExist(AMDLoginScreen.objSubmitButton, "Submit Button");
+//				Back(1);
 //			}
-//			verifyElementPresentAndClick(AMDLoginScreen.objDOB, "Date of Birth");
-//			verifyElementPresentAndClick(AMDLoginScreen.objDate, "Date");
-//			verifyElementPresentAndClick(AMDLoginScreen.objDateOK, "OK button");
-//			verifyElementPresentAndClick(AMDLoginScreen.objGender, "Gender Field");
-//			verifyElementPresentAndClick(AMDLoginScreen.objGenderMale, "Male");
-//			verifyElementExist(AMDLoginScreen.objSubmitButton, "Submit Button");
-//		}
 
-		if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
-			logger.info("User logged in successfully");
-			extent.extentLogger("Login", "User logged in successfully");
-			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-			Swipe("UP", 2);
-			verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
-			verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout Button");
+			if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
+				logger.info("User logged in successfully");
+				extent.extentLoggerPass("Login", "User logged in successfully");
+
+				verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+				Swipe("UP", 2);
+
+				verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
+				verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout Button");
+				waitTime(5000);
+				Swipe("Down", 2);
+				verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
+
+			} else {
+				logger.info("Pre conditions not met, Account is not logged In");
+				extentLoggerWarning("Gmail", "Pre conditions not met, Account is not logged In");
+				Back(1);
+			}
+
+			verifyElementPresentAndClick(AMDLoginScreen.objtwitterBtn, "Twitter icon");
 			waitTime(5000);
-			Swipe("Down", 2);
-			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
-		} else {
-			logger.info("Pre conditions not met, Account is not logged In");
-			extentLogger("Twitter", "Pre conditions not met, Account is not logged In");
-		}
 
-		verifyElementPresentAndClick(AMDLoginScreen.objfbBtn, "Facebook icon");
-		waitTime(5000);
-//		if (checkElementExist(AMDLoginScreen.objFBLogIntoAnotherAccount, "Log Into Another Account")) {
-//			click(AMDLoginScreen.objFBLogIntoAnotherAccount, "Log Into Another Account");
-//			if (checkElementExist(AMDLoginScreen.objFBEmail, "Email Id field")) {
+			if (checkElementExist(AMDLoginScreen.objTwitterAutorizeAllowBtn, "Authorize app")) {
+				click(AMDLoginScreen.objTwitterAutorizeAllowBtn, "Authorize app");
+			}
+
+//			if (checkElementExist(AMDLoginScreen.objTwitterEmail, "Email Id field")) {
+//				click(AMDLoginScreen.objTwitterEmail, "Email Id field");
+//				type(AMDLoginScreen.objTwitterEmail, "zee5latest@gmail.com", "Email Id field");
+//				verifyElementPresentAndClick(AMDLoginScreen.objTwitterPassword, "Password Field");
+//				type(AMDLoginScreen.objTwitterPassword, "User@123", "Password field");
+//				verifyElementPresentAndClick(AMDLoginScreen.objTwitterLoginBtn, "Login Button");
+//				waitTime(5000);
+//				if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
+//					logger.info("User logged in successfully");
+//					extent.extentLoggerPass("Login", "User logged in successfully");
+//					verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+//					Swipe("UP", 2);
+//					verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
+//					verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout Button");
+//					waitTime(5000);
+//					Swipe("Down", 2);
+//					verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
+//				}
+//			}
+	//
+//			if (checkElementExist(AMDOnboardingScreen.objTellUsMore, "More info Screen")) {
+//				if (checkElementExist(AMDLoginScreen.objEmailIdField, "Email Id field")) {
+//					type(AMDLoginScreen.objEmailIdField, "zeetest@gmail.com", "Email Id field");
+//				}
+//				verifyElementPresentAndClick(AMDLoginScreen.objDOB, "Date of Birth");
+//				verifyElementPresentAndClick(AMDLoginScreen.objDate, "Date");
+//				verifyElementPresentAndClick(AMDLoginScreen.objDateOK, "OK button");
+//				verifyElementPresentAndClick(AMDLoginScreen.objGender, "Gender Field");
+//				verifyElementPresentAndClick(AMDLoginScreen.objGenderMale, "Male");
+//				verifyElementExist(AMDLoginScreen.objSubmitButton, "Submit Button");
+//			}
+			if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
+				logger.info("User logged in successfully");
+				extent.extentLogger("Login", "User logged in successfully");
+				verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+				Swipe("UP", 2);
+				verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
+				verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout Button");
+				waitTime(5000);
+				Swipe("Down", 2);
+				verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
+			} else {
+				logger.info("Pre conditions not met, Account is not logged In");
+				extentLoggerWarning("Twitter", "Pre conditions not met, Account is not logged In");
+				Back(1);
+			}
+			verifyElementPresentAndClick(AMDLoginScreen.objfbBtn, "Facebook icon");
+			waitTime(5000);
+//			if (checkElementExist(AMDLoginScreen.objFBLogIntoAnotherAccount, "Log Into Another Account")) {
+//				click(AMDLoginScreen.objFBLogIntoAnotherAccount, "Log Into Another Account");
+//				if (checkElementExist(AMDLoginScreen.objFBEmail, "Email Id field")) {
+//					click(AMDLoginScreen.objFBEmail, "Email Id field");
+//					type(AMDLoginScreen.objFBEmail, "igszeefive@gmail.com", "Email Id field");
+//					verifyElementPresentAndClick(AMDLoginScreen.objFBPassword, "Password Field");
+//					type(AMDLoginScreen.objFBPassword, "zeefive@igs", "Password field");
+//					verifyElementPresentAndClick(AMDLoginScreen.objFBLoginBtn, "Login Button");
+//				}
+//			} else if (checkElementExist(AMDLoginScreen.objFBEmail, "Email Id field")) {
 //				click(AMDLoginScreen.objFBEmail, "Email Id field");
 //				type(AMDLoginScreen.objFBEmail, "igszeefive@gmail.com", "Email Id field");
 //				verifyElementPresentAndClick(AMDLoginScreen.objFBPassword, "Password Field");
 //				type(AMDLoginScreen.objFBPassword, "zeefive@igs", "Password field");
 //				verifyElementPresentAndClick(AMDLoginScreen.objFBLoginBtn, "Login Button");
 //			}
-//		} else if (checkElementExist(AMDLoginScreen.objFBEmail, "Email Id field")) {
-//			click(AMDLoginScreen.objFBEmail, "Email Id field");
-//			type(AMDLoginScreen.objFBEmail, "igszeefive@gmail.com", "Email Id field");
-//			verifyElementPresentAndClick(AMDLoginScreen.objFBPassword, "Password Field");
-//			type(AMDLoginScreen.objFBPassword, "zeefive@igs", "Password field");
-//			verifyElementPresentAndClick(AMDLoginScreen.objFBLoginBtn, "Login Button");
-//		}
+			if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
+				logger.info("User logged in successfully");
+				extent.extentLoggerPass("Login", "User logged in successfully");
+				verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+				Swipe("UP", 1);
 
-		if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
-			logger.info("User logged in successfully");
-			extent.extentLoggerPass("Login", "User logged in successfully");
-		} else {
-			logger.info("Pre conditions not met, Account is not logged In");
-			extentLogger("Facebook", "Pre conditions not met, Account is not logged In");
-		}
-
-		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-		Swipe("UP", 1);
-
-		verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
-		verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout Button");
-		waitTime(5000);
-		Swipe("Down", 2);
-		verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
-
-		if (checkElementExist(AMDOnboardingScreen.objTellUsMore, "More info Screen")) {
-			if (checkElementExist(AMDLoginScreen.objEmailIdField, "Email Id field")) {
-				type(AMDLoginScreen.objEmailIdField, "zeetest@gmail.com", "Email Id field");
+				verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
+				verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout Button");
+				waitTime(5000);
+				Swipe("Down", 2);
+				verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
+			} else {
+				logger.info("Pre conditions not met, Account is not logged In");
+				extentLoggerWarning("Facebook", "Pre conditions not met, Account is not logged In");
+				Back(1);
 			}
-			verifyElementPresentAndClick(AMDLoginScreen.objDOB, "Date of Birth");
-			verifyElementPresentAndClick(AMDLoginScreen.objDate, "Date");
-			verifyElementPresentAndClick(AMDLoginScreen.objDateOK, "OK button");
-			verifyElementPresentAndClick(AMDLoginScreen.objGender, "Gender Field");
-			verifyElementPresentAndClick(AMDLoginScreen.objGenderMale, "Male");
-			verifyElementExist(AMDLoginScreen.objSubmitButton, "Submit Button");
-			Back(1);
+//			if (checkElementExist(AMDOnboardingScreen.objTellUsMore, "More info Screen")) {
+//				if (checkElementExist(AMDLoginScreen.objEmailIdField, "Email Id field")) {
+//					type(AMDLoginScreen.objEmailIdField, "zeetest@gmail.com", "Email Id field");
+//				}
+//				verifyElementPresentAndClick(AMDLoginScreen.objDOB, "Date of Birth");
+//				verifyElementPresentAndClick(AMDLoginScreen.objDate, "Date");
+//				verifyElementPresentAndClick(AMDLoginScreen.objDateOK, "OK button");
+//				verifyElementPresentAndClick(AMDLoginScreen.objGender, "Gender Field");
+//				verifyElementPresentAndClick(AMDLoginScreen.objGenderMale, "Male");
+//				verifyElementExist(AMDLoginScreen.objSubmitButton, "Submit Button");
+//				Back(1);
+//			}
 		}
 	}
 

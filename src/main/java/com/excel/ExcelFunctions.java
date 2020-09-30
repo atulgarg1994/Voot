@@ -20,7 +20,6 @@ public class ExcelFunctions {
 			try {
 				FileInputStream fis = new FileInputStream(xlPath);
 				Workbook wb = WorkbookFactory.create(fis);
-
 				Sheet s = wb.getSheet(sheet);
 				rc = s.getLastRowNum();
 			} catch (Exception e) {

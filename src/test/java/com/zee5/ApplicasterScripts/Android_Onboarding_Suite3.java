@@ -27,24 +27,23 @@ public class Android_Onboarding_Suite3 {
 		ZEE5ApplicasterBusinessLogic.subscribeNowSceanrios(userType);
 	}
 	
-
 	@Test(priority = 2)	// Shreenidhi and Bindu==Scenarios only for Guest user
 	@Parameters({ "userType", "loginThrough" }) 
 	public void mobileRegistration(String userType, String loginThrough) throws Exception {
 		System.out.println("\nMOBILE REGISTRATION");
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.mobileRegistration(loginThrough);
+		ZEE5ApplicasterBusinessLogic.mobileRegistration(loginThrough, userType);
 	}
 	
 	
 	@Test(priority = 3)		// Manasa
-	@Parameters({ "loginThrough" })
-	public void socialLoginValidation(String loginThrough) throws Exception {
+	@Parameters({ "userType","loginThrough" })
+	public void socialLoginValidation(String userType, String loginThrough) throws Exception {
 		System.out.println("\nVerify Social login");
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
-		ZEE5ApplicasterBusinessLogic.socialLoginValidation(loginThrough);
+		ZEE5ApplicasterBusinessLogic.socialLoginValidation(loginThrough, userType);
 	}
 	
 	@AfterTest

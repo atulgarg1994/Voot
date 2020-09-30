@@ -6,6 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -20,12 +24,14 @@ public class Mixpanel {
 	/**
 	 * Global variables
 	 */
-	static String sheet = "Sheet1";
-	static String fileName = "Mixpanel_2";
+	static String sheet = "Skip Login_1";
+	static String fileName = "Mixpanel_3";
 	static String xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
 
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
-		fetchEvent("5d94e150a85711e9a4028141f97a2ff1", "Video View");
+		creatExcel();
+//		fetchEvent("1cb23b7026466d01c474222e021ffc33", "Skip Login");
+//		validation();
 	}
 
 	/**
@@ -42,7 +48,7 @@ public class Mixpanel {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime now = LocalDateTime.now();
 		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
-		currentDate = "2020-09-28";
+//		currentDate = "2020-09-28";
 		Response request = RestAssured.given().auth().preemptive().basic("58baafb02e6e8ce03d9e8adb9d3534a6", "")
 				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
 				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
@@ -54,7 +60,7 @@ public class Mixpanel {
 		if (request != null) {
 			String response = request.asString();
 			String s[] = response.split("\n");
-			parseResponse(s[s.length - 10]);
+			parseResponse(s[s.length - 1]);
 		}
 	}
 
@@ -66,7 +72,7 @@ public class Mixpanel {
 	public static void parseResponse(String response) {
 		String commaSplit[] = response.replace("\"properties\":{", "").replace("}", "")
 				.replaceAll("[.,](?=[^\\[]*\\])", "-").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-		creatExcel(); // Create an excel file
+//		creatExcel(); // Create an excel file
 		for (int i = 0; i < commaSplit.length; i++) {
 			if (i != 0) {
 				String com[] = commaSplit[i].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
@@ -81,12 +87,11 @@ public class Mixpanel {
 	 */
 	public static void creatExcel() {
 		try {
-			File file = new File(System.getProperty("user.dir") + "\\" + fileName + ".xlsx");
-			if (!file.exists()) {
+			File file = new File(xlpath);
+			if (file.exists()) {
 				XSSFWorkbook workbook = new XSSFWorkbook();
 				workbook.createSheet(sheet); // Create sheet
-				FileOutputStream fos = new FileOutputStream(
-						new File(System.getProperty("user.dir") + "\\" + fileName + ".xlsx"));
+				FileOutputStream fos = new FileOutputStream(new File(xlpath));
 				workbook.write(fos);
 				workbook.close();
 			}
@@ -117,5 +122,44 @@ public class Mixpanel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Validation
+	 */
+	public static void validation() {
+		int row = getRowCount();
+		System.out.println(row);
+		for (int i = 1; i < row; i++) {
+			try {
+				XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
+				XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
+				String value = myExcelSheet.getRow(i).getCell(1).toString();
+				if (value.trim().isEmpty()) {
+					String key = myExcelSheet.getRow(i).getCell(0).toString();
+					System.out.println("Paramter is empty :- Key:" + key + " - value" + value);
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+	}
+
+	/**
+	 * Get Row count
+	 */
+	// Generic method to return the number of rows in the sheet.
+	public static int getRowCount() {
+		int rc = 0;
+		try {
+			System.out.println(xlpath);
+			FileInputStream fis = new FileInputStream(xlpath);
+			Workbook wb = WorkbookFactory.create(fis);
+			Sheet s = wb.getSheet(sheet);
+			rc = s.getLastRowNum();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rc;
 	}
 }
