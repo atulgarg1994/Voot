@@ -10,7 +10,7 @@ import com.utility.Utilities;
 public class Android_ListingScreen {
 
 	private Zee5ApplicasterBusinessLogic ZEE5ApplicasterBusinessLogic;
-	
+
 	@BeforeTest
 	public void AppLaunch() throws InterruptedException {
 		System.out.println("Launching andriod App");
@@ -25,21 +25,21 @@ public class Android_ListingScreen {
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 	}
-	
-	@Test(priority = 1)	 
+
+	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void ListingCollection_EntryPoints(String userType) throws Exception {
-	    ZEE5ApplicasterBusinessLogic.ListingCollectionValidationFromLandingScreen(userType);
-	    ZEE5ApplicasterBusinessLogic.ListingCollectionValidationFromConsumptionScreen(userType);
+		ZEE5ApplicasterBusinessLogic.ListingCollectionValidationFromLandingScreen(userType);
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.ListingCollectionValidationFromConsumptionScreen(userType);
 	}
 
-	@Test(priority = 2)	 
+	@Test(priority = 2)
 	@Parameters({ "userType" })
 	public void ListingCollection(String userType) throws Exception {
-	    ZEE5ApplicasterBusinessLogic.ListingCollectionVerification(userType);
+		ZEE5ApplicasterBusinessLogic.ListingCollectionVerification(userType);
 	}
 
-	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("\nExecution Complete - Closing the App");

@@ -7933,7 +7933,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 
 			System.out.println(getText(AMDHomePage.objSelectedTab) + " Landing Screen");
-
+			
 			waitTime(3000);
 			if (verifyIsElementDisplayed(AMDGenericObjects.objFirstTrayTitle)) {
 				loadingIcon = false;
@@ -7960,6 +7960,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 							getTrayName = getText(AMDGenericObjects.objFirstTrayTitle);
 							click(AMDGenericObjects.objFirstTrayTitle, getText(AMDGenericObjects.objFirstTrayTitle));
 						} else {
+							if(tabName.contains("Music")) {
+								PartialSwipe("UP", 2);
+								waitTime(2000);
+							}
 							getTrayName = getText(AMDGenericObjects.objTrayTitleByIndx(noOfTrays));
 							click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
 						}
@@ -7998,7 +8002,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			if (tabName.equalsIgnoreCase("Live TV")) {
 				liveTV = true;
 			}
-
 		}
 	}
 
@@ -8125,13 +8128,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					waitForElementDisplayed(AMDGenericObjects.objFirstTrayTitle, 3000);
 				}
 				if (userType.contains("Guest") | userType.contains("NonSubscribedUser")) {
-					waitTime(2000);
+					waitTime(3000);
 					if (verifyIsElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
 						click(AMDGenericObjects.objPopUpDivider, "Subcription Pop Up");
 						extent.extentLoggerPass("Subscription PopUp", userType
 								+ "Subcription PopUp is displayed in the comsumption screen and popup is closed");
 						logger.info("Subcription PopUp is displayed in the comsumption screen and popup is closed");
 					}
+					registerPopUpClose();
+					completeProfilePopUpClose(pUserType);
 				}
 				if (tabName.contains("News") | tabName.contains("Live TV")) {
 					extent.extentLoggerPass("Listing Trays",
