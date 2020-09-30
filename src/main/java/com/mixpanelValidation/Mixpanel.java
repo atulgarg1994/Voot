@@ -1,17 +1,8 @@
 package com.mixpanelValidation;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.jayway.restassured.RestAssured;
@@ -62,10 +53,9 @@ public class Mixpanel {
 		request.print();
 		sheet = eventName.trim();
 		if (request != null) {
-			String response = request.asString();
-			String s[] = response.split("\n");
+//			String response = request.asString();
+//			String s[] = response.split("\n");
 //			parseResponse(s[s.length - 1]);
 		}
 	}
-
 }

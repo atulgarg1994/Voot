@@ -32,11 +32,11 @@ public class AMDWatchlistPage {
 	public static By objContentThumbnail = By.xpath("//*[@id='img_reminder_item']");
 	
 	public static By objTabs(int i) {
-		return By.xpath("(//*[@class='android.support.v7.app.ActionBar$b']//*[@class='android.widget.TextView'])["+i+"]");
+		return By.xpath("(//*[@id='tabLayout']//*[@class='android.widget.TextView'])["+i+"]");
 	}
 	
-	public static By objNumberOfTabs = By.xpath("//*[@class='android.support.v7.app.ActionBar$b']");
-	
+	public static By objNumberOfTabs = By.xpath("(//*[@id='tabLayout']//*[@class='android.widget.TextView'])");
+
 	public static By objDurationtxt = By.xpath("(//*[@id='episodsList']//*[@id='txt_episode_duration'])[1]");
 	
 	public static By objTitleTxt = By.xpath("(//*[@id='episodsList']//*[@id='txt_reminder_item_title'])[1]");

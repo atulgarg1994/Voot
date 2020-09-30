@@ -270,7 +270,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void mobileRegistration(String loginThrough, String userType) throws Exception {
-		if(userType.equalsIgnoreCase("Guest")) {
+		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Mobile Registration From Intro screen loginlink");
 			click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
 			click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in content language screen");
@@ -693,7 +693,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void subscribeEntryPointsValidations(String userType) throws Exception {
-
 		if (userType.equals("Guest")) {
 			HeaderChildNode("Entry points");
 			waitTime(10000);
@@ -967,14 +966,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDHomePage.objSearchBtn, "Search button");
 			waitTime(5000);
 			click(AMDSearchScreen.objSearchEditBox, "Search box");
-			type(AMDSearchScreen.objSearchBoxBar, "Karan takes Mahira for the ritual - Kundali Bhagya \n",
-					"Search field");
+			type(AMDSearchScreen.objSearchBoxBar, "Janki follows Pawan - Kundali Bhagya", "Search field");
 			hideKeyboard();
 			waitTime(7000);
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result premium content");
 			waitTime(5000);
-			verifyElementExist(
-					AMDSearchScreen.objContentNameInPlayer("Karan takes Mahira for the ritual - Kundali Bhagya"),
+			verifyElementExist(AMDSearchScreen.objContentNameInPlayer("Janki follows Pawan - Kundali Bhagya"),
 					"Content name in player");
 			click(AMDHomePage.objGetClubInConsumptionScreen, "Upgrade button");
 			verifyElementExist(AMDSearchScreen.objUpgradePopup, "Upgrade popup for RSVOD user");
@@ -2153,7 +2150,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println(noOfTrays);
 		boolean TrendingSearchFound = false;
 		for (int i = 1; i <= noOfTrays; i++) {
-			String traytitle = getDriver().findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[" + i + "]"))
+			String traytitle = getDriver()
+					.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[" + i + "]"))
 					.getText();
 			if (traytitle.equalsIgnoreCase("Trending Searches")) {
 				TrendingSearchFound = true;
@@ -2762,7 +2760,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void socialLoginValidation(String loginThrough, String usertype) throws Exception {
-		if(usertype.equalsIgnoreCase("Guest")) {
+		if (usertype.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Social Login Validation");
 			verifyElementPresentAndClick(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
 			verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn,
@@ -2778,19 +2776,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //				verifyElementPresentAndClick(AMDLoginScreen.objGmailPasswordField, "Password Field");
 //				type(AMDLoginScreen.objGmailPasswordField, "zeetest123", "Password Field");
 //				verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
-	//
+			//
 //				if (checkElementExist(AMDLoginScreen.objGmailAddPhoneNumber, "Add Phone Number")) {
 //					verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip Button");
 //				}
 //				if (checkElementExist(AMDLoginScreen.objAgreeBtn, "Agree Button")) {
 //					click(AMDLoginScreen.objAgreeBtn, "Agree Button");
 //				}
-	//
+			//
 //				if (checkElementExist(AMDLoginScreen.objAcceptBtn, "Accept Button")) {
 //					click(AMDLoginScreen.objAcceptBtn, "Accept Button");
 //				}
 //			}
-	//
+			//
 //			if (checkElementExist(AMDLoginScreen.objGmailAccount, "Gmail Account")) {
 //				click(AMDLoginScreen.objGmailAccount, "Gmail Account");
 //				waitTime(5000);
@@ -2853,7 +2851,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //					verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
 //				}
 //			}
-	//
+			//
 //			if (checkElementExist(AMDOnboardingScreen.objTellUsMore, "More info Screen")) {
 //				if (checkElementExist(AMDLoginScreen.objEmailIdField, "Email Id field")) {
 //					type(AMDLoginScreen.objEmailIdField, "zeetest@gmail.com", "Email Id field");
@@ -6031,9 +6029,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				"Today's Headlines tray", "MastheadCarousel", userType, "News");
 		findingTrayInscreen(10, AMDHomePage.objTrayTitle("Entertainment News"), AMDHomePage.objCarouselConetentCard,
 				"Entertainment News tray", "MastheadCarousel", userType, "News");
-		findingTrayInscreen(4, AMDHomePage.objTrayTitle("Live News"), AMDHomePage.objCarouselConetentCard,
+		findingTrayInscreen(10, AMDHomePage.objTrayTitle("Live News"), AMDHomePage.objCarouselConetentCard,
 				"Live News tray", "MastheadCarousel", userType, "News");
-		findingTrayInscreen(7, AMDHomePage.objTrayTitle("Top Stories"), AMDHomePage.objCarouselConetentCard,
+		findingTrayInscreen(20, AMDHomePage.objTrayTitle("Top Stories"), AMDHomePage.objCarouselConetentCard,
 				"Top Stories tray", "MastheadCarousel", userType, "News");
 
 		if (userType.equals("Guest")) {
@@ -6053,14 +6051,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementPresent(AMDNewsPage.objRightArrowBtn, "Right arrow");
 			click(AMDNewsPage.objRightArrowBtn, "Right arrow");
 			waitTime(4000);
-			if (verifyElementPresent(AMDNewsPage.objListingScreen, "Screen Header")) {
-				logger.info("Listing Collection Screen is displayed by clicking on right arrow for the trays");
-				extent.extentLoggerPass("Listing Collection screen",
-						"Listing Collection Screen is displayed by clicking on right arrow for the trays");
+			String Header = getDriver().findElement(AMDNewsPage.objListingScreen).getText();
+			logger.info(Header);
+			if (checkElementExist(AMDNewsPage.objListingScreen, "Listing Screen Header")) {
+				logger.info(Header
+						+ " : User navigated to collection listing screen tapping on the arrow present on the right side of the tray"
+						+ userType);
+				extent.extentLoggerPass("Listing Screen", Header
+						+ " : User navigated to collection listing screen tapping on the arrow present on the right side of the tray"
+						+ userType);
 			} else {
-				logger.error("Listing Collection Screen is not displayed by clicking on right arrow for the trays");
-				extent.extentLoggerFail("Listing Collection screen",
-						"Listing Collection Screen is not displayed by clicking on right arrow for the trays");
+
+				logger.info("User fails to navigate to collection listing screen");
+				extent.extentLoggerFail("Listing Screen", "User fails to navigate to collection listing screen");
 			}
 			if (!(verifyIsElementDisplayed(AMDNewsPage.objMetaData))) {
 				logger.info("MetaData like Title,Year,Duration is not displayed in listing collection screen");
@@ -7933,7 +7936,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 
 			System.out.println(getText(AMDHomePage.objSelectedTab) + " Landing Screen");
-			
+
 			waitTime(3000);
 			if (verifyIsElementDisplayed(AMDGenericObjects.objFirstTrayTitle)) {
 				loadingIcon = false;
@@ -7960,7 +7963,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 							getTrayName = getText(AMDGenericObjects.objFirstTrayTitle);
 							click(AMDGenericObjects.objFirstTrayTitle, getText(AMDGenericObjects.objFirstTrayTitle));
 						} else {
-							if(tabName.contains("Music")) {
+							if (tabName.contains("Music")) {
 								PartialSwipe("UP", 2);
 								waitTime(2000);
 							}
@@ -10744,6 +10747,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		// Verify the back button functionality
 
 		verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
+		Swipe("Down", 1);
 		if (verifyElementExist(AMDMoreMenu.objProfile, "Profile icon")) {
 			extent.extentLoggerPass("Verify navigation",
 					"User is navigate back to More menu screen post tapping back button from Subscribe screen");
@@ -10762,7 +10766,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDMoreMenu.objMoreMenuIcon, "More tab screen");
 
 		// Verify user name is displayed
-		if (verifyElementPresent(AMDMoreMenu.objUserName, "User name")) {
+		boolean userName = verifyIsElementDisplayed(AMDMoreMenu.objUserName);
+		if (userName) {
 			String profileName = getText(AMDMoreMenu.objUserName);
 			extent.extentLoggerPass("Verify profile name is displayed",
 					"Profile name for the logged in user is :" + profileName);
@@ -10773,7 +10778,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("Profile name is not diaplayed for the logged in user");
 		}
 		// Verify Email id displayed
-		if (verifyIsElementDisplayed(AMDMoreMenu.objLoginRegisterText)) {
+		boolean registerLogin = verifyIsElementDisplayed(AMDMoreMenu.objLoginRegisterText);
+		if (registerLogin) {
 			String EmailID = getText(AMDMoreMenu.objLoginRegisterText);
 			extent.extentLoggerPass("Verify Email ID is displayed", "Email ID for the logged in user is :" + EmailID);
 			logger.info("Email ID for the logged in user is :" + EmailID);
@@ -10786,7 +10792,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (userType.equals("SubscribedUser")) {
 			extent.HeaderChildNode("Plan Info unit validations for" + userType);
 			// verify plan info unit is displayed
-			if (verifyIsElementDisplayed(AMDMyProfileScreen.aobjAccessPackDetailsInfo)) {
+			boolean accessPackDetails = verifyIsElementDisplayed(AMDMyProfileScreen.aobjAccessPackDetailsInfo);
+			if (accessPackDetails) {
 				extent.extentLoggerPass("Verify access details pack unit",
 						"Plan Info unit is displayed for the Subscribed user");
 				logger.info("Plan Info unit is displayed for the Subscribed user");
@@ -10823,7 +10830,37 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						"Plan Info unit is not displayed for the Subscribed user");
 				logger.info("Plan Info unit is  not displayed for the Subscribed user");
 			}
-			Back(1);
+			if (userType.equals("SubscribedUser")) {
+				int PacksName = getDriver().findElements(AMDProfileScreen.objPackName).size();
+				if (PacksName == 1) {
+					String Pack = getText(AMDProfileScreen.objPackName(1));
+					if (Pack.equalsIgnoreCase("Premium Pack")) {
+						extent.extentLogger("Pack Name", "Only Premium pack is activated for the logged in user");
+						logger.info("Only Premium pack is activated for the logged in user");
+					} else {
+						extent.extentLogger("Pack Name", "Only RSVOD pack is activated for the logged in user");
+						logger.info("Only RSVOD pack is activated for the logged in user");
+					}
+					Back(1);
+				} else {
+					for (int i = 1; i <= PacksName; i++) {
+						String Pack = getText(AMDProfileScreen.objPackName(i));
+						extent.extentLogger("PackName", "Pack Name : " + Pack);
+						logger.info("Pack Name : " + Pack);
+					}
+					Back(1);
+					String packNameInAccountDetails = getText(AMDProfileScreen.objSubsPlanNameTxt);
+					if (packNameInAccountDetails.contains("Premium Pack")) {
+						extent.extentLoggerPass("Priority",
+								"Premium pack is displayed over RSVOD pack in Account details screen");
+						logger.info("Premium pack is displayed over RSVOD pack in Account details screen");
+					} else {
+						extent.extentLoggerFail("Priority",
+								"Premium pack is not displayed over RSVOD pack in Account details screen");
+						logger.info("Premium pack is not displayed over RSVOD pack in Account details screen");
+					}
+				}
+			}
 		}
 		ChangePasswordScreen();
 		MobileAndOTPScreenValidations();
@@ -10833,7 +10870,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		EditProfileScreen(userType);
 		SocialLoginValidationsForEditProfileScreen(userType);
 		Back(1);
-		Swipe("Down", 1);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDHomePage.objLogout, "Logout");
+		verifyElementPresentAndClick(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
+		Swipe("DOWN", 1);
+		click(AMDMoreMenu.objLoginRegisterText, "Login/Register link");
+		if (userType.equals("NonSubscribedUser")) {
+			LoginWithEmailID(NonsubscribedUserName, NonsubscribedPassword);
+		} else if (userType.equals("SubscribedUser")) {
+			LoginWithEmailID(SubscribedUserName, SubscribedPassword);
+		}
+		click(AMDMoreMenu.objMoreMenuIcon, "More tab screen");
 	}
 
 	/**
@@ -11222,7 +11269,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		case "SocialLogin": // extent.HeaderChildNode("Social Media login - Google account login");
 			verifyElementPresentAndClick(AMDLoginScreen.objGoogleBtn, "Gmail icon");
-			if (checkElementExist(AMDLoginScreen.objGmailAccount, "Gmail Account")) {
+			boolean isAccount = verifyIsElementDisplayed(AMDLoginScreen.objGmailAccount);
+			if (isAccount) {
 				click(AMDLoginScreen.objGmailAccount, "Gmail Account");
 				waitTime(5000);
 			} else if (verifyElementPresent(AMDLoginScreen.objGmailSignIn, "Gmail Sign In")) {
@@ -11233,24 +11281,21 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				type(AMDLoginScreen.objGmailPasswordField, "zeetest123", "Password Field");
 				verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
 
-				if (verifyElementPresent(AMDLoginScreen.objGmailAddPhoneNumber, "Add Phone Number")) {
+				if (verifyIsElementDisplayed(AMDLoginScreen.objGmailAddPhoneNumber)) {
 					verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip Button");
 				}
-				if (verifyElementPresent(AMDLoginScreen.objAgreeBtn, "Agree Button")) {
+				if (verifyIsElementDisplayed(AMDLoginScreen.objAgreeBtn)) {
 					click(AMDLoginScreen.objAgreeBtn, "Agree Button");
 				}
-
-				if (verifyElementPresent(AMDLoginScreen.objAcceptBtn, "Accept Button")) {
+				if (verifyIsElementDisplayed(AMDLoginScreen.objAcceptBtn)) {
 					click(AMDLoginScreen.objAcceptBtn, "Accept Button");
 				}
 			}
-
-			if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
+			if (verifyIsElementDisplayed(AMDHomePage.objHome)) {
 				logger.info("User logged in successfully");
 				extent.extentLogger("Login", "User logged in successfully using Google account");
 			}
 			break;
-
 		}
 	}
 
