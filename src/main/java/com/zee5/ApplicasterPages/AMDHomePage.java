@@ -13,7 +13,7 @@ public class AMDHomePage {
 	public static By objSubscribeTeaser = By.xpath("//*[@text='SUBSCRIBE']");
 
 	// Search Button
-	public static By objSearchBtn= By.xpath("((//*[@id='title'] | //*[@id='logo'])//following::*)[1]");
+	public static By objSearchBtn = By.xpath("((//*[@id='title'] | //*[@id='logo'])//following::*)[1]");
 
 	public static By objTitle = By.xpath("//*[@id='title']");
 
@@ -199,8 +199,18 @@ public class AMDHomePage {
 			.xpath("//*[@resource-id='com.graymatrix.did:id/get_premium_button']");
 	public static By objGetPremiumCTAOnCarosel = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/get_premium_hero_component']");
-	
+
 	public static By objBottomNavigation(String tabName) {
-		return By.xpath("//*[@id='bb_bottom_bar_title' and @text='"+tabName+"']");
+		return By.xpath("//*[@id='bb_bottom_bar_title' and @text='" + tabName + "']");
 	}
+
+	public static By objContinueWatchingTrayContentCard = By
+			.xpath("(//*[@text='Continue Watching']/parent::*/parent::*/following-sibling::*/child::*/child::*)[1]");
+
+	public static By objCWTrayContent = By.xpath(
+			"(//*[@text='Continue Watching']/parent::*/parent::*/following-sibling::*/child::*/child::*/child::*/following-sibling::*)[1]");
+
+	public static By objRemoveItem = By.xpath("(//*[@id='item_remove'])[1]");
+
+	public static By objPremiumBtn = By.xpath("//*[@id='get_premium_hero_component']");
 }

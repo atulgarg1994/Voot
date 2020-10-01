@@ -25,7 +25,7 @@ public class Android_MoreScreen {
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 	}
 
-	@Test(priority = 1) // Vinay 
+	@Test(priority = 1) // Vinay
 	@Parameters({ "userType" })
 	public void AccountDetails(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.AccountDetails(userType);

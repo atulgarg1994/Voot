@@ -615,8 +615,12 @@ public class PWAHamburgerMenuPage {
 	public static By objAboutUsinKannada2 = By.xpath("//div[@class='menuGroup active'][2]//a[1]");
 
 	public static By objMyProfile = By.xpath("//div[contains(@class,'userEmail')]");
-	
-	public static By carouselDot (int i) {
-		return By.xpath("(//*[contains(@class,'carouselDots')])["+i+"]");
+
+	public static By carouselDot(int i) {
+		return By.xpath("(//*[contains(@class,'carouselDots')])[" + i + "]");
 	}
+
+	public static By objRestrict13PlusContent = By.xpath("//div[contains(text(),'Restrict 13+ Content')]");
+
+	public static By objContinueButton = By.xpath("//span[contains(text(),'Continue')]");
 }

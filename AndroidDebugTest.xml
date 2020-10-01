@@ -70,6 +70,7 @@
 	<parameter name="tabName1" value="Home" />
 	<parameter name="tabName2" value="Movies" />
 	<parameter name="tabName3" value="ZEE5 Originals" />
+	<parameter name="tabName4" value="Live TV" />
 
 	<parameter name="VideoQuality" value="Data saver" />	<!-- Data saver/Good/Better/Best -->
 	<parameter name="MovieName" value="O God Ganesha 2" />

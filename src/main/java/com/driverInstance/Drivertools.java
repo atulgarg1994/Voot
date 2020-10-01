@@ -260,7 +260,7 @@ public class Drivertools {
 			System.out.println("<<<<<<---- Network is Down  ---->>>>>>>");
 			System.exit(0);
 		}
-System.out.println("Platform is" + getPlatform());
+		
 		if (getPlatform().equals("Web")) {
 			if (getURL().equals("https://newpwa.zee5.com/")) {
 				setENV(getURL());

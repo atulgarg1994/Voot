@@ -42,6 +42,7 @@ public class ExtentReporter implements ITestListener {
 	public static String filePath;
 	public static String fileName;
 	private static String AppVersion;
+	public static String ReportName;
 
 	/** The Constant logger. */
 //	final static Logger logger = Logger.getLogger("rootLogger");
@@ -135,6 +136,7 @@ public class ExtentReporter implements ITestListener {
 		if ((Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals)
 				&& DriverInstance.startTest) || result.getName().equals("Login")
 				|| result.getName().equals("PWAWEBLogin")) {
+			ReportName = result.getName();
 			logger.info(":::::::::Test " + result.getName() + " Started::::::::");
 			test.set(extent.get().createTest(result.getName(),DriverInstance.getENvironment()));
 //			ExcelUpdate.creatExcel();

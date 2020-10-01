@@ -420,7 +420,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWALoginPage.objLoginLink, "Login Link");
 			waitForElement(PWALoginPage.objSkip, 10, "Skip Login");
 			click(PWALoginPage.objSkip, "Skip Login");
-
+			waitTime(2000);
+			Back(1);
 		}
 	}
 
@@ -437,16 +438,18 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWALoginPage.objLoginCTAInPremiumPopup, "Login CTA");
 			waitForElement(PWALoginPage.objSkip, 20, "Skip Login");
 			click(PWALoginPage.objSkip, "Skip Login");
-
+			waitTime(2000);
+			Back(2);
 		}
 	}
 
 	public void verifySkipRegistrationEvent(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Skip Registration Event");
-			verifyElementPresentAndClick(PWALoginPage.objSignUpBtnWEB, "Sign Up for Free button");
+			click(PWALoginPage.objLoginBtnWEB, "Login button");
 			waitTime(3000);
-			verifyElementPresentAndClick(PWALoginPage.objCloseRegisterPopup, "Skip Registration");
+			click(PWALoginPage.objRegisterLink, "Register Link");
+			verifyElementPresentAndClick(PWALoginPage.objSkip, "Skip Registration");
 		}
 	}
 
@@ -592,13 +595,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 		else {
 			verifyElementPresent(PWALoginPage.objTwitterEmaildField, " Email Field");
-			type(PWALoginPage.objTwitterEmaildField, "Zee5latest@gmail.com", "Emial Field");
+			type(PWALoginPage.objTwitterEmaildField, "zee5latest@gmail.com", "Email Field");
 
 			verifyElementPresent(PWALoginPage.objTwitterPasswordField, " Password Field");
 			type(PWALoginPage.objTwitterPasswordField, "User@123", "Password Field");
 
 			verifyElementPresentAndClick(PWALoginPage.objTwitterSignInButton, "Login Button");
-			getWebDriver().close();
 			switchToParentWindow();
 			waitForElementDisplayed(PWALandingPages.objWebProfileIcon, 20);
 			if (checkElementDisplayed(PWALandingPages.objWebProfileIcon, "Profile icon")) {
@@ -614,12 +616,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void verifyLoginInitiatedEventForValidCredentials(String userType) throws Exception {
+	public void socialLogin(String LoginMethod) throws Exception {
+		switch (LoginMethod) {
+
+		case "twitterLogin":
+			twitterLogin();
+			waitTime(3000);
+			break;
+
+		case "fbLogin":
+			facebookLogin();
+			waitTime(3000);
+			break;
+
+		}
+	}
+
+	public void verifyLoginInitiatedEventForValidCredentials(String userType, String loginMethod) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Initiated Event for Valid Credentials");
-			twitterLogin();
-			facebookLogin();
-			phoneNumberRegistration();
+			socialLogin(loginMethod);
 		}
 	}
 
@@ -649,7 +665,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			}
 			verifyElementPresent(PWASubscriptionPages.objLoginLinkInPlayer, "Login link");
 			JSClick(PWASubscriptionPages.objLoginLinkInPlayer, "Login link");
+			waitTime(2000);
 			Back(1);
+			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
+				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
+			}
 		}
 	}
 
@@ -658,9 +678,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode(
 					"Verify Login Screen Display Event By Clicking On Login Button In Registartion Screen");
-
-			click(PWALoginPage.objSignUpBtnWEB, "Sign Up For Free");
-			verifyElementPresentAndClick(PWALoginPage.objLoginLink, "Login link");
+			click(PWALoginPage.objWebLoginBtn, "Login button");
+			click(PWALoginPage.objRegisterLink, "Register link");
+			JSClick(PWALoginPage.objLoginLink, "Login link");
 			Back(1);
 		}
 	}
@@ -686,6 +706,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
+	public void verifyCarouselBannerClickEvent(String tabName) throws Exception {
+		extent.HeaderChildNode(
+				"Verify Carousel Banner Click Event And Video View Event For content played from Carousel");
+		navigateToAnyScreenOnWeb(tabName);
+		waitTime(5000);
+		verifyElementPresentAndClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+
+	}
+
 	public void verifyCarouselBannerClickEventAndVideoViewEvent(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode(
 				"Verify Carousel Banner Click Event And Video View Event For content played from Carousel");
@@ -703,6 +732,45 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		Back(1);
 
 		click(PWAHomePage.objZeeLogo, "Zee Logo");
+	}
+
+	public void verifyThumbnailClickEventFromTray(String tabName) throws Exception {
+		extent.HeaderChildNode("Verify Thumbnail Click Event For content played from trays");
+		navigateToAnyScreenOnWeb(tabName);
+		waitTime(5000);
+		verifyElementPresentAndClick(PWAPremiumPage.objThumbnail, "Thumbnail from a tray");
+	}
+
+	public void verifyThumbnailClickEventFromViewMorePage(String tabName) throws Exception {
+		extent.HeaderChildNode("Verify Thumbnail Click Event For content played from trays");
+		navigateToAnyScreenOnWeb(tabName);
+		waitTime(5000);
+		click(PWAPremiumPage.objViewAllBtn, "View All Button");
+		verifyElementPresentAndClick(PWAPremiumPage.objThumbnail, "Thumbnail from View More Page");
+
+	}
+
+	public void verifyThumbnailClickEventFromShowDetailPage(String keyword) throws Exception {
+		extent.HeaderChildNode("Verify Thumbnail Click Event From Show Detail Page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+		waitTime(4000);
+		click(PWASearchPage.objSearchResult(keyword), "Search Result");
+
+		verifyElementPresentAndClick(PWAPremiumPage.obj1stContentInShowDetailPage, "Thumbnail from Show detail page");
+	}
+
+	public void verifyThumbnailClickEventFromPlaybackPage(String keyword, String userType) throws Exception {
+		extent.HeaderChildNode("Verify Thumbnail Click Event From Playback Page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+		waitTime(4000);
+		click(PWASearchPage.objSearchResult(keyword), "Search Result");
+
+		click(PWAPremiumPage.obj1stContentInShowDetailPage, "Thumbnail");
+		mandatoryRegistrationPopUp(userType);
+		verifyElementPresentAndClick(PWAPremiumPage.obj1stContentInShowDetailPage, "Thumbnail from playback page");
+
 	}
 
 	public void verifyThumbnailClickEventAndVideoViewEvent(String userType, String tabName) throws Exception {
@@ -761,18 +829,33 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 //		click(PWAHomePage.objZeeLogo, "Zee Logo");	
 	}
 
-	public void verifySearchExecutedAndClearSearchHistoryEvent(String userType, String keyword3) throws Exception {
-		extent.HeaderChildNode("Verify Serach Executed and Clear Search History Event");
+	public void verifySearchExecutedEvent() throws Exception {
+		extent.HeaderChildNode("Verify Search Executed Event");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, "kam" + "\n", "Search Edit box: ");
+		waitTime(4000);
+
+	}
+
+	public void verifyScreenViewEvent(String screen) throws Exception {
+		extent.HeaderChildNode("Verify Screen View Event");
+		navigateToAnyScreenOnWeb(screen);
+
+	}
+
+	public void clearSearchHistoryEvent(String keyword3) throws Exception {
+		extent.HeaderChildNode("Verify Clear Search History Event");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword3 + "\n", "Search Edit box: " + keyword3);
 		waitTime(4000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchCloseButton, "Clear Search Icon");
-		Back(1);
+
 	}
 
-	public void verifyParentalRestrictionAndSettingChangedEvent(String userType) throws Exception {
+	public void verifyParentalRestrictionEvent(String userType, String restriction) throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Verify Parental Restriction And Setting Changed Event");
+
+			extent.HeaderChildNode("Verify Parental Restriction Event");
 			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
 			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
@@ -788,31 +871,67 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
 			waitTime(2000);
 			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
-			checkElementDisplayed(PWAHamburgerMenuPage.objNoRestrictionSelected, "No restricted option selected");
-			click(PWAHamburgerMenuPage.objRestrictAll, "Restrict all option");
-			click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
-			type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
-			type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
-			type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
-			type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
-			waitTime(4000);
-			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
-			waitTime(2000);
-			checkElementDisplayed(PWAHomePage.objZeeLogo, "zee logo");
-			waitTime(3000);
 
-			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
-			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
-			type(PWALoginPage.objPasswordField, password, "Password field");
-			waitTime(2000);
-			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
-			waitTime(2000);
-			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
-			click(PWAHamburgerMenuPage.objParentalLockNoRestrictionOption, "No restriction option");
-			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
-			waitTime(2000);
-			click(PWAHomePage.objZeeLogo, "zee logo");
+			switch (restriction) {
+
+			case "Age13+":
+				click(PWAHamburgerMenuPage.objRestrict13PlusContent, "Restrict all option");
+				click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
+				type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
+				type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
+				type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
+				type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
+				waitTime(4000);
+				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+				waitTime(2000);
+				checkElementDisplayed(PWAHomePage.objZeeLogo, "zee logo");
+				waitTime(3000);
+
+				click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+				click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+				checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+				type(PWALoginPage.objPasswordField, password, "Password field");
+				waitTime(2000);
+				click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+				waitTime(2000);
+				checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+				click(PWAHamburgerMenuPage.objParentalLockNoRestrictionOption, "No restriction option");
+				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+				waitTime(2000);
+				click(PWAHomePage.objZeeLogo, "zee logo");
+
+			case "RestrictAll":
+				click(PWAHamburgerMenuPage.objRestrictAll, "Restrict all option");
+				click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
+				type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
+				type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
+				type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
+				type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
+				waitTime(4000);
+				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+				waitTime(2000);
+				checkElementDisplayed(PWAHomePage.objZeeLogo, "zee logo");
+				waitTime(3000);
+
+				click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+				click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+				checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+				type(PWALoginPage.objPasswordField, password, "Password field");
+				waitTime(2000);
+				click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+				waitTime(2000);
+				checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+				click(PWAHamburgerMenuPage.objParentalLockNoRestrictionOption, "No restriction option");
+				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+				waitTime(2000);
+				click(PWAHomePage.objZeeLogo, "zee logo");
+
+			case "NoRestriction":
+				click(PWAHamburgerMenuPage.objNoRestrictionSelected, "Restrict all option");
+				click(PWAHamburgerMenuPage.objContinueButton, "Continue Button");
+
+			}
+
 		}
 	}
 
@@ -1440,6 +1559,153 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			JSClick(PWANewsPage.objBannerMute, "UnMute Icon");
 		}
 
+	}
+
+	public void verifyResumeEventForFreeContent(String userType, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Resume Event For Free Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerPause, "Pause Icon");
+		waitTime(2000);
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+	}
+
+	public void verifyResumeEventForPremiumContent(String userType, String keyword1) throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Verify Resume Event For Premium Content");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitTime(6000);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			click(PWAPlayerPage.objPlayerPause, "Pause Icon");
+			waitTime(2000);
+			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		}
+	}
+
+	public void verifyResumeEventForTrailer(String userType, String keyword1) throws Exception {
+		extent.HeaderChildNode("Verify Resume Event For Trailer Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerPause, "Pause Icon");
+		waitTime(2000);
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+	}
+
+	public void verifyResumeEventForCarouselContent() throws Exception {
+		extent.HeaderChildNode("Verify Resume Event For Carousel Content");
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerPause, "Pause Icon");
+		waitTime(2000);
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+	}
+
+	public void verifyResumeEventForContentInTray() throws Exception {
+		extent.HeaderChildNode("Verify Resume Event For Content played from Tray");
+		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerPause, "Pause Icon");
+		waitTime(2000);
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+	}
+
+	public void verifyResumeEventForContentFromSearchPage(String userType, String keyword1) throws Exception {
+		extent.HeaderChildNode("Verify Resume Event For Content From Search Page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerPause, "Pause Icon");
+		waitTime(2000);
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+	}
+
+	public void verifyResumeEventForContentFromMyWatchlistPage(String userType, String keyword) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Resume Event For Content From My Watchlist Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+
+			Actions actions = new Actions(getWebDriver());
+			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
+			actions.moveToElement(contentCard).build().perform();
+
+			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+
+			click(PWALandingPages.objWebProfileIcon, "Profile icon");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+
+			extent.HeaderChildNode("Verify Video View and Video Exit Event for Content from My Watchlist page");
+			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			click(PWAPlayerPage.objPlayerPause, "Pause Icon");
+			waitTime(2000);
+			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		}
+	}
+
+	public void verifyResumeEventForContentInMegamenu() throws Exception {
+		extent.HeaderChildNode("Verify Resume Event For Content played from Megamenu");
+		waitTime(5000);
+		Actions actions = new Actions(getWebDriver());
+		WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
+		actions.moveToElement(contentCard).build().perform();
+
+		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		click(PWAPlayerPage.objPlayerPause, "Pause Icon");
+	}
+
+	public void verifyResumeEventForContentInPlaylist(String keyword, String userType) throws Exception {
+		extent.HeaderChildNode("Verify Resume Event For Content played from Playlist");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword), "Search Result");
+		waitForPlayerAdToComplete("Video Player");
+		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(2000);
+		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		click(PWAPlayerPage.objPlayerPause, "Pause Icon");
 	}
 
 }

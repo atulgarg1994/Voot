@@ -83,10 +83,10 @@ public class Android_LandingScreen_TopNavigation {
 	}
 
 	@Test(priority = 8)
-	@Parameters({ "userType" }) // Hitesh
-	public void LiveTV_landingScreen(String userType) throws Exception {
+	@Parameters({ "userType", "tabName4" }) // Hitesh
+	public void LiveTV_landingScreen(String userType, String tabName) throws Exception {
 		System.out.println("\n---Verify LiveTv landing screen---\n");
-		ZEE5ApplicasterBusinessLogic.LiveTV(userType);
+		ZEE5ApplicasterBusinessLogic.LiveTV(userType, tabName);
 	}
 
 	@Test(priority = 9)

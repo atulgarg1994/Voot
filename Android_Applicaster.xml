@@ -70,6 +70,7 @@
 	<parameter name="tabName1" value="Home" />
 	<parameter name="tabName2" value="Movies" />
 	<parameter name="tabName3" value="ZEE5 Originals" />
+	<parameter name="tabName4" value="Live TV" />
 
 	<parameter name="VideoQuality" value="Data saver" />	<!-- Data saver/Good/Better/Best -->
 	<parameter name="MovieName" value="O God Ganesha 2" />
@@ -95,7 +96,7 @@
 	<parameter name="NonsubscribedUserWithNoTransactionUsername" value="zeebuild@gmail.com" />
 	<parameter name="NonsubscribedUserWithNoTransactionPassword" value="User@123" />
 
-	<parameter name="SettingsNonsubscribedUserName" value="zeetest@gmail.com" />
+	<parameter name="SettingsNonsubscribedUserName" value="starttestzee5@gmail.com" />
 	<parameter name="SettingsNonsubscribedPassword" value="zee12345" />
 
 	<parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com" />
@@ -119,6 +120,7 @@
  	<parameter name="SearchVODContent3"  value="Happy New Year" />
  	<parameter name="url" value="https://newpwa.zee5.com/" />
 	<parameter name="browserType" value="Chrome"/>  <!--  Chrome/Firefox -->
+	<parameter name="RSVODContent" value="LockUp" />
 
  	<parameter name="USMNonsubscribedUserName" value="starttestzee5@gmail.com" />
 	<parameter name="USMNonsubscribedPassword" value="123456" />
