@@ -9,7 +9,7 @@
 
 	<parameter name="userType" value="Guest" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite" />
-	<parameter name="runMode" value="Suites" />
+	<parameter name="runMode" value="Suites" /> 
 
 	<parameter name="SubscribedUserWith15daysExpiryUsername" value="testzee5_4@gmail.com" />
 	<parameter name="SubscribedUserWith15daysExpiryPassword" value="123456" />

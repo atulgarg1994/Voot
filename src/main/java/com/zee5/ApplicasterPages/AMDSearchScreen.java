@@ -229,8 +229,10 @@ public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.
 	
 	public static By objSearchedClubContent = By.xpath("(//*[@id='special_image_1' and (./preceding-sibling::* | ./following-sibling::*)[@id='itemImageParent']]//following-sibling::*)[1]"); 
 	
-	public static By objTabs = By
-			.xpath("((//*[@resource-id='com.graymatrix.did:id/tabLayout'])[1]/child::*/child::*/child::*/child::*)");
+//	public static By objTabs = By
+//			.xpath("((//*[@resource-id='com.graymatrix.did:id/tabLayout'])[1]/child::*/child::*/child::*/child::*)");
 
 	public static By objTrendingSearches = By.xpath("//*[@id='header_primary_text' and @text='Trending Searches']");
+	
+	public static By objTabs = By.xpath("//*[@id='clearSearch']//following::*[@id='title']");
 }

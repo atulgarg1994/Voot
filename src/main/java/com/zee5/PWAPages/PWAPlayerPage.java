@@ -11,8 +11,6 @@ public class PWAPlayerPage {
 	public static By objPlayLoader = By
 			.xpath("//div[contains(@class,'playkit-state-idle') or contains(@class,'playkit-state-paused')]");
 
-	// Play
-
 //	 Playback Video Overlay
 	public static By objPlaybackVideoOverlay = By.xpath("//*[@class='kaltura-player-container']");
 
@@ -377,4 +375,6 @@ public class PWAPlayerPage {
 	
 	// Player settings
 	public static By objPlayerSettings = By.xpath("//*[contains(@class,'playkit-icon playkit-icon-settings')]");
+	
+	public static By objPlayerProgressBar = By.xpath("(//div[@class='playkit-progress-bar'])");
 }

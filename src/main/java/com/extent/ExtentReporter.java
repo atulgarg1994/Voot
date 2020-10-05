@@ -43,6 +43,7 @@ public class ExtentReporter implements ITestListener {
 	public static String fileName;
 	private static String AppVersion;
 	public static String ReportName;
+	public static String userType;
 
 	/** The Constant logger. */
 //	final static Logger logger = Logger.getLogger("rootLogger");
@@ -107,6 +108,7 @@ public class ExtentReporter implements ITestListener {
 				"_");
 		setReport(context.getName());
 		setPlatform(context.getSuite().getName());
+		userType = context.getCurrentXmlTest().getParameter("userType");
 		appVersion();
 
 		filePath = System.getProperty("user.dir") + "/Reports" + "/" + currentDate + "/" + getPlatform() + "/"

@@ -17,21 +17,25 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUpdate {
 
-	static String xlpath = System.getProperty("user.dir") + "\\DFPExcelDump\\Analysed_Reports.xlsx";
-	static String sheet = "Analysed_Reports"; //Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType"); //"Analysed_Reports";
-	public static String UserType = "NA"; //Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType"); //"NonSubscribedUser";
+	static String xlpath = System.getProperty("user.dir") + "\\Analysed_Reports\\Analysed_Reports.xlsx";
+	static String sheet = "Analysed_Reports"; 
+	public static String UserType = "NA"; 
 	public static String ModuleName = "NA";
 	static int row = (getRowCount()+1);
 	static int counter = 0;
 
 	public static void creatExcel() { 
 		try {
-			File file = new File(System.getProperty("user.dir") + "\\DFPExcelDump\\Analysed_Reports.xlsx");
+			File dir = new File(System.getProperty("user.dir")+"\\Analysed_Reports");
+			if(!dir.isDirectory()) {
+				dir.mkdir();
+			}
+			File file = new File(xlpath);
 			if (!file.exists()) {
 				XSSFWorkbook workbook = new XSSFWorkbook();
 				workbook.createSheet(sheet);
 				FileOutputStream fos = new FileOutputStream(
-						new File(System.getProperty("user.dir") + "\\DFPExcelDump\\Analysed_Reports.xlsx"));
+						new File(xlpath));
 				workbook.write(fos);
 				workbook.close();
 			}
@@ -217,7 +221,8 @@ public class ExcelUpdate {
 //		System.out.println(new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()));
 //		System.out.println((getRowCount()+1));
 //		row = (getRowCount()+1);
-		writeData("ABC","Fail","Error");
+//		writeData("ABC","Fail","Error");
+		
 	}
 
 }

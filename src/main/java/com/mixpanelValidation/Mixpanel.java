@@ -36,7 +36,7 @@ public class Mixpanel extends ExtentReporter {
 //	LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 //	Mixpanel.ValidateParameter(local.getItem("guestToken"),"Login Screen Display");
 //
-//waitTime(2000);
+//	waitTime(2000);
 //	LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 //	Mixpanel.ValidateParameter(local.getItem("guestToken"),"Skip Registartion");
 	
@@ -49,14 +49,16 @@ public class Mixpanel extends ExtentReporter {
 	static String booleanParameters = "";
 	static String integerParameters = "";
 	static int rownumber;
+	static String source = "";
 
-	public static void ValidateParameter(String distinctID, String eventName)
+	public static void ValidateParameter(String distinctID, String eventName,String Source)
 			throws JsonParseException, JsonMappingException, IOException, InterruptedException {
 		System.out.println("Parameter Validation");
 		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
 		booleanParameters = Prop.getproperty("Boolean");
 		integerParameters = Prop.getproperty("Integer");
 		fileName = ReportName;
+		source = Source;
 		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
 		fetchEvent(distinctID, eventName);
 		// creatExcel();
@@ -210,8 +212,21 @@ public class Mixpanel extends ExtentReporter {
 						validateInteger(value);
 					}
 				}
+				validateParameter(key,value);
 			} catch (Exception e) {
 				System.out.println(e);
+			}
+		}
+	}
+
+	public static void validateParameter(String key,String value) {
+		if(key.equals("User Type")) {
+			if(!value.equalsIgnoreCase(userType)) {
+				fillCellColor();
+			}
+		}else if(key.equals("Source")) {
+			if(!value.equalsIgnoreCase(source)) {
+				fillCellColor();
 			}
 		}
 	}

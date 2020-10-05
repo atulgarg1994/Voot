@@ -2169,7 +2169,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 				if (traytitle.equalsIgnoreCase("Top Searches")) {
 					TopSearchFound = true;
-					checkElementExist(AMDSearchScreen.objTopSearches, "Top searches tray");
+					if (checkElementExist(AMDSearchScreen.objTopSearches, "Top searches tray")) {
+						logger.info("Top searches section is displayed below Trending searches carousel");
+						extent.extentLoggerPass("Search Screen",
+								"Top searches section is displayed below Trending searches carousel");
+					} else {
+						logger.info("Top searches section is not displayed below Trending searches carousel");
+						extent.extentLoggerFail("Search Screen",
+								"Top searches section is not displayed below Trending searches carousel");
+					}
 
 //					checkElementExist(AMDSearchScreen.objContentCardTitleOfTopSearchesTray,
 //							"Content card title of Top searches tray");
@@ -2197,7 +2205,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					break;
 				}
 			}
-
 			if (TopSearchFound == false) {
 				logger.error("Top searches is not displayed");
 				extentLoggerFail("Top searches tray", "Top searches is not displayed");
@@ -2997,6 +3004,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void searchResultsAllTabs(String searchModuleKeyword) throws Exception {
 		extent.HeaderChildNode("Validating that user is able to find the searched content in all the tabs");
 		waitTime(5000);
+
 		type(AMDSearchScreen.objSearchBoxBar, searchModuleKeyword + "\n", "Search bar");
 		// getDriver().getKeyboard().sendKeys(searchModuleKeyword);
 		hideKeyboard();
@@ -3037,23 +3045,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					i = 4;
 				}
 
-				WebElement eleTab = findElement(By.xpath(
-						"((//*[@resource-id='com.graymatrix.did:id/tabLayout'])[1]/child::*/child::*/child::*/child::*)["
-								+ i + "]"));
-				tabName = findElement(By.xpath(
-						"((//*[@resource-id='com.graymatrix.did:id/tabLayout'])[1]/child::*/child::*/child::*/child::*)["
-								+ i + "]")).getText();
+				WebElement eleTab = findElement(
+						By.xpath("(//*[@id='clearSearch']//following::*[@id='title'])[" + i + "]"));
+				tabName = findElement(By.xpath("(//*[@id='clearSearch']//following::*[@id='title'])[" + i + "]"))
+						.getText();
 
 				System.out.println(tabName);
 				eleTab.click();
 
 			} else {
-				WebElement eleTab = findElement(By.xpath(
-						"((//*[@resource-id='com.graymatrix.did:id/tabLayout'])[1]/child::*/child::*/child::*/child::*)["
-								+ i + "]"));
-				tabName = findElement(By.xpath(
-						"((//*[@resource-id='com.graymatrix.did:id/tabLayout'])[1]/child::*/child::*/child::*/child::*)["
-								+ i + "]")).getText();
+				WebElement eleTab = findElement(
+						By.xpath("(//*[@id='clearSearch']//following::*[@id='title'])[" + i + "]"));
+				tabName = findElement(By.xpath("(//*[@id='clearSearch']//following::*[@id='title'])[" + i + "]"))
+						.getText();
 				System.out.println(tabName);
 				eleTab.click();
 			}
@@ -3239,11 +3243,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"Microphone icon is not displayed on right side of the search box");
 		}
 		click(AMDSearchScreen.objMicrophoneIcon, "Microphone icon");
-		if (verifyElementExist(AMDSearchScreen.objVoiceSearchPermission, "Microphone access permission popup")) {
-			verifyElementExist(AMDSearchScreen.objMicrophoneIconLogo, "Microphone icon");
-			verifyElementExist(AMDSearchScreen.objTermsAndConditions, "Terms of Use and Privacy Policy Message");
-			verifyElementExist(AMDSearchScreen.objProceedBtn, "Proceed Button");
-			verifyElementExist(AMDSearchScreen.objBackBtn, "Back button");
+		if (checkElementExist(AMDSearchScreen.objVoiceSearchPermission, "Microphone access permission popup")) {
+			checkElementExist(AMDSearchScreen.objMicrophoneIconLogo, "Microphone icon");
+			checkElementExist(AMDSearchScreen.objTermsAndConditions, "Terms of Use and Privacy Policy Message");
+			checkElementExist(AMDSearchScreen.objProceedBtn, "Proceed Button");
+			checkElementExist(AMDSearchScreen.objBackBtn, "Back button");
 
 			WebElement elementBackBtn = findElement(AMDSearchScreen.objBackBtn);
 			int BackBtnleftX = elementBackBtn.getLocation().getX();
@@ -3258,14 +3262,29 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Back button", "Back button is not displayed at top left of the screen");
 			}
 
-			click(AMDSearchScreen.objProceedBtn, "Proceed Button");
-			if (verifyElementExist(AMDSearchScreen.objAudioPermissionPopUp, "Audio Permission Popup")) {
-				verifyElementPresentAndClick(AMDSearchScreen.objAllow, "Allow Option");
-				verifyElementExist(AMDSearchScreen.objVoiceSearchScreen, "Voice Search Screen");
-				verifyElementExist(AMDSearchScreen.objMicrophoneLogoInVoiceSearch, "Microphone icon");
-				verifyElementExist(AMDSearchScreen.objSeeUrTextMsg, "See your text here message");
-				verifyElementPresentAndClick(AMDSearchScreen.objCloseBtn, "Close Button");
+			click(AMDSearchScreen.objBackBtn, "Back button");
 
+			if (verifyElementDisplayed(AMDSearchScreen.objSearchEditBox)) {
+				logger.info(
+						"User navigated to Search Landing screen on tapping back button in microphone access permission screen");
+				extent.extentLoggerPass("Search Screen",
+						"User navigated to Search Landing screen on tapping back button in microphone access permission screen");
+			} else {
+				logger.error(
+						"User not navigated to Search Landing screen on tapping back button in microphone access permission screen");
+				extent.extentLoggerFail("Search Screen",
+						"User not navigated to Search Landing screen on tapping back button in microphone access permission screen");
+			}
+
+			click(AMDSearchScreen.objMicrophoneIcon, "Microphone icon");
+			waitTime(2000);
+			click(AMDSearchScreen.objProceedBtn, "Proceed Button");
+			if (checkElementExist(AMDSearchScreen.objAudioPermissionPopUp, "Audio Permission Popup")) {
+				verifyElementPresentAndClick(AMDSearchScreen.objAllow, "Allow Option");
+				checkElementExist(AMDSearchScreen.objVoiceSearchScreen, "Voice Search Screen");
+				checkElementExist(AMDSearchScreen.objMicrophoneLogoInVoiceSearch, "Microphone icon");
+				checkElementExist(AMDSearchScreen.objSeeUrTextMsg, "See your text here message");
+				verifyElementPresentAndClick(AMDSearchScreen.objCloseBtn, "Close Button");
 //				verifyElementPresentAndClick(AMDSearchScreen.objMicrophoneIcon, "Microphone icon");
 //				verifyElementExist(AMDSearchScreen.objVoiceSearchPermission,"Microphone access permission popup");
 //				verifyElementExist(AMDSearchScreen.objAudioPermissionPopUp,"Audio Permission Popup");
@@ -3704,7 +3723,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content");
 
 		waitTime(5000);
-		if (checkElementExist(AMDHomePage.objSubscribePopup)) {
+		if (verifyIsElementDisplayed(AMDHomePage.objSubscribePopup)) {
 //			Back(1);
 			click(AMDGenericObjects.objPopUpDivider, "Pop Up divider");
 		}
@@ -3936,7 +3955,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void carouselValidation(String UserType, String tabName, String contentTitle) throws Exception {
 
-		extent.HeaderChildNode("Carousel validations for tab :\"" + tabName + "\"");
+		extent.HeaderChildNode("Carousel validations for tab :" + tabName + "\"");
 		waitForElementDisplayed(AMDHomePage.objCarouselDots, 10);
 		waitTime(10000);
 
@@ -4031,6 +4050,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				click(AMDHomePage.objPremiumBtn, "GetPremium tag");
 				verifyElementPresent(AMDSubscibeScreen.objSubscribeHeader, "Subscription screen");
 				Back(1);
+				Swipe("Down", 1);
 			}
 		} else {
 			for (int i = 1; i <= noofCarouselContents; i++) {
@@ -4052,7 +4072,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDHomePage.objContentTitle(contentTitle), "Carousel content");
 
 		waitTime(5000);
-		if (checkElementExist(AMDHomePage.objSubscribePopup)) {
+		if (verifyIsElementDisplayed(AMDHomePage.objSubscribePopup)) {
 			Back(1);
 			// click(AMDGenericObjects.objPopUpDivider, "Pop Up divider");
 		}
@@ -6562,29 +6582,29 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		verifyElementExist(AMDLiveTVScreen.objLiveTV, "Live Icon on Player");
 		Back(1);
-		int i=0;
-		for(i=0; i<5; i++) {
-			if(verifyIsElementDisplayed(AMDLiveTVScreen.objTray("FREE Channels"), "FREE Channels tray")) {
+		int i = 0;
+		for (i = 0; i < 5; i++) {
+			if (verifyIsElementDisplayed(AMDLiveTVScreen.objTray("FREE Channels"), "FREE Channels tray")) {
 				break;
-			}else {
+			} else {
 				Swipe("UP", 1);
 			}
 		}
 		Swipe("DOWN", i);
-		i=0;
-		for(i=0; i<5; i++) {
-			if(verifyIsElementDisplayed(AMDLiveTVScreen.objTray("Music"), "Music tray")) {
+		i = 0;
+		for (i = 0; i < 5; i++) {
+			if (verifyIsElementDisplayed(AMDLiveTVScreen.objTray("Music"), "Music tray")) {
 				break;
-			}else {
+			} else {
 				Swipe("UP", 1);
 			}
 		}
 		Swipe("DOWN", i);
-		i=0;
-		for(i=0; i<5; i++) {
-			if(verifyIsElementDisplayed(AMDLiveTVScreen.objTray("News"), "News tray")) {
+		i = 0;
+		for (i = 0; i < 5; i++) {
+			if (verifyIsElementDisplayed(AMDLiveTVScreen.objTray("News"), "News tray")) {
 				break;
-			}else {
+			} else {
 				Swipe("UP", 1);
 			}
 		}
@@ -9600,7 +9620,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		registerPopUpClose();
 		completeProfilePopUpClose(usertype);
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-		if (verifyElementExist(AMDPlayerScreen.objPlayer, "Player screen")) {
+		if (verifyElementExist(AMDPlayerScreen.objPlayerScreen, "Player screen")) {
 			waitTime(6000);
 			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			waitTime(1000);
@@ -9620,6 +9640,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(1000);
 			verifyElementPresent(AMDPlayerScreen.objPlayIcon, "Play icon");
 			verifyElementPresent(AMDPlayerScreen.objNextIcon, "Next icon");
+			click(AMDPlayerScreen.objNextIcon, "Next icon");
+			if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+				waitForAdToFinishInAmd();
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			}
+			registerPopUpClose();
+			completeProfilePopUpClose(usertype);
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			verifyElementExist(AMDPlayerScreen.objPlayer, "Player screen");
+		    click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		    waitTime(1000);
+		    verifyElementPresent(AMDPlayerScreen.objPreviousIcon, "Previous icon");
+		    waitTime(1000);
 			verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
 			waitTime(5000);
 			GetAndVerifyOrientation("Landscape");
@@ -9679,19 +9712,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyPlaybackAfterMinimzeAndMaximizeAppFromBackground();
 			waitTime(5000);
 			click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
-			verifyPlaybackAfterNetworkInterruption();
+			//verifyPlaybackAfterNetworkInterruption();
 
 			waitTime(5000);
 //			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 
-			ForwardAndRewindThePlayerByDoubleTapping(1);
+		//	ForwardAndRewindThePlayerByDoubleTapping(1);
 			waitTime(3000);
-			ForwardAndRewindThePlayerByDoubleTapping(2);
+		//	ForwardAndRewindThePlayerByDoubleTapping(2);
 
 			// ------verifying the seek functionality of the Progressbar------//
 //			click(AMDPlayerScreen.objPlayIcon, "Play icon");
 			waitTime(10000);
-			seekVideo(AMDPlayerScreen.objProgressBar);
+//			seekVideo(AMDPlayerScreen.objProgressBar, usertype);
 		}
 		Back(1);
 	}

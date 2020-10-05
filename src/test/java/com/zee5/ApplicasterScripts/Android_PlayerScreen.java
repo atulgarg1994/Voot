@@ -47,6 +47,7 @@ public class Android_PlayerScreen {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.nextAndPreviousIconValidation(searchKeyword8);
 		ZEE5ApplicasterBusinessLogic.skipIntroValidationInLandscapeMode(searchKeyword3,userType);
 		ZEE5ApplicasterBusinessLogic.subtitleAndPlaybackRateValidation(searchKeyword4,userType);
 		ZEE5ApplicasterBusinessLogic.premiumContentWithoutTrailerInLandscapeMode(userType,searchKeyword5);
