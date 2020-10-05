@@ -296,4 +296,7 @@ public class PWASubscriptionPages {
 	public static By objHaveACodeCloseBtn = By.xpath("//div[contains(@class,'applyPromo')]//following-sibling::span[contains(@class,'close')]");
 	
 	public static By objMobileLinkPaytmOption = By.xpath("//*[@text='Link Wallet']");
+	
+	public static By objClubPack = By.xpath("//span[contains(text(),'Club')]");
+	
 }

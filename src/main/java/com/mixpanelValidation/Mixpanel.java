@@ -1,15 +1,24 @@
 package com.mixpanelValidation;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import com.extent.ExtentReporter;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -22,6 +31,15 @@ public class Mixpanel extends ExtentReporter {
 
 //	LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 //	return local.getItem("guestToken");
+	
+//	waitTime(2000);
+//	LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+//	Mixpanel.ValidateParameter(local.getItem("guestToken"),"Login Screen Display");
+//
+//waitTime(2000);
+//	LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+//	Mixpanel.ValidateParameter(local.getItem("guestToken"),"Skip Registartion");
+	
 	/**
 	 * Global variables
 	 */
@@ -106,6 +124,7 @@ public class Mixpanel extends ExtentReporter {
 			String response = request.asString();
 			String s[] = response.split("\n");
 			parseResponse(s[s.length - 1]);
+//			validation();
 		}
 	}
 
@@ -117,13 +136,31 @@ public class Mixpanel extends ExtentReporter {
 	public static void parseResponse(String response) {
 		String commaSplit[] = response.replace("\"properties\":{", "").replace("}", "")
 				.replaceAll("[.,](?=[^\\[]*\\])", "-").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-//		creatExcel(); // Create an excel file
+		creatExcel(); // Create an excel file
 		for (int i = 0; i < commaSplit.length; i++) {
 			if (i != 0) {
 				String com[] = commaSplit[i].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 				/** Write key value into excel */
 				write(i, com[0].replace("\"", "").replace("$", ""), com[1].replace("\"", "").replace("$", ""));
 			}
+		}
+	}
+
+	/**
+	 * Function to create excel file of format .xlsx Function to create sheet
+	 */
+	public static void creatExcel() {
+		try {
+			File file = new File(xlpath);
+			if (!file.exists()) {
+				XSSFWorkbook workbook = new XSSFWorkbook();
+				workbook.createSheet(sheet); // Create sheet
+				FileOutputStream fos = new FileOutputStream(new File(xlpath));
+				workbook.write(fos);
+				workbook.close();
+			}
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 	}
 
@@ -150,4 +187,92 @@ public class Mixpanel extends ExtentReporter {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Validation
+	 */
+	public static void validation() {
+		int NumberOfRows = getRowCount();
+		System.out.println(NumberOfRows);
+		for (rownumber = 1; rownumber < NumberOfRows; rownumber++) {
+			try {
+				XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
+				XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
+				String value = myExcelSheet.getRow(rownumber).getCell(1).toString();
+				String key = myExcelSheet.getRow(rownumber).getCell(0).toString();
+				if (value.trim().isEmpty()) {
+					System.out.println("Paramter is empty :- Key:" + key + " - value" + value);
+					fillCellColor();
+				} else {
+					if (isContain(booleanParameters, key)) {
+						validateBoolean(value);
+					} else if (isContain(integerParameters, key)) {
+						validateInteger(value);
+					}
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+	}
+
+	/**
+	 * Get Row count
+	 */
+	// Generic method to return the number of rows in the sheet.
+	public static int getRowCount() {
+		int rc = 0;
+		try {
+			System.out.println(xlpath);
+			FileInputStream fis = new FileInputStream(xlpath);
+			Workbook wb = WorkbookFactory.create(fis);
+			Sheet s = wb.getSheet(sheet);
+			rc = s.getLastRowNum();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rc;
+	}
+
+	public static void fillCellColor() {
+		try {
+			XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
+			XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
+			Row Cellrow = myExcelSheet.getRow(rownumber);
+			XSSFCellStyle cellStyle = myExcelBook.createCellStyle();
+			cellStyle.setFillForegroundColor(IndexedColors.RED.getIndex());
+			cellStyle.setFillPattern(FillPatternType.FINE_DOTS);
+			if (Cellrow.getCell(0) == null) {
+				Cellrow.createCell(0);
+			}
+			Cell cell1 = Cellrow.getCell(0);
+			cell1.setCellStyle(cellStyle);
+			FileOutputStream fos = new FileOutputStream(new File(xlpath));
+			myExcelBook.write(fos);
+			fos.close();
+		} catch (Exception e) {
+		}
+	}
+
+	private static void validateInteger(String value) {
+		Pattern p = Pattern.compile("[0-9]+");
+		Matcher m = p.matcher(value);
+		if (!m.matches()) {
+			fillCellColor();
+		}
+	}
+
+	private static boolean isContain(String source, String subItem) {
+		String pattern = "\\b" + subItem + "\\b";
+		Pattern p = Pattern.compile(pattern);
+		Matcher m = p.matcher(source);
+		return m.find();
+	}
+
+	private static void validateBoolean(String value) {
+		if (!value.equals("true") || value.equals("false")) {
+			fillCellColor();
+		}
+	}
+
 }

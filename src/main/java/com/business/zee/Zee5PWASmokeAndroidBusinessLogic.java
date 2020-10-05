@@ -457,7 +457,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	 * Generic PWALogin function.
 	 */
 	public void ZeePWALogin(String LoginMethod, String userType) throws Exception {
-		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
+		String url = getParameterFromXML("url");
 		extent.HeaderChildNode("User-Type : " + userType + ", Environment: " + url);
 		// Get the email and password from properties
 		String email = "";
@@ -485,24 +485,25 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
 				verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 			}
-			verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login button");
+			waitTime(3000);
+			click(PWALoginPage.objLoginBtn, "Login button");
 			waitTime(3000);
 			HeaderChildNode("Login - Method" + LoginMethod);
 			switch (LoginMethod) {
 
 			case "E-mail":
+				dismissAppInstallPopUp();
 				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
 				type(PWALoginPage.objEmailField, email, "Email Field");
 				hideKeyboard();
 				waitTime(3000);
+				dismissSystemPopUp();
 				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
 				type(PWALoginPage.objPasswordField, password + "\n", "Password field");
 				hideKeyboard();
 				waitTime(5000);
-				dismissSystemPopUp();
-				directClickReturnBoolean(PWALoginPage.objLoginBtn, "Login Button");
+				directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
 				waitTime(10000);
-				dismissSystemPopUp();
 				break;
 
 			case "Mobile":
@@ -1312,39 +1313,34 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		// handle mandatory pop up
 		mandatoryRegistrationPopUp(userType);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
-		type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);
+		typeAndGetSearchResult(PWASearchPage.objSearchEditBox, contentTitle, "Search Edit box");
 		waitTime(2000);
 		waitForElement(PWASearchPage.objSearchedResult(contentTitle), 45, "Search Result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(contentTitle), "Search Result");
-		if (waitForElementPresence(PWASubscriptionPages.objSubscribePopupTitle, 5, "Subscribe Pop Up")) {
-			waitForElementAndClickIfPresent(PWASubscriptionPages.objPopupCloseButton, 2, "Close in Subscribe Pop Up");
-		} else {
-			// if(userType.equals("Guest"))
-			// waitForElementAndClickIfPresent(PWASearchPage.objCloseRegisterDialog, 5,
-			// "Close in Sign Up Pop Up");
-			waitForElement(PWAPlayerPage.objContentTitle, 20, "Content title");
-			String consumptionPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,
-					"Content Title").toString();
-			if (consumptionPageTitle.contains(contentTitle)) {
-				extent.extentLogger("correctNavigation",
-						"Successfully navigated to the correct Consumption page: " + consumptionPageTitle);
-				logger.info("Successfully navigated to the correct Consumption page: " + consumptionPageTitle);
-				if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
-					waitForElement(PWASubscriptionPages.objSubscribePopupTitle, 30, "Subscribe Pop Up");
-					waitForElementAndClickIfPresent(PWASubscriptionPages.objPopupCloseButton, 10,
-							"Subscribe Pop Up Close button");
-				} else if (userType.equals("SubscribedUser")) {
-					waitForElementAbsence(PWASubscriptionPages.objSubscribePopupTitle, 30, "Subscribe Pop Up");
-				} else {
-					extent.extentLoggerFail("incorrectUserType", "Incorrect User Type entered in script");
-					logger.error("Incorrect User Type entered in script");
-				}
-			} else {
-				extent.extentLoggerFail("incorrectNavigation",
-						"Navigated to incorrect Consumption page: " + consumptionPageTitle);
-				logger.error("Navigated to incorrect Consumption page: " + consumptionPageTitle);
+		waitTime(7000);
+		if(userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+			if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up")) {
+				click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
+				extent.extentLogger("", "Subscription Pop Up is displayed for Premium Content as expected");
+				logger.info("Subscription Pop Up is displayed for Premium Content as expected");
+			} 
+			else {
+				extent.extentLoggerFail("", "Subscription Pop Up failed to display for Premium Content");
+				logger.error("Subscription Pop Up failed to display for Premium Content");
 			}
 		}
+		else {
+			if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up")) {
+				click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
+				extent.extentLoggerFail("", "Subscription Pop Up is displayed for Premium Content for Subscribed User");
+				logger.error("Subscription Pop Up is displayed for Premium Content for Subscribed User");
+			} 
+			else {
+				extent.extentLogger("", "Subscription Pop Up is not displayed for Premium Content for Subscribed user, expected behavior");
+				logger.info("Subscription Pop Up is not displayed for Premium Content for Subscribed user, expected behavior");
+			}
+		}
+				
 	}
 
 	/**
@@ -1358,7 +1354,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	public void verifyCTAandMetaDataInDetailsAndConsumption(String contentTitle) throws Exception {
 		extent.HeaderChildNode("Verify Watch Latest Episode CTA");
 		// handle mandatory pop up
-		String user = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String user = getParameterFromXML("userType");
 		mandatoryRegistrationPopUp(user);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);
@@ -2496,7 +2492,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	public void audioTrackSelection() throws Exception {
 		HeaderChildNode("Validating the Audio Track Selection");
 		// String keyword =
-		// Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("audioTrackContent");
+		// getParameterFromXML("audioTrackContent");
 		String keyword = "Episode 13 - Agent Raghav";
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		typeAndGetSearchResult(PWAHomePage.objSearchField, keyword, "Search");
@@ -5575,13 +5571,13 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	public void playContentsToTriggerRecoApi(String userType) throws Exception {
 		extent.HeaderChildNode("Play different contents to trigger Recommendation API");
 		playAContentForReco("Music",
-				Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("musicToTriggerReco"),
+				getParameterFromXML("musicToTriggerReco"),
 				userType);
 		playAContentForReco("Movies",
-				Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("movieToTriggerReco"),
+				getParameterFromXML("movieToTriggerReco"),
 				userType);
 		playAContentForReco("News",
-				Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("newsToTriggerReco"),
+				getParameterFromXML("newsToTriggerReco"),
 				userType);
 	}
 
@@ -6131,7 +6127,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	}
 
 	public void dismiss3xPopUp() throws Exception {
-		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
+		String url = getParameterFromXML("url");
 		if (!url.contains("newpwa")) {
 			getDriver().context("NATIVE_APP");
 			waitTime(3000);
@@ -6195,7 +6191,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	}
 
 	public void reloadHome() throws Exception {
-		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
+		String url = getParameterFromXML("url");
 		System.out.println(getDriver());
 		getDriver().get(url);
 		waitTime(5000);

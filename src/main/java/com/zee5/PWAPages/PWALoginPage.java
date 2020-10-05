@@ -192,4 +192,7 @@ public class PWALoginPage {
 	public static By objLoginLink = By.xpath("//*[@class='noSelect registerRedirectlink' and contains(text(),'Login')]");
 	
 	public static By objLoginCTAInPremiumPopup = By.xpath("//*[@class='popupBtn accentBtn' and contains(text(),'Login')]");
+	
+	// LoginBtn
+	public static By objLoginBtnLoginPage = By.xpath("//span[contains(text(),'Login')]//parent::button");
 }

@@ -6557,40 +6557,41 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 		}
 
-		verifyElementPresentAndClick(AMDLiveTVScreen.objFirstContent, "Clicked on Live Tv content");
+		verifyElementPresentAndClick(AMDLiveTVScreen.objFirstContent, "Live Tv content");
 		waitForAdToFinishInAmd();
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		verifyElementExist(AMDLiveTVScreen.objLiveTV, "Live Icon on Player");
 		Back(1);
-		int i = 0;
-		for (i = 0; i < 5; i++) {
-			if (verifyIsElementDisplayed(AMDLiveTVScreen.objTray("FREE Channels"), "FREE Channels tray")) {
+		int i=0;
+		for(i=0; i<5; i++) {
+			if(verifyIsElementDisplayed(AMDLiveTVScreen.objTray("FREE Channels"), "FREE Channels tray")) {
 				break;
-			} else {
+			}else {
 				Swipe("UP", 1);
 			}
 		}
 		Swipe("DOWN", i);
-		i = 0;
-		for (i = 0; i < 5; i++) {
-			if (verifyIsElementDisplayed(AMDLiveTVScreen.objTray("Music"), "Music tray")) {
+		i=0;
+		for(i=0; i<5; i++) {
+			if(verifyIsElementDisplayed(AMDLiveTVScreen.objTray("Music"), "Music tray")) {
 				break;
-			} else {
+			}else {
 				Swipe("UP", 1);
 			}
 		}
 		Swipe("DOWN", i);
-		i = 0;
-		for (i = 0; i < 5; i++) {
-			if (verifyIsElementDisplayed(AMDLiveTVScreen.objTray("News"), "News tray")) {
+		i=0;
+		for(i=0; i<5; i++) {
+			if(verifyIsElementDisplayed(AMDLiveTVScreen.objTray("News"), "News tray")) {
 				break;
-			} else {
+			}else {
 				Swipe("UP", 1);
 			}
 		}
 		Swipe("DOWN", i);
-//		VerifyDuplicateTrays(AMDLiveTVScreen.objTray("FREE Channels"), "FREE Channels tray");
-//		VerifyDuplicateTrays(AMDLiveTVScreen.objTray("Music"), "Music tray");
-//		VerifyDuplicateTrays(AMDLiveTVScreen.objTray("News"), "News tray");
+		VerifyDuplicateTrays(AMDLiveTVScreen.objTray("FREE Channels"), "FREE Channels tray");
+		VerifyDuplicateTrays(AMDLiveTVScreen.objTray("Music"), "Music tray");
+		VerifyDuplicateTrays(AMDLiveTVScreen.objTray("News"), "News tray");
 	}
 
 	public void channelGuideScreenValidation(String UserType) throws Exception {
