@@ -222,8 +222,8 @@ public class PWASubscriptionPages {
 
 	public static By objCreditAndDebitCardBtn = By.xpath(
 			"//*[@class='linearLayout sidebarItem_object ']//following-sibling::*//article[contains(text(),'Credit / Debit Card')]");
-	public static By objWallets = By.xpath(
-			"//*[contains(@class, 'linearLayout PaymentOptionViewNotList ')]//*[contains(text(), 'Wallets')]");
+	public static By objWallets = By
+			.xpath("//*[contains(@class, 'linearLayout PaymentOptionViewNotList ')]//*[contains(text(), 'Wallets')]");
 	public static By objPaytmWallet = By.xpath(
 			"//*[@class='linearLayout sidebarItem_object ']//following-sibling::*//article[contains(text(),'Paytm')]");
 	public static By objPaymentPageProceedBtn = By
@@ -260,7 +260,6 @@ public class PWASubscriptionPages {
 
 	public static By objarrowbtn = By.xpath("//div[@class='linearLayout sidebarItem_object ']");
 
-
 	public static By objLoginSectionInPopup = By.xpath("//div[contains(@class,'loginContainer')]");
 
 	public static By objLoginButtonInPopup = By.xpath("//div[contains(@class,'popupBtn accentBtn')]");
@@ -289,14 +288,23 @@ public class PWASubscriptionPages {
 
 	// Popup Proceed Btn
 	public static By objPopupProceedBtn = By.xpath("//div[contains(text(),'PROCEED') and contains(@class,'popupBtn')]");
-	
+
 	// Get Subscribe Pop Up Title
 	public static By objSubscribePopupTitle = By.xpath("//div[contains(@class,'popup')]//*[text()='Subscribe']");
-	
-	public static By objHaveACodeCloseBtn = By.xpath("//div[contains(@class,'applyPromo')]//following-sibling::span[contains(@class,'close')]");
-	
+
+	public static By objHaveACodeCloseBtn = By
+			.xpath("//div[contains(@class,'applyPromo')]//following-sibling::span[contains(@class,'close')]");
+
 	public static By objMobileLinkPaytmOption = By.xpath("//*[@text='Link Wallet']");
-	
+
 	public static By objClubPack = By.xpath("//span[contains(text(),'Club')]");
-	
+
+	public static By objEnterCardNumber = By.xpath("//input[@placeholder='Enter card number here']");
+
+	public static By objEnterExpiry = By.xpath("//input[@placeholder='MM / YY']");
+
+	public static By objEnterCVV = By.xpath("(//input[@placeholder='CVV'])");
+
+	public static By objCancelTransaction = By.xpath("//*[@class='Btn cancel']");
+
 }

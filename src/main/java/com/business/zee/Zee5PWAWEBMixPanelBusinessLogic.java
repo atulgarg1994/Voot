@@ -3002,4 +3002,253 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 	}
 
+	public void verifyMuteChangedEventDuringContentPlayback(String keyword1) throws Exception {
+		extent.HeaderChildNode("Verify Mute Changed Event During Content Playback");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.audioBtn, "Mute Icon");
+		waitTime(2000);
+		click(PWAPlayerPage.audioBtn, "Unmute Icon");
+	}
+
+	public void verifyLoginInitiatedEventForInvalidCredentials(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Initiated Event post entering invalid credentials");
+			click(PWALoginPage.objLoginBtnWEB, "Login button");
+			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
+			checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+			type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
+			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
+		}
+	}
+
+	public void verifyLoginResultEventForInvalidCredentials(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Result Event post entering invalid credentials");
+			click(PWALoginPage.objLoginBtnWEB, "Login button");
+			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
+			checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+			type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
+			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
+			type(PWASignupPage.objOTP1, "1", "OTP box1");
+			type(PWASignupPage.objOTP2, "2", "OTP box2");
+			type(PWASignupPage.objOTP3, "3", "OTP box3");
+			type(PWASignupPage.objOTP4, "4", "OTP box4");
+			waitTime(3000);
+			click(PWASignupPage.objVerifyBtnWeb, "Verified Button");
+		}
+	}
+
+	public void verifyToastMessageImpressionEventInSignInScreen(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Toast Message Impression Event In Sign In Screen");
+			click(PWALoginPage.objLoginBtnWEB, "Login button");
+			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
+			checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+			type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
+			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
+		}
+	}
+
+	public void verifyToastMessageImpressionEventInOTPScreen(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Toast Message Impression Event In OTP Screen");
+			click(PWALoginPage.objLoginBtnWEB, "Login button");
+			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
+			checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+			type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
+			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
+			type(PWASignupPage.objOTP1, "1", "OTP box1");
+			type(PWASignupPage.objOTP2, "2", "OTP box2");
+			type(PWASignupPage.objOTP3, "3", "OTP box3");
+			type(PWASignupPage.objOTP4, "4", "OTP box4");
+			waitTime(3000);
+			click(PWASignupPage.objVerifyBtnWeb, "Verified Button");
+		}
+	}
+
+	public void verifyRegistrationInitiatedEventForInvalidCredentials(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Registration Initiated Event post entering invalid credentials");
+			click(PWALoginPage.objSignUpBtnWEB, "Sign up button");
+			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
+			checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+			type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
+			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
+			type(PWASignupPage.objOTP1, "1", "OTP box1");
+			type(PWASignupPage.objOTP2, "2", "OTP box2");
+			type(PWASignupPage.objOTP3, "3", "OTP box3");
+			type(PWASignupPage.objOTP4, "4", "OTP box4");
+			waitTime(3000);
+			click(PWASignupPage.objVerifyBtnWeb, "Verified Button");
+		}
+	}
+
+	public void verifyRegistrationResultEventForInvalidCredentials(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Registration Result Event post entering invalid credentials");
+			click(PWALoginPage.objSignUpBtnWEB, "Sign up button");
+			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
+			checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+			type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
+			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
+			type(PWASignupPage.objOTP1, "1", "OTP box1");
+			type(PWASignupPage.objOTP2, "2", "OTP box2");
+			type(PWASignupPage.objOTP3, "3", "OTP box3");
+			type(PWASignupPage.objOTP4, "4", "OTP box4");
+			waitTime(3000);
+			click(PWASignupPage.objVerifyBtnWeb, "Verified Button");
+		}
+	}
+
+	public void verifyToastMessageImpressionEventInSignUpScreen(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Toast Message Impression Event In Sign Up Screen");
+			click(PWALoginPage.objSignUpBtnWEB, "Sign up button");
+			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
+			checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+			type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
+			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
+			type(PWASignupPage.objOTP1, "1", "OTP box1");
+			type(PWASignupPage.objOTP2, "2", "OTP box2");
+			type(PWASignupPage.objOTP3, "3", "OTP box3");
+			type(PWASignupPage.objOTP4, "4", "OTP box4");
+			waitTime(3000);
+			click(PWASignupPage.objVerifyBtnWeb, "Verified Button");
+		}
+	}
+
+	public void verifySubscriptionCallReturnedEvent(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"Subscription Call Returned Event when user makes unsuccessful transaction by quitting the payment gateway screen");
+
+		if (!(userType.equals("SubscribedUser"))) {
+			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
+			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
+			waitTime(2000);
+
+			if (userType.equals("Guest")) {
+				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
+					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
+					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+					// Password Popup
+					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
+					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+				}
+			}
+			waitTime(10000);
+			WebElement iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			getWebDriver().switchTo().frame(iframeElement);
+
+			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
+			type(PWASubscriptionPages.objEnterCardNumber, "5318 3123 4521 9856", "Card Number");
+			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
+			click(PWASubscriptionPages.objEnterCVV, "CVV");
+			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
+			waitTime(10000);
+			checkElementDisplayed(PWASubscriptionPages.objCancelTransaction, "Cancel Transaction");
+			click(PWASubscriptionPages.objCancelTransaction, "Cancel Transaction");
+
+			acceptAlert();
+			waitTime(10000);
+		}
+	}
+
+	public void verifySubscriptionCallInitiatedEvent(String userType) throws Exception {
+		extent.HeaderChildNode("Subscription Call Initiated Event for All access pack");
+
+		if (!(userType.equals("SubscribedUser"))) {
+			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
+			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
+			waitTime(2000);
+
+			if (userType.equals("Guest")) {
+				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
+					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
+					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+					// Password Popup
+					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
+					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+				}
+			}
+			waitTime(10000);
+			WebElement iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			getWebDriver().switchTo().frame(iframeElement);
+
+			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
+			type(PWASubscriptionPages.objEnterCardNumber, "5318 3123 4521 9856", "Card Number");
+			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
+			click(PWASubscriptionPages.objEnterCVV, "CVV");
+			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
+			waitTime(10000);
+
+		}
+	}
+
+	public void verifySubscriptionCallInitiatedEventClubPack(String userType) throws Exception {
+		extent.HeaderChildNode("Subscription Call Initiated Event for Club pack");
+
+		if (!(userType.equals("SubscribedUser"))) {
+			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
+			click(PWASubscriptionPages.objClubPack, "Club Pack");
+			click(PWASubscriptionPages.objPackAmount1, "Pack");
+			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
+			waitTime(2000);
+
+			if (userType.equals("Guest")) {
+				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
+					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
+					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+					// Password Popup
+					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
+					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+				}
+			}
+			waitTime(10000);
+			WebElement iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			getWebDriver().switchTo().frame(iframeElement);
+
+			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
+			type(PWASubscriptionPages.objEnterCardNumber, "5318 3123 4521 9856", "Card Number");
+			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
+			click(PWASubscriptionPages.objEnterCVV, "CVV");
+			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
+			waitTime(10000);
+		}
+	}
+
+	public void verifyLogoutEvent(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			logout();
+		}
+	}
 }

@@ -1052,6 +1052,91 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForContentFromSharedLink(freeContentURL);
 	}
 	
+	@Test(priority = 135)
+	@Parameters({"keyword1"})
+	public void verifyMuteChangedEventDuringContentPlayback(String keyword1) throws Exception {
+		System.out.println("Verify Mute Changed Event During Content Playback");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyMuteChangedEventDuringContentPlayback(keyword1);
+	}
+	
+	@Test(priority = 136)
+	@Parameters({ "userType"})
+	public void verifyLoginInitiatedEventForInvalidCredentials(String userType) throws Exception {
+		System.out.println("Verify Login Initiated Event post entering invalid credentials");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginInitiatedEventForInvalidCredentials(userType);
+	}
+	
+	@Test(priority = 137)
+	@Parameters({ "userType"})
+	public void verifyLoginResultEventForInvalidCredentials(String userType) throws Exception {
+		System.out.println("Verify Login Result Event post entering invalid credentials");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginResultEventForInvalidCredentials(userType);
+	}
+	
+	@Test(priority = 138)
+	@Parameters({ "userType"})
+	public void verifyToastMessageImpressionEventInSignInScreen(String userType) throws Exception {
+		System.out.println("Verify Toast Message Impression Event In Sign In Screen");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventInSignInScreen(userType);
+	}
+	
+	@Test(priority = 139)
+	@Parameters({ "userType"})
+	public void verifyToastMessageImpressionEventInOTPScreen(String userType) throws Exception {
+		System.out.println("Verify Toast Message Impression Event In OTP Screen");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventInOTPScreen(userType);
+	}
+	
+	@Test(priority = 140)
+	@Parameters({ "userType"})
+	public void verifyRegistrationInitiatedEventForInvalidCredentials(String userType) throws Exception {
+		System.out.println("Verify Registration Initiated Event post entering invalid credentials");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyRegistrationInitiatedEventForInvalidCredentials(userType);
+	}
+	
+	@Test(priority = 141)
+	@Parameters({ "userType"})
+	public void verifyRegistrationResultEventForInvalidCredentials(String userType) throws Exception {
+		System.out.println("Verify Registration Result Event post entering invalid credentials");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyRegistrationResultEventForInvalidCredentials(userType);
+	}
+	
+	@Test(priority = 142)
+	@Parameters({ "userType"})
+	public void verifyToastMessageImpressionEventInSignUpScreen(String userType) throws Exception {
+		System.out.println("Verify Toast Message Impression Event In Sign Up Screen");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventInSignUpScreen(userType);
+	}
+	
+	@Test(priority = 143)
+	@Parameters({ "userType"})
+	public void verifySubscriptionCallReturnedEvent(String userType) throws Exception {
+		System.out.println("Verify Subscription Call Returned Event when user makes unsuccessful transaction by quitting the payment gateway screen");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubscriptionCallReturnedEvent(userType);
+	}
+	
+	
+	@Test(priority = 144)
+	@Parameters({ "userType"})
+	public void verifySubscriptionCallInitiatedEvent(String userType) throws Exception {
+		System.out.println("Verify Subscription Call Initiated Event for All access pack");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubscriptionCallInitiatedEvent(userType);
+	}
+	
+	
+	@Test(priority = 145)
+	@Parameters({ "userType"})
+	public void verifySubscriptionCallInitiatedEventClubPack(String userType) throws Exception {
+		System.out.println("Verify Subscription Call Initiated Event for Club pack");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubscriptionCallInitiatedEventClubPack(userType);
+	}
+	
+	@Test(priority = 146)
+	@Parameters({ "userType"})
+	public void verifyLogoutEvent(String userType) throws Exception {
+		System.out.println("Verify Logout Event");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyLogoutEvent(userType);
+	}
 	
 	
 	@AfterClass

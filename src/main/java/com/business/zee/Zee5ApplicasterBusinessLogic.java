@@ -12599,7 +12599,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void findTray(By byLocator) {
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 10; i++) {
 			if (!(verifyIsElementDisplayed(byLocator))) {
 				Swipe("UP", 1);
 			} else {

@@ -652,9 +652,18 @@ public class ResponseInstance {
 		return title;
 	}
 	
+	public static void getDetailsOfCustomer(String pUsername,String pPassword) {
+		String xAccessToken = getXAccessTokenWithApiKey();
+		String bearerToken = getBearerToken(pUsername, pPassword);
+		String url = "https://userapi.zee5.com/v1/user";
+		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+		resp.print();
+	}
+	
 	public static void main(String[] args) {
 //		getResponseForApplicasterPages("Guest", "3673").print();
-		System.out.println(BeforeTV("Guest","Home"));
+//		System.out.println(BeforeTV("Guest","Home"));
+		getDetailsOfCustomer("zeetest998@test.com","123456");
 	}
 
 }

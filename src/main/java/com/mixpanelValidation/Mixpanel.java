@@ -27,6 +27,8 @@ import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.response.Response;
 import com.propertyfilereader.PropertyFileReader;
 
+
+
 public class Mixpanel extends ExtentReporter {
 
 //	LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -43,8 +45,8 @@ public class Mixpanel extends ExtentReporter {
 	/**
 	 * Global variables
 	 */
-	static String sheet = "Skip Login_1";
-	static String fileName = ReportName;
+	static String sheet = "Screen View";
+	static String fileName = "Screen View";//ReportName;
 	static String xlpath ;
 	static String booleanParameters = "";
 	static String integerParameters = "";
@@ -66,15 +68,15 @@ public class Mixpanel extends ExtentReporter {
 
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
 //		creatExcel();
-		fetchEvent("5f3313449396bb6371b2482184bd7432", "Skip Registartion");
+		fetchEvent("7c6e86eab3b1926a1af7ccdc6cd8e18d", "Screen View");
 //		validation();
 //		Instant instant = Instant.ofEpochSecond("1601475542");
 //		java.util.Date time = new java.util.Date((long)1601475542*1000);
 //		System.out.println("Time : "+time);
 
-		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
-		booleanParameters = Prop.getproperty("Boolean");
-		integerParameters = Prop.getproperty("Integer");
+//		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+//		booleanParameters = Prop.getproperty("Boolean");
+//		integerParameters = Prop.getproperty("Integer");
 //		System.out.println(Stream.of(booleanParameters).anyMatch("Ad isEmpty"::equals));
 //		System.out.println(isContain(booleanParameters,"Ad isEmpty"));
 //		System.out.println(Prop.getproperty("Integer"));
@@ -91,6 +93,8 @@ public class Mixpanel extends ExtentReporter {
 //	        Date now = new Date();
 //	        long ut3 = now.getTime() / 1000L;
 //	        System.out.println(ut3);
+		
+		System.out.println(System.getProperty("os.name"));
 	}
 
 	/**
@@ -105,7 +109,7 @@ public class Mixpanel extends ExtentReporter {
 	public static void fetchEvent(String distinct_id, String eventName)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
-			Thread.sleep(120000);
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

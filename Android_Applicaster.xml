@@ -122,8 +122,9 @@
 	<parameter name="browserType" value="Chrome"/>  <!--  Chrome/Firefox -->
 	<parameter name="RSVODContent" value="LockUp" />
 
- 	<parameter name="USMNonsubscribedUserName" value="starttestzee5@gmail.com" />
-	<parameter name="USMNonsubscribedPassword" value="123456" />
+ 	<parameter name="USMNonsubscribedUserName" value="gdm@mailnesia.com" />
+	<parameter name="USMNonsubscribedPassword" value="654321" />
+	
 	<parameter name="ClubContent" value="Paani Jaisa Pyaar" />
 	<parameter name="SearchVODContent4"  value="Kurukshetra" />
 
