@@ -623,4 +623,8 @@ public class PWAHamburgerMenuPage {
 	public static By objRestrict13PlusContent = By.xpath("//div[contains(text(),'Restrict 13+ Content')]");
 
 	public static By objContinueButton = By.xpath("//span[contains(text(),'Continue')]");
+	
+	public static By objHighlightedTab(String tabname) {
+		return By.xpath("//a[@class='noSelect active' and text()=\""+tabname+"\"]");
+	}
 }

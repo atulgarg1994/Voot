@@ -86,6 +86,8 @@ public class Android_LandingScreen_TopNavigation {
 	@Parameters({ "userType", "tabName4" }) // Hitesh
 	public void LiveTV_landingScreen(String userType, String tabName) throws Exception {
 		System.out.println("\n---Verify LiveTv landing screen---\n");
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.navigateToHomecreenFromIntroScreen();
 		ZEE5ApplicasterBusinessLogic.LiveTV(userType, tabName);
 	}
 
@@ -106,7 +108,7 @@ public class Android_LandingScreen_TopNavigation {
 
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println("Quit the App");
+		System.out.println("\nExecution Complete - Quiting the App");
 		ZEE5ApplicasterBusinessLogic.tearDown();
 	}
 

@@ -357,7 +357,7 @@ public class PWAHomePage {
 	public static By objTwitterIcon = By.xpath("//*[@class='noSelect twittercon iconSocial-ic_social_twitter']");
 
 	public static By objHighlightedTab(String tabname) {
-		return By.xpath("//*[@class=\"noSelect active\"]");
+		return By.xpath("//a[@class='noSelect active' and text()=\""+tabname+"\"]");
 	}
 
 	public static By objSearchResultWeb = By.xpath("//div[@class='searchListingNewsWrap']//img[@title='Ramayana']");
@@ -468,7 +468,7 @@ public class PWAHomePage {
 	// Android google play store
 	public static By objGooglePlayStore = By.xpath("//*[contains(@text,'HiPi, News, Movies, TV Shows, Web Series')]");	
 
-	public static By objGetPremiumGetClubButton = By.xpath("//*[text()='Get premium' or text()='Get Club']");
+	public static By objGetPremiumGetClubButton = By.xpath("//div[contains(@class,'slick-active')]//*[text()='Get premium' or text()='Get Club']//parent::a");
 
 	public static By obj3xfasterPopUpNoThanks = By.xpath("//*[@text='NO THANKS\\n']");
 	
@@ -479,6 +479,7 @@ public class PWAHomePage {
 	// Twitter page
 	public static By objTwitterPage = By.xpath("//*[@text='FOLLOW' or @text='Follow']");
 	
-	
+	//Check for the club tag
+	public static By objClubTag = By.xpath("//*[contains(@class,'clubPackContent')]");
 
 }

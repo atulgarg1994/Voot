@@ -345,7 +345,7 @@ public class ResponseInstance {
 			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
 		} else {
 			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page
-					+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages=" + contLang + "&version=8";
+					+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages=" + contLang + "&version=10";
 			System.out.println(Uri);
 		}
 		respCarousel = given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(Uri);
