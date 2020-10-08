@@ -20,7 +20,6 @@ public class ParameterInjector implements IAlterSuiteListener  {
 		Map<String, String> params = new HashMap<>();	
 		
 		//Pass environment data
-		params.put("url", suite.getParameter("url"));
 		params.put("browserType", suite.getParameter("browserType"));
 		params.put("userType", suite.getParameter("userType"));
 		params.put("NonsubscribedUserName", suite.getParameter("NonsubscribedUserName"));
@@ -30,6 +29,12 @@ public class ParameterInjector implements IAlterSuiteListener  {
 		params.put("devicePin", suite.getParameter("devicePin"));
 		params.put("runModule", suite.getParameter("runModule"));
 		params.put("runMode", suite.getParameter("runMode"));
+		
+		if(suite.getParameter("url").equals("newpwa")) {
+			params.put("url", "https://newpwa.zee5.com/");
+		}else if(suite.getParameter("url").equals("prod")) {
+			params.put("url", "https://www.zee5.com/");
+		}
 		
 		// Pass region specific data
 		Response regionResponse=given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");

@@ -44,8 +44,7 @@ public class AMDWatchlistPage {
 
 	public static By objTitleTxt = By.xpath("(//*[@id='episodsList']//*[@id='txt_reminder_item_title'])[1]");
 
-	public static By objSelectedTab = By
-			.xpath("(//*[@id='tabLayout']//*[@class='android.widget.TextView' and @selected='true'])");
+	public static By objSelectedTab = By.xpath("(//*[@id='tabLayout']//*[@class='android.widget.TextView' and @selected='true'])");
 
 	public static By objPlayerScreen = By.xpath("//*[@id='player_root']");
 

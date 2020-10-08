@@ -102,7 +102,7 @@ public class WebPWASanityScript {
 	}
 
 // --------------------------YASHASWINI LandingPages--------------------------	
-//	@Test(priority = 9)
+	@Test(priority = 9)
 	@Parameters({ "userType" })
 	public void landingPageValidation(String userType) throws Exception {
 		// SMOKE LANDINGPAGE : TEJAS
@@ -155,7 +155,7 @@ public class WebPWASanityScript {
 
 // -------------------------TEJAS ShowsPage--------------------------
 
-//	@Test(priority = 13)
+	@Test(priority = 13)
 	@Parameters({ "userType" })
 	public void showsPage(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -335,7 +335,7 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Home");
 		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Shows");
 //		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Free Movies");
-		;
+
 		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Movies");
 		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Home");
 		// premium icon functionality

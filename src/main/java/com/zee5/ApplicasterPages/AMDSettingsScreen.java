@@ -28,4 +28,11 @@ public class AMDSettingsScreen {
 	public static By objAuthenticateCloseBtn= By.xpath("//*[@id='icon_exit']");
 	public static By objLoadingAnimator= By.xpath("//*[@class='android.widget.ProgressBar']");
 	public static By objUpdateSettingsMessage= By.xpath("//*[@id='txt_progress']");
+	public static By objVideoQualityDefaultvalue = By.xpath("//*[@id='videoStreamingContainer']//*[@id='qualityPixels']");
+	public static By objAutoPlayToggleON = By.xpath("//*[@id='autoPlaySwitch'][@text='ON' or 'On']");
+	public static By objAutoPlayToggleOFF = By.xpath("//*[@id='autoPlaySwitch'][@text='OFF' or 'Off']");
+	public static By objAutoPlayToggleSwitch = By.xpath("//*[@id='autoPlaySwitch']");
+	public static By objVideoQualitySelectedOptionOnPlayer = By.xpath("//*[@id='popuplistitem' and ./*[@id='icon_selected']]");
+	public static By objQualityOptionOnPlayer = By.xpath("//*[@id='icon_quality_text']");
+	public static By objoptionsInVideoQuality = By.xpath("(//*[@id='textView2'])[3]");
 }

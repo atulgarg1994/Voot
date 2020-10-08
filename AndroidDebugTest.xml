@@ -124,6 +124,11 @@
 	<parameter name="USMNonsubscribedPassword" value="654321" />
 	<parameter name="ClubContent" value="Paani Jaisa Pyaar" />
 	<parameter name="SearchVODContent4"  value="Kurukshetra" />
+	<parameter name="NonSubsUserKids" value="igszee0406@yopmail.com" />
+	<parameter name="NonSubsPwdKids" value="654321" />
+	
+	<parameter name="SubsUserClubPack" value="zeetest510@gmail.com" />
+	<parameter name="SubsPwdClubPack" value="000000" />
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

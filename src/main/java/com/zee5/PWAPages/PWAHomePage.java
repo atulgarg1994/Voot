@@ -86,9 +86,6 @@ public class PWAHomePage {
 
 	public static By objLanguageBtn = By.xpath("//div[@id='languageBtn']");
 
-	public static By objGetPremiumWeb = By.xpath(
-			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'noSelect premiumBtn')][contains(text(),'Get premium')]");
-
 	// Masthead carousel current content
 	public static By objMastheadCarouselCurrentContent = By.xpath(
 			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'content')]//img");
@@ -482,4 +479,5 @@ public class PWAHomePage {
 	//Check for the club tag
 	public static By objClubTag = By.xpath("//*[contains(@class,'clubPackContent')]");
 
+	public static By objGetPremiumWeb = By.xpath("//*[text()='Get premium' or text()='Get Club']");
 }

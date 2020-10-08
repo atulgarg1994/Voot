@@ -134,7 +134,6 @@ public class ExtentReporter implements ITestListener {
 
 	@Override
 	public void onTestStart(ITestResult result) {
-		System.out.println(DriverInstance.getRunModule());
 		if ((Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals)
 				&& DriverInstance.startTest) || result.getName().equals("Login")
 				|| result.getName().equals("PWAWEBLogin")) {

@@ -133,4 +133,8 @@ public class PWAPremiumPage {
 			"(//*[@class='showCard sameEpisodeCard underMetaSameCard  zoomCardHover minutelyUrl card marginRight positionRelative'])[1]");
 
 	public static By objContentInPlaylist = By.xpath("(//*[@class='upNextCard'])[1]");
+	
+	public static By objEmbedPopUp = By.xpath("//*[@class='iconInitialLoad-ic_embed']");
+	
+	public static By objEmbedCopy = By.xpath("//button[@class='noSelect buttonGradient ']//*[contains(text(),'Copy')]");
 }

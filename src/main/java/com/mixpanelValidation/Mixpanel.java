@@ -45,8 +45,8 @@ public class Mixpanel extends ExtentReporter {
 	/**
 	 * Global variables
 	 */
-	static String sheet = "Screen View";
-	static String fileName = "Screen View";//ReportName;
+	static String sheet = "Login Initiated";
+	static String fileName = "Login Initiated";//ReportName;
 	static String xlpath ;
 	static String booleanParameters = "";
 	static String integerParameters = "";
@@ -68,10 +68,11 @@ public class Mixpanel extends ExtentReporter {
 
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
 //		creatExcel();
-		fetchEvent("7c6e86eab3b1926a1af7ccdc6cd8e18d", "Screen View");
+		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
+		fetchEvent("3c700400-6a97-48db-8917-f30f604a4001", "Subscription Call Returned");
 //		validation();
 //		Instant instant = Instant.ofEpochSecond("1601475542");
-//		java.util.Date time = new java.util.Date((long)1601475542*1000);
+//		java.util.Date time = new java.util.Date((long)1601475542*1000); 
 //		System.out.println("Time : "+time);
 
 //		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
@@ -121,7 +122,7 @@ public class Mixpanel extends ExtentReporter {
 				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
 				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
 				.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
-				.formParam("where", "properties[\"$distinct_id\"]==\"" + distinct_id + "\"")
+				.formParam("where", "properties[\"$Unique ID\"]==\"" + distinct_id + "\"")
 				.post("https://data.mixpanel.com/api/2.0/export/");
 		request.print();
 

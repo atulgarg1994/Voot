@@ -132,48 +132,32 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		getDriver().quit();
 	}
 
-	String pUserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
-	String RegisteredEmail = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("RegisteredEmail");
-	String RegisteredEmailPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("RegisteredEmailPassword");
-	String UnRegisteredMobile = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("UnRegisteredMobile");
-	String RegisteredMobile = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("RegisteredMobile");
-	String RegisteredMobilePassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("RegisteredMobilePassword");
-	String PromoCode = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("PromoCode");
-	String NonsubscribedUserName = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("NonsubscribedUserName");
-	String NonsubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("NonsubscribedPassword");
-	String SubscribedUserName = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("SubscribedUserName");
-	String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("SubscribedPassword");
-	String FirstName = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("FirstName");
-	String LastName = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("LastName");
+	String pUserType = getParameterFromXML("userType");
+	String RegisteredEmail = getParameterFromXML("RegisteredEmail");
+	String RegisteredEmailPassword = getParameterFromXML("RegisteredEmailPassword");
+	String UnRegisteredMobile = getParameterFromXML("UnRegisteredMobile");
+	String RegisteredMobile = getParameterFromXML("RegisteredMobile");
+	String RegisteredMobilePassword = getParameterFromXML("RegisteredMobilePassword");
+	String PromoCode = getParameterFromXML("PromoCode");
+	String NonsubscribedUserName = getParameterFromXML("NonsubscribedUserName");
+	String NonsubscribedPassword = getParameterFromXML("NonsubscribedPassword");
+	String SubscribedUserName = getParameterFromXML("SubscribedUserName");
+	String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+	String FirstName = getParameterFromXML("FirstName");
+	String LastName = getParameterFromXML("LastName");
 
-	String RSVODUser = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("RSVODUser");
-	String RSVODPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("RSVODPassword");
+	String RSVODUser = getParameterFromXML("RSVODUser");
+	String RSVODPassword = getParameterFromXML("RSVODPassword");
 
-	String content1 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("searchcontent1");
-	String content2 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("searchcontent2");
-	String content3 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("searchcontent3");
-	String content4 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("searchcontent4");
-	String content5 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("searchcontent5");
-	String content6 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("searchcontent6");
-	String pVideoQuality = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("VideoQuality");
-	String pMovie = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("MovieName");
+	String content1 = getParameterFromXML("searchcontent1");
+	String content2 = getParameterFromXML("searchcontent2");
+	String content3 = getParameterFromXML("searchcontent3");
+	String content4 = getParameterFromXML("searchcontent4");
+	String content5 = getParameterFromXML("searchcontent5");
+	String content6 = getParameterFromXML("searchcontent6");
+	String pVideoQuality = getParameterFromXML("VideoQuality");
+	String pMovie = getParameterFromXML("MovieName");
+	String RSVODContent = getParameterFromXML("RSVODContent");
 
 	// Retrieve the Mobile Device Name
 	String getOEMName = DeviceDetails.OEM;
@@ -183,6 +167,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.extentLogger("User Type", "UserType : " + userType);
 		logger.info("UserType : " + userType);
 		System.out.println("Access Device Location PopUp");
+
 		if (checkElementExist(AMDOnboardingScreen.objAllowBtn)) {
 			Wait(5000);
 			verifyElementPresent(AMDOnboardingScreen.objAllowBtn, "Allow button");
@@ -845,11 +830,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Swipe("UP", 2);
 			PartialSwipe("UP", 2);
 			verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
+			Swipe("DOWN", 1);
 			verifyElementExist(AMDSubscibeScreen.objPremiumTab, "Premium pack tab");
 			verifyElementExist(AMDSubscibeScreen.objClubTab, "Club pack tab");
 			Swipe("UP", 1);
 			int size = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
-			for (int i = 1; i <= size; i++) {
+			for (int i = 0; i < size; i++) {
 				boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).isDisplayed();
 				if (isDisplayed) {
 					String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
@@ -872,7 +858,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //			PartialSwipe("UP", 2);
 //			verifyElementExist(AMDSubscibeScreen.objRSVODPack2, "RSVOD Plan for 365 days");
 			int size3 = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
-			for (int i = 1; i <= size3; i++) {
+			for (int i = 0; i < size3; i++) {
 				boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).isDisplayed();
 				if (isDisplayed) {
 					String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
@@ -967,7 +953,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //			verifyElementExist(AMDSubscibeScreen.obj180daysPack, "180 days premium plan tab");
 //			verifyElementExist(AMDSubscibeScreen.obj365daysPack, "365 days premium plan tab");
 			int size = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
-			for (int i = 1; i <= size; i++) {
+			for (int i = 0; i < size; i++) {
 				boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).isDisplayed();
 				if (isDisplayed) {
 					String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
@@ -1007,19 +993,18 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDHomePage.objSearchBtn, "Search button");
 			waitTime(5000);
 			click(AMDSearchScreen.objSearchEditBox, "Search box");
-			type(AMDSearchScreen.objSearchBoxBar, getParameterFromXML("RSVODContent"), "Search field");
+			type(AMDSearchScreen.objSearchBoxBar, RSVODContent, "Search field");
 			hideKeyboard();
 			waitTime(7000);
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result premium content");
 			waitTime(5000);
-			verifyElementExist(AMDSearchScreen.objContentNameInPlayer(getParameterFromXML("RSVODContent")),
-					"Content name in player");
+			verifyElementExist(AMDSearchScreen.objContentNameInPlayer(RSVODContent), "Content name in player");
 			click(AMDHomePage.objGetClubInConsumptionScreen, "Upgrade button");
 			verifyElementExist(AMDSearchScreen.objUpgradePopup, "Upgrade popup for RSVOD user");
 			verifyElementExist(AMDSearchScreen.objUpgradePopupDescription, "Upgrade popup description");
 			logger.info(getText(AMDSearchScreen.objUpgradePopupDescription));
 			int size4 = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
-			for (int i = 1; i <= size4; i++) {
+			for (int i = 0; i < size4; i++) {
 				boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).isDisplayed();
 				if (isDisplayed) {
 					String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
@@ -1053,10 +1038,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void subscribeAllaccessFunctionality() throws Exception {
-		HeaderChildNode("Subscribe All access functionality");
-		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Display continue");
-		click(AMDOnboardingScreen.objContent_ContinueBtn, " Content Continue");
+
 		click(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for free");
+
 		click(AMDLoginScreen.objEmailIdField, "Email field");
 		type(AMDLoginScreen.objEmailIdField, SubscribedUserName, "Email field");
 		hideKeyboard();
@@ -1069,6 +1053,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDHomePage.objHomeBtn, "Home button");
 		click(AMDHomePage.objMoreMenu, "More menu");
 		click(AMDHomePage.objMyProfileIcon, "profile icon");
+
 		if (checkElementExist(AMDHomePage.objEditProfile, "Edit profile")) {
 			logger.info("User is logged in successfully");
 			extent.extentLoggerPass("Edit", "User is logged in successfully");
@@ -1082,7 +1067,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		Swipe("UP", 1);
 		waitTime(3000);
 		Swipe("UP", 1);
-		verifyElementPresentAndClick(AMDSubscibeScreen.obj365daysPack, "365 days all access pack");
+//	verifyElementPresentAndClick(AMDSubscibeScreen.obj365daysPack, "365 days all access pack");
+		int size = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
+		for (int i = 0; i < size; i++) {
+			boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).isDisplayed();
+			if (isDisplayed) {
+				String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
+				extent.extentLoggerPass("Packs", "Available Pack " + i + " : " + pack);
+				logger.info("Available Pack " + i + " : " + pack);
+			} else {
+				extent.extentLoggerFail("Packs", "No Packs are available");
+				logger.info("No Packs are available");
+			}
+		}
 		Swipe("UP", 1);
 		click(AMDSubscibeScreen.objContinueBtn, "Continue button");
 		if (checkElementExist(AMDHomePage.objHomeBtn, "Home tab")) {
@@ -1132,38 +1129,42 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDSubscibeScreen.objInvalidPromoCodeText, "Invalid promo code error message");
 		Swipe("UP", 1);
 		verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
+		Swipe("DOWN", 1);
 		verifyElementExist(AMDSubscibeScreen.objPremiumTab, "Premium  pack tab");
-		verifyElementExist(AMDSubscibeScreen.objClubTab, "Club pack tab");
-		Swipe("UP", 1);
+		verifyElementExist(AMDSubscibeScreen.objClubTab , "Club pack tab");
+		Swipe("UP", 3);
+		waitTime(3000);
 		int size = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
-		for (int i = 1; i <= size; i++) {
+		for(int i=0; i<size; i++) {
 			boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).isDisplayed();
-			if (isDisplayed) {
+			if(isDisplayed) {
 				String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
-				extent.extentLoggerPass("Packs", "Available Pack " + i + " : " + pack);
-				logger.info("Available Pack " + i + " : " + pack);
-			} else {
+				extent.extentLoggerPass("Packs", "Available Pack "+i+" : " +pack);
+				logger.info("Available Pack "+i+" : " +pack);
+			}else {
 				extent.extentLoggerFail("Packs", "No Packs are available");
 				logger.info("No Packs are available");
 			}
 		}
-		PartialSwipe("UP", 2);
-		verifyElementExist(AMDSubscibeScreen.objContinueBtn, "Continue button in subscribe page");
+//		PartialSwipe("UP", 2);
+		
+		verifyElementPresent(AMDSubscibeScreen.objContinueBtn, "Continue button in subscribe page");
 		if (getDriver().findElement(AMDSubscibeScreen.objContinueBtn).isEnabled()) {
 			logger.info("Continue button is highlighted");
 			extent.extentLoggerPass("Highlighted", "Continue button is highlighted");
 		}
 		Swipe("DOWN", 1);
-		click(AMDSubscibeScreen.objClubTab, "Club Pack tab");
+		click(AMDSubscibeScreen.objClubTab , "Club Pack tab");
 		PartialSwipe("UP", 1);
+		waitTime(3000);
 		int size1 = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
-		for (int i = 1; i <= size1; i++) {
+		for(int i=0; i<size1; i++) {
 			boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).isDisplayed();
-			if (isDisplayed) {
+			if(isDisplayed) {
 				String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
-				extent.extentLoggerPass("Packs", "Available Pack " + i + " : " + pack);
-				logger.info("Available Pack " + i + " : " + pack);
-			} else {
+				extent.extentLoggerPass("Packs", "Available Pack "+i+" : " +pack);
+				logger.info("Available Pack "+i+" : " +pack);
+			}else {
 				extent.extentLoggerFail("Packs", "No Packs are available");
 				logger.info("No Packs are available");
 			}
@@ -2709,7 +2710,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 		extent.HeaderChildNode("Login Functionality");
 
-		String UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String UserType = getParameterFromXML("userType");
 		if (UserType.equals("Guest")) {
 			extent.extentLogger("userType", "UserType : Guest");
 		}
@@ -2730,10 +2731,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
 
-			String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("NonsubscribedUserName");
-			String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("NonsubscribedPassword");
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
 
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
@@ -2748,10 +2747,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		case "SubscribedUser":
 			extent.HeaderChildNode("Login as Subscribed User");
 
-			String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedUserName");
-			String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedPassword");
+			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
+			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
 
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
@@ -3803,6 +3800,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					tabName);
 			deselectContentLang_MoreMenuAndSelectDefaultLanguage("English,Malayalam");
 		}
+		verifyContinueWatchingTray(userType, tabName);
+		RemoveContentCardFromCWRail(userType);
 	}
 
 	public void selectContentLang_MoreMenu2(String planguage) throws Exception {
@@ -3813,6 +3812,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings CTA");
 		verifyElementPresent(AMDGenericObjects.objScreenTitleName("Settings"), "Settings Screen");
 		Swipe("UP", 1);
+		SwipeUntilFindElement(AMDMoreMenu.objContentLang, "UP");
 		verifyElementPresentAndClick(AMDMoreMenu.objContentLang, "Content language");
 		verifyElementPresent(AMDGenericObjects.objScreenTitleName("Content Language"), "Content language screen");
 
@@ -3855,7 +3855,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				PartialSwipe("UP", 1);
 			}
 		}
-
 		waitTime(1000);
 		verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button");
 		waitTime(1000);
@@ -4284,7 +4283,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					extent.extentLoggerPass("Tray", str1 + " is not displayed");
 				} else {
 					logger.error(str1 + " is not displayed");
-					extent.extentLoggerFail("Tray", str1 + " is not displayed");
+					extent.extentLoggerWarning("Tray", str1 + " is not displayed");
 				}
 			} else {
 				if (tabName.equalsIgnoreCase("Home")) {
@@ -4302,11 +4301,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 							extent.extentLoggerPass("Tray", str1 + " is not displayed for this user");
 						} else {
 							logger.error(str1 + " is not displayed for this user");
-							extent.extentLoggerFail("Tray", str1 + " is not displayed for this user");
+							extent.extentLoggerWarning("Tray", str1 + " is not displayed for this user");
 						}
 					}
 					logger.error(str1 + " is not displayed");
-					extent.extentLoggerFail("Tray", str1 + " is not displayed");
+					extent.extentLoggerWarning("Tray", str1 + " is not displayed");
 				}
 			}
 		}
@@ -5331,8 +5330,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("verify user can able to delete content in continue watching tray");
 		if (userType.equalsIgnoreCase("NonSubscribedUser") | userType.equalsIgnoreCase("SubscribedUser")) {
 			// Swipe("UP",1);
-			boolean ContinueWatchingTray = verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray,
-					"Continue Watching Tray");
+			boolean ContinueWatchingTray = verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray);
 			if (ContinueWatchingTray) {
 				boolean CWTrayContent = verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTrayContentCard);
 				if (CWTrayContent) {
@@ -5347,18 +5345,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						logger.info("Content Deleted from the Contnue Watching tray");
 						extent.extentLoggerPass("Delete Content", "Content Deleted from the Contnue Watching tray");
 					} else {
-						logger.info("Content Deleted from the Contnue Watching tray");
+						logger.info("Failed to delete Content from Continue Watching tray");
 						extent.extentLoggerFail("Delete Content",
 								"Failed to delete Content from Continue Watching tray");
 					}
 				}
-
 			} else {
-
-				logger.info("Continue Watching tray not displayed in Shows Landing Screen");
-				extent.extentLoggerWarning("Continue Watching Tray",
-						"Continue Watching tray not displayed in Shows Landing Screen");
-
+				logger.info("Continue Watching tray not displayed");
+				extent.extentLoggerWarning("Continue Watching Tray", "Continue Watching tray not displayed");
 			}
 		} else {
 			logger.info("Continue Watching Tray validation is not applicable for " + userType);
@@ -5684,11 +5678,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
 			String password = "";
 			if (userType.equals("NonSubscribedUser")) {
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SettingsNonsubscribedPassword");
+				password = getParameterFromXML("SettingsNonsubscribedPassword");
 			} else if (userType.equals("SubscribedUser")) {
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SettingsSubscribedPassword");
+				password = getParameterFromXML("SettingsSubscribedPassword");
 			}
 			click(AMDMoreMenu.objPasswordField, "Password field");
 			getDriver().getKeyboard().sendKeys(password);
@@ -5763,11 +5755,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
 
 			if (userType.equals("NonSubscribedUser")) {
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SettingsNonsubscribedPassword");
+				password = getParameterFromXML("SettingsNonsubscribedPassword");
 			} else if (userType.equals("SubscribedUser")) {
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SettingsSubscribedPassword");
+				password = getParameterFromXML("SettingsSubscribedPassword");
 			}
 			click(AMDMoreMenu.objPasswordField, "Password field");
 			getDriver().getKeyboard().sendKeys(password);
@@ -5849,9 +5839,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void KidsTabScreen(String UserType) throws Exception {
 
 		extent.HeaderChildNode("Verifying Kids tab screen");
+		System.out.println("Verifying Kids tab screen");
+
 		// Selecting Marathi language as content language
-		selectContentLang_MoreMenu2("Marathi");
-		// selectContentLang_MoreMenu("Marathi");
+		if (UserType.contains("Guest")) {
+			selectContentLang_MoreMenu2("Marathi");
+		}
 
 		// Verify user is navigated to Premium tab
 		SelectTopNavigationTab("Kids");
@@ -5868,13 +5861,20 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 
 		// Verify Subscribe icon is displayed
-		verifyElementPresent(AMDHomePage.objSubscribeIcon, "Subscribe icon in Kids tab");
+		if (UserType.contains("SubscribedUser")) {
+			extent.extentLoggerPass("Subscribe Icon", "Subscribe Icon is not displayed for " + UserType);
+			logger.info("Subscribe Icon is not displayed for " + UserType);
+		} else {
+			verifyElementPresent(AMDHomePage.objSubscribeIcon, "Subscribe icon in Kids tab");
+		}
 		// Verify Trending on ZEE5 tray is displayed
 		// verifyElementPresent(AMDHomePage.objTrendingOnZee5Tray, "Trending on Zee5");
 		// Verify Play icon is displayed
 		String carouselContent = getText(AMDHomePage.objCarouselTitle1);
 		carouselValidation(UserType, "Kids", carouselContent);
-		ResetSettings();
+		if (UserType.contains("Guest")) {
+			ResetSettings();
+		}
 	}
 
 	public void ResetSettings() throws Exception {
@@ -5883,10 +5883,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings CTA");
 		verifyElementPresent(AMDGenericObjects.objScreenTitleName("Settings"), "Settings Screen");
 		Swipe("UP", 1);
+		SwipeUntilFindElement(AMDMoreMenu.objResetDefault, "UP");
 		verifyElementPresentAndClick(AMDMoreMenu.objResetDefault, "Reset settings to Default");
 		click(AMDMoreMenu.objYesBtnResetDefault, "Yes button");
 		Back(1);
-		click(AMDHomePage.HomeIcon, "Home button");
 	}
 
 	/**
@@ -6336,6 +6336,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				"Continue watching tray", "MastheadCarousel", userType, tabName);
 		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Trending Movies"), AMDHomePage.objCarouselConetentCard,
 				"Trending Movies tray", "MastheadCarousel", userType, tabName);
+		verifyContinueWatchingTray(userType, tabName);
+		RemoveContentCardFromCWRail(userType);
 	}
 
 	/**
@@ -6617,8 +6619,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void channelGuideScreenValidation(String UserType) throws Exception {
 		extent.HeaderChildNode("Verifying Channel Guide screen in Live TV Landing screen");
 		System.out.println("\nVerifying Channel Guide screen in Live TV Landing screen");
-		// swipeByElements(findElement(AMDHomePage.objNewsTab),
-		// findElement(AMDHomePage.objHomeTab));
+
 		verifyElementPresentAndClick(AMDHomePage.objLiveTvTab, "Live Tv");
 		verifyElementExist(AMDLiveTVScreen.objChannelGuide, "Channel Guide toggle option");
 		click(AMDLiveTVScreen.objChannelGuide, "Channel Guide");
@@ -7022,15 +7023,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(10000);
 		String email = null, password = null;
 		if (userType.contains("NonSubscribedUser")) {
-			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SettingsNonsubscribedUserName");
-			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SettingsNonsubscribedPassword");
+			email = getParameterFromXML("SettingsNonsubscribedUserName");
+			password = getParameterFromXML("SettingsNonsubscribedPassword");
 		} else if (userType.contains("SubscribedUser")) {
-			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SettingsSubscribedUserName");
-			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SettingsSubscribedPassword");
+			email = getParameterFromXML("SettingsSubscribedUserName");
+			password = getParameterFromXML("SettingsSubscribedPassword");
 		}
 		String courselContentTitle = getCarouselTitleFromAPI(userType, "homepage", email, password);
 //		String courselContentTitle = carouselValidationWithApi(userType, "homepage");
@@ -7816,10 +7813,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		if (userType.contentEquals("NonSubscribedUser")) {
 			click(AMDMoreMenu.objProfile, "Profile");
-			String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("NonsubscribedUserName");
-			String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("NonsubscribedPassword");
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
 
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
@@ -7834,10 +7829,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (userType.contentEquals("SubscribedUser")) {
 			click(AMDMoreMenu.objProfile, "Profile");
 
-			String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedUserName");
-			String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedPassword");
+			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
+			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
 
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
@@ -9461,10 +9454,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDMoreMenu.objProfile, "Profile");
 			waitTime(2000);
 
-			String PackwithDiscountAmountUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("PackWithDiscountUsername");
-			String PackwithDiscountAmountPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("PackWithDiscountPassword");
+			String PackwithDiscountAmountUsername = getParameterFromXML("PackWithDiscountUsername");
+			String PackwithDiscountAmountPassword = getParameterFromXML("PackWithDiscountPassword");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 
 			LoginWithEmailID(PackwithDiscountAmountUsername, PackwithDiscountAmountPassword);
@@ -10468,11 +10459,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			String password = "";
 			if (userType.equals("NonSubscribedUser")) {
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("USMNonsubscribedPassword");
+				password = getParameterFromXML("USMNonsubscribedPassword");
 			} else if (userType.equals("SubscribedUser")) {
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SettingsSubscribedPassword");
+				password = getParameterFromXML("SettingsSubscribedPassword");
 			}
 			click(AMDMoreMenu.objPasswordField, "Password field");
 			getDriver().getKeyboard().sendKeys(password);
@@ -10539,11 +10528,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
 
 			if (userType.equals("NonSubscribedUser")) {
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("USMNonsubscribedPassword");
+				password = getParameterFromXML("USMNonsubscribedPassword");
 			} else if (userType.equals("SubscribedUser")) {
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SettingsSubscribedPassword");
+				password = getParameterFromXML("SettingsSubscribedPassword");
 			}
 			click(AMDMoreMenu.objPasswordField, "Password field");
 			getDriver().getKeyboard().sendKeys(password);
@@ -11794,7 +11781,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 */
 	public void ZeeApplicasterLoginForSettings(String LoginMethod) throws Exception {
 		extent.HeaderChildNode("Login Functionality");
-		String UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String UserType = getParameterFromXML("userType");
 		if (UserType.equals("Guest")) {
 			extent.extentLogger("userType", "UserType : Guest");
 		}
@@ -11813,10 +11800,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User for Settings");
-			String SUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SettingsNonsubscribedUserName");
-			String SPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SettingsNonsubscribedPassword");
+			String SUsername = getParameterFromXML("SettingsNonsubscribedUserName");
+			String SPassword = getParameterFromXML("SettingsNonsubscribedPassword");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -11829,10 +11814,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		case "SubscribedUser":
 			extent.HeaderChildNode("Login as Subscribed User for Settings");
-			String SettingsSubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SettingsSubscribedUserName");
-			String SettingsSubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SettingsSubscribedPassword");
+			String SettingsSubscribedUsername = getParameterFromXML("SettingsSubscribedUserName");
+			String SettingsSubscribedPassword = getParameterFromXML("SettingsSubscribedPassword");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SettingsSubscribedUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -14739,7 +14722,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void ZeeApplicasterLoginForClubPack(String LoginMethod) throws Exception {
 		extent.HeaderChildNode("Login Functionality");
-		String UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String UserType = getParameterFromXML("userType");
 		if (UserType.equals("Guest")) {
 			extent.extentLogger("userType", "UserType : Guest");
 		}
@@ -15091,7 +15074,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void ZeeWEBPWALogin(String LoginMethod) throws Exception {
-		String userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String userType = getParameterFromXML("userType");
 		switch (userType) {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
@@ -15396,8 +15379,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
 			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
-			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("USMNonsubscribedPassword");
+			String password = getParameterFromXML("USMNonsubscribedPassword");
 			type(PWALoginPage.objPasswordField, password, "Password field");
 			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
 			waitTime(2000);
@@ -15418,7 +15400,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void ZeeApplicasterLoginForUSM(String LoginMethod) throws Exception {
 		extent.HeaderChildNode("Login Functionality");
-		String UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String UserType = getParameterFromXML("userType");
 		if (UserType.equals("Guest")) {
 			extent.extentLogger("userType", "UserType : Guest");
 		}
@@ -15750,8 +15732,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			click(AMDMoreMenu.objParentalControl, "Parental control option");
 			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
-			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("USMNonsubscribedPassword");
+			String password = getParameterFromXML("USMNonsubscribedPassword");
 			click(AMDMoreMenu.objPasswordField, "Password field");
 			getDriver().getKeyboard().sendKeys(password);
 			hideKeyboard();
@@ -16229,5 +16210,299 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode(featureName);
 		logger.info(featureName + " is NOT applicable for " + pUserType);
 		extent.extentLoggerPass(featureName, featureName + " is NOT applicable for " + pUserType);
+	}
+
+	/**
+	 * Author : Sushma
+	 */
+	public void verifyContinueWatchingTray(String userType, String TabName) throws Exception {
+		extent.HeaderChildNode("verify Continue Watching tray");
+		waitForElementDisplayed(AMDHomePage.objContinueWatchingTray, 30);
+		boolean ContinueWatchingTray = verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray);
+		if (ContinueWatchingTray) {
+			Swipe("UP", 1);
+			String CWTrayFirstContentTitle = getText(AMDHomePage.objCWTrayContent);
+			logger.info(CWTrayFirstContentTitle);
+			int leftTimeOnCWTrayContent = timeToSec(getText(AMDHomePage.objLeftTimeOfFirstContentOfCWTray));
+			click(AMDHomePage.objContinueWatchingTrayContentCard, "CWTRay Content");
+			waitTime(2000);
+			if (userType.equals("NonSubscribedUser")) {
+				waitForAdToFinishInAmd();
+				completeProfilePopUpClose(userType);
+			}
+			waitForElementDisplayed(AMDPlayerScreen.objPlayer, 15);
+			waitTime(6000);
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			int elapsedTime = timeToSec(getText(AMDPlayerScreen.objTimer));
+			int totalTime = timeToSec(getText(AMDPlayerScreen.objTotalDuration));
+			int remainingTime = totalTime - elapsedTime;
+
+			if (leftTimeOnCWTrayContent < (remainingTime + 10)) {
+				logger.info("Content playback is started from the last view point");
+				extent.extentLoggerPass("Continue watching Tray",
+						"Content playback is started from the last view point");
+			} else {
+				logger.error("Content playback is not started from the last view point");
+				extent.extentLoggerFail("Continue watching Tray",
+						"Content playback is not started from the last view point");
+			}
+
+			if (elapsedTime < totalTime) {
+				logger.info(
+						"Continue watching tray includes only those movies/shows which have not reached the start time of end credit.");
+				extent.extentLoggerPass("Continue watching Tray",
+						"Continue watching tray includes only those movies/shows which have not reached the start time of end credit.");
+			} else {
+				logger.error(
+						"Continue watching tray includes not only those movies/shows which have not reached the start time of end credit.");
+				extent.extentLoggerFail("Continue watching Tray",
+						"Continue watching tray includes not only those movies/shows which have not reached the start time of end credit.");
+			}
+			Back(1);
+		} else {
+			logger.info("Continue watching tray not displayed in " + TabName + " Screen");
+			extent.extentLoggerWarning("Continue watching Tray",
+					"Continue watching tray not displayed in " + TabName + " Screen");
+		}
+	}
+
+	/**
+	 * Author : Bhavana
+	 */
+	public void SettingsVideoStreamingAndAutoPlay(String userType, String searchKeyword1) throws Exception {
+		extent.HeaderChildNode("Validation of Settings for Video Streaming and Autoplay as " + userType);
+		System.out.println("\n Validation of Settings for Video Streaming and Autoplay as " + userType);
+		waitTime(5000);
+		click(AMDHomePage.objMoreMenu, "More menu");
+		click(AMDMoreMenu.objSettings, "Setting button");
+		verifyElementExist(AMDSettingsScreen.objVideoQualityDefaultvalue, "Video Quality option in Settings");
+		boolean defaultvalue = verifyIsElementDisplayed(AMDSettingsScreen.objVideoQualityDefaultvalue);
+		String value = findElement(AMDSettingsScreen.objVideoQualityDefaultvalue).getText();
+		System.out.println(value);
+		if (defaultvalue) {
+			logger.info("Default video quality in Select video quality settings is displayed : " + value);
+			extent.extentLoggerPass("Settings",
+					"Default video quality in Select video quality settings is displayed : " + value);
+		} else {
+			logger.error("Default video quality is NOT displayed");
+			extent.extentLogger("Settings", "Default video quality is NOT displayed");
+		}
+		Back(2);
+		waitTime(5000);
+		click(AMDHomePage.objSearchBtn, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, searchKeyword1 + "\n", "Search bar");
+		waitTime(2000);
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDMoreMenu.objSearchResult(searchKeyword1), "Search result");
+		waitTime(5000);
+		if (!userType.contains("SubscribedUser")) {
+			waitTime(8000);
+			registerPopUpClose();
+			completeProfilePopUpClose(userType);
+			LoadingInProgress();
+			waitForAdToFinishInAmd();
+			waitTime(2000);
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		}
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
+		waitTime(2000);
+		click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
+		String value2 = findElement(AMDSettingsScreen.objQualityOptionOnPlayer).getText();
+		verifyElementExist(AMDSettingsScreen.objQualityOptionOnPlayer, "Video quality on player settings " + value2);
+		if (value2.contains(value)) {
+			logger.info(
+					"Default video quality on player settings is as per the selection in Select video quality settings : "
+							+ value2);
+			extent.extentLoggerPass("Settings",
+					"Default video quality on player settings is as per the selection in Select video quality settings : "
+							+ value2);
+		} else {
+			logger.error(
+					"Default video quality on player settings is NOT as per the selection in Select video quality settings : "
+							+ value2);
+			extent.extentLoggerFail("Settings",
+					"Default video quality on player settings is NOT as per the selection in Select video quality settings : "
+							+ value2);
+		}
+		click(AMDSettingsScreen.objQualityOptionOnPlayer, "Video Quality");
+		String videoOption = findElement(AMDSettingsScreen.objoptionsInVideoQuality).getText();
+		System.out.println(videoOption);
+		click(AMDSettingsScreen.objoptionsInVideoQuality, "Option " + videoOption);
+		waitTime(3000);
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
+		String DefaultOption = findElement(AMDSettingsScreen.objQualityOptionOnPlayer).getText();
+		System.out.println(DefaultOption);
+		if (DefaultOption.contains(videoOption)) {
+			logger.info("Video Quality is Functional in the player");
+			extent.extentLoggerPass("Settings", "Video Quality is Functional in the player");
+		} else {
+			logger.error("Video Quality is NOT Functional in the player");
+			extent.extentLoggerFail("Settings", "Video Quality is NOT Functional in the player");
+		}
+		Back(3);
+		click(AMDHomePage.objMoreMenu, "More menu");
+		click(AMDMoreMenu.objSettings, "Settings button");
+		String value3 = findElement(AMDSettingsScreen.objVideoQualityDefaultvalue).getText();
+		if (DefaultOption.contains(value3) == false) {
+			logger.info(
+					"Settings changed from the player does not change the video settings set in the 'Select Video Quality' Settings screen.");
+			extent.extentLoggerPass("Settings",
+					"Settings changed from the player does not change the video settings set in the 'Select Video Quality' Settings screen");
+		} else {
+			logger.error(
+					"settings changed from the player changes the video settings set in the 'Select Video Quality' Settings screen.");
+			extent.extentLoggerFail("Settings",
+					"settings changed from the player changes the video settings set in the 'Select Video Quality' Settings screen");
+		}
+		verifyElementExist(AMDSettingsScreen.objAutoPlayToggleSwitch, "Autoplay Toggle Switch");
+		String value4 = findElement(AMDSettingsScreen.objAutoPlayToggleON).getText();
+		System.out.println(value4);
+		boolean autoPlayON = findElement(AMDSettingsScreen.objAutoPlayToggleON).isDisplayed();
+		if (autoPlayON) {
+			logger.info("Autoplay toggle switch is " + value4);
+			extent.extentLogger("Settings", "Autoplay toggle switch is " + value4);
+		} else {
+			click(AMDSettingsScreen.objAutoPlayToggleSwitch, "Autoplay Toggle Switch");
+			logger.info("Autoplay toggle switch is " + value4);
+			extent.extentLogger("Settings", "Autoplay toggle switch is " + value4);
+		}
+		Back(2);
+		waitTime(5000);
+		click(AMDHomePage.objSearchBtn, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, searchKeyword1 + "\n", "Search bar");
+		waitTime(2000);
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDMoreMenu.objSearchResult(searchKeyword1), "Search result");
+		waitTime(8000);
+		if (!userType.contains("SubscribedUser")) {
+			waitTime(8000);
+			registerPopUpClose();
+			completeProfilePopUpClose(userType);
+			LoadingInProgress();
+			waitForAdToFinishInAmd();
+			waitTime(5000);
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		}
+		// scrubVideoToLast(AMDPlayerScreen.objProgressBar);
+		scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
+		waitTime(2000);
+		verifyElementExist(AMDPlayerScreen.objcontentTitleInconsumptionPage, "Next content");
+		waitTime(5000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		waitTime(5000);
+		boolean player = verifyIsElementDisplayed(AMDPlayerScreen.objPlayer);
+		if (player) {
+			logger.info("When Autoplay switch is " + value4 + " User is automatically moved to the next content");
+			extent.extentLoggerPass("Settings",
+					"When Autoplay switch is " + value4 + " User is automatically moved to the next content");
+		} else {
+			logger.error("When Autoplay switch is " + value4 + " User is unable to move to the next content");
+			extent.extentLoggerFail("Settings",
+					"When Autoplay switch is " + value4 + " User is unable to move to the next content");
+		}
+		Back(2);
+		click(AMDHomePage.objMoreMenu, "More menu");
+		click(AMDMoreMenu.objSettings, "Settings button");
+		click(AMDSettingsScreen.objAutoPlayToggleSwitch, "Autoplay switch");
+		boolean autoPlayOFF = findElement(AMDSettingsScreen.objAutoPlayToggleOFF).isDisplayed();
+		String value5 = findElement(AMDSettingsScreen.objAutoPlayToggleOFF).getText();
+		if (autoPlayOFF) {
+			logger.info("Autoplay toggle switch is " + value5);
+			extent.extentLogger("Settings", "Autoplay toggle switch is " + value5);
+		}
+		Back(2);
+		waitTime(5000);
+		click(AMDHomePage.objSearchBtn, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, searchKeyword1 + "\n", "Search bar");
+		waitTime(2000);
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDMoreMenu.objSearchResult(searchKeyword1), "Search result");
+		waitTime(5000);
+		if (!userType.contains("SubscribedUser")) {
+			waitTime(8000);
+			registerPopUpClose();
+			completeProfilePopUpClose(userType);
+			LoadingInProgress();
+			waitForAdToFinishInAmd();
+			waitTime(5000);
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		}
+		// scrubVideoToLast(AMDPlayerScreen.objProgressBar);
+		scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
+		waitTime(2000);
+		verifyElementExist(AMDPlayerScreen.objReplayIconOnPlayer, "Replay Icon");
+		boolean replay = findElement(AMDPlayerScreen.objReplayIconOnPlayer).isDisplayed();
+		if (replay) {
+			logger.info("When Autoplay switch is " + value5 + " User can not automatically move to the next content");
+			extent.extentLoggerPass("Settings",
+					"When Autoplay switch is " + value5 + " User can not automatically move to the next content");
+		} else {
+			logger.error("When Autoplay switch is " + value5 + "User can automatically move to the next content");
+			extent.extentLoggerFail("Settings",
+					"When Autoplay switch is " + value5 + " User can automatically move to the next content");
+		}
+		Back(3);
+	}
+
+	/**
+	 * Author : Kushal
+	 */
+	public void ZeeApplicasterLoginForKidsSection(String LoginMethod) throws Exception {
+		extent.HeaderChildNode("Login Functionality");
+		String UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		if (UserType.equals("Guest")) {
+			extent.extentLogger("userType", "UserType : Guest");
+		}
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+		waitTime(3000);
+
+		switch (LoginMethod) {
+		case "Guest":
+			extent.HeaderChildNode("Guest User");
+			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
+			waitTime(1000);
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+			waitTime(3000);
+			break;
+
+		case "NonSubscribedUser":
+			extent.HeaderChildNode("Login as NonSubscribed User for Settings");
+			String pUsername = getParameterFromXML("NonSubsUserKids");
+			String pPassword = getParameterFromXML("NonSubsPwdKids");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, pUsername, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, pPassword, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
+
+		case "SubscribedUser":
+			extent.HeaderChildNode("Login as Subscribed User for Settings");
+
+			String pClubPackUser = getParameterFromXML("SubsUserClubPack");
+			String pClubPackPwd = getParameterFromXML("SubsPwdClubPack");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, pClubPackUser, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, pClubPackPwd, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
+		}
 	}
 }

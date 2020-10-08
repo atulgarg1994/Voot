@@ -1244,6 +1244,192 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventInParentalControlScreen(userType);
 	}
 	
+	@Test(priority = 161)
+	@Parameters({ "userType" })
+	public void verifyDeviceAuthenticationEvent(String userType) throws Exception {
+		System.out.println("Verify Device Authentication Event when authentication fails in TV Authentication screen");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyDeviceAuthenticationEvent(userType);
+	}
+	
+	@Test(priority = 162)
+	@Parameters({ "userType" })
+	public void verifyToastMessageImpressionEventInAuthenticateScreen(String userType) throws Exception {
+		System.out.println("Verify Toast Message Impression Event In Authenticate Screen");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventInAuthenticateScreen(userType);
+	}
+	
+	
+	@Test(priority = 163)
+	@Parameters({ "userType" })
+	public void verifyToastMessageImpressionEventForAddToWatchlist(String userType) throws Exception {
+		System.out.println("Verify Toast Message Impression Event after adding card to watchlist");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventForAddToWatchlist(userType);
+	}
+	
+	
+	@Test(priority = 164)
+	@Parameters({ "userType" })
+	public void verifyToastMessageImpressionEventForRemoveFomWatchlist(String userType) throws Exception {
+		System.out.println("Verify Toast Message Impression Event after removing card from watchlist");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventForRemoveFomWatchlist(userType);
+	}
+	
+	@Test(priority = 165)
+	@Parameters({ "userType", "keyword1" })
+	public void verifyToastMessageImpressionEventForEmbedPopUp(String userType,String keyword1) throws Exception {
+		System.out.println("Verify Toast Message Impression Event when user gets a toast message in embed popup");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventForEmbedPopUp(userType,keyword1);
+	}
+	
+	@Test(priority = 166)
+	@Parameters({ "userType", "keyword4"})
+	public void verifyAutoSeekForwardEventForFreeContent(String userType,String keyword4) throws Exception {
+		System.out.println("Verify Auto Seek Forward Event For Free Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForFreeContent(userType,keyword4);
+	}
+	
+	@Test(priority = 167)
+	@Parameters({ "userType", "keyword1"})
+	public void verifyAutoSeekForwardEventForPremiumContent(String userType,String keyword1) throws Exception {
+		System.out.println("Verify Auto Seek Forward Event For Premium Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForPremiumContent(userType,keyword1);
+	}
+	
+	@Test(priority = 168)
+	@Parameters({ "keyword1"})
+	public void verifyAutoSeekForwardEventForTrailer(String keyword1) throws Exception {
+		System.out.println("Verify Auto Seek Forward Event For Trailer Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForTrailer(keyword1);
+	}
+	
+	@Test(priority = 169)
+	public void verifyAutoSeekForwardEventForCarouselContent() throws Exception {
+		System.out.println("Verify Auto Seek Forward Event For Carousel Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForCarouselContent();
+	}
+	
+	@Test(priority = 170)
+	public void verifyAutoSeekForwardEventForContentInTray() throws Exception {
+		System.out.println("Verify Auto Seek Forward Event For Content played from Tray");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForContentInTray();
+	}
+	
+	@Test(priority = 171)
+	@Parameters({"keyword1"})
+	public void verifyAutoSeekForwardEventForContentFromSearchPage(String keyword1) throws Exception {
+		System.out.println("Verify Auto Seek Forward Event For Content From Search Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForContentFromSearchPage(keyword1);
+	}
+	
+	@Test(priority = 172)
+	@Parameters({ "userType", "keyword"})
+	public void verifyAutoSeekForwardEventForContentFromMyWatchlistPage(String userType,String keyword) throws Exception {
+		System.out.println("Verify Auto Seek Forward Event For Content From My Watchlist Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForContentFromMyWatchlistPage(userType,keyword);
+	}
+	
+	@Test(priority = 173)
+	public void verifyAutoSeekForwardEventForContentInMegamenu() throws Exception {
+		System.out.println("Verify Auto Seek Forward Event For Content played from Megamenu");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForContentInMegamenu();
+	}
+	
+	@Test(priority = 174)
+	@Parameters({ "userType", "keyword"})
+	public void verifyAutoSeekForwardEventForContentInPlaylist(String userType,String keyword) throws Exception {
+		System.out.println("Verify Auto Seek Forward Event For Content played from Playlist");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForContentInPlaylist(userType,keyword);
+	}
+	
+	@Test(priority = 175)
+	@Parameters({ "userType", "keyword"})
+	public void verifyAutoSeekForwardEventForContentFromUpnextRail(String userType,String keyword) throws Exception {
+		System.out.println("Verify Auto Seek Forward Event For Content played from Upnext rail");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForContentFromUpnextRail(userType,keyword);
+	}
+	
+	@Test(priority = 176)
+	@Parameters({"freeContentURL"})
+	public void verifyAutoSeekForwardEventForContentFromSharedLink(String freeContentURL) throws Exception {
+		System.out.println("Verify Auto Seek Forward Event For content played from Shared Link");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForContentFromSharedLink(freeContentURL);
+	}
+	
+	@Test(priority = 177)
+	@Parameters({ "userType", "keyword4"})
+	public void verifyAutoSeekRewindEventForFreeContent(String userType,String keyword4) throws Exception {
+		System.out.println("Verify Auto Seek Rewind Event For Free Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForFreeContent(userType,keyword4);
+	}
+	
+	@Test(priority = 178)
+	@Parameters({ "userType", "keyword1"})
+	public void verifyAutoSeekRewindEventForPremiumContent(String userType,String keyword1) throws Exception {
+		System.out.println("Verify Auto Seek Rewind Event For Premium Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForPremiumContent(userType,keyword1);
+	}
+	
+	@Test(priority = 179)
+	@Parameters({ "keyword1"})
+	public void verifyAutoSeekRewindEventForTrailer(String keyword1) throws Exception {
+		System.out.println("Verify Auto Seek Rewind Event For Trailer Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForTrailer(keyword1);
+	}
+	
+	@Test(priority = 180)
+	public void verifyAutoSeekRewindEventForCarouselContent() throws Exception {
+		System.out.println("Verify Auto Seek Rewind Event For Carousel Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForCarouselContent();
+	}
+	
+	@Test(priority = 181)
+	public void verifyAutoSeekRewindEventForContentInTray() throws Exception {
+		System.out.println("Verify Auto Seek Rewind Event For Content played from Tray");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForContentInTray();
+	}
+	
+	@Test(priority = 182)
+	@Parameters({"keyword1"})
+	public void verifyAutoSeekRewindEventForContentFromSearchPage(String keyword1) throws Exception {
+		System.out.println("Verify Auto Seek Rewind Event For Content From Search Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForContentFromSearchPage(keyword1);
+	}
+	
+	@Test(priority = 183)
+	@Parameters({ "userType", "keyword"})
+	public void verifyAutoSeekRewindEventForContentFromMyWatchlistPage(String userType,String keyword) throws Exception {
+		System.out.println("Verify Auto Seek Rewind Event For Content From My Watchlist Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForContentFromMyWatchlistPage(userType,keyword);
+	}
+	
+	@Test(priority = 184)
+	public void verifyAutoSeekRewindEventForContentInMegamenu() throws Exception {
+		System.out.println("Verify Auto Seek Rewind Event For Content played from Megamenu");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForContentInMegamenu();
+	}
+	
+	@Test(priority = 185)
+	@Parameters({ "userType", "keyword"})
+	public void verifyAutoSeekRewindEventForContentInPlaylist(String userType,String keyword) throws Exception {
+		System.out.println("Verify Auto Seek Rewind Event For Content played from Playlist");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForContentInPlaylist(userType,keyword);
+	}
+	
+	@Test(priority = 186)
+	@Parameters({ "userType", "keyword"})
+	public void verifyAutoSeekRewindEventForContentFromUpnextRail(String userType,String keyword) throws Exception {
+		System.out.println("Verify Auto Seek Rewind Event For Content played from Upnext rail");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForContentFromUpnextRail(userType,keyword);
+	}
+	
+	@Test(priority = 187)
+	@Parameters({"freeContentURL"})
+	public void verifyAutoSeekRewindEventForContentFromSharedLink(String freeContentURL) throws Exception {
+		System.out.println("Verify Auto Seek Rewind Event For content played from Shared Link");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForContentFromSharedLink(freeContentURL);
+	}
+	
+	
 	@AfterClass
 	public void tearDown() {
 		Zee5PWAWEBMixPanelBusinessLogic.tearDown();

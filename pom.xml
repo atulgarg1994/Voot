@@ -251,6 +251,7 @@
 				<configuration>
 					<!-- <systemPropertyVariables> <UserType>${UserType}</UserType> <runMode>${runMode}</runMode> 
 						<runModule>${runModule}</runModule> </systemPropertyVariables> <suiteXmlFiles> 
+						<url>${env}</url>
 						TestNG suite XML files <suiteXmlFile>${suiteXmlFile}</suiteXmlFile> </suiteXmlFiles> -->
 					<suiteXmlFiles>
 						<!-- TestNG suite XML files -->
