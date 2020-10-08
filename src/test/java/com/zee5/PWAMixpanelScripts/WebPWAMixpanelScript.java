@@ -242,10 +242,9 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 33)
-	@Parameters({ "userType" })
-	public void verifyDefaultSettingRestoredEvent(String userType) throws Exception {
+	public void verifyDefaultSettingRestoredEvent() throws Exception {
 		System.out.println("Verify Default Setting Restored Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyDefaultSettingRestoredEvent(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyDefaultSettingRestoredEvent();
 	}
 	
 	@Test(priority = 34)
@@ -395,7 +394,7 @@ public class WebPWAMixpanelScript {
 	@Test(priority = 56)
 	@Parameters({ "userType" })
 	public void verifyParentalRestrictionAndSettingChangedEvent(String userType) throws Exception {
-		System.out.println("Verify Parental Restriction And Setting Changed Event");
+		System.out.println("Verify Parental Restriction Event");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch(true);
 		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
 		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalRestrictionEvent(userType,"NoRestriction");
@@ -1138,6 +1137,112 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyLogoutEvent(userType);
 	}
 	
+	@Test(priority = 147)
+	public void verifySkipLoginThroughBeforeTVContent() throws Exception {
+		System.out.println("Verify Skip Login Event gets triggered when user click on close button in login popup "
+				+ "on clicking login in Get premium popup on accessing before tv content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipLoginThroughBeforeTVContent();
+	}
+	
+	@Test(priority = 148)
+	@Parameters({ "userType"})
+	public void verifySettingChangedEventAfterAccountVerification(String userType) throws Exception {
+		System.out.println("Verify Setting Changed Event when Parental Control Account Verification is done");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch(true);
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifySettingChangedEventAfterAccountVerification(userType);
+	}
+	
+	@Test(priority = 149)
+	@Parameters({ "userType"})
+	public void verifySettingChangedEventAfterParentalPinIsSet(String userType) throws Exception {
+		System.out.println("Verify Setting Changed Event when Parental Control PIN is Set");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch(true);
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifySettingChangedEventAfterParentalPinIsSet(userType);
+	}
+	
+	@Test(priority = 150)
+	@Parameters({ "userType"})
+	public void verifySettingChangedEventAfterAgeIsSet(String userType) throws Exception {
+		System.out.println("Verify Setting Changed Event when Parental Control Age is Set");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch(true);
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifySettingChangedEventAfterAgeIsSet(userType);
+	}
+	
+	@Test(priority = 151)
+	public void verifyToastMessageImpressionEventAfterResetSettingsToDefault() throws Exception {
+		System.out.println("Verify Toast Message Impression Event After Reset Settings To Default");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventAfterResetSettingsToDefault();
+	}
+	
+	@Test(priority = 152)
+	public void verifySearchButtonClickEvent() throws Exception {
+		System.out.println("Verify Search Button Click Event");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySearchButtonClickEvent();
+	}
+	
+	@Test(priority = 153)
+	@Parameters({"keyword"})
+	public void verifySearchResultClickedEvent(String keyword) throws Exception {
+		System.out.println("Verify Search Result Clicked Event");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySearchResultClickedEvent(keyword);
+	}
+	
+	@Test(priority = 154)
+	@Parameters({ "userType", "keyword2" })
+	public void verifyPopUpLaunchEventForRegisterPopUp(String userType, String keyword2) throws Exception {
+		System.out.println("Verify Pop Up Launch Event when get premium popup is displayed on playing premium content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyPopUpLaunchEventForGetPremiumPopUp(userType,keyword2);
+	}
+	
+	
+	@Test(priority = 155)
+	@Parameters({ "userType" })
+	public void verifyPopUpLaunchEventForCompleteProfilePopUp(String userType) throws Exception {
+		System.out.println("Verify Pop Up Launch Event when Complete Profile popup is displayed");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyPopUpLaunchEventForCompleteProfilePopUp(userType);
+	}
+	
+	
+	// Login through ClubUser Id
+	@Test(priority = 156)
+	@Parameters({ "userType", "keyword6" })
+	public void verifyPopUpLaunchEventForClubUser(String userType, String keyword6) throws Exception {
+		System.out.println("Verify Pop Up Launch Event when user gets Upgrade popup for Club User");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyPopUpLaunchEventForClubUser(userType,keyword6);
+	}
+	
+	@Test(priority = 157)
+	@Parameters({ "userType", "keyword6" })
+	public void verifyPopUpCTAsEvent(String userType, String keyword6) throws Exception {
+		System.out.println("Verify Pop Up CTA's Event when user clicks on CTA button displayed on the popup");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyPopUpCTAsEvent(userType,keyword6);
+	}
+	
+	@Test(priority = 158)
+	@Parameters({ "userType" })
+	public void verifyLoginUsernameEnteredEvent(String userType) throws Exception {
+		System.out.println("Verify Login Username Entered Event");
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
+	}
+	
+	@Test(priority = 159)
+	@Parameters({ "userType" })
+	public void verifyLoginPasswordEnteredEvent(String userType) throws Exception {
+		System.out.println("Verify Login Password Entered Event");
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
+	}
+	
+	@Test(priority = 160)
+	@Parameters({ "userType" })
+	public void verifyToastMessageImpressionEventInParentalControlScreen(String userType) throws Exception {
+		System.out.println("Verify Toast Message Impression Event In Parental Control Screen");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch(true);
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventInParentalControlScreen(userType);
+	}
 	
 	@AfterClass
 	public void tearDown() {

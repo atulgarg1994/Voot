@@ -3033,7 +3033,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(5000);
 		List<WebElement> tabs = getDriver().findElements(AMDSearchScreen.objTabs);
 		System.out.println(tabs.size());
-		boolean News = false;
+		boolean Videos = false;
 		for (int i = 1; i <= tabs.size(); i++) {
 			String tabName = null;
 
@@ -3041,7 +3041,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			if (i == 5) {
 
-				if (!News) {
+				if (!Videos) {
 					i = 4;
 				}
 
@@ -3086,11 +3086,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						"Related search results are not displayed in  " + tabName + " tab");
 			}
 
-			if (News) {
+			if (Videos) {
 				break;
 			}
-			if (tabName.equalsIgnoreCase("News")) {
-				News = true;
+			if (tabName.equalsIgnoreCase("Music")) {
+				Videos = true;
 			}
 		}
 		Back(1);
@@ -9615,7 +9615,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			waitForAdToFinishInAmd();
-			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			// click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		}
 		registerPopUpClose();
 		completeProfilePopUpClose(usertype);
@@ -9643,16 +9643,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDPlayerScreen.objNextIcon, "Next icon");
 			if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 				waitForAdToFinishInAmd();
-				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+				// click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			}
 			registerPopUpClose();
 			completeProfilePopUpClose(usertype);
+			waitTime(3000);
 			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			verifyElementExist(AMDPlayerScreen.objPlayer, "Player screen");
-		    click(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		    waitTime(1000);
-		    verifyElementPresent(AMDPlayerScreen.objPreviousIcon, "Previous icon");
-		    waitTime(1000);
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			waitTime(1000);
+			verifyElementPresent(AMDPlayerScreen.objPreviousIcon, "Previous icon");
+			waitTime(1000);
 			verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
 			waitTime(5000);
 			GetAndVerifyOrientation("Landscape");
@@ -9708,23 +9709,23 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDPlayerScreen.objPlayIcon, "Play icon");
 			verifyPlaybackAfterLockAndUnlock();
 			waitTime(5000);
-			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			// click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			verifyPlaybackAfterMinimzeAndMaximizeAppFromBackground();
 			waitTime(5000);
-			click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
-			//verifyPlaybackAfterNetworkInterruption();
+			// click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
+			// verifyPlaybackAfterNetworkInterruption();
 
-			waitTime(5000);
+			// waitTime(5000);
 //			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 
-		//	ForwardAndRewindThePlayerByDoubleTapping(1);
-			waitTime(3000);
-		//	ForwardAndRewindThePlayerByDoubleTapping(2);
+			// ForwardAndRewindThePlayerByDoubleTapping(1);
+			// waitTime(3000);
+			// ForwardAndRewindThePlayerByDoubleTapping(2);
 
 			// ------verifying the seek functionality of the Progressbar------//
-//			click(AMDPlayerScreen.objPlayIcon, "Play icon");
+			// click(AMDPlayerScreen.objPlayIcon, "Play icon");
 			waitTime(10000);
-//			seekVideo(AMDPlayerScreen.objProgressBar, usertype);
+			seekVideo(AMDPlayerScreen.objProgressBar, usertype);
 		}
 		Back(1);
 	}
@@ -10036,8 +10037,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			waitTime(2000);
 			seekVideoTillLast(AMDPlayerScreen.objProgressBar);
-//			click(AMDPlayerScreen.objPlayIcon, "Play icon");
-			verifyElementPresentAndClick(AMDPlayerScreen.objUpNextCard, "Upnext card");
+			click(AMDPlayerScreen.objPlayIcon, "Play icon");
+			JSClick(AMDPlayerScreen.objUpNextCard, "Upnext card");
 			verifyElementExist(AMDPlayerScreen.objPlayer, "Player screen");
 			Swipe("DOWN", 1);
 			verifyElementDisplayed(AMDPlayerScreen.objcontentTitleInconsumptionPage);
@@ -10145,7 +10146,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDMoreMenu.objSearchResult(searchKeyword2), "Search result");
 		if (!userType.contains("SubscribedUser")) {
 			waitTime(5000);
-			registerPopUpClose(userType);
+			registerPopUpClose();
 			completeProfilePopUpClose(userType);
 			LoadingInProgress();
 			adPlay();
@@ -10289,9 +10290,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
 			verifyPlaybackAfterLockAndUnlock();
 			waitTime(5000);
-			click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
-			verifyPlaybackAfterNetworkInterruption();
-			waitTime(5000);
+			// click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
+			// verifyPlaybackAfterNetworkInterruption();
+			// waitTime(5000);
 			click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
 			click(AMDPlayerScreen.objShareIconOnPlayer, "Share Icon");
 			verifyElementPresent(AMDPlayerScreen.objSharePopUp, "Share Pop Up/Share Overlay");
@@ -10354,7 +10355,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Back(1);
 			click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
 			seekVideoTillLast(AMDPlayerScreen.objProgressBar);
-//			click(AMDPlayerScreen.objPlayIcon, "Play Icon");
+			// click(AMDPlayerScreen.objPlayIcon, "Play Icon");
 			waitForElementDisplayed(AMDPlayerScreen.objReplay, 5);
 			verifyElementPresentAndClick(AMDPlayerScreen.objReplay, "Replay Icon");
 			if (!userType.contains("SubscribedUser")) {
@@ -10372,6 +10373,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 		}
 		Back(2);
+		click(AMDHomePage.objMoreMenu, "More Menu");
+		waitTime(1000);
+		click(AMDMoreMenu.objSettings, "Settings option");
+		waitTime(2000);
+		click(AMDMoreMenu.objVideo_Autoply, "Autoplay");
+		Back(2);
 	}
 
 	public void watchCreditsValidationInLandscapeMode(String searchKeyword9, String userType) throws Exception {
@@ -10388,7 +10395,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		verifyElementPresentAndClick(AMDMoreMenu.objSearchResult(searchKeyword9), "Search result");
 		if (!userType.contains("SubscribedUser")) {
-			registerPopUpClose(userType);
+			registerPopUpClose();
 			completeProfilePopUpClose(userType);
 			LoadingInProgress();
 			adPlay();
@@ -10462,7 +10469,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			String password = "";
 			if (userType.equals("NonSubscribedUser")) {
 				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SettingsNonsubscribedPassword");
+						.getParameter("USMNonsubscribedPassword");
 			} else if (userType.equals("SubscribedUser")) {
 				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 						.getParameter("SettingsSubscribedPassword");
@@ -10522,7 +10529,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 
 			switchtoPortraitMode();
-			Back(1);
+			Back(2);
 			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
 			waitTime(1000);
 			click(AMDMoreMenu.objSettings, "Settings option");
@@ -10533,7 +10540,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			if (userType.equals("NonSubscribedUser")) {
 				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SettingsNonsubscribedPassword");
+						.getParameter("USMNonsubscribedPassword");
 			} else if (userType.equals("SubscribedUser")) {
 				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 						.getParameter("SettingsSubscribedPassword");
@@ -10570,18 +10577,22 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 * 
 	 * @param byLocator
 	 */
-	public void seekVideo(By byLocator) throws Exception {
-		click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
+	public void seekVideo(By byLocator, String usertype) throws Exception {
+		// click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
 		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
 		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
 		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
 		WebElement element = getDriver().findElement(byLocator);
 		Dimension size = element.getSize();
 		int startx = (int) (size.width);
-		click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
+		// click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
 		SwipeAnElement(element, startx, 0);
 		logger.info("Scrolling the seek bar");
 		extent.extentLogger("Seek", "Scrolling the seek bar");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+			// click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		}
 		waitTime(2000);
 		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
 		logger.info("Current time after seeking in seconds : " + timeToSec(afterSeek));
@@ -11849,6 +11860,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		getDriver().runAppInBackground(Duration.ofSeconds(10));
 
+		waitTime(5000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		String time2 = getText(AMDPlayerScreen.objTimer);
 		int elapsedTime = timeToSec(time2);
 
@@ -11880,6 +11894,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		Swipe("Up", 1);
 		waitTime(5000);
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		String time2 = getText(AMDPlayerScreen.objTimer);
 		int elapsedTime = timeToSec(time2);
 
@@ -12035,7 +12050,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verifying Premium content without Trailer in Landscape mode");
 			System.out.println("\nVerifying Premium content without Trailer in Landscape mode");
-			// verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar, searchKeyword5 + "\n", "Search bar");
 			waitTime(2000);
@@ -12096,7 +12111,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(2000);
 		if (!userType.contains("SubscribedUser")) {
 			waitTime(5000);
-			registerPopUpClose(userType);
+			registerPopUpClose();
 			completeProfilePopUpClose(userType);
 			LoadingInProgress();
 			adPlay();
@@ -12156,6 +12171,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 
 		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		seekVideoTillLast(AMDPlayerScreen.objProgressBar);
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			waitForElementDisplayed(AMDPlayerScreen.objGetPremiumPopUp, 30);
 			verifyElementPresent(AMDPlayerScreen.objGetPremiumPopUp,
@@ -12188,7 +12204,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitForAdToFinishInAmd();
 		}
 
-		registerPopUpClose(usertype);
+		registerPopUpClose();
 		completeProfilePopUpClose(usertype);
 		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 10);
 //		waitTime(7000);
@@ -12201,35 +12217,31 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		logger.info("Time before clicking on Skip Intro CTA : " + startTime);
 		extentLogger("Time", "Time before clicking on Skip Intro CTA : " + startTime);
 		click(AMDPlayerScreen.objPlayIcon, "Play icon");
-		verifyElementPresentAndClick(AMDPlayerScreen.objSkipIntro, "Skip Intro CTA");
-		waitTime(2000);
-		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objSkipIntro, "Skip Intro CTA");
+		if (var == true) {
+			waitTime(2000);
+			click(AMDPlayerScreen.objSkipIntro, "Skip Intro CTA");
+			waitTime(5000);
+			click(AMDPlayerScreen.objPlayerScreen, "Play screen");
 
-		String time2 = getText(AMDPlayerScreen.objTimer);
-		int elapsedTime = timeToSec(time2);
+			String time2 = getText(AMDPlayerScreen.objTimer);
+			int elapsedTime = timeToSec(time2);
 
-		logger.info("Time after clicking on Skip Intro CTA : " + elapsedTime);
-		extentLogger("Time", "Time after clicking on Skip Intro CTA : " + elapsedTime);
+			logger.info("Time after clicking on Skip Intro CTA : " + elapsedTime + " sec");
+			extentLogger("Time", "Time after clicking on Skip Intro CTA : " + elapsedTime + " sec");
 
-		if (elapsedTime > startTime) {
-			logger.info("Introduction playback of the content is skipped");
-			extentLoggerPass("Elapsed time", "Introduction playback of the content is skipped");
+			if (elapsedTime > startTime) {
+				logger.info("Introduction playback of the content is skipped");
+				extentLoggerPass("Elapsed time", "Introduction playback of the content is skipped");
+			} else {
+				logger.error("Introduction playback of the content is not skipped");
+				extentLoggerFail("Elapsed time", "Introduction playback of the content is not skipped");
+			}
 		} else {
-			logger.info("Introduction playback of the content is not skipped");
-			extentLoggerFail("Elapsed time", "Introduction playback of the content is not skipped");
+			logger.info("Introduction playback of the content is already skipped");
+			extentLogger("Elapsed time", "Introduction playback of the content is already skipped");
 		}
 		Back(1);
-	}
-
-	public void registerPopUpClose(String userType) throws Exception {
-		waitTime(5000);
-		if (userType.equalsIgnoreCase("Guest")) {
-			if (verifyIsElementDisplayed(AMDPlayerScreen.objRegisterPopUp)) {
-				logger.info("Register Pop Up is displayed");
-				extent.extentLogger("Register Pop Up", "Register Pop Up is displayed");
-				Back(1);
-			}
-		}
 	}
 
 	public void completeProfilePopUpClose(String userType) throws Exception {
@@ -12264,7 +12276,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDMoreMenu.objSearchResult(searchKeyword3), "Search result");
 		waitTime(5000);
 		if (!userType.contains("SubscribedUser")) {
-			registerPopUpClose(userType);
+			registerPopUpClose();
 			completeProfilePopUpClose(userType);
 			LoadingInProgress();
 			adPlay();
@@ -12281,23 +12293,31 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		logger.info("Time before clicking on Skip Intro CTA : " + startTime + " sec");
 		extentLogger("Time", "Time before clicking on Skip Intro CTA : " + startTime + " sec");
 
-		verifyElementPresentAndClick(AMDPlayerScreen.objSkipIntro, "Skip Intro CTA");
-		waitTime(2000);
-		click(AMDPlayerScreen.objPlayIcon, "Play icon");
+		boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objSkipIntro, "Skip Intro CTA");
+		if (var == true) {
+			waitTime(2000);
+			JSClick(AMDPlayerScreen.objSkipIntro, "Skip Intro CTA");
+			waitTime(3000);
+			click(AMDPlayerScreen.objPlayIcon, "Play icon");
 
-		String time2 = getText(AMDPlayerScreen.objTimer);
-		int elapsedTime = timeToSec(time2);
+			String time2 = getText(AMDPlayerScreen.objTimer);
+			int elapsedTime = timeToSec(time2);
 
-		logger.info("Time after clicking on Skip Intro CTA : " + elapsedTime + " sec");
-		extentLogger("Time", "Time after clicking on Skip Intro CTA : " + elapsedTime + " sec");
+			logger.info("Time after clicking on Skip Intro CTA : " + elapsedTime + " sec");
+			extentLogger("Time", "Time after clicking on Skip Intro CTA : " + elapsedTime + " sec");
 
-		if (elapsedTime > startTime) {
-			logger.info("Introduction playback of the content is skipped");
-			extentLoggerPass("Elapsed time", "Introduction playback of the content is skipped");
+			if (elapsedTime > startTime) {
+				logger.info("Introduction playback of the content is skipped");
+				extentLoggerPass("Elapsed time", "Introduction playback of the content is skipped");
+			} else {
+				logger.error("Introduction playback of the content is not skipped");
+				extentLoggerFail("Elapsed time", "Introduction playback of the content is not skipped");
+			}
 		} else {
-			logger.error("Introduction playback of the content is not skipped");
-			extentLoggerFail("Elapsed time", "Introduction playback of the content is not skipped");
+			logger.info("Introduction playback of the content is already skipped");
+			extentLogger("Elapsed time", "Introduction playback of the content is already skipped");
 		}
+
 		Back(2);
 		if (verifyIsElementDisplayed(AMDMoreMenu.objSearchResult(searchKeyword3))) {
 			logger.info(
@@ -16118,7 +16138,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresent(AMDPlayerScreen.objPreviousIcon, "Previous Icon");
 
 		waitTime(1000);
-		Back(3);
+		Back(4);
 	}
 
 	/**

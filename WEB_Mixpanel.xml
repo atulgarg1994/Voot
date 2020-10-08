@@ -6,7 +6,7 @@
 	<parameter name="url" value="https://newpwa.zee5.com/" />
 	<parameter name="browserType" value="Chrome" />  <!-- Chrome/Firefox -->
 
-	<parameter name="userType" value="Guest" /> <!-- Guest/NonSubscribedUser/SubscribedUser -->
+	<parameter name="userType" value="Guest" /> <!-- Guest/NonSubscribedUser/SubscribedUser/ClubUser -->
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" />
 	<parameter name="keyword" value="Jodi Hakki" />
@@ -24,6 +24,17 @@
 	<parameter name="keyword4" value="Paaru gets tipsy" />
 	<parameter name="keyword5" value="Bhinna" />
 
+	<parameter name="SettingsNonsubscribedUserName" value="zeetest@gmail.com" />
+	<parameter name="SettingsNonsubscribedPassword" value="zee123" />
+	
+	<parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com" />
+	<parameter name="SettingsSubscribedPassword" value="123456" />
+	
+	<parameter name="ClubSubscribedUserName" value="365clublg@gmail.com" />
+	<parameter name="ClubSubscribedPassword" value="123456" />
+	
+	<parameter name="freeMovie2" value="Bablu Dablu - Robo Rumble"/>
+	<parameter name="keyword6" value="Popcorn Monkey Tiger (A)" />
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
@@ -31,9 +42,15 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
-	<test name="WebPWAMixpanelScript">
+<!-- 	<test name="WebPWAMixpanelScript">
 		<classes>
 			<class name="com.zee5.PWAMixpanelScripts.WebPWAMixpanelScript" />
+		</classes>  
+	</test>
+-->
+	<test name="testZee">
+		<classes>
+			<class name="com.zee5.PWAMixpanelScripts.testZee" />
 		</classes>
 	</test>
 

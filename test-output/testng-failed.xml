@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="1" name="Failed suite [MPWA]" guice-stage="DEVELOPMENT">
-  <groups>
-    <run>
-      <include name="Login3"/>
-    </run>
-  </groups>
-  <test name="Test">
+<suite thread-count="1" guice-stage="DEVELOPMENT" name="Failed suite [Web]">
+  <parameter name="keyword5" value="Bhinna"/>
+  <parameter name="SubscribedPassword" value="123456"/>
+  <parameter name="keyword4" value="Paaru gets tipsy"/>
+  <parameter name="keyword1" value="Shivaji Surathkal"/>
+  <parameter name="keyword2" value="Chemistry of Kariyappa"/>
+  <parameter name="NonsubscribedPassword" value="igsindia123"/>
+  <parameter name="url" value="https://newpwa.zee5.com/"/>
+  <parameter name="runMode" value="Suites"/>
+  <parameter name="browserType" value="Chrome"/>
+  <parameter name="runModule" value="Suite"/>
+  <parameter name="SubscribedUserName" value="zeetest10@test.com"/>
+  <parameter name="userType" value="Guest"/>
+  <parameter name="keyword" value="Jodi Hakki"/>
+  <parameter name="NonsubscribedUserName" value="basavaraj.pn5@gmail.com"/>
+  <listeners>
+    <listener class-name="com.extent.ExtentReporter"/>
+  </listeners>
+  <test name="WebPWAMixpanelScript">
     <classes>
-      <class name="com.GroupingExample.GroupTests"/>
+      <class name="com.zee5.PWAMixpanelScripts.WebPWAMixpanelScript"/>
     </classes>
-  </test> <!-- Test -->
-</suite> <!-- Failed suite [MPWA] -->
+  </test> <!-- WebPWAMixpanelScript -->
+</suite> <!-- Failed suite [Web] -->

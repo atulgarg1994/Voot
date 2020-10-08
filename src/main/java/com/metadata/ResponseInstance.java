@@ -656,7 +656,11 @@ public class ResponseInstance {
 		String xAccessToken = getXAccessTokenWithApiKey();
 		String bearerToken = getBearerToken(pUsername, pPassword);
 		String url = "https://userapi.zee5.com/v1/user";
+//		String url = "https://userapi.zee5.com/v1/settings";
+//		String url = "https://subscriptionapi.zee5.com/v1/purchase";
 		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+		resp = given().headers("x-access-token", xAccessToken).when().get(url);
+		
 		resp.print();
 	}
 	

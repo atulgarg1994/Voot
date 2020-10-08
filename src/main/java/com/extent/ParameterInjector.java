@@ -77,6 +77,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("keyword2", "Chemistry of Kariyappa");
 			params.put("keyword4", "Paaru gets tipsy");
 			params.put("keyword5", "Bhinna");
+			params.put("keyword6", "Popcorn Monkey Tiger (A)");
 
 		}
 		if(region.equals("MH")) {
@@ -122,6 +123,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("keyword2", "Chemistry of Kariyappa");
 			params.put("keyword4", "Paaru gets tipsy");
 			params.put("keyword5", "Bhinna");
+			params.put("keyword6", "Popcorn Monkey Tiger (A)");
 		}
         suite.setParameters(params);	
 	}

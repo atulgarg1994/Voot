@@ -104,6 +104,23 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWALoginPage.objWebLoginButton, "Login Button");
 			waitTime(3000);
 			break;
+			
+		case "ClubUser":
+			extent.HeaderChildNode("Login as Club User");
+			String ClubUsername = getParameterFromXML("ClubSubscribedUserName");
+			String ClubPassword = getParameterFromXML("ClubSubscribedPassword");
+			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			waitTime(3000);
+			verifyElementPresent(PWALoginPage.objWebLoginPageText, "Login page");
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			type(PWALoginPage.objEmailField, ClubUsername, "Email Field");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			type(PWALoginPage.objPasswordField, ClubPassword, "Password field");
+			waitTime(5000);
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(3000);
+			break;
 		}
 	}
 
@@ -871,7 +888,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			switch (restriction) {
 
 			case "Age13+":
-				click(PWAHamburgerMenuPage.objRestrict13PlusContent, "Restrict all option");
+				click(PWAHamburgerMenuPage.objRestrict13PlusContent, "Restrict 13+ content");
 				click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
 				type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
 				type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
@@ -879,8 +896,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
 				waitTime(4000);
 				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
-				waitTime(2000);
-				checkElementDisplayed(PWAHomePage.objZeeLogo, "zee logo");
 				waitTime(3000);
 
 				click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
@@ -894,7 +909,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				click(PWAHamburgerMenuPage.objParentalLockNoRestrictionOption, "No restriction option");
 				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
 				waitTime(2000);
-				click(PWAHomePage.objZeeLogo, "zee logo");
+			
 
 			case "RestrictAll":
 				click(PWAHamburgerMenuPage.objRestrictAll, "Restrict all option");
@@ -905,8 +920,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
 				waitTime(4000);
 				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
-				waitTime(2000);
-				checkElementDisplayed(PWAHomePage.objZeeLogo, "zee logo");
 				waitTime(3000);
 
 				click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
@@ -920,7 +933,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				click(PWAHamburgerMenuPage.objParentalLockNoRestrictionOption, "No restriction option");
 				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
 				waitTime(2000);
-				click(PWAHomePage.objZeeLogo, "zee logo");
+				
 
 			case "NoRestriction":
 				click(PWAHamburgerMenuPage.objNoRestrictionSelected, "Restrict all option");
@@ -1252,14 +1265,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void verifyDefaultSettingRestoredEvent(String userType) throws Exception {
-		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Verify Default Setting Restored Event");
-			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-			click(PWAHamburgerMenuPage.objMoreSettingInHamburger, "More settings");
-			click(PWAHamburgerMenuPage.objResetSettingsToDefault, "Reset Settings to Default");
-			waitTime(3000);
-		}
+	public void verifyDefaultSettingRestoredEvent() throws Exception {
+		extent.HeaderChildNode("Verify Default Setting Restored Event");
+		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		click(PWAHamburgerMenuPage.objMoreSettingInHamburger, "More settings");
+		click(PWAHamburgerMenuPage.objResetSettingsToDefault, "Reset Settings to Default");
+		waitTime(3000);
 	}
 
 	public void FilterLanguage(String lang) throws Exception {
@@ -3249,6 +3260,274 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void verifyLogoutEvent(String userType) throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			logout();
+		}
+	}
+	
+	public void verifySkipLoginThroughBeforeTVContent() throws Exception {
+		extent.HeaderChildNode("Verify Skip Login Event gets triggered when user click on close button in login popup "
+				+ "on clicking login in Get premium popup on accessing before tv content");
+		navigateToAnyScreenOnWeb("Shows");
+		if (checkElementDisplayed(PWAHomePage.objFirstContentCardOfTray("Before"),
+				"First Content Card Of Before TV Tray")) {
+			click(PWAHomePage.objFirstContentCardOfTray("Before"), "First Content Card Of Before TV Tray");
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			playerScrubTillLastWeb();
+			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+			waitForElement(PWASubscriptionPages.objGetPremiumPopupTitle, 10, "Get Premium Popup Title");
+			click(PWALoginPage.objLoginCTAInPremiumPopup, "Login CTA");
+			waitForElement(PWALoginPage.objSkip, 10, "Skip Login");
+			click(PWALoginPage.objSkip, "Skip Login");
+			waitTime(2000);
+		}
+		
+	}
+	
+	public void verifySettingChangedEventAfterAccountVerification(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+
+			extent.HeaderChildNode("Verify Setting Changed Event when Parental Control Account Verification is done");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			String password = "";
+			if (userType.equals("NonSubscribedUser")) {
+				password = getParameterFromXML("SettingsNonsubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = getParameterFromXML("SettingsSubscribedPassword");
+			}
+			type(PWALoginPage.objPasswordField, password, "Password field");
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			
+		}
+	}
+
+	
+	public void verifySettingChangedEventAfterParentalPinIsSet(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+
+			extent.HeaderChildNode("Verify Setting Changed Event when Parental Control PIN is Set");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			String password = "";
+			if (userType.equals("NonSubscribedUser")) {
+				password = getParameterFromXML("SettingsNonsubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = getParameterFromXML("SettingsSubscribedPassword");
+			}
+			type(PWALoginPage.objPasswordField, password, "Password field");
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			click(PWAHamburgerMenuPage.objRestrictAll, "Restrict all option");
+			click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
+			waitTime(4000);
+			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+			waitTime(2000);
+			
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			type(PWALoginPage.objPasswordField, password, "Password field");
+			waitTime(2000);
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+			click(PWAHamburgerMenuPage.objParentalLockNoRestrictionOption, "No restriction option");
+			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+			waitTime(2000);
+				
+		}
+	}
+	
+	public void verifySettingChangedEventAfterAgeIsSet(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+
+			extent.HeaderChildNode("Verify Setting Changed Event when Parental Control Age is Set");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			String password = "";
+			if (userType.equals("NonSubscribedUser")) {
+				password = getParameterFromXML("SettingsNonsubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = getParameterFromXML("SettingsSubscribedPassword");
+			}
+			type(PWALoginPage.objPasswordField, password, "Password field");
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			click(PWAHamburgerMenuPage.objRestrict13PlusContent, "Restrict 13+ Content");
+			click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
+			waitTime(4000);
+			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+			waitTime(2000);
+			
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			type(PWALoginPage.objPasswordField, password, "Password field");
+			waitTime(2000);
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+			click(PWAHamburgerMenuPage.objParentalLockNoRestrictionOption, "No restriction option");
+			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+			waitTime(2000);
+		}
+	}
+	
+	public void verifyToastMessageImpressionEventAfterResetSettingsToDefault() throws Exception {
+		extent.HeaderChildNode("Verify Toast Message Impression Event After Reset Settings To Default");
+		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		click(PWAHamburgerMenuPage.objMoreSettingInHamburger, "More settings");			
+		click(PWAHamburgerMenuPage.objResetSettingsToDefault, "Reset Settings to Default");
+		waitTime(5000);
+		
+	}
+	
+	public void verifySearchButtonClickEvent() throws Exception {
+		extent.HeaderChildNode("Verify Search Button Click Event");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		waitTime(5000);
+		
+	}
+
+	public void verifySearchResultClickedEvent(String keyword) throws Exception {
+		extent.HeaderChildNode("Verify Search Result Clicked Event");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword), "Search Result");
+		waitTime(5000);
+		
+	}
+
+	public void verifyPopUpLaunchEventForRegisterPopUp(String userType, String keyword) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Pop Up Launch Event when Native popup is displayed");
+
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWALoginPage.objCloseRegisterPopup,10,"Register Pop Up");
+			
+		}
+	}
+	
+	public void verifyPopUpLaunchEventForCompleteProfilePopUp(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			extent.HeaderChildNode("Verify Pop Up Launch Event when Complete Profile popup is displayed");
+
+			logout();
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			waitTime(3000);
+			extent.HeaderChildNode("Login through incomplete profile account");
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			type(PWALoginPage.objEmailField, "indaus24@gmail.com", "Email Field");
+			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			type(PWALoginPage.objPasswordField, "123456", "Password field");
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(5000);
+			verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
+			checkElementDisplayed(PWAHomePage.objSearchField, "Search field");
+			String keyword = getParameterFromXML("freeMovie2");
+			type(PWAHomePage.objSearchField, keyword, "Search");
+			waitTime(5000);
+			verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
+			waitTime(3000);
+			checkElementDisplayed(CompleteYourProfilePopUp.objCompleteYourProfileTxt,"Complete Your Profile");
+			
+		}
+	}
+	
+	
+	/** Login through ClubUser Id
+	 * 
+	 * @param userType
+	 * @param keyword6
+	 * @throws Exception
+	 */
+	public void verifyPopUpLaunchEventForClubUser(String userType, String keyword6) throws Exception {
+		if (userType.equalsIgnoreCase("ClubUser")) {
+			extent.HeaderChildNode("Verify Pop Up Launch Event when user gets Upgrade popup for Club User");
+
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword6 + "\n", "Search Edit box: " + keyword6);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword6), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword6), "Search Result");
+			waitForElement(PWAHamburgerMenuPage.objPopupClose,10, "Upgrade Pop Up");
+			
+		}
+	}
+	
+	public void verifyPopUpCTAsEvent(String userType, String keyword6) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Pop Up CTA's Event when user clicks on CTA button displayed on the popup");
+
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword6 + "\n", "Search Edit box: " + keyword6);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword6), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword6), "Search Result");
+			
+			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
+				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
+			}
+			
+		}
+	}
+
+	
+	public void verifyToastMessageImpressionEventInParentalControlScreen(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+
+			extent.HeaderChildNode("Verify Toast Message Impression Event In Parental Control Screen");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			String password = "";
+			if (userType.equals("NonSubscribedUser")) {
+				password = getParameterFromXML("SettingsNonsubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = getParameterFromXML("SettingsSubscribedPassword");
+			}
+			type(PWALoginPage.objPasswordField, password, "Password field");
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			click(PWAHamburgerMenuPage.objRestrict13PlusContent, "Restrict 13+ Content");
+			click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
+			waitTime(4000);
+			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+			waitTime(2000);
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			type(PWALoginPage.objPasswordField, password, "Password field");
+			waitTime(2000);
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+			click(PWAHamburgerMenuPage.objParentalLockNoRestrictionOption, "No restriction option");
+			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+			waitTime(2000);
 		}
 	}
 }

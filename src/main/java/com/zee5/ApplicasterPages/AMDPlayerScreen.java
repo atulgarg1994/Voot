@@ -81,7 +81,7 @@ public class AMDPlayerScreen {
 	
 	public static By objfbLoginPage = By.xpath("//*[@content-desc='Create New Facebook Account'] | //*[@content-desc='Log In'] | //*[@text='Log In'] | //*[@text='Create New Facebook Account']");
 
-	public static By objAd = By.xpath("(//*[contains(text(),'Ad :')]) | //*[contains(text(),'Ad')]");
+	public static By objAd = By.xpath("(//*[contains(text(),'Ad :')]) | (//*[contains(text(),'Ad 1 of 2 :')]) | (//*[contains(text(),'Ad 2 of 2 :')])");
 	
 	public static By objPreviousIcon = By.xpath("//*[@id='icon_previous']");
 }
