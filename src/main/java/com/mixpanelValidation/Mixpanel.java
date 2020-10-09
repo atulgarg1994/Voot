@@ -45,14 +45,16 @@ public class Mixpanel extends ExtentReporter {
 	/**
 	 * Global variables
 	 */
-	static String sheet = "Login Initiated";
-	static String fileName = "Login Initiated";//ReportName;
+	static String sheet = "TV Authentication Screen Display";
+	static String fileName = "TV Authentication Screen Display_1";//ReportName;
 	static String xlpath ;
 	static String booleanParameters = "";
 	static String integerParameters = "";
 	static int rownumber;
 	static String source = "";
 
+	static String tv = "{\"event\":\"TV Authentication Screen Display\",\"properties\":{\"time\":1602188841,\"distinct_id\":\"5d94e150a85711e9a4028141f97a2ff1\",\"$browser\":\"Chrome\",\"$browser_version\":85,\"$city\":\"Bengaluru\",\"$current_url\":\"https://newpwa.zee5.com/device\",\"$device_id\":\"17490afaadfb90-05c1e6a2036fd7-333769-144000-17490afaae0b7e\",\"$distinct_id_before_identity\":\"3c700400-6a97-48db-8917-f30f604a4001\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$insert_id\":\"hqo0wszj6p7s33d9\",\"$lib_version\":\"2.38.0\",\"$os\":\"Windows\",\"$region\":\"Karnataka\",\"$screen_height\":864,\"$screen_width\":1536,\"$user_id\":\"3c700400-6a97-48db-8917-f30f604a4001\",\"Age\":\"N/A\",\"Element\":\"Authenticate Device\",\"Free Trial Expiry Date\":\"N/A\",\"Free Trial Package\":\"N/A\",\"Gender\":\"male\",\"HasRental\":false,\"Landing Page Name\":\"home\",\"Latest Subscription Pack\":\"N/A\",\"Latest Subscription Pack Expiry\":\"N/A\",\"New App Language\":\"en\",\"New Content Language\":[\"en\",\"hi\",\"kn\"],\"Next Expiring Pack\":\"N/A\",\"Next Pack Expiry Date\":\"N/A\",\"Pack Duration\":\"N/A\",\"Page Name\":\"device_authentication\",\"Parent Control Setting\":\"A\",\"Partner Name\":\"N/A\",\"Platform Name\":\"Web\",\"Session ID\":1602162799.549,\"Social\":\"N/A\",\"Source\":\"N/A\",\"Unique ID\":\"3c700400-6a97-48db-8917-f30f604a4001\",\"User Type\":\"register\",\"dekey\":\"N/A\",\"hasEduauraa\":false,\"isPWA\":false,\"mp_country_code\":\"IN\",\"mp_lib\":\"web\",\"mp_processing_time_ms\":1602169042065}}";
+	
 	public static void ValidateParameter(String distinctID, String eventName,String Source)
 			throws JsonParseException, JsonMappingException, IOException, InterruptedException {
 		System.out.println("Parameter Validation");
@@ -67,9 +69,11 @@ public class Mixpanel extends ExtentReporter {
 	}
 
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
-//		creatExcel();
+		
 		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
-		fetchEvent("3c700400-6a97-48db-8917-f30f604a4001", "Subscription Call Returned");
+//		creatExcel();
+		parseResponse(tv);
+//		fetchEvent("3c700400-6a97-48db-8917-f30f604a4001", "Subscription Call Returned");
 //		validation();
 //		Instant instant = Instant.ofEpochSecond("1601475542");
 //		java.util.Date time = new java.util.Date((long)1601475542*1000); 
@@ -148,6 +152,7 @@ public class Mixpanel extends ExtentReporter {
 			if (i != 0) {
 				String com[] = commaSplit[i].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 				/** Write key value into excel */
+				System.out.println(com[0].replace("\"", "").replace("$", "")+"   ^^^^^^^^^^^^   "+ com[1].replace("\"", "").replace("$", ""));
 				write(i, com[0].replace("\"", "").replace("$", ""), com[1].replace("\"", "").replace("$", ""));
 			}
 		}

@@ -35,10 +35,10 @@ public class Android_LandingScreen_TopNavigation {
 	}
 
 	@Test(priority = 2)
-	@Parameters({ "userType" }) // Bindu
-	public void Shows_LandinScreen(String userType) throws Exception {
+	@Parameters({ "userType" , "tabName5" }) // Bindu
+	public void Shows_LandinScreen(String userType, String TabName) throws Exception {
 		System.out.println("\n---Verify Shows landing screen---\n");
-		ZEE5ApplicasterBusinessLogic.verifyShowsScreen(userType);
+		ZEE5ApplicasterBusinessLogic.verifyShowsScreen(userType, TabName);
 		ZEE5ApplicasterBusinessLogic.verifyConsumptionScreenOfBeforeTVContent(userType);
 	}
 

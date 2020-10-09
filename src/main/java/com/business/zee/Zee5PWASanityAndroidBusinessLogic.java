@@ -5234,18 +5234,16 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					if (verifyIsElementDisplayed(PWAShowsPage.objShowsTitle, "Shows Details page")) {
 						nextPageTitle = getText(PWAShowsPage.objShowsTitle);
 					} else {
-						if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up")) {
-							click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
-						}
-						if (tabName.equalsIgnoreCase("music")) {
-							System.out.println("ad check for music");
-							waitForPlayerAdToComplete("Video Player");
-						}
-						if (tabName.equalsIgnoreCase("news")) {
-							System.out.println("ad check for news");
-							waitForPlayerAdToComplete("Live Player");
-						}
-						pausePlayer();
+						/*
+						 * if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle,
+						 * "Subscribe Pop Up")) { click(PWASubscriptionPages.objPopupCloseButton,
+						 * "Subscribe Pop Up Close button"); } if(tabName.equalsIgnoreCase("music")) {
+						 * System.out.println("ad check for music");
+						 * waitForPlayerAdToComplete("Video Player"); }
+						 * if(tabName.equalsIgnoreCase("news")) {
+						 * System.out.println("ad check for news");
+						 * waitForPlayerAdToComplete("Live Player"); } pausePlayer();
+						 */
 						nextPageTitle = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
 					}
 					if (!nextPageTitle.equals("")) {
@@ -5992,197 +5990,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			// Click on close button
 			click(PWALiveTVPage.objPopupCloseButton, "Close button");
 			waitTime(3000);
-			// Verify user can not add Movies to Reminder
-			// Select any movie
-			click(PWALiveTVPage.objMovie, "Movie card");
-			if (verifyIsElementDisplayed(PWALiveTVPage.objRemainderButton, "Reminder button for Movie card") == false) {
-				extent.extentLogger("Verify Movie show don't have Reminder option",
-						"Reminder option is not available for Movie card");
-				logger.info("Reminder option is not available for Movie card");
-			} else {
-				extent.extentLoggerFail("Verify Movie show don't have Reminder option",
-						"Reminder option is available for Movie card");
-				logger.error("Reminder option is available for Movie card");
-
-			}
-			// Click on close button
-			click(PWALiveTVPage.objPopupCloseButton, "Close button");
-			Swipe("Down", 1);
-			getDriver().navigate().refresh();
-			click(PWALiveTVPage.objTomorrowDate, "Tomorrow date");
-			/*
-			 * verifyElementPresentAndClick(PWALiveTVPage.objFilterLanguageChannelGuide,
-			 * "Filter language"); int size =
-			 * findElements(PWALiveTVPage.objSelectedlang).size(); for (int i = 1; i <=
-			 * size; i++) { click(PWALiveTVPage.objSelectedlang, "Selected language"); }
-			 * click(PWALiveTVPage.objPunjabiLang, "Punjabi language");
-			 * click(PWALiveTVPage.objApplyBtn, "Apply button"); // Select any show to add
-			 * Reminder Swipe("Up", 1); waitTime(2000); click(PWALiveTVPage.objPunjabiShow,
-			 * "Show "); // Click on Reminder click(PWALiveTVPage.objRemainderButton,
-			 * "Reminder"); click(PWALiveTVPage.objPopupCloseButton, "Close button"); //
-			 * Verify user is navigated Reminder screen from Home screen Swipe("Down", 1);
-			 */
-
-			FilterLanguageUnselectOthers("Hindi", "Hindi Movies");
-			waitForElement(PWALiveTVPage.objEPG, 60, "Channels");
-			waitTime(10000);
-			waitTime(10000);
-			Swipe("UP", 1);
-			waitTime(10000);
-			Swipe("UP", 1);
-			waitTime(10000);
-			Swipe("UP", 1);
-			waitTime(10000);
-			String show1 = "", show2 = "";
-			// First Show
-			if (verifyIsElementDisplayed(PWALiveTVPage.objShowZEETVHDShow1ForReminder, "ZEE TV HD Show")) {
-				show1 = getElementPropertyToString("innerText", PWALiveTVPage.objShowZEETVHDShow1ForReminder,
-						"ZEE TV HD Show");
-				click(PWALiveTVPage.objShowZEETVHDShow1ForReminder, "ZEE TV HD Show " + show1);
-				verifyElementPresent(PWALiveTVPage.objShareOption, "Share option");
-			}
-			if (verifyElementPresent(PWALiveTVPage.objRemainderButton, "Reminder Option")) {
-				click(PWALiveTVPage.objRemainderButton, "Reminder option");
-				if (getDriver().findElement(PWALiveTVPage.objRemainderButton).getAttribute("class")
-						.contains("btnIconActive")) {
-					extent.extentLogger("", "Reminder option is active, click has been successful");
-					logger.info("Reminder option is active, click has been successful");
-				} else {
-					extent.extentLoggerFail("", "Reminder option is not active, click has failed");
-					logger.error("Reminder option is not active, click has failed");
-				}
-				click(PWALiveTVPage.objPopupCloseButton, "Close button");
-				waitTime(3000);
-			} else {
-				extent.extentLoggerFail("", "Reminder option is not present for the Show");
-				logger.error("Reminder option is not present for the Show");
-			}
-			click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
-			navigateToAnyScreen("Home");
-			// Verify user is navigated to Reminder screen from Home page
-			String activeTab = getDriver().findElement(PWAHomePage.objActiveTab).getText();
-			if (activeTab.equals("Home")) {
-				extent.extentLogger("Verify current tab", "User is in " + activeTab + " tab");
-				logger.info("User is in Home tab");
-			} else {
-				extent.extentLoggerFail("Verify current tab", "User is not in Home tab");
-				logger.error("User is not in Home tab");
-			}
-			// Click on Hamburger menu
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-			// Click on My account
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyAccount, "My account");
-			// Click on My Reminders
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyRemainder, "My Reminder");
-			// Verify user is navigated to My Reminder screen
-			if (verifyIsElementDisplayed(PWAMyRemindersPage.objMyReminderHeader, "My Reminder Header") == true) {
-				extent.extentLogger("Verify the Navigation ",
-						"User is Navigated to "
-								+ getDriver().findElement(PWAMyRemindersPage.objMyReminderHeader).getText()
-								+ " screen from " + activeTab + "page");
-				logger.info("User is Navigated to "
-						+ getDriver().findElement(PWAMyRemindersPage.objMyReminderHeader).getText() + " screen from "
-						+ activeTab + "page");
-			} else {
-				extent.extentLoggerFail("Verify Navigation ",
-						"User failed to navigate from Home page to My Reminders screen");
-				logger.error("User failed to navigate from Home page to My Reminders screen");
-			}
-			// Verify that Remove all button is displayed
-			if (verifyIsElementDisplayed(PWAAddToWatchListPage.objRemoveContentsInWatchList,
-					"Remove all option") == true) {
-				extent.extentLogger("Verify Remove all option is displayed",
-						"Remove all option is displayed in Reminder screen");
-				logger.info("Remove all option is displayed in Reminder screen");
-			} else {
-				extent.extentLoggerFail("Verify Remove all option is displayed",
-						"Remove all option is not displayed in Reminder screen");
-				logger.error("Remove all option is not displayed in Reminder screen");
-			}
-			// Verify that added reminder contents contains title, start and end time
-			// verify title is displayed
-
-			int totalContentsInReminder = getDriver().findElements(PWAMyRemindersPage.objTotalContentsInReminder)
-					.size();
-			System.out.println(totalContentsInReminder);
-			for (int i = 0; i < totalContentsInReminder; i++) {
-				if (findElements(PWAMyRemindersPage.objTotalContentsInReminder).get(i).isDisplayed()) {
-					extent.extentLogger("Verify title", "The content name at index " + i + " is "
-							+ findElements(PWAMyRemindersPage.objTotalContentsInReminder).get(i).getText());
-					logger.info("The content name at index " + i + " is "
-							+ findElements(PWAMyRemindersPage.objTotalContentsInReminder).get(i).getText());
-				} else {
-					extent.extentLoggerFail("Verify title", "Content title is not displayed in Reminder screen");
-					logger.error("Content title is not displayed in Reminder screen");
-				}
-			}
-			// Verify Start and end time
-			int dateTime = getDriver().findElements(PWAMyRemindersPage.objDateTime).size();
-			for (int i = 0; i < dateTime; i++) {
-				if (findElements(PWAMyRemindersPage.objDateTime).get(i).isDisplayed()) {
-					extent.extentLogger("Verify date and time", "The date and time at index " + i + " is "
-							+ findElements(PWAMyRemindersPage.objDateTime).get(i).getText());
-					logger.info("The date and time at index " + i + " is "
-							+ findElements(PWAMyRemindersPage.objDateTime).get(i).getText());
-				} else {
-					extent.extentLoggerFail("Verify date and time",
-							"Date and time is not displayed in Reminder screen");
-					logger.error("Date and time is not displayed in Reminder screen");
-				}
-			}
-			// Verify user is able to delete the content by tapping on cancel button
-			int contentsBeforeDeleting = getDriver().findElements(PWAAddToWatchListPage.objCancelBtn).size();
-			click(PWAAddToWatchListPage.objCancelBtn(1), " Cancel button");
-			int contentsAfterDeleting = getDriver().findElements(PWAAddToWatchListPage.objCancelBtn).size();
-			if (contentsAfterDeleting < contentsBeforeDeleting) {
-				extent.extentLogger("Verify cancel button",
-						"User successfully deleted the content from Reminder screen");
-				logger.info("User Successfully deleted the content from Reminder screen");
-			} else {
-				extent.extentLoggerFail("Verify cancel button",
-						"User can not delete the contents from the reminder screen");
-				logger.error("User can not delete the contents from the reminder screen");
-			}
-			// Verify the Remove all functionality
-			// click on Remove all
-			click(PWAAddToWatchListPage.objRemoveContentsInWatchList, "Remove all");
-			// Verify contents are deleted
-			if (verifyIsElementDisplayed(PWAMyRemindersPage.objNoReminderMessage, "No Reminder message") == true) {
-				extent.extentLogger("Verify Remove all option",
-						"User successfully deleted all the contents from the Reminder screen");
-				logger.info("User successfully deleted all the contents from the Reminder screen");
-			} else {
-				extent.extentLoggerFail("Verify Remove all option",
-						"User can not delete all the contents from the Reminder screen");
-				logger.error("User can not  delete all the contents from the Reminder screen");
-			}
-
-			// Verify We have nothing to remind you message is displayed
-			if (verifyIsElementDisplayed(PWAMyRemindersPage.objNoReminderMessage, "No Reminder message") == true) {
-				extent.extentLogger("Verify No reminder message",
-						"The message " + getDriver().findElement(PWAMyRemindersPage.objNoReminderMessage).getText()
-								+ " is displayed when there is no contents are available");
-				logger.info("The message " + getDriver().findElement(PWAMyRemindersPage.objNoReminderMessage).getText()
-						+ " is displayed when there is no contents are available");
-			} else {
-				extent.extentLoggerFail("Verify No Reminder message",
-						"The message We have nothing to remind you message is not displayed");
-				logger.error("The message We have nothing to remind you message is not displayed");
-			}
-
-			// verify device back button functionality
-			// Click on device back button
-			getDriver().navigate().back();
-			// Verify user is navigated to Home screen
-			if (activeTab.equals("Home")) {
-				extent.extentLogger("Verify current tab",
-						"User is navigated to " + activeTab + " tab after pressing device back button");
-				logger.info("User is navigated to previous page after clicking on device back button");
-			} else {
-				extent.extentLoggerFail("Verify current tab",
-						"User did not navigate to previos page after clicking on device back button");
-				logger.error("User did not navigate to previos page after clicking on device back button");
-			}
 		} else {
 			extent.extentLoggerWarning("",
 					"Reminder functionality could not be validated because the selected show has no Reminder option");
@@ -6190,6 +5997,180 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					"Reminder functionality could not be validated because the selected show has no Reminder option");
 			click(PWALiveTVPage.objCloseLanguagePopuUpBtn, "Close in Pop Up");
 			click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+		}
+		// Verify user can not add Movies to Reminder
+		// Select any movie
+		click(PWALiveTVPage.objMovie, "Movie card");
+		if (verifyIsElementDisplayed(PWALiveTVPage.objRemainderButton, "Reminder button for Movie card") == false) {
+			extent.extentLogger("Verify Movie show don't have Reminder option",
+					"Reminder option is not available for Movie card");
+			logger.info("Reminder option is not available for Movie card");
+		} else {
+			extent.extentLoggerFail("Verify Movie show don't have Reminder option",
+					"Reminder option is available for Movie card");
+			logger.error("Reminder option is available for Movie card");
+
+		}
+		// Click on close button
+		click(PWALiveTVPage.objPopupCloseButton, "Close button");
+		Swipe("Down", 1);
+		getDriver().navigate().refresh();
+		click(PWALiveTVPage.objTomorrowDate, "Tomorrow date");
+
+		FilterLanguageUnselectOthers("Hindi", "Hindi Movies");
+		waitForElement(PWALiveTVPage.objEPG, 60, "Channels");
+		waitTime(10000);
+		waitTime(10000);
+		Swipe("UP", 1);
+		waitTime(10000);
+		Swipe("UP", 1);
+		waitTime(10000);
+		Swipe("UP", 1);
+		waitTime(10000);
+		String show1 = "", show2 = "";
+		// First Show
+		if (verifyIsElementDisplayed(PWALiveTVPage.objShowZEETVHDShow1ForReminder, "ZEE TV HD Show")) {
+			show1 = getElementPropertyToString("innerText", PWALiveTVPage.objShowZEETVHDShow1ForReminder,
+					"ZEE TV HD Show");
+			click(PWALiveTVPage.objShowZEETVHDShow1ForReminder, "ZEE TV HD Show " + show1);
+			verifyElementPresent(PWALiveTVPage.objShareOption, "Share option");
+		}
+		if (verifyElementPresent(PWALiveTVPage.objRemainderButton, "Reminder Option")) {
+			click(PWALiveTVPage.objRemainderButton, "Reminder option");
+			if (getDriver().findElement(PWALiveTVPage.objRemainderButton).getAttribute("class")
+					.contains("btnIconActive")) {
+				extent.extentLogger("", "Reminder option is active, click has been successful");
+				logger.info("Reminder option is active, click has been successful");
+			} else {
+				extent.extentLoggerFail("", "Reminder option is not active, click has failed");
+				logger.error("Reminder option is not active, click has failed");
+			}
+			click(PWALiveTVPage.objPopupCloseButton, "Close button");
+			waitTime(3000);
+		} else {
+			extent.extentLoggerFail("", "Reminder option is not present for the Show");
+			logger.error("Reminder option is not present for the Show");
+		}
+		click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+		navigateToAnyScreen("Home");
+		// Verify user is navigated to Reminder screen from Home page
+		String activeTab = getDriver().findElement(PWAHomePage.objActiveTab).getText();
+		if (activeTab.equals("Home")) {
+			extent.extentLogger("Verify current tab", "User is in " + activeTab + " tab");
+			logger.info("User is in Home tab");
+		} else {
+			extent.extentLoggerFail("Verify current tab", "User is not in Home tab");
+			logger.error("User is not in Home tab");
+		}
+		// Click on Hamburger menu
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		// Click on My account
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyAccount, "My account");
+		// Click on My Reminders
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyRemainder, "My Reminder");
+		// Verify user is navigated to My Reminder screen
+		if (verifyIsElementDisplayed(PWAMyRemindersPage.objMyReminderHeader, "My Reminder Header") == true) {
+			extent.extentLogger("Verify the Navigation ",
+					"User is Navigated to " + getDriver().findElement(PWAMyRemindersPage.objMyReminderHeader).getText()
+							+ " screen from " + activeTab + "page");
+			logger.info(
+					"User is Navigated to " + getDriver().findElement(PWAMyRemindersPage.objMyReminderHeader).getText()
+							+ " screen from " + activeTab + "page");
+		} else {
+			extent.extentLoggerFail("Verify Navigation ",
+					"User failed to navigate from Home page to My Reminders screen");
+			logger.error("User failed to navigate from Home page to My Reminders screen");
+		}
+		// Verify that Remove all button is displayed
+		if (verifyIsElementDisplayed(PWAAddToWatchListPage.objRemoveContentsInWatchList, "Remove all option") == true) {
+			extent.extentLogger("Verify Remove all option is displayed",
+					"Remove all option is displayed in Reminder screen");
+			logger.info("Remove all option is displayed in Reminder screen");
+		} else {
+			extent.extentLoggerFail("Verify Remove all option is displayed",
+					"Remove all option is not displayed in Reminder screen");
+			logger.error("Remove all option is not displayed in Reminder screen");
+		}
+		// Verify that added reminder contents contains title, start and end time
+		// verify title is displayed
+
+		int totalContentsInReminder = getDriver().findElements(PWAMyRemindersPage.objTotalContentsInReminder).size();
+		System.out.println(totalContentsInReminder);
+		for (int i = 0; i < totalContentsInReminder; i++) {
+			if (findElements(PWAMyRemindersPage.objTotalContentsInReminder).get(i).isDisplayed()) {
+				extent.extentLogger("Verify title", "The content name at index " + i + " is "
+						+ findElements(PWAMyRemindersPage.objTotalContentsInReminder).get(i).getText());
+				logger.info("The content name at index " + i + " is "
+						+ findElements(PWAMyRemindersPage.objTotalContentsInReminder).get(i).getText());
+			} else {
+				extent.extentLoggerFail("Verify title", "Content title is not displayed in Reminder screen");
+				logger.error("Content title is not displayed in Reminder screen");
+			}
+		}
+		// Verify Start and end time
+		int dateTime = getDriver().findElements(PWAMyRemindersPage.objDateTime).size();
+		for (int i = 0; i < dateTime; i++) {
+			if (findElements(PWAMyRemindersPage.objDateTime).get(i).isDisplayed()) {
+				extent.extentLogger("Verify date and time", "The date and time at index " + i + " is "
+						+ findElements(PWAMyRemindersPage.objDateTime).get(i).getText());
+				logger.info("The date and time at index " + i + " is "
+						+ findElements(PWAMyRemindersPage.objDateTime).get(i).getText());
+			} else {
+				extent.extentLoggerFail("Verify date and time", "Date and time is not displayed in Reminder screen");
+				logger.error("Date and time is not displayed in Reminder screen");
+			}
+		}
+		// Verify user is able to delete the content by tapping on cancel button
+		int contentsBeforeDeleting = getDriver().findElements(PWAAddToWatchListPage.objCancelBtn).size();
+		click(PWAAddToWatchListPage.objCancelBtn(1), " Cancel button");
+		int contentsAfterDeleting = getDriver().findElements(PWAAddToWatchListPage.objCancelBtn).size();
+		if (contentsAfterDeleting < contentsBeforeDeleting) {
+			extent.extentLogger("Verify cancel button", "User successfully deleted the content from Reminder screen");
+			logger.info("User Successfully deleted the content from Reminder screen");
+		} else {
+			extent.extentLoggerFail("Verify cancel button",
+					"User can not delete the contents from the reminder screen");
+			logger.error("User can not delete the contents from the reminder screen");
+		}
+		// Verify the Remove all functionality
+		// click on Remove all
+		click(PWAAddToWatchListPage.objRemoveContentsInWatchList, "Remove all");
+		// Verify contents are deleted
+		if (verifyIsElementDisplayed(PWAMyRemindersPage.objNoReminderMessage, "No Reminder message") == true) {
+			extent.extentLogger("Verify Remove all option",
+					"User successfully deleted all the contents from the Reminder screen");
+			logger.info("User successfully deleted all the contents from the Reminder screen");
+		} else {
+			extent.extentLoggerFail("Verify Remove all option",
+					"User can not delete all the contents from the Reminder screen");
+			logger.error("User can not  delete all the contents from the Reminder screen");
+		}
+
+		// Verify We have nothing to remind you message is displayed
+		if (verifyIsElementDisplayed(PWAMyRemindersPage.objNoReminderMessage, "No Reminder message") == true) {
+			extent.extentLogger("Verify No reminder message",
+					"The message " + getDriver().findElement(PWAMyRemindersPage.objNoReminderMessage).getText()
+							+ " is displayed when there is no contents are available");
+			logger.info("The message " + getDriver().findElement(PWAMyRemindersPage.objNoReminderMessage).getText()
+					+ " is displayed when there is no contents are available");
+		} else {
+			extent.extentLoggerFail("Verify No Reminder message",
+					"The message We have nothing to remind you message is not displayed");
+			logger.error("The message We have nothing to remind you message is not displayed");
+		}
+
+		// verify device back button functionality
+		// Click on device back button
+		getDriver().navigate().back();
+		// Verify user is navigated to Home screen
+		if (activeTab.equals("Home")) {
+			extent.extentLogger("Verify current tab",
+					"User is navigated to " + activeTab + " tab after pressing device back button");
+			logger.info("User is navigated to previous page after clicking on device back button");
+		} else {
+			extent.extentLoggerFail("Verify current tab",
+					"User did not navigate to previos page after clicking on device back button");
+			logger.error("User did not navigate to previos page after clicking on device back button");
 		}
 
 	}

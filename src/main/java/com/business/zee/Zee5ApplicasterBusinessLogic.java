@@ -5205,7 +5205,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	/**
 	 * Author : Bindu Module : Shows Screen
 	 */
-	public void verifyShowsScreen(String userType) throws Exception {
+	public void verifyShowsScreen(String userType, String TabName) throws Exception {
 		extent.HeaderChildNode("Verify user navigates to shows screen");
 		System.out.println("\nVerify User navigated to Shows Screen");
 
@@ -5316,6 +5316,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 			Back(1);
 		}
+		verifyContinueWatchingTray(userType, TabName);
 		RemoveContentCardFromCWRail(userType);
 		extent.HeaderChildNode("verify the trays present in Shows Landing Screen");
 		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Continue Watching"), AMDHomePage.objCarouselConetentCard,
@@ -5418,64 +5419,44 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void verifyConsumptionScreenOfBeforeTVContent(String userType) throws Exception {
-		extent.HeaderChildNode("Verify content Playback in Shows Before TV");
-		System.out.println("\nVerify content Playback in Shows Before TV");
+		extent.HeaderChildNode("Before TV tray validation");
+		System.out.println("\nBefore TV tray validation");
 
 		// Selecting SHOWS tab from Top Navigation
 		verifyElementPresentAndClick(AMDHomePage.objShowsTab, "Shows Tab");
 		waitTime(6000);
 
-		for (int i = 1; i < 15; i++) {
+		for (int i = 1; i < 25; i++) {
 			if (!(verifyIsElementDisplayed(AMDHomePage.objBeforeTVTray))) {
 				Swipe("UP", 1);
 				// break;
 			} else {
 				waitTime(5000);
-//				String beforeTVtrayName = findElement(AMDGenericObjects.objTrayTitle("Before TV")).getText();
-//				click(AMDGenericObjects.objViewAllBtn(beforeTVtrayName), "View All_Before TV Show");
-				click(AMDHomePage.objBeforeTVTray, "BeforeTV tray");
+                verifyElementPresent(AMDHomePage.objBeforeTVTray, "BeforeTV tray");
 				waitTime(4000);
-				click(AMDShowsScreen.objBeforeTVContent1, "BeforeTV content");
-				waitTime(5000);
-				if (verifyElementDisplayed(AMDSubscibeScreen.objSubscribeHeader)) {
-					Back(1);
-				}
+				
 
-				if (userType.equals("Guest")) {
-
-					if (checkElementExist(AMDShowsScreen.objLoginLink, "Login link")) {
-						logger.info(
-								"User navigated to consumption screen with login link on the player tapping on Before TV Content");
-						extent.extentLoggerPass("Consumption Screen",
-								"User navigated to consumption screen with login link on the player tapping on Before TV Content");
-					} else {
-						logger.error(
-								"User not navigated to consumption screen with login link on the player tapping on Before TV Content");
-						extent.extentLoggerFail("Consumption Screen",
-								"User not navigated to consumption screen with login link on the player tapping on Before TV Content");
-					}
-				} else if (userType.equals("NonSubscribedUser")) {
-					if (checkElementExist(AMDShowsScreen.objSubscribeNowlink, "Subscribe Now link")) {
-						logger.info(
-								"User navigated to consumption screen with Subscribe Now link on the player tapping on Before TV Content");
-						extent.extentLoggerPass("Consumption Screen",
-								"User navigated to consumption screen with Subscribe Now link on the player tapping on Before TV Content");
-					} else {
-						logger.error(
-								"User not navigated to consumption screen with Subscribe Now link on the player tapping on Before TV Content");
-						extent.extentLoggerFail("Consumption Screen",
-								"User not navigated to consumption screen with Subscribe Now link on the player tapping on Before TV Content");
-					}
-				} else {
-					logger.info(
+				if (userType.equals("SubscribedUser")) {
+					click(AMDHomePage.objBeforeTVTray, "BeforeTV tray");
+					waitTime(2000);
+					click(AMDShowsScreen.objBeforeTVContent1, "BeforeTV content");
+					waitTime(10000);
+					if(checkElementExist(AMDPlayerScreen.objPlayerScreen, "Player screen")) {
+				    logger.info(
 							"Content playback is initiated for the subscribed user on tapping any Before Tv Content");
 					extent.extentLoggerPass("Consumption Screen",
 							"Content playback is initiated for the subscribed user on tapping any Before Tv Content");
+					}else {
+						logger.info(
+								"Content playback is not initiated for the subscribed user on tapping any Before Tv Content");
+						extent.extentLoggerFail("Consumption Screen",
+								"Content playback is not initiated for the subscribed user on tapping any Before Tv Content");
+					}
+					Back(2);
 				}
-				break;
+			     break;
 			}
 		}
-		Back(2);
 	}
 
 	@SuppressWarnings("unused")
@@ -5886,7 +5867,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		SwipeUntilFindElement(AMDMoreMenu.objResetDefault, "UP");
 		verifyElementPresentAndClick(AMDMoreMenu.objResetDefault, "Reset settings to Default");
 		click(AMDMoreMenu.objYesBtnResetDefault, "Yes button");
+		waitTime(1000);
 		Back(1);
+		click(AMDHomePage.HomeIcon, "Home button");
 	}
 
 	/**
@@ -6080,7 +6063,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"Consumption Screen is not displayed for the selected content");
 		}
 		Back(1);
-
+        Swipe("DOWN",1);
 		// Validating Carousel Auto scroll
 		String title1 = getText(AMDHomePage.objCarouselTitle1);
 		logger.info(title1);
@@ -6124,13 +6107,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDHomePage.objPremiumTab, "Premium tab");
 		verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
 
-		findingTrayInscreen(10, AMDHomePage.objTrayTitle("Today's Headlines"), AMDHomePage.objCarouselConetentCard,
+		findingTrayInscreen(25, AMDHomePage.objTrayTitle("Today's Headlines"), AMDHomePage.objCarouselConetentCard,
 				"Today's Headlines tray", "MastheadCarousel", userType, "News");
-		findingTrayInscreen(10, AMDHomePage.objTrayTitle("Entertainment News"), AMDHomePage.objCarouselConetentCard,
+		findingTrayInscreen(25, AMDHomePage.objTrayTitle("Entertainment News"), AMDHomePage.objCarouselConetentCard,
 				"Entertainment News tray", "MastheadCarousel", userType, "News");
 		findingTrayInscreen(10, AMDHomePage.objTrayTitle("Live News"), AMDHomePage.objCarouselConetentCard,
 				"Live News tray", "MastheadCarousel", userType, "News");
-		findingTrayInscreen(20, AMDHomePage.objTrayTitle("Top Stories"), AMDHomePage.objCarouselConetentCard,
+		findingTrayInscreen(25, AMDHomePage.objTrayTitle("Top Stories"), AMDHomePage.objCarouselConetentCard,
 				"Top Stories tray", "MastheadCarousel", userType, "News");
 
 		if (userType.equals("Guest")) {
@@ -6146,7 +6129,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Guest")) {
 			verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
 			waitTime(6000);
-			PartialSwipe("UP", 1);
+			PartialSwipe("UP", 2);
 			verifyElementPresent(AMDNewsPage.objRightArrowBtn, "Right arrow");
 			click(AMDNewsPage.objRightArrowBtn, "Right arrow");
 			waitTime(4000);

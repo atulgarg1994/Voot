@@ -133,6 +133,7 @@
 	
 	<parameter name="SubsUserClubPack" value="zeetest510@gmail.com" />
 	<parameter name="SubsPwdClubPack" value="000000" />
+	<parameter name="tabName5" value="Shows" />
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
