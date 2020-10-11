@@ -67,8 +67,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			dismissDisplayContentLanguagePopUp();
-			waitTime(3000);
+//			dismissDisplayContentLanguagePopUp();
+//			waitTime(3000);
 			break;
 
 		case "NonSubscribedUser":
@@ -398,9 +398,17 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objSkip, "Skip Login");
-			waitTime(2000);
+			waitTime(5000);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			Mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Login", "home");
+//			Properties pro = new Properties();
+			for (String key : local.keySet()) {
+//	            pro.setProperty(key, local.getItem(key));
+				if (key.contains("mp_")) {
+					System.out.println(key + "   ******** " + local.getItem(key));
+				}
+			}
+//			System.out.println("Local : "+local.getItem("mp_bd3945ca2b9d542adaad70063481a89d_mixpanel"));
+//			Mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Login", "home");
 		}
 	}
 
@@ -3951,4 +3959,408 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 	}
 
+	public void verifyParentalOverlayImpressionEventForFreeContent(String userType, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Impression Event For Free Content");
+		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+		checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+		String password = "";
+		if (userType.equals("NonSubscribedUser")) {
+			password = getParameterFromXML("SettingsNonsubscribedPassword");
+		} else if (userType.equals("SubscribedUser")) {
+			password = getParameterFromXML("SettingsSubscribedPassword");
+		}
+		type(PWALoginPage.objPasswordField, password, "Password field");
+		click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+		waitTime(2000);
+		checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+
+		click(PWAHamburgerMenuPage.objRestrictAll, "Restrict All");
+		click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
+		type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
+		waitTime(4000);
+		click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+		waitTime(3000);
+
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayImpressionEventForPremiumContent(String userType, String keyword1)
+			throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Premium Content");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForTrailer(String keyword1) throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Impression Event For Trailer Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayImpressionEventForCarouselContent() throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Impression Event For Carousel Content");
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentInTray() throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content played from Tray");
+		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentFromSearchPage(String keyword1) throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Impression For Content From Search Page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentFromMyWatchlistPage(String userType, String keyword)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content From My Watchlist Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+
+			Actions actions = new Actions(getWebDriver());
+			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
+			actions.moveToElement(contentCard).build().perform();
+
+			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+
+			click(PWALandingPages.objWebProfileIcon, "Profile icon");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+
+			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentInMegamenu() throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content played from Megamenu");
+		waitTime(5000);
+		Actions actions = new Actions(getWebDriver());
+		WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
+		actions.moveToElement(contentCard).build().perform();
+
+		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentInPlaylist(String userType, String keyword)
+			throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content played from Playlist");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(2000);
+		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		mandatoryRegistrationPopUp(userType);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentFromUpnextRail(String userType, String keyword4)
+			throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content played from Upnext rail");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForPlayerAdToComplete("Video Player");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitTime(6000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentFromSharedLink(String freeContentURL) throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Impression Event For content played from Shared Link");
+		getWebDriver().get(freeContentURL);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayImpressionEventAfterPageRefresh(String keyword1) throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Impression Event after refreshing the page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(5000);
+		getWebDriver().navigate().refresh();
+
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+	}
+
+	public void verifyParentalOverlayResultEventForFreeContent(String userType, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Result Event For Free Content");
+
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+
+		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayResultEventForPremiumContent(String userType, String keyword1) throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Premium Content");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForTrailer(String keyword1) throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Result Event For Trailer Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayResultEventForCarouselContent() throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Result Event For Carousel Content");
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayResultEventForContentInTray() throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Result Event For Content played from Tray");
+		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayResultEventForContentFromSearchPage(String keyword1) throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Result For Content From Search Page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayResultEventForContentFromMyWatchlistPage(String userType, String keyword)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Content From My Watchlist Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+
+			Actions actions = new Actions(getWebDriver());
+			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
+			actions.moveToElement(contentCard).build().perform();
+
+			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+
+			click(PWALandingPages.objWebProfileIcon, "Profile icon");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+
+			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForContentInMegamenu() throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Result Event For Content played from Megamenu");
+		waitTime(5000);
+		Actions actions = new Actions(getWebDriver());
+		WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
+		actions.moveToElement(contentCard).build().perform();
+
+		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayResultEventForContentInPlaylist(String userType, String keyword) throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Result Event For Content played from Playlist");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(2000);
+		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		mandatoryRegistrationPopUp(userType);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayResultEventForContentFromUpnextRail(String userType, String keyword4)
+			throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Result Event For Content played from Upnext rail");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForPlayerAdToComplete("Video Player");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitTime(6000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayResultEventForContentFromSharedLink(String freeContentURL) throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Result Event For content played from Shared Link");
+		getWebDriver().get(freeContentURL);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+		waitTime(5000);
+	}
 }

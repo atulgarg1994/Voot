@@ -56,8 +56,8 @@ public class Android_UserSessionManagement {
 	public void AppDetails(String userType) throws Exception {
 		System.out.println("Collecting App details and validating with Web details");
 		ZEE5ApplicasterBusinessLogic.appMyProfile();
-		// ZEE5ApplicasterBusinessLogic.appWatchlist();
-		// ZEE5ApplicasterBusinessLogic.appMyReminders();
+		ZEE5ApplicasterBusinessLogic.appWatchlist();
+		ZEE5ApplicasterBusinessLogic.appMyReminders();
 		ZEE5ApplicasterBusinessLogic.appSubscription(userType);
 		ZEE5ApplicasterBusinessLogic.appTransaction(userType);
 		ZEE5ApplicasterBusinessLogic.appDisplayLanguage();
@@ -78,7 +78,6 @@ public class Android_UserSessionManagement {
 	@Test(priority = 6)
 	public void Web_Update() throws Exception {
 		System.out.println("Updating web details");
-		// ZEE5ApplicasterBusinessLogic.webUpdateProfileDetails();
 		ZEE5ApplicasterBusinessLogic.webRemoveWatchList();
 		ZEE5ApplicasterBusinessLogic.webRemoveReminders();
 	}
@@ -97,7 +96,6 @@ public class Android_UserSessionManagement {
 	@Test(priority = 8)
 	public void App_Update() throws Exception {
 		System.out.println("validation of App details with updated Web details");
-		// ZEE5ApplicasterBusinessLogic.appUpdatedFirstName();
 		ZEE5ApplicasterBusinessLogic.appRemoveWatlist();
 		ZEE5ApplicasterBusinessLogic.appRemoveReminder();
 	}

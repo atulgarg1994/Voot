@@ -3,6 +3,12 @@
 
 <suite name="Web" parallel="false" thread-count="1">
 
+<groups>
+	<run>
+		<include name="SkipLoginEvent" />
+	</run>
+</groups>
+
 	<parameter name="url" value="https://newpwa.zee5.com/" />
 	<parameter name="browserType" value="Chrome" />  <!-- Chrome/Firefox -->
 
@@ -48,12 +54,10 @@
 		</classes>  
 	</test>
 -->
-	<test name="testZee">
+	<test name="WebPWAMixpanelScript">
 		<classes>
-			<class name="com.zee5.PWAMixpanelScripts.testZee" />
+			<class name="com.zee5.PWAMixpanelScripts.WebPWAMixpanelScript" />
 		</classes>
 	</test>
-
-
 
 </suite>

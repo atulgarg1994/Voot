@@ -377,4 +377,6 @@ public class PWAPlayerPage {
 	public static By objPlayerSettings = By.xpath("//*[contains(@class,'playkit-icon playkit-icon-settings')]");
 	
 	public static By objPlayerProgressBar = By.xpath("(//div[@class='playkit-progress-bar'])");
+	
+	public static By objParentalLockOnPlayer = By.xpath("//*[@class='parentLock']");
 }

@@ -45,8 +45,8 @@ public class Mixpanel extends ExtentReporter {
 	/**
 	 * Global variables
 	 */
-	static String sheet = "TV Authentication Screen Display";
-	static String fileName = "TV Authentication Screen Display_1";//ReportName;
+	static String sheet = "Skip";
+	static String fileName = "Skip";//ReportName;
 	static String xlpath ;
 	static String booleanParameters = "";
 	static String integerParameters = "";
@@ -57,7 +57,7 @@ public class Mixpanel extends ExtentReporter {
 	
 	public static void ValidateParameter(String distinctID, String eventName,String Source)
 			throws JsonParseException, JsonMappingException, IOException, InterruptedException {
-		System.out.println("Parameter Validation");
+		System.out.println("Parameter Validation "+ distinctID);
 		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
 		booleanParameters = Prop.getproperty("Boolean");
 		integerParameters = Prop.getproperty("Integer");
@@ -72,8 +72,8 @@ public class Mixpanel extends ExtentReporter {
 		
 		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
 //		creatExcel();
-		parseResponse(tv);
-//		fetchEvent("3c700400-6a97-48db-8917-f30f604a4001", "Subscription Call Returned");
+//		parseResponse(tv);
+		fetchEvent("b10377cf504d657233894308d075a873", "Skip Login");
 //		validation();
 //		Instant instant = Instant.ofEpochSecond("1601475542");
 //		java.util.Date time = new java.util.Date((long)1601475542*1000); 
@@ -114,10 +114,11 @@ public class Mixpanel extends ExtentReporter {
 	public static void fetchEvent(String distinct_id, String eventName)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
-			Thread.sleep(100);
+			Thread.sleep(120000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		System.out.println(distinct_id);
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime now = LocalDateTime.now();
 		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
@@ -126,10 +127,10 @@ public class Mixpanel extends ExtentReporter {
 				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
 				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
 				.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
-				.formParam("where", "properties[\"$Unique ID\"]==\"" + distinct_id + "\"")
+				.formParam("where", "properties[\"$distinct_id\"]==\"" + distinct_id + "\"")
 				.post("https://data.mixpanel.com/api/2.0/export/");
 		request.print();
-
+		System.out.println("Done");
 		sheet = eventName.trim();
 		if (request != null) {
 			String response = request.asString();

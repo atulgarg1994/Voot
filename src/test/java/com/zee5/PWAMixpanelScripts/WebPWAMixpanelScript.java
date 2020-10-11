@@ -393,7 +393,7 @@ public class WebPWAMixpanelScript {
 	
 	@Test(priority = 56)
 	@Parameters({ "userType" })
-	public void verifyParentalRestrictionAndSettingChangedEvent(String userType) throws Exception {
+	public void verifyParentalRestriction(String userType) throws Exception {
 		System.out.println("Verify Parental Restriction Event");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch(true);
 		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
@@ -1429,6 +1429,160 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForContentFromSharedLink(freeContentURL);
 	}
 	
+	@Test(priority = 188)
+	@Parameters({ "userType", "keyword4"})
+	public void verifyParentalOverlayImpressionEventForFreeContent(String userType,String keyword4) throws Exception {
+		System.out.println("Verify Parental Overlay Impression Event For Free Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForFreeContent(userType,keyword4);
+	}
+	
+	@Test(priority = 189)
+	@Parameters({ "userType", "keyword1"})
+	public void verifyParentalOverlayImpressionEventForPremiumContent(String userType,String keyword1) throws Exception {
+		System.out.println("Verify Parental Overlay Impression Event For Premium Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForPremiumContent(userType,keyword1);
+	}
+	
+	@Test(priority = 190)
+	@Parameters({ "keyword1"})
+	public void verifyParentalOverlayImpressionEventForTrailer(String keyword1) throws Exception {
+		System.out.println("Verify Parental Overlay Impression Event For Trailer Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForTrailer(keyword1);
+	}
+	
+	@Test(priority = 191)
+	public void verifyParentalOverlayImpressionEventForCarouselContent() throws Exception {
+		System.out.println("Verify Parental Overlay Impression Event For Carousel Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForCarouselContent();
+	}
+	
+	@Test(priority = 192)
+	public void verifyParentalOverlayImpressionEventForContentInTray() throws Exception {
+		System.out.println("Verify Parental Overlay Impression Event For Content played from Tray");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForContentInTray();
+	}
+	
+	@Test(priority = 193)
+	@Parameters({"keyword1"})
+	public void verifyParentalOverlayImpressionEventForContentFromSearchPage(String keyword1) throws Exception {
+		System.out.println("Verify Parental Overlay Impression Event For Content From Search Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForContentFromSearchPage(keyword1);
+	}
+	
+	@Test(priority = 194)
+	@Parameters({ "userType", "keyword"})
+	public void verifyParentalOverlayImpressionEventForContentFromMyWatchlistPage(String userType,String keyword) throws Exception {
+		System.out.println("Verify Parental Overlay Impression Event For Content From My Watchlist Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForContentFromMyWatchlistPage(userType,keyword);
+	}
+	
+	@Test(priority = 195)
+	public void verifyParentalOverlayImpressionEventForContentInMegamenu() throws Exception {
+		System.out.println("Verify Parental Overlay Impression Event For Content played from Megamenu");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForContentInMegamenu();
+	}
+	
+	@Test(priority = 196)
+	@Parameters({ "userType", "keyword"})
+	public void verifyParentalOverlayImpressionEventForContentInPlaylist(String userType,String keyword) throws Exception {
+		System.out.println("Verify Parental Overlay Impression Event For Content played from Playlist");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForContentInPlaylist(userType,keyword);
+	}
+	
+	@Test(priority = 197)
+	@Parameters({ "userType", "keyword"})
+	public void verifyParentalOverlayImpressionEventForContentFromUpnextRail(String userType,String keyword) throws Exception {
+		System.out.println("Verify Parental Overlay Impression Event For Content played from Upnext rail");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForContentFromUpnextRail(userType,keyword);
+	}
+	
+	@Test(priority = 198)
+	@Parameters({"freeContentURL"})
+	public void verifyParentalOverlayImpressionEventForContentFromSharedLink(String freeContentURL) throws Exception {
+		System.out.println("Verify Parental Overlay Impression Event For content played from Shared Link");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForContentFromSharedLink(freeContentURL);
+	}
+	
+	@Test(priority = 199)
+	@Parameters({"keyword1"})
+	public void verifyParentalOverlayImpressionEventAfterPageRefresh(String keyword1) throws Exception {
+		System.out.println("Verify Parental Overlay Impression Event after refreshing the page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventAfterPageRefresh(keyword1);
+	}
+	
+	@Test(priority = 188)
+	@Parameters({ "userType", "keyword4"})
+	public void verifyParentalOverlayResultEventForFreeContent(String userType,String keyword4) throws Exception {
+		System.out.println("Verify Parental Overlay Result Event For Free Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForFreeContent(userType,keyword4);
+	}
+	
+	@Test(priority = 189)
+	@Parameters({ "userType", "keyword1"})
+	public void verifyParentalOverlayResultEventForPremiumContent(String userType,String keyword1) throws Exception {
+		System.out.println("Verify Parental Overlay Result Event For Premium Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForPremiumContent(userType,keyword1);
+	}
+	
+	@Test(priority = 190)
+	@Parameters({ "keyword1"})
+	public void verifyParentalOverlayResultEventForTrailer(String keyword1) throws Exception {
+		System.out.println("Verify Parental Overlay Result Event For Trailer Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForTrailer(keyword1);
+	}
+	
+	@Test(priority = 191)
+	public void verifyParentalOverlayResultEventForCarouselContent() throws Exception {
+		System.out.println("Verify Parental Overlay Result Event For Carousel Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForCarouselContent();
+	}
+	
+	@Test(priority = 192)
+	public void verifyParentalOverlayResultEventForContentInTray() throws Exception {
+		System.out.println("Verify Parental Overlay Result Event For Content played from Tray");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForContentInTray();
+	}
+	
+	@Test(priority = 193)
+	@Parameters({"keyword1"})
+	public void verifyParentalOverlayResultEventForContentFromSearchPage(String keyword1) throws Exception {
+		System.out.println("Verify Parental Overlay Result Event For Content From Search Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForContentFromSearchPage(keyword1);
+	}
+	
+	@Test(priority = 194)
+	@Parameters({ "userType", "keyword"})
+	public void verifyParentalOverlayResultEventForContentFromMyWatchlistPage(String userType,String keyword) throws Exception {
+		System.out.println("Verify Parental Overlay Result Event For Content From My Watchlist Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForContentFromMyWatchlistPage(userType,keyword);
+	}
+	
+	@Test(priority = 195)
+	public void verifyParentalOverlayResultEventForContentInMegamenu() throws Exception {
+		System.out.println("Verify Parental Overlay Result Event For Content played from Megamenu");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForContentInMegamenu();
+	}
+	
+	@Test(priority = 196)
+	@Parameters({ "userType", "keyword"})
+	public void verifyParentalOverlayResultEventForContentInPlaylist(String userType,String keyword) throws Exception {
+		System.out.println("Verify Parental Overlay Result Event For Content played from Playlist");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForContentInPlaylist(userType,keyword);
+	}
+	
+	@Test(priority = 197)
+	@Parameters({ "userType", "keyword"})
+	public void verifyParentalOverlayResultEventForContentFromUpnextRail(String userType,String keyword) throws Exception {
+		System.out.println("Verify Parental Overlay Result Event For Content played from Upnext rail");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForContentFromUpnextRail(userType,keyword);
+	}
+	
+	@Test(priority = 198)
+	@Parameters({"freeContentURL"})
+	public void verifyParentalOverlayResultEventForContentFromSharedLink(String freeContentURL) throws Exception {
+		System.out.println("Verify Parental Overlay Result Event For content played from Shared Link");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForContentFromSharedLink(freeContentURL);
+	}
 	
 	@AfterClass
 	public void tearDown() {
