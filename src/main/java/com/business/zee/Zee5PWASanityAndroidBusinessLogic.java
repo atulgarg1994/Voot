@@ -521,6 +521,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			case "E-mail":
 				dismissAppInstallPopUp();
 				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+				waitTime(10000);
+				// getDriver().getKeyboard().sendKeys("Bla bla");//works
+
 				type(PWALoginPage.objEmailField, email, "Email Field");
 				hideKeyboard();
 				waitTime(3000);
@@ -12017,9 +12020,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		} else if (userType.equals("NonSubscribedUser")) {
 			UserActionLoggedInUser();
 		} else {
-			// ContinueWatching();
+			ContinueWatching();
 			MyReminder();
-			// MyWatchlistSubscribedUser();
+			MyWatchlistSubscribedUser();
 		}
 	}
 
