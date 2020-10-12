@@ -317,10 +317,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			relaunch(false);
 			waitTime(2000);
 			if (checkElementExist(AMDHomePage.objHomeTab, "Home tab")) {
-				logger.info(
-						"When " + userType + " relaunch the app Display/Content language, Intro screen and Login/Register screen is skipped");
-				extent.extentLoggerPass("Relaunch",
-						"When " + userType + " relaunch the app Display/Content language, Intro screen and Login/Register screen is skipped");
+				logger.info("When " + userType
+						+ " relaunch the app Display/Content language, Intro screen and Login/Register screen is skipped");
+				extent.extentLoggerPass("Relaunch", "When " + userType
+						+ " relaunch the app Display/Content language, Intro screen and Login/Register screen is skipped");
 			} else {
 				logger.error("When " + userType
 						+ " relaunch the app Display/Content language, Intro screen and Login/Register screen is not skipped");
@@ -344,10 +344,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			relaunch(false);
 			waitTime(2000);
 			if (checkElementExist(AMDHomePage.objHomeTab, "Home tab")) {
-				logger.info(
-						"When " + userType + " relaunch the app Display/Content language, Intro screen and Login/Register screen is skipped");
-				extent.extentLogger("Relaunch",
-						"When " + userType + " relaunch the app Display/Content language, Intro screen and Login/Register screen is skipped");
+				logger.info("When " + userType
+						+ " relaunch the app Display/Content language, Intro screen and Login/Register screen is skipped");
+				extent.extentLogger("Relaunch", "When " + userType
+						+ " relaunch the app Display/Content language, Intro screen and Login/Register screen is skipped");
 			} else {
 				logger.error("When " + userType
 						+ " relaunch the app Display/Content language, Intro screen and Login/Register screen is not skipped");
@@ -2022,7 +2022,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extentLoggerPass("Password field", "User can hide or unhide password using eye icon");
 
 		click(AMDLoginScreen.objShowPwdBtn, "Show password icon");
-		
+
 		String password = getText(AMDLoginScreen.objPasswordField);
 		if (password.length() >= 6) {
 			logger.info("Password field accepts minimum of six characters");
@@ -4299,7 +4299,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					}
 					logger.error(str1 + " is not displayed");
 					extent.extentLoggerWarning("Tray", str1 + " is not displayed");
-				}else {
+				} else {
 					logger.error(str1 + " is not displayed");
 					extent.extentLoggerWarning("Tray", str1 + " is not displayed");
 				}
@@ -5325,7 +5325,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void RemoveContentCardFromCWRail(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("NonSubscribedUser") | userType.equalsIgnoreCase("SubscribedUser")) {
-		extent.HeaderChildNode("verify user can able to delete content in continue watching tray");
+			extent.HeaderChildNode("verify user can able to delete content in continue watching tray");
 			// Swipe("UP",1);
 			boolean ContinueWatchingTray = verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray);
 			if (ContinueWatchingTray) {
@@ -8761,6 +8761,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		GettingStartedValidation();
 		PartialSwipe("UP", 1);
 		MyAccountValidation();
+		WatchingZEE5Validation();
+		PartialSwipe("UP", 1);
+		MyZEE5AppValidation();
 		QuickLinksValidation();
 		click(AMDMoreMenu.objcloseButton, "Close button");
 //		click(AMDHomePage.HomeIcon, "Home icon");
@@ -8812,6 +8815,18 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		} else {
 			logger.info("User is not navigated to 'How do I watch ZEE5 on my television?' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'How do I watch ZEE5 on my television?' page");
+		}
+		Back(1);
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Renting movies on ZEEPLEX"),
+				"'Renting movies on ZEEPLEX'");
+		waitTime(5000);
+		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("Renting movies on ZEEPLEX"))) {
+			logger.info("User is navigated to 'Renting movies on ZEEPLEX' page");
+			extent.extentLoggerPass("Article", "User is navigated to 'Renting movies on ZEEPLEX' page");
+		} else {
+			logger.info("User is not navigated to 'Renting movies on ZEEPLEX' page");
+			extent.extentLoggerFail("Article", "User is not navigated to 'Renting movies on ZEEPLEX' page");
 		}
 		Back(1);
 		waitTime(3000);
@@ -8906,6 +8921,23 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(2000);
 		Swipe("Up", 4);
 
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("I am unable to watch the ZEEPLEX movie"), "UP");
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I am unable to watch the ZEEPLEX movie"),
+				"'I am unable to watch the ZEEPLEX movie'");
+		waitTime(5000);
+		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("I am unable to watch the ZEEPLEX movie"))) {
+			logger.info("User is navigated to 'I am unable to watch the ZEEPLEX movie' page");
+			extent.extentLoggerPass("Article", "User is navigated to 'I am unable to watch the ZEEPLEX movie' page");
+		} else {
+			logger.info("User is not navigated to 'I am unable to watch the ZEEPLEX movie' page");
+			extent.extentLoggerFail("Article",
+					"User is not navigated to 'I am unable to watch the ZEEPLEX movie' page");
+		}
+		Back(1);
+		waitTime(2000);
+		Swipe("Up", 4);
+
 		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("Offers"), "UP");
 		waitTime(2000);
 		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Offers"), "'Offers & Partnerships'");
@@ -8921,33 +8953,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(2000);
 		Swipe("Up", 4);
 
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("Contests"), "UP");
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Contests"), "'Games, Quizzes & Contests'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("Contests"))) {
-			logger.info("User is navigated to 'Games, Quizzes & Contests' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'Games, Quizzes & Contests' page");
-		} else {
-			logger.info("User is not navigated to 'Games, Quizzes & Contests' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'Games, Quizzes & Contests' page");
-		}
-		Back(1);
-		waitTime(2000);
-		Swipe("Up", 4);
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("Before TV"), "UP");
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Before TV"), "'Before TV'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("Before TV"))) {
-			logger.info("User is navigated to 'Before TV' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'Before TV' page");
-		} else {
-			logger.info("User is not navigated to 'Before TV' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'Before TV' page");
-		}
-		Back(1);
-		waitTime(2000);
-		Swipe("Up", 4);
-
 		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("Cancel Subscription"), "UP");
 		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Cancel Subscription"), "'Cancel Subscription'");
 		waitTime(5000);
@@ -8957,6 +8962,167 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		} else {
 			logger.info("User is not navigated to 'How do I cancel my ZEE5 Subscription?' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'How do I cancel my ZEE5 Subscription?' page");
+		}
+		Back(1);
+		waitTime(2000);
+	}
+
+	public void WatchingZEE5Validation() throws Exception {
+		Swipe("Up", 1);
+
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("Watching ZEE5"), "UP");
+
+		verifyElementPresent(AMDMoreMenu.objQueriesHeader("Watching ZEE5"), " 'Watching ZEE5' tab");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I need help with playing a video"),
+				"'I need help with playing a video'");
+		waitTime(3000);
+		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("I need help with playing a video"))) {
+			logger.info("User is navigated to 'I need help with playing a video' page");
+			extent.extentLoggerPass("Article", "User is navigated to 'I need help with playing a video' page");
+		} else {
+			logger.info("User is not navigated to 'I need help with playing a video' page");
+			extent.extentLoggerFail("Article", "User is not navigated to 'I need help with playing a video' page");
+		}
+		Back(1);
+		waitTime(2000);
+		// Swipe("Up", 3);
+
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("I need help with audio"), "UP");
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I need help with audio"),
+				"'I need help with audio'");
+		waitTime(5000);
+		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("I need help with audio"))) {
+			logger.info("User is navigated to 'I need help with audio' page");
+			extent.extentLoggerPass("Article", "User is navigated to 'I need help with audio' page");
+		} else {
+			logger.info("User is not navigated to 'I need help with audio' page");
+			extent.extentLoggerFail("Article", "User is not navigated to 'I need help with audio' page");
+		}
+		Back(1);
+		waitTime(2000);
+		Swipe("Up", 2);
+
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("I need help with casting ZEE5 on my TV"), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I need help with casting ZEE5 on my TV"),
+				"'I need help with casting ZEE5 on my TV'");
+		waitTime(5000);
+		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("I need help with casting ZEE5 on my TV"))) {
+			logger.info("User is navigated to 'I need help with casting ZEE5 on my TV' page");
+			extent.extentLoggerPass("Article", "User is navigated to 'I need help with casting ZEE5 on my TV' page");
+		} else {
+			logger.info("User is not navigated to 'I need help with casting ZEE5 on my TV' page");
+			extent.extentLoggerFail("Article",
+					"User is not navigated to 'I need help with casting ZEE5 on my TV' page");
+		}
+		Back(1);
+		waitTime(2000);
+		Swipe("Up", 2);
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("All about downloads"), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("All about downloads"), "'All about downloads'");
+		waitTime(5000);
+		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("All about downloads"))) {
+			logger.info("User is navigated to 'All about downloads' page");
+			extent.extentLoggerPass("Article", "User is navigated to 'All about downloads' page");
+		} else {
+			logger.info("User is not navigated to 'All about downloads' page");
+			extent.extentLoggerFail("Article", "User is not navigated to 'All about downloads' page");
+		}
+		Back(1);
+		waitTime(2000);
+		Swipe("Up", 2);
+
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("All about subtitles"), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("All about subtitles"), "'All about subtitles'");
+		waitTime(5000);
+		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("All about subtitles"))) {
+			logger.info("User is navigated to 'All about subtitles' page");
+			extent.extentLoggerPass("Article", "User is navigated to 'All about subtitles' page");
+		} else {
+			logger.info("User is not navigated to 'All about subtitles' page");
+			extent.extentLoggerFail("Article", "User is not navigated to 'All about subtitles' page");
+		}
+		Back(1);
+		waitTime(2000);
+	}
+
+	public void MyZEE5AppValidation() throws Exception {
+		Swipe("Up", 3);
+
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("My ZEE5 App"), "UP");
+
+		verifyElementPresent(AMDMoreMenu.objQueriesHeader("My ZEE5 App"), " 'My ZEE5 App' tab");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("App Performance"), "'App Performance'");
+		waitTime(3000);
+		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("App Performance"))) {
+			logger.info("User is navigated to 'App Performance' page");
+			extent.extentLoggerPass("Article", "User is navigated to 'How Can I?' page");
+		} else {
+			logger.info("User is not navigated to 'App Performance' page");
+			extent.extentLoggerFail("Article", "User is not navigated to 'App Performance' page");
+		}
+		Back(1);
+		waitTime(2000);
+		Swipe("Up", 3);
+
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("I am unable to authenticate my TV"), "UP");
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I am unable to authenticate my TV"),
+				"'I am unable to authenticate my TV'");
+		waitTime(5000);
+		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("authenticate my TV"))) {
+			logger.info("User is navigated to 'I am unable to authenticate my TV' page");
+			extent.extentLoggerPass("Article", "User is navigated to 'I am unable to authenticate my TV' page");
+		} else {
+			logger.info("User is not navigated to 'I am unable to authenticate my TV' page");
+			extent.extentLoggerFail("Article", "User is not navigated to 'I am unable to authenticate my TV' page");
+		}
+		Back(1);
+		waitTime(2000);
+		Swipe("Up", 3);
+
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("How can I enable automatic updates"), "UP");
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("How can I enable automatic updates"),
+				"'How can I enable automatic updates for the ZEE5 app?'");
+		waitTime(5000);
+		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("How can I enable automatic updates"))) {
+			logger.info("User is navigated to 'How can I enable automatic updates for the ZEE5 app?' page");
+			extent.extentLoggerPass("Article",
+					"User is navigated to 'How can I enable automatic updates for the ZEE5 app?' page");
+		} else {
+			logger.info("User is not navigated to 'How can I enable automatic updates for the ZEE5 app?' page");
+			extent.extentLoggerFail("Article",
+					"User is not navigated to 'How can I enable automatic updates for the ZEE5 app?' page");
+		}
+		Back(1);
+		waitTime(2000);
+		Swipe("Up", 3);
+
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("My ZEE5 App Version"), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("My ZEE5 App Version"), "'My ZEE5 App Version'");
+		waitTime(5000);
+		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("How do I see my current ZEE5 app version?"))) {
+			logger.info("User is navigated to 'My ZEE5 App Version' page");
+			extent.extentLoggerPass("Article", "User is navigated to 'My ZEE5 App Version' page");
+		} else {
+			logger.info("User is not navigated to 'My ZEE5 App Version' page");
+			extent.extentLoggerFail("Article", "User is not navigated to 'My ZEE5 App Version' page");
+		}
+		Back(1);
+		waitTime(2000);
+
+		Swipe("Up", 3);
+
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("Parental Control"), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Parental Control"), "'Parental Control'");
+		waitTime(5000);
+		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("Parental Control"))) {
+			logger.info("User is navigated to 'Parental Control' page");
+			extent.extentLoggerPass("Article", "User is navigated to 'Parental Control' page");
+		} else {
+			logger.info("User is not navigated to 'Parental Control' page");
+			extent.extentLoggerFail("Article", "User is not navigated to 'Parental Control' page");
 		}
 		Back(1);
 		waitTime(2000);
@@ -16191,56 +16357,56 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 */
 	public void verifyContinueWatchingTray(String userType, String TabName) throws Exception {
 		if (userType.equalsIgnoreCase("NonSubscribedUser") | userType.equalsIgnoreCase("SubscribedUser")) {
-		extent.HeaderChildNode("verify Continue Watching tray");
-		waitForElementDisplayed(AMDHomePage.objContinueWatchingTray, 30);
-		boolean ContinueWatchingTray = verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray);
-		if (ContinueWatchingTray) {
-			Swipe("UP", 1);
-			String CWTrayFirstContentTitle = getText(AMDHomePage.objCWTrayContent);
-			logger.info(CWTrayFirstContentTitle);
-			int leftTimeOnCWTrayContent = timeToSec(getText(AMDHomePage.objLeftTimeOfFirstContentOfCWTray));
-			click(AMDHomePage.objContinueWatchingTrayContentCard, "CWTRay Content");
-			waitTime(2000);
-			if (userType.equals("NonSubscribedUser")) {
-				waitForAdToFinishInAmd();
-				completeProfilePopUpClose(userType);
-			}
-			waitForElementDisplayed(AMDPlayerScreen.objPlayer, 15);
-			waitTime(6000);
-			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
-			int elapsedTime = timeToSec(getText(AMDPlayerScreen.objTimer));
-			int totalTime = timeToSec(getText(AMDPlayerScreen.objTotalDuration));
-			int remainingTime = totalTime - elapsedTime;
+			extent.HeaderChildNode("verify Continue Watching tray");
+			waitForElementDisplayed(AMDHomePage.objContinueWatchingTray, 30);
+			boolean ContinueWatchingTray = verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray);
+			if (ContinueWatchingTray) {
+				Swipe("UP", 1);
+				String CWTrayFirstContentTitle = getText(AMDHomePage.objCWTrayContent);
+				logger.info(CWTrayFirstContentTitle);
+				int leftTimeOnCWTrayContent = timeToSec(getText(AMDHomePage.objLeftTimeOfFirstContentOfCWTray));
+				click(AMDHomePage.objContinueWatchingTrayContentCard, "CWTRay Content");
+				waitTime(2000);
+				if (userType.equals("NonSubscribedUser")) {
+					waitForAdToFinishInAmd();
+					completeProfilePopUpClose(userType);
+				}
+				waitForElementDisplayed(AMDPlayerScreen.objPlayer, 15);
+				waitTime(6000);
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+				click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+				int elapsedTime = timeToSec(getText(AMDPlayerScreen.objTimer));
+				int totalTime = timeToSec(getText(AMDPlayerScreen.objTotalDuration));
+				int remainingTime = totalTime - elapsedTime;
 
-			if (leftTimeOnCWTrayContent < (remainingTime + 10)) {
-				logger.info("Content playback is started from the last view point");
-				extent.extentLoggerPass("Continue watching Tray",
-						"Content playback is started from the last view point");
-			} else {
-				logger.error("Content playback is not started from the last view point");
-				extent.extentLoggerFail("Continue watching Tray",
-						"Content playback is not started from the last view point");
-			}
+				if (leftTimeOnCWTrayContent < (remainingTime + 10)) {
+					logger.info("Content playback is started from the last view point");
+					extent.extentLoggerPass("Continue watching Tray",
+							"Content playback is started from the last view point");
+				} else {
+					logger.error("Content playback is not started from the last view point");
+					extent.extentLoggerFail("Continue watching Tray",
+							"Content playback is not started from the last view point");
+				}
 
-			if (elapsedTime < totalTime) {
-				logger.info(
-						"Continue watching tray includes only those movies/shows which have not reached the start time of end credit.");
-				extent.extentLoggerPass("Continue watching Tray",
-						"Continue watching tray includes only those movies/shows which have not reached the start time of end credit.");
+				if (elapsedTime < totalTime) {
+					logger.info(
+							"Continue watching tray includes only those movies/shows which have not reached the start time of end credit.");
+					extent.extentLoggerPass("Continue watching Tray",
+							"Continue watching tray includes only those movies/shows which have not reached the start time of end credit.");
+				} else {
+					logger.error(
+							"Continue watching tray includes not only those movies/shows which have not reached the start time of end credit.");
+					extent.extentLoggerFail("Continue watching Tray",
+							"Continue watching tray includes not only those movies/shows which have not reached the start time of end credit.");
+				}
+				Back(1);
 			} else {
-				logger.error(
-						"Continue watching tray includes not only those movies/shows which have not reached the start time of end credit.");
-				extent.extentLoggerFail("Continue watching Tray",
-						"Continue watching tray includes not only those movies/shows which have not reached the start time of end credit.");
+				logger.info("Continue watching tray not displayed in " + TabName + " Screen");
+				extent.extentLoggerWarning("Continue watching Tray",
+						"Continue watching tray not displayed in " + TabName + " Screen");
 			}
-			Back(1);
-		} else {
-			logger.info("Continue watching tray not displayed in " + TabName + " Screen");
-			extent.extentLoggerWarning("Continue watching Tray",
-					"Continue watching tray not displayed in " + TabName + " Screen");
 		}
-	 }
 	}
 
 	/**

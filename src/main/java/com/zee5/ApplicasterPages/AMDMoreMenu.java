@@ -159,7 +159,6 @@ public class AMDMoreMenu {
 	public static By objSubscribeNowCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_subscribe_now']");
 	public static By objSubNowCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_sub_now']");
 	public static By objMyTransactionsHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and contains(text(),'My Transactions')]");
-	public static By objLoginRegisterText = By.xpath("//*[@resource-id='com.graymatrix.did:id/sub_header']");
 	public static By objUserName = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
 	
 	public static By objTransactionPackDuration = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_duration']");
@@ -239,4 +238,5 @@ public class AMDMoreMenu {
 	public static By objDotsInShareOptions(int index) {
 		return By.xpath("(//*[@id='tw_resolver_page_navi']/*[@class='android.widget.ImageView'])["+index+"]");
 	}
+	public static By objLoginRegisterText = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
 }
