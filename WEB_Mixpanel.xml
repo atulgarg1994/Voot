@@ -7,7 +7,7 @@
 	<run>
 		<include name="SkipLoginEvent" />
 	</run>
-</groups> -->
+</groups> --> 
 
 	<parameter name="url" value="newpwa" />
 	<parameter name="browserType" value="Chrome" />  <!-- Chrome/Firefox -->

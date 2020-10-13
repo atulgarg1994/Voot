@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Web" parallel="false" thread-count="1">
 
-	<parameter name="url" value="newpwa" />
+	<parameter name="url" value="newpwa" /> 
 	
 	<!-- <parameter name="userType" value="${UserType}"/>  Guest/NonSubscribedUser/SubscribedUser/SubscribedUserWith15daysExpiry
 	<parameter name="runMode" value="${runMode}"/>	

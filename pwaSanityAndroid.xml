@@ -3,7 +3,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="MPWA" parallel="false" thread-count="1">
 
-	<!-- name="Android" name="Web" name="MPWA" -->
+	<!-- name="Android" name="Web" name="MPWA" --> 
 	
 	<!-- <parameter name="userType" value="${UserType}"/>  Guest/NonSubscribedUser/SubscribedUser/SubscribedUserWith15daysExpiry
 	<parameter name="runMode" value="${runMode}"/>	
