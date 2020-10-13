@@ -12,7 +12,7 @@
 	<parameter name="url" value="${env}"/> -->
 
 
-	<parameter name="url" value="https://newpwa.zee5.com/" />
+	<parameter name="url" value="newpwa" />
 
 	<parameter name="browserType" value="chrome" />
 

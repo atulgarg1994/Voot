@@ -3,13 +3,13 @@
 
 <suite name="Web" parallel="false" thread-count="1">
 
-<groups>
+<!-- <groups>
 	<run>
 		<include name="SkipLoginEvent" />
 	</run>
-</groups>
+</groups> -->
 
-	<parameter name="url" value="https://newpwa.zee5.com/" />
+	<parameter name="url" value="newpwa" />
 	<parameter name="browserType" value="Chrome" />  <!-- Chrome/Firefox -->
 
 	<parameter name="userType" value="Guest" /> <!-- Guest/NonSubscribedUser/SubscribedUser/ClubUser -->

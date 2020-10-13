@@ -70,10 +70,10 @@ public class Mixpanel extends ExtentReporter {
 
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
 		
-		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
+//		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
 //		creatExcel();
 //		parseResponse(tv);
-		fetchEvent("b10377cf504d657233894308d075a873", "Skip Login");
+//		fetchEvent("b10377cf504d657233894308d075a873", "Skip Login");
 //		validation();
 //		Instant instant = Instant.ofEpochSecond("1601475542");
 //		java.util.Date time = new java.util.Date((long)1601475542*1000); 
@@ -100,6 +100,17 @@ public class Mixpanel extends ExtentReporter {
 //	        System.out.println(ut3);
 		
 		System.out.println(System.getProperty("os.name"));
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime now = LocalDateTime.now();
+		String currentDate = dtf.format(now);
+		String distinct_id = "SM-M205F";
+		Response request = RestAssured.given().auth().preemptive().basic("58baafb02e6e8ce03d9e8adb9d3534a6", "")
+				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
+				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
+				.formParam("to_date", currentDate).formParam("event", "[ \"CTAs\"]")
+				.formParam("where", "properties[\"$Model\"]==\"" + distinct_id + "\"")
+				.post("https://data.mixpanel.com/api/2.0/export/");
+		request.print();
 	}
 
 	/**
