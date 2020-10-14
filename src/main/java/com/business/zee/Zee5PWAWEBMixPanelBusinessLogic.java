@@ -1,7 +1,6 @@
 package com.business.zee;
 
 import java.util.concurrent.TimeUnit;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -14,6 +13,7 @@ import com.driverInstance.CommandBase;
 import com.extent.ExtentReporter;
 import com.mixpanelValidation.Mixpanel;
 import com.propertyfilereader.PropertyFileReader;
+import com.utility.LoggingUtils;
 import com.utility.Utilities;
 import com.zee5.PWAPages.*;
 
@@ -34,7 +34,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	ExtentReporter extent = new ExtentReporter();
 
 	/** The Constant logger. */
-	final static Logger logger = Logger.getLogger("rootLogger");
+//	final static Logger logger = Logger.getLogger("rootLogger");
+	static LoggingUtils logger = new LoggingUtils();
 
 	public int getTimeout() {
 		return timeout;
@@ -401,14 +402,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(5000);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 //			Properties pro = new Properties();
-			for (String key : local.keySet()) {
-//	            pro.setProperty(key, local.getItem(key));
-				if (key.contains("mp_")) {
-					System.out.println(key + "   ******** " + local.getItem(key));
-				}
-			}
+//			for (String key : local.keySet()) {
+////	            pro.setProperty(key, local.getItem(key));
+//				if (key.contains("mp_")) {
+//					System.out.println(key + "   ******** " + local.getItem(key));
+//				}
+//			}
 //			System.out.println("Local : "+local.getItem("mp_bd3945ca2b9d542adaad70063481a89d_mixpanel"));
-//			Mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Login", "home");
+			System.out.println(local.getItem("guestToken"));
+			Mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Login", "home");
 		}
 	}
 
@@ -425,6 +427,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPremiumPage.obj1stContentInShowDetailPage, "Content Card");
 			waitForElement(PWALoginPage.objLoginLink, 20, "Login Link");
 			click(PWALoginPage.objLoginLink, "Login Link");
+			waitTime(5000);
 			waitForElement(PWALoginPage.objSkip, 10, "Skip Login");
 			click(PWALoginPage.objSkip, "Skip Login");
 			waitTime(2000);
@@ -447,6 +450,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASearchPage.objSearchResult(keyword2), "Search Result");
 			click(PWALoginPage.objLoginCTAInPremiumPopup, "Login CTA");
 			waitForElement(PWALoginPage.objSkip, 20, "Skip Login");
+			waitTime(5000);
 			click(PWALoginPage.objSkip, "Skip Login");
 			waitTime(2000);
 			Back(2);
@@ -460,13 +464,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Skip Registration Event");
 			click(PWALoginPage.objLoginBtnWEB, "Login button");
-			waitTime(3000);
+			waitTime(5000);
 			click(PWALoginPage.objRegisterLink, "Register Link");
-			waitTime(2000);
+			waitTime(5000);
+//			JSClick(PWALoginPage.objSkip, "Skip Registration");
 			verifyElementPresentAndClick(PWALoginPage.objSkip, "Skip Registration");
-			waitTime(2000);
+			waitTime(3000);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			Mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Registration", "sign_in");
+			Mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Registartion", "sign_in");
 		}
 	}
 
@@ -3276,15 +3281,18 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if (checkElementDisplayed(PWAHomePage.objFirstContentCardOfTray("Before"),
 				"First Content Card Of Before TV Tray")) {
 			click(PWAHomePage.objFirstContentCardOfTray("Before"), "First Content Card Of Before TV Tray");
-			waitTime(6000);
+			waitTime(20000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillLastWeb();
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 			waitForElement(PWASubscriptionPages.objGetPremiumPopupTitle, 10, "Get Premium Popup Title");
 			click(PWALoginPage.objLoginCTAInPremiumPopup, "Login CTA");
 			waitForElement(PWALoginPage.objSkip, 10, "Skip Login");
+			waitTime(5000);
 			click(PWALoginPage.objSkip, "Skip Login");
 			waitTime(2000);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			Mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Login", "home");
 		}
 
 	}

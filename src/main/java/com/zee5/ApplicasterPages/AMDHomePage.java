@@ -213,4 +213,6 @@ public class AMDHomePage {
 	public static By objRemoveItem = By.xpath("(//*[@id='item_remove'])[1]");
 
 	public static By objPremiumBtn = By.xpath("//*[@id='get_premium_hero_component']");
+	
+	public static By objSearchinUpcoming = By.xpath("//*[@id='toolbar']//child::*//child::*[1]");
 }

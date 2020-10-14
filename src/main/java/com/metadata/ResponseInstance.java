@@ -9,6 +9,8 @@ import org.testng.Reporter;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
+import java.util.Properties;
+import java.util.stream.Stream;
 
 public class ResponseInstance {
 
@@ -652,12 +654,14 @@ public class ResponseInstance {
 		return title;
 	}
 	
+//			:::::::::::::::Mixpanel:::::::::::::::::::::: 
+	
 	public static void getDetailsOfCustomer(String pUsername,String pPassword) {
 		String xAccessToken = getXAccessTokenWithApiKey();
 		String bearerToken = getBearerToken(pUsername, pPassword);
-		String url = "https://userapi.zee5.com/v1/user";
+//		String url = "https://userapi.zee5.com/v1/user";
 //		String url = "https://newpwa.zee5.com/settings"; //Dummy
-//		String url = "https://userapi.zee5.com/v1/settings"; 
+		String url = "https://userapi.zee5.com/v1/settings"; 
 //		String url = "https://subscriptionapi.zee5.com/v1/purchase";
 		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 //		resp = given().headers("x-access-token", xAccessToken).when().get(url);
@@ -665,10 +669,47 @@ public class ResponseInstance {
 		resp.print();
 	}
 	
+	
+	
 	public static void main(String[] args) {
 //		getResponseForApplicasterPages("Guest", "3673").print();
 //		System.out.println(BeforeTV("Guest","Home"));
-		getDetailsOfCustomer("zeetest10@test.com","123456");
+//		getUserData();
+//		getRegion();
+		getDetailsOfCustomer("zee5latest@gmail.com","User@123");
 	}
-
+	
+	public static Properties getUserData() {
+		String[] userData = {"email", "first_name","last_name","birthday","gender","registration_country","recurring_enabled"};
+		Properties pro = new Properties();
+		getDetailsOfCustomer("zee5latest@gmail.com","User@123");
+		String commaSplit[] = resp.asString().replace("{", "").replace("}", "")
+				.replaceAll("[.,](?=[^\\[]*\\])", "-").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+		for(int i = 0; i < commaSplit.length; i++) {
+			if(Stream.of(userData).anyMatch(commaSplit[i]::contains)) {
+				String com[] = commaSplit[i].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+				pro.setProperty(com[0].replace("\"", ""),com[1].replace("\"", ""));
+			}
+		}
+		pro.setProperty("region", getRegion());
+		String platform = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite().getName();
+		if(platform.equals("Mpwa")) {
+			pro.setProperty("Platform Name", "Web");
+			pro.setProperty("os", "Android");
+		}else if(platform.equals("Android")){
+			pro.setProperty("Platform Name", platform); 
+			pro.setProperty("os", "Android");
+		}else if(platform.equals("Web")) {
+			pro.setProperty("Platform Name", platform); 
+			pro.setProperty("os", System.getProperty("os.name"));
+		}
+		return pro;
+	}
+	
+	private static String getRegion() {
+		Response regionResponse=given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
+		return regionResponse.getBody().jsonPath().getString("state_code");
+	}
 }
+
+

@@ -7,7 +7,7 @@
 		<parameter name="runMode" value="${runMode}"/>
 		<parameter name="runModule" value="${runModule}"/> -->
 
-	<parameter name="userType" value="SubscribedUser" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
+	<parameter name="userType" value="Guest" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" />
 
@@ -71,6 +71,7 @@
 	<parameter name="tabName2" value="Movies" />
 	<parameter name="tabName3" value="ZEE5 Originals" />
 	<parameter name="tabName4" value="Live TV" />
+	<parameter name="tabName5" value="Shows" />
 
 	<parameter name="VideoQuality" value="Data saver" />	<!-- Data saver/Good/Better/Best -->
 	<parameter name="MovieName" value="O God Ganesha 2" />
@@ -96,8 +97,8 @@
 	<parameter name="NonsubscribedUserWithNoTransactionUsername" value="zeebuild@gmail.com" />
 	<parameter name="NonsubscribedUserWithNoTransactionPassword" value="User@123" />
 
-	<parameter name="SettingsNonsubscribedUserName" value="zeetest@gmail.com" />
-	<parameter name="SettingsNonsubscribedPassword" value="zee12345" />
+	<parameter name="SettingsNonsubscribedUserName" value="gdm@mailnesia.com" />
+	<parameter name="SettingsNonsubscribedPassword" value="654321" />
 
 	<parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com" />
 	<parameter name="SettingsSubscribedPassword" value="123456" />
@@ -181,9 +182,9 @@
 	</test>
 	-->
 	
-	<test name="Android_ClubPack">
+	<test name="Android_LandingScreen_TopNavigation">
 		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_ClubPack" />
+			<class name="com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation" />
 		</classes>
 	</test>
 	

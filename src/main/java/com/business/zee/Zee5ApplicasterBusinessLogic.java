@@ -549,7 +549,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void otpScenarios() throws Exception {
 		verifyElementExist(AMDRegistrationScreen.objOTPScreen, "OTP screen");
 		verifyElementExist(AMDRegistrationScreen.objOTPTimer, "OTP timer");
-		
+
 		if (getDriver().findElement(AMDLoginScreen.objResendOtpLink).isDisplayed()) {
 			logger.info("Didn't get OTP text is displayed with Resend CTA");
 			extentLoggerPass("Resend button", "Didn't get OTP text is displayed with Resend CTA");
@@ -557,7 +557,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("Didn't get OTP text is not displayed with Resend CTA");
 			extentLoggerFail("Resend button", "Didn't get OTP text is not displayed with Resend CTA");
 		}
-		
+
 		String OTPTimer1 = getText(AMDRegistrationScreen.objOTPTimer);
 		logger.info(OTPTimer1);
 		click(AMDRegistrationScreen.objVerifyOtpButton, "Verify button");
@@ -572,7 +572,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("The Otp timer is not in reverse order");
 			extentLoggerPass("OtpTimer", "The Otp timer is not in reverse order");
 		}
-
 		type(AMDRegistrationScreen.objOTPField1, "1", "OTP box1");
 		type(AMDRegistrationScreen.objOTPField2, "1", "OTP box2");
 //		if (verifyElementExist(AMDRegistrationScreen.objNumericKeyBoard, "Alphakeyboard")) {
@@ -5321,8 +5320,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 			Back(1);
 		}
-		verifyContinueWatchingTray(userType, TabName);
-		RemoveContentCardFromCWRail(userType);
 		extent.HeaderChildNode("verify the trays present in Shows Landing Screen");
 		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Continue Watching"), AMDHomePage.objCarouselConetentCard,
 				"Continue watching tray", "MastheadCarousel", userType, "Shows");
@@ -5330,6 +5327,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				"Before TV tray", "MastheadCarousel", userType, "Shows");
 		findingTrayInscreen(25, AMDHomePage.objTrayTitle("Trending Shows"), AMDHomePage.objCarouselConetentCard,
 				"Trending shows tray", "MastheadCarousel", userType, "Shows");
+		verifyContinueWatchingTray(userType, TabName);
+		RemoveContentCardFromCWRail(userType);
 	}
 
 	public void RemoveContentCardFromCWRail(String userType) throws Exception {
@@ -5562,7 +5561,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLogger("Search landing screen",
 					"Search landing screen is not displayed after denying audio permission");
 		}
-		Back(1);
+		Back(2);
 	}
 
 	public void moreSectionValidation() throws Exception {
@@ -5621,7 +5620,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Back(1);
 			waitTime(3000);
 			Back(1);
-			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDHomePage.objSearchinUpcoming, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar, searchKeyword + "\n", "Search bar");
 			waitTime(2000);
@@ -5753,7 +5752,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDMoreMenu.objContinueBtn, "Continue Button");
 			waitTime(2000);
 			click(AMDMoreMenu.objParentalLockDone, "Done Button");
-			// Back(1);
+			Back(1);
 		} else {
 			logger.info("Parental Pin Validation is NOT applicable for " + userType);
 			extent.extentLogger("Parental Pin", "Parental Pin Validation is NOT applicable for " + userType);
@@ -6128,7 +6127,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		if (userType.equalsIgnoreCase("Guest")) {
 			verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
-			waitTime(6000);
+			waitTime(10000);
 			PartialSwipe("UP", 2);
 			verifyElementPresent(AMDNewsPage.objRightArrowBtn, "Right arrow");
 			click(AMDNewsPage.objRightArrowBtn, "Right arrow");
@@ -6468,7 +6467,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerPass("Release Date",
 						"Previously released content is not listed in the upcoming section");
 			}
-			swipeByElements(findElement(AMDUpcomingPage.objGenre), findElement(AMDHomePage.objSearchBtn));
+			swipeByElements(findElement(AMDUpcomingPage.objGenre), findElement(AMDHomePage.objSearchinUpcoming));
 			waitTime(3000);
 		}
 	}
@@ -16390,7 +16389,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitForElementDisplayed(AMDHomePage.objContinueWatchingTray, 30);
 			boolean ContinueWatchingTray = verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray);
 			if (ContinueWatchingTray) {
-				Swipe("UP", 1);
+				// Swipe("UP", 1);
 				String CWTrayFirstContentTitle = getText(AMDHomePage.objCWTrayContent);
 				logger.info(CWTrayFirstContentTitle);
 				int leftTimeOnCWTrayContent = timeToSec(getText(AMDHomePage.objLeftTimeOfFirstContentOfCWTray));

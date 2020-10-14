@@ -71,6 +71,7 @@
 	<parameter name="tabName2" value="Movies" />
 	<parameter name="tabName3" value="ZEE5 Originals" />
 	<parameter name="tabName4" value="Live TV" />
+	<parameter name="tabName5" value="Shows" />
 
 	<parameter name="VideoQuality" value="Data saver" />	<!-- Data saver/Good/Better/Best -->
 	<parameter name="MovieName" value="O God Ganesha 2" />
@@ -96,8 +97,8 @@
 	<parameter name="NonsubscribedUserWithNoTransactionUsername" value="zeebuild@gmail.com" />
 	<parameter name="NonsubscribedUserWithNoTransactionPassword" value="User@123" />
 
-	<parameter name="SettingsNonsubscribedUserName" value="starttestzee5@gmail.com" />
-	<parameter name="SettingsNonsubscribedPassword" value="zee12345" />
+	<parameter name="SettingsNonsubscribedUserName" value="gdm@mailnesia.com" />
+	<parameter name="SettingsNonsubscribedPassword" value="654321" />
 
 	<parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com" />
 	<parameter name="SettingsSubscribedPassword" value="123456" />
@@ -133,7 +134,7 @@
 	
 	<parameter name="SubsUserClubPack" value="zeetest510@gmail.com" />
 	<parameter name="SubsPwdClubPack" value="000000" />
-	<parameter name="tabName5" value="Shows" />
+	
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
@@ -240,6 +241,24 @@
 	<test name="Android_ClubPack">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_ClubPack" />
+		</classes>
+	</test>
+	
+	<test name="Android_UserSessionManagement">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_UserSessionManagement" />
+		</classes>
+	</test>
+	
+	<test name="Android_PlayerScreen">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_PlayerScreen" />
+		</classes>
+	</test>
+	
+	<test name="Android_Consumption_Screen">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_Consumption_Screen" />
 		</classes>
 	</test>
 

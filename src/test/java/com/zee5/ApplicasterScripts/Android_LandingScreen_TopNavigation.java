@@ -35,7 +35,7 @@ public class Android_LandingScreen_TopNavigation {
 	}
 
 	@Test(priority = 2)
-	@Parameters({ "userType" , "tabName5" }) // Bindu
+	@Parameters({ "userType", "tabName5"}) // Bindu
 	public void Shows_LandinScreen(String userType, String TabName) throws Exception {
 		System.out.println("\n---Verify Shows landing screen---\n");
 		ZEE5ApplicasterBusinessLogic.verifyShowsScreen(userType, TabName);
@@ -71,7 +71,8 @@ public class Android_LandingScreen_TopNavigation {
 	@Parameters({ "userType" }) // Vinay
 	public void Kids_LandingScreen(String userType) throws Exception {
 		System.out.println("\n---Verify Kids landing screen---\n");
-//		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.navigateToHomecreenFromIntroScreen();
 		ZEE5ApplicasterBusinessLogic.KidsTabScreen(userType);
 	}
  
