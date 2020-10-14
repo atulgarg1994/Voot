@@ -60,9 +60,6 @@ public class AMDNewsPage {
 	public static By objListingScreenHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/title' and contains(text(),'More News')]");
     public static By objRecommendedRail = By.xpath("//*[@resource-id='com.graymatrix.did:id/header_primary_text' and contains(text(),'Recommended')]");
     public static By objLiveNewsRail = By.xpath("//*[@text='Live Channels']");
-    
-    
-    public static By objMetadataofthecard = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[5]");
     public static By objSimilarChannelsTray = By.xpath("//*[@text='Similar Channels']");
     public static By objSimilarChannelsHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/title' and contains(text(),'Similar Channels')]");
     
@@ -79,8 +76,6 @@ public class AMDNewsPage {
 	
 //	public static By objLiveChannelName = By.xpath("((//*[@id='recyclerView']/*/*[@id='recyclerView'])[2]/*[@id='horizontal_list_10_parent'])[1]");
 	
-	public static By objLiveChannelName = By.xpath("((//*[@id='recyclerView']/*/*[@id='recyclerView'])[2]/*/*[@id='item_primary_text'])[1]");
-	
 	public static By objSwipeTray = By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[1]");
 	
 	public static By objTraycard = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[1]");
@@ -90,4 +85,11 @@ public class AMDNewsPage {
 	public static By objShareGmail = By.xpath("//*[@text='Gmail']");
 	
 	public static By objSharedLink = By.xpath("//*[@resource-id='com.google.android.gm:id/subject']");
+	
+	public static By objMetadataofthecard = By.xpath("(//*[@id='item_primary_text'])[5]");
+
+	public static By objLiveChannelName = By.xpath("(//*[@id='item_primary_text'])[1]");
+	
+	public static By EntertaintmentNewsTray = By.xpath("//*[@text=' Entertainment News']");
+
 }

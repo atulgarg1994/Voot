@@ -549,6 +549,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void otpScenarios() throws Exception {
 		verifyElementExist(AMDRegistrationScreen.objOTPScreen, "OTP screen");
 		verifyElementExist(AMDRegistrationScreen.objOTPTimer, "OTP timer");
+		
+		if (getDriver().findElement(AMDLoginScreen.objResendOtpLink).isDisplayed()) {
+			logger.info("Didn't get OTP text is displayed with Resend CTA");
+			extentLoggerPass("Resend button", "Didn't get OTP text is displayed with Resend CTA");
+		} else {
+			logger.info("Didn't get OTP text is not displayed with Resend CTA");
+			extentLoggerFail("Resend button", "Didn't get OTP text is not displayed with Resend CTA");
+		}
+		
 		String OTPTimer1 = getText(AMDRegistrationScreen.objOTPTimer);
 		logger.info(OTPTimer1);
 		click(AMDRegistrationScreen.objVerifyOtpButton, "Verify button");
@@ -13387,9 +13396,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("verify user navigated to Consumption Screen post tapping on any News Content");
 		System.out.println("\nVerify user navigated to Consumption Screen post tapping on any News Content");
 		SelectTopNavigationTab("News");
-		verifyElementPresent(AMDNewsPage.objRightArrowBtn, "Right arrow");
-		click(AMDNewsPage.objRightArrowBtn, "Right arrow");
-		waitTime(4000);
+		waitTime(6000);
+
+		findTrayInScreen(AMDNewsPage.EntertaintmentNewsTray);
+		click(AMDNewsPage.EntertaintmentNewsTray, "Entertainment News Tray");
+		waitTime(2000);
+
 		String Cardtitle = getText(AMDNewsPage.objMetadataofthecard);
 		logger.info(Cardtitle);
 		click(AMDNewsPage.objMetadataofthecard, "News Card");
@@ -13502,9 +13514,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			Back(2);
 			SelectTopNavigationTab("News");
-			verifyElementPresent(AMDNewsPage.objRightArrowBtn, "Right arrow");
-			click(AMDNewsPage.objRightArrowBtn, "Right arrow");
-			waitTime(4000);
+			waitTime(6000);
+
+			findTrayInScreen(AMDNewsPage.EntertaintmentNewsTray);
+			click(AMDNewsPage.EntertaintmentNewsTray, "Entertainment News Tray");
+			waitTime(2000);
+
 			click(AMDNewsPage.objMetadataofthecard, "News Card");
 			waitTime(4000);
 			click(AMDNewsPage.objWatchlistIcon, "WatchList Icon");
@@ -13526,6 +13541,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		waitTime(2000);
 		verifyRailsSwipe(userType);
+	}
+
+	public void findTrayInScreen(By byLocator) {
+		for (int i = 0; i < 25; i++) {
+			if (!(verifyIsElementDisplayed(byLocator))) {
+				Swipe("UP", 1);
+			} else {
+				PartialSwipe("UP", 1);
+				logger.info("Entertainment News tray is located");
+				extent.extentLoggerPass("Tray", "Entertainment News tray is located");
+				break;
+			}
+		}
 	}
 
 	public void verifyMetaDataOfConsumptionScreen() throws Exception {
@@ -13645,8 +13673,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		String LiveChannelName = getText(AMDNewsPage.objLiveChannelName);
 		logger.info(LiveChannelName);
+
 		click(AMDNewsPage.objLiveChannelName, "Live Channel");
-		waitTime(10000);
+		waitTime(20000);
 		String ConsumptionScreenMetaData = getText(AMDNewsPage.objConsumptionScrnMetaDataOfLiveTv);
 		if (LiveChannelName.equalsIgnoreCase(ConsumptionScreenMetaData)) {
 			logger.info("Appropriate playback will be initiated for the clicked content");
@@ -13660,11 +13689,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		boolean shareCTA = verifyIsElementDisplayed(AMDConsumptionScreen.objShareBtn);
 		if (shareCTA) {
-			extent.extentLoggerPass("Share CTA", "Share CTA is displayed in News Consumption Screen");
+			extent.extentLoggerPass("Share CTA", "Share CTA is displayed in Live TV Consumption Screen");
 			logger.info("Share CTA is displayed in News Consumption Screen");
 		} else {
-			extent.extentLoggerFail("Share CTA", "Share CTA is not displayed in News Consumption Screen");
-			logger.info("Share CTA is not displayed in News Consumption Screen");
+			extent.extentLoggerFail("Share CTA", "Share CTA is not displayed in Live TV Consumption Screen");
+			logger.info("Share CTA is not displayed in Live TV Consumption Screen");
 		}
 
 //		boolean Description = (verifyIsElementDisplayed(AMDNewsPage.objNewsConsumptionSrnDescription));
@@ -13755,9 +13784,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (userType.equals("NonSubscribedUser") | userType.equals("SubscribedUser")) {
 			SelectTopNavigationTab("News");
 			waitTime(6000);
-			verifyElementPresent(AMDNewsPage.objRightArrowBtn, "Right arrow");
-			click(AMDNewsPage.objRightArrowBtn, "Right arrow");
-			waitTime(4000);
+			findTrayInScreen(AMDNewsPage.EntertaintmentNewsTray);
+			click(AMDNewsPage.EntertaintmentNewsTray, "Entertainment News Tray");
+			waitTime(2000);
 			click(AMDNewsPage.objMetadataofthecard, "News Card");
 			waitTime(8000);
 		}

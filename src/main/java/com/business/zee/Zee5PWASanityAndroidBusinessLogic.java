@@ -489,10 +489,15 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		// Get the email and password from properties
 		String email = "";
 		String password = "";
-		dismissAppInstallPopUp();
-		dismiss3xPopUp();
-		dismissDisplayContentLanguagePopUp();
-		dismissSystemPopUp();
+		// dismissSystemPopUp();
+		// waitTime(3000);
+		// dismissSystemPopUp();
+		// dismissAppInstallPopUp();
+		// dismissStayTundedPopUp();
+		// dismiss3xPopUp();
+		// dismissDisplayContentLanguagePopUp();
+		// dismissSystemPopUp();
+		dismissAllPopUps();
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.extentLogger("Guest", "Accessing the application as Guest user");
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
@@ -523,7 +528,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
 				waitTime(10000);
 				// getDriver().getKeyboard().sendKeys("Bla bla");//works
-
 				type(PWALoginPage.objEmailField, email, "Email Field");
 				hideKeyboard();
 				waitTime(3000);
@@ -741,6 +745,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 	public void dismissAppInstallPopUp() throws Exception {
 		directClickReturnBoolean(PWAHomePage.objAppInstallPopUpClose, "Close in App Install Pop Up");
+	}
+
+	public void dismissStayTundedPopUp() throws Exception {
+		directClickReturnBoolean(PWAHomePage.objStayTunedPopUpClose, "Close in Stay Tuned Pop Up");
 	}
 
 	/** ===================SUSHMA - SEARCH===================================== */
@@ -10326,8 +10334,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		String languageSmallText = allSelectedLanguages();
 		Response tabResponse = ResponseInstance.getResponseForPages(tabName.toLowerCase(), languageSmallText);
 		// System.out.println(tabResponse.getBody().asString());
-		String firstTrayTitle = "", firstAssetTitle = "", secondAssetTitle = "", first_business_type = "",
-				firstAssetSubType = "";
+		String trayTitle = "", trayDescription = "", firstAssetTitle = "", secondAssetTitle = "",
+				first_business_type = "", firstAssetSubType = "";
 		String traynumber = "", traytype = "";
 		int tags = 0;
 		main: for (int i = 0; i < 10; i++) {
@@ -10347,25 +10355,32 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 		}
 		if (!traynumber.equals("")) {
-			firstTrayTitle = tabResponse.jsonPath().get("buckets[" + traynumber + "].title");
-			logger.info("First Tray from API: " + firstTrayTitle);
-			extent.extentLogger("", "First Tray from API: " + firstTrayTitle);
+			// tray name from api
+			trayTitle = tabResponse.jsonPath().get("buckets[" + traynumber + "].title");
+			logger.info("Tray from API: " + trayTitle);
+			extent.extentLogger("", "Tray from API: " + trayTitle);
+			// tray description from api
+			trayDescription = tabResponse.jsonPath().get("buckets[" + traynumber + "].description");
+			logger.info("Tray Description from API: " + trayDescription);
+			extent.extentLogger("", "Tray Description from API: " + trayDescription);
+			// tray first card from api
 			firstAssetTitle = tabResponse.jsonPath().get("buckets[" + traynumber + "].items[0].title");
 			firstAssetSubType = tabResponse.jsonPath().get("buckets[" + traynumber + "].items[0].asset_subtype");
 			logger.info("Tray First card from API: " + firstAssetTitle);
 			extent.extentLogger("", "Tray First card from API: " + firstAssetTitle);
+			// tray second card from api
 			secondAssetTitle = tabResponse.jsonPath().get("buckets[" + traynumber + "].items[1].title");
 			logger.info("Tray Second card from API: " + secondAssetTitle);
 			extent.extentLogger("", "Tray Second card from API: " + secondAssetTitle);
 			// UI Search
-			verifyElementPresent(PWALandingPages.objTrayTitleInUIContains(firstTrayTitle),
-					"Tray title : " + firstTrayTitle + " in UI");
-			verifyElementPresent(PWALandingPages.firstAssetNonRecoTray(firstTrayTitle, firstAssetTitle),
+			verifyElementPresent(PWALandingPages.objTrayTitleInUIContains(trayTitle),
+					"Tray title : " + trayTitle + " in UI");
+			verifyElementPresent(PWALandingPages.firstAssetNonRecoTray(trayTitle, firstAssetTitle),
 					"Tray First card : " + firstAssetTitle + " in UI");
-			verifyElementPresent(PWALandingPages.secondAssetNonRecoTray(firstTrayTitle, secondAssetTitle),
+			verifyElementPresent(PWALandingPages.secondAssetNonRecoTray(trayTitle, secondAssetTitle),
 					"Tray Second card : " + secondAssetTitle + " in UI");
 			for (int i = 0; i < 5; i++) {
-				if (directClickReturnBoolean(PWALandingPages.firstAssetNonRecoTray(firstTrayTitle, firstAssetTitle),
+				if (directClickReturnBoolean(PWALandingPages.firstAssetNonRecoTray(trayTitle, firstAssetTitle),
 						"Tray First Asset : " + firstAssetTitle + " in UI")) {
 					clickedasset = true;
 					waitTime(5000);
@@ -10445,7 +10460,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("View All button functionality");
 		// check if tray is loaded
 		for (int i = 1; i <= 5; i++) {
-			if (verifyIsElementDisplayed(PWALandingPages.objTrayTitleInUIContains(firstTrayTitle), "Tray")) {
+			if (verifyIsElementDisplayed(PWALandingPages.objTrayTitleInUIContains(trayTitle), "Tray")) {
 				logger.info("Tray is loaded");
 				extent.extentLogger("Tray load", "Tray is loaded");
 				break;
@@ -10455,8 +10470,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 		}
 		for (int i = 0; i < 5; i++) {
-			if (directClickReturnBoolean(PWALandingPages.objTrayTitleInUIContainsViewAll(firstTrayTitle.trim()),
-					"View All Button of tray " + firstTrayTitle)) {
+			if (directClickReturnBoolean(PWALandingPages.objTrayTitleInUIContainsViewAll(trayTitle.trim()),
+					"View All Button of tray " + trayTitle)) {
 				waitTime(5000);
 				clickedviewall = true;
 				break;
@@ -10470,6 +10485,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				logger.info("Navigated to View All Page");
 				extent.extentLogger("View All", "Navigated to View All Page");
 				waitTime(3000);
+				/*
+				 * String trayTitleViewAll= String trayDescriptionViewAll=
+				 */
 				String firstCardViewAll = getElementPropertyToString("data-minutelytitle",
 						PWALandingPages.objViewAllPageFirstContent, "");
 				String secondCardViewAll = getElementPropertyToString("data-minutelytitle",
@@ -12179,6 +12197,39 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		getDriver().context("NATIVE_APP");
 		directClickReturnBoolean(PWASearchPage.objallow, "Allow in pop up");
 		getDriver().context("CHROMIUM");
+	}
+
+	public void dismissAllPopUps() throws Exception {
+		for (int trial = 0; trial < 2; trial++) {
+			try {
+				getDriver().context("NATIVE_APP");
+				directClickReturnBoolean(PWASearchPage.objallow, "Allow in pop up");
+				getDriver().context("CHROMIUM");
+				directClickReturnBoolean(PWAHomePage.objAppInstallPopUpClose, "Close in App Install Pop Up");
+				directClickReturnBoolean(PWAHomePage.objStayTunedPopUpClose, "Close in Stay Tuned Pop Up");
+				WebElement displayContentLang = (new WebDriverWait(getDriver(), 60))
+						.until(ExpectedConditions.elementToBeClickable(PWAHomePage.objContinueDisplayContentLangPopup));
+				if (displayContentLang.isDisplayed() == true) {
+					if (directClickReturnBoolean(PWAHomePage.objContinueDisplayContentLangPopup,
+							"Continue on Display Language Pop Up")) {
+						dismissSystemPopUp();
+						waitTime(3000);
+						directClickReturnBoolean(PWAHomePage.objContinueDisplayContentLangPopup,
+								"Continue on Content Language Pop Up");
+						break;
+					}
+				}
+			} catch (Exception e) {
+			}
+		}
+		// dismissSystemPopUp();
+		// waitTime(3000);
+		// dismissSystemPopUp();
+		// dismissAppInstallPopUp();
+		// dismissStayTundedPopUp();
+		// dismiss3xPopUp();
+		// dismissDisplayContentLanguagePopUp();
+		// dismissSystemPopUp();
 	}
 
 	public void FilterLanguage(String lang) throws Exception {

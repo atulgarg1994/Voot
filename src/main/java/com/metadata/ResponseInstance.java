@@ -656,10 +656,11 @@ public class ResponseInstance {
 		String xAccessToken = getXAccessTokenWithApiKey();
 		String bearerToken = getBearerToken(pUsername, pPassword);
 		String url = "https://userapi.zee5.com/v1/user";
-//		String url = "https://userapi.zee5.com/v1/settings";
+//		String url = "https://newpwa.zee5.com/settings"; //Dummy
+//		String url = "https://userapi.zee5.com/v1/settings"; 
 //		String url = "https://subscriptionapi.zee5.com/v1/purchase";
 		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
-		resp = given().headers("x-access-token", xAccessToken).when().get(url);
+//		resp = given().headers("x-access-token", xAccessToken).when().get(url);
 		
 		resp.print();
 	}
@@ -667,7 +668,7 @@ public class ResponseInstance {
 	public static void main(String[] args) {
 //		getResponseForApplicasterPages("Guest", "3673").print();
 //		System.out.println(BeforeTV("Guest","Home"));
-		getDetailsOfCustomer("zeetest998@test.com","123456");
+		getDetailsOfCustomer("zeetest10@test.com","123456");
 	}
 
 }

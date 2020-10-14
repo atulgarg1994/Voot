@@ -103,14 +103,16 @@ public class Mixpanel extends ExtentReporter {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime now = LocalDateTime.now();
 		String currentDate = dtf.format(now);
-		String distinct_id = "SM-M205F";
-		Response request = RestAssured.given().auth().preemptive().basic("58baafb02e6e8ce03d9e8adb9d3534a6", "")
+//		String distinct_id = "SM-M205F"; 
+		
+		String distinct_id = "8dfa7c62-7ec0-4ed7-b617-3445fc06f01c";
+		Response request = RestAssured.given().auth().preemptive().basic("bd3945ca2b9d542adaad70063481a89d", "")
 				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
 				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
-				.formParam("to_date", currentDate).formParam("event", "[ \"CTAs\"]")
-				.formParam("where", "properties[\"$Model\"]==\"" + distinct_id + "\"")
+				.formParam("to_date", currentDate).formParam("event", "[ \"App session\"]")
+				.formParam("where", "properties[\"$distinct_id\"]==\"" + distinct_id + "\"")
 				.post("https://data.mixpanel.com/api/2.0/export/");
-		request.print();
+		request.print(); 
 	}
 
 	/**
