@@ -108,8 +108,7 @@ public class PWALiveTVPage {
 	public static By objLiveTvFilterOption = By
 			.xpath("//*[contains(@class,'filterComponent  filterComponentFixedBottom')]");
 
-	public static By objChannelGuideSortOption = By
-			.xpath("(//button[@class='sortComponent iconInitialLoad-ic_sort '])");
+	public static By objChannelGuideSortOption = By.xpath("//button[contains(@class,'sortComponent iconInitialLoad-ic_sort')]");
 
 	public static By objLiveChannelCardTitle = By.xpath("(//h3[@class=\"cardTitle\"])[1]");
 

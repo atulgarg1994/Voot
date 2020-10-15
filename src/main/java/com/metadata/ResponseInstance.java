@@ -677,6 +677,10 @@ public class ResponseInstance {
 //		getUserData();
 //		getRegion();
 		getDetailsOfCustomer("zee5latest@gmail.com","User@123");
+		String[] comm = resp.asString().replace("{", "").replace("}", "").replace("[", "").replace("]", "").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+		for(int i = 0; i < comm.length; i++) {
+			System.out.println(comm[i].replace("\"", ""));
+		}
 	}
 	
 	public static Properties getUserData() {

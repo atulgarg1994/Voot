@@ -7513,7 +7513,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				extent.extentLoggerFail("titleMismatch", "Consumption page content Title mismatched with API");
 				logger.error("Consumption page content Title mismatched with API");
 			}
-
 			String show = getText(PWAPlayerPage.objConsumptionsShowTitle);
 			extent.extentLogger("show", "Show title fetched from UI: " + show);
 			logger.info("Show title fetched from UI: " + show);
@@ -11353,6 +11352,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		HeaderChildNode("Terms of Use screen");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		Swipe("UP", 1);
+		waitTime(3000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objTermsOfUseOption, "Terms of Use option");
 		verifyElementPresent(PWAHamburgerMenuPage.objTermsOfUseScreen, "Terms of Use screen");
 		String contextname = getDriver().getContext();
@@ -11757,8 +11757,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		} catch (Exception e) {
 		}
 		verifyElementPresent(PWAHomePage.objcontactus, "Contact Us page");
-		getDriver().context("CHROMIUM");
-		AndroidSwitchToParentWindow();
+		// getDriver().context("CHROMIUM");
+		// AndroidSwitchToParentWindow();
+		Back(1);
+		waitTime(2000);
+		Back(1);
 		waitTime(2000);
 	}
 
@@ -11969,31 +11972,27 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			// "setting
 			// Button");
 			waitTime(6000);
-			if (verifyElementDisplayed(PWAPlayerPage.objConsumptionsShowTitle)) {
-				String ConsumptionScreenShowTitle = getText(PWAPlayerPage.objConsumptionsShowTitle);
-				logger.info("Consumption screen title fetched : " + ConsumptionScreenShowTitle);
-				extent.extentLogger("Consumption Screen",
-						"Consumption screen title fetched : " + ConsumptionScreenShowTitle);
-				// String showtitle=getText(PWASearchPage.objShowTitle);
+			// Show details page
+			if (verifyElementDisplayed(PWAShowsPage.objShowsTitle)) {
+				String ShowTitle = getText(PWAShowsPage.objShowsTitle);
+				logger.info("Show Details page title fetched : " + ShowTitle);
+				extent.extentLogger("show details screen", "Show Details page title fetched : " + ShowTitle);
 				waitTime(3000);
-				if (searchScreenTitle.contains(ConsumptionScreenShowTitle)) {
-					logger.info("User is navigated to respective consumption screen");
-					extent.extentLogger("Consumption Screen", "User is navigated to respective consumption screen");
-
+				if (searchScreenTitle.contains(ShowTitle)) {
+					logger.info("User is navigated to respective show details screen");
+					extent.extentLogger("Consumption Screen", "User is navigated to respective show details screen");
 				} else {
-					logger.error("User is not navigated to respective consumption screen");
+					logger.error("User is not navigated to respective show details screen");
 					extent.extentLoggerFail("Consumption Screen",
-							"User is not navigated to respective consumption screen");
+							"User is not navigated to respective show details screen");
 				}
-			} else {
-				waitForElementAndClickIfPresent(PWASubscriptionPages.objPopupCloseButton, 10,
-						"Close in Sign Up Pop Up");
-				waitForElementAndClickIfPresent(PWASubscriptionPages.objPopupCloseButton, 10,
-						"Close in Sign Up Pop Up");
-				String showtitle = getText(PWASearchPage.objShowTitle(searchScreenTitle));
-				System.out.println(searchScreenTitle);
-				waitTime(3000);
-				if (searchScreenTitle.contains(showtitle)) {
+			}
+			// Consumptions screen
+			if (verifyElementDisplayed(PWAPlayerPage.objContentTitleInConsumptionPage)) {
+				String contentPlayed = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
+				logger.info("Content played: " + contentPlayed);
+				extent.extentLogger("contentPlayed", "Content played: " + contentPlayed);
+				if (searchScreenTitle.contains(contentPlayed)) {
 					logger.info("user is navigated to respective consumption screen");
 					extent.extentLogger("Consumption Screen", "user is navigated to respective consumption screen");
 				} else {
@@ -12004,6 +12003,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		} else {
 			logger.error("Failed to verify Trending Searches tray");
 			extent.extentLoggerFail("", "Failed to verify Trending Searches tray");
+		}
+		if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up")) {
+			click(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up close icon");
 		}
 		click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 	}

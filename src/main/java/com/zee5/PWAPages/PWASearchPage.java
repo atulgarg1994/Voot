@@ -290,7 +290,7 @@ public class PWASearchPage {
 
 	public static By objSearchPlaceHolderText = By.xpath("//div[@class='searchInputBox']//input");
 
-	public static By objSearchPageFooter = By.xpath("//div[@class='footerMenu']");
+	public static By objSearchPageFooter = By.xpath("//div[contains(@class,'footerMenu')]");
 
 	public static By recentSearchItem(String keyword, int i) {
 		return By.xpath("//div[@class='recentSearchWrapper']//li[" + i + "]//div[contains(@class,'searchitem') and .='"

@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.poi.ss.usermodel.Cell;
@@ -25,15 +28,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.response.Response;
+import com.metadata.ResponseInstance;
 import com.propertyfilereader.PropertyFileReader;
-
-
 
 public class Mixpanel extends ExtentReporter {
 
 //	LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 //	return local.getItem("guestToken");
-	
+
 //	waitTime(2000);
 //	LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 //	Mixpanel.ValidateParameter(local.getItem("guestToken"),"Login Screen Display");
@@ -41,23 +43,30 @@ public class Mixpanel extends ExtentReporter {
 //	waitTime(2000);
 //	LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 //	Mixpanel.ValidateParameter(local.getItem("guestToken"),"Skip Registartion");
-	
+
 	/**
 	 * Global variables
 	 */
 	static String sheet = "Skip";
-	static String fileName = "Skip";//ReportName;
-	static String xlpath ;
+	static String fileName = "Skip";// ReportName;
+	static String xlpath;
 	static String booleanParameters = "";
 	static String integerParameters = "";
 	static int rownumber;
 	static String source = "";
+	protected static Response resp = null;
+	public static String DOB;
+	private static Properties prop;
+	private static String value;
+	private static String key ;
+	static ExtentReporter extent = new ExtentReporter();
 
-	static String tv = "{\"event\":\"TV Authentication Screen Display\",\"properties\":{\"time\":1602188841,\"distinct_id\":\"5d94e150a85711e9a4028141f97a2ff1\",\"$browser\":\"Chrome\",\"$browser_version\":85,\"$city\":\"Bengaluru\",\"$current_url\":\"https://newpwa.zee5.com/device\",\"$device_id\":\"17490afaadfb90-05c1e6a2036fd7-333769-144000-17490afaae0b7e\",\"$distinct_id_before_identity\":\"3c700400-6a97-48db-8917-f30f604a4001\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$insert_id\":\"hqo0wszj6p7s33d9\",\"$lib_version\":\"2.38.0\",\"$os\":\"Windows\",\"$region\":\"Karnataka\",\"$screen_height\":864,\"$screen_width\":1536,\"$user_id\":\"3c700400-6a97-48db-8917-f30f604a4001\",\"Age\":\"N/A\",\"Element\":\"Authenticate Device\",\"Free Trial Expiry Date\":\"N/A\",\"Free Trial Package\":\"N/A\",\"Gender\":\"male\",\"HasRental\":false,\"Landing Page Name\":\"home\",\"Latest Subscription Pack\":\"N/A\",\"Latest Subscription Pack Expiry\":\"N/A\",\"New App Language\":\"en\",\"New Content Language\":[\"en\",\"hi\",\"kn\"],\"Next Expiring Pack\":\"N/A\",\"Next Pack Expiry Date\":\"N/A\",\"Pack Duration\":\"N/A\",\"Page Name\":\"device_authentication\",\"Parent Control Setting\":\"A\",\"Partner Name\":\"N/A\",\"Platform Name\":\"Web\",\"Session ID\":1602162799.549,\"Social\":\"N/A\",\"Source\":\"N/A\",\"Unique ID\":\"3c700400-6a97-48db-8917-f30f604a4001\",\"User Type\":\"register\",\"dekey\":\"N/A\",\"hasEduauraa\":false,\"isPWA\":false,\"mp_country_code\":\"IN\",\"mp_lib\":\"web\",\"mp_processing_time_ms\":1602169042065}}";
-	
-	public static void ValidateParameter(String distinctID, String eventName,String Source)
+	public static void ValidateParameter(String distinctID, String eventName, String Source)
 			throws JsonParseException, JsonMappingException, IOException, InterruptedException {
-		System.out.println("Parameter Validation "+ distinctID);
+		System.out.println("Parameter Validation " + distinctID);
+		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+			getUserData();
+		}
 		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
 		booleanParameters = Prop.getproperty("Boolean");
 		integerParameters = Prop.getproperty("Integer");
@@ -69,7 +78,7 @@ public class Mixpanel extends ExtentReporter {
 	}
 
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
-		
+
 //		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
 //		creatExcel();
 //		parseResponse(tv);
@@ -98,23 +107,24 @@ public class Mixpanel extends ExtentReporter {
 //	        Date now = new Date();
 //	        long ut3 = now.getTime() / 1000L;
 //	        System.out.println(ut3);
-		
-		System.out.println(System.getProperty("os.name"));
+
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime now = LocalDateTime.now();
 		String currentDate = dtf.format(now);
-//		String distinct_id = "SM-M205F"; 
-		
-		String distinct_id = "8dfa7c62-7ec0-4ed7-b617-3445fc06f01c";
-		Response request = RestAssured.given().auth().preemptive().basic("bd3945ca2b9d542adaad70063481a89d", "")
+//		String distinct_id = "SM-M315F"; 
+
+		String distinct_id = "0ce6b595-cd83-4b9c-92f6-30aaa69c13c4";
+		Response request = RestAssured.given().auth().preemptive().basic("58baafb02e6e8ce03d9e8adb9d3534a6", "")
 				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
 				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
-				.formParam("to_date", currentDate).formParam("event", "[ \"App session\"]")
+				.formParam("to_date", currentDate).formParam("event", "[ \"Pause\"]")
 				.formParam("where", "properties[\"$distinct_id\"]==\"" + distinct_id + "\"")
-				.post("https://data.mixpanel.com/api/2.0/export/");
-		request.print(); 
+//				.post("https://data.mixpanel.com/api/2.0/export/");
+				.post("https://mixpanel.com/api/2.0/segmentation/");
+		request.print();
 	}
 
+//	:SM-M315F
 	/**
 	 * Function to fetch logs from mixpanel dash board using rest assured API
 	 * 
@@ -135,7 +145,7 @@ public class Mixpanel extends ExtentReporter {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime now = LocalDateTime.now();
 		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
-		System.out.println("Current Date : "+currentDate);
+		System.out.println("Current Date : " + currentDate);
 		Response request = RestAssured.given().auth().preemptive().basic("58baafb02e6e8ce03d9e8adb9d3534a6", "")
 				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
 				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
@@ -149,7 +159,7 @@ public class Mixpanel extends ExtentReporter {
 			String response = request.asString();
 			String s[] = response.split("\n");
 			parseResponse(s[s.length - 1]);
-//			validation();
+			validation();
 		}
 	}
 
@@ -224,10 +234,11 @@ public class Mixpanel extends ExtentReporter {
 			try {
 				XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
 				XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
-				String value = myExcelSheet.getRow(rownumber).getCell(1).toString();
-				String key = myExcelSheet.getRow(rownumber).getCell(0).toString();
+				 value = myExcelSheet.getRow(rownumber).getCell(1).toString();
+				 key = myExcelSheet.getRow(rownumber).getCell(0).toString();
 				if (value.trim().isEmpty()) {
 					System.out.println("Paramter is empty :- Key:" + key + " - value" + value);
+					extent.extentLoggerFail("","");
 					fillCellColor();
 				} else {
 					if (isContain(booleanParameters, key)) {
@@ -235,21 +246,21 @@ public class Mixpanel extends ExtentReporter {
 					} else if (isContain(integerParameters, key)) {
 						validateInteger(value);
 					}
+					validateParameter(key, value);
 				}
-				validateParameter(key,value);
 			} catch (Exception e) {
 				System.out.println(e);
 			}
 		}
 	}
 
-	public static void validateParameter(String key,String value) {
-		if(key.equals("User Type")) {
-			if(!value.equalsIgnoreCase(userType)) {
+	public static void validateParameter(String key, String value) {
+		if (key.equals("User Type")) {
+			if (!value.equalsIgnoreCase(userType)) {
 				fillCellColor();
 			}
-		}else if(key.equals("Source")) {
-			if(!value.equalsIgnoreCase(source)) {
+		} else if (key.equals("Source")) {
+			if (!value.equalsIgnoreCase(source)) {
 				fillCellColor();
 			}
 		}
@@ -312,6 +323,17 @@ public class Mixpanel extends ExtentReporter {
 		if (!value.equals("true") || value.equals("false")) {
 			fillCellColor();
 		}
+	}
+
+	private static void getUserData() {
+		prop = ResponseInstance.getUserData();
+		getDOB(prop);
+	}
+
+	private static void getDOB(Properties prop) {
+		LocalDate dob = LocalDate.parse(prop.getProperty("birthday").replace("T00:00:00Z", ""));
+		LocalDate curDate = LocalDate.now();
+		DOB = String.valueOf(Period.between(dob, curDate).getYears());
 	}
 
 }
