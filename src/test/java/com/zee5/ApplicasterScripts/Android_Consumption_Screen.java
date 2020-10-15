@@ -4,7 +4,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.business.zee.Zee5ApplicasterBusinessLogic;
 import com.utility.Utilities;
 
@@ -16,7 +15,7 @@ public class Android_Consumption_Screen {
 	public void AppLaunch() throws InterruptedException {
 		System.out.println("Launching Andriod App");
 		Utilities.relaunch = true; // Clear App Data on First Launch
-		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
+		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee"); 
 	}
 
 	@Test(priority = 0)
@@ -35,7 +34,7 @@ public class Android_Consumption_Screen {
 		ZEE5ApplicasterBusinessLogic.SVODConsumptionScreen(userType, "Shows", SVODShow);
 	}
 
-	@Test(priority = 2)
+//	@Test(priority = 2)
 	@Parameters({ "userType", "SVODEpisode" })
 	public void SVODConsumptionScreenForEpisodeTab(String userType, String SVODEpisode) throws Exception {
 		ZEE5ApplicasterBusinessLogic.SVODConsumptionScreen(userType, "Episode", SVODEpisode);
@@ -55,9 +54,21 @@ public class Android_Consumption_Screen {
 
 	@Test(priority = 5)
 	@Parameters({ "userType" })
-	public void ConsumptionScreen(String userType) throws Exception {
+	public void NSVODConsumptionScreen(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.verifyNonSVODConsumptionScreen(userType);
 		ZEE5ApplicasterBusinessLogic.verifySimilarChannels();
+	}
+	
+	@Test(priority = 6)
+	@Parameters({ "userType" })
+	public void MandatoryRegistrationPopUp(String userType) throws Exception {
+		if(! userType.equals("SubscribedUser")) {
+			ZEE5ApplicasterBusinessLogic.relaunch(true);
+			ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+			ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+			ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+			ZEE5ApplicasterBusinessLogic.MandatoryPopUpScenarios(userType);
+		}
 	}
 
 	@AfterTest
