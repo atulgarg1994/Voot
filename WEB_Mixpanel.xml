@@ -9,7 +9,7 @@
 	</run>
 </groups> --> 
 
-	<parameter name="url" value="newpwa" />
+	<parameter name="url" value="https://newpwa.zee5.com/" />
 	<parameter name="browserType" value="Chrome" />  <!-- Chrome/Firefox -->
 
 	<parameter name="userType" value="Guest" /> <!-- Guest/NonSubscribedUser/SubscribedUser/ClubUser -->
@@ -41,6 +41,17 @@
 	
 	<parameter name="freeMovie2" value="Bablu Dablu - Robo Rumble"/>
 	<parameter name="keyword6" value="Popcorn Monkey Tiger (A)" />
+	
+	<parameter name="audioTrackPremiumContent"	value="No Entry" />
+	<parameter name="audioTrackContent"	value="Episode 13 - Agent Raghav" />
+	<parameter name="subtitleTrackContent"	value="Episode 01 - Ganga Enters Widowhood" />
+	<parameter name="audioTrackTrailerContent"	value="Trailer - No Entry" />
+	<parameter name="audioTrackURL"	value="https://newpwa.zee5.com/tv-shows/agent-raghav-crime-branch/0-6-965/episode-13-agent-raghav/0-1-agentragh_1895058002-agentragh_1804723548-episode_779139720" />
+	<parameter name="subtitleTrackURL"	value="https://newpwa.zee5.com/tv-shows/gangaa/0-6-972/episode-01-ganga-enters-widowhood/0-1-136585" />
+	<parameter name="subtitleTrackPremiumContent"	value="Welcome Back" />
+	
+	<parameter name="skipIntroPremium"	value="The Rum Diary" />
+	<parameter name="skipIntroURL"	value="https://newpwa.zee5.com/kids/kids-movies/bablu-dablu-robo-rumble/0-0-54219" />
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

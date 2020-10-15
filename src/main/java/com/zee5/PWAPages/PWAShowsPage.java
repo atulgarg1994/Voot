@@ -127,4 +127,8 @@ public class PWAShowsPage {
 	public static By objEpisodeCardTwo = By.xpath("//div[@data-index='1']//img");
 	
 	public static By objTwitterApp = By.xpath("//*[@text='Tweet' or @text='Twitter']");
+	
+	public static By objTrayTitle1(String str) {
+		return By.xpath("//div[@class='tray-container portraitSmall-tray-wrap   ']//div[@class='trayHeader']//h2[contains(text(),'"+str+"')]");
+	}
 }

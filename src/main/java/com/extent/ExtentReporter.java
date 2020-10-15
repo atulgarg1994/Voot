@@ -34,7 +34,7 @@ public class ExtentReporter implements ITestListener {
 	private static ThreadLocal<ExtentReports> extent = new ThreadLocal<>();
 	private static ThreadLocal<ExtentHtmlReporter> htmlReport = new ThreadLocal<>();
 	private static ThreadLocal<ExtentTest> test = new ThreadLocal<>();
-	private static ThreadLocal<ExtentTest> childTest = new ThreadLocal<>();
+	protected static ThreadLocal<ExtentTest> childTest = new ThreadLocal<>();
 	private static File src;
 	private static String currentDate;
 	private boolean runmode = true;
@@ -136,8 +136,9 @@ public class ExtentReporter implements ITestListener {
 	public void onTestStart(ITestResult result) {
 		if ((Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals)
 				&& DriverInstance.startTest) || result.getName().equals("Login")
-				|| result.getName().equals("PWAWEBLogin")) {
+				|| result.getName().equals("PWAWEBLogin") || result.getName().equals("tvLogin")) {
 			ReportName = result.getName();
+			DriverInstance.methodName = result.getName();
 			logger.info(":::::::::Test " + result.getName() + " Started::::::::");
 			test.set(extent.get().createTest(result.getName(),DriverInstance.getENvironment()));
 //			ExcelUpdate.creatExcel();

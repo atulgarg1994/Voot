@@ -319,4 +319,14 @@ public class PWASearchPage {
 	public static By objSearchCancel = By.xpath("//*[@class='noSelect backBtnDesktop iconInitialLoad-ic_close']");
 	
 	public static By objallow = By.xpath("//*[@text='Allow' or @text()='ALLOW']");
+	
+	public static By objTrayTitle1(String str) {
+		return By.xpath(
+				"//div[@class='tray-container portraitSmall-tray-wrap   ']//div[@class='trayHeader']//h2[contains(text(),'"
+						+ str + "')]");
+	}
+
+	public static By objSearchResult2(String title) {
+		return By.xpath("(//*[@class='highLight' and contains(text(), '" + title + "')])[2]");
+	}
 }

@@ -663,7 +663,8 @@ public class ResponseInstance {
 //		String url = "https://newpwa.zee5.com/settings"; //Dummy
 //		String url = "https://userapi.zee5.com/v1/settings"; 
 //		String url = "https://subscriptionapi.zee5.com/v1/purchase";
-		String url = "https://subscriptionapi.zee5.com/v1/subscription";
+//		String url = "https://subscriptionapi.zee5.com/v1/subscription";
+		String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";
 		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 //		resp = given().headers("x-access-token", xAccessToken).when().get(url);
 		
@@ -677,7 +678,7 @@ public class ResponseInstance {
 //		System.out.println(BeforeTV("Guest","Home"));
 //		getUserData();
 //		getRegion();
-		getDetailsOfCustomer("zeetest998@test.com","123456");
+		getDetailsOfCustomer("zee5latest@gmail.com","User@123");
 //		String[] comm = resp.asString().replace("{", "").replace("}", "").replace("[", "").replace("]", "").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 //		for(int i = 0; i < comm.length; i++) {
 //			System.out.println(comm[i].replace("\"", ""));

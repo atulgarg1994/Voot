@@ -18,7 +18,7 @@ public class TvZee5ATVScripts {
 
 	@Test(priority = 1)
 	@Parameters({ "userType" })
-	public void Login(String userType) throws Exception {
+	public void tvLogin(String userType) throws Exception {
 		Zee5TvBusiness.login(userType);
 	}
 

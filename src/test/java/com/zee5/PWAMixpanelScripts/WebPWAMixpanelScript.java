@@ -1,6 +1,7 @@
 package com.zee5.PWAMixpanelScripts;
 
 import org.testng.annotations.AfterClass;
+
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -1059,10 +1060,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 136)
-	@Parameters({ "userType"})
-	public void verifyLoginInitiatedEventForInvalidCredentials(String userType) throws Exception {
-		System.out.println("Verify Login Initiated Event post entering invalid credentials");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginInitiatedEventForInvalidCredentials(userType);
+	@Parameters({ "userType" })
+	public void verifyToastMessageImpressionEventInPaymentPage(String userType) throws Exception {
+		System.out.println("Verify Toast Message Impression Event in payment page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventInPaymentPage(userType);
 	}
 	
 	@Test(priority = 137)
@@ -1444,29 +1445,31 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 190)
-	@Parameters({ "keyword1"})
-	public void verifyParentalOverlayImpressionEventForTrailer(String keyword1) throws Exception {
+	@Parameters({ "keyword1", "userType"})
+	public void verifyParentalOverlayImpressionEventForTrailer(String keyword1,String userType) throws Exception {
 		System.out.println("Verify Parental Overlay Impression Event For Trailer Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForTrailer(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForTrailer(keyword1,userType);
 	}
 	
 	@Test(priority = 191)
-	public void verifyParentalOverlayImpressionEventForCarouselContent() throws Exception {
+	@Parameters({ "userType"})
+	public void verifyParentalOverlayImpressionEventForCarouselContent(String userType) throws Exception {
 		System.out.println("Verify Parental Overlay Impression Event For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForCarouselContent();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForCarouselContent(userType);
 	}
 	
 	@Test(priority = 192)
-	public void verifyParentalOverlayImpressionEventForContentInTray() throws Exception {
+	@Parameters({ "userType"})
+	public void verifyParentalOverlayImpressionEventForContentInTray(String userType) throws Exception {
 		System.out.println("Verify Parental Overlay Impression Event For Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForContentInTray();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForContentInTray(userType);
 	}
 	
 	@Test(priority = 193)
-	@Parameters({"keyword1"})
-	public void verifyParentalOverlayImpressionEventForContentFromSearchPage(String keyword1) throws Exception {
+	@Parameters({"keyword1", "userType"})
+	public void verifyParentalOverlayImpressionEventForContentFromSearchPage(String keyword1,String userType) throws Exception {
 		System.out.println("Verify Parental Overlay Impression Event For Content From Search Page");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForContentFromSearchPage(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForContentFromSearchPage(keyword1,userType);
 	}
 	
 	@Test(priority = 194)
@@ -1477,9 +1480,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 195)
-	public void verifyParentalOverlayImpressionEventForContentInMegamenu() throws Exception {
+	@Parameters({ "userType"})
+	public void verifyParentalOverlayImpressionEventForContentInMegamenu(String userType) throws Exception {
 		System.out.println("Verify Parental Overlay Impression Event For Content played from Megamenu");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForContentInMegamenu();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForContentInMegamenu(userType);
 	}
 	
 	@Test(priority = 196)
@@ -1497,17 +1501,17 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 198)
-	@Parameters({"freeContentURL"})
-	public void verifyParentalOverlayImpressionEventForContentFromSharedLink(String freeContentURL) throws Exception {
+	@Parameters({"freeContentURL", "userType"})
+	public void verifyParentalOverlayImpressionEventForContentFromSharedLink(String freeContentURL,String userType) throws Exception {
 		System.out.println("Verify Parental Overlay Impression Event For content played from Shared Link");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForContentFromSharedLink(freeContentURL);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForContentFromSharedLink(freeContentURL,userType);
 	}
 	
 	@Test(priority = 199)
-	@Parameters({"keyword1"})
-	public void verifyParentalOverlayImpressionEventAfterPageRefresh(String keyword1) throws Exception {
+	@Parameters({"keyword1", "userType"})
+	public void verifyParentalOverlayImpressionEventAfterPageRefresh(String keyword1,String userType) throws Exception {
 		System.out.println("Verify Parental Overlay Impression Event after refreshing the page");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventAfterPageRefresh(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventAfterPageRefresh(keyword1,userType);
 	}
 	
 	@Test(priority = 188)
@@ -1525,29 +1529,31 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 190)
-	@Parameters({ "keyword1"})
-	public void verifyParentalOverlayResultEventForTrailer(String keyword1) throws Exception {
+	@Parameters({ "keyword1",  "userType"})
+	public void verifyParentalOverlayResultEventForTrailer(String keyword1,String userType) throws Exception {
 		System.out.println("Verify Parental Overlay Result Event For Trailer Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForTrailer(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForTrailer(keyword1,userType);
 	}
 	
 	@Test(priority = 191)
-	public void verifyParentalOverlayResultEventForCarouselContent() throws Exception {
+	@Parameters({ "userType"})
+	public void verifyParentalOverlayResultEventForCarouselContent(String userType) throws Exception {
 		System.out.println("Verify Parental Overlay Result Event For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForCarouselContent();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForCarouselContent(userType);
 	}
 	
 	@Test(priority = 192)
-	public void verifyParentalOverlayResultEventForContentInTray() throws Exception {
+	@Parameters({ "userType"})
+	public void verifyParentalOverlayResultEventForContentInTray(String userType) throws Exception {
 		System.out.println("Verify Parental Overlay Result Event For Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForContentInTray();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForContentInTray(userType);
 	}
 	
 	@Test(priority = 193)
-	@Parameters({"keyword1"})
-	public void verifyParentalOverlayResultEventForContentFromSearchPage(String keyword1) throws Exception {
+	@Parameters({"keyword1", "userType"})
+	public void verifyParentalOverlayResultEventForContentFromSearchPage(String keyword1,String userType) throws Exception {
 		System.out.println("Verify Parental Overlay Result Event For Content From Search Page");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForContentFromSearchPage(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForContentFromSearchPage(keyword1,userType);
 	}
 	
 	@Test(priority = 194)
@@ -1558,9 +1564,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 195)
-	public void verifyParentalOverlayResultEventForContentInMegamenu() throws Exception {
+	@Parameters({ "userType"})
+	public void verifyParentalOverlayResultEventForContentInMegamenu(String userType) throws Exception {
 		System.out.println("Verify Parental Overlay Result Event For Content played from Megamenu");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForContentInMegamenu();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForContentInMegamenu(userType);
 	}
 	
 	@Test(priority = 196)
@@ -1578,10 +1585,282 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 198)
-	@Parameters({"freeContentURL"})
-	public void verifyParentalOverlayResultEventForContentFromSharedLink(String freeContentURL) throws Exception {
+	@Parameters({"freeContentURL" ,"userType"})
+	public void verifyParentalOverlayResultEventForContentFromSharedLink(String freeContentURL,String userType) throws Exception {
 		System.out.println("Verify Parental Overlay Result Event For content played from Shared Link");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForContentFromSharedLink(freeContentURL);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForContentFromSharedLink(freeContentURL,userType);
+	}
+	
+	@Test(priority = 199)
+	@Parameters({ "userType"})
+	public void verifyToastMessageImpressionEventAfterChangingPassword(String userType) throws Exception {
+		System.out.println("Verify Toast Message Impression event when user changes the password");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventAfterChangingPassword(userType);
+	}
+	
+	@Test(priority = 200)
+	@Parameters({ "userType"})
+	public void verifyToastMessageImpressionEventAfterUpdatingProfile(String userType) throws Exception {
+		System.out.println("Verify Toast Message Impression event when user updates the profile details");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventAfterUpdatingProfile(userType);
+	}
+	
+	@Test(priority = 201)
+	@Parameters({ "userType"})
+	public void verifyRecommendedRailImpressionEventByScrollingPage() throws Exception {
+		System.out.println("Verify Recommended Rail Impression event when user is able to see the recommended tray by scrolling down the page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyRecommendedRailImpressionEventByScrollingPage("Home","Trending");
+	}
+	
+	
+	@Test(priority = 202)
+	@Parameters({ "keyword"})
+	public void verifyRecommendedRailImpressionEventInShowDetailPage(String keyword) throws Exception {
+		System.out.println("Verify Recommended Rail Impression Event In Show Detail Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyRecommendedRailImpressionEventInShowDetailPage(keyword,"Trending");
+	}
+	
+	@Test(priority = 203)
+	@Parameters({ "keyword1"})
+	public void verifyRecommendedRailImpressionEventInConsumptionScreen(String keyword1) throws Exception {
+		System.out.println("Verify Recommended Rail Impression Event In Consumption Screen");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyRecommendedRailImpressionEventInConsumptionScreen(keyword1,"Trending");
+	}
+	
+	
+	@Test(priority = 204)
+	@Parameters({ "userType"})
+	public void verifyToastMessageImpressionEventInPackSelectionPage(String userType) throws Exception {
+		System.out.println("Verify Toast Message Impression event in pack selection page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventInPackSelectionPage(userType);
+	}
+	
+	@Test(priority = 205)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAudioLanguageChangeEventForFreeContent(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Audio Language Change Event For Free Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAudioLanguageChangeEventForFreeContent(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 206)
+	@Parameters({ "userType", "keyword1"})
+	public void verifyAudioLanguageChangeEventForPremiumContent(String userType,String audioTrackPremiumContent) throws Exception {
+		System.out.println("Verify Audio Language Change Event For Premium Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAudioLanguageChangeEventForPremiumContent(userType,audioTrackPremiumContent);
+	}
+	
+	@Test(priority = 207)
+	@Parameters({ "keyword1"})
+	public void verifyAudioLanguageChangeEventForTrailer(String audioTrackTrailerContent) throws Exception {
+		System.out.println("Verify Audio Language Change Event For Trailer Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAudioLanguageChangeEventForTrailer(audioTrackTrailerContent);
+	}
+	
+	@Test(priority = 208)
+	public void verifyAudioLanguageChangeEventForCarouselContent() throws Exception {
+		System.out.println("Verify Audio Language Change Event For Carousel Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAudioLanguageChangeEventForCarouselContent();
+	}
+	
+	@Test(priority = 209)
+	public void verifyAudioLanguageChangeEventForContentInTray() throws Exception {
+		System.out.println("Verify Audio Language Change Event For Content played from Tray");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAudioLanguageChangeEventForContentInTray();
+	}
+	
+	@Test(priority = 210)
+	@Parameters({"audioTrackSearch"})
+	public void verifyAudioLanguageChangeEventForContentFromSearchPage(String audioTrackSearch) throws Exception {
+		System.out.println("Verify Audio Language Change Event For Content From Search Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAudioLanguageChangeEventForContentFromSearchPage(audioTrackSearch);
+	}
+	
+	@Test(priority = 211)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAudioLanguageChangeEventForContentFromMyWatchlistPage(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Audio Language Change Event For Content From My Watchlist Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAudioLanguageChangeEventForContentFromMyWatchlistPage(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 212)
+	public void verifyAudioLanguageChangeEventForContentInMegamenu() throws Exception {
+		System.out.println("Verify Audio Language Change Event For Content played from Megamenu");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAudioLanguageChangeEventForContentInMegamenu();
+	}
+	
+	@Test(priority = 213)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAudioLanguageChangeEventForContentInPlaylist(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Audio Language Change Event For Content played from Playlist");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAudioLanguageChangeEventForContentInPlaylist(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 214)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAudioLanguageChangeEventForContentFromUpnextRail(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Audio Language Change Event For Content played from Upnext rail");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAudioLanguageChangeEventForContentFromUpnextRail(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 215)
+	@Parameters({"audioTrackURL"})
+	public void verifyAudioLanguageChangeEventForContentFromSharedLink(String audioTrackURL) throws Exception {
+		System.out.println("Verify Audio Language Change Event For content played from Shared Link");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAudioLanguageChangeEventForContentFromSharedLink(audioTrackURL);
+	}
+	
+	@Test(priority = 216)
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifySubtitleLanguageChangeEventForFreeContent(String userType,String subtitleTrackContent) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Free Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubtitleLanguageChangeEventForFreeContent(userType,subtitleTrackContent);
+	}
+	
+	@Test(priority = 217)
+	@Parameters({ "userType", "subtitleTrackPremiumContent"})
+	public void verifySubtitleLanguageChangeEventForPremiumContent(String userType,String subtitleTrackPremiumContent) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Premium Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubtitleLanguageChangeEventForPremiumContent(userType,subtitleTrackPremiumContent);
+	}
+	
+	@Test(priority = 218)
+	@Parameters({ "keyword5"})
+	public void verifySubtitleLanguageChangeEventForTrailer(String keyword5) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Trailer Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubtitleLanguageChangeEventForTrailer(keyword5);
+	}
+	
+	@Test(priority = 219)
+	public void verifySubtitleLanguageChangeEventForCarouselContent() throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Carousel Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubtitleLanguageChangeEventForCarouselContent();
+	}
+	
+	@Test(priority = 220)
+	public void verifySubtitleLanguageChangeEventForContentInTray() throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Content played from Tray");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubtitleLanguageChangeEventForContentInTray();
+	}
+	
+	@Test(priority = 221)
+	@Parameters({"subtitleTrackContent"})
+	public void verifySubtitleLanguageChangeEventForContentFromSearchPage(String subtitleTrackContent) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Content From Search Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubtitleLanguageChangeEventForContentFromSearchPage(subtitleTrackContent);
+	}
+	
+	@Test(priority = 222)
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifySubtitleLanguageChangeEventForContentFromMyWatchlistPage(String userType,String subtitleTrackContent) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Content From My Watchlist Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubtitleLanguageChangeEventForContentFromMyWatchlistPage(userType,subtitleTrackContent);
+	}
+	
+	@Test(priority = 223)
+	public void verifySubtitleLanguageChangeEventForContentInMegamenu() throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Content played from Megamenu");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubtitleLanguageChangeEventForContentInMegamenu();
+	}
+	
+	@Test(priority = 224)
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifySubtitleLanguageChangeEventForContentInPlaylist(String userType,String subtitleTrackContent) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Content played from Playlist");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubtitleLanguageChangeEventForContentInPlaylist(userType,subtitleTrackContent);
+	}
+	
+	@Test(priority = 225)
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifySubtitleLanguageChangeEventForContentFromUpnextRail(String userType,String subtitleTrackContent) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Content played from Upnext rail");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubtitleLanguageChangeEventForContentFromUpnextRail(userType,subtitleTrackContent);
+	}
+	
+	@Test(priority = 226)
+	@Parameters({"audioTrackURL"})
+	public void verifySubtitleLanguageChangeEventForContentFromSharedLink(String subtitleTrackURL) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For content played from Shared Link");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubtitleLanguageChangeEventForContentFromSharedLink(subtitleTrackURL);
+	}
+	
+	@Test(priority = 227)
+	@Parameters({ "userType", "freeMovie2"})
+	public void verifySkipIntroEventForFreeContent(String userType,String freeMovie2) throws Exception {
+		System.out.println("Verify Skip Intro Event For Free Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForFreeContent(userType,freeMovie2);
+	}
+	
+	@Test(priority = 228)
+	@Parameters({ "userType", "skipIntroPremium"})
+	public void verifySkipIntroEventForPremiumContent(String userType,String skipIntroPremium) throws Exception {
+		System.out.println("Verify Skip Intro Event For Premium Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForPremiumContent(userType,skipIntroPremium);
+	}
+	
+	@Test(priority = 229)
+	@Parameters({ "keyword5"})
+	public void verifySkipIntroEventForTrailer(String keyword5) throws Exception {
+		System.out.println("Verify Skip Intro Event For Trailer Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForTrailer(keyword5);
+	}
+	
+	@Test(priority = 230)
+	public void verifySkipIntroEventForCarouselContent() throws Exception {
+		System.out.println("Verify Skip Intro Event For Carousel Content");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForCarouselContent();
+	}
+	
+	@Test(priority = 231)
+	public void verifySkipIntroEventForContentInTray() throws Exception {
+		System.out.println("Verify Skip Intro Event For Content played from Tray");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForContentInTray();
+	}
+	
+	@Test(priority = 232)
+	@Parameters({"freeMovie2"})
+	public void verifySkipIntroEventForContentFromSearchPage(String freeMovie2) throws Exception {
+		System.out.println("Verify Skip Intro Event For Content From Search Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForContentFromSearchPage(freeMovie2);
+	}
+	
+	@Test(priority = 233)
+	@Parameters({ "userType", "freeMovie2"})
+	public void verifySkipIntroEventForContentFromMyWatchlistPage(String userType,String freeMovie2) throws Exception {
+		System.out.println("Verify Skip Intro Event For Content From My Watchlist Page");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForContentFromMyWatchlistPage(userType,freeMovie2);
+	}
+	
+	@Test(priority = 234)
+	public void verifySkipIntroEventForContentInMegamenu() throws Exception {
+		System.out.println("Verify Skip Intro Event For Content played from Megamenu");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForContentInMegamenu();
+	}
+	
+	@Test(priority = 235)
+	@Parameters({ "userType", "freeMovie2"})
+	public void verifySkipIntroEventForContentInPlaylist(String userType,String freeMovie2) throws Exception {
+		System.out.println("Verify Skip Intro Event For Content played from Playlist");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForContentInPlaylist(userType,freeMovie2);
+	}
+	
+	@Test(priority = 236)
+	@Parameters({ "userType", "freeMovie2"})
+	public void verifySkipIntroEventForContentFromUpnextRail(String userType,String freeMovie2) throws Exception {
+		System.out.println("Verify Skip Intro Event For Content played from Upnext rail");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForContentFromUpnextRail(userType,freeMovie2);
+	}
+	
+	@Test(priority = 237)
+	@Parameters({"skipIntroURL"})
+	public void verifySkipIntroEventForContentFromSharedLink(String skipIntroURL) throws Exception {
+		System.out.println("Verify Skip Intro Event For content played from Shared Link");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForContentFromSharedLink(skipIntroURL);
+	}
+	
+	@Test(priority = 238)
+	public void verifySubscriptionPageViewedEventByClickingGetPremiumCTAOnCarousel() throws Exception {
+		System.out.println("Verify Subscription Page Viewed Event By Clicking on Get Premium CTA On Carousel");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubscriptionPageViewedEventByClickingGetPremiumCTAOnCarousel();
 	}
 	
 	@AfterClass

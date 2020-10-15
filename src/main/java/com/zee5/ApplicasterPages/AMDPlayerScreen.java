@@ -84,4 +84,7 @@ public class AMDPlayerScreen {
 	public static By objAd = By.xpath("(//*[contains(text(),'Ad :')]) | (//*[contains(text(),'Ad 1 of 2 :')]) | (//*[contains(text(),'Ad 2 of 2 :')])");
 	
 	public static By objPreviousIcon = By.xpath("//*[@id='icon_previous']");
+	
+	public static By objAd2 = By.xpath("(//*[contains(text(),'Ad 1')]) | //*[contains(text(),'Ad 2')] | //*[contains(text(),'Ad :')]");
+
 }

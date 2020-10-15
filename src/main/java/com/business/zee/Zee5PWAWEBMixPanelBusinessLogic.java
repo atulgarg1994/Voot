@@ -52,6 +52,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void setRetryCount(int retryCount) {
 		this.retryCount = retryCount;
 	}
+	
+	Mixpanel mixpanel = new Mixpanel();
 
 	public void init() {
 
@@ -393,6 +395,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objZeeLogo, "Home page");
 	}
 
+	@SuppressWarnings("static-access")
 	public void verifySkipLoginEvent(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Skip Login Event");
@@ -409,8 +412,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 //				}
 //			}
 //			System.out.println("Local : "+local.getItem("mp_bd3945ca2b9d542adaad70063481a89d_mixpanel"));
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Element", "Cross");
+			mixpanel.FEProp.setProperty("Page Name", "sign_in");
 			System.out.println(local.getItem("guestToken"));
-			Mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Login", "home");
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Login", "home");
 		}
 	}
 
@@ -3174,18 +3180,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			getWebDriver().switchTo().frame(iframeElement);
 
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
-			type(PWASubscriptionPages.objEnterCardNumber, "5318 3123 4521 9856", "Card Number");
+			type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
 			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
 			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
 			click(PWASubscriptionPages.objEnterCVV, "CVV");
 			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
 			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
 			waitTime(10000);
-			checkElementDisplayed(PWASubscriptionPages.objCancelTransaction, "Cancel Transaction");
-			click(PWASubscriptionPages.objCancelTransaction, "Cancel Transaction");
-
-			acceptAlert();
-			waitTime(10000);
+			click(PWASubscriptionPages.objZeeLink, "Zee link");
+			waitTime(5000);
 		}
 	}
 
@@ -3217,7 +3220,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			getWebDriver().switchTo().frame(iframeElement);
 
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
-			type(PWASubscriptionPages.objEnterCardNumber, "5318 3123 4521 9856", "Card Number");
+			type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
 			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
 			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
 			click(PWASubscriptionPages.objEnterCVV, "CVV");
@@ -3258,7 +3261,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			getWebDriver().switchTo().frame(iframeElement);
 
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
-			type(PWASubscriptionPages.objEnterCardNumber, "5318 3123 4521 9856", "Card Number");
+			type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
 			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
 			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
 			click(PWASubscriptionPages.objEnterCVV, "CVV");
@@ -3967,58 +3970,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 	}
 
-	public void verifyParentalOverlayImpressionEventForFreeContent(String userType, String keyword4) throws Exception {
-		extent.HeaderChildNode("Verify Parental Overlay Impression Event For Free Content");
-		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-		click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
-		checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
-		String password = "";
-		if (userType.equals("NonSubscribedUser")) {
-			password = getParameterFromXML("SettingsNonsubscribedPassword");
-		} else if (userType.equals("SubscribedUser")) {
-			password = getParameterFromXML("SettingsSubscribedPassword");
-		}
-		type(PWALoginPage.objPasswordField, password, "Password field");
-		click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
-		waitTime(2000);
-		checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
-
-		click(PWAHamburgerMenuPage.objRestrictAll, "Restrict All");
-		click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
-		type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
-		waitTime(4000);
-		click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
-		waitTime(3000);
-
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
-		mandatoryRegistrationPopUp(userType);
-		waitForPlayerAdToComplete("Video Player");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
-		waitTime(5000);
-	}
-
-	public void verifyParentalOverlayImpressionEventForPremiumContent(String userType, String keyword1)
-			throws Exception {
-		if (userType.equalsIgnoreCase("SubscribedUser")) {
-			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Premium Content");
-			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
-			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
-			waitTime(5000);
-		}
-	}
-
 	public void verifyParentalOverlayImpressionEventForTrailer(String keyword1) throws Exception {
 		extent.HeaderChildNode("Verify Parental Overlay Impression Event For Trailer Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
@@ -4060,33 +4011,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 	}
 
-	public void verifyParentalOverlayImpressionEventForContentFromMyWatchlistPage(String userType, String keyword)
-			throws Exception {
-		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content From My Watchlist Page");
-			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
-			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
-
-			Actions actions = new Actions(getWebDriver());
-			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
-
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
-
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
-
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
-			waitTime(5000);
-		}
-	}
-
 	public void verifyParentalOverlayImpressionEventForContentInMegamenu() throws Exception {
 		extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content played from Megamenu");
 		waitTime(5000);
@@ -4095,45 +4019,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		actions.moveToElement(contentCard).build().perform();
 
 		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
-		waitTime(5000);
-	}
-
-	public void verifyParentalOverlayImpressionEventForContentInPlaylist(String userType, String keyword)
-			throws Exception {
-		extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content played from Playlist");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
-		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword), "Search Result");
-		mandatoryRegistrationPopUp(userType);
-		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
-		mandatoryRegistrationPopUp(userType);
-		waitTime(2000);
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
-		mandatoryRegistrationPopUp(userType);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
-		waitTime(5000);
-	}
-
-	public void verifyParentalOverlayImpressionEventForContentFromUpnextRail(String userType, String keyword4)
-			throws Exception {
-		extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content played from Upnext rail");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
-		waitForPlayerAdToComplete("Video Player");
-		mandatoryRegistrationPopUp(userType);
-		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		playerScrubTillLastWeb();
-		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		waitTime(6000);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		mandatoryRegistrationPopUp(userType);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
 		waitTime(5000);
@@ -4159,45 +4044,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		getWebDriver().navigate().refresh();
 
 		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
-	}
-
-	public void verifyParentalOverlayResultEventForFreeContent(String userType, String keyword4) throws Exception {
-		extent.HeaderChildNode("Verify Parental Overlay Result Event For Free Content");
-
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
-		mandatoryRegistrationPopUp(userType);
-		waitForPlayerAdToComplete("Video Player");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
-
-		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
-		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
-		waitTime(5000);
-	}
-
-	public void verifyParentalOverlayResultEventForPremiumContent(String userType, String keyword1) throws Exception {
-		if (userType.equalsIgnoreCase("SubscribedUser")) {
-			extent.HeaderChildNode("Verify Parental Overlay Result Event For Premium Content");
-			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
-			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
-			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
-			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
-			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
-			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
-			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
-			waitTime(5000);
-		}
 	}
 
 	public void verifyParentalOverlayResultEventForTrailer(String keyword1) throws Exception {
@@ -4261,6 +4107,1043 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 	}
 
+	public void verifyParentalOverlayResultEventForContentInMegamenu() throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Result Event For Content played from Megamenu");
+		waitTime(5000);
+		Actions actions = new Actions(getWebDriver());
+		WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
+		actions.moveToElement(contentCard).build().perform();
+
+		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+		waitTime(5000);
+	}
+
+	public void verifyParentalOverlayResultEventForContentFromSharedLink(String freeContentURL) throws Exception {
+		extent.HeaderChildNode("Verify Parental Overlay Result Event For content played from Shared Link");
+		getWebDriver().get(freeContentURL);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+		waitTime(5000);
+	}
+	
+	public void verifyAudioLanguageChangeEventForFreeContent(String userType, String audioTrackContent) throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Free Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+		waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
+		click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		waitTime(5000);
+	}
+
+	public void verifyAudioLanguageChangeEventForPremiumContent(String userType, String audioTrackPremiumContent) throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Verify Audio Language Change Event For Premium Content");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, audioTrackPremiumContent + "\n", "Search Edit box: " + audioTrackPremiumContent);
+			waitTime(4000);
+			click(PWASearchPage.objSearchMoviesTab, "Movies Tab");
+			waitForElement(PWASearchPage.objSearchResult2(audioTrackPremiumContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult2(audioTrackPremiumContent), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+			click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyAudioLanguageChangeEventForTrailer(String audioTrackTrailerContent) throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Trailer Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, audioTrackTrailerContent + "\n", "Search Edit box: " + audioTrackTrailerContent);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(audioTrackTrailerContent), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(audioTrackTrailerContent), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		waitTime(5000);
+	}
+
+	public void verifyAudioLanguageChangeEventForCarouselContent() throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Carousel Content");
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		if(checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track")==true) {
+			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+			click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+			waitTime(5000);
+		}else {
+			logger.info("Audio Track is not available for the content");
+			extent.extentLogger("Audio Track", "Audio Track is not available for the content");
+		}
+	}
+
+	public void verifyAudioLanguageChangeEventForContentInTray() throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Content played from Tray");
+		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		if(checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track")==true) {
+			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+			click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+			waitTime(5000);
+		}else {
+			logger.info("Audio Track is not available for the content");
+			extent.extentLogger("Audio Track", "Audio Track is not available for the content");
+		}
+	}
+
+	public void verifyAudioLanguageChangeEventForContentFromSearchPage(String audioTrackSearch) throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Content From Search Page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, audioTrackSearch + "\n", "Search Edit box: " + audioTrackSearch);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(audioTrackSearch), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(audioTrackSearch), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		waitTime(5000);
+	}
+
+	public void verifyAudioLanguageChangeEventForContentFromMyWatchlistPage(String userType, String audioTrackContent) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Audio Language Change Event For Content From My Watchlist Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitTime(4000);
+			mandatoryRegistrationPopUp(userType);
+			verifyElementPresentAndClick(PWAPlayerPage.watchListBtn, "Add to Watchlist icon");
+
+			click(PWALandingPages.objWebProfileIcon, "Profile icon");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+
+			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+			if(checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track")==true) {
+				click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+				click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+				waitTime(5000);
+			}else {
+				logger.info("Audio Track is not available for the content");
+				extent.extentLogger("Audio Track", "Audio Track is not available for the content");
+			}
+			waitTime(5000);
+		}
+	}
+
+	public void verifyAudioLanguageChangeEventForContentInMegamenu() throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Content played from Megamenu");
+		waitTime(5000);
+		Actions actions = new Actions(getWebDriver());
+		WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
+		actions.moveToElement(contentCard).build().perform();
+
+		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		if(checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track")==true) {
+			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+			click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+			waitTime(5000);
+		}else {
+			logger.info("Audio Track is not available for the content");
+			extent.extentLogger("Audio Track", "Audio Track is not available for the content");
+		}
+	}
+
+	public void verifyAudioLanguageChangeEventForContentInPlaylist(String userType, String audioTrackContent) throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Content played from Playlist");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		
+		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		waitTime(5000);
+	}
+
+	public void verifyAudioLanguageChangeEventForContentFromUpnextRail(String userType, String audioTrackContent) throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Content played from Upnext rail");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+		waitForPlayerAdToComplete("Video Player");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		waitTime(5000);
+	}
+
+	public void verifyAudioLanguageChangeEventForContentFromSharedLink(String audioTrackURL) throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For content played from Shared Link");
+		getWebDriver().get(audioTrackURL);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		waitTime(5000);
+	}
+	
+	
+	public void verifyToastMessageImpressionEventInPaymentPage(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Toast Message Impression Event in payment page");
+
+		if (!(userType.equals("SubscribedUser"))) {
+			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
+			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
+			waitTime(2000);
+
+			if (userType.equals("Guest")) {
+				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
+					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
+					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+					// Password Popup
+					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
+					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+				}
+			}
+			waitTime(5000);
+			
+			click(PWASubscriptionPages.objExpandLess, "Gift card option");
+			click(PWASubscriptionPages.objGiftCardNumber, "Gift Card Number");
+			type(PWASubscriptionPages.objGiftCardNumber, "5123456789012346", "Gift Card Number");
+			click(PWASubscriptionPages.objPin, "Pin");
+			type(PWASubscriptionPages.objPin, "12345678", "Pin");
+			click(PWASubscriptionPages.objPay, "Pay Button");
+			waitTime(5000);
+		}
+	}
+	
+	public void verifySubtitleLanguageChangeEventForFreeContent(String userType, String subtitleTrackContent) throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Free Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
+		waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 20, "Search Result");
+		click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.subtitlesBtn, "Subtitle option");
+		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+		waitTime(5000);
+	}
+
+	public void verifySubtitleLanguageChangeEventForPremiumContent(String userType, String subtitleTrackPremiumContent) throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Verify Subtitle Language Change Event For Premium Content");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, subtitleTrackPremiumContent + "\n", "Search Edit box: " + subtitleTrackPremiumContent);
+			waitTime(4000);
+			click(PWASearchPage.objSearchMoviesTab, "Movies Tab");
+			waitForElement(PWASearchPage.objSearchResult2(subtitleTrackPremiumContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult2(subtitleTrackPremiumContent), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+			click(PWAPlayerPage.subtitlesBtn, "Subtitle option");
+			click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+			waitTime(5000);
+		}
+	}
+
+	public void verifySubtitleLanguageChangeEventForTrailer(String keyword5) throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Trailer Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword5 + "\n", "Search Edit box: " + keyword5);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword5), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword5), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.subtitlesBtn, "Subtitle option");
+		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+		waitTime(5000);
+	}
+
+	public void verifySubtitleLanguageChangeEventForCarouselContent() throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Carousel Content");
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		if(checkElementDisplayed(PWAPlayerPage.subtitlesBtn, "Subtitle option")==true) {
+			click(PWAPlayerPage.subtitlesBtn, "Subtitle option");
+			click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+			waitTime(5000);
+		}else {
+			logger.info("Subtitle is not available for the content");
+			extent.extentLogger("Subtitle Track", "Subtitle is not available for the content");
+		}
+	}
+
+	public void verifySubtitleLanguageChangeEventForContentInTray() throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Content played from Tray");
+		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		if(checkElementDisplayed(PWAPlayerPage.subtitlesBtn, "Subtitle option")==true) {
+			click(PWAPlayerPage.subtitlesBtn, "Subtitle option");
+			click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+			waitTime(5000);
+		}else {
+			logger.info("Subtitle is not available for the content");
+			extent.extentLogger("Subtitle Track", "Subtitle is not available for the content");
+		}
+	}
+
+	public void verifySubtitleLanguageChangeEventForContentFromSearchPage(String subtitleTrackContent) throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Content From Search Page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.subtitlesBtn, "Subtitle option");
+		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+		waitTime(5000);
+	}
+
+	public void verifySubtitleLanguageChangeEventForContentFromMyWatchlistPage(String userType, String subtitleTrackContent) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Subtitle Language Change Event For Content From My Watchlist Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitTime(4000);
+			mandatoryRegistrationPopUp(userType);
+			verifyElementPresentAndClick(PWAPlayerPage.watchListBtn, "Add to Watchlist icon");
+
+			click(PWALandingPages.objWebProfileIcon, "Profile icon");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+
+			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+			if(checkElementDisplayed(PWAPlayerPage.subtitlesBtn, "Subtitle option")==true) {
+				click(PWAPlayerPage.subtitlesBtn, "Subtitle option");
+				click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+				waitTime(5000);
+			}else {
+				logger.info("Subtitle is not available for the content");
+				extent.extentLogger("Subtitle Track", "Subtitle is not available for the content");
+			}
+			waitTime(5000);
+		}
+	}
+
+	public void verifySubtitleLanguageChangeEventForContentInMegamenu() throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Content played from Megamenu");
+		waitTime(5000);
+		Actions actions = new Actions(getWebDriver());
+		WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
+		actions.moveToElement(contentCard).build().perform();
+
+		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		if(checkElementDisplayed(PWAPlayerPage.subtitlesBtn, "Subtitle option")==true) {
+			click(PWAPlayerPage.subtitlesBtn, "Subtitle option");
+			click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+			waitTime(5000);
+		}else {
+			logger.info("Subtitle is not available for the content");
+			extent.extentLogger("Subtitle Track", "Subtitle is not available for the content");
+		}
+	}
+
+	public void verifySubtitleLanguageChangeEventForContentInPlaylist(String userType, String subtitleTrackContent) throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Content played from Playlist");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		
+		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.subtitlesBtn, "Subtitle option");
+		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+		waitTime(5000);
+	}
+
+	public void verifySubtitleLanguageChangeEventForContentFromUpnextRail(String userType, String subtitleTrackContent) throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Content played from Upnext rail");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+		waitForPlayerAdToComplete("Video Player");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.subtitlesBtn, "Subtitle option");
+		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+		waitTime(5000);
+	}
+
+	public void verifySubtitleLanguageChangeEventForContentFromSharedLink(String subtitleTrackURL) throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For content played from Shared Link");
+		getWebDriver().get(subtitleTrackURL);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.subtitlesBtn, "Subtitle option");
+		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+		waitTime(5000);
+	}
+	
+	public void verifySkipIntroEventForFreeContent(String userType, String freeMovie2) throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For Free Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
+		waitForElement(PWASearchPage.objSearchResult(freeMovie2), 20, "Search Result");
+		click(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+		waitTime(5000);
+	}
+
+	public void verifySkipIntroEventForPremiumContent(String userType, String skipIntroPremium) throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Verify Skip Intro Event For Premium Content");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, skipIntroPremium + "\n", "Search Edit box: " + skipIntroPremium);
+			waitTime(4000);
+			click(PWASearchPage.objSearchMoviesTab, "Movies Tab");
+			waitForElement(PWASearchPage.objSearchResult2(skipIntroPremium), 10, "Search Result");
+			click(PWASearchPage.objSearchResult2(skipIntroPremium), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+			waitTime(5000);
+		}
+	}
+
+	public void verifySkipIntroEventForTrailer(String keyword5) throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For Trailer Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword5 + "\n", "Search Edit box: " + keyword5);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword5), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword5), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		if(checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button")==true) {
+			click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+			waitTime(5000);
+		}else {
+			logger.info("Skip Intro is not available for the content");
+			extent.extentLogger("Skip Intro", "Skip Intro is not available for the content");
+		}
+	}
+
+	public void verifySkipIntroEventForCarouselContent() throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For Carousel Content");
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		if(checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button")==true) {
+			click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+			waitTime(5000);
+		}else {
+			logger.info("Skip Intro is not available for the content");
+			extent.extentLogger("Skip Intro", "Skip Intro is not available for the content");
+		}
+	}
+
+	public void verifySkipIntroEventForContentInTray() throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For Content played from Tray");
+		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		if(checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button")==true) {
+			click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+			waitTime(5000);
+		}else {
+			logger.info("Skip Intro is not available for the content");
+			extent.extentLogger("Skip Intro", "Skip Intro is not available for the content");
+		}
+	}
+
+	public void verifySkipIntroEventForContentFromSearchPage(String freeMovie2) throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For Content From Search Page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(freeMovie2), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+		waitTime(5000);
+	}
+
+	public void verifySkipIntroEventForContentFromMyWatchlistPage(String userType, String freeMovie2) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Skip Intro Event For Content From My Watchlist Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(freeMovie2), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
+			waitTime(4000);
+			mandatoryRegistrationPopUp(userType);
+			verifyElementPresentAndClick(PWAPlayerPage.watchListBtn, "Add to Watchlist icon");
+
+			click(PWALandingPages.objWebProfileIcon, "Profile icon");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+
+			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			if(checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button")==true) {
+				click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+				waitTime(5000);
+			}else {
+				logger.info("Skip Intro is not available for the content");
+				extent.extentLogger("Skip Intro", "Skip Intro is not available for the content");
+			}
+			waitTime(5000);
+		}
+	}
+
+	public void verifySkipIntroEventForContentInMegamenu() throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For Content played from Megamenu");
+		waitTime(5000);
+		Actions actions = new Actions(getWebDriver());
+		WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
+		actions.moveToElement(contentCard).build().perform();
+
+		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		if(checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button")==true) {
+			click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+			waitTime(5000);
+		}else {
+			logger.info("Skip Intro is not available for the content");
+			extent.extentLogger("Skip Intro", "Skip Intro is not available for the content");
+		}
+	}
+
+	public void verifySkipIntroEventForContentInPlaylist(String userType, String freeMovie2) throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For Content played from Playlist");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		
+		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		if(checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button")==true) {
+			click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+			waitTime(5000);
+		}else {
+			logger.info("Skip Intro is not available for the content");
+			extent.extentLogger("Skip Intro", "Skip Intro is not available for the content");
+		}
+		waitTime(5000);
+	}
+
+	public void verifySkipIntroEventForContentFromUpnextRail(String userType, String freeMovie2) throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For Content played from Upnext rail");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
+		waitForPlayerAdToComplete("Video Player");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		if(checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button")==true) {
+			click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+			waitTime(5000);
+		}else {
+			logger.info("Skip Intro is not available for the content");
+			extent.extentLogger("Skip Intro", "Skip Intro is not available for the content");
+		}
+		waitTime(5000);
+	}
+
+	public void verifySkipIntroEventForContentFromSharedLink(String skipIntroURL) throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For content played from Shared Link");
+		getWebDriver().get(skipIntroURL);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+		waitTime(5000);
+	}
+
+	public void verifySubscriptionPageViewedEventByClickingGetPremiumCTAOnCarousel() throws Exception {
+		extent.HeaderChildNode("Verify Subscription Page Viewed Event By Clicking on Get Premium CTA On Carousel");
+		
+		navigateToAnyScreenOnWeb("Premium");
+		JSClick(PWAPremiumPage.objGetPremiumCTAOnCarousel, "Get Premium CTA on carousel");
+		waitTime(5000);
+	}	
+//	------------------------------------------------------------------------------------------------------
+	public void verifyParentalOverlayImpressionEventForFreeContent(String userType, String keyword4) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Free Content");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			String password = "";
+			if (userType.equals("NonSubscribedUser")) {
+				password = getParameterFromXML("SettingsNonsubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = getParameterFromXML("SettingsSubscribedPassword");
+			}
+			type(PWALoginPage.objPasswordField, password, "Password field");
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+	
+			click(PWAHamburgerMenuPage.objRestrictAll, "Restrict All");
+			click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
+			waitTime(4000);
+			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+			waitTime(3000);
+	
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+			waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForPremiumContent(String userType, String keyword1)
+			throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Premium Content");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForTrailer(String keyword1,String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Trailer Content");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForCarouselContent(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Carousel Content");
+			waitTime(5000);
+			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentInTray(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content played from Tray");
+			click(PWAPremiumPage.objThumbnail, "Content From a tray");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentFromSearchPage(String keyword1,String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression For Content From Search Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentFromMyWatchlistPage(String userType, String keyword)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content From My Watchlist Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+
+			Actions actions = new Actions(getWebDriver());
+			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
+			actions.moveToElement(contentCard).build().perform();
+
+			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+
+			click(PWALandingPages.objWebProfileIcon, "Profile icon");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+
+			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentInMegamenu(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content played from Megamenu");
+			waitTime(5000);
+			Actions actions = new Actions(getWebDriver());
+			WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
+			actions.moveToElement(contentCard).build().perform();
+	
+			click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentInPlaylist(String userType, String keyword)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content played from Playlist");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword), "Search Result");
+			mandatoryRegistrationPopUp(userType);
+			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
+			mandatoryRegistrationPopUp(userType);
+			waitTime(2000);
+			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentFromUpnextRail(String userType, String keyword4)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content played from Upnext rail");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+			waitTime(4000);
+			verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+			waitForPlayerAdToComplete("Video Player");
+			mandatoryRegistrationPopUp(userType);
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			playerScrubTillLastWeb();
+			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+			waitTime(6000);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentFromSharedLink(String freeContentURL,String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For content played from Shared Link");
+			getWebDriver().get(freeContentURL);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventAfterPageRefresh(String keyword1,String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event after refreshing the page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(5000);
+			getWebDriver().navigate().refresh();
+	
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForFreeContent(String userType, String keyword4) throws Exception {
+		
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Free Content");
+
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+			waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+	
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForPremiumContent(String userType, String keyword1) throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Premium Content");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForTrailer(String keyword1,String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Trailer Content");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForCarouselContent(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Carousel Content");
+			waitTime(5000);
+			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForContentInTray(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Content played from Tray");
+			click(PWAPremiumPage.objThumbnail, "Content From a tray");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForContentFromSearchPage(String keyword1,String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result For Content From Search Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+		}
+	}
+
 	public void verifyParentalOverlayResultEventForContentFromMyWatchlistPage(String userType, String keyword)
 			throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
@@ -4293,82 +5176,203 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyParentalOverlayResultEventForContentInMegamenu() throws Exception {
-		extent.HeaderChildNode("Verify Parental Overlay Result Event For Content played from Megamenu");
-		waitTime(5000);
-		Actions actions = new Actions(getWebDriver());
-		WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-		actions.moveToElement(contentCard).build().perform();
-
-		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
-		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
-		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
-		waitTime(5000);
+	public void verifyParentalOverlayResultEventForContentInMegamenu(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Content played from Megamenu");
+			waitTime(5000);
+			Actions actions = new Actions(getWebDriver());
+			WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
+			actions.moveToElement(contentCard).build().perform();
+	
+			click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+		}
 	}
 
 	public void verifyParentalOverlayResultEventForContentInPlaylist(String userType, String keyword) throws Exception {
-		extent.HeaderChildNode("Verify Parental Overlay Result Event For Content played from Playlist");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
-		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword), "Search Result");
-		mandatoryRegistrationPopUp(userType);
-		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
-		mandatoryRegistrationPopUp(userType);
-		waitTime(2000);
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
-		mandatoryRegistrationPopUp(userType);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
-		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
-		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
-		waitTime(5000);
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Content played from Playlist");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword), "Search Result");
+			mandatoryRegistrationPopUp(userType);
+			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
+			mandatoryRegistrationPopUp(userType);
+			waitTime(2000);
+			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+		}
 	}
 
 	public void verifyParentalOverlayResultEventForContentFromUpnextRail(String userType, String keyword4)
 			throws Exception {
-		extent.HeaderChildNode("Verify Parental Overlay Result Event For Content played from Upnext rail");
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Content played from Upnext rail");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+			waitTime(4000);
+			verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+			waitForPlayerAdToComplete("Video Player");
+			mandatoryRegistrationPopUp(userType);
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			playerScrubTillLastWeb();
+			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+			waitTime(6000);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForContentFromSharedLink(String freeContentURL,String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For content played from Shared Link");
+			getWebDriver().get(freeContentURL);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+		}
+	}
+	
+	public void verifyToastMessageImpressionEventAfterUpdatingProfile(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Toast Message Impression event when user updates the profile details");
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			click(PWAHamburgerMenuPage.objProfileIconWEB, "Profile Icon");
+			click(PWAHamburgerMenuPage.objProfileIconInProfilePage, "Profile");
+			click(PWAHamburgerMenuPage.objProfileEditBtn, "Edit button");
+			click(PWAHamburgerMenuPage.objEditProfileTextWEB, "Edit profile page");
+			click(PWAHamburgerMenuPage.objEditProfileFirstName, "First name column");
+			clearField(PWAHamburgerMenuPage.objEditProfileFirstName, "Email field");
+			type(PWAHamburgerMenuPage.objEditProfileFirstName, "Zee5", "Editprofile first name");
+			
+			click(PWAHamburgerMenuPage.objEditProfileSavechangesBtn, "Save Changes Button");
+			waitTime(2000);
+		}
+	}
+	
+	public void verifyToastMessageImpressionEventAfterChangingPassword(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+
+			extent.HeaderChildNode("Verify Toast Message Impression event when user changes the password");
+			click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+			click(PWAHamburgerMenuPage.objProfileIconInProfilePage, "profile icon");
+			click(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
+			click(PWAHamburgerMenuPage.objChangeOldPassword, "password field");
+			type(PWAHamburgerMenuPage.objChangeOldPassword, "igsindia123", "Current password field");
+			click(PWAHamburgerMenuPage.objNewPassword, "new password field");
+			type(PWAHamburgerMenuPage.objNewPassword, "igszee5", "new password field");
+			click(PWAHamburgerMenuPage.objNewPassword, "confirm password field");
+			type(PWAHamburgerMenuPage.objConfirmNewPassword, "igszee5", "Current confirm field");
+			waitTime(3000);
+			click(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted, "Update password button");
+			waitTime(2000);
+
+			click(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
+			click(PWAHamburgerMenuPage.objChangeOldPassword, "password field");
+			type(PWAHamburgerMenuPage.objChangeOldPassword, "igszee5", "Current password field");
+			click(PWAHamburgerMenuPage.objNewPassword, "new password field");
+			type(PWAHamburgerMenuPage.objNewPassword, "igsindia123", "new password field");
+			click(PWAHamburgerMenuPage.objNewPassword, "confirm password field");
+			type(PWAHamburgerMenuPage.objConfirmNewPassword, "igsindia123", "Current confirm field");
+			waitTime(3000);
+			click(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted, "Update password button");
+			waitTime(2000);
+		}
+	}
+
+	
+
+	public void webScrollToElement(By Locator, String validationText) throws Exception {
+		for (int i = 1; i <= 10; i++) {
+			if (checkElementDisplayed(Locator, validationText)) {
+				break;
+			}
+			waitTime(2000);
+			scrollDownWEB();
+		}
+	}
+	
+	public void verifyRecommendedRailImpressionEventByScrollingPage(String tabname,String trayTitle) throws Exception {
+		extent.HeaderChildNode("Verify Recommended Rail Impression event when user is able to see the recommended tray by scrolling down the page");
+		
+		navigateToAnyScreenOnWeb(tabname);
+		WebElement element = getWebDriver().findElement(PWAShowsPage.objTrayTitle1(trayTitle));
+		((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+		checkElementDisplayed(PWAHomePage.objRecoTray, "Recommended Rail");
+		waitTime(5000);
+	}
+	
+	
+	public void verifyRecommendedRailImpressionEventInShowDetailPage(String keyword,String trayTitle) throws Exception {
+		extent.HeaderChildNode("Verify Recommended Rail Impression Event In Show Detail Page");
+
 		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+		waitForElement(PWASearchPage.objSearchResult(keyword), 20, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword), "Search Result");
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
-		waitForPlayerAdToComplete("Video Player");
-		mandatoryRegistrationPopUp(userType);
-		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		playerScrubTillLastWeb();
-		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		waitTime(6000);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		mandatoryRegistrationPopUp(userType);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
-		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
-		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+		WebElement element = getWebDriver().findElement(PWAShowsPage.objTrayTitle1(trayTitle));
+		((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+		checkElementDisplayed(PWAHomePage.objRecoTray, "Recommended Rail");
 		waitTime(5000);
 	}
 
-	public void verifyParentalOverlayResultEventForContentFromSharedLink(String freeContentURL) throws Exception {
-		extent.HeaderChildNode("Verify Parental Overlay Result Event For content played from Shared Link");
-		getWebDriver().get(freeContentURL);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
-		click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
-		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
-		type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+	public void verifyRecommendedRailImpressionEventInConsumptionScreen(String keyword1,String trayTitle) throws Exception {
+		extent.HeaderChildNode("Verify Recommended Rail Impression Event In Consumption Screen");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitTime(4000);
+		WebElement element = getWebDriver().findElement(PWAShowsPage.objTrayTitle1(trayTitle));
+		((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+		checkElementDisplayed(PWAHomePage.objRecoTray, "Recommended Rail");
 		waitTime(5000);
+		
 	}
+	
+	public void verifyToastMessageImpressionEventInPackSelectionPage(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Toast Message Impression event in pack selection page");
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			click(PWAHamburgerMenuPage.objProfileIconWEB, "Profile Icon");
+			click(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Subscription"), "My Subscription");
+			click(PWAHamburgerMenuPage.objBrowseAllPacks, "Browse All Packs");
+			waitTime(2000);
+			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
+			waitTime(2000);
+		}
+	}
+
+
+	
 }

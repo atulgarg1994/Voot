@@ -47,6 +47,7 @@ public class DriverInstance extends Drivertools {
 			case "TV":
 				tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),
 						this.generateAndroidCapabilities(Application)));
+				break;
 
 			default:
 				throw new SkipException("Incorrect Platform...");

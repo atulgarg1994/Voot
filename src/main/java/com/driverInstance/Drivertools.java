@@ -39,6 +39,7 @@ public class Drivertools {
 	private static String runMode = "null";
 	private static String driverVersion = "";
 	public static boolean click = true;
+	public static String methodName = "";
 
 	public String getTestName() {
 		return testName;
@@ -248,6 +249,8 @@ public class Drivertools {
 		
 		if(getTestName().equals("Android_UserSessionManagement")) {
 			setPlatfrom(Utilities.setPlatform);
+		}else if(methodName.equals("Login")) {
+			setPlatfrom("Web");
 		}
 
 		try {

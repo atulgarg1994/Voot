@@ -306,5 +306,14 @@ public class PWASubscriptionPages {
 	public static By objEnterCVV = By.xpath("(//input[@placeholder='CVV'])");
 
 	public static By objCancelTransaction = By.xpath("//*[@class='Btn cancel']");
+	
+	public static By objExpandLess = By.xpath("//*[@class='iconNavi-ic_expand_less']");
 
+	public static By objGiftCardNumber = By.xpath("//*[@name='giftCardNumber']");
+
+	public static By objPin = By.xpath("//*[@name='pinNumber']");
+
+	public static By objPay = By.xpath("//span[contains(text(),'PAY')]");
+	
+	public static By objZeeLink = By.xpath("(//a[contains(text(),'www.zee5.com')])[1]");
 }

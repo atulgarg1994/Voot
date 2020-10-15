@@ -83,7 +83,14 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("keyword4", "Paaru gets tipsy");
 			params.put("keyword5", "Bhinna");
 			params.put("keyword6", "Popcorn Monkey Tiger (A)");
-
+			params.put("audioTrackPremiumContent", "No Entry");
+			params.put("subtitleTrackContent", "Episode 01 - Ganga Enters Widowhood");
+			params.put("audioTrackTrailerContent", "Trailer - No Entry");
+			params.put("audioTrackURL", "https://newpwa.zee5.com/tv-shows/agent-raghav-crime-branch/0-6-965/episode-13-agent-raghav/0-1-agentragh_1895058002-agentragh_1804723548-episode_779139720");
+			params.put("subtitleTrackURL", "https://newpwa.zee5.com/tv-shows/gangaa/0-6-972/episode-01-ganga-enters-widowhood/0-1-136585");
+			params.put("subtitleTrackPremiumContent", "Welcome Back");
+			params.put("skipIntroPremium", "The Rum Diary");
+			params.put("skipIntroURL", "https://newpwa.zee5.com/kids/kids-movies/bablu-dablu-robo-rumble/0-0-54219");
 		}
 		if(region.equals("MH")) {
 			params.put("searchModuleSearchKey", "Kundali Bhagya");
@@ -129,6 +136,14 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("keyword4", "Paaru gets tipsy");
 			params.put("keyword5", "Bhinna");
 			params.put("keyword6", "Popcorn Monkey Tiger (A)");
+			params.put("audioTrackPremiumContent", "No Entry");
+			params.put("subtitleTrackContent", "Episode 01 - Ganga Enters Widowhood");
+			params.put("audioTrackTrailerContent", "Trailer - No Entry");
+			params.put("audioTrackURL", "https://newpwa.zee5.com/tv-shows/agent-raghav-crime-branch/0-6-965/episode-13-agent-raghav/0-1-agentragh_1895058002-agentragh_1804723548-episode_779139720");
+			params.put("subtitleTrackURL", "https://newpwa.zee5.com/tv-shows/gangaa/0-6-972/episode-01-ganga-enters-widowhood/0-1-136585");
+			params.put("subtitleTrackPremiumContent", "Welcome Back");
+			params.put("skipIntroPremium", "The Rum Diary");
+			params.put("skipIntroURL", "https://newpwa.zee5.com/kids/kids-movies/bablu-dablu-robo-rumble/0-0-54219");
 		}
         suite.setParameters(params);	
 	}

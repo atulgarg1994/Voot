@@ -291,7 +291,8 @@ public class PWAPlayerPage {
 	public static By objfasterPopUp = By.xpath("//div[@class='adoric_element element-text selected editing']");
 
 	// Consumptions page show title
-	public static By objConsumptionsShowTitle = By.xpath("(//div[@class='metaInfo']//a[contains(@href,'tv-shows/') or contains(@href,'zee5originals/')])[1]");
+	public static By objConsumptionsShowTitle = By
+			.xpath("(//div[@class='metaInfo']//a[contains(@href,'tv-shows/') or contains(@href,'zee5originals/')])[1]");
 
 	// Show details page show title
 	public static By objContentShowTitle = By
@@ -366,17 +367,27 @@ public class PWAPlayerPage {
 
 	public static By objWatchingATrailerMessage = By
 			.xpath("//div[@class='trailerInfoContainer' and contains(text(),'watching a trailer')]");
-	
-	public static By objSkipAdButton = By.xpath("//*[@text='Skip Ad']");
-	
-	public static By objPlayButtonOfPausedPlayer = By.xpath("//button[@class='playkit-control-button']//*[@class='playkit-icon playkit-icon-play']");
 
-	public static By megaMenuContentCard = By.xpath("(((((//div[@class='navMenuWrapper ']//li//a[contains(text(),'Music')]//parent::*)//div[@class='megaMenu megaMenuCards cardTypetvshows'])//ul//li[1])[1]//ul//li)[1]//div)//a");
-	
+	public static By objSkipAdButton = By.xpath("//*[@text='Skip Ad']");
+
+	public static By objPlayButtonOfPausedPlayer = By
+			.xpath("//button[@class='playkit-control-button']//*[@class='playkit-icon playkit-icon-play']");
+
+	public static By megaMenuContentCard = By.xpath(
+			"(((((//div[@class='navMenuWrapper ']//li//a[contains(text(),'Music')]//parent::*)//div[@class='megaMenu megaMenuCards cardTypetvshows'])//ul//li[1])[1]//ul//li)[1]//div)//a");
+
 	// Player settings
 	public static By objPlayerSettings = By.xpath("//*[contains(@class,'playkit-icon playkit-icon-settings')]");
-	
+
 	public static By objPlayerProgressBar = By.xpath("(//div[@class='playkit-progress-bar'])");
-	
+
 	public static By objParentalLockOnPlayer = By.xpath("//*[@class='parentLock']");
+
+	public static By objRecoTray = By.xpath("//*[@class='trayHeader']//*[contains(text(),'Trending')]");
+
+	public static By objHindiAudioTrack = By
+			.xpath("//*[contains(@class,'subMenuWrapper')]//*[contains(text(),'Hindi')]");
+
+	public static By objEnglishSubtitle = By
+			.xpath("//*[contains(@class,'subMenuWrapper')]//*[contains(text(),'English')]");
 }

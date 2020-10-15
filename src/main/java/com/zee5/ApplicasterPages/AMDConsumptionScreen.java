@@ -89,4 +89,13 @@ public class AMDConsumptionScreen {
 	public static By objArrow = By.xpath("(//*[@id='header_primary_text']//following::*[@id='header_arrow'])[1]");
 	public static By objFirstTray = By.xpath("(//*[@id='recyclerView'])[2]");
 	public static By objContentNameInTray1 = By.xpath("(//*[@id='item_primary_text'])[2]");
+	
+	//Mandatory pop ups
+//	public static By objRegisterPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/tvtitle']");
+	public static By objRegisterTxtOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/player_error_message']");
+	public static By objRegisterBtnOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/btnAction']");
+	public static By objFirstUpNextContent = By.xpath("(//*[@id='horizontal_list_10_parent'])[1]");
+	public static By objBeforeTVContentName = By.xpath("(//*[@id='item_primary_text'])[7]");
+	
+	public static By objLoginBtnOnPopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/tvLogin']");
 }

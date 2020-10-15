@@ -22,6 +22,8 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import com.aventstack.extentreports.Status;
 import com.extent.ExtentReporter;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -56,6 +58,7 @@ public class Mixpanel extends ExtentReporter {
 	static String source = "";
 	protected static Response resp = null;
 	public static String DOB;
+	public static Properties FEProp = new Properties();
 	private static Properties prop;
 	private static String value;
 	private static String key;
@@ -113,18 +116,17 @@ public class Mixpanel extends ExtentReporter {
 		String currentDate = dtf.format(now);
 //		String distinct_id = "SM-M315F"; 
 
-		String distinct_id = "0ce6b595-cd83-4b9c-92f6-30aaa69c13c4";
-		Response request = RestAssured.given().auth().preemptive().basic("58baafb02e6e8ce03d9e8adb9d3534a6", "")
+		String distinct_id = "71046f70-7486-4238-9d9f-0dd6a67ede97";
+		Response request = RestAssured.given().auth().preemptive().basic("b2514b42878a7e7769945befa7857ef1", "")
 				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
 				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
-				.formParam("to_date", currentDate).formParam("event", "[ \"Pause\"]")
+				.formParam("to_date", currentDate).formParam("event", "[ \"Login Password Entered\"]")
 				.formParam("where", "properties[\"$distinct_id\"]==\"" + distinct_id + "\"")
-//				.post("https://data.mixpanel.com/api/2.0/export/");
-				.post("https://mixpanel.com/api/2.0/segmentation/");
+				.post("https://data.mixpanel.com/api/2.0/export/");
+//				.post("https://mixpanel.com/api/2.0/segmentation/");
 		request.print();
 	}
 
-//	:SM-M315F
 	/**
 	 * Function to fetch logs from mixpanel dash board using rest assured API
 	 * 
@@ -137,7 +139,7 @@ public class Mixpanel extends ExtentReporter {
 	public static void fetchEvent(String distinct_id, String eventName)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
-			Thread.sleep(120000);
+			Thread.sleep(180000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -230,6 +232,7 @@ public class Mixpanel extends ExtentReporter {
 	public static void validation() {
 		int NumberOfRows = getRowCount();
 		System.out.println(NumberOfRows);
+		extent.HeaderChildNode("Parameter Validation");
 		for (rownumber = 1; rownumber < NumberOfRows; rownumber++) {
 			try {
 				XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
@@ -238,7 +241,7 @@ public class Mixpanel extends ExtentReporter {
 				key = myExcelSheet.getRow(rownumber).getCell(0).toString();
 				if (value.trim().isEmpty()) {
 					System.out.println("Paramter is empty :- Key:" + key + " - value" + value);
-					extent.extentLoggerFail("Empty parameter", "Paramter is empty :- Key:" + key + " - value" + value);
+					extentReportFail("Empty parameter", "Paramter is empty :- <b>Key : " + key + " - value : " + value+"</b>");
 					fillCellColor();
 				} else {
 					if (isContain(booleanParameters, key)) {
@@ -247,6 +250,7 @@ public class Mixpanel extends ExtentReporter {
 						validateInteger(value);
 					}
 					validateParameter(key, value);
+					extentReportInfo("Empty parameter", "Paramter :- <b>Key : " + key + " - value : " + value+"</b>");
 				}
 			} catch (Exception e) {
 				System.out.println(e);
@@ -255,13 +259,27 @@ public class Mixpanel extends ExtentReporter {
 	}
 
 	public static void validateParameter(String key, String value) {
-		if (key.equals("User Type")) {
-			if (!value.equalsIgnoreCase(userType)) {
+//		if (key.equals("User Type")) {
+//			if (!value.equalsIgnoreCase(userType)) {
+//				fillCellColor();
+//				extent.extentLoggerPass("Empty parameter", "Paramter :- Key:" + key + " - value" + value);
+//			}
+//		} else if (key.equals("Source")) {
+//			if (!value.equalsIgnoreCase(source)) {
+//				fillCellColor();
+//				extent.extentLoggerPass("Empty parameter", "Paramter :- Key:" + key + " - value" + value);
+//			}
+//		}
+		String propValue = null;
+		try {
+		propValue = FEProp.getProperty(key);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		if (propValue != null) {
+			if (!propValue.equals(value)) {
 				fillCellColor();
-			}
-		} else if (key.equals("Source")) {
-			if (!value.equalsIgnoreCase(source)) {
-				fillCellColor();
+				extentReportFail("Empty parameter", "Value mismatch :- <b>Key : " + key + " - value : " + value+"</b>");
 			}
 		}
 	}
@@ -284,6 +302,40 @@ public class Mixpanel extends ExtentReporter {
 		return rc;
 	}
 
+	private static void validateInteger(String value) {
+		Pattern p = Pattern.compile("[0-9]+");
+		Matcher m = p.matcher(value);
+		if ((!m.matches()) || value.equals("N/A")) {
+			fillCellColor();
+			extentReportFail("Empty parameter", "Value is not a Integer Data-Type :- <b>Key : " + key + " - value : " + value+"</b>");
+		}
+	}
+
+	private static boolean isContain(String source, String subItem) {
+		String pattern = "\\b" + subItem + "\\b";
+		Pattern p = Pattern.compile(pattern);
+		Matcher m = p.matcher(source);
+		return m.find();
+	}
+
+	private static void validateBoolean(String value) {
+		if (!value.equals("true") || value.equals("false") || value.equals("N/A")) {
+			fillCellColor();
+			extentReportFail("Empty parameter", "Value is not a boolean Data-Type :- <b>Key : " + key + " - value : " + value+"</b>");
+		}
+	}
+
+	private static void getUserData() {
+		prop = ResponseInstance.getUserData();
+		getDOB(prop);
+	}
+
+	private static void getDOB(Properties prop) {
+		LocalDate dob = LocalDate.parse(prop.getProperty("birthday").replace("T00:00:00Z", ""));
+		LocalDate curDate = LocalDate.now();
+		DOB = String.valueOf(Period.between(dob, curDate).getYears());
+	}
+
 	public static void fillCellColor() {
 		try {
 			XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
@@ -304,36 +356,11 @@ public class Mixpanel extends ExtentReporter {
 		}
 	}
 
-	private static void validateInteger(String value) {
-		Pattern p = Pattern.compile("[0-9]+");
-		Matcher m = p.matcher(value);
-		if (!m.matches()) {
-			fillCellColor();
-		}
+	public static void extentReportFail(String info,String details) {
+		extent.childTest.get().log(Status.FAIL, details);
 	}
-
-	private static boolean isContain(String source, String subItem) {
-		String pattern = "\\b" + subItem + "\\b";
-		Pattern p = Pattern.compile(pattern);
-		Matcher m = p.matcher(source);
-		return m.find();
+	
+	public static void extentReportInfo(String info,String details) {
+		extent.childTest.get().log(Status.INFO, details);
 	}
-
-	private static void validateBoolean(String value) {
-		if (!value.equals("true") || value.equals("false")) {
-			fillCellColor();
-		}
-	}
-
-	private static void getUserData() {
-		prop = ResponseInstance.getUserData();
-		getDOB(prop);
-	}
-
-	private static void getDOB(Properties prop) {
-		LocalDate dob = LocalDate.parse(prop.getProperty("birthday").replace("T00:00:00Z", ""));
-		LocalDate curDate = LocalDate.now();
-		DOB = String.valueOf(Period.between(dob, curDate).getYears());
-	}
-
 }

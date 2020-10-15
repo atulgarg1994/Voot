@@ -103,6 +103,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	GmailInbox gmail = new GmailInbox();
+	
+	String SVODEpisode = getParameterFromXML("SVODEpisode");
 
 	public void init() {
 
@@ -9452,6 +9454,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		click(AMDMoreMenu.objDownloadInvoice1, "Download invoice");
 		Back(3);
+		verifyElementPresentAndClick(AMDSearchScreen.objHomeOption, "Bottom bar Home Option");
 
 		ZNALogoutMethod();
 		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
@@ -12764,12 +12767,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void waitForAdToFinishInAmd() {
 		waitTime(20000);
-		if (verifyIsElementDisplayed(AMDPlayerScreen.objAd)) {
+		if (verifyIsElementDisplayed(AMDPlayerScreen.objAd2)) {
 			logger.info("Ad is playing");
 			extentLogger("Ad", "Ad is playing");
-
-			verifyElementNotPresent(AMDPlayerScreen.objAd, 200);
-
+			verifyElementNotPresent(AMDPlayerScreen.objAd2, 200);
 			logger.info("Ad is completed");
 			extentLogger("Ad", "Ad is completed");
 		} else {
@@ -13841,18 +13842,33 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verifying SVOD contents on Consumption screen for tab \"" + tabName
 				+ "\" and Playing the content : " + contentName);
 		waitTime(5000);
-		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
-		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, contentName + "\n", "Search bar");
-		hideKeyboard();
-		if (tabName.equals("Music")) {
-			click(AMDSearchScreen.objSecondSearchResult(contentName), "Search result");
-		} else if (tabName.equals("Episode")) {
-			click(AMDSearchScreen.objEpisodeSearch, "Search result");
-		} else {
-			click(AMDSearchScreen.objFirstSearchResult(contentName), "Search result");
-		}
-
+		
+			String cotentName1 = "";
+			if(tabName.equals("Episode")) {
+				if(userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
+					cotentName1 = SVODConsumptionScreenForEpisode(userType);
+					contentName = cotentName1 ;
+				}else {
+					verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+					verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+					type(AMDSearchScreen.objSearchBoxBar, contentName + "\n", "Search bar");
+					hideKeyboard();
+					click(AMDSearchScreen.objEpisodeSearch, "Search result");
+				}
+			}else {
+				verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+				verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+				type(AMDSearchScreen.objSearchBoxBar, contentName + "\n", "Search bar");
+				hideKeyboard();
+			}
+			if (tabName.equals("Music")) {
+				click(AMDSearchScreen.objSecondSearchResult(contentName), "Search result");
+			} else {
+				click(AMDSearchScreen.objFirstSearchResult(contentName), "Search result");
+			}
+			
+			
+		
 		if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
 			if (tabName.equals("Episode") | tabName.equals("Movies")) {
 				click(AMDPlayerScreen.objPauseIcon, "Pause icon");
@@ -13864,7 +13880,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			String contentNameInConsumptionScreen = getText(AMDConsumptionScreen.objContentName);
 			extent.extentLogger("Verify content name", "Content name is available in consumption screen");
 			logger.info("Content name is available in consumption screen");
-			if (tabName.equals("Shows") | tabName.equals("Episode")) {
+			if (tabName.equals("Shows")) {
 				extent.extentLogger("Verify navigation",
 						"User is playing SVOD content \"" + contentName + "\" for tab \"" + tabName + "\"");
 				logger.info("User is playing SVOD content \"" + contentName + "\" for tab \"" + tabName + "\"");
@@ -13916,6 +13932,40 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					logger.info("Failed to navigate into respective consumption screen for  SVOD content '"
 							+ contentName + "' for tab " + tabName);
 				}
+			}else if (tabName.equals("Episode")) {
+				extent.extentLogger("Verify navigation",
+						"User is playing SVOD content \"" + contentName + "\" for tab \"" + tabName + "\"");
+				logger.info("User is playing SVOD content \"" + contentName + "\" for tab \"" + tabName + "\"");
+				if(userType.equals("SubscribedUser")) {
+					if (contentName.equals(contentNameInConsumptionScreen)) {
+						extent.extentLoggerPass("Verify Content name",
+							"User is navigated to respective consumption screen for  SVOD content '" + contentName
+									+ "' for tab " + tabName);
+						logger.info("User is navigated to respective consumption screen for  SVOD content " + contentName
+							+ " for tab " + tabName);
+					} else {
+						extent.extentLoggerFail("Verify content name",
+							"Failed to navigate into respective consumtption screen for  SVOD content '" + contentName
+									+ "' for tab " + tabName);
+						logger.info("Failed to navigate into respective consumtption screen for  SVOD content '"
+							+ contentName + "' for tab " + tabName);
+					}
+				}else {
+					if (cotentName1.equals(contentNameInConsumptionScreen)) {
+						extent.extentLoggerPass("Verify Content name",
+							"User is navigated to respective consumption screen for  SVOD content '" + cotentName1
+									+ "' for tab " + tabName);
+						logger.info("User is navigated to respective consumption screen for  SVOD content " + cotentName1
+							+ " for tab " + tabName);
+					} else {
+						extent.extentLoggerFail("Verify content name",
+							"Failed to navigate into respective consumtption screen for  SVOD content '" + cotentName1
+									+ "' for tab " + tabName);
+						logger.info("Failed to navigate into respective consumtption screen for  SVOD content '"
+							+ cotentName1 + "' for tab " + tabName);
+					}
+					
+				}
 			}
 		}
 		MetadataSVODContentConsumptionScreen(tabName, contentName, userType);
@@ -13928,7 +13978,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		SubTitles(userType, contentName, tabName);
 		ValidateConfiguredRails(userType, tabName);
 		AvailableTraysInTabs(tabName, userType);
-		Back(3);
+		if (tabName.equals("Episode")){
+			Back(2);
+			click(AMDHomePage.objHomeBtn,"Home icon");
+		}else {
+			Back(3);
+		}
 		// click(AMDHomePage.objHome,"Home Icon");
 		waitTime(3000);
 	}
@@ -14183,13 +14238,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					extent.extentLoggerPass("Watchlist",
 							userType + " user is navigated to " + header + " screen after tapping Watchlist CTA");
 					logger.info(userType + " user is navigated to " + header + " screen after tapping Watchlist CTA");
+					click(AMDGenericObjects.objBackBtn,"Back button");
+					waitTime(3000);
+//					Back(1);
 				} else {
 					extent.extentLoggerFail("Watchlist",
 							"Failed to navigate into respective screen after clicking Watchlist");
 					logger.info("Failed to navigate into respective screen after clicking Watchlist");
 				}
 			}
-			Back(1);
+			waitTime(3000);
+			
 
 		} else if (userType.equals("NonSubscribedUser")) {
 			if (tabName.equals("Music")) {
@@ -14285,156 +14344,146 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
-	public void DownloadFunctionality(String userType, String tabName, String contentName) throws Exception {
-		extent.HeaderChildNode("Verify Download CTA Functionality");
-
-		if (userType.equals("Guest")) {
-			boolean isDwnld = verifyIsElementDisplayed(AMDConsumptionScreen.objDownloadBtn);
-			if (isDwnld) {
-				click(AMDConsumptionScreen.objDownloadBtn, "Download button");
-				String header = getText(AMDGenericObjects.objgetScreenTitle);
-				if (header.equals("Login/Register")) {
-					extent.extentLoggerPass("Download", userType + " user is navigated to " + header
-							+ " screen post tapping Download CTA form consumption screen");
-					logger.info(userType + " user is navigated to " + header
-							+ " screen post tapping Download CTA form consumption screen");
-					Back(1);
-					if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
-						if (tabName.equals("Episode") | tabName.equals("Movies")) {
+	public void DownloadFunctionality(String userType,String tabName,String contentName) throws Exception {
+		 extent.HeaderChildNode("Verify Download CTA Functionality");
+		 
+		 if(userType.equals("Guest")) {
+			 boolean isDwnld =verifyIsElementDisplayed(AMDConsumptionScreen.objDownloadBtn);
+			 if(isDwnld) {
+				 click(AMDConsumptionScreen.objDownloadBtn,"Download button");
+				 String header = getText(AMDGenericObjects.objgetScreenTitle);
+				 if(header.equals("Login/Register")) {
+					 extent.extentLoggerPass("Download", userType+ " user is navigated to " +header+" screen post tapping Download CTA form consumption screen");
+					 logger.info(userType+ " user is navigated to " +header+" screen post tapping Download CTA form consumption screen");
+					 waitTime(3000);
+					 Back(1);
+					 if(userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
+						 if(tabName.equals("Episode") | tabName.equals("Movies")) {
 							click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 						}
-					}
-				} else {
-					extent.extentLoggerFail("Download",
-							"Failed to navigate into respective screen after clicking Download CTA");
-					logger.info("Failed to navigate into respective screen after clicking download CTA");
-				}
-			} else {
-				extent.extentLogger("Download CTA", "Download CTA is not available");
-				logger.info("Download CTA is not available");
-			}
-
-		} else if (userType.equals("SubscribedUser")) {
-
-			boolean isDwnld = verifyIsElementDisplayed(AMDConsumptionScreen.objDownloadBtn);
-			if (isDwnld) {
-				click(AMDConsumptionScreen.objDownloadBtn, "Download button");
-				boolean popUp = verifyIsElementDisplayed(AMDConsumptionScreen.objPopUp);
-				if (popUp) {
-					String popUptitle = getText(AMDConsumptionScreen.objPopUp);
-					extent.extentLoggerPass("Verify header", popUptitle + " is displayed");
-					logger.info(popUptitle + " pop up is displayed");
-					if (tabName.equals("Music")) {
-						return;
-					} else if (tabName.equals("Shows") | tabName.equals("Episode") | tabName.equals("Movies")) {
-						click(AMDConsumptionScreen.objStartDowloadBtn, "Start Download button");
-						waitTime(2000);
-						click(AMDConsumptionScreen.objDowloadStatus, "Download Icon");
-						boolean isPauseDwld = verifyIsElementDisplayed(AMDConsumptionScreen.objPauseDownload);
-						if (isPauseDwld) {
-							extent.extentLoggerPass("Pause download", "Pause Download call-out option is available");
-							logger.info("Pause Download call-out option is available");
-						} else {
-							extent.extentLoggerFail("Pause download",
-									"Pause Download call-out option is not available");
-							logger.info("Pause Download call-out option is not available");
-						}
-						boolean isCancelDwld = verifyIsElementDisplayed(AMDConsumptionScreen.objPauseDownload);
-						if (isCancelDwld) {
-							extent.extentLoggerPass("Cancel download", "Cancel Download call-out option is available");
-							logger.info("Cancel Download call-out option is available");
-						} else {
-							extent.extentLoggerFail("Cancel download",
-									"Cancel Download call-out option is not available");
-							logger.info("Cancel Download call-out option is not available");
-						}
-						boolean isGoToDwld = verifyIsElementDisplayed(AMDConsumptionScreen.objPauseDownload);
-						if (isGoToDwld) {
-							extent.extentLoggerPass("Go to downloads", "Go to Download call-out option is available");
-							logger.info("Go to Download call-out option is available");
-						} else {
-							extent.extentLoggerFail("Go to download",
-									"Go to Download call-out option is not available");
-							logger.info("Go to Download call-out option is not available");
-						}
-						if (tabName.equals("Shows") | tabName.equals("Episode")) {
-							click(AMDConsumptionScreen.objCancelDownload, "Cancel Download call-out");
-						} else if (tabName.equals("Movies")) {
-							waitTime(2000);
-							click(AMDConsumptionScreen.objGotoDownloads, "Go to Download call-out");
-
-							String isSelected = getElementPropertyToString("selected", AMDDownloadPage.objmoviestab,
-									"Movies tab");
-							System.out.println(isSelected);
-							if (isSelected.equals("true")) {
-								extent.extentLoggerPass("Go to Download call-out",
-										"User is navigated to '" + getText(AMDDownloadPage.objmoviestab)
-												+ "'in download screen from tab " + tabName);
-								logger.info("User is navigated to '" + getText(AMDDownloadPage.objmoviestab)
-										+ "'in download screen from tab " + tabName);
-							} else {
-								extent.extentLoggerFail("Go to Download call-out",
-										"Failed to navigate to respective download screen after click on Goto download call-out from tab "
-												+ tabName);
-								logger.info(
-										"Failed to navigate to respective download screen after click on Goto download call-out from tab "
-												+ tabName);
-							}
-
-							click(AMDDownloadPage.objDownloadProgressIcon, "Download status");
-							click(AMDDownloadPage.objCancelDownloadOption, "Cancel download");
-
-							waitTime(3000);
+					 }
+				 }else {
+					 extent.extentLoggerFail("Download", "Failed to navigate into respective screen after clicking Download CTA");
+					 logger.info("Failed to navigate into respective screen after clicking download CTA");
+				 }
+			 }else {
+				 extent.extentLogger("Download CTA", "Download CTA is not available");
+				 logger.info("Download CTA is not available");
+			 }
+			 
+		 }else if(userType.equals("SubscribedUser")) {
+			 
+			 boolean isDwnld = verifyIsElementDisplayed(AMDConsumptionScreen.objDownloadBtn);
+			 if(isDwnld) {
+				 click(AMDConsumptionScreen.objDownloadBtn,"Download button");
+				 waitTime(5000);
+				 boolean popUp = verifyIsElementDisplayed(AMDConsumptionScreen.objPopUp);
+				 if(popUp) {
+					 String popUptitle = getText(AMDConsumptionScreen.objPopUp);
+					 extent.extentLoggerPass("Verify header", popUptitle+ " is displayed");
+					 logger.info(popUptitle+ " pop up is displayed");
+					 if(tabName.equals("Music")) {
+						 return ; 
+					 }else if(tabName.equals("Shows") | tabName.equals("Episode") | tabName.equals("Movies")) {
+						 click(AMDConsumptionScreen.objStartDowloadBtn,"Start Download button");
+						 waitTime(2000);
+						 click(AMDConsumptionScreen.objDowloadStatus, "Download Icon");
+						 boolean isPauseDwld = verifyIsElementDisplayed(AMDConsumptionScreen.objPauseDownload);
+						 if(isPauseDwld) {
+							 extent.extentLoggerPass("Pause download", "Pause Download call-out option is available");
+							 logger.info("Pause Download call-out option is available");
+						 }else {
+							 extent.extentLoggerFail("Pause download", "Pause Download call-out option is not available");
+							 logger.info("Pause Download call-out option is not available");
+						 }
+						 boolean isCancelDwld = verifyIsElementDisplayed(AMDConsumptionScreen.objPauseDownload);
+						 if(isCancelDwld) {
+							 extent.extentLoggerPass("Cancel download", "Cancel Download call-out option is available");
+							 logger.info("Cancel Download call-out option is available");
+						 }else {
+							 extent.extentLoggerFail("Cancel download", "Cancel Download call-out option is not available");
+							 logger.info("Cancel Download call-out option is not available");
+						 }
+						 boolean isGoToDwld = verifyIsElementDisplayed(AMDConsumptionScreen.objPauseDownload);
+						 if(isGoToDwld) {
+							 extent.extentLoggerPass("Go to downloads", "Go to Download call-out option is available");
+							 logger.info("Go to Download call-out option is available");
+						 }else {
+							 extent.extentLoggerFail("Go to download", "Go to Download call-out option is not available");
+							 logger.info("Go to Download call-out option is not available");
+						 }
+						 if(tabName.equals("Shows") | tabName.equals("Episode")) {
+							 click(AMDConsumptionScreen.objCancelDownload,"Cancel Download call-out");
+						 }else if(tabName.equals("Movies")) {
+							 waitTime(2000);
+							 click(AMDConsumptionScreen.objGotoDownloads,"Go to Download call-out");
+						
+									String isSelected = getElementPropertyToString("selected", AMDDownloadPage.objmoviestab, "Movies tab");
+									System.out.println(isSelected);
+									if(isSelected.equals("true")) {
+										extent.extentLoggerPass("Go to Download call-out", 
+												"User is navigated to '"+getText(AMDDownloadPage.objmoviestab)+ "'in download screen from tab "+tabName);
+										logger.info("User is navigated to '"+getText(AMDDownloadPage.objmoviestab)+ "'in download screen from tab "+tabName);
+									}else {
+										extent.extentLoggerFail("Go to Download call-out", 
+												"Failed to navigate to respective download screen after click on Goto download call-out from tab " +tabName);
+										logger.info("Failed to navigate to respective download screen after click on Goto download call-out from tab " +tabName);
+									}
+		
+								click(AMDDownloadPage.objDownloadProgressIcon, "Download status");
+								click(AMDDownloadPage.objCancelDownloadOption,"Cancel download");
+							
+							waitTime(3000);	
 							Back(1);
 							click(AMDHomePage.objHomeBtn, "Home tab");
 							waitTime(3000);
-							verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+							verifyElementPresentAndClick(AMDHomePage.objSearchBtn,"Search button");
 							verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
 							type(AMDSearchScreen.objSearchBoxBar, contentName + "\n", "Search bar");
 							hideKeyboard();
-							if (tabName.equals("Music")) {
+							if(tabName.equals("Music")) {
 								click(AMDSearchScreen.objSecondSearchResult(contentName), "Search result");
-							} else if (tabName.equals("Episode")) {
-								click(AMDSearchScreen.objEpisodeSearch, "Search result");
-							} else {
-								click(AMDSearchScreen.objFirstSearchResult(contentName), "Search result");
+							}else if(tabName.equals("Episode")) {
+								 click(AMDSearchScreen.objEpisodeSearch, "Search result");
+							}else {
+								 click(AMDSearchScreen.objFirstSearchResult(contentName), "Search result");
 							}
 							waitTime(2000);
-						}
-
-					}
-				} else {
-					extent.extentLoggerFail("Verify header", "Download PopUp is not displayed");
-					logger.info("Download PopUp is not displayed");
-				}
-			}
-		} else if (userType.equals("NonSubscribedUser")) {
-			boolean isDwnld = verifyIsElementDisplayed(AMDConsumptionScreen.objDownloadBtn);
-			if (isDwnld) {
-				click(AMDConsumptionScreen.objDownloadBtn, "Download button");
-				boolean popUp = verifyIsElementDisplayed(AMDConsumptionScreen.objPopUp);
-				if (popUp) {
-					String popUptitle = getText(AMDConsumptionScreen.objPopUp);
-					extent.extentLoggerPass("Verify header", popUptitle + " is displayed");
-					logger.info(popUptitle + " pop up is displayed");
-					Back(1);
-					if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
-						if (tabName.equals("Episode") | tabName.equals("Movies")) {
+						 }
+				
+				 }
+			 }else {
+				 extent.extentLoggerFail("Verify header","Download PopUp is not displayed");
+				logger.info("Download PopUp is not displayed");				 	}
+			 }
+		 }else if(userType.equals("NonSubscribedUser")) {
+			 boolean isDwnld = verifyIsElementDisplayed(AMDConsumptionScreen.objDownloadBtn);
+			 if(isDwnld) {
+				 click(AMDConsumptionScreen.objDownloadBtn,"Download button");
+				 waitTime(5000);
+				 boolean popUp = verifyIsElementDisplayed(AMDConsumptionScreen.objPopUp);
+				 if(popUp) {
+					 String popUptitle = getText(AMDConsumptionScreen.objPopUp);
+					 extent.extentLoggerPass("Verify header", popUptitle+ " is displayed");
+					 logger.info(popUptitle+ " pop up is displayed");
+					 Back(1);
+					 if(userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
+						 if(tabName.equals("Episode") | tabName.equals("Movies")) {
 							click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 						}
-					}
-
-				} else {
-					extent.extentLoggerFail("Verify header", "PopUp title is not displayed");
-					logger.info("PopUp title is not displayed");
-				}
-			} else {
-				extent.extentLogger("Download CTA", "Download CTA is not available");
-				logger.info("Download CTA is not available");
-			}
-
-		}
-	}
+					 }
+					 
+				 }else {
+					 extent.extentLoggerFail("Verify header", "PopUp title is not displayed");
+					 logger.info("PopUp title is not displayed");
+				 }
+			 }else {
+				 extent.extentLogger("Download CTA" , "Download CTA is not available");
+				 logger.info("Download CTA is not available");
+			 }
+					
+		 }
+	 }
 
 	public void WatchTrailer(String userType, String tabName, String contentName) throws Exception {
 		HeaderChildNode("Verify Watch Trailer Functionality");
@@ -14601,6 +14650,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Configured trays for the tab : \"" + tabName + "\"");
 		if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
 			if (tabName.equals("Episode") | tabName.equals("Movies")) {
+				click(AMDPlayerScreen.objPlayerScreen,"Player screen");
 				click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			}
 		}
@@ -14736,7 +14786,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("Recommended Rail is not displayed in Music tab");
 			}
 		}
-
 	}
 
 	/**
@@ -16675,4 +16724,125 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			break;
 		}
 	}
+	
+	/**
+	 * Author : Vinay
+	 */
+	public void MandatoryPopUpScenarios(String userType) throws Exception {
+		extent.HeaderChildNode("Verifying Mandatory Pop up  on Consumption screen");
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, SVODEpisode , "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objEpisodeSearch, "Search result");
+		extent.extentLogger("","Playing first content");
+		System.out.println("Playing first content");
+		waitTime(5000);
+		waitForAdToFinishInAmd();
+		boolean isRegisterPopUp = verifyIsElementDisplayed(AMDConsumptionScreen.objRegisterPopUp);
+		if(isRegisterPopUp) {
+			extent.extentLoggerPass("1st Register pop up after ad",
+					"Register Pop up is displayed after ad completing for playing first free content");
+			logger.info("Register Pop up is displayed after ad completing for playing first free content");
+			Back(1);
+		}else {
+			extent.extentLoggerFail("1st Register pop up after ad", 
+					"Register Pop up is not displayed after ad completing for playing first free content");
+			logger.info("Register Pop up is not displayed after ad completing for playing first free content");
+		}
+		
+		click(AMDPlayerScreen.objPlayerScreen,"Player");
+		scrubVideo(AMDPlayerScreen.objProgressBar);
+		
+		for(int i=1 ; i<=5; i++) {
+			
+			extent.extentLogger("Content Playing", "Playing content " +(i+1));
+			logger.info("Playing content " +i);
+			waitTime(5000);
+			if(i==5) {
+				click(AMDConsumptionScreen.objFirstUpNextContent,"Next content");
+				waitTime(5000);
+				boolean isRegisterPopUpFor5Content = verifyIsElementDisplayed(AMDConsumptionScreen.objRegisterPopUp);
+				if(isRegisterPopUpFor5Content) {
+					extent.extentLoggerPass("Mandatory Register pop up after ad",
+							"Mandatory Register Pop up is displayed after  playing 5 SVOD contents");
+					logger.info("Mandatory Register Pop up is displayed after  playing 5  SVOD contents");
+					
+					click(AMDConsumptionScreen.objLoginBtnOnPopup,"Login button on Register pop up");
+					String header = getText(AMDGenericObjects.objgetScreenTitle);
+					if(header.equals("Login/Register")) {
+						extent.extentLoggerPass("Login screen",
+								"User is navigated to Login/Register screen post tapping Login button from Register pop up");
+						logger.info("User is navigated to Login/Register screen post tapping Login button from Register pop up");
+					}else {
+						extent.extentLoggerFail("Login screen","Failed to Navigate into Login/Register screen post tapping login from Register pop up");
+						logger.info("Failed to Navigate into Login/Register screen post tapping login from Register pop up");
+					}
+					hideKeyboard();
+					Back(2);
+					boolean isRegisterOnPlayerScreen = verifyIsElementDisplayed(AMDConsumptionScreen.objRegisterBtnOnPlayer);
+					if(userType.equals("Guest")) {
+						if(isRegisterOnPlayerScreen) {
+							extent.extentLoggerPass("Register text", "Register button is displayed on Player screen");
+							logger.info("Register button is displayed on Player screen");
+						}else {
+							extent.extentLoggerFail("Register pop up", "Register button is not displayed on Player screen and Playback is initiated");
+							logger.info("Register button is not displayed on Player screen and Playback is initiated");
+						}
+					}else {
+						if(isRegisterOnPlayerScreen) {
+							extent.extentLoggerPass("Complete Profile", "Complete Profile button is displayed on Player screen");
+							logger.info("Complete Profile button is displayed on Player screen");
+						}else {
+							extent.extentLoggerFail("Complete Profile pop up", "Complete Profile button is not displayed on Player screen and Playback is initiated");
+							logger.info("Complete Profile button is not displayed on Player screen and Playback is initiated");
+						}
+						
+					}
+					
+				}else {
+					extent.extentLoggerFail("Mandatory Register pop up after ad", 
+							"Mandatory Register Pop up is not displayed after  playing 5  free contents");
+					logger.info("Mandatory Register Pop up is not displayed after  playing 5  free contents");
+				}
+			}else {
+				
+				click(AMDConsumptionScreen.objFirstUpNextContent,"Next content");
+				waitTime(5000);
+				waitForAdToFinishInAmd();
+				waitTime(2000);
+				click(AMDPlayerScreen.objPlayerScreen,"Player");
+//				click(AMDPlayerScreen.objPauseIcon,"Pause icon");
+				scrubVideo(AMDPlayerScreen.objProgressBar);
+				waitTime(5000);
+			}
+		}	
+	}
+	
+public void scrubVideo(By byLocator1) throws Exception {
+		
+		WebElement element = getDriver().findElement(byLocator1);
+		Dimension size = element.getSize();
+		int startx = (int) (size.width);
+		int startX = startx + 100;
+		System.out.println(startX);
+		SwipeAnElement(element, startX, 0);
+		waitTime(2000);
+
+	}
+
+public String  SVODConsumptionScreenForEpisode(String userType) throws Exception {
+	String episodeName = "";
+		
+			click(AMDHomePage.objShowsTab,"Shows tab");
+			SwipeUntilFindElement(AMDGenericObjects.objTrayTitle("Before"), "Up");
+			String beforeTVtrayName = findElement(AMDGenericObjects.objTrayTitle("Before")).getText();
+			click(AMDGenericObjects.objViewAllBtn(beforeTVtrayName), "View All_Before TV Show");
+			episodeName = getText(AMDConsumptionScreen.objBeforeTVContentName);
+			click(AMDConsumptionScreen.objBeforeTVContentName, "BeforeTV content");
+			
+		return episodeName;
+		
+}
 }
