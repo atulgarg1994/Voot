@@ -26,7 +26,6 @@ public class DriverInstance extends Drivertools {
 	public DriverInstance(String Application) {
 		super(Application);
 		try {
-			System.out.println("Platform is " + getPlatform());
 			switch (getPlatform()) {
 			case "Android":
 				tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),
@@ -44,6 +43,10 @@ public class DriverInstance extends Drivertools {
 			case "Web":
 				LaunchBrowser(getBrowserType());
 				break;
+				
+			case "TV":
+				tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),
+						this.generateAndroidCapabilities(Application)));
 
 			default:
 				throw new SkipException("Incorrect Platform...");

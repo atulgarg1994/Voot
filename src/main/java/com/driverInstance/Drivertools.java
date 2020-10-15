@@ -102,9 +102,8 @@ public class Drivertools {
 		return platform;
 	}
 
-	@SuppressWarnings("static-access")
-	protected void setPlatfrom(String Platform) {
-		this.platform = Platform;
+	public static void setPlatfrom(String Platform) {
+		platform = Platform;
 	}
 
 	protected int getappTimeOut() {
@@ -276,7 +275,7 @@ public class Drivertools {
 		}
 		
 		logger.info("PlatForm :: " + getPlatform());
-		if (Stream.of("Android", "ios", "Web", "MPWA").anyMatch(getPlatform()::equals)) {
+		if (Stream.of("Android", "ios", "Web", "MPWA", "TV").anyMatch(getPlatform()::equals)) {
 			setHandler(new PropertyFileReader("properties/ExecutionControl.properties"));
 			if (getHandler().getproperty(getTestName()).equals("Y") && (getRunMode().contentEquals(getTestName()))
 					|| (getRunMode().contentEquals("Suites"))) {

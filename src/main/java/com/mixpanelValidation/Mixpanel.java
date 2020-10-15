@@ -58,7 +58,7 @@ public class Mixpanel extends ExtentReporter {
 	public static String DOB;
 	private static Properties prop;
 	private static String value;
-	private static String key ;
+	private static String key;
 	static ExtentReporter extent = new ExtentReporter();
 
 	public static void ValidateParameter(String distinctID, String eventName, String Source)
@@ -234,11 +234,11 @@ public class Mixpanel extends ExtentReporter {
 			try {
 				XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
 				XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
-				 value = myExcelSheet.getRow(rownumber).getCell(1).toString();
-				 key = myExcelSheet.getRow(rownumber).getCell(0).toString();
+				value = myExcelSheet.getRow(rownumber).getCell(1).toString();
+				key = myExcelSheet.getRow(rownumber).getCell(0).toString();
 				if (value.trim().isEmpty()) {
 					System.out.println("Paramter is empty :- Key:" + key + " - value" + value);
-					extent.extentLoggerFail("","");
+					extent.extentLoggerFail("Empty parameter", "Paramter is empty :- Key:" + key + " - value" + value);
 					fillCellColor();
 				} else {
 					if (isContain(booleanParameters, key)) {

@@ -93,7 +93,7 @@ public class ExtentReporter implements ITestListener {
 	public void initExtentDriver() {
 		if (getPlatformFromtools().equals("Web")) {
 			src = ((TakesScreenshot) getWebDriver()).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
-		} else if (getPlatformFromtools().equals("Android") || getPlatformFromtools().equals("PWA")) {
+		} else if (getPlatformFromtools().equals("Android") || getPlatformFromtools().equals("PWA") || getPlatformFromtools().equals("TV")) {
 			src = ((TakesScreenshot) getDriver()).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
 		} else if (getPlatformFromtools().equals("MPWA")) {
 			src = ((TakesScreenshot) getDriver()).getScreenshotAs(org.openqa.selenium.OutputType.FILE);

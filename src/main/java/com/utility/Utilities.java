@@ -57,7 +57,7 @@ public class Utilities extends ExtentReporter {
 	private SoftAssert softAssert = new SoftAssert();
 
 	public static boolean relaunch = false;
-	
+
 	public static String setPlatform = "";
 
 	/** The Constant logger. */
@@ -101,6 +101,10 @@ public class Utilities extends ExtentReporter {
 		return DriverInstance.getPlatform();
 	}
 	
+	public void setPlatform(String Platform) {
+		 DriverInstance.setPlatfrom(Platform);
+	 }
+
 	static WebDriverWait wait;
 
 	public static JavascriptExecutor js;
@@ -109,7 +113,7 @@ public class Utilities extends ExtentReporter {
 		if (getPlatform().equals("Web")) {
 			wait = new WebDriverWait(getWebDriver(), getTimeout());
 			js = (JavascriptExecutor) getWebDriver();
-		} else if (getPlatform().equals("Android") || getPlatform().equals("MPWA")) {
+		} else if (getPlatform().equals("Android") || getPlatform().equals("MPWA") || getPlatform().equals("TV")) {
 			wait = new WebDriverWait(getDriver(), getTimeout());
 			js = (JavascriptExecutor) getDriver();
 		}
@@ -427,8 +431,8 @@ public class Utilities extends ExtentReporter {
 			return list.get(0).isDisplayed();
 		}
 	}
-	
-	public static boolean verifyIsElementDisplayed(By by,String validationtext) {
+
+	public static boolean verifyIsElementDisplayed(By by, String validationtext) {
 		getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 		List<WebElement> list = getDriver().findElements(by);
 		getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -436,7 +440,7 @@ public class Utilities extends ExtentReporter {
 			logger.info("Element " + validationtext + " " + " is not displayed");
 			extent.extentLogger("checkElementPresent", "" + validationtext + " is not displayed");
 			return false;
-		} else {			
+		} else {
 			logger.info("" + validationtext + " " + "is displayed");
 			extent.extentLogger("checkElementPresent", "" + validationtext + " is displayed");
 			return list.get(0).isDisplayed();
@@ -1275,13 +1279,15 @@ public class Utilities extends ExtentReporter {
 	}
 
 	public void switchtoLandscapeMode() throws IOException {
-		Runtime.getRuntime().exec("adb shell content insert --uri content://settings/system --bind name:s:user_rotation --bind value:i:1");
+		Runtime.getRuntime().exec(
+				"adb shell content insert --uri content://settings/system --bind name:s:user_rotation --bind value:i:1");
 	}
-	
+
 	public void switchtoPortraitMode() throws IOException {
-		Runtime.getRuntime().exec("adb shell content insert --uri content://settings/system --bind name:s:user_rotation --bind value:i:0");
+		Runtime.getRuntime().exec(
+				"adb shell content insert --uri content://settings/system --bind name:s:user_rotation --bind value:i:0");
 	}
-	
+
 //====================================================================================================================================
 	/** ::::::::::::::::Web Utilities:::::::::::: */
 
@@ -1878,8 +1884,68 @@ public class Utilities extends ExtentReporter {
 		}
 		return false;
 	}
-	
+
 	public String getParameterFromXML(String param) {
 		return Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter(param);
 	}
+
+//	====================================================TV=================================================
+	public boolean verifyElementExistTv(By byLocator, String str) throws Exception {
+
+		try {
+
+			if (getDriver().findElement(byLocator).isDisplayed()) {
+				extent.extentLoggerPass("checkElementPresent", str + " is displayed");
+				logger.info("" + str + " is displayed");
+				return true;
+			}
+		} catch (Exception e) {
+			extent.extentLogger("checkElementPresent", str + " is not displayed");
+			logger.info(str + " is not displayed");
+			return false;
+		}
+		return false;
+	}
+
+	public void TVclick(By byLocator, String validationtext) throws Exception {
+
+		try {
+			getDriver().findElement(byLocator).click();
+			logger.info("Clicked on " + validationtext);
+			extent.extentLogger("click", "Clicked on " + validationtext);
+		} catch (Exception e) {
+			logger.error(e);
+		}
+	}
+	
+	public String TVgetText(By byLocator) throws Exception {
+		String Value = null;
+		Value = getDriver().findElement(byLocator).getText();
+		return Value;
+	}
+
+	public void TVRemoteEvent(int value) throws Exception {
+
+		String cmd = "adb shell input keyevent " + value + "";
+		System.out.println(cmd);
+		Runtime.getRuntime().exec(cmd);
+
+	}
+
+	public boolean TVVerifyElementNotPresent(By byLocator, int waitTime) {
+		try {
+			WebDriverWait wait = new WebDriverWait(getDriver(), waitTime);
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(byLocator));
+			return false;
+		} catch (Exception e) {
+			return true;
+		}
+	}
+
+	public String TVgetAttributValue(String property, By byLocator) throws Exception {
+		String Value = null;
+		Value = getDriver().findElement(byLocator).getAttribute(property);
+		return Value;
+	}
+
 }
