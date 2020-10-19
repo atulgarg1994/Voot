@@ -324,14 +324,12 @@ public class Utilities extends ExtentReporter {
 	 * 
 	 */
 	public void click(By byLocator, String validationtext) throws Exception {
-
 		try {
 			WebElement element = findElement(byLocator);
 			element.click();
 			logger.info("Clicked on " + validationtext);
 			extent.extentLogger("click", "Clicked on " + validationtext);
 		} catch (Exception e) {
-			logger.error(e);
 			screencapture();
 		}
 	}

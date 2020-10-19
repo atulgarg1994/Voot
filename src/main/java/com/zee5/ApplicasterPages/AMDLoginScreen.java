@@ -169,4 +169,10 @@ public class AMDLoginScreen {
 	public static By objTwitterAutorizeAllowBtn = By.xpath("//*[@resource-id='com.twitter.android:id/ok_button']");
 
 	public static By objMenuHindi = By.xpath("(//*[@id='bb_bottom_bar_icon'])[5]");
+	
+	public static By objEmailFieldInTwitterPage = By.xpath("//*[@resource-id='com.twitter.android:id/login_identifier']");
+	public static By objPasswordFieldInTwitterPage = By.xpath("//*[@resource-id='com.twitter.android:id/login_password']");
+	public static By objLoginButtonInTwitterPage = By.xpath("//*[@resource-id='com.twitter.android:id/login_login']");
+	public static By objAuthorizeAppInTwitterpage = By.xpath("//*[@resource-id='com.twitter.android:id/ok_button']");
+	public static By objPasswordFieldInFBPage = By.xpath("//*[@class='android.widget.EditText' and @contentDescription='Password']");
 }

@@ -86,5 +86,7 @@ public class AMDPlayerScreen {
 	public static By objPreviousIcon = By.xpath("//*[@id='icon_previous']");
 	
 	public static By objAd2 = By.xpath("(//*[contains(text(),'Ad 1')]) | //*[contains(text(),'Ad 2')] | //*[contains(text(),'Ad :')]");
+	
+	public static By objLoginButtonInRegisterPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/tvLogin']");
 
 }

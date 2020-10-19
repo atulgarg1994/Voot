@@ -698,17 +698,6 @@ public class ResponseInstance {
 			}
 		}
 		pro.setProperty("region", getRegion());
-		String platform = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite().getName();
-		if(platform.equals("Mpwa")) {
-			pro.setProperty("Platform Name", "Web");
-			pro.setProperty("os", "Android");
-		}else if(platform.equals("Android")){
-			pro.setProperty("Platform Name", platform); 
-			pro.setProperty("os", "Android");
-		}else if(platform.equals("Web")) {
-			pro.setProperty("Platform Name", platform); 
-			pro.setProperty("os", System.getProperty("os.name"));
-		}
 		return pro;
 	}
 	

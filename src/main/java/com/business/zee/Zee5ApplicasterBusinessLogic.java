@@ -2026,13 +2026,18 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //		hideKeyboard();
 		click(AMDLoginScreen.objShowPwdBtn, "Show password icon");
 
+//		findElement(
+//				By.xpath("//*[@resource-id='com.graymatrix.did:id/text_input_password_toggle' and @checked='true']"));
+		
+		
 		findElement(
-				By.xpath("//*[@resource-id='com.graymatrix.did:id/text_input_password_toggle' and @checked='true']"));
+				By.xpath("//*[@id='text_input_end_icon' and @contentDescription ='Show password']"));
+		
 		logger.info("User can hide or unhide password using eye icon");
 		extentLoggerPass("Password field", "User can hide or unhide password using eye icon");
 
 		click(AMDLoginScreen.objShowPwdBtn, "Show password icon");
-
+        hideKeyboard();  
 		String password = getText(AMDLoginScreen.objPasswordField);
 		if (password.length() >= 6) {
 			logger.info("Password field accepts minimum of six characters");

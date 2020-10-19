@@ -236,5 +236,8 @@ public class AMDMoreMenu {
 	}
 	public static By objLoginRegisterText = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
 	
-	public static By objshareOptions = By.xpath("//*[@resource-id='android:id/tw_resolver_pagemode_page_list' or @id='resolver_slide'] | //*[@id='resolver_grid']");
+	public static By objshareOptions = By.xpath("//*[@resource-id='android:id/tw_resolver_pagemode_page_list' or @id='resolver_slide'] | //*[@id='resolver_grid'] | //*[@id='title' and contains(text(),'Share')]");
+	
+	public static By objGuestUserAccount = By.xpath("//*[@text='Guest']");
+
 }

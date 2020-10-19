@@ -13094,13 +13094,43 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 	}
 
+//	public void selectLanguages() throws Exception {
+//		click(PWAHamburgerMenuPage.objLanguageBtnWEB, "Language Button");
+//		waitTime(2000);
+//		waitForElementAndClick(PWAHamburgerMenuPage.objContentLanguageBtn, 2, "Content Languages");
+//		click(PWALanguageSettingsPage.objNonSelectedEng, "English");
+//		click(PWALanguageSettingsPage.objNonSelectedHin, "Hindi");
+//		click(PWALanguageSettingsPage.objNonSelectedKan, "Kannada");
+//		click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
+//		waitTime(3000);
+//	}
 	public void selectLanguages() throws Exception {
-		click(PWAHamburgerMenuPage.objLanguageBtnWEB, "Language Button");
+		extent.HeaderChildNode("Language selection");
+//verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu");
+		waitTime(3000);
+		verifyElementPresent(PWAHamburgerMenuPage.objLanguageBtn, "Language Button");
+		JSClick(PWAHamburgerMenuPage.objLanguageBtn, "Language Button");
 		waitTime(2000);
-		waitForElementAndClick(PWAHamburgerMenuPage.objContentLanguageBtn, 2, "Content Languages");
-		click(PWALanguageSettingsPage.objNonSelectedEng, "English");
-		click(PWALanguageSettingsPage.objNonSelectedHin, "Hindi");
 		click(PWALanguageSettingsPage.objNonSelectedKan, "Kannada");
+		waitForElementAndClick(PWAHamburgerMenuPage.objContentLanguageBtn, 2, "Content Languages");
+		waitTime(2000);
+		try {
+			getDriver()
+					.findElement(By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='Kannada']"))
+					.click();
+		} catch (Exception e) {
+		}
+		try {
+			getDriver()
+					.findElement(By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='English']"))
+					.click();
+		} catch (Exception e) {
+		}
+		try {
+			getDriver().findElement(By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='Hindi']"))
+					.click();
+		} catch (Exception e) {
+		}
 		click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
 		waitTime(3000);
 	}

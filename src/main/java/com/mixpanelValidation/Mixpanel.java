@@ -22,7 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
+import org.testng.Reporter;
 import com.aventstack.extentreports.Status;
 import com.extent.ExtentReporter;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -55,7 +55,6 @@ public class Mixpanel extends ExtentReporter {
 	static String booleanParameters = "";
 	static String integerParameters = "";
 	static int rownumber;
-	static String source = "";
 	protected static Response resp = null;
 	public static String DOB;
 	public static Properties FEProp = new Properties();
@@ -64,18 +63,18 @@ public class Mixpanel extends ExtentReporter {
 	private static String key;
 	static ExtentReporter extent = new ExtentReporter();
 
-	public static void ValidateParameter(String distinctID, String eventName, String Source)
+	public static void ValidateParameter(String distinctID, String eventName)
 			throws JsonParseException, JsonMappingException, IOException, InterruptedException {
 		System.out.println("Parameter Validation " + distinctID);
-		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
-			getUserData();
-		}
+//		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+//			getUserData();
+//		}
 		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
 		booleanParameters = Prop.getproperty("Boolean");
 		integerParameters = Prop.getproperty("Integer");
 		fileName = ReportName;
-		source = Source;
 		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
+		StaticValues();
 		fetchEvent(distinctID, eventName);
 		// creatExcel();
 	}
@@ -241,7 +240,7 @@ public class Mixpanel extends ExtentReporter {
 				key = myExcelSheet.getRow(rownumber).getCell(0).toString();
 				if (value.trim().isEmpty()) {
 					System.out.println("Paramter is empty :- Key:" + key + " - value" + value);
-					extentReportFail("Empty parameter", "Paramter is empty :- <b>Key : " + key + " - value : " + value+"</b>");
+					extentReportFail("Empty parameter", "Paramter is empty :- <b>Key : " + key + " \n value : " + value+"</b>");
 					fillCellColor();
 				} else {
 					if (isContain(booleanParameters, key)) {
@@ -250,7 +249,7 @@ public class Mixpanel extends ExtentReporter {
 						validateInteger(value);
 					}
 					validateParameter(key, value);
-					extentReportInfo("Empty parameter", "Paramter :- <b>Key : " + key + " - value : " + value+"</b>");
+					extentReportInfo("Empty parameter", "Paramter :- <b>Key : " + key + " \n value : " + value+"</b>");
 				}
 			} catch (Exception e) {
 				System.out.println(e);
@@ -270,16 +269,18 @@ public class Mixpanel extends ExtentReporter {
 //				extent.extentLoggerPass("Empty parameter", "Paramter :- Key:" + key + " - value" + value);
 //			}
 //		}
+		
 		String propValue = null;
 		try {
 		propValue = FEProp.getProperty(key);
+		
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		if (propValue != null) {
 			if (!propValue.equals(value)) {
 				fillCellColor();
-				extentReportFail("Empty parameter", "Value mismatch :- <b>Key : " + key + " - value : " + value+"</b>");
+				extentReportFail("Empty parameter", "Value mismatch :- <b>Key : " + key + " \n value : " + value+"</b>");
 			}
 		}
 	}
@@ -307,7 +308,7 @@ public class Mixpanel extends ExtentReporter {
 		Matcher m = p.matcher(value);
 		if ((!m.matches()) || value.equals("N/A")) {
 			fillCellColor();
-			extentReportFail("Empty parameter", "Value is not a Integer Data-Type :- <b>Key : " + key + " - value : " + value+"</b>");
+			extentReportFail("Empty parameter", "Value is not a Integer Data-Type :- <b>Key : " + key + " \n value : " + value+"</b>");
 		}
 	}
 
@@ -319,12 +320,15 @@ public class Mixpanel extends ExtentReporter {
 	}
 
 	private static void validateBoolean(String value) {
-		if (!value.equals("true") || value.equals("false") || value.equals("N/A")) {
-			fillCellColor();
-			extentReportFail("Empty parameter", "Value is not a boolean Data-Type :- <b>Key : " + key + " - value : " + value+"</b>");
+		if (!value.equals("N/A")) {
+			if (value.equals("true") || value.equals("false")) {
+				fillCellColor();
+				extentReportFail("Empty parameter","Value is not a boolean Data-Type :- <b>Key : " + key + " \n value : " + value + "</b>");
+			}
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static void getUserData() {
 		prop = ResponseInstance.getUserData();
 		getDOB(prop);
@@ -355,11 +359,27 @@ public class Mixpanel extends ExtentReporter {
 		} catch (Exception e) {
 		}
 	}
+	
+	public static void StaticValues() {
+		String platform = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite().getName();
+		if(platform.equals("Mpwa")) {
+			FEProp.setProperty("Platform Name", "Web");
+			FEProp.setProperty("os", "Android");
+		}else if(platform.equals("Android")){
+			FEProp.setProperty("Platform Name", platform); 
+			FEProp.setProperty("os", "Android");
+		}else if(platform.equals("Web")) {
+			FEProp.setProperty("Platform Name", platform); 
+			FEProp.setProperty("os", System.getProperty("os.name"));
+		}
+	}
 
+	@SuppressWarnings("static-access")
 	public static void extentReportFail(String info,String details) {
 		extent.childTest.get().log(Status.FAIL, details);
 	}
 	
+	@SuppressWarnings("static-access")
 	public static void extentReportInfo(String info,String details) {
 		extent.childTest.get().log(Status.INFO, details);
 	}

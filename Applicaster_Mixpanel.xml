@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Android" parallel="false" thread-count="1">  <!-- name="Android" -->
+
+    <parameter name="userType" value="Guest" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
+	<parameter name="runModule" value="Suite" />
+	<parameter name="runMode" value="Suites" /> 
+	
+	<parameter name="keyword1" value="Jodi Hakki" />
+	<parameter name="keyword2" value="Chemistry of Kariyappa" />
+	
+	<parameter name="NonsubscribedUserName" value="zee5latest@gmail.com" />
+	<parameter name="NonsubscribedPassword" value="User@123" />
+
+	<parameter name="SubscribedUserName" value="zeetest998@test.com" />
+	<parameter name="SubscribedPassword" value="123456" />
+	
+	<listeners>
+		<listener class-name="com.extent.ExtentReporter" />
+		<!--  <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->
+		<!-- <listener class-name="com.utility.MyTranformer"/> -->
+	</listeners>
+	
+	<test name="ApplicasterMixpanelScript">
+		<classes>
+			<class name="com.zee5.PWAMixpanelScripts.ApplicasterMixpanelScript" />
+		</classes>
+	</test>
+
+</suite>

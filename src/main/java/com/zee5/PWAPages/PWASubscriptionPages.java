@@ -316,4 +316,8 @@ public class PWASubscriptionPages {
 	public static By objPay = By.xpath("//span[contains(text(),'PAY')]");
 	
 	public static By objZeeLink = By.xpath("(//a[contains(text(),'www.zee5.com')])[1]");
+	
+	public static void main(String [] args) {
+		System.out.println("INR 99".split(" ")[1]);
+	}
 }

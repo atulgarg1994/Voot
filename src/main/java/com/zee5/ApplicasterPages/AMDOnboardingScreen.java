@@ -142,6 +142,8 @@ public class AMDOnboardingScreen {
 
 	public static By objExitPopupHorizontalLinebar = By.xpath("(//*[@class='android.view.View'])[2]");
 
-
+	public static By objContinueBtnInDebugBuild = By.xpath("//*[@resource-id='com.graymatrix.did:id/continue_button']");
+	
+	public static By objContinueBtnInCountryPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/country_selection_button']");
 
 }
