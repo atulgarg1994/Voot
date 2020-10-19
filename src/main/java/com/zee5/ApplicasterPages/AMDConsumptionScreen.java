@@ -98,4 +98,5 @@ public class AMDConsumptionScreen {
 	public static By objBeforeTVContentName = By.xpath("(//*[@id='item_primary_text'])[7]");
 	
 	public static By objLoginBtnOnPopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/tvLogin']");
+	public static By objContentCardOfTrayInConsumptionPage = By.xpath("(//*[@resource-id='com.graymatrix.did:id/horizontal_list_10_parent'])[1]");
 }
