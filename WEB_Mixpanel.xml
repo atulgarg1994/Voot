@@ -52,6 +52,7 @@
 	
 	<parameter name="skipIntroPremium"	value="The Rum Diary" />
 	<parameter name="skipIntroURL"	value="https://newpwa.zee5.com/kids/kids-movies/bablu-dablu-robo-rumble/0-0-54219" />
+	<parameter name="NonsubscribedInvalidPassword" value="igsindia"/>
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
@@ -59,7 +60,7 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
-<!-- 	<test name="WebPWAMixpanelScript">
+<!-- <test name="WebPWAMixpanelScript">
 		<classes>
 			<class name="com.zee5.PWAMixpanelScripts.WebPWAMixpanelScript" />
 		</classes>  

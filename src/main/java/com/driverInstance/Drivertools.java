@@ -29,7 +29,7 @@ public class Drivertools {
 	private String appVersion;
 	private String APkFileName;
 	private PropertyFileReader handler;
-	private String testName;
+	private static String testName;
 	private String browserType;
 	private String url = "";
 	public static String runModule;
@@ -41,7 +41,7 @@ public class Drivertools {
 	public static boolean click = true;
 	public static String methodName = "";
 
-	public String getTestName() {
+	public static String getTestName() {
 		return testName;
 	}
 
@@ -267,6 +267,8 @@ public class Drivertools {
 			if (getURL().equals("https://newpwa.zee5.com/")) {
 				setENV(getURL());
 			} else if (getURL().equals("https://www.zee5.com/")) {
+				setENV(getURL());
+			}else if(getURL().equals("https://pwa-preprod2.zee5.com/")) {
 				setENV(getURL());
 			}
 		} else if (getPlatform().equals("Android")) {

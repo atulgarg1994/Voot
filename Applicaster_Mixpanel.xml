@@ -8,12 +8,19 @@
 	
 	<parameter name="keyword1" value="Jodi Hakki" />
 	<parameter name="keyword2" value="Chemistry of Kariyappa" />
+	<parameter name="displayLanguage" value="Marathi" />
 	
 	<parameter name="NonsubscribedUserName" value="zee5latest@gmail.com" />
 	<parameter name="NonsubscribedPassword" value="User@123" />
 
 	<parameter name="SubscribedUserName" value="zeetest998@test.com" />
 	<parameter name="SubscribedPassword" value="123456" />
+	
+	<parameter name="ParentalNonsubscribedUserName" value="juspayuser@mailnesia.com" />
+	<parameter name="ParentalNonsubscribedPassword" value="123456" />
+	
+	<parameter name="ParentalSubscribedUserName" value="gdmuser3@mailnesia.com" />
+	<parameter name="ParentalSubscribedPassword" value="123456" />
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

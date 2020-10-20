@@ -14496,6 +14496,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		boolean isWatchTrailer = verifyIsElementDisplayed(AMDConsumptionScreen.objWatchTrialer);
 		if (isWatchTrailer) {
 			click(AMDConsumptionScreen.objWatchTrialer, "Watch Trialer");
+			waitTime(2000);
 			String contentTitle = getText(AMDConsumptionScreen.objContentName);
 			if (contentTitle.contains("Trailer")) {
 				extent.extentLoggerPass("Watch Trailer",

@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import com.deviceDetails.DeviceDetails;
 import com.driverInstance.CommandBase;
+import com.driverInstance.Drivertools;
 import com.emailReport.GmailInbox;
 import com.extent.ExtentReporter;
 import com.propertyfilereader.PropertyFileReader;
@@ -84,7 +85,12 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		new Zee5ApplicasterBusinessLogic("zee");
 		accessDeviceLocationPopUp("Allow", userType);
 		navigateToIntroScreen_DisplaylangScreen();
-		ZeeApplicasterLogin(userType);
+		if(Drivertools.getTestName().equalsIgnoreCase("verifyParentalRestriction")){
+			ZeeApplicasterMixPanelLoginForParentalControl(userType);
+		}else {
+			ZeeApplicasterLogin(userType);
+		}
+		
 	}
 
 	/**
@@ -106,7 +112,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		logger.info("UserType : " + userType);
 		System.out.println("Access Device Location PopUp");
 
-		// click(AMDOnboardingScreen.objContinueBtnInDebugBuild, "Continue button");
+		 click(AMDOnboardingScreen.objContinueBtnInDebugBuild, "Continue button");
 		if (checkElementExist(AMDOnboardingScreen.objAllowBtn)) {
 			Wait(5000);
 			verifyElementPresent(AMDOnboardingScreen.objAllowBtn, "Allow button");
@@ -125,8 +131,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	 */
 	public void navigateToIntroScreen_DisplaylangScreen() throws Exception {
 		extent.HeaderChildNode("Navigation to Intro Screen");
-		// click(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "Continue button
-		// (Country_Screen)");
+		click(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "Continue button(Country_Screen)");
 		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button (Display-LanguageScreen)");
 		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
 		verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
@@ -593,74 +598,88 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 
 			extent.HeaderChildNode("Verify Parental Restriction Event");
-			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
-			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+			click(AMDMoreMenu.objSettings, "Settings option");
+			waitTime(5000);
+			Swipe("UP", 1);
+			verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
+			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
 			String password = "";
 			if (userType.equals("NonSubscribedUser")) {
 				password = getParameterFromXML("SettingsNonsubscribedPassword");
 			} else if (userType.equals("SubscribedUser")) {
 				password = getParameterFromXML("SettingsSubscribedPassword");
 			}
-			type(PWALoginPage.objPasswordField, password, "Password field");
-			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
-			waitTime(2000);
-			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+			click(AMDMoreMenu.objPasswordField, "Password field");
+			getDriver().getKeyboard().sendKeys(password);
 
-			switch (restriction) {
-
-			case "Age13+":
-				click(PWAHamburgerMenuPage.objRestrict13PlusContent, "Restrict 13+ content");
-				click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
-				type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
-				type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
-				type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
-				type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
-				waitTime(4000);
-				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
-				waitTime(3000);
-
-				click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-				click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
-				checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
-				type(PWALoginPage.objPasswordField, password, "Password field");
-				waitTime(2000);
-				click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
-				waitTime(2000);
-				checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
-				click(PWAHamburgerMenuPage.objParentalLockNoRestrictionOption, "No restriction option");
-				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
-				waitTime(2000);
-
-			case "RestrictAll":
-				click(PWAHamburgerMenuPage.objRestrictAll, "Restrict all option");
-				click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
-				type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
-				type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
-				type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
-				type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
-				waitTime(4000);
-				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
-				waitTime(3000);
-
-				click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-				click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
-				checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
-				type(PWALoginPage.objPasswordField, password, "Password field");
-				waitTime(2000);
-				click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
-				waitTime(2000);
-				checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
-				click(PWAHamburgerMenuPage.objParentalLockNoRestrictionOption, "No restriction option");
-				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
-				waitTime(2000);
-
-			case "NoRestriction":
-				click(PWAHamburgerMenuPage.objNoRestrictionSelected, "Restrict all option");
-				click(PWAHamburgerMenuPage.objContinueButton, "Continue Button");
-
+			hideKeyboard();
+			if (getOEMName.contains("vivo")) {
+				hidePwdKeyboard();
 			}
+			click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
+			waitTime(2000);
 
+			if(restriction.equalsIgnoreCase("Age13+")){
+				click(AMDMoreMenu.objRestrict13Above, "Restrict 13+ Content option");
+				click(AMDMoreMenu.objContinueBtn, "Continue Button");
+				waitTime(2000);
+
+				verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin");
+				type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
+				hideKeyboard();
+				waitTime(4000);
+				click(AMDMoreMenu.objSetPinContinueBtn, "Continue Button");
+				waitTime(2000);
+				click(AMDMoreMenu.objParentalLockDone, "Done Button");
+			}else if(restriction.equalsIgnoreCase("Restrict All")) {
+				click(AMDMoreMenu.objRestrictAllContent, "Restrict All Content option");
+				click(AMDMoreMenu.objContinueBtn, "Continue Button");
+				waitTime(2000);
+				verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin");
+				type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
+				hideKeyboard();
+				waitTime(4000);
+				click(AMDMoreMenu.objSetPinContinueBtn, "Continue Button");
+				waitTime(2000);
+				click(AMDMoreMenu.objParentalLockDone, "Done Button");
+			}
+			
+			waitTime(3000);
+			Swipe("Up", 2);
+			verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
+			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
+			if (userType.equals("NonSubscribedUser")) {
+				password = getParameterFromXML("SettingsNonsubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = getParameterFromXML("SettingsSubscribedPassword");
+			}
+			click(AMDMoreMenu.objPasswordField, "Password field");
+			getDriver().getKeyboard().sendKeys(password);
+
+			hideKeyboard();
+			if (getOEMName.contains("vivo")) {
+				hidePwdKeyboard();
+			}
+			click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
+			waitTime(2000);
+			click(AMDMoreMenu.objNoRestriction, "No Restriction option");
+			click(AMDMoreMenu.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			click(AMDMoreMenu.objParentalLockDone, "Done Button");
+			waitTime(3000);
 		}
 	}
 
@@ -759,6 +778,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	}
 
 	public void verifySearchResultClickedEvent(String keyword2) throws Exception {
+		extent.HeaderChildNode("Verify Search Result click Event");
 		waitTime(5000);
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -768,5 +788,122 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 		waitTime(3000);
 	}
+	
+	public void verifyVideoQualityChangeEvent() throws Exception {
+		extent.HeaderChildNode("Verify video quality change Event");
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		boolean var=verifyIsElementDisplayed(AMDMoreMenu.objSelectedVideoQualityOption("Auto"));
+		if (var==true) {
+			click(AMDMoreMenu.objVideo_Quality("Auto"), "Video quality option");
+			click(AMDSettingsScreen.objVideoQualityBetter, "option Better");
+			click(AMDMoreMenu.objVideo_Quality("Better"), "Video quality option");
+			click(AMDMoreMenu.objAutoOption, "option Auto");
+		}else {
+			logger.error("the default selection in the Select Video Quality is not 'Auto' option");
+			extentLoggerWarning("Default selected Video quality option",
+					"the default selection in the Select Video Quality is not 'Auto' option");
+		}
+			
+	}
+	
+	public void verifyVideoAutoPlayChangeEvent() throws Exception {
+		extent.HeaderChildNode("Verify video AutoPlay change Event");
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		String elementAutoPlayToggleStatus = getText(AMDMoreMenu.objVideo_Autoply);
+		if (elementAutoPlayToggleStatus.equalsIgnoreCase("ON")) {
+			click(AMDMoreMenu.objVideo_Autoply, "Video Auto play toggle");
+		}else {
+			logger.info("the default state of the 'Auto Play' option is not in ON state");
+			extentLoggerWarning("Video Auto Play", "the default state of the 'Auto Play' option is not in ON state");
+		}	
+	}
+	
+	public void verifyDisplayLanguageChangeEvent(String displayLanguage) throws Exception {
+		extent.HeaderChildNode("Verify display language change Event");
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		Swipe("Up", 1);
+		click(AMDMoreMenu.objDisplayLang, "Display language");
+		click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguage), "language");
+		Back(1);
+	}
+	
+	public void verifyContentLanguageChangeEvent() throws Exception {
+		extent.HeaderChildNode("Verify Content language change Event");
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		Swipe("Up", 1);
+		click(AMDMoreMenu.objContentLang, "Content language");
+		click(AMDOnboardingScreen.objSelectContentLang("English"), "English language");
+		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in Content language screen");	
+	}
+	
+	public void verifyDefaultSettingRestoredEvent() throws Exception {
+		extent.HeaderChildNode("Verify Default Setting Restored Event");
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		Swipe("Up", 2);
+		verifyElementPresentAndClick(AMDSettingsScreen.objDefaultSetting, "Default Setting Link");
+		verifyElementPresentAndClick(AMDSettingsScreen.objYesCTA, "Yes CTA");
+	}
+	
+	public void ZeeApplicasterMixPanelLoginForParentalControl(String LoginMethod) throws Exception {
+		extent.HeaderChildNode("Login Functionality");
+
+		String UserType = getParameterFromXML("userType");
+		if (UserType.equals("Guest")) {
+			extent.extentLogger("userType", "UserType : Guest");
+		}
+
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+		waitTime(3000);
+
+		switch (LoginMethod) {
+		case "Guest":
+			extent.HeaderChildNode("Guest User");
+			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
+			waitTime(1000);
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+			waitTime(3000);
+			break;
+
+		case "NonSubscribedUser":
+			extent.HeaderChildNode("Login as NonSubscribed User");
+
+			String Username = getParameterFromXML("ParentalNonsubscribedUserName");
+			String Password = getParameterFromXML("ParentalNonsubscribedPassword");
+
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, Password, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
+
+		case "SubscribedUser":
+			extent.HeaderChildNode("Login as Subscribed User");
+
+			String SubscribedUsername = getParameterFromXML("ParentalSubscribedUserName");
+			String SubscribedPassword = getParameterFromXML("ParentalSubscribedPassword");
+
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
+
+		}
+	}
+
 
 }

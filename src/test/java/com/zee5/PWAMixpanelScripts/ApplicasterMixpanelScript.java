@@ -236,4 +236,63 @@ public class ApplicasterMixpanelScript {
 		Zee5ApplicasterMixPanelBusinessLogic.verifySearchResultClickedEvent(keyword2);
 	}
 	
+	@Test(priority = 30)
+	public void verifyVideoQualityChangeEvent() throws Exception {
+		System.out.println("Video Streaming Quality Changed");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyVideoQualityChangeEvent();
+	}
+	
+	@Test(priority = 31)
+	public void verifyVideoAutoPlayChangeEvent() throws Exception {
+		System.out.println("Video Streaming AutoPlay Changed");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyVideoAutoPlayChangeEvent();
+	}
+	
+	@Test(priority = 32)
+	@Parameters({"displayLanguage"})
+	public void verifyDisplayLanguageChangeEvent(String displayLanguage) throws Exception {
+		System.out.println("Display language Change");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyDisplayLanguageChangeEvent(displayLanguage);
+	}
+	
+	@Test(priority = 33)
+	public void verifyContentLanguageChangeEvent() throws Exception {
+		System.out.println("content language Change");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyContentLanguageChangeEvent();
+	}
+	
+	@Test(priority = 34)
+	public void verifydefaultsettingsRestoreEvent() throws Exception {
+		System.out.println("Default settings Restore Event");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyDefaultSettingRestoredEvent();
+	}
+	
+	@Test(priority = 35)
+	@Parameters({ "userType" })
+	public void verifyParentalRestrictionEvent(String userType) throws Exception {
+		System.out.println("Verify Parental Restriction Event");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyParentalRestrictionEvent(userType,"Age13+");
+	}
+	
+	@Test(priority = 36)
+	@Parameters({ "userType" })
+	public void verifySettingsChanged(String userType) throws Exception {
+		System.out.println("Verify Parental Restriction Event");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyParentalRestrictionEvent(userType,"Age13+");
+	}
+	
+	@Test(priority = 37)
+	@Parameters({ "userType" })
+	public void verifySessionEvent(String userType) throws Exception {
+		System.out.println("Verify Session Event");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+	}
+	
 }

@@ -34,6 +34,8 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("url", "https://newpwa.zee5.com/");
 		}else if(suite.getParameter("url").equals("prod")) {
 			params.put("url", "https://www.zee5.com/");
+		}else if(suite.getParameter("url").equals("preprod")) {
+			params.put("url", "https://pwa-preprod2.zee5.com/");
 		}
 		
 		// Pass region specific data
@@ -91,6 +93,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("subtitleTrackPremiumContent", "Welcome Back");
 			params.put("skipIntroPremium", "The Rum Diary");
 			params.put("skipIntroURL", "https://newpwa.zee5.com/kids/kids-movies/bablu-dablu-robo-rumble/0-0-54219");
+			params.put("NonsubscribedInvalidPassword", "igsindia");
 		}
 		if(region.equals("MH")) {
 			params.put("searchModuleSearchKey", "Kundali Bhagya");
@@ -144,6 +147,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("subtitleTrackPremiumContent", "Welcome Back");
 			params.put("skipIntroPremium", "The Rum Diary");
 			params.put("skipIntroURL", "https://newpwa.zee5.com/kids/kids-movies/bablu-dablu-robo-rumble/0-0-54219");
+			params.put("NonsubscribedInvalidPassword", "igsindia");
 		}
         suite.setParameters(params);	
 	}
