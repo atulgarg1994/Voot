@@ -390,4 +390,8 @@ public class PWAPlayerPage {
 
 	public static By objEnglishSubtitle = By
 			.xpath("//*[contains(@class,'subMenuWrapper')]//*[contains(text(),'English')]");
+	
+	public static By objRemoveFromWatchlist = By.xpath("(//*[@class='noSelect btnIconActive iconInitialLoad-ic_watchlist'])[1]");
+
+	public static By objAddToWatchlist = By.xpath("(//*[@class='iconInitialLoad-ic_add_Watchlist'])[1]");
 }

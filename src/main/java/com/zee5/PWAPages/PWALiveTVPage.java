@@ -367,4 +367,8 @@ public class PWALiveTVPage {
 	public static By objShowTimeInterval = By.xpath("(((//*[contains(@class,'programInner active')])[1]//parent::*)[1]//following-sibling::*)[2]//div[@class='timeInterval']");	
 	
 	public static By objLiveChannelConsumptionChannelTitle = By.xpath("//div[@class='channelConsumptionMetaDiv']//h1");
+	
+	public static By objSetReminderOn = By.xpath("//*[@class='noSelect reminder iconNavi-ic_reminder btnIconActive']");
+	
+	public static By objSetReminder = By.xpath("//*[@class='noSelect reminder iconNavi-ic_reminder']");
 }

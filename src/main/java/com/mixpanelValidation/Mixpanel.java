@@ -1,9 +1,11 @@
 package com.mixpanelValidation;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -57,6 +59,9 @@ public class Mixpanel extends ExtentReporter {
 	static ExtentReporter extent = new ExtentReporter();
 	static String UserID = "$distinct_id";
 	static String UserType = "guest";
+	static String platform;
+	static String APIKey;
+	static String Modelname;
 
 	public static void ValidateParameter(String distinctID, String eventName)
 			throws JsonParseException, JsonMappingException, IOException, InterruptedException {
@@ -96,8 +101,8 @@ public class Mixpanel extends ExtentReporter {
 //		Date date = new Date();
 //		System.out.println(dateToUTC(date));
 //		System.out.println(returnDuration("1601487000"));
-		long ut1 = Instant.now().getEpochSecond();
-		System.out.println(ut1);
+//		long ut1 = Instant.now().getEpochSecond();
+//		System.out.println(ut1);
 //
 //	        long ut2 = System.currentTimeMillis() / 1000L;
 //	        System.out.println(ut2);
@@ -120,7 +125,11 @@ public class Mixpanel extends ExtentReporter {
 //				.post("https://data.mixpanel.com/api/2.0/export/");
 ////				.post("https://mixpanel.com/api/2.0/segmentation/");
 //		request.print();
-		fetchEvent("cfeab293690a5446bbd525300613dfc9","Login Screen Display");
+//		platform = "Android";
+//		fetchEvent("SM-M205F","Video Exit");
+//		modelName();
+		platform = "WEb";
+		fetchEvent("99d6fada0cd13df4a40843d16156070e","Display Language Change"); 
 	}
 
 	/**
@@ -136,20 +145,26 @@ public class Mixpanel extends ExtentReporter {
 	public static void fetchEvent(String distinct_id, String eventName)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
-			Thread.sleep(180000);
+			Thread.sleep(1800);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println(distinct_id);
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime now = LocalDateTime.now();
 		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
 		System.out.println("Current Date : " + currentDate);
-		if (distinct_id.contains("-")) {
-			UserID = "Unique ID";
-			UserType = "Login";
+		if (platform.equals("Android")) {
+			APIKey = "b2514b42878a7e7769945befa7857ef1";
+			UserID = "$model";
+			distinct_id = Modelname;
+		} else {
+			APIKey = "58baafb02e6e8ce03d9e8adb9d3534a6";
+			if (distinct_id.contains("-")) {
+				UserID = "Unique ID";
+				UserType = "Login";
+			}
 		}
-		Response request = RestAssured.given().auth().preemptive().basic("58baafb02e6e8ce03d9e8adb9d3534a6", "")
+		Response request = RestAssured.given().auth().preemptive().basic(APIKey, "")
 				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
 				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
 				.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
@@ -160,8 +175,8 @@ public class Mixpanel extends ExtentReporter {
 		if (request != null) {
 			String response = request.asString();
 			String s[] = response.split("\n");
-			parseResponse(s[s.length - 1]);
-			validation();
+//			parseResponse(s[s.length - 1]);
+//			validation();
 		} else {
 			System.out.println("Event not triggered");
 			extentReportFail("Event not triggered", "Event not triggered");
@@ -181,7 +196,6 @@ public class Mixpanel extends ExtentReporter {
 			if (i != 0) {
 				String com[] = commaSplit[i].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 				/** Write key value into excel */
-//				System.out.println(com[0].replace("\"", "").replace("$", "")+"   ^^^^^^^^^^^^   "+ com[1].replace("\"", "").replace("$", ""));
 				write(i, com[0].replace("\"", "").replace("$", ""), com[1].replace("\"", "").replace("$", ""));
 			}
 		}
@@ -319,7 +333,7 @@ public class Mixpanel extends ExtentReporter {
 
 	private static void validateBoolean(String value) {
 		if (!value.equals("N/A")) {
-			if (!Stream.of("true","false").anyMatch(value::equals)) {
+			if (!Stream.of("true", "false").anyMatch(value::equals)) {
 				fillCellColor();
 				extentReportFail("Empty parameter",
 						"Value is not a boolean Data-Type :- <b>Key : " + key + " \n value : " + value + "</b>");
@@ -360,7 +374,7 @@ public class Mixpanel extends ExtentReporter {
 	}
 
 	public static void StaticValues() {
-		String platform = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite().getName();
+		platform = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite().getName();
 		if (platform.equals("Mpwa")) {
 			FEProp.setProperty("Platform Name", "Web");
 			FEProp.setProperty("os", "Android");
@@ -382,5 +396,16 @@ public class Mixpanel extends ExtentReporter {
 	@SuppressWarnings("static-access")
 	public static void extentReportInfo(String info, String details) {
 		extent.childTest.get().log(Status.INFO, details);
+	}
+
+	public static void modelName() {
+		try {
+			String cmd3 = "adb shell getprop ro.product.model";
+			Process process = Runtime.getRuntime().exec(cmd3);
+			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			Modelname = br.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

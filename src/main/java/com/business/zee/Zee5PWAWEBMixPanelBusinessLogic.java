@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import com.driverInstance.CommandBase;
 import com.extent.ExtentReporter;
+import com.metadata.ResponseInstance;
 import com.mixpanelValidation.Mixpanel;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.LoggingUtils;
@@ -54,7 +55,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 
 	Mixpanel mixpanel = new Mixpanel();
-	
+
 	String UserType = getParameterFromXML("userType");
 
 	public void init() {
@@ -489,7 +490,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "register");
 			System.out.println(local.getItem("guestToken"));
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Register Screen Display");
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Registartion");
 		}
 	}
 
@@ -517,10 +518,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Element", "Cross");
 			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			if(UserType.equals("Guest")) {
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Page Viewed");
-			}else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Page Viewed");
+			if (UserType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Page Viewed");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Page Viewed");
 			}
 		}
 	}
@@ -566,10 +567,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Current Subscription", "false");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
-			if(userType.equals("Guest")) {
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Selected");
-			}else {
+			if (userType.equals("Guest")) {
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Selected");
+			} else {
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Selected");
 			}
@@ -591,13 +592,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("cost", cost[1]);
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
-			if(userType.equals("Guest")) {
+			if (userType.equals("Guest")) {
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Selected");
-				}else {
-					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-					mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Selected");
-				}
+			} else {
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Selected");
+			}
 		}
 	}
 
@@ -644,7 +645,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "Have A Code section");
 			type(PWASubscriptionPages.objHaveACode, promocode, "Prepaid Code");
 			click(PWASubscriptionPages.objApplyBtn, "Apply Button");
-			
+
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
@@ -793,11 +794,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(3000);
 			break;
 
-		case "facebook":
+		case "fbLogin":
 			facebookLogin();
 			waitTime(3000);
 			break;
-		
+
+		case "emailLogin":
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
+			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			waitTime(3000);
+			verifyElementPresent(PWALoginPage.objWebLoginPageText, "Login page");
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			type(PWALoginPage.objEmailField, Username, "Email Field");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			type(PWALoginPage.objPasswordField, Password, "Password field");
+			waitTime(5000);
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(3000);
+			break;
+
 		}
 	}
 
@@ -987,9 +1004,21 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void verifySearchExecutedEvent() throws Exception {
 		extent.HeaderChildNode("Verify Search Executed Event");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, "kam" + "\n", "Search Edit box: ");
+		String searchtxt = "Kam";
+		type(PWASearchPage.objSearchEditBox, searchtxt + "\n", "Search Edit box: ");
 		waitTime(4000);
-
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Search Type", "text");
+		mixpanel.FEProp.setProperty("Results Returned", ResponseInstance.getresponse(searchtxt));
+		mixpanel.FEProp.setProperty("Search Query", searchtxt);
+		mixpanel.FEProp.setProperty("Search Success", "true");
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("guest")) {
+			System.out.println(local.getItem("guestToken"));
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Search Executed");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Search Executed");
+		}
 	}
 
 	public void verifyScreenViewEvent(String screen) throws Exception {
@@ -998,10 +1027,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void clearSearchHistoryEvent(String keyword3) throws Exception {
+	public void clearSearchHistoryEvent(String keyword1) throws Exception {
 		extent.HeaderChildNode("Verify Clear Search History Event");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword3 + "\n", "Search Edit box: " + keyword3);
+		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchCloseButton, "Clear Search Icon");
 
@@ -1119,10 +1148,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
-			click(PWAPlayerPage.watchListBtn, "Add to Watchlist button");
-			waitTime(2000);
-			verifyElementPresentAndClick(PWAPlayerPage.watchListBtn, "Remove From Watchlist button");
-			waitTime(4000);
+
+			if (checkElementDisplayed(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon")) {
+				click(PWAPlayerPage.objAddToWatchlist, "Watchlist icon");
+				waitTime(4000);
+				click(PWAPlayerPage.objRemoveFromWatchlist, "Remove From Watchlist icon");
+			} else {
+				click(PWAPlayerPage.objRemoveFromWatchlist, "Remove From Watchlist icon");
+				waitTime(4000);
+			}
 		}
 	}
 
@@ -1135,8 +1169,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
 
-			verifyElementPresentAndClick(PWAPlayerPage.watchListBtn, "Add to Watchlist button");
+			if (checkElementDisplayed(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon")) {
+				click(PWAPlayerPage.objAddToWatchlist, "Watchlist icon");
+			} else {
+				click(PWAPlayerPage.objRemoveFromWatchlist, "Remove From Watchlist icon");
+				waitTime(4000);
+				click(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon");
+				waitTime(4000);
+			}
 			waitTime(4000);
+
 		}
 	}
 
@@ -1148,22 +1190,47 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+			if (checkElementDisplayed(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon")) {
+				click(PWAPlayerPage.objAddToWatchlist, "Watchlist icon");
+			} else {
+				click(PWAPlayerPage.objRemoveFromWatchlist, "Remove From Watchlist icon");
+				waitTime(3000);
+				actions.moveToElement(contentCard).build().perform();
+				click(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon");
+				waitTime(4000);
+			}
+			waitTime(4000);
 		}
 
 	}
 
-	public void verifyRemoveFomWatchlistEventByMouseHover(String userType) throws Exception {
+	public void verifyRemoveFomWatchlistEventByMouseHoverInShowDetailPage(String userType, String keyword)
+			throws Exception {
 
 		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Verify Remove from Watchlist Event by mouse hovering on a Content Card");
+			extent.HeaderChildNode(
+					"Verify Remove from Watchlist Event by mouse hovering on a Content Card In show detail page");
+
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			click(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
-			actions.moveToElement(contentCard).build().perform();
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Remove from Watchlist icon");
+			if (checkElementDisplayed(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon")) {
+				click(PWAPlayerPage.objAddToWatchlist, "Watchlist icon");
+			} else {
+				click(PWAPlayerPage.objRemoveFromWatchlist, "Remove From Watchlist icon");
+				waitTime(3000);
+				actions.moveToElement(contentCard).build().perform();
+				click(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon");
+				waitTime(4000);
+			}
+			waitTime(4000);
 		}
 
 	}
@@ -1302,7 +1369,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			click(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
+			waitTime(4000);
+
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
 			verifyElementPresentAndClick(PWAAddToWatchListPage.objRemoveContentsInWatchList,
@@ -1322,9 +1393,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		getWebDriver().quit();
 		relaunch = clearData;
 		new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		System.out.println(local.getItem("Login Result"));
-		mixpanel.ValidateParameter(local.getItem("guestToken"), "Registration Initiated");
 	}
 
 	public void verifyQualityChangeEvent(String keyword1) throws Exception {
@@ -1372,13 +1440,21 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		JSClick(PWALanguageSettingsPage.objApplyBtn, "Apply button");
 		JSClick(PWALanguageSettingsPage.objApplyBtn, "Apply button");
 	}
-	
+
 	public void verifyContentLanguageChangeEvent() throws Exception {
 		extent.HeaderChildNode("Verify Content Language Change Event");
+
 		verifyElementPresentAndClick(PWAHomePage.objLanguageBtn, "Language button");
 		JSClick(PWALanguageSettingsPage.objApplyBtn, "Apply button");
 		JSClick(PWALanguageSettingsPage.objAllLangByindex(1), "Hindi content language");
 		JSClick(PWALanguageSettingsPage.objApplyBtn, "Apply button");
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("guest")) {
+			System.out.println(local.getItem("guestToken"));
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Search Executed");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Search Executed");
+		}
 	}
 
 	public void verifyContentBucketSwipeEvent(String tabName) throws Exception {
@@ -1387,7 +1463,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		click(PWAPremiumPage.objNextArrowBtn, "Right Arrow Button");
 		click(PWAPremiumPage.objPreviousArrowBtn, "Left Arrow Button");
-
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("guest")) {
+			System.out.println(local.getItem("guestToken"));
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Search Executed");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Search Executed");
+		}
 	}
 
 	public void verifyCarouselBannerSwipeEvent(String tabName) throws Exception {
@@ -1462,8 +1544,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWALiveTVPage.objTomorrowDate, "Tomorrow date");
 			FilterLanguage("Bengali");
 			click(PWALiveTVPage.objBanglaShow1, "Show detail");
-			click(PWALiveTVPage.objRemainderButton, "Reminder option");
-			waitTime(3000);
+
+			if (checkElementDisplayed(PWALiveTVPage.objSetReminder, "Reminder")) {
+				click(PWALiveTVPage.objSetReminder, "Reminder option");
+				waitTime(3000);
+			} else {
+				click(PWALiveTVPage.objSetReminderOn, "Reminder option");
+				waitTime(3000);
+				click(PWALiveTVPage.objSetReminder, "Reminder option");
+			}
+
 		}
 
 	}
@@ -1489,7 +1579,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(3000);
 			click(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted, "Update password button");
 			waitTime(2000);
-
 			click(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
 			click(PWAHamburgerMenuPage.objChangeOldPassword, "password field");
 			type(PWAHamburgerMenuPage.objChangeOldPassword, "igszee5", "Current password field");
@@ -1500,6 +1589,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(3000);
 			click(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted, "Update password button");
 			waitTime(2000);
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Element", "Update");
+			mixpanel.FEProp.setProperty("Page Name", "my_profile");
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			mixpanel.ValidateParameter(local.getItem("ID"), "Change Password Started");
 		}
 	}
 
@@ -1694,7 +1788,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -1822,8 +1918,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
-
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
 
@@ -1961,7 +2058,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -2106,7 +2205,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -2301,8 +2402,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
-
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
 
@@ -2524,8 +2626,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
-
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
 
@@ -2878,8 +2981,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
-
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
 
@@ -3075,7 +3179,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -3171,20 +3277,20 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.audioBtn, "Unmute Icon");
 	}
 
-	public void verifyLoginInitiatedEventForInvalidCredentials(String userType,String loginMethod) throws Exception {
+	public void verifyLoginInitiatedEventForInvalidCredentials(String userType, String loginMethod) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Initiated Event post entering invalid credentials");
-		
-			switch(loginMethod) {
-			
-			case  "mobileNumberLogin" :
+
+			switch (loginMethod) {
+
+			case "mobileNumberLogin":
 				click(PWALoginPage.objLoginBtnWEB, "Login button");
 				waitForElementDisplayed(PWALoginPage.objEmailField, 5);
 				click(PWALoginPage.objEmailField, "Email field");
 				type(PWALoginPage.objEmailField, "7892215214", "Phone Number Field");
 				click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
-			
-			case "emailLogin" :
+
+			case "emailLogin":
 				String Username = getParameterFromXML("NonsubscribedUserName");
 				String Password = getParameterFromXML("NonsubscribedInvalidPassword");
 				click(PWALoginPage.objWebLoginBtn, "Login button");
@@ -3201,13 +3307,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyLoginResultEventForInvalidCredentials(String userType,String loginMethod) throws Exception {
+	public void verifyLoginResultEventForInvalidCredentials(String userType, String loginMethod) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Result Event post entering invalid credentials");
-			
-			switch(loginMethod) {
-			
-			case  "mobileNumberLogin" :
+
+			switch (loginMethod) {
+
+			case "mobileNumberLogin":
 				click(PWALoginPage.objLoginBtnWEB, "Login button");
 				waitForElementDisplayed(PWALoginPage.objEmailField, 5);
 				click(PWALoginPage.objEmailField, "Email field");
@@ -3227,8 +3333,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("method", "Social");
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				System.out.println(local.getItem("Login Result"));
-			
-			case "emailLogin" :
+
+			case "emailLogin":
 				String Username = getParameterFromXML("NonsubscribedUserName");
 				String Password = getParameterFromXML("NonsubscribedInvalidPassword");
 				click(PWALoginPage.objWebLoginBtn, "Login button");
@@ -3242,7 +3348,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				click(PWALoginPage.objWebLoginButton, "Login Button");
 				waitTime(3000);
 			}
-		
+
 		}
 	}
 
@@ -3372,19 +3478,20 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	public void verifySubscriptionCallInitiatedEvent(String userType) throws Exception {
 		extent.HeaderChildNode("Subscription Call Initiated Event for All access pack");
-		
+
 		if (!(userType.equals("SubscribedUser"))) {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
+			if (userType.equals("Guest")) {
 				mixpanel.FEProp.setProperty("Page Name", "payment_page");
 				mixpanel.FEProp.setProperty("Source", "account_info");
 				String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 				mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
 				mixpanel.FEProp.setProperty("cost", cost[1]);
 				mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+			}
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
-			LocalStorage local1 = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			System.out.println(local1.getItem("guestToken"));
+
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
@@ -3395,11 +3502,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
 					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
-					
 				}
 			}
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			
 			waitTime(10000);
 			WebElement iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
 			Thread.sleep(5000);
@@ -3415,7 +3519,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
 			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
 			waitTime(10000);
-			mixpanel.ValidateParameter(local.getItem("ID"), "Registration Result");
+
 		}
 	}
 
@@ -3462,8 +3566,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
 			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
 			waitTime(10000);
-			LocalStorage local =  ((ChromeDriver) getWebDriver()).getLocalStorage();
-			Mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Call Initiated");
 		}
 	}
 
@@ -3478,8 +3580,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			logout();
 			waitTime(5000);
 			mixpanel.ValidateParameter(ID, "Logout");
-		}else{
-			logger.info("This scenario applay for loggedin user");
+
 		}
 	}
 
@@ -3784,9 +3885,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
-			actions.moveToElement(contentCard).build().perform();
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Remove from Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			} else {
+				click(PWAPremiumPage.objContentCardRemoveFromWatchlistBtn, "Remove From Watchlist icon");
+				waitTime(3000);
+				actions.moveToElement(contentCard).build().perform();
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 		}
 
@@ -3800,11 +3906,18 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			click(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
-			actions.moveToElement(contentCard).build().perform();
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Remove from Watchlist icon");
-			actions.moveToElement(contentCard).build().perform();
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Remove from Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+				waitTime(3000);
+				actions.moveToElement(contentCard).build().perform();
+				click(PWAPremiumPage.objContentCardRemoveFromWatchlistBtn, "Remove From Watchlist icon");
+
+			} else {
+				click(PWAPremiumPage.objContentCardRemoveFromWatchlistBtn, "Remove From Watchlist icon");
+				waitTime(3000);
+
+			}
+
 		}
 
 	}
@@ -3919,6 +4032,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			actions.moveToElement(contentCard).build().perform();
 
 			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -4094,7 +4211,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -4462,7 +4581,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			waitTime(4000);
 			mandatoryRegistrationPopUp(userType);
-			verifyElementPresentAndClick(PWAPlayerPage.watchListBtn, "Add to Watchlist icon");
+
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -4717,7 +4839,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
 			waitTime(4000);
 			mandatoryRegistrationPopUp(userType);
-			verifyElementPresentAndClick(PWAPlayerPage.watchListBtn, "Add to Watchlist icon");
+
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -4927,7 +5052,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
 			waitTime(4000);
 			mandatoryRegistrationPopUp(userType);
-			verifyElementPresentAndClick(PWAPlayerPage.watchListBtn, "Add to Watchlist icon");
+
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -5041,10 +5169,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Cross");
 		mixpanel.FEProp.setProperty("Page Name", "pack_selection");
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if(UserType.equals("Guest")) {
-		mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Page Viewed");
-		}else {
-		mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Page Viewed");
+		if (UserType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Page Viewed");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Page Viewed");
 		}
 	}
 
@@ -5167,7 +5295,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -5392,7 +5522,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -5607,16 +5739,17 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(2000);
 		}
 	}
-	
+
 	public void verifyPrepaidCodeResultEventForInvalid(String userType) throws Exception {
 		extent.HeaderChildNode("Verify Prepaid Code Result Event For Invalid code");
 		String promocode = "Z56MSK93rJGDyi";
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
-			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "Have A Code section");
+
+			click(PWASubscriptionPages.objHaveACode, "Have A Code section");
 			type(PWASubscriptionPages.objHaveACode, promocode, "Prepaid Code");
 			click(PWASubscriptionPages.objApplyBtn, "Apply Button");
-			
+
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
@@ -5624,11 +5757,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
 					// Password Popup
 					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
+					click(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
 					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
 				}
-			}			
+			}
 			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Element", "APPLY");
@@ -5640,9 +5773,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Promo Code", promocode);
 		}
 	}
-	
-public void verifyAdViewEventForFreeContent(String userType, String audioTrackContent) throws Exception {
-		
+
+	public void verifyAdViewEventForFreeContent(String userType, String audioTrackContent) throws Exception {
+
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For Free Content");
 
@@ -5651,21 +5784,21 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-			
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
-			
+
 			waitTime(5000);
 		}
 	}
 
-	public void verifyAdViewEventForTrailer(String userType,String keyword1) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+	public void verifyAdViewEventForTrailer(String userType, String keyword1) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For Trailer Content");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
@@ -5674,10 +5807,10 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -5685,16 +5818,16 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdViewEventForCarouselContent(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For Carousel Content");
 			waitTime(5000);
 			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -5702,42 +5835,45 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdViewEventForContentInTray(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For Content played from Tray");
 			click(PWAPremiumPage.objThumbnail, "Content From a tray");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdViewEventForContentFromSearchPage(String userType,String subtitleTrackContent) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+	public void verifyAdViewEventForContentFromSearchPage(String userType, String subtitleTrackContent)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For Content From Search Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
+			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
+					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdViewEventForContentFromMyWatchlistPage(String userType, String audioTrackContent) throws Exception {
+	public void verifyAdViewEventForContentFromMyWatchlistPage(String userType, String audioTrackContent)
+			throws Exception {
 		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.HeaderChildNode("Verify Ad View Event For Content From My Watchlist Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
@@ -5750,7 +5886,9 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -5759,10 +5897,10 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -5770,20 +5908,20 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdViewEventForContentInMegamenu(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For Content played from Megamenu");
 			waitTime(5000);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
 			actions.moveToElement(contentCard).build().perform();
-	
+
 			click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -5791,7 +5929,7 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdViewEventForContentInPlaylist(String userType, String audioTrackContent) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For Content played from Playlist");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
@@ -5804,10 +5942,10 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -5816,7 +5954,7 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdViewEventForContentFromUpnextRail(String userType, String audioTrackContent) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For Content played from Upnext rail");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
@@ -5832,26 +5970,26 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			mandatoryRegistrationPopUp(userType);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdViewEventForContentFromSharedLink(String userType,String audioTrackURL) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+	public void verifyAdViewEventForContentFromSharedLink(String userType, String audioTrackURL) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For content played from Shared Link");
 			getWebDriver().get(audioTrackURL);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -5859,9 +5997,8 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 		}
 	}
 
-	
 	public void verifyAdForcedExitEventForFreeContent(String userType, String audioTrackContent) throws Exception {
-		
+
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Forced Exit Event For Free Content");
 
@@ -5870,22 +6007,22 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-			
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
-			
+
 			waitTime(5000);
 		}
 	}
 
-	public void verifyAdForcedExitEventForTrailer(String userType,String keyword1) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+	public void verifyAdForcedExitEventForTrailer(String userType, String keyword1) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Forced Exit Event For Trailer Content");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
@@ -5894,11 +6031,11 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -5906,17 +6043,17 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdForcedExitEventForCarouselContent(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Forced Exit Event For Carousel Content");
 			waitTime(5000);
 			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -5924,44 +6061,47 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdForcedExitEventForContentInTray(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Forced Exit Event For Content played from Tray");
 			click(PWAPremiumPage.objThumbnail, "Content From a tray");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdForcedExitEventForContentFromSearchPage(String userType,String subtitleTrackContent) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+	public void verifyAdForcedExitEventForContentFromSearchPage(String userType, String subtitleTrackContent)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Forced Exit Event For Content From Search Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
+			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
+					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdForcedExitEventForContentFromMyWatchlistPage(String userType, String audioTrackContent) throws Exception {
+	public void verifyAdForcedExitEventForContentFromMyWatchlistPage(String userType, String audioTrackContent)
+			throws Exception {
 		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.HeaderChildNode("Verify Ad Forced Exit Event For Content From My Watchlist Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
@@ -5974,7 +6114,9 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -5983,11 +6125,11 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -5995,29 +6137,30 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdForcedExitEventForContentInMegamenu(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Forced Exit Event For Content played from Megamenu");
 			waitTime(5000);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
 			actions.moveToElement(contentCard).build().perform();
-	
+
 			click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdForcedExitEventForContentInPlaylist(String userType, String audioTrackContent) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+	public void verifyAdForcedExitEventForContentInPlaylist(String userType, String audioTrackContent)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Forced Exit Event For Content played from Playlist");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
@@ -6030,11 +6173,11 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6042,8 +6185,9 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 		}
 	}
 
-	public void verifyAdForcedExitEventForContentFromUpnextRail(String userType, String audioTrackContent) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+	public void verifyAdForcedExitEventForContentFromUpnextRail(String userType, String audioTrackContent)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Forced Exit Event For Content played from Upnext rail");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
@@ -6059,37 +6203,38 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			mandatoryRegistrationPopUp(userType);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdForcedExitEventForContentFromSharedLink(String userType,String audioTrackURL) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+	public void verifyAdForcedExitEventForContentFromSharedLink(String userType, String audioTrackURL)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Forced Exit Event For content played from Shared Link");
 			getWebDriver().get(audioTrackURL);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 			waitTime(5000);
 		}
 	}
-	
+
 	public void verifyAdClickEventForFreeContent(String userType, String audioTrackContent) throws Exception {
-		
+
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Click Event For Free Content");
 
@@ -6098,22 +6243,22 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-			
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
-			
+
 			waitTime(5000);
 		}
 	}
 
-	public void verifyAdClickEventForTrailer(String userType,String keyword1) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+	public void verifyAdClickEventForTrailer(String userType, String keyword1) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Click Event For Trailer Content");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
@@ -6122,11 +6267,11 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6134,17 +6279,17 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdClickEventForCarouselContent(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Click Event For Carousel Content");
 			waitTime(5000);
 			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6152,44 +6297,47 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdClickEventForContentInTray(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Click Event For Content played from Tray");
 			click(PWAPremiumPage.objThumbnail, "Content From a tray");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdClickEventForContentFromSearchPage(String userType,String subtitleTrackContent) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+	public void verifyAdClickEventForContentFromSearchPage(String userType, String subtitleTrackContent)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Click Event For Content From Search Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
+			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
+					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdViewClickForContentFromMyWatchlistPage(String userType, String audioTrackContent) throws Exception {
+	public void verifyAdViewClickForContentFromMyWatchlistPage(String userType, String audioTrackContent)
+			throws Exception {
 		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.HeaderChildNode("Verify Ad Click Event For Content From My Watchlist Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
@@ -6202,7 +6350,9 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -6211,11 +6361,11 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6223,21 +6373,21 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdClickEventForContentInMegamenu(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Click Event For Content played from Megamenu");
 			waitTime(5000);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
 			actions.moveToElement(contentCard).build().perform();
-	
+
 			click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6245,7 +6395,7 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdClickEventForContentInPlaylist(String userType, String audioTrackContent) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Click Event For Content played from Playlist");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
@@ -6258,11 +6408,11 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6271,7 +6421,7 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdClickEventForContentFromUpnextRail(String userType, String audioTrackContent) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Click Event For Content played from Upnext rail");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
@@ -6287,28 +6437,28 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			mandatoryRegistrationPopUp(userType);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdClickEventForContentFromSharedLink(String userType,String audioTrackURL) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+	public void verifyAdClickEventForContentFromSharedLink(String userType, String audioTrackURL) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Click Event For content played from Shared Link");
 			getWebDriver().get(audioTrackURL);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6316,34 +6466,36 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 		}
 	}
 
+	public void verifyAdWatchDurationEventForFreeContentForceExit(String userType, String audioTrackContent)
+			throws Exception {
 
-	public void verifyAdWatchDurationEventForFreeContentForceExit(String userType, String audioTrackContent) throws Exception {
-		
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user force quits the ad playback for free content");
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user force quits the ad playback for free content");
 
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-			
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
-			
+
 			waitTime(5000);
 		}
 	}
 
-	public void verifyAdWatchDurationEventForTrailerForceExit(String userType,String keyword1) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user force quits the ad playback For Trailer Content");
+	public void verifyAdWatchDurationEventForTrailerForceExit(String userType, String keyword1) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user force quits the ad playback For Trailer Content");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
@@ -6351,11 +6503,11 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6363,17 +6515,18 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdWatchDurationEventForCarouselContentForceExit(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user force quits the ad playback For Carousel Content");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user force quits the ad playback For Carousel Content");
 			waitTime(5000);
 			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6381,46 +6534,52 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdWatchDurationEventForContentInTrayForceExit(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user force quits the ad playback For Content played from Tray");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user force quits the ad playback For Content played from Tray");
 			click(PWAPremiumPage.objThumbnail, "Content From a tray");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdWatchDurationEventForContentFromSearchPageForceExit(String userType,String subtitleTrackContent) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user force quits the ad playback For Content From Search Page");
+	public void verifyAdWatchDurationEventForContentFromSearchPageForceExit(String userType,
+			String subtitleTrackContent) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user force quits the ad playback For Content From Search Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
+			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
+					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdWatchDurationEventForContentFromMyWatchlistPageForceExit(String userType, String audioTrackContent) throws Exception {
+	public void verifyAdWatchDurationEventForContentFromMyWatchlistPageForceExit(String userType,
+			String audioTrackContent) throws Exception {
 		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user force quits the ad playback For Content From My Watchlist Page");
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user force quits the ad playback For Content From My Watchlist Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
@@ -6431,7 +6590,9 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -6440,11 +6601,11 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6452,30 +6613,33 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdWatchDurationEventForContentInMegamenuForceExit(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user force quits the ad playback For Content played from Megamenu");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user force quits the ad playback For Content played from Megamenu");
 			waitTime(5000);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
 			actions.moveToElement(contentCard).build().perform();
-	
+
 			click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdWatchDurationEventForContentInPlaylistForceExit(String userType, String audioTrackContent) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user force quits the ad playback For Content played from Playlist");
+	public void verifyAdWatchDurationEventForContentInPlaylistForceExit(String userType, String audioTrackContent)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user force quits the ad playback For Content played from Playlist");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
@@ -6487,11 +6651,11 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6499,9 +6663,11 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 		}
 	}
 
-	public void verifyAdWatchDurationEventForContentFromUpnextRailForceExit(String userType, String audioTrackContent) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user force quits the ad playback For Content played from Upnext rail");
+	public void verifyAdWatchDurationEventForContentFromUpnextRailForceExit(String userType, String audioTrackContent)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user force quits the ad playback For Content played from Upnext rail");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
@@ -6516,61 +6682,66 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			mandatoryRegistrationPopUp(userType);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdWatchDurationEventForContentFromSharedLinkForceExit(String userType,String audioTrackURL) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user force quits the ad playback For content played from Shared Link");
+	public void verifyAdWatchDurationEventForContentFromSharedLinkForceExit(String userType, String audioTrackURL)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user force quits the ad playback For content played from Shared Link");
 			getWebDriver().get(audioTrackURL);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 			waitTime(5000);
 		}
 	}
-	
-	public void verifyAdWatchDurationEventForFreeContentComplete(String userType, String audioTrackContent) throws Exception {
-		
+
+	public void verifyAdWatchDurationEventForFreeContentComplete(String userType, String audioTrackContent)
+			throws Exception {
+
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user completly watches the ad playback for free content");
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user completly watches the ad playback for free content");
 
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-			
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
 				Back(1);
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
-			
+
 			waitTime(5000);
 		}
 	}
 
-	public void verifyAdWatchDurationEventForTrailerComplete(String userType,String keyword1) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user completly watches the ad playback For Trailer Content");
+	public void verifyAdWatchDurationEventForTrailerComplete(String userType, String keyword1) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user completly watches the ad playback For Trailer Content");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
@@ -6578,9 +6749,9 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6588,15 +6759,16 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdWatchDurationEventForCarouselContentComplete(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user completly watches the ad playback For Carousel Content");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user completly watches the ad playback For Carousel Content");
 			waitTime(5000);
 			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6604,42 +6776,48 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdWatchDurationEventForContentInTrayComplete(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user completly watches the ad playback For Content played from Tray");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user completly watches the ad playback For Content played from Tray");
 			click(PWAPremiumPage.objThumbnail, "Content From a tray");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdWatchDurationEventForContentFromSearchPageComplete(String userType,String subtitleTrackContent) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user completly watches the ad playback For Content From Search Page");
+	public void verifyAdWatchDurationEventForContentFromSearchPageComplete(String userType, String subtitleTrackContent)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user completly watches the ad playback For Content From Search Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
+			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
+					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdWatchDurationEventForContentFromMyWatchlistPageComplete(String userType, String audioTrackContent) throws Exception {
+	public void verifyAdWatchDurationEventForContentFromMyWatchlistPageComplete(String userType,
+			String audioTrackContent) throws Exception {
 		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user completly watches ad playback For Content From My Watchlist Page");
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user completly watches ad playback For Content From My Watchlist Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
@@ -6650,7 +6828,9 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
@@ -6659,9 +6839,9 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6669,28 +6849,31 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 	}
 
 	public void verifyAdWatchDurationEventForContentInMegamenuComplete(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user completly watches the ad playback For Content played from Megamenu");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user completly watches the ad playback For Content played from Megamenu");
 			waitTime(5000);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
 			actions.moveToElement(contentCard).build().perform();
-	
+
 			click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdWatchDurationEventForContentInPlaylistComplete(String userType, String audioTrackContent) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user completly watches the ad playback For Content played from Playlist");
+	public void verifyAdWatchDurationEventForContentInPlaylistComplete(String userType, String audioTrackContent)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user completly watches the ad playback For Content played from Playlist");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
@@ -6702,9 +6885,9 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6712,9 +6895,11 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 		}
 	}
 
-	public void verifyAdWatchDurationEventForContentFromUpnextRailComplete(String userType, String audioTrackContent) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user completly watches the ad playback For Content played from Upnext rail");
+	public void verifyAdWatchDurationEventForContentFromUpnextRailComplete(String userType, String audioTrackContent)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user completly watches the ad playback For Content played from Upnext rail");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
@@ -6729,24 +6914,26 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			mandatoryRegistrationPopUp(userType);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
 
-	public void verifyAdWatchDurationEventForContentFromSharedLinkComplete(String userType,String audioTrackURL) throws Exception {
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Watch Duration Event when user completly watches ad playback For content played from Shared Link");
+	public void verifyAdWatchDurationEventForContentFromSharedLinkComplete(String userType, String audioTrackURL)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user completly watches ad playback For content played from Shared Link");
 			getWebDriver().get(audioTrackURL);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
-			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
-			}else {
+			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
@@ -6754,4 +6941,344 @@ public void verifyAdViewEventForFreeContent(String userType, String audioTrackCo
 		}
 	}
 
+	public void verifyAddToWatchlistEventFromShowDetailPage(String userType, String keyword) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Add To Watchlist Event From Show Detail Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitTime(5000);
+
+			Actions actions = new Actions(getWebDriver());
+			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
+			actions.moveToElement(contentCard).build().perform();
+
+			if (checkElementDisplayed(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon")) {
+				click(PWAPlayerPage.objAddToWatchlist, "Watchlist icon");
+			} else {
+				click(PWAPlayerPage.objRemoveFromWatchlist, "Remove From Watchlist icon");
+				waitTime(3000);
+				actions.moveToElement(contentCard).build().perform();
+				click(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon");
+				waitTime(4000);
+			}
+		}
+	}
+
+	public void verifyAdWatchDurationEventForFreeContentSkipAd(String userType, String audioTrackContent)
+			throws Exception {
+
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Ad Watch Duration Event when user skips the ad playback for free content");
+
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
+			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			mandatoryRegistrationPopUp(userType);
+
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
+					Thread.sleep(5000);
+					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+				} else {
+					System.out.println("Skip Ad Button is not displayed");
+				}
+			} else {
+				logger.info("Skip Ad is not available for the content");
+				extent.extentLogger("Skip Ad", "Skip Ad is not available for the content");
+			}
+
+			waitTime(5000);
+		}
+	}
+
+	public void verifyAdWatchDurationEventForTrailerSkipAd(String userType, String keyword1) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user skips the ad playback For Trailer Content");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
+					Thread.sleep(5000);
+					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+				} else {
+					System.out.println("Skip Ad Button is not displayed");
+				}
+			} else {
+				logger.info("Skip Ad is not available for the content");
+				extent.extentLogger("Skip Ad", "Skip Ad is not available for the content");
+			}
+		}
+	}
+
+	public void verifyAdWatchDurationEventForCarouselContentSkipAd(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user skips the ad playback For Carousel Content");
+			waitTime(5000);
+			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
+					Thread.sleep(5000);
+					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+				} else {
+					System.out.println("Skip Ad Button is not displayed");
+				}
+			} else {
+				logger.info("Skip Ad is not available for the content");
+				extent.extentLogger("Skip Ad", "Skip Ad is not available for the content");
+			}
+		}
+	}
+
+	public void verifyAdWatchDurationEventForContentInTraySkipAd(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user skips the ad playback For Content played from Tray");
+			click(PWAPremiumPage.objThumbnail, "Content From a tray");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
+					Thread.sleep(5000);
+					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+				} else {
+					System.out.println("Skip Ad Button is not displayed");
+				}
+			} else {
+				logger.info("Skip Ad is not available for the content");
+				extent.extentLogger("Skip Ad", "Skip Ad is not available for the content");
+			}
+		}
+	}
+
+	public void verifyAdWatchDurationEventForContentFromSearchPageSkipAd(String userType, String subtitleTrackContent)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user skips the ad playback For Content From Search Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
+					"Search Edit box: " + subtitleTrackContent);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
+					Thread.sleep(5000);
+					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+				} else {
+					System.out.println("Skip Ad Button is not displayed");
+				}
+			} else {
+				logger.info("Skip Ad is not available for the content");
+				extent.extentLogger("Skip Ad", "Skip Ad is not available for the content");
+			}
+		}
+	}
+
+	public void verifyAdWatchDurationEventForContentFromMyWatchlistPageSkipAd(String userType, String audioTrackContent)
+			throws Exception {
+		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user skips ad playback For Content From My Watchlist Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+
+			Actions actions = new Actions(getWebDriver());
+			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
+			actions.moveToElement(contentCard).build().perform();
+
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
+
+			click(PWALandingPages.objWebProfileIcon, "Profile icon");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+
+			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
+					Thread.sleep(5000);
+					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+				} else {
+					System.out.println("Skip Ad Button is not displayed");
+				}
+			} else {
+				logger.info("Skip Ad is not available for the content");
+				extent.extentLogger("Skip Ad", "Skip Ad is not available for the content");
+			}
+		}
+	}
+
+	public void verifyAdWatchDurationEventForContentInMegamenuSkipAd(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user skips the ad playback For Content played from Megamenu");
+			waitTime(5000);
+			Actions actions = new Actions(getWebDriver());
+			WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
+			actions.moveToElement(contentCard).build().perform();
+
+			click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
+					Thread.sleep(5000);
+					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+				} else {
+					System.out.println("Skip Ad Button is not displayed");
+				}
+			} else {
+				logger.info("Skip Ad is not available for the content");
+				extent.extentLogger("Skip Ad", "Skip Ad is not available for the content");
+			}
+		}
+	}
+
+	public void verifyAdWatchDurationEventForContentInPlaylistSkipAd(String userType, String audioTrackContent)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user skips the ad playback For Content played from Playlist");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+			waitTime(4000);
+			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			mandatoryRegistrationPopUp(userType);
+			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
+			mandatoryRegistrationPopUp(userType);
+			waitTime(2000);
+			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			mandatoryRegistrationPopUp(userType);
+
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
+					Thread.sleep(5000);
+					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+				} else {
+					System.out.println("Skip Ad Button is not displayed");
+				}
+			} else {
+				logger.info("Skip Ad is not available for the content");
+				extent.extentLogger("Skip Ad", "Skip Ad is not available for the content");
+			}
+			waitTime(5000);
+		}
+	}
+
+	public void verifyAdWatchDurationEventForContentFromUpnextRailSkipAd(String userType, String audioTrackContent)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user skips the ad playback For Content played from Upnext rail");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+			waitTime(4000);
+			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitForPlayerAdToComplete("Video Player");
+			mandatoryRegistrationPopUp(userType);
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			playerScrubTillLastWeb();
+			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+			waitTime(6000);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			mandatoryRegistrationPopUp(userType);
+
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
+					Thread.sleep(5000);
+					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+				} else {
+					System.out.println("Skip Ad Button is not displayed");
+				}
+			} else {
+				logger.info("Skip Ad is not available for the content");
+				extent.extentLogger("Skip Ad", "Skip Ad is not available for the content");
+			}
+		}
+	}
+
+	public void verifyAdWatchDurationEventForContentFromSharedLinkSkipAd(String userType, String audioTrackURL)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Ad Watch Duration Event when user skips ad playback For content played from Shared Link");
+			getWebDriver().get(audioTrackURL);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+
+			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
+					Thread.sleep(5000);
+					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+				} else {
+					System.out.println("Skip Ad Button is not displayed");
+				}
+			} else {
+				logger.info("Skip Ad is not available for the content");
+				extent.extentLogger("Skip Ad", "Skip Ad is not available for the content");
+			}
+
+			waitTime(5000);
+		}
+	}
+	public void verifyCTAsEventForIcons(String userType, String icon) throws Exception {
+		extent.HeaderChildNode("Verify CTAs Event when user clicks on Search, Language, Profile icon");
+		
+		if(icon.equalsIgnoreCase("Search")) {
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+		}
+		
+		if(icon.equalsIgnoreCase("Language")) {
+			click(PWAHomePage.objLanguageBtn, "Language button");
+		}
+	
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			if(icon.equalsIgnoreCase("Profile")) {
+				click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+			}
+		}
+			
+	}
+	
+	public void verifyCTAsEventForSubscribeBtn(String userType) throws Exception {
+		
+		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify CTAs Event when user clicks on subscription option");
+			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
+
+		}
+	}
+		
+	public void verifyCTAsEventForOptionInHamburger() throws Exception {
+		extent.HeaderChildNode("Verify CTAs Event when user clicks on any option in hamburger menu");
+		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		waitTime(3000);
+		click(PWAHamburgerMenuPage.objMoreSettingInHamburger, "More settings");
+		}
+	
+	public void verifyCTAsEventHeader(String userType, String tabName) throws Exception {
+		extent.HeaderChildNode("Verify CTAs Event");
+		navigateToAnyScreenOnWeb(tabName);
+	}
 }

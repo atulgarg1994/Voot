@@ -140,5 +140,10 @@ public class PWAPremiumPage {
 	
 	public static By objGetPremiumCTAOnCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//span[contains(text(),'Get premium')]");
 
+	public static By objContentCardAddToWatchlistBtn = By
+			.xpath("(//*[@class='noSelect btnIcon iconInitialLoad-ic_add_Watchlist'])[1]");
+	
+	public static By objContentCardRemoveFromWatchlistBtn = By
+			.xpath("(//*[@class='noSelect btnIcon btnIconActive iconInitialLoad-ic_watchlist'])[1]");
 	
 }

@@ -295,4 +295,74 @@ public class ApplicasterMixpanelScript {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 	}
 	
+	@Test(priority = 38)
+	@Parameters({ "tabName" })
+	public void verifyCarouselBannerSwipeEvent(String tabName) throws Exception {
+		System.out.println("Verify Carousel Banner Swipe Event");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyCarouselBannerSwipeEvent(tabName);
+	}
+	
+	@Test(priority = 39)
+	@Parameters({ "userType", "keyword2" })
+	public void verifyPopUpLaunchEventForGetPremiumPopUp(String userType, String keyword2) throws Exception {
+		System.out.println("Verify Pop Up Launch Event when get premium popup is displayed on playing premium content");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyPopUpLaunchEventForGetPremiumPopUp(userType,keyword2);
+	}
+	
+	@Test(priority = 40)
+	@Parameters({ "userType", "keyword1" })
+	public void verifyPopUpLaunchEventForCompleteProfilePopUp(String userType, String keyword1) throws Exception {
+		System.out.println("Verify Pop Up Launch Event when Complete Profile popup is displayed");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyPopUpLaunchEventForCompleteProfilePopUp(userType, keyword1);
+	}
+	
+	@Test(priority = 41)
+	@Parameters({ "userType", "keyword1" })
+	public void verifyPopUpLaunchEventForRegisterPopUp(String userType, String keyword1) throws Exception {
+		System.out.println("Verify Pop Up Launch Event when get register popup is displayed");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyPopUpLaunchEventForRegisterPopUp(userType,keyword1);
+	}
+	
+	@Test(priority = 42)
+	@Parameters({ "userType", "keyword2" })
+	public void verifyPopUpCTAsEvent(String userType, String keyword2) throws Exception {
+		System.out.println("Verify Pop Up CTA's Event when user clicks on CTA button displayed on the popup");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyPopUpCTAsEvent(userType,keyword2);
+	}
+	
+	@Test(priority = 43)
+	@Parameters({ "userType", "tabName" })
+	public void verifyCTAsEvent(String userType,String tabName) throws Exception {
+		System.out.println("Verify CTAs Event");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEvent(userType,tabName);
+	}
+	
+	@Test(priority = 44)
+	@Parameters({ "userType" })
+	public void verifyLoginUsernameEnteredEvent(String userType) throws Exception {
+		System.out.println("Verify Login Username Entered Event");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+	}
+	
+	@Test(priority = 45)
+	@Parameters({ "userType" })
+	public void verifyLoginPasswordEnteredEvent(String userType) throws Exception {
+		System.out.println("Verify Login Password Entered Event");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+	}
+	
+	@Test(priority = 46)
+	@Parameters({ "userType", "tabName" })
+	public void verifyRecommendedRailImpressionEventByScrollingPage(String userType,String tabName) throws Exception {
+		System.out.println("Verify Recommended Rail Impression event when user is able to see the recommended tray by scrolling down the page");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyRecommendedRailImpressionEventByScrollingPage(userType,tabName );
+	}
+	
 }

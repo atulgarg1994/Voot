@@ -1,5 +1,7 @@
 package com.business.zee;
 
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -9,15 +11,21 @@ import com.driverInstance.CommandBase;
 import com.driverInstance.Drivertools;
 import com.emailReport.GmailInbox;
 import com.extent.ExtentReporter;
+import com.jayway.restassured.response.Response;
+import com.metadata.ResponseInstance;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.LoggingUtils;
 import com.utility.Utilities;
 import com.zee5.ApplicasterPages.*;
 import com.zee5.PWAPages.PWAHamburgerMenuPage;
 import com.zee5.PWAPages.PWALoginPage;
+
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 
 public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
@@ -112,7 +120,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		logger.info("UserType : " + userType);
 		System.out.println("Access Device Location PopUp");
 
-		 click(AMDOnboardingScreen.objContinueBtnInDebugBuild, "Continue button");
+		Swipe("Up", 1);
+		click(AMDOnboardingScreen.objContinueBtnInDebugBuild, "Continue button");
 		if (checkElementExist(AMDOnboardingScreen.objAllowBtn)) {
 			Wait(5000);
 			verifyElementPresent(AMDOnboardingScreen.objAllowBtn, "Allow button");
@@ -274,6 +283,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowLinkOnPlayer, "Subscribe Now Link");
+			waitTime(2000);
 			Swipe("Up", 1);
 			verifyElementPresentAndClick(AMDPlayerScreen.objLoginCTA, "Login CTA");
 			verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip link");
@@ -354,6 +364,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowLinkOnPlayer, "Subscribe Now Link");
+			waitTime(2000);
 			Swipe("Up", 1);
 			verifyElementPresentAndClick(AMDPlayerScreen.objLoginCTA, "Login CTA");
 		}
@@ -396,19 +407,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			logger.info("User Logged in Successfully");
 			extent.extentLogger("Logged in", "User Logged in Successfully");
 			logout();
-		} else if (verifyIsElementDisplayed(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App")) {
-			click(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App");
-		} else {
-			verifyElementPresent(AMDLoginScreen.objEmailFieldInTwitterPage, " Email Field");
-			type(AMDLoginScreen.objEmailFieldInTwitterPage, "zee5latest@gmail.com", "Email Field");
+		} else if (verifyIsElementDisplayed(AMDLoginScreen.objTwitterEmail, "Email Field")) {
+			verifyElementPresent(AMDLoginScreen.objTwitterEmail, " Email Field");
+			type(AMDLoginScreen.objTwitterEmail, "zee5latest@gmail.com", "Email Field");
 
-			verifyElementPresent(AMDLoginScreen.objPasswordFieldInTwitterPage, " Password Field");
-			type(AMDLoginScreen.objPasswordFieldInTwitterPage, "User@123", "Password Field");
+			verifyElementPresent(AMDLoginScreen.objTwitterPassword, " Password Field");
+			type(AMDLoginScreen.objTwitterPassword, "User@123", "Password Field");
 
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginButtonInTwitterPage, "Login Button");
-			waitTime(3000);
+//			verifyElementPresentAndClick(AMDLoginScreen.objLoginButtonInTwitterPage, "Login Button");
+			waitTime(2000);
 			Swipe("Up", 1);
-			verifyElementPresentAndClick(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App");
+			verifyElementPresentAndClick(AMDLoginScreen.objtwAuthorizeAppBtn, "Authorize App");
 
 			waitForElementDisplayed(AMDHomePage.objHome, 20);
 			if (checkElementDisplayed(AMDHomePage.objHome, "Home tab")) {
@@ -420,6 +429,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Logged in", "User is not logged in Successfully");
 				Back(1);
 			}
+		}else {
+			click(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App");
 		}
 	}
 
@@ -491,6 +502,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Subscription Selected Event");
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
+			waitTime(3000);
 			Swipe("Up", 2);
 			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
 			waitTime(2000);
@@ -502,6 +514,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
 			click(AMDSubscibeScreen.objClubTab, "Club Pack");
+			waitTime(2000);
 			Swipe("Up", 2);
 			click(AMDSubscibeScreen.objClub365daysPack, "Pack");
 			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
@@ -905,5 +918,291 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
+	public void verifyCarouselBannerSwipeEvent(String tabName) throws Exception {
+		extent.HeaderChildNode("Verify Carousel Banner Swipe Event Across tabs");
+		SelectTopNavigationTab(tabName);
+		waitForElementDisplayed(AMDHomePage.objCarouselDots, 10);
+		waitTime(10000);
 
+		if (verifyElementDisplayed(AMDHomePage.objBannerAd)) {
+			verifyElementPresent(AMDHomePage.objCarouselUnitwithmastHeadAdbanner,
+					"Carousel unit as first unit on " + tabName + " screen");
+		} else {
+			verifyElementPresent(AMDHomePage.objCarouselUnitwhenNomastHeadAdbanner,
+					"Carousel unit as first unit on " + tabName + " screen");
+		}
+
+		// Validating Carousel manual swipe
+		String width = getAttributValue("width", AMDHomePage.objCarouselConetentCard);
+
+		String bounds = getAttributValue("bounds", AMDHomePage.objCarouselConetentCard);
+		String b = bounds.replaceAll(",", " ").replaceAll("]", " ");
+		String height = b.split(" ")[1];
+
+		waitTime(3000);
+		String Carouseltitle1 = getText(AMDHomePage.objCarouselTitle1);
+		logger.info(Carouseltitle1);
+		extentLoggerPass("Carousel Title", Carouseltitle1);
+		carouselCardsSwipe("LEFT", 1, width, height);
+
+		String Carouseltitle2 = getText(AMDHomePage.objCarouselTitle1);
+		logger.info(Carouseltitle2);
+		extentLoggerPass("Carousel Title", Carouseltitle2);
+		carouselCardsSwipe("RIGHT", 1, width, height);
+	}
+	
+	public void carouselCardsSwipe(String direction, int count, String width, String height) throws Exception {
+		touchAction = new TouchAction(getDriver());
+
+		try {
+
+			int yCordinate;
+			if (verifyElementIsNotDisplayed(AMDHomePage.objAdBannerAboveCarousel)) {
+				yCordinate = (int) ((Integer.valueOf(height)) * 0.4);
+			} else {
+				yCordinate = (int) ((Integer.valueOf(height)) * 0.5);
+			}
+
+			if (direction.equalsIgnoreCase("LEFT")) {
+
+				for (int i = 0; i < count; i++) {
+
+					int startx = (Integer.valueOf(width));
+					startx = (int) (startx * 0.8);
+					int endx = (int) (startx * 0.1);
+
+					int starty = (Integer.valueOf(height)) + yCordinate;
+					touchAction.press(PointOption.point(startx, starty))
+							.waitAction(WaitOptions.waitOptions(Duration.ofMillis(100)))
+							.moveTo(PointOption.point(endx, starty)).release().perform();
+					logger.info("Swiping screen in " + " " + direction + " direction" + " " + (i + 1) + " times");
+					extent.extentLoggerPass("SwipeLeft",
+							"Swiping screen in " + " " + direction + " direction" + " " + (i + 1) + " times");
+
+					System.out.println("\n<<< Swipe <<<");
+					System.out.println("[X,Y]: [" + startx + "," + starty + "] ===> [" + endx + "," + starty + "]");
+				}
+			} else if (direction.equalsIgnoreCase("RIGHT")) {
+
+				for (int j = 0; j < count; j++) {
+					int startx = (int) ((Integer.valueOf(width)) * 0.1);
+					int endx = (int) ((Integer.valueOf(width)) * 0.8);
+					int starty = (Integer.valueOf(height)) + yCordinate;
+					touchAction.press(PointOption.point(startx, starty))
+							.waitAction(WaitOptions.waitOptions(Duration.ofMillis(100)))
+							.moveTo(PointOption.point(endx, starty)).release().perform();
+
+					logger.info("Swiping screen in " + " " + direction + " direction" + " " + (j + 1) + " times");
+					extent.extentLoggerPass("SwipeRight",
+							"Swiping screen in " + " " + direction + " direction" + " " + (j + 1) + " times");
+
+					System.out.println("\n>>> Swipe >>>");
+					System.out.println("[X,Y]: [" + startx + "," + starty + "] ===> [" + endx + "," + starty + "]");
+				}
+			}
+		} catch (Exception e) {
+			logger.error(e);
+		}
+	}
+	
+	public void verifyPopUpLaunchEventForGetPremiumPopUp(String userType, String keyword2) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode(
+					"Verify Pop Up Launch Event when get premium popup is displayed on playing premium content");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword2 + "\n", "Search bar");
+			hideKeyboard();
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowLinkOnPlayer, "Subscribe Now Link");
+			
+		}	
+	}
+	
+	public void verifyPopUpLaunchEventForCompleteProfilePopUp(String usertype, String searchKeyword) throws Exception {
+		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			extent.HeaderChildNode("Verify Pop Up Launch Event when Complete Profile popup is displayed");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, searchKeyword + "\n", "Search bar");
+			hideKeyboard();
+			// closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+
+			if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+				waitForAdToFinishInAmd();
+			}
+			completeProfilePopUpClose(usertype);
+		}
+	}
+	
+	public void completeProfilePopUpClose(String userType) throws Exception {
+		waitTime(5000);
+		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			if (verifyIsElementDisplayed(AMDPlayerScreen.objCompleteProfilePopUp)) {
+				logger.info("Complete Profile Pop Up is displayed");
+				extent.extentLogger("Complete Profile Pop Up", "Complete Profile Pop Up is displayed");
+				Back(1);
+			}
+		}
+	}
+	
+	public void verifyPopUpLaunchEventForRegisterPopUp(String userType, String keyword) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Pop Up Launch Event when Native popup is displayed");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword + "\n", "Search bar");
+			hideKeyboard();
+			// closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+
+			if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+				waitForAdToFinishInAmd();
+			}
+			registerPopUpClose();
+		}	
+	}
+	
+	public void verifyPopUpCTAsEvent(String userType, String keyword2) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Pop Up CTA's Event when user clicks on CTA button displayed on the popup");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword2 + "\n", "Search bar");
+			hideKeyboard();
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowLinkOnPlayer, "Subscribe Now Link");
+			Swipe("Up", 1);
+			verifyElementPresentAndClick(AMDPlayerScreen.objLoginCTA, "Login CTA");
+		}
+	}
+	
+	public void verifyCTAsEvent(String userType, String tabName) throws Exception {
+		extent.HeaderChildNode("Verify CTAs Event");
+		SelectTopNavigationTab(tabName);
+		verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
+		waitTime(3000);	
+	}
+	
+	public void verifyRecommendedRailImpressionEventByScrollingPage(String userType, String tabname)throws Exception {
+		if(!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode(
+					"Verify Recommended Rail Impression event when user is able to see the recommended tray by scrolling down the page");
+			SelectTopNavigationTab(tabname);
+			waitTime(10000);
+			findingTrayInscreen(4, AMDHomePage.objTrayTitle("Trending movies"), AMDHomePage.objCarouselConetentCard,
+					"Trending Movies tray", "MastheadCarousel", userType, tabname);
+		}
+		
+	}
+	
+	public void findingTrayInscreen(int j, By byLocator1, By byLocator2, String str1, String str2, String userType,
+			String tabName) throws Exception {
+		boolean tray = false;
+		for (int i = 0; i < j; i++) {
+			if (!((verifyIsElementDisplayed(byLocator1)))) {
+				Swipe("UP", 1);
+			} else {
+				verifyElementExist(byLocator1, str1);
+				tray = true;
+				if (tabName.equalsIgnoreCase("Home")) {
+					if (str1.equalsIgnoreCase("Continue watching tray")) {
+
+						Response respCW = ResponseInstance.getRespofCWTray(userType);
+
+						List<String> ApinoOfContentsInCW = respCW.jsonPath().getList("array");
+						logger.info("no.of contents in CW tray in Api " + ApinoOfContentsInCW.size());
+
+						ArrayList<String> listOfContentsInCW = new ArrayList<String>();
+
+						for (int k = 0; k < ApinoOfContentsInCW.size(); k++) {
+
+							String title = respCW.jsonPath().getString("[" + k + "].title");
+							listOfContentsInCW.add(title);
+						}
+
+						logger.info(listOfContentsInCW);
+
+						for (int p = 0; p < ApinoOfContentsInCW.size(); p++) {
+
+							verifyElementExist(AMDHomePage.objContentTitleOfCWTray(listOfContentsInCW.get(p)),
+									"content title");
+
+							if (verifyElementDisplayed(AMDHomePage.objLeftTimeOfFirstContentOfCWTray)) {
+								logger.info("Left watch time info on cards is available");
+								extent.extentLoggerPass("Left watch time info",
+										"Left watch time info on cards is available");
+							} else {
+								logger.error("Left watch time info on cards is not available");
+								extent.extentLoggerFail("Left watch time info",
+										"Left watch time info on cards is not available");
+							}
+							if (verifyElementDisplayed(AMDHomePage.objProgressBarOfFirstContentOfCWTray)) {
+								logger.info("Progress bar is displayed to indicate the content watched portion");
+								extent.extentLoggerPass("Progress bar",
+										"Progress bar is displayed to indicate the content watched portion");
+							} else {
+								logger.error("Progress bar is not displayed to indicate the content watched portion");
+								extent.extentLoggerFail("Progress bar",
+										"Progress bar is not displayed to indicate the content watched portion");
+							}
+							if (p != (ApinoOfContentsInCW.size() - 1)) {
+								SwipeRail(AMDHomePage.objContentTitleOfCWTray(listOfContentsInCW.get(p + 1)));
+							}
+						}
+					}
+				}
+				break;
+			}
+		}
+		if (tray == false) {
+			if (userType.equalsIgnoreCase("Guest")) {
+				if (str1.equalsIgnoreCase("Continue watching tray")) {
+					logger.info(str1 + " is not displayed for Guest user");
+					extent.extentLoggerPass("Tray", str1 + " is not displayed for Guest user");
+				} else {
+					logger.error(str1 + " is not displayed");
+					extent.extentLoggerWarning("Tray", str1 + " is not displayed");
+				}
+			} else {
+				if (tabName.equalsIgnoreCase("Home")) {
+
+					if (str1.equalsIgnoreCase("Continue watching tray")) {
+
+						Response respCW = ResponseInstance.getRespofCWTray(userType);
+
+						List<String> ApinoOfContentsInCW = respCW.jsonPath().getList("array");
+						logger.info("no.of contents in CW tray in Api " + ApinoOfContentsInCW.size());
+
+						if (ApinoOfContentsInCW.size() == 0) {
+
+							logger.info(str1 + " is not displayed for this user");
+							extent.extentLoggerPass("Tray", str1 + " is not displayed for this user");
+						} else {
+							logger.error(str1 + " is not displayed for this user");
+							extent.extentLoggerWarning("Tray", str1 + " is not displayed for this user");
+						}
+					}
+					logger.error(str1 + " is not displayed");
+					extent.extentLoggerWarning("Tray", str1 + " is not displayed");
+				} else {
+					logger.error(str1 + " is not displayed");
+					extent.extentLoggerWarning("Tray", str1 + " is not displayed");
+				}
+			}
+		}
+		for (int i = 0; i < j; i++) {
+			if (!(verifyIsElementDisplayed(byLocator2))) {
+				Swipe("DOWN", 1);
+			} else {
+				verifyElementExist(byLocator2, str2);
+				break;
+			}
+		}
+	}
 }

@@ -661,10 +661,10 @@ public class ResponseInstance {
 		String bearerToken = getBearerToken(pUsername, pPassword);
 //		String url = "https://userapi.zee5.com/v1/user";
 //		String url = "https://newpwa.zee5.com/settings"; //Dummy
-//		String url = "https://userapi.zee5.com/v1/settings"; 
+		String url = "https://userapi.zee5.com/v1/settings"; 
 //		String url = "https://subscriptionapi.zee5.com/v1/purchase";
 //		String url = "https://subscriptionapi.zee5.com/v1/subscription";
-		String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";
+//		String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";
 		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 //		resp = given().headers("x-access-token", xAccessToken).when().get(url);
 		
@@ -678,12 +678,39 @@ public class ResponseInstance {
 //		System.out.println(BeforeTV("Guest","Home"));
 //		getUserData();
 //		getRegion();
-		getDetailsOfCustomer("zee5latest@gmail.com","User@123");
-//		String[] comm = resp.asString().replace("{", "").replace("}", "").replace("[", "").replace("]", "").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-//		for(int i = 0; i < comm.length; i++) {
-//			System.out.println(comm[i].replace("\"", ""));
-//		}
+//		getresponse("kam");
+//		getDetailsOfCustomer("zeetest@gmail.com","zee123");
+		getUserSettingsDetails("","");
+		
 	}
+	
+	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
+//		getDetailsOfCustomer("zeetest@gmail.com", "zee123");
+		String bearerToken = getBearerToken(pUsername, pPassword);
+		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get("https://userapi.zee5.com/v1/settings");
+		Properties pro = new Properties();
+		String[] comm = resp.asString().replace("{", "").replace("}", "").replace("[", "").replace("]", "")
+				.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+		System.out.println(comm.length);
+		String value = null;
+		for (int i = 0; i < comm.length;) {
+			String key = comm[i].replace("\"", "").split("y:")[1];
+			try {
+				value = comm[i + 1].replace("\"", "").split("e:")[1];
+			} catch (Exception e) {
+				value = "Empty";
+			}
+			if(value.contains("age_rating")) {
+				key = "Parent Control Setting";
+				value = value.replace("\\", "").split(":")[1].replace(", pin", "");
+			}
+			pro.setProperty(key, value);
+			i = i + 2;
+		}
+		return pro;
+	}
+	
+	
 	
 	public static Properties getUserData() {
 		String[] userData = {"email", "first_name","last_name","birthday","gender","registration_country","recurring_enabled"};
@@ -704,6 +731,26 @@ public class ResponseInstance {
 	private static String getRegion() {
 		Response regionResponse=given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
 		return regionResponse.getBody().jsonPath().getString("state_code");
+	}
+	
+	public static String getresponse(String searchText) {
+		Response resp = given().urlEncodingEnabled(false).when().get("https://gwapi.zee5.com/content/search_all?q="+searchText+"&limit=10&asset_type=0,6,1&country=IN&languages=hi,en,mr,te,kn,ta,ml,bn,gu,pa,hr,or&translation=en&version=3&");
+		return resp.jsonPath().getString("results[0].total");
+	}
+	
+	public static String getFreeContent(String tabName,String pUsername,String pPassword) {
+		String userType = "Guest"  ;
+		Properties prop = getUserSettingsDetails(pUsername,pPassword);
+		String url = "https://gwapi.zee5.com/content/collection/0-8-" + tabName + "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages=" + prop.getProperty("content_language") + "&version=6";
+		String xAccessToken = getXAccessTokenWithApiKey();
+		if(!userType.equals("Guest")) {
+		String bearerToken = getBearerToken(pUsername, pPassword);
+		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+		}
+		else {
+			resp = given().headers("x-access-token", xAccessToken).when().get(url);
+		}
+		return null;
 	}
 }
 
