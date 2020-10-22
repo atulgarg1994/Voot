@@ -62,13 +62,11 @@ public class Android_Consumption_Screen {
 	@Test(priority = 6)
 	@Parameters({ "userType" })
 	public void MandatoryRegistrationPopUp(String userType) throws Exception {
-		if(! userType.equals("SubscribedUser")) {
 			ZEE5ApplicasterBusinessLogic.relaunch(true);
 			ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 			ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 			ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 			ZEE5ApplicasterBusinessLogic.MandatoryPopUpScenarios(userType);
-		}
 	}
 
 	@AfterTest

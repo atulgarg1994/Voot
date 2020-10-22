@@ -290,10 +290,6 @@ public class PWAPlayerPage {
 
 	public static By objfasterPopUp = By.xpath("//div[@class='adoric_element element-text selected editing']");
 
-	// Consumptions page show title
-	public static By objConsumptionsShowTitle = By
-			.xpath("(//div[@class='metaInfo']//a[contains(@href,'tv-shows/') or contains(@href,'zee5originals/')])[1]");
-
 	// Show details page show title
 	public static By objContentShowTitle = By
 			.xpath("//div[@class='showDetails']//div[contains(@class,'bannerTitle')]//h1");
@@ -394,4 +390,15 @@ public class PWAPlayerPage {
 	public static By objRemoveFromWatchlist = By.xpath("(//*[@class='noSelect btnIconActive iconInitialLoad-ic_watchlist'])[1]");
 
 	public static By objAddToWatchlist = By.xpath("(//*[@class='iconInitialLoad-ic_add_Watchlist'])[1]");
+	
+	// Consumptions page show title
+	public static By objConsumptionsShowTitle = By.xpath("(//div[@class='metaInfo']//a[contains(@href,'shows/') or contains(@href,'zee5originals/')])[1]");
+
+	public static By objSubscribeCTAWithClubIcon = By.xpath("//*[@class='subscribe-teaser-button player-club-icon']");
+
+	// Charm board presence
+	public static By charmBoardPresence = By.xpath("//div[@class='charm_toast_added']");
+
+	// Charm board pause
+	public static By charmBoardPause = By.xpath("//*[@nodeName='path' and @fill-rule='evenodd']");
 }

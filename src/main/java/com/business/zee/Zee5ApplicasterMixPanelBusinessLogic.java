@@ -71,6 +71,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	}
 
 	GmailInbox gmail = new GmailInbox();
+	
+	String FirstName = getParameterFromXML("FirstName");
+	String LastName = getParameterFromXML("LastName");
 
 	public void init() {
 
@@ -93,9 +96,18 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		new Zee5ApplicasterBusinessLogic("zee");
 		accessDeviceLocationPopUp("Allow", userType);
 		navigateToIntroScreen_DisplaylangScreen();
+        System.out.println(Drivertools.getTestName());
 		if(Drivertools.getTestName().equalsIgnoreCase("verifyParentalRestriction")){
+			System.out.println("1");
 			ZeeApplicasterMixPanelLoginForParentalControl(userType);
-		}else {
+		}else if(Drivertools.getTestName().equalsIgnoreCase("verifyChangePasswordStartedEvent")) {
+			ZeeApplicasterMixPanelLoginForParentalControl(userType);
+			System.out.println("2");
+		}else if(Drivertools.getTestName().equalsIgnoreCase("verifyChangePasswordResultEvent")) {
+			ZeeApplicasterMixPanelLoginForParentalControl(userType);
+			System.out.println("3");
+		}
+		else {
 			ZeeApplicasterLogin(userType);
 		}
 		
@@ -504,6 +516,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
 			waitTime(3000);
 			Swipe("Up", 2);
+			SwipeUntilFindElement(AMDSubscibeScreen.objContinueBtn, "Up");
 			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
 			waitTime(2000);
 		}
@@ -833,11 +846,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}	
 	}
 	
+
 	public void verifyDisplayLanguageChangeEvent(String displayLanguage) throws Exception {
 		extent.HeaderChildNode("Verify display language change Event");
 		click(AMDHomePage.MoreMenuIcon, "More menu icon");
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
-		Swipe("Up", 1);
+		waitTime(1000);
+		SwipeUntilFindElement(AMDMoreMenu.objDisplayLang, "Up");
 		click(AMDMoreMenu.objDisplayLang, "Display language");
 		click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguage), "language");
 		Back(1);
@@ -847,10 +862,38 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Content language change Event");
 		click(AMDHomePage.MoreMenuIcon, "More menu icon");
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
-		Swipe("Up", 1);
+		waitTime(1000);
+		SwipeUntilFindElement(AMDMoreMenu.objContentLang, "Up");
 		click(AMDMoreMenu.objContentLang, "Content language");
 		click(AMDOnboardingScreen.objSelectContentLang("English"), "English language");
 		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in Content language screen");	
+	}
+	
+	public boolean SwipeUntilFindElement(By locator, String direction) throws Exception {
+
+		boolean checkLocator, eletFound = false;
+		if (direction.equalsIgnoreCase("UP")) {
+			for (int i = 1; i < 25; i++) {
+				PartialSwipe("UP", 1);
+				checkLocator = verifyIsElementDisplayed(locator);
+				if (checkLocator) {
+					eletFound = true;
+					break;
+				}
+			}
+		}
+
+		if (direction.equalsIgnoreCase("DOWN")) {
+			for (int i = 1; i < 25; i++) {
+				PartialSwipe("DOWN", 1);
+				checkLocator = verifyIsElementDisplayed(locator);
+				if (checkLocator) {
+					eletFound = true;
+					break;
+				}
+			}
+		}
+		return eletFound;
 	}
 	
 	public void verifyDefaultSettingRestoredEvent() throws Exception {
@@ -1204,5 +1247,184 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				break;
 			}
 		}
+	}
+	
+	public void verifyAdBannerImpressionEvent(String usertype) throws Exception {
+		if(!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Ad Banner Impression Event Across tabs");
+			SelectTopNavigationTab("Home");
+			waitTime(10000);
+			verifyIsElementDisplayed(AMDHomePage.objBannerAd, "Ad banner");
+			SelectTopNavigationTab("Shows");
+			waitTime(10000);
+			verifyIsElementDisplayed(AMDHomePage.objBannerAd, "Ad banner");
+			SelectTopNavigationTab("Movies");
+			waitTime(10000);
+			verifyIsElementDisplayed(AMDHomePage.objBannerAd, "Ad banner");
+		}
+		
+	}
+	
+	public void verifyRegistrationDOBEnteredEvent(String usertype) throws Exception {
+		if(usertype.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Registration DOB entered event");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
+			waitTime(5000);
+			String pEmailID = generateRandomString(5) + "@gmail.com";
+			type(AMDRegistrationScreen.objEmailIDTextField, pEmailID, "Email field");
+			verifyElementPresentAndClick(AMDRegistrationScreen.objProceedBtn, "Proceed button");
+			verifyElementPresent(AMDRegistrationScreen.objScreenTitle, "Register for Free screen");
+			click(AMDRegistrationScreen.objDOBTxtField, "DOB");
+			type(AMDRegistrationScreen.objDOBTxtField, "01/01/1990", "DOB");
+			waitTime(3000);
+		}
+	}
+	public void verifyRegistrationGenderEnteredEvent(String usertype) throws Exception {
+		if(usertype.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Registration Gender entered event");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
+			waitTime(5000);
+			String pEmailID = generateRandomString(5) + "@gmail.com";
+			type(AMDRegistrationScreen.objEmailIDTextField, pEmailID, "Email field");
+			verifyElementPresentAndClick(AMDRegistrationScreen.objProceedBtn, "Proceed button");
+			verifyElementPresent(AMDRegistrationScreen.objScreenTitle, "Register for Free screen");
+			verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
+			verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
+			waitTime(3000);
+		}
+	}
+	
+	public void verifyRegistrationUserNameEnteredEvent(String usertype) throws Exception {
+		if(usertype.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Registration userName entered event");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
+			waitTime(5000);
+			String pEmailID = generateRandomString(5) + "@gmail.com";
+			type(AMDRegistrationScreen.objEmailIDTextField, pEmailID, "Email field");
+			verifyElementPresentAndClick(AMDRegistrationScreen.objProceedBtn, "Proceed button");
+			verifyElementPresent(AMDRegistrationScreen.objScreenTitle, "Register for Free screen");
+			type(AMDRegistrationScreen.objFirstNameTxtField, FirstName, "First name field");
+			hideKeyboard();
+			type(AMDRegistrationScreen.objLastNameTxtField, LastName, "Last name field");
+			hideKeyboard();
+			waitTime(3000);
+		}
+	}
+	
+	public void verifyRegistrationPasswordEnteredEvent(String usertype) throws Exception {
+		if(usertype.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Registration Password entered event");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
+			waitTime(5000);
+			String pEmailID = generateRandomString(5) + "@gmail.com";
+			type(AMDRegistrationScreen.objEmailIDTextField, pEmailID, "Email field");
+			verifyElementPresentAndClick(AMDRegistrationScreen.objProceedBtn, "Proceed button");
+			verifyElementPresent(AMDRegistrationScreen.objScreenTitle, "Register for Free screen");
+			click(AMDRegistrationScreen.objPasswordTxtField, "Passowrd");
+			type(AMDRegistrationScreen.objPasswordTxtField, "123456", "Password field");
+			hideKeyboard();
+			waitTime(3000);
+		}
+	}
+	
+	public void verifyChangePasswordStartedEvent(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Change Password started event");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDMyProfileScreen.objChangePassword, "Change Password");
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objCurrentPwdField, "Current Password field");
+			type(AMDChangePasswordScreen.objCurrentPwdField, "123456","Current Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objNewPwdField, "New Password field");
+			type(AMDChangePasswordScreen.objNewPwdField, "1234567", "New Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objConfirmPwdField, "Confirm Password field");
+			type(AMDChangePasswordScreen.objConfirmPwdField, "1234567","Confirm Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objUpdateBtn, "Update button");
+			
+			waitTime(3000);
+			
+			verifyElementPresentAndClick(AMDMyProfileScreen.objChangePassword, "Change Password");
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objCurrentPwdField, "Current Password field");
+			type(AMDChangePasswordScreen.objCurrentPwdField, "1234567","Current Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objNewPwdField, "New Password field");
+			type(AMDChangePasswordScreen.objNewPwdField, "123456", "New Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objConfirmPwdField, "Confirm Password field");
+			type(AMDChangePasswordScreen.objConfirmPwdField, "123456","Confirm Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objUpdateBtn, "Update button");
+			waitTime(3000);	
+		}
+	}
+	
+	public void verifyChangePasswordResultEvent(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Change Password result event");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDMyProfileScreen.objChangePassword, "Change Password");
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objCurrentPwdField, "Current Password field");
+			type(AMDChangePasswordScreen.objCurrentPwdField, "123456","Current Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objNewPwdField, "New Password field");
+			type(AMDChangePasswordScreen.objNewPwdField, "1234567", "New Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objConfirmPwdField, "Confirm Password field");
+			type(AMDChangePasswordScreen.objConfirmPwdField, "1234567","Confirm Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objUpdateBtn, "Update button");
+			
+			waitTime(3000);
+			
+			verifyElementPresentAndClick(AMDMyProfileScreen.objChangePassword, "Change Password");
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objCurrentPwdField, "Current Password field");
+			type(AMDChangePasswordScreen.objCurrentPwdField, "1234567","Current Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objNewPwdField, "New Password field");
+			type(AMDChangePasswordScreen.objNewPwdField, "123456", "New Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objConfirmPwdField, "Confirm Password field");
+			type(AMDChangePasswordScreen.objConfirmPwdField, "123456","Confirm Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objUpdateBtn, "Update button");
+			waitTime(3000);
+		}
+	}
+	
+	public void verifyVideoAutoPlayChangeEventForEnable() throws Exception {
+		extent.HeaderChildNode("Verify video AutoPlay change Event");
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		String elementAutoPlayToggleStatus = getText(AMDMoreMenu.objVideo_Autoply);
+		if (elementAutoPlayToggleStatus.equalsIgnoreCase("ON")) {
+			logger.info("the default state of the 'Auto Play' option is in ON state");
+			extentLoggerWarning("Video Auto Play", "the default state of the 'Auto Play' option is in ON state");
+		}else {
+			click(AMDMoreMenu.objVideo_Autoply, "Video Auto play toggle");
+			
+		}	
+	}
+	
+	public void verifyVideoAutoPlayChangeEventforDisable() throws Exception {
+		extent.HeaderChildNode("Verify video AutoPlay change Event");
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		String elementAutoPlayToggleStatus = getText(AMDMoreMenu.objVideo_Autoply);
+		if (elementAutoPlayToggleStatus.equalsIgnoreCase("ON")) {
+			click(AMDMoreMenu.objVideo_Autoply, "Video Auto play toggle");
+		}else {
+			logger.info("the default state of the 'Auto Play' option is not in ON state");
+			extentLoggerWarning("Video Auto Play", "the default state of the 'Auto Play' option is not in ON state");
+		}	
 	}
 }

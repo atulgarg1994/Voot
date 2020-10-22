@@ -26,7 +26,7 @@ public class PWANewsPage {
 	public static By objSeekbar = By.xpath("//div[@class='playkit-progress-bar']");
 	public static By ContentPlayer = By.xpath("//div[@id='player-placeholder']");
 	public static By objLiveNewsCard = By.xpath("//div[@data-minutelytitle]");
-	public static By objLiveNewsConsumptionsTitle = By.xpath("//div[@class='channelConsumptionMetaDiv']//h1");
 	public static By objBannerMute = By.xpath("//*[@class='playkit-icon playkit-icon-volume-mute']");
 	public static By objBannerUnMute = By.xpath("//*[@class='playkit-icon playkit-icon-volume-waves']");
+	public static By objLiveNewsConsumptionsTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv')]//h1");
 }

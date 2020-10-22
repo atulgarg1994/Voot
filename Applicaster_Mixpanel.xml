@@ -22,7 +22,8 @@
 	<parameter name="ParentalSubscribedUserName" value="gdmuser3@mailnesia.com" />
 	<parameter name="ParentalSubscribedPassword" value="123456" />
 	<parameter name="tabName" value="Movies" />
-	
+	<parameter name="FirstName" value="edcv" />
+	<parameter name="LastName" value="yuhj" />
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

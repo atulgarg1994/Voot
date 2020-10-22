@@ -16735,95 +16735,113 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 * Author : Vinay
 	 */
 	public void MandatoryPopUpScenarios(String userType) throws Exception {
-		extent.HeaderChildNode("Verifying Mandatory Pop up  on Consumption screen");
+		extent.HeaderChildNode("Verifying Mandatory PopUp screen on Consumption screen");
+		System.out.println("\nVerifying Mandatory PopUp screen on Consumption screen");
 		waitTime(5000);
-		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
-		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, SVODEpisode , "Search bar");
-		hideKeyboard();
-		click(AMDSearchScreen.objEpisodeSearch, "Search result");
-		extent.extentLogger("","Playing first content");
-		System.out.println("Playing first content");
-		waitTime(5000);
-		waitForAdToFinishInAmd();
-		boolean isRegisterPopUp = verifyIsElementDisplayed(AMDConsumptionScreen.objRegisterPopUp);
-		if(isRegisterPopUp) {
-			extent.extentLoggerPass("1st Register pop up after ad",
-					"Register Pop up is displayed after ad completing for playing first free content");
-			logger.info("Register Pop up is displayed after ad completing for playing first free content");
-			Back(1);
+		
+		if (userType.equals("SubscribedUser")) {	
+			extent.extentLogger("Mandatory PopUp Screen", "Mandatory PopUp Screen is Not Applicable for " + userType);
+			logger.info("Mandatory PopUp Screen is Not Applicable for " + userType);
 		}else {
-			extent.extentLoggerFail("1st Register pop up after ad", 
-					"Register Pop up is not displayed after ad completing for playing first free content");
-			logger.info("Register Pop up is not displayed after ad completing for playing first free content");
-		}
-		
-		click(AMDPlayerScreen.objPlayerScreen,"Player");
-		scrubVideo(AMDPlayerScreen.objProgressBar);
-		
-		for(int i=1 ; i<=5; i++) {
-			
-			extent.extentLogger("Content Playing", "Playing content " +(i+1));
-			logger.info("Playing content " +i);
+			verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+			verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, SVODEpisode, "Search bar");
+			hideKeyboard();
+			click(AMDSearchScreen.objEpisodeSearch, "Search result");
+			extent.extentLogger("", "Playing first content");
+			System.out.println("Playing first content");
 			waitTime(5000);
-			if(i==5) {
-				click(AMDConsumptionScreen.objFirstUpNextContent,"Next content");
-				waitTime(5000);
-				boolean isRegisterPopUpFor5Content = verifyIsElementDisplayed(AMDConsumptionScreen.objRegisterPopUp);
-				if(isRegisterPopUpFor5Content) {
-					extent.extentLoggerPass("Mandatory Register pop up after ad",
-							"Mandatory Register Pop up is displayed after  playing 5 SVOD contents");
-					logger.info("Mandatory Register Pop up is displayed after  playing 5  SVOD contents");
-					
-					click(AMDConsumptionScreen.objLoginBtnOnPopup,"Login button on Register pop up");
-					String header = getText(AMDGenericObjects.objgetScreenTitle);
-					if(header.equals("Login/Register")) {
-						extent.extentLoggerPass("Login screen",
-								"User is navigated to Login/Register screen post tapping Login button from Register pop up");
-						logger.info("User is navigated to Login/Register screen post tapping Login button from Register pop up");
-					}else {
-						extent.extentLoggerFail("Login screen","Failed to Navigate into Login/Register screen post tapping login from Register pop up");
-						logger.info("Failed to Navigate into Login/Register screen post tapping login from Register pop up");
-					}
-					hideKeyboard();
-					Back(2);
-					boolean isRegisterOnPlayerScreen = verifyIsElementDisplayed(AMDConsumptionScreen.objRegisterBtnOnPlayer);
-					if(userType.equals("Guest")) {
-						if(isRegisterOnPlayerScreen) {
-							extent.extentLoggerPass("Register text", "Register button is displayed on Player screen");
-							logger.info("Register button is displayed on Player screen");
-						}else {
-							extent.extentLoggerFail("Register pop up", "Register button is not displayed on Player screen and Playback is initiated");
-							logger.info("Register button is not displayed on Player screen and Playback is initiated");
-						}
-					}else {
-						if(isRegisterOnPlayerScreen) {
-							extent.extentLoggerPass("Complete Profile", "Complete Profile button is displayed on Player screen");
-							logger.info("Complete Profile button is displayed on Player screen");
-						}else {
-							extent.extentLoggerFail("Complete Profile pop up", "Complete Profile button is not displayed on Player screen and Playback is initiated");
-							logger.info("Complete Profile button is not displayed on Player screen and Playback is initiated");
-						}
-						
-					}
-					
-				}else {
-					extent.extentLoggerFail("Mandatory Register pop up after ad", 
-							"Mandatory Register Pop up is not displayed after  playing 5  free contents");
-					logger.info("Mandatory Register Pop up is not displayed after  playing 5  free contents");
-				}
-			}else {
-				
-				click(AMDConsumptionScreen.objFirstUpNextContent,"Next content");
-				waitTime(5000);
-				waitForAdToFinishInAmd();
-				waitTime(2000);
-				click(AMDPlayerScreen.objPlayerScreen,"Player");
-//				click(AMDPlayerScreen.objPauseIcon,"Pause icon");
-				scrubVideo(AMDPlayerScreen.objProgressBar);
-				waitTime(5000);
+			waitForAdToFinishInAmd();
+			boolean isRegisterPopUp = verifyIsElementDisplayed(AMDConsumptionScreen.objRegisterPopUp);
+			if (isRegisterPopUp) {
+				extent.extentLoggerPass("1st Register pop up after ad",
+						"Register Pop up is displayed after ad completing for playing first free content");
+				logger.info("Register Pop up is displayed after ad completing for playing first free content");
+				Back(1);
+			} else {
+				extent.extentLoggerFail("1st Register pop up after ad",
+						"Register Pop up is not displayed after ad completing for playing first free content");
+				logger.info("Register Pop up is not displayed after ad completing for playing first free content");
 			}
-		}	
+
+			click(AMDPlayerScreen.objPlayerScreen, "Player");
+			scrubVideo(AMDPlayerScreen.objProgressBar);
+
+			for (int i = 1; i <= 5; i++) {
+
+				extent.extentLogger("Content Playing", "Playing content " + (i + 1));
+				logger.info("Playing content " + i);
+				waitTime(5000);
+				if (i == 5) {
+					click(AMDConsumptionScreen.objFirstUpNextContent, "Next content");
+					waitTime(5000);
+					boolean isRegisterPopUpFor5Content = verifyIsElementDisplayed(
+							AMDConsumptionScreen.objRegisterPopUp);
+					if (isRegisterPopUpFor5Content) {
+						extent.extentLoggerPass("Mandatory Register pop up after ad",
+								"Mandatory Register Pop up is displayed after  playing 5 SVOD contents");
+						logger.info("Mandatory Register Pop up is displayed after  playing 5  SVOD contents");
+
+						click(AMDConsumptionScreen.objLoginBtnOnPopup, "Login button on Register pop up");
+						String header = getText(AMDGenericObjects.objgetScreenTitle);
+						if (header.equals("Login/Register")) {
+							extent.extentLoggerPass("Login screen",
+									"User is navigated to Login/Register screen post tapping Login button from Register pop up");
+							logger.info(
+									"User is navigated to Login/Register screen post tapping Login button from Register pop up");
+						} else {
+							extent.extentLoggerFail("Login screen",
+									"Failed to Navigate into Login/Register screen post tapping login from Register pop up");
+							logger.info(
+									"Failed to Navigate into Login/Register screen post tapping login from Register pop up");
+						}
+						hideKeyboard();
+						Back(2);
+						boolean isRegisterOnPlayerScreen = verifyIsElementDisplayed(
+								AMDConsumptionScreen.objRegisterBtnOnPlayer);
+						if (userType.equals("Guest")) {
+							if (isRegisterOnPlayerScreen) {
+								extent.extentLoggerPass("Register text",
+										"Register button is displayed on Player screen");
+								logger.info("Register button is displayed on Player screen");
+							} else {
+								extent.extentLoggerFail("Register pop up",
+										"Register button is not displayed on Player screen and Playback is initiated");
+								logger.info(
+										"Register button is not displayed on Player screen and Playback is initiated");
+							}
+						} else {
+							if (isRegisterOnPlayerScreen) {
+								extent.extentLoggerPass("Complete Profile",
+										"Complete Profile button is displayed on Player screen");
+								logger.info("Complete Profile button is displayed on Player screen");
+							} else {
+								extent.extentLoggerFail("Complete Profile pop up",
+										"Complete Profile button is not displayed on Player screen and Playback is initiated");
+								logger.info(
+										"Complete Profile button is not displayed on Player screen and Playback is initiated");
+							}
+
+						}
+
+					} else {
+						extent.extentLoggerFail("Mandatory Register pop up after ad",
+								"Mandatory Register Pop up is not displayed after  playing 5  free contents");
+						logger.info("Mandatory Register Pop up is not displayed after  playing 5  free contents");
+					}
+				} else {
+
+					click(AMDConsumptionScreen.objFirstUpNextContent, "Next content");
+					waitTime(5000);
+					waitForAdToFinishInAmd();
+					waitTime(2000);
+					click(AMDPlayerScreen.objPlayerScreen, "Player");
+//				click(AMDPlayerScreen.objPauseIcon,"Pause icon");
+					scrubVideo(AMDPlayerScreen.objProgressBar);
+					waitTime(5000);
+				}
+			}
+		} 
 	}
 	
 public void scrubVideo(By byLocator1) throws Exception {

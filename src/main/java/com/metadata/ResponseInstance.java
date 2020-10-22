@@ -680,32 +680,34 @@ public class ResponseInstance {
 //		getRegion();
 //		getresponse("kam");
 //		getDetailsOfCustomer("zeetest@gmail.com","zee123");
-		getUserSettingsDetails("","");
-		
+//		getUserSettingsDetails("","");		
 	}
 	
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
-//		getDetailsOfCustomer("zeetest@gmail.com", "zee123");
-		String bearerToken = getBearerToken(pUsername, pPassword);
-		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get("https://userapi.zee5.com/v1/settings");
 		Properties pro = new Properties();
-		String[] comm = resp.asString().replace("{", "").replace("}", "").replace("[", "").replace("]", "")
-				.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-		System.out.println(comm.length);
-		String value = null;
-		for (int i = 0; i < comm.length;) {
-			String key = comm[i].replace("\"", "").split("y:")[1];
-			try {
-				value = comm[i + 1].replace("\"", "").split("e:")[1];
-			} catch (Exception e) {
-				value = "Empty";
+		if (!pUsername.equals("")) {
+			String bearerToken = getBearerToken(pUsername, pPassword);
+			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken)
+					.when().get("https://userapi.zee5.com/v1/settings");
+
+			String[] comm = resp.asString().replace("{", "").replace("}", "").replace("[", "").replace("]", "")
+					.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+			System.out.println(comm.length);
+			String value = null;
+			for (int i = 0; i < comm.length;) {
+				String key = comm[i].replace("\"", "").split("y:")[1];
+				try {
+					value = comm[i + 1].replace("\"", "").split("e:")[1];
+				} catch (Exception e) {
+					value = "Empty";
+				}
+				if (value.contains("age_rating")) {
+					key = "Parent Control Setting";
+					value = value.replace("\\", "").split(":")[1].replace(", pin", "");
+				}
+				pro.setProperty(key, value);
+				i = i + 2;
 			}
-			if(value.contains("age_rating")) {
-				key = "Parent Control Setting";
-				value = value.replace("\\", "").split(":")[1].replace(", pin", "");
-			}
-			pro.setProperty(key, value);
-			i = i + 2;
 		}
 		return pro;
 	}
@@ -738,19 +740,30 @@ public class ResponseInstance {
 		return resp.jsonPath().getString("results[0].total");
 	}
 	
-	public static String getFreeContent(String tabName,String pUsername,String pPassword) {
-		String userType = "Guest"  ;
-		Properties prop = getUserSettingsDetails(pUsername,pPassword);
-		String url = "https://gwapi.zee5.com/content/collection/0-8-" + tabName + "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages=" + prop.getProperty("content_language") + "&version=6";
-		String xAccessToken = getXAccessTokenWithApiKey();
-		if(!userType.equals("Guest")) {
-		String bearerToken = getBearerToken(pUsername, pPassword);
-		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+	public static String getFreeContent(String tabName, String pUsername, String pPassword) {
+		String language;
+		if (!pUsername.equals("")) {
+			Properties prop = getUserSettingsDetails(pUsername, pPassword);
+			language = prop.getProperty("content_language");
+		} else {
+			language = "en,kn";
 		}
-		else {
+		String url = "https://gwapi.zee5.com/content/collection/0-8-" + tabName
+				+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages=" + language + "&version=6";
+		String xAccessToken = getXAccessTokenWithApiKey();
+		if (!pUsername.equals("")) {
+			String bearerToken = getBearerToken(pUsername, pPassword);
+			resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+		} else {
 			resp = given().headers("x-access-token", xAccessToken).when().get(url);
 		}
-		return null;
+		String title = null;
+		for (int i = 0; i < 7; i++) {
+			if (resp.jsonPath().getString("buckets[0].items[" + i + "].business_type").equals("")) {
+				title = resp.jsonPath().getString("buckets[0].items[" + i + "].title");
+			}
+		}
+		return title;
 	}
 }
 

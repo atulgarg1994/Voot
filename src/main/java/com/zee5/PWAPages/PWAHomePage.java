@@ -9,8 +9,6 @@ public class PWAHomePage {
 
 	// Subscribe Btn
 	public static By objSubscribeBtn = By.xpath("//*[@class='subscribeBtn noSelect']");
-	
-	public static By objAppInstallPopUpClose = By.xpath("(//div[@class='afb-close-accessibility-overlay'])[2]");
 
 	// Search Btn
 	public static By objSearchBtn = By.xpath("//*[contains(@class,'searchBtn')]");
@@ -484,5 +482,7 @@ public class PWAHomePage {
 	public static By objStayTunedPopUpClose = By.xpath("//*[@class='aiq-1xYiw8']");
 	
 	public static By objRecoTray = By.xpath("//*[@class='trayHeader']//*[contains(text(),'Trending')]");
+	
+	public static By objAppInstallPopUpClose = By.xpath("(//div[@class='afb-close-accessibility-overlay'])[2]");
 
 }
