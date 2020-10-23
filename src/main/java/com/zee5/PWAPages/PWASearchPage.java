@@ -316,6 +316,10 @@ public class PWASearchPage {
 		return By.xpath("(//*[@class='highLight' and contains(text(), '"+title+"')])[1]");
 	}
 	
+	public static By objSearchResultTxt(String title){
+		return By.xpath("(//*[contains(text(), '"+title+"')])[1]");
+	}
+	
 	public static By objSearchCancel = By.xpath("//*[@class='noSelect backBtnDesktop iconInitialLoad-ic_close']");
 	
 	public static By objallow = By.xpath("//*[@text='Allow' or @text()='ALLOW']");

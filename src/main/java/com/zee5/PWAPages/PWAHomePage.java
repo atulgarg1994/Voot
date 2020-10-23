@@ -301,9 +301,6 @@ public class PWAHomePage {
 	// Up Arrow
 	public static By objUpArrow = By.xpath("//div[@class='iconNavi-ic_arrow_back']");
 
-	// Copy right text
-	public static By objCopyRightText = By.xpath("//div[@class='copyRightTxt']");
-
 	// Facebook page
 	public static By objFacebookPage = By.xpath("(//*[@text='Log In'])[2]");
 
@@ -484,5 +481,8 @@ public class PWAHomePage {
 	public static By objRecoTray = By.xpath("//*[@class='trayHeader']//*[contains(text(),'Trending')]");
 	
 	public static By objAppInstallPopUpClose = By.xpath("(//div[@class='afb-close-accessibility-overlay'])[2]");
+	
+	// Copy right text
+	public static By objCopyRightText = By.xpath("//div[contains(@class,'copyRightTxt')]");
 
 }

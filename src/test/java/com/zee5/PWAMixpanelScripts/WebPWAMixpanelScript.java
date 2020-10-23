@@ -292,10 +292,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 41)
-	@Parameters({ "userType", "keyword1"})
-	public void verifyResumeEventForPremiumContent(String userType,String keyword1) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyResumeEventForPremiumContent(String userType) throws Exception {
 		System.out.println("Verify Resume Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForPremiumContent(userType,keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForPremiumContent(userType,"Home");
 	}
 	
 	@Test(priority = 42)
@@ -416,10 +416,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 59)
-	@Parameters({ "userType", "keyword1"})
-	public void verifyVideoWatchDurationEventForPremiumContentAbrupt(String userType,String keyword1) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyVideoWatchDurationEventForPremiumContentAbrupt(String userType) throws Exception {
 		System.out.println("Verify Video Watch Duration when video is closed abruptly Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForPremiumContentAbrupt(userType,keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForPremiumContentAbrupt(userType,"Home");
 	}
 	
 	@Test(priority = 60)
@@ -574,10 +574,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 82)
-	@Parameters({ "userType", "keyword1"})
-	public void verifyPauseEventForPremiumContent(String userType,String keyword1) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyPauseEventForPremiumContent(String userType) throws Exception {
 		System.out.println("Verify Pause Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForPremiumContent(userType,keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForPremiumContent(userType,"Home");
 	}
 	
 	@Test(priority = 83)
@@ -640,10 +640,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 92)
-	@Parameters({ "userType", "keyword1"})
-	public void verifyQualityChangeEventForPremiumContent(String userType,String keyword1) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyQualityChangeEventForPremiumContent(String userType) throws Exception {
 		System.out.println("Verify Quality Change Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyQualityChangeEventForPremiumContent(userType,keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyQualityChangeEventForPremiumContent(userType,"Home");
 	}
 	
 	@Test(priority = 93)
@@ -778,10 +778,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 112)
-	@Parameters({ "userType", "keyword1"})
-	public void verifyVideoWatchDurationEventForPremiumContentComplete(String userType,String keyword1) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyVideoWatchDurationEventForPremiumContentComplete(String userType) throws Exception {
 		System.out.println("Verify Video Watch Duration Event when user completely watches Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForPremiumContentComplete(userType,keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForPremiumContentComplete(userType,"Home");
 	}
 	
 	@Test(priority = 113)
@@ -866,10 +866,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 125)
-	@Parameters({ "userType", "keyword1"})
-	public void verifyScrubSeekEventForPremiumContent(String userType,String keyword1) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyScrubSeekEventForPremiumContent(String userType) throws Exception {
 		System.out.println("Verify Scrub/Seek Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForPremiumContent(userType,keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForPremiumContent(userType,"Home");
 	}
 	
 	@Test(priority = 126)
@@ -1106,14 +1106,14 @@ public class WebPWAMixpanelScript {
 	@Parameters({ "userType" })
 	public void verifyLoginUsernameEnteredEvent(String userType) throws Exception {
 		System.out.println("Verify Login Username Entered Event");
-		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginUsernameEnteredEvent(userType,"UserName");
 	}
 	
 	@Test(priority = 159)
 	@Parameters({ "userType" })
 	public void verifyLoginPasswordEnteredEvent(String userType) throws Exception {
 		System.out.println("Verify Login Password Entered Event");
-		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginUsernameEnteredEvent(userType,"Password");
 	}
 	
 	@Test(priority = 160)
@@ -1170,10 +1170,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 167)
-	@Parameters({ "userType", "keyword1"})
-	public void verifyAutoSeekForwardEventForPremiumContent(String userType,String keyword1) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyAutoSeekForwardEventForPremiumContent(String userType) throws Exception {
 		System.out.println("Verify Auto Seek Forward Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForPremiumContent(userType,keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForPremiumContent(userType,"Home");
 	}
 	
 	@Test(priority = 168)
@@ -1244,10 +1244,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 178)
-	@Parameters({ "userType", "keyword1"})
-	public void verifyAutoSeekRewindEventForPremiumContent(String userType,String keyword1) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyAutoSeekRewindEventForPremiumContent(String userType) throws Exception {
 		System.out.println("Verify Auto Seek Rewind Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForPremiumContent(userType,keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForPremiumContent(userType,"Home");
 	}
 	
 	@Test(priority = 179)
@@ -1318,10 +1318,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 189)
-	@Parameters({ "userType", "keyword1"})
-	public void verifyParentalOverlayImpressionEventForPremiumContent(String userType,String keyword1) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyParentalOverlayImpressionEventForPremiumContent(String userType) throws Exception {
 		System.out.println("Verify Parental Overlay Impression Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForPremiumContent(userType,keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForPremiumContent(userType,"Home");
 	}
 	
 	@Test(priority = 190)
@@ -1440,10 +1440,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 206)
-	@Parameters({ "userType", "keyword1"})
-	public void verifyAudioLanguageChangeEventForPremiumContent(String userType,String audioTrackPremiumContent) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyAudioLanguageChangeEventForPremiumContent(String userType) throws Exception {
 		System.out.println("Verify Audio Language Change Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAudioLanguageChangeEventForPremiumContent(userType,audioTrackPremiumContent);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAudioLanguageChangeEventForPremiumContent(userType,"Home");
 	}
 	
 	@Test(priority = 207)
@@ -1514,10 +1514,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 217)
-	@Parameters({ "userType", "subtitleTrackPremiumContent"})
-	public void verifySubtitleLanguageChangeEventForPremiumContent(String userType,String subtitleTrackPremiumContent) throws Exception {
+	@Parameters({ "userType"})
+	public void verifySubtitleLanguageChangeEventForPremiumContent(String userType) throws Exception {
 		System.out.println("Verify Subtitle Language Change Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifySubtitleLanguageChangeEventForPremiumContent(userType,subtitleTrackPremiumContent);
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubtitleLanguageChangeEventForPremiumContent(userType,"Home");
 	}
 	
 	@Test(priority = 218)
@@ -1588,10 +1588,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 228)
-	@Parameters({ "userType", "skipIntroPremium"})
-	public void verifySkipIntroEventForPremiumContent(String userType,String skipIntroPremium) throws Exception {
+	@Parameters({ "userType"})
+	public void verifySkipIntroEventForPremiumContent(String userType) throws Exception {
 		System.out.println("Verify Skip Intro Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForPremiumContent(userType,skipIntroPremium);
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForPremiumContent(userType,"Home");
 	}
 	
 	@Test(priority = 229)
@@ -1855,7 +1855,6 @@ public class WebPWAMixpanelScript {
 		System.out.println("Verify Ad Click Event For Content From My Watchlist Page");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAdClickForContentFromMyWatchlistPage(userType,audioTrackContent);
 	}
-
 	
 	@Test(priority = 267)
 	@Parameters({ "userType"})
@@ -2141,7 +2140,7 @@ public class WebPWAMixpanelScript {
 	@Parameters({ "userType", "audioTrackContent"})
 	public void verifyAdInitializedEventForFreeContent(String userType,String audioTrackContent) throws Exception {
 		System.out.println("Verify Ad Initialized Event For Free Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAdInitializedEventForFreeContent("Home","home",userType,"basavaraj.pn5@gmail.com","igsindia123");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAdInitializedEventForFreeContent("Home","homepage",userType,"basavaraj.pn5@gmail.com","igsindia123");
 	}
 
 	@Test(priority = 308)
@@ -2221,10 +2220,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 319)
-	@Parameters({ "userType", "keyword1"})
-	public void verifyVideoViewEventForPremiumContent(String userType,String keyword1) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyVideoViewEventForPremiumContent(String userType) throws Exception {
 		System.out.println("Verify Video View Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForPremiumContent(userType,keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForPremiumContent(userType,"Home");
 	}
 	
 	@Test(priority = 320)
@@ -2288,10 +2287,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 329)
-	@Parameters({ "userType", "keyword1"})
-	public void verifyVideoExitEventForPremiumContent(String userType,String keyword1) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyVideoExitEventForPremiumContent(String userType) throws Exception {
 		System.out.println("Verify Video Exit Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForPremiumContent(userType,keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForPremiumContent(userType,"Home");
 	}
 	
 	@Test(priority = 330)
@@ -2341,10 +2340,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 337)
-	@Parameters({ "userType", "keyword1"})
-	public void verifyParentalOverlayResultEventForPremiumContent(String userType,String keyword1) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyParentalOverlayResultEventForPremiumContent(String userType) throws Exception {
 		System.out.println("Verify Parental Overlay Result Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForPremiumContent(userType,keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayResultEventForPremiumContent(userType,"Home");
 	}
 	
 	@Test(priority = 338)

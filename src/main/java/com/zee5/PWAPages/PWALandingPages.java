@@ -121,7 +121,6 @@ public class PWALandingPages {
 	public static By obj_Pwa_Trending_On_Zee5 = By.xpath("//*[text()='Trending on ZEE5' or text()='Trending on Zee5']");
 	
 	public static By objViewAllPageTrayDescription = By.xpath("//*[@class='description']");
-	
-	public static By objTrayClubOrPremiumCardInShowDetails = By.xpath("(//div[contains(@class,'clubPackContent') or contains(@class,'cardPremiumContent')])[1]");
 
+	public static By objTrayClubOrPremiumCardInShowDetails = By.xpath("(//div[contains(@class,'clubPackContent') or contains(@class,'cardPremiumContent')])[1]//preceding-sibling::*");
 }

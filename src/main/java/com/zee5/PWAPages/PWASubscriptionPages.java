@@ -320,4 +320,6 @@ public class PWASubscriptionPages {
 	public static void main(String [] args) {
 		System.out.println("INR 99".split(" ")[1]);
 	}
+	
+	public static By objCreditDebitClose = By.xpath("(//*[contains(@src,'ic_search_cancel')])[2]");
 }

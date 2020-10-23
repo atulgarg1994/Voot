@@ -131,6 +131,8 @@
 
 	<parameter name="audioTrackContent"
 		value="Episode 13 - Agent Raghav" />
+		
+		<parameter name="premiumMovieWithTrailer2" value="Bhinna" /> 
 
 	<listeners>
 		<listener class-name="com.extent.ParameterInjector" />
