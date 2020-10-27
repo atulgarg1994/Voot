@@ -145,7 +145,7 @@ public class Mixpanel extends ExtentReporter {
 	public static void fetchEvent(String distinct_id, String eventName)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
-			Thread.sleep(1800);
+			Thread.sleep(180000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -156,7 +156,7 @@ public class Mixpanel extends ExtentReporter {
 		if (platform.equals("Android")) {
 			APIKey = "b2514b42878a7e7769945befa7857ef1";
 			UserID = "$model";
-			distinct_id = Modelname;
+			distinct_id = modelName();
 		} else {
 			APIKey = "58baafb02e6e8ce03d9e8adb9d3534a6";
 			if (distinct_id.contains("-")) {
@@ -175,8 +175,8 @@ public class Mixpanel extends ExtentReporter {
 		if (request != null) {
 			String response = request.asString();
 			String s[] = response.split("\n");
-//			parseResponse(s[s.length - 1]);
-//			validation();
+			parseResponse(s[s.length - 1]);
+			validation();
 		} else {
 			System.out.println("Event not triggered");
 			extentReportFail("Event not triggered", "Event not triggered");
@@ -384,7 +384,6 @@ public class Mixpanel extends ExtentReporter {
 		} else if (platform.equals("Web")) {
 			FEProp.setProperty("Platform Name", platform);
 			FEProp.setProperty("os", System.getProperty("os.name").split(" ")[0]);
-			System.out.println();
 		}
 	}
 
@@ -398,7 +397,7 @@ public class Mixpanel extends ExtentReporter {
 		extent.childTest.get().log(Status.INFO, details);
 	}
 
-	public static void modelName() {
+	public static String modelName() {
 		try {
 			String cmd3 = "adb shell getprop ro.product.model";
 			Process process = Runtime.getRuntime().exec(cmd3);
@@ -407,5 +406,6 @@ public class Mixpanel extends ExtentReporter {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return Modelname;
 	}
 }

@@ -484,5 +484,12 @@ public class PWAHomePage {
 	
 	// Copy right text
 	public static By objCopyRightText = By.xpath("//div[contains(@class,'copyRightTxt')]");
-
+	
+	public static By objLearnWithEduauraaTray = By.xpath("//*[@class='titleLink' and text()='Learn with Eduauraa']");
+	
+	public static By objFirstItemLearnWithEduauraaTray = By.xpath("//*[@class='titleLink' and text()='Learn with Eduauraa']//ancestor::*[@class='trayContentWrap']//*[@class='slick-list']//*[@data-index='0']");
+	
+	public static By objClaimOffer =By.xpath("//button//span[text()='Claim Offer']");
+	
+	public static By objGetClubCta = By.xpath("//div[contains(@class,'slick-active')]//*[text()='Get Club']//parent::a");
 }

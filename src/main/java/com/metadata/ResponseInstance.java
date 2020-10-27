@@ -13,6 +13,9 @@ import com.mixpanelValidation.Mixpanel;
 import com.propertyfilereader.PropertyFileReader;
 
 import java.util.Properties;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class ResponseInstance {
@@ -685,7 +688,8 @@ public class ResponseInstance {
 //		getDetailsOfCustomer("zeetest@gmail.com","zee123");
 //		getUserSettingsDetails("","");	
 //		getFreeContent("home", "zee5latest@gmail.com", "User@123");
-		getContentDetails("0-0-232924");
+		getContentDetails("0-9-indiatoday");
+		
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -810,17 +814,21 @@ public class ResponseInstance {
 	
 	public static void getContentDetails(String ID) {
 		System.out.println("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&languages=en,kn&");
-		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&languages=en,kn&");
-		Mixpanel.FEProp.setProperty("Content Duration", resp.jsonPath().getString("duration"));
-		Mixpanel.FEProp.setProperty("Content ID", resp.jsonPath().getString("id"));
-		Mixpanel.FEProp.setProperty("Content Name", resp.jsonPath().getString("original_title"));
-		Mixpanel.FEProp.setProperty("Content Specification", resp.jsonPath().getString("asset_subtype"));
-		Mixpanel.FEProp.setProperty("Characters",resp.jsonPath().getList("actors").toString().replaceAll(",","-"));
-		Mixpanel.FEProp.setProperty("Audio Language",resp.jsonPath().getList("audio_languages").toString());
-		Mixpanel.FEProp.setProperty("Subtitle Language", resp.jsonPath().getString("subtitle_languages").toString());
-		Mixpanel.FEProp.setProperty("Content Type",resp.jsonPath().getString("business_type"));
-		Mixpanel.FEProp.setProperty("Genre",resp.jsonPath().getList("genre.id").toString().replaceAll(",","-"));
-		Mixpanel.FEProp.setProperty("Content Original Language",resp.jsonPath().getString("languages").replace("[", "").replace("]", ""));
-	}
+		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
+//		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/0-1-84080?translation=en&country=IN&version=2");
+//		Mixpanel.FEProp.setProperty("Content Duration", resp.jsonPath().getString("duration"));
+//		Mixpanel.FEProp.setProperty("Content ID", resp.jsonPath().getString("id"));
+//		Mixpanel.FEProp.setProperty("Content Name", resp.jsonPath().getString("original_title"));
+//		Mixpanel.FEProp.setProperty("Content Specification", resp.jsonPath().getString("asset_subtype"));
+//		Mixpanel.FEProp.setProperty("Characters",resp.jsonPath().getList("actors").toString().replaceAll(",","-"));
+//		Mixpanel.FEProp.setProperty("Audio Language",resp.jsonPath().getList("audio_languages").toString());
+//		Mixpanel.FEProp.setProperty("Subtitle Language", resp.jsonPath().getString("subtitle_languages").toString());
+//		Mixpanel.FEProp.setProperty("Content Type",resp.jsonPath().getString("business_type"));
+//		Mixpanel.FEProp.setProperty("Genre",resp.jsonPath().getList("genre.id").toString().replaceAll(",","-"));
+//		Mixpanel.FEProp.setProperty("Content Original Language",resp.jsonPath().getString("languages").replace("[", "").replace("]", ""));
+//		Mixpanel.FEProp.setProperty("DRM Video",resp.jsonPath().getString("is_drm"));
+		resp.print();
+//		Mixpanel.FEProp.forEach((key, value) -> System.out.println(key + " : " + value));
+		}
 	
 }

@@ -86,9 +86,9 @@ public class AndroidPWASanityScript {
 	}
 
 	@Test(priority = 9) // BASAVARAJ
-	@Parameters({ "url", "userType", "devicePin", "consumptionsEpisode", "consumptionsShow", "consumptionsFreeContent",
+	@Parameters({ "userType", "consumptionsEpisode", "consumptionsShow", "consumptionsFreeContent",
 			"consumptionsPremiumContent" })
-	public void PWAContentDetails(String url, String userType, String devicePin, String consumptionsEpisode,
+	public void PWAContentDetails(String userType, String consumptionsEpisode,
 			String consumptionsShow, String consumptionsFreeContent, String consumptionsPremiumContent)
 			throws Exception {
 		Zee5PWASanityBusinessLogic.reloadHome();
@@ -96,23 +96,8 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.checkDurationInLivetv();
 		Zee5PWASanityBusinessLogic.checkDurationandProgressVideo(userType);
 		// smoke Tanisha
-		Zee5PWASanityBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Episode", consumptionsEpisode); // Episode
-																													// //Mahira
-																													// accuses
-																													// Preeta
-																													// of//
-																													// trying
-																													// to
-																													// kill
-																													// Mahesh
-																													// //Neil
-																													// gets//
-																													// emotional
-																													// while
-																													// apologising
-																													// to
-																													// Jhende
-		Zee5PWASanityBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Live TV", ""); // Live TV Card
+		Zee5PWASanityBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Episode", consumptionsEpisode); 
+		Zee5PWASanityBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Live TV", "");
 		Zee5PWASanityBusinessLogic.verifyNoSubscriptionPopupForFreeContent(userType, consumptionsFreeContent);
 		Zee5PWASanityBusinessLogic.verifySubscriptionPopupForPremiumContent(userType, consumptionsPremiumContent);
 		Zee5PWASanityBusinessLogic.verifyCTAandMetaDataInDetailsAndConsumption(consumptionsShow);
@@ -176,6 +161,14 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.reloadHome();
 		Zee5PWASanityBusinessLogic.Clubpage(UserType, "Club");
 	}
+	
+	@Test(priority = 17) 
+	@Parameters({ "userType" })
+	public void PWAEduauraaVerification(String UserType) throws Exception {
+		Zee5PWASanityBusinessLogic.reloadHome();
+		Zee5PWASanityBusinessLogic.PWAEduauraaVerification(UserType);
+	}
+
 
 	@Test(priority = 18) // TANISHA
 	@Parameters({ "userType" })

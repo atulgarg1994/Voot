@@ -487,8 +487,8 @@ public class PWAHamburgerMenuPage {
 
 	public static By objMySubscriptionPackName = By.xpath("//*[@class='packNameWrap']");
 
-	public static By objHamburgerBtn = By.xpath("//*[contains(text(),'Open Menu')]");
-
+	public static By objHamburgerBtn = By.xpath("(//*[contains(text(),'Open Menu')])[1]");
+	
 	public static By objMyTransactionPackName = By.xpath("//*[@class='packInline']");
 
 	public static By objGetPremiumCTAbelowPlayer = By
@@ -627,4 +627,12 @@ public class PWAHamburgerMenuPage {
 	public static By objHighlightedTab(String tabname) {
 		return By.xpath("//a[@class='noSelect active' and text()=\""+tabname+"\"]");
 	}
+	
+	public static By objzeeAppCloseHelpCenter = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_exit']");
+	
+	public static By objzeeAppCloseContactUs = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_exit']");
+	
+	public static By objzeeAppExit = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_exit_yes']");
+	
+	public static By objzeeAppInterstitialAddClose = By.xpath("//*[@content-desc='Interstitial close button']");
 }

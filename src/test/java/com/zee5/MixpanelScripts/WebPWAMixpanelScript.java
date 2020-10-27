@@ -1,4 +1,4 @@
-package com.zee5.PWAMixpanelScripts;
+package com.zee5.MixpanelScripts;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
@@ -132,7 +132,7 @@ public class WebPWAMixpanelScript {
 	@Test(priority = 17)
 	@Parameters({ "userType", "keyword" })
 	public void verifyThumbnailClickEventFromPlaybackPage(String keyword,String userType) throws Exception {
-		System.out.println("Verify Thumbnail Click Event From Show Detail Page");
+		System.out.println("Verify Thumbnail Click Event From Playback Page");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyThumbnailClickEventFromPlaybackPage(userType,keyword);
 	}
 
@@ -254,20 +254,20 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 35)
-	public void verifyCarouselBannerSwipeEvent(String tabName) throws Exception {
+	public void verifyCarouselBannerSwipeEvent() throws Exception {
 		System.out.println("Verify Carousel Banner Swipe Event");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerSwipeEvent("Shows");
 	}
 	
 	@Test(priority = 36)
-	public void verifyContentBucketSwipeEvent(String tabName) throws Exception {
+	public void verifyContentBucketSwipeEvent() throws Exception {
 		System.out.println("Verify Content Bucket Swipe Event");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyContentBucketSwipeEvent("Shows");
 	}
 	
 	@Test(priority = 37)
 	@Parameters({ "userType" })
-	public void verifyCTAsEventHeader(String userType,String tabName) throws Exception {
+	public void verifyCTAsEventHeader(String userType) throws Exception {
 		System.out.println("Verify CTAs Event");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyCTAsEventHeader(userType,"Shows");
 	}
@@ -484,10 +484,10 @@ public class WebPWAMixpanelScript {
 	}
 	
 	@Test(priority = 69)
-	@Parameters({"keyword1"})
-	public void verifyViewMoreSelectedEventFromPlaybackPage(String keyword1) throws Exception {
+	@Parameters({"audioTrackContent",  "userType" })
+	public void verifyViewMoreSelectedEventFromPlaybackPage(String audioTrackContent,String userType) throws Exception {
 		System.out.println("Verify View More Selected Event For content played from Playback page");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyViewMoreSelectedEventFromPlaybackPage(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyViewMoreSelectedEventFromPlaybackPage(audioTrackContent,userType);
 	}
 	
 	
@@ -2110,7 +2110,7 @@ public class WebPWAMixpanelScript {
 	
 	@Test(priority = 303)
 	@Parameters({ "userType" })
-	public void verifyCTAsEventForIcons(String userType,String icon) throws Exception {
+	public void verifyCTAsEventForIcons(String userType) throws Exception {
 		System.out.println("Verify CTAs Event");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyCTAsEventForIcons(userType,"Language");
 	}

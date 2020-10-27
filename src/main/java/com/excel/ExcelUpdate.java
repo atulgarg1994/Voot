@@ -23,6 +23,9 @@ public class ExcelUpdate {
 	public static String ModuleName = "NA";
 	static int row = (getRowCount()+1);
 	static int counter = 0;
+	public static int passCounter = 0;
+	public static int failCounter = 0;
+	public static int warningCounter = 0;
 
 	public static void creatExcel() { 
 		try {
@@ -88,6 +91,7 @@ public class ExcelUpdate {
 					cell = xrow.createCell(2);
 					cell.setCellValue(UserType);
 					row++;
+					passCounter++;
 				}
 			} else if (result.equals("Fail")) {
 				if (cell == null) {
@@ -100,6 +104,7 @@ public class ExcelUpdate {
 					cell = xrow.createCell(2);
 					cell.setCellValue(UserType);
 					row++;
+					failCounter++;
 				}
 			} else if (result.equals("Warning")) {
 				if (cell == null) {
@@ -112,6 +117,7 @@ public class ExcelUpdate {
 					cell = xrow.createCell(2);
 					cell.setCellValue(UserType);
 					row++;
+					warningCounter++;
 				}
 			}
 			myExcelBook.write(output);

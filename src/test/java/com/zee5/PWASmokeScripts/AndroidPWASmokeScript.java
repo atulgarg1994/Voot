@@ -51,7 +51,7 @@ public class AndroidPWASmokeScript {
 		System.out.println("3rd method started >>>>");
 		zee5PWABusinessLogic.reloadURL(url);		
 		zee5PWABusinessLogic.playerValidations(userType);
-		zee5PWABusinessLogic.UpnextRail();
+		//zee5PWABusinessLogic.UpnextRail();
 		System.out.println(">>>> 3rd method completed");
 	}
 
@@ -60,43 +60,11 @@ public class AndroidPWASmokeScript {
 	public void PWACarousel(String userType, String url) throws Exception { 
 		System.out.println("4th method started >>>>");
 		zee5PWABusinessLogic.reloadURL(url);
-		// autorotating
-		zee5PWABusinessLogic.verifyAutoroatingOnCarousel("Home");
-		zee5PWABusinessLogic.verifyAutoroatingOnCarousel("Movies");
-		zee5PWABusinessLogic.verifyAutoroatingOnCarousel("Free Movies");
-		zee5PWABusinessLogic.verifyAutoroatingOnCarousel("Shows");
-		zee5PWABusinessLogic.verifyAutoroatingOnCarousel("Premium");
-		zee5PWABusinessLogic.verifyAutoroatingOnCarousel("Play");
-		zee5PWABusinessLogic.verifyAutoroatingOnCarousel("Kids");
-		zee5PWABusinessLogic.verifyAutoroatingOnCarousel("Stories");
-		zee5PWABusinessLogic.verifyAutoroatingOnCarousel("ZEE5 Originals");	
-		// play icon functionality
-		zee5PWABusinessLogic.verifyPlayIconFunctionality("ZEE5 Originals");
-		zee5PWABusinessLogic.verifyPlayIconFunctionality("Kids");
-		zee5PWABusinessLogic.verifyPlayIconFunctionality("Premium");
-		zee5PWABusinessLogic.verifyPlayIconFunctionality("Shows");
-		zee5PWABusinessLogic.verifyPlayIconFunctionality("Free Movies");;
-		zee5PWABusinessLogic.verifyPlayIconFunctionality("Movies");
-		zee5PWABusinessLogic.verifyPlayIconFunctionality("Home");
-		// premium icon functionality
-		zee5PWABusinessLogic.verifyPremiumIconFunctionality("Home", userType);
-		zee5PWABusinessLogic.verifyPremiumIconFunctionality("Premium", userType);
-		zee5PWABusinessLogic.verifyPremiumIconFunctionality("Movies", userType);
-		zee5PWABusinessLogic.verifyPremiumIconFunctionality("ZEE5 Originals", userType);
-		// metadata
-		String languageSmallText = zee5PWABusinessLogic.allSelectedLanguages();
-		zee5PWABusinessLogic.verifyMetadataOnCarousel("ZEE5 Originals","zeeoriginals", languageSmallText);
-		zee5PWABusinessLogic.verifyMetadataOnCarousel("Stories", "stories", "");
-		zee5PWABusinessLogic.verifyMetadataOnCarousel("Kids", "kids", languageSmallText);
-		zee5PWABusinessLogic.verifyMetadataOnCarousel("Play","play", languageSmallText);
-		zee5PWABusinessLogic.verifyMetadataOnCarousel("Premium","premiumcontents", languageSmallText);
-		zee5PWABusinessLogic.verifyMetadataOnCarousel("Shows", "tvshows", languageSmallText);
-		zee5PWABusinessLogic.verifyMetadataOnCarousel("Free Movies", "freemovies", languageSmallText);
-		zee5PWABusinessLogic.verifyMetadataOnCarousel("Movies", "movies", languageSmallText);
-		zee5PWABusinessLogic.verifyMetadataOnCarousel("Home", "home", languageSmallText);	
-	    //zee5PWABusinessLogic.verifyMetadataOnNews("News", "news", languageSmallText);
-		// <> Functionality
-		zee5PWABusinessLogic.verifyLeftRightFunctionality("News", url);
+		zee5PWABusinessLogic.verifyCarouselAutoRotation();
+		zee5PWABusinessLogic.verifyCarouselPlayIconFunctionality();
+		zee5PWABusinessLogic.verifyCarouselPremiumIconFunctionality();
+		zee5PWABusinessLogic.verifyCarouselMetaData();
+		zee5PWABusinessLogic.verifyCarouselLeftRightFunctionality();
 		System.out.println(">>>> 4th method completed");
 	}
 	
@@ -135,7 +103,7 @@ public class AndroidPWASmokeScript {
 		zee5PWABusinessLogic.ValidatingLandingPages(userType);
 		System.out.println(">>>> 7th method completed");
 	}
-
+	
 	@Test(priority = 8)
 	@Parameters({"userType","url"})
     public void PWASubscription(String userType,String url) throws Exception {	
@@ -144,7 +112,7 @@ public class AndroidPWASmokeScript {
         zee5PWABusinessLogic.zeePWASubscriptionSuite(userType); 
         System.out.println(">>>> 8th method completed");
     }
-	
+		
 	
 	//--------------------------BASAVARAJ NetWorkinterruption--------------------------
 	
@@ -234,7 +202,7 @@ public class AndroidPWASmokeScript {
 			    System.out.println(">>>> 15th method completed");
 			}
 			
-	
+
 	
 
 	@AfterClass
