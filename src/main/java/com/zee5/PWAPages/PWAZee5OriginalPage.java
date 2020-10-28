@@ -73,4 +73,10 @@ public class PWAZee5OriginalPage {
 
 	// Club card
 	public static By objClubCard = By.xpath("//div[contains(@class,'clubPackContent')]//parent::*//parent::div[contains(@class,'EpisodeCardContent')]//parent::*//figure"); 
+	
+	public static By objWEBMastheadCarouselgetclub=By.xpath("//*[text()='Get Club']");
+	
+	public static By objWEBMastheadCarouselPlay=By.xpath("//*[text()='Play']");
+
+	public static By objWEBMastheadCarouselgetpremium=By.xpath("//*[text()='Get Premium]");
 }

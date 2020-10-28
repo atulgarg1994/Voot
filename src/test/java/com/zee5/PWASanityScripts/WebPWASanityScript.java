@@ -367,15 +367,23 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Home", "home", languageSmallText);
 		// zee5WebBusinessLogic.verifyMetadataOnNews("News", "news", languageSmallText);
 	}
-	
-	//@Test(priority = 26)
-		@Parameters({ "userType" })
-		public void club(String userType) throws Exception {
-			Zee5WEBPWASanityBusinessLogic.navigateToHome();
-			Zee5WEBPWASanityBusinessLogic.landingPagesValidationclub("Club");
-			Zee5WEBPWASanityBusinessLogic. trayTitleAndContentValidationWithApiDataClub("Club", "club");
-			Zee5WEBPWASanityBusinessLogic.landingPagesTrailerAndPopUpValidationClub(userType,"Club");
-		}
+
+	// @Test(priority = 26)
+	@Parameters({ "userType" })
+	public void club(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.landingPagesValidationclub("Club");
+		Zee5WEBPWASanityBusinessLogic.trayTitleAndContentValidationWithApiDataClub("Club", "club");
+		Zee5WEBPWASanityBusinessLogic.landingPagesTrailerAndPopUpValidationClub(userType, "Club");
+	}
+
+	@Test(priority = 27)
+	@Parameters({ "userType" })
+	public void CTAPageValidation(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToAnyScreenOnWeb("Club");
+		Zee5WEBPWASanityBusinessLogic.popupvalidationforCTAClubAnsPremium(userType, "Club");
+		Zee5WEBPWASanityBusinessLogic.popupvalidationforCTAClubAnsPremium(userType, "Premium");
+	}
 
 	@AfterClass
 	public void tearDown() {

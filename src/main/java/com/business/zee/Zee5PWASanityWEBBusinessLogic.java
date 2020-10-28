@@ -14445,8 +14445,60 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				}
 			}
 		}
-		
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+	}
+	
+	public void popupvalidationforCTAClubAnsPremium(String userType , String tabName) throws Exception
+	{
+		extent.HeaderChildNode(tabName + " page Carousel validation");
+		checkElementDisplayed(PWAZee5OriginalPage.objWEBMastheadCarouselgetclub, "Get Club on carousel banner");
+		checkElementDisplayed(PWAZee5OriginalPage.objWEBMastheadCarouselPlay, "Play button  on carousel banner");
+
+		if (userType.equals("SubscribedUser"))
+		{
 			
+			if (tabName.equals("Club"))
+			{
+				logout();
+			extent.HeaderChildNode("Login as club User");
+			//String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+			//String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			type(PWALoginPage.objEmailField, "testzee5_6@gmail.com", "Email Field");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			type(PWALoginPage.objPasswordField, "123456", "Password field");
+			waitTime(5000);
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(3000);
+			verifyElementExist(PWAZee5OriginalPage.objWEBMastheadCarouselPlay, "Play button  on carousel banner");
+			logout();
+			ZeeWEBPWALogin(userType);
+				//verifyElementExist(PWAZee5OriginalPage.objWEBMastheadCarouselPlay, "Play button  on carousel banner");
+				checkElementDisplayed(PWAHomePage.objSearchBtn, "Search button");
+				click(PWAHomePage.objSearchBtn, "Search button");
+				type(PWASearchPage.objSearchEditBox, "Bebaakee ", "Search field");
+				click(PWASearchPage.objspecificSearch, "Searched content");
+				if (checkElementDisplayed(PWAHomePage.objKalGetFirstEpisode, "Get First Episode")) 
+				{
+						click(PWAHomePage.objKalGetFirstEpisodePlayicon, "Play Button");
+				}
+			}
+			if (tabName.equals("Premium"))
+			{
+				//verifyElementExist(PWAZee5OriginalPage.objWEBMastheadCarouselPlay, "Play button  on carousel banner");
+				checkElementDisplayed(PWAHomePage.objSearchBtn, "Search button");
+				click(PWAHomePage.objSearchBtn, "Search button");
+				type(PWASearchPage.objSearchEditBox, "Abhay ", "Search field");
+				click(PWASearchPage.objspecificSearch, "Searched content");
+				if (checkElementDisplayed(PWAHomePage.objKalGetFirstEpisode, "Get First Episode")) 
+				{
+						click(PWAHomePage.objKalGetFirstEpisodePlayicon, "Play Button");
+				}
+			}
+		}		
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 	}
 
