@@ -5822,11 +5822,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		carouselValidation(UserType, "Premium", carouselContent);
 	}
 
-	/** ========Kids tab validations======== */
-	public void KidsTabScreen(String UserType) throws Exception {
+	/** ========Eduauraa tab validations======== */
+	public void EduauraaTabScreen(String UserType) throws Exception {
 
-		extent.HeaderChildNode("Verifying Kids tab screen");
-		System.out.println("Verifying Kids tab screen");
+		extent.HeaderChildNode("Verifying Eduauraa tab screen");
+		System.out.println("Verifying Eduauraa tab screen");
 
 		// Selecting Marathi language as content language
 		if (UserType.contains("Guest")) {
@@ -5834,17 +5834,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 
 		// Verify user is navigated to Premium tab
-		SelectTopNavigationTab("Kids");
+		SelectTopNavigationTab("Eduauraa");
 		// closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
 		String activeTab = getText(AMDHomePage.objSelectedTab);
-		if (activeTab.equalsIgnoreCase("Kids")) {
-			extent.extentLoggerPass("Verify user is navigated to Kids tab",
-					"User is navigated to Kids tab on clicking Kids tab");
-			logger.info("User is navigated to Kids tab on clicking Kids tab");
+		if (activeTab.equalsIgnoreCase("Eduauraa")) {
+			extent.extentLoggerPass("Verify user is navigated to Eduauraa tab",
+					"User is navigated to Eduauraa tab on clicking Eduauraa tab");
+			logger.info("User is navigated to Eduauraa tab on clicking Eduauraa tab");
 		} else {
-			extent.extentLoggerFail("Verify user is navigated to Kids tab",
-					"Failed to navigate to Kids tab on clicking Kids tab");
-			logger.info("Failed to navigate to Kids tab on clicking Kids tab");
+			extent.extentLoggerFail("Verify user is navigated to Eduauraa tab",
+					"Failed to navigate to Eduauraa tab on clicking Eduauraa tab");
+			logger.info("Failed to navigate to Eduauraa tab on clicking Eduauraa tab");
 		}
 
 		// Verify Subscribe icon is displayed
@@ -5858,7 +5858,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		// verifyElementPresent(AMDHomePage.objTrendingOnZee5Tray, "Trending on Zee5");
 		// Verify Play icon is displayed
 		String carouselContent = getText(AMDHomePage.objCarouselTitle1);
-		carouselValidation(UserType, "Kids", carouselContent);
+		carouselValidation(UserType, "Eduauraa", carouselContent);
 		if (UserType.contains("Guest")) {
 			ResetSettings();
 		}

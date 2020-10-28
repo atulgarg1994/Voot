@@ -124,4 +124,6 @@ public class PWAMusicPage {
 	public static By musicTrayContentCardWatchListBtn(String trayTitle, int i) {
 		return By.xpath("(((((((//div[@class='trayHeader']//h2[.='"+trayTitle+"'])//parent::*//parent::*//div[@class='cardCarousel Wrapper'])//div//div[@class='slick-list'])//div)//div//figure)["+i+"])//parent::*//parent::*)//div[@class='cardPopupWrap']//div[@class='popupButton']//span[@title='Watchlist']");
 	}
+	
+	public static By objclubTag = By.xpath("//*[@class='cardPremiumContent']");
 }

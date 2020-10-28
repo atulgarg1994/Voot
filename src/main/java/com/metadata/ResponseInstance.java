@@ -688,7 +688,8 @@ public class ResponseInstance {
 //		getDetailsOfCustomer("zeetest@gmail.com","zee123");
 //		getUserSettingsDetails("","");	
 //		getFreeContent("home", "zee5latest@gmail.com", "User@123");
-		getContentDetails("0-9-indiatoday");
+//		getContentDetails("0-9-indiatoday");
+		D("basavaraj.pn5@gmail.com","igsindia123");
 		
 	}
 
@@ -831,4 +832,11 @@ public class ResponseInstance {
 //		Mixpanel.FEProp.forEach((key, value) -> System.out.println(key + " : " + value));
 		}
 	
+	
+	public static void D(String pUsername, String pPassword) {
+		String url = "https://gwapi.zee5.com/content/player/0-1-136585";
+		String bearerToken = getBearerToken(pUsername, pPassword);
+		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
+		resp.print();
+	}
 }

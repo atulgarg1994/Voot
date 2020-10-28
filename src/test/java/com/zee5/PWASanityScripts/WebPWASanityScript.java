@@ -367,6 +367,15 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Home", "home", languageSmallText);
 		// zee5WebBusinessLogic.verifyMetadataOnNews("News", "news", languageSmallText);
 	}
+	
+	//@Test(priority = 26)
+		@Parameters({ "userType" })
+		public void club(String userType) throws Exception {
+			Zee5WEBPWASanityBusinessLogic.navigateToHome();
+			Zee5WEBPWASanityBusinessLogic.landingPagesValidationclub("Club");
+			Zee5WEBPWASanityBusinessLogic. trayTitleAndContentValidationWithApiDataClub("Club", "club");
+			Zee5WEBPWASanityBusinessLogic.landingPagesTrailerAndPopUpValidationClub(userType,"Club");
+		}
 
 	@AfterClass
 	public void tearDown() {

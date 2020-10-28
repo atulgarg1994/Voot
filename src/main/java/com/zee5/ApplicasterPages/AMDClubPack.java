@@ -49,4 +49,7 @@ public class AMDClubPack {
 		
 		public static By objBeforeZeeKannadaTray = By.xpath("//*[@text='Premiere Episodes | Before Zee Kannada']");
 		public static By objKannadaFamilyDrama = By.xpath("//*[@text='Kannada Family Dramas']");
+		
+		public static By objUpgradeToPremiumLinkOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribe_now_action']");
+		public static By objUpgradePopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title']");
 }

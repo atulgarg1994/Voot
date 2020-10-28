@@ -266,7 +266,7 @@ public class PWAPlayerPage {
 	public static By objCompleteProfile = By.xpath("//div[contains(text(),'Complete profile')]");
 	public static By objCompleteProfileCloseIcon = By.xpath("//div[@class='manCloseIcon']");
 
-	public static By objGetPremium = By.xpath("//div//button[@class='subscribe-teaser-button']");
+	public static By objGetPremium = By.xpath("//div//button[contains(@class,'subscribe-teaser-button')]");
 
 	public static By objSkipAd = By.xpath("//button[@aria-label='Skip Ad']");
 
@@ -401,4 +401,7 @@ public class PWAPlayerPage {
 
 	// Charm board pause
 	public static By charmBoardPause = By.xpath("//*[@nodeName='path' and @fill-rule='evenodd']");
+	
+	public static By objSubtitleIcon = By.xpath("//*[@class='playkit-icon playkit-icon-language']");
+
 }

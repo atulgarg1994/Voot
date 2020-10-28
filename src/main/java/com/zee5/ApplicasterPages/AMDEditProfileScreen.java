@@ -34,4 +34,5 @@ public class AMDEditProfileScreen {
     public static By objSaveChanges = By.xpath("//*[@id='btn_edit_save']");
     public static By objToastMessage = By.xpath("//*[@resource-id='android:id/message']");
     public static By objEmailFieldForEmailLogin = By.xpath("//*[@resource-id='com.graymatrix.did:id/edit_email']");
+    public static By objSelectedGender = By.xpath("//*[@id='selectionImageSelector']/following-sibling::*");
 }

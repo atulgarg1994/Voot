@@ -14263,5 +14263,191 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 		}
 	}
+	
+	/**
+	 * Author : Lakshmi
+	 */
+	public void landingPagesValidationclub(String tabName) throws Exception {
+		extent.HeaderChildNode(tabName+"Pages Validation");
+		verifyElementPresentAndClick(PWAHomePage.objTabName(tabName), tabName);
+		// waitTime(5000);
+		String tab = getText(PWAHomePage.objActiveTab);
+		System.out.println(tab);
+		logger.info(tab + " tab is highlighted");
+		extent.extentLogger("Tab", tab + " tab is highlighted");
+		
+		for (int i = 1; i <= 2; i++) {
+			if (checkElementDisplayed(PWAPremiumPage.objTrayTitle(i), "Tray")) {
+				System.out.println("Tray is loaded for " + i + " scroll");
+				logger.info("Tray is loaded for " + i + " scroll");
+				extent.extentLogger("Tray load", "Tray is loaded for " + i + " scroll");
+			} else {
+				ScrollToTheElement(PWAPremiumPage.objTrayTitle(i));
+				checkElementDisplayed(PWAPremiumPage.objTrayTitle(i), "Tray");
+			}
+		}
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		// check if tray is loaded
+		scrollDownWEB();
+		verifyElementPresentAndClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
+		if (checkElementDisplayed(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button")) {
+			logger.info("Tray is rotated");
+			extent.extentLogger("Tray is rotated", "Tray is rotated");
+		} else {
+			logger.info("Tray is not rotated");
+			extent.extentLogger("Tray is not rotated", "Tray is not rotated");
+		}
+		click(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
+		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
+			click(PWAPremiumPage.objViewAllBtn, "View All Button");
+			waitTime(5000);
+			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "View All Page")) {
+				logger.info("Navigated to View All Page");
+				extent.extentLogger("View All", "Navigated to View All Page");
+			} else {
+				logger.info("Not navigated to View All Page");
+				extent.extentLogger("View All", "Not navigated to View All Page");
+			}
+		}
+		Back(1);
+		waitTime(2000);
+
+		waitTime(2000);
+		if (checkElementDisplayed(PWAMusicPage.objArrowToNavigateTop, "Arrow icon")) {
+			waitTime(2000);
+			click(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
+		}
+
+	
+		waitTime(3000);
+		Back(1);
+		waitTime(4000);
+		for (int i = 0; i < 5; i++) {
+			if (findElements(PWAMusicPage.objclubTag).size() > 0) {
+				logger.info("club tag is displayed");
+				extent.extentLogger("club Tag", "club Tag is displayed");
+				break;
+			} else {
+				logger.info("club tag is not displayed");
+				extent.extentLogger("club Tag", "club Tag is not displayed");
+				partialScroll();
+			}
+		}
+		for (int i = 0; i < 5; i++) {
+			if (findElements(PWAPremiumPage.objMinuteContent).size() > 0) {
+				logger.info("Minute content is displayed");
+				extent.extentLogger("Minute content", "Minute content is displayed");
+				break;
+
+			} else {
+				logger.info("Minute content is not displayed");
+				extent.extentLogger("Minute content", "Minute content is not displayed");
+				partialScroll();
+			}
+		}
+		partialScroll();
+		partialScroll();
+		verifyElementPresentAndClick(PWAMusicPage.objArrowToNavigateTop, "Back to Top arrow");
+		// waitTime(2000);
+		click(PWAHomePage.objZeelogo1, "Zee Logo");
+	}
+	
+	public void trayTitleAndContentValidationWithApiDataClub(String tab, String api) throws Exception {
+		extent.HeaderChildNode(tab + " page tray asset validation");
+		waitTime(5000);
+		getWebDriver().findElement(By.xpath("(//a[contains(@class,'noSelect')][contains(text(),'" + tab + "')])[1]"))
+				.click();
+		// waitTime(7000);
+		// navigateToAnyScreenOnWeb(tab);
+		waitForElementDisplayed(PWAMusicPage.objPremiumTag, 30);
+		String languageSmallText = allSelectedLanguages();
+		System.out.println(languageSmallText);
+		Response resp = ResponseInstance.getResponseForPages(api, languageSmallText);
+		List<String> apiTitleList = new LinkedList<String>();
+		String Tray_Title = resp.jsonPath().getString("buckets[1].title");
+		System.out.println("The Title of the Tray is " + Tray_Title + "");
+		List<String> contentList = resp.jsonPath().getList("buckets[1].items");
+		System.out.println(contentList.size());
+		partialScrollDown();
+		for (int i = 0; i < 5; i++) {
+			String titles = resp.jsonPath().getString("buckets[1].items[" + i + "].title");
+			// System.out.println("Api data " +titles);
+			logger.info("Api data " + titles);
+			extent.extentLogger("Api data ", "Api data " + titles);
+			apiTitleList.add(titles);
+			Actions actions = new Actions(getWebDriver());
+			WebElement contentCard = getWebDriver()
+					.findElement(By.xpath("(//div[@class='slick-list']//div[@class='content'])[" + (i + 1) + "]"));
+			actions.moveToElement(contentCard).build().perform();
+			String trayTitle = apiTitleList.get(i);
+			logger.info("UI data " + titles);
+			extent.extentLogger("UI data ", "UI data " + titles);
+			if (trayTitle.equalsIgnoreCase(apiTitleList.get(i))) {
+				logger.info("Metadata on the content card is validated with Api data");
+				extent.extentLogger("Metadata", "Metadata on the content card is validated with Api data");
+			} else {
+				logger.info("Metadata on the content card is not validated with Api data");
+				extent.extentLogger("Metadata", "Metadata on the content card is not validated with Api data");
+			}
+			waitTime(1000);
+			checkElementDisplayed(PWAPremiumPage.objContentCardPlayBtn, "Play Button");
+			waitTime(1000);
+			checkElementDisplayed(PWAPremiumPage.objContentCardShareBtn, "Share Button");
+			waitTime(1000);
+			verifyElementEnabled(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist Button");
+		}
+	}
+	
+	public void landingPagesTrailerAndPopUpValidationClub(String userType, String tabName) throws Exception {
+		extent.HeaderChildNode(tabName+"Page Carousel Validation");
+
+		waitTime(5000);
+
+		getWebDriver()
+				.findElement(By.xpath("(//a[contains(@class,'noSelect')][contains(text(),'" + tabName + "')])[1]"))
+				.click();
+		waitTime(7000);
+		// verifyElementPresentAndClick(PWAHomePage.objTabName(tabName), tabName);
+		// waitTime(5000);
+		waitForElementDisplayed(PWAZee5OriginalPage.objWEBMastheadCarousel, 10);
+		checkElementDisplayed(PWAZee5OriginalPage.objWEBMastheadCarousel, "Carousel Card");
+		mandatoryRegistrationPopUp(userType);
+		click(PWAZee5OriginalPage.objWEBMastheadCarousel, "Carousel Card");
+		waitTime(5000);
+		if (BROWSER.equals("Firefox")) {
+			waitForPlayerLoaderToComplete();
+		}
+		if (checkElementDisplayed(PWAPlayerPage.objPlayer, "player screen")) {
+			logger.info("User is navigated to consumption page after tapping on content in listed collection");
+			extent.extentLogger("Consumption page",
+					"User is navigated to consumption page after tapping on content in listed collection");
+		}
+		checkElementDisplayed(PWASubscriptionPages.objSubscribepopup, "Subscribe popup");
+		checkElementDisplayed(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen,
+	"Subscribe CTA with Club Icon below the Player");
+		checkElementDisplayed(PWAPremiumPage.objSubscribeNowAndGoAdFree, "Subscribe Now And Go Ad Free Message");
+		if (userType.contains("NonSubscribedUser") || (userType.contains("Guest"))) {
+
+			if (checkElementDisplayed(PWAPremiumPage.objWatchTrailerBtn, "Watch Trailer Button")) {
+				mandatoryRegistrationPopUp(userType);
+				JSClick(PWAPremiumPage.objWatchTrailerBtn, "Watch Trailer Button");
+				waitTime(10000);
+				if (checkElementDisplayed(PWASubscriptionPages.objSubscribepopup, "Subscribe popup")) {
+					verifyElementPresentAndClick(PWAMusicPage.objGetPremiumCloseBtn, "Close Button");
+
+				}
+			} else {
+				logger.info("Trailer is not available for the selected content");
+				extent.extentLogger("Trailer", "Trailer is not available for the selected content");
+				if (checkElementDisplayed(PWASubscriptionPages.objSubscribepopup, "Subscribe popup")) {
+					verifyElementPresentAndClick(PWAMusicPage.objGetPremiumCloseBtn, "Close Button");
+				}
+			}
+		}
+		
+			
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+	}
 
 }

@@ -69,11 +69,11 @@ public class Android_LandingScreen_TopNavigation {
 
 	@Test(priority = 6)
 	@Parameters({ "userType" }) // Vinay
-	public void Kids_LandingScreen(String userType) throws Exception {
-		System.out.println("\n---Verify Kids landing screen---\n");
+	public void Eduauraa_LandingScreen(String userType) throws Exception {
+		System.out.println("\n---Verify Eduauraa landing screen---\n");
 		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.navigateToHomecreenFromIntroScreen();
-		ZEE5ApplicasterBusinessLogic.KidsTabScreen(userType);
+		ZEE5ApplicasterBusinessLogic.EduauraaTabScreen(userType);
 	}
  
 	@Test(priority = 7)

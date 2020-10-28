@@ -10173,23 +10173,45 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		swipeToBottomOfPage();
 		swipeALittleDownForLinks();
 		verifyElementPresentAndClick(PWAHomePage.objHelp, "Help Center in footer section");
+		boolean applicasterOpened = false;
 		getDriver().context("NATIVE_APP");
-		try {
-			directClickReturnBoolean(PWALiveTVPage.objChromeOpenWith, "Open with Chrome");
-			waitTime(2000);
-			// directClickReturnBoolean(PWALiveTVPage.objChromeOpenWith,"Open with Chrome");
+		if (checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppCloseHelpCenter, "Close of Help Center Page")) {
+			applicasterOpened = true;
+			verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Getting Started"),
+					"'Getting Started' tab of Help Center page");
+			click(PWAHamburgerMenuPage.objzeeAppCloseHelpCenter, "Close of Help Center Page");
+			Back(1);
+			if (checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppInterstitialAddClose, "Close of Interstitial Ad")) {
+				click(PWAHamburgerMenuPage.objzeeAppInterstitialAddClose, "Close of Interstitial Ad");
+			}
+			for (int i = 0; i < 3; i++) {
+				if (checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppExit, "Exit of ZEE5 App")) {
+					click(PWAHamburgerMenuPage.objzeeAppExit, "Exit of ZEE5 App");
+					break;
+				} else {
+					Back(1);
+					waitTime(3000);
+				}
+			}
+		} else {
+			try {
+				directClickReturnBoolean(PWALiveTVPage.objChromeOpenWith, "Open with Chrome");
+				waitTime(2000);
+				// directClickReturnBoolean(PWALiveTVPage.objChromeOpenWith,"Open with Chrome");
 
-		} catch (Exception e) {
+			} catch (Exception e) {
+			}
+			getDriver().context("CHROMIUM");
+			url = getDriver().getCurrentUrl();
+			extent.extentLogger("", "URL navigated: " + url);
+			logger.info("URL navigated: " + url);
+			androidSwitchTab();
+			if (verifyElementPresent(PWAHomePage.objHelpScreen, "Help Center screen")) {
+				logger.info("User is navigated to Help Center Screen");
+			}
+			AndroidSwitchToParentWindow();
 		}
 		getDriver().context("CHROMIUM");
-		url = getDriver().getCurrentUrl();
-		extent.extentLogger("", "URL navigated: " + url);
-		logger.info("URL navigated: " + url);
-		androidSwitchTab();
-		if (verifyElementPresent(PWAHomePage.objHelpScreen, "Help Center screen")) {
-			logger.info("User is navigated to Help Center Screen");
-		}
-		AndroidSwitchToParentWindow();
 		swipeToBottomOfPage();
 		swipeALittleDownForLinks();
 		verifyElementPresentAndClick(PWAHomePage.objPrivacyPolicyInFooterSection, "Privacy Policy in footer section");
@@ -11907,10 +11929,16 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			Back(1);
 			if (checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppInterstitialAddClose, "Close of Interstitial Ad")) {
 				click(PWAHamburgerMenuPage.objzeeAppInterstitialAddClose, "Close of Interstitial Ad");
-				Back(1);
-				Back(1);
 			}
-			click(PWAHamburgerMenuPage.objzeeAppExit, "Exit of ZEE5 App");
+			for (int i = 0; i < 3; i++) {
+				if (checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppExit, "Exit of ZEE5 App")) {
+					click(PWAHamburgerMenuPage.objzeeAppExit, "Exit of ZEE5 App");
+					break;
+				} else {
+					Back(1);
+					waitTime(3000);
+				}
+			}
 		} else {
 			Back(1);
 			waitTime(2000);
