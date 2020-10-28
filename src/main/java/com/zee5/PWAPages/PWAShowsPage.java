@@ -131,4 +131,8 @@ public class PWAShowsPage {
 	public static By objTrayTitle1(String str) {
 		return By.xpath("//div[@class='tray-container portraitSmall-tray-wrap   ']//div[@class='trayHeader']//h2[contains(text(),'"+str+"')]");
 	}
+	
+	public static By objEduraacard=By.xpath("//div[@class='viewAllGrid']");
+
+	public static By objEduraalabel=By.xpath("//div[@class='clickWrapper']");
 }

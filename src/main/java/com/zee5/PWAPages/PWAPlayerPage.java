@@ -403,5 +403,13 @@ public class PWAPlayerPage {
 	public static By charmBoardPause = By.xpath("//*[@nodeName='path' and @fill-rule='evenodd']");
 	
 	public static By objSubtitleIcon = By.xpath("//*[@class='playkit-icon playkit-icon-language']");
+	
+	public static By objGoToEduauraa=By.xpath("//button[@class='noSelect buttonGradient ']//span[text()='Go to Eduauraa']");
+
+	public static By objContinue=By.xpath("//button[@class='noSelect buttonGradient ']//span[text()='Continue']");
+	
+	public static By objclaimofferBelowPlayerScreen=By.xpath("//button[@class='noSelect buttonGradient ']");
+	
+	public static By objAdPlayerOverlay = By.xpath(".//*[@class='videoAdUi']");
 
 }

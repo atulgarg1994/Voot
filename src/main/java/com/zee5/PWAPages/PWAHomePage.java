@@ -492,4 +492,6 @@ public class PWAHomePage {
 	public static By objClaimOffer =By.xpath("//button//span[text()='Claim Offer']");
 	
 	public static By objGetClubCta = By.xpath("//div[contains(@class,'slick-active')]//*[text()='Get Club']//parent::a");
+	
+	public static By objTrayName=By.xpath("//*[@class='trayHeader']//*[contains(text(),'Learn with Eduauraa')]");
 }

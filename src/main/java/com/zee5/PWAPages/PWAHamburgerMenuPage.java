@@ -586,7 +586,9 @@ public class PWAHamburgerMenuPage {
 	public static By objProfileText = By.xpath("//div[@class='noSelect pageLink' and contains(text(),'My Profile')]");
 
 	public static By objSettings = By.xpath("//*[text()='Settings']");
+	
 	public static By objLanguagePop = By.xpath("//div[@class='popupContent langFilterPopupWrapper']");
+	
 	public static By objInfo = By.xpath("//*[text()='Info']");
 
 	// terms of use in Sign up screen
@@ -635,4 +637,6 @@ public class PWAHamburgerMenuPage {
 	public static By objzeeAppExit = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_exit_yes']");
 	
 	public static By objzeeAppInterstitialAddClose = By.xpath("//*[@content-desc='Interstitial close button']");
+	
+	public static By objEduauraaSignupPage=By.xpath("//div[@class='signup-block']");
 }

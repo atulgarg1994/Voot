@@ -384,6 +384,14 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.popupvalidationforCTAClubAnsPremium(userType, "Club");
 		Zee5WEBPWASanityBusinessLogic.popupvalidationforCTAClubAnsPremium(userType, "Premium");
 	}
+	
+	@Test(priority = 28)
+	@Parameters({ "userType" })
+	public void eduauraa (String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.validatingEduaraa(userType ,"Club");
+		Zee5WEBPWASanityBusinessLogic.validatingclaimCTA(userType ,"Premium");
+	}
 
 	@AfterClass
 	public void tearDown() {

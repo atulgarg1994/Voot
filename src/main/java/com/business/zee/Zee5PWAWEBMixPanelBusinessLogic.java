@@ -24,7 +24,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	public Zee5PWAWEBMixPanelBusinessLogic(String Application) throws InterruptedException {
 		new CommandBase(Application);
-		init();
 	}
 
 	String URL = getParameterFromXML("url");
@@ -59,9 +58,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	Mixpanel mixpanel = new Mixpanel();
 
 	String UserType = getParameterFromXML("userType");
-	
-	String Username ;
-	String Password ;
+
+	String Username;
+	String Password;
 
 	public void init() {
 
@@ -254,7 +253,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void waitForPlayerLoaderToComplete() throws Exception {
 		// verifyElementNotPresent(PWAPlayerPage.objPlayerLoader, 60);
 
-		new WebDriverWait(getWebDriver(), 120)
+		new WebDriverWait(getWebDriver(), 10)
 				.until(ExpectedConditions.invisibilityOfElementLocated(PWAPlayerPage.objPlayerLoader));
 	}
 
@@ -944,27 +943,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
-		
-		
-	}
 
-	public void verifyCarouselBannerClickEventAndVideoViewEvent(String userType, String tabName) throws Exception {
-		extent.HeaderChildNode(
-				"Verify Carousel Banner Click Event For content played from Carousel");
-		navigateToAnyScreenOnWeb(tabName);
-		waitTime(5000);
-		verifyElementPresentAndClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(5000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		click(PWAPlayerPage.objPlayerPause, "Pause Icon");
-		click(PWAPlayerPage.maximizeBtn, "Maximize icon");
-		click(PWAPlayerPage.minimizeBtn, "Minimize icon");
-		extent.HeaderChildNode(
-				"Verify Video Watch Duration event when video is closed abruptly on playing Carousel Content");
-		Back(1);
-
-		click(PWAHomePage.objZeeLogo, "Zee Logo");
 	}
 
 	public void verifyThumbnailClickEventFromTray(String tabName) throws Exception {
@@ -973,7 +952,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAPremiumPage.objThumbnail, "Thumbnail from a tray");
-		
+
 		waitTime(2000);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		mixpanel.FEProp.setProperty("Source", tabName);
@@ -985,7 +964,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Thumbnail Click");
 		}
 	}
-	
+
 	public void verifyThumbnailClickEventFromViewMorePage(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Thumbnail Click Event For content played from trays");
 		navigateToAnyScreenOnWeb(tabName);
@@ -1085,8 +1064,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchCloseButton, "Clear Search Icon");
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name","search");
-		mixpanel.FEProp.setProperty("Setting Changed","clear search history");
+		mixpanel.FEProp.setProperty("Page Name", "search");
+		mixpanel.FEProp.setProperty("Setting Changed", "clear search history");
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
@@ -1127,7 +1106,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
 				waitTime(3000);
 
-				
 				break;
 
 			case "RestrictAll":
@@ -1147,13 +1125,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				click(PWAHamburgerMenuPage.objContinueButton, "Continue Button");
 				break;
 			}
-			
+
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Parent Control Setting", "A");
 			mixpanel.FEProp.setProperty("Setting Changed", "A");
 			mixpanel.FEProp.setProperty("Page Name", "parental_control");
-			
+
 			mixpanel.ValidateParameter(local.getItem("ID"), "Parental_Restriction");
 		}
 	}
@@ -1376,9 +1354,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
 		mixpanel.FEProp.setProperty("Series", "Jodi Hakki");
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if(userType.equals("Guest")){
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Episode list Chosen");
-		}else{
+		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Episode list Chosen");
 		}
 	}
@@ -1402,12 +1380,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResult(keyword), "Search Result");
 		waitTime(4000);
 		verifyElementPresentAndClick(PWAPremiumPage.objViewAllBtn, "View All Button");
-		
+
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Element", "View All");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
-		
+
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "View More Selected");
@@ -1416,8 +1394,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	
-	public void verifyViewMoreSelectedEventFromPlaybackPage(String audioTrackContent,String userType) throws Exception {
+	public void verifyViewMoreSelectedEventFromPlaybackPage(String audioTrackContent, String userType)
+			throws Exception {
 		extent.HeaderChildNode("Verify View More Selected Event For content played from Playback page");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
@@ -1426,12 +1404,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(4000);
 		mandatoryRegistrationPopUp(userType);
 		verifyElementPresentAndClick(PWAPremiumPage.objViewAllBtn, "View All Button");
-		
+
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Element", "View All");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-		
+
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "View More Selected");
@@ -1444,12 +1422,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify View More Selected Event For content played from Tray");
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAPremiumPage.objViewAllBtn, "View All Button");
-		
+
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		mixpanel.FEProp.setProperty("Source", "sign_in");
 		mixpanel.FEProp.setProperty("Element", "View All");
 		mixpanel.FEProp.setProperty("Page Name", "home");
-		
+
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "View More Selected");
@@ -1513,24 +1491,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.settingsBtn, "Setting icon");
 		click(PWAPlayerPage.qualityBtn, "Quality option");
 		click(PWAQualitySettingsPage.objIndividualQuality(1), "Quality option");
-		
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-		mixpanel.FEProp.setProperty("Source", "search");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		mixpanel.FEProp.setProperty("Source", "news_landing");
-		mixpanel.FEProp.setProperty("Page Name", "search");
-		mixpanel.FEProp.setProperty("Preview status", "Minutely");
-		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
-		if(UserType.equals("Guest")){mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");}
-		else{mixpanel.ValidateParameter(local.getItem("ID"), "Quality Change");}
+
 	}
 
 	public void verifyContentBucketSwipeEventInPlaybackPage(String keyword1) throws Exception {
@@ -1569,11 +1530,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Content Language Change Event");
 
 		verifyElementPresentAndClick(PWAHomePage.objLanguageBtn, "Language button");
-		if(userType.equals("Guest")){
-		mixpanel.FEProp.setProperty("Old Content Language:",ResponseInstance.getUserOldSettingsDetails("","").getProperty("content_language"));
-		}
-		else{
-		mixpanel.FEProp.setProperty("Old Content Language:",ResponseInstance.getUserOldSettingsDetails(Username,Password).getProperty("content_language"));
+		if (userType.equals("Guest")) {
+			mixpanel.FEProp.setProperty("Old Content Language:",
+					ResponseInstance.getUserOldSettingsDetails("", "").getProperty("content_language"));
+		} else {
+			mixpanel.FEProp.setProperty("Old Content Language:",
+					ResponseInstance.getUserOldSettingsDetails(Username, Password).getProperty("content_language"));
 		}
 		JSClick(PWALanguageSettingsPage.objApplyBtn, "Apply button");
 		JSClick(PWALanguageSettingsPage.objAllLangByindex(1), "Hindi content language");
@@ -1609,14 +1571,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
 		click(PWAPremiumPage.objRightArrowBtn, "Right Arrow Button");
-		
+
 		waitTime(5000);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "tv_shows_view_all");
 		mixpanel.FEProp.setProperty("Element", "right-arrow");
 		mixpanel.FEProp.setProperty("Direction", "Right");
-		
+
 		mixpanel.ValidateParameter(local.getItem("ID"), "Carousal Banner Swipe");
 
 	}
@@ -1627,9 +1589,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		checkElementDisplayed(PWAHomePage.objAdBanner, "Ad Banner");
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if(userType.equals("Guest")){
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Banner Impression");
-		}else{
+		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Ad Banner Impression");
 		}
 	}
@@ -1645,9 +1607,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Setting Changed", "Default Setting Restored");
 		mixpanel.FEProp.setProperty("Element", "Reset Settings to default");
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if(userType.equals("Guest")){
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Default Setting Restored");
-		}else{
+		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Default Setting Restored");
 		}
 	}
@@ -1802,7 +1764,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objEditProfileSavechangesBtn, "save changes");
 			waitTime(2000);
-			
+
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "my_profile");
@@ -1836,27 +1798,29 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 
 	public void verifyBannerAutoplayEventForNewsContent() throws Exception {
-		extent.HeaderChildNode("Verify Banner Autoplay Event");
+		extent.HeaderChildNode("Verify Banner Autoplay Event For News Content");
 		navigateToAnyScreenOnWeb("News");
 		waitForElementDisplayed(PWANewsPage.objBannerUnMute, 20);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		mixpanel.FEProp.setProperty("Source", "news_landing");
-		mixpanel.FEProp.setProperty("Page Name", "channel_detail");
-		mixpanel.FEProp.setProperty("Element", "Mute");
-		mixpanel.FEProp.setProperty("Mute Value", "On");
+		mixpanel.FEProp.setProperty("Page Name", "news_landing");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Video Autoplay", "true");
 		mixpanel.FEProp.setProperty("Tab Name", "news_landing");
-		mixpanel.FEProp.setProperty("Button Type", "Player");
-		String id = getWebDriver().getCurrentUrl(); 
+
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		if(UserType.equals("Guest")){mixpanel.ValidateParameter(local.getItem("guestToken"), "Banner Autoplay");}
-		else{mixpanel.ValidateParameter(local.getItem("ID"), "Banner Autoplay");}
+		if (UserType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Banner Autoplay");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Banner Autoplay");
+		}
 	}
 
 	public void verifyMuteChangedEventForNewsContent() throws Exception {
@@ -1869,15 +1833,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			JSClick(PWANewsPage.objBannerUnMute, "Mute Icon");
 		} else {
 			JSClick(PWANewsPage.objBannerMute, "UnMute Icon");
-		} 
-		
+		}
+
 		mixpanel.FEProp.setProperty("Source", "show_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if(userType.equals("Guest")){
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Mute Changed");
-		}else{
+		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Mute Changed");
 		}
 	}
@@ -1895,29 +1859,29 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
 		waitTime(2000);
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		
+
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if(userType.equals("Guest")){
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
-		}else{
-			mixpanel.ValidateParameter(local.getItem("ID"), "Resume");
-		}
-		
-		String id = getWebDriver().getCurrentUrl(); 
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Resume");
+		}
+
 		
+
 	}
 
 	public void verifyResumeEventForPremiumContent(String userType, String tab) throws Exception {
@@ -1935,21 +1899,22 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Element", "Resume");
 			mixpanel.FEProp.setProperty("Button Type", "Player");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			String id = getWebDriver().getCurrentUrl(); 
+			String id = getWebDriver().getCurrentUrl();
 			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 			Matcher m = p.matcher(id);
 			String value = null;
-			while (m.find())
-			{
-			     value = m.group(0);
+			while (m.find()) {
+				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			if(userType.equals("Guest")){
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
-			}else{
+			} else {
 				mixpanel.ValidateParameter(local.getItem("ID"), "Resume");
 			}
+
+			
 		}
 	}
 
@@ -1965,27 +1930,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
 		waitTime(2000);
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		
+
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		String id = getWebDriver().getCurrentUrl(); 
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		if(userType.equals("Guest")){
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
-		}else{
+		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Resume");
 		}
+
+		
 	}
 
 	public void verifyResumeEventForCarouselContent() throws Exception {
@@ -1997,27 +1963,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
 		waitTime(2000);
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		
-		mixpanel.FEProp.setProperty("Source", "search");
+
+		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		String id = getWebDriver().getCurrentUrl(); 
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		if(userType.equals("Guest")){
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
-		}else{
+		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Resume");
 		}
+
+		
 	}
 
 	public void verifyResumeEventForContentInTray() throws Exception {
@@ -2028,27 +1995,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
 		waitTime(2000);
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		
+
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		String id = getWebDriver().getCurrentUrl(); 
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		if(userType.equals("Guest")){
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
-		}else{
+		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Resume");
 		}
+
+		
 	}
 
 	public void verifyResumeEventForContentFromSearchPage(String keyword1) throws Exception {
@@ -2063,27 +2031,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
 		waitTime(2000);
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		
+
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		String id = getWebDriver().getCurrentUrl(); 
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		if(userType.equals("Guest")){
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
-		}else{
+		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Resume");
 		}
+
+		
 	}
 
 	public void verifyResumeEventForContentFromMyWatchlistPage(String userType, String keyword) throws Exception {
@@ -2113,27 +2082,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
 			waitTime(2000);
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-			
+
 			mixpanel.FEProp.setProperty("Source", "show_detail");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Element", "Resume");
 			mixpanel.FEProp.setProperty("Button Type", "Player");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			String id = getWebDriver().getCurrentUrl(); 
+			String id = getWebDriver().getCurrentUrl();
 			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 			Matcher m = p.matcher(id);
 			String value = null;
-			while (m.find())
-			{
-			     value = m.group(0);
+			while (m.find()) {
+				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			if(userType.equals("Guest")){
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
-			}else{
+			} else {
 				mixpanel.ValidateParameter(local.getItem("ID"), "Resume");
 			}
+
+			
 		}
 	}
 
@@ -2150,27 +2120,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
 		waitTime(2000);
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		
+
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		String id = getWebDriver().getCurrentUrl(); 
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		if(userType.equals("Guest")){
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
-		}else{
+		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Resume");
 		}
+
+		
 	}
 
 	public void verifyResumeEventForContentInPlaylist(String userType, String keyword) throws Exception {
@@ -2188,27 +2159,29 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
 		waitTime(2000);
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		
+
 		mixpanel.FEProp.setProperty("Source", "show_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		String id = getWebDriver().getCurrentUrl(); 
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		if(userType.equals("Guest")){
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
-		}else{
+		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Resume");
 		}
+
+		
 	}
 
 	public void verifyVideoViewEventForFreeContent(String userType, String keyword4) throws Exception {
@@ -2221,22 +2194,23 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		mixpanel.FEProp.setProperty("Source", "show_detail");
+		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		String id = getWebDriver().getCurrentUrl(); 
+		mixpanel.FEProp.setProperty("Video View", "1");
+
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if(userType.equals("Guest")){
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
-		}else{
+		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
 		}
 
@@ -2248,24 +2222,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			navigateToAnyScreenOnWeb(tab);
 			waitTime(8000);
 			partialScrollDown();
-			click(PWAPremiumPage.objPremiumTag, "Premium Content");		
+			click(PWAPremiumPage.objPremiumTag, "Premium Content");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-			mixpanel.FEProp.setProperty("Source", "show_detail");
-			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-//			String id = getWebDriver().getCurrentUrl(); 
-//			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-//			Matcher m = p.matcher(id);
-//			String value = null;
-//			while (m.find())
-//			{
-//			     value = m.group(0);
-//			}
-//			ResponseInstance.getContentDetails(value);
+			mixpanel.FEProp.setProperty("Video View", "1");
+
+			String id = getWebDriver().getCurrentUrl(); 
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find())
+			{
+			     value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			if(userType.equals("Guest")){
+			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
-			}else{
+			} else {
 				mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
 			}
 
@@ -2282,6 +2258,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Video View", "1");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
+		}
+
+		
 	}
 
 	public void verifyVideoViewEventForCarouselContent() throws Exception {
@@ -2291,6 +2288,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Video View", "1");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
+		}
+
+		
 	}
 
 	public void verifyVideoViewEventForContentInTray() throws Exception {
@@ -2298,6 +2315,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objThumbnail, "Content From a tray");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Video View", "1");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
+		}
+
+		
 	}
 
 	public void verifyVideoViewEventForContentFromSearchPage(String keyword1) throws Exception {
@@ -2309,6 +2347,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Video View", "1");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
+		}
+
+		
 
 	}
 
@@ -2336,6 +2395,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(6000);
 
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Video View", "1");
+			String id = getWebDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
+			}
+
+			
 		}
 	}
 
@@ -2349,6 +2428,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Video View", "1");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
+		}
+
+		
 
 	}
 
@@ -2366,6 +2466,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 
+		mixpanel.FEProp.setProperty("Source", "show_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Video View", "1");
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
+		}
 	}
 
 	public void verifyVideoViewEventAfterRefreshingPage(String keyword1) throws Exception {
@@ -2377,11 +2496,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-
 		getWebDriver().navigate().refresh();
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-
+		mixpanel.FEProp.setProperty("Source", "N/A");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Video View", "1");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
+		}
 	}
 
 	public void verifyVideoExitEventForFreeContent(String userType, String keyword4) throws Exception {
@@ -2394,7 +2529,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
+		}
 	}
 
 	public void verifyVideoExitEventForPremiumContent(String userType, String tab) throws Exception {
@@ -2404,7 +2556,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPremiumPage.objPremiumTag, "Premium Content");
 			waitTime(6000);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			String id = getWebDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
 			Back(1);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
+			}
 		}
 	}
 
@@ -2417,7 +2586,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
+		}
+
 	}
 
 	public void verifyVideoExitEventForCarouselContent() throws Exception {
@@ -2426,7 +2613,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
+		}
 	}
 
 	public void verifyVideoExitEventForContentInTray() throws Exception {
@@ -2434,7 +2639,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objThumbnail, "Content From a tray");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
+		}
 	}
 
 	public void verifyVideoExitEventForContentFromSearchPage(String keyword1) throws Exception {
@@ -2446,7 +2668,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
+		}
 	}
 
 	public void verifyVideoExitEventForContentFromMyWatchlistPage(String userType, String keyword) throws Exception {
@@ -2473,7 +2712,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(6000);
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			String id = getWebDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
 			Back(1);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
+			}
 		}
 	}
 
@@ -2487,7 +2743,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
+		}
+
 	}
 
 	public void verifyVideoExitEventForContentInPlaylist(String userType, String keyword) throws Exception {
@@ -2503,13 +2777,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		String id = getWebDriver().getCurrentUrl(); 
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
@@ -2517,9 +2790,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if(userType.equals("Guest")){
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
-		}else{
+		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
 		}
 	}
@@ -2537,7 +2810,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		getWebDriver().navigate().refresh();
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "N/A");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
+		}
 	}
 
 	public void verifyVideoWatchDurationEventForFreeContentAbrupt(String userType, String keyword4) throws Exception {
@@ -2550,29 +2841,29 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		
+
 		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-		String id = getWebDriver().getCurrentUrl(); 
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if (UserType.equals("Guest")) {
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duraton");
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duraton");
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
 		}
 	}
 
-	public void verifyVideoWatchDurationEventForPremiumContentAbrupt(String userType, String tab)
-			throws Exception {
+	public void verifyVideoWatchDurationEventForPremiumContentAbrupt(String userType, String tab) throws Exception {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode(
 					"Verify Video Watch Duration Event when video is closed abruptly For Premium Content");
@@ -2580,7 +2871,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPremiumPage.objPremiumTag, "Premium Content");
 			waitTime(6000);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			String id = getWebDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
 			Back(1);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+			}
 		}
 	}
 
@@ -2593,7 +2902,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
 	}
 
 	public void verifyVideoWatchDurationEventForCarouselContentAbrupt() throws Exception {
@@ -2602,7 +2928,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
 	}
 
 	public void verifyVideoWatchDurationEventForContentInTrayAbrupt() throws Exception {
@@ -2611,7 +2954,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objThumbnail, "Content From a tray");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
+
 	}
 
 	public void verifyVideoWatchDurationEventForContentFromSearchPageAbrupt(String keyword1) throws Exception {
@@ -2624,7 +2985,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
 	}
 
 	public void verifyVideoWatchDurationEventForContentFromMyWatchlistPageAbrupt(String userType, String keyword)
@@ -2653,7 +3031,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(6000);
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			String id = getWebDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
 			Back(1);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+			}
 		}
 	}
 
@@ -2664,11 +3059,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		Actions actions = new Actions(getWebDriver());
 		WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
 		actions.moveToElement(contentCard).build().perform();
-
 		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
 	}
 
 	public void verifyVideoWatchDurationEventForContentInPlaylistAbrupt(String userType, String keyword)
@@ -2687,7 +3098,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "show_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
 	}
 
 	public void verifyPopUpLaunchEventForGetPremiumPopUp(String userType, String keyword2) throws Exception {
@@ -2711,25 +3139,30 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
 		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
 		waitTime(2000);
+		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content card");
 		waitTime(2000);
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
+
 		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-		String id = getWebDriver().getCurrentUrl(); 
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Element", "Pause");
+		mixpanel.FEProp.setProperty("Button Type", "Player");
+		
+
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if (UserType.equals("Guest")) {
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
 		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Pause");
@@ -2743,9 +3176,30 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPremiumPage.objPremiumTag, "Premium Content");
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Element", "Pause");
+			mixpanel.FEProp.setProperty("Button Type", "Player");
+			
+
+			String id = getWebDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Pause");
+			}
 		}
 	}
-
 
 	public void verifyPauseEventForTrailer(String userType, String keyword1) throws Exception {
 		extent.HeaderChildNode("Verify Pause Event For Trailer Content");
@@ -2757,6 +3211,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Element", "Pause");
+		mixpanel.FEProp.setProperty("Button Type", "Player");
+		
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Pause");
+		}
 	}
 
 	public void verifyPauseEventForCarouselContent() throws Exception {
@@ -2766,6 +3242,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Element", "Pause");
+		mixpanel.FEProp.setProperty("Button Type", "Player");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Pause");
+		}
 	}
 
 	public void verifyPauseEventForContentInTray() throws Exception {
@@ -2774,6 +3270,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Element", "Pause");
+		mixpanel.FEProp.setProperty("Button Type", "Player");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Pause");
+		}
 	}
 
 	public void verifyPauseEventForContentFromSearchPage(String keyword1) throws Exception {
@@ -2786,6 +3302,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Element", "Pause");
+		mixpanel.FEProp.setProperty("Button Type", "Player");
+		
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Pause");
+		}
 	}
 
 	public void verifyPauseEventForContentFromMyWatchlistPage(String userType, String keyword) throws Exception {
@@ -2812,6 +3350,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
+
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Element", "Pause");
+			mixpanel.FEProp.setProperty("Button Type", "Player");
+			
+
+			String id = getWebDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Pause");
+			}
 		}
 	}
 
@@ -2826,6 +3386,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Element", "Pause");
+		mixpanel.FEProp.setProperty("Button Type", "Player");
+		
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Pause");
+		}
 	}
 
 	public void verifyPauseEventForContentInPlaylist(String userType, String keyword) throws Exception {
@@ -2844,6 +3426,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
+
+		mixpanel.FEProp.setProperty("Source", "show_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Element", "Pause");
+		mixpanel.FEProp.setProperty("Button Type", "Player");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Pause");
+		}
 	}
 
 	public void verifyPauseEventForLinearContent() throws Exception {
@@ -2854,6 +3456,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
+
+		mixpanel.FEProp.setProperty("Source", "news_landing");
+		mixpanel.FEProp.setProperty("Page Name", "channel_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Element", "Pause");
+		mixpanel.FEProp.setProperty("Button Type", "Player");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Pause");
+		}
 	}
 
 	public void verifyResumeEventForLinearContent() throws Exception {
@@ -2866,25 +3488,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		waitTime(2000);
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		
+
 		mixpanel.FEProp.setProperty("Source", "news_landing");
 		mixpanel.FEProp.setProperty("Page Name", "channel_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		String id = getWebDriver().getCurrentUrl(); 
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		if(userType.equals("Guest")){
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
-		}else{
+		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Resume");
 		}
 	}
@@ -2901,6 +3522,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.settingsBtn, "Setting icon");
 		click(PWAPlayerPage.qualityBtn, "Quality option");
 		click(PWAQualitySettingsPage.objIndividualQuality(2), "Quality Good option");
+		mixpanel.FEProp.setProperty("Source", "news_landing");
+		mixpanel.FEProp.setProperty("Page Name", "channel_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Old Quality", "Auto");
+		mixpanel.FEProp.setProperty("New Quality", "Good");
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Quality Change");
+		}
 	}
 
 	public void verifyQualityChangeEventForFreeContent(String userType, String keyword4) throws Exception {
@@ -2917,6 +3558,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.settingsBtn, "Setting icon");
 		click(PWAPlayerPage.qualityBtn, "Quality option");
 		click(PWAQualitySettingsPage.objIndividualQuality(2), "Quality Good option");
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Old Quality", "Auto");
+		mixpanel.FEProp.setProperty("New Quality", "Good");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Quality Change");
+		}
 	}
 
 	public void verifyQualityChangeEventForPremiumContent(String userType, String tab) throws Exception {
@@ -2929,6 +3589,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPlayerPage.settingsBtn, "Setting icon");
 			click(PWAPlayerPage.qualityBtn, "Quality option");
 			click(PWAQualitySettingsPage.objIndividualQuality(2), "Quality Good option");
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Old Quality", "Auto");
+			mixpanel.FEProp.setProperty("New Quality", "Good");
+			String id = getWebDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Quality Change");
+			}
 		}
 	}
 
@@ -2945,6 +3624,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.settingsBtn, "Setting icon");
 		click(PWAPlayerPage.qualityBtn, "Quality option");
 		click(PWAQualitySettingsPage.objIndividualQuality(2), "Quality Good option");
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Old Quality", "Auto");
+		mixpanel.FEProp.setProperty("New Quality", "Good");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Quality Change");
+		}
 	}
 
 	public void verifyQualityChangeEventForCarouselContent() throws Exception {
@@ -2957,6 +3656,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.settingsBtn, "Setting icon");
 		click(PWAPlayerPage.qualityBtn, "Quality option");
 		click(PWAQualitySettingsPage.objIndividualQuality(2), "Quality Good option");
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Old Quality", "Auto");
+		mixpanel.FEProp.setProperty("New Quality", "Good");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Quality Change");
+		}
 	}
 
 	public void verifyQualityChangeEventForContentInTray() throws Exception {
@@ -2968,6 +3687,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.settingsBtn, "Setting icon");
 		click(PWAPlayerPage.qualityBtn, "Quality option");
 		click(PWAQualitySettingsPage.objIndividualQuality(2), "Quality Good option");
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Old Quality", "Auto");
+		mixpanel.FEProp.setProperty("New Quality", "Good");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Quality Change");
+		}
 	}
 
 	public void verifyQualityChangeEventForContentFromSearchPage(String keyword1) throws Exception {
@@ -2983,6 +3722,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.settingsBtn, "Setting icon");
 		click(PWAPlayerPage.qualityBtn, "Quality option");
 		click(PWAQualitySettingsPage.objIndividualQuality(2), "Quality Good option");
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Old Quality", "Auto");
+		mixpanel.FEProp.setProperty("New Quality", "Good");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Quality Change");
+		}
 	}
 
 	public void verifyQualityChangeEventForContentFromMyWatchlistPage(String userType, String keyword)
@@ -3013,6 +3772,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPlayerPage.settingsBtn, "Setting icon");
 			click(PWAPlayerPage.qualityBtn, "Quality option");
 			click(PWAQualitySettingsPage.objIndividualQuality(2), "Quality Good option");
+
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Old Quality", "Auto");
+			mixpanel.FEProp.setProperty("New Quality", "Good");
+			String id = getWebDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Quality Change");
+			}
 		}
 	}
 
@@ -3030,6 +3809,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.settingsBtn, "Setting icon");
 		click(PWAPlayerPage.qualityBtn, "Quality option");
 		click(PWAQualitySettingsPage.objIndividualQuality(2), "Quality Good option");
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Old Quality", "Auto");
+		mixpanel.FEProp.setProperty("New Quality", "Good");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Quality Change");
+		}
+
 	}
 
 	public void verifyQualityChangeEventForContentInPlaylist(String userType, String keyword) throws Exception {
@@ -3051,6 +3851,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.qualityBtn, "Quality option");
 		click(PWAQualitySettingsPage.objIndividualQuality(2), "Quality Good option");
 
+		mixpanel.FEProp.setProperty("Source", "show_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Old Quality", "Auto");
+		mixpanel.FEProp.setProperty("New Quality", "Good");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Quality Change");
+		}
 	}
 
 	public void verifyQualityChangeEventForContentFromUpnextRail(String userType, String keyword4) throws Exception {
@@ -3075,6 +3894,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.qualityBtn, "Quality option");
 		click(PWAQualitySettingsPage.objIndividualQuality(2), "Quality Good option");
 		waitTime(6000);
+
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Old Quality", "Auto");
+		mixpanel.FEProp.setProperty("New Quality", "Good");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Quality Change");
+		}
 	}
 
 	public void verifyQualityChangeEventForContentFromSharedLink(String freeContentURL) throws Exception {
@@ -3088,6 +3927,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.qualityBtn, "Quality option");
 		click(PWAQualitySettingsPage.objIndividualQuality(2), "Quality Good option");
 		waitTime(6000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Old Quality", "Auto");
+		mixpanel.FEProp.setProperty("New Quality", "Good");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Quality Change");
+		}
 	}
 
 	public void playerScrubTillLastWeb() {
@@ -3120,25 +3979,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		waitTime(2000);
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		
+
 		mixpanel.FEProp.setProperty("Source", "episode_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		String id = getWebDriver().getCurrentUrl(); 
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		if(userType.equals("Guest")){
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
-		}else{
+		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Resume");
 		}
 	}
@@ -3164,6 +4022,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Element", "Pause");
+		mixpanel.FEProp.setProperty("Button Type", "Player");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Pause");
+		}
 	}
 
 	public void verifyVideoViewEventForContentFromUpnextRail(String userType, String keyword4) throws Exception {
@@ -3172,7 +4049,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
 		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
-		click(PWAPlayerPage.objPromo,"Play Icon");
+		click(PWAPlayerPage.objPromo, "Play Icon");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
@@ -3182,14 +4059,23 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitTime(6000);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		mixpanel.FEProp.setProperty("Source", "show_detail");
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Video View", "1");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if(userType.equals("Guest")){
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Episode list Chosen");
-		}else{
-			mixpanel.ValidateParameter(local.getItem("ID"), "Episode list Chosen");
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
 		}
 	}
 
@@ -3212,31 +4098,51 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
-
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
+		}
 	}
 
 	public void verifyVideoViewEventForContentFromSharedLink(String freeContentURL) throws Exception {
 		extent.HeaderChildNode("Verify Video View Event For content played from Shared Link");
 		getWebDriver().get(freeContentURL);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		mixpanel.FEProp.setProperty("Source", "show_detail");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		String id = getWebDriver().getCurrentUrl(); 
+		mixpanel.FEProp.setProperty("Video View", "1");
+
+		
+
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if(userType.equals("Guest")){
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Episode list Chosen");
-		}else{
-			mixpanel.ValidateParameter(local.getItem("ID"), "Episode list Chosen");
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
 		}
 	}
 
@@ -3244,7 +4150,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Video Exit Event For content played from Shared Link");
 		getWebDriver().get(freeContentURL);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
+		}
 	}
 
 	public void verifyPauseEventForContentFromSharedLink(String freeContentURL) throws Exception {
@@ -3253,6 +4176,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Element", "Pause");
+		mixpanel.FEProp.setProperty("Button Type", "Player");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Pause");
+		}
 	}
 
 	public void verifyResumeEventForContentFromSharedLink(String freeContentURL) throws Exception {
@@ -3263,25 +4205,23 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		waitTime(2000);
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		String id = getWebDriver().getCurrentUrl(); 
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		if(userType.equals("Guest")){
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
-		}else{
+		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Resume");
 		}
 	}
@@ -3291,7 +4231,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				"Verify Video Watch Duration Event when video is closed abruptly For content played from Shared Link");
 		getWebDriver().get(freeContentURL);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
 	}
 
 	public void verifyVideoWatchDurationEventForContentFromSharedLinkComplete(String freeContentURL) throws Exception {
@@ -3304,6 +4261,23 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
 
 	}
 
@@ -3317,18 +4291,52 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		Back(1);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
 	}
 
-	public void verifyVideoWatchDurationEventForPremiumContentComplete(String userType, String tab)
-			throws Exception {
+	public void verifyVideoWatchDurationEventForPremiumContentComplete(String userType, String tab) throws Exception {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Video Watch Duration Event when user completely watches Premium Content");
 			navigateToAnyScreenOnWeb(tab);
 			click(PWAPremiumPage.objPremiumTag, "Premium Content");
 			waitTime(6000);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			
+			mixpanel.FEProp.setProperty("Source", "search");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			String id = getWebDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
 			Back(1);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+			}
 		}
 	}
 
@@ -3342,6 +4350,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		Back(1);
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
 	}
 
 	public void verifyVideoWatchDurationEventForCarouselContentComplete() throws Exception {
@@ -3351,6 +4380,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		Back(1);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
 	}
 
 	public void verifyVideoWatchDurationEventForContentInTrayComplete() throws Exception {
@@ -3360,6 +4410,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		Back(1);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
 	}
 
 	public void verifyVideoWatchDurationEventForContentFromSearchPageComplete(String keyword1) throws Exception {
@@ -3373,6 +4444,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		Back(1);
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
 	}
 
 	public void verifyVideoWatchDurationEventForContentFromMyWatchlistPageComplete(String userType, String keyword)
@@ -3401,6 +4493,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(6000);
 			Back(1);
+
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+			
+
+			String id = getWebDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+			}
 		}
 	}
 
@@ -3416,6 +4529,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		Back(1);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
 	}
 
 	public void verifyVideoWatchDurationEventForContentInPlaylistComplete(String userType, String keyword)
@@ -3441,6 +4575,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		Back(1);
+
+		mixpanel.FEProp.setProperty("Source", "show_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
 	}
 
 	public void verifyVideoWatchDurationEventForContentFromUpnextRailComplete(String userType, String keyword4)
@@ -3470,6 +4625,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
+
 	}
 
 	public void verifyVideoWatchDurationEventForContentFromUpnextRailAbrupt(String userType, String keyword4)
@@ -3493,6 +4668,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 		Back(1);
 
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
+		}
 	}
 
 	public void verifyScrubSeekEventForFreeContent(String userType, String keyword4) throws Exception {
@@ -3506,25 +4701,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		String beforeScrub = getText(PWAPlayerPage.objcurrenttime);
 		playerScrubTillLastWeb();
-		String afterScrub = getText(PWAPlayerPage.objcurrenttime);
-		
 		waitTime(5000);
+
 		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-		String id = getWebDriver().getCurrentUrl(); 
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		
+
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if (UserType.equals("Guest")) {
+		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
 		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Scrub/Seek");
@@ -3540,6 +4736,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillLastWeb();
 			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Direction", "forward");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+			
+
+			String id = getWebDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Scrub/Seek");
+			}
 		}
 	}
 
@@ -3555,6 +4773,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		playerScrubTillLastWeb();
 		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Scrub/Seek");
+		}
 	}
 
 	public void verifyScrubSeekEventForCarouselContent() throws Exception {
@@ -3566,6 +4806,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		playerScrubTillLastWeb();
 		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Scrub/Seek");
+		}
 	}
 
 	public void verifyScrubSeekEventForContentInTray() throws Exception {
@@ -3576,6 +4838,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		playerScrubTillLastWeb();
 		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Scrub/Seek");
+		}
 	}
 
 	public void verifyScrubSeekEventForContentFromSearchPage(String keyword1) throws Exception {
@@ -3590,6 +4874,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		playerScrubTillLastWeb();
 		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Scrub/Seek");
+		}
 	}
 
 	public void verifyScrubSeekEventForContentFromMyWatchlistPage(String userType, String keyword) throws Exception {
@@ -3619,6 +4925,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillLastWeb();
 			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Direction", "forward");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+			
+
+			String id = getWebDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Scrub/Seek");
+			}
 		}
 	}
 
@@ -3635,6 +4963,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		playerScrubTillLastWeb();
 		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		
+
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Scrub/Seek");
+		}
 	}
 
 	public void verifyScrubSeekEventForContentInPlaylist(String userType, String keyword) throws Exception {
@@ -3654,6 +5004,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		playerScrubTillLastWeb();
 		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "show_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Scrub/Seek");
+		}
 	}
 
 	public void verifyScrubSeekEventForContentFromUpnextRail(String userType, String keyword4) throws Exception {
@@ -3676,6 +5045,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		playerScrubTillLastWeb();
 		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Scrub/Seek");
+		}
 	}
 
 	public void verifyScrubSeekEventForContentFromSharedLink(String freeContentURL) throws Exception {
@@ -3687,6 +5075,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		playerScrubTillLastWeb();
 		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Scrub/Seek");
+		}
 	}
 
 	public void verifyMuteChangedEventDuringContentPlayback(String keyword1) throws Exception {
@@ -3708,17 +5115,19 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Mute Value", "On");
 		mixpanel.FEProp.setProperty("Tab Name", "news_landing");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
-		String id = getWebDriver().getCurrentUrl(); 
+		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);
 		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
+		while (m.find()) {
+			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		if(UserType.equals("Guest")){mixpanel.ValidateParameter(local.getItem("guestToken"), "Banner Autoplay");}
-		else{mixpanel.ValidateParameter(local.getItem("ID"), "Banner Autoplay");}
+		if (UserType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Mute Changed");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Mute Changed");
+		}
 	}
 
 	public void verifyLoginInitiatedEventForInvalidCredentials(String userType, String loginMethod) throws Exception {
@@ -4168,9 +5577,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Search");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if(userType.equals("Guest")){
-		Mixpanel.ValidateParameter(local.getItem("guestToken"), "Search Button Click");
-		}else{
+		if (userType.equals("Guest")) {
+			Mixpanel.ValidateParameter(local.getItem("guestToken"), "Search Button Click");
+		} else {
 			Mixpanel.ValidateParameter(local.getItem("ID"), "Search Button Click");
 		}
 	}
@@ -4269,7 +5678,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "movie_detail");
 			mixpanel.FEProp.setProperty("Element", "Cross");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-			String id = getWebDriver().getCurrentUrl(); 
+			String id = getWebDriver().getCurrentUrl();
 			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 			Matcher m = p.matcher(id);
 			m.find();
@@ -4324,7 +5733,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	public void verifyDeviceAuthenticationEvent(String userType) throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Verify Device Authentication Event when authentication fails in TV Authentication screen");
+			extent.HeaderChildNode(
+					"Verify Device Authentication Event when authentication fails in TV Authentication screen");
 			String AuthPin = "abcdef";
 			click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 			waitTime(3000);
@@ -4332,7 +5742,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWAHamburgerMenuPage.objAuthenticationField, AuthPin, "AuthenticationField");
 			click(PWAHamburgerMenuPage.objAuthenticationButtonHighlighted, "Authenticate button");
 			mixpanel.FEProp.setProperty("Page Name", "device_authentication");
-			mixpanel.FEProp.setProperty("Failure Reason", "Device code "+AuthPin+" has expired");
+			mixpanel.FEProp.setProperty("Failure Reason", "Device code " + AuthPin + " has expired");
 			mixpanel.FEProp.setProperty("Element", "Authenticate");
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			System.out.println(local.getItem("ID"));
@@ -4424,24 +5834,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		click(PWAPlayerPage.forward10SecBtn, "Forward 10 sec button");
 		waitTime(5000);
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-		mixpanel.FEProp.setProperty("Direction", "forward");
-		String id = getWebDriver().getCurrentUrl(); 
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if (UserType.equals("Guest")) {
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
-		} else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Auto-seek");
-		}
 	}
 
 	public void verifyAutoSeekForwardEventForPremiumContent(String userType, String tab) throws Exception {
@@ -4455,7 +5847,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(5000);
 		}
 	}
-
 
 	public void verifyAutoSeekForwardEventForTrailer(String keyword1) throws Exception {
 		extent.HeaderChildNode("Verify Auto Seek Forward Event For Trailer Content");
@@ -4953,8 +6344,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Audio Language Change Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
-		waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 20, "Search Result");
-		click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
+		waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
+		click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
@@ -4964,18 +6355,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
 		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
 		waitTime(5000);
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if (UserType.equals("Guest")) {
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
-		} else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Audio Language Change");
-		}
 	}
 
-	public void verifyAudioLanguageChangeEventForPremiumContent(String userType, String tab)
-			throws Exception {
+	public void verifyAudioLanguageChangeEventForPremiumContent(String userType, String tab) throws Exception {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Audio Language Change Event For Premium Content");
 			navigateToAnyScreenOnWeb(tab);
@@ -5212,8 +6594,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Subtitle Language Change Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
-		waitForElement(PWASearchPage.objSearchResultTxt(subtitleTrackContent), 20, "Search Result");
-		click(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
+		waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 20, "Search Result");
+		click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
@@ -5221,31 +6603,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
 		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		waitTime(5000);
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Element", "Pause");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-		String id = getWebDriver().getCurrentUrl(); 
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find())
-		{
-		     value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if (UserType.equals("Guest")) {
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Subtitle Language Change");
-		} else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Subtitle Language Change");
-		}
-		
 	}
 
-	public void verifySubtitleLanguageChangeEventForPremiumContent(String userType, String tab)
-			throws Exception {
+	public void verifySubtitleLanguageChangeEventForPremiumContent(String userType, String tab) throws Exception {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Subtitle Language Change Event For Premium Content");
 			navigateToAnyScreenOnWeb(tab);
@@ -5281,7 +6642,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		
+
 		if (checkElementDisplayed(PWAPlayerPage.objSubtitleIcon, "Subtitle option") == true) {
 			click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
 			click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
@@ -5324,7 +6685,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 	}
 
-
 	public void verifySubtitleLanguageChangeEventForContentFromMyWatchlistPage(String userType,
 			String subtitleTrackContent) throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
@@ -5362,7 +6722,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-
 	public void verifySubtitleLanguageChangeEventForContentInMegamenu() throws Exception {
 		extent.HeaderChildNode("Verify Subtitle Language Change Event For Content played from Megamenu");
 		waitTime(5000);
@@ -5383,7 +6742,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.extentLogger("Subtitle Track", "Subtitle is not available for the content");
 		}
 	}
-
 
 	public void verifySubtitleLanguageChangeEventForContentInPlaylist(String userType, String subtitleTrackContent)
 			throws Exception {
@@ -5445,8 +6803,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Skip Intro Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
-		waitForElement(PWASearchPage.objSearchResultTxt(freeMovie2), 20, "Search Result");
-		click(PWASearchPage.objSearchResultTxt(freeMovie2), "Search Result");
+		waitForElement(PWASearchPage.objSearchResult(freeMovie2), 20, "Search Result");
+		click(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
@@ -5454,16 +6812,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
 		waitTime(5000);
-		
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Element", "Cross");
-		mixpanel.FEProp.setProperty("Page Name", "pack_selection");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if (UserType.equals("Guest")) {
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Intro");
-		} else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Skip Intro");
-		}
 	}
 
 	public void verifySkipIntroEventForPremiumContent(String userType, String tab) throws Exception {
@@ -5473,7 +6821,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPremiumPage.objPremiumTag, "Premium Content");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(6000);
-			
+
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			if (checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button")) {
 				click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
@@ -5684,7 +7032,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-//	------------------------------------------------------------------------------------------------------
 	public void verifyParentalOverlayImpressionEventForFreeContent(String userType, String keyword4) throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Free Content");
@@ -5714,26 +7061,17 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-			waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
-			click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
+			waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword4), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitForPlayerAdToComplete("Video Player");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
 			waitTime(5000);
-			mixpanel.FEProp.setProperty("Source", "search");
-			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			if (UserType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
-			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Impression");
-			}
 		}
 	}
 
-	public void verifyParentalOverlayImpressionEventForPremiumContent(String userType, String tab)
-			throws Exception {
+	public void verifyParentalOverlayImpressionEventForPremiumContent(String userType, String tab) throws Exception {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Premium Content");
 			navigateToAnyScreenOnWeb(tab);
@@ -6281,6 +7619,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("cost", cost[1]);
 			mixpanel.FEProp.setProperty("Promo Code Type", "Product");
 			mixpanel.FEProp.setProperty("Promo Code", promocode);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Promo Code Result");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Promo Code Result");
+			}
 		}
 	}
 
@@ -6295,18 +7639,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 20, "Search Result");
 			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-			
+
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				waitTime(5000);
-				mixpanel.FEProp.setProperty("Source", "show_detail");
+				mixpanel.FEProp.setProperty("Source", "search");
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-				if(userType.equals("Guest")){
+				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
-				}else{
+				} else {
 					mixpanel.ValidateParameter(local.getItem("ID"), "Ad View");
 				}
 			} else {
@@ -6329,6 +7682,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "search");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad View");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6346,6 +7718,23 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad View");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6362,6 +7751,23 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad View");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6379,11 +7785,30 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "search");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad View");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6400,7 +7825,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-
+			waitTime(4000);
+			mandatoryRegistrationPopUp(userType);
+			waitTime(4000);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
@@ -6419,6 +7846,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad View");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6440,6 +7886,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad View");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6455,8 +7919,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
-			mandatoryRegistrationPopUp(userType);
+
 			waitTime(2000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
@@ -6464,6 +7927,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad View");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6479,12 +7960,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-			waitForPlayerAdToComplete("Video Player");
+
 			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillLastWeb();
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			mandatoryRegistrationPopUp(userType);
@@ -6492,6 +7975,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad View");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6503,11 +8004,30 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For content played from Shared Link");
 			getWebDriver().get(audioTrackURL);
+			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad View");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6523,30 +8043,40 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
-			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 20, "Search Result");
-			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
+			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-				waitTime(3000);
-				Back(1);
 				mixpanel.FEProp.setProperty("Source", "search");
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				Back(1);
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-				if (UserType.equals("Guest")) {
+				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
 				} else {
 					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Forced Exit");
 				}
-			} else {
-				logger.info("Ad is not available for the content");
-				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 
-			waitTime(5000);
+		} else {
+			logger.info("Ad is not available for the content");
+			extent.extentLogger("Ad", "Ad is not available for the content");
 		}
+
+		waitTime(5000);
+
 	}
 
 	public void verifyAdForcedExitEventForTrailer(String userType, String keyword1) throws Exception {
@@ -6562,7 +8092,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "search");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Forced Exit");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6580,7 +8128,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Forced Exit");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6597,7 +8163,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Forced Exit");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6615,12 +8198,32 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "search");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Forced Exit");
+				}
+				
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6637,7 +8240,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-
+			waitTime(2000);
+			mandatoryRegistrationPopUp(userType);
+			waitTime(4000);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
@@ -6656,7 +8261,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Forced Exit");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6678,7 +8301,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Forced Exit");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6695,8 +8338,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
-			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
@@ -6704,7 +8345,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Forced Exit");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6721,8 +8380,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-			waitForPlayerAdToComplete("Video Player");
+
 			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillLastWeb();
@@ -6734,7 +8394,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Forced Exit");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6747,12 +8425,30 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Forced Exit Event For content played from Shared Link");
 			getWebDriver().get(audioTrackURL);
+			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Forced Exit");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -6771,31 +8467,35 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 20, "Search Result");
 			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-			waitTime(5000);
+			waitTime(10000);
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-				JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
-			waitTime(5000);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			mixpanel.FEProp.setProperty("Source", "search");
-			mixpanel.FEProp.setProperty("Page Name", "channel_detail");
-//			String id = getWebDriver().getCurrentUrl(); 
-//			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-//			Matcher m = p.matcher(id);
-//			String value = null;
-//			while (m.find())
-//			{
-//			     value = m.group(0);
-//			}
-//			ResponseInstance.getContentDetails(value);
-			if(UserType.equals("Guest")){mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");}
-			else{mixpanel.ValidateParameter(local.getItem("ID"), "Ad Clicks");}
-		}else {
-			logger.info("Ad is not available for the content");
-			extent.extentLogger("Ad", "Ad is not available for the content");
+				waitTime(3000);
+				mixpanel.FEProp.setProperty("Source", "search");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
+				waitTime(3000);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Clicks");
+				}
+			} else {
+				logger.info("Ad is not available for the content");
+				extent.extentLogger("Ad", "Ad is not available for the content");
+			}
 		}
-		} 
 	}
 
 	public void verifyAdClickEventForTrailer(String userType, String keyword1) throws Exception {
@@ -6811,12 +8511,31 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
-			} else {
-				logger.info("Ad is not available for the content");
-				extent.extentLogger("Ad", "Ad is not available for the content");
+				
+				mixpanel.FEProp.setProperty("Source", "search");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Clicks");
+				}
 			}
+		} else {
+			logger.info("Ad is not available for the content");
+			extent.extentLogger("Ad", "Ad is not available for the content");
 		}
+
 	}
 
 	public void verifyAdClickEventForCarouselContent(String userType) throws Exception {
@@ -6829,11 +8548,29 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Clicks");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
+
 		}
 	}
 
@@ -6846,11 +8583,29 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Clicks");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
+
 		}
 	}
 
@@ -6864,16 +8619,40 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
+				
+
+				mixpanel.FEProp.setProperty("Source", "search");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+				
+
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Clicks");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
+
 		}
 	}
 
@@ -6886,7 +8665,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-
+			waitTime(4000);
+			mandatoryRegistrationPopUp(userType);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
@@ -6905,11 +8685,29 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Clicks");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
+
 		}
 	}
 
@@ -6927,11 +8725,31 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
+				
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Clicks");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
+
 		}
 	}
 
@@ -6943,8 +8761,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
-			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
@@ -6952,12 +8768,30 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Clicks");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 			waitTime(5000);
+
 		}
 	}
 
@@ -6968,8 +8802,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-			waitForPlayerAdToComplete("Video Player");
+
 			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillLastWeb();
@@ -6981,11 +8816,29 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Clicks");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
+
 		}
 	}
 
@@ -6993,17 +8846,36 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Click Event For content played from Shared Link");
 			getWebDriver().get(audioTrackURL);
+			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Clicks");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 			waitTime(5000);
+
 		}
 	}
 
@@ -7016,35 +8888,31 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
-			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 20, "Search Result");
-			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
+			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				mixpanel.FEProp.setProperty("Source", "search");
-				mixpanel.FEProp.setProperty("Element", "Pause");
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-				String id = getWebDriver().getCurrentUrl(); 
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
 				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 				Matcher m = p.matcher(id);
 				String value = null;
-				while (m.find())
-				{
-				     value = m.group(0);
+				while (m.find()) {
+					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-				if (UserType.equals("Guest")) {
+				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
 					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
 				}
-				
-				
-				
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7068,7 +8936,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "search");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7087,7 +8972,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7105,7 +9007,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7124,12 +9043,30 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "search");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7147,7 +9084,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-
+			mandatoryRegistrationPopUp(userType);
+			waitTime(2000);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
@@ -7166,7 +9104,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7189,7 +9145,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7207,8 +9180,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
-			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
@@ -7216,7 +9187,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7234,12 +9222,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-			waitForPlayerAdToComplete("Video Player");
+
 			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillLastWeb();
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			mandatoryRegistrationPopUp(userType);
@@ -7247,7 +9237,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7261,12 +9268,30 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode(
 					"Verify Ad Watch Duration Event when user force quits the ad playback For content played from Shared Link");
 			getWebDriver().get(audioTrackURL);
+			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7290,7 +9315,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
+				
+				mixpanel.FEProp.setProperty("Source", "search");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
 				Back(1);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7313,6 +9356,23 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
+				mixpanel.FEProp.setProperty("Source", "search");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7330,6 +9390,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7346,6 +9424,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7364,10 +9460,29 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
+
+				mixpanel.FEProp.setProperty("Source", "search");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7385,7 +9500,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-
+			mandatoryRegistrationPopUp(userType);
+			waitTime(2000);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
@@ -7403,6 +9519,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
+
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7424,6 +9558,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7441,14 +9594,30 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
-			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
+
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7466,8 +9635,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-			waitForPlayerAdToComplete("Video Player");
+
 			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillLastWeb();
@@ -7478,6 +9648,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7491,10 +9679,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode(
 					"Verify Ad Watch Duration Event when user completly watches ad playback For content played from Shared Link");
 			getWebDriver().get(audioTrackURL);
+			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7544,6 +9750,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
 					Thread.sleep(5000);
 					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+
+					mixpanel.FEProp.setProperty("Source", "search");
+					mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+					String id = getWebDriver().getCurrentUrl();
+					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+					Matcher m = p.matcher(id);
+					String value = null;
+					while (m.find()) {
+						value = m.group(0);
+					}
+					ResponseInstance.getContentDetails(value);
+					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					if (userType.equals("Guest")) {
+						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+					} else {
+						mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+					}
 				} else {
 					System.out.println("Skip Ad Button is not displayed");
 				}
@@ -7571,6 +9795,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
 					Thread.sleep(5000);
 					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+
+					mixpanel.FEProp.setProperty("Source", "search");
+					mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+					String id = getWebDriver().getCurrentUrl();
+					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+					Matcher m = p.matcher(id);
+					String value = null;
+					while (m.find()) {
+						value = m.group(0);
+					}
+					ResponseInstance.getContentDetails(value);
+					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					if (userType.equals("Guest")) {
+						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+					} else {
+						mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+					}
 				} else {
 					System.out.println("Skip Ad Button is not displayed");
 				}
@@ -7593,6 +9835,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
 					Thread.sleep(5000);
 					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+					String id = getWebDriver().getCurrentUrl();
+					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+					Matcher m = p.matcher(id);
+					String value = null;
+					while (m.find()) {
+						value = m.group(0);
+					}
+					ResponseInstance.getContentDetails(value);
+					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					if (userType.equals("Guest")) {
+						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+					} else {
+						mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+					}
 				} else {
 					System.out.println("Skip Ad Button is not displayed");
 				}
@@ -7614,6 +9874,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
 					Thread.sleep(5000);
 					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+					String id = getWebDriver().getCurrentUrl();
+					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+					Matcher m = p.matcher(id);
+					String value = null;
+					while (m.find()) {
+						value = m.group(0);
+					}
+					ResponseInstance.getContentDetails(value);
+					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					if (userType.equals("Guest")) {
+						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+					} else {
+						mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+					}
 				} else {
 					System.out.println("Skip Ad Button is not displayed");
 				}
@@ -7641,6 +9919,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
 					Thread.sleep(5000);
 					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+
+					mixpanel.FEProp.setProperty("Source", "search");
+					mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+					String id = getWebDriver().getCurrentUrl();
+					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+					Matcher m = p.matcher(id);
+					String value = null;
+					while (m.find()) {
+						value = m.group(0);
+					}
+					ResponseInstance.getContentDetails(value);
+					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					if (userType.equals("Guest")) {
+						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+					} else {
+						mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+					}
 				} else {
 					System.out.println("Skip Ad Button is not displayed");
 				}
@@ -7661,7 +9957,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-
+			mandatoryRegistrationPopUp(userType);
+			waitTime(2000);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
@@ -7681,6 +9978,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
 					Thread.sleep(5000);
 					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+
+					mixpanel.FEProp.setProperty("Source", "episode_detail");
+					mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+					String id = getWebDriver().getCurrentUrl();
+					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+					Matcher m = p.matcher(id);
+					String value = null;
+					while (m.find()) {
+						value = m.group(0);
+					}
+					ResponseInstance.getContentDetails(value);
+					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					if (userType.equals("Guest")) {
+						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+					} else {
+						mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+					}
 				} else {
 					System.out.println("Skip Ad Button is not displayed");
 				}
@@ -7707,6 +10022,23 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
 					Thread.sleep(5000);
 					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+					String id = getWebDriver().getCurrentUrl();
+					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+					Matcher m = p.matcher(id);
+					String value = null;
+					while (m.find()) {
+						value = m.group(0);
+					}
+					ResponseInstance.getContentDetails(value);
+					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					if (userType.equals("Guest")) {
+						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+					} else {
+						mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+					}
 				} else {
 					System.out.println("Skip Ad Button is not displayed");
 				}
@@ -7727,8 +10059,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
-			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
@@ -7737,6 +10067,23 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
 					Thread.sleep(5000);
 					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+					mixpanel.FEProp.setProperty("Source", "episode_detail");
+					mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+					String id = getWebDriver().getCurrentUrl();
+					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+					Matcher m = p.matcher(id);
+					String value = null;
+					while (m.find()) {
+						value = m.group(0);
+					}
+					ResponseInstance.getContentDetails(value);
+					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					if (userType.equals("Guest")) {
+						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+					} else {
+						mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+					}
 				} else {
 					System.out.println("Skip Ad Button is not displayed");
 				}
@@ -7757,8 +10104,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-			waitForPlayerAdToComplete("Video Player");
+
 			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillLastWeb();
@@ -7771,6 +10119,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
 					Thread.sleep(5000);
 					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+
+					mixpanel.FEProp.setProperty("Source", "episode_detail");
+					mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+					String id = getWebDriver().getCurrentUrl();
+					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+					Matcher m = p.matcher(id);
+					String value = null;
+					while (m.find()) {
+						value = m.group(0);
+					}
+					ResponseInstance.getContentDetails(value);
+					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					if (userType.equals("Guest")) {
+						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+					} else {
+						mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+					}
+
 				} else {
 					System.out.println("Skip Ad Button is not displayed");
 				}
@@ -7787,12 +10154,31 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode(
 					"Verify Ad Watch Duration Event when user skips ad playback For content played from Shared Link");
 			getWebDriver().get(audioTrackURL);
+			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
 					Thread.sleep(5000);
 					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
+
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+					String id = getWebDriver().getCurrentUrl();
+					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+					Matcher m = p.matcher(id);
+					String value = null;
+					while (m.find()) {
+						value = m.group(0);
+					}
+					ResponseInstance.getContentDetails(value);
+					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					if (userType.equals("Guest")) {
+						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
+					} else {
+						mixpanel.ValidateParameter(local.getItem("ID"), "Ad Watch Duration");
+					}
 				} else {
 					System.out.println("Skip Ad Button is not displayed");
 				}
@@ -7804,42 +10190,43 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(5000);
 		}
 	}
+
 	public void verifyCTAsEventForIcons(String userType, String icon) throws Exception {
 		extent.HeaderChildNode("Verify CTAs Event when user clicks on Search, Language, Profile icon");
 		waitTime(5000);
-		if(icon.equalsIgnoreCase("Search")) {
+		if (icon.equalsIgnoreCase("Search")) {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			waitTime(5000);
 		}
-		
-		if(icon.equalsIgnoreCase("Language")) {
+
+		if (icon.equalsIgnoreCase("Language")) {
 			click(PWAHomePage.objLanguageBtn, "Language button");
 			waitTime(5000);
 		}
-	
+
 		if (!(userType.equalsIgnoreCase("Guest"))) {
-			if(icon.equalsIgnoreCase("Profile")) {
+			if (icon.equalsIgnoreCase("Profile")) {
 				click(PWALandingPages.objWebProfileIcon, "Profile Icon");
 				waitTime(5000);
 			}
 		}
-		
+
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Element", "Language");
-		
+
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "CTAs");
 		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "CTAs");
 		}
-			
+
 	}
-	
+
 	public void verifyCTAsEventForSubscribeBtn(String userType) throws Exception {
-		
-		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify CTAs Event when user clicks on subscription option");
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
 
@@ -7847,7 +10234,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "N/A");
 			mixpanel.FEProp.setProperty("Page Name", "home");
 			mixpanel.FEProp.setProperty("Element", "Subscribe");
-			
+
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "CTAs");
 			} else {
@@ -7855,69 +10242,91 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			}
 		}
 	}
-		
+
 	public void verifyCTAsEventForOptionInHamburger() throws Exception {
 		extent.HeaderChildNode("Verify CTAs Event when user clicks on any option in hamburger menu");
 		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		waitTime(3000);
 		click(PWAHamburgerMenuPage.objMoreSettingInHamburger, "More settings");
-		
+
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Element", "More Settings");
-		
+
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "CTAs");
 		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "CTAs");
 		}
 	}
-	
+
 	public void verifyCTAsEventHeader(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify CTAs Event");
 		navigateToAnyScreenOnWeb(tabName);
-		
+
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Element", "Shows");
-		
+
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "CTAs");
 		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "CTAs");
 		}
 	}
-	
-	public void verifyAdInitializedEventForFreeContent(String tab,String api,String userType,String un,String pwd) throws Exception {
+
+	public void verifyAdInitializedEventForFreeContent(String tab, String api, String userType, String un, String pwd)
+			throws Exception {
 		extent.HeaderChildNode("Verify Ad Initialized Event For Free Content");
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Initialized Event For Free Content");
 			navigateToAnyScreenOnWeb(tab);
-			
-			if(userType.equals("NonSubscribedUser")) {
+
+			if (userType.equals("NonSubscribedUser")) {
 				WebElement mastHeadEle = (new WebDriverWait(getWebDriver(), 60))
-					.until(ExpectedConditions.presenceOfElementLocated(
-							PWAHomePage.objContTitleTextCarouselWeb(ResponseInstance.getFreeContent(api,un,pwd))));
+						.until(ExpectedConditions.presenceOfElementLocated(PWAHomePage
+								.objContTitleTextCarouselWeb(ResponseInstance.getFreeContent(api, un, pwd))));
 				mastHeadEle.click();
-			}else if(!userType.equals("")) {
+			} else if (!userType.equals("")) {
 				WebElement mastHeadEle = (new WebDriverWait(getWebDriver(), 60))
-						.until(ExpectedConditions.presenceOfElementLocated(
-								PWAHomePage.objContTitleTextCarouselWeb(ResponseInstance.getFreeContent(api,un,pwd))));
-					mastHeadEle.click();
+						.until(ExpectedConditions.presenceOfElementLocated(PWAHomePage
+								.objContTitleTextCarouselWeb(ResponseInstance.getFreeContent(api, un, pwd))));
+				mastHeadEle.click();
 			}
-			
+
 			waitTime(5000);
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+
+				String id = getWebDriver().getCurrentUrl(); 
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find())
+				{
+				     value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				if (UserType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Initialized");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 
 			waitTime(5000);
+
 		}
 	}
 
@@ -7934,11 +10343,32 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "search");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Initialized");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
+
 		}
+
 	}
 
 	public void verifyAdInitializedEventForCarouselContent(String userType) throws Exception {
@@ -7951,6 +10381,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Initialized");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7967,6 +10416,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Initialized");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -7984,11 +10452,31 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "search");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Initialized");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -8005,7 +10493,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-
+			waitTime(4000);
+			mandatoryRegistrationPopUp(userType);
+			waitTime(2000);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
@@ -8024,6 +10514,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Initialized");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -8045,6 +10554,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Initialized");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -8052,7 +10579,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdInitializedEventForContentInPlaylist(String userType, String audioTrackContent) throws Exception {
+	public void verifyAdInitializedEventForContentInPlaylist(String userType, String audioTrackContent)
+			throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Initialized Event For Content played from Playlist");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
@@ -8060,8 +10588,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
-			mandatoryRegistrationPopUp(userType);
+
 			waitTime(2000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
@@ -8069,6 +10596,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Initialized");
+				}
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -8077,19 +10622,22 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdInitializedEventForContentFromUpnextRail(String userType, String audioTrackContent) throws Exception {
+	public void verifyAdInitializedEventForContentFromUpnextRail(String userType, String audioTrackContent)
+			throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Initialized Event For Content played from Upnext rail");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-			waitForPlayerAdToComplete("Video Player");
+
 			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillLastWeb();
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			mandatoryRegistrationPopUp(userType);
@@ -8097,6 +10645,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Initialized");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -8104,15 +10671,36 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdInitializedEventForContentFromSharedLink(String userType, String audioTrackURL) throws Exception {
+	public void verifyAdInitializedEventForContentFromSharedLink(String userType, String audioTrackURL)
+			throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Initialized Event For content played from Shared Link");
 			getWebDriver().get(audioTrackURL);
+			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Initialized");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -8121,7 +10709,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyLoginScreenDisplayEventByClickingOnLoginInRegistrationPopUp(String userType, String keyword) throws Exception {
+	public void verifyLoginScreenDisplayEventByClickingOnLoginInRegistrationPopUp(String userType, String keyword)
+			throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 
 			extent.HeaderChildNode(
@@ -8137,16 +10726,18 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(5000);
 		}
 	}
-	
-	public void verifyAdClickForContentFromMyWatchlistPage(String userType, String audioTrackContent)
-			throws Exception {
+
+	public void verifyAdClickForContentFromMyWatchlistPage(String userType, String audioTrackContent) throws Exception {
 		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.HeaderChildNode("Verify Ad Click Event For Content From My Watchlist Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
+
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			mandatoryRegistrationPopUp(userType);
+			waitTime(2000);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
@@ -8163,15 +10754,34 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-				click(PWAPlayerPage.objPlaybackVideoOverlay, "Ad");
+				click(PWAPlayerPage.objAd, "Ad");
+
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
+				} else {
+					mixpanel.ValidateParameter(local.getItem("ID"), "Ad Clicks");
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
 		}
 	}
-	
-	public void verifyLoginUsernameEnteredEvent(String LoginMethod,String EventName) throws Exception {
+
+	public void verifyLoginUsernameEnteredEvent(String LoginMethod, String EventName) throws Exception {
 		String userType = getParameterFromXML("userType");
 		waitTime(5000);
 		switch (userType) {
@@ -8207,7 +10817,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(3000);
 			verifyElementPresent(PWALoginPage.objWebLoginPageText, "Login page");
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-			type(PWALoginPage.objEmailField, Username, "Email Field"); 
+			type(PWALoginPage.objEmailField, Username, "Email Field");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
 			type(PWALoginPage.objPasswordField, Password, "Password field");
@@ -8219,9 +10829,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "sign_in");
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if(EventName.equals("UserName")){
+		if (EventName.equals("UserName")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Login Username Entered");
-		}else {
+		} else {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Login Password Entered");
 		}
 	}

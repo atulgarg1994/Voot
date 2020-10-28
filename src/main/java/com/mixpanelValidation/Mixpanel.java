@@ -6,16 +6,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
@@ -37,7 +33,6 @@ import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.response.Response;
 import com.metadata.ResponseInstance;
 import com.propertyfilereader.PropertyFileReader;
-import java.time.Duration;
 
 public class Mixpanel extends ExtentReporter {
 
@@ -53,7 +48,6 @@ public class Mixpanel extends ExtentReporter {
 	protected static Response resp = null;
 	public static String DOB;
 	public static Properties FEProp = new Properties();
-	private static Properties prop;
 	private static String value;
 	private static String key;
 	static ExtentReporter extent = new ExtentReporter();
@@ -62,6 +56,7 @@ public class Mixpanel extends ExtentReporter {
 	static String platform;
 	static String APIKey;
 	static String Modelname;
+	public static boolean fetchUserdata = false;
 
 	public static void ValidateParameter(String distinctID, String eventName)
 			throws JsonParseException, JsonMappingException, IOException, InterruptedException {
@@ -72,8 +67,8 @@ public class Mixpanel extends ExtentReporter {
 		fileName = ReportName;
 		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
 		StaticValues();
+		getParameterValue();
 		fetchEvent(distinctID, eventName);
-		// creatExcel();
 	}
 
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
@@ -145,7 +140,7 @@ public class Mixpanel extends ExtentReporter {
 	public static void fetchEvent(String distinct_id, String eventName)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
-			Thread.sleep(180000);
+			Thread.sleep(60000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -269,7 +264,7 @@ public class Mixpanel extends ExtentReporter {
 					}
 					validateParameter(key, value);
 					extentReportInfo("Empty parameter",
-							"Paramter :- <b>Key : " + key + " \n value : " + value + "</b>");
+							"Paramter :- <b>Key : " + key + " <br/> value : " + value + "</b>");
 				}
 			} catch (Exception e) {
 				System.out.println(e);
@@ -280,16 +275,19 @@ public class Mixpanel extends ExtentReporter {
 	public static void validateParameter(String key, String value) {
 		String propValue = null;
 		try {
-			propValue = FEProp.getProperty(key);
 
+			propValue = FEProp.getProperty(key);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if (propValue != null) {
-			if (!propValue.equals(value)) {
+			if (propValue.equals("[]")) {
+				propValue = "N/A";
+			}
+			if (!propValue.equalsIgnoreCase(value)) {
 				fillCellColor();
-				extentReportFail("Empty parameter",
-						"Value mismatch :- <b>Key : " + key + " \n value : " + value + "</b>");
+				extentReportFail("Empty parameter", "Value mismatch :- <b>Key : " + key + " <br/> value : " + value
+						+ "<br/> API value : " + propValue + "</b>");
 			}
 		}
 	}
@@ -319,7 +317,7 @@ public class Mixpanel extends ExtentReporter {
 			if (!m.matches()) {
 				fillCellColor();
 				extentReportFail("Empty parameter",
-						"Value is not a Integer Data-Type :- <b>Key : " + key + " \n value : " + value + "</b>");
+						"Value is not a Integer Data-Type :- <b>Key : " + key + " <br/> value : " + value + "</b>");
 			}
 		}
 	}
@@ -336,22 +334,12 @@ public class Mixpanel extends ExtentReporter {
 			if (!Stream.of("true", "false").anyMatch(value::equals)) {
 				fillCellColor();
 				extentReportFail("Empty parameter",
-						"Value is not a boolean Data-Type :- <b>Key : " + key + " \n value : " + value + "</b>");
+						"Value is not a boolean Data-Type :- <b>Key : " + key + " <br/> value : " + value + "</b>");
 			}
 		}
 	}
 
-	@SuppressWarnings("unused")
-	private static void getUserData() {
-		prop = ResponseInstance.getUserData();
-		getDOB(prop);
-	}
-
-	private static void getDOB(Properties prop) {
-		LocalDate dob = LocalDate.parse(prop.getProperty("birthday").replace("T00:00:00Z", ""));
-		LocalDate curDate = LocalDate.now();
-		DOB = String.valueOf(Period.between(dob, curDate).getYears());
-	}
+	
 
 	public static void fillCellColor() {
 		try {
@@ -385,6 +373,7 @@ public class Mixpanel extends ExtentReporter {
 			FEProp.setProperty("Platform Name", platform);
 			FEProp.setProperty("os", System.getProperty("os.name").split(" ")[0]);
 		}
+		Mixpanel.FEProp.setProperty("region", ResponseInstance.getRegion());
 	}
 
 	@SuppressWarnings("static-access")
@@ -407,5 +396,18 @@ public class Mixpanel extends ExtentReporter {
 			e.printStackTrace();
 		}
 		return Modelname;
+	}
+	
+	public static void getParameterValue() {
+		UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		if (!UserType.equals("Guest")) {
+			if (!fetchUserdata) {
+				String pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("userType"+"Name");
+				String pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("userType"+"Password");
+				ResponseInstance.getUserData(pUsername, pPassword);
+			}
+		}
 	}
 }

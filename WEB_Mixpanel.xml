@@ -3,12 +3,6 @@
 
 <suite name="Web" parallel="false" thread-count="1">
 
-<!-- <groups>
-	<run>
-		<include name="SkipLoginEvent" />
-	</run>
-</groups> --> 
-
 	<parameter name="url" value="https://newpwa.zee5.com/" />
 	<parameter name="browserType" value="Chrome" />  <!-- Chrome/Firefox -->
 
@@ -22,11 +16,11 @@
 	<!-- NONSubscribed User -->
 	<parameter name="NonsubscribedUserName"
 		value="basavaraj.pn5@gmail.com" />
-	<parameter name="NonsubscribedPassword" value="igsindia123" />
+	<parameter name="NonsubscribedUserPassword" value="igsindia123" />
 	<!-- Subscribed User -->
 	<parameter name="SubscribedUserName"
 		value="zeetest10@test.com" />
-	<parameter name="SubscribedPassword" value="123456" />
+	<parameter name="SubscribedUserPassword" value="123456" />
 	<parameter name="keyword4" value="Paaru gets tipsy" />
 	<parameter name="keyword5" value="Bhinna" />
 
@@ -60,15 +54,9 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
-<!-- <test name="WebPWAMixpanelScript">
-		<classes>
-			<class name="com.zee5.PWAMixpanelScripts.WebPWAMixpanelScript" />
-		</classes>  
-	</test>
--->
 	<test name="WebPWAMixpanelScript">
 		<classes>
-			<class name="com.zee5.PWAMixpanelScripts.WebPWAMixpanelScript" />
+			<class name="com.zee5.MixpanelScripts.WebPWAMixpanelScript" />
 		</classes>
 	</test>
 

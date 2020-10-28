@@ -1,6 +1,9 @@
 package com.metadata;
 
 import static com.jayway.restassured.RestAssured.given;
+
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -665,17 +668,12 @@ public class ResponseInstance {
 //			:::::::::::::::Mixpanel:::::::::::::::::::::: 
 
 	public static void getDetailsOfCustomer(String pUsername, String pPassword) {
-		String xAccessToken = getXAccessTokenWithApiKey();
-		String bearerToken = getBearerToken(pUsername, pPassword);
 //		String url = "https://userapi.zee5.com/v1/user";
 //		String url = "https://newpwa.zee5.com/settings"; //Dummy
-		String url = "https://userapi.zee5.com/v1/settings";
 //		String url = "https://subscriptionapi.zee5.com/v1/purchase";
 //		String url = "https://subscriptionapi.zee5.com/v1/subscription";
 //		String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";
-		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 //		resp = given().headers("x-access-token", xAccessToken).when().get(url);
-
 		resp.print();
 	}
 
@@ -689,7 +687,7 @@ public class ResponseInstance {
 //		getUserSettingsDetails("","");	
 //		getFreeContent("home", "zee5latest@gmail.com", "User@123");
 //		getContentDetails("0-9-indiatoday");
-		D("basavaraj.pn5@gmail.com","igsindia123");
+		Player("basavaraj.pn5@gmail.com","igsindia123");
 		
 	}
 
@@ -722,26 +720,35 @@ public class ResponseInstance {
 		return pro;
 	}
 
-	public static Properties getUserData() {
+	public static void getUserData(String pUsername,String pPassword) {
 		String[] userData = { "email", "first_name", "last_name", "birthday", "gender", "registration_country",
 				"recurring_enabled" };
 		Properties pro = new Properties();
-		getDetailsOfCustomer("zee5latest@gmail.com", "User@123");
+		String xAccessToken = getXAccessTokenWithApiKey();
+		String bearerToken = getBearerToken(pUsername, pPassword);
+		String url = "https://userapi.zee5.com/v1/settings";
+		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 		String commaSplit[] = resp.asString().replace("{", "").replace("}", "").replaceAll("[.,](?=[^\\[]*\\])", "-")
 				.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 		for (int i = 0; i < commaSplit.length; i++) {
 			if (Stream.of(userData).anyMatch(commaSplit[i]::contains)) {
 				String com[] = commaSplit[i].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-				pro.setProperty(com[0].replace("\"", ""), com[1].replace("\"", ""));
+				Mixpanel.FEProp.setProperty(com[0].replace("\"", ""), com[1].replace("\"", ""));
 			}
 		}
-		pro.setProperty("region", getRegion());
-		return pro;
+		getDOB();
+		Mixpanel.fetchUserdata = true;
+	}
+	
+	private static void getDOB() {
+		LocalDate dob = LocalDate.parse(Mixpanel.FEProp.getProperty("birthday").replace("T00:00:00Z", ""));
+		LocalDate curDate = LocalDate.now();
+		Mixpanel.FEProp.setProperty("age",String.valueOf(Period.between(dob, curDate).getYears()));
 	}
 
-	private static String getRegion() {
+	public static String getRegion() {
 		Response regionResponse = given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
-		return regionResponse.getBody().jsonPath().getString("state_code");
+		return regionResponse.getBody().jsonPath().getString("state");
 	}
 
 	public static String getresponse(String searchText) {
@@ -771,7 +778,7 @@ public class ResponseInstance {
 		} else {
 			resp = given().headers("x-access-token", xAccessToken).when().get(url);
 		}
-		String title = null;
+		String title = "No Free Contents";
 		for (int i = 0; i < 7; i++) {
 			if (resp.jsonPath().getString("buckets[0].items[" + i + "].business_type").equals("free")) {
 				title = resp.jsonPath().getString("buckets[0].items[" + i + "].title");
@@ -780,6 +787,10 @@ public class ResponseInstance {
 					break;
 				}
 			}
+		}
+		
+		if(!pUsername.equals("")) {
+			getUserData(pUsername,pPassword);
 		}
 		return title;
 	}
@@ -793,7 +804,6 @@ public class ResponseInstance {
 
 			String[] comm = resp.asString().replace("{", "").replace("}", "").replace("[", "").replace("]", "")
 					.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-			System.out.println(comm.length);
 			String value = null;
 			for (int i = 0; i < comm.length;) {
 				String key = comm[i].replace("\"", "").split("y:")[1];
@@ -814,26 +824,29 @@ public class ResponseInstance {
 	}
 	
 	public static void getContentDetails(String ID) {
-		System.out.println("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&languages=en,kn&");
 		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
 //		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/0-1-84080?translation=en&country=IN&version=2");
-//		Mixpanel.FEProp.setProperty("Content Duration", resp.jsonPath().getString("duration"));
-//		Mixpanel.FEProp.setProperty("Content ID", resp.jsonPath().getString("id"));
-//		Mixpanel.FEProp.setProperty("Content Name", resp.jsonPath().getString("original_title"));
-//		Mixpanel.FEProp.setProperty("Content Specification", resp.jsonPath().getString("asset_subtype"));
-//		Mixpanel.FEProp.setProperty("Characters",resp.jsonPath().getList("actors").toString().replaceAll(",","-"));
-//		Mixpanel.FEProp.setProperty("Audio Language",resp.jsonPath().getList("audio_languages").toString());
-//		Mixpanel.FEProp.setProperty("Subtitle Language", resp.jsonPath().getString("subtitle_languages").toString());
-//		Mixpanel.FEProp.setProperty("Content Type",resp.jsonPath().getString("business_type"));
-//		Mixpanel.FEProp.setProperty("Genre",resp.jsonPath().getList("genre.id").toString().replaceAll(",","-"));
-//		Mixpanel.FEProp.setProperty("Content Original Language",resp.jsonPath().getString("languages").replace("[", "").replace("]", ""));
-//		Mixpanel.FEProp.setProperty("DRM Video",resp.jsonPath().getString("is_drm"));
-		resp.print();
+		Mixpanel.FEProp.setProperty("Content Duration", resp.jsonPath().getString("duration"));
+		Mixpanel.FEProp.setProperty("Content ID", resp.jsonPath().getString("id"));
+		Mixpanel.FEProp.setProperty("Content Name", resp.jsonPath().getString("original_title"));
+		Mixpanel.FEProp.setProperty("Content Specification", resp.jsonPath().getString("asset_subtype"));
+		Mixpanel.FEProp.setProperty("Characters",resp.jsonPath().getList("actors").toString().replaceAll(",","-"));
+		Mixpanel.FEProp.setProperty("Audio Language",resp.jsonPath().getList("audio_languages").toString());
+		Mixpanel.FEProp.setProperty("Subtitle Language", resp.jsonPath().getString("subtitle_languages").toString());
+		Mixpanel.FEProp.setProperty("Content Type",resp.jsonPath().getString("business_type"));
+		Mixpanel.FEProp.setProperty("Genre",resp.jsonPath().getList("genre.id").toString().replaceAll(",","-"));
+		Mixpanel.FEProp.setProperty("Content Original Language",resp.jsonPath().getString("languages").replace("[", "").replace("]", ""));
+		if(resp.jsonPath().getString("is_drm").equals("1")) {
+			Mixpanel.FEProp.setProperty("DRM Video","true");
+		}else {
+			Mixpanel.FEProp.setProperty("DRM Video","false");
+		}
+//		resp.print();
 //		Mixpanel.FEProp.forEach((key, value) -> System.out.println(key + " : " + value));
 		}
 	
 	
-	public static void D(String pUsername, String pPassword) {
+	public static void Player(String pUsername, String pPassword) {
 		String url = "https://gwapi.zee5.com/content/player/0-1-136585";
 		String bearerToken = getBearerToken(pUsername, pPassword);
 		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);

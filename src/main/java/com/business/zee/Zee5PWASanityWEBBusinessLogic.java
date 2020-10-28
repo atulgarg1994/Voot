@@ -14501,5 +14501,85 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}		
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 	}
+	
+	public void validatingEduaraa(String userType, String tabName) throws Exception
+	{
+		extent.HeaderChildNode(tabName + " page validation ");
+		navigateToAnyScreenOnWeb("Kids");
+		verifyElementExist(PWAHomePage.objTrayName,"EDR content ");
+
+		Actions actions = new Actions(getWebDriver());
+		WebElement menuOption = getWebDriver().findElement(PWAHomePage.objZeelogo1);
+		checkElementDisplayed(PWAPremiumPage.objTrayTitle(2), "Tray");
+		actions.moveToElement(menuOption).perform();
+		 
+		click(PWAShowsPage.objEpisodeCard, "First  Card");
+		waitTime(5000);
+		if (userType.contains("Guest")) {
+			mandatoryRegistrationPopUp(userType);
+			if (checkElementDisplayed(PWASearchPage.objCloseRegisterDialog, "Why Register Pop Up")) {
+				click(PWASearchPage.objCloseRegisterDialog, "Close Button");
+			} else {
+				logger.info("Why Register pop up is not displayed");
+			}
+		}
+		if (checkElementDisplayed(PWASubscriptionPages.objSubscribepopup, "Subscribe popup")) {
+			verifyElementPresentAndClick(PWAMusicPage.objGetPremiumCloseBtn, "Close Button");
+		}
+		if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
+			logger.info("Navigated to Consumption Page");
+			extent.extentLogger("Consumption Page", "Navigated to Consumption Page");
+		} else {
+			logger.info("Not navigated to Consumption Page");
+			extent.extentLogger("Consumption Page", "Not navigated to Consumption Page");
+		}
+		
+	}
+	
+
+	public void validatingclaimCTA(String userType, String tabName) throws Exception
+	{
+		extent.HeaderChildNode("validation claim CTA below the player");
+		navigateToAnyScreenOnWeb("Kids");
+		checkElementDisplayed(PWAHomePage.objTrayName,"EDR content ");
+		click(PWAHomePage.objTrayName,"EDR content ");
+		waitTime(5000);
+		click(PWAShowsPage.objEduraalabel, "First  Card");
+		click(PWAShowsPage.objEduraacard, "First  Card");
+		if (userType.equals("NonSubscribedUser") || userType.equals("Guest"))
+		{
+			checkElementDisplayed(PWAPlayerPage.objclaimofferBelowPlayerScreen,"Claim offer ");
+			click(PWAPlayerPage.objclaimofferBelowPlayerScreen,"Claim offer ");
+			if (checkElementDisplayed(PWASubscriptionPages.objZEE5Subscription, "Zee5 Subscription Page Title")) 
+				{
+					logger.info("Navigated to select pack Page");
+					extent.extentLogger(" Zee5 Subscription Page", "Navigated to select pack Page");
+				} else 
+				{
+					logger.info("Not navigated to select pack Page");
+					extent.extentLogger("Zee5 Subscription Page", "Not navigated to select pack Page");
+				}
+		}
+		if (userType.equals("SubscribedUser"))
+		{
+			checkElementDisplayed(PWAPlayerPage.objGoToEduauraa,"Go To Eduauraa offer ");
+			click(PWAPlayerPage.objGoToEduauraa,"Go To Eduauraa offer ");
+			checkElementDisplayed(PWAPlayerPage.objContinue,"Continue offer ");
+			click(PWAPlayerPage.objContinue,"Continue offer ");
+			if (checkElementDisplayed(PWAHamburgerMenuPage.objEduauraaSignupPage, "EduauraaSign Up page"))
+			{
+				logger.info("User is navigated to EduauraaSign Up page");
+				extent.extentLogger("Contact Us", "User is navigated to EduauraaSign Up page");
+			}
+			 else
+			 {
+					logger.info("Not navigated to EduauraaSign Up Page");
+					extent.extentLogger("Zee5 Subscription Page", "Not navigated to EduauraaSign Up Page");
+			 }
+			Back(1);
+			
+		}
+		
+	}
 
 }
