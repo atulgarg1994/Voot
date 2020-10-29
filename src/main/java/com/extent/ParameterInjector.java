@@ -95,6 +95,8 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("skipIntroURL", "https://newpwa.zee5.com/kids/kids-movies/bablu-dablu-robo-rumble/0-0-54219");
 			params.put("NonsubscribedInvalidPassword", "igsindia");
 			params.put("premiumMovieWithTrailer2","Bhinna");
+			params.put("premiumShow","Police Diary 2");
+			params.put("clubShow","Jamai 2");
 		}
 		if(region.equals("MH")) {
 			params.put("searchModuleSearchKey", "Kundali Bhagya");
@@ -150,6 +152,8 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("skipIntroURL", "https://newpwa.zee5.com/kids/kids-movies/bablu-dablu-robo-rumble/0-0-54219");
 			params.put("NonsubscribedInvalidPassword", "igsindia");
 			params.put("premiumMovieWithTrailer2","Bhinna");
+			params.put("premiumShow","Police Diary 2");
+			params.put("clubShow","Jamai 2");
 		}
         suite.setParameters(params);	
 	}

@@ -76,8 +76,7 @@
 	<parameter name="VideoQuality" value="Data saver" />	<!-- Data saver/Good/Better/Best -->
 	<parameter name="MovieName" value="O God Ganesha 2" />
 
-	<parameter name="searchcontent1"
-		value="Dil Bechara – Title Track" />
+	<parameter name="searchcontent1" value="Sanchari Hrudaya - Chambal" />	
 	<parameter name="searchcontent2"
 		value="Comedy Kiladigalu Championship - Episode 8" />
 	<parameter name="searchcontent3"

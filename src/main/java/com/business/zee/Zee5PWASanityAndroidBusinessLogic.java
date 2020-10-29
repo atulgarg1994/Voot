@@ -7948,7 +7948,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error("Error in time coversion");
 			extent.extentLogger("error", "Error in time coversion");
 		}
-		if (timeAfterF >= (timeBeforeF + 10) && timeAfterF <= (timeBeforeF + 13)) {
+		if (timeAfterF >= (timeBeforeF + 10) && timeAfterF <= (timeBeforeF + 15)) {
 			extent.extentLogger("Verify forward button", "Playback is forwarded by 10 seconds");
 			logger.info("Playback is forwarded by 10 seconds");
 		} else {
@@ -7990,7 +7990,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error("Error in time coversion");
 			extent.extentLogger("error", "Error in time coversion");
 		}
-		if (timeAfterR >= (timeBeforeR - 10) && timeAfterR < (timeBeforeR - 7)) {
+		if (timeAfterR >= (timeBeforeR - 10) && timeAfterR < (timeBeforeR - 3)) {
 			extent.extentLogger("Verify rewind button", "Playback is rewinded 10 seconds");
 			logger.info("Playback is rewinded 10 seconds");
 		} else {
@@ -10156,6 +10156,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 * Function to verify internal links
 	 */
 
+	@SuppressWarnings("unused")
 	public void InternalLinksValidation() throws Exception {
 		String url = "";
 		// Internal Links
@@ -10173,27 +10174,28 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		swipeToBottomOfPage();
 		swipeALittleDownForLinks();
 		verifyElementPresentAndClick(PWAHomePage.objHelp, "Help Center in footer section");
-		boolean applicasterOpened = false;
+		boolean applicasterOpened=false;
 		getDriver().context("NATIVE_APP");
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppCloseHelpCenter, "Close of Help Center Page")) {
-			applicasterOpened = true;
-			verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Getting Started"),
-					"'Getting Started' tab of Help Center page");
-			click(PWAHamburgerMenuPage.objzeeAppCloseHelpCenter, "Close of Help Center Page");
+		if(checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppCloseHelpCenter,"Close of Help Center Page")){
+			applicasterOpened=true;
+			verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Getting Started"),"'Getting Started' tab of Help Center page");
+			click(PWAHamburgerMenuPage.objzeeAppCloseHelpCenter,"Close of Help Center Page");
 			Back(1);
-			if (checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppInterstitialAddClose, "Close of Interstitial Ad")) {
-				click(PWAHamburgerMenuPage.objzeeAppInterstitialAddClose, "Close of Interstitial Ad");
+			if(checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppInterstitialAddClose,"Close of Interstitial Ad")){
+				click(PWAHamburgerMenuPage.objzeeAppInterstitialAddClose,"Close of Interstitial Ad");
 			}
-			for (int i = 0; i < 3; i++) {
-				if (checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppExit, "Exit of ZEE5 App")) {
-					click(PWAHamburgerMenuPage.objzeeAppExit, "Exit of ZEE5 App");
+			for(int i=0;i<3;i++) {
+				if(checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppExit,"Exit of ZEE5 App")) {
+					click(PWAHamburgerMenuPage.objzeeAppExit,"Exit of ZEE5 App");
 					break;
-				} else {
+				}
+				else {
 					Back(1);
 					waitTime(3000);
 				}
 			}
-		} else {
+		}
+		else {
 			try {
 				directClickReturnBoolean(PWALiveTVPage.objChromeOpenWith, "Open with Chrome");
 				waitTime(2000);
@@ -10347,43 +10349,134 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		landingPagesValidation(usertype, Tabname);
 		pagesTrayValidation(Tabname);
 		Subscriptionpopup(Tabname);
-		verifyCTA(usertype);
 	}
-
-	public void verifyCTA(String usertype) throws Exception {
-		if (usertype.equalsIgnoreCase("Guest")) {
+	
+	public void VerifyCTA(String usertype) throws Exception {
+		String clubShow=getParameterFromXML("clubShow");
+		String premiumShow=getParameterFromXML("premiumShow");
+		if(usertype.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Guest User: Verify Get Club CTA on Carousel banner for club content");
 			navigateToAnyScreen("Club");
-			verifyElementPresent(PWAHomePage.objGetClubCta, "Get Club CTA on Carousel banner");
+			waitExplicitlyForElementPresence(PWAHomePage.objGetClubCta,10,"\"Get Club\" CTA on Carousel banner");
+			extent.HeaderChildNode("Guest User: Verify Get Premium CTA on Carousel banner for premium content");
 			navigateToAnyScreen("Premium");
-			verifyElementPresent(PWAHomePage.objGetClubCta, "Get Premium CTA on Carousel banner");
-			logout();
+			waitExplicitlyForElementPresence(PWAHomePage.objGetPremiumCta,10,"\"Get Premium\" CTA on Carousel banner");
+			extent.HeaderChildNode("Guest User: Verify Get Club CTA on show details banner of a club content");
+			click(PWAHomePage.objSearchBtn, "Search button");		
+			type(PWASearchPage.objSearchEditBox, clubShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(clubShow), "Searched content : " + clubShow);
+			verifyElementPresent(PWAShowsPage.objGetClubCTAInShowDetails,"\"Get Club\" CTA on Club Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			extent.HeaderChildNode("Guest User: Verify Get Premium CTA on show details banner of a premium content");
+			click(PWAHomePage.objSearchBtn, "Search button");
+			type(PWASearchPage.objSearchEditBox, premiumShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(premiumShow), "Searched content : " + premiumShow);
+			verifyElementPresent(PWAShowsPage.objGetPremiumCTAInShowDetails,"\"Get Premium\" CTA on Premium Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			//Login with club user
+			extent.HeaderChildNode("Club User: Verify Play CTA on Carousel banner for club content");
+			loginWithUserEmail("edpwa4@mailnesia.com","1234567");
+			navigateToAnyScreen("Club");
+			verifyElementPresent(PWAHomePage.objPlayBtn,"\"Play\" CTA on Carousel banner");
+			extent.HeaderChildNode("Club User: Verify Upgrade CTA on Carousel banner for premium content");
+			navigateToAnyScreen("Premium");
+			verifyElementPresent(PWAHomePage.objUpgradeBtn,"\"Upgrade\" CTA on Carousel banner");
+			extent.HeaderChildNode("Club User: Verify Watch First Episode CTA on show details banner of a club content");
+			click(PWAHomePage.objSearchBtn, "Search button");
+			type(PWASearchPage.objSearchEditBox, clubShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(clubShow), "Searched content : " + clubShow);
+			verifyElementPresent(PWAHomePage.objKalGetFirstEpisode,"\"Watch first episode\" CTA on Club Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			extent.HeaderChildNode("Club User: Verify Upgrade CTA on show details banner of a premium content");
+			click(PWAHomePage.objSearchBtn, "Search button");
+			type(PWASearchPage.objSearchEditBox, premiumShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(premiumShow), "Searched content : " + premiumShow);
+			verifyElementPresent(PWAShowsPage.objUpgradeCTAInShowDetails,"\"Upgrade\" CTA on Premium Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			logout();			
+		}		
+		if(usertype.equalsIgnoreCase("NonSubscribedUser")) {
+			extent.HeaderChildNode("Non Subscribed User: Verify Get Club CTA on Carousel banner for club content");
+			navigateToAnyScreen("Club");
+			waitExplicitlyForElementPresence(PWAHomePage.objGetClubCta,10,"\"Get Club\" CTA on Carousel banner");
+			extent.HeaderChildNode("Non Subscribed User: Verify Get Premium CTA on Carousel banner for premium content");
+			navigateToAnyScreen("Premium");
+			waitExplicitlyForElementPresence(PWAHomePage.objGetPremiumCta,10,"\"Get Premium\" CTA on Carousel banner");
+			extent.HeaderChildNode("Non Subscribed User: Verify Get Club CTA on show details banner of a club content");
+			click(PWAHomePage.objSearchBtn, "Search button");		
+			type(PWASearchPage.objSearchEditBox, clubShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(clubShow), "Searched content : " + clubShow);
+			verifyElementPresent(PWAShowsPage.objGetClubCTAInShowDetails,"\"Get Club\" CTA on Club Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			extent.HeaderChildNode("Non Subscribed User: Verify Get Premium CTA on show details banner of a premium content");
+			click(PWAHomePage.objSearchBtn, "Search button");
+			type(PWASearchPage.objSearchEditBox, premiumShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(premiumShow), "Searched content : " + premiumShow);
+			verifyElementPresent(PWAShowsPage.objGetPremiumCTAInShowDetails,"\"Get Premium\" CTA on Premium Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 		}
-		if (usertype.equalsIgnoreCase("NonSubscribedUser")) {
+		if(usertype.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Subscribed User: Verify Play CTA on Carousel banner for club content");
 			navigateToAnyScreen("Club");
-			verifyElementPresent(PWAHomePage.objGetClubCta, "Get Club CTA on Carousel banner");
+			verifyElementPresent(PWAHomePage.objPlayBtn,"\"Play\" CTA on Carousel banner");
+			extent.HeaderChildNode("Subscribed User: Verify Play CTA on Carousel banner for premium content");
 			navigateToAnyScreen("Premium");
-			verifyElementPresent(PWAHomePage.objGetClubCta, "Get Premium CTA on Carousel banner");
-		}
-		if (usertype.equalsIgnoreCase("Subscribed")) {
-			navigateToAnyScreen("Club");
-			verifyElementPresent(PWAHomePage.objPlayBtn, "Play CTA on Carousel banner");
-			navigateToAnyScreen("Premium");
-			verifyElementPresent(PWAHomePage.objPlayBtn, "Play CTA on Carousel banner");
+			verifyElementPresent(PWAHomePage.objPlayBtn,"\"Play\" CTA on Carousel banner");
+			extent.HeaderChildNode("Subscribed User: Verify Watch first episode CTA on show details banner of a club content");
+			click(PWAHomePage.objSearchBtn, "Search button");
+			type(PWASearchPage.objSearchEditBox, clubShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(clubShow), "Searched content : " + clubShow);
+			verifyElementPresent(PWAHomePage.objKalGetFirstEpisode,"\"Watch first episode\" CTA on Club Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			click(PWAHomePage.objSearchBtn, "Search button");
+			type(PWASearchPage.objSearchEditBox, premiumShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(premiumShow), "Searched content : " + premiumShow);
+			verifyElementPresent(PWAHomePage.objKalGetFirstEpisode,"\"Watch first episode\" CTA on Premium Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 		}
 	}
-
+	
+	public void loginWithUserEmail(String email,String pwd) throws Exception {
+		String emailid="edpwa4@mailnesia.com";
+		String pass="1234567";
+		if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
+			verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+		}
+		waitTime(3000);
+		click(PWALoginPage.objLoginBtn, "Login button");
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+		waitTime(2000);
+		type(PWALoginPage.objEmailField, emailid, "Email Field");
+		hideKeyboard();
+		waitTime(3000);
+		//dismissSystemPopUp();
+		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+		type(PWALoginPage.objPasswordField, pass + "\n", "Password field");
+		hideKeyboard();
+		waitTime(5000);
+		directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
+		waitTime(10000);
+	}
+	
 	public void PWAEduauraaVerification(String userType) throws Exception {
 		navigateToAnyScreen("Kids");
-		verifyElementPresent(PWAHomePage.objLearnWithEduauraaTray, "Learn with Eduauraa tray");
-		verifyElementPresentAndClick(PWAHomePage.objFirstItemLearnWithEduauraaTray,
-				"First card under Learn with Eduauraa tray");
-		verifyElementPresentAndClick(PWALandingPages.objViewAllPageFirstContent, "First card in View All page");
+		verifyElementPresent(PWAHomePage.objLearnWithEduauraaTray,"Learn with Eduauraa tray");
+		verifyElementPresentAndClick(PWAHomePage.objFirstItemLearnWithEduauraaTray,"First card under Learn with Eduauraa tray");
+		verifyElementPresentAndClick(PWALandingPages.objViewAllPageFirstContent,"First card in View All page");
 		String consumptionPageTitle = getText(PWAPlayerPage.objContentTitle);
-		extent.extentLogger("", "Navigated to the Consumption page: " + consumptionPageTitle);
+		extent.extentLogger("","Navigated to the Consumption page: " + consumptionPageTitle);
 		logger.info("Navigated to the Consumption page: " + consumptionPageTitle);
 		pausePlayer();
-		verifyElementPresentAndClick(PWAHomePage.objClaimOffer, "Claim Offer CTA");
-		verifyElementPresent(PWAHomePage.objSubscriptionPage, "Subscription page");
+		verifyElementPresentAndClick(PWAHomePage.objClaimOffer,"Claim Offer CTA");
+		verifyElementPresent(PWAHomePage.objSubscriptionPage, "Subscription page");		
 	}
 
 	public void MusicPageValidation(String userType, String Tabname) throws Exception {
@@ -10979,18 +11072,17 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	public void verifyLeftRightFunctionality(String screen, String url) throws Exception {
 		extent.HeaderChildNode("Verifying left and right functionality");
 		navigateToAnyScreen(screen);
-		String nextCarouselTitle = "";
-		boolean autoplayed = false;
+		String nextCarouselTitle = "";boolean autoplayed=false;
 		WebDriverWait w = new WebDriverWait(getDriver(), 120);
 		try {
 			w.until(ExpectedConditions.visibilityOfElementLocated(PWANewsPage.objRight));
-			autoplayed = true;
-		} catch (Exception e) {
-			logger.info("No content in News tab autoplayed, hence Left Right functionality could not be verified");
-			extent.extentLoggerWarning("",
-					"No content in News tab autoplayed, hence Left Right functionality could not be verified");
+			autoplayed=true;
 		}
-		if (autoplayed) {
+		catch(Exception e) {
+			logger.info("No content in News tab autoplayed, hence Left Right functionality could not be verified");
+			extent.extentLoggerWarning("", "No content in News tab autoplayed, hence Left Right functionality could not be verified");
+		}
+		if(autoplayed) {
 			waitForElementAndClick(PWANewsPage.objRight, 10, "Next cont");
 			waitTime(1500);
 			nextCarouselTitle = getDriver().findElement(PWAHomePage.objContTitleOnCarousel).getText();
@@ -11014,7 +11106,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				logger.info("Content can not be swiped either right or left");
 				extent.extentLoggerFail("Swipe left and right", "Content can not be swiped either right or left");
 			}
-		}
+		}	
 	}
 
 	public void reloadURL(String url) {
@@ -11689,40 +11781,29 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	public void gettingStartedVerifications() throws Exception {
 		System.out.println(getDriver().getContextHandles());
 		getDriver().context("NATIVE_APP");
-		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Getting Started"),
-				"'Getting Started' tab");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("What is ZEE5"),
-				"'What is ZEE5?'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("What is ZEE5"), "Article title 'What is ZEE5?'");
+		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Getting Started"),"'Getting Started' tab");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("What is ZEE5"),"'What is ZEE5?'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("What is ZEE5"),"Article title 'What is ZEE5?'");
 		Back(1);
 		waitTime(1000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Registering with ZEE5"),
-				"'Registering with ZEE5'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Registering with ZEE5"),
-				"Article title 'Registering with ZEE5'");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Registering with ZEE5"),"'Registering with ZEE5'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Registering with ZEE5"),"Article title 'Registering with ZEE5'");
 		Back(1);
 		waitTime(1000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Purchasing a subscription"),
-				"'Purchasing a subscription'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Purchasing a subscription"),
-				"Article title 'Purchasing a subscription'");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Purchasing a subscription"),"'Purchasing a subscription'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Purchasing a subscription"),"Article title 'Purchasing a subscription'");
 		Back(1);
 		waitTime(3000);
 		PartialSwipe("UP", 1);
 		waitTime(3000);
-		verifyElementPresentAndClick(
-				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How do I watch ZEE5 on my television?"),
-				"'How do I watch ZEE5 on my television'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How do I watch ZEE5 on my television"),
-				"Article title 'How do I watch ZEE5 on my television?'");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How do I watch ZEE5 on my television?"),"'How do I watch ZEE5 on my television'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How do I watch ZEE5 on my television"),"Article title 'How do I watch ZEE5 on my television?'");
 		Back(1);
 		waitTime(3000);
 		PartialSwipe("UP", 1);
 		waitTime(3000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Renting movies on ZEEPLEX"),
-				"'Renting movies on ZEEPLEX'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Renting movies on ZEEPLEX"),
-				"Article title 'Renting movies on ZEEPLEX'");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Renting movies on ZEEPLEX"),"'Renting movies on ZEEPLEX'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Renting movies on ZEEPLEX"),"Article title 'Renting movies on ZEEPLEX'");
 	}
 
 	/**
@@ -11735,129 +11816,96 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		partialSwipeLoop(2);
 		waitTime(3000);
 		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My Account"), "'My Account' tab");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Managing your Subscription"),
-				"'Managing your Subscription'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Managing your Subscription"),
-				"Article title 'Managing your Subscription'");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Managing your Subscription"),"'Managing your Subscription'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Managing your Subscription"),"Article title 'Managing your Subscription'");
 		Back(1);
 		waitTime(2000);
 		partialSwipeLoop(2);
 		waitTime(3000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I can"),
-				"I can't sign in to ZEE5");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("t sign in to ZEE5"),
-				"Article title 'I can't sign in to ZEE5'");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I can"),"I can't sign in to ZEE5");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("t sign in to ZEE5"),"Article title 'I can't sign in to ZEE5'");
 		Back(1);
 		waitTime(2000);
 		partialSwipeLoop(2);
 		waitTime(3000);
-		verifyElementPresentAndClick(
-				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I made a payment but my subscription"),
-				"'I made a payment but my subscription isn't active / My subscription is missing'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I made a payment but my subscription"),
-				"Article title 'I made a payment but my subscription isn't active / My subscription is missing'");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I made a payment but my subscription"),"'I made a payment but my subscription isn't active / My subscription is missing'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I made a payment but my subscription"),"Article title 'I made a payment but my subscription isn't active / My subscription is missing'");
 		Back(1);
 		waitTime(2000);
 		partialSwipeLoop(2);
 		waitTime(3000);
-		verifyElementPresentAndClick(
-				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I want to update my profile information"),
-				"I want to update my profile information");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I want to update my profile information"),
-				"Article title 'I want to update my profile information'");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I want to update my profile information"),"I want to update my profile information");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I want to update my profile information"),"Article title 'I want to update my profile information'");
 		Back(1);
 	}
-
-	public void watchingZEE5Verifications() throws Exception {
+	
+	
+	public void watchingZEE5Verifications() throws Exception {	
 		waitTime(2000);
 		partialSwipeLoop(4);
 		waitTime(3000);
 		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Watching ZEE5"), "'Watching ZEE5' tab");
-		verifyElementPresentAndClick(
-				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I need help with playing a video"),
-				"I need help with playing a video");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I need help with playing a video"),
-				"Article title 'I need help with playing a video'");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I need help with playing a video"), "I need help with playing a video");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I need help with playing a video"),"Article title 'I need help with playing a video'");
+		Back(1); 
+		waitTime(2000); 
+		partialSwipeLoop(4);
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I need help with audio"), "'I need help with audio'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I need help with audio"),"Article title 'I need help with audio'");
+		Back(1); 
+		waitTime(2000); 
+		partialSwipeLoop(4); 
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I need help with casting ZEE5 on my TV"), "'I need help with casting ZEE5 on my TV'"); 
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I need help with casting ZEE5 on my TV"),"Article title 'I need help with casting ZEE5 on my TV'");	  
+		Back(1); 
+		waitTime(2000); 
+		partialSwipeLoop(4); 
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("All about downloads"), "'All about downloads'"); 
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("All about downloads"),"Article title 'All about downloads'");	 
 		Back(1);
 		waitTime(2000);
 		partialSwipeLoop(4);
 		waitTime(3000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I need help with audio"),
-				"'I need help with audio'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I need help with audio"),
-				"Article title 'I need help with audio'");
-		Back(1);
-		waitTime(2000);
-		partialSwipeLoop(4);
-		waitTime(3000);
-		verifyElementPresentAndClick(
-				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I need help with casting ZEE5 on my TV"),
-				"'I need help with casting ZEE5 on my TV'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I need help with casting ZEE5 on my TV"),
-				"Article title 'I need help with casting ZEE5 on my TV'");
-		Back(1);
-		waitTime(2000);
-		partialSwipeLoop(4);
-		waitTime(3000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("All about downloads"),
-				"'All about downloads'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("All about downloads"),
-				"Article title 'All about downloads'");
-		Back(1);
-		waitTime(2000);
-		partialSwipeLoop(4);
-		waitTime(3000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("All about subtitles"),
-				"'All about subtitles'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("All about subtitles"),
-				"Article title 'All about subtitles'");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("All about subtitles"),"'All about subtitles'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("All about subtitles"),"Article title 'All about subtitles'");
 		Back(1);
 	}
-
-	public void myZEE5AppVerifications() throws Exception {
+	
+	
+	public void myZEE5AppVerifications() throws Exception {	
 		waitTime(2000);
 		partialSwipeLoop(5);
 		waitTime(3000);
 		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My ZEE5 App"), "'My ZEE5 App' tab");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("App Performance"),
-				"App Performance");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("App Performance"),
-				"Article title 'App Performance'");
-		Back(1);
-		waitTime(2000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("App Performance"), "App Performance");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("App Performance"),"Article title 'App Performance'");
+		Back(1); 
+		waitTime(2000); 
 		partialSwipeLoop(5);
 		waitTime(3000);
-		verifyElementPresentAndClick(
-				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I am unable to authenticate my TV"),
-				"'I am unable to authenticate my TV'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("m unable to authenticate my TV"),
-				"Article title 'I'm unable to authenticate my TV'");
-		Back(1);
-		waitTime(2000);
-		partialSwipeLoop(5);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I am unable to authenticate my TV"), "'I am unable to authenticate my TV'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("m unable to authenticate my TV"),"Article title 'I'm unable to authenticate my TV'");
+		Back(1); 
+		waitTime(2000); 
+		partialSwipeLoop(5); 
 		waitTime(3000);
-		verifyElementPresentAndClick(
-				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How can I enable automatic updates for the ZEE5 app"),
-				"'How can I enable automatic updates for the ZEE5 app'");
-		verifyElementPresent(
-				PWAHamburgerMenuPage.objArticleTitle("How can I enable automatic updates for the ZEE5 app"),
-				"Article title 'How can I enable automatic updates for the ZEE5 app'");
-		Back(1);
-		waitTime(2000);
-		partialSwipeLoop(5);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How can I enable automatic updates for the ZEE5 app"), "'How can I enable automatic updates for the ZEE5 app'"); 
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How can I enable automatic updates for the ZEE5 app"),"Article title 'How can I enable automatic updates for the ZEE5 app'");	  
+		Back(1); 
+		waitTime(2000); 
+		partialSwipeLoop(5); 
 		waitTime(3000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My ZEE5 App Version"),
-				"'My ZEE5 App Version'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How do I see my current ZEE5 app version"),
-				"Article title 'How do I see my current ZEE5 app version?'");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My ZEE5 App Version"), "'My ZEE5 App Version'"); 
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How do I see my current ZEE5 app version"),"Article title 'How do I see my current ZEE5 app version?'");	 
 		Back(1);
 		waitTime(2000);
 		partialSwipeLoop(6);
 		waitTime(3000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Parental Control"),
-				"'Parental Control'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Parental Control"),
-				"Article title 'Parental Control'");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Parental Control"),"'Parental Control'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Parental Control"),"Article title 'Parental Control'");
 		Back(1);
 	}
 
@@ -11869,39 +11917,32 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(2000);
 		partialSwipeLoop(6);
 		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Quick Links"), "'Quick Links' tab");
-		verifyElementPresentAndClick(
-				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I am unable to watch the ZEEPLEX movie"),
-				"I am unable to watch the ZEEPLEX movie");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I am unable to watch the ZEEPLEX movie"),
-				"Article title 'I am unable to watch the ZEEPLEX movie'");
-		Back(1);
-		waitTime(2000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I am unable to watch the ZEEPLEX movie"), "I am unable to watch the ZEEPLEX movie");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I am unable to watch the ZEEPLEX movie"),"Article title 'I am unable to watch the ZEEPLEX movie'");
+		Back(1); 
+		waitTime(2000); 
 		partialSwipeLoop(6);
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How Can I"), "'How Can I?'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How Can I"), "Article title 'How Can I?'");
-		Back(1);
-		waitTime(2000);
-		partialSwipeLoop(6);
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How Can I"),"Article title 'How Can I?'");
+		Back(1); 
+		waitTime(2000); 
+		partialSwipeLoop(6); 
 		waitTime(3000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("ZEE5 Offers"), "'ZEE5 Offers'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("ZEE5 Offers"), "Article title 'ZEE5 Offers'");
-		Back(1);
-		waitTime(2000);
-		partialSwipeLoop(6);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("ZEE5 Offers"), "'ZEE5 Offers'"); 
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("ZEE5 Offers"),"Article title 'ZEE5 Offers'");	  
+		Back(1); 
+		waitTime(2000); 
+		partialSwipeLoop(6); 
 		waitTime(3000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("ZEE5 Partnerships"),
-				"'ZEE5 Partnerships'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("ZEE5 Partnerships"),
-				"Article title 'ZEE5 Partnerships'");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("ZEE5 Partnerships"), "'ZEE5 Partnerships'"); 
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("ZEE5 Partnerships"),"Article title 'ZEE5 Partnerships'");	 
 		Back(1);
 		waitTime(2000);
 		partialSwipeLoop(7);
 		waitTime(3000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Cancel Subscription"),
-				"'Cancel Subscription'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How do I cancel my ZEE5 Subscription"),
-				"Article title 'How do I cancel my ZEE5 Subscription'");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Cancel Subscription"),"'Cancel Subscription'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How do I cancel my ZEE5 Subscription"),"Article title 'How do I cancel my ZEE5 Subscription'");
 		Back(1);
 		waitTime(2000);
 	}
@@ -11924,28 +11965,30 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		} catch (Exception e) {
 		}
 		verifyElementPresent(PWAHomePage.objcontactus, "Contact Us page");
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppCloseContactUs, "Close of Contact Us Page")) {
-			click(PWAHamburgerMenuPage.objzeeAppCloseContactUs, "Close of Contact Us Page");
+		if(checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppCloseContactUs,"Close of Contact Us Page")){
+			click(PWAHamburgerMenuPage.objzeeAppCloseContactUs,"Close of Contact Us Page");
 			Back(1);
-			if (checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppInterstitialAddClose, "Close of Interstitial Ad")) {
-				click(PWAHamburgerMenuPage.objzeeAppInterstitialAddClose, "Close of Interstitial Ad");
+			if(checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppInterstitialAddClose,"Close of Interstitial Ad")){
+				click(PWAHamburgerMenuPage.objzeeAppInterstitialAddClose,"Close of Interstitial Ad");
 			}
-			for (int i = 0; i < 3; i++) {
-				if (checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppExit, "Exit of ZEE5 App")) {
-					click(PWAHamburgerMenuPage.objzeeAppExit, "Exit of ZEE5 App");
+			for(int i=0;i<3;i++) {
+				if(checkElementDisplayed(PWAHamburgerMenuPage.objzeeAppExit,"Exit of ZEE5 App")) {
+					click(PWAHamburgerMenuPage.objzeeAppExit,"Exit of ZEE5 App");
 					break;
-				} else {
+				}
+				else {
 					Back(1);
 					waitTime(3000);
 				}
 			}
-		} else {
+		}
+		else {
 			Back(1);
 			waitTime(2000);
 			Back(1);
 		}
 		getDriver().context("CHROMIUM");
-		// AndroidSwitchToParentWindow();
+		//AndroidSwitchToParentWindow();
 	}
 
 	public void partialSwipeLoop(int count) throws Exception {

@@ -49,10 +49,11 @@ public class ApplicasterMixpanel_Journey {
 	}
 	
 	@Test(priority = 5)
-	public void verifyClearSearchHistoryEvent() throws Exception {
+	@Parameters({ "userType" })
+	public void verifyClearSearchHistoryEvent(String userType) throws Exception {
 		System.out.println("Verify Clear Search Histroy Event");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.clearSearchHistoryEvent();
+		Zee5ApplicasterMixPanelBusinessLogic.clearSearchHistoryEvent(userType);
 	}
 	
 	@Test(priority = 6)

@@ -494,4 +494,8 @@ public class PWAHomePage {
 	public static By objGetClubCta = By.xpath("//div[contains(@class,'slick-active')]//*[text()='Get Club']//parent::a");
 	
 	public static By objTrayName=By.xpath("//*[@class='trayHeader']//*[contains(text(),'Learn with Eduauraa')]");
+	
+	public static By objUpgradeBtn = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(text(),'Upgrade')]");
+	
+	public static By objGetPremiumCta = By.xpath("//div[contains(@class,'slick-active')]//*[text()='Get premium']//parent::a");
 }
