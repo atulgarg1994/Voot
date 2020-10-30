@@ -6,7 +6,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -123,8 +125,16 @@ public class Mixpanel extends ExtentReporter {
 //		platform = "Android";
 //		fetchEvent("SM-M205F","Video Exit");
 //		modelName();
-		platform = "WEb";
-		fetchEvent("99d6fada0cd13df4a40843d16156070e","Display Language Change"); 
+//		platform = "WEb";
+//		fetchEvent("99d6fada0cd13df4a40843d16156070e","Display Language Change"); 
+		System.out.println("1989-11-20T18:30:00Z".split("T")[0]);
+		getDOB("1989-11-20T18:30:00Z".split("T")[0]);
+	}
+	
+	private static void getDOB(String s) {
+		LocalDate dob = LocalDate.parse(s);
+		LocalDate curDate = LocalDate.now();
+		System.out.println(String.valueOf(Period.between(dob, curDate).getYears()));
 	}
 
 	/**
@@ -403,9 +413,9 @@ public class Mixpanel extends ExtentReporter {
 		if (!UserType.equals("Guest")) {
 			if (!fetchUserdata) {
 				String pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("userType"+"Name");
+						.getParameter(UserType+"Name");
 				String pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("userType"+"Password");
+						.getParameter(UserType+"Password");
 				ResponseInstance.getUserData(pUsername, pPassword);
 			}
 		}

@@ -726,7 +726,7 @@ public class ResponseInstance {
 		Properties pro = new Properties();
 		String xAccessToken = getXAccessTokenWithApiKey();
 		String bearerToken = getBearerToken(pUsername, pPassword);
-		String url = "https://userapi.zee5.com/v1/settings";
+		String url = "https://userapi.zee5.com/v1/user";
 		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 		String commaSplit[] = resp.asString().replace("{", "").replace("}", "").replaceAll("[.,](?=[^\\[]*\\])", "-")
 				.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
@@ -741,9 +741,9 @@ public class ResponseInstance {
 	}
 	
 	private static void getDOB() {
-		LocalDate dob = LocalDate.parse(Mixpanel.FEProp.getProperty("birthday").replace("T00:00:00Z", ""));
+		LocalDate dob = LocalDate.parse(Mixpanel.FEProp.getProperty("birthday").split("T")[0]);
 		LocalDate curDate = LocalDate.now();
-		Mixpanel.FEProp.setProperty("age",String.valueOf(Period.between(dob, curDate).getYears()));
+		Mixpanel.FEProp.setProperty("Age",String.valueOf(Period.between(dob, curDate).getYears()));
 	}
 
 	public static String getRegion() {

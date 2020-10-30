@@ -10,9 +10,6 @@ import com.utility.Utilities;
 public class Android_ClubPack {
 	private Zee5ApplicasterBusinessLogic ZEE5ApplicasterBusinessLogic;
 
-//	LocalStorage local = ((AndroidDriver)getDriver()).getLocalStorage();
-//	System.out.println(local.getItem("guestToken"));
-	
 	@BeforeTest
 	public void AppLaunch() throws InterruptedException {
 		System.out.println("Launching Andriod App");
@@ -24,11 +21,11 @@ public class Android_ClubPack {
 	@Parameters({ "userType" })
 	public void Login(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-//		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
-//		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLoginForClubPack(userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLoginForClubPack(userType);
 	}
 
-//	@Test(priority = 1) // Bhavana
+	@Test(priority = 1) // Bhavana
 	@Parameters({ "userType", "SearchVODContent2", "SearchVODContent4" })
 	public void ClubUpgradeToAllAccess(String userType, String SearchVODContent2, String SearchVODContent4)
 			throws Exception {
@@ -36,7 +33,7 @@ public class Android_ClubPack {
 
 	}
 
-//	@Test(priority = 3) // Bhavana
+	@Test(priority = 3) // Bhavana
 	@Parameters({ "userType", "SearchVODContent3", "SearchVODContent" })
 	public void ValidateSubscribeAndLoginCTAForClubContent(String userType, String SearchVODContent3,
 			String SearchVODContent) throws Exception {
@@ -48,16 +45,18 @@ public class Android_ClubPack {
 		ZEE5ApplicasterBusinessLogic.SubscribepopupForClubcontentWithTrailer(userType, SearchVODContent);
 	}
 
-//	@Test(priority = 4) // Bhavana
+	@Test(priority = 4) // Bhavana
 	@Parameters({ "userType" })
 	public void ValidateClubIconForLandingPages(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.validateClubIconOnContentCards(userType);
-//		ZEE5ApplicasterBusinessLogic.ValidateClubIconForRecoTray(userType);
-//		ZEE5ApplicasterBusinessLogic.ValidateClubIconForEpisodes(userType);
-//		ZEE5ApplicasterBusinessLogic.ValidateClubIconForMovies(userType);
+		if (userType.contains("SubscribedUser")) {
+			ZEE5ApplicasterBusinessLogic.ValidateClubIconForRecoTray(userType);
+			ZEE5ApplicasterBusinessLogic.ValidateClubIconForEpisodes(userType);
+			ZEE5ApplicasterBusinessLogic.ValidateClubIconForMovies(userType);
+		}
 	}
 
-//	@Test(priority = 5) // Bindu
+	@Test(priority = 5) // Bindu
 	@Parameters({ "userType", "SearchVODContent", "ClubContent" })
 	public void ClubPack(String userType, String SearchVODContent, String ClubContent) throws Exception {
 		ZEE5ApplicasterBusinessLogic.ClubPack(userType, SearchVODContent, ClubContent);
