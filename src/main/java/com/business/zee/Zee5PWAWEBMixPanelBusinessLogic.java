@@ -77,8 +77,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-//			dismissDisplayContentLanguagePopUp();
-//			waitTime(3000);
+			dismissDisplayContentLanguagePopUp();
+			waitTime(3000);
 			break;
 
 		case "NonSubscribedUser":
@@ -925,7 +925,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
-
+		mixpanel.FEProp.setProperty("Source", tabName);
+		mixpanel.FEProp.setProperty("Page Name", "home");
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			System.out.println(local.getItem("guestToken"));
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Thumbnail Click");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Thumbnail Click");
+		}
 	}
 
 	public void verifyThumbnailClickEventFromTray(String tabName) throws Exception {
@@ -8211,18 +8219,20 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 
 	public void verifySubscriptionPageViewedEventByClickingGetPremiumCTAOnCarousel() throws Exception {
-		extent.HeaderChildNode("Verify Subscription Page Viewed Event By Clicking on Get Premium CTA On Carousel");
-
-		navigateToAnyScreenOnWeb("Premium");
-		JSClick(PWAPremiumPage.objGetPremiumCTAOnCarousel, "Get Premium CTA on carousel");
-		waitTime(5000);
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "pack_selection");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if (UserType.equals("Guest")) {
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Page Viewed");
-		} else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Page Viewed");
+		if (!(UserType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Subscription Page Viewed Event By Clicking on Get Premium CTA On Carousel");
+		
+			navigateToAnyScreenOnWeb("Premium");
+			JSClick(PWAPremiumPage.objGetPremiumCTAOnCarousel, "Get Premium CTA on carousel");
+			waitTime(5000);
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (UserType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Page Viewed");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Page Viewed");
+			}
 		}
 	}
 

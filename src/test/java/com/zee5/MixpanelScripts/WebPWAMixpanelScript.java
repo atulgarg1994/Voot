@@ -22,14 +22,14 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
 	}
 
-//	@Test(priority = 2)
+	@Test(priority = 2)
 	@Parameters({ "userType"})
 	public void verifySkipLoginEvent(String userType) throws Exception {
 		System.out.println("Verify Skip Login Event");
 		Zee5PWAWEBMixPanelBusinessLogic.verifySkipLoginEvent(userType);
 	}
 	
-	@Test(priority = 3)
+//	@Test(priority = 3)
 	@Parameters({ "userType", "keyword4"})
 	public void verifyResumeEventForFreeContent(String userType,String keyword4) throws Exception {
 		System.out.println("Verify Resume Event For Free Content");

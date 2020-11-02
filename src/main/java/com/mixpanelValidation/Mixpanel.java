@@ -150,7 +150,7 @@ public class Mixpanel extends ExtentReporter {
 	public static void fetchEvent(String distinct_id, String eventName)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
-			Thread.sleep(60000);
+			Thread.sleep(180000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -272,7 +272,7 @@ public class Mixpanel extends ExtentReporter {
 					} else if (isContain(integerParameters, key)) {
 						validateInteger(value);
 					}
-					validateParameter(key, value);
+					validateParameterValue(key, value);
 					extentReportInfo("Empty parameter",
 							"Paramter :- <b>Key : " + key + " <br/> value : " + value + "</b>");
 				}
@@ -282,7 +282,7 @@ public class Mixpanel extends ExtentReporter {
 		}
 	}
 
-	public static void validateParameter(String key, String value) {
+	public static void validateParameterValue(String key, String value) {
 		String propValue = null;
 		try {
 

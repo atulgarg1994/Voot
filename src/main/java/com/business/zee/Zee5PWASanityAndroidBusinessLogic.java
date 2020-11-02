@@ -2517,33 +2517,33 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(user);
 	}
 
-	public void simpleTest(String UserType) {
-		boolean isIconDisplayed = false;
-		String languageSmallText = "en,kn";
-		List<String> allMetaTitleOnCarouselAPI = ResponseInstance.traysTitleCarousel("home", languageSmallText);
-		System.out.println("API Data : " + allMetaTitleOnCarouselAPI);
-		for (int i = 0; i < allMetaTitleOnCarouselAPI.size(); i++) {
-			String carouselTitleAPI = allMetaTitleOnCarouselAPI.get(i);
-			for (int j = 0; j < 7; j++) {
-				try {
-					WebElement mastHeadEle = (new WebDriverWait(getDriver(), 30)).until(ExpectedConditions
-							.presenceOfElementLocated(PWAHomePage.objContTitleWithPlayIconCarousel(carouselTitleAPI)));
-					isIconDisplayed = mastHeadEle.isDisplayed();
-					if (isIconDisplayed == true) {
-						System.out.println("Content " + carouselTitleAPI + ": Play icon position for X : "
-								+ mastHeadEle.getLocation().x);
-						System.out.println("Content " + carouselTitleAPI + ": Play icon position for Y : "
-								+ mastHeadEle.getLocation().y);
-						break;
-					} else {
-						swipeCarouselContents(1);
-					}
-				} catch (Exception e) {
-					System.out.println("Exception : " + e.getMessage());
-				}
-			}
-		}
-	}
+//	public void simpleTest(String UserType) {
+//		boolean isIconDisplayed = false;
+//		String languageSmallText = "en,kn";
+//		List<String> allMetaTitleOnCarouselAPI = ResponseInstance.traysTitleCarousel("home", languageSmallText);
+//		System.out.println("API Data : " + allMetaTitleOnCarouselAPI);
+//		for (int i = 0; i < allMetaTitleOnCarouselAPI.size(); i++) {
+//			String carouselTitleAPI = allMetaTitleOnCarouselAPI.get(i);
+//			for (int j = 0; j < 7; j++) {
+//				try {
+//					WebElement mastHeadEle = (new WebDriverWait(getDriver(), 30)).until(ExpectedConditions
+//							.presenceOfElementLocated(PWAHomePage.objContTitleWithPlayIconCarousel(carouselTitleAPI)));
+//					isIconDisplayed = mastHeadEle.isDisplayed();
+//					if (isIconDisplayed == true) {
+//						System.out.println("Content " + carouselTitleAPI + ": Play icon position for X : "
+//								+ mastHeadEle.getLocation().x);
+//						System.out.println("Content " + carouselTitleAPI + ": Play icon position for Y : "
+//								+ mastHeadEle.getLocation().y);
+//						break;
+//					} else {
+//						swipeCarouselContents(1);
+//					}
+//				} catch (Exception e) {
+//					System.out.println("Exception : " + e.getMessage());
+//				}
+//			}
+//		}
+//	}
 
 	/**
 	 * Validation of Complete Profile Popup Functionality

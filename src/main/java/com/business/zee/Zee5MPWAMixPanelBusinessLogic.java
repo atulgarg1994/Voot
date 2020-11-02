@@ -1,6 +1,11 @@
 package com.business.zee;
 
+import java.time.Duration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.html5.LocalStorage;
@@ -10,6 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
 import com.driverInstance.CommandBase;
 import com.extent.ExtentReporter;
+import com.metadata.ResponseInstance;
 import com.mixpanelValidation.Mixpanel;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.LoggingUtils;
@@ -17,10 +23,15 @@ import com.utility.Utilities;
 import com.zee5.PWAPages.PWAHamburgerMenuPage;
 import com.zee5.PWAPages.PWAHomePage;
 import com.zee5.PWAPages.PWALoginPage;
+import com.zee5.PWAPages.PWAPlayerPage;
 import com.zee5.PWAPages.PWAPremiumPage;
 import com.zee5.PWAPages.PWASearchPage;
 import com.zee5.PWAPages.PWASignupPage;
 import com.zee5.PWAPages.PWASubscriptionPages;
+
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 
 public class Zee5MPWAMixPanelBusinessLogic  extends Utilities {
 	
@@ -999,5 +1010,403 @@ public class Zee5MPWAMixPanelBusinessLogic  extends Utilities {
 		}
 	}
 
+	public void verifySessionEvent(String LoginMethod, String userType) throws Exception {
+		String url = getParameterFromXML("url");
+		extent.HeaderChildNode("User Session event");
+		String email = "";
+		String password = "";
+		dismissAllPopUps();
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.extentLogger("Guest", "Accessing the application as Guest user");
+		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.extentLogger("Subscribed", "Accessing the application as Subscribed user");
+			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedPassword");
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			extent.extentLogger("Non-Subscribed", "Accessing the application as Non-Subscribed user");
+			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonSubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonSubscribedPassword");
+		}
+		if (userType.equalsIgnoreCase("SubscribedUser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+			if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
+				verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+			}
+			waitTime(3000);
+			click(PWALoginPage.objLoginBtn, "Login button");
+			waitTime(3000);
+			HeaderChildNode("Login - Method" + LoginMethod);
+			switch (LoginMethod) {
+
+			case "E-mail":
+				dismissAppInstallPopUp();
+				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+				waitTime(10000);
+				// getDriver().getKeyboard().sendKeys("Bla bla");//works
+				type(PWALoginPage.objEmailField, email, "Email Field");
+				hideKeyboard();
+				waitTime(3000);
+				dismissSystemPopUp();
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+				type(PWALoginPage.objPasswordField, password + "\n", "Password field");
+				hideKeyboard();
+				waitTime(5000);
+				directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
+				waitTime(10000);
+				break;
+
+			case "Mobile":
+				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+				type(PWALoginPage.objEmailField, "8792396107\n", "Email Field");
+				hideKeyboard();
+				verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login butotn");
+				waitTime(3000);
+				hideKeyboard();
+				waitTime(5000);
+				verifyElementPresentAndClick(PWALoginPage.objpasswordphno, "Password field");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "password-field");
+				type(PWALoginPage.objPasswordField, "tanisha19\n", "password-field");
+				hideKeyboard();
+				waitTime(2000);
+				click(PWALoginPage.objproceedphno, "Proceed button");
+				waitTime(5000);
+				break;
+
+			case "Facebook":
+				extent.HeaderChildNode("Login through Facebook");
+				verifyElementPresentAndClick(PWALoginPage.objFacebookIcon, "Facebook Icon");
+				System.out.println(getDriver().getCurrentUrl());
+				System.out.println(getDriver().getWindowHandles());
+				getDriver().switchTo().window("CDwindow-1");
+				waitTime(7000);
+				if (verifyIsElementDisplayed(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger")) {
+					click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+					verifyElementPresent(PWAHamburgerMenuPage.objProfilePageIcon, "Profile icon");
+					logger.info("User Logged in Successfully");
+					extent.extentLogger("Logged in", "User Logged in Successfully");
+				}
+
+				else if (verifyIsElementDisplayed(PWALoginPage.objFacebookPageVerification, "Facebook page")) {
+					verifyElementPresent(PWALoginPage.objFacebookPageVerification, "Facebook page");
+					verifyElementPresent(PWALoginPage.objFacebookLoginEmail, " Email Field");
+					type(PWALoginPage.objFacebookLoginEmail, "igszeetesttest@gmail.com", "Emial Field");
+					verifyElementPresent(PWALoginPage.objFacebookLoginpassword, " Password Field");
+					type(PWALoginPage.objFacebookLoginpassword, "Igs$123Zee\n", "Password Field");
+					verifyElementPresentAndClick(PWALoginPage.objFacebookLoginButtonInFbPage, " Login Button");
+					waitTime(9000);
+					getDriver().switchTo().window("CDwindow-0");
+					verifyIsElementDisplayed(PWALoginPage.objFbCountinueBtn, "Continue button");
+					if (verifyIsElementDisplayed(PWASignupPage.objSignUpTxt, "SignUp")) {
+						regestrationfromSocialMedia();
+						verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						verifyElementPresent(PWAHamburgerMenuPage.objProfilePageIcon, "Profile icon");
+						logger.info("User Logged in Successfully");
+						extent.extentLogger("Logged in", "User Logged in Successfully");
+					} else {
+						waitTime(3000);
+						verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						verifyElementPresent(PWAHamburgerMenuPage.objProfileIcon, "Profile icon");
+						logger.info("User Logged in Successfully");
+						extent.extentLogger("Logged in", "User Logged in Successfully");
+					}
+
+				} else if (verifyElementPresent(PWALoginPage.objFbCountinueBtn, "Continue button") == true) {
+					click(PWALoginPage.objFbCountinueBtn, "Continue fb");
+					if (verifyElementPresent(PWASignupPage.objSignUpTxt, "SignUp") == true) {
+						regestrationfromSocialMedia();
+						verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						verifyElementPresent(PWAHamburgerMenuPage.objProfilePageIcon, "Profile icon");
+						logger.info("User Logged in Successfully");
+						extent.extentLogger("Logged in", "User Logged in Successfully");
+					} else {
+						waitTime(7000);
+						verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						verifyElementPresent(PWAHamburgerMenuPage.objProfilePageIcon, "Profile icon");
+						logger.info("User Logged in Successfully");
+						extent.extentLogger("Logged in", "User Logged in Successfully");
+					}
+				}
+
+				break;
+
+			case "Gmail":
+				extent.HeaderChildNode("Login through Gmail");
+				System.out.println(getDriver().getCurrentUrl());
+				System.out.println(getDriver().getWindowHandles());
+				verifyElementPresentAndClick(PWALoginPage.objGoogleIcon, "Google Icon");
+				getDriver().switchTo().window("CDwindow-1");
+				waitTime(4000);
+				if (verifyIsElementDisplayed(PWALoginPage.objGmailEmailField, " Email Field")) {
+					type(PWALoginPage.objGmailEmailField, "Zee5latest@gmail.com", "Emial Field");
+					hideKeyboard();
+					verifyElementPresentAndClick(PWALoginPage.objGmailNextButton, "clicked on next button");
+					waitTime(3000);
+					verifyElementPresent(PWALoginPage.objGmailPasswordField, " Password Field");
+					type(PWALoginPage.objGmailPasswordField, "User@123\n", "Password Field");
+					hideKeyboard();
+					verifyElementPresentAndClick(PWALoginPage.objGmailNextButton, "clicked on next button");
+					waitTime(5000);
+					getDriver().switchTo().window("CDwindow-0");
+					if (verifyIsElementDisplayed(PWASignupPage.objSignUpTxt, "signup")) {
+						regestrationfromSocialMedia();
+					}
+					waitTime(5000);
+					verifyElementPresent(PWAHomePage.objZeeLogo, "Zee logo");
+					logger.info("User is Logged in successfully");
+					extent.extentLogger("Logged in", "User is Logged in successfully");
+				} else {
+					waitTime(10000);
+					verifyElementPresent(PWAHomePage.objZeeLogo, "Zee logo");
+					logger.info("User is Logged in successfully");
+					extent.extentLogger("Logged in", "User is Logged in successfully");
+				}
+
+				break;
+
+			case "Twitter":
+				extent.HeaderChildNode("Login through Twitter");
+				verifyElementPresentAndClick(PWALoginPage.objTwitterIcon, "Twitter icon");
+				waitTime(7000);
+				System.out.println(getDriver().getWindowHandles());
+				System.out.println(getDriver().getCurrentUrl());
+				getDriver().switchTo().window("CDwindow-1");
+
+				waitTime(5000);
+				System.out.println(getDriver().getCurrentUrl());
+
+				if (verifyIsElementDisplayed(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger")) {
+					verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+					verifyElementPresent(PWAHamburgerMenuPage.objProfilePageIcon, "Profile icon");
+					logger.info("User Logged in Successfully");
+					extent.extentLogger("Logged in", "User Logged in Successfully");
+				}
+
+				else if (verifyIsElementDisplayed(PWALoginPage.objTwitterAuthorizeButton, "Authorize app")) {
+					click(PWALoginPage.objTwitterAuthorizeButton, "Authorize app");
+					regestrationfromSocialMedia();
+				} else if (verifyIsElementDisplayed(PWALoginPage.objTwitterEmaildField, "Twitter Email field")) {
+
+					type(PWALoginPage.objTwitterEmaildField, "Zee5latest@gmail.com", "Email Field");
+					hideKeyboard();
+					verifyElementPresentAndClick(PWALoginPage.objTwitterPasswordField, "Twitter Password field");
+					type(PWALoginPage.objTwitterPasswordField, "User@123\n", "Password field");
+					click(PWALoginPage.objTwitterSignInButton, "Sign in button");
+					waitTime(5000);
+					verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+					click(PWAHamburgerMenuPage.objLoginBtn, "Login");
+					verifyElementPresentAndClick(PWALoginPage.objTwitterIcon, "Twitter icon");
+				}
+
+				if (verifyIsElementDisplayed(PWALoginPage.objTwitterAuthorizeButton, "Authorize")) {
+					click(PWALoginPage.objTwitterAuthorizeButton, "Authorize");
+					waitTime(7000);
+					verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+					verifyElementPresent(PWAHamburgerMenuPage.objProfilePageIcon, "Profile icon");
+					logger.info("User Logged in Successfully");
+					extent.extentLogger("Logged in", "User Logged in Successfully");
+				}
+				break;
+			}
+		}
+		JavascriptExecutor js = (JavascriptExecutor) getDriver();
+		String Token;
+		if (!userType.equals("Guest")) {
+			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		} else {
+			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+		}
+		mixpanel.ValidateParameter(Token, "Session");
+		dismiss3xPopUp();
+		dismissAppInstallPopUp();
+	}
+	
+	/**
+	 * Function to verify Play icon functionality
+	 * 
+	 * @throws Exception
+	 */
+	public void verifyCarouselBannerClickEvent(String userType, String screen) throws Exception {
+		extent.HeaderChildNode("Verifying play icon functionality on carousel for : " + screen);
+		// handle mandatory pop up
+		String user = getParameterFromXML("userType");
+		mandatoryRegistrationPopUp(user);
+		if (navigateToAnyScreen(screen)) {
+			waitTime(5000);
+			waitForElementAndClick(PWAHomePage.objPlayBtn, 20, "Play icon");
+			waitTime(2000);
+			if (verifyElementPresent(PWAPlayerPage.objPlayerControlScreen, "Player control containing screen")) {
+				logger.info("Navigated to consumption screen");
+				extent.extentLogger("Play btn validation", "Navigated to consumption screen");
+				mixpanel.FEProp.setProperty("Source","");
+				mixpanel.FEProp.setProperty("Element","");
+				String id = getWebDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				JavascriptExecutor js = (JavascriptExecutor) getDriver();
+				String Token;
+				if (!userType.equals("Guest")) {
+					Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				} else {
+					Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				}
+				mixpanel.ValidateParameter(Token, "Carousal Banner Click");
+				
+			} else {
+				logger.error("Not Navigated to consumption screen");
+				extent.extentLoggerFail("Play btn validation", "Not Navigated to consumption screen");
+			}
+		} else {
+			logger.error("Failed to click on : " + screen);
+			extent.extentLoggerFail("play", "Failed to click on : " + screen);
+		}
+	}
+	
+	public boolean navigateToAnyScreen(String screen) throws Exception {
+		for (int i = 0; i < 3; i++) {
+			try {
+				if (verifyElementPresentAndClick(PWAHomePage.objTabName(screen), "Tab : " + screen))
+					return true;
+			} catch (Exception e) {
+				try {
+					swipeOnTab("Left");
+					if (verifyElementPresentAndClick(PWAHomePage.objTabName(screen), "Tab : " + screen)) {
+						waitTime(5000);
+						return true;
+					}
+				} catch (Exception exc) {
+					swipeOnTab("Right");
+				}
+			}
+		}
+		return false;
+	}
+	
+	public void waitForElementAndClick(By locator, int seconds, String message) throws InterruptedException {
+		main: for (int time = 0; time <= seconds; time++) {
+			try {
+				getDriver().findElement(locator).click();
+				logger.info("Clicked element " + message);
+				extent.extentLogger("clickedElement", "Clicked element " + message);
+				break main;
+			} catch (Exception e) {
+				Thread.sleep(1000);
+				if (time == seconds) {
+					logger.error("Failed to click element " + message);
+					extent.extentLoggerFail("failedClickElement", "Failed to click element " + message);
+				}
+			}
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void swipeOnTab(String dire) throws InterruptedException {
+		extent.HeaderChildNode("Swipping on tab");
+		touchAction = new TouchAction(getDriver());
+		Dimension size = getDriver().findElement(PWAHomePage.objTabContBar).getSize();
+		if (dire.equalsIgnoreCase("Left")) {
+			int startx = (int) (size.width * 0.5);
+			int endx = (int) (size.width * 0.1);
+			int starty = size.height / 2;
+			touchAction.press(PointOption.point(startx, starty))
+					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+					.moveTo(PointOption.point(endx, starty)).release().perform();
+		} else if (dire.equalsIgnoreCase("Right")) {
+			int startx = (int) (size.width * 0.5);
+			int endx = (int) (size.width * 0.9);
+			int starty = size.height / 2;
+			touchAction.press(PointOption.point(startx, starty))
+					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+					.moveTo(PointOption.point(endx, starty)).release().perform();
+		}
+	}
+	
+	public void verifyThumbnailClickEventFromTray(String userType,String tabName) throws Exception {
+		extent.HeaderChildNode("Verify Thumbnail Click Event For content played from trays");
+		waitTime(5000);
+		navigateToAnyScreen(tabName);
+		waitTime(5000);
+		verifyElementPresentAndClick(PWAPremiumPage.objThumbnail, "Thumbnail from a tray");
+
+		waitTime(2000);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		mixpanel.FEProp.setProperty("Source", tabName);
+		mixpanel.FEProp.setProperty("Page Name", "home");
+		if (userType.equals("Guest")) {
+			System.out.println(local.getItem("guestToken"));
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Thumbnail Click");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Thumbnail Click");
+		}
+	}
+	
+	public void verifyThumbnailClickEventFromViewMorePage(String tabName) throws Exception {
+		extent.HeaderChildNode("Verify Thumbnail Click Event For content played from trays");
+		navigateToAnyScreen(tabName);
+		waitTime(5000);
+		click(PWAPremiumPage.objViewAllBtn, "View All Button");
+		verifyElementPresentAndClick(PWAPremiumPage.objThumbnail, "Thumbnail from View More Page");
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		mixpanel.FEProp.setProperty("Source", tabName);
+		mixpanel.FEProp.setProperty("Page Name", "view_all_top-20-on-zee5-kannada");
+		if (userType.equals("Guest")) {
+			System.out.println(local.getItem("guestToken"));
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Thumbnail Click");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Thumbnail Click");
+		}
+	}
+	
+	public void verifyThumbnailClickEventFromShowDetailPage(String keyword) throws Exception {
+		extent.HeaderChildNode("Verify Thumbnail Click Event From Show Detail Page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+		waitTime(4000);
+		click(PWASearchPage.objSearchResult(keyword), "Search Result");
+		verifyElementPresentAndClick(PWAPremiumPage.obj1stContentInShowDetailPage, "Thumbnail from Show detail page");
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "show_detail");
+		if (userType.equals("Guest")) {
+			System.out.println(local.getItem("guestToken"));
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Thumbnail Click");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Thumbnail Click");
+		}
+	}
+
+	public void verifyThumbnailClickEventFromPlaybackPage(String keyword, String userType) throws Exception {
+		extent.HeaderChildNode("Verify Thumbnail Click Event From Playback Page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+		waitTime(4000);
+		click(PWASearchPage.objSearchResult(keyword), "Search Result");
+		click(PWAPremiumPage.obj1stContentInShowDetailPage, "Thumbnail");
+		mandatoryRegistrationPopUp(userType);
+		verifyElementPresentAndClick(PWAPremiumPage.obj1stContentInShowDetailPage, "Thumbnail from playback page");
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		mixpanel.FEProp.setProperty("Source", "show_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		if (userType.equals("Guest")) {
+			System.out.println(local.getItem("guestToken"));
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Thumbnail Click");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Thumbnail Click");
+		}
+	}
+	
+	
 	
 }
