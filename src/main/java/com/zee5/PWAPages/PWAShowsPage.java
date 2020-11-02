@@ -136,11 +136,11 @@ public class PWAShowsPage {
 
 	public static By objEduraalabel=By.xpath("//div[@class='clickWrapper']");
 	
-public static By objUpgradeCTAInShowDetails = By.xpath("//*[@class='premiumBtn' and text()='Upgrade']");
+	public static By objUpgradeCTAInShowDetails = By.xpath("//*[@class='premiumBtn' and text()='Upgrade']");
 	
 	public static By objGetClubCTAInShowDetails = By.xpath("//*[@class='premiumBtn' and text()='Get Club']");
 	
-	public static By objGetPremiumCTAInShowDetails = By.xpath("//*[@class='premiumBtn' and text()='Get Premium']");
+	public static By objGetPremiumCTAInShowDetails = By.xpath("//*[@class='premiumBtn' and text()='Get premium']");
 
 
 

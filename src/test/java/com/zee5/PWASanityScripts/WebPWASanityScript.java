@@ -380,9 +380,8 @@ public class WebPWASanityScript {
 	@Test(priority = 27)
 	@Parameters({ "userType" })
 	public void CTAPageValidation(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.navigateToAnyScreenOnWeb("Club");
-		Zee5WEBPWASanityBusinessLogic.popupvalidationforCTAClubAnsPremium(userType, "Club");
-		Zee5WEBPWASanityBusinessLogic.popupvalidationforCTAClubAnsPremium(userType, "Premium");
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.VerifyCTA(userType);
 	}
 	
 	@Test(priority = 28)

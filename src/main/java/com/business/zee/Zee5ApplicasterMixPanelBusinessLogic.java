@@ -12,6 +12,7 @@ import com.emailReport.GmailInbox;
 import com.extent.ExtentReporter;
 import com.jayway.restassured.response.Response;
 import com.metadata.ResponseInstance;
+import com.mixpanelValidation.Mixpanel;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.LoggingUtils;
 import com.utility.Utilities;
@@ -67,6 +68,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	}
 
 	GmailInbox gmail = new GmailInbox();
+	
+	Mixpanel mixpanel = new Mixpanel();
 
 	String FirstName = getParameterFromXML("FirstName");
 	String LastName = getParameterFromXML("LastName");
@@ -262,8 +265,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
 			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
 			verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip link");
+			mixpanel.FEProp.setProperty("Element","Skip");
+			mixpanel.FEProp.setProperty("Source","Intro");
+			mixpanel.ValidateParameter("", "Skip Login");
 		}
-
 	}
 
 	/**

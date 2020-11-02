@@ -65,6 +65,7 @@
 	<parameter name="ExpiredUserName" value="zee5latest@gmail.com"/>
 	<parameter name="ExpiredUserPassword" value="User@123"/>
 	<parameter name="audioTrackContent" value="Episode 13 - Agent Raghav"/>
+	<parameter name="clubShow" value="Jamai 2.0" /> 
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

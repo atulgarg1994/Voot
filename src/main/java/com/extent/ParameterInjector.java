@@ -96,7 +96,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("NonsubscribedInvalidPassword", "igsindia");
 			params.put("premiumMovieWithTrailer2","Bhinna");
 			params.put("premiumShow","Police Diary 2");
-			params.put("clubShow","Jamai 2");
+			params.put("clubShow","Jamai 2.0");
 		}
 		if(region.equals("MH")) {
 			params.put("searchModuleSearchKey", "Kundali Bhagya");
@@ -153,7 +153,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("NonsubscribedInvalidPassword", "igsindia");
 			params.put("premiumMovieWithTrailer2","Bhinna");
 			params.put("premiumShow","Police Diary 2");
-			params.put("clubShow","Jamai 2");
+			params.put("clubShow","Jamai 2.0");
 		}
         suite.setParameters(params);	
 	}

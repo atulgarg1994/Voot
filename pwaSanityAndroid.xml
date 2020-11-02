@@ -132,9 +132,10 @@
 	<parameter name="audioTrackContent"
 		value="Episode 13 - Agent Raghav" />
 		
+		<parameter name="clubShow" value="Jamai 2.0" /> 
+		
 		<parameter name="premiumMovieWithTrailer2" value="Bhinna" /> 
 		<parameter name="premiumShow" value="Police Diary 2" /> 
-	<parameter name="clubShow" value="Jamai 2" /> 
 
 	<listeners>
 		<listener class-name="com.extent.ParameterInjector" />

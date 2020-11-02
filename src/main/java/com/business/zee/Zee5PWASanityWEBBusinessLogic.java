@@ -14263,19 +14263,19 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 		}
 	}
-	
+
 	/**
 	 * Author : Lakshmi
 	 */
 	public void landingPagesValidationclub(String tabName) throws Exception {
-		extent.HeaderChildNode(tabName+"Pages Validation");
+		extent.HeaderChildNode(tabName + "Pages Validation");
 		verifyElementPresentAndClick(PWAHomePage.objTabName(tabName), tabName);
 		// waitTime(5000);
 		String tab = getText(PWAHomePage.objActiveTab);
 		System.out.println(tab);
 		logger.info(tab + " tab is highlighted");
 		extent.extentLogger("Tab", tab + " tab is highlighted");
-		
+
 		for (int i = 1; i <= 2; i++) {
 			if (checkElementDisplayed(PWAPremiumPage.objTrayTitle(i), "Tray")) {
 				System.out.println("Tray is loaded for " + i + " scroll");
@@ -14319,7 +14319,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			click(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
 		}
 
-	
 		waitTime(3000);
 		Back(1);
 		waitTime(4000);
@@ -14352,7 +14351,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		// waitTime(2000);
 		click(PWAHomePage.objZeelogo1, "Zee Logo");
 	}
-	
+
 	public void trayTitleAndContentValidationWithApiDataClub(String tab, String api) throws Exception {
 		extent.HeaderChildNode(tab + " page tray asset validation");
 		waitTime(5000);
@@ -14398,9 +14397,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			verifyElementEnabled(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist Button");
 		}
 	}
-	
+
 	public void landingPagesTrailerAndPopUpValidationClub(String userType, String tabName) throws Exception {
-		extent.HeaderChildNode(tabName+"Page Carousel Validation");
+		extent.HeaderChildNode(tabName + "Page Carousel Validation");
 
 		waitTime(5000);
 
@@ -14425,7 +14424,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		checkElementDisplayed(PWASubscriptionPages.objSubscribepopup, "Subscribe popup");
 		checkElementDisplayed(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen,
-	"Subscribe CTA with Club Icon below the Player");
+				"Subscribe CTA with Club Icon below the Player");
 		checkElementDisplayed(PWAPremiumPage.objSubscribeNowAndGoAdFree, "Subscribe Now And Go Ad Free Message");
 		if (userType.contains("NonSubscribedUser") || (userType.contains("Guest"))) {
 
@@ -14447,72 +14446,69 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 	}
-	
-	public void popupvalidationforCTAClubAnsPremium(String userType , String tabName) throws Exception
-	{
+
+	public void popupvalidationforCTAClubAnsPremium(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode(tabName + " page Carousel validation");
 		checkElementDisplayed(PWAZee5OriginalPage.objWEBMastheadCarouselgetclub, "Get Club on carousel banner");
 		checkElementDisplayed(PWAZee5OriginalPage.objWEBMastheadCarouselPlay, "Play button  on carousel banner");
 
-		if (userType.equals("SubscribedUser"))
-		{
-			
-			if (tabName.equals("Club"))
-			{
+		if (userType.equals("SubscribedUser")) {
+
+			if (tabName.equals("Club")) {
 				logout();
-			extent.HeaderChildNode("Login as club User");
-			//String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
-			//String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
-			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
-			waitTime(3000);
-			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-			type(PWALoginPage.objEmailField, "testzee5_6@gmail.com", "Email Field");
-			waitTime(3000);
-			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-			type(PWALoginPage.objPasswordField, "123456", "Password field");
-			waitTime(5000);
-			click(PWALoginPage.objWebLoginButton, "Login Button");
-			waitTime(3000);
-			verifyElementExist(PWAZee5OriginalPage.objWEBMastheadCarouselPlay, "Play button  on carousel banner");
-			logout();
-			ZeeWEBPWALogin(userType);
-				//verifyElementExist(PWAZee5OriginalPage.objWEBMastheadCarouselPlay, "Play button  on carousel banner");
+				extent.HeaderChildNode("Login as club User");
+				// String SubscribedUsername =
+				// Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+				// String SubscribedPassword =
+				// Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+				verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+				type(PWALoginPage.objEmailField, "testzee5_6@gmail.com", "Email Field");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+				type(PWALoginPage.objPasswordField, "123456", "Password field");
+				waitTime(5000);
+				click(PWALoginPage.objWebLoginButton, "Login Button");
+				waitTime(3000);
+				verifyElementExist(PWAZee5OriginalPage.objWEBMastheadCarouselPlay, "Play button  on carousel banner");
+				logout();
+				ZeeWEBPWALogin(userType);
+				// verifyElementExist(PWAZee5OriginalPage.objWEBMastheadCarouselPlay, "Play
+				// button on carousel banner");
 				checkElementDisplayed(PWAHomePage.objSearchBtn, "Search button");
 				click(PWAHomePage.objSearchBtn, "Search button");
 				type(PWASearchPage.objSearchEditBox, "Bebaakee ", "Search field");
 				click(PWASearchPage.objspecificSearch, "Searched content");
-				if (checkElementDisplayed(PWAHomePage.objKalGetFirstEpisode, "Get First Episode")) 
-				{
-						click(PWAHomePage.objKalGetFirstEpisodePlayicon, "Play Button");
+				if (checkElementDisplayed(PWAHomePage.objKalGetFirstEpisode, "Get First Episode")) {
+					click(PWAHomePage.objKalGetFirstEpisodePlayicon, "Play Button");
 				}
 			}
-			if (tabName.equals("Premium"))
-			{
-				//verifyElementExist(PWAZee5OriginalPage.objWEBMastheadCarouselPlay, "Play button  on carousel banner");
+			if (tabName.equals("Premium")) {
+				// verifyElementExist(PWAZee5OriginalPage.objWEBMastheadCarouselPlay, "Play
+				// button on carousel banner");
 				checkElementDisplayed(PWAHomePage.objSearchBtn, "Search button");
 				click(PWAHomePage.objSearchBtn, "Search button");
 				type(PWASearchPage.objSearchEditBox, "Abhay ", "Search field");
 				click(PWASearchPage.objspecificSearch, "Searched content");
-				if (checkElementDisplayed(PWAHomePage.objKalGetFirstEpisode, "Get First Episode")) 
-				{
-						click(PWAHomePage.objKalGetFirstEpisodePlayicon, "Play Button");
+				if (checkElementDisplayed(PWAHomePage.objKalGetFirstEpisode, "Get First Episode")) {
+					click(PWAHomePage.objKalGetFirstEpisodePlayicon, "Play Button");
 				}
 			}
-		}		
+		}
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 	}
-	
-	public void validatingEduaraa(String userType, String tabName) throws Exception
-	{
+
+	public void validatingEduaraa(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode(tabName + " page validation ");
 		navigateToAnyScreenOnWeb("Kids");
-		verifyElementExist(PWAHomePage.objTrayName,"EDR content ");
+		verifyElementExist(PWAHomePage.objTrayName, "EDR content ");
 
 		Actions actions = new Actions(getWebDriver());
 		WebElement menuOption = getWebDriver().findElement(PWAHomePage.objZeelogo1);
 		checkElementDisplayed(PWAPremiumPage.objTrayTitle(2), "Tray");
 		actions.moveToElement(menuOption).perform();
-		 
+
 		click(PWAShowsPage.objEpisodeCard, "First  Card");
 		waitTime(5000);
 		if (userType.contains("Guest")) {
@@ -14533,53 +14529,165 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("Not navigated to Consumption Page");
 			extent.extentLogger("Consumption Page", "Not navigated to Consumption Page");
 		}
-		
-	}
-	
 
-	public void validatingclaimCTA(String userType, String tabName) throws Exception
-	{
+	}
+
+	public void validatingclaimCTA(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("validation claim CTA below the player");
 		navigateToAnyScreenOnWeb("Kids");
-		checkElementDisplayed(PWAHomePage.objTrayName,"EDR content ");
-		click(PWAHomePage.objTrayName,"EDR content ");
+		checkElementDisplayed(PWAHomePage.objTrayName, "EDR content ");
+		click(PWAHomePage.objTrayName, "EDR content ");
 		waitTime(5000);
 		click(PWAShowsPage.objEduraalabel, "First  Card");
 		click(PWAShowsPage.objEduraacard, "First  Card");
-		if (userType.equals("NonSubscribedUser") || userType.equals("Guest"))
-		{
-			checkElementDisplayed(PWAPlayerPage.objclaimofferBelowPlayerScreen,"Claim offer ");
-			click(PWAPlayerPage.objclaimofferBelowPlayerScreen,"Claim offer ");
-			if (checkElementDisplayed(PWASubscriptionPages.objZEE5Subscription, "Zee5 Subscription Page Title")) 
-				{
-					logger.info("Navigated to select pack Page");
-					extent.extentLogger(" Zee5 Subscription Page", "Navigated to select pack Page");
-				} else 
-				{
-					logger.info("Not navigated to select pack Page");
-					extent.extentLogger("Zee5 Subscription Page", "Not navigated to select pack Page");
-				}
+		if (userType.equals("NonSubscribedUser") || userType.equals("Guest")) {
+			checkElementDisplayed(PWAPlayerPage.objclaimofferBelowPlayerScreen, "Claim offer ");
+			click(PWAPlayerPage.objclaimofferBelowPlayerScreen, "Claim offer ");
+			if (checkElementDisplayed(PWASubscriptionPages.objZEE5Subscription, "Zee5 Subscription Page Title")) {
+				logger.info("Navigated to select pack Page");
+				extent.extentLogger(" Zee5 Subscription Page", "Navigated to select pack Page");
+			} else {
+				logger.info("Not navigated to select pack Page");
+				extent.extentLogger("Zee5 Subscription Page", "Not navigated to select pack Page");
+			}
 		}
-		if (userType.equals("SubscribedUser"))
-		{
-			checkElementDisplayed(PWAPlayerPage.objGoToEduauraa,"Go To Eduauraa offer ");
-			click(PWAPlayerPage.objGoToEduauraa,"Go To Eduauraa offer ");
-			checkElementDisplayed(PWAPlayerPage.objContinue,"Continue offer ");
-			click(PWAPlayerPage.objContinue,"Continue offer ");
-			if (checkElementDisplayed(PWAHamburgerMenuPage.objEduauraaSignupPage, "EduauraaSign Up page"))
-			{
+		if (userType.equals("SubscribedUser")) {
+			checkElementDisplayed(PWAPlayerPage.objGoToEduauraa, "Go To Eduauraa offer ");
+			click(PWAPlayerPage.objGoToEduauraa, "Go To Eduauraa offer ");
+			checkElementDisplayed(PWAPlayerPage.objContinue, "Continue offer ");
+			click(PWAPlayerPage.objContinue, "Continue offer ");
+			if (checkElementDisplayed(PWAHamburgerMenuPage.objEduauraaSignupPage, "EduauraaSign Up page")) {
 				logger.info("User is navigated to EduauraaSign Up page");
 				extent.extentLogger("Contact Us", "User is navigated to EduauraaSign Up page");
+			} else {
+				logger.info("Not navigated to EduauraaSign Up Page");
+				extent.extentLogger("Zee5 Subscription Page", "Not navigated to EduauraaSign Up Page");
 			}
-			 else
-			 {
-					logger.info("Not navigated to EduauraaSign Up Page");
-					extent.extentLogger("Zee5 Subscription Page", "Not navigated to EduauraaSign Up Page");
-			 }
 			Back(1);
-			
+
 		}
-		
+
 	}
 
+	public void VerifyCTA(String userType) throws Exception {
+		String clubShow = getParameterFromXML("clubShow");
+		String premiumShow = getParameterFromXML("premiumShow");
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Guest User: Verify Get Club CTA on Carousel banner for club content");
+			navigateToAnyScreenOnWeb("Club");
+			waitForElementPresence(PWAHomePage.objGetClubCta, 10, "\"Get Club\" CTA on Carousel banner");
+			extent.HeaderChildNode("Guest User: Verify Get Premium CTA on Carousel banner for premium content");
+			navigateToAnyScreenOnWeb("Premium");
+			waitForElementPresence(PWAHomePage.objGetPremiumCta, 10, "\"Get Premium\" CTA on Carousel banner");
+			extent.HeaderChildNode("Guest User: Verify Get Club CTA on show details banner of a club content");
+			click(PWAHomePage.objSearchBtn, "Search button");
+			type(PWASearchPage.objSearchEditBox, clubShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(clubShow), "Searched content : " + clubShow);
+			verifyElementPresent(PWAShowsPage.objGetClubCTAInShowDetails,
+					"\"Get Club\" CTA on Club Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			extent.HeaderChildNode("Guest User: Verify Get Premium CTA on show details banner of a premium content");
+			click(PWAHomePage.objSearchBtn, "Search button");
+			type(PWASearchPage.objSearchEditBox, premiumShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(premiumShow), "Searched content : " + premiumShow);
+			verifyElementPresent(PWAShowsPage.objGetPremiumCTAInShowDetails,
+					"\"Get Premium\" CTA on Premium Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+
+			// Login with club user
+			extent.HeaderChildNode("Club User: Verify Play CTA on Carousel banner for club content");
+			// loginWithUserEmail("testzee5_6@gmail.com","123456");
+			loginWithUserEmail("edpwa4@mailnesia.com", "1234567");
+			navigateToAnyScreenOnWeb("Club");
+			verifyElementPresent(PWAHomePage.objPlayBtn, "\"Play\" CTA on Carousel banner");
+			extent.HeaderChildNode("Club User: Verify Upgrade CTA on Carousel banner for premium content");
+			navigateToAnyScreenOnWeb("Premium");
+			verifyElementPresent(PWAHomePage.objUpgradeBtn, "\"Upgrade\" CTA on Carousel banner");
+			extent.HeaderChildNode(
+					"Club User: Verify Watch First Episode CTA on show details banner of a club content");
+			click(PWAHomePage.objSearchBtn, "Search button");
+			type(PWASearchPage.objSearchEditBox, clubShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(clubShow), "Searched content : " + clubShow);
+			verifyElementPresent(PWAHomePage.objKalGetFirstEpisode,
+					"\"Watch first episode\" CTA on Club Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			extent.HeaderChildNode("Club User: Verify Upgrade CTA on show details banner of a premium content");
+			click(PWAHomePage.objSearchBtn, "Search button");
+			type(PWASearchPage.objSearchEditBox, premiumShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(premiumShow), "Searched content : " + premiumShow);
+			verifyElementPresent(PWAShowsPage.objUpgradeCTAInShowDetails,
+					"\"Upgrade\" CTA on Premium Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			logout();
+		}
+		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			extent.HeaderChildNode("Non Subscribed User: Verify Get Club CTA on Carousel banner for club content");
+			navigateToAnyScreenOnWeb("Club");
+			waitForElementPresence(PWAHomePage.objGetClubCta, 10, "\"Get Club\" CTA on Carousel banner");
+			extent.HeaderChildNode(
+					"Non Subscribed User: Verify Get Premium CTA on Carousel banner for premium content");
+			navigateToAnyScreenOnWeb("Premium");
+			waitForElementPresence(PWAHomePage.objGetPremiumCta, 10, "\"Get Premium\" CTA on Carousel banner");
+			extent.HeaderChildNode("Non Subscribed User: Verify Get Club CTA on show details banner of a club content");
+			click(PWAHomePage.objSearchBtn, "Search button");
+			type(PWASearchPage.objSearchEditBox, clubShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(clubShow), "Searched content : " + clubShow);
+			verifyElementPresent(PWAShowsPage.objGetClubCTAInShowDetails,
+					"\"Get Club\" CTA on Club Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			extent.HeaderChildNode(
+					"Non Subscribed User: Verify Get Premium CTA on show details banner of a premium content");
+			click(PWAHomePage.objSearchBtn, "Search button");
+			type(PWASearchPage.objSearchEditBox, premiumShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(premiumShow), "Searched content : " + premiumShow);
+			verifyElementPresent(PWAShowsPage.objGetPremiumCTAInShowDetails,
+					"\"Get Premium\" CTA on Premium Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+		}
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Subscribed User: Verify Play CTA on Carousel banner for club content");
+			navigateToAnyScreenOnWeb("Club");
+			verifyElementPresent(PWAHomePage.objPlayBtn, "\"Play\" CTA on Carousel banner");
+			extent.HeaderChildNode("Subscribed User: Verify Play CTA on Carousel banner for premium content");
+			navigateToAnyScreenOnWeb("Premium");
+			verifyElementPresent(PWAHomePage.objPlayBtn, "\"Play\" CTA on Carousel banner");
+			extent.HeaderChildNode(
+					"Subscribed User: Verify Watch first episode CTA on show details banner of a club content");
+			click(PWAHomePage.objSearchBtn, "Search button");
+			type(PWASearchPage.objSearchEditBox, clubShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(clubShow), "Searched content : " + clubShow);
+			verifyElementPresent(PWAHomePage.objKalGetFirstEpisode,
+					"\"Watch first episode\" CTA on Club Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			extent.HeaderChildNode(
+					"Subscribed User: Verify Watch first episode CTA on show details banner of a premium content");
+			click(PWAHomePage.objSearchBtn, "Search button");
+			type(PWASearchPage.objSearchEditBox, premiumShow + "\n", "Search Field");
+			click(PWASearchPage.objSearchShowsTab, "Shows tab");
+			click(PWASearchPage.objSearchedResult(premiumShow), "Searched content : " + premiumShow);
+			verifyElementPresent(PWAHomePage.objKalGetFirstEpisode,
+					"\"Watch first episode\" CTA on Premium Show Details Page Banner");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+		}
+	}
+	
+	public void loginWithUserEmail(String userid,String pwd) throws Exception {
+		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+		type(PWALoginPage.objEmailField, ""+userid, "Email Field");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+		type(PWALoginPage.objPasswordField, ""+pwd, "Password field");
+		waitTime(5000);
+		click(PWALoginPage.objWebLoginButton, "Login Button");
+		waitTime(3000);
+	}
 }

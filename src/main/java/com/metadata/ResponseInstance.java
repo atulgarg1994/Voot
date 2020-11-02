@@ -687,7 +687,9 @@ public class ResponseInstance {
 //		getUserSettingsDetails("","");	
 //		getFreeContent("home", "zee5latest@gmail.com", "User@123");
 //		getContentDetails("0-9-indiatoday");
-		Player("basavaraj.pn5@gmail.com","igsindia123");
+//		Player("basavaraj.pn5@gmail.com","igsindia123");
+		getWatchList("basavaraj.pn5@gmail.com","igsindia123");
+//		getUserData("basavaraj.pn5@gmail.com","igsindia123");
 		
 	}
 
@@ -728,16 +730,17 @@ public class ResponseInstance {
 		String bearerToken = getBearerToken(pUsername, pPassword);
 		String url = "https://userapi.zee5.com/v1/user";
 		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
-		String commaSplit[] = resp.asString().replace("{", "").replace("}", "").replaceAll("[.,](?=[^\\[]*\\])", "-")
-				.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-		for (int i = 0; i < commaSplit.length; i++) {
-			if (Stream.of(userData).anyMatch(commaSplit[i]::contains)) {
-				String com[] = commaSplit[i].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-				Mixpanel.FEProp.setProperty(com[0].replace("\"", ""), com[1].replace("\"", ""));
-			}
-		}
-		getDOB();
-		Mixpanel.fetchUserdata = true;
+		resp.print();
+//		String commaSplit[] = resp.asString().replace("{", "").replace("}", "").replaceAll("[.,](?=[^\\[]*\\])", "-")
+//				.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+//		for (int i = 0; i < commaSplit.length; i++) {
+//			if (Stream.of(userData).anyMatch(commaSplit[i]::contains)) {
+//				String com[] = commaSplit[i].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+//				Mixpanel.FEProp.setProperty(com[0].replace("\"", ""), com[1].replace("\"", ""));
+//			}
+//		}
+//		getDOB();
+//		Mixpanel.fetchUserdata = true;
 	}
 	
 	private static void getDOB() {
@@ -851,5 +854,14 @@ public class ResponseInstance {
 		String bearerToken = getBearerToken(pUsername, pPassword);
 		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
 		resp.print();
+	}
+	
+	public static void getWatchList(String pUsername, String pPassword) {
+		String url = "https://userapi.zee5.com/v1/watchlist";
+		String bearerToken = getBearerToken(pUsername, pPassword);
+		System.out.println(getXAccessTokenWithApiKey()+"\n");
+		System.out.println(bearerToken);
+//		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
+//		resp.print();
 	}
 }

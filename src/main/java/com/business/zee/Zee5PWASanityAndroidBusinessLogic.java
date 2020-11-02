@@ -10156,7 +10156,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 * Function to verify internal links
 	 */
 
-	@SuppressWarnings("unused")
 	public void InternalLinksValidation() throws Exception {
 		String url = "";
 		// Internal Links
@@ -10375,6 +10374,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			click(PWASearchPage.objSearchedResult(premiumShow), "Searched content : " + premiumShow);
 			verifyElementPresent(PWAShowsPage.objGetPremiumCTAInShowDetails,"\"Get Premium\" CTA on Premium Show Details Page Banner");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			
 			//Login with club user
 			extent.HeaderChildNode("Club User: Verify Play CTA on Carousel banner for club content");
 			loginWithUserEmail("edpwa4@mailnesia.com","1234567");
@@ -10435,6 +10435,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			click(PWASearchPage.objSearchedResult(clubShow), "Searched content : " + clubShow);
 			verifyElementPresent(PWAHomePage.objKalGetFirstEpisode,"\"Watch first episode\" CTA on Club Show Details Page Banner");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			extent.HeaderChildNode("Subscribed User: Verify Watch first episode CTA on show details banner of a premium content");
 			click(PWAHomePage.objSearchBtn, "Search button");
 			type(PWASearchPage.objSearchEditBox, premiumShow + "\n", "Search Field");
 			click(PWASearchPage.objSearchShowsTab, "Shows tab");
@@ -10467,6 +10468,20 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 	
 	public void PWAEduauraaVerification(String userType) throws Exception {
+		extent.HeaderChildNode("Eduauraa validation");
+		navigateToAnyScreen("Kids");
+		verifyElementPresentAndClick(PWAHomePage.objEduauraaCardCarousel,"Eduauraa Card in Carousel");
+		String currenturl = getDriver().getCurrentUrl();
+		logger.info("Current URL :"+currenturl);
+		extent.extentLogger("Tab", "Current URL :"+currenturl);
+		if(currenturl.contains("collections/eduauraa")) {		
+			logger.info("Navigated to Collections page");
+			extent.extentLogger("url", "Navigated to Collections page");
+		}
+		else {
+			logger.error("Failed to navigate to Collections page");
+			extent.extentLoggerFail("url", "Failed to navigate to Collections page");
+		}
 		navigateToAnyScreen("Kids");
 		verifyElementPresent(PWAHomePage.objLearnWithEduauraaTray,"Learn with Eduauraa tray");
 		verifyElementPresentAndClick(PWAHomePage.objFirstItemLearnWithEduauraaTray,"First card under Learn with Eduauraa tray");

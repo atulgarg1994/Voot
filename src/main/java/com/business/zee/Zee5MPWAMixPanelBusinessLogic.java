@@ -17,8 +17,10 @@ import com.utility.Utilities;
 import com.zee5.PWAPages.PWAHamburgerMenuPage;
 import com.zee5.PWAPages.PWAHomePage;
 import com.zee5.PWAPages.PWALoginPage;
+import com.zee5.PWAPages.PWAPremiumPage;
 import com.zee5.PWAPages.PWASearchPage;
 import com.zee5.PWAPages.PWASignupPage;
+import com.zee5.PWAPages.PWASubscriptionPages;
 
 public class Zee5MPWAMixPanelBusinessLogic  extends Utilities {
 	
@@ -414,26 +416,588 @@ public class Zee5MPWAMixPanelBusinessLogic  extends Utilities {
 	}
 		
 	@SuppressWarnings("static-access")
-	public void verifySkipLoginEvent(String userType) throws Exception {
+	public void verifyLoginScreenDisplayEventByClickingOnLoginButton(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Skip Login Event");
 			waitTime(5000);
 			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
 			waitTime(3000);
 			click(PWALoginPage.objLoginBtn, "Login button");
-			waitTime(2000);
-			Back(1);
-		
+			
 			waitTime(5000);
 			JavascriptExecutor js = (JavascriptExecutor) getDriver();
 			String token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			System.out.println(token);
-//			LocalStorage local = ((ChromeDriver) getDriver()).getLocalStorage();
-//			mixpanel.FEProp.setProperty("Source", "home");
-//			mixpanel.FEProp.setProperty("Element", "Cross");
-//			mixpanel.FEProp.setProperty("Page Name", "sign_in");
-//			System.out.println(local.getItem("guestToken"));
-//			mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Login");
+	
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "sign_in");
+			mixpanel.ValidateParameter(token, "Login Screen Display");
 		}
 	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyLoginScreenDisplayEventByClickingOnLoginButtonOnPlayer(String userType, String keyword2)
+			throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Screen Display Event By Clicking On Login Button On Player");
+
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWAHomePage.objSearchField, keyword2, "Search");
+			waitTime(5000);
+			click(PWASearchPage.objSearchedResult(keyword2), "Search Result");
+			waitTime(6000);
+			
+			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
+				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
+			}
+			verifyElementPresent(PWASubscriptionPages.objLoginLinkInPlayer, "Login link");
+			JSClick(PWASubscriptionPages.objLoginLinkInPlayer, "Login link");
+			waitTime(2000);
+			Back(1);
+			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
+				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
+			}
+			waitTime(3000);
+			
+			JavascriptExecutor js = (JavascriptExecutor) getDriver();
+			String token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			System.out.println(token);
+	
+			mixpanel.FEProp.setProperty("Source", "movie_detail");
+			mixpanel.FEProp.setProperty("Page Name", "sign_in");
+			mixpanel.ValidateParameter(token, "Login Screen Display");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginScreenDisplayEventByClickingOnLoginButtonInRegistartionScreen(String userType)
+			throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode(
+					"Verify Login Screen Display Event By Clicking On Login Button In Registartion Screen");
+			click(PWALoginPage.objSignUpBtnWEB, "Sign Up For Free");
+			JSClick(PWALoginPage.objLoginLink, "Login link");
+			Back(1);
+			waitTime(2000);
+			
+			JavascriptExecutor js = (JavascriptExecutor) getDriver();
+			String token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			System.out.println(token);
+	
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "sign_in");
+			mixpanel.ValidateParameter(token, "Login Screen Display");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginScreenDisplayEventByClickingOnLoginButtonInGetPremiumPopUp(String userType, String keyword2)
+			throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode(
+					"Verify Login Screen Display Event By Clicking On Login Button In Get Premium Pop Up");
+
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWAHomePage.objSearchField, keyword2, "Search");
+			waitTime(5000);
+			click(PWASearchPage.objSearchedResult(keyword2), "Search Result");
+			waitTime(6000);
+			
+
+			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
+				verifyElementPresentAndClick(PWALoginPage.objLoginCTAInPremiumPopup, "Login link");
+				Back(1);
+			}
+			waitTime(2000);
+		
+			JavascriptExecutor js = (JavascriptExecutor) getDriver();
+			String token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			System.out.println(token);
+	
+			mixpanel.FEProp.setProperty("Source", "movie_detail");
+			mixpanel.FEProp.setProperty("Page Name", "sign_in");
+			mixpanel.ValidateParameter(token, "Login Screen Display");
+		}
+	}
+	
+	public void verifyLoginScreenDisplayEventByClickingOnLoginInRegistrationPopUp(String userType, String keyword)
+			throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+
+			extent.HeaderChildNode(
+					"Verify Login Screen Display Event during content playback post clicking on login in registration popup");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			click(PWAPremiumPage.obj1stContentInShowDetailPage, "Content Card");
+			waitForElement(PWALoginPage.objLoginLink, 20, "Login Link");
+			click(PWALoginPage.objLoginLink, "Login Link");
+			waitTime(5000);
+			
+			JavascriptExecutor js = (JavascriptExecutor) getDriver();
+			String token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			System.out.println(token);
+	
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Page Name", "sign_in");
+			mixpanel.ValidateParameter(token, "Login Screen Display");
+		}
+	}
+	
+	
+	/**
+	 * The method will wait for the element to be located for a maximum of given
+	 * seconds. The method terminates immediately once the element is located. The
+	 * method throws error if the element could not be located within the given
+	 * seconds
+	 */
+	public boolean waitForElement(By locator, int seconds, String message) throws InterruptedException {
+		for (int time = 0; time <= seconds; time++) {
+			try {
+				getDriver().findElement(locator);
+				logger.info("Located element " + message);
+				extent.extentLogger("locatedElement", "Located element " + message);
+				return true;
+			} catch (Exception e) {
+				Thread.sleep(1000);
+				if (time == seconds) {
+					logger.error("Failed to locate element " + message);
+					extent.extentLoggerFail("failedLocateElement", "Failed to locate element " + message);
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Generic function to Logout.
+	 */
+	public void logout() throws Exception {
+		extent.HeaderChildNode("Logout");
+		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		waitTime(2000);
+		click(PWAHamburgerMenuPage.objDownArrow("My Account"), "Expander button");
+		PartialSwipe("UP", 1);
+		click(PWAHamburgerMenuPage.objExploreItemBtn("Logout"), "Logout option");
+		waitTime(3000);
+	}
+	
+	public void verifyLogoutEvent(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Logout Event");
+			waitTime(10000);
+			
+			JavascriptExecutor js = (JavascriptExecutor) getDriver();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			System.out.println(ID);
+			mixpanel.FEProp.setProperty("Element", "LOGOUT");
+			mixpanel.FEProp.setProperty("Page Name", "home");
+			
+			logout();
+			waitTime(5000);
+			mixpanel.ValidateParameter(ID, "Logout");
+		}
+	}
+	
+	
+	
+
+	public void login(String LoginMethod, String userType) throws Exception {
+		String url = getParameterFromXML("url");
+		extent.HeaderChildNode("User-Type : " + userType + ", Environment: " + url);
+		// Get the email and password from properties
+		String email = "";
+		String password = "";
+		// dismissSystemPopUp();
+		// waitTime(3000);
+		// dismissSystemPopUp();
+		// dismissAppInstallPopUp();
+		// dismissStayTundedPopUp();
+		// dismiss3xPopUp();
+		// dismissDisplayContentLanguagePopUp();
+		// dismissSystemPopUp();
+		dismissAllPopUps();
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.extentLogger("Guest", "Accessing the application as Guest user");
+		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.extentLogger("Subscribed", "Accessing the application as Subscribed user");
+			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedPassword");
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			extent.extentLogger("Non-Subscribed", "Accessing the application as Non-Subscribed user");
+			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedPassword");
+		}
+		if (userType.equalsIgnoreCase("SubscribedUser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+			if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
+				verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+			}
+			waitTime(3000);
+			click(PWALoginPage.objLoginBtn, "Login button");
+			waitTime(3000);
+			HeaderChildNode("Login - Method" + LoginMethod);
+			switch (LoginMethod) {
+
+			case "E-mail":
+				dismissAppInstallPopUp();
+				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+				waitTime(10000);
+				// getDriver().getKeyboard().sendKeys("Bla bla");//works
+				type(PWALoginPage.objEmailField, email, "Email Field");
+				hideKeyboard();
+				waitTime(3000);
+				dismissSystemPopUp();
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+				type(PWALoginPage.objPasswordField, password + "\n", "Password field");
+				hideKeyboard();
+				waitTime(5000);
+				directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
+				waitTime(10000);
+				break;
+
+			case "Mobile":
+				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+				type(PWALoginPage.objEmailField, "8792396107\n", "Email Field");
+				hideKeyboard();
+				verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login butotn");
+				waitTime(3000);
+				hideKeyboard();
+				waitTime(5000);
+				verifyElementPresentAndClick(PWALoginPage.objpasswordphno, "Password field");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "password-field");
+				type(PWALoginPage.objPasswordField, "tanisha19\n", "password-field");
+				hideKeyboard();
+				waitTime(2000);
+				click(PWALoginPage.objproceedphno, "Proceed button");
+				waitTime(5000);
+				break;
+
+			case "Facebook":
+				extent.HeaderChildNode("Login through Facebook");
+				verifyElementPresentAndClick(PWALoginPage.objFacebookIcon, "Facebook Icon");
+				System.out.println(getDriver().getCurrentUrl());
+				System.out.println(getDriver().getWindowHandles());
+				getDriver().switchTo().window("CDwindow-1");
+				waitTime(7000);
+				if (verifyIsElementDisplayed(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger")) {
+					click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+					verifyElementPresent(PWAHamburgerMenuPage.objProfilePageIcon, "Profile icon");
+					logger.info("User Logged in Successfully");
+					extent.extentLogger("Logged in", "User Logged in Successfully");
+				}
+
+				else if (verifyIsElementDisplayed(PWALoginPage.objFacebookPageVerification, "Facebook page")) {
+					verifyElementPresent(PWALoginPage.objFacebookPageVerification, "Facebook page");
+					verifyElementPresent(PWALoginPage.objFacebookLoginEmail, " Email Field");
+					type(PWALoginPage.objFacebookLoginEmail, "igszeetesttest@gmail.com", "Emial Field");
+					verifyElementPresent(PWALoginPage.objFacebookLoginpassword, " Password Field");
+					type(PWALoginPage.objFacebookLoginpassword, "Igs$123Zee\n", "Password Field");
+					verifyElementPresentAndClick(PWALoginPage.objFacebookLoginButtonInFbPage, " Login Button");
+					waitTime(9000);
+					getDriver().switchTo().window("CDwindow-0");
+					verifyIsElementDisplayed(PWALoginPage.objFbCountinueBtn, "Continue button");
+					if (verifyIsElementDisplayed(PWASignupPage.objSignUpTxt, "SignUp")) {
+						regestrationfromSocialMedia();
+						verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						verifyElementPresent(PWAHamburgerMenuPage.objProfilePageIcon, "Profile icon");
+						logger.info("User Logged in Successfully");
+						extent.extentLogger("Logged in", "User Logged in Successfully");
+					} else {
+						waitTime(3000);
+						verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						verifyElementPresent(PWAHamburgerMenuPage.objProfileIcon, "Profile icon");
+						logger.info("User Logged in Successfully");
+						extent.extentLogger("Logged in", "User Logged in Successfully");
+					}
+
+				} else if (verifyElementPresent(PWALoginPage.objFbCountinueBtn, "Continue button") == true) {
+					click(PWALoginPage.objFbCountinueBtn, "Continue fb");
+					if (verifyElementPresent(PWASignupPage.objSignUpTxt, "SignUp") == true) {
+						regestrationfromSocialMedia();
+						verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						verifyElementPresent(PWAHamburgerMenuPage.objProfilePageIcon, "Profile icon");
+						logger.info("User Logged in Successfully");
+						extent.extentLogger("Logged in", "User Logged in Successfully");
+					} else {
+						waitTime(7000);
+						verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+						verifyElementPresent(PWAHamburgerMenuPage.objProfilePageIcon, "Profile icon");
+						logger.info("User Logged in Successfully");
+						extent.extentLogger("Logged in", "User Logged in Successfully");
+					}
+				}
+
+				break;
+
+		
+			case "Twitter":
+				extent.HeaderChildNode("Login through Twitter");
+				verifyElementPresentAndClick(PWALoginPage.objTwitterIcon, "Twitter icon");
+				waitTime(7000);
+				System.out.println(getDriver().getWindowHandles());
+				System.out.println(getDriver().getCurrentUrl());
+				getDriver().switchTo().window("CDwindow-1");
+
+				waitTime(5000);
+				System.out.println(getDriver().getCurrentUrl());
+
+				if (verifyIsElementDisplayed(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger")) {
+					verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+					verifyElementPresent(PWAHamburgerMenuPage.objProfilePageIcon, "Profile icon");
+					logger.info("User Logged in Successfully");
+					extent.extentLogger("Logged in", "User Logged in Successfully");
+				}
+
+				else if (verifyIsElementDisplayed(PWALoginPage.objTwitterAuthorizeButton, "Authorize app")) {
+					click(PWALoginPage.objTwitterAuthorizeButton, "Authorize app");
+					regestrationfromSocialMedia();
+				} else if (verifyIsElementDisplayed(PWALoginPage.objTwitterEmaildField, "Twitter Email field")) {
+
+					type(PWALoginPage.objTwitterEmaildField, "Zee5latest@gmail.com", "Email Field");
+					hideKeyboard();
+					verifyElementPresentAndClick(PWALoginPage.objTwitterPasswordField, "Twitter Password field");
+					type(PWALoginPage.objTwitterPasswordField, "User@123\n", "Password field");
+					click(PWALoginPage.objTwitterSignInButton, "Sign in button");
+					waitTime(5000);
+					verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+					click(PWAHamburgerMenuPage.objLoginBtn, "Login");
+					verifyElementPresentAndClick(PWALoginPage.objTwitterIcon, "Twitter icon");
+				}
+
+				if (verifyIsElementDisplayed(PWALoginPage.objTwitterAuthorizeButton, "Authorize")) {
+					click(PWALoginPage.objTwitterAuthorizeButton, "Authorize");
+					waitTime(7000);
+					verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+					verifyElementPresent(PWAHamburgerMenuPage.objProfilePageIcon, "Profile icon");
+					logger.info("User Logged in Successfully");
+					extent.extentLogger("Logged in", "User Logged in Successfully");
+				}
+				break;
+			}
+		}
+		dismiss3xPopUp();
+		dismissAppInstallPopUp();
+	}
+	
+	
+	public void verifyLoginInitiatedEventForValidCredentials(String userType, String loginMethod) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Initiated Event for Valid Credentials");
+			login(userType,loginMethod);
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "sign_in");
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Login Initiated");
+		}
+	}
+
+	public void verifyLoginResultEventForValidCredentials(String userType, String loginMethod) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Result Event for Valid Credentials");
+			login(userType,loginMethod);
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "sign_in");
+			
+			System.out.println(local.getItem("guestToken"));
+			mixpanel.ValidateParameter(local.getItem("ID"), "Login Result");
+		}
+	}
+
+	
+	public void verifyLoginInitiatedEventForInvalidCredentials(String userType, String loginMethod) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Initiated Event post entering invalid credentials");
+
+			String url = getParameterFromXML("url");
+			extent.HeaderChildNode("User-Type : " + userType + ", Environment: " + url);
+			// Get the email and password from properties
+			String email = "";
+			String password = "";
+			// dismissSystemPopUp();
+			// waitTime(3000);
+			// dismissSystemPopUp();
+			// dismissAppInstallPopUp();
+			// dismissStayTundedPopUp();
+			// dismiss3xPopUp();
+			// dismissDisplayContentLanguagePopUp();
+			// dismissSystemPopUp();
+			dismissAllPopUps();
+			if (userType.equalsIgnoreCase("Guest")) {
+				extent.extentLogger("Guest", "Accessing the application as Guest user");
+			} else if (userType.equalsIgnoreCase("SubscribedUser")) {
+				extent.extentLogger("Subscribed", "Accessing the application as Subscribed user");
+				email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SubscribedUserName");
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SubscribedPassword");
+			} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+				extent.extentLogger("Non-Subscribed", "Accessing the application as Non-Subscribed user");
+				email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonsubscribedUserName");
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonsubscribedPassword");
+			}
+			if (userType.equalsIgnoreCase("SubscribedUser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+				if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
+					verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+				}
+				waitTime(3000);
+				click(PWALoginPage.objLoginBtn, "Login button");
+				waitTime(3000);
+				HeaderChildNode("Login - Method" + loginMethod);
+				switch (loginMethod) {
+
+				case "E-mail":
+					dismissAppInstallPopUp();
+					verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+					waitTime(10000);
+					// getDriver().getKeyboard().sendKeys("Bla bla");//works
+					type(PWALoginPage.objEmailField, email, "Email Field");
+					hideKeyboard();
+					waitTime(3000);
+					dismissSystemPopUp();
+					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+					type(PWALoginPage.objPasswordField, "vhgvgv" + "\n", "Password field");
+					hideKeyboard();
+					waitTime(5000);
+					directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
+					waitTime(10000);
+					break;
+
+				case "Mobile":
+					verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+					type(PWALoginPage.objEmailField, "8792396107\n", "Email Field");
+					hideKeyboard();
+					verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login butotn");
+					waitTime(3000);
+					hideKeyboard();
+					waitTime(5000);
+					verifyElementPresentAndClick(PWALoginPage.objpasswordphno, "Password field");
+					waitTime(3000);
+					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "password-field");
+					type(PWALoginPage.objPasswordField, "bhvb4223\n", "password-field");
+					hideKeyboard();
+					waitTime(2000);
+					click(PWALoginPage.objproceedphno, "Proceed button");
+					waitTime(5000);
+					break;
+
+				}
+			}
+		}
+	}
+
+	public void verifyLoginResultEventForInvalidCredentials(String userType, String loginMethod) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Result Event post entering invalid credentials");
+
+			String url = getParameterFromXML("url");
+			extent.HeaderChildNode("User-Type : " + userType + ", Environment: " + url);
+			// Get the email and password from properties
+			String email = "";
+			String password = "";
+			// dismissSystemPopUp();
+			// waitTime(3000);
+			// dismissSystemPopUp();
+			// dismissAppInstallPopUp();
+			// dismissStayTundedPopUp();
+			// dismiss3xPopUp();
+			// dismissDisplayContentLanguagePopUp();
+			// dismissSystemPopUp();
+			dismissAllPopUps();
+			if (userType.equalsIgnoreCase("Guest")) {
+				extent.extentLogger("Guest", "Accessing the application as Guest user");
+			} else if (userType.equalsIgnoreCase("SubscribedUser")) {
+				extent.extentLogger("Subscribed", "Accessing the application as Subscribed user");
+				email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SubscribedUserName");
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SubscribedPassword");
+			} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+				extent.extentLogger("Non-Subscribed", "Accessing the application as Non-Subscribed user");
+				email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonsubscribedUserName");
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonsubscribedPassword");
+			}
+			if (userType.equalsIgnoreCase("SubscribedUser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+				if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
+					verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+				}
+				waitTime(3000);
+				click(PWALoginPage.objLoginBtn, "Login button");
+				waitTime(3000);
+				HeaderChildNode("Login - Method" + loginMethod);
+				switch (loginMethod) {
+
+				case "E-mail":
+					dismissAppInstallPopUp();
+					verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+					waitTime(10000);
+					type(PWALoginPage.objEmailField, email, "Email Field");
+					hideKeyboard();
+					waitTime(3000);
+					dismissSystemPopUp();
+					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+					type(PWALoginPage.objPasswordField, "bhjvjbm" + "\n", "Password field");
+					hideKeyboard();
+					waitTime(5000);
+					directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
+					waitTime(10000);
+					break;
+
+				case "Mobile":
+					verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+					type(PWALoginPage.objEmailField, "8792396107\n", "Email Field");
+					hideKeyboard();
+					verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login butotn");
+					waitTime(3000);
+					hideKeyboard();
+					waitTime(5000);
+					verifyElementPresentAndClick(PWALoginPage.objpasswordphno, "Password field");
+					waitTime(3000);
+					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "password-field");
+					type(PWALoginPage.objPasswordField, "hbjh211\n", "password-field");
+					hideKeyboard();
+					waitTime(2000);
+					click(PWALoginPage.objproceedphno, "Proceed button");
+					waitTime(5000);
+					break;
+
+				}
+			}
+		}
+	}
+	
+	public void verifyTVAuthenticationScreenDisplayEvent(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify TV Authentication Screen Display Event");
+			click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+			waitTime(3000);
+			click(PWAHamburgerMenuPage.objAuthenticationOption, "Authenticate Device");
+			
+			JavascriptExecutor js = (JavascriptExecutor) getDriver();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			System.out.println(ID);
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "device_authentication");
+			mixpanel.FEProp.setProperty("element", "Authenticate Device");
+			mixpanel.ValidateParameter(ID, "TV Authentication Screen Display");
+		
+		}
+	}
+
+	
 }

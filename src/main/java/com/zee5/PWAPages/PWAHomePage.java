@@ -62,10 +62,6 @@ public class PWAHomePage {
 						+ text + "\")]//parent::*//following-sibling::div//div[@class='playIcon']");
 	}
 
-	// Play Btn On carousel
-	public static By objPlayBtn = By
-			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'playIcon')]");
-
 	// Carousel Banner
 	public static By objCarouselBanner = By.xpath("//div[@class=\"carouselMain\"]");
 
@@ -495,7 +491,12 @@ public class PWAHomePage {
 	
 	public static By objTrayName=By.xpath("//*[@class='trayHeader']//*[contains(text(),'Learn with Eduauraa')]");
 	
-	public static By objUpgradeBtn = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(text(),'Upgrade')]");
-	
 	public static By objGetPremiumCta = By.xpath("//div[contains(@class,'slick-active')]//*[text()='Get premium']//parent::a");
+	
+	public static By objPlayBtn = By.xpath("//div[contains(@class,'slick-slide slick-active')]//*[contains(@class,'playIcon')]");
+
+	public static By objUpgradeBtn = By.xpath("//div[contains(@class,'slick-slide slick-active')]//*[contains(text(),'Upgrade')]");
+
+	public static By objEduauraaCardCarousel = By.xpath("//h2[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
+
 }
