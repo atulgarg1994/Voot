@@ -1,5 +1,6 @@
 package com.zee5.MixpanelScripts;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -18,7 +19,7 @@ public class ApplicasterMixpanel_VideoView {
 
 	@Test(priority = 1)
 	@Parameters({ "userType" })
-	public void PWAWEBMixPanelLogin(String userType) throws Exception {
+	public void AndroidAppMixPanelLogin(String userType) throws Exception {
 		System.out.println("Login");
 		Zee5ApplicasterMixPanelBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
@@ -29,8 +30,8 @@ public class ApplicasterMixpanel_VideoView {
 	@Test(priority = 2)
 	@Parameters({ "userType"})
 	public void VideoViewEventofPremiumContent(String userType) throws Exception {
-		System.out.println("Video view event of Premium content");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		System.out.println("\nVideo view event of Premium content");
+//		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventForPremiumContent(userType,"Home");
 		
 	}
@@ -75,5 +76,11 @@ public class ApplicasterMixpanel_VideoView {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventOfContentFromUpNextRail(userType, keyword4);
 		
+	}
+	
+	@AfterTest
+	public void tearDownApp() {
+		System.out.println("Quit the App");
+		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
 }

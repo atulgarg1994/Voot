@@ -77,8 +77,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			dismissDisplayContentLanguagePopUp();
-			waitTime(3000);
+//			dismissDisplayContentLanguagePopUp();
+//			waitTime(3000);
 			break;
 
 		case "NonSubscribedUser":
@@ -619,6 +619,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("cost", cost[1]);
 			mixpanel.FEProp.setProperty("Promo Code Type", "Product");
 			mixpanel.FEProp.setProperty("Promo Code", promoCode);
+			
+			if (userType.equals("Guest")) {
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Promo Code Result");
+			} else {
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				mixpanel.ValidateParameter(local.getItem("ID"), "Promo Code Result");
+			}
 		}
 	}
 
@@ -653,6 +661,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("cost", cost[1]);
 			mixpanel.FEProp.setProperty("Promo Code Type", "Product");
 			mixpanel.FEProp.setProperty("Promo Code", promocode);
+			
+			if (userType.equals("Guest")) {
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Promo Code Result");
+			} else {
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				mixpanel.ValidateParameter(local.getItem("ID"), "Promo Code Result");
+			}
 		}
 	}
 
@@ -925,15 +941,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
-		mixpanel.FEProp.setProperty("Source", tabName);
-		mixpanel.FEProp.setProperty("Page Name", "home");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if (userType.equals("Guest")) {
-			System.out.println(local.getItem("guestToken"));
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Thumbnail Click");
-		} else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Thumbnail Click");
-		}
+
 	}
 
 	public void verifyThumbnailClickEventFromTray(String tabName) throws Exception {
@@ -5366,6 +5374,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
+		
+			mixpanel.FEProp.setProperty("Page Name", "payment_page");
+			mixpanel.FEProp.setProperty("Source", "account_info");
+			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
+			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
+			mixpanel.FEProp.setProperty("cost", cost[1]);
+			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+
 
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
@@ -5396,6 +5412,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(10000);
 			click(PWASubscriptionPages.objZeeLink, "Zee link");
 			waitTime(5000);
+	
+			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			if (UserType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Call Initiated");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Call Initiated");
+			}
 		}
 	}
 
@@ -5404,14 +5427,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 		if (!(userType.equals("SubscribedUser"))) {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
-			if (userType.equals("Guest")) {
-				mixpanel.FEProp.setProperty("Page Name", "payment_page");
-				mixpanel.FEProp.setProperty("Source", "account_info");
-				String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
-				mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
-				mixpanel.FEProp.setProperty("cost", cost[1]);
-				mixpanel.FEProp.setProperty("Payment Method", "mastercard");
-			}
+
+			mixpanel.FEProp.setProperty("Page Name", "payment_page");
+			mixpanel.FEProp.setProperty("Source", "account_info");
+			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
+			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
+			mixpanel.FEProp.setProperty("cost", cost[1]);
+			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 
@@ -5445,18 +5468,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (UserType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Call Initiated");
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Call Returned");
 			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Call Initiated");
+				mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Call Returned");
 			}
 
 		}
 	}
 
+	
+	/**
+	 * Login through ClubUser Id
+	 * 
+	 * @param userType
+	 * @param keyword6
+	 * @throws Exception
+	 */
 	public void verifySubscriptionCallInitiatedEventClubPack(String userType) throws Exception {
 		extent.HeaderChildNode("Subscription Call Initiated Event for Club pack");
 
-		if (!(userType.equals("SubscribedUser"))) {
+		if (userType.equals("ClubUser")) {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
 			click(PWASubscriptionPages.objClubPack, "Club Pack");
 			click(PWASubscriptionPages.objPackAmount1, "Pack");
