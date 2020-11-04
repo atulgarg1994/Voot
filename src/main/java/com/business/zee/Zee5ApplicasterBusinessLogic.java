@@ -5527,7 +5527,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String titleWithTrailer = resp.jsonPath().getString("buckets[0].items[0].original_title");
 		System.out.println("API Title " + titleWithTrailer);
 		verifyElementPresentAndClick(AMDUpcomingPage.objContentCard1, "Content Card");
-		String titleConsumptionScreen = getText(AMDUpcomingPage.objContentCardTitle);
+		String titleConsumptionScreen = getText(AMDUpcomingPage.objContentCardTitle1);
 		System.out.println(titleConsumptionScreen);
 		if (titleConsumptionScreen.contains(titleWithTrailer)) {
 			logger.info("Navigated to appropriate consumption screen on tapping anywhere on any content card");
@@ -6449,10 +6449,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("Content Genre : " + genre);
 			extent.extentLoggerPass("Genre", "Content Genre : " + genre);
 
-			String certificate = getDriver().findElementByXPath(AMDUpcomingPage.objContentCertificate(convertedXpath))
-					.getText();
-			logger.info("Content Certificate : " + certificate);
-			extent.extentLoggerPass("Certificate", "Content Certificate : " + certificate);
+//			String certificate = getDriver().findElementByXPath(AMDUpcomingPage.objContentCertificate(convertedXpath))
+//					.getText();
+//			logger.info("Content Certificate : " + certificate);
+//			extent.extentLoggerPass("Certificate", "Content Certificate : " + certificate);
 
 			System.out.println("Release Date " + releaseDateSplit[0]);
 			logger.info("Release Date " + releaseDateSplit[0]);
@@ -6473,6 +6473,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						"Previously released content is not listed in the upcoming section");
 			}
 			swipeByElements(findElement(AMDUpcomingPage.objGenre), findElement(AMDHomePage.objSearchinUpcoming));
+			// swipeByElements(findElement(AMDUpcomingPage.objGenre),
+			// findElement(AMDHomePage.objSearchBtn));
 			waitTime(3000);
 		}
 	}

@@ -20,7 +20,7 @@ public class ApplicasterMixpanel_VideoView {
 	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void AndroidAppMixPanelLogin(String userType) throws Exception {
-		System.out.println("Login");
+		System.out.println("\nLogin");
 		Zee5ApplicasterMixPanelBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
@@ -31,7 +31,6 @@ public class ApplicasterMixpanel_VideoView {
 	@Parameters({ "userType"})
 	public void VideoViewEventofPremiumContent(String userType) throws Exception {
 		System.out.println("\nVideo view event of Premium content");
-//		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventForPremiumContent(userType,"Home");
 		
 	}
@@ -39,7 +38,7 @@ public class ApplicasterMixpanel_VideoView {
 	@Test(priority = 3)
 	@Parameters({ "userType", "keyword3"})
 	public void VideoViewEventofTrailerContent(String userType, String keyword3) throws Exception {
-		System.out.println("Video view event of Trailer content");
+		System.out.println("\nVideo view event of Trailer content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventForTrailerContent(userType,keyword3);
 		
@@ -47,7 +46,7 @@ public class ApplicasterMixpanel_VideoView {
 
 	@Test(priority = 4)
 	public void VideoViewEventofCarouselContent() throws Exception {
-		System.out.println("Video view event of Carousel content");
+		System.out.println("\nVideo view event of Carousel content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventForCarouselContent("Home");
 	}
@@ -55,7 +54,7 @@ public class ApplicasterMixpanel_VideoView {
 	@Test(priority = 5)
 	@Parameters({ "userType","keyword4"})
 	public void VideoViewEventFromsearchpage(String userType, String keyword4) throws Exception {
-		System.out.println("Video view event of Content from Search page");
+		System.out.println("\nVideo view event of Content from Search page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventOfcontentFromSearchPage(userType, keyword4);
 	}
@@ -63,7 +62,7 @@ public class ApplicasterMixpanel_VideoView {
 	@Test(priority = 6)
 	@Parameters({ "userType"})
 	public void VideoViewEventFromMyWatchList(String userType) throws Exception {
-		System.out.println("Video view event of Content from My WatchList page");
+		System.out.println("\nVideo view event of Content from My WatchList page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventOfContentFromMyWatchListPage(userType);
 		
@@ -72,15 +71,14 @@ public class ApplicasterMixpanel_VideoView {
 	@Test(priority = 7)
 	@Parameters({ "userType", "keyword4"})
 	public void VideoViewEventFromUpNextRail(String userType, String keyword4) throws Exception {
-		System.out.println("Video view event of Content from Upnext Rail");
+		System.out.println("\nVideo view event of Content from Upnext Rail");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventOfContentFromUpNextRail(userType, keyword4);
-		
+		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventOfContentFromUpNextRail(userType, keyword4);	
 	}
 	
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println("Quit the App");
+		System.out.println("\nQuit the App");
 		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
 }

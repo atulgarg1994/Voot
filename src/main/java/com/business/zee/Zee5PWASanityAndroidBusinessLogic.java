@@ -51,7 +51,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 	ExtentReporter extent = new ExtentReporter();
 
-	@SuppressWarnings("unused")
 	private SoftAssert softAssert = new SoftAssert();
 
 	/** The Constant logger. */

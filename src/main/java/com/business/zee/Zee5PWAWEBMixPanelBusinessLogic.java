@@ -437,7 +437,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Element", "Cross");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Login");
-
 		}
 	}
 
@@ -955,6 +954,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		mixpanel.FEProp.setProperty("Source", tabName);
 		mixpanel.FEProp.setProperty("Page Name", "home");
+		mixpanel.FEProp.setProperty("Element", "Play");
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Thumbnail Click");
@@ -1424,7 +1424,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(4000);
 		click(PWASearchPage.objSearchResult(keyword), "Search Result");
 		click(PWAPremiumPage.objRightArrowBtn, "Right Arrow Button");
-
+		String TrayTitle = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getText();
+		String link = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getAttribute("href");
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(link);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		mixpanel.FEProp.setProperty("Carousal ID", value);
+		mixpanel.FEProp.setProperty("Carousal Name",TrayTitle);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
 		mixpanel.FEProp.setProperty("Element", "right-arrow");
@@ -1552,7 +1561,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void verifyQualityChangeEvent(String keyword1) throws Exception {
 
 		extent.HeaderChildNode("Verify Quality Change Event");
-
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
@@ -1595,7 +1603,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 
 		click(PWAPremiumPage.objNextArrowBtn, "Right Arrow Button");
-		
+		String TrayTitle = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getText();
+		String link = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getAttribute("href");
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(link);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		mixpanel.FEProp.setProperty("Carousal ID", value);
+		mixpanel.FEProp.setProperty("Carousal Name",TrayTitle);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Element", "right-arrow");
@@ -1656,6 +1673,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		click(PWAPremiumPage.objNextArrowBtn, "Right Arrow Button");
 		click(PWAPremiumPage.objPreviousArrowBtn, "Left Arrow Button");
+		String TrayTitle = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getText();
+		String link = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getAttribute("href");
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(link);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		mixpanel.FEProp.setProperty("Carousal ID", value);
+		mixpanel.FEProp.setProperty("Carousal Name",TrayTitle);
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "tv_shows_view_all");
 		mixpanel.FEProp.setProperty("Element", "right-arrow");

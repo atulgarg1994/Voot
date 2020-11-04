@@ -127,8 +127,9 @@ public class Mixpanel extends ExtentReporter {
 //		modelName();
 //		platform = "WEb";
 //		fetchEvent("99d6fada0cd13df4a40843d16156070e","Display Language Change"); 
-		System.out.println("1989-11-20T18:30:00Z".split("T")[0]);
-		getDOB("1989-11-20T18:30:00Z".split("T")[0]);
+//		System.out.println("1989-11-20T18:30:00Z".split("T")[0]);
+//		getDOB("1989-11-20T18:30:00Z".split("T")[0]);
+		System.out.println(validateEventTriggerTime("1604426176"));
 	}
 	
 	private static void getDOB(String s) {
@@ -202,7 +203,23 @@ public class Mixpanel extends ExtentReporter {
 				String com[] = commaSplit[i].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 				/** Write key value into excel */
 				write(i, com[0].replace("\"", "").replace("$", ""), com[1].replace("\"", "").replace("$", ""));
+				if( i == 1) {
+					if(validateEventTriggerTime(com[1].replace("\"", "").replace("$", ""))) {
+						break;
+					}
+				}
 			}
+		}
+	}
+
+	private static boolean validateEventTriggerTime(String time) {
+		int eventTime = Integer.valueOf(time);
+		int elapseTime = (eventTime+360); 
+		System.out.println(eventTime+"  "+elapseTime);
+		if(eventTime < elapseTime) {
+			return true;
+		}else {
+			return false;
 		}
 	}
 

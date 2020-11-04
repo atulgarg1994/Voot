@@ -1,5 +1,6 @@
 package com.zee5.MixpanelScripts;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -18,7 +19,7 @@ public class ApplicasterMixpanel_VideoExit {
 
 	@Test(priority = 1)
 	@Parameters({ "userType" })
-	public void PWAWEBMixPanelLogin(String userType) throws Exception {
+	public void AndroidAppMixPanelLogin(String userType) throws Exception {
 		System.out.println("Login");
 		Zee5ApplicasterMixPanelBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
@@ -29,8 +30,7 @@ public class ApplicasterMixpanel_VideoExit {
 	@Test(priority = 2)
 	@Parameters({ "userType"})
 	public void VideoViewExitofPremiumContent(String userType) throws Exception {
-		System.out.println("Video exit event of Premium content");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		System.out.println("\nVideo exit event of Premium content");
 		Zee5ApplicasterMixPanelBusinessLogic.videoExitEventForPremiumContent(userType,"Home");
 		
 	}
@@ -38,7 +38,7 @@ public class ApplicasterMixpanel_VideoExit {
 	@Test(priority = 3)
 	@Parameters({ "userType", "keyword3"})
 	public void VideoExitEventofTrailerContent(String userType, String keyword3) throws Exception {
-		System.out.println("Video exit event of Trailer content");
+		System.out.println("\nVideo exit event of Trailer content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.videoExitEventForTrailerContent(userType,keyword3);
 		
@@ -46,7 +46,7 @@ public class ApplicasterMixpanel_VideoExit {
 
 	@Test(priority = 4)
 	public void VideoExitEventofCarouselContent() throws Exception {
-		System.out.println("Video exit event of Carousel content");
+		System.out.println("\nVideo exit event of Carousel content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.videoExitEventForCarouselContent("Home");
 	}
@@ -54,7 +54,7 @@ public class ApplicasterMixpanel_VideoExit {
 	@Test(priority = 5)
 	@Parameters({ "userType","keyword4"})
 	public void VideoExitEventFromsearchpage(String userType, String keyword4) throws Exception {
-		System.out.println("Video exit event of Content from Search page");
+		System.out.println("\nVideo exit event of Content from Search page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.videoExitEventOfcontentFromSearchPage(userType, keyword4);
 	}
@@ -62,7 +62,7 @@ public class ApplicasterMixpanel_VideoExit {
 	@Test(priority = 6)
 	@Parameters({ "userType"})
 	public void VideoExitEventFromMyWatchList(String userType) throws Exception {
-		System.out.println("Video exit event of Content from My WatchList page");
+		System.out.println("\nVideo exit event of Content from My WatchList page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.videoExitEventOfContentFromMyWatchListPage(userType);
 		
@@ -71,9 +71,14 @@ public class ApplicasterMixpanel_VideoExit {
 	@Test(priority = 7)
 	@Parameters({ "userType", "keyword4"})
 	public void VideoExitEventFromUpNextRail(String userType, String keyword4) throws Exception {
-		System.out.println("Video exit event of Content from Upnext Rail");
+		System.out.println("\nVideo exit event of Content from Upnext Rail");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.videoExitEventOfContentFromUpNextRail(userType, keyword4);
-		
+		Zee5ApplicasterMixPanelBusinessLogic.videoExitEventOfContentFromUpNextRail(userType, keyword4);	
+	}
+	
+	@AfterTest
+	public void tearDownApp() {
+		System.out.println("\nQuit the App");
+		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
 }

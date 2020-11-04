@@ -88,5 +88,7 @@ public class AMDPlayerScreen {
 	public static By objAd2 = By.xpath("(//*[contains(text(),'Ad 1')]) | //*[contains(text(),'Ad 2')] | //*[contains(text(),'Ad :')]");
 	
 	public static By objLoginButtonInRegisterPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/tvLogin']");
+	
+	public static By objLearnMoreTextOnAdPlayBack = By.xpath("//*[contains(text(),'Learn More')]");
 
 }

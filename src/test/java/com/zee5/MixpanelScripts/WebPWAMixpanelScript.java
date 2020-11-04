@@ -35,7 +35,6 @@ public class WebPWAMixpanelScript {
 		System.out.println("Verify Resume Event For Free Content");
 		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForFreeContent(userType,keyword4);
 	}
-
 	
 //	@Test(priority = 4)
 	@Parameters({ "userType", "keyword" })
@@ -50,7 +49,6 @@ public class WebPWAMixpanelScript {
 		System.out.println("Verify Skip Login Event during content playback post clicking on login button in Get Premium popup");
 		Zee5PWAWEBMixPanelBusinessLogic.verifySkipLoginByClickingOnLoginInGetPremiumPopUp(userType,keyword2);
 	}
-	
 	
 //	@Test(priority = 5)
 	@Parameters({ "userType" })

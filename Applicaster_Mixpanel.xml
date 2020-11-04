@@ -34,9 +34,9 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 	
-	<test name="ApplicasterMixpanelScript">
+	<test name="ZNAMixpanel_PlayerViewChanged">
 		<classes>
-			<class name="com.zee5.PWAMixpanelScripts.ApplicasterMixpanelScript" />
+			<class name="com.zee5.MixpanelScripts.ZNAMixpanel_PlayerViewChanged" />
 		</classes>
 	</test>
 
