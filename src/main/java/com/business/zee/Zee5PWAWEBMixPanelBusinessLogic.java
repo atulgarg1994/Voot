@@ -1672,10 +1672,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
 		click(PWAPremiumPage.objNextArrowBtn, "Right Arrow Button");
-		click(PWAPremiumPage.objPreviousArrowBtn, "Left Arrow Button");
 		String TrayTitle = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getText();
 		String link = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getAttribute("href");
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
 		Matcher m = p.matcher(link);
 		String value = null;
 		while (m.find()) {
@@ -1954,9 +1953,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Video Autoplay", "true");
 		mixpanel.FEProp.setProperty("Tab Name", "news_landing");
-
-		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		String id = findElement(PWANewsPage.objAutoPlayContent).getAttribute("href");
+		Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
 		Matcher m = p.matcher(id);
 		String value = null;
 		while (m.find()) {

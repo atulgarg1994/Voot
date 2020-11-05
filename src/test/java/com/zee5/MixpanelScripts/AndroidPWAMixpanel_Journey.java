@@ -166,154 +166,154 @@ public class AndroidPWAMixpanel_Journey {
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyCarouselBannerSwipeEvent("Shows");
 	}
 
-	@Test(priority = 22)
-	@Parameters({ "keyword" })
-	public void verifyViewMoreSelectedEventFromShowDetailPage(String keyword) throws Exception {
-		System.out.println("Verify View More Selected Event For content played from Show detail page");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyViewMoreSelectedEventFromShowDetailPage(keyword);
-	}
-
-	@Test(priority = 23)
-	@Parameters({ "audioTrackContent", "userType" })
-	public void verifyViewMoreSelectedEventFromPlaybackPage(String audioTrackContent, String userType)
-			throws Exception {
-		System.out.println("Verify View More Selected Event For content played from Playback page");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyViewMoreSelectedEventFromPlaybackPage(audioTrackContent, userType);
-	}
-
-	@Test(priority = 24)
-	public void verifyViewMoreSelectedEventFromTray() throws Exception {
-		System.out.println("Verify View More Selected Event For content played from Tray");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyViewMoreSelectedEventFromTray();
-	}
-
-	@Test(priority = 25)
-	@Parameters({ "userType", "keyword1" })
-	public void verifyAddtoWatchlistFromPlaybackPage(String keyword1, String userType) throws Exception {
-		System.out.println("Verify Add to Watchlist Event From Playback Page");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyAddtoWatchlistFromPlaybackPage(userType, keyword1);
-	}
-
-	@Test(priority = 26)
-	@Parameters({ "userType", "keyword" })
-	public void verifyAddToWatchlistEventFromShowDetailPage(String userType, String keyword) throws Exception {
-		System.out.println("Verify Add To Watchlist Event from show detail page");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyAddToWatchlistEventFromShowDetailPage(userType, keyword);
-	}
-
-	@Test(priority = 27)
-	@Parameters({ "keyword1" })
-	public void verifyShareEventFromPlaybackPage(String keyword1) throws Exception {
-		System.out.println("Verify Share Event From Playback Page");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyShareEventFromPlaybackPage(keyword1);
-	}
-
-	@Test(priority = 28)
-	public void verifyShareEventForUpcomingProgram() throws Exception {
-		System.out.println("Verify Share Event for Upcoming Program");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyShareEventForUpcomingProgram();
-	}
-
-	@Test(priority = 29)
-	@Parameters({ "keyword" })
-	public void verifyShareEventFromShowDetailPage(String keyword) throws Exception {
-		System.out.println("Verify Share Event From Show Detail Page");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyShareEventFromShowDetailPage(keyword);
-	}
-
-	@Test(priority = 30)
-	@Parameters({ "userType" })
-	public void verifySettingChangedEventAfterAccountVerification(String userType) throws Exception {
-		System.out.println("Verify Setting Changed Event when Parental Control Account Verification is done");
-		Zee5PWAMixPanelAndroidBusinessLogic.relaunch(true);
-		Zee5PWAMixPanelAndroidBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
-		Zee5PWAMixPanelAndroidBusinessLogic.verifySettingChangedEventAfterAccountVerification(userType);
-	}
-
-	@Test(priority = 31)
-	@Parameters({ "userType" })
-	public void verifySettingChangedEventAfterParentalPinIsSet(String userType) throws Exception {
-		System.out.println("Verify Setting Changed Event when Parental Control PIN is Set");
-		Zee5PWAMixPanelAndroidBusinessLogic.relaunch(true);
-		Zee5PWAMixPanelAndroidBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
-		Zee5PWAMixPanelAndroidBusinessLogic.verifySettingChangedEventAfterParentalPinIsSet(userType);
-	}
-
-	@Test(priority = 32)
-	@Parameters({ "userType" })
-	public void verifySettingChangedEventAfterAgeIsSet(String userType) throws Exception {
-		System.out.println("Verify Setting Changed Event when Parental Control Age is Set");
-		Zee5PWAMixPanelAndroidBusinessLogic.relaunch(true);
-		Zee5PWAMixPanelAndroidBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
-		Zee5PWAMixPanelAndroidBusinessLogic.verifySettingChangedEventAfterAgeIsSet(userType);
-	}
-
-	@Test(priority = 33)
-	@Parameters({ "userType", "keyword6" })
-	public void verifyPopUpCTAsEvent(String userType, String keyword6) throws Exception {
-		System.out.println("Verify Pop Up CTA's Event when user clicks on CTA button displayed on the popup");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyPopUpCTAsEvent(userType, keyword6);
-	}
-
-	@Test(priority = 34)
-	@Parameters({ "userType" })
-	public void verifyLoginUsernameEnteredEvent(String userType) throws Exception {
-		System.out.println("Verify Login Username Entered Event");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyLoginUsernameEnteredEvent(userType, "UserName");
-	}
-
-	@Test(priority = 35)
-	@Parameters({ "userType" })
-	public void verifyLoginPasswordEnteredEvent(String userType) throws Exception {
-		System.out.println("Verify Login Password Entered Event");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyLoginUsernameEnteredEvent(userType, "Password");
-	}
-
-	@Test(priority = 36)
-	public void verifySearchCancelledEvent() throws Exception {
-		System.out.println("Verify Search Cancelled Event");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifySearchCancelledEvent();
-	}
-
-	@Test(priority = 37)
-	public void verifyAdBannerImpressionEvent(String tabName) throws Exception {
-		System.out.println("Verify Ad Banner Impression Event");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdBannerImpressionEvent("Shows");
-	}
-
-	@Test(priority = 38)
-	@Parameters({ "userType" })
-	public void verifyProfileUpdateResultEvent(String userType) throws Exception {
-		System.out.println("Verify Profile Update Result Event");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyProfileUpdateResultEvent(userType);
-	}
-
-	@Test(priority = 39)
-	@Parameters({ "keyword" })
-	public void verifyEpisodeListChosenEventFromShowDetailPage(String keyword) throws Exception {
-		System.out.println("Verify Episode List Chosen Event in Show Detail page");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyEpisodeListChosenEventFromShowDetailPage(keyword);
-	}
-
-	@Test(priority = 40)
-	@Parameters({ "keyword" })
-	public void verifyContentBucketSwipeEventFromShowDetailPage(String keyword) throws Exception {
-		System.out.println("Verify Content Bucket Swipe Event in Show Detail page");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyContentBucketSwipeEventFromShowDetailPage(keyword);
-	}
-
-	@Test(priority = 41)
-	public void verifyContentBucketSwipeEvent() throws Exception {
-		System.out.println("Verify Content Bucket Swipe Event");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyContentBucketSwipeEvent("Shows");
-	}
-
-	@Test(priority = 42)
-	@Parameters({ "userType", "keyword1" })
-	public void verifyContentBucketSwipeEventInPlaybackPage(String keyword1) throws Exception {
-		System.out.println("Verify Quality Change Event");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyContentBucketSwipeEventInPlaybackPage(keyword1);
-	}
+//	@Test(priority = 22)
+//	@Parameters({ "keyword" })
+//	public void verifyViewMoreSelectedEventFromShowDetailPage(String keyword) throws Exception {
+//		System.out.println("Verify View More Selected Event For content played from Show detail page");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyViewMoreSelectedEventFromShowDetailPage(keyword);
+//	}
+//
+//	@Test(priority = 23)
+//	@Parameters({ "audioTrackContent", "userType" })
+//	public void verifyViewMoreSelectedEventFromPlaybackPage(String audioTrackContent, String userType)
+//			throws Exception {
+//		System.out.println("Verify View More Selected Event For content played from Playback page");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyViewMoreSelectedEventFromPlaybackPage(audioTrackContent, userType);
+//	}
+//
+//	@Test(priority = 24)
+//	public void verifyViewMoreSelectedEventFromTray() throws Exception {
+//		System.out.println("Verify View More Selected Event For content played from Tray");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyViewMoreSelectedEventFromTray();
+//	}
+//
+//	@Test(priority = 25)
+//	@Parameters({ "userType", "keyword1" })
+//	public void verifyAddtoWatchlistFromPlaybackPage(String keyword1, String userType) throws Exception {
+//		System.out.println("Verify Add to Watchlist Event From Playback Page");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyAddtoWatchlistFromPlaybackPage(userType, keyword1);
+//	}
+//
+//	@Test(priority = 26)
+//	@Parameters({ "userType", "keyword" })
+//	public void verifyAddToWatchlistEventFromShowDetailPage(String userType, String keyword) throws Exception {
+//		System.out.println("Verify Add To Watchlist Event from show detail page");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyAddToWatchlistEventFromShowDetailPage(userType, keyword);
+//	}
+//
+//	@Test(priority = 27)
+//	@Parameters({ "keyword1" })
+//	public void verifyShareEventFromPlaybackPage(String keyword1) throws Exception {
+//		System.out.println("Verify Share Event From Playback Page");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyShareEventFromPlaybackPage(keyword1);
+//	}
+//
+//	@Test(priority = 28)
+//	public void verifyShareEventForUpcomingProgram() throws Exception {
+//		System.out.println("Verify Share Event for Upcoming Program");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyShareEventForUpcomingProgram();
+//	}
+//
+//	@Test(priority = 29)
+//	@Parameters({ "keyword" })
+//	public void verifyShareEventFromShowDetailPage(String keyword) throws Exception {
+//		System.out.println("Verify Share Event From Show Detail Page");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyShareEventFromShowDetailPage(keyword);
+//	}
+//
+//	@Test(priority = 30)
+//	@Parameters({ "userType" })
+//	public void verifySettingChangedEventAfterAccountVerification(String userType) throws Exception {
+//		System.out.println("Verify Setting Changed Event when Parental Control Account Verification is done");
+//		Zee5PWAMixPanelAndroidBusinessLogic.relaunch(true);
+//		Zee5PWAMixPanelAndroidBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifySettingChangedEventAfterAccountVerification(userType);
+//	}
+//
+//	@Test(priority = 31)
+//	@Parameters({ "userType" })
+//	public void verifySettingChangedEventAfterParentalPinIsSet(String userType) throws Exception {
+//		System.out.println("Verify Setting Changed Event when Parental Control PIN is Set");
+//		Zee5PWAMixPanelAndroidBusinessLogic.relaunch(true);
+//		Zee5PWAMixPanelAndroidBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifySettingChangedEventAfterParentalPinIsSet(userType);
+//	}
+//
+//	@Test(priority = 32)
+//	@Parameters({ "userType" })
+//	public void verifySettingChangedEventAfterAgeIsSet(String userType) throws Exception {
+//		System.out.println("Verify Setting Changed Event when Parental Control Age is Set");
+//		Zee5PWAMixPanelAndroidBusinessLogic.relaunch(true);
+//		Zee5PWAMixPanelAndroidBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifySettingChangedEventAfterAgeIsSet(userType);
+//	}
+//
+//	@Test(priority = 33)
+//	@Parameters({ "userType", "keyword6" })
+//	public void verifyPopUpCTAsEvent(String userType, String keyword6) throws Exception {
+//		System.out.println("Verify Pop Up CTA's Event when user clicks on CTA button displayed on the popup");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyPopUpCTAsEvent(userType, keyword6);
+//	}
+//
+//	@Test(priority = 34)
+//	@Parameters({ "userType" })
+//	public void verifyLoginUsernameEnteredEvent(String userType) throws Exception {
+//		System.out.println("Verify Login Username Entered Event");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyLoginUsernameEnteredEvent(userType, "UserName");
+//	}
+//
+//	@Test(priority = 35)
+//	@Parameters({ "userType" })
+//	public void verifyLoginPasswordEnteredEvent(String userType) throws Exception {
+//		System.out.println("Verify Login Password Entered Event");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyLoginUsernameEnteredEvent(userType, "Password");
+//	}
+//
+//	@Test(priority = 36)
+//	public void verifySearchCancelledEvent() throws Exception {
+//		System.out.println("Verify Search Cancelled Event");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifySearchCancelledEvent();
+//	}
+//
+//	@Test(priority = 37)
+//	public void verifyAdBannerImpressionEvent(String tabName) throws Exception {
+//		System.out.println("Verify Ad Banner Impression Event");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdBannerImpressionEvent("Shows");
+//	}
+//
+//	@Test(priority = 38)
+//	@Parameters({ "userType" })
+//	public void verifyProfileUpdateResultEvent(String userType) throws Exception {
+//		System.out.println("Verify Profile Update Result Event");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyProfileUpdateResultEvent(userType);
+//	}
+//
+//	@Test(priority = 39)
+//	@Parameters({ "keyword" })
+//	public void verifyEpisodeListChosenEventFromShowDetailPage(String keyword) throws Exception {
+//		System.out.println("Verify Episode List Chosen Event in Show Detail page");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyEpisodeListChosenEventFromShowDetailPage(keyword);
+//	}
+//
+//	@Test(priority = 40)
+//	@Parameters({ "keyword" })
+//	public void verifyContentBucketSwipeEventFromShowDetailPage(String keyword) throws Exception {
+//		System.out.println("Verify Content Bucket Swipe Event in Show Detail page");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyContentBucketSwipeEventFromShowDetailPage(keyword);
+//	}
+//
+//	@Test(priority = 41)
+//	public void verifyContentBucketSwipeEvent() throws Exception {
+//		System.out.println("Verify Content Bucket Swipe Event");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyContentBucketSwipeEvent("Shows");
+//	}
+//
+//	@Test(priority = 42)
+//	@Parameters({ "userType", "keyword1" })
+//	public void verifyContentBucketSwipeEventInPlaybackPage(String keyword1) throws Exception {
+//		System.out.println("Verify Quality Change Event");
+//		Zee5PWAMixPanelAndroidBusinessLogic.verifyContentBucketSwipeEventInPlaybackPage(keyword1);
+//	}
 
 	@AfterClass
 	public void tearDown() {

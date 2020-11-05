@@ -16,7 +16,7 @@
 
 	<parameter name="browserType" value="chrome" />
 
-	<parameter name="userType" value="NonSubscribedUser" />
+	<parameter name="userType" value="Guest" />
 
 	<!-- Guest/NonSubscribedUser/SubscribedUser -->
 
@@ -37,11 +37,7 @@
 		value="zeetest10@test.com" />
 	<parameter name="SubscribedPassword" value="123456" />
 
-	<parameter name="SubscribedUserName"
-		value="thomas.cutinha1@gmail.com" />
-
-	<parameter name="SubscribedPassword" value="tani123" />
-
+	
 	<parameter name="devicePin" value="1619" />
 
 	
@@ -82,9 +78,9 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 	
-  <test name="AndroidPWAMixpanelScript">
+  <test name="AndroidPWAMixpanel_PlayerEvents">
     <classes>
-      <class name="com.zee5.MixpanelScripts.AndroidPWAMixpanelScript"/>
+      <class name="com.zee5.MixpanelScripts.AndroidPWAMixpanel_PlayerEvents"/>
     </classes>
   </test>
 </suite>

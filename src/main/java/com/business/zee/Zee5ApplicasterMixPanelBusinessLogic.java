@@ -1899,18 +1899,18 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			logger.info("Player inline subscription link is displayed");
 			extentLoggerPass("Player screen", "Player inline subscription link is displayed");
 		}
-		
+
 		waitTime(3000);
 		mixpanel.FEProp.setProperty("Source", "home");
-    	mixpanel.FEProp.setProperty("Page Name", "home");
-    	mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-    	mixpanel.FEProp.setProperty("User Type", "guest");
-    	mixpanel.FEProp.setProperty("Ad ID", "524fdf1b-3577-4379-bbb4-cf004da5f120");
-    	mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-    	mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
-    	mixpanel.FEProp.setProperty("Video View", "1");
-    	mixpanel.ValidateParameter("", "Video View");
-		
+		mixpanel.FEProp.setProperty("Page Name", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("User Type", "guest");
+		mixpanel.FEProp.setProperty("Ad ID", "524fdf1b-3577-4379-bbb4-cf004da5f120");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+		mixpanel.FEProp.setProperty("Video View", "1");
+		mixpanel.ValidateParameter("", "Video View");
+
 	}
 
 	public void videoViewEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
@@ -1933,16 +1933,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		waitTime(4000);
-		
+
 		mixpanel.FEProp.setProperty("Source", "home");
-    	mixpanel.FEProp.setProperty("Page Name", "home");
-    	mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-    	mixpanel.FEProp.setProperty("User Type", "guest");
-    	mixpanel.FEProp.setProperty("Ad ID", "524fdf1b-3577-4379-bbb4-cf004da5f120");
-    	mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-    	mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
-    	mixpanel.FEProp.setProperty("Video View", "1");
-    	mixpanel.ValidateParameter("", "Video View");
+		mixpanel.FEProp.setProperty("Page Name", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("User Type", "guest");
+		mixpanel.FEProp.setProperty("Ad ID", "524fdf1b-3577-4379-bbb4-cf004da5f120");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+		mixpanel.FEProp.setProperty("Video View", "1");
+		mixpanel.ValidateParameter("", "Video View");
 	}
 
 	public void videoViewEventOfContentFromMyWatchListPage(String usertype) throws Exception {
@@ -1952,70 +1952,71 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			click(AMDMoreMenu.objWatchlist, "Watchlist option");
 			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
 			waitTime(5000);
-			boolean flag=false;
-			boolean contentsInMoviesTab = verifyIsElementDisplayed(AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
+			boolean flag = false;
+			boolean contentsInMoviesTab = verifyIsElementDisplayed(
+					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
 			if (contentsInMoviesTab == true) {
 				getDriver()
 						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
 						.click();
 				waitTime(5000);
 				verifyIsElementDisplayed(AMDPlayerScreen.objPlayer, "Player screen");
-				flag=true;
+				flag = true;
 			} else {
 				logger.info("No contents in Watchlist");
 				extentLoggerWarning("Watchlist", "No contents in Watchlist");
 			}
-			if(flag) {
+			if (flag) {
 				waitTime(3000);
 				mixpanel.FEProp.setProperty("Source", "home");
-		    	mixpanel.FEProp.setProperty("Page Name", "home");
-		    	mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		    	mixpanel.FEProp.setProperty("User Type", "guest");
-		    	mixpanel.FEProp.setProperty("Ad ID", "524fdf1b-3577-4379-bbb4-cf004da5f120");
-		    	mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		    	mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
-		    	mixpanel.FEProp.setProperty("Video View", "1");
-		    	mixpanel.ValidateParameter("", "Video View");
-			}	
-		}else {
-			logger.info("Watchlist is not applicable for "+usertype);
-			extentLogger("Guest User", "Watchlist is not applicable for "+usertype);			
+				mixpanel.FEProp.setProperty("Page Name", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("User Type", "guest");
+				mixpanel.FEProp.setProperty("Ad ID", "524fdf1b-3577-4379-bbb4-cf004da5f120");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+				mixpanel.FEProp.setProperty("Video View", "1");
+				mixpanel.ValidateParameter("", "Video View");
+			}
+		} else {
+			logger.info("Watchlist is not applicable for " + usertype);
+			extentLogger("Guest User", "Watchlist is not applicable for " + usertype);
 		}
 	}
 
 	public void videoViewEventForTrailerContent(String usertype, String keyword3) throws Exception {
-    	extent.HeaderChildNode("Verify Video View event for Trailer content");
-    	click(AMDSearchScreen.objSearchIcon, "Search icon");
-    	click(AMDSearchScreen.objSearchEditBox, "Search Box");
-    	type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
-    	hideKeyboard();
-    	waitTime(4000);
-    	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-    	click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-    	waitForElementDisplayed(AMDPlayerScreen.objPlayer, 30);
-    	verifyIsElementDisplayed(AMDPlayerScreen.objPlayer);
-    	if(usertype.equalsIgnoreCase("SubscribedUser")) {
-    		verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
-    	}
-    	waitTime(5000);
-    	mixpanel.FEProp.setProperty("Source", "home");
-    	mixpanel.FEProp.setProperty("Page Name", "home");
-    	mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-    	mixpanel.FEProp.setProperty("Video View", "1");
-    	mixpanel.ValidateParameter("", "Video View");
-    }
+		extent.HeaderChildNode("Verify Video View event for Trailer content");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 30);
+		verifyIsElementDisplayed(AMDPlayerScreen.objPlayer);
+		if (usertype.equalsIgnoreCase("SubscribedUser")) {
+			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
+		}
+		waitTime(5000);
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Video View", "1");
+		mixpanel.ValidateParameter("", "Video View");
+	}
 
 	public void videoViewEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
-    	extent.HeaderChildNode("Verify Video View event of content from Upnext rail");
-    	click(AMDSearchScreen.objSearchIcon, "Search icon");
-    	click(AMDSearchScreen.objSearchEditBox, "Search Box");
-    	type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
-    	hideKeyboard();
-    	waitTime(4000);
-    	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-    	click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-    	waitTime(8000);
-    	Swipe("UP", 1);
+		extent.HeaderChildNode("Verify Video View event of content from Upnext rail");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitTime(8000);
+		Swipe("UP", 1);
 		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
 			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
 		}
@@ -2028,17 +2029,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		verifyIsElementDisplayed(AMDPlayerScreen.objPlayer);
 		waitTime(5000);
-		
+
 		mixpanel.FEProp.setProperty("Source", "home");
-    	mixpanel.FEProp.setProperty("Page Name", "home");
-    	mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-    	mixpanel.FEProp.setProperty("User Type", "guest");
-    	mixpanel.FEProp.setProperty("Ad ID", "524fdf1b-3577-4379-bbb4-cf004da5f120");
-    	mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-    	mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
-    	mixpanel.FEProp.setProperty("Video View", "1");
-    	mixpanel.ValidateParameter("", "Video View");
-    }
+		mixpanel.FEProp.setProperty("Page Name", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("User Type", "guest");
+		mixpanel.FEProp.setProperty("Ad ID", "524fdf1b-3577-4379-bbb4-cf004da5f120");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+		mixpanel.FEProp.setProperty("Video View", "1");
+		mixpanel.ValidateParameter("", "Video View");
+	}
 
 	public void videoExitEventForPremiumContent(String usertype, String tabName) throws Exception {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
@@ -2046,21 +2047,21 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			waitTime(10000);
 			SelectTopNavigationTab(tabName);
 			Swipe("UP", 1);
-			boolean var = false, flag=false;
+			boolean var = false, flag = false;
 			for (int i = 0; i < 3; i++) {
 				var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
 				if (var == true) {
 					verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
 					verifyIsElementDisplayed(AMDPlayerScreen.objPlayer, "Player screen");
 					waitTime(3000);
-					flag=true;
+					flag = true;
 					Back(1);
 					break;
 				} else {
 					Swipe("UP", 1);
 				}
 			}
-			if(flag) {
+			if (flag) {
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Page Name", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -2096,7 +2097,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 		waitTime(5000);
 		Back(1);
-		
+
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -2109,7 +2110,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		Mixpanel.ValidateParameter("", "Video Exit");
 	}
 
-public void videoExitEventForCarouselContent(String tabName) throws Exception {
+	public void videoExitEventForCarouselContent(String tabName) throws Exception {
 		extent.HeaderChildNode("Video Exit Event for carousel content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
@@ -2124,7 +2125,7 @@ public void videoExitEventForCarouselContent(String tabName) throws Exception {
 			extentLoggerPass("Player screen", "Player inline subscription link is displayed");
 		}
 		Back(1);
-		
+
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -2136,8 +2137,8 @@ public void videoExitEventForCarouselContent(String tabName) throws Exception {
 		mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
 		Mixpanel.ValidateParameter("", "Video Exit");
 	}
-	
-public void videoExitEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+
+	public void videoExitEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("Video Exit Event of content from search page");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -2158,7 +2159,7 @@ public void videoExitEventOfcontentFromSearchPage(String usertype, String keywor
 		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
 		waitTime(4000);
 		Back(2);
-		
+
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -2171,7 +2172,7 @@ public void videoExitEventOfcontentFromSearchPage(String usertype, String keywor
 		mixpanel.ValidateParameter("", "Video Exit");
 	}
 
-public void videoExitEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+	public void videoExitEventOfContentFromMyWatchListPage(String usertype) throws Exception {
 		if (!(usertype.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Video Exit Event of content from My WatchList page");
 			click(AMDHomePage.objMoreMenu, "More menu");
@@ -2187,7 +2188,7 @@ public void videoExitEventOfContentFromMyWatchListPage(String usertype) throws E
 				waitTime(5000);
 				verifyIsElementDisplayed(AMDPlayerScreen.objPlayer, "Player screen");
 				Back(3);
-				
+
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Page Name", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -2198,7 +2199,7 @@ public void videoExitEventOfContentFromMyWatchListPage(String usertype) throws E
 				mixpanel.FEProp.setProperty("New App Language", "en");
 				mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
 				Mixpanel.ValidateParameter("", "Video Exit");
-				
+
 			} else {
 				logger.info("No contents in Watchlist");
 				extentLoggerWarning("Watchlist", "No contents in Watchlist");
@@ -2208,7 +2209,7 @@ public void videoExitEventOfContentFromMyWatchListPage(String usertype) throws E
 
 	}
 
-public void videoExitEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+	public void videoExitEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("Verify Video Exit event of content from Upnext rail");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -2231,7 +2232,7 @@ public void videoExitEventOfContentFromUpNextRail(String usertype, String keywor
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		verifyIsElementDisplayed(AMDPlayerScreen.objPlayer);
 		Back(2);
-		
+
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -2244,89 +2245,62 @@ public void videoExitEventOfContentFromUpNextRail(String usertype, String keywor
 		Mixpanel.ValidateParameter("", "Video Exit");
 	}
 
-public void playerViewChangedEventForPremiumContent(String usertype, String tabName) throws Exception {
-	if (userType.equalsIgnoreCase("SubscribedUser")) {
-		extent.HeaderChildNode("Player View Changed Event for premium content");
-		waitTime(10000);
-		SelectTopNavigationTab(tabName);
-		Swipe("UP", 1);
-		boolean var = false;
-		for (int i = 0; i < 3; i++) {
-			var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
-			if (var == true) {
-				verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
-				verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-				verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
-				verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-				waitTime(4000);
-				
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-				mixpanel.FEProp.setProperty("New App Language", "en");
-				mixpanel.ValidateParameter("", "Player View Changed");
-				
-				break;
-			} else {
-				Swipe("UP", 1);
+	public void playerViewChangedEventForPremiumContent(String usertype, String tabName) throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Player View Changed Event for premium content");
+			waitTime(10000);
+			SelectTopNavigationTab(tabName);
+			Swipe("UP", 1);
+			boolean var = false;
+			for (int i = 0; i < 3; i++) {
+				var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
+				if (var == true) {
+					verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
+					verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+					verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+					verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+					waitTime(4000);
+
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New App Language", "en");
+					mixpanel.ValidateParameter("", "Player View Changed");
+
+					break;
+				} else {
+					Swipe("UP", 1);
+				}
+			}
+			if (var == false) {
+				logger.info("Premium content is not displayed in the screen");
+				extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
 			}
 		}
-		if (var == false) {
-			logger.info("Premium content is not displayed in the screen");
-			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
+	}
+
+	public void PlayerViewChangedEventForTrailerContent(String usertype, String keyword3) throws Exception {
+		extent.HeaderChildNode("Player View Changed event for Trailer content");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 10);
+		if (usertype.equalsIgnoreCase("SubscribedUser")) {
+			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
 		}
-	}
-}
-
-public void PlayerViewChangedEventForTrailerContent(String usertype, String keyword3) throws Exception {
-	extent.HeaderChildNode("Player View Changed event for Trailer content");
-	click(AMDSearchScreen.objSearchIcon, "Search icon");
-	click(AMDSearchScreen.objSearchEditBox, "Search Box");
-	type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
-	hideKeyboard();
-	waitTime(4000);
-	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-	click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-	waitForElementDisplayed(AMDPlayerScreen.objPlayer, 10);
-	if (usertype.equalsIgnoreCase("SubscribedUser")) {
-		verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
-	}
-	waitTime(6000);
-	verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-	verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-	verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
-	verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-	waitTime(5000);
-	
-	mixpanel.FEProp.setProperty("Source", "home");
-	mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-	mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-	mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-	mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-	mixpanel.FEProp.setProperty("New App Language", "en");
-	mixpanel.ValidateParameter("", "Player View Changed");
-
-}
-
-public void PlayerViewChangedEventForCarouselContent(String tabName) throws Exception {
-	extent.HeaderChildNode("Player View Changed Event for carousel content");
-	waitTime(10000);
-	SelectTopNavigationTab(tabName);
-	verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
-	waitForElementDisplayed(AMDPlayerScreen.objPlayer, 20);
-	Boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objPlayer);
-	if (var == true) {
-		logger.info("Player screen is displayed");
-		extentLoggerPass("Player screen", "Player screen is displayed");
 		waitTime(6000);
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		waitTime(5000);
-		
+
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
@@ -2334,64 +2308,26 @@ public void PlayerViewChangedEventForCarouselContent(String tabName) throws Exce
 		mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 		mixpanel.FEProp.setProperty("New App Language", "en");
 		mixpanel.ValidateParameter("", "Player View Changed");
-		
-	} else if (verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer)) {
-		logger.info("Player inline subscription link is displayed");
-		extentLoggerPass("Player screen", "Player inline subscription link is displayed");
-	}
-}
 
-public void PlayerViewChangedEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
-	extent.HeaderChildNode("Player View Changed Event of content from search page");
-	click(AMDSearchScreen.objSearchIcon, "Search icon");
-	click(AMDSearchScreen.objSearchEditBox, "Search Box");
-	type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
-	hideKeyboard();
-	waitTime(4000);
-	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-	click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-	if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-		waitForAdToFinishInAmd();
 	}
-	registerPopUpClose();
-	completeProfilePopUpClose(usertype);
-	waitTime(4000);
-	verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-	verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-	verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
-	verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-	Back(2);
-	waitTime(4000);
-	
-	mixpanel.FEProp.setProperty("Source", "home");
-	mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-	mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-	mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-	mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-	mixpanel.FEProp.setProperty("New App Language", "en");
-	mixpanel.ValidateParameter("", "Player View Changed");
-}
 
-public void PlayerViewChangedEventOfContentFromMyWatchListPage(String usertype) throws Exception {
-	if (!(usertype.equalsIgnoreCase("Guest"))) {
-		extent.HeaderChildNode("Player View Changed Event of content from My WatchList page");
-		click(AMDHomePage.objMoreMenu, "More menu");
-		click(AMDMoreMenu.objWatchlist, "Watchlist option");
-		click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
-		waitTime(5000);
-		boolean contentsInMoviesTab = verifyIsElementDisplayed(
-				AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
-		if (contentsInMoviesTab == true) {
-			getDriver()
-					.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
-					.click();
-			waitTime(5000);
-			waitForElementDisplayed(AMDPlayerScreen.objPlayer, 10);
+	public void PlayerViewChangedEventForCarouselContent(String tabName) throws Exception {
+		extent.HeaderChildNode("Player View Changed Event for carousel content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
+		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 20);
+		Boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objPlayer);
+		if (var == true) {
+			logger.info("Player screen is displayed");
+			extentLoggerPass("Player screen", "Player screen is displayed");
+			waitTime(6000);
+			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
 			verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-			waitTime(4000);
-			
+			waitTime(5000);
+
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
@@ -2399,50 +2335,115 @@ public void PlayerViewChangedEventOfContentFromMyWatchListPage(String usertype) 
 			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 			mixpanel.FEProp.setProperty("New App Language", "en");
 			mixpanel.ValidateParameter("", "Player View Changed");
-			
-		} else {
-			logger.info("No contents in Watchlist");
-			extentLoggerWarning("Watchlist", "No contents in Watchlist");
+
+		} else if (verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer)) {
+			logger.info("Player inline subscription link is displayed");
+			extentLoggerPass("Player screen", "Player inline subscription link is displayed");
 		}
 	}
 
-}
+	public void PlayerViewChangedEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Player View Changed Event of content from search page");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(4000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		Back(2);
+		waitTime(4000);
 
-public void PlayerViewChangedEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
-	extent.HeaderChildNode("Verify Player View Changed event of content from Upnext rail");
-	click(AMDSearchScreen.objSearchIcon, "Search icon");
-	click(AMDSearchScreen.objSearchEditBox, "Search Box");
-	type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
-	hideKeyboard();
-	waitTime(4000);
-	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-	click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-	waitTime(8000);
-	PartialSwipe("UP", 1);
-	if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
-		verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+		mixpanel.FEProp.setProperty("New App Language", "en");
+		mixpanel.ValidateParameter("", "Player View Changed");
 	}
-	if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-		waitForAdToFinishInAmd();
+
+	public void PlayerViewChangedEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+		if (!(usertype.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Player View Changed Event of content from My WatchList page");
+			click(AMDHomePage.objMoreMenu, "More menu");
+			click(AMDMoreMenu.objWatchlist, "Watchlist option");
+			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
+			waitTime(5000);
+			boolean contentsInMoviesTab = verifyIsElementDisplayed(
+					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
+			if (contentsInMoviesTab == true) {
+				getDriver()
+						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
+						.click();
+				waitTime(5000);
+				waitForElementDisplayed(AMDPlayerScreen.objPlayer, 10);
+				verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+				verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+				verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+				waitTime(4000);
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+				mixpanel.FEProp.setProperty("New App Language", "en");
+				mixpanel.ValidateParameter("", "Player View Changed");
+
+			} else {
+				logger.info("No contents in Watchlist");
+				extentLoggerWarning("Watchlist", "No contents in Watchlist");
+			}
+		}
+
 	}
-	registerPopUpClose();
-	completeProfilePopUpClose(usertype);
-	waitTime(6000);
-	verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-	verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-	verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
-	verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-	Back(2);
-	waitTime(4000);
-	
-	mixpanel.FEProp.setProperty("Source", "home");
-	mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-	mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-	mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-	mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-	mixpanel.FEProp.setProperty("New App Language", "en");
-	mixpanel.ValidateParameter("", "Player View Changed");
-}
+
+	public void PlayerViewChangedEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Player View Changed event of content from Upnext rail");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitTime(8000);
+		PartialSwipe("UP", 1);
+		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
+			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
+		}
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		Back(2);
+		waitTime(4000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+		mixpanel.FEProp.setProperty("New App Language", "en");
+		mixpanel.ValidateParameter("", "Player View Changed");
+	}
 
 	public void VideoWatchDurationEventForPremiumContentComplete(String usertype, String tabName) throws Exception {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
@@ -3069,7 +3070,6 @@ public void PlayerViewChangedEventOfContentFromUpNextRail(String usertype, Strin
 
 	}
 
-	
 	public void videoViewEventForPremiumContent(String usertype, String tabName) throws Exception {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Video View Event for premium content in potrait");
@@ -3090,7 +3090,7 @@ public void PlayerViewChangedEventOfContentFromUpNextRail(String usertype, Strin
 					Swipe("UP", 1);
 				}
 			}
-			if(var==true) {
+			if (var == true) {
 				mixpanel.FEProp.setProperty("Source", "N/A");
 				mixpanel.FEProp.setProperty("Page Name", "home");
 				mixpanel.FEProp.setProperty("Player Name", "N/A");
@@ -3104,36 +3104,36 @@ public void PlayerViewChangedEventOfContentFromUpNextRail(String usertype, Strin
 			}
 		}
 	}
-	
+
 	public void AdClickEventForTrailerContent(String usertype, String keyword3) throws Exception {
-    	if(!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-    		extent.HeaderChildNode("Verify Ad Click event for Trailer content");
-	    	click(AMDSearchScreen.objSearchIcon, "Search icon");
-	    	click(AMDSearchScreen.objSearchEditBox, "Search Box");
-	    	type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
-	    	hideKeyboard();
-	    	waitTime(4000);
-	    	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-	    	click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-	    	waitTime(10000);
-	    	boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-	    	if(ad==true) {
-	    		logger.info("Ad is Displayed");
-	    		extentLogger("Ad", "Ad is Displayed");
-	    		verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
-	    		waitTime(4000);
-	    	}else {
-	    		logger.info("Ad is not displayed");
-	    		extentLogger("Ad", "Ad is not displayed");
-	    	}
-	    	waitTime(5000);
-    	}
-    	
-    }
-    
-    public void AdClickEventForCarouselContent(String usertype, String tabName) throws Exception {
-    	if(!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-    		extent.HeaderChildNode("Ad Click Event for carousel content");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Ad Click event for Trailer content");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+			waitTime(10000);
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (ad == true) {
+				logger.info("Ad is Displayed");
+				extentLogger("Ad", "Ad is Displayed");
+				verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
+				waitTime(4000);
+			} else {
+				logger.info("Ad is not displayed");
+				extentLogger("Ad", "Ad is not displayed");
+			}
+			waitTime(5000);
+		}
+
+	}
+
+	public void AdClickEventForCarouselContent(String usertype, String tabName) throws Exception {
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Ad Click Event for carousel content");
 			waitTime(10000);
 			SelectTopNavigationTab(tabName);
 			verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
@@ -3141,18 +3141,18 @@ public void PlayerViewChangedEventOfContentFromUpNextRail(String usertype, Strin
 			Boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
 			if (var == true) {
 				logger.info("Ad is Displayed");
-	    		extentLogger("Ad", "Ad is Displayed");
-	    		verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
-	    		waitTime(4000);
+				extentLogger("Ad", "Ad is Displayed");
+				verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
+				waitTime(4000);
 			} else {
 				logger.info("Ad is not Displayed");
-	    		extentLogger("Ad", "Ad is not Displayed");
+				extentLogger("Ad", "Ad is not Displayed");
 			}
-    	}
-		
+		}
+
 	}
-    
-    public void AdClickEventForContentFromTray(String usertype, String tabName) throws Exception {
+
+	public void AdClickEventForContentFromTray(String usertype, String tabName) throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Ad Click Event for content from Tray");
 			waitTime(10000);
@@ -3165,15 +3165,15 @@ public void PlayerViewChangedEventOfContentFromUpNextRail(String usertype, Strin
 					verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
 					waitTime(10000);
 					boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-			    	if(ad==true) {
-			    		logger.info("Ad is Displayed");
-			    		extentLogger("Ad", "Ad is Displayed");
-			    		verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
-			    		waitTime(4000);
-			    	}else {
-			    		logger.info("Ad is not displayed");
-			    		extentLogger("Ad", "Ad is not displayed");
-			    	}
+					if (ad == true) {
+						logger.info("Ad is Displayed");
+						extentLogger("Ad", "Ad is Displayed");
+						verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
+						waitTime(4000);
+					} else {
+						logger.info("Ad is not displayed");
+						extentLogger("Ad", "Ad is not displayed");
+					}
 					waitTime(3000);
 					break;
 				} else {
@@ -3186,10 +3186,10 @@ public void PlayerViewChangedEventOfContentFromUpNextRail(String usertype, Strin
 			}
 		}
 	}
-    
-    public void AdClickEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
-    	if(!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-    		extent.HeaderChildNode("Ad Click Event of content from search page");
+
+	public void AdClickEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Ad Click Event of content from search page");
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
@@ -3198,106 +3198,107 @@ public void PlayerViewChangedEventOfContentFromUpNextRail(String usertype, Strin
 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 			waitTime(10000);
-	    	boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-	    	if(ad==true) {
-	    		logger.info("Ad is Displayed");
-	    		extentLogger("Ad", "Ad is Displayed");
-	    		verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
-	    		waitTime(4000);
-	    	}else {
-	    		logger.info("Ad is not displayed");
-	    		extentLogger("Ad", "Ad is not displayed");
-	    	}
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (ad == true) {
+				logger.info("Ad is Displayed");
+				extentLogger("Ad", "Ad is Displayed");
+				verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
+				waitTime(4000);
+			} else {
+				logger.info("Ad is not displayed");
+				extentLogger("Ad", "Ad is not displayed");
+			}
 			waitTime(4000);
-    	}
-		
+		}
+
 	}
-    
-    public void AdClickEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+
+	public void AdClickEventOfContentFromMyWatchListPage(String usertype) throws Exception {
 		if (usertype.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.HeaderChildNode("Ad Click Event of content from My WatchList page");
 			click(AMDHomePage.objMoreMenu, "More menu");
 			click(AMDMoreMenu.objWatchlist, "Watchlist option");
 			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
 			waitTime(5000);
-			boolean contentsInMoviesTab = verifyIsElementDisplayed(AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
+			boolean contentsInMoviesTab = verifyIsElementDisplayed(
+					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
 			if (contentsInMoviesTab == true) {
 				getDriver()
 						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
 						.click();
 				waitTime(10000);
 				boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-		    	if(ad==true) {
-		    		logger.info("Ad is Displayed");
-		    		extentLogger("Ad", "Ad is Displayed");
-		    		verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
-		    		waitTime(4000);
-		    	}else {
-		    		logger.info("Ad is not displayed");
-		    		extentLogger("Ad", "Ad is not displayed");
-		    	}
+				if (ad == true) {
+					logger.info("Ad is Displayed");
+					extentLogger("Ad", "Ad is Displayed");
+					verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
+					waitTime(4000);
+				} else {
+					logger.info("Ad is not displayed");
+					extentLogger("Ad", "Ad is not displayed");
+				}
 			} else {
 				logger.info("No contents in Watchlist");
 				extentLoggerWarning("Watchlist", "No contents in Watchlist");
 			}
 		}
 	}
-    
-    public void AdClickEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
-    	if(!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-    		extent.HeaderChildNode("Verify Ad click event of content from Upnext rail");
-	    	click(AMDSearchScreen.objSearchIcon, "Search icon");
-	    	click(AMDSearchScreen.objSearchEditBox, "Search Box");
-	    	type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
-	    	hideKeyboard();
-	    	waitTime(4000);
-	    	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-	    	click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-	    	waitTime(10000);
-	    	boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-	    	if(ad==true) {
-	    		logger.info("Ad is Displayed");
-	    		extentLogger("Ad", "Ad is Displayed");
-	    		verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
-	    		waitTime(4000);
-	    	}else {
-	    		logger.info("Ad is not displayed");
-	    		extentLogger("Ad", "Ad is not displayed");
-	    	}
+
+	public void AdClickEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Ad click event of content from Upnext rail");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+			waitTime(10000);
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (ad == true) {
+				logger.info("Ad is Displayed");
+				extentLogger("Ad", "Ad is Displayed");
+				verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
+				waitTime(4000);
+			} else {
+				logger.info("Ad is not displayed");
+				extentLogger("Ad", "Ad is not displayed");
+			}
 			waitTime(5000);
-    	}
-    	
-    }
-    
-    public void AdWatchDurationEventForTrailerContent(String usertype, String keyword3) throws Exception {
-    	if(!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-    		extent.HeaderChildNode("Verify Ad Watch Duration event for Trailer content");
-	    	click(AMDSearchScreen.objSearchIcon, "Search icon");
-	    	click(AMDSearchScreen.objSearchEditBox, "Search Box");
-	    	type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
-	    	hideKeyboard();
-	    	waitTime(4000);
-	    	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-	    	click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-	    	waitTime(10000);
-	    	boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-	    	if(ad==true) {
-	    		logger.info("Ad is Displayed");
-	    		extentLogger("Ad", "Ad is Displayed");
-	    	    waitForAdToFinishInAmd();
-	    		waitTime(4000);
-	    	}else {
-	    		logger.info("Ad is not displayed");
-	    		extentLogger("Ad", "Ad is not displayed");
-	    	}
-	    	waitTime(5000);
-    	}
-    	
-    }
-    
-    public void AdWatchDurationEventForCarouselContent(String usertype, String tabName) throws Exception {
-    	if(!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-    		extent.HeaderChildNode("Ad Watch Duration Event for carousel content");
+		}
+
+	}
+
+	public void AdWatchDurationEventForTrailerContent(String usertype, String keyword3) throws Exception {
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Ad Watch Duration event for Trailer content");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+			waitTime(10000);
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (ad == true) {
+				logger.info("Ad is Displayed");
+				extentLogger("Ad", "Ad is Displayed");
+				waitForAdToFinishInAmd();
+				waitTime(4000);
+			} else {
+				logger.info("Ad is not displayed");
+				extentLogger("Ad", "Ad is not displayed");
+			}
+			waitTime(5000);
+		}
+
+	}
+
+	public void AdWatchDurationEventForCarouselContent(String usertype, String tabName) throws Exception {
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Ad Watch Duration Event for carousel content");
 			waitTime(10000);
 			SelectTopNavigationTab(tabName);
 			verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
@@ -3305,18 +3306,18 @@ public void PlayerViewChangedEventOfContentFromUpNextRail(String usertype, Strin
 			Boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
 			if (var == true) {
 				logger.info("Ad is Displayed");
-	    		extentLogger("Ad", "Ad is Displayed");
-	    		waitForAdToFinishInAmd();
-	    		waitTime(4000);
+				extentLogger("Ad", "Ad is Displayed");
+				waitForAdToFinishInAmd();
+				waitTime(4000);
 			} else {
 				logger.info("Ad is not Displayed");
-	    		extentLogger("Ad", "Ad is not Displayed");
+				extentLogger("Ad", "Ad is not Displayed");
 			}
-    	}
-		
+		}
+
 	}
-    
-    public void AdWatchDurationEventForContentFromTray(String usertype, String tabName) throws Exception {
+
+	public void AdWatchDurationEventForContentFromTray(String usertype, String tabName) throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Ad Watch Duration Event for content from Tray");
 			waitTime(10000);
@@ -3329,15 +3330,15 @@ public void PlayerViewChangedEventOfContentFromUpNextRail(String usertype, Strin
 					verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
 					waitTime(10000);
 					boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-			    	if(ad==true) {
-			    		logger.info("Ad is Displayed");
-			    		extentLogger("Ad", "Ad is Displayed");
-			    		 waitForAdToFinishInAmd();
-			    		waitTime(4000);
-			    	}else {
-			    		logger.info("Ad is not displayed");
-			    		extentLogger("Ad", "Ad is not displayed");
-			    	}
+					if (ad == true) {
+						logger.info("Ad is Displayed");
+						extentLogger("Ad", "Ad is Displayed");
+						waitForAdToFinishInAmd();
+						waitTime(4000);
+					} else {
+						logger.info("Ad is not displayed");
+						extentLogger("Ad", "Ad is not displayed");
+					}
 					waitTime(3000);
 					break;
 				} else {
@@ -3350,10 +3351,10 @@ public void PlayerViewChangedEventOfContentFromUpNextRail(String usertype, Strin
 			}
 		}
 	}
-    
-    public void AdWatchDurationEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
-    	if(!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-    		extent.HeaderChildNode("Ad Watch Duration Event of content from search page");
+
+	public void AdWatchDurationEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Ad Watch Duration Event of content from search page");
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
@@ -3362,74 +3363,423 @@ public void PlayerViewChangedEventOfContentFromUpNextRail(String usertype, Strin
 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 			waitTime(10000);
-	    	boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-	    	if(ad==true) {
-	    		logger.info("Ad is Displayed");
-	    		extentLogger("Ad", "Ad is Displayed");
-	    		waitForAdToFinishInAmd();
-	    		waitTime(4000);
-	    	}else {
-	    		logger.info("Ad is not displayed");
-	    		extentLogger("Ad", "Ad is not displayed");
-	    	}
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (ad == true) {
+				logger.info("Ad is Displayed");
+				extentLogger("Ad", "Ad is Displayed");
+				waitForAdToFinishInAmd();
+				waitTime(4000);
+			} else {
+				logger.info("Ad is not displayed");
+				extentLogger("Ad", "Ad is not displayed");
+			}
 			waitTime(4000);
-    	}
-		
+		}
+
 	}
-    
-    public void AdWatchDurationEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+
+	public void AdWatchDurationEventOfContentFromMyWatchListPage(String usertype) throws Exception {
 		if (usertype.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.HeaderChildNode("Ad Watch Duration Event of content from My WatchList page");
 			click(AMDHomePage.objMoreMenu, "More menu");
 			click(AMDMoreMenu.objWatchlist, "Watchlist option");
 			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
 			waitTime(5000);
-			boolean contentsInMoviesTab = verifyIsElementDisplayed(AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
+			boolean contentsInMoviesTab = verifyIsElementDisplayed(
+					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
 			if (contentsInMoviesTab == true) {
 				getDriver()
 						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
 						.click();
 				waitTime(10000);
 				boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-		    	if(ad==true) {
-		    		logger.info("Ad is Displayed");
-		    		extentLogger("Ad", "Ad is Displayed");
-		    		waitForAdToFinishInAmd();
-		    		waitTime(4000);
-		    	}else {
-		    		logger.info("Ad is not displayed");
-		    		extentLogger("Ad", "Ad is not displayed");
-		    	}
+				if (ad == true) {
+					logger.info("Ad is Displayed");
+					extentLogger("Ad", "Ad is Displayed");
+					waitForAdToFinishInAmd();
+					waitTime(4000);
+				} else {
+					logger.info("Ad is not displayed");
+					extentLogger("Ad", "Ad is not displayed");
+				}
 			} else {
 				logger.info("No contents in Watchlist");
 				extentLoggerWarning("Watchlist", "No contents in Watchlist");
 			}
 		}
 	}
-    
-    public void AdWatchDurationEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
-    	if(!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-    		extent.HeaderChildNode("Verify Ad Watch Duration event of content from Upnext rail");
-	    	click(AMDSearchScreen.objSearchIcon, "Search icon");
-	    	click(AMDSearchScreen.objSearchEditBox, "Search Box");
-	    	type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
-	    	hideKeyboard();
-	    	waitTime(4000);
-	    	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-	    	click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-	    	waitTime(10000);
-	    	boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-	    	if(ad==true) {
-	    		logger.info("Ad is Displayed");
-	    		extentLogger("Ad", "Ad is Displayed");
-	    		waitForAdToFinishInAmd();
-	    		waitTime(4000);
-	    	}else {
-	    		logger.info("Ad is not displayed");
-	    		extentLogger("Ad", "Ad is not displayed");
-	    	}
+
+	public void AdWatchDurationEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Ad Watch Duration event of content from Upnext rail");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+			waitTime(10000);
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (ad == true) {
+				logger.info("Ad is Displayed");
+				extentLogger("Ad", "Ad is Displayed");
+				waitForAdToFinishInAmd();
+				waitTime(4000);
+			} else {
+				logger.info("Ad is not displayed");
+				extentLogger("Ad", "Ad is not displayed");
+			}
 			waitTime(5000);
-    	}
-    	
-    }
+		}
+	}
+
+	public void PauseEventForPremiumContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Pause Event for premium content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		Swipe("UP", 1);
+		boolean var = false;
+		for (int i = 0; i < 3; i++) {
+			var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
+			if (var == true) {
+				verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
+				waitTime(3000);
+				boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+				if (inlineLink == true) {
+					logger.info("Player inline subscription link is displayed");
+					extentLogger("Player screen", "Player inline subscription link is displayed");
+				} else {
+					waitTime(6000);
+					verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+					verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+				}
+
+				waitTime(3000);
+				break;
+			} else {
+				Swipe("UP", 1);
+			}
+		}
+		if (var == false) {
+			logger.info("Premium content is not displayed in the screen");
+			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
+		}
+	}
+
+	public void PauseEventForTrailerContent(String usertype, String keyword3) throws Exception {
+		extent.HeaderChildNode("Verify Pause event for Trailer content");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 30);
+		if (usertype.equalsIgnoreCase("SubscribedUser")) {
+			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
+		}
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(5000);
+	}
+
+	public void PauseEventForCarouselContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Pause Event for carousel content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
+		waitTime(3000);
+		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+		if (inlineLink == true) {
+			logger.info("Player inline subscription link is displayed");
+			extentLogger("Player screen", "Player inline subscription link is displayed");
+		} else {
+			waitTime(6000);
+			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		}
+
+		waitTime(3000);
+	}
+
+	public void PauseEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Pause Event of content from search page");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(4000);
+	}
+
+	public void PauseEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+		if (!(usertype.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Pause Event of content from My WatchList page");
+			click(AMDHomePage.objMoreMenu, "More menu");
+			click(AMDMoreMenu.objWatchlist, "Watchlist option");
+			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
+			waitTime(5000);
+			boolean flag = false;
+			boolean contentsInMoviesTab = verifyIsElementDisplayed(
+					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
+			if (contentsInMoviesTab == true) {
+				getDriver()
+						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
+						.click();
+				verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+				waitTime(4000);
+			} else {
+				logger.info("No contents in Watchlist");
+				extentLoggerWarning("Watchlist", "No contents in Watchlist");
+			}
+		} else {
+			logger.info("Watchlist is not applicable for " + usertype);
+			extentLogger("Guest User", "Watchlist is not applicable for " + usertype);
+		}
+	}
+
+	public void PauseEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Pause event of content from Upnext rail");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitTime(8000);
+		Swipe("UP", 1);
+		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
+			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
+		}
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(5000);
+	}
+
+	public void PauseEventForLinearContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Pause Event for Linear content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDLiveTVScreen.objFirstContentCardOfFreeChannelsTray, "linear content");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(3000);
+	}
+
+	public void ResumeEventForPremiumContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Resume Event for premium content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		Swipe("UP", 1);
+		boolean var = false;
+		for (int i = 0; i < 3; i++) {
+			var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
+			if (var == true) {
+				verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
+				waitTime(3000);
+				boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+				if (inlineLink == true) {
+					logger.info("Player inline subscription link is displayed");
+					extentLogger("Player screen", "Player inline subscription link is displayed");
+				} else {
+					waitTime(6000);
+					verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+					verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+					waitTime(3000);
+					verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+				}
+
+				waitTime(3000);
+				break;
+			} else {
+				Swipe("UP", 1);
+			}
+		}
+		if (var == false) {
+			logger.info("Premium content is not displayed in the screen");
+			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
+		}
+	}
+
+	public void ResumeEventForTrailerContent(String usertype, String keyword3) throws Exception {
+		extent.HeaderChildNode("Verify Resume event for Trailer content");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 30);
+		if (usertype.equalsIgnoreCase("SubscribedUser")) {
+			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
+		}
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		waitTime(5000);
+
+	}
+
+	public void ResumeEventForCarouselContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Resume Event for carousel content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
+		waitTime(3000);
+		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+		if (inlineLink == true) {
+			logger.info("Player inline subscription link is displayed");
+			extentLogger("Player screen", "Player inline subscription link is displayed");
+		} else {
+			waitTime(6000);
+			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		}
+
+		waitTime(3000);
+
+	}
+
+	public void ResumeEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Resume Event of content from search page");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		waitTime(6000);
+
+		// Resume event on Full Screen mode
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		waitTime(4000);
+
+	}
+
+	public void ResumeEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+		if (!(usertype.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Resume Event of content from My WatchList page");
+			click(AMDHomePage.objMoreMenu, "More menu");
+			click(AMDMoreMenu.objWatchlist, "Watchlist option");
+			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
+			waitTime(5000);
+			boolean flag = false;
+			boolean contentsInMoviesTab = verifyIsElementDisplayed(
+					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
+			if (contentsInMoviesTab == true) {
+				getDriver()
+						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
+						.click();
+				verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+				waitTime(3000);
+				verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+				waitTime(4000);
+			} else {
+				logger.info("No contents in Watchlist");
+				extentLoggerWarning("Watchlist", "No contents in Watchlist");
+			}
+		} else {
+			logger.info("Watchlist is not applicable for " + usertype);
+			extentLogger("Guest User", "Watchlist is not applicable for " + usertype);
+		}
+
+	}
+
+	public void ResumeEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Resume event of content from Upnext rail");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitTime(8000);
+		Swipe("UP", 1);
+		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
+			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
+		}
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		waitTime(5000);
+
+	}
+
+	public void ResumeEventForLinearContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Resume Event for Linear content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDLiveTVScreen.objFirstContentCardOfFreeChannelsTray, "linear content");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		waitTime(3000);
+	}
 }

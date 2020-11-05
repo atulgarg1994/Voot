@@ -27,4 +27,5 @@ public class AMDLiveTVScreen {
 	
 	public static By objChannelLogo = By.xpath("//*[@resource-id='com.graymatrix.did:id/img_channel']");
 	
+	public static By objFirstContentCardOfFreeChannelsTray = By.xpath("(//*[@text='FREE Channels']/parent::*/parent::*/following-sibling::*/child::*/child::*/child::*/child::*)[1]");
 }
