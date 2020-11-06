@@ -412,4 +412,5 @@ public class PWAPlayerPage {
 	
 	public static By objAdPlayerOverlay = By.xpath(".//*[@class='videoAdUi']");
 
+	public static By objPlayerProgressScrubber = By.xpath("//div[@class='playkit-bottom-bar']//*[@class='playkit-progress-bar']//*[@class='playkit-scrubber']");
 }

@@ -58,6 +58,7 @@ public class Mixpanel extends ExtentReporter {
 	static String platform;
 	static String APIKey;
 	static String Modelname;
+	static String propValue = null;
 	public static boolean fetchUserdata = false;
 
 	public static void ValidateParameter(String distinctID, String eventName)
@@ -130,20 +131,6 @@ public class Mixpanel extends ExtentReporter {
 //		System.out.println("1989-11-20T18:30:00Z".split("T")[0]);
 //		getDOB("1989-11-20T18:30:00Z".split("T")[0]);
 //		System.out.println(validateEventTriggerTime("1604426176"));
-		man();
-	}
-	
-	public static void man() {
-		String link = "https://newpwa.zee5.com/collections/latest-kannada-episodes/0-8-manualcol_1747725985";
-		
-				Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		Matcher m = p.matcher(link);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		System.out.println(value.replace("/", ""));
-//		System.out.println(TrayTitle+" ****** "+link+" ***** "+value);
 	}
 	
 	private static void getDOB(String s) {
@@ -306,7 +293,7 @@ public class Mixpanel extends ExtentReporter {
 					}
 					validateParameterValue(key, value);
 					extentReportInfo("Empty parameter",
-							"Paramter :- <b>Key : " + key + " <br/> value : " + value + "</b>");
+							"Paramter :- <b>Key : " + key + " <br/> value : " + value + "</b>" + "<br/> Expected value : " + propValue + "</b>");
 				}
 			} catch (Exception e) {
 				System.out.println(e);
@@ -315,9 +302,7 @@ public class Mixpanel extends ExtentReporter {
 	}
 
 	public static void validateParameterValue(String key, String value) {
-		String propValue = null;
 		try {
-
 			propValue = FEProp.getProperty(key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -329,7 +314,7 @@ public class Mixpanel extends ExtentReporter {
 			if (!propValue.equalsIgnoreCase(value)) {
 				fillCellColor();
 				extentReportFail("Empty parameter", "Value mismatch :- <b>Key : " + key + " <br/> value : " + value
-						+ "<br/> API value : " + propValue + "</b>");
+						+ "<br/> Expected value : " + propValue + "</b>");
 			}
 		}
 	}

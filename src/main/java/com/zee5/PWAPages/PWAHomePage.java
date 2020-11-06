@@ -291,9 +291,6 @@ public class PWAHomePage {
 	// Download Apps text UI
 	public static By objDownloadApps = By.xpath("//h3[contains(text(),'Download Apps')]");
 
-	// public static By objTwitterIcon =
-	// By.xpath("//span[contains(text(),'twitter')]");
-
 	// Up Arrow
 	public static By objUpArrow = By.xpath("//div[@class='iconNavi-ic_arrow_back']");
 
@@ -499,4 +496,8 @@ public class PWAHomePage {
 
 	public static By objEduauraaCardCarousel = By.xpath("//h2[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
 
+	public static By objTitleTextCarousel(String text) {
+		return By.xpath(
+				"//*[contains(@class,'legendTitle') and contains(text(),'"+text +"')]");
+	}
 }

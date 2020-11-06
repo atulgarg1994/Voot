@@ -773,7 +773,7 @@ public class ResponseInstance {
 			language = "en,kn";
 		}
 		String url = "https://gwapi.zee5.com/content/collection/0-8-" + pageName
-				+ "page?page=1&limit=5&item_limit=20&country=IN&translation=en&languages=" + language + "&version=6";
+				+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages=" + language + "&version=6";
 		String xAccessToken = getXAccessTokenWithApiKey();
 		if (!pUsername.equals("")) {
 			String bearerToken = getBearerToken(pUsername, pPassword);

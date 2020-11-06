@@ -53,6 +53,7 @@ public class DriverInstance extends Drivertools {
 				throw new SkipException("Incorrect Platform...");
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new SkipException("Device not connected OR Appium Studio service is down...");
 		}
 		

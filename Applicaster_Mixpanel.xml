@@ -26,6 +26,7 @@
 	<parameter name="LastName" value="yuhj" />
 	<parameter name="keyword3" value="Shivaji Surathkal" />
 	<parameter name="keyword4" value="Aditya apologises to Paarvathi - Paaru" />
+	<parameter name="keyword5" value="Rudrathandava - Chambal" />
 	<parameter name="keyword6" value="Popcorn Monkey Tiger (A)" />
 	
 	<listeners>
@@ -34,9 +35,15 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 	
-	<test name="ZNAMixpanel_PlayerViewChanged">
+	<test name="ZNAMixpanel_AdWatchDuration">
 		<classes>
-			<class name="com.zee5.MixpanelScripts.ZNAMixpanel_PlayerViewChanged" />
+			<class name="com.zee5.MixpanelScripts.ZNAMixpanel_AdWatchDuration" />
+		</classes>
+	</test>
+	
+	<test name="ApplicasterMixpanelScript">
+		<classes>
+			<class name="com.zee5.PWAMixpanelScripts.ZNAMixpanelScript_Onboarding" />
 		</classes>
 	</test>
 

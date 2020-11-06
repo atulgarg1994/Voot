@@ -15,7 +15,7 @@ public class AMDMoreMenu {
 	public static By objMyTransactions = By.xpath("//*[@text='My Transactions']");
 	public static By objWatchlist = By.xpath("//*[@text='Watchlist']");
 	public static By objMyRemainders = By.xpath("//*[@text='My Reminders']");
-	public static By objHaveaPrepaidCode = By.xpath("//*[@text='Have a Prepaid Code?']"); 
+	public static By objHaveaPrepaidCode = By.xpath("//*[@text='Have a Prepaid Code?']");
 	public static By objSettings = By.xpath("//*[@text='Settings']");
 	public static By objHomeIcon = By.xpath("//*[@text='Home']");
 	public static By objUpcomingIcon = By.xpath("//*[@text='Upcoming' and @id='bb_bottom_bar_title']");
@@ -118,7 +118,8 @@ public class AMDMoreMenu {
 	public static By objProfileHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
 
 	public static By objcloseButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_exit']");
-	public static By objAboutUsDescription = By.xpath("//*[contains(@content-desc,'At Zee5')] | //*[contains(@text,'At Zee5')]");
+	public static By objAboutUsDescription = By
+			.xpath("//*[contains(@content-desc,'At Zee5')] | //*[contains(@text,'At Zee5')]");
 	// Terms of Use Screen
 	public static By objYesBtnResetDefault = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_exit_yes']");
 
@@ -134,112 +135,148 @@ public class AMDMoreMenu {
 	public static By objTextInAboutUsScreen = By.xpath("//*[@text='Zee5 can be accessed at ']");
 	// Help Center
 	public static By objSearchBarInHelpCenter = By.xpath("//*[@class='android.widget.EditText']");
-	
+
 	public static By objPrepaidCodePopUp = By.xpath("//*[@id='txt_prepaid_code']");
-	
+
 	public static By objDisplayLanguageOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/displayLanguage']");
 	public static By objContentLanguageOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/contentLanguage']");
 
 	public static By objSearchResult(String title) {
-		return By.xpath("//*[@id='item_primary_text' and contains(text(), '"+title+"')]");
+		return By.xpath("//*[@id='item_primary_text' and contains(text(), '" + title + "')]");
 	}
-	
+
 	public static By objWhatsAppMessage = By.xpath("//*[@id='content' and ./*[@text='WhatsApp']]");
-	
-	public static By objTransactionDate1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_invoicedate'])[1]");
-	public static By objTransactionPackName1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_txt_allaccesspack'])[1]");
-	public static By objTransactionPackDuration1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_duration'])[1]");
-	public static By objTransactionPackRental1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_amount'])[1]");
-	public static By objTransactionPackPaymentMode1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_paymentmode'])[1]");
-	public static By objTransactionPackCountry1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_countryvalue'])[1]");
-	public static By objTransactionPackAutoRenewal1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_renewl_type'])[1]");
-	public static By objTransactionPackStatus1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_status_value'])[1]");
+
+	public static By objTransactionDate1 = By
+			.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_invoicedate'])[1]");
+	public static By objTransactionPackName1 = By
+			.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_txt_allaccesspack'])[1]");
+	public static By objTransactionPackDuration1 = By
+			.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_duration'])[1]");
+	public static By objTransactionPackRental1 = By
+			.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_amount'])[1]");
+	public static By objTransactionPackPaymentMode1 = By
+			.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_paymentmode'])[1]");
+	public static By objTransactionPackCountry1 = By
+			.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_countryvalue'])[1]");
+	public static By objTransactionPackAutoRenewal1 = By
+			.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_renewl_type'])[1]");
+	public static By objTransactionPackStatus1 = By
+			.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_status_value'])[1]");
 	public static By objDownloadInvoice1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/btn_dialog_done'])[1]");
-	
+
 	public static By objSubscribeNowCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_subscribe_now']");
 	public static By objSubNowCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_sub_now']");
-	public static By objMyTransactionsHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and contains(text(),'My Transactions')]");
+	public static By objMyTransactionsHeader = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and contains(text(),'My Transactions')]");
 	public static By objUserName = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
-	
+
 	public static By objTransactionPackDuration = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_duration']");
 	public static By objTransactionPackRental = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_amount']");
-	public static By objTransactionPackPaymentMode = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_paymentmode']");
-	public static By objTransactionPackCountry = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_countryvalue']");
-	public static By objTransactionPackAutoRenewal = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_renewl_type']");
-	public static By objTransactionPackStatus = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_status_value']");
+	public static By objTransactionPackPaymentMode = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_paymentmode']");
+	public static By objTransactionPackCountry = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_countryvalue']");
+	public static By objTransactionPackAutoRenewal = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_renewl_type']");
+	public static By objTransactionPackStatus = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_status_value']");
 	public static By objDownloadInvoice = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_dialog_done']");
 	public static By objTransactionDate = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_invoicedate']");
-	public static By objTransactionPackName = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_txt_allaccesspack']");
+	public static By objTransactionPackName = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_txt_allaccesspack']");
 	public static By objSubscriptionPackDuration = By.xpath("//*[@resource-id='com.graymatrix.did:id/pack_duration']");
 	public static By objSubscriptionPackPrice = By.xpath("//*[@resource-id='com.graymatrix.did:id/pack_amount']");
 	public static By objSubscriptionPackExpiryDate = By.xpath("//*[@resource-id='com.graymatrix.did:id/renewal_date']");
 	public static By objSubscriptionPackCountry = By.xpath("//*[@resource-id='com.graymatrix.did:id/pack_country']");
-	public static By objSubscriptionPackPaymentMode = By.xpath("//*[@resource-id='com.graymatrix.did:id/payment_mode']");
+	public static By objSubscriptionPackPaymentMode = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/payment_mode']");
 	public static By objSubscriptionPackOfferings = By.xpath("//*[@resource-id='com.graymatrix.did:id/benefits']");
 	public static By objsubscriptionPackDotBelowTheCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/dot_v3']");
 	public static By objMySubscriptionPack = By.xpath("(//*[@class='android.widget.LinearLayout'])[4]");
-	public static By objSubscriptionPackCancelRenewal = By.xpath("//*[@resource-id='com.graymatrix.did:id/cancel_renewal']");
+	public static By objSubscriptionPackCancelRenewal = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/cancel_renewal']");
 	public static By objBrowseAllPacks = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_browse_packs']");
-	public static By objsubscriptionPackDotBelowTheSecondCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/dot_v1']");
+	public static By objsubscriptionPackDotBelowTheSecondCard = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/dot_v1']");
 	public static By objNoActivePlans = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_nosubscription_title']");
-	public static By objMySubscriptionsHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and contains(text(),'My Subscriptions')]");
+	public static By objMySubscriptionsHeader = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and contains(text(),'My Subscriptions')]");
 	public static By objsubscriptionPackStatus = By.xpath("//*[@resource-id='com.graymatrix.did:id/status']");
 
-	public static By objDot2InShareOptions = By.xpath("(//*[@id='tw_resolver_page_navi']/*[@class='android.widget.ImageView'])[2]");
+	public static By objDot2InShareOptions = By
+			.xpath("(//*[@id='tw_resolver_page_navi']/*[@class='android.widget.ImageView'])[2]");
 	public static By objFacebook = By.xpath("//*[@id='content' and ./*[@text='News Feed']]");
-	public static By objShareLink = By.xpath("//*[@contentDescription='Shared Link: Watch TV Serials, Original Shows, Movies, News & Live TV Online, 100,000+ hours of TV Shows from ZEE network, Movies, International & Original content, music");
-	
+	public static By objShareLink = By.xpath(
+			"//*[@contentDescription='Shared Link: Watch TV Serials, Original Shows, Movies, News & Live TV Online, 100,000+ hours of TV Shows from ZEE network, Movies, International & Original content, music");
+
 	public static By objCompleteProfilePopUp = By.xpath("//*[@id='tellUsMoreContainer']");
 	public static By objShareIconOnPlayer = By.xpath("//*[@id='icon_share']");
 	public static By objShareNowFb = By.xpath("//*[@contentDescription='SHARE NOW']");
 	public static By objWatchCreditsCTA = By.xpath("//*[@text='Watch Credits']");
 	public static By objUpNext = By.xpath("//*[@text='Up Next']");
+
 	public static By objTitleInLandscape(String title) {
-		return By.xpath("//*[@id='title_main' and contains(text(), '"+title+"')]");
+		return By.xpath("//*[@id='title_main' and contains(text(), '" + title + "')]");
 	}
-	public static By objHyperLinkInAboutUsScreen = By
-			.xpath("//*[@class='android.view.View']//*[@contentDescription='www.zee5.com'] | //*[@text='www.zee5.com']");
-	public static By objPageNotFoundMsg = By.xpath("//*[contains(@text,'404! Not Found')] | //*[contains(@content-desc,'404! Not Found')]");
+
+	public static By objHyperLinkInAboutUsScreen = By.xpath(
+			"//*[@class='android.view.View']//*[@contentDescription='www.zee5.com'] | //*[@text='www.zee5.com']");
+	public static By objPageNotFoundMsg = By
+			.xpath("//*[contains(@text,'404! Not Found')] | //*[contains(@content-desc,'404! Not Found')]");
 	public static By objNetworkerrormsg = By.xpath("//*[@resource-id='android:id/message']");
 	public static By objTermsOfUseHeader = By.xpath("//*[@text='Terms of Use'] | //*[@content-desc='Terms of Use']");
-	public static By objTermsDescription = By.xpath("//*[contains(@content-desc,'Welcome to ZEE5')] | //*[contains(@text,'Welcome to ZEE5')]");
-	public static By objsupportHyperlinkInTermsOfUse = By.xpath("//*[@text='support.in@zee5.com'] | //*[@content-desc='support.in@zee5.com']");
+	public static By objTermsDescription = By
+			.xpath("//*[contains(@content-desc,'Welcome to ZEE5')] | //*[contains(@text,'Welcome to ZEE5')]");
+	public static By objsupportHyperlinkInTermsOfUse = By
+			.xpath("//*[@text='support.in@zee5.com'] | //*[@content-desc='support.in@zee5.com']");
 	public static By objfeedbackLinkInTermsOfUse = By.xpath("//*[@content-desc='feedback.yono@sbi.co.in']");
-	public static By objzee5HyperlinkinTermsOfUse = By.xpath("//*[@content-desc='www.ZEE5.com'] |//*[@text='www.zee5.com']");
+	public static By objzee5HyperlinkinTermsOfUse = By
+			.xpath("//*[@content-desc='www.ZEE5.com'] |//*[@text='www.zee5.com']");
 	public static By objsubscribelinkInTermsofUse = By
 			.xpath("//*[@content-desc='https://www.zee5.com/myaccount/subscription']");
-	public static By objInternetErrormsg = By.xpath("//*[@content-desc='You are not connected to internet'] | //*[@text='You are not connected to internet']");
+	public static By objInternetErrormsg = By.xpath(
+			"//*[@content-desc='You are not connected to internet'] | //*[@text='You are not connected to internet']");
 	public static By objPrivacyDescription = By.xpath("//*[contains(@content-desc,'We')] | //*[contains(@text,'We')]");
-	public static By objHyperlinkInPrivacyPolicy = By.xpath("(//*[@content-desc='Privacy Policy' or @text='Privacy Policy'])[2]");
+	public static By objHyperlinkInPrivacyPolicy = By
+			.xpath("(//*[@content-desc='Privacy Policy' or @text='Privacy Policy'])[2]");
 	public static By objHelpCenterHeader = By.xpath("//*[@content-desc='Help Center'] | //*[@text='Help Center']");
-	
+
 	public static By objQueriesHeader(String text) {
-		return By.xpath("(//*[contains(@contentDescription,'" + text + "')] | //*[contains(text(),'"+text+"')])");
+		return By.xpath("(//*[contains(@contentDescription,'" + text + "')] | //*[contains(text(),'" + text + "')])");
 	}
 
 	public static By objArticleTitle(String title) {
-		return By.xpath("(//*[contains(@content-desc,'"+title+"')] | //*[contains(@text,'"+title+"')])[2]");
+		return By.xpath("(//*[contains(@content-desc,'" + title + "')] | //*[contains(@text,'" + title + "')])[2]");
 	}
-	
-	public static By objGettingStartedHeader = By.xpath("//*[@content-desc='Getting Started ' or @text='Getting Started ']");
+
+	public static By objGettingStartedHeader = By
+			.xpath("//*[@content-desc='Getting Started ' or @text='Getting Started ']");
 	public static By objMyAccountHeader = By.xpath("//*[@content-desc='My Account ' or @text='My Account ']");
 	public static By objsupportlinkInprivacypolicy = By.xpath("//*[@content-desc='support@zee5.com.']");
-	public static By objPrivacyPolicyHeader = By.xpath("(//*[contains(@content-desc,'Privacy Policy')] | //*[contains(@text,'Privacy Policy')])[1]");
+	public static By objPrivacyPolicyHeader = By
+			.xpath("(//*[contains(@content-desc,'Privacy Policy')] | //*[contains(@text,'Privacy Policy')])[1]");
 	public static By objShareOptions = By.xpath("//*[@id='text1']");
-	public static By objShareOptions(int index ) {
-			return By.xpath("(//*[@id='text1'])["+index+"]");
-		}
 
-	public static By objDotsInShareOptions = By.xpath("//*[@id='tw_resolver_page_navi']/*[@class='android.widget.ImageView']");
-	public static By objDotsInShareOptions(int index) {
-		return By.xpath("(//*[@id='tw_resolver_page_navi']/*[@class='android.widget.ImageView'])["+index+"]");
+	public static By objShareOptions(int index) {
+		return By.xpath("(//*[@id='text1'])[" + index + "]");
 	}
-	public static By objLoginRegisterText = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
-	
-	public static By objshareOptions = By.xpath("//*[@resource-id='android:id/tw_resolver_pagemode_page_list' or @id='resolver_slide'] | //*[@id='resolver_grid'] | //*[@id='title' and contains(text(),'Share')]");
-	
-	public static By objGuestUserAccount = By.xpath("//*[@text='Guest']");
-	
-	public static By objRestrict13Above = By.xpath("//*[@text='Restrict 13+ Content']");
 
+	public static By objDotsInShareOptions = By
+			.xpath("//*[@id='tw_resolver_page_navi']/*[@class='android.widget.ImageView']");
+
+	public static By objDotsInShareOptions(int index) {
+		return By.xpath("(//*[@id='tw_resolver_page_navi']/*[@class='android.widget.ImageView'])[" + index + "]");
+	}
+
+	public static By objLoginRegisterText = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
+
+	public static By objshareOptions = By.xpath(
+			"//*[@resource-id='android:id/tw_resolver_pagemode_page_list' or @id='resolver_slide'] | //*[@id='resolver_grid'] | //*[@id='title' and contains(text(),'Share')]");
+
+	public static By objGuestUserAccount = By.xpath("//*[@text='Guest']");
+
+	public static By objRestrict13Above = By.xpath("//*[@text='Restrict 13+ Content']");
+	public static By objPrepaidCodeTxt = By.xpath("//*[@resource-id='com.graymatrix.did:id/edit_prepaid_code']");
+	public static By objApplyBtn = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_promo_code_next']");
 }

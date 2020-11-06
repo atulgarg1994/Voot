@@ -20,8 +20,11 @@ import com.zee5.ApplicasterPages.*;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.AndroidTouchAction;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.touch.LongPressOptions;
 import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
 
 public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
@@ -325,85 +328,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifySkipLogin_LoginInGetPremiumPopUp(String userType, String keyword2) throws Exception {
-		if (userType.equalsIgnoreCase("Guest")) {
-			extent.HeaderChildNode(
-					"Verify Skip login event on clicking login in Get premium popup during content playback");
-			click(AMDSearchScreen.objSearchIcon, "Search icon");
-			click(AMDSearchScreen.objSearchEditBox, "Search Box");
-			type(AMDSearchScreen.objSearchBoxBar, keyword2 + "\n", "Search bar");
-			hideKeyboard();
-			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowLinkOnPlayer, "Subscribe Now Link");
-			waitTime(2000);
-			Swipe("Up", 1);
-			verifyElementPresentAndClick(AMDPlayerScreen.objLoginCTA, "Login CTA");
-			verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip link");
-		}
-	}
-
-	public void verifyLogoutEvent(String userType) throws Exception {
-		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Verify Logout Event");
-			logout();
-		}
-	}
-
-	public void logout() throws Exception {
-		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
-		Swipe("Up", 1);
-		verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
-		verifyElementPresentAndClick(AMDMoreMenu.objLogoutPopup, "Logout popUp");
-		verifyElementPresentAndClick(AMDMoreMenu.objLogoutButton, "Logout button");
-		Swipe("Down", 1);
-		verifyElementPresent(AMDMoreMenu.objGuestUserAccount, "Guest user Header");
-		verifyElementPresentAndClick(AMDHomePage.objHome, "Home tab");
-	}
-
-	public void verifyLoginScreenDisplayEventThroughMoreMenu(String userType) throws Exception {
-		if (userType.equalsIgnoreCase("Guest")) {
-			extent.HeaderChildNode("Verify Login Screen Display Event through MoreMenu");
-			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
-			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
-			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonsubscribedUserName");
-			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
-			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
-			waitTime(3000);
-			verifyIsElementDisplayed(AMDLoginScreen.objLoginScreenTitle, "Login screen title");
-		}
-	}
-
-	public void verifyLoginScreenDisplayEventThroughBrowseForScreen(String userType) throws Exception {
-		if (userType.equalsIgnoreCase("Guest")) {
-			extent.HeaderChildNode(
-					"Verify Login Screen Display Event By Clicking On Browse for free button in welcome screen");
-
-			verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
-			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonsubscribedUserName");
-			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
-			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
-			waitTime(3000);
-			verifyIsElementDisplayed(AMDLoginScreen.objLoginScreenTitle, "Login screen title");
-		}
-	}
-
-	public void verifyLoginScreenDisplayEventThroughLoginLink(String userType) throws Exception {
-		if (userType.equalsIgnoreCase("Guest")) {
-			extent.HeaderChildNode("Verify Login Screen Display Event By Clicking On Login link in welcome screen");
-
-			verifyElementPresent(AMDOnboardingScreen.objLoginLnk, "Login link");
-			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonsubscribedUserName");
-			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
-			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
-			waitTime(3000);
-			verifyIsElementDisplayed(AMDLoginScreen.objLoginScreenTitle, "Login screen title");
-		}
-	}
-
 	public void verifyLoginScreenDisplayEventByClickingOnLoginButtonInMandatoryRegistartionPopUp(String userType,
 			String keyword1) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
@@ -426,30 +350,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitTime(3000);
 				verifyIsElementDisplayed(AMDLoginScreen.objLoginScreenTitle, "Login screen title");
 			}
-		}
-	}
-
-	public void verifyLoginScreenDisplayEventByClickingOnLoginButtonInGetPremiumPopUp(String userType, String keyword2)
-			throws Exception {
-		if (userType.equalsIgnoreCase("Guest")) {
-			extent.HeaderChildNode(
-					"Verify Login Screen Display Event By Clicking On Login Button In Get Premium Pop Up");
-			click(AMDSearchScreen.objSearchIcon, "Search icon");
-			click(AMDSearchScreen.objSearchEditBox, "Search Box");
-			type(AMDSearchScreen.objSearchBoxBar, keyword2 + "\n", "Search bar");
-			hideKeyboard();
-			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowLinkOnPlayer, "Subscribe Now Link");
-			waitTime(2000);
-			Swipe("Up", 1);
-			verifyElementPresentAndClick(AMDPlayerScreen.objLoginCTA, "Login CTA");
-			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonsubscribedUserName");
-			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
-			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
-			waitTime(3000);
-			verifyIsElementDisplayed(AMDLoginScreen.objLoginScreenTitle, "Login screen title");
 		}
 	}
 
@@ -554,15 +454,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyTVAuthenticationScreenDisplayEvent(String userType) throws Exception {
-		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Verify TV Authentication Screen Display Event");
-			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
-			verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings");
-			Swipe("Up", 1);
-			verifyElementPresentAndClick(AMDSettingsScreen.objAuthenticateDevice, "Authenticate Device");
-			waitTime(3000);
-		}
+	public void relaunchToIntroScreen(boolean clearData) throws Exception {
+		HeaderChildNode("Relaunch the app");
+		logger.info("Relaunching the application");
+		extent.extentLogger("Relaunch", "Relaunching the application");
+		waitTime(10000);
+		getDriver().quit();
+		relaunch = clearData;
+		new Zee5ApplicasterBusinessLogic("zee");
+		accessDeviceLocationPopUp("Allow", userType);
+		navigateToIntroScreen_DisplaylangScreen();
 	}
 
 	public void verifySubscriptionPageViewedEventViaBuySubscription(String userType) throws Exception {
@@ -578,54 +479,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Subscription Page Viewed Event");
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
-		}
-	}
-
-	public void verifySubscriptionSelectedEvent(String userType) throws Exception {
-		extent.HeaderChildNode("Verify Subscription Selected Event");
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
-			waitTime(3000);
-			Swipe("Up", 2);
-			SwipeUntilFindElement(AMDSubscibeScreen.objContinueBtn, "Up");
-			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
-			waitTime(2000);
-		}
-	}
-
-	public void verifySubscriptionSelectedEventByClubPack(String userType) throws Exception {
-		extent.HeaderChildNode("Verify Subscription Selected Event By selecting Club Pack");
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
-			click(AMDSubscibeScreen.objClubTab, "Club Pack");
-			waitTime(2000);
-			Swipe("Up", 2);
-			click(AMDSubscibeScreen.objClub365daysPack, "Pack");
-			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
-			waitTime(2000);
-		}
-	}
-
-	public void verifyPromoCodeResultEventForValid(String userType) throws Exception {
-		extent.HeaderChildNode("Verify Promo Code Result Event For Valid code");
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
-			type(AMDSubscibeScreen.objApplyPromoCodeTextbox, "PNB20", "Prepaid Code");
-			hideKeyboard();
-			verifyElementPresentAndClick(AMDSubscibeScreen.objApply, "Apply Button");
-			waitTime(2000);
-		}
-	}
-
-	public void verifyPromoCodeResultEventForInvalid(String userType) throws Exception {
-		extent.HeaderChildNode("Verify Promo Code Result Event For Invalid code");
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
-			type(AMDSubscibeScreen.objApplyPromoCodeTextbox, "sdcrfd", "Prepaid Code");
-			hideKeyboard();
-			verifyElementPresentAndClick(AMDSubscibeScreen.objApply, "Apply Button");
-			waitTime(2000);
-
 		}
 	}
 
@@ -2457,10 +2310,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
 				if (var == true) {
 					verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
-					verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-					seekVideoTillLast(AMDPlayerScreen.objProgressBar);
-					verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+					scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
 					waitTime(4000);
+
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+					mixpanel.ValidateParameter("", "Video Watch Duration");
 					break;
 				} else {
 					Swipe("UP", 1);
@@ -2470,6 +2327,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("Premium content is not displayed in the screen");
 				extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
 			}
+		} else {
+			logger.info("This validation is not applicable for " + usertype);
+			extentLoggerPass("Premium Content", "This validation is not applicable for " + usertype);
 		}
 	}
 
@@ -2517,10 +2377,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (usertype.equalsIgnoreCase("SubscribedUser")) {
 			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
 		}
-		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		seekVideoTillLast(AMDPlayerScreen.objProgressBar);
-		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-		waitTime(5000);
+
+		scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
+		waitTime(2000);
+		Back(2);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		mixpanel.ValidateParameter("", "Video Watch Duration");
 	}
 
 	public void VideoWatchDurationEventForCarouselContentComplete(String tabName) throws Exception {
@@ -2536,14 +2402,35 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			extentLoggerPass("Player screen", "Player screen is displayed");
 			waitTime(6000);
 			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-			seekVideoTillLast(AMDPlayerScreen.objProgressBar);
-			verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-			waitTime(5000);
+			scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
+			waitTime(2000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+			mixpanel.ValidateParameter("", "Video Watch Duration");
+
 		} else if (verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer)) {
 			logger.info("Player inline subscription link is displayed");
 			extentLoggerPass("Player screen", "Player inline subscription link is displayed");
 		}
+	}
+
+	public void scrubProgressBarTillEnd(By byLocator1) throws Exception {
+		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
+		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
+		click(AMDPlayerScreen.objPauseIcon, "Pause");
+		WebElement element = getDriver().findElement(byLocator1);
+		String xDuration = getAttributValue("x", AMDPlayerScreen.objTotalDuration);
+		int endX = Integer.parseInt(xDuration) - 30;
+		SwipeAnElement(element, endX, 0);
+		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time after seeking : " + timeToSec(afterSeek));
+		extent.extentLogger("Seek", "Current time after seeking in seconds: " + timeToSec(afterSeek));
+		click(AMDPlayerScreen.objPlayIcon, "Play");
+		waitTime(6000);
 	}
 
 	public void VideoWatchDurationEventOfcontentFromSearchPageComplete(String usertype, String keyword4)
@@ -2562,11 +2449,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 		registerPopUpClose();
 		completeProfilePopUpClose(usertype);
-		waitTime(6000);
-		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		seekVideoTillLast(AMDPlayerScreen.objProgressBar);
 		waitTime(4000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
+		waitTime(4000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		mixpanel.ValidateParameter("", "Video Watch Duration");
 	}
 
 	public void VideoWatchDurationEventOfContentFromMyWatchListPageComplete(String usertype) throws Exception {
@@ -2585,16 +2477,22 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 						.click();
 				waitTime(5000);
 				waitForElementDisplayed(AMDPlayerScreen.objPlayer, 10);
-				verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-				seekVideoTillLast(AMDPlayerScreen.objProgressBar);
-				verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+				scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
 				waitTime(4000);
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.ValidateParameter("", "Video Watch Duration");
 			} else {
 				logger.info("No contents in Watchlist");
 				extentLoggerWarning("Watchlist", "No contents in Watchlist");
 			}
+		} else {
+			logger.info("Watchlist validation is not applicable for " + usertype);
+			extentLoggerPass("Watchlist", "Watchlist validation is not applicable for " + usertype);
 		}
-
 	}
 
 	public void VideoWatchDurationEventOfContentFromUpNextRailComplete(String usertype, String keyword4)
@@ -2609,7 +2507,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 		waitTime(8000);
-		Swipe("UP", 1);
+		PartialSwipe("UP", 1);
 		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
 			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
 		}
@@ -2620,9 +2518,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		completeProfilePopUpClose(usertype);
 		waitTime(6000);
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		seekVideoTillLast(AMDPlayerScreen.objProgressBar);
+		scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
 		waitTime(4000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		mixpanel.ValidateParameter("", "Video Watch Duration");
 	}
 
 	public void VideoWatchDurationEventForPremiumContentAbrupt(String usertype, String tabName) throws Exception {
@@ -2639,6 +2542,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					verifyIsElementDisplayed(AMDPlayerScreen.objPlayer, "Player screen");
 					waitTime(10000);
 					Back(1);
+
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+					mixpanel.ValidateParameter("", "Video Watch Duration");
+
 					break;
 				} else {
 					Swipe("UP", 1);
@@ -2648,6 +2558,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("Premium content is not displayed in the screen");
 				extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
 			}
+		} else {
+			logger.info("This validation is not applicable for " + usertype);
+			extentLoggerPass("Premium Content", "This validation is not applicable for " + usertype);
 		}
 	}
 
@@ -2666,8 +2579,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
 			Back(1);
 		}
-		waitTime(5000);
+		waitTime(8000);
 		Back(1);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		mixpanel.ValidateParameter("", "Video Watch Duration");
 	}
 
 	public void VideoWatchDurationEventForCarouselContentAbrupt(String tabName) throws Exception {
@@ -2685,6 +2604,12 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			extentLoggerPass("Player screen", "Player inline subscription link is displayed");
 		}
 		Back(1);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		mixpanel.ValidateParameter("", "Video Watch Duration");
 	}
 
 	public void VideoWatchDurationEventOfcontentFromSearchPageAbrupt(String usertype, String keyword4)
@@ -2702,13 +2627,19 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 		registerPopUpClose();
 		completeProfilePopUpClose(usertype);
-		waitTime(6000);
+		waitTime(3000);
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		waitTime(4000);
 		Back(2);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		mixpanel.ValidateParameter("", "Video Watch Duration");
 	}
 
 	public void VideoWatchDurationEventOfContentFromMyWatchListPageAbrupt(String usertype) throws Exception {
@@ -2717,7 +2648,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					"Video Watch Duration Event of content from My WatchList page when video closed abruptly");
 			click(AMDHomePage.objMoreMenu, "More menu");
 			click(AMDMoreMenu.objWatchlist, "Watchlist option");
-			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
+//			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
 			waitTime(5000);
 			boolean contentsInMoviesTab = verifyIsElementDisplayed(
 					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
@@ -2728,13 +2659,22 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitTime(5000);
 				verifyIsElementDisplayed(AMDPlayerScreen.objPlayer, "Player screen");
 				Back(3);
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.ValidateParameter("", "Video Watch Duration");
+
 			} else {
 				logger.info("No contents in Watchlist");
 				extentLoggerWarning("Watchlist", "No contents in Watchlist");
 				Back(2);
 			}
+		} else {
+			logger.info("Watchlist validation is not applicable for " + usertype);
+			extentLoggerPass("Watchlist", "Watchlist validation is not applicable for " + usertype);
 		}
-
 	}
 
 	public void VideoWatchDurationEventOfContentFromUpNextRailAbrupt(String usertype, String keyword4)
@@ -2749,7 +2689,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 		waitTime(8000);
-		Swipe("UP", 1);
+//		Swipe("UP", 1);
+		PartialSwipe("UP", 1);
 		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
 			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
 		}
@@ -2762,14 +2703,20 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		verifyIsElementDisplayed(AMDPlayerScreen.objPlayer);
 		Back(2);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		mixpanel.ValidateParameter("", "Video Watch Duration");
 	}
 
-	public void AdInitializedEventForTrailerContent(String usertype, String keyword3) throws Exception {
+	public void AdInitializedEventForTrailerContent(String usertype, String keyword4) throws Exception {
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Initialized event for Trailer content");
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
-			type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+			type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
 			hideKeyboard();
 			waitTime(4000);
 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
@@ -2779,13 +2726,22 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (ad == true) {
 				logger.info("Ad is Displayed");
 				extentLogger("Ad", "Ad is Displayed");
+				waitTime(5000);
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+				mixpanel.FEProp.setProperty("Ad Location", "instream");
+				mixpanel.ValidateParameter("", "Ad Initialized");
+
 			} else {
 				logger.info("Ad is not displayed");
 				extentLogger("Ad", "Ad is not displayed");
 			}
-			waitTime(5000);
-		}
 
+		}
 	}
 
 	public void AdInitializedEventForCarouselContent(String usertype, String tabName) throws Exception {
@@ -2799,12 +2755,20 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (var == true) {
 				logger.info("Ad is Displayed");
 				extentLogger("Ad", "Ad is Displayed");
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+				mixpanel.FEProp.setProperty("Ad Location", "instream");
+				mixpanel.ValidateParameter("", "Ad Initialized");
+
 			} else {
 				logger.info("Ad is not Displayed");
 				extentLogger("Ad", "Ad is not Displayed");
 			}
 		}
-
 	}
 
 	public void AdInitializedEventForContentFromTray(String usertype, String tabName) throws Exception {
@@ -2813,13 +2777,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			waitTime(10000);
 			SelectTopNavigationTab(tabName);
 			Swipe("UP", 1);
-			boolean var = false;
+			boolean var = false, ad = false;
 			for (int i = 0; i < 3; i++) {
 				var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
 				if (var == true) {
 					verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
 					waitTime(10000);
-					boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+					ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
 					if (ad == true) {
 						logger.info("Ad is Displayed");
 						extentLogger("Ad", "Ad is Displayed");
@@ -2833,6 +2797,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					Swipe("UP", 1);
 				}
 			}
+			if (ad == true) {
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+				mixpanel.FEProp.setProperty("Ad Location", "instream");
+				mixpanel.ValidateParameter("", "Ad Initialized");
+			}
+
 			if (var == false) {
 				logger.info("Premium content is not displayed in the screen");
 				extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
@@ -2855,13 +2829,20 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (ad == true) {
 				logger.info("Ad is Displayed");
 				extentLogger("Ad", "Ad is Displayed");
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+				mixpanel.FEProp.setProperty("Ad Location", "instream");
+				mixpanel.ValidateParameter("", "Ad Initialized");
 			} else {
 				logger.info("Ad is not displayed");
 				extentLogger("Ad", "Ad is not displayed");
 			}
 			waitTime(4000);
 		}
-
 	}
 
 	public void AdInitializedEventOfContentFromMyWatchListPage(String usertype) throws Exception {
@@ -2882,6 +2863,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				if (ad == true) {
 					logger.info("Ad is Displayed");
 					extentLogger("Ad", "Ad is Displayed");
+
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+					mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+					mixpanel.FEProp.setProperty("Ad Location", "instream");
+					mixpanel.ValidateParameter("", "Ad Initialized");
+
 				} else {
 					logger.info("Ad is not displayed");
 					extentLogger("Ad", "Ad is not displayed");
@@ -2890,15 +2880,18 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("No contents in Watchlist");
 				extentLoggerWarning("Watchlist", "No contents in Watchlist");
 			}
+		} else {
+			logger.info("Watchlist ad validation is not applicable for " + usertype);
+			extentLoggerPass("Watchlist", "Watchlist ad validation is not applicable for " + usertype);
 		}
 	}
 
-	public void AdInitializedEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+	public void AdInitializedEventOfContentFromUpNextRail(String usertype, String keyword5) throws Exception {
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Initialized event of content from Upnext rail");
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
-			type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+			type(AMDSearchScreen.objSearchBoxBar, keyword5 + "\n", "Search bar");
 			hideKeyboard();
 			waitTime(4000);
 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
@@ -2908,13 +2901,21 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (ad == true) {
 				logger.info("Ad is Displayed");
 				extentLogger("Ad", "Ad is Displayed");
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+				mixpanel.FEProp.setProperty("Ad Location", "instream");
+				mixpanel.ValidateParameter("", "Ad Initialized");
+
 			} else {
 				logger.info("Ad is not displayed");
 				extentLogger("Ad", "Ad is not displayed");
 			}
 			waitTime(5000);
 		}
-
 	}
 
 	public void AdViewEventForTrailerContent(String usertype, String keyword3) throws Exception {
@@ -3105,12 +3106,12 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void AdClickEventForTrailerContent(String usertype, String keyword3) throws Exception {
+	public void AdClickEventForTrailerContent(String usertype, String keyword4) throws Exception {
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Click event for Trailer content");
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
-			type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+			type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
 			hideKeyboard();
 			waitTime(4000);
 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
@@ -3122,6 +3123,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 				verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
 				waitTime(4000);
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+				mixpanel.FEProp.setProperty("Ad Location", "instream");
+				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
+
+				mixpanel.ValidateParameter("", "Ad click");
+
 			} else {
 				logger.info("Ad is not displayed");
 				extentLogger("Ad", "Ad is not displayed");
@@ -3144,6 +3156,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 				verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
 				waitTime(4000);
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+				mixpanel.FEProp.setProperty("Ad Location", "instream");
+				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
+
+				mixpanel.ValidateParameter("", "Ad click");
 			} else {
 				logger.info("Ad is not Displayed");
 				extentLogger("Ad", "Ad is not Displayed");
@@ -3170,6 +3192,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 						extentLogger("Ad", "Ad is Displayed");
 						verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
 						waitTime(4000);
+
+						mixpanel.FEProp.setProperty("Source", "home");
+						mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+						mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+						mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+						mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+						mixpanel.FEProp.setProperty("Ad Location", "instream");
+						mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
+
+						mixpanel.ValidateParameter("", "Ad click");
+
 					} else {
 						logger.info("Ad is not displayed");
 						extentLogger("Ad", "Ad is not displayed");
@@ -3209,6 +3242,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is not displayed");
 			}
 			waitTime(4000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+			mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+			mixpanel.FEProp.setProperty("Ad Location", "instream");
+			mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
+
+			mixpanel.ValidateParameter("", "Ad click");
 		}
 
 	}
@@ -3233,6 +3276,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					extentLogger("Ad", "Ad is Displayed");
 					verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
 					waitTime(4000);
+
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+					mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+					mixpanel.FEProp.setProperty("Ad Location", "instream");
+					mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
+
+					mixpanel.ValidateParameter("", "Ad click");
 				} else {
 					logger.info("Ad is not displayed");
 					extentLogger("Ad", "Ad is not displayed");
@@ -3241,6 +3294,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("No contents in Watchlist");
 				extentLoggerWarning("Watchlist", "No contents in Watchlist");
 			}
+		} else {
+			logger.info("Watchlist is not applicable for " + usertype);
+			extentLoggerPass("Watchlist", "Watchlist is not applicable for " + usertype);
 		}
 	}
 
@@ -3261,21 +3317,30 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 				verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
 				waitTime(4000);
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+				mixpanel.FEProp.setProperty("Ad Location", "instream");
+				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
+
+				mixpanel.ValidateParameter("", "Ad click");
 			} else {
 				logger.info("Ad is not displayed");
 				extentLogger("Ad", "Ad is not displayed");
 			}
 			waitTime(5000);
 		}
-
 	}
 
-	public void AdWatchDurationEventForTrailerContent(String usertype, String keyword3) throws Exception {
+	public void AdWatchDurationEventForTrailerContent(String usertype, String keyword) throws Exception {
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Watch Duration event for Trailer content");
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
-			type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+			type(AMDSearchScreen.objSearchBoxBar, keyword + "\n", "Search bar");
 			hideKeyboard();
 			waitTime(4000);
 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
@@ -3287,13 +3352,24 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 				waitForAdToFinishInAmd();
 				waitTime(4000);
+				Back(1);
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+				mixpanel.FEProp.setProperty("Ad Location", "instream");
+				mixpanel.ValidateParameter("", "Ad Watch Duration");
+
 			} else {
 				logger.info("Ad is not displayed");
 				extentLogger("Ad", "Ad is not displayed");
 			}
 			waitTime(5000);
+		} else {
+			logger.info("Ad Validation is not applicable for " + usertype);
+			extentLoggerPass("Watchlist", "Ad validation is not applicable for " + usertype);
 		}
-
 	}
 
 	public void AdWatchDurationEventForCarouselContent(String usertype, String tabName) throws Exception {
@@ -3309,12 +3385,23 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 				waitForAdToFinishInAmd();
 				waitTime(4000);
+				Back(1);
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+				mixpanel.FEProp.setProperty("Ad Location", "instream");
+				mixpanel.ValidateParameter("", "Ad Watch Duration");
+
 			} else {
 				logger.info("Ad is not Displayed");
 				extentLogger("Ad", "Ad is not Displayed");
 			}
+		} else {
+			logger.info("Ad Validation is not applicable for " + usertype);
+			extentLoggerPass("Watchlist", "Ad validation is not applicable for " + usertype);
 		}
-
 	}
 
 	public void AdWatchDurationEventForContentFromTray(String usertype, String tabName) throws Exception {
@@ -3335,6 +3422,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 						extentLogger("Ad", "Ad is Displayed");
 						waitForAdToFinishInAmd();
 						waitTime(4000);
+						Back(1);
+						mixpanel.FEProp.setProperty("Source", "home");
+						mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+						mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+						mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+						mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+						mixpanel.FEProp.setProperty("Ad Location", "instream");
+						mixpanel.ValidateParameter("", "Ad Watch Duration");
 					} else {
 						logger.info("Ad is not displayed");
 						extentLogger("Ad", "Ad is not displayed");
@@ -3349,6 +3444,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("Premium content is not displayed in the screen");
 				extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
 			}
+		} else {
+			logger.info("Ad Validation is not applicable for " + usertype);
+			extentLoggerPass("Watchlist", "Ad validation is not applicable for " + usertype);
 		}
 	}
 
@@ -3369,13 +3467,24 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 				waitForAdToFinishInAmd();
 				waitTime(4000);
+				Back(1);
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+				mixpanel.FEProp.setProperty("Ad Location", "instream");
+				mixpanel.ValidateParameter("", "Ad Watch Duration");
+
 			} else {
 				logger.info("Ad is not displayed");
 				extentLogger("Ad", "Ad is not displayed");
 			}
 			waitTime(4000);
+		} else {
+			logger.info("Ad Validation is not applicable for " + usertype);
+			extentLoggerPass("Watchlist", "Ad validation is not applicable for " + usertype);
 		}
-
 	}
 
 	public void AdWatchDurationEventOfContentFromMyWatchListPage(String usertype) throws Exception {
@@ -3398,6 +3507,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					extentLogger("Ad", "Ad is Displayed");
 					waitForAdToFinishInAmd();
 					waitTime(4000);
+					Back(1);
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+					mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+					mixpanel.FEProp.setProperty("Ad Location", "instream");
+					mixpanel.ValidateParameter("", "Ad Watch Duration");
 				} else {
 					logger.info("Ad is not displayed");
 					extentLogger("Ad", "Ad is not displayed");
@@ -3406,15 +3523,18 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("No contents in Watchlist");
 				extentLoggerWarning("Watchlist", "No contents in Watchlist");
 			}
+		} else {
+			logger.info("Watchlist validation is not applicable for " + usertype);
+			extentLoggerPass("Watchlist", "Watchlist validation is not applicable for " + usertype);
 		}
 	}
 
-	public void AdWatchDurationEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+	public void AdWatchDurationEventOfContentFromUpNextRail(String usertype, String keyword) throws Exception {
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Watch Duration event of content from Upnext rail");
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
-			type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+			type(AMDSearchScreen.objSearchBoxBar, keyword + "\n", "Search bar");
 			hideKeyboard();
 			waitTime(4000);
 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
@@ -3426,11 +3546,22 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 				waitForAdToFinishInAmd();
 				waitTime(4000);
+				Back(1);
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+				mixpanel.FEProp.setProperty("Ad Location", "instream");
+				mixpanel.ValidateParameter("", "Ad Watch Duration");
 			} else {
 				logger.info("Ad is not displayed");
 				extentLogger("Ad", "Ad is not displayed");
 			}
 			waitTime(5000);
+		} else {
+			logger.info("Ad Validation is not applicable for " + usertype);
+			extentLoggerPass("Ad", "Ad validation is not applicable for " + usertype);
 		}
 	}
 
@@ -3781,5 +3912,2534 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		waitTime(3000);
+	}
+
+	public void ScrubSeekEventForPremiumContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Scrub/Seek Event for premium content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		Swipe("UP", 1);
+		boolean var = false;
+		for (int i = 0; i < 3; i++) {
+			var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
+			if (var == true) {
+				verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
+				waitTime(3000);
+				boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+				if (inlineLink == true) {
+					logger.info("Player inline subscription link is displayed");
+					extentLogger("Player screen", "Player inline subscription link is displayed");
+				} else {
+					waitTime(6000);
+					verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+					verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+					seekVideo(AMDPlayerScreen.objProgressBar, usertype);
+				}
+				waitTime(3000);
+				break;
+			} else {
+				Swipe("UP", 1);
+			}
+		}
+		if (var == false) {
+			logger.info("Premium content is not displayed in the screen");
+			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
+		}
+	}
+
+	public void ScrubSeekEventForTrailerContent(String usertype, String keyword3) throws Exception {
+		extent.HeaderChildNode("Verify Scrub/Seek event for Trailer content");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 30);
+		if (usertype.equalsIgnoreCase("SubscribedUser")) {
+			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
+		}
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		seekVideo(AMDPlayerScreen.objProgressBar, usertype);
+		waitTime(5000);
+
+	}
+
+	public void ScrubSeekEventForCarouselContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Scrub/Seek Event for carousel content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
+		waitTime(3000);
+		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+		if (inlineLink == true) {
+			logger.info("Player inline subscription link is displayed");
+			extentLogger("Player screen", "Player inline subscription link is displayed");
+		} else {
+			waitTime(6000);
+			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			seekVideo(AMDPlayerScreen.objProgressBar, usertype);
+		}
+
+		waitTime(3000);
+
+	}
+
+	public void ScrubSeekEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Scrub/Seek Event of content from search page");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		seekVideo(AMDPlayerScreen.objProgressBar, usertype);
+		waitTime(4000);
+
+	}
+
+	public void ScrubSeekEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+		if (!(usertype.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Scrub/Seek Event of content from My WatchList page");
+			click(AMDHomePage.objMoreMenu, "More menu");
+			click(AMDMoreMenu.objWatchlist, "Watchlist option");
+			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
+			waitTime(5000);
+			boolean flag = false;
+			boolean contentsInMoviesTab = verifyIsElementDisplayed(
+					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
+			if (contentsInMoviesTab == true) {
+				getDriver()
+						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
+						.click();
+				verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+				seekVideo(AMDPlayerScreen.objProgressBar, usertype);
+				waitTime(4000);
+			} else {
+				logger.info("No contents in Watchlist");
+				extentLoggerWarning("Watchlist", "No contents in Watchlist");
+			}
+		} else {
+			logger.info("Watchlist is not applicable for " + usertype);
+			extentLogger("Guest User", "Watchlist is not applicable for " + usertype);
+		}
+
+	}
+
+	public void ScrubSeekEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Scrub/Seek event of content from Upnext rail");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitTime(8000);
+		Swipe("UP", 1);
+		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
+			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
+		}
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		seekVideo(AMDPlayerScreen.objProgressBar, usertype);
+		waitTime(5000);
+
+	}
+
+	public void seekVideo(By byLocator, String usertype) throws Exception {
+
+		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
+		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
+		WebElement element = getDriver().findElement(byLocator);
+		Dimension size = element.getSize();
+		int startx = (int) (size.width);
+
+		SwipeAnElement(element, startx, 0);
+		logger.info("Scrolling the seek bar");
+		extent.extentLogger("Seek", "Scrolling the seek bar");
+
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		waitTime(5000);
+		boolean icon = verifyIsElementDisplayed(AMDPlayerScreen.objPlayIcon, "Play icon");
+		if (icon == false) {
+			waitTime(6000);
+			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		}
+		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time after seeking in seconds : " + timeToSec(afterSeek));
+		extent.extentLogger("Seek", "Current time after seeking in seconds : " + timeToSec(afterSeek));
+		if (timeToSec(afterSeek) > timeToSec(beforeSeek)) {
+			logger.info("Seek bar is functional");
+			extent.extentLoggerPass("Seek", "Seek bar is functional");
+		} else {
+			logger.info("Seek bar is not functional");
+			extent.extentLoggerFail("Seek", "Seek bar is not functional");
+		}
+	}
+
+	public void SwipeAnElement(WebElement element, int posx, int posy) {
+		AndroidTouchAction touch = new AndroidTouchAction(getDriver());
+		touch.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(element)))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000))).moveTo(PointOption.point(posx, posy))
+				.release().perform();
+	}
+
+	public static int timeToSec(String s) {
+		String[] t = s.split(":");
+		int num = 0;
+		// System.out.println(t.length);
+		if (t.length == 2) {
+			num = Integer.parseInt(t[0]) * 60 + Integer.parseInt(t[1]); // minutes since 00:00
+		}
+		if (t.length == 3) {
+			num = ((Integer.parseInt(t[0]) * 60) * 60) + Integer.parseInt(t[1]) * 60 + Integer.parseInt(t[2]);
+		}
+		return num;
+	}
+
+	public void QualityChangeEventForPremiumContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Quality Change Event for premium content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		Swipe("UP", 1);
+		boolean var = false;
+		for (int i = 0; i < 3; i++) {
+			var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
+			if (var == true) {
+				verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
+				waitTime(3000);
+				boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+				if (inlineLink == true) {
+					logger.info("Player inline subscription link is displayed");
+					extentLogger("Player screen", "Player inline subscription link is displayed");
+				} else {
+					waitTime(6000);
+					verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+					verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+					verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+					verifyElementPresentAndClick(AMDPlayerScreen.objThreeDotsOnPlayer, "Three Dots");
+					verifyElementPresentAndClick(AMDPlayerScreen.objQuality, "Quality");
+					String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
+					if (selectedQualityOption.equalsIgnoreCase("Auto")) {
+						verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+					} else {
+						verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+					}
+				}
+				waitTime(3000);
+				break;
+			} else {
+				Swipe("UP", 1);
+			}
+		}
+		if (var == false) {
+			logger.info("Premium content is not displayed in the screen");
+			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
+		}
+	}
+
+	public void QualityChangeEventForTrailerContent(String usertype, String keyword3) throws Exception {
+		extent.HeaderChildNode("Verify Quality Change event for Trailer content");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 30);
+		if (usertype.equalsIgnoreCase("SubscribedUser")) {
+			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
+		}
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objThreeDotsOnPlayer, "Three Dots");
+		verifyElementPresentAndClick(AMDPlayerScreen.objQuality, "Quality");
+		String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
+		if (selectedQualityOption.equalsIgnoreCase("Auto")) {
+			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+		} else {
+			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+		}
+		waitTime(5000);
+
+	}
+
+	public void QualityChangeEventForCarouselContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Quality Change Event for carousel content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
+		waitTime(3000);
+		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+		if (inlineLink == true) {
+			logger.info("Player inline subscription link is displayed");
+			extentLogger("Player screen", "Player inline subscription link is displayed");
+		} else {
+			waitTime(6000);
+			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+			verifyElementPresentAndClick(AMDPlayerScreen.objThreeDotsOnPlayer, "Three Dots");
+			verifyElementPresentAndClick(AMDPlayerScreen.objQuality, "Quality");
+			String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
+			if (selectedQualityOption.equalsIgnoreCase("Auto")) {
+				verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+			} else {
+				verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+			}
+		}
+		waitTime(3000);
+	}
+
+	public void QualityChangeEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Quality Change Event of content from search page");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objThreeDotsOnPlayer, "Three Dots");
+		verifyElementPresentAndClick(AMDPlayerScreen.objQuality, "Quality");
+		String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
+		if (selectedQualityOption.equalsIgnoreCase("Auto")) {
+			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+		} else {
+			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+		}
+		waitTime(4000);
+
+	}
+
+	public void QualityChangeEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+		if (!(usertype.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Quality Change Event of content from My WatchList page");
+			click(AMDHomePage.objMoreMenu, "More menu");
+			click(AMDMoreMenu.objWatchlist, "Watchlist option");
+			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
+			waitTime(5000);
+			boolean flag = false;
+			boolean contentsInMoviesTab = verifyIsElementDisplayed(
+					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
+			if (contentsInMoviesTab == true) {
+				getDriver()
+						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
+						.click();
+				verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+				verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+				verifyElementPresentAndClick(AMDPlayerScreen.objThreeDotsOnPlayer, "Three Dots");
+				verifyElementPresentAndClick(AMDPlayerScreen.objQuality, "Quality");
+				String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
+				if (selectedQualityOption.equalsIgnoreCase("Auto")) {
+					verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+				} else {
+					verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+				}
+				waitTime(4000);
+			} else {
+				logger.info("No contents in Watchlist");
+				extentLoggerWarning("Watchlist", "No contents in Watchlist");
+			}
+		} else {
+			logger.info("Watchlist is not applicable for " + usertype);
+			extentLogger("Guest User", "Watchlist is not applicable for " + usertype);
+		}
+
+	}
+
+	public void QualityChangeEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Quality Change event of content from Upnext rail");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitTime(8000);
+		Swipe("UP", 1);
+		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
+			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
+		}
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objThreeDotsOnPlayer, "Three Dots");
+		verifyElementPresentAndClick(AMDPlayerScreen.objQuality, "Quality");
+		String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
+		if (selectedQualityOption.equalsIgnoreCase("Auto")) {
+			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+		} else {
+			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+		}
+		waitTime(5000);
+
+	}
+
+	public void QualityChangeEventForLinearContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Quality Change Event for Linear content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDLiveTVScreen.objFirstContentCardOfFreeChannelsTray, "linear content");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objThreeDotsOnPlayer, "Three Dots");
+		verifyElementPresentAndClick(AMDPlayerScreen.objQuality, "Quality");
+		String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
+		if (selectedQualityOption.equalsIgnoreCase("Auto")) {
+			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+		} else {
+			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+		}
+		waitTime(3000);
+	}
+
+	/**
+	 * SKIP_LOGIN
+	 */
+
+	/**
+	 * Function to verify Skip Login
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifySkipLoginEventBrowseForFreeScreen(String userType) throws Exception {
+
+		extent.HeaderChildNode("Verify Skip Login event when user navigated from Browse for Free");
+		click(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+		verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "Intro");
+		mixpanel.FEProp.setProperty("Element", "Skip");
+		mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
+		mixpanel.ValidateParameter("", "Skip Login");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifySkipLoginEventFromLoginCTA() throws Exception {
+
+		extent.HeaderChildNode("Verify Skip Login event when user navigated from Login CTA");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "Intro");
+		mixpanel.FEProp.setProperty("Element", "Skip");
+		mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
+		mixpanel.ValidateParameter("", "Skip Login");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifySkipLogin_LoginInGetPremiumPopUp(String userType, String keyword2) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode(
+					"Verify Skip login event on clicking login in Get premium popup during content playback");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword2 + "\n", "Search bar");
+			hideKeyboard();
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowLinkOnPlayer, "Subscribe Now Link");
+			waitTime(5000);
+			Swipe("Up", 1);
+			verifyElementPresentAndClick(AMDPlayerScreen.objLoginCTA, "Login CTA");
+			verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip link");
+
+			mixpanel.FEProp.setProperty("Element", "Skip");
+			mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
+			mixpanel.ValidateParameter("", "Skip Login");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifySkipLoginEventFromHamburgerMenu(String usertype) throws Exception {
+		extent.HeaderChildNode("Verify Skip login event");
+		if (usertype.equalsIgnoreCase("SubscribedUser") | (usertype.equalsIgnoreCase("NonSubscribedUser"))) {
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+			Swipe("Up", 2);
+			click(AMDHomePage.objLogout, "Logout");
+			click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
+			Swipe("Down", 1);
+		} else {
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+		}
+		verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
+		verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip link");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Skip");
+		mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
+		mixpanel.ValidateParameter("", "Skip Login");
+
+	}
+
+	/**
+	 * Logout
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifyLogoutEvent(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Logout Event for " + userType);
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+
+			logout();
+
+			mixpanel.FEProp.setProperty("Element", "Logout");
+			mixpanel.FEProp.setProperty("Page Name", "Logout");
+			mixpanel.FEProp.setProperty("Source", "More");
+			mixpanel.ValidateParameter("", "Logout");
+		}
+	}
+
+	public void logout() throws Exception {
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
+		verifyElementPresentAndClick(AMDMoreMenu.objLogoutPopup, "Logout popUp");
+		verifyElementPresentAndClick(AMDMoreMenu.objLogoutButton, "Logout button");
+		waitTime(3000);
+		Swipe("Down", 1);
+		verifyElementPresent(AMDMoreMenu.objGuestUserAccount, "Guest user Header");
+		verifyElementPresentAndClick(AMDHomePage.objHome, "Home tab");
+	}
+
+	/**
+	 * LoginScreen Displayed
+	 */
+
+	/*
+	 * Login Screen Display event
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginScreenDisplayEventThroughBrowseForScreen(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode(
+					"Verify Login Screen Display Event By Clicking On Browse for free button in welcome screen");
+
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			String Username = getParameterFromXML("NonSubscribedUserName");
+			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			waitTime(3000);
+			verifyIsElementDisplayed(AMDLoginScreen.objLoginScreenTitle, "Login screen title");
+			waitTime(3000);
+			mixpanel.FEProp.setProperty("Page Name", "Login");
+			mixpanel.FEProp.setProperty("Source", "LoginRegister");
+			mixpanel.ValidateParameter("", "Login Screen Display");
+
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginScreenDisplayEventThroughLoginLink(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Screen Display Event By Clicking On Login link in welcome screen");
+
+			verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login link");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			String Username = getParameterFromXML("NonSubscribedUserName");
+			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			waitTime(3000);
+			verifyIsElementDisplayed(AMDLoginScreen.objLoginScreenTitle, "Login screen title");
+
+			mixpanel.FEProp.setProperty("Source", "Login");
+			mixpanel.FEProp.setProperty("Page Name", "Login");
+			mixpanel.ValidateParameter("", "Login Screen Display");
+
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginScreenDisplayEventThroughMoreMenu(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Screen Display Event through MoreMenu");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			String Username = getParameterFromXML("NonSubscribedUserName");
+			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			waitTime(3000);
+			verifyIsElementDisplayed(AMDLoginScreen.objLoginScreenTitle, "Login screen title");
+
+			mixpanel.FEProp.setProperty("Source", "Login");
+			mixpanel.ValidateParameter("", "Login Screen Display");
+
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginScreenDisplayEventByClickingOnLoginButtonInGetPremiumPopUp(String userType, String keyword2)
+			throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode(
+					"Verify Login Screen Display Event By Clicking On Login Button In Get Premium Pop Up");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword2 + "\n", "Search bar");
+			hideKeyboard();
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowLinkOnPlayer, "Subscribe Now Link");
+			waitTime(2000);
+			Swipe("Up", 1);
+			verifyElementPresentAndClick(AMDPlayerScreen.objLoginCTA, "Login CTA");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			String Username = getParameterFromXML("NonSubscribedUserName");
+			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			waitTime(3000);
+			verifyIsElementDisplayed(AMDLoginScreen.objLoginScreenTitle, "Login screen title");
+
+			mixpanel.FEProp.setProperty("Source", "Login");
+			mixpanel.ValidateParameter("", "Login Screen Display");
+		}
+	}
+
+	/**
+	 * LoginInitiated
+	 */
+	/*
+	 * Navigation : Get Premium tag Event : Login Initatied
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventGPlusUserFromGetPremiumCTA() throws Exception {
+
+		HeaderChildNode("Verify Login Initiated event is triggered when user select Google login from Login screen");
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objGoogleBtn, "Google Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Social Network", "Google");
+		mixpanel.FEProp.setProperty("Method", "Social");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventFBUserFromGetPremiumCTA() throws Exception {
+
+		HeaderChildNode("Verify Login Initiated event is triggered when user select Facebook login from Login screen");
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objfbBtn, "Facebook Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Social Network", "Facebook");
+		mixpanel.FEProp.setProperty("Method", "Social");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventTwitterUserFromGetPremiumCTA() throws Exception {
+
+		HeaderChildNode("Verify Login Initiated event is triggered when user select Twitter login from Login screen");
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objtwitterBtn, "Twitter Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Social Network", "Twitter");
+		mixpanel.FEProp.setProperty("Method", "Social");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventMobileOTPFromGetPremiumCTA() throws Exception {
+
+		HeaderChildNode(
+				"Verify Login Initiated event is triggered when user select Mobile Number login from Login screen");
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "9880710182", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "User@123", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Method", "mobile");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventNonSubUserGetPremiumCTA() throws Exception {
+
+		HeaderChildNode("Verify Login Initiated event is triggered when user select Email ID login from Login screen");
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Method", "email");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventSubUserFromGetPremiumCTA() throws Exception {
+
+		HeaderChildNode(
+				"Verify Login Initiated event is triggered when user select Mobile Number login from Login screen");
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "rsvod3@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Method", "email");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginInitiatedEventForInvalidDataEmailGetPremiumCTA() throws Exception {
+
+		extent.HeaderChildNode(
+				"Verify Login Initiated event is triggered when user enters invalid email login credentials");
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "098765409876", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Method", "email");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginInitiatedEventForInvalidDataMobileGetPremiumCTA() throws Exception {
+
+		extent.HeaderChildNode(
+				"Verify Login Initiated event is triggered when user enters invalid Mobile login credentials");
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "9880710182", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "098765409876", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Method", "mobile");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+	}
+
+	/*
+	 * Navigation : Login CTA Event : Login Initiated
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventGPlusUserFromLoginCTA() throws Exception {
+
+		HeaderChildNode("Verify Login Initiated event is triggered when user select Google login from Login screen");
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objGoogleBtn, "Google Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Intro");
+		mixpanel.FEProp.setProperty("Social Network", "Google");
+		mixpanel.FEProp.setProperty("Method", "Social");
+		Mixpanel.ValidateParameter("", "Login Initatied");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventFBUserFromLoginCTA() throws Exception {
+
+		HeaderChildNode("Verify Login Initiated event is triggered when user select Facebook login from Login screen");
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objfbBtn, "Facebook Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Intro");
+		mixpanel.FEProp.setProperty("Social Network", "Facebook");
+		mixpanel.FEProp.setProperty("Method", "Social");
+		Mixpanel.ValidateParameter("", "Login Initatied");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventTwitterUserFromLoginCTA() throws Exception {
+
+		HeaderChildNode("Verify Login Initiated event is triggered when user select Twitter login from Login screen");
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objtwitterBtn, "Twitter Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Intro");
+		mixpanel.FEProp.setProperty("Social Network", "Twitter");
+		mixpanel.FEProp.setProperty("Method", "Social");
+		Mixpanel.ValidateParameter("", "Login Initatied");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventMobileOTPFromLoginCTA() throws Exception {
+
+		HeaderChildNode(
+				"Verify Login Initiated event is triggered when user select Mobile Number login from Login screen");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "9880710182", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "User@123", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Method", "mobile");
+		Mixpanel.ValidateParameter("", "Login Initatied");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventNonSubUserLoginCTA() throws Exception {
+
+		HeaderChildNode("Verify Login Initiated event is triggered when user select Email ID login from Login screen");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Method", "email");
+		Mixpanel.ValidateParameter("", "Login Initatied");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventSubUserFromLoginCTA() throws Exception {
+
+		HeaderChildNode(
+				"Verify Login Initiated event is triggered when user select Mobile Number login from Login screen");
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "rsvod3@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Method", "email");
+		Mixpanel.ValidateParameter("", "Login Initatied");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginInitiatedEventForInvalidDataEmailLoginCTA() throws Exception {
+
+		extent.HeaderChildNode(
+				"Verify Login Initiated event is triggered when user enters invalid email login credentials");
+		click(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "098765409876", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Method", "email");
+		Mixpanel.ValidateParameter("", "Login Initatied");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginInitiatedEventForInvalidDataMobileLoginCTA() throws Exception {
+
+		extent.HeaderChildNode(
+				"Verify Login Initiated event is triggered when user enters invalid Mobile login credentials");
+
+		click(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "9880710182", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "098765409876", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Method", "mobile");
+		Mixpanel.ValidateParameter("", "Login Initatied");
+	}
+
+	/*
+	 * Event : Login Initiated Navigation : Browse for free CTA
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventGPlusUserFromBrowseForFreeCTA() throws Exception {
+
+		HeaderChildNode("Verify Login Initiated event is triggered when user select Google login from Login screen");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+		verifyElementPresentAndClick(AMDLoginScreen.objGoogleBtn, "Google Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Intro");
+		mixpanel.FEProp.setProperty("Social Network", "Google");
+		mixpanel.FEProp.setProperty("Method", "Social");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventFBUserFromBrowseForFreeCTA() throws Exception {
+
+		HeaderChildNode("Verify Login Initiated event is triggered when user select Facebook login from Login screen");
+		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+		verifyElementPresentAndClick(AMDLoginScreen.objfbBtn, "Facebook Login button");
+		waitTime(5000);
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Intro");
+		mixpanel.FEProp.setProperty("Social Network", "Facebook");
+		mixpanel.FEProp.setProperty("Method", "Social");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventTwitterUserFromBrowseForFreeCTA() throws Exception {
+
+		HeaderChildNode("Verify Login Initiated event is triggered when user select Twitter login from Login screen");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+		verifyElementPresentAndClick(AMDLoginScreen.objtwitterBtn, "Twitter Login button");
+		waitTime(5000);
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Intro");
+		mixpanel.FEProp.setProperty("Social Network", "Twitter");
+		mixpanel.FEProp.setProperty("Method", "Social");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventMobileOTPFromBrowseForFreeCTA() throws Exception {
+
+		HeaderChildNode(
+				"Verify Login Initiated event is triggered when user select Mobile Number login from Login screen");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "9880710182", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "User@123", "Password field");
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
+		mixpanel.FEProp.setProperty("Method", "mobile");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventNonSubUserBrowseForFreeCTA() throws Exception {
+
+		HeaderChildNode("Verify Login Initiated event is triggered when user select Email ID login from Login screen");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
+		mixpanel.FEProp.setProperty("Method", "email");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginIntiatedEventSubUserBrowseForFreeCTA() throws Exception {
+
+		HeaderChildNode(
+				"Verify Login Initiated event is triggered when user select Mobile Number login from Login screen");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "rsvod3@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
+		mixpanel.FEProp.setProperty("Method", "email");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginInitiatedEventForInvalidDataEmailLogin() throws Exception {
+
+		extent.HeaderChildNode(
+				"Verify Login Initiated event is triggered when user enters invalid email login credentials");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "098765409876", "Password field");
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
+		mixpanel.FEProp.setProperty("Method", "email");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyLoginInitiatedEventForInvalidDataMobileLogin() throws Exception {
+
+		extent.HeaderChildNode(
+				"Verify Login Initiated event is triggered when user enters invalid Mobile login credentials");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "9880710182", "Email ID/Mobile Number");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "098765409876", "Password field");
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
+		mixpanel.FEProp.setProperty("Method", "mobile");
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.ValidateParameter("", "Login Initatied");
+	}
+
+	/**
+	 * Login Result
+	 */
+	/*
+	 * Event : Login Result Navigation : Browse for free CTA
+	 */
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromBrowseforFreeTwitterUser() throws Exception {
+
+		extent.HeaderChildNode(
+				"Verify Login Result event when user taps on Login button, Post entering valid credentials");
+
+		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for free CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objtwitterBtn, "Twitter button");
+		if (verifyIsElementDisplayed(AMDHomePage.objHome, "Home tab")) {
+			logger.info("User Logged in Successfully");
+			extent.extentLogger("Logged in", "User Logged in Successfully");
+			logout();
+		} else if (verifyIsElementDisplayed(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App")) {
+			click(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App");
+		} else {
+			verifyElementPresent(AMDLoginScreen.objEmailFieldInTwitterPage, " Email Field");
+			type(AMDLoginScreen.objEmailFieldInTwitterPage, "zee5latest@gmail.com", "Email Field");
+
+			verifyElementPresent(AMDLoginScreen.objPasswordFieldInTwitterPage, " Password Field");
+			type(AMDLoginScreen.objPasswordFieldInTwitterPage, "User@123", "Password Field");
+
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginButtonInTwitterPage, "Login Button");
+			waitTime(3000);
+			Swipe("Up", 1);
+			verifyElementPresentAndClick(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App");
+			waitForElementDisplayed(AMDHomePage.objHome, 20);
+			if (checkElementDisplayed(AMDHomePage.objHome, "Home tab")) {
+				logger.info("User Logged in Successfully");
+				extent.extentLogger("Logged in", "User Logged in Successfully");
+				logout();
+			} else {
+				logger.info("User is not logged in Successfully");
+				extent.extentLoggerFail("Logged in", "User is not logged in Successfully");
+				Back(1);
+			}
+		}
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Method", "Social");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Intro");
+		mixpanel.FEProp.setProperty("Social Network", "Twitter");
+		mixpanel.ValidateParameter("", "Login Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromBrowseforFreeCTANonSubUser() throws Exception {
+
+		extent.HeaderChildNode(
+				"Verify Login Result event when user taps on Login button, Post entering valid credentials for Non subscribed user");
+
+		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for free CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Method", "Email");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
+		mixpanel.ValidateParameter("", "Login Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromBrowseforFreeCTASubUser() throws Exception {
+		HeaderChildNode("Verify Login Result event is triggered when user enters valid subscribed user credentials");
+		relaunchToIntroScreen(true);
+		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for free CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "rsvod3@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Method", "Email");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
+		mixpanel.ValidateParameter("", "Login Result");
+	}
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromBrowseforFreeCTAMobileLogin() throws Exception {
+
+		HeaderChildNode("Verify Login Result event is triggered when user enters valid Mobile number user credentials");
+
+		click(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "9880710182", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "User@123", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Method", "Mobile");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
+		mixpanel.ValidateParameter("", "Login Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromBrowseforFreeCTAMobileLoginInvalidData() throws Exception {
+
+		HeaderChildNode(
+				"Verify Login Result event is triggered when user enters Invalid Mobile number user credentials");
+
+		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for free CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "9880710182", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "dfghj@123", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
+		mixpanel.ValidateParameter("", "Login Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromBrowseforFreeCTAInvalidEmailID() throws Exception {
+
+		extent.HeaderChildNode(
+				"Verify Login Result event when user taps on Login button, Post entering Invalid credentials for Email ID");
+
+		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for free CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "asdfghj", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
+		mixpanel.ValidateParameter("", "Login Result");
+
+	}
+
+	/*
+	 * Event : Login Result Navigation : Login CTA
+	 */
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromLoginCTATwitterUser() throws Exception {
+
+		extent.HeaderChildNode(
+				"Verify Login Result event when user taps on Login button, Post entering valid credentials");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objtwitterBtn, "Twitter button");
+		if (verifyIsElementDisplayed(AMDHomePage.objHome, "Home tab")) {
+			logger.info("User Logged in Successfully");
+			extent.extentLogger("Logged in", "User Logged in Successfully");
+			logout();
+		} else if (verifyIsElementDisplayed(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App")) {
+			click(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App");
+		} else {
+			verifyElementPresent(AMDLoginScreen.objEmailFieldInTwitterPage, " Email Field");
+			type(AMDLoginScreen.objEmailFieldInTwitterPage, "zee5latest@gmail.com", "Email Field");
+
+			verifyElementPresent(AMDLoginScreen.objPasswordFieldInTwitterPage, " Password Field");
+			type(AMDLoginScreen.objPasswordFieldInTwitterPage, "User@123", "Password Field");
+
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginButtonInTwitterPage, "Login Button");
+			waitTime(3000);
+			Swipe("Up", 1);
+			verifyElementPresentAndClick(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App");
+			waitForElementDisplayed(AMDHomePage.objHome, 20);
+			if (checkElementDisplayed(AMDHomePage.objHome, "Home tab")) {
+				logger.info("User Logged in Successfully");
+				extent.extentLogger("Logged in", "User Logged in Successfully");
+				logout();
+			} else {
+				logger.info("User is not logged in Successfully");
+				extent.extentLoggerFail("Logged in", "User is not logged in Successfully");
+				Back(1);
+			}
+		}
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Method", "Social");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Intro");
+		mixpanel.FEProp.setProperty("Social Network", "Twitter");
+		mixpanel.ValidateParameter("", "Login Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromLoginCTANonSubUser() throws Exception {
+
+		extent.HeaderChildNode(
+				"Verify Login Result event when user taps on Login button, Post entering valid credentials for Non subscribed user");
+
+		relaunchToIntroScreen(true);
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Method", "Email");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Login Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromLoginCTASubUser() throws Exception {
+		HeaderChildNode("Verify Login Result event is triggered when user enters valid subscribed user credentials");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "rsvod3@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Method", "Email");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Login Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromLoginCTAMobileLogin() throws Exception {
+
+		HeaderChildNode("Verify Login Result event is triggered when user enters valid Mobile number user credentials");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "9880710182", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "User@123", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Method", "Mobile");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Login Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromLoginCTAMobileLoginInvalidData() throws Exception {
+
+		HeaderChildNode(
+				"Verify Login Result event is triggered when user enters Invalid Mobile number user credentials");
+		relaunchToIntroScreen(true);
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "9880710182", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "dfghj@123", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Login Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromLoginCTAInvalidEmailID() throws Exception {
+
+		extent.HeaderChildNode(
+				"Verify Login Result event when user taps on Login button, Post entering Invalid credentials for Email ID and Password");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "asdfghj", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Login Result");
+
+	}
+
+	/*
+	 * Event : Login Result Navigation : Get Premium CTA
+	 */
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromGetPremiumCTATwitterLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Login Result event is triggered  when user navigates to Login Screen from Get Premium CTA");
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objtwitterBtn, "Twitter button");
+		if (verifyIsElementDisplayed(AMDHomePage.objHome, "Home tab")) {
+			logger.info("User Logged in Successfully");
+			extent.extentLogger("Logged in", "User Logged in Successfully");
+			logout();
+		} else if (verifyIsElementDisplayed(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App")) {
+			click(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App");
+		} else {
+			verifyElementPresent(AMDLoginScreen.objEmailFieldInTwitterPage, " Email Field");
+			type(AMDLoginScreen.objEmailFieldInTwitterPage, "zee5latest@gmail.com", "Email Field");
+
+			verifyElementPresent(AMDLoginScreen.objPasswordFieldInTwitterPage, " Password Field");
+			type(AMDLoginScreen.objPasswordFieldInTwitterPage, "User@123", "Password Field");
+
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginButtonInTwitterPage, "Login Button");
+			waitTime(3000);
+			Swipe("Up", 1);
+			verifyElementPresentAndClick(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App");
+			waitForElementDisplayed(AMDHomePage.objHome, 20);
+			if (checkElementDisplayed(AMDHomePage.objHome, "Home tab")) {
+				logger.info("User Logged in Successfully");
+				extent.extentLogger("Logged in", "User Logged in Successfully");
+				logout();
+			} else {
+				logger.info("User is not logged in Successfully");
+				extent.extentLoggerFail("Logged in", "User is not logged in Successfully");
+				Back(1);
+			}
+		}
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Method", "Social");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Social Network", "Twitter");
+		mixpanel.ValidateParameter("", "Login Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromGetPremiumCTANonSubUser() throws Exception {
+
+		HeaderChildNode(
+				"Verify Login Result event is triggered  when user navigates to Login Screen from Get Premium CTA");
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Method", "Email");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Login Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromGetPremiumCTASubUser() throws Exception {
+
+		HeaderChildNode(
+				"Verify Login Result event is triggered  when user navigates to Login Screen from Get Premium CTA");
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "rsvod3@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Method", "Email");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Login Result");
+	}
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromGetPremiumCTAMobileLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Login Result event is triggered  when user navigates to Login Screen from Get Premium CTA");
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "9880710182", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "User@123", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Method", "Mobile");
+		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Login Result");
+	}
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromGetPremiumCTAMobileLoginInvlaidData() throws Exception {
+
+		HeaderChildNode(
+				"Verify Login Result event is triggered  when user navigates to Login Screen from Get Premium CTA for invali data");
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "9880710182", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "asdf@123", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Login Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void LoginResultEventFromGetPremiumCTAEmailInvlaidData() throws Exception {
+
+		HeaderChildNode(
+				"Verify Login Result event is triggered  when user navigates to Login Screen from Get Premium CTA for invalid data");
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
+		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, "asdf@123", "Password field");
+		click(AMDLoginScreen.objLoginBtn, "Login button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Element", "Login");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Login Result");
+
+	}
+
+	/*
+	 * Event : TV Authentication Screen Display
+	 */
+	public void verifyTVAuthenticationScreenDisplayEvent(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify TV Authentication Screen Display Event");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings");
+			waitTime(3000);
+			Swipe("Up", 1);
+			verifyElementPresentAndClick(AMDSettingsScreen.objAuthenticateDevice, "Authenticate Device");
+			waitTime(10000);
+		}
+	}
+
+	/**
+	 * Register screen
+	 */
+	/*
+	 * Register Screen Display Event
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifyRegisterScreenDisplayEventFromBrowseForFreeCTAEmailIDLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Register Screen Display event is triggered  when user navigates to Registration screen post entering un-registered Email ID");
+
+		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for Free CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "unregemailtovalidate@gmail.com", "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
+		mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
+		mixpanel.ValidateParameter("", "Register Screen Display");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegisterScreenDisplayEventFromBrowseForFreeCTAMobileLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Register Screen Display event is triggered  when user navigates to Registration screen post entering un-registered Mobile Number");
+
+		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for Free CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "7656545374", "Email ID field");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
+		mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
+		mixpanel.ValidateParameter("", "Register Screen Display");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegisterScreenDisplayEventFromLoginCTAEmailIDLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Register Screen Display event is triggered  when user navigates to Registration screen post entering un-registered Email ID");
+
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "unregemailtovalidate@gmail.com", "Email ID field");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
+		mixpanel.ValidateParameter("", "Register Screen Display");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegisterScreenDisplayEventFromLoginCTAMobileLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Register Screen Display event is triggered  when user navigates to Registration screen post entering un-registered Mobile Number");
+
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "7656545374", "Email ID field");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
+		mixpanel.ValidateParameter("", "Register Screen Display");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegisterScreenDisplayEventFromProfilePageEmailIDLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Register Screen Display event is triggered  when user navigates to Registration screen from Profile post entering un-registered Email ID");
+
+		click(AMDHomePage.objMoreMenu, "More menu button");
+		if (userType.equalsIgnoreCase("SubscribedUser") | userType.equalsIgnoreCase("NonSubscribedUser")) {
+			Swipe("Up", 2);
+			click(AMDMoreMenu.objLogoutBtn, "Logout button");
+			click(AMDHomePage.objLogout, "Logout");
+			click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
+			Swipe("Down", 2);
+		}
+
+		click(AMDMoreMenu.objLoginRegisterText, "Profile icon");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "unregemailtovalidate@gmail.com", "Email ID field");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
+		mixpanel.ValidateParameter("", "Register Screen Display");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegisterScreenDisplayEventFromProfilePageMobileLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Register Screen Display event is triggered  when user navigates to Registration screen from Profile post entering un-registered Mobile Number");
+
+		click(AMDHomePage.objMoreMenu, "More menu button");
+		if (userType.equalsIgnoreCase("SubscribedUser") | userType.equalsIgnoreCase("NonSubscribedUser")) {
+			Swipe("Up", 2);
+			click(AMDMoreMenu.objLogoutBtn, "Logout button");
+			click(AMDHomePage.objLogout, "Logout");
+			click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
+			Swipe("Down", 2);
+		}
+
+		click(AMDMoreMenu.objLoginRegisterText, "Profile icon");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "7656545374", "Email ID field");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
+		mixpanel.ValidateParameter("", "Register Screen Display");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegisterScreenDisplayEventFromGetPremiumPageEmailIDLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Register Screen Display event is triggered  when user navigates to Registration screen from Get Premium post entering un-registered Email ID Login");
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "unregemailtovalidate@gmail.com", "Email ID field");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
+		mixpanel.ValidateParameter("", "Register Screen Display");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegisterScreenDisplayEventFromGetPremiumPageMobileLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Register Screen Display event is triggered  when user navigates to Registration screen from Get Premium post entering un-registered Mobile Number");
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "7656545374", "Email ID field");
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
+		mixpanel.ValidateParameter("", "Register Screen Display");
+
+	}
+
+	/**
+	 * Register Initiated
+	 */
+	/*
+	 * Event : Registration Initiated Navigation : Browse for Free
+	 */
+
+	public String createNewEmail() {
+		String iD = generateRandomInt(100000);
+		String emailID = "AutoUser" + iD + "@gmail.com";
+		return emailID;
+	}
+
+	public void fillRegisterForm() throws Exception {
+		HeaderChildNode("Entering all the data in Register screen");
+
+		verifyElementPresentAndClick(AMDRegistrationScreen.objFirstNameTxtField, "First Name field");
+		type(AMDRegistrationScreen.objFirstNameTxtField, "Name", "First Name field");
+		verifyElementPresentAndClick(AMDRegistrationScreen.objLastNameTxtField, "Last Name field");
+		type(AMDRegistrationScreen.objLastNameTxtField, "Name", "Last Name field");
+		verifyElementPresentAndClick(AMDRegistrationScreen.objDOBTxtField, "Dob field");
+		type(AMDRegistrationScreen.objDOBTxtField, "25/10/1996", "DOBTxtField field");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
+		click(AMDRegistrationScreen.objMale, "Male gender");
+		verifyElementPresentAndClick(AMDRegistrationScreen.objPasswordTxtField, "Password field");
+		type(AMDRegistrationScreen.objPasswordTxtField, "123456", "Password field");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrationInitiatedEventFromBrowseForFreeCTAEmailLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Registration Initiated event is triggered when user navigates from browse for free CTA and entered all valid data");
+
+		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for Free CTA");
+		String email = createNewEmail();
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, email, "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(10000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Registration");
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Method", "Email");
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
+		mixpanel.ValidateParameter("", "Registration Initiated");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrationInitiatedEventFromBrowseForFreeCTAMobileLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Registration Initiated event when user navigates from Browse for free CTA and entering Invalid data");
+		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for Free CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "5647393638", "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(5000);
+		type(AMDRegistrationScreen.objOTPField1, "1", "OTP box1");
+		type(AMDRegistrationScreen.objOTPField2, "1", "OTP box2");
+		type(AMDRegistrationScreen.objOTPField3, "1", "OTP box3");
+		type(AMDRegistrationScreen.objOTPField4, "1", "OTP box4");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objVerifyOtpButton, "Verify button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Registration");
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Method", "Mobile");
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
+		mixpanel.ValidateParameter("", "Registration Initiated");
+	}
+
+	/*
+	 * Event : Registration Initiated Navigation : LoginCTA
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrationInitiatedEventFromLoginCTAEmailLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Registration Initiated event is triggered when user navigates from Login CTA and entered all valid data");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		String email = createNewEmail();
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, email, "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(10000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Registration");
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Method", "Email");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Registration Initiated");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrationInitiatedEventFromLoginCTAMobileLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Registration Initiated event when user navigates from Login CTA and entering Invalid data");
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "5647393638", "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(5000);
+		type(AMDRegistrationScreen.objOTPField1, "1", "OTP box1");
+		type(AMDRegistrationScreen.objOTPField2, "1", "OTP box2");
+		type(AMDRegistrationScreen.objOTPField3, "1", "OTP box3");
+		type(AMDRegistrationScreen.objOTPField4, "1", "OTP box4");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objVerifyOtpButton, "Verify button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Registration");
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Method", "Mobile");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Registration Initiated");
+	}
+
+	/*
+	 * Event : Registration Initiated Navigation : Get Premium CTA
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrationInitiatedEventFromGetPremiumCTAValidEmailLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Registration Initiated event triggered when user navigates from Get Premium CTA for Valid Email Login");
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		String email = createNewEmail();
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, email, "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(10000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Registration");
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Method", "Email");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Registration Initiated");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrtionInitiatedEventFroGetPremiumCTAMobileLoginInvalidData() throws Exception {
+
+		HeaderChildNode(
+				"Verify Register Initiated event is triggered when user navigates from Get Premium CTA for invalid Mobile Login");
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "5647393638", "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(5000);
+		type(AMDRegistrationScreen.objOTPField1, "1", "OTP box1");
+		type(AMDRegistrationScreen.objOTPField2, "1", "OTP box2");
+		type(AMDRegistrationScreen.objOTPField3, "1", "OTP box3");
+		type(AMDRegistrationScreen.objOTPField4, "1", "OTP box4");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objVerifyOtpButton, "Verify button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Registration");
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Method", "Mobile");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Registration Initiated");
+
+	}
+
+	/*
+	 * Event : Registration Initiated Navigation : Hamburger Menu
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrationInitiatedEventFromHamburgerMenuValidEmailLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Register Initiated event is triggered when user is navigated from Hamburger menu for valid email data");
+
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+		verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
+
+		String email = createNewEmail();
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, email, "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(10000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Registration");
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Method", "Email");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Registration Initiated");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrtionInitiatedEventFromHamburgerMenuMobileLoginInvalidData() throws Exception {
+
+		HeaderChildNode(
+				"Verify Register Initiated event is triggered when user navigates from Hamburger menu for invalid Mobile Login");
+
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+		verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
+
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "5647393638", "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(5000);
+		type(AMDRegistrationScreen.objOTPField1, "1", "OTP box1");
+		type(AMDRegistrationScreen.objOTPField2, "1", "OTP box2");
+		type(AMDRegistrationScreen.objOTPField3, "1", "OTP box3");
+		type(AMDRegistrationScreen.objOTPField4, "1", "OTP box4");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objVerifyOtpButton, "Verify button");
+		waitTime(1000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Registration");
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Method", "Mobile");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Registration Initiated");
+	}
+
+	/**
+	 * Register Result
+	 */
+	/*
+	 * Event : Registration Result Navigation : Browse for Free
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrationResultEventFromBrowseForFreeCTAValidEmailRegistration() throws Exception {
+
+		HeaderChildNode(
+				"Verify Registration Result event is triggered when user navigates from Browse for Free CTA for valid email data registration");
+
+		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for Free CTA");
+		String email = createNewEmail();
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, email, "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(10000);
+
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Page Name", "Registration");
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
+		mixpanel.FEProp.setProperty("Method", "Email");
+		mixpanel.ValidateParameter("", "Registration Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrationResultEventFromBrowseForFreeCTAInvalidMobileDataRegistration() throws Exception {
+
+		HeaderChildNode(
+				"Verify Registration Result event is triggered when user navigates from Browse for free CTA for invalid mobile registration");
+
+		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for Free CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "5647393638", "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(5000);
+		type(AMDRegistrationScreen.objOTPField1, "1", "OTP box1");
+		type(AMDRegistrationScreen.objOTPField2, "1", "OTP box2");
+		type(AMDRegistrationScreen.objOTPField3, "1", "OTP box3");
+		type(AMDRegistrationScreen.objOTPField4, "1", "OTP box4");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objVerifyOtpButton, "Verify button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Verify Mobile");
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Source", "Registration");
+		mixpanel.FEProp.setProperty("Method", "Mobile");
+		mixpanel.ValidateParameter("", "Registration Result");
+
+	}
+
+	/*
+	 * Event : Registration Result Navigation : Login CTA
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrationResultEventFromLoginCTAValidEmailRegistration() throws Exception {
+		HeaderChildNode(
+				"Verify Registration Result event is triggered when user navigates from Login CTA for Valid email registration");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		String email = createNewEmail();
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, email, "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(10000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Registration");
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Method", "Email");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Registration Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrationResultEventFromLoginCTACTAInvalidMobileDataRegistration() throws Exception {
+
+		HeaderChildNode(
+				"Verify Registration Result event is triggered when user navigates from Login CTA for invalid Mobile Registration");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "5647393638", "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(5000);
+		type(AMDRegistrationScreen.objOTPField1, "1", "OTP box1");
+		type(AMDRegistrationScreen.objOTPField2, "1", "OTP box2");
+		type(AMDRegistrationScreen.objOTPField3, "1", "OTP box3");
+		type(AMDRegistrationScreen.objOTPField4, "1", "OTP box4");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objVerifyOtpButton, "Verify button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Verify Mobile");
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Method", "Mobile");
+		mixpanel.FEProp.setProperty("Source", "Registration");
+		mixpanel.ValidateParameter("", "Registration Result");
+
+	}
+
+	/*
+	 * Event : Registration Result Navigation : Get Premium CTA
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrationResultEventFromGetPremiumCTAValidEmailLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Registration Result event is triggered when user is navigates from Get Premium CTA for valid Email Registration");
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		String email = createNewEmail();
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, email, "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(10000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Registration");
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Method", "Email");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Registration Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrtionResultEventFroGetPremiumCTAMobileLoginInvalidData() throws Exception {
+
+		HeaderChildNode(
+				"Verify Register Result event is triggered when user navigates from Get Premium CTA for invalid Mobile Login");
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Shivaji Surathkal", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objSearchResult("Shivaji Surathkal"), "Search Result");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+		waitTime(3000);
+		Swipe("Up", 1);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "5647393638", "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(5000);
+		type(AMDRegistrationScreen.objOTPField1, "1", "OTP box1");
+		type(AMDRegistrationScreen.objOTPField2, "1", "OTP box2");
+		type(AMDRegistrationScreen.objOTPField3, "1", "OTP box3");
+		type(AMDRegistrationScreen.objOTPField4, "1", "OTP box4");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objVerifyOtpButton, "Verify button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Verify Mobile");
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Method", "Mobile");
+		mixpanel.ValidateParameter("", "Registration Result");
+
+	}
+
+	/*
+	 * Event : Registration Result Navigation : Hamburger menu
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrationResultEventFromHamburgerMenuValidEmailLogin() throws Exception {
+
+		HeaderChildNode(
+				"Verify Register Result event is triggered when user is navigated from Hamburger menu for valid email data");
+
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+		verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
+
+		String email = createNewEmail();
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, email, "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(10000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Registration");
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Method", "Email");
+		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.ValidateParameter("", "Registration Result");
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyRegistrtionResultEventFromHamburgerMenuMobileLoginInvalidData() throws Exception {
+
+		HeaderChildNode(
+				"Verify Register Result event is triggered when user navigates from Hamburger menu for invalid Mobile Login");
+
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+		verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
+
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email/Phone Number");
+		type(AMDLoginScreen.objEmailIdField, "5647393638", "Email ID field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
+		waitTime(3000);
+		fillRegisterForm();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(5000);
+		type(AMDRegistrationScreen.objOTPField1, "1", "OTP box1");
+		type(AMDRegistrationScreen.objOTPField2, "1", "OTP box2");
+		type(AMDRegistrationScreen.objOTPField3, "1", "OTP box3");
+		type(AMDRegistrationScreen.objOTPField4, "1", "OTP box4");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDRegistrationScreen.objVerifyOtpButton, "Verify button");
+		waitTime(1000);
+
+		mixpanel.FEProp.setProperty("Page Name", "Verify Mobile");
+		mixpanel.FEProp.setProperty("Element", "Registration");
+		mixpanel.FEProp.setProperty("Method", "Mobile");
+		mixpanel.ValidateParameter("", "Registration Result");
+	}
+
+	/**
+	 * Prepaid Code & Promo Code
+	 */
+
+	/*
+	 * Event : Preapid Code Result
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifySubscriptionSelectedEvent(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Subscription Selected Event");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
+			Swipe("Up", 2);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(6000);
+
+			mixpanel.FEProp.setProperty("Element", "Continue");
+			mixpanel.FEProp.setProperty("Page Name", "subscriptionPlan");
+			mixpanel.ValidateParameter("", "Subscription Selected");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifySubscriptionSelectedEventByClubPack(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Subscription Selected Event By selecting Club Pack");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
+			click(AMDSubscibeScreen.objClubTab, "Club Pack");
+			Swipe("Up", 2);
+			click(AMDSubscibeScreen.objClub365daysPack, "Pack");
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			mixpanel.FEProp.setProperty("Element", "Continue");
+			mixpanel.FEProp.setProperty("Page Name", "subscriptionPlan");
+			mixpanel.ValidateParameter("", "Subscription Selected");
+
+		}
+	}
+
+	/*
+	 * Event : Promo Code Result
+	 */
+
+	@SuppressWarnings("static-access")
+	public void verifyPromoCodeResultEventForValid(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Promo Code Result Event For Valid code");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
+			type(AMDSubscibeScreen.objApplyPromoCodeTextbox, "PNB20", "Prepaid Code");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDSubscibeScreen.objApply, "Apply Button");
+			waitTime(6000);
+			mixpanel.FEProp.setProperty("Element", "Apply");
+			mixpanel.FEProp.setProperty("Page Name", "subscriptionPlan");
+			mixpanel.ValidateParameter("", "Promo Code Result");
+
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyPromoCodeResultEventForInvalid(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Promo Code Result Event For Invalid code");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
+			type(AMDSubscibeScreen.objApplyPromoCodeTextbox, "sdcrfd", "Prepaid Code");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDSubscibeScreen.objApply, "Apply Button");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Element", "Apply");
+			mixpanel.FEProp.setProperty("Page Name", "subscriptionPlan");
+			mixpanel.ValidateParameter("", "Promo Code Result");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyPrepaidCodeResultEvent() throws Exception {
+
+		extent.HeaderChildNode("Verify Prepaid Code Result event");
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		verifyElementPresentAndClick(AMDMoreMenu.objHaveaPrepaidCode, "Have a Prepaid code");
+		verifyElementPresentAndClick(AMDMoreMenu.objPrepaidCodeTxt, "Prepaid code text box");
+		type(AMDMoreMenu.objPrepaidCodeTxt, "abcdefg", "Prepaid code text box");
+		hideKeyboard();
+		click(AMDMoreMenu.objApplyBtn, "Apply button");
+
+		mixpanel.FEProp.setProperty("Page Name", "More");
+		mixpanel.FEProp.setProperty("Element", "Apply");
+		mixpanel.ValidateParameter("", "Prepaid Code Result");
+
 	}
 }
