@@ -1,5 +1,6 @@
 package com.zee5.MixpanelScripts;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -76,5 +77,11 @@ public class ZNAMixpanel_AdInitialized {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.AdInitializedEventOfContentFromUpNextRail(userType, keyword4);
 		
+	}
+	
+	@AfterTest
+	public void tearDownApp() {
+		System.out.println("\nQuit the App");
+		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
 }

@@ -21,7 +21,7 @@ public class ZNAMixpanel_Resume {
 	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void AndroidAppMixPanelLogin(String userType) throws Exception {
-		System.out.println("Login");
+		System.out.println("\nLogin");
 		Zee5ApplicasterMixPanelBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
@@ -31,7 +31,7 @@ public class ZNAMixpanel_Resume {
 	@Test(priority = 2)
 	@Parameters({ "userType"})
 	public void ResumeEventofPremiumContent(String userType) throws Exception {
-		System.out.println("Resume event of Premium content");
+		System.out.println("\nResume event of Premium content");
 //		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.ResumeEventForPremiumContent(userType,"Home");
 		
@@ -40,7 +40,7 @@ public class ZNAMixpanel_Resume {
 	@Test(priority = 3)
 	@Parameters({ "userType", "keyword3"})
 	public void ResumeEventofTrailerContent(String userType, String keyword3) throws Exception {
-		System.out.println("Resume event of Trailer content");
+		System.out.println("\nResume event of Trailer content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.ResumeEventForTrailerContent(userType,keyword3);
 		
@@ -49,7 +49,7 @@ public class ZNAMixpanel_Resume {
 	@Test(priority = 4)
 	@Parameters({ "userType"})
 	public void ResumeEventofCarouselContent(String userType) throws Exception {
-		System.out.println("Resume event of Carousel content");
+		System.out.println("\nResume event of Carousel content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.ResumeEventForCarouselContent(userType,"Home");
 	}
@@ -57,7 +57,7 @@ public class ZNAMixpanel_Resume {
 	@Test(priority = 5)
 	@Parameters({ "userType","keyword4"})
 	public void ResumeEventFromsearchpage(String userType, String keyword4) throws Exception {
-		System.out.println("Resume event of Content from Search page");
+		System.out.println("\nResume event of Content from Search page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.ResumeEventOfcontentFromSearchPage(userType, keyword4);
 	}
@@ -65,7 +65,7 @@ public class ZNAMixpanel_Resume {
 	@Test(priority = 6)
 	@Parameters({ "userType"})
 	public void ResumeEventFromMyWatchList(String userType) throws Exception {
-		System.out.println("Resume event of Content from My WatchList page");
+		System.out.println("\nResume event of Content from My WatchList page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.ResumeEventOfContentFromMyWatchListPage(userType);
 		
@@ -74,7 +74,7 @@ public class ZNAMixpanel_Resume {
 	@Test(priority = 7)
 	@Parameters({ "userType", "keyword4"})
 	public void ResumeEventFromUpNextRail(String userType, String keyword4) throws Exception {
-		System.out.println("Resume event of Content from Upnext Rail");
+		System.out.println("\nResume event of Content from Upnext Rail");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.ResumeEventOfContentFromUpNextRail(userType, keyword4);
 		
@@ -83,7 +83,7 @@ public class ZNAMixpanel_Resume {
 	@Test(priority = 8)
 	@Parameters({ "userType"})
 	public void ResumeEventForLinearContent(String userType) throws Exception {
-		System.out.println("Resume event for Linear content");
+		System.out.println("\nResume event for Linear content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.ResumeEventForLinearContent(userType, "Live TV");
 		
@@ -91,7 +91,7 @@ public class ZNAMixpanel_Resume {
 	
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println("Quit the App");
+		System.out.println("\nQuit the App");
 		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
 }

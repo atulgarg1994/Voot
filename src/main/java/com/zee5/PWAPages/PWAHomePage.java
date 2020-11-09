@@ -445,7 +445,7 @@ public class PWAHomePage {
 	public static By objGetPremium = By.xpath("//*[text()='Get premium' or text()='Get Club']");
 	
 	public static By objWEBGetPremium = By
-			.xpath("//div[contains(@class,'slick-active')]//a[contains(@class,'premiumBtn')]");
+			.xpath("//*[text()='Get premium' or text()='Get Club']");
 
 	public static By objWEBShowsPagePlayCarousel = By.xpath(
 			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'carouselMain')]");

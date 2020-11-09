@@ -9273,15 +9273,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void webScrollToElement(By Locator, String validationText) throws Exception {
-		for (int i = 1; i <= 10; i++) {
-			if (checkElementDisplayed(Locator, validationText)) {
-				break;
-			}
-			waitTime(2000);
-			scrollDownWEB();
-		}
-	}
+//	public void webScrollToElement(By Locator, String validationText) throws Exception {
+//		for (int i = 1; i <= 10; i++) {
+//			if (checkElementDisplayed(Locator, validationText)) {
+//				break;
+//			}
+//			waitTime(2000);
+//			scrollDownWEB();
+//		}
+//	}
 
 	public void verifyRecommendedRailImpressionEventByScrollingPage(String tabname, String trayTitle) throws Exception {
 		extent.HeaderChildNode(

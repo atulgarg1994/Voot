@@ -1,5 +1,6 @@
 package com.zee5.MixpanelScripts;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -407,4 +408,9 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchTillIntroScreen(true);
 	}
 	
+	@AfterTest
+	public void tearDownApp() {
+		System.out.println("\nQuit the App");
+		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
+	}
 }

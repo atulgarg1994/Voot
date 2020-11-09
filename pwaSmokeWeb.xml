@@ -8,14 +8,15 @@
 	<parameter name="runModule" value="${runModule}"/>
 	<parameter name="browserType" value="${browserType}"/> -->
 	
-	<parameter name="userType" value="Guest"/> <!--  Guest/NonSubscribedUser/SubscribedUser -->
+	<parameter name="userType" value="SubscribedUser"/> <!--  Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite"/>
 	<parameter name="runMode" value="Suites"/>
 	
-	<parameter name="NonsubscribedUserName" value="igstesting001@gmail.com"/>
-	<parameter name="NonsubscribedPassword" value="igs@12345"/>
-	<parameter name="SubscribedUserName" value="dmgowthu@gmail.com"/>
-	<parameter name="SubscribedPassword" value="gowthu4594"/>
+	<parameter name="NonsubscribedUserName" value="luckyigscon0074@gmail.com"/>
+	<parameter name="NonsubscribedPassword" value="vasilucky@123"/>
+	<!--  Subscribed User --> 
+	<parameter name="SubscribedUserName" value="vasilucky1997@gmail.com"/>
+	<parameter name="SubscribedPassword" value="vasilucky@123"/>
 	<parameter name="browserType" value="Chrome"/>  <!--  Chrome/Firefox -->
 	<parameter name="devicePin" value="1619"/>
 	<parameter name="searchModuleSearchKey" value="Kamali"/>
@@ -30,6 +31,8 @@
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
+		<listener class-name="com.extent.ParameterInjector" />
+		<!--  <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 

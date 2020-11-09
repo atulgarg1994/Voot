@@ -1,7 +1,6 @@
 package com.metadata;
 
 import static com.jayway.restassured.RestAssured.given;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -14,12 +13,7 @@ import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
 import com.mixpanelValidation.Mixpanel;
 import com.propertyfilereader.PropertyFileReader;
-
 import java.util.Properties;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 public class ResponseInstance {
 
@@ -722,6 +716,7 @@ public class ResponseInstance {
 		return pro;
 	}
 
+	@SuppressWarnings("unused")
 	public static void getUserData(String pUsername,String pPassword) {
 		String[] userData = { "email", "first_name", "last_name", "birthday", "gender", "registration_country",
 				"recurring_enabled" };
@@ -743,6 +738,7 @@ public class ResponseInstance {
 //		Mixpanel.fetchUserdata = true;
 	}
 	
+	@SuppressWarnings("unused")
 	private static void getDOB() {
 		LocalDate dob = LocalDate.parse(Mixpanel.FEProp.getProperty("birthday").split("T")[0]);
 		LocalDate curDate = LocalDate.now();
@@ -856,6 +852,7 @@ public class ResponseInstance {
 		resp.print();
 	}
 	
+	@SuppressWarnings("unused")
 	public static void getWatchList(String pUsername, String pPassword) {
 		String url = "https://userapi.zee5.com/v1/watchlist";
 		String bearerToken = getBearerToken(pUsername, pPassword);

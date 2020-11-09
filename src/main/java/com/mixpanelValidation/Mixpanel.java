@@ -58,7 +58,7 @@ public class Mixpanel extends ExtentReporter {
 	static String platform;
 	static String APIKey;
 	static String Modelname;
-	static String propValue = null;
+	static String propValue = "Empty";
 	public static boolean fetchUserdata = false;
 
 	public static void ValidateParameter(String distinctID, String eventName)
@@ -131,8 +131,10 @@ public class Mixpanel extends ExtentReporter {
 //		System.out.println("1989-11-20T18:30:00Z".split("T")[0]);
 //		getDOB("1989-11-20T18:30:00Z".split("T")[0]);
 //		System.out.println(validateEventTriggerTime("1604426176"));
+		getAdID();
 	}
-	
+
+	@SuppressWarnings("unused")
 	private static void getDOB(String s) {
 		LocalDate dob = LocalDate.parse(s);
 		LocalDate curDate = LocalDate.now();
@@ -188,6 +190,7 @@ public class Mixpanel extends ExtentReporter {
 			System.out.println("Event not triggered");
 			extentReportFail("Event not triggered", "Event not triggered");
 		}
+
 	}
 
 	/**
@@ -214,13 +217,14 @@ public class Mixpanel extends ExtentReporter {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static boolean validateEventTriggerTime(String time) {
 		int eventTime = Integer.valueOf(time);
-		int elapseTime = (eventTime+360);
-		System.out.println(eventTime+"  "+elapseTime);
-		if(eventTime < elapseTime) {
+		int elapseTime = (eventTime + 360);
+		System.out.println(eventTime + "  " + elapseTime);
+		if (eventTime < elapseTime) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
@@ -292,8 +296,7 @@ public class Mixpanel extends ExtentReporter {
 						validateInteger(value);
 					}
 					validateParameterValue(key, value);
-					extentReportInfo("Empty parameter",
-							"Paramter :- <b>Key : " + key + " <br/> value : " + value + "</b>" + "<br/> Expected value : " + propValue + "</b>");
+					extentFail();
 				}
 			} catch (Exception e) {
 				System.out.println(e);
@@ -313,8 +316,7 @@ public class Mixpanel extends ExtentReporter {
 			}
 			if (!propValue.equalsIgnoreCase(value)) {
 				fillCellColor();
-				extentReportFail("Empty parameter", "Value mismatch :- <b>Key : " + key + " <br/> value : " + value
-						+ "<br/> Expected value : " + propValue + "</b>");
+
 			}
 		}
 	}
@@ -358,15 +360,13 @@ public class Mixpanel extends ExtentReporter {
 
 	private static void validateBoolean(String value) {
 		if (!value.equals("N/A")) {
-			if (!Stream.of("true", "false").anyMatch(value::equals)) {
+			if (!Stream.of("true", "false", "TRUE", "FALSE").anyMatch(value::equals)) {
 				fillCellColor();
 				extentReportFail("Empty parameter",
 						"Value is not a boolean Data-Type :- <b>Key : " + key + " <br/> value : " + value + "</b>");
 			}
 		}
 	}
-
-	
 
 	public static void fillCellColor() {
 		try {
@@ -413,6 +413,15 @@ public class Mixpanel extends ExtentReporter {
 		extent.childTest.get().log(Status.INFO, details);
 	}
 
+	public static void extentFail() {
+		if (propValue.equals("Empty")) {
+			extentReportFail("Empty parameter", "Value mismatch :- <b>Key : " + key + " <br/> value : " + value);
+		} else {
+			extentReportFail("Empty parameter", "Value mismatch :- <b>Key : " + key + " <br/> value : " + value
+					+ "<br/> Expected value : " + propValue + "</b>");
+		}
+	}
+
 	public static String modelName() {
 		try {
 			String cmd3 = "adb shell getprop ro.product.model";
@@ -424,17 +433,29 @@ public class Mixpanel extends ExtentReporter {
 		}
 		return Modelname;
 	}
-	
+
 	public static void getParameterValue() {
 		UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
 		if (!UserType.equals("Guest")) {
 			if (!fetchUserdata) {
 				String pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter(UserType+"Name");
+						.getParameter(UserType + "Name");
 				String pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter(UserType+"Password");
+						.getParameter(UserType + "Password");
 				ResponseInstance.getUserData(pUsername, pPassword);
 			}
 		}
+	}
+
+	public static void getAdID() {
+		try {
+			String cmd3 = "adb shell \"grep adid_key /data/data/com.google.android.gms/shared_prefs/adid_settings.xml\"";
+			Process process = Runtime.getRuntime().exec(cmd3);
+			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			Modelname = br.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(Modelname);
 	}
 }

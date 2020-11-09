@@ -2933,13 +2933,24 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (ad == true) {
 				logger.info("Ad is Displayed");
 				extentLogger("Ad", "Ad is Displayed");
+				waitTime(5000);
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
+
+				mixpanel.ValidateParameter("", "Ad view");
+
 			} else {
 				logger.info("Ad is not displayed");
 				extentLogger("Ad", "Ad is not displayed");
 			}
-			waitTime(5000);
+		} else {
+			logger.info("Ad Validation is not applicable for " + usertype);
+			extentLoggerPass("Ad", "Ad validation is not applicable for " + usertype);
 		}
-
 	}
 
 	public void AdViewEventForCarouselContent(String usertype, String tabName) throws Exception {
@@ -2953,12 +2964,23 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (var == true) {
 				logger.info("Ad is Displayed");
 				extentLogger("Ad", "Ad is Displayed");
+
+				waitTime(2000);
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
+
+				mixpanel.ValidateParameter("", "Ad view");
 			} else {
 				logger.info("Ad is not Displayed");
 				extentLogger("Ad", "Ad is not Displayed");
 			}
+		} else {
+			logger.info("Ad Validation is not applicable for " + usertype);
+			extentLoggerPass("Ad", "Ad validation is not applicable for " + usertype);
 		}
-
 	}
 
 	public void AdViewEventForContentFromTray(String usertype, String tabName) throws Exception {
@@ -2977,11 +2999,19 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					if (ad == true) {
 						logger.info("Ad is Displayed");
 						extentLogger("Ad", "Ad is Displayed");
+
+						waitTime(3000);
+						mixpanel.FEProp.setProperty("Source", "home");
+						mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+						mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+						mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+						mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
+
+						mixpanel.ValidateParameter("", "Ad view");
 					} else {
 						logger.info("Ad is not displayed");
 						extentLogger("Ad", "Ad is not displayed");
 					}
-					waitTime(3000);
 					break;
 				} else {
 					Swipe("UP", 1);
@@ -2991,6 +3021,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("Premium content is not displayed in the screen");
 				extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
 			}
+		} else {
+			logger.info("Ad Validation is not applicable for " + usertype);
+			extentLoggerPass("Ad", "Ad validation is not applicable for " + usertype);
 		}
 	}
 
@@ -3009,13 +3042,24 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (ad == true) {
 				logger.info("Ad is Displayed");
 				extentLogger("Ad", "Ad is Displayed");
+
+				waitTime(2000);
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
+
+				mixpanel.ValidateParameter("", "Ad view");
 			} else {
 				logger.info("Ad is not displayed");
 				extentLogger("Ad", "Ad is not displayed");
 			}
 			waitTime(4000);
+		} else {
+			logger.info("Ad Validation is not applicable for " + usertype);
+			extentLoggerPass("Ad", "Ad validation is not applicable for " + usertype);
 		}
-
 	}
 
 	public void AdViewEventOfContentFromMyWatchListPage(String usertype) throws Exception {
@@ -3036,6 +3080,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				if (ad == true) {
 					logger.info("Ad is Displayed");
 					extentLogger("Ad", "Ad is Displayed");
+					waitTime(2000);
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+					mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
+
+					mixpanel.ValidateParameter("", "Ad view");
 				} else {
 					logger.info("Ad is not displayed");
 					extentLogger("Ad", "Ad is not displayed");
@@ -3044,6 +3096,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("No contents in Watchlist");
 				extentLoggerWarning("Watchlist", "No contents in Watchlist");
 			}
+		} else {
+			logger.info("Ad Validation is not applicable for " + usertype);
+			extentLoggerPass("Ad", "Ad validation is not applicable for " + usertype);
 		}
 	}
 
@@ -3062,13 +3117,23 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (ad == true) {
 				logger.info("Ad is Displayed");
 				extentLogger("Ad", "Ad is Displayed");
+				waitTime(2000);
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
+
+				mixpanel.ValidateParameter("", "Ad view");
 			} else {
 				logger.info("Ad is not displayed");
 				extentLogger("Ad", "Ad is not displayed");
 			}
 			waitTime(5000);
+		} else {
+			logger.info("Ad Validation is not applicable for " + usertype);
+			extentLoggerPass("Ad", "Ad validation is not applicable for " + usertype);
 		}
-
 	}
 
 	public void videoViewEventForPremiumContent(String usertype, String tabName) throws Exception {
@@ -3584,8 +3649,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					waitTime(6000);
 					verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 					verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-				}
+					waitTime(3000);
 
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+					mixpanel.ValidateParameter("", "Pause");
+				}
 				waitTime(3000);
 				break;
 			} else {
@@ -3613,6 +3685,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+		mixpanel.ValidateParameter("", "Pause");
 	}
 
 	public void PauseEventForCarouselContent(String usertype, String tabName) throws Exception {
@@ -3629,8 +3708,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			waitTime(6000);
 			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		}
 
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+			mixpanel.ValidateParameter("", "Pause");
+		}
 		waitTime(3000);
 	}
 
@@ -3657,6 +3742,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		waitTime(2000);
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		waitTime(4000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+		mixpanel.ValidateParameter("", "Pause");
+
 	}
 
 	public void PauseEventOfContentFromMyWatchListPage(String usertype) throws Exception {
@@ -3675,6 +3768,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 						.click();
 				verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 				waitTime(4000);
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+				mixpanel.ValidateParameter("", "Pause");
 			} else {
 				logger.info("No contents in Watchlist");
 				extentLoggerWarning("Watchlist", "No contents in Watchlist");
@@ -3708,6 +3808,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		waitTime(5000);
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		mixpanel.ValidateParameter("", "Pause");
 	}
 
 	public void PauseEventForLinearContent(String usertype, String tabName) throws Exception {
@@ -3725,6 +3830,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		waitTime(3000);
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		mixpanel.ValidateParameter("", "Pause");
 	}
 
 	public void ResumeEventForPremiumContent(String usertype, String tabName) throws Exception {
@@ -3748,6 +3858,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 					waitTime(3000);
 					verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+					waitTime(2000);
+
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+					mixpanel.ValidateParameter("", "Resume");
 				}
 
 				waitTime(3000);
@@ -3780,6 +3898,12 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		waitTime(5000);
 
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+		mixpanel.ValidateParameter("", "Resume");
 	}
 
 	public void ResumeEventForCarouselContent(String usertype, String tabName) throws Exception {
@@ -3798,10 +3922,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+
+			waitTime(3000);
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+			mixpanel.ValidateParameter("", "Resume");
 		}
-
-		waitTime(3000);
-
 	}
 
 	public void ResumeEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
@@ -3836,6 +3965,12 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		waitTime(4000);
 
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+		mixpanel.ValidateParameter("", "Resume");
 	}
 
 	public void ResumeEventOfContentFromMyWatchListPage(String usertype) throws Exception {
@@ -3856,6 +3991,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitTime(3000);
 				verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 				waitTime(4000);
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+				mixpanel.ValidateParameter("", "Resume");
 			} else {
 				logger.info("No contents in Watchlist");
 				extentLoggerWarning("Watchlist", "No contents in Watchlist");
@@ -3893,6 +4035,12 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		waitTime(5000);
 
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+		mixpanel.ValidateParameter("", "Resume");
 	}
 
 	public void ResumeEventForLinearContent(String usertype, String tabName) throws Exception {
@@ -3912,6 +4060,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		waitTime(3000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+		mixpanel.ValidateParameter("", "Resume");
 	}
 
 	public void ScrubSeekEventForPremiumContent(String usertype, String tabName) throws Exception {
@@ -6441,5 +6596,449 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Apply");
 		mixpanel.ValidateParameter("", "Prepaid Code Result");
 
+	}
+
+	public void AudioLanguageChangeEventForPremiumContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Audio Language Change Event for premium content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		Swipe("UP", 1);
+		boolean var = false;
+		for (int i = 0; i < 3; i++) {
+			var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
+			if (var == true) {
+				verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
+				waitTime(10000);
+				boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objAvailableAudioLanguages,
+						"Available Audio Languages");
+				if (lang == true) {
+					String noOfAudioLanguages = getText(AMDConsumptionScreen.objAvailableAudioLanguages);
+					if (noOfAudioLanguages.equalsIgnoreCase("Available in 1 language")) {
+						logger.info("Only one language is displayed");
+						extent.extentLogger("Audio Language", "Only one language is displayed");
+					} else {
+						click(AMDConsumptionScreen.objAudioLanguageValue, "Audio Language Value");
+						String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
+						String firstAudioLanguageOption = getText(AMDConsumptionScreen.objAudioLanguages(1));
+						if (selectedAudioLanguageOption.equalsIgnoreCase(firstAudioLanguageOption)) {
+							verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2),
+									"Audio Language option");
+						} else {
+							verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1),
+									"Audio Language option");
+						}
+						waitTime(4000);
+					}
+				} else {
+					logger.info("no Audio Language is displayed");
+					extent.extentLogger("Audio Language", "No Audio Language is displayed");
+				}
+				break;
+			} else {
+				Swipe("UP", 1);
+			}
+		}
+		if (var == false) {
+			logger.info("Premium content is not displayed in the screen");
+			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
+		}
+	}
+
+	public void AudioLanguageChangeEventForTrailerContent(String usertype, String keyword7) throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change event for Trailer content");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword7 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitTime(10000);
+		boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objAvailableAudioLanguages,
+				"Available Audio Languages");
+		if (lang == true) {
+			String noOfAudioLanguages = getText(AMDConsumptionScreen.objAvailableAudioLanguages);
+			if (noOfAudioLanguages.equalsIgnoreCase("Available in 1 language")) {
+				logger.info("Only one language is displayed");
+				extent.extentLogger("Audio Language", "Only one language is displayed");
+			} else {
+				click(AMDConsumptionScreen.objAudioLanguageValue, "Audio Language Value");
+				String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
+				String firstAudioLanguageOption = getText(AMDConsumptionScreen.objAudioLanguages(1));
+				if (selectedAudioLanguageOption.equalsIgnoreCase(firstAudioLanguageOption)) {
+					verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2), "Audio Language option");
+				} else {
+					verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Audio Language option");
+				}
+
+				// Audio language change in Full screen mode
+				click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+				verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+				verifyElementPresentAndClick(AMDPlayerScreen.objThreeDotsOnPlayer, "Three Dots");
+				verifyElementPresentAndClick(AMDPlayerScreen.objAudioTrackOption, "Audio track option");
+				String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
+				if (selectedQualityOption.equalsIgnoreCase("Hindi")) {
+					verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Audio Language option");
+				} else {
+					verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Audio Language option");
+				}
+				waitTime(4000);
+			}
+		} else {
+			logger.info("no Audio Language is displayed");
+			extent.extentLogger("Audio Language", "No Audio Language is displayed");
+		}
+	}
+
+	public void AudioLanguageChangeEventForCarouselContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Audio Language Change Event for carousel content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
+		waitTime(10000);
+		boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objAvailableAudioLanguages,
+				"Available Audio Languages");
+		if (lang == true) {
+			String noOfAudioLanguages = getText(AMDConsumptionScreen.objAvailableAudioLanguages);
+			if (noOfAudioLanguages.equalsIgnoreCase("Available in 1 language")) {
+				logger.info("Only one language is displayed");
+				extent.extentLogger("Audio Language", "Only one language is displayed");
+			} else {
+				click(AMDConsumptionScreen.objAudioLanguageValue, "Audio Language Value");
+				String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
+				String firstAudioLanguageOption = getText(AMDConsumptionScreen.objAudioLanguages(1));
+				if (selectedAudioLanguageOption.equalsIgnoreCase(firstAudioLanguageOption)) {
+					verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2), "Audio Language option");
+				} else {
+					verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Audio Language option");
+				}
+				waitTime(3000);
+			}
+		} else {
+			logger.info("no Audio Language is displayed");
+			extent.extentLogger("Audio Language", "No Audio Language is displayed");
+		}
+	}
+
+	public void AuioLanguageChangeEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Audio Language Change Event of content from search page");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitTime(15000);
+		boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objAvailableAudioLanguages,
+				"Available Audio Languages");
+		if (lang == true) {
+			String noOfAudioLanguages = getText(AMDConsumptionScreen.objAvailableAudioLanguages);
+			if (noOfAudioLanguages.equalsIgnoreCase("Available in 1 language")) {
+				logger.info("Only one language is displayed");
+				extent.extentLogger("Audio Language", "Only one language is displayed");
+			} else {
+				click(AMDConsumptionScreen.objAudioLanguageValue, "Audio Language Value");
+				String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
+				String firstAudioLanguageOption = getText(AMDConsumptionScreen.objAudioLanguages(1));
+				if (selectedAudioLanguageOption.equalsIgnoreCase(firstAudioLanguageOption)) {
+					verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2), "Audio Language option");
+				} else {
+					verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Audio Language option");
+				}
+				waitTime(3000);
+			}
+		} else {
+			logger.info("no Audio Language is displayed");
+			extent.extentLogger("Audio Language", "No Audio Language is displayed");
+		}
+	}
+
+	public void AudioLanguageChangeEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+		if (!(usertype.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Audio Language Change Event of content from My WatchList page");
+			click(AMDHomePage.objMoreMenu, "More menu");
+			click(AMDMoreMenu.objWatchlist, "Watchlist option");
+			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
+			waitTime(5000);
+			boolean flag = false;
+			boolean contentsInMoviesTab = verifyIsElementDisplayed(
+					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
+			if (contentsInMoviesTab == true) {
+				getDriver()
+						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
+						.click();
+				waitTime(10000);
+				boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objAvailableAudioLanguages,
+						"Available Audio Languages");
+				if (lang == true) {
+					String noOfAudioLanguages = getText(AMDConsumptionScreen.objAvailableAudioLanguages);
+					if (noOfAudioLanguages.equalsIgnoreCase("Available in 1 language")) {
+						logger.info("Only one language is displayed");
+						extent.extentLogger("Audio Language", "Only one language is displayed");
+					} else {
+						click(AMDConsumptionScreen.objAudioLanguageValue, "Audio Language Value");
+						String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
+						String firstAudioLanguageOption = getText(AMDConsumptionScreen.objAudioLanguages(1));
+						if (selectedAudioLanguageOption.equalsIgnoreCase(firstAudioLanguageOption)) {
+							verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2),
+									"Audio Language option");
+						} else {
+							verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1),
+									"Audio Language option");
+						}
+						waitTime(4000);
+					}
+				} else {
+					logger.info("no Audio Language is displayed");
+					extent.extentLogger("Audio Language", "No Audio Language is displayed");
+				}
+			} else {
+				logger.info("No contents in Watchlist");
+				extentLoggerWarning("Watchlist", "No contents in Watchlist");
+			}
+		} else {
+			logger.info("Watchlist is not applicable for " + usertype);
+			extentLogger("Guest User", "Watchlist is not applicable for " + usertype);
+		}
+
+	}
+
+	public void AudioLanguageChangeEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change event of content from Upnext rail");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitTime(8000);
+		Swipe("UP", 1);
+		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
+			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
+		}
+		waitTime(10000);
+		boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objAvailableAudioLanguages,
+				"Available Audio Languages");
+		if (lang == true) {
+			String noOfAudioLanguages = getText(AMDConsumptionScreen.objAvailableAudioLanguages);
+			if (noOfAudioLanguages.equalsIgnoreCase("Available in 1 language")) {
+				logger.info("Only one language is displayed");
+				extent.extentLogger("Audio Language", "Only one language is displayed");
+			} else {
+				click(AMDConsumptionScreen.objAudioLanguageValue, "Audio Language Value");
+				String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
+				String firstAudioLanguageOption = getText(AMDConsumptionScreen.objAudioLanguages(1));
+				if (selectedAudioLanguageOption.equalsIgnoreCase(firstAudioLanguageOption)) {
+					verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2), "Audio Language option");
+				} else {
+					verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Audio Language option");
+				}
+				waitTime(4000);
+			}
+		} else {
+			logger.info("no Audio Language is displayed");
+			extent.extentLogger("Audio Language", "No Audio Language is displayed");
+		}
+
+	}
+
+	public void SubtitleLanguageChangeEventForPremiumContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Subtitle Language Change Event for premium content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		Swipe("UP", 1);
+		boolean var = false;
+		for (int i = 0; i < 3; i++) {
+			var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
+			if (var == true) {
+				verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
+				waitTime(10000);
+				boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objSubtitleValue, "Subtitle option value");
+				if (lang == true) {
+					click(AMDConsumptionScreen.objSubtitleValue, "Subtitle Value");
+					String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
+					if (selectedAudioLanguageOption.equalsIgnoreCase("Off")) {
+						verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2),
+								"Subtitle Language option");
+					} else {
+						verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1),
+								"Subtitle Language option");
+					}
+					waitTime(4000);
+
+				} else {
+					logger.info("No Subtitles for this content");
+					extent.extentLogger("Subtitle", "No Subtitles for this content");
+				}
+				break;
+			} else {
+				Swipe("UP", 1);
+			}
+		}
+		if (var == false) {
+			logger.info("Premium content is not displayed in the screen");
+			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
+		}
+	}
+
+	public void SubtitleLanguageChangeEventForTrailerContent(String usertype, String keyword7) throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change event for Trailer content");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword7 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitTime(10000);
+		boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objSubtitleValue, "Subtitle option value");
+		if (lang == true) {
+			click(AMDConsumptionScreen.objSubtitleValue, "Subtitle Value");
+			String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
+			if (selectedAudioLanguageOption.equalsIgnoreCase("Off")) {
+				verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2), "Subtitle option");
+			} else {
+				verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Subtitle option");
+			}
+
+			// Audio language change in Full screen mode
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+			verifyElementPresentAndClick(AMDPlayerScreen.objThreeDotsOnPlayer, "Three Dots");
+			verifyElementPresentAndClick(AMDPlayerScreen.objSubtitleOption, "Subtitle option");
+			String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
+			if (selectedQualityOption.equalsIgnoreCase("Off")) {
+				verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Subtitle option");
+			} else {
+				verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Subtitle option");
+			}
+			waitTime(4000);
+		} else {
+			logger.info("No Subtitles for this content");
+			extent.extentLogger("Subtitle", "No Subtitles for this content");
+		}
+
+	}
+
+	public void SubtitleLanguageChangeEventForCarouselContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Subtitle Language Change Event for carousel content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
+		waitTime(10000);
+		boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objSubtitleValue, "Subtitle option value");
+		if (lang == true) {
+			click(AMDConsumptionScreen.objSubtitleValue, "Subtitle Value");
+			String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
+			if (selectedAudioLanguageOption.equalsIgnoreCase("Off")) {
+				verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2), "Subtitle option");
+			} else {
+				verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Subtitle option");
+			}
+			waitTime(3000);
+		} else {
+			logger.info("No Subtitles for this content");
+			extent.extentLogger("Subtitle", "No Subtitles for this content");
+		}
+
+	}
+
+	public void SubtitleLanguageChangeEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Subtitle Language Change Event of content from search page");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitTime(15000);
+		boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objSubtitleValue, "Subtitle option value");
+		if (lang == true) {
+			click(AMDConsumptionScreen.objSubtitleValue, "Subtitle Value");
+			String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
+			if (selectedAudioLanguageOption.equalsIgnoreCase("Off")) {
+				verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2), "Subtitle option");
+			} else {
+				verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Subtitle option");
+			}
+			waitTime(3000);
+		} else {
+			logger.info("No Subtitles for this content");
+			extent.extentLogger("Subtitle", "No Subtitles for this content");
+		}
+	}
+
+	public void SubtitleLanguageChangeEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+		if (!(usertype.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Subtitle Language Change Event of content from My WatchList page");
+			click(AMDHomePage.objMoreMenu, "More menu");
+			click(AMDMoreMenu.objWatchlist, "Watchlist option");
+			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
+			waitTime(5000);
+			boolean flag = false;
+			boolean contentsInMoviesTab = verifyIsElementDisplayed(
+					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
+			if (contentsInMoviesTab == true) {
+				getDriver()
+						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
+						.click();
+				waitTime(10000);
+				boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objSubtitleValue, "Subtitle option value");
+				if (lang == true) {
+					click(AMDConsumptionScreen.objSubtitleValue, "Subtitle Value");
+					String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
+					if (selectedAudioLanguageOption.equalsIgnoreCase("Off")) {
+						verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2), "Subtitle option");
+					} else {
+						verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Subtitle option");
+					}
+					waitTime(3000);
+				} else {
+					logger.info("No Subtitles for this content");
+					extent.extentLogger("Subtitle", "No Subtitles for this content");
+				}
+			} else {
+				logger.info("No contents in Watchlist");
+				extentLoggerWarning("Watchlist", "No contents in Watchlist");
+			}
+		} else {
+			logger.info("Watchlist is not applicable for " + usertype);
+			extentLogger("Guest User", "Watchlist is not applicable for " + usertype);
+		}
+
+	}
+
+	public void SubtitleLanguageChangeEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change event of content from Upnext rail");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitTime(8000);
+		Swipe("UP", 1);
+		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
+			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
+		}
+		waitTime(10000);
+		boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objSubtitleValue, "Subtitle option value");
+		if (lang == true) {
+			click(AMDConsumptionScreen.objSubtitleValue, "Subtitle Value");
+			String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
+			if (selectedAudioLanguageOption.equalsIgnoreCase("Off")) {
+				verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2), "Subtitle option");
+			} else {
+				verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Subtitle option");
+			}
+			waitTime(3000);
+		} else {
+			logger.info("No Subtitles for this content");
+			extent.extentLogger("Subtitle", "No Subtitles for this content");
+		}
 	}
 }

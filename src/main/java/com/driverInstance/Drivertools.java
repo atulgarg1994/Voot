@@ -45,6 +45,7 @@ public class Drivertools {
 		return testName;
 	}
 
+	@SuppressWarnings("static-access")
 	public void setTestName(String testName) {
 		this.testName = testName;
 	}
