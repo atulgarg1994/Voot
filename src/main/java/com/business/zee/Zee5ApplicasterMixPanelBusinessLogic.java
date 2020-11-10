@@ -7041,4 +7041,163 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			extent.extentLogger("Subtitle", "No Subtitles for this content");
 		}
 	}
+	
+	public void SkipIntroEventForPremiumContent(String usertype, String keyword4) throws Exception {
+		if(usertype.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Skip Intro Event of Premium content");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+			waitForElementDisplayed(AMDPlayerScreen.objSkipIntro, 30);
+			verifyElementPresentAndClick(AMDPlayerScreen.objSkipIntro, "Skip Intro");
+			waitTime(3000);
+			}else {
+				logger.info("This scenario is not applicable to "+usertype);
+				extent.extentLogger("Skip Intro", "This scenario is not applicable to "+usertype);
+			}
+		}
+	
+	public void SkipIntroEventOfContentFromContentTrays(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Skip Intro Event of Content from Content trays");
+		waitTime(5000);
+		SelectTopNavigationTab(tabName);
+		waitTime(10000);
+		Swipe("UP", 1);
+		boolean var = false;
+		for (int i = 0; i < 3; i++) {
+			var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
+			if (var == true) {
+				verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
+				waitTime(10000);
+				boolean skip = verifyIsElementDisplayed(AMDPlayerScreen.objSkipIntro, "Skip Intro");
+				if(skip==true) {
+					click(AMDPlayerScreen.objSkipIntro, "Skip Intro");
+					waitTime(3000);
+				}else {
+					logger.info("Skip Intro is not displayed for this content");
+					extent.extentLogger("Skip Intro", "Skip Intro is not displayed for this content");
+				}
+				break;
+			  } else {
+				Swipe("UP", 1);
+				}
+		   }
+		if (var == false) {
+			logger.info("Premium content is not displayed in the screen");
+			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
+		}
+	}
+	
+	public void SkipIntroEventForCarouselContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Skip Intro Event for carousel content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
+		waitTime(10000);
+		boolean skip = verifyIsElementDisplayed(AMDPlayerScreen.objSkipIntro, "Skip Intro");
+		if(skip==true) {
+			click(AMDPlayerScreen.objSkipIntro, "Skip Intro");
+			waitTime(3000);
+		}else {
+			logger.info("Skip Intro is not displayed for this content");
+			extent.extentLogger("Skip Intro", "Skip Intro is not displayed for this content");
+		}
+	}
+	
+	public void SkipIntroEventOfcontentFromSearchPage(String usertype, String keyword8) throws Exception {
+		extent.HeaderChildNode("Skip Intro Event of content from search page");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword8 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(3000);
+		boolean skip = verifyIsElementDisplayed(AMDPlayerScreen.objSkipIntro, "Skip Intro");
+		if(skip==true) {
+			click(AMDPlayerScreen.objSkipIntro, "Skip Intro");
+			waitTime(3000);
+		}else {
+			logger.info("Skip Intro is not displayed for this content");
+			extent.extentLogger("Skip Intro", "Skip Intro is not displayed for this content");
+		}
+	}
+	
+	public void SkipIntroEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+		if (!(usertype.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Skip Intro Event of content from My WatchList page");
+			click(AMDHomePage.objMoreMenu, "More menu");
+			click(AMDMoreMenu.objWatchlist, "Watchlist option");
+			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
+			waitTime(5000);
+			boolean contentsInMoviesTab = verifyIsElementDisplayed(
+					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
+			if (contentsInMoviesTab == true) {
+				getDriver()
+						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
+						.click();
+				waitTime(5000);
+				boolean skip = verifyIsElementDisplayed(AMDPlayerScreen.objSkipIntro, "Skip Intro");
+				if(skip==true) {
+					click(AMDPlayerScreen.objSkipIntro, "Skip Intro");
+					waitTime(3000);
+				}else {
+					logger.info("Skip Intro is not displayed for this content");
+					extent.extentLogger("Skip Intro", "Skip Intro is not displayed for this content");
+				}
+				
+			} else {
+				logger.info("No contents in Watchlist");
+				extentLoggerWarning("Watchlist", "No contents in Watchlist");
+			}
+			
+		} else {
+			logger.info("Watchlist is not applicable for " + usertype);
+			extentLogger("Guest User", "Watchlist is not applicable for " + usertype);
+		}
+	}
+	
+	public void SkipIntroEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Skip Intro event of content from Upnext rail");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitTime(8000);
+		Swipe("UP", 1);
+		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
+			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
+		}
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(3000);
+		boolean skip = verifyIsElementDisplayed(AMDPlayerScreen.objSkipIntro, "Skip Intro");
+		if(skip==true) {
+			click(AMDPlayerScreen.objSkipIntro, "Skip Intro");
+			waitTime(3000);
+		}else {
+			logger.info("Skip Intro is not displayed for this content");
+			extent.extentLogger("Skip Intro", "Skip Intro is not displayed for this content");
+		}
+
+	}
+
+
+
 }

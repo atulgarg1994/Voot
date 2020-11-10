@@ -635,7 +635,357 @@ public class AndroidPWAMixpanel_PlayerEvents {
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdViewEventForContentFromSharedLink(userType,audioTrackURL);
 	}
 	
+	@Test(priority = 92)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdClickEventForFreeContent(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Click Event For Free Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdClickEventForFreeContent(userType,audioTrackContent);
+	}
+
+	@Test(priority = 93)
+	@Parameters({"userType", "keyword1"})
+	public void verifyAdClickEventForTrailer(String userType,String keyword1) throws Exception {
+		System.out.println("Verify Ad Click Event For Trailer Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdClickEventForTrailer(userType,keyword1);
+	}
 	
+	@Test(priority = 94)
+	@Parameters({ "userType"})
+	public void verifyAdClickEventForCarouselContent(String userType) throws Exception {
+		System.out.println("Verify Ad Click Event For Carousel Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdClickEventForCarouselContent(userType);
+	}
+	
+	@Test(priority = 95)
+	@Parameters({ "userType"})
+	public void verifyAdClickEventForContentInTray(String userType) throws Exception {
+		System.out.println("Verify Ad Click Event For Content played from Tray");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdClickEventForContentInTray(userType);
+	}
+	
+	@Test(priority = 96)
+	@Parameters({"userType","subtitleTrackContent"})
+	public void verifyAdClickEventForContentFromSearchPage(String userType,String subtitleTrackContent) throws Exception {
+		System.out.println("Verify Ad Click Event For Content From Search Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdClickEventForContentFromSearchPage(userType,subtitleTrackContent);
+	}
+	
+	@Test(priority = 97)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdClickForContentFromMyWatchlistPage(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Click Event For Content From My Watchlist Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdClickForContentFromMyWatchlistPage(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 98)
+	@Parameters({ "userType"})
+	public void verifyAdClickEventForContentInMegamenu(String userType) throws Exception {
+		System.out.println("Verify Ad Click Event For Content played from Megamenu");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdClickEventForContentInMegamenu(userType);
+	}
+	
+	@Test(priority = 99)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdClickEventForContentInPlaylist(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Click Event For Content played from Playlist");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdClickEventForContentInPlaylist(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 100)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdClickEventForContentFromUpnextRail(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Click Event For Content played from Upnext rail");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdClickEventForContentFromUpnextRail(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 101)
+	@Parameters({"userType","audioTrackURL"})
+	public void verifyAdClickEventForContentFromSharedLink(String userType,String audioTrackURL) throws Exception {
+		System.out.println("Verify Ad Click Event For content played from Shared Link");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdClickEventForContentFromSharedLink(userType,audioTrackURL);
+	}
+	
+	@Test(priority = 102)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdForcedExitEventForFreeContent(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Forced Exit Event For Free Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdForcedExitEventForFreeContent(userType,audioTrackContent);
+	}
+
+	@Test(priority = 103)
+	@Parameters({"userType", "keyword1"})
+	public void verifyAdForcedExitEventForTrailer(String userType,String keyword1) throws Exception {
+		System.out.println("Verify Ad Forced Exit Event For Trailer Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdForcedExitEventForTrailer(userType,keyword1);
+	}
+	
+	@Test(priority = 104)
+	@Parameters({ "userType"})
+	public void verifyAdForcedExitEventForCarouselContent(String userType) throws Exception {
+		System.out.println("Verify Ad Forced Exit Event For Carousel Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdForcedExitEventForCarouselContent(userType);
+	}
+	
+	@Test(priority = 105)
+	@Parameters({ "userType"})
+	public void verifyAdForcedExitEventForContentInTray(String userType) throws Exception {
+		System.out.println("Verify Ad Forced Exit Event For Content played from Tray");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdForcedExitEventForContentInTray(userType);
+	}
+	
+	@Test(priority = 106)
+	@Parameters({"userType","subtitleTrackContent"})
+	public void verifyAdForcedExitEventForContentFromSearchPage(String userType,String subtitleTrackContent) throws Exception {
+		System.out.println("Verify Ad Forced Exit Event For Content From Search Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdForcedExitEventForContentFromSearchPage(userType,subtitleTrackContent);
+	}
+	
+	@Test(priority = 107)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdForcedExitEventForContentFromMyWatchlistPage(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Forced Exit Event For Content From My Watchlist Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdForcedExitEventForContentFromMyWatchlistPage(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 108)
+	@Parameters({ "userType"})
+	public void verifyAdForcedExitEventForContentInMegamenu(String userType) throws Exception {
+		System.out.println("Verify Ad Forced Exit Event For Content played from Megamenu");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdForcedExitEventForContentInMegamenu(userType);
+	}
+	
+	@Test(priority = 109)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdForcedExitEventForContentInPlaylist(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Forced Exit Event For Content played from Playlist");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdForcedExitEventForContentInPlaylist(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 110)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdForcedExitEventForContentFromUpnextRail(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Forced Exit Event For Content played from Upnext rail");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdForcedExitEventForContentFromUpnextRail(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 111)
+	@Parameters({"userType","audioTrackURL"})
+	public void verifyAdForcedExitEventForContentFromSharedLink(String userType,String audioTrackURL) throws Exception {
+		System.out.println("Verify Ad Forced Exit Event For content played from Shared Link");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdForcedExitEventForContentFromSharedLink(userType,audioTrackURL);
+	}
+	
+	@Test(priority = 112)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdWatchDurationEventForFreeContentForceExit(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user force quits the ad playback for free content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForFreeContentForceExit(userType,audioTrackContent);
+	}
+
+	@Test(priority = 113)
+	@Parameters({"userType", "keyword1"})
+	public void verifyAdWatchDurationEventForTrailerForceExit(String userType,String keyword1) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user force quits the ad playback For Trailer Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForTrailerForceExit(userType,keyword1);
+	}
+	
+	@Test(priority = 114)
+	@Parameters({ "userType"})
+	public void verifyAdWatchDurationEventForCarouselContentForceExit(String userType) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user force quits the ad playback For Carousel Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForCarouselContentForceExit(userType);
+	}
+	
+	@Test(priority = 115)
+	@Parameters({ "userType"})
+	public void verifyAdWatchDurationEventForContentInTrayForceExit(String userType) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user force quits the ad playback For Content played from Tray");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentInTrayForceExit(userType);
+	}
+	
+	@Test(priority = 116)
+	@Parameters({"userType","subtitleTrackContent"})
+	public void verifyAdWatchDurationEventForContentFromSearchPageForceExit(String userType,String subtitleTrackContent) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user force quits the ad playback For Content From Search Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentFromSearchPageForceExit(userType,subtitleTrackContent);
+	}
+	
+	@Test(priority = 117)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdWatchDurationEventForContentFromMyWatchlistPageForceExit(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user force quits the ad playback For Content From My Watchlist Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentFromMyWatchlistPageForceExit(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 118)
+	@Parameters({ "userType"})
+	public void verifyAdWatchDurationEventForContentInMegamenuForceExit(String userType) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user force quits the ad playback For Content played from Megamenu");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentInMegamenuForceExit(userType);
+	}
+	
+	@Test(priority = 119)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdWatchDurationEventForContentInPlaylistForceExit(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user force quits the ad playback For Content played from Playlist");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentInPlaylistForceExit(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 120)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdWatchDurationEventForContentFromUpnextRailForceExit(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user force quits the ad playback For Content played from Upnext rail");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentFromUpnextRailForceExit(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 121)
+	@Parameters({"userType","audioTrackURL"})
+	public void verifyAdWatchDurationEventForContentFromSharedLinkForceExit(String userType,String audioTrackURL) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user force quits the ad playback For content played from Shared Link");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentFromSharedLinkForceExit(userType,audioTrackURL);
+	}
+	
+	@Test(priority = 122)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdWatchDurationEventForFreeContentComplete(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user completly watches the ad playback for free content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForFreeContentComplete(userType,audioTrackContent);
+	}
+
+	@Test(priority = 123)
+	@Parameters({"userType", "keyword1"})
+	public void verifyAdWatchDurationEventForTrailerComplete(String userType,String keyword1) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user completly watches the ad playback For Trailer Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForTrailerComplete(userType,keyword1);
+	}
+	
+	@Test(priority = 124)
+	@Parameters({ "userType"})
+	public void verifyAdWatchDurationEventForCarouselContentComplete(String userType) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user completly watches the ad playback For Carousel Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForCarouselContentComplete(userType);
+	}
+	
+	@Test(priority = 125)
+	@Parameters({ "userType"})
+	public void verifyAdWatchDurationEventForContentInTrayComplete(String userType) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user completly watches the ad playback For Content played from Tray");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentInTrayComplete(userType);
+	}
+	
+	@Test(priority = 126)
+	@Parameters({"userType","subtitleTrackContent"})
+	public void verifyAdWatchDurationEventForContentFromSearchPageComplete(String userType,String subtitleTrackContent) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user completly watches the ad playback For Content From Search Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentFromSearchPageComplete(userType,subtitleTrackContent);
+	}
+	
+	@Test(priority = 127)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdWatchDurationEventForContentFromMyWatchlistPageComplete(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user completly watches ad playback For Content From My Watchlist Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentFromMyWatchlistPageComplete(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 128)
+	@Parameters({ "userType"})
+	public void verifyAdWatchDurationEventForContentInMegamenuComplete(String userType) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user completly watches the ad playback For Content played from Megamenu");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentInMegamenuComplete(userType);
+	}
+	
+	@Test(priority = 129)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdWatchDurationEventForContentInPlaylistComplete(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user completly watches the ad playback For Content played from Playlist");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentInPlaylistComplete(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 130)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdWatchDurationEventForContentFromUpnextRailComplete(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user completly watches the ad playback For Content played from Upnext rail");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentFromUpnextRailComplete(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 131)
+	@Parameters({"userType","audioTrackURL"})
+	public void verifyAdWatchDurationEventForContentFromSharedLinkComplete(String userType,String audioTrackURL) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user completly watches ad playback For content played from Shared Link");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentFromSharedLinkComplete(userType,audioTrackURL);
+	}
+
+	@Test(priority = 132)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdWatchDurationEventForFreeContentSkipAd(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user skips the ad playback for free content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForFreeContentSkipAd(userType,audioTrackContent);
+	}
+
+	@Test(priority = 133)
+	@Parameters({"userType", "keyword1"})
+	public void verifyAdWatchDurationEventForTrailerSkipAd(String userType,String keyword1) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user skips the ad playback For Trailer Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForTrailerSkipAd(userType,keyword1);
+	}
+	
+	@Test(priority = 134)
+	@Parameters({ "userType"})
+	public void verifyAdWatchDurationEventForCarouselContentSkipAd(String userType) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user skips the ad playback For Carousel Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForCarouselContentSkipAd(userType);
+	}
+	
+	@Test(priority = 135)
+	@Parameters({ "userType"})
+	public void verifyAdWatchDurationEventForContentInTraySkipAd(String userType) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user skips the ad playback For Content played from Tray");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentInTraySkipAd(userType);
+	}
+	
+	@Test(priority = 136)
+	@Parameters({"userType","subtitleTrackContent"})
+	public void verifyAdWatchDurationEventForContentFromSearchPageSkipAd(String userType,String subtitleTrackContent) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user skips the ad playback For Content From Search Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentFromSearchPageSkipAd(userType,subtitleTrackContent);
+	}
+	
+	@Test(priority = 137)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdWatchDurationEventForContentFromMyWatchlistPageSkipAd(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user skips ad playback For Content From My Watchlist Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentFromMyWatchlistPageSkipAd(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 138)
+	@Parameters({ "userType"})
+	public void verifyAdWatchDurationEventForContentInMegamenuSkipAd(String userType) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user skips the ad playback For Content played from Megamenu");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentInMegamenuSkipAd(userType);
+	}
+	
+	@Test(priority = 139)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdWatchDurationEventForContentInPlaylistSkipAd(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user skips the ad playback For Content played from Playlist");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentInPlaylistSkipAd(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 140)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAdWatchDurationEventForContentFromUpnextRailSkipAd(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user skips the ad playback For Content played from Upnext rail");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentFromUpnextRailSkipAd(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 141)
+	@Parameters({"userType","audioTrackURL"})
+	public void verifyAdWatchDurationEventForContentFromSharedLinkSkipAd(String userType,String audioTrackURL) throws Exception {
+		System.out.println("Verify Ad Watch Duration Event when user skips ad playback For content played from Shared Link");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentFromSharedLinkSkipAd(userType,audioTrackURL);
+	}
+	
+
 	@AfterClass
 	public void tearDown() {
 		Zee5PWAMixPanelAndroidBusinessLogic.tearDown();

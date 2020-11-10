@@ -78,7 +78,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("episodeToTriggerReco", "Aditya-Paarvathi challenge themselves for fun");
 			params.put("ExpiredUserName", "zee5latest@gmail.com");
 			params.put("ExpiredUserPassword", "User@123");
-			params.put("audioTrackContent", "Episode 13 - Agent Raghav ");
+			params.put("audioTrackContent", "Episode 13 - Agent Raghav");
 			params.put("keyword", "Jodi Hakki");
 			params.put("keyword1", "Shivaji Surathkal");
 			params.put("keyword2", "Chemistry of Kariyappa");

@@ -12096,7 +12096,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		waitTime(1000);
-		if (checkElementExist(AMDPlayerScreen.objPlayer, "Player screen")) {
+		if (checkElementExist(AMDPlayerScreen.objPlayerScreen, "Player screen")) {
 			waitTime(5000);
 			if (verifyElementExist(AMDPlayerScreen.objSubtitleOptionInPotraitMode, "Subtitle option")) {
 				String defaultValue = getText(AMDPlayerScreen.objSubtitleValueInPotraitMode);
@@ -12106,7 +12106,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					click(AMDPlayerScreen.objSubtitleValueInPotraitMode, "Subtitle option");
 					click(AMDPlayerScreen.objEnglishSubtitle, "English subtitle");
 					String Value = getText(AMDPlayerScreen.objSubtitleValueInPotraitMode);
-					if (Value.equalsIgnoreCase("English")) {
+					if (Value.equalsIgnoreCase("en")) {
 						logger.info("English subtitle is selected");
 						extentLoggerPass("Subtitles", "English subtitle is selected");
 					} else {
@@ -12137,7 +12137,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("Player screen is not displayed");
 			extentLoggerFail("Player screen", "Player screen is not displayed");
 		}
-
 		// To Navigate back to from Consumption screen
 		if (verifyIsElementDisplayed(AMDConsumptionScreen.objShareBtn)) {
 			Back(1);
@@ -12449,7 +12448,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objSkipIntro, "Skip Intro CTA");
 		if (var == true) {
 			waitTime(2000);
-			JSClick(AMDPlayerScreen.objSkipIntro, "Skip Intro CTA");
+		     click(AMDPlayerScreen.objSkipIntro, "Skip Intro CTA");
 			waitTime(3000);
 			click(AMDPlayerScreen.objPlayIcon, "Play icon");
 
