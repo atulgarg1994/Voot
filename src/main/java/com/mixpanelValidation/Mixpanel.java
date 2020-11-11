@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -131,7 +134,14 @@ public class Mixpanel extends ExtentReporter {
 //		System.out.println("1989-11-20T18:30:00Z".split("T")[0]);
 //		getDOB("1989-11-20T18:30:00Z".split("T")[0]);
 //		System.out.println(validateEventTriggerTime("1604426176"));
-		getAdID();
+//		getAdID();
+//		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+//		booleanParameters = Prop.getproperty("Boolean");
+//		integerParameters = Prop.getproperty("Integer");
+//		fileName = "CTAs";
+//		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
+//		platform = "Web";
+//		fetchEvent("5d94e150a85711e9a4028141f97a2ff1","CTAs");
 	}
 
 	@SuppressWarnings("unused")
@@ -154,7 +164,7 @@ public class Mixpanel extends ExtentReporter {
 	public static void fetchEvent(String distinct_id, String eventName)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
-			Thread.sleep(180000);
+			Thread.sleep(1800);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -181,16 +191,19 @@ public class Mixpanel extends ExtentReporter {
 				.post("https://data.mixpanel.com/api/2.0/export/");
 		request.print();
 		sheet = eventName.trim().replace(" ", "");
-		if (request != null) {
-			String response = request.asString();
-			String s[] = response.split("\n");
-			parseResponse(s[s.length - 1]);
+		if (request.toString() != null) {
+			if (!platform.equals("Web")) {
+				parseResponse(getLatestEvent(request));
+			} else {
+				String response = request.asString();
+				String s[] = response.split("\n");
+				parseResponse(s[s.length - 1]);
+			}
 			validation();
-		} else {
+		}else {
 			System.out.println("Event not triggered");
 			extentReportFail("Event not triggered", "Event not triggered");
 		}
-
 	}
 
 	/**
@@ -296,7 +309,7 @@ public class Mixpanel extends ExtentReporter {
 						validateInteger(value);
 					}
 					validateParameterValue(key, value);
-					extentFail();
+					extentInfo();
 				}
 			} catch (Exception e) {
 				System.out.println(e);
@@ -413,12 +426,18 @@ public class Mixpanel extends ExtentReporter {
 		extent.childTest.get().log(Status.INFO, details);
 	}
 
-	public static void extentFail() {
-		if (propValue.equals("Empty")) {
-			extentReportFail("Empty parameter", "Value mismatch :- <b>Key : " + key + " <br/> value : " + value);
-		} else {
-			extentReportFail("Empty parameter", "Value mismatch :- <b>Key : " + key + " <br/> value : " + value
+	
+	
+	public static void extentInfo() {
+		try {
+			if (propValue.equals("Empty")) {
+				extentReportInfo("Empty parameter", "Value mismatch :- <b>Key : " + key + " <br/> value : " + value);
+			} else {
+				extentReportInfo("Empty parameter", "Value mismatch :- <b>Key : " + key + " <br/> value : " + value
 					+ "<br/> Expected value : " + propValue + "</b>");
+			}
+		}catch(Exception e) {
+			
 		}
 	}
 
@@ -457,5 +476,23 @@ public class Mixpanel extends ExtentReporter {
 			e.printStackTrace();
 		}
 		System.out.println(Modelname);
+	}
+	
+	public static String getLatestEvent(Response responseEvent) {
+		String response = responseEvent.asString();
+		String s[] = response.split("\n");
+		List<Integer> list = new ArrayList<Integer>();
+		for (int i = 0; i < s.length; i++) {
+			String commaSplit[] = response.replace("\"properties\":{", "").replace("}", "")
+					.replaceAll("[.,](?=[^\\[]*\\])", "-").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+			String com[] = commaSplit[1].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+			list.add(Integer.valueOf(com[0].replace("\"", "").replace("$", "")));
+		}
+		for(int i = 0; i < s.length; i++) {
+			if(s[i].contentEquals(String.valueOf(Collections.max(list)))) {
+				return s[i];
+			}
+		}
+		return "";
 	}
 }

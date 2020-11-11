@@ -141,21 +141,18 @@ public class PWAHamburgerMenuPage {
 //	Remove All button
 	public static By objRemoveAllBtn = By.xpath("//span[.='Remove All']");
 
-//WATCHLIST
+//	WATCHLIST
 	public static By objMyAccountOptionsText(String option) {
 		return By.xpath("//*[contains(@class,'pageTitle') and text()=\"" + option + "\"]");
 	}
 
-//Edit Profile Text
+//	Edit Profile Text
 	public static By objEditProfileText = By.xpath("//*[@class='pageTitle editPageTitle']");
 
-//Edit profile FirstName
+//	Edit profile FirstName
 	public static By objEditProfileFirstName = By.xpath("//*[@name='firstName']");
 
-//Edit Profile Save changes
-	public static By objEditProfileSavechangesBtn = By.xpath("//*[@class='noSelect buttonGradient ']");
-
-//Edit  Profile Go back
+//	Edit  Profile Go back
 	public static By objEditProfileGoBackBtn = By.xpath("//*[@class='noSelect btnContnet']");
 
 	// Edit Profile Changes saved
@@ -172,9 +169,6 @@ public class PWAHamburgerMenuPage {
 
 	// Change passowrd
 	public static By objConfirmNewPassword = By.xpath("//*[@name='confirmPwd']");
-
-	// UpdatePasswordBtnHighlighted
-	public static By objUpdatePasswordBtnHighlighted = By.xpath("//*[@class='noSelect buttonGradient ']");
 
 	// My plan text
 	public static By objMyplanText = By.xpath("//h3[@class='planTitle']");
@@ -488,7 +482,7 @@ public class PWAHamburgerMenuPage {
 	public static By objMySubscriptionPackName = By.xpath("//*[@class='packNameWrap']");
 
 	public static By objHamburgerBtn = By.xpath("(//*[contains(text(),'Open Menu')])[1]");
-	
+
 	public static By objMyTransactionPackName = By.xpath("//*[@class='packInline']");
 
 	public static By objGetPremiumCTAbelowPlayer = By
@@ -586,9 +580,9 @@ public class PWAHamburgerMenuPage {
 	public static By objProfileText = By.xpath("//div[@class='noSelect pageLink' and contains(text(),'My Profile')]");
 
 	public static By objSettings = By.xpath("//*[text()='Settings']");
-	
+
 	public static By objLanguagePop = By.xpath("//div[@class='popupContent langFilterPopupWrapper']");
-	
+
 	public static By objInfo = By.xpath("//*[text()='Info']");
 
 	// terms of use in Sign up screen
@@ -625,18 +619,32 @@ public class PWAHamburgerMenuPage {
 	public static By objRestrict13PlusContent = By.xpath("//div[contains(text(),'Restrict 13+ Content')]");
 
 	public static By objContinueButton = By.xpath("//span[contains(text(),'Continue')]");
-	
+
 	public static By objHighlightedTab(String tabname) {
-		return By.xpath("//a[@class='noSelect active' and text()=\""+tabname+"\"]");
+		return By.xpath("//a[@class='noSelect active' and text()=\"" + tabname + "\"]");
 	}
-	
+
 	public static By objzeeAppCloseHelpCenter = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_exit']");
-	
+
 	public static By objzeeAppCloseContactUs = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_exit']");
-	
+
 	public static By objzeeAppExit = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_exit_yes']");
-	
+
 	public static By objzeeAppInterstitialAddClose = By.xpath("//*[@content-desc='Interstitial close button']");
+
+	public static By objEduauraaSignupPage = By.xpath("//div[@class='signup-block']");
+
+	// Edit Profile Save changes
+	public static By objEditProfileSavechangesBtn = By
+			.xpath("//span[text()='save changes']//parent::button[contains(@class,'noSelect buttonGradient')]");
+
+	// UpdatePasswordBtnHighlighted
+	public static By objUpdatePasswordBtnHighlighted = By
+			.xpath("//span[text()='Update']//parent::button[contains(@class,'noSelect buttonGradient')]");
+
+	public static By objUnselectedEnglishContentLanguage = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='English']");
 	
-	public static By objEduauraaSignupPage=By.xpath("//div[@class='signup-block']");
+	public static By objUnselectedKannadaContentLanguage = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='Kannada']");
+	
+	public static By objUnselectedHindiContentLanguage = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='Hindi']");
 }

@@ -89,7 +89,7 @@ public class AndroidPWASmokeScript {
 		System.out.println("Live content : "+liveContentName);
 		zee5PWABusinessLogic.landingOnSearchScreen();
 		zee5PWABusinessLogic.searchResultScreen(searchKey);
-		zee5PWABusinessLogic.liveTv(liveContentName);
+		zee5PWABusinessLogic.liveTv();
 		zee5PWABusinessLogic.navigationToConsumptionScreenThroughTrendingSearches();
 		System.out.println(">>>> 6th method completed");
 

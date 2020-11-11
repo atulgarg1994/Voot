@@ -1558,6 +1558,18 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.ValidateParameter(local.getItem("guestToken"), "Session");
 	}
 
+	/**
+	 * Function to Relaunch the driver
+	 */
+	public void relaunch() throws Exception {
+		HeaderChildNode("Relaunch the app");
+		logger.info("Relaunching the application");
+		extent.extentLogger("Relaunch", "Relaunching the application");
+		waitTime(10000);
+		getWebDriver().quit();
+		new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
+	}
+	
 	public void verifyQualityChangeEvent(String keyword1) throws Exception {
 
 		extent.HeaderChildNode("Verify Quality Change Event");

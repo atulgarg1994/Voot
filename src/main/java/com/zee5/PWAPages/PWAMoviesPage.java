@@ -64,4 +64,6 @@ public class PWAMoviesPage {
 		return By.xpath("(//div[contains(@class,'trayHeader')]/following-sibling::*//div[contains(@class,'content')])[" + index + "]");
 	}
 
+	public static By objFreeContentCardFromTray =By.xpath("//div[@class='page-container']//div[@class='slick-list']//div[@data-minutelyurl and not(.//div[@class='cardPremiumContent'])]");
+
 }

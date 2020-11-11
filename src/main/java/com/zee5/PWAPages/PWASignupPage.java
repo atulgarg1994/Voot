@@ -57,4 +57,16 @@ public class PWASignupPage {
 	public static By objSignUpButtonHighlightedWeb = By.xpath("//button[contains(@class,'noSelect buttonGradient')]");
 	
 	public static By objVerifyBtnWeb = By.xpath("//div[@class='verifyBtn']/child::*");
+	
+	public static By objVerifyButtonDisabled = By.xpath("//*[contains(@class,'noSelect buttonGradient') and @disabled]");
+	public static By objVerifyButtonEnabled = By.xpath("//*[contains(@class,'noSelect buttonGradient')]");
+
+	public static By objSendOTPButtonDisabled = By.xpath("//*[text()='Send OTP']//parent::*[@disabled]");
+	public static By objSendOTPButtonEnabled = By.xpath("//*[text()='Send OTP']//parent::*");
+
+	public static By objPasswordResetLinkDisabled = By.xpath("//span[text()='Send Password Reset Link']//parent::button[contains(@class,'noSelect buttonGradient') and @disabled]");
+	public static By objPasswordResetLinkEnabled = By.xpath("//span[text()='Send Password Reset Link']//parent::button[contains(@class,'noSelect buttonGradient')]");
+
+	public static By objForgotPasswordContinueEnabled = By.xpath("//span[text()='Continue']//parent::button[contains(@class,'noSelect buttonGradient')]");
+	public static By objForgotPasswordContinueDisabled = By.xpath("//span[text()='Continue']//parent::button[contains(@class,'noSelect buttonGradient') and @disabled]");
 }

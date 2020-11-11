@@ -54,9 +54,6 @@ public class PWAZee5OriginalPage {
 	// Premium Tag
 	public static By objPremiumTag = By.xpath("(//div[@class='cardPremiunIconContainer '])[1]");
 
-	// First tray
-	public static By objTrayTitle1 = By.xpath("(//div[@class='titleLink'])[1]");
-
 	// Object of carousel content
 	public static By objCarouselContent = By.xpath("//*[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle ')]");
 
@@ -79,4 +76,7 @@ public class PWAZee5OriginalPage {
 	public static By objWEBMastheadCarouselPlay=By.xpath("//*[text()='Play']");
 
 	public static By objWEBMastheadCarouselgetpremium=By.xpath("//*[text()='Get Premium]");
+	
+	// First tray
+	public static By objTrayTitle1 = By.xpath("(//*[@class='titleLink'])[1]");
 }

@@ -123,4 +123,10 @@ public class PWALandingPages {
 	public static By objViewAllPageTrayDescription = By.xpath("//*[@class='description']");
 
 	public static By objTrayClubOrPremiumCardInShowDetails = By.xpath("(//div[contains(@class,'clubPackContent') or contains(@class,'cardPremiumContent')])[1]//preceding-sibling::*");
+
+	public static By trayCard = By.xpath("//*[@data-minutelytitle]");
+	
+	public static By trayCard(String trayTitle) {
+		return By.xpath("//*[text()='Trending Shows']//ancestor::*[@class='trayHeader']//following-sibling::*//*[@data-minutelytitle]");
+	}
 }

@@ -142,6 +142,6 @@ public class PWAShowsPage {
 	
 	public static By objGetPremiumCTAInShowDetails = By.xpath("//*[@class='premiumBtn' and text()='Get premium']");
 
-
+	public static By objWatchPromo = By.xpath("//p[text()='Watch Promo']//parent::*//div[@class='playBtn']");
 
 }

@@ -245,8 +245,6 @@ public class PWASubscriptionPages {
 	public static By objExpiry = By.xpath("//article[contains(text(),'Expiry')]");
 	public static By objProceedToPay = By.xpath("(//article[contains(text(), 'Proceed to pay')])[6]");
 
-	public static By objProceedBtnInSubscriptionPage = By.xpath("//*[@class='noSelect buttonGradient ']");
-
 	public static By objLoginLinkInPlayer = By.xpath("//*[@class='login-link']");
 
 	public static By objPasswordPopupInSubscriptionPage = By.xpath("//*[@class='popupContent parentalControlPopup']");
@@ -322,4 +320,6 @@ public class PWASubscriptionPages {
 	}
 	
 	public static By objCreditDebitClose = By.xpath("(//*[contains(@src,'ic_search_cancel')])[2]");
+	
+	public static By objProceedBtnInSubscriptionPage = By.xpath("//*[text()='PROCEED']");
 }

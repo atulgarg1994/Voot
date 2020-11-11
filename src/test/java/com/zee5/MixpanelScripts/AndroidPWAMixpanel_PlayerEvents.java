@@ -985,7 +985,161 @@ public class AndroidPWAMixpanel_PlayerEvents {
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyAdWatchDurationEventForContentFromSharedLinkSkipAd(userType,audioTrackURL);
 	}
 	
+	@Test(priority = 142)
+	@Parameters({ "userType", "keyword4"})
+	public void verifyScrubSeekEventForFreeContent(String userType,String keyword4) throws Exception {
+		System.out.println("Verify Scrub/Seek Event For Free Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyScrubSeekEventForFreeContent(userType,keyword4);
+	}
+	
+	@Test(priority = 143)
+	@Parameters({ "userType"})
+	public void verifyScrubSeekEventForPremiumContent(String userType) throws Exception {
+		System.out.println("Verify Scrub/Seek Event For Premium Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyScrubSeekEventForPremiumContent(userType,"Home");
+	}
+	
+	@Test(priority = 144)
+	@Parameters({ "keyword1"})
+	public void verifyScrubSeekEventForTrailer(String keyword1) throws Exception {
+		System.out.println("Verify Scrub/Seek Event For Trailer Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyScrubSeekEventForTrailer(keyword1);
+	}
+	
+	@Test(priority = 145)
+	public void verifyScrubSeekEventForCarouselContent() throws Exception {
+		System.out.println("Verify Scrub/Seek Event For Carousel Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyScrubSeekEventForCarouselContent();
+	}
+	
+	@Test(priority = 146)
+	public void verifyScrubSeekEventForContentInTray() throws Exception {
+		System.out.println("Verify Scrub/Seek Event For Content played from Tray");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyScrubSeekEventForContentInTray();
+	}
+	
+	@Test(priority = 147)
+	@Parameters({"keyword1"})
+	public void verifyScrubSeekEventForContentFromSearchPage(String keyword1) throws Exception {
+		System.out.println("Verify Scrub/Seek Event For Content From Search Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyScrubSeekEventForContentFromSearchPage(keyword1);
+	}
+	
+	@Test(priority = 148)
+	@Parameters({ "userType", "keyword"})
+	public void verifyScrubSeekEventForContentFromMyWatchlistPage(String userType,String keyword) throws Exception {
+		System.out.println("Verify Scrub/Seek Event For Content From My Watchlist Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyScrubSeekEventForContentFromMyWatchlistPage(userType,keyword);
+	}
+	
+	@Test(priority = 149)
+	public void verifyScrubSeekEventForContentInMegamenu() throws Exception {
+		System.out.println("Verify Scrub/Seek Event For Content played from Megamenu");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyScrubSeekEventForContentInMegamenu();
+	}
+	
+	@Test(priority = 150)
+	@Parameters({ "userType", "keyword"})
+	public void verifyScrubSeekEventForContentInPlaylist(String userType,String keyword) throws Exception {
+		System.out.println("Verify Scrub/Seek Event For Content played from Playlist");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyScrubSeekEventForContentInPlaylist(userType,keyword);
+	}
+	
+	@Test(priority = 151)
+	@Parameters({ "userType", "keyword"})
+	public void verifyScrubSeekEventForContentFromUpnextRail(String userType,String keyword) throws Exception {
+		System.out.println("Verify Scrub/Seek Event For Content played from Upnext rail");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyScrubSeekEventForContentFromUpnextRail(userType,keyword);
+	}
+	
+	@Test(priority = 152)
+	@Parameters({"freeContentURL"})
+	public void verifyScrubSeekEventForContentFromSharedLink(String freeContentURL) throws Exception {
+		System.out.println("Verify Scrub/Seek Event For content played from Shared Link");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyScrubSeekEventForContentFromSharedLink(freeContentURL);
+	}
 
+	@Test(priority = 153)
+	@Parameters({ "userType", "keyword4"})
+	public void verifyQualityChangeEventForFreeContent(String userType,String keyword4) throws Exception {
+		System.out.println("Verify Quality Change Event For Free Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForFreeContent(userType,keyword4);
+	}
+	
+	@Test(priority = 154)
+	@Parameters({ "userType"})
+	public void verifyQualityChangeEventForPremiumContent(String userType) throws Exception {
+		System.out.println("Verify Quality Change Event For Premium Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForPremiumContent(userType,"Home");
+	}
+	
+	@Test(priority = 155)
+	@Parameters({ "keyword1"})
+	public void verifyQualityChangeEventForTrailer(String keyword1) throws Exception {
+		System.out.println("Verify Quality Change Event For Trailer Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForTrailer(keyword1);
+	}
+	
+	@Test(priority = 156)
+	public void verifyQualityChangeEventForCarouselContent() throws Exception {
+		System.out.println("Verify Quality Change Event For Carousel Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForCarouselContent();
+	}
+	
+	@Test(priority = 157)
+	public void verifyQualityChangeEventForContentInTray() throws Exception {
+		System.out.println("Verify Quality Change Event For Content played from Tray");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForContentInTray();
+	}
+	
+	@Test(priority = 158)
+	@Parameters({"keyword1"})
+	public void verifyQualityChangeEventForContentFromSearchPage(String keyword1) throws Exception {
+		System.out.println("Verify Quality Change Event For Content From Search Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForContentFromSearchPage(keyword1);
+	}
+	
+	@Test(priority = 159)
+	@Parameters({ "userType", "keyword"})
+	public void verifyQualityChangeEventForContentFromMyWatchlistPage(String userType,String keyword) throws Exception {
+		System.out.println("Verify Quality Change Event For Content From My Watchlist Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForContentFromMyWatchlistPage(userType,keyword);
+	}
+	
+	@Test(priority = 160)
+	public void verifyQualityChangeEventForContentInMegamenu() throws Exception {
+		System.out.println("Verify Quality Change Event For Content played from Megamenu");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForContentInMegamenu();
+	}
+	
+	@Test(priority = 161)
+	@Parameters({ "userType", "keyword"})
+	public void verifyQualityChangeEventForContentInPlaylist(String userType,String keyword) throws Exception {
+		System.out.println("Verify Quality Change Event For Content played from Playlist");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForContentInPlaylist(userType,keyword);
+	}
+	
+	@Test(priority = 162)
+	@Parameters({ "userType", "keyword"})
+	public void verifyQualityChangeEventForContentFromUpnextRail(String userType,String keyword) throws Exception {
+		System.out.println("Verify Quality Change Event For Content played from Upnext rail");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForContentFromUpnextRail(userType,keyword);
+	}
+	
+	@Test(priority = 163)
+	@Parameters({"freeContentURL"})
+	public void verifyQualityChangeEventForContentFromSharedLink(String freeContentURL) throws Exception {
+		System.out.println("Verify Quality Change Event For content played from Shared Link");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForContentFromSharedLink(freeContentURL);
+	}
+	
+	@Test(priority = 164)
+	public void verifyQualityChangeEventForLinearContent() throws Exception {
+		System.out.println("Verify Quality Change Event For Linear Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForLinearContent();
+	}
+	
+	
 	@AfterClass
 	public void tearDown() {
 		Zee5PWAMixPanelAndroidBusinessLogic.tearDown();

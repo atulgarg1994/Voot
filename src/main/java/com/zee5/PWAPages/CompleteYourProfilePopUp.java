@@ -6,9 +6,6 @@ public class CompleteYourProfilePopUp {
 	
 	public static By objCompleteYourProfileTxt = By.xpath("//div[.='Complete your profile']");
 
-
-
-
 	public static By objFirstName = By.xpath("//input[@name='firstName']");
 	
 	public static By objLastName = By.xpath("//input[@name='lastName']");

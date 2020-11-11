@@ -1618,6 +1618,26 @@ public class Utilities extends ExtentReporter {
 
 		}
 	}
+	
+	public boolean clickElementWithLocator(By locator) throws Exception {
+		try {
+			getDriver().findElement(locator).click();
+			return true;
+		} 
+		catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public boolean clickElementWithWebElement(WebElement element) throws Exception {
+		try {
+			element.click();
+			return true;
+		} 
+		catch (Exception e) {
+			return false;
+		}
+	}
 
 	public static int timeToSec(String s) {
 		String[] t = s.split(":");
