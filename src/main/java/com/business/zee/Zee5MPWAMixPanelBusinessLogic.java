@@ -130,30 +130,91 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		getDriver().quit();
 	}
 
+//	public void waitForPlayerAdToComplete(String playerType) throws Exception {
+//		boolean adDisplayed = false;
+//		boolean playerDisplayed = false;
+//		int confirmCount = 0;
+//		waitTime(5000);
+//		main: for (int trial = 0; trial < 200; trial++) {
+//			if (verifyElementDisplayed(PWAPlayerPage.objAd)) {
+//				adDisplayed = true;
+//				if (trial == 5) {
+//					logger.info("Ad play in progress");
+//					extent.extentLogger("AdPlayInProgress", "Ad play in progress");
+//				}
+//				if (Math.floorMod(trial, 40) == 0)
+//					System.out.println("Ad play in progress");
+//				Thread.sleep(1000);
+//			} else {
+//				try {
+//					getDriver().findElement(PWAPlayerPage.objPlayerSettings);
+//					playerDisplayed = true;
+//					Thread.sleep(1000);
+//					confirmCount++;
+//					System.out.println(confirmCount);
+//					if (confirmCount == 3) {
+//						if (adDisplayed == false) {
+//							logger.info("Ad did not play");
+//							extent.extentLogger("AdDidNotPlay", "Ad did not play");
+//						} else {
+//							logger.info("Ad play complete");
+//							extent.extentLogger("AdPlayComplete", "Ad play complete");
+//						}
+//						break main;
+//					}
+//				} catch (Exception e1) {
+//					waitTime(2000);
+//				}
+//			}
+//		}
+//		if (playerDisplayed == false && adDisplayed == false) {
+//			logger.info("Ad play failure");
+//			extent.extentLogger("failedAd", "Ad play failure");
+//		}
+//	}
+
 	public void waitForPlayerAdToComplete(String playerType) throws Exception {
-		boolean adDisplayed = false;
+		boolean adWasDisplayed = false;
 		boolean playerDisplayed = false;
 		int confirmCount = 0;
 		waitTime(5000);
-		main: for (int trial = 0; trial < 200; trial++) {
-			if (verifyElementDisplayed(PWAPlayerPage.objAd)) {
-				adDisplayed = true;
+		main: for (int trial = 0; trial < 120; trial++) {
+			try {
+				findElement(PWAPlayerPage.objAd);
+				adWasDisplayed = true;
 				if (trial == 5) {
 					logger.info("Ad play in progress");
 					extent.extentLogger("AdPlayInProgress", "Ad play in progress");
+					try {
+						getDriver().findElement(PWAPlayerPage.objAd);
+					} catch (Exception e) {
+					}
 				}
-				if (Math.floorMod(trial, 40) == 0)
+				if (Math.floorMod(trial, 15) == 0)
 					System.out.println("Ad play in progress");
 				Thread.sleep(1000);
-			} else {
+
+//				//SkipAD
+//				if(checkElementExist(PWAPlayerPage.objSkipAd, "SkipAd")){
+//					Thread.sleep(5000);
+//					click(PWAPlayerPage.objSkipAd, "SkipButton");					
+//				}
+//				else
+//				{
+//					System.out.println("No Skip Button Displayed");
+//				}
+
+			} catch (Exception e) {
 				try {
-					getDriver().findElement(PWAPlayerPage.objPlayerSettings);
+					if (playerType.equals("Live Player")) {
+						findElement(PWAPlayerPage.objLivePlayerLiveTag);
+					} else if (playerType.equals("Video Player")) {
+						findElement(PWAPlayerPage.objPlayerSeekBar);
+					}
 					playerDisplayed = true;
-					Thread.sleep(1000);
 					confirmCount++;
-					System.out.println(confirmCount);
-					if (confirmCount == 3) {
-						if (adDisplayed == false) {
+					if (confirmCount == 1) {
+						if (adWasDisplayed == false) {
 							logger.info("Ad did not play");
 							extent.extentLogger("AdDidNotPlay", "Ad did not play");
 						} else {
@@ -163,12 +224,11 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 						break main;
 					}
 				} catch (Exception e1) {
-					waitTime(2000);
 				}
 			}
 		}
-		if (playerDisplayed == false && adDisplayed == false) {
-			logger.info("Ad play failure");
+		if (playerDisplayed == false && adWasDisplayed == false) {
+			logger.error("Ad play failure");
 			extent.extentLogger("failedAd", "Ad play failure");
 		}
 	}
@@ -185,7 +245,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		// dismiss3xPopUp();
 //		 dismissDisplayContentLanguagePopUp();
 		// dismissSystemPopUp();
-		// dismissAllPopUps();
+		dismissAllPopUps();
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.extentLogger("Guest", "Accessing the application as Guest user");
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
@@ -877,87 +937,57 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 
 			String url = getParameterFromXML("url");
 			extent.HeaderChildNode("User-Type : " + userType + ", Environment: " + url);
-			// Get the email and password from properties
-			String email = "";
-			String password = "";
-			// dismissSystemPopUp();
-			// waitTime(3000);
-			// dismissSystemPopUp();
-			// dismissAppInstallPopUp();
-			// dismissStayTundedPopUp();
-			// dismiss3xPopUp();
-			// dismissDisplayContentLanguagePopUp();
-			// dismissSystemPopUp();
 			dismissAllPopUps();
-			if (userType.equalsIgnoreCase("Guest")) {
-				extent.extentLogger("Guest", "Accessing the application as Guest user");
-			} else if (userType.equalsIgnoreCase("SubscribedUser")) {
-				extent.extentLogger("Subscribed", "Accessing the application as Subscribed user");
-				email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SubscribedUserName");
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SubscribedPassword");
-			} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-				extent.extentLogger("Non-Subscribed", "Accessing the application as Non-Subscribed user");
-				email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonsubscribedUserName");
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonsubscribedPassword");
-			}
-			if (userType.equalsIgnoreCase("SubscribedUser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
-				if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
-					verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
-				}
+			verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+
+			waitTime(3000);
+			click(PWALoginPage.objLoginBtn, "Login button");
+			waitTime(3000);
+			HeaderChildNode("Login - Method" + loginMethod);
+			switch (loginMethod) {
+
+			case "E-mail":
+				dismissAppInstallPopUp();
+				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+				waitTime(10000);
+				// getDriver().getKeyboard().sendKeys("Bla bla");//works
+				type(PWALoginPage.objEmailField, "zeetest@gmail.com", "Email Field");
+				hideKeyboard();
 				waitTime(3000);
-				click(PWALoginPage.objLoginBtn, "Login button");
+				dismissSystemPopUp();
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+				type(PWALoginPage.objPasswordField, "vhgvgv" + "\n", "Password field");
+				hideKeyboard();
+				waitTime(5000);
+				directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
+				waitTime(10000);
+				break;
+
+			case "Mobile":
+				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+				type(PWALoginPage.objEmailField, "8792396107\n", "Email Field");
+				hideKeyboard();
+				verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login butotn");
 				waitTime(3000);
-				HeaderChildNode("Login - Method" + loginMethod);
-				switch (loginMethod) {
-
-				case "E-mail":
-					dismissAppInstallPopUp();
-					verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-					waitTime(10000);
-					// getDriver().getKeyboard().sendKeys("Bla bla");//works
-					type(PWALoginPage.objEmailField, email, "Email Field");
-					hideKeyboard();
-					waitTime(3000);
-					dismissSystemPopUp();
-					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-					type(PWALoginPage.objPasswordField, "vhgvgv" + "\n", "Password field");
-					hideKeyboard();
-					waitTime(5000);
-					directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
-					waitTime(10000);
-					break;
-
-				case "Mobile":
-					verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-					type(PWALoginPage.objEmailField, "8792396107\n", "Email Field");
-					hideKeyboard();
-					verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login butotn");
-					waitTime(3000);
-					hideKeyboard();
-					waitTime(5000);
-					verifyElementPresentAndClick(PWALoginPage.objpasswordphno, "Password field");
-					waitTime(3000);
-					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "password-field");
-					type(PWALoginPage.objPasswordField, "bhvb4223\n", "password-field");
-					hideKeyboard();
-					waitTime(2000);
-					click(PWALoginPage.objproceedphno, "Proceed button");
-					waitTime(5000);
-					break;
-
-				}
-
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Page Name", "sign_in");
-
-				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-				mixpanel.ValidateParameter(gToken, "Login Initiated");
+				hideKeyboard();
+				waitTime(5000);
+				verifyElementPresentAndClick(PWALoginPage.objpasswordphno, "Password field");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "password-field");
+				type(PWALoginPage.objPasswordField, "bhvb4223\n", "password-field");
+				hideKeyboard();
+				waitTime(2000);
+				click(PWALoginPage.objproceedphno, "Proceed button");
+				waitTime(5000);
+				break;
 
 			}
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "sign_in");
+
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Login Initiated");
 		}
 	}
 
@@ -967,84 +997,49 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 
 			String url = getParameterFromXML("url");
 			extent.HeaderChildNode("User-Type : " + userType + ", Environment: " + url);
-			// Get the email and password from properties
-			String email = "";
-			String password = "";
-			// dismissSystemPopUp();
-			// waitTime(3000);
-			// dismissSystemPopUp();
-			// dismissAppInstallPopUp();
-			// dismissStayTundedPopUp();
-			// dismiss3xPopUp();
-			// dismissDisplayContentLanguagePopUp();
-			// dismissSystemPopUp();
 			dismissAllPopUps();
-			if (userType.equalsIgnoreCase("Guest")) {
-				extent.extentLogger("Guest", "Accessing the application as Guest user");
-			} else if (userType.equalsIgnoreCase("SubscribedUser")) {
-				extent.extentLogger("Subscribed", "Accessing the application as Subscribed user");
-				email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SubscribedUserName");
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SubscribedPassword");
-			} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-				extent.extentLogger("Non-Subscribed", "Accessing the application as Non-Subscribed user");
-				email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonsubscribedUserName");
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonsubscribedPassword");
-			}
-			if (userType.equalsIgnoreCase("SubscribedUser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
-				if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
-					verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
-				}
+			verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+
+			waitTime(3000);
+			click(PWALoginPage.objLoginBtn, "Login button");
+			waitTime(3000);
+			HeaderChildNode("Login - Method" + loginMethod);
+			switch (loginMethod) {
+
+			case "E-mail":
+				dismissAppInstallPopUp();
+				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+				waitTime(10000);
+				// getDriver().getKeyboard().sendKeys("Bla bla");//works
+				type(PWALoginPage.objEmailField, "zeetest@gmail.com", "Email Field");
+				hideKeyboard();
 				waitTime(3000);
-				click(PWALoginPage.objLoginBtn, "Login button");
+				dismissSystemPopUp();
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+				type(PWALoginPage.objPasswordField, "vhgvgv" + "\n", "Password field");
+				hideKeyboard();
+				waitTime(5000);
+				directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
+				waitTime(10000);
+				break;
+
+			case "Mobile":
+				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+				type(PWALoginPage.objEmailField, "8792396107\n", "Email Field");
+				hideKeyboard();
+				verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login butotn");
 				waitTime(3000);
-				HeaderChildNode("Login - Method" + loginMethod);
-				switch (loginMethod) {
-
-				case "E-mail":
-					dismissAppInstallPopUp();
-					verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-					waitTime(10000);
-					type(PWALoginPage.objEmailField, email, "Email Field");
-					hideKeyboard();
-					waitTime(3000);
-					dismissSystemPopUp();
-					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-					type(PWALoginPage.objPasswordField, "bhjvjbm" + "\n", "Password field");
-					hideKeyboard();
-					waitTime(5000);
-					directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
-					waitTime(10000);
-					break;
-
-				case "Mobile":
-					verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-					type(PWALoginPage.objEmailField, "8792396107\n", "Email Field");
-					hideKeyboard();
-					verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login butotn");
-					waitTime(3000);
-					hideKeyboard();
-					waitTime(5000);
-					verifyElementPresentAndClick(PWALoginPage.objpasswordphno, "Password field");
-					waitTime(3000);
-					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "password-field");
-					type(PWALoginPage.objPasswordField, "hbjh211\n", "password-field");
-					hideKeyboard();
-					waitTime(2000);
-					click(PWALoginPage.objproceedphno, "Proceed button");
-					waitTime(5000);
-					break;
-
-				}
-
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Page Name", "sign_in");
-
-				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-				mixpanel.ValidateParameter(gToken, "Login Result");
+				hideKeyboard();
+				waitTime(5000);
+				verifyElementPresentAndClick(PWALoginPage.objpasswordphno, "Password field");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "password-field");
+				type(PWALoginPage.objPasswordField, "bhvb4223\n", "password-field");
+				hideKeyboard();
+				waitTime(2000);
+				click(PWALoginPage.objproceedphno, "Proceed button");
+				waitTime(5000);
+				break;
 
 			}
 		}
@@ -2862,7 +2857,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 	public void playerScrubTillLastWeb() throws Exception {
 		WebElement scrubber = getDriver().findElement(PWAPlayerPage.objPlayerScrubber);
 		WebElement progressBar = getDriver().findElement(PWAPlayerPage.objPlayerProgressBar);
-		
+
 //		int startx= progressBar.getLocation().getX();
 //		System.out.println("Start X " +startx);
 //		
@@ -2882,7 +2877,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 //		touchAction.press(PointOption.point(startx,endy))
 //		.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
 //		.moveTo(PointOption.point(350, 0)).release().perform();
-		
+
 //		waitForPlayerAdToComplete("Video Player");
 //		pausePlayer();
 
@@ -2895,13 +2890,16 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		System.out.println(size.width);
 
 		int startx = point.getX();
-		System.out.println(startx);
+		System.out.println("ProgressBar X : " + startx);
 		int starty = point.getY();
-		System.out.println(starty);
-		int posy = (size.height)/2;
-		//System.out.println("height :"+size.height);
-		//System.out.println("posy :"+posy);
-
+		System.out.println("ProgressBar Y : " + starty);
+		System.out.println("-------");
+		System.out.println(ele.getLocation().x);
+		System.out.println(ele.getLocation().y);
+		System.out.println("-------");
+		int posy = (size.height) / 2;
+		// System.out.println("height :"+size.height);
+		// System.out.println("posy :"+posy);
 
 		WebElement ele1 = getDriver().findElement(PWAPlayerPage.objPlayerProgressScrubber);
 		Point point1 = ele1.getLocation();
@@ -2909,13 +2907,12 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		System.out.println(startx1);
 		int starty1 = point1.getY();
 		System.out.println(starty1);
-		int posy1 = (size.height)/2;
+		int posy1 = (size.height) / 2;
 
+		action.press(PointOption.point(1000, 854)).release().perform();
+		Thread.sleep(10000);
 
-		action.press(PointOption.point(650, 566)).release().perform();
-		Thread.sleep(3000);
-
-		//newimplementation
+		// newimplementation
 //		waitForPlayerAdToComplete("Video Player");
 //		pausePlayer();
 
@@ -2949,8 +2946,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 //		//newimplementation
 //		waitForPlayerAdToComplete("Video Player");
 //		pausePlayer();
-	
-		
+
 	}
 
 	public void verifyVideoExitEventForFreeContent(String tab, String api, String userType, String un, String pwd)
@@ -3353,17 +3349,17 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.ValidateParameter(ID, "Video Exit");
 		}
 	}
-	
+
 	public void pausePlayer() throws Exception {
 		waitTime(5000);
 		int deviceWidth = getDriver().manage().window().getSize().width;
 		int deviceHeight = getDriver().manage().window().getSize().height;
 		int x = deviceWidth / 2;
 		int y = deviceHeight / 4;
-		
+
 		TouchAction act = new TouchAction(getDriver());
 		act.tap(PointOption.point(x, y)).perform();
-		verifyElementPresentAndClick(PWAPlayerPage.pauseBtn,"Pause icon");
+		verifyElementPresent(PWAPlayerPage.pauseBtn, "Pause icon");
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -7794,7 +7790,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				
+
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Forced Exit");
@@ -7802,7 +7798,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 					mixpanel.ValidateParameter(ID, "Ad Forced Exit");
 				}
-				
+
 			}
 
 		} else {
@@ -8152,8 +8148,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				} else {
 					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 					mixpanel.ValidateParameter(ID, "Ad Forced Exit");
-				}			
-				
+				}
+
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
@@ -9050,7 +9046,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitTime(5000);
 		}
 	}
-	
+
 	public void verifyAdWatchDurationEventForFreeContentSkipAd(String userType, String audioTrackContent)
 			throws Exception {
 
@@ -9080,7 +9076,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					}
 					ResponseInstance.getContentDetails(value);
 					if (userType.equals("Guest")) {
-						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
+								.toString();
 						mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
 					} else {
 						String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
@@ -9126,7 +9123,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					}
 					ResponseInstance.getContentDetails(value);
 					if (userType.equals("Guest")) {
-						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
+								.toString();
 						mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
 					} else {
 						String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
@@ -9167,7 +9165,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					}
 					ResponseInstance.getContentDetails(value);
 					if (userType.equals("Guest")) {
-						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
+								.toString();
 						mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
 					} else {
 						String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
@@ -9207,7 +9206,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					}
 					ResponseInstance.getContentDetails(value);
 					if (userType.equals("Guest")) {
-						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
+								.toString();
 						mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
 					} else {
 						String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
@@ -9253,7 +9253,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					}
 					ResponseInstance.getContentDetails(value);
 					if (userType.equals("Guest")) {
-						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
+								.toString();
 						mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
 					} else {
 						String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
@@ -9313,7 +9314,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					}
 					ResponseInstance.getContentDetails(value);
 					if (userType.equals("Guest")) {
-						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
+								.toString();
 						mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
 					} else {
 						String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
@@ -9357,7 +9359,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					}
 					ResponseInstance.getContentDetails(value);
 					if (userType.equals("Guest")) {
-						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
+								.toString();
 						mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
 					} else {
 						String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
@@ -9403,7 +9406,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					}
 					ResponseInstance.getContentDetails(value);
 					if (userType.equals("Guest")) {
-						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
+								.toString();
 						mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
 					} else {
 						String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
@@ -9457,7 +9461,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					}
 					ResponseInstance.getContentDetails(value);
 					if (userType.equals("Guest")) {
-						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
+								.toString();
 						mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
 					} else {
 						String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
@@ -9500,7 +9505,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					}
 					ResponseInstance.getContentDetails(value);
 					if (userType.equals("Guest")) {
-						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
+								.toString();
 						mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
 					} else {
 						String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
@@ -9517,11 +9523,15 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitTime(5000);
 		}
 	}
-	
+
 	public void verifyScrubSeekEventForFreeContent(String userType, String keyword4) throws Exception {
 		extent.HeaderChildNode("Verify Scrub/Seek Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+		waitTime(5000);
+		click(PWASearchPage.objSearchEditBox, "Search Edit box");
+		getDriver().getKeyboard().sendKeys(keyword4);
+		// type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " +
+		// keyword4);
 		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
 		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
@@ -9531,27 +9541,28 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		pausePlayer();
 		playerScrubTillLastWeb();
 		waitTime(5000);
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-		mixpanel.FEProp.setProperty("Direction", "forward");
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
-		
-		if (userType.equals("Guest")) {
-			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-			mixpanel.ValidateParameter(gToken, "Scrub/Seek");
-		} else {
-			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-			mixpanel.ValidateParameter(ID, "Scrub/Seek");
-		}
-		
+
+//		mixpanel.FEProp.setProperty("Source", "search");
+//		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+//		mixpanel.FEProp.setProperty("Direction", "forward");
+//		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+//		String id = getDriver().getCurrentUrl();
+//		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+//		Matcher m = p.matcher(id);
+//		String value = null;
+//		while (m.find()) {
+//			value = m.group(0);
+//		}
+//		ResponseInstance.getContentDetails(value);
+//		
+//		if (userType.equals("Guest")) {
+//			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+//			mixpanel.ValidateParameter(gToken, "Scrub/Seek");
+//		} else {
+//			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+//			mixpanel.ValidateParameter(ID, "Scrub/Seek");
+//		}
+
 	}
 
 	public void verifyScrubSeekEventForPremiumContent(String userType, String tab) throws Exception {
@@ -9901,7 +9912,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.ValidateParameter(ID, "Scrub/Seek");
 		}
 	}
-	
+
 	public void verifyQualityChangeEventForFreeContent(String userType, String keyword4) throws Exception {
 		extent.HeaderChildNode("Verify Quality Change Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
@@ -9936,7 +9947,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Quality Change");
 		}
-		
+
 	}
 
 	public void verifyQualityChangeEventForPremiumContent(String userType, String tab) throws Exception {
@@ -10318,12 +10329,12 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.ValidateParameter(ID, "Quality Change");
 		}
 	}
-	
+
 	public void verifyQualityChangeEventForLinearContent() throws Exception {
 		extent.HeaderChildNode("Verify Quality Change Event For Linear Content");
 		navigateToAnyScreen("News");
 		waitForElementAndClick(PWAHomePage.objPlayBtn, 20, "Linear Content");
-		
+
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -10354,4 +10365,941 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
+	public void verifyAudioLanguageChangeEventForFreeContent(String userType, String audioTrackContent)
+			throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Free Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+		waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
+		click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		waitTime(5000);
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Audio Language Change");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Audio Language Change");
+		}
+
+	}
+
+	public void verifyAudioLanguageChangeEventForPremiumContent(String userType, String tab) throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Verify Audio Language Change Event For Premium Content");
+			navigateToAnyScreen(tab);
+			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+			if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
+				click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+				click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+				waitTime(5000);
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
+
+				String id = getDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				if (userType.equals("Guest")) {
+					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+					mixpanel.ValidateParameter(gToken, "Audio Language Change");
+				} else {
+					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+					mixpanel.ValidateParameter(ID, "Audio Language Change");
+				}
+			} else {
+				logger.info("Audio Track is not available for the content");
+				extent.extentLogger("Audio Track", "Audio Track is not available for the content");
+			}
+			waitTime(5000);
+
+		}
+	}
+
+	public void verifyAudioLanguageChangeEventForTrailer(String audioTrackTrailerContent) throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Trailer Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, audioTrackTrailerContent + "\n",
+				"Search Edit box: " + audioTrackTrailerContent);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(audioTrackTrailerContent), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(audioTrackTrailerContent), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Audio Language Change");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Audio Language Change");
+		}
+	}
+
+	public void verifyAudioLanguageChangeEventForCarouselContent() throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Carousel Content");
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
+			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+			click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Audio Language Change");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Audio Language Change");
+			}
+
+		} else {
+			logger.info("Audio Track is not available for the content");
+			extent.extentLogger("Audio Track", "Audio Track is not available for the content");
+		}
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Audio Language Change");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Audio Language Change");
+		}
+
+	}
+
+	public void verifyAudioLanguageChangeEventForContentInTray() throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Content played from Tray");
+		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
+			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+			click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Audio Language Change");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Audio Language Change");
+			}
+
+		} else {
+			logger.info("Audio Track is not available for the content");
+			extent.extentLogger("Audio Track", "Audio Track is not available for the content");
+		}
+	}
+
+	public void verifyAudioLanguageChangeEventForContentFromSearchPage(String audioTrackContent) throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Content From Search Page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Audio Language Change");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Audio Language Change");
+		}
+	}
+
+	public void verifyAudioLanguageChangeEventForContentFromMyWatchlistPage(String userType, String audioTrackContent)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Audio Language Change Event For Content From My Watchlist Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitTime(4000);
+			mandatoryRegistrationPopUp(userType);
+
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
+
+			click(PWALandingPages.objWebProfileIcon, "Profile icon");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+
+			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+			if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
+				click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+				click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+				waitTime(5000);
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
+
+				String id = getDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				if (userType.equals("Guest")) {
+					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+					mixpanel.ValidateParameter(gToken, "Audio Language Change");
+				} else {
+					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+					mixpanel.ValidateParameter(ID, "Audio Language Change");
+				}
+
+			} else {
+				logger.info("Audio Track is not available for the content");
+				extent.extentLogger("Audio Track", "Audio Track is not available for the content");
+			}
+			waitTime(5000);
+		}
+	}
+
+	public void verifyAudioLanguageChangeEventForContentInMegamenu() throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Content played from Megamenu");
+		waitTime(5000);
+		Actions actions = new Actions(getDriver());
+		WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
+		actions.moveToElement(contentCard).build().perform();
+
+		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
+			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+			click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Audio Language Change");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Audio Language Change");
+			}
+
+		} else {
+			logger.info("Audio Track is not available for the content");
+			extent.extentLogger("Audio Track", "Audio Track is not available for the content");
+		}
+	}
+
+	public void verifyAudioLanguageChangeEventForContentInPlaylist(String userType, String audioTrackContent)
+			throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Content played from Playlist");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+
+		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Audio Language Change");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Audio Language Change");
+		}
+	}
+
+	public void verifyAudioLanguageChangeEventForContentFromUpnextRail(String userType, String audioTrackContent)
+			throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For Content played from Upnext rail");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+		waitForPlayerAdToComplete("Video Player");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Audio Language Change");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Audio Language Change");
+		}
+	}
+
+	public void verifyAudioLanguageChangeEventForContentFromSharedLink(String audioTrackURL) throws Exception {
+		extent.HeaderChildNode("Verify Audio Language Change Event For content played from Shared Link");
+		getDriver().get(audioTrackURL);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Audio Language Change");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Audio Language Change");
+		}
+	}
+
+	public void verifySubtitleLanguageChangeEventForFreeContent(String userType, String subtitleTrackContent)
+			throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Free Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
+		waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 20, "Search Result");
+		click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
+		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("New Subtitle Language", "English");
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Subtitle Language Change");
+		}
+	}
+
+	public void verifySubtitleLanguageChangeEventForPremiumContent(String userType, String tab) throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Verify Subtitle Language Change Event For Premium Content");
+			navigateToAnyScreen(tab);
+			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(6000);
+
+			if (checkElementDisplayed(PWAPlayerPage.objSubtitleIcon, "Subtitle option") == true) {
+				click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
+				click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+				waitTime(5000);
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				mixpanel.FEProp.setProperty("New Subtitle Language", "English");
+
+				String id = getDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+
+				if (userType.equals("Guest")) {
+					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+					mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
+				} else {
+					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+					mixpanel.ValidateParameter(ID, "Subtitle Language Change");
+				}
+
+			} else {
+				logger.info("Subtitle is not available for the content");
+				extent.extentLogger("Subtitle Track", "Subtitle is not available for the content");
+			}
+
+		}
+	}
+
+	public void verifySubtitleLanguageChangeEventForTrailer(String keyword5) throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Trailer Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword5 + "\n", "Search Edit box: " + keyword5);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword5), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword5), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
+		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("New Subtitle Language", "English");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Subtitle Language Change");
+		}
+	}
+
+	public void verifySubtitleLanguageChangeEventForCarouselContent() throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Carousel Content");
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+
+		if (checkElementDisplayed(PWAPlayerPage.objSubtitleIcon, "Subtitle option") == true) {
+			click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
+			click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("New Subtitle Language", "English");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Subtitle Language Change");
+			}
+
+		} else {
+			logger.info("Subtitle is not available for the content");
+			extent.extentLogger("Subtitle Track", "Subtitle is not available for the content");
+		}
+	}
+
+	public void verifySubtitleLanguageChangeEventForContentInTray() throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Content played from Tray");
+		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		if (checkElementDisplayed(PWAPlayerPage.objSubtitleIcon, "Subtitle option") == true) {
+			click(PWAPlayerPage.subtitlesBtn, "Subtitle option");
+			click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("New Subtitle Language", "English");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Subtitle Language Change");
+			}
+
+		} else {
+			logger.info("Subtitle is not available for the content");
+			extent.extentLogger("Subtitle Track", "Subtitle is not available for the content");
+		}
+	}
+
+	public void verifySubtitleLanguageChangeEventForContentFromSearchPage(String subtitleTrackContent)
+			throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Content From Search Page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
+		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("New Subtitle Language", "English");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Subtitle Language Change");
+		}
+	}
+
+	public void verifySubtitleLanguageChangeEventForContentFromMyWatchlistPage(String userType,
+			String subtitleTrackContent) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Subtitle Language Change Event For Content From My Watchlist Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
+					"Search Edit box: " + subtitleTrackContent);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitTime(4000);
+			mandatoryRegistrationPopUp(userType);
+
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
+
+			click(PWALandingPages.objWebProfileIcon, "Profile icon");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+
+			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			if (checkElementDisplayed(PWAPlayerPage.objSubtitleIcon, "Subtitle option") == true) {
+				click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
+				click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+				waitTime(5000);
+
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				mixpanel.FEProp.setProperty("New Subtitle Language", "English");
+
+				String id = getDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				if (userType.equals("Guest")) {
+					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+					mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
+				} else {
+					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+					mixpanel.ValidateParameter(ID, "Subtitle Language Change");
+				}
+
+			} else {
+				logger.info("Subtitle is not available for the content");
+				extent.extentLogger("Subtitle Track", "Subtitle is not available for the content");
+			}
+			waitTime(5000);
+		}
+	}
+
+	public void verifySubtitleLanguageChangeEventForContentInMegamenu() throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Content played from Megamenu");
+		waitTime(5000);
+		Actions actions = new Actions(getDriver());
+		WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
+		actions.moveToElement(contentCard).build().perform();
+
+		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		if (checkElementDisplayed(PWAPlayerPage.objSubtitleIcon, "Subtitle option") == true) {
+			click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
+			click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("New Subtitle Language", "English");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Subtitle Language Change");
+			}
+
+		} else {
+			logger.info("Subtitle is not available for the content");
+			extent.extentLogger("Subtitle Track", "Subtitle is not available for the content");
+		}
+	}
+
+	public void verifySubtitleLanguageChangeEventForContentInPlaylist(String userType, String subtitleTrackContent)
+			throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Content played from Playlist");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+
+		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
+		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("New Subtitle Language", "English");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Subtitle Language Change");
+		}
+
+	}
+
+	public void verifySubtitleLanguageChangeEventForContentFromUpnextRail(String userType, String subtitleTrackContent)
+			throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For Content played from Upnext rail");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+		waitForPlayerAdToComplete("Video Player");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
+		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("New Subtitle Language", "English");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Subtitle Language Change");
+		}
+
+	}
+
+	public void verifySubtitleLanguageChangeEventForContentFromSharedLink(String subtitleTrackURL) throws Exception {
+		extent.HeaderChildNode("Verify Subtitle Language Change Event For content played from Shared Link");
+		getDriver().get(subtitleTrackURL);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
+		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("New Subtitle Language", "English");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Subtitle Language Change");
+		}
+
+	}
 }

@@ -1139,6 +1139,154 @@ public class AndroidPWAMixpanel_PlayerEvents {
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForLinearContent();
 	}
 	
+	@Test(priority = 165)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAudioLanguageChangeEventForFreeContent(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Audio Language Change Event For Free Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAudioLanguageChangeEventForFreeContent(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 166)
+	@Parameters({ "userType"})
+	public void verifyAudioLanguageChangeEventForPremiumContent(String userType) throws Exception {
+		System.out.println("Verify Audio Language Change Event For Premium Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAudioLanguageChangeEventForPremiumContent(userType,"Home");
+	}
+	
+	@Test(priority = 167)
+	@Parameters({ "keyword1"})
+	public void verifyAudioLanguageChangeEventForTrailer(String audioTrackTrailerContent) throws Exception {
+		System.out.println("Verify Audio Language Change Event For Trailer Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAudioLanguageChangeEventForTrailer(audioTrackTrailerContent);
+	}
+	
+	@Test(priority = 168)
+	public void verifyAudioLanguageChangeEventForCarouselContent() throws Exception {
+		System.out.println("Verify Audio Language Change Event For Carousel Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAudioLanguageChangeEventForCarouselContent();
+	}
+	
+	@Test(priority = 169)
+	public void verifyAudioLanguageChangeEventForContentInTray() throws Exception {
+		System.out.println("Verify Audio Language Change Event For Content played from Tray");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAudioLanguageChangeEventForContentInTray();
+	}
+	
+	@Test(priority = 170)
+	@Parameters({"audioTrackContent"})
+	public void verifyAudioLanguageChangeEventForContentFromSearchPage(String audioTrackContent) throws Exception {
+		System.out.println("Verify Audio Language Change Event For Content From Search Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAudioLanguageChangeEventForContentFromSearchPage(audioTrackContent);
+	}
+	
+	@Test(priority = 171)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAudioLanguageChangeEventForContentFromMyWatchlistPage(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Audio Language Change Event For Content From My Watchlist Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAudioLanguageChangeEventForContentFromMyWatchlistPage(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 172)
+	public void verifyAudioLanguageChangeEventForContentInMegamenu() throws Exception {
+		System.out.println("Verify Audio Language Change Event For Content played from Megamenu");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAudioLanguageChangeEventForContentInMegamenu();
+	}
+	
+	@Test(priority = 173)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAudioLanguageChangeEventForContentInPlaylist(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Audio Language Change Event For Content played from Playlist");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAudioLanguageChangeEventForContentInPlaylist(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 174)
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyAudioLanguageChangeEventForContentFromUpnextRail(String userType,String audioTrackContent) throws Exception {
+		System.out.println("Verify Audio Language Change Event For Content played from Upnext rail");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAudioLanguageChangeEventForContentFromUpnextRail(userType,audioTrackContent);
+	}
+	
+	@Test(priority = 175)
+	@Parameters({"audioTrackURL"})
+	public void verifyAudioLanguageChangeEventForContentFromSharedLink(String audioTrackURL) throws Exception {
+		System.out.println("Verify Audio Language Change Event For content played from Shared Link");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAudioLanguageChangeEventForContentFromSharedLink(audioTrackURL);
+	}
+	
+	@Test(priority = 176)
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifySubtitleLanguageChangeEventForFreeContent(String userType,String subtitleTrackContent) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Free Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifySubtitleLanguageChangeEventForFreeContent(userType,subtitleTrackContent);
+	}
+	
+	@Test(priority = 177)
+	@Parameters({ "userType"})
+	public void verifySubtitleLanguageChangeEventForPremiumContent(String userType) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Premium Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifySubtitleLanguageChangeEventForPremiumContent(userType,"Home");
+	}
+	
+	@Test(priority = 178)
+	@Parameters({ "keyword5"})
+	public void verifySubtitleLanguageChangeEventForTrailer(String keyword5) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Trailer Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifySubtitleLanguageChangeEventForTrailer(keyword5);
+	}
+	
+	@Test(priority = 179)
+	public void verifySubtitleLanguageChangeEventForCarouselContent() throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Carousel Content");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifySubtitleLanguageChangeEventForCarouselContent();
+	}
+	
+	@Test(priority = 180)
+	public void verifySubtitleLanguageChangeEventForContentInTray() throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Content played from Tray");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifySubtitleLanguageChangeEventForContentInTray();
+	}
+	
+	@Test(priority = 181)
+	@Parameters({"subtitleTrackContent"})
+	public void verifySubtitleLanguageChangeEventForContentFromSearchPage(String subtitleTrackContent) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Content From Search Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifySubtitleLanguageChangeEventForContentFromSearchPage(subtitleTrackContent);
+	}
+	
+	@Test(priority = 182)
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifySubtitleLanguageChangeEventForContentFromMyWatchlistPage(String userType,String subtitleTrackContent) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Content From My Watchlist Page");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifySubtitleLanguageChangeEventForContentFromMyWatchlistPage(userType,subtitleTrackContent);
+	}
+	
+	@Test(priority = 183)
+	public void verifySubtitleLanguageChangeEventForContentInMegamenu() throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Content played from Megamenu");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifySubtitleLanguageChangeEventForContentInMegamenu();
+	}
+	
+	@Test(priority = 184)
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifySubtitleLanguageChangeEventForContentInPlaylist(String userType,String subtitleTrackContent) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Content played from Playlist");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifySubtitleLanguageChangeEventForContentInPlaylist(userType,subtitleTrackContent);
+	}
+	
+	@Test(priority = 185)
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifySubtitleLanguageChangeEventForContentFromUpnextRail(String userType,String subtitleTrackContent) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For Content played from Upnext rail");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifySubtitleLanguageChangeEventForContentFromUpnextRail(userType,subtitleTrackContent);
+	}
+	
+	@Test(priority = 186)
+	@Parameters({"audioTrackURL"})
+	public void verifySubtitleLanguageChangeEventForContentFromSharedLink(String subtitleTrackURL) throws Exception {
+		System.out.println("Verify Subtitle Language Change Event For content played from Shared Link");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifySubtitleLanguageChangeEventForContentFromSharedLink(subtitleTrackURL);
+	}
+	
 	
 	@AfterClass
 	public void tearDown() {

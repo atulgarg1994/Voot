@@ -44,7 +44,7 @@ public class ZNAMixpanel_QualityChange {
 		Zee5ApplicasterMixPanelBusinessLogic.QualityChangeEventForTrailerContent(userType,keyword3);
 		
 	}
-
+	
 	@Test(priority = 4)
 	@Parameters({ "userType"})
 	public void QualityChangeEventofCarouselContent(String userType) throws Exception {
@@ -52,7 +52,7 @@ public class ZNAMixpanel_QualityChange {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.QualityChangeEventForCarouselContent(userType,"Home");
 	}
-
+	
 	@Test(priority = 5)
 	@Parameters({ "userType","keyword4"})
 	public void QualityChangeEventFromsearchpage(String userType, String keyword4) throws Exception {
@@ -67,7 +67,6 @@ public class ZNAMixpanel_QualityChange {
 		System.out.println("Quality Change event of Content from My WatchList page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.QualityChangeEventOfContentFromMyWatchListPage(userType);
-		
 	}
 	
 	@Test(priority = 7)
@@ -76,9 +75,8 @@ public class ZNAMixpanel_QualityChange {
 		System.out.println("Quality Change event of Content from Upnext Rail");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.QualityChangeEventOfContentFromUpNextRail(userType, keyword4);
-		
 	}
-	
+
 	@Test(priority = 8)
 	@Parameters({ "userType"})
 	public void QualityChangeEventForLinearContent(String userType) throws Exception {

@@ -58,7 +58,6 @@ public class Mixpanel extends ExtentReporter {
 	static ExtentReporter extent = new ExtentReporter();
 	static String UserID = "$distinct_id";
 	static String UserType = "guest";
-	static String platform;
 	static String APIKey;
 	static String Modelname;
 	static String propValue = "Empty";
@@ -483,13 +482,17 @@ public class Mixpanel extends ExtentReporter {
 		String s[] = response.split("\n");
 		List<Integer> list = new ArrayList<Integer>();
 		for (int i = 0; i < s.length; i++) {
-			String commaSplit[] = response.replace("\"properties\":{", "").replace("}", "")
+			String commaSplit[] = s[i].replace("\"properties\":{", "").replace("}", "")
 					.replaceAll("[.,](?=[^\\[]*\\])", "-").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 			String com[] = commaSplit[1].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-			list.add(Integer.valueOf(com[0].replace("\"", "").replace("$", "")));
+			list.add(Integer.valueOf(com[1].replace("\"", "").replace("$", "")));
+			System.out.println(Integer.valueOf(com[1].replace("\"", "").replace("$", "")));
 		}
+		System.out.println(String.valueOf(Collections.max(list)));
 		for(int i = 0; i < s.length; i++) {
-			if(s[i].contentEquals(String.valueOf(Collections.max(list)))) {
+			
+			if(s[i].contains(String.valueOf(Collections.max(list)))) {
+				System.out.println(s[i]);
 				return s[i];
 			}
 		}

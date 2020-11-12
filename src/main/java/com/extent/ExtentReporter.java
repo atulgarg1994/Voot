@@ -30,7 +30,7 @@ import io.appium.java_client.AppiumDriver;
 public class ExtentReporter implements ITestListener {
 
 	private static String report;
-	private static String platform;
+	protected static String platform;
 	private static ThreadLocal<ExtentReports> extent = new ThreadLocal<>();
 	private static ThreadLocal<ExtentHtmlReporter> htmlReport = new ThreadLocal<>();
 	private static ThreadLocal<ExtentTest> test = new ThreadLocal<>();

@@ -4339,7 +4339,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					logger.info("Player inline subscription link is displayed");
 					extentLogger("Player screen", "Player inline subscription link is displayed");
 				} else {
-					waitTime(6000);
+					waitTime(8000);
 					verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 					verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 					verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
@@ -4348,8 +4348,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
 					if (selectedQualityOption.equalsIgnoreCase("Auto")) {
 						verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+						mixpanel.ValidateParameter("", "Qualitiy Change");
+						
 					} else {
 						verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+						mixpanel.ValidateParameter("", "Qualitiy Change");
 					}
 				}
 				waitTime(3000);
@@ -4377,6 +4380,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (usertype.equalsIgnoreCase("SubscribedUser")) {
 			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
 		}
+		waitTime(8000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objThreeDotsOnPlayer, "Three Dots");
@@ -4384,8 +4389,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
 		if (selectedQualityOption.equalsIgnoreCase("Auto")) {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+			mixpanel.ValidateParameter("", "Qualitiy Change");
 		} else {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+			mixpanel.ValidateParameter("", "Qualitiy Change");
 		}
 		waitTime(5000);
 
@@ -4402,7 +4409,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			logger.info("Player inline subscription link is displayed");
 			extentLogger("Player screen", "Player inline subscription link is displayed");
 		} else {
-			waitTime(6000);
+			waitTime(8000);
 			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
@@ -4411,8 +4418,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
 			if (selectedQualityOption.equalsIgnoreCase("Auto")) {
 				verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+				mixpanel.ValidateParameter("", "Qualitiy Change");
 			} else {
 				verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+				mixpanel.ValidateParameter("", "Qualitiy Change");
 			}
 		}
 		waitTime(3000);
@@ -4429,10 +4438,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			waitForAdToFinishInAmd();
+			boolean popUp = verifyIsElementDisplayed(AMDConsumptionScreen.objRegisterPopUp);
+			if(popUp) {
+				Back(1);
+			}
 		}
-		registerPopUpClose();
-		completeProfilePopUpClose(usertype);
-		waitTime(6000);
+		
+		waitTime(8000);
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
@@ -4441,8 +4453,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
 		if (selectedQualityOption.equalsIgnoreCase("Auto")) {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+			mixpanel.ValidateParameter("", "Qualitiy Change");
 		} else {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+			mixpanel.ValidateParameter("", "Qualitiy Change");
 		}
 		waitTime(4000);
 
@@ -4462,6 +4476,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				getDriver()
 						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
 						.click();
+				if(!usertype.equalsIgnoreCase("SubscribedUser")) {
+					waitForAdToFinishInAmd();
+					boolean popUp = verifyIsElementDisplayed(AMDConsumptionScreen.objRegisterPopUp);
+					if(popUp) {
+						Back(1);
+					}
+				}
+				waitTime(8000);
+				verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 				verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 				verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
 				verifyElementPresentAndClick(AMDPlayerScreen.objThreeDotsOnPlayer, "Three Dots");
@@ -4469,8 +4492,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
 				if (selectedQualityOption.equalsIgnoreCase("Auto")) {
 					verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+					mixpanel.ValidateParameter("", "Qualitiy Change");
 				} else {
 					verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+					mixpanel.ValidateParameter("", "Qualitiy Change");
 				}
 				waitTime(4000);
 			} else {
@@ -4500,10 +4525,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			waitForAdToFinishInAmd();
+			boolean popUP = verifyIsElementDisplayed(AMDConsumptionScreen.objRegisterPopUp);
+			if(popUP) {
+				Back(1);
+			}
 		}
-		registerPopUpClose();
-		completeProfilePopUpClose(usertype);
-		waitTime(6000);
+		
+		waitTime(8000);
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
@@ -4512,8 +4540,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
 		if (selectedQualityOption.equalsIgnoreCase("Auto")) {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+			mixpanel.ValidateParameter("", "Qualitiy Change");
 		} else {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+			mixpanel.ValidateParameter("", "Qualitiy Change");
 		}
 		waitTime(5000);
 
@@ -4527,10 +4557,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDLiveTVScreen.objFirstContentCardOfFreeChannelsTray, "linear content");
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			waitForAdToFinishInAmd();
+			boolean popUP = verifyIsElementDisplayed(AMDConsumptionScreen.objRegisterPopUp);
+			if(popUP) {
+				Back(1);
+			}
 		}
-		registerPopUpClose();
-		completeProfilePopUpClose(usertype);
-		waitTime(6000);
+		
+		waitTime(8000);
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
@@ -4539,8 +4572,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
 		if (selectedQualityOption.equalsIgnoreCase("Auto")) {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+			mixpanel.ValidateParameter("", "Qualitiy Change");
 		} else {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+			mixpanel.ValidateParameter("", "Qualitiy Change");
 		}
 		waitTime(3000);
 	}
