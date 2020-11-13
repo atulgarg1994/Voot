@@ -3,6 +3,7 @@
 <suite name="Android" parallel="false" thread-count="1">  <!-- name="Android" -->
 
     <parameter name="userType" value="Guest" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
+    
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" /> 
 	
@@ -47,6 +48,12 @@
 	<test name="ApplicasterMixpanelScript">
 		<classes>
 			<class name="com.zee5.PWAMixpanelScripts.ZNAMixpanelScript_Onboarding" />
+		</classes>
+	</test>
+	
+	<test name="ZNAMixpanel_QualityChange">
+		<classes>
+			<class name="com.zee5.MixpanelScripts.ZNAMixpanel_QualityChange" />
 		</classes>
 	</test>
 

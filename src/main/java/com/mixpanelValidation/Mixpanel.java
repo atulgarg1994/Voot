@@ -191,7 +191,7 @@ public class Mixpanel extends ExtentReporter {
 		request.print();
 		sheet = eventName.trim().replace(" ", "");
 		if (request.toString() != null) {
-			if (!platform.equals("Web")) {
+			if (!platform.equals("Web") || !platform.equals("MPWA")) {
 				parseResponse(getLatestEvent(request));
 			} else {
 				String response = request.asString();

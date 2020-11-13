@@ -21,7 +21,7 @@
 	<parameter name="SubscribedPassword" value="123456" />
 
 	<parameter name="RegisteredEmail" value="zee5latest@gmail.com" />
-	<parameter name="RegisteredEmailPassword" value="User@123" />
+	<parameter name="RegisteredEmailPassword" value="User@123" />c
 
 	<parameter name="regUserName" value="igszeefive3@gmail.com" />
 	<parameter name="regPassword" value="123456" />

@@ -77,28 +77,28 @@ public class AndroidPWAMixpanel_OnboardingEvents {
 	@Parameters({ "userType" })
 	public void verifyLoginInitiatedEventForValidCredentials(String userType) throws Exception {
 		System.out.println("Verify Login Initiated Event for Valid Credentials");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyLoginInitiatedEventForValidCredentials(userType, "emailLogin");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyLoginInitiatedEventForValidCredentials(userType, "E-mail");
 	}
 
 	@Test(priority = 9)
 	@Parameters({ "userType" })
 	public void verifyLoginInitiatedEventForInvalidCredentials(String userType) throws Exception {
 		System.out.println("Verify Login Initiated Event post entering invalid credentials");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyLoginInitiatedEventForInvalidCredentials(userType, "emailLogin");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyLoginInitiatedEventForInvalidCredentials(userType, "E-mail");
 	}
 
 	@Test(priority = 10)
 	@Parameters({ "userType" })
 	public void verifyLoginResultEventForValidCredentials(String userType) throws Exception {
 		System.out.println("Verify Login Result Event for Valid Credentials");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyLoginResultEventForValidCredentials(userType, "emailLogin");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyLoginResultEventForValidCredentials(userType, "E-mail");
 	}
 
 	@Test(priority = 11)
 	@Parameters({ "userType" })
 	public void verifyLoginResultEventForInvalidCredentials(String userType) throws Exception {
 		System.out.println("Verify Login Result Event post entering invalid credentials");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyLoginResultEventForInvalidCredentials(userType, "emailLogin");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyLoginResultEventForInvalidCredentials(userType, "E-mail");
 	}
 
 	@Test(priority = 12)

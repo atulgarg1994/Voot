@@ -21,7 +21,7 @@ public class ZNAMixpanel_AutoSeek {
 	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void AndroidAppMixPanelLogin(String userType) throws Exception {
-		System.out.println("Login");
+		System.out.println("\nLogin");
 		Zee5ApplicasterMixPanelBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
@@ -49,7 +49,7 @@ public class ZNAMixpanel_AutoSeek {
 	@Test(priority = 4)
 	@Parameters({ "userType", "keyword3"})
 	public void AutoSeekForwardEventofTrailerContent(String userType, String keyword3) throws Exception {
-		System.out.println("AutoSeek Forward event of Trailer content");
+		System.out.println("\nAutoSeek Forward event of Trailer content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.AutoSeekForwardEventForTrailerContent(userType,keyword3);
 		
@@ -58,7 +58,7 @@ public class ZNAMixpanel_AutoSeek {
 	@Test(priority = 5)
 	@Parameters({ "userType", "keyword3"})
 	public void AutoSeekRewindEventofTrailerContent(String userType, String keyword3) throws Exception {
-		System.out.println("AutoSeek Rewind event of Trailer content");
+		System.out.println("\nAutoSeek Rewind event of Trailer content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.AutoSeekRewindEventForTrailerContent(userType,keyword3);
 		
@@ -67,7 +67,7 @@ public class ZNAMixpanel_AutoSeek {
 	@Test(priority = 6)
 	@Parameters({ "userType"})
 	public void AutoSeekForwardEventofCarouselContent(String userType) throws Exception {
-		System.out.println("AutoSeek Forward event of Carousel content");
+		System.out.println("\nAutoSeek Forward event of Carousel content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.AutoSeekForwardEventForCarouselContent(userType,"Home");
 	}
@@ -75,7 +75,7 @@ public class ZNAMixpanel_AutoSeek {
 	@Test(priority = 7)
 	@Parameters({ "userType"})
 	public void AutoSeekRewindEventofCarouselContent(String userType) throws Exception {
-		System.out.println("AutoSeek Rewind event of Carousel content");
+		System.out.println("\nAutoSeek Rewind event of Carousel content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.AutoSeekRewindEventForCarouselContent(userType,"Home");
 	}
@@ -83,7 +83,7 @@ public class ZNAMixpanel_AutoSeek {
 	@Test(priority = 8)
 	@Parameters({ "userType","keyword4"})
 	public void AutoSeekForwardEventFromsearchpage(String userType, String keyword4) throws Exception {
-		System.out.println("AutoSeek forward event of Content from Search page");
+		System.out.println("\nAutoSeek forward event of Content from Search page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.AutoSeekForwardEventOfcontentFromSearchPage(userType, keyword4);
 	}
@@ -91,7 +91,7 @@ public class ZNAMixpanel_AutoSeek {
 	@Test(priority = 9)
 	@Parameters({ "userType","keyword4"})
 	public void AutoSeekRewindEventFromsearchpage(String userType, String keyword4) throws Exception {
-		System.out.println("AutoSeek Rewind event of Content from Search page");
+		System.out.println("\nAutoSeek Rewind event of Content from Search page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.AutoSeekRewindEventOfcontentFromSearchPage(userType, keyword4);
 	}
@@ -99,7 +99,7 @@ public class ZNAMixpanel_AutoSeek {
 	@Test(priority = 10)
 	@Parameters({ "userType"})
 	public void AutoSeekForwardEventFromMyWatchList(String userType) throws Exception {
-		System.out.println("AutoSeek forward event of Content from My WatchList page");
+		System.out.println("\nAutoSeek forward event of Content from My WatchList page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.AutoSeekForwardEventOfContentFromMyWatchListPage(userType);
 		
@@ -108,25 +108,23 @@ public class ZNAMixpanel_AutoSeek {
 	@Test(priority = 11)
 	@Parameters({ "userType"})
 	public void AutoSeekRewindEventFromMyWatchList(String userType) throws Exception {
-		System.out.println("AutoSeek Rewind event of Content from My WatchList page");
+		System.out.println("\nAutoSeek Rewind event of Content from My WatchList page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.AutoSeekRewindEventOfContentFromMyWatchListPage(userType);
-		
 	}
 	
 	@Test(priority = 12)
 	@Parameters({ "userType", "keyword4"})
 	public void AutoSeekEventFromUpNextRail(String userType, String keyword4) throws Exception {
-		System.out.println("AutoSeek forward event of Content from Upnext Rail");
+		System.out.println("\nAutoSeek forward event of Content from Upnext Rail");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.AutoSeekForwardEventOfContentFromUpNextRail(userType, keyword4);
-		
 	}
 	
 	@Test(priority = 13)
 	@Parameters({ "userType", "keyword4"})
 	public void AutoSeekRewindEventFromUpNextRail(String userType, String keyword4) throws Exception {
-		System.out.println("AutoSeek Rewind event of Content from Upnext Rail");
+		System.out.println("\nAutoSeek Rewind event of Content from Upnext Rail");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.AutoSeekRewindEventOfContentFromUpNextRail(userType, keyword4);
 		
@@ -137,5 +135,4 @@ public class ZNAMixpanel_AutoSeek {
 		System.out.println("\nQuit the App");
 		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
-
 }

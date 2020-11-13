@@ -275,13 +275,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				dismissAppInstallPopUp();
 				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
 				waitTime(10000);
-				// getDriver().getKeyboard().sendKeys("Bla bla");//works
-				type(PWALoginPage.objEmailField, Username, "Email Field");
+				getDriver().getKeyboard().sendKeys(Username);// works
+				// type(PWALoginPage.objEmailField, Username, "Email Field");
 				hideKeyboard();
 				waitTime(3000);
 				dismissSystemPopUp();
 				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-				type(PWALoginPage.objPasswordField, Password + "\n", "Password field");
+				getDriver().getKeyboard().sendKeys(Password);
+				// type(PWALoginPage.objPasswordField, Password + "\n", "Password field");
 				hideKeyboard();
 				waitTime(5000);
 				directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
@@ -2237,38 +2238,46 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
-					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+					getDriver().getKeyboard().sendKeys("igszee5test123g@gmail.com");
+					hideKeyboard();
+					// type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com",
+					// "Email Id");
+					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted, "Proceed Button");
 					// Password Popup
 					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
-					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
+					getDriver().getKeyboard().sendKeys("igs@12345");
+					hideKeyboard();
+					// type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password
+					// Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
 				}
 			}
-			waitTime(10000);
-			WebElement iframeElement = getDriver().findElement(By.id("juspay_iframe"));
+			waitTime(5000);
+			Swipe("UP", 1);
+			waitTime(3000);
+			getDriver().context("NATIVE_APP");
 			Thread.sleep(5000);
 			Thread.sleep(5000);
-			Thread.sleep(5000);
-			getDriver().switchTo().frame(iframeElement);
 
+			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
+			Thread.sleep(5000);
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
-			type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
+			// type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card
+			// Number");
+			getDriver().getKeyboard().sendKeys("5123456789012346");
 			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
-			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
+			getDriver().getKeyboard().sendKeys("0224");
+			// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
 			click(PWASubscriptionPages.objEnterCVV, "CVV");
-			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
-			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
+			// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+			getDriver().getKeyboard().sendKeys("123");
+			hideKeyboard();
+			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
 			waitTime(10000);
 
-			if (userType.equals("Guest")) {
-				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-				mixpanel.ValidateParameter(gToken, "Subscription Call Initiated");
-			} else {
-				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-				mixpanel.ValidateParameter(ID, "Subscription Call Initiated");
-			}
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Subscription Call Initiated");
 		}
 	}
 
@@ -2291,39 +2300,46 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
-					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+					getDriver().getKeyboard().sendKeys("igszee5test123g@gmail.com");
+					hideKeyboard();
+					// type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com",
+					// "Email Id");
+					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted, "Proceed Button");
 					// Password Popup
 					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
-					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
+					getDriver().getKeyboard().sendKeys("igs@12345");
+					hideKeyboard();
+					// type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password
+					// Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
 				}
 			}
-			waitTime(10000);
-			WebElement iframeElement = getDriver().findElement(By.id("juspay_iframe"));
+			waitTime(5000);
+			Swipe("UP", 1);
+			waitTime(3000);
+			getDriver().context("NATIVE_APP");
 			Thread.sleep(5000);
 			Thread.sleep(5000);
 			Thread.sleep(5000);
-			getDriver().switchTo().frame(iframeElement);
-
+			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
+			Thread.sleep(5000);
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
-			type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
+			// type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card
+			// Number");
+			getDriver().getKeyboard().sendKeys("5123456789012346");
 			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
-			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
+			getDriver().getKeyboard().sendKeys("0224");
+			// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
 			click(PWASubscriptionPages.objEnterCVV, "CVV");
-			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
-			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
+			// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+			getDriver().getKeyboard().sendKeys("123");
+			hideKeyboard();
+			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
 			waitTime(10000);
 
-			if (userType.equals("Guest")) {
-				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-				mixpanel.ValidateParameter(gToken, "Subscription Call Initiated");
-			} else {
-				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-				mixpanel.ValidateParameter(ID, "Subscription Call Initiated");
-			}
-
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Subscription Call Initiated");
 		}
 	}
 
@@ -2333,8 +2349,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 
 		if (!(userType.equals("SubscribedUser"))) {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
-			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
-			waitTime(2000);
 
 			mixpanel.FEProp.setProperty("Page Name", "payment_page");
 			mixpanel.FEProp.setProperty("Source", "account_info");
@@ -2342,63 +2356,59 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
 			mixpanel.FEProp.setProperty("cost", cost[1]);
 			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
+			waitTime(2000);
 
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
-					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+					getDriver().getKeyboard().sendKeys("igszee5test123g@gmail.com");
+					hideKeyboard();
+					// type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com",
+					// "Email Id");
+					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted, "Proceed Button");
 					// Password Popup
 					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
-					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
+					getDriver().getKeyboard().sendKeys("igs@12345");
+					hideKeyboard();
+					// type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password
+					// Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
 				}
 			}
-			waitTime(10000);
-
+			waitTime(5000);
 			Swipe("UP", 1);
 			waitTime(3000);
 			getDriver().context("NATIVE_APP");
-			verifyElementPresentAndClick(PWASubscriptionPages.objMobileCreditDebitCardOption,
-					"'Credit / Debit Card' option");
-			click(PWASubscriptionPages.objMobileCardNumberText, "Card Number");
-			type(PWASubscriptionPages.objMobileCardNumberText, "5123456789012346", "Card Number");
-			click(PWASubscriptionPages.objMobileExpiryText, "Expiry field");
-			type(PWASubscriptionPages.objMobileExpiryText, "0224", "Expiry");
-			click(PWASubscriptionPages.objMobileCVVText, "CVV field");
-			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
-			verifyElementPresent(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed to Pay button");
-			click(PWASubscriptionPages.objCreditDebitClose, "Credit/Debit card Close");
-			getDriver().context("CHROMIUM");
-			Back(1);
-			extent.HeaderChildNode("Validating the payment gateway using Paytm");
-			getDriver().context("NATIVE_APP");
-
-			WebElement iframeElement = getDriver().findElement(By.id("juspay_iframe"));
 			Thread.sleep(5000);
 			Thread.sleep(5000);
 			Thread.sleep(5000);
-			getDriver().switchTo().frame(iframeElement);
-
+			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
+			Thread.sleep(5000);
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
-			type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
+			// type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card
+			// Number");
+			getDriver().getKeyboard().sendKeys("5123456789012346");
 			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
-			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
+			getDriver().getKeyboard().sendKeys("0224");
+			// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
 			click(PWASubscriptionPages.objEnterCVV, "CVV");
-			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
-			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
-			waitTime(10000);
-			click(PWASubscriptionPages.objZeeLink, "Zee link");
+			// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+			getDriver().getKeyboard().sendKeys("123");
+			hideKeyboard();
+			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
 			waitTime(5000);
+			getDriver().context("CHROMIUM");
+			waitTime(8000);
+			waitForElementDisplayed(PWASubscriptionPages.objZeeLink, 20);
+			PartialSwipe("UP", 1);
+			click(PWASubscriptionPages.objZeeLink, "Zee link");
+			waitTime(10000);
 
-			if (userType.equals("Guest")) {
-				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-				mixpanel.ValidateParameter(gToken, "Subscription Call Returned");
-			} else {
-				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-				mixpanel.ValidateParameter(ID, "Subscription Call Returned");
-			}
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Subscription Call Returned");
+
 		}
 	}
 
@@ -2642,31 +2652,29 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void verifyVideoViewEventForContentFromMyWatchlistPage(String userType, String keyword) throws Exception {
+	public void verifyVideoViewEventForContentFromMyWatchlistPage(String userType, String subtitleTrackContent)
+			throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Video View Event For Content From My Watchlist Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
+					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
-
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
-
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitTime(4000);
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 
-			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Video View", "1");
@@ -2688,39 +2696,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyVideoViewEventForContentInMegamenu() throws Exception {
-		extent.HeaderChildNode("Verify Video View Event For Content played from Megamenu");
-		waitTime(5000);
-		Actions actions = new Actions(getDriver());
-		WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-		actions.moveToElement(contentCard).build().perform();
-
-		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
-
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		mixpanel.FEProp.setProperty("Video View", "1");
-		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
-		if (userType.equals("Guest")) {
-			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-			mixpanel.ValidateParameter(gToken, "Video View");
-		} else {
-			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-			mixpanel.ValidateParameter(ID, "Video View");
-		}
-
-	}
-
 	public void verifyVideoViewEventForContentInPlaylist(String userType, String keyword) throws Exception {
 		extent.HeaderChildNode("Verify Video View Event For Content played from Playlist");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
@@ -2731,7 +2706,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 
@@ -2912,7 +2887,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		action.press(PointOption.point(1000, 854)).release().perform();
 		Thread.sleep(10000);
 
-		// newimplementation
 //		waitForPlayerAdToComplete("Video Player");
 //		pausePlayer();
 
@@ -2943,7 +2917,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 //		.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
 //		.moveTo(PointOption.point(1190, starty2)).release().perform();
 //
-//		//newimplementation
+
 //		waitForPlayerAdToComplete("Video Player");
 //		pausePlayer();
 
@@ -3138,31 +3112,29 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyVideoExitEventForContentFromMyWatchlistPage(String userType, String keyword) throws Exception {
+	public void verifyVideoExitEventForContentFromMyWatchlistPage(String userType, String subtitleTrackContent)
+			throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Video Exit Event For Content From My Watchlist Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
+					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
-
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
-
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitTime(4000);
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
 
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
-			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getDriver().getCurrentUrl();
@@ -3184,37 +3156,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyVideoExitEventForContentInMegamenu() throws Exception {
-		extent.HeaderChildNode("Verify Video Exit Event For Content played from Megamenu");
-		waitTime(5000);
-		Actions actions = new Actions(getDriver());
-		WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-		actions.moveToElement(contentCard).build().perform();
-
-		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
-		Back(1);
-		if (userType.equals("Guest")) {
-			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-			mixpanel.ValidateParameter(gToken, "Video Exit");
-		} else {
-			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-			mixpanel.ValidateParameter(ID, "Video Exit");
-		}
-	}
-
 	public void verifyVideoExitEventForContentInPlaylist(String userType, String keyword) throws Exception {
 		extent.HeaderChildNode("Verify Video Exit Event For Content played from Playlist");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
@@ -3225,7 +3166,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		String id = getDriver().getCurrentUrl();
@@ -3637,32 +3578,30 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyPauseEventForContentFromMyWatchlistPage(String userType, String keyword) throws Exception {
+	public void verifyPauseEventForContentFromMyWatchlistPage(String userType, String subtitleTrackContent)
+			throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Pause Event For Content From My Watchlist Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
+					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
-
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
-
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitTime(4000);
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			pausePlayer();
 
-			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Element", "Pause");
@@ -3686,41 +3625,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyPauseEventForContentInMegamenu() throws Exception {
-		extent.HeaderChildNode("Verify Pause Event For Content played from Megamenu");
-		waitTime(5000);
-		Actions actions = new Actions(getDriver());
-		WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-		actions.moveToElement(contentCard).build().perform();
-
-		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
-		pausePlayer();
-
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		mixpanel.FEProp.setProperty("Element", "Pause");
-		mixpanel.FEProp.setProperty("Button Type", "Player");
-
-		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
-		if (userType.equals("Guest")) {
-			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-			mixpanel.ValidateParameter(gToken, "Pause");
-		} else {
-			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-			mixpanel.ValidateParameter(ID, "Pause");
-		}
-	}
-
 	public void verifyPauseEventForContentInPlaylist(String userType, String keyword) throws Exception {
 		extent.HeaderChildNode("Verify Pause Event For Content played from Playlist");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
@@ -3732,7 +3636,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -4099,33 +4003,30 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyVideoWatchDurationEventForContentFromMyWatchlistPageAbrupt(String userType, String keyword)
-			throws Exception {
+	public void verifyVideoWatchDurationEventForContentFromMyWatchlistPageAbrupt(String userType,
+			String subtitleTrackContent) throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode(
 					"Verify Video Watch Duration Event when video is closed abruptly For Content From My Watchlist Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
+					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
-
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
-
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitTime(4000);
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
 
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
-			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getDriver().getCurrentUrl();
@@ -4147,37 +4048,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyVideoWatchDurationEventForContentInMegamenuAbrupt() throws Exception {
-		extent.HeaderChildNode(
-				"Verify Video Watch Duration Event when video is closed abruptly For Content played from Megamenu");
-		waitTime(5000);
-		Actions actions = new Actions(getDriver());
-		WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-		actions.moveToElement(contentCard).build().perform();
-		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
-		Back(1);
-		if (userType.equals("Guest")) {
-			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-			mixpanel.ValidateParameter(gToken, "Video Watch Duration");
-		} else {
-			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-			mixpanel.ValidateParameter(ID, "Video Watch Duration");
-		}
-	}
-
 	public void verifyVideoWatchDurationEventForContentInPlaylistAbrupt(String userType, String keyword)
 			throws Exception {
 		extent.HeaderChildNode(
@@ -4190,7 +4060,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 		mandatoryRegistrationPopUp(userType);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
@@ -4467,34 +4337,31 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyVideoWatchDurationEventForContentFromMyWatchlistPageComplete(String userType, String keyword)
-			throws Exception {
+	public void verifyVideoWatchDurationEventForContentFromMyWatchlistPageComplete(String userType,
+			String subtitleTrackContent) throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode(
 					"Verify Video Watch Duration Event when user completely watches Content From My Watchlist Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
+					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
-
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
-
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitTime(4000);
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			Back(1);
 
-			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
@@ -4516,40 +4383,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyVideoWatchDurationEventForContentInMegamenuComplete() throws Exception {
-		extent.HeaderChildNode(
-				"Verify Video Watch Duration Event when user completely watches Content played from Megamenu");
-		waitTime(5000);
-		Actions actions = new Actions(getDriver());
-		WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-		actions.moveToElement(contentCard).build().perform();
-
-		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
-		Back(1);
-
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-
-		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
-		if (userType.equals("Guest")) {
-			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-			mixpanel.ValidateParameter(gToken, "Video Watch Duration");
-		} else {
-			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-			mixpanel.ValidateParameter(ID, "Video Watch Duration");
-		}
-	}
-
 	public void verifyVideoWatchDurationEventForContentInPlaylistComplete(String userType, String keyword)
 			throws Exception {
 		extent.HeaderChildNode(
@@ -4562,7 +4395,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
@@ -5698,13 +5531,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInViewAllPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			} else {
 				click(PWAPremiumPage.objContentCardRemoveFromWatchlistBtn, "Remove From Watchlist icon");
 				waitTime(3000);
 				actions.moveToElement(contentCard).build().perform();
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "movie_landing");
@@ -5731,8 +5564,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInViewAllPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 				waitTime(3000);
 				actions.moveToElement(contentCard).build().perform();
 				click(PWAPremiumPage.objContentCardRemoveFromWatchlistBtn, "Remove From Watchlist icon");
@@ -6191,35 +6024,33 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyResumeEventForContentFromMyWatchlistPage(String userType, String keyword) throws Exception {
+	public void verifyResumeEventForContentFromMyWatchlistPage(String userType, String subtitleTrackContent)
+			throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Resume Event For Content From My Watchlist Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
+					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
-
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
-
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitTime(4000);
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
 
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			pausePlayer();
 			waitTime(2000);
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 
-			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Element", "Resume");
@@ -6242,43 +6073,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyResumeEventForContentInMegamenu() throws Exception {
-		extent.HeaderChildNode("Verify Resume Event For Content played from Megamenu");
-		waitTime(5000);
-		Actions actions = new Actions(getDriver());
-		WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-		actions.moveToElement(contentCard).build().perform();
-
-		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
-		pausePlayer();
-		waitTime(2000);
-		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		mixpanel.FEProp.setProperty("Element", "Resume");
-		mixpanel.FEProp.setProperty("Button Type", "Player");
-		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
-		if (userType.equals("Guest")) {
-			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-			mixpanel.ValidateParameter(gToken, "Resume");
-		} else {
-			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-			mixpanel.ValidateParameter(ID, "Resume");
-		}
-
-	}
-
 	public void verifyResumeEventForContentInPlaylist(String userType, String keyword) throws Exception {
 		extent.HeaderChildNode("Verify Resume Event For Content played from Playlist");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
@@ -6289,7 +6083,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 		waitTime(6000);
 		pausePlayer();
 		waitTime(2000);
@@ -6636,38 +6430,35 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdInitializedEventForContentFromMyWatchlistPage(String userType, String audioTrackContent)
+	public void verifyAdInitializedEventForContentFromMyWatchlistPage(String userType, String subtitleTrackContent)
 			throws Exception {
 		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.HeaderChildNode("Verify Ad Initialized Event For Content From My Watchlist Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
+					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
 			waitTime(4000);
-			mandatoryRegistrationPopUp(userType);
-			waitTime(2000);
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
 
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
 
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 10);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 
-				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
@@ -6693,46 +6484,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdInitializedEventForContentInMegamenu(String userType) throws Exception {
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Initialized Event For Content played from Megamenu");
-			waitTime(5000);
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-			actions.moveToElement(contentCard).build().perform();
-
-			click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-
-			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
-				logger.info("Ad play in progress");
-				extent.extentLogger("Ad", "Ad play in progress");
-
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
-				if (userType.equals("Guest")) {
-					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-					mixpanel.ValidateParameter(gToken, "Ad Initialized");
-				} else {
-					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-					mixpanel.ValidateParameter(ID, "Ad Initialized");
-				}
-			} else {
-				logger.info("Ad is not available for the content");
-				extent.extentLogger("Ad", "Ad is not available for the content");
-			}
-		}
-	}
-
 	public void verifyAdInitializedEventForContentInPlaylist(String userType, String audioTrackContent)
 			throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
@@ -6744,7 +6495,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mandatoryRegistrationPopUp(userType);
 
 			waitTime(2000);
-			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -7069,71 +6820,27 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			waitTime(4000);
-			mandatoryRegistrationPopUp(userType);
-			waitTime(4000);
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
 
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
 
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 10);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 
-				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
-				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
-				if (userType.equals("Guest")) {
-					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-					mixpanel.ValidateParameter(gToken, "Ad View");
-				} else {
-					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-					mixpanel.ValidateParameter(ID, "Ad View");
-				}
-			} else {
-				logger.info("Ad is not available for the content");
-				extent.extentLogger("Ad", "Ad is not available for the content");
-			}
-		}
-	}
-
-	public void verifyAdViewEventForContentInMegamenu(String userType) throws Exception {
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad View Event For Content played from Megamenu");
-			waitTime(5000);
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-			actions.moveToElement(contentCard).build().perform();
-
-			click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-
-			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
-				logger.info("Ad play in progress");
-				extent.extentLogger("Ad", "Ad play in progress");
-
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
 				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 				Matcher m = p.matcher(id);
@@ -7166,7 +6873,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mandatoryRegistrationPopUp(userType);
 
 			waitTime(2000);
-			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -7493,69 +7200,24 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			waitTime(4000);
-			mandatoryRegistrationPopUp(userType);
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
 
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
 
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 10);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
-				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
-				if (userType.equals("Guest")) {
-					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-					mixpanel.ValidateParameter(gToken, "Ad Clicks");
-				} else {
-					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-					mixpanel.ValidateParameter(ID, "Ad Clicks");
-				}
-			} else {
-				logger.info("Ad is not available for the content");
-				extent.extentLogger("Ad", "Ad is not available for the content");
-			}
-
-		}
-	}
-
-	public void verifyAdClickEventForContentInMegamenu(String userType) throws Exception {
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Click Event For Content played from Megamenu");
-			waitTime(5000);
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-			actions.moveToElement(contentCard).build().perform();
-
-			click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-
-			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
-				logger.info("Ad play in progress");
-				extent.extentLogger("Ad", "Ad play in progress");
-
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
 				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
@@ -7590,7 +7252,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
-			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -7719,27 +7381,26 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
 
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-			mandatoryRegistrationPopUp(userType);
-			waitTime(2000);
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
-			}
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(4000);
+
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
+			}
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
+
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 10);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				click(PWAPlayerPage.objAd, "Ad");
 
-				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
@@ -7974,71 +7635,25 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-			waitTime(2000);
-			mandatoryRegistrationPopUp(userType);
 			waitTime(4000);
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
 
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
 
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
-				Back(1);
-				if (userType.equals("Guest")) {
-					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-					mixpanel.ValidateParameter(gToken, "Ad Forced Exit");
-				} else {
-					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-					mixpanel.ValidateParameter(ID, "Ad Forced Exit");
-				}
-
-			} else {
-				logger.info("Ad is not available for the content");
-				extent.extentLogger("Ad", "Ad is not available for the content");
-			}
-		}
-	}
-
-	public void verifyAdForcedExitEventForContentInMegamenu(String userType) throws Exception {
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad Forced Exit Event For Content played from Megamenu");
-			waitTime(5000);
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-			actions.moveToElement(contentCard).build().perform();
-
-			click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-
-			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
-				logger.info("Ad play in progress");
-				extent.extentLogger("Ad", "Ad play in progress");
-
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
 				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
@@ -8074,7 +7689,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
-			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -8405,70 +8020,25 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-			mandatoryRegistrationPopUp(userType);
-			waitTime(2000);
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
+			waitTime(4000);
 
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 10);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 
-				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
-				Back(1);
-				if (userType.equals("Guest")) {
-					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-					mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
-				} else {
-					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-					mixpanel.ValidateParameter(ID, "Ad Watch Duration");
-				}
-			} else {
-				logger.info("Ad is not available for the content");
-				extent.extentLogger("Ad", "Ad is not available for the content");
-			}
-		}
-	}
-
-	public void verifyAdWatchDurationEventForContentInMegamenuForceExit(String userType) throws Exception {
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode(
-					"Verify Ad Watch Duration Event when user force quits the ad playback For Content played from Megamenu");
-			waitTime(5000);
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-			actions.moveToElement(contentCard).build().perform();
-
-			click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-
-			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
-				logger.info("Ad play in progress");
-				extent.extentLogger("Ad", "Ad play in progress");
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
 				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
@@ -8504,7 +8074,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
-			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -8834,27 +8404,23 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-			mandatoryRegistrationPopUp(userType);
-			waitTime(2000);
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
+			waitTime(4000);
 
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
 
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 10);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				waitForPlayerAdToComplete("Video Player");
 
-				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
@@ -8879,47 +8445,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdWatchDurationEventForContentInMegamenuComplete(String userType) throws Exception {
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode(
-					"Verify Ad Watch Duration Event when user completly watches the ad playback For Content played from Megamenu");
-			waitTime(5000);
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-			actions.moveToElement(contentCard).build().perform();
-
-			click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-
-			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
-				waitForPlayerAdToComplete("Video Player");
-
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
-				if (userType.equals("Guest")) {
-					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-					mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
-				} else {
-					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-					mixpanel.ValidateParameter(ID, "Ad Watch Duration");
-				}
-
-			} else {
-				logger.info("Ad is not available for the content");
-				extent.extentLogger("Ad", "Ad is not available for the content");
-			}
-		}
-	}
-
 	public void verifyAdWatchDurationEventForContentInPlaylistComplete(String userType, String audioTrackContent)
 			throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
@@ -8931,7 +8456,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
-			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -9280,75 +8805,26 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
-			mandatoryRegistrationPopUp(userType);
-			waitTime(2000);
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
+			waitTime(4000);
 
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
 
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 10);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
 					Thread.sleep(5000);
 					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
 
-					mixpanel.FEProp.setProperty("Source", "episode_detail");
+					mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 					mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-					String id = getDriver().getCurrentUrl();
-					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-					Matcher m = p.matcher(id);
-					String value = null;
-					while (m.find()) {
-						value = m.group(0);
-					}
-					ResponseInstance.getContentDetails(value);
-					if (userType.equals("Guest")) {
-						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
-								.toString();
-						mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
-					} else {
-						String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-						mixpanel.ValidateParameter(ID, "Ad Watch Duration");
-					}
-				} else {
-					System.out.println("Skip Ad Button is not displayed");
-				}
-			} else {
-				logger.info("Skip Ad is not available for the content");
-				extent.extentLogger("Skip Ad", "Skip Ad is not available for the content");
-			}
-		}
-	}
-
-	public void verifyAdWatchDurationEventForContentInMegamenuSkipAd(String userType) throws Exception {
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode(
-					"Verify Ad Watch Duration Event when user skips the ad playback For Content played from Megamenu");
-			waitTime(5000);
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-			actions.moveToElement(contentCard).build().perform();
-
-			click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-
-			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
-				if (checkElementDisplayed(PWAPlayerPage.objSkipAd, "SkipAd")) {
-					Thread.sleep(5000);
-					click(PWAPlayerPage.objSkipAd, "Skip Ad Button");
-					mixpanel.FEProp.setProperty("Source", "home");
-					mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getDriver().getCurrentUrl();
 					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
@@ -9387,7 +8863,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
-			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 			mandatoryRegistrationPopUp(userType);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -9729,26 +9205,22 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(keyword), "Search Result");
-
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
-
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			waitTime(4000);
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
 
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			pausePlayer();
 			playerScrubTillLastWeb();
 			waitTime(5000);
-			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			mixpanel.FEProp.setProperty("Direction", "forward");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -9770,40 +9242,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyScrubSeekEventForContentInMegamenu() throws Exception {
-		extent.HeaderChildNode("Verify Scrub/Seek Event For Content played from Megamenu");
-		waitTime(5000);
-		Actions actions = new Actions(getDriver());
-		WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-		actions.moveToElement(contentCard).build().perform();
-
-		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
-		pausePlayer();
-		playerScrubTillLastWeb();
-		waitTime(5000);
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-		mixpanel.FEProp.setProperty("Direction", "forward");
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
-		if (userType.equals("Guest")) {
-			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-			mixpanel.ValidateParameter(gToken, "Scrub/Seek");
-		} else {
-			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-			mixpanel.ValidateParameter(ID, "Scrub/Seek");
-		}
-	}
-
 	public void verifyScrubSeekEventForContentInPlaylist(String userType, String keyword) throws Exception {
 		extent.HeaderChildNode("Verify Scrub/Seek Event For Content played from Playlist");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
@@ -9814,7 +9252,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -10129,27 +9567,24 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitTime(4000);
 
-			Actions actions = new Actions(getDriver());
-			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
-			actions.moveToElement(contentCard).build().perform();
-
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			pausePlayer();
 			click(PWAPlayerPage.settingsBtn, "Setting icon");
 			click(PWAPlayerPage.qualityBtn, "Quality option");
 			click(PWAQualitySettingsPage.objIndividualQuality(2), "Quality Good option");
 
-			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Old Quality", "Auto");
@@ -10172,44 +9607,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyQualityChangeEventForContentInMegamenu() throws Exception {
-		extent.HeaderChildNode("Verify Quality Change Event For Content played from Megamenu");
-		waitTime(5000);
-		Actions actions = new Actions(getDriver());
-		WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-		actions.moveToElement(contentCard).build().perform();
-
-		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
-		pausePlayer();
-		click(PWAPlayerPage.settingsBtn, "Setting icon");
-		click(PWAPlayerPage.qualityBtn, "Quality option");
-		click(PWAQualitySettingsPage.objIndividualQuality(2), "Quality Good option");
-
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		mixpanel.FEProp.setProperty("Old Quality", "Auto");
-		mixpanel.FEProp.setProperty("New Quality", "Good");
-		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
-		if (userType.equals("Guest")) {
-			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-			mixpanel.ValidateParameter(gToken, "Quality Change");
-		} else {
-			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-			mixpanel.ValidateParameter(ID, "Quality Change");
-		}
-
-	}
-
 	public void verifyQualityChangeEventForContentInPlaylist(String userType, String keyword) throws Exception {
 		extent.HeaderChildNode("Verify Quality Change Event For Content played from Playlist");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
@@ -10220,7 +9617,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -10376,7 +9773,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
 		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
@@ -10411,7 +9808,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			navigateToAnyScreen(tab);
 			click(PWAPremiumPage.objPremiumTag, "Premium Content");
 			waitTime(6000);
-			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			pausePlayer();
 			click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 			if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
 				click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
@@ -10457,7 +9854,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResult(audioTrackTrailerContent), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
 		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
@@ -10491,7 +9888,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
 			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
@@ -10552,7 +9949,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objThumbnail, "Content From a tray");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
 			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
@@ -10595,7 +9992,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
 		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
@@ -10633,28 +10030,26 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 			waitTime(4000);
-			mandatoryRegistrationPopUp(userType);
-
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
 
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
-			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			pausePlayer();
 			click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 			if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
 				click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
 				click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
 				waitTime(5000);
 
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
 
@@ -10682,50 +10077,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAudioLanguageChangeEventForContentInMegamenu() throws Exception {
-		extent.HeaderChildNode("Verify Audio Language Change Event For Content played from Megamenu");
-		waitTime(5000);
-		Actions actions = new Actions(getDriver());
-		WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-		actions.moveToElement(contentCard).build().perform();
-
-		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
-		if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
-			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
-			click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
-			waitTime(5000);
-
-			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-			mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
-
-			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
-			if (userType.equals("Guest")) {
-				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-				mixpanel.ValidateParameter(gToken, "Audio Language Change");
-			} else {
-				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-				mixpanel.ValidateParameter(ID, "Audio Language Change");
-			}
-
-		} else {
-			logger.info("Audio Track is not available for the content");
-			extent.extentLogger("Audio Track", "Audio Track is not available for the content");
-		}
-	}
-
 	public void verifyAudioLanguageChangeEventForContentInPlaylist(String userType, String audioTrackContent)
 			throws Exception {
 		extent.HeaderChildNode("Verify Audio Language Change Event For Content played from Playlist");
@@ -10735,11 +10086,11 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
 		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
@@ -10777,7 +10128,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitForPlayerAdToComplete("Video Player");
@@ -10786,7 +10137,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
 		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
@@ -10820,7 +10171,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
 		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
@@ -10859,7 +10210,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
 		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
 		waitTime(5000);
@@ -10937,7 +10288,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResult(keyword5), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
 		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
 		waitTime(5000);
@@ -10970,7 +10321,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 
 		if (checkElementDisplayed(PWAPlayerPage.objSubtitleIcon, "Subtitle option") == true) {
 			click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
@@ -11009,7 +10360,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objThumbnail, "Content From a tray");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		if (checkElementDisplayed(PWAPlayerPage.objSubtitleIcon, "Subtitle option") == true) {
 			click(PWAPlayerPage.subtitlesBtn, "Subtitle option");
 			click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
@@ -11052,7 +10403,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
 		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
 		waitTime(5000);
@@ -11084,32 +10435,33 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Subtitle Language Change Event For Content From My Watchlist Page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
-					"Search Edit box: " + subtitleTrackContent);
+			getDriver().getKeyboard().sendKeys(subtitleTrackContent);
+			// type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
+			// "Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
 			waitTime(4000);
-			mandatoryRegistrationPopUp(userType);
 
-			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
-				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 
-			click(PWALandingPages.objWebProfileIcon, "Profile icon");
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
 
-			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
-			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			pausePlayer();
 			if (checkElementDisplayed(PWAPlayerPage.objSubtitleIcon, "Subtitle option") == true) {
 				click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
 				click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
 				waitTime(5000);
 
-				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				mixpanel.FEProp.setProperty("New Subtitle Language", "English");
@@ -11122,13 +10474,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				if (userType.equals("Guest")) {
-					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-					mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
-				} else {
-					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-					mixpanel.ValidateParameter(ID, "Subtitle Language Change");
-				}
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Subtitle Language Change");
 
 			} else {
 				logger.info("Subtitle is not available for the content");
@@ -11138,63 +10485,22 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifySubtitleLanguageChangeEventForContentInMegamenu() throws Exception {
-		extent.HeaderChildNode("Verify Subtitle Language Change Event For Content played from Megamenu");
-		waitTime(5000);
-		Actions actions = new Actions(getDriver());
-		WebElement contentCard = getDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
-		actions.moveToElement(contentCard).build().perform();
-
-		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		if (checkElementDisplayed(PWAPlayerPage.objSubtitleIcon, "Subtitle option") == true) {
-			click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
-			click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
-			waitTime(5000);
-
-			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-			mixpanel.FEProp.setProperty("New Subtitle Language", "English");
-
-			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
-			if (userType.equals("Guest")) {
-				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-				mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
-			} else {
-				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-				mixpanel.ValidateParameter(ID, "Subtitle Language Change");
-			}
-
-		} else {
-			logger.info("Subtitle is not available for the content");
-			extent.extentLogger("Subtitle Track", "Subtitle is not available for the content");
-		}
-	}
-
 	public void verifySubtitleLanguageChangeEventForContentInPlaylist(String userType, String subtitleTrackContent)
 			throws Exception {
 		extent.HeaderChildNode("Verify Subtitle Language Change Event For Content played from Playlist");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
+		// type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search
+		// Edit box: " + subtitleTrackContent);
+		getDriver().getKeyboard().sendKeys(subtitleTrackContent);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 		mandatoryRegistrationPopUp(userType);
-
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		waitTime(4000);
+		click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
 		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
 		waitTime(5000);
@@ -11232,7 +10538,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitForPlayerAdToComplete("Video Player");
@@ -11241,7 +10547,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
 		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
 		waitTime(5000);
@@ -11271,11 +10577,15 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 
 	public void verifySubtitleLanguageChangeEventForContentFromSharedLink(String subtitleTrackURL) throws Exception {
 		extent.HeaderChildNode("Verify Subtitle Language Change Event For content played from Shared Link");
+		System.out.println(subtitleTrackURL);
 		getDriver().get(subtitleTrackURL);
+
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		pausePlayer();
 		click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
 		click(PWAPlayerPage.objEnglishSubtitle, "English Subtitles");
 		waitTime(5000);
@@ -11299,6 +10609,415 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		} else {
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Subtitle Language Change");
+		}
+
+	}
+
+	public void verifySkipIntroEventForFreeContent(String userType, String freeMovie2) throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For Free Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
+		waitForElement(PWASearchPage.objSearchResult(freeMovie2), 20, "Search Result");
+		click(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+		waitTime(5000);
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Element", "Skip Intro");
+		mixpanel.FEProp.setProperty("Page Name", "kids_movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Skip Intro");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Skip Intro");
+		}
+
+	}
+
+	public void verifySkipIntroEventForPremiumContent(String userType, String tab) throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Verify Skip Intro Event For Premium Content");
+			navigateToAnyScreen(tab);
+			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(6000);
+
+			pausePlayer();
+			if (checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button")) {
+				click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+				waitTime(5000);
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Element", "Skip Intro");
+				mixpanel.FEProp.setProperty("Page Name", "kids_movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+				String id = getDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+
+				if (userType.equals("Guest")) {
+					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+					mixpanel.ValidateParameter(gToken, "Skip Intro");
+				} else {
+					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+					mixpanel.ValidateParameter(ID, "Skip Intro");
+				}
+
+			} else {
+				logger.info("Skip Intro is not available for the content");
+				extent.extentLogger("Skip Intro", "Skip Intro is not available for the content");
+			}
+			waitTime(5000);
+		}
+	}
+
+	public void verifySkipIntroEventForTrailer(String keyword5) throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For Trailer Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword5 + "\n", "Search Edit box: " + keyword5);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword5), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword5), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		pausePlayer();
+		if (checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button") == true) {
+			click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+			waitTime(5000);
+			mixpanel.FEProp.setProperty("Source", "search");
+			mixpanel.FEProp.setProperty("Element", "Skip Intro");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Skip Intro");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Skip Intro");
+			}
+
+		} else {
+			logger.info("Skip Intro is not available for the content");
+			extent.extentLogger("Skip Intro", "Skip Intro is not available for the content");
+		}
+	}
+
+	public void verifySkipIntroEventForCarouselContent() throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For Carousel Content");
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		pausePlayer();
+		if (checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button") == true) {
+			click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+			waitTime(5000);
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Element", "Skip Intro");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Skip Intro");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Skip Intro");
+			}
+
+		} else {
+			logger.info("Skip Intro is not available for the content");
+			extent.extentLogger("Skip Intro", "Skip Intro is not available for the content");
+		}
+	}
+
+	public void verifySkipIntroEventForContentInTray() throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For Content played from Tray");
+		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		pausePlayer();
+		if (checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button") == true) {
+			click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+			waitTime(5000);
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Element", "Skip Intro");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Skip Intro");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Skip Intro");
+			}
+
+		} else {
+			logger.info("Skip Intro is not available for the content");
+			extent.extentLogger("Skip Intro", "Skip Intro is not available for the content");
+		}
+	}
+
+	public void verifySkipIntroEventForContentFromSearchPage(String freeMovie2) throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For Content From Search Page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(freeMovie2), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+		waitTime(5000);
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Element", "Skip Intro");
+		mixpanel.FEProp.setProperty("Page Name", "kids_movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Skip Intro");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Skip Intro");
+		}
+
+	}
+
+	public void verifySkipIntroEventForContentFromMyWatchlistPage(String userType, String freeMovie2) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Skip Intro Event For Content From My Watchlist Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(freeMovie2), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
+			waitTime(4000);
+
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
+			}
+
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Humburger Menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
+
+			click(PWAAddToWatchListPage.objMoviesTab, "Movies tab");
+			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
+			waitForPlayerAdToComplete("Video Player");
+			waitTime(6000);
+			pausePlayer();
+			if (checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button") == true) {
+				click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+				waitTime(5000);
+				mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
+				mixpanel.FEProp.setProperty("Element", "Skip Intro");
+				mixpanel.FEProp.setProperty("Page Name", "kids_movie_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+				String id = getDriver().getCurrentUrl();
+				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+				Matcher m = p.matcher(id);
+				String value = null;
+				while (m.find()) {
+					value = m.group(0);
+				}
+				ResponseInstance.getContentDetails(value);
+				if (userType.equals("Guest")) {
+					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+					mixpanel.ValidateParameter(gToken, "Skip Intro");
+				} else {
+					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+					mixpanel.ValidateParameter(ID, "Skip Intro");
+				}
+
+			} else {
+				logger.info("Skip Intro is not available for the content");
+				extent.extentLogger("Skip Intro", "Skip Intro is not available for the content");
+			}
+			waitTime(5000);
+		}
+	}
+
+	public void verifySkipIntroEventForContentInPlaylist(String userType, String freeMovie2) throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For Content played from Playlist");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+
+		click(PWAPremiumPage.objThumbnail, "Content card in Playlist");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		pausePlayer();
+		if (checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button") == true) {
+			click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+			waitTime(5000);
+			mixpanel.FEProp.setProperty("Source", "kids_movie_detail");
+			mixpanel.FEProp.setProperty("Element", "Skip Intro");
+			mixpanel.FEProp.setProperty("Page Name", "kids_movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Skip Intro");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Skip Intro");
+			}
+
+		} else {
+			logger.info("Skip Intro is not available for the content");
+			extent.extentLogger("Skip Intro", "Skip Intro is not available for the content");
+		}
+		waitTime(5000);
+	}
+
+	public void verifySkipIntroEventForContentFromUpnextRail(String userType, String freeMovie2) throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For Content played from Upnext rail");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
+		waitForPlayerAdToComplete("Video Player");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(6000);
+		pausePlayer();
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		pausePlayer();
+		if (checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button") == true) {
+			click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+			waitTime(5000);
+			mixpanel.FEProp.setProperty("Source", "kids_movie_detail");
+			mixpanel.FEProp.setProperty("Element", "Skip Intro");
+			mixpanel.FEProp.setProperty("Page Name", "kids_movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Skip Intro");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Skip Intro");
+			}
+
+		} else {
+			logger.info("Skip Intro is not available for the content");
+			extent.extentLogger("Skip Intro", "Skip Intro is not available for the content");
+		}
+		waitTime(5000);
+	}
+
+	public void verifySkipIntroEventForContentFromSharedLink(String skipIntroURL) throws Exception {
+		extent.HeaderChildNode("Verify Skip Intro Event For content played from Shared Link");
+		getDriver().get(skipIntroURL);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+
+		pausePlayer();
+		click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Element", "Skip Intro");
+		mixpanel.FEProp.setProperty("Page Name", "kids_movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Skip Intro");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Skip Intro");
 		}
 
 	}

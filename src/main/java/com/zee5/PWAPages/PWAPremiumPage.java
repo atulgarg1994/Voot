@@ -146,4 +146,11 @@ public class PWAPremiumPage {
 	public static By objContentCardRemoveFromWatchlistBtn = By
 			.xpath("(//*[@class='noSelect btnIcon btnIconActive iconInitialLoad-ic_watchlist'])[1]");
 	
+	public static By objContentCardRemoveFromWatchlistBtnMobile = By
+			.xpath("(//*[@class='noSelect btnIconActive iconInitialLoad-ic_watchlist'])[1]");
+	
+	public static By objContentCardAddToWatchlistBtnMobile = By.xpath("(//*[@class='iconInitialLoad-ic_add_Watchlist'])[1]");
+	
+	public static By objContentInPlaylistMobile = By.xpath("(//*[@class='upNextMobile']//div[@class='showCard underMeta underMetaMultiline zoomCardHover minutelyUrl card marginRight positionRelative']//img)[1]");
+	
 }

@@ -16,7 +16,7 @@
 
 	<parameter name="browserType" value="chrome" />
 
-	<parameter name="userType" value="Guest" />
+	<parameter name="userType" value="NonSubscribedUser" />
 
 	<!-- Guest/NonSubscribedUser/SubscribedUser -->
 
@@ -63,8 +63,8 @@
 	<parameter name="audioTrackContent"	value="Episode 13 - Agent Raghav" />
 	<parameter name="subtitleTrackContent"	value="Episode 01 - Ganga Enters Widowhood" />
 	<parameter name="audioTrackTrailerContent"	value="Trailer - No Entry" />
-	<parameter name="audioTrackURL"	value="https://newpwa.zee5.com/tv-shows/agent-raghav-crime-branch/0-6-965/episode-13-agent-raghav/0-1-agentragh_1895058002-agentragh_1804723548-episode_779139720" />
-	<parameter name="subtitleTrackURL"	value="https://newpwa.zee5.com/tv-shows/gangaa/0-6-972/episode-01-ganga-enters-widowhood/0-1-136585" />
+	<parameter name="audioTrackURL"	value="https://newpwa.zee5.com/tvshows/details/agent-raghav-crime-branch/0-6-965/episode-13-agent-raghav/0-1-agentragh_1895058002-agentragh_1804723548-episode_779139720" />
+	<parameter name="subtitleTrackURL"	value="https://newpwa.zee5.com/tvshows/details/gangaa/0-6-972/episode-01-ganga-enters-widowhood/0-1-136585" />
 	<parameter name="subtitleTrackPremiumContent"	value="Welcome Back" />
 	
 	<parameter name="skipIntroPremium"	value="The Rum Diary" />
@@ -78,9 +78,9 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 	
-  <test name="AndroidPWAMixpanel_PlayerEvents">
+  <test name="testZee">
     <classes>
-      <class name="com.zee5.MixpanelScripts.AndroidPWAMixpanel_PlayerEvents"/>
+      <class name="com.zee5.MixpanelScripts.testZee"/>
     </classes>
   </test>
 </suite>
