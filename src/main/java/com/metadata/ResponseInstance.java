@@ -675,14 +675,14 @@ public class ResponseInstance {
 //		getResponseForApplicasterPages("Guest", "3673").print();
 //		System.out.println(BeforeTV("Guest","Home"));
 //		getUserData();
-//		getRegion();
+		getRegion();
 //		getresponse("kam");
 //		getDetailsOfCustomer("zeetest@gmail.com","zee123");
 //		getUserSettingsDetails("","");	
 //		getFreeContent("home", "zee5latest@gmail.com", "User@123");
 //		getContentDetails("0-9-indiatoday");
 //		Player("basavaraj.pn5@gmail.com","igsindia123");
-		getWatchList("basavaraj.pn5@gmail.com","igsindia123");
+//		getWatchList("basavaraj.pn5@gmail.com","igsindia123");
 //		getUserData("basavaraj.pn5@gmail.com","igsindia123");
 		
 	}

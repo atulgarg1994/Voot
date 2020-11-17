@@ -17,9 +17,6 @@ public class PWAShowsPage {
 	public static By objFirstAssetImageFirstRail = By
 			.xpath("(//div[@class='slick-list'])[1]//div[@data-index='0']//img");
 
-	// First asset title from first content rail
-	public static By objFirstAssetTitleFirstRail = By.xpath("(//div[@class='slick-list'])[1]//div[@data-index='0']//h3[@class='showCardTitle']//span");
-
 	// First asset episode number from first content rail
 	public static By objFirstAssetEpisodeFirstRail = By.xpath("((//div[@class='slick-list'])[1]//div[@data-index='0']//div[@class='showDuration']//span)[1]");
 
@@ -143,5 +140,8 @@ public class PWAShowsPage {
 	public static By objGetPremiumCTAInShowDetails = By.xpath("//*[@class='premiumBtn' and text()='Get premium']");
 
 	public static By objWatchPromo = By.xpath("//p[text()='Watch Promo']//parent::*//div[@class='playBtn']");
+	
+	// First asset title from first content rail
+	public static By objFirstAssetTitleFirstRail = By.xpath("(//div[@class='slick-list'])[1]//div[@data-index='0']//h3[@class='showCardTitle']");
 
 }

@@ -213,6 +213,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	 */
 	public boolean navigateToAnyScreenOnWeb(String screen) throws Exception {
 		try {
+			waitTime(8000);
 			if (checkElementDisplayed(PWAHomePage.objHomeBarText(screen), screen + " Tab")) {
 				click(PWAHomePage.objHomeBarText(screen), screen + " Tab");
 				return true;

@@ -153,4 +153,5 @@ public class PWAPremiumPage {
 	
 	public static By objContentInPlaylistMobile = By.xpath("(//*[@class='upNextMobile']//div[@class='showCard underMeta underMetaMultiline zoomCardHover minutelyUrl card marginRight positionRelative']//img)[1]");
 	
+	public static By objSimilarMovie = By.xpath("(//*[@class='similarTray']//*[@class='movieCard card marginRight minutelyUrl zoomCardHover'])[1]");
 }

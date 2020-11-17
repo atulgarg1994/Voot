@@ -8,8 +8,6 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.html5.LocalStorage;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -1271,13 +1269,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			}
 		}
 		JavascriptExecutor js = (JavascriptExecutor) getDriver();
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Session");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Session");
 		}
-		mixpanel.ValidateParameter(Token, "Session");
+		
 		dismiss3xPopUp();
 		dismissAppInstallPopUp();
 	}
@@ -1309,13 +1308,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				String Token;
-				if (!userType.equals("Guest")) {
-					Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				if (userType.equals("Guest")) {
+					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+					mixpanel.ValidateParameter(gToken, "Carousal Banner Click");
 				} else {
-					Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+					String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+					mixpanel.ValidateParameter(ID, "Carousal Banner Click");
 				}
-				mixpanel.ValidateParameter(Token, "Carousal Banner Click");
+				
 
 			} else {
 				logger.error("Not Navigated to consumption screen");
@@ -1397,13 +1397,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 
 		mixpanel.FEProp.setProperty("Source", tabName);
 		mixpanel.FEProp.setProperty("Page Name", "home");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Thumbnail Click");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Thumbnail Click");
 		}
-		mixpanel.ValidateParameter(Token, "Thumbnail Click");
 	}
 
 	public void verifyThumbnailClickEventFromViewMorePage(String tabName) throws Exception {
@@ -1415,13 +1415,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 
 		mixpanel.FEProp.setProperty("Source", tabName);
 		mixpanel.FEProp.setProperty("Page Name", "view_all_top-20-on-zee5-kannada");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Thumbnail Click");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Thumbnail Click");
 		}
-		mixpanel.ValidateParameter(Token, "Thumbnail Click");
 	}
 
 	public void verifyThumbnailClickEventFromShowDetailPage(String keyword) throws Exception {
@@ -1433,13 +1433,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAPremiumPage.obj1stContentInShowDetailPage, "Thumbnail from Show detail page");
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Thumbnail Click");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Thumbnail Click");
 		}
-		mixpanel.ValidateParameter(Token, "Thumbnail Click");
 	}
 
 	public void verifyThumbnailClickEventFromPlaybackPage(String keyword, String userType) throws Exception {
@@ -1453,13 +1453,15 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAPremiumPage.obj1stContentInShowDetailPage, "Thumbnail from playback page");
 		mixpanel.FEProp.setProperty("Source", "show_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Thumbnail Click");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Thumbnail Click");
 		}
-		mixpanel.ValidateParameter(Token, "Thumbnail Click");
+		
 	}
 
 	public void ZeeWEBPWAMixPanelLoginForParentalControl(String LoginMethod) throws Exception {
@@ -1590,28 +1592,33 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "search");
 		mixpanel.FEProp.setProperty("Setting Changed", "clear search history");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Clear Search History");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Clear Search History");
 		}
-		mixpanel.ValidateParameter(Token, "Clear Search History");
+		
 	}
 
 	public void verifyScreenViewEvent(String screen) throws Exception {
 		extent.HeaderChildNode("Verify Screen View Event");
 		navigateToAnyScreen(screen);
+		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", screen + "_landing");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Screen View");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Screen View");
 		}
-		mixpanel.ValidateParameter(Token, "Screen View");
 	}
+	
 
 	public void verifySetReminderEventForUpcomingProgram(String userType) throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
@@ -1634,12 +1641,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Page Name", "tv_guide");
 			mixpanel.FEProp.setProperty("element", "Set Reminder");
 			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Set Reminder");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Set Reminder");
 			}
-			mixpanel.ValidateParameter(Token, "Set Reminder");
 		}
 	}
 
@@ -1666,12 +1674,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Search");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Search Button Click");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Search Button Click");
 		}
-		mixpanel.ValidateParameter(Token, "Search Button Click");
 	}
 
 	public void verifySearchExecutedEvent() throws Exception {
@@ -1686,12 +1695,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Search Query", searchtxt);
 		mixpanel.FEProp.setProperty("Search Success", "true");
 		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Search Executed");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Search Executed");
 		}
-		mixpanel.ValidateParameter(Token, "Search Executed");
 	}
 
 	public void verifySearchResultClickedEvent(String keyword) throws Exception {
@@ -1702,13 +1712,15 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
 		click(PWASearchPage.objSearchResult(keyword), "Search Result");
 		waitTime(5000);
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Search Result Clicked");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Search Result Clicked");
 		}
-		mixpanel.ValidateParameter(Token, "Search Result Clicked");
+		
 	}
 
 	public void verifyChangePasswordStartedEvent(String userType) throws Exception {
@@ -1792,13 +1804,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		JSClick(PWALanguageSettingsPage.objApplyBtn, "Apply button");
 		waitTime(5000);
 		JSClick(PWALanguageSettingsPage.objApplyBtn, "Apply button");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Display Language Change");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Display Language Change");
 		}
-		mixpanel.ValidateParameter(Token, "Display Language Change");
 	}
 
 	public void verifyContentLanguageChangeEvent() throws Exception {
@@ -1816,13 +1828,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		JSClick(PWALanguageSettingsPage.objAllLangByindex(1), "Hindi content language");
 		JSClick(PWALanguageSettingsPage.objApplyBtn, "Apply button");
 		waitTime(3000);
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Content Language Change");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Content Language Change");
 		}
-		mixpanel.ValidateParameter(Token, "Content Language Change");
 	}
 
 	public void verifyDefaultSettingRestoredEvent() throws Exception {
@@ -1836,12 +1848,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Setting Changed", "Default Setting Restored");
 		mixpanel.FEProp.setProperty("Element", "Reset Settings to default");
 		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Default Setting Restored");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Default Setting Restored");
 		}
-		mixpanel.ValidateParameter(Token, "Default Setting Restored");
 	}
 
 	public void verifyDeviceAuthenticationEvent(String userType) throws Exception {
@@ -1872,12 +1885,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "right-arrow");
 		mixpanel.FEProp.setProperty("Direction", "Right");
 		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Carousal Banner Swipe");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Carousal Banner Swipe");
 		}
-		mixpanel.ValidateParameter(Token, "Carousal Banner Swipe");
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -2805,8 +2819,10 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 	public void verifyVideoViewEventForContentFromSharedLink(String freeContentURL) throws Exception {
 		extent.HeaderChildNode("Verify Video View Event For content played from Shared Link");
 		getDriver().get(freeContentURL);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-
+		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -3269,7 +3285,10 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 	public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) throws Exception {
 		extent.HeaderChildNode("Verify Video Exit Event For content played from Shared Link");
 		getDriver().get(freeContentURL);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -3798,8 +3817,10 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 	public void verifyPauseEventForContentFromSharedLink(String freeContentURL) throws Exception {
 		extent.HeaderChildNode("Verify Pause Event For content played from Shared Link");
 		getDriver().get(freeContentURL);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
+		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(5000);
 		pausePlayer();
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
@@ -4089,7 +4110,10 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode(
 				"Verify Video Watch Duration Event when video is closed abruptly For content played from Shared Link");
 		getDriver().get(freeContentURL);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -4481,8 +4505,9 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode(
 				"Verify Video Watch Duration Event when user completely watches the content playback shared through shared link");
 		getDriver().get(freeContentURL);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(5000);
 		pausePlayer();
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
@@ -4518,13 +4543,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Element", "View All");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "View More Selected");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "View More Selected");
 		}
-		mixpanel.ValidateParameter(Token, "View More Selected");
+		
 	}
 
 	public void verifyViewMoreSelectedEventFromPlaybackPage(String audioTrackContent, String userType)
@@ -4541,13 +4567,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Element", "View All");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "View More Selected");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "View More Selected");
 		}
-		mixpanel.ValidateParameter(Token, "View More Selected");
 	}
 
 	public void verifyViewMoreSelectedEventFromTray() throws Exception {
@@ -4557,13 +4583,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "sign_in");
 		mixpanel.FEProp.setProperty("Element", "View All");
 		mixpanel.FEProp.setProperty("Page Name", "home");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "View More Selected");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "View More Selected");
 		}
-		mixpanel.ValidateParameter(Token, "View More Selected");
 	}
 
 	public void verifyAddtoWatchlistFromPlaybackPage(String userType, String keyword1) throws Exception {
@@ -4587,13 +4613,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			mixpanel.FEProp.setProperty("Element", "Watchlist");
-			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Add To Watchlist");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Add To Watchlist");
 			}
-			mixpanel.ValidateParameter(Token, "Add To Watchlist");
+			
 		}
 	}
 
@@ -4620,13 +4647,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "show_detail");
 			mixpanel.FEProp.setProperty("Element", "Watchlist");
-			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Add To Watchlist");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Add To Watchlist");
 			}
-			mixpanel.ValidateParameter(Token, "Add To Watchlist");
 		}
 	}
 
@@ -4660,13 +4687,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Sharing Platform", "Facebook");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Share");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Share");
 		}
-		mixpanel.ValidateParameter(Token, "Share");
 	}
 
 	public void verifyShareEventForUpcomingProgram() throws Exception {
@@ -4704,13 +4731,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "live_tv");
 		mixpanel.FEProp.setProperty("Page Name", "tv_guide");
 		mixpanel.FEProp.setProperty("Sharing Platform", "Facebook");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Share");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Share");
 		}
-		mixpanel.ValidateParameter(Token, "Share");
 	}
 
 	public void Share() throws InterruptedException {
@@ -4771,13 +4798,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
 		mixpanel.FEProp.setProperty("Sharing Platform", "Facebook");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Share");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Share");
 		}
-		mixpanel.ValidateParameter(Token, "Share");
 	}
 
 	public void verifySettingChangedEventAfterAccountVerification(String userType) throws Exception {
@@ -4800,13 +4827,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Page Name", "home");
 			mixpanel.FEProp.setProperty("Element", "Continue");
 			mixpanel.FEProp.setProperty("Setting Changed", "Parental Control Account Verification");
-			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Setting Changed");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Setting Changed");
 			}
-			mixpanel.ValidateParameter(Token, "Setting Changed");
 		}
 	}
 
@@ -4839,13 +4866,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Page Name", "parental_control");
 			mixpanel.FEProp.setProperty("Setting Changed", "Parental Control Age Set");
 			mixpanel.FEProp.setProperty("Element", "Set parental lock");
-			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Setting Changed");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Setting Changed");
 			}
-			mixpanel.ValidateParameter(Token, "Setting Changed");
 		}
 	}
 
@@ -4879,13 +4906,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Setting Changed", "Parental Control Age Set");
 			mixpanel.FEProp.setProperty("Element", "Set parental lock");
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U/A");
-			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Setting Changed");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Setting Changed");
 			}
-			mixpanel.ValidateParameter(Token, "Setting Changed");
 		}
 	}
 
@@ -4910,13 +4937,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			Matcher m = p.matcher(id);
 			m.find();
 			ResponseInstance.getContentDetails(m.group(0));
-			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Pop Up CTAs");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Pop Up CTAs");
 			}
-			mixpanel.ValidateParameter(Token, "Pop Up CTAs");
+			
 		}
 	}
 
@@ -4967,18 +4995,15 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "sign_in");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Login Username Entered");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Login Username Entered");
 		}
 
-		if (EventName.equals("UserName")) {
-			mixpanel.ValidateParameter(Token, "Login Username Entered");
-		} else {
-			mixpanel.ValidateParameter(Token, "Login Password Entered");
-		}
 	}
 
 	public void verifySearchCancelledEvent() throws Exception {
@@ -4990,13 +5015,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Results Returned", "0");
 		mixpanel.FEProp.setProperty("Search Query", "N/A");
 		mixpanel.FEProp.setProperty("Search Type", "N/A");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Search Cancelled");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Search Cancelled");
 		}
-		mixpanel.ValidateParameter(Token, "Search Cancelled");
+
 	}
 
 	public void verifyAdBannerImpressionEvent(String tabName) throws Exception {
@@ -5004,13 +5030,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreen(tabName);
 		waitTime(8000);
 		checkElementDisplayed(PWAHomePage.objAdBanner, "Ad Banner");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Ad Banner Impression");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Ad Banner Impression");
 		}
-		mixpanel.ValidateParameter(Token, "Ad Banner Impression");
 	}
 
 	public void verifyProfileUpdateResultEvent(String userType) throws Exception {
@@ -5049,13 +5075,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
 		mixpanel.FEProp.setProperty("Series", "Jodi Hakki");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Episode list Chosen");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Episode list Chosen");
 		}
-		mixpanel.ValidateParameter(Token, "Episode list Chosen");
 	}
 
 	public void verifyContentBucketSwipeEventFromShowDetailPage(String keyword) throws Exception {
@@ -5080,13 +5106,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
 		mixpanel.FEProp.setProperty("Element", "right-arrow");
 		mixpanel.FEProp.setProperty("Direction", "Right");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Content Bucket Swipe");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Content Bucket Swipe");
 		}
-		mixpanel.ValidateParameter(Token, "Content Bucket Swipe");
+	
 	}
 
 	public void verifyContentBucketSwipeEvent(String tabName) throws Exception {
@@ -5109,13 +5136,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "tv_shows_view_all");
 		mixpanel.FEProp.setProperty("Element", "right-arrow");
 		mixpanel.FEProp.setProperty("Direction", "Right");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Content Bucket Swipe");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Content Bucket Swipe");
 		}
-		mixpanel.ValidateParameter(Token, "Content Bucket Swipe");
 	}
 
 	public void verifyContentBucketSwipeEventInPlaybackPage(String keyword1) throws Exception {
@@ -5143,13 +5170,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Element", "right-arrow");
 		mixpanel.FEProp.setProperty("Direction", "Right");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Content Bucket Swipe");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Content Bucket Swipe");
 		}
-		mixpanel.ValidateParameter(Token, "Content Bucket Swipe");
 	}
 
 	public void swipeTumbnailToLeft() throws InterruptedException {
@@ -5183,13 +5210,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Popup launch");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Popup launch");
 			}
-			mixpanel.ValidateParameter(Token, "Popup launch");
+			
 		}
 	}
 
@@ -5215,13 +5243,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Popup launch");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Popup launch");
 			}
-			mixpanel.ValidateParameter(Token, "Popup launch");
 		}
 	}
 
@@ -5261,13 +5289,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Popup launch");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Popup launch");
 			}
-			mixpanel.ValidateParameter(Token, "Popup launch");
 		}
 	}
 
@@ -5298,13 +5326,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Popup launch");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Popup launch");
 			}
-			mixpanel.ValidateParameter(Token, "Popup launch");
 		}
 	}
 
@@ -5314,13 +5342,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", tabName);
 		mixpanel.FEProp.setProperty("Element", "Shows");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "CTAs");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "CTAs");
 		}
-		mixpanel.ValidateParameter(Token, "CTAs");
+	
 	}
 
 	public void verifyCTAsEventForIcons(String userType, String icon) throws Exception {
@@ -5344,13 +5373,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Element", "Language");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "CTAs");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "CTAs");
 		}
-		mixpanel.ValidateParameter(Token, "CTAs");
 	}
 
 	public void verifyCTAsEventForSubscribeBtn(String userType) throws Exception {
@@ -5361,13 +5390,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "N/A");
 			mixpanel.FEProp.setProperty("Page Name", "home");
 			mixpanel.FEProp.setProperty("Element", "Subscribe");
-			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "CTAs");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "CTAs");
 			}
-			mixpanel.ValidateParameter(Token, "CTAs");
 		}
 	}
 
@@ -5379,13 +5408,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Element", "More Settings");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "CTAs");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "CTAs");
 		}
-		mixpanel.ValidateParameter(Token, "CTAs");
 	}
 
 	public void verifyRecommendedRailImpressionEventByScrollingPage(String tabname, String trayTitle) throws Exception {
@@ -5399,13 +5428,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", "home");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Recommended Rail Impression");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Recommended Rail Impression");
 		}
-		mixpanel.ValidateParameter(Token, "Recommended Rail Impression");
+		
 	}
 
 	public void verifyRecommendedRailImpressionEventInShowDetailPage(String keyword, String trayTitle)
@@ -5423,13 +5453,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Recommended Rail Impression");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Recommended Rail Impression");
 		}
-		mixpanel.ValidateParameter(Token, "Recommended Rail Impression");
 	}
 
 	public void verifyRecommendedRailImpressionEventInConsumptionScreen(String keyword1, String trayTitle)
@@ -5447,13 +5477,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Recommended Rail Impression");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Recommended Rail Impression");
 		}
-		mixpanel.ValidateParameter(Token, "Recommended Rail Impression");
 	}
 
 	/**
@@ -5490,13 +5520,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "parental_control");
 			mixpanel.FEProp.setProperty("Toast Message", "Changes Saved Successfully");
-			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Toast Message Impression");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Toast Message Impression");
 			}
-			mixpanel.ValidateParameter(Token, "Toast Message Impression");
+			
 		}
 	}
 
@@ -5512,11 +5543,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "device_authentication");
 			mixpanel.FEProp.setProperty("Toast Message", "Device code ABCDEF has expired");
-			String Token = null;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Toast Message Impression");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Toast Message Impression");
 			}
-			mixpanel.ValidateParameter(Token, "Toast Message Impression");
+			
 		}
 	}
 
@@ -5542,11 +5576,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "movie_landing");
 			mixpanel.FEProp.setProperty("Toast Message", "Added to Watchlist");
-			String Token = null;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Toast Message Impression");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Toast Message Impression");
 			}
-			mixpanel.ValidateParameter(Token, "Toast Message Impression");
+			
 		}
 
 	}
@@ -5577,11 +5614,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "movie_landing");
 			mixpanel.FEProp.setProperty("Toast Message", "Removed from Watchlist");
-			String Token = null;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Toast Message Impression");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Toast Message Impression");
 			}
-			mixpanel.ValidateParameter(Token, "Toast Message Impression");
+			
 		}
 	}
 
@@ -5597,13 +5637,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Toast Message", "Copied to Clipboard");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Toast Message Impression");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Toast Message Impression");
 		}
-		mixpanel.ValidateParameter(Token, "Toast Message Impression");
+		
 	}
 
 	public void verifyToastMessageImpressionEventAfterChangingPassword(String userType) throws Exception {
@@ -5635,13 +5676,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitTime(3000);
 			click(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted, "Update password button");
 			waitTime(2000);
-			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Toast Message Impression");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Toast Message Impression");
 			}
-			mixpanel.ValidateParameter(Token, "Toast Message Impression");
+			
 		}
 	}
 
@@ -5662,11 +5704,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "my_profile");
 			mixpanel.FEProp.setProperty("Toast Message", "Changes Saved Successfully");
-			String Token = null;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Toast Message Impression");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Toast Message Impression");
 			}
-			mixpanel.ValidateParameter(Token, "Toast Message Impression");
+			
 		}
 	}
 
@@ -5682,11 +5727,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "pack_selection");
 			mixpanel.FEProp.setProperty("Page Name", "home");
 			mixpanel.FEProp.setProperty("Toast Message", "You are already subscribed to ZEE5 Club Pack");
-			String Token = null;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Toast Message Impression");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Toast Message Impression");
 			}
-			mixpanel.ValidateParameter(Token, "Toast Message Impression");
+			
 		}
 	}
 
@@ -5770,13 +5818,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "payment_page");
 				mixpanel.FEProp.setProperty("Toast Message", "Could not find card. Please enter valid card number");
 			}
-			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Toast Message Impression");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Toast Message Impression");
 			}
-			mixpanel.ValidateParameter(Token, "Toast Message Impression");
+			
 		}
 	}
 
@@ -5792,13 +5841,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "register");
 			mixpanel.FEProp.setProperty("Page Name", "otp_page");
 			mixpanel.FEProp.setProperty("Toast Message", "OTP has been sent to your registered Mobile Number!");
-			String Token;
-			if (!userType.equals("Guest")) {
-				Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Toast Message Impression");
 			} else {
-				Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Toast Message Impression");
 			}
-			mixpanel.ValidateParameter(Token, "Toast Message Impression");
+			
 		}
 	}
 
@@ -5811,13 +5861,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "settings");
 		mixpanel.FEProp.setProperty("Toast Message", "Changes Saved Successfully");
-		String Token;
-		if (!userType.equals("Guest")) {
-			Token = js.executeScript("return window.localStorage.getItem('ID');").toString();
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Toast Message Impression");
 		} else {
-			Token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Toast Message Impression");
 		}
-		mixpanel.ValidateParameter(Token, "Toast Message Impression");
+		
 	}
 
 	public void verifyResumeEventForFreeContent(String userType, String keyword4) throws Exception {
@@ -6193,8 +6244,10 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 	public void verifyResumeEventForContentFromSharedLink(String freeContentURL) throws Exception {
 		extent.HeaderChildNode("Verify Resume Event For content played from Shared Link");
 		getDriver().get(freeContentURL);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
+		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(5000);
 		pausePlayer();
 		waitTime(2000);
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
@@ -6584,8 +6637,9 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Ad Initialized Event For content played from Shared Link");
 			getDriver().get(audioTrackURL);
 			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-
+			waitTime(5000);
+			waitForPlayerAdToComplete("Video Player");
+			waitTime(5000);
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
@@ -6959,7 +7013,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Ad View Event For content played from Shared Link");
 			getDriver().get(audioTrackURL);
 			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(5000);
+		
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
@@ -7333,6 +7388,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 
 		}
 	}
+	
 
 	public void verifyAdClickEventForContentFromSharedLink(String userType, String audioTrackURL) throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
@@ -9324,8 +9380,10 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 	public void verifyScrubSeekEventForContentFromSharedLink(String freeContentURL) throws Exception {
 		extent.HeaderChildNode("Verify Scrub/Seek Event For content played from Shared Link");
 		getDriver().get(freeContentURL);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
+		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(5000);
 
 		pausePlayer();
 		playerScrubTillLastWeb();
@@ -9696,9 +9754,10 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 	public void verifyQualityChangeEventForContentFromSharedLink(String freeContentURL) throws Exception {
 		extent.HeaderChildNode("Verify Quality Change Event For content played from Shared Link");
 		getDriver().get(freeContentURL);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
-
+		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(5000);
 		pausePlayer();
 		click(PWAPlayerPage.settingsBtn, "Setting icon");
 		click(PWAPlayerPage.qualityBtn, "Quality option");
@@ -9885,7 +9944,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 	public void verifyAudioLanguageChangeEventForCarouselContent() throws Exception {
 		extent.HeaderChildNode("Verify Audio Language Change Event For Carousel Content");
 		waitTime(5000);
-		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitForElementAndClick(PWAHomePage.objPlayBtn, 20, "Play icon");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		pausePlayer();
@@ -10168,8 +10227,10 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 	public void verifyAudioLanguageChangeEventForContentFromSharedLink(String audioTrackURL) throws Exception {
 		extent.HeaderChildNode("Verify Audio Language Change Event For content played from Shared Link");
 		getDriver().get(audioTrackURL);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
+		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(5000);
 
 		pausePlayer();
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
@@ -10318,7 +10379,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 	public void verifySubtitleLanguageChangeEventForCarouselContent() throws Exception {
 		extent.HeaderChildNode("Verify Subtitle Language Change Event For Carousel Content");
 		waitTime(5000);
-		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitForElementAndClick(PWAHomePage.objPlayBtn, 20, "Play icon");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		pausePlayer();
@@ -10735,7 +10796,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 	public void verifySkipIntroEventForCarouselContent() throws Exception {
 		extent.HeaderChildNode("Verify Skip Intro Event For Carousel Content");
 		waitTime(5000);
-		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitForElementAndClick(PWAHomePage.objPlayBtn, 20, "Play icon");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		pausePlayer();
@@ -10903,14 +10964,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 
-		click(PWAPremiumPage.objThumbnail, "Content card in Playlist");
+		click(PWAPremiumPage.objSimilarMovie, "Content card in Playlist");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
-		pausePlayer();
+	//	pausePlayer();
 		if (checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button") == true) {
 			click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
-			waitTime(5000);
+			waitTime(8000);
 			mixpanel.FEProp.setProperty("Source", "kids_movie_detail");
 			mixpanel.FEProp.setProperty("Element", "Skip Intro");
 			mixpanel.FEProp.setProperty("Page Name", "kids_movie_detail");
@@ -10992,12 +11053,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 	public void verifySkipIntroEventForContentFromSharedLink(String skipIntroURL) throws Exception {
 		extent.HeaderChildNode("Verify Skip Intro Event For content played from Shared Link");
 		getDriver().get(skipIntroURL);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitTime(6000);
-
-		pausePlayer();
-		click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+		mandatoryRegistrationPopUp(userType);
 		waitTime(5000);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(5000);
+
+		click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
+		waitTime(10000);
 
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Element", "Skip Intro");
@@ -11021,4 +11083,747 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 
 	}
+	
+	public void verifyAutoSeekForwardEventForFreeContent(String userType, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Forward Event For Free Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.forward10SecBtn, "Forward 10 sec button");
+		waitTime(5000);
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
+	public void verifyAutoSeekForwardEventForPremiumContent(String userType, String tab) throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Verify Auto Seek Forward Event For Premium Content");
+			navigateToAnyScreen(tab);
+			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			waitTime(6000);
+			pausePlayer();
+			click(PWAPlayerPage.forward10SecBtn, "Forward 10 sec button");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Direction", "forward");
+			mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Auto-seek");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Auto-seek");
+			}
+		}
+	}
+
+	public void verifyAutoSeekForwardEventForTrailer(String keyword1) throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Forward Event For Trailer Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.forward10SecBtn, "Forward 10 sec button");
+		waitTime(2000);
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitTime(10000);
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
+	public void verifyAutoSeekForwardEventForCarouselContent() throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Forward Event For Carousel Content");
+		waitTime(5000);
+		waitForElementAndClick(PWAHomePage.objPlayBtn, 20, "Play icon");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.forward10SecBtn, "Forward 10 sec button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
+	public void verifyAutoSeekForwardEventForContentInTray() throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Forward Event For Content played from Tray");
+		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.forward10SecBtn, "Forward 10 sec button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
+	public void verifyAutoSeekForwardEventForContentFromSearchPage(String keyword1) throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Forward For Content From Search Page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.forward10SecBtn, "Forward 10 sec button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
+	public void verifyAutoSeekForwardEventForContentFromMyWatchlistPage(String userType, String keyword)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Auto Seek Forward Event For Content From My Watchlist Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+
+			Actions actions = new Actions(getDriver());
+			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
+			actions.moveToElement(contentCard).build().perform();
+
+			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
+
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
+
+			click(PWALandingPages.objWebProfileIcon, "Profile icon");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+
+			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(6000);
+			pausePlayer();
+			click(PWAPlayerPage.forward10SecBtn, "Forward 10 sec button");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Direction", "forward");
+			mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Auto-seek");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Auto-seek");
+			}
+		}
+	}
+
+	
+	public void verifyAutoSeekForwardEventForContentInPlaylist(String userType, String subtitleTrackContent) throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Forward Event For Content played from Playlist");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		getDriver().getKeyboard().sendKeys(subtitleTrackContent);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(4000);
+		click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.forward10SecBtn, "Forward 10 sec button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
+	public void verifyAutoSeekForwardEventForContentFromUpnextRail(String userType, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Forward Event For Content played from Upnext rail");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForPlayerAdToComplete("Video Player");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(6000);
+		pausePlayer();
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitTime(6000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.forward10SecBtn, "Forward 10 sec button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
+	public void verifyAutoSeekForwardEventForContentFromSharedLink(String freeContentURL) throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Forward Event For content played from Shared Link");
+		getDriver().get(freeContentURL);
+		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(5000);
+
+		pausePlayer();
+		click(PWAPlayerPage.forward10SecBtn, "Forward 10 sec button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
+	public void verifyAutoSeekRewindEventForFreeContent(String userType, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Rewind Event For Free Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.rewind10SecBtn, "Rewind 10 sec button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Direction", "backward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
+	public void verifyAutoSeekRewindEventForPremiumContent(String userType, String tab) throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Verify Auto Seek Rewind Event For Premium Content");
+			navigateToAnyScreen(tab);
+			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			waitTime(6000);
+			pausePlayer();
+			click(PWAPlayerPage.rewind10SecBtn, "Rewind 10 sec button");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Direction", "backward");
+			mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Auto-seek");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Auto-seek");
+			}
+		}
+	}
+
+	public void verifyAutoSeekRewindEventForTrailer(String keyword1) throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Rewind Event For Trailer Content");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.rewind10SecBtn, "Rewind 10 sec button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Direction", "backward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
+	public void verifyAutoSeekRewindEventForCarouselContent() throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Rewind Event For Carousel Content");
+		waitTime(5000);
+		waitForElementAndClick(PWAHomePage.objPlayBtn, 20, "Play icon");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.rewind10SecBtn, "Rewind 10 sec button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Direction", "backward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
+	public void verifyAutoSeekRewindEventForContentInTray() throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Rewind Event For Content played from Tray");
+		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.rewind10SecBtn, "Rewind 10 sec button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Direction", "backward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
+	public void verifyAutoSeekRewindEventForContentFromSearchPage(String keyword1) throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Rewind For Content From Search Page");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.rewind10SecBtn, "Rewind 10 sec button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Direction", "backward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
+	public void verifyAutoSeekRewindEventForContentFromMyWatchlistPage(String userType, String keyword)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Auto Seek Rewind Event For Content From My Watchlist Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+
+			Actions actions = new Actions(getDriver());
+			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
+			actions.moveToElement(contentCard).build().perform();
+
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
+
+			click(PWALandingPages.objWebProfileIcon, "Profile icon");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+
+			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(6000);
+			pausePlayer();
+			click(PWAPlayerPage.rewind10SecBtn, "Rewind 10 sec button");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Direction", "backward");
+			mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			if (userType.equals("Guest")) {
+				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+				mixpanel.ValidateParameter(gToken, "Auto-seek");
+			} else {
+				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+				mixpanel.ValidateParameter(ID, "Auto-seek");
+			}
+		}
+	}
+
+
+	public void verifyAutoSeekRewindEventForContentInPlaylist(String userType, String subtitleTrackContent) throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Rewind Event For Content played from Playlist");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+	//	type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+		getDriver().getKeyboard().sendKeys(subtitleTrackContent);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(4000);
+		click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.rewind10SecBtn, "Rewind 10 sec button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Direction", "backward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
+	public void verifyAutoSeekRewindEventForContentFromUpnextRail(String userType, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Rewind Event For Content played from Upnext rail");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+		waitTime(4000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForPlayerAdToComplete("Video Player");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(6000);
+		pausePlayer();
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitTime(6000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		pausePlayer();
+		click(PWAPlayerPage.rewind10SecBtn, "Rewind 10 sec button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Direction", "backward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
+	public void verifyAutoSeekRewindEventForContentFromSharedLink(String freeContentURL) throws Exception {
+		extent.HeaderChildNode("Verify Auto Seek Rewind Event For content played from Shared Link");
+		getDriver().get(freeContentURL);
+		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(5000);
+		pausePlayer();
+		click(PWAPlayerPage.rewind10SecBtn, "Rewind 10 sec button");
+		waitTime(5000);
+
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Direction", "backward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		String id = getDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Auto-seek");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Auto-seek");
+		}
+	}
+
 }

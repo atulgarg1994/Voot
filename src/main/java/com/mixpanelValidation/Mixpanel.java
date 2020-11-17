@@ -163,7 +163,7 @@ public class Mixpanel extends ExtentReporter {
 	public static void fetchEvent(String distinct_id, String eventName)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
-			Thread.sleep(1800);
+			Thread.sleep(180000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -412,7 +412,7 @@ public class Mixpanel extends ExtentReporter {
 			FEProp.setProperty("Platform Name", platform);
 			FEProp.setProperty("os", System.getProperty("os.name").split(" ")[0]);
 		}
-		Mixpanel.FEProp.setProperty("region", ResponseInstance.getRegion());
+//		Mixpanel.FEProp.setProperty("region", ResponseInstance.getRegion());
 	}
 
 	@SuppressWarnings("static-access")
@@ -430,13 +430,13 @@ public class Mixpanel extends ExtentReporter {
 	public static void extentInfo() {
 		try {
 			if (propValue.equals("Empty")) {
-				extentReportInfo("Empty parameter", "Value mismatch :- <b>Key : " + key + " <br/> value : " + value);
+				extentReportInfo("Empty parameter", "Parameter :- <b>Key : " + key + " <br/> value : " + value);
 			} else {
-				extentReportInfo("Empty parameter", "Value mismatch :- <b>Key : " + key + " <br/> value : " + value
+				extentReportInfo("Empty parameter", "Parameter :- <b>Key : " + key + " <br/> value : " + value
 					+ "<br/> Expected value : " + propValue + "</b>");
 			}
 		}catch(Exception e) {
-			
+			extentReportInfo("Empty parameter", "Parameter :- <b>Key : " + key + " <br/> value : " + value);
 		}
 	}
 
