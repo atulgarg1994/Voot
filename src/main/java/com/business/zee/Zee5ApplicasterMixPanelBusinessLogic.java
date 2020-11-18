@@ -7348,7 +7348,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void AutoSeekRewindEventForPremiumContent(String usertype, String tabName) throws Exception {
+public void AutoSeekRewindEventForPremiumContent(String usertype, String tabName) throws Exception {
 		extent.HeaderChildNode("AutoSeek Rewind Event for premium content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
@@ -7385,7 +7385,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void AutoSeekForwardEventForTrailerContent(String usertype, String keyword3) throws Exception {
+public void AutoSeekForwardEventForTrailerContent(String usertype, String keyword3) throws Exception {
 		extent.HeaderChildNode("Verify AutoSeek Forward event for Trailer content");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -7408,7 +7408,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
-	public void AutoSeekRewindEventForTrailerContent(String usertype, String keyword3) throws Exception {
+public void AutoSeekRewindEventForTrailerContent(String usertype, String keyword3) throws Exception {
 		extent.HeaderChildNode("Verify AutoSeek Rewind event for Trailer content");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -7431,7 +7431,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
-	public void AutoSeekForwardEventForCarouselContent(String usertype, String tabName) throws Exception {
+public void AutoSeekForwardEventForCarouselContent(String usertype, String tabName) throws Exception {
 		extent.HeaderChildNode("AutoSeek Forward Event for carousel content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
@@ -7453,7 +7453,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void AutoSeekRewindEventForCarouselContent(String usertype, String tabName) throws Exception {
+public void AutoSeekRewindEventForCarouselContent(String usertype, String tabName) throws Exception {
 		extent.HeaderChildNode("AutoSeek Rewind Event for carousel content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
@@ -7475,7 +7475,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void AutoSeekForwardEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+public void AutoSeekForwardEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("AutoSeek Forward Event of content from search page");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -7499,7 +7499,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
-	public void AutoSeekRewindEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+public void AutoSeekRewindEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("AutoSeek Rewind Event of content from search page");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -7523,7 +7523,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
-	public void AutoSeekForwardEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+public void AutoSeekForwardEventOfContentFromMyWatchListPage(String usertype) throws Exception {
 		if (!(usertype.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("AutoSeek Forward Event of content from My WatchList page");
 			click(AMDHomePage.objMoreMenu, "More menu");
@@ -7537,6 +7537,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				getDriver()
 						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
 						.click();
+				if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+					waitForAdToFinishInAmd();
+				}
 				forwardAutoSeek(1);
 				waitTime(4000);
 				Back(1);
@@ -7555,7 +7558,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void AutoSeekRewindEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+public void AutoSeekRewindEventOfContentFromMyWatchListPage(String usertype) throws Exception {
 		if (!(usertype.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("AutoSeek Rewind Event of content from My WatchList page");
 			click(AMDHomePage.objMoreMenu, "More menu");
@@ -7570,8 +7573,12 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
 						.click();
 
+				if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+					waitForAdToFinishInAmd();
+				}
+				waitTime(5000);
 				rewindAutoSeek(1);
-				waitTime(3000);
+				waitTime(2000);
 
 				Back(1);
 				mixpanel.FEProp.setProperty("Source", "home");
@@ -7589,7 +7596,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void AutoSeekForwardEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+public void AutoSeekForwardEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("Verify AutoSeek Forward event of content from Upnext rail");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -7618,7 +7625,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
-	public void AutoSeekRewindEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+public void AutoSeekRewindEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("Verify AutoSeek Rewind event of content from Upnext rail");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");

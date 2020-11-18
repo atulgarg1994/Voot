@@ -8726,9 +8726,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			ResponseInstance.getContentDetails(value);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Result");
 			}
 		}
 	}
@@ -8763,9 +8763,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			ResponseInstance.getContentDetails(value);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Result");
 			}
 
 		}
@@ -8804,9 +8804,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			ResponseInstance.getContentDetails(value);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Result");
 			}
 
 		}
@@ -8842,9 +8842,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			ResponseInstance.getContentDetails(value);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Result");
 			}
 
 		}
@@ -8879,9 +8879,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			ResponseInstance.getContentDetails(value);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Result");
 			}
 
 		}
@@ -8921,9 +8921,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			ResponseInstance.getContentDetails(value);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Result");
 			}
 
 		}
@@ -8977,9 +8977,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			ResponseInstance.getContentDetails(value);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Result");
 			}
 
 		}
@@ -9019,9 +9019,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			ResponseInstance.getContentDetails(value);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Result");
 			}
 		}
 	}
@@ -9064,9 +9064,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			ResponseInstance.getContentDetails(value);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Result");
 			}
 		}
 	}
@@ -9113,9 +9113,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			ResponseInstance.getContentDetails(value);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Result");
 			}
 		}
 	}
@@ -9150,9 +9150,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			ResponseInstance.getContentDetails(value);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Impression");
+				mixpanel.ValidateParameter(local.getItem("ID"), "Parental Overlay Result");
 			}
 		}
 	}

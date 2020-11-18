@@ -99,6 +99,10 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("clubShow","Jamai 2.0");
 			params.put("ClubUserName", suite.getParameter("ClubUserName"));
 			params.put("ClubPassword", suite.getParameter("ClubPassword"));
+			params.put("SettingsNonsubscribedUserName", suite.getParameter("SettingsNonsubscribedUserName"));
+			params.put("SettingsNonsubscribedPassword", suite.getParameter("SettingsNonsubscribedPassword"));
+			params.put("SettingsSubscribedUserName", suite.getParameter("SettingsSubscribedUserName"));
+			params.put("SettingsSubscribedPassword", suite.getParameter("SettingsSubscribedPassword"));
 		}
 		if(region.equals("MH")) {
 			params.put("searchModuleSearchKey", "Kundali Bhagya");
@@ -158,6 +162,10 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("clubShow","Jamai 2.0");
 			params.put("ClubUserName", suite.getParameter("ClubUserName"));
 			params.put("ClubPassword", suite.getParameter("ClubPassword"));
+			params.put("SettingsNonsubscribedUserName", suite.getParameter("SettingsNonsubscribedUserName"));
+			params.put("SettingsNonsubscribedPassword", suite.getParameter("SettingsNonsubscribedPassword"));
+			params.put("SettingsSubscribedUserName", suite.getParameter("SettingsSubscribedUserName"));
+			params.put("SettingsSubscribedPassword", suite.getParameter("SettingsSubscribedPassword"));
 		}
         suite.setParameters(params);	
 	}

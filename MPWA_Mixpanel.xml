@@ -5,7 +5,7 @@
 
 	<!-- name="Android" name="Web" name="MPWA" --> 
 	
-	<!-- <parameter name="userType" value="${UserType}"/>  Guest/NonSubscribedUser/SubscribedUser/SubscribedUserWith15daysExpiry
+	<!-- <parameter name="userType" value="${UserType}"/>  Guest/NonSubscribedUser/SubscribedUser/ClubUser
 	<parameter name="runMode" value="${runMode}"/>	
 	<parameter name="runModule" value="${runModule}"/>
 	<parameter name="browserType" value="${browserType}"/>

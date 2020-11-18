@@ -32,6 +32,12 @@
 	<parameter name="keyword7" value="Trailer - No Entry" />
 	<parameter name="keyword7" value="Trailer - No Entry"/>
 	<parameter name="keyword8" value="Bublu Dablu - Robo Rumble"/>
+	<parameter name="NonsubscribedUserName" value="amdnonmixpanel@yopmail.com" />
+	<parameter name="NonsubscribedPassword" value="123456" />
+
+	<parameter name="SubscribedUserName"
+		value="zeetestigs923@gmail.com" />
+	<parameter name="SubscribedPassword" value="123456" />
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

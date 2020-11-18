@@ -127,7 +127,6 @@ public class ZNAMixpanel_AutoSeek {
 		System.out.println("\nAutoSeek Rewind event of Content from Upnext Rail");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.AutoSeekRewindEventOfContentFromUpNextRail(userType, keyword4);
-		
 	}
 	
 	@AfterTest

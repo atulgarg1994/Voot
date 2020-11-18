@@ -8,6 +8,8 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.html5.LocalStorage;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -1464,48 +1466,82 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		
 	}
 
-	public void ZeeWEBPWAMixPanelLoginForParentalControl(String LoginMethod) throws Exception {
-		String userType = getParameterFromXML("userType");
+	public void ZeeWEBPWAMixPanelLoginForParentalControl(String userType) throws Exception {
+		String url = getParameterFromXML("url");
+		System.out.println(userType);
+		extent.HeaderChildNode("User-Type : " + userType + ", Environment: " + url);
+		dismissAllPopUps();
+		
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.extentLogger("Guest", "Accessing the application as Guest user");
+		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.extentLogger("Subscribed", "Accessing the application as Subscribed user");
+			Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SettingsSubscribedUserName");
+			Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SettingsSubscribedPassword");
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			extent.extentLogger("Non-Subscribed", "Accessing the application as Non-Subscribed user");
+			System.out.println("Accessing the application as Non-Subscribed user");
+			
+			Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SettingsNonsubscribedUserName");
+			System.out.println("U : "+Username);
+			Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SettingsNonsubscribedPassword");
+			System.out.println("P : "+Password);
+		}
+		
+
+		if (userType.equalsIgnoreCase("SubscribedUser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+			click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+			waitTime(3000);
+			click(PWALoginPage.objLoginBtn, "Login button");
+			waitTime(3000);
+		}
+		
+		
 		switch (userType) {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			dismissAllPopUps();
+			
 			waitTime(3000);
 			break;
 
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
-			String SUsername = getParameterFromXML("SettingsNonsubscribedUserName");
-			String SPassword = getParameterFromXML("SettingsNonsubscribedPassword");
-			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
-			waitTime(3000);
-			verifyElementPresent(PWALoginPage.objWebLoginPageText, "Login page");
+			
+			dismissAppInstallPopUp();
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-			type(PWALoginPage.objEmailField, SUsername, "Email Field");
+			waitTime(10000);
+			type(PWALoginPage.objEmailField, Username, "Email Field");
+			hideKeyboard();
 			waitTime(3000);
+			dismissSystemPopUp();
 			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-			type(PWALoginPage.objPasswordField, SPassword, "Password field");
+		    type(PWALoginPage.objPasswordField, Password + "\n", "Password field");
+			hideKeyboard();
 			waitTime(5000);
-			click(PWALoginPage.objWebLoginButton, "Login Button");
-			waitTime(3000);
+			directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
+			waitTime(10000);
 			break;
 
 		case "SubscribedUser":
 			extent.HeaderChildNode("Login as Subscribed User");
-			String SettingsSubscribedUsername = getParameterFromXML("SettingsSubscribedUserName");
-			String SettingsSubscribedPassword = getParameterFromXML("SettingsSubscribedPassword");
-			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
-			waitTime(3000);
-			verifyElementPresent(PWALoginPage.objWebLoginPageText, "Login page");
+			dismissAppInstallPopUp();
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-			type(PWALoginPage.objEmailField, SettingsSubscribedUsername, "Email Field");
+			waitTime(10000);
+			type(PWALoginPage.objEmailField, Username, "Email Field");
+			hideKeyboard();
 			waitTime(3000);
+			dismissSystemPopUp();
 			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-			type(PWALoginPage.objPasswordField, SettingsSubscribedPassword, "Password field");
+		    type(PWALoginPage.objPasswordField, Password + "\n", "Password field");
+			hideKeyboard();
 			waitTime(5000);
-			click(PWALoginPage.objWebLoginButton, "Login Button");
-			waitTime(3000);
+			directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
+			waitTime(10000);
 			break;
 		}
 	}
@@ -2517,7 +2553,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			navigateToAnyScreen(tab);
 			waitTime(8000);
 
-			click(PWAPremiumPage.obj1stContentInViewAllPage, "Premium Content");
+			click(PWAPremiumPage.objPremiumTagMobile, "Premium Content");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
@@ -2987,7 +3023,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Video Exit Event For Premium Content");
 			navigateToAnyScreen(tab);
-			click(PWAPremiumPage.obj1stContentInViewAllPage, "Premium Content");
+			click(PWAPremiumPage.objPremiumTagMobile, "Premium Content");
 			waitTime(6000);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			mixpanel.FEProp.setProperty("Source", "home");
@@ -3442,7 +3478,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Pause Event For Premium Content");
 			navigateToAnyScreen(tab);
-			click(PWAPremiumPage.obj1stContentInViewAllPage, "Premium Content");
+			click(PWAPremiumPage.objPremiumTagMobile, "Premium Content");
 			waitTime(6000);
 			pausePlayer();
 
@@ -3882,7 +3918,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode(
 					"Verify Video Watch Duration Event when video is closed abruptly For Premium Content");
 			navigateToAnyScreen(tab);
-			click(PWAPremiumPage.obj1stContentInViewAllPage, "Premium Content");
+			click(PWAPremiumPage.objPremiumTagMobile, "Premium Content");
 			waitTime(6000);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
@@ -4212,7 +4248,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Video Watch Duration Event when user completely watches Premium Content");
 			navigateToAnyScreen(tab);
-			click(PWAPremiumPage.obj1stContentInViewAllPage, "Premium Content");
+			click(PWAPremiumPage.objPremiumTagMobile, "Premium Content");
 			waitTime(6000);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
@@ -5912,7 +5948,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Resume Event For Premium Content");
 			navigateToAnyScreen(tab);
-			click(PWAPremiumPage.obj1stContentInViewAllPage, "Premium Content");
+			click(PWAPremiumPage.objPremiumTagMobile, "Premium Content");
 			waitTime(6000);
 			pausePlayer();
 			waitTime(2000);
@@ -9101,7 +9137,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Scrub/Seek Event For Premium Content");
 			navigateToAnyScreen(tab);
-			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			click(PWAPremiumPage.objPremiumTagMobile, "Premium Content");
 			waitTime(6000);
 			pausePlayer();
 			playerScrubTillLastWeb();
@@ -9450,7 +9486,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Quality Change Event For Premium Content");
 			navigateToAnyScreen(tab);
-			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			click(PWAPremiumPage.objPremiumTagMobile, "Premium Content");
 			waitTime(6000);
 			pausePlayer();
 			click(PWAPlayerPage.settingsBtn, "Setting icon");
@@ -9865,7 +9901,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Audio Language Change Event For Premium Content");
 			navigateToAnyScreen(tab);
-			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			click(PWAPremiumPage.objPremiumTagMobile, "Premium Content");
 			waitTime(6000);
 			pausePlayer();
 			click(PWAPlayerPage.objPlayerSettings, "Settings icon");
@@ -10301,7 +10337,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Subtitle Language Change Event For Premium Content");
 			navigateToAnyScreen(tab);
-			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			click(PWAPremiumPage.objPremiumTagMobile, "Premium Content");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(6000);
 
@@ -10714,7 +10750,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Skip Intro Event For Premium Content");
 			navigateToAnyScreen(tab);
-			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			click(PWAPremiumPage.objPremiumTagMobile, "Premium Content");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(6000);
 
@@ -11123,7 +11159,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Auto Seek Forward Event For Premium Content");
 			navigateToAnyScreen(tab);
-			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			click(PWAPremiumPage.objPremiumTagMobile, "Premium Content");
 			waitTime(6000);
 			pausePlayer();
 			click(PWAPlayerPage.forward10SecBtn, "Forward 10 sec button");
@@ -11496,7 +11532,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Auto Seek Rewind Event For Premium Content");
 			navigateToAnyScreen(tab);
-			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			click(PWAPremiumPage.objPremiumTagMobile, "Premium Content");
 			waitTime(6000);
 			pausePlayer();
 			click(PWAPlayerPage.rewind10SecBtn, "Rewind 10 sec button");
@@ -11826,4 +11862,786 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
+	
+	public void verifyParentalOverlayImpressionEventForFreeContent(String userType, String keyword4) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Free Content");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			String password = "";
+			if (userType.equals("NonSubscribedUser")) {
+				password = getParameterFromXML("SettingsNonsubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = getParameterFromXML("SettingsSubscribedPassword");
+			}
+			type(PWALoginPage.objPasswordField, password, "Password field");
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+
+			click(PWAHamburgerMenuPage.objRestrictAll, "Restrict All");
+			click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
+			waitTime(4000);
+			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+			waitTime(3000);
+
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+			waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "search");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForPremiumContent(String userType, String tab) throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Premium Content");
+			navigateToAnyScreen(tab);
+			click(PWAPremiumPage.objPremiumTagMobile, "Premium Content");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForTrailer(String keyword1, String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Trailer Content");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "search");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForCarouselContent(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Carousel Content");
+			waitTime(5000);
+			click(PWAHomePage.objPlayBtn, "Carousel Content");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentInTray(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content played from Tray");
+			click(PWAPremiumPage.objThumbnail, "Content From a tray");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentFromSearchPage(String keyword1, String userType)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression For Content From Search Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "search");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentFromMyWatchlistPage(String userType, String keyword)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content From My Watchlist Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+
+			Actions actions = new Actions(getDriver());
+			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
+			actions.moveToElement(contentCard).build().perform();
+
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
+
+			click(PWALandingPages.objWebProfileIcon, "Profile icon");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+
+			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentInPlaylist(String userType, String keyword)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content played from Playlist");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword), "Search Result");
+			mandatoryRegistrationPopUp(userType);
+			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
+			mandatoryRegistrationPopUp(userType);
+			waitTime(2000);
+			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "episode_detail");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentFromUpnextRail(String userType, String keyword4)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Content played from Upnext rail");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+			waitTime(4000);
+			verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+			waitForPlayerAdToComplete("Video Player");
+			mandatoryRegistrationPopUp(userType);
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			playerScrubTillLastWeb();
+			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+			waitTime(6000);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "episode_detail");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventForContentFromSharedLink(String freeContentURL, String userType)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event For content played from Shared Link");
+			getDriver().get(freeContentURL);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
+		}
+	}
+
+	public void verifyParentalOverlayImpressionEventAfterPageRefresh(String keyword1, String userType)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Impression Event after refreshing the page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(5000);
+			getDriver().navigate().refresh();
+
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+
+			mixpanel.FEProp.setProperty("Source", "search");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForFreeContent(String userType, String keyword4) throws Exception {
+
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Free Content");
+
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			String password = "";
+			if (userType.equals("NonSubscribedUser")) {
+				password = getParameterFromXML("SettingsNonsubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = getParameterFromXML("SettingsSubscribedPassword");
+			}
+			type(PWALoginPage.objPasswordField, password, "Password field");
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+
+			click(PWAHamburgerMenuPage.objRestrictAll, "Restrict All");
+			click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
+			waitTime(4000);
+			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+			waitTime(3000);
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+			waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "search");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForPremiumContent(String userType, String tab) throws Exception {
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Premium Content");
+			navigateToAnyScreen(tab);
+			click(PWAPremiumPage.objPremiumTagMobile, "Premium Content");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
+
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForTrailer(String keyword1, String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Trailer Content");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "search");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForCarouselContent(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Carousel Content");
+			waitTime(5000);
+			click(PWAHomePage.objPlayBtn, "Carousel Content");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForContentInTray(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Content played from Tray");
+			click(PWAPremiumPage.objThumbnail, "Content From a tray");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForContentFromSearchPage(String keyword1, String userType)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result For Content From Search Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "search");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForContentFromMyWatchlistPage(String userType, String keyword)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Content From My Watchlist Page");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+
+			Actions actions = new Actions(getDriver());
+			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
+			actions.moveToElement(contentCard).build().perform();
+
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}
+
+			click(PWALandingPages.objWebProfileIcon, "Profile icon");
+			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+
+			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
+
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForContentInPlaylist(String userType, String keyword) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Content played from Playlist");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+			waitTime(4000);
+			verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword), "Search Result");
+			mandatoryRegistrationPopUp(userType);
+			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
+			mandatoryRegistrationPopUp(userType);
+			waitTime(2000);
+			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "episode_detail");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForContentFromUpnextRail(String userType, String keyword4)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For Content played from Upnext rail");
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
+			waitTime(4000);
+			verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+			waitForPlayerAdToComplete("Video Player");
+			mandatoryRegistrationPopUp(userType);
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			playerScrubTillLastWeb();
+			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+			waitTime(6000);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			mandatoryRegistrationPopUp(userType);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "episode_detail");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
+		}
+	}
+
+	public void verifyParentalOverlayResultEventForContentFromSharedLink(String freeContentURL, String userType)
+			throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Parental Overlay Result Event For content played from Shared Link");
+			getDriver().get(freeContentURL);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
+			waitTime(5000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
+
+			String id = getDriver().getCurrentUrl();
+			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+			Matcher m = p.matcher(id);
+			String value = null;
+			while (m.find()) {
+				value = m.group(0);
+			}
+			ResponseInstance.getContentDetails(value);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
+		}
+	}
 }
