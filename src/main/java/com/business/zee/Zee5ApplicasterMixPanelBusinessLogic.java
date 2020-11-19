@@ -1009,17 +1009,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void completeProfilePopUpClose(String userType) throws Exception {
-		waitTime(5000);
-		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-			if (verifyIsElementDisplayed(AMDPlayerScreen.objCompleteProfilePopUp)) {
-				logger.info("Complete Profile Pop Up is displayed");
-				extent.extentLogger("Complete Profile Pop Up", "Complete Profile Pop Up is displayed");
-				Back(1);
-			}
-		}
-	}
-
 	public void verifyPopUpLaunchEventForRegisterPopUp(String userType, String keyword) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Pop Up Launch Event when Native popup is displayed");
@@ -3848,424 +3837,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
 			mixpanel.ValidateParameter("", "Pause");
 		}
-	}
-
-	public void ResumeEventForPremiumContent(String usertype, String tabName) throws Exception {
-		extent.HeaderChildNode("Resume Event for premium content");
-		waitTime(10000);
-		SelectTopNavigationTab(tabName);
-		Swipe("UP", 1);
-		boolean var = false;
-		for (int i = 0; i < 3; i++) {
-			var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
-			if (var == true) {
-				verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
-				waitTime(3000);
-				boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
-				if (inlineLink == true) {
-					logger.info("Player inline subscription link is displayed");
-					extentLogger("Player screen", "Player inline subscription link is displayed");
-				} else {
-					waitTime(6000);
-					verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-					verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-					waitTime(3000);
-					verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-					waitTime(2000);
-					Back(1);
-
-					mixpanel.FEProp.setProperty("Source", "home");
-					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-
-					mixpanel.ValidateParameter("", "Resume");
-				}
-
-				waitTime(3000);
-				break;
-			} else {
-				Swipe("UP", 1);
-			}
-		}
-		if (var == false) {
-			logger.info("Premium content is not displayed in the screen");
-			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
-		}
-	}
-
-	public void ResumeEventForTrailerContent(String usertype, String keyword3) throws Exception {
-		extent.HeaderChildNode("Verify Resume event for Trailer content");
-		click(AMDSearchScreen.objSearchIcon, "Search icon");
-		click(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
-		hideKeyboard();
-		waitTime(4000);
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 30);
-		if (usertype.equalsIgnoreCase("SubscribedUser")) {
-			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
-		}
-		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		waitTime(3000);
-		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-		waitTime(2000);
-		Back(1);
-
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-
-		mixpanel.ValidateParameter("", "Resume");
-	}
-
-	public void ResumeEventForCarouselContent(String usertype, String tabName) throws Exception {
-		extent.HeaderChildNode("Resume Event for carousel content");
-		waitTime(10000);
-		SelectTopNavigationTab(tabName);
-		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
-		waitTime(3000);
-		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
-		if (inlineLink == true) {
-			logger.info("Player inline subscription link is displayed");
-			extentLogger("Player screen", "Player inline subscription link is displayed");
-		} else {
-			waitTime(6000);
-			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-			waitTime(3000);
-			verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-			waitTime(2000);
-			Back(1);
-			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-
-			mixpanel.ValidateParameter("", "Resume");
-		}
-	}
-
-	public void ResumeEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
-		extent.HeaderChildNode("Resume Event of content from search page");
-		click(AMDSearchScreen.objSearchIcon, "Search icon");
-		click(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
-		hideKeyboard();
-		waitTime(4000);
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-			waitForAdToFinishInAmd();
-		}
-		registerPopUpClose();
-		completeProfilePopUpClose(usertype);
-		waitTime(6000);
-		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		waitTime(3000);
-		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-		waitTime(6000);
-
-		// Resume event on Full Screen mode
-		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
-		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-		waitTime(2000);
-		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		waitTime(3000);
-		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-		waitTime(2000);
-		Back(2);
-
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-
-		mixpanel.ValidateParameter("", "Resume");
-	}
-
-	public void ResumeEventOfContentFromMyWatchListPage(String usertype) throws Exception {
-		if (!(usertype.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Resume Event of content from My WatchList page");
-			click(AMDHomePage.objMoreMenu, "More menu");
-			click(AMDMoreMenu.objWatchlist, "Watchlist option");
-			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
-			waitTime(5000);
-			boolean flag = false;
-			boolean contentsInMoviesTab = verifyIsElementDisplayed(
-					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
-			if (contentsInMoviesTab == true) {
-				getDriver()
-						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
-						.click();
-				verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-				waitTime(3000);
-				verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-				waitTime(2000);
-				Back(1);
-
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-
-				mixpanel.ValidateParameter("", "Resume");
-			} else {
-				logger.info("No contents in Watchlist");
-				extentLoggerWarning("Watchlist", "No contents in Watchlist");
-			}
-		} else {
-			logger.info("Watchlist is not applicable for " + usertype);
-			extentLogger("Guest User", "Watchlist is not applicable for " + usertype);
-		}
-	}
-
-	public void ResumeEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
-		extent.HeaderChildNode("Verify Resume event of content from Upnext rail");
-		click(AMDSearchScreen.objSearchIcon, "Search icon");
-		click(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
-		hideKeyboard();
-		waitTime(4000);
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-		waitTime(8000);
-		Swipe("UP", 1);
-		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
-			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
-		}
-		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-			waitForAdToFinishInAmd();
-		}
-		registerPopUpClose();
-		completeProfilePopUpClose(usertype);
-		waitTime(6000);
-		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		waitTime(3000);
-		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-		waitTime(2000);
-		Back(1);
-
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-
-		mixpanel.ValidateParameter("", "Resume");
-	}
-
-	public void ResumeEventForLinearContent(String usertype, String tabName) throws Exception {
-		extent.HeaderChildNode("Resume Event for Linear content");
-		waitTime(10000);
-		SelectTopNavigationTab(tabName);
-		waitTime(3000);
-		verifyElementPresentAndClick(AMDLiveTVScreen.objFirstContentCardOfFreeChannelsTray, "linear content");
-		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-			waitForAdToFinishInAmd();
-		}
-		registerPopUpClose();
-		completeProfilePopUpClose(usertype);
-		waitTime(6000);
-		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		waitTime(3000);
-		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-		waitTime(2000);
-		Back(1);
-
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-		mixpanel.ValidateParameter("", "Resume");
-	}
-
-	public void ScrubSeekEventForPremiumContent(String usertype, String tabName) throws Exception {
-		extent.HeaderChildNode("Scrub/Seek Event for premium content");
-		waitTime(10000);
-		SelectTopNavigationTab(tabName);
-		Swipe("UP", 1);
-		boolean var = false;
-		for (int i = 0; i < 3; i++) {
-			var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
-			if (var == true) {
-				verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
-				waitTime(3000);
-				boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
-				if (inlineLink == true) {
-					logger.info("Player inline subscription link is displayed");
-					extentLogger("Player screen", "Player inline subscription link is displayed");
-				} else {
-					waitTime(6000);
-					verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-					verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-					seekVideo(AMDPlayerScreen.objProgressBar, usertype);
-					waitTime(3000);
-					Back(1);
-					mixpanel.FEProp.setProperty("Source", "home");
-					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-
-					mixpanel.ValidateParameter("", "Scrub/Seek");
-				}
-				break;
-			} else {
-				Swipe("UP", 1);
-			}
-		}
-		if (var == false) {
-			logger.info("Premium content is not displayed in the screen");
-			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
-		}
-	}
-
-	public void ScrubSeekEventForTrailerContent(String usertype, String keyword3) throws Exception {
-		extent.HeaderChildNode("Verify Scrub/Seek event for Trailer content");
-		click(AMDSearchScreen.objSearchIcon, "Search icon");
-		click(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
-		hideKeyboard();
-		waitTime(4000);
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 30);
-		if (usertype.equalsIgnoreCase("SubscribedUser")) {
-			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
-		}
-		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		seekVideo(AMDPlayerScreen.objProgressBar, usertype);
-		waitTime(5000);
-
-		Back(1);
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-		mixpanel.ValidateParameter("", "Scrub/Seek");
-	}
-
-	public void ScrubSeekEventForCarouselContent(String usertype, String tabName) throws Exception {
-		extent.HeaderChildNode("Scrub/Seek Event for carousel content");
-		waitTime(10000);
-		SelectTopNavigationTab(tabName);
-		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
-		waitTime(3000);
-		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
-		if (inlineLink == true) {
-			logger.info("Player inline subscription link is displayed");
-			extentLogger("Player screen", "Player inline subscription link is displayed");
-		} else {
-			waitTime(6000);
-			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-			seekVideo(AMDPlayerScreen.objProgressBar, usertype);
-			waitTime(3000);
-			Back(1);
-			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-			mixpanel.ValidateParameter("", "Scrub/Seek");
-		}
-	}
-
-	public void ScrubSeekEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
-		extent.HeaderChildNode("Scrub/Seek Event of content from search page");
-		click(AMDSearchScreen.objSearchIcon, "Search icon");
-		click(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
-		hideKeyboard();
-		waitTime(4000);
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-			waitForAdToFinishInAmd();
-		}
-		registerPopUpClose();
-		completeProfilePopUpClose(usertype);
-		waitTime(6000);
-		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		seekVideo(AMDPlayerScreen.objProgressBar, usertype);
-		waitTime(4000);
-		Back(1);
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-		mixpanel.ValidateParameter("", "Scrub/Seek");
-	}
-
-	public void ScrubSeekEventOfContentFromMyWatchListPage(String usertype) throws Exception {
-		if (!(usertype.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Scrub/Seek Event of content from My WatchList page");
-			click(AMDHomePage.objMoreMenu, "More menu");
-			click(AMDMoreMenu.objWatchlist, "Watchlist option");
-			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
-			waitTime(5000);
-			boolean flag = false;
-			boolean contentsInMoviesTab = verifyIsElementDisplayed(
-					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
-			if (contentsInMoviesTab == true) {
-				getDriver()
-						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
-						.click();
-				verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-				seekVideo(AMDPlayerScreen.objProgressBar, usertype);
-				waitTime(4000);
-				Back(1);
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-				mixpanel.ValidateParameter("", "Scrub/Seek");
-			} else {
-				logger.info("No contents in Watchlist");
-				extentLoggerWarning("Watchlist", "No contents in Watchlist");
-			}
-		} else {
-			logger.info("Watchlist is not applicable for " + usertype);
-			extentLogger("Guest User", "Watchlist is not applicable for " + usertype);
-		}
-	}
-
-	public void ScrubSeekEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
-		extent.HeaderChildNode("Verify Scrub/Seek event of content from Upnext rail");
-		click(AMDSearchScreen.objSearchIcon, "Search icon");
-		click(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
-		hideKeyboard();
-		waitTime(4000);
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-		waitTime(8000);
-		Swipe("UP", 1);
-		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
-			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
-		}
-		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-			waitForAdToFinishInAmd();
-		}
-		registerPopUpClose();
-		completeProfilePopUpClose(usertype);
-		waitTime(6000);
-		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		seekVideo(AMDPlayerScreen.objProgressBar, usertype);
-		waitTime(5000);
-		Back(1);
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-		mixpanel.ValidateParameter("", "Scrub/Seek");
 	}
 
 	public void seekVideo(By byLocator, String usertype) throws Exception {
@@ -7348,7 +6919,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-public void AutoSeekRewindEventForPremiumContent(String usertype, String tabName) throws Exception {
+	public void AutoSeekRewindEventForPremiumContent(String usertype, String tabName) throws Exception {
 		extent.HeaderChildNode("AutoSeek Rewind Event for premium content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
@@ -7385,7 +6956,7 @@ public void AutoSeekRewindEventForPremiumContent(String usertype, String tabName
 		}
 	}
 
-public void AutoSeekForwardEventForTrailerContent(String usertype, String keyword3) throws Exception {
+	public void AutoSeekForwardEventForTrailerContent(String usertype, String keyword3) throws Exception {
 		extent.HeaderChildNode("Verify AutoSeek Forward event for Trailer content");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -7408,7 +6979,7 @@ public void AutoSeekForwardEventForTrailerContent(String usertype, String keywor
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
-public void AutoSeekRewindEventForTrailerContent(String usertype, String keyword3) throws Exception {
+	public void AutoSeekRewindEventForTrailerContent(String usertype, String keyword3) throws Exception {
 		extent.HeaderChildNode("Verify AutoSeek Rewind event for Trailer content");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -7431,7 +7002,7 @@ public void AutoSeekRewindEventForTrailerContent(String usertype, String keyword
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
-public void AutoSeekForwardEventForCarouselContent(String usertype, String tabName) throws Exception {
+	public void AutoSeekForwardEventForCarouselContent(String usertype, String tabName) throws Exception {
 		extent.HeaderChildNode("AutoSeek Forward Event for carousel content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
@@ -7453,7 +7024,7 @@ public void AutoSeekForwardEventForCarouselContent(String usertype, String tabNa
 		}
 	}
 
-public void AutoSeekRewindEventForCarouselContent(String usertype, String tabName) throws Exception {
+	public void AutoSeekRewindEventForCarouselContent(String usertype, String tabName) throws Exception {
 		extent.HeaderChildNode("AutoSeek Rewind Event for carousel content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
@@ -7475,7 +7046,7 @@ public void AutoSeekRewindEventForCarouselContent(String usertype, String tabNam
 		}
 	}
 
-public void AutoSeekForwardEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+	public void AutoSeekForwardEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("AutoSeek Forward Event of content from search page");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -7499,7 +7070,7 @@ public void AutoSeekForwardEventOfcontentFromSearchPage(String usertype, String 
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
-public void AutoSeekRewindEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+	public void AutoSeekRewindEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("AutoSeek Rewind Event of content from search page");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -7523,7 +7094,7 @@ public void AutoSeekRewindEventOfcontentFromSearchPage(String usertype, String k
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
-public void AutoSeekForwardEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+	public void AutoSeekForwardEventOfContentFromMyWatchListPage(String usertype) throws Exception {
 		if (!(usertype.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("AutoSeek Forward Event of content from My WatchList page");
 			click(AMDHomePage.objMoreMenu, "More menu");
@@ -7558,7 +7129,7 @@ public void AutoSeekForwardEventOfContentFromMyWatchListPage(String usertype) th
 		}
 	}
 
-public void AutoSeekRewindEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+	public void AutoSeekRewindEventOfContentFromMyWatchListPage(String usertype) throws Exception {
 		if (!(usertype.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("AutoSeek Rewind Event of content from My WatchList page");
 			click(AMDHomePage.objMoreMenu, "More menu");
@@ -7596,7 +7167,7 @@ public void AutoSeekRewindEventOfContentFromMyWatchListPage(String usertype) thr
 		}
 	}
 
-public void AutoSeekForwardEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+	public void AutoSeekForwardEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("Verify AutoSeek Forward event of content from Upnext rail");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -7625,7 +7196,7 @@ public void AutoSeekForwardEventOfContentFromUpNextRail(String usertype, String 
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
-public void AutoSeekRewindEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+	public void AutoSeekRewindEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("Verify AutoSeek Rewind event of content from Upnext rail");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -7992,4 +7563,570 @@ public void AutoSeekRewindEventOfContentFromUpNextRail(String usertype, String k
 			extentLogger("Guest User", "This is not applicable for " + usertype);
 		}
 	}
+
+	public void completeProfilePopUpClose(String userType) throws Exception {
+		waitTime(5000);
+		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			if (verifyIsElementDisplayed(AMDPlayerScreen.objCompleteProfilePopUp)) {
+				logger.info("Complete Profile Pop Up is displayed");
+				extent.extentLogger("Complete Profile Pop Up", "Complete Profile Pop Up is displayed");
+				click(AMDGenericObjects.objPopUpDivider, "Click PopUp Divider");
+			}
+		}
+	}
+
+	public void ResumeEventForPremiumContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Resume Event for premium content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		Swipe("UP", 1);
+		boolean var = false;
+		for (int i = 0; i < 3; i++) {
+			var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
+			if (var == true) {
+				verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
+				waitTime(3000);
+				boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+				if (inlineLink == true) {
+					logger.info("Player inline subscription link is displayed");
+					extentLogger("Player screen", "Player inline subscription link is displayed");
+				} else {
+					waitTime(6000);
+					verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+					verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+					waitTime(3000);
+					boolean eventFlag = false;
+					eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+					waitTime(2000);
+					Back(1);
+
+					if (eventFlag) {
+						if (usertype.equalsIgnoreCase("guest")) {
+							mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+							mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+							mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+							mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+							mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+						}
+
+						mixpanel.FEProp.setProperty("Source", "home");
+						mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+						mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+						mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+						mixpanel.ValidateParameter("", "Resume");
+					} else {
+						logger.info("Failed to perform Event Action");
+						extentLoggerWarning("Event Action", "Failed to perform Event Action");
+					}
+
+				}
+
+				waitTime(3000);
+				break;
+			} else {
+				Swipe("UP", 1);
+			}
+		}
+		if (var == false) {
+			logger.info("Premium content is not displayed in the screen");
+			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
+		}
+	}
+
+	public void ResumeEventForTrailerContent(String usertype, String keyword3) throws Exception {
+		extent.HeaderChildNode("Verify Resume event for Trailer content");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 30);
+		if (usertype.equalsIgnoreCase("SubscribedUser")) {
+			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
+		}
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(3000);
+
+		boolean eventFlag = false;
+		eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		waitTime(2000);
+		Back(1);
+
+		if (eventFlag) {
+			if (usertype.equalsIgnoreCase("guest")) {
+				mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+				mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+				mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+				mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+			}
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+			mixpanel.ValidateParameter("", "Resume");
+		} else {
+			logger.info("Failed to perform Event Action");
+			extentLoggerWarning("Event Action", "Failed to perform Event Action");
+		}
+
+	}
+
+	public void ResumeEventForCarouselContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Resume Event for carousel content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
+		waitTime(3000);
+		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+		if (inlineLink == true) {
+			logger.info("Player inline subscription link is displayed");
+			extentLogger("Player screen", "Player inline subscription link is displayed");
+		} else {
+			waitTime(6000);
+			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			waitTime(3000);
+			boolean eventFlag = false;
+			eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+			waitTime(2000);
+			Back(1);
+			if (eventFlag) {
+				if (usertype.equalsIgnoreCase("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+				mixpanel.ValidateParameter("", "Resume");
+			} else {
+				logger.info("Failed to perform Event Action");
+				extentLoggerWarning("Event Action", "Failed to perform Event Action");
+			}
+
+		}
+	}
+
+	public void ResumeEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Resume Event of content from search page");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		waitTime(6000);
+
+		// Resume event on Full Screen mode
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(3000);
+		boolean eventFlag = false;
+		eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		waitTime(2000);
+		Back(2);
+
+		if (eventFlag) {
+			if (usertype.equalsIgnoreCase("guest")) {
+				mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+				mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+				mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+				mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+			}
+			mixpanel.FEProp.setProperty("Source", "Search_Tab");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+			mixpanel.ValidateParameter("", "Resume");
+		} else {
+			logger.info("Failed to perform Event Action");
+			extentLoggerWarning("Event Action", "Failed to perform Event Action");
+		}
+	}
+
+	public void ResumeEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+		if (!(usertype.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Resume Event of content from My WatchList page");
+			click(AMDHomePage.objMoreMenu, "More menu");
+			click(AMDMoreMenu.objWatchlist, "Watchlist option");
+			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
+			waitTime(5000);
+			boolean flag = false;
+			boolean contentsInMoviesTab = verifyIsElementDisplayed(
+					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
+			if (contentsInMoviesTab == true) {
+				getDriver()
+						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
+						.click();
+				verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+				waitTime(3000);
+				boolean eventFlag = false;
+				eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+				waitTime(2000);
+				Back(1);
+
+				if (eventFlag) {
+					if (usertype.equalsIgnoreCase("guest")) {
+						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+						mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+						mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+					}
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+					mixpanel.ValidateParameter("", "Resume");
+				} else {
+					logger.info("Failed to perform Event Action");
+					extentLoggerWarning("Event Action", "Failed to perform Event Action");
+				}
+			} else {
+				logger.info("No contents in Watchlist");
+				extentLoggerWarning("Watchlist", "No contents in Watchlist");
+			}
+		} else {
+			logger.info("Watchlist is not applicable for " + usertype);
+			extentLogger("Guest User", "Watchlist is not applicable for " + usertype);
+		}
+	}
+
+	public void ResumeEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Resume event of content from Upnext rail");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitTime(8000);
+		Swipe("UP", 1);
+		completeProfilePopUpClose(usertype);
+		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
+			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
+		}
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(3000);
+		boolean eventFlag = false;
+		eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		waitTime(2000);
+		Back(1);
+
+		if (eventFlag) {
+			if (usertype.equalsIgnoreCase("guest")) {
+				mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+				mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+				mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+				mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+			}
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+			mixpanel.ValidateParameter("", "Resume");
+		} else {
+			logger.info("Failed to perform Event Action");
+			extentLoggerWarning("Event Action", "Failed to perform Event Action");
+		}
+	}
+
+	public void ResumeEventForLinearContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Resume Event for Linear content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDLiveTVScreen.objFirstContentCardUnderFreeChannelsTray, "linear content");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(3000);
+		boolean eventFlag = false;
+		eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		waitTime(2000);
+		Back(1);
+
+		if (eventFlag) {
+			if (usertype.equalsIgnoreCase("guest")) {
+				mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+				mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+				mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+				mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+			}
+			mixpanel.FEProp.setProperty("Source", "Live TV");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+			mixpanel.ValidateParameter("", "Resume");
+		} else {
+			logger.info("Failed to perform Event Action");
+			extentLoggerWarning("Event Action", "Failed to perform Event Action");
+		}
+	}
+
+	public void ScrubSeekEventForPremiumContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Scrub/Seek Event for premium content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		Swipe("UP", 1);
+		boolean var = false;
+		for (int i = 0; i < 3; i++) {
+			var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
+			if (var == true) {
+				verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
+				waitTime(3000);
+				boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+				if (inlineLink == true) {
+					logger.info("Player inline subscription link is displayed");
+					extentLogger("Player screen", "Player inline subscription link is displayed");
+				} else {
+					waitTime(6000);
+					verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+					verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+					seekVideo(AMDPlayerScreen.objProgressBar, usertype);
+					waitTime(3000);
+					Back(1);
+
+					if (usertype.equalsIgnoreCase("guest")) {
+						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+						mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+						mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+					}
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
+					mixpanel.ValidateParameter("", "Scrub/Seek");
+				}
+				break;
+			} else {
+				Swipe("UP", 1);
+			}
+		}
+		if (var == false) {
+			logger.info("Premium content is not displayed in the screen");
+			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
+		}
+	}
+
+	public void ScrubSeekEventForTrailerContent(String usertype, String keyword3) throws Exception {
+		extent.HeaderChildNode("Verify Scrub/Seek event for Trailer content");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 30);
+		if (usertype.equalsIgnoreCase("SubscribedUser")) {
+			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
+		}
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		seekVideo(AMDPlayerScreen.objProgressBar, usertype);
+		waitTime(5000);
+
+		Back(1);
+		if (usertype.equalsIgnoreCase("guest")) {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+		}
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		mixpanel.ValidateParameter("", "Scrub/Seek");
+	}
+
+	public void ScrubSeekEventForCarouselContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Scrub/Seek Event for carousel content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
+		waitTime(3000);
+		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+		if (inlineLink == true) {
+			logger.info("Player inline subscription link is displayed");
+			extentLogger("Player screen", "Player inline subscription link is displayed");
+		} else {
+			waitTime(6000);
+			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			seekVideo(AMDPlayerScreen.objProgressBar, usertype);
+			waitTime(3000);
+			Back(1);
+			if (usertype.equalsIgnoreCase("guest")) {
+				mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+				mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+				mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+				mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+			}
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+			mixpanel.ValidateParameter("", "Scrub/Seek");
+		}
+	}
+
+	public void ScrubSeekEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Scrub/Seek Event of content from search page");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		seekVideo(AMDPlayerScreen.objProgressBar, usertype);
+		waitTime(4000);
+		Back(1);
+		if (usertype.equalsIgnoreCase("guest")) {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+		}
+		mixpanel.FEProp.setProperty("Source", "Search_Tab");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		mixpanel.ValidateParameter("", "Scrub/Seek");
+	}
+
+	public void ScrubSeekEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+		if (!(usertype.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Scrub/Seek Event of content from My WatchList page");
+			click(AMDHomePage.objMoreMenu, "More menu");
+			click(AMDMoreMenu.objWatchlist, "Watchlist option");
+			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
+			waitTime(5000);
+			boolean flag = false;
+			boolean contentsInMoviesTab = verifyIsElementDisplayed(
+					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
+			if (contentsInMoviesTab == true) {
+				getDriver()
+						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
+						.click();
+				verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+				seekVideo(AMDPlayerScreen.objProgressBar, usertype);
+				waitTime(4000);
+				Back(1);
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.ValidateParameter("", "Scrub/Seek");
+			} else {
+				logger.info("No contents in Watchlist");
+				extentLoggerWarning("Watchlist", "No contents in Watchlist");
+			}
+		} else {
+			logger.info("Watchlist is not applicable for " + usertype);
+			extentLogger("Guest User", "Watchlist is not applicable for " + usertype);
+		}
+	}
+
+	public void ScrubSeekEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Verify Scrub/Seek event of content from Upnext rail");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		waitTime(8000);
+		Swipe("UP", 1);
+		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
+			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
+		}
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		seekVideo(AMDPlayerScreen.objProgressBar, usertype);
+		waitTime(5000);
+		Back(1);
+
+		if (usertype.equalsIgnoreCase("guest")) {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+		}
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		mixpanel.ValidateParameter("", "Scrub/Seek");
+	}
+
 }

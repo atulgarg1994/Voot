@@ -30,4 +30,6 @@ public class AMDLiveTVScreen {
 	public static By objFirstContentCardOfFreeChannelsTray = By.xpath("(//*[@text='FREE Channels']/parent::*/parent::*/following-sibling::*/child::*/child::*/child::*/child::*)[1]");
 
 	public static By objLoadingIcon = By.id("compoiste_progress_bar");
+	
+	public static By objFirstContentCardUnderFreeChannelsTray = By.xpath("(//*[@text='FREE Channels']//following::*[@id='item_primary_text'])[1]");
 }

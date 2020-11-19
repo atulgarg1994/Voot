@@ -11,10 +11,10 @@
 	<parameter name="keyword2" value="Chemistry of Kariyappa" />
 	<parameter name="displayLanguage" value="Marathi" />
 	
-	<parameter name="NonsubscribedUserName" value="zee5latest@gmail.com" />
-	<parameter name="NonsubscribedPassword" value="User@123" />
-
-	<parameter name="SubscribedUserName" value="zeetest998@test.com" />
+	<parameter name="NonsubscribedUserName" value="amdnonmixpanel@yopmail.com" />
+	<parameter name="NonsubscribedPassword" value="123456" />
+	
+	<parameter name="SubscribedUserName" value="zeetestigs923@gmail.com" />
 	<parameter name="SubscribedPassword" value="123456" />
 	
 	<parameter name="ParentalNonsubscribedUserName" value="juspayuser@mailnesia.com" />
@@ -32,12 +32,7 @@
 	<parameter name="keyword7" value="Trailer - No Entry" />
 	<parameter name="keyword7" value="Trailer - No Entry"/>
 	<parameter name="keyword8" value="Bublu Dablu - Robo Rumble"/>
-	<parameter name="NonsubscribedUserName" value="amdnonmixpanel@yopmail.com" />
-	<parameter name="NonsubscribedPassword" value="123456" />
-
-	<parameter name="SubscribedUserName"
-		value="zeetestigs923@gmail.com" />
-	<parameter name="SubscribedPassword" value="123456" />
+	
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

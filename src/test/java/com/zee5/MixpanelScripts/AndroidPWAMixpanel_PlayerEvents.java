@@ -90,10 +90,10 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	}	
 	
 	@Test(priority = 12)
-	@Parameters({ "userType", "keyword"})
-	public void verifyVideoViewEventForContentInPlaylist(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifyVideoViewEventForContentInPlaylist(String userType,String subtitleTrackContent) throws Exception {
 		System.out.println("Verify Video View Event For Content played from Playlist");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoViewEventForContentInPlaylist(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoViewEventForContentInPlaylist(userType,subtitleTrackContent);
 	}
 	
 	
@@ -152,10 +152,10 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	}
 	
 	@Test(priority = 22)
-	@Parameters({ "userType", "keyword"})
-	public void verifyVideoExitEventForContentFromUpnextRail(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "keyword4"})
+	public void verifyVideoExitEventForContentFromUpnextRail(String userType,String keyword4) throws Exception {
 		System.out.println("Verify Video Exit Event for content autoplayed from Upnext rail");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoExitEventForContentFromUpnextRail(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoExitEventForContentFromUpnextRail(userType,keyword4);
 	}
 	
 	@Test(priority = 23)
@@ -166,10 +166,10 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	}
 	
 	@Test(priority = 24)
-	@Parameters({ "userType", "keyword"})
-	public void verifyVideoExitEventForContentInPlaylist(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifyVideoExitEventForContentInPlaylist(String userType,String subtitleTrackContent) throws Exception {
 		System.out.println("Verify Video Exit Event For Content played from Playlist");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoExitEventForContentInPlaylist(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoExitEventForContentInPlaylist(userType,subtitleTrackContent);
 	}
 		
 	
@@ -229,10 +229,10 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	}
 	
 	@Test(priority = 34)
-	@Parameters({ "userType", "keyword"})
-	public void verifyPauseEventForContentInPlaylist(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifyPauseEventForContentInPlaylist(String userType,String subtitleTrackContent) throws Exception {
 		System.out.println("Verify Pause Event For Content played from Playlist");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyPauseEventForContentInPlaylist(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyPauseEventForContentInPlaylist(userType,subtitleTrackContent);
 	}
 	
 	@Test(priority = 35)
@@ -242,10 +242,10 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	}
 	
 	@Test(priority = 36)
-	@Parameters({ "userType", "keyword"})
-	public void verifyPauseEventForContentFromUpnextRail(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "keyword4"})
+	public void verifyPauseEventForContentFromUpnextRail(String userType,String keyword4) throws Exception {
 		System.out.println("Verify Pause Event for content autoplayed from Upnext rail");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyPauseEventForContentFromUpnextRail(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyPauseEventForContentFromUpnextRail(userType,keyword4);
 	}
 	
 	@Test(priority = 37)
@@ -304,17 +304,17 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	
 	
 	@Test(priority = 46)
-	@Parameters({ "userType", "keyword"})
-	public void verifyVideoWatchDurationEventForContentInPlaylistComplete(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifyVideoWatchDurationEventForContentInPlaylistComplete(String userType,String subtitleTrackContent) throws Exception {
 		System.out.println("Verify Video Watch Duration Event when user completely watches Content played from Playlist");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoWatchDurationEventForContentInPlaylistComplete(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoWatchDurationEventForContentInPlaylistComplete(userType,subtitleTrackContent);
 	}
 	
 	@Test(priority = 47)
-	@Parameters({ "userType", "keyword"})
-	public void verifyVideoWatchDurationEventForContentFromUpnextRailComplete(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "keyword4"})
+	public void verifyVideoWatchDurationEventForContentFromUpnextRailComplete(String userType,String keyword4) throws Exception {
 		System.out.println("Verify Video Watch Duration Event When user completely watches the  auto-played content from Upnext rail");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoWatchDurationEventForContentFromUpnextRailComplete(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoWatchDurationEventForContentFromUpnextRailComplete(userType,keyword4);
 	}
 
 	@Test(priority = 48)
@@ -374,17 +374,17 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	
 	
 	@Test(priority = 57)
-	@Parameters({ "userType", "keyword"})
-	public void verifyVideoWatchDurationEventForContentInPlaylistAbrupt(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifyVideoWatchDurationEventForContentInPlaylistAbrupt(String userType,String subtitleTrackContent) throws Exception {
 		System.out.println("Verify Video Watch Duration Event when video is closed abruptly For Content played from Playlist");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoWatchDurationEventForContentInPlaylistAbrupt(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoWatchDurationEventForContentInPlaylistAbrupt(userType,subtitleTrackContent);
 	}
 	
 	@Test(priority = 58)
-	@Parameters({ "userType", "keyword"})
-	public void verifyVideoWatchDurationEventForContentFromUpnextRailAbrupt(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "keyword4"})
+	public void verifyVideoWatchDurationEventForContentFromUpnextRailAbrupt(String userType,String keyword4) throws Exception {
 		System.out.println("Verify Video Watch Duration Event when video is closed abruptly on auto-played content from Upnext rail");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoWatchDurationEventForContentFromUpnextRailAbrupt(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoWatchDurationEventForContentFromUpnextRailAbrupt(userType,keyword4);
 	}
 	
 	@Test(priority = 59)
@@ -442,10 +442,10 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	}
 	
 	@Test(priority = 67)
-	@Parameters({ "userType", "keyword"})
-	public void verifyResumeEventForContentInPlaylist(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifyResumeEventForContentInPlaylist(String userType,String subtitleTrackContent) throws Exception {
 		System.out.println("Verify Resume Event For Content played from Playlist");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyResumeEventForContentInPlaylist(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyResumeEventForContentInPlaylist(userType,subtitleTrackContent);
 	}
 	
 	
@@ -457,10 +457,10 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	}
 	
 	@Test(priority = 70)
-	@Parameters({ "userType", "keyword"})
-	public void verifyResumeEventForContentFromUpnextRail(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "keyword4"})
+	public void verifyResumeEventForContentFromUpnextRail(String userType,String keyword4) throws Exception {
 		System.out.println("Verify Resume Event for content autoplayed from Upnext rail");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyResumeEventForContentFromUpnextRail(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyResumeEventForContentFromUpnextRail(userType,keyword4);
 	}
 	
 	@Test(priority = 71)
@@ -967,17 +967,17 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	
 	
 	@Test(priority = 150)
-	@Parameters({ "userType", "keyword"})
-	public void verifyScrubSeekEventForContentInPlaylist(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyScrubSeekEventForContentInPlaylist(String userType,String audioTrackContent) throws Exception {
 		System.out.println("Verify Scrub/Seek Event For Content played from Playlist");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyScrubSeekEventForContentInPlaylist(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyScrubSeekEventForContentInPlaylist(userType,audioTrackContent);
 	}
 	
 	@Test(priority = 151)
-	@Parameters({ "userType", "keyword"})
-	public void verifyScrubSeekEventForContentFromUpnextRail(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "keyword4"})
+	public void verifyScrubSeekEventForContentFromUpnextRail(String userType,String keyword4) throws Exception {
 		System.out.println("Verify Scrub/Seek Event For Content played from Upnext rail");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyScrubSeekEventForContentFromUpnextRail(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyScrubSeekEventForContentFromUpnextRail(userType,keyword4);
 	}
 	
 	@Test(priority = 152)
@@ -1036,17 +1036,17 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	
 	
 	@Test(priority = 161)
-	@Parameters({ "userType", "keyword"})
-	public void verifyQualityChangeEventForContentInPlaylist(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "audioTrackContent"})
+	public void verifyQualityChangeEventForContentInPlaylist(String userType,String audioTrackContent) throws Exception {
 		System.out.println("Verify Quality Change Event For Content played from Playlist");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForContentInPlaylist(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForContentInPlaylist(userType,audioTrackContent);
 	}
 	
 	@Test(priority = 162)
-	@Parameters({ "userType", "keyword"})
-	public void verifyQualityChangeEventForContentFromUpnextRail(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "keyword4"})
+	public void verifyQualityChangeEventForContentFromUpnextRail(String userType,String keyword4) throws Exception {
 		System.out.println("Verify Quality Change Event For Content played from Upnext rail");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForContentFromUpnextRail(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyQualityChangeEventForContentFromUpnextRail(userType,keyword4);
 	}
 	
 	@Test(priority = 163)
@@ -1321,10 +1321,10 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	}
 	
 	@Test(priority = 175)
-	@Parameters({ "userType", "keyword"})
-	public void verifyAutoSeekForwardEventForContentFromUpnextRail(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "keyword4"})
+	public void verifyAutoSeekForwardEventForContentFromUpnextRail(String userType,String keyword4) throws Exception {
 		System.out.println("Verify Auto Seek Forward Event For Content played from Upnext rail");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyAutoSeekForwardEventForContentFromUpnextRail(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAutoSeekForwardEventForContentFromUpnextRail(userType,keyword4);
 	}
 	
 	@Test(priority = 176)
@@ -1390,10 +1390,10 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	}
 	
 	@Test(priority = 186)
-	@Parameters({ "userType", "keyword"})
-	public void verifyAutoSeekRewindEventForContentFromUpnextRail(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "keyword4"})
+	public void verifyAutoSeekRewindEventForContentFromUpnextRail(String userType,String keyword4) throws Exception {
 		System.out.println("Verify Auto Seek Rewind Event For Content played from Upnext rail");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyAutoSeekRewindEventForContentFromUpnextRail(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyAutoSeekRewindEventForContentFromUpnextRail(userType,keyword4);
 	}
 	
 	@Test(priority = 187)
@@ -1453,17 +1453,17 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	}
 	
 	@Test(priority = 196)
-	@Parameters({ "userType", "keyword"})
-	public void verifyParentalOverlayImpressionEventForContentInPlaylist(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifyParentalOverlayImpressionEventForContentInPlaylist(String userType,String subtitleTrackContent) throws Exception {
 		System.out.println("Verify Parental Overlay Impression Event For Content played from Playlist");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyParentalOverlayImpressionEventForContentInPlaylist(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyParentalOverlayImpressionEventForContentInPlaylist(userType,subtitleTrackContent);
 	}
 	
 	@Test(priority = 197)
-	@Parameters({ "userType", "keyword"})
-	public void verifyParentalOverlayImpressionEventForContentFromUpnextRail(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "keyword4"})
+	public void verifyParentalOverlayImpressionEventForContentFromUpnextRail(String userType,String keyword4) throws Exception {
 		System.out.println("Verify Parental Overlay Impression Event For Content played from Upnext rail");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyParentalOverlayImpressionEventForContentFromUpnextRail(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyParentalOverlayImpressionEventForContentFromUpnextRail(userType,keyword4);
 	}
 	
 	@Test(priority = 198)
@@ -1530,17 +1530,17 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	}
 	
 	@Test(priority = 344)
-	@Parameters({ "userType", "keyword"})
-	public void verifyParentalOverlayResultEventForContentInPlaylist(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "subtitleTrackContent"})
+	public void verifyParentalOverlayResultEventForContentInPlaylist(String userType,String subtitleTrackContent) throws Exception {
 		System.out.println("Verify Parental Overlay Result Event For Content played from Playlist");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyParentalOverlayResultEventForContentInPlaylist(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyParentalOverlayResultEventForContentInPlaylist(userType,subtitleTrackContent);
 	}
 	
 	@Test(priority = 345)
-	@Parameters({ "userType", "keyword"})
-	public void verifyParentalOverlayResultEventForContentFromUpnextRail(String userType,String keyword) throws Exception {
+	@Parameters({ "userType", "keyword4"})
+	public void verifyParentalOverlayResultEventForContentFromUpnextRail(String userType,String keyword4) throws Exception {
 		System.out.println("Verify Parental Overlay Result Event For Content played from Upnext rail");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyParentalOverlayResultEventForContentFromUpnextRail(userType,keyword);
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyParentalOverlayResultEventForContentFromUpnextRail(userType,keyword4);
 	}
 	
 	@Test(priority = 346)

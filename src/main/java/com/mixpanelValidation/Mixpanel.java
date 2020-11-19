@@ -328,7 +328,7 @@ public class Mixpanel extends ExtentReporter {
 			}
 			if (!propValue.equalsIgnoreCase(value)) {
 				fillCellColor();
-
+				extentReportFail("Parameter", "Parameter : <b>Key : " + key + " <br/> value : " + value + "<br/>Expected Value : "+propValue+"</b>");
 			}
 		}
 	}
