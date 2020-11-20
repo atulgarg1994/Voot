@@ -805,9 +805,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Login Initiated Event for Valid Credentials");
 			socialLogin(loginMethod);
 			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Social Network", loginMethod);
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
-			mixpanel.FEProp.setProperty("Method", "Social");
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Login Initiated");
 		}
@@ -820,8 +818,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
-			mixpanel.FEProp.setProperty("method", "Social");
-			mixpanel.FEProp.setProperty("Social Network", loginMethod);
+		
 			System.out.println(local.getItem("ID"));
 			mixpanel.ValidateParameter(local.getItem("ID"), "Login Result");
 		}
@@ -898,6 +895,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchResult(keyword2), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(keyword2), "Search Result");
 
+			waitTime(5000);
+			
 			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
 				// ScrollToTheElementWEB(PWALoginPage.objLoginCTAInPremiumPopup);
 				verifyElementPresentAndClick(PWALoginPage.objLoginCTAInPremiumPopup, "Login link");
@@ -8569,15 +8568,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
-			mandatoryRegistrationPopUp(userType);
-			waitForPlayerAdToComplete("Video Player");
-			waitTime(6000);
-			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-			playerScrubTillLastWeb();
-			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-			waitForPlayerAdToComplete("Video Player");
-			waitTime(6000);
-			mandatoryRegistrationPopUp(userType);
+			
+			waitTime(4000);
+			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);			
+
 			waitTime(5000);
 			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
 			waitTime(5000);
@@ -9061,8 +9056,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
-			waitTime(2000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);			
 
 			waitTime(6000);
 			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");

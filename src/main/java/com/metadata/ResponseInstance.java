@@ -684,8 +684,7 @@ public class ResponseInstance {
 //		Player("basavaraj.pn5@gmail.com","igsindia123");
 //		getWatchList("basavaraj.pn5@gmail.com","igsindia123");
 //		getUserData("basavaraj.pn5@gmail.com","igsindia123");
-		getUserOldSettingsDetails("basavaraj.pn5@gmail.com","igsindia123");
-		
+		getUserOldSettingsDetails("amdnonmixpanel@yopmail.com","123456");
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {

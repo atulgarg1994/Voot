@@ -104,7 +104,7 @@ public class WebPWAMixpanelScript {
 	@Parameters({ "userType" })
 	public void verifyLoginInitiatedEventForValidCredentials(String userType) throws Exception {
 		System.out.println("Verify Login Initiated Event for Valid Credentials");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginInitiatedEventForValidCredentials(userType,"facebook");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginInitiatedEventForValidCredentials(userType,"emailLogin");
 	}
 
 //	@Test(priority = 13)
@@ -549,7 +549,7 @@ public class WebPWAMixpanelScript {
 	@Parameters({ "userType" })
 	public void verifyLoginResultEventForValidCredentials(String userType) throws Exception {
 		System.out.println("Verify Login Result Event for Valid Credentials");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginResultEventForValidCredentials(userType,"facebook");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginResultEventForValidCredentials(userType,"emailLogin");
 	}
 	
 	@Test(priority = 79)

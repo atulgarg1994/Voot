@@ -314,6 +314,7 @@ public class Mixpanel extends ExtentReporter {
 				System.out.println(e);
 			}
 		}
+		FEProp.clear();
 	}
 
 	public static void validateParameterValue(String key, String value) {
