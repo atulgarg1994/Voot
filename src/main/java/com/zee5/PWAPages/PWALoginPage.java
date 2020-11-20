@@ -195,4 +195,7 @@ public class PWALoginPage {
 	
 	// LoginBtn
 	public static By objLoginBtnLoginPage = By.xpath("//span[contains(text(),'Login')]//parent::button");
+	
+	public static By objOKBtnInFbPage = By.xpath("//button[@name='__CONFIRM__']");
+
 }

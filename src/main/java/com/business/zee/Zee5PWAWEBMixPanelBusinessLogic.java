@@ -430,9 +430,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(5000);
 			waitForElement(PWALoginPage.objSkip, 10, "Skip Login");
 			click(PWALoginPage.objSkip, "Skip Login");
-			waitTime(2000);
-			Back(1);
-			waitTime(2000);
+			waitTime(5000);
+		
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			mixpanel.FEProp.setProperty("Source", "episode_detail");
 			mixpanel.FEProp.setProperty("Element", "Cross");
@@ -456,9 +455,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitForElement(PWALoginPage.objSkip, 20, "Skip Login");
 			waitTime(5000);
 			click(PWALoginPage.objSkip, "Skip Login");
-			waitTime(2000);
-			Back(2);
-			waitTime(2000);
+			waitTime(5000);
+			
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			mixpanel.FEProp.setProperty("Source", "movie_detail");
 			mixpanel.FEProp.setProperty("Element", "Cross");
@@ -601,7 +599,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
 					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed Button");
 					// Password Popup
 					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
@@ -643,7 +641,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
 					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed Button");
 					// Password Popup
 					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
@@ -677,7 +675,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objAuthenticationOption, "Authenticate Device");
-			Back(1);
+			waitTime(5000);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			System.out.println(local.getItem("ID"));
 			mixpanel.FEProp.setProperty("Source", "home");
@@ -694,13 +692,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 		waitForElementDisplayed(PWALoginPage.objFacebookIcon, 10);
 
-		checkElementDisplayed(PWALoginPage.objGoogleIcon, "Google icon");
-		waitTime(1000);
-		checkElementDisplayed(PWALoginPage.objTwitterIcon, "Twitter icon");
-
-		checkElementDisplayed(PWALoginPage.objFacebookIcon, "Facebook icon");
-
-		waitTime(10000);
 		click(PWALoginPage.objFacebookIcon, "Facebook Icon");
 		switchToWindow(2);
 
@@ -717,12 +708,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			verifyElementPresent(PWALoginPage.objFacebookLoginpasswordWeb, " Password Field");
 			type(PWALoginPage.objFacebookLoginpasswordWeb, "Igs123!@#", "Password Field");
 			verifyElementPresentAndClick(PWALoginPage.objFacebookLoginButtonInFbPageWeb, "Login Button");
-			switchToWindow(1);
-			waitForElementDisplayed(PWALandingPages.objWebProfileIcon, 20);
-			if (verifyElementPresent(PWALandingPages.objWebProfileIcon, "Profile icon")) {
-				logger.info("User Logged in Successfully");
-				extent.extentLogger("Logged in", "User Logged in Successfully");
+			
+			if (checkElementDisplayed(PWALoginPage.objOKBtnInFbPage, "Would you like to Continue popup")) {
+				click(PWALoginPage.objOKBtnInFbPage, "OK Button");
 			}
+			switchToParentWindow();
+			waitTime(5000);
 		}
 //		logout();
 	}
@@ -732,7 +723,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				"verifing that user is able to enter Mobile number, Password, date of birth, gender in Registration page");
 		click(PWALoginPage.objSignUpBtnWEB, "Sign up button");
 		waitForElementDisplayed(PWALoginPage.objEmailField, 5);
-		checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+		click(PWALoginPage.objEmailField, "Email/PhoneNo Field");
 		type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
 		click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
 		type(PWASignupPage.objOTP1, "1", "OTP box1");
@@ -760,7 +751,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if (checkElementDisplayed(PWALandingPages.objWebProfileIcon, "Profile icon")) {
 			logger.info("User Logged in Successfully");
 			extent.extentLogger("Logged in", "User Logged in Successfully");
-//			logout();
 
 		}
 
@@ -773,16 +763,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			verifyElementPresentAndClick(PWALoginPage.objTwitterSignInButton, "Login Button");
 			switchToParentWindow();
-			waitForElementDisplayed(PWALandingPages.objWebProfileIcon, 20);
-			if (checkElementDisplayed(PWALandingPages.objWebProfileIcon, "Profile icon")) {
-				logger.info("User Logged in Successfully");
-				extent.extentLogger("Logged in", "User Logged in Successfully");
-//				logout();
-			} else {
-				logger.info("User is not logged in Successfully");
-				extent.extentLoggerFail("Logged in", "User is not logged in Successfully");
-				Back(1);
-			}
+			
 		}
 
 	}
@@ -790,12 +771,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void socialLogin(String LoginMethod) throws Exception {
 		switch (LoginMethod) {
 
-		case "twitterLogin":
+		case "twitter":
 			twitterLogin();
 			waitTime(3000);
 			break;
 
-		case "fbLogin":
+		case "facebook":
 			facebookLogin();
 			waitTime(3000);
 			break;
@@ -841,8 +822,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
 			mixpanel.FEProp.setProperty("method", "Social");
 			mixpanel.FEProp.setProperty("Social Network", loginMethod);
-			System.out.println(local.getItem("guestToken"));
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Login Result");
+			System.out.println(local.getItem("ID"));
+			mixpanel.ValidateParameter(local.getItem("ID"), "Login Result");
 		}
 	}
 
@@ -851,9 +832,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Screen Display Event By Clicking On Login Button");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
-			waitTime(3000);
-			Back(1);
-			waitTime(2000);
+			waitTime(5000);
+			
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
@@ -878,12 +858,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			}
 			verifyElementPresent(PWASubscriptionPages.objLoginLinkInPlayer, "Login link");
 			JSClick(PWASubscriptionPages.objLoginLinkInPlayer, "Login link");
-			waitTime(2000);
-			Back(1);
-			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
-			}
-			waitTime(3000);
+			
+			waitTime(5000);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 
 			mixpanel.FEProp.setProperty("Source", "movie_detail");
@@ -901,7 +877,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWALoginPage.objSignUpBtnWEB, "Sign Up For Free");
 			JSClick(PWALoginPage.objLoginLink, "Login link");
 
-			waitTime(2000);
+			waitTime(5000);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			mixpanel.FEProp.setProperty("Source", "register");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
@@ -925,9 +901,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
 				// ScrollToTheElementWEB(PWALoginPage.objLoginCTAInPremiumPopup);
 				verifyElementPresentAndClick(PWALoginPage.objLoginCTAInPremiumPopup, "Login link");
-				Back(1);
+				
 			}
-			waitTime(2000);
+			waitTime(5000);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			mixpanel.FEProp.setProperty("Source", "movie_detail");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
@@ -1938,28 +1914,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyCTAsEvent(String userType, String tabName) throws Exception {
-		extent.HeaderChildNode("Verify CTAs Event");
-		navigateToAnyScreenOnWeb(tabName);
-
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		Back(1);
-		click(PWAHomePage.objLanguageBtn, "Language button");
-		Back(1);
-		if (!(userType.equalsIgnoreCase("Guest"))) {
-			click(PWALandingPages.objWebProfileIcon, "Profile Icon");
-			Back(1);
-		}
-
-		click(PWAHomePage.objSubscribeBtn, "Subscribe button");
-
-		Back(1);
-
-		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-
-		click(PWAHamburgerMenuPage.objMoreSettingInHamburger, "More settings");
-		Back(1);
-	}
 
 	public void verifyBannerAutoplayEventForNewsContent() throws Exception {
 		extent.HeaderChildNode("Verify Banner Autoplay Event For News Content");
@@ -4450,7 +4404,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		Back(1);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
@@ -4478,7 +4437,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			Back(1);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			playerScrubTillLastWeb();
+			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+			waitTime(6000);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
@@ -4497,8 +4459,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		Back(1);
-
+		
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -4511,6 +4472,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
+		
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitTime(6000);
+		
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
@@ -4525,8 +4492,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		Back(1);
-
+		
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -4539,6 +4505,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
+		
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitTime(6000);
+		
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
@@ -4553,7 +4525,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objThumbnail, "Content From a tray");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		Back(1);
 
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
@@ -4567,6 +4538,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
+		
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
@@ -4585,7 +4563,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		Back(1);
 
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
@@ -4599,6 +4576,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
+		
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitTime(6000);
+		
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
@@ -4630,10 +4613,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			click(PWAAddToWatchListPage.objWatchlistedItems, "Content Card in Watchlist page");
 			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(6000);
-			Back(1);
-
+		
 			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -4646,6 +4629,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
+			
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			playerScrubTillLastWeb();
+			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+			waitForPlayerAdToComplete("Video Player");
+			waitTime(6000);
+			
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
@@ -4666,8 +4656,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		Back(1);
-
+	
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -4680,6 +4669,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
+		
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitTime(6000);
+		
+		
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
@@ -4702,13 +4698,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		playerScrubTillLastWeb();
-		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		waitForPlayerAdToComplete("Video Player");
-		waitTime(6000);
-		Back(1);
-
+		
 		mixpanel.FEProp.setProperty("Source", "episode_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -4721,6 +4711,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
+		
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
@@ -4749,12 +4746,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		playerScrubTillLastWeb();
-		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		waitForPlayerAdToComplete("Video Player");
-		waitTime(6000);
-
+		
 		mixpanel.FEProp.setProperty("Source", "episode_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -4767,6 +4759,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
+		
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
@@ -5280,7 +5279,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Success", "false");
 				mixpanel.FEProp.setProperty("method", "Social");
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-				System.out.println(local.getItem("Login Result"));
+				mixpanel.ValidateParameter(local.getItem("ID"), "Login Result");
 				break;
 
 			case "emailLogin":
@@ -5307,7 +5306,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Toast Message Impression Event In Sign In Screen");
 			click(PWALoginPage.objLoginBtnWEB, "Login button");
 			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
-			checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+			click(PWALoginPage.objEmailField, "Email/PhoneNo Field");
 			type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
 			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -5323,7 +5322,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Toast Message Impression Event In OTP Screen");
 			click(PWALoginPage.objLoginBtnWEB, "Login button");
 			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
-			checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+			click(PWALoginPage.objEmailField, "Email/PhoneNo Field");
 			type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
 			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
 			type(PWASignupPage.objOTP1, "1", "OTP box1");
@@ -5345,10 +5344,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Registration Initiated Event post entering invalid credentials");
 			click(PWALoginPage.objSignUpBtnWEB, "Sign up button");
 			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
-			checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+			click(PWALoginPage.objEmailField, "Email/PhoneNo Field");
 			type(PWALoginPage.objEmailField, "9073258519", "PhoneNumber Field");
-			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
-
+			waitTime(3000);
+			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Send OTP");
+			waitTime(5000);
+			
 			mixpanel.FEProp.setProperty("Source", "register");
 			mixpanel.FEProp.setProperty("Page Name", "otp_page");
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -5361,9 +5362,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Registration Result Event post entering invalid credentials");
 			click(PWALoginPage.objSignUpBtnWEB, "Sign up button");
 			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
-			checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
-			type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
-			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
+			click(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+			type(PWALoginPage.objEmailField, "9073258519", "PhoneNumber Field");
+			waitTime(3000);
+			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Send OTP");
+			waitTime(3000);
 			type(PWASignupPage.objOTP1, "1", "OTP box1");
 			type(PWASignupPage.objOTP2, "2", "OTP box2");
 			type(PWASignupPage.objOTP3, "3", "OTP box3");
@@ -5383,7 +5386,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Toast Message Impression Event In Sign Up Screen");
 			click(PWALoginPage.objSignUpBtnWEB, "Sign up button");
 			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
-			checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+			click(PWALoginPage.objEmailField, "Email/PhoneNo Field");
 			type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
 			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
 
@@ -5415,7 +5418,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
 					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed Button");
 					// Password Popup
 					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
@@ -5442,7 +5445,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(5000);
 
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Call Initiated");
+			mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Call Returned");
 
 		}
 	}
@@ -5467,7 +5470,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
 					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed Button");
 					// Password Popup
 					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
@@ -5492,7 +5495,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(10000);
 
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Call Returned");
+			mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Call Initiated");
 
 		}
 	}
@@ -5524,7 +5527,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
 					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed Button");
 					// Password Popup
 					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
@@ -7290,7 +7293,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
 					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed Button");
 					// Password Popup
 					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
@@ -9297,7 +9300,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
 					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed Button");
 					// Password Popup
 					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
 					click(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
@@ -11972,33 +11975,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdInitializedEventForFreeContent(String tab, String api, String userType, String un, String pwd)
+	public void verifyAdInitializedEventForFreeContent(String userType, String audioTrackContent)
 			throws Exception {
-		extent.HeaderChildNode("Verify Ad Initialized Event For Free Content");
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Initialized Event For Free Content");
-			navigateToAnyScreenOnWeb(tab);
-
-			if (userType.equals("NonSubscribedUser")) {
-				WebElement mastHeadEle = (new WebDriverWait(getWebDriver(), 60))
-						.until(ExpectedConditions.presenceOfElementLocated(PWAHomePage
-								.objContTitleTextCarouselWeb(ResponseInstance.getFreeContent(api, un, pwd))));
-				mastHeadEle.click();
-			} else if (!userType.equals("")) {
-				WebElement mastHeadEle = (new WebDriverWait(getWebDriver(), 60))
-						.until(ExpectedConditions.presenceOfElementLocated(PWAHomePage
-								.objContTitleTextCarouselWeb(ResponseInstance.getFreeContent(api, un, pwd))));
-				mastHeadEle.click();
-			}
-
-			waitTime(5000);
+			click(PWAHomePage.objSearchBtn, "Search Icon");
+			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
+			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			mandatoryRegistrationPopUp(userType);
+			
+			waitTime(6000);
+			
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Source", "search");
+				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 				String id = getWebDriver().getCurrentUrl();
 				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");

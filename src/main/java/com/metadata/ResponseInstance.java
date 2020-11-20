@@ -684,6 +684,7 @@ public class ResponseInstance {
 //		Player("basavaraj.pn5@gmail.com","igsindia123");
 //		getWatchList("basavaraj.pn5@gmail.com","igsindia123");
 //		getUserData("basavaraj.pn5@gmail.com","igsindia123");
+		getUserOldSettingsDetails("basavaraj.pn5@gmail.com","igsindia123");
 		
 	}
 
@@ -819,6 +820,7 @@ public class ResponseInstance {
 				i = i + 2;
 			}
 		}
+		pro.forEach((key, value) -> System.out.println(key + " : " + value));
 		return pro;
 	}
 	

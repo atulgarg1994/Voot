@@ -104,7 +104,7 @@ public class WebPWAMixpanelScript {
 	@Parameters({ "userType" })
 	public void verifyLoginInitiatedEventForValidCredentials(String userType) throws Exception {
 		System.out.println("Verify Login Initiated Event for Valid Credentials");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginInitiatedEventForValidCredentials(userType,"fbLogin");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginInitiatedEventForValidCredentials(userType,"facebook");
 	}
 
 //	@Test(priority = 13)
@@ -549,7 +549,7 @@ public class WebPWAMixpanelScript {
 	@Parameters({ "userType" })
 	public void verifyLoginResultEventForValidCredentials(String userType) throws Exception {
 		System.out.println("Verify Login Result Event for Valid Credentials");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginResultEventForValidCredentials(userType,"fbLogin");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginResultEventForValidCredentials(userType,"facebook");
 	}
 	
 	@Test(priority = 79)
@@ -2138,9 +2138,9 @@ public class WebPWAMixpanelScript {
 	
 	@Test(priority = 307)
 	@Parameters({ "userType", "audioTrackContent"})
-	public void verifyAdInitializedEventForFreeContent(String userType,String audioTrackContent) throws Exception {
+	public void verifyAdInitializedEventForFreeContent(String userType, String audioTrackContent) throws Exception {
 		System.out.println("Verify Ad Initialized Event For Free Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAdInitializedEventForFreeContent("Home","homepage",userType,"basavaraj.pn5@gmail.com","igsindia123");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAdInitializedEventForFreeContent(userType,audioTrackContent);
 	}
 
 	@Test(priority = 308)

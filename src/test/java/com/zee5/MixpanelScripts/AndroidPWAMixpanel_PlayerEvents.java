@@ -29,10 +29,10 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	}
 	
 	@Test(priority = 3)
-	@Parameters({ "userType"})
-	public void verifyVideoViewEventForFreeContent(String userType) throws Exception {
+	@Parameters({ "userType","keyword4"})
+	public void verifyVideoViewEventForFreeContent(String userType,String keyword4) throws Exception {
 		System.out.println("Verify Video View Event For Free Content");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoViewEventForFreeContent("Home","home",userType,"basavaraj.pn5@gmail.com","igsindia123");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoViewEventForFreeContent(userType,keyword4);
 	}
 	
 	@Test(priority = 4)
@@ -105,10 +105,10 @@ public class AndroidPWAMixpanel_PlayerEvents {
 	}
 	
 	@Test(priority = 15)
-	@Parameters({ "userType"})
-	public void verifyVideoExitEventForFreeContent(String userType) throws Exception {
+	@Parameters({ "userType","keyword4"})
+	public void verifyVideoExitEventForFreeContent(String userType,String keyword4) throws Exception {
 		System.out.println("Verify Video Exit Event For Free Content");
-		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoExitEventForFreeContent("Home","homepage",userType,"basavaraj.pn5@gmail.com","igsindia123");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyVideoExitEventForFreeContent(userType,keyword4);
 	}
 	
 	@Test(priority = 16)

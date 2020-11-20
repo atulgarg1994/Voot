@@ -113,7 +113,7 @@ public class PWA_Web_Onboarding {
 	public void verifyLoginInitiatedEventForValidCredentials(String userType) throws Exception {
 		System.out.println("Verify Login Initiated Event for Valid Credentials");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginInitiatedEventForValidCredentials(userType,"fbLogin");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginInitiatedEventForValidCredentials(userType,"facebook");
 	}
 	
 //===========================LoginResult============================================
@@ -123,7 +123,7 @@ public class PWA_Web_Onboarding {
 	public void verifyLoginResultEventForValidCredentials(String userType) throws Exception {
 		System.out.println("Verify Login Result Event for Valid Credentials");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginResultEventForValidCredentials(userType,"fbLogin");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginResultEventForValidCredentials(userType,"facebook");
 	}
 	
 	@Test(priority = 14)

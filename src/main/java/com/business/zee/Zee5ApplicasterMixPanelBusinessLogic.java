@@ -7971,7 +7971,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
 		}
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		seekVideo(AMDPlayerScreen.objProgressBar, usertype);
+		seekVideo(AMDPlayerScreen.objProgressBar, usertype); 
 		waitTime(5000);
 
 		Back(1);
