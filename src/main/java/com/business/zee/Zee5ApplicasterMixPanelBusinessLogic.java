@@ -1727,7 +1727,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					"Continue button in Content language page");
 		}
 	}
-
+	
 	public void videoViewEventForCarouselContent(String tabName) throws Exception {
 		extent.HeaderChildNode("Video View Event for carousel content");
 		waitTime(10000);
@@ -1744,16 +1744,18 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 
 		waitTime(3000);
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "home");
-		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("User Type", "guest");
-		mixpanel.FEProp.setProperty("Ad ID", "524fdf1b-3577-4379-bbb4-cf004da5f120");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
-		mixpanel.FEProp.setProperty("Video View", "1");
-		mixpanel.ValidateParameter("", "Video View");
+		if (var == true) {
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+			mixpanel.FEProp.setProperty("Video View", "1");
 
+			String pContentId = mixpanel.fetchContentId("", "Video View");
+			String pDistinctId = mixpanel.DistinctId;
+			ResponseInstance.getContentDetails(pContentId);
+
+			mixpanel.ValidateParameter(pDistinctId, "Video View");
+		}
 	}
 
 	public void videoViewEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
@@ -1775,19 +1777,20 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		Back(2);
 		waitTime(4000);
-
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "home");
+		
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("User Type", "guest");
-		mixpanel.FEProp.setProperty("Ad ID", "524fdf1b-3577-4379-bbb4-cf004da5f120");
 		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
 		mixpanel.FEProp.setProperty("Video View", "1");
-		mixpanel.ValidateParameter("", "Video View");
+		
+		String pContentId = mixpanel.fetchContentId("", "Video View");
+		String pDistinctId = mixpanel.DistinctId;
+		ResponseInstance.getContentDetails(pContentId);
+		
+		mixpanel.ValidateParameter(pDistinctId, "Video View");
 	}
-
+	
 	public void videoViewEventOfContentFromMyWatchListPage(String usertype) throws Exception {
 		if (!(usertype.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Video View Event of content from My WatchList page");
@@ -1812,14 +1815,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (flag) {
 				waitTime(3000);
 				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Page Name", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("User Type", "guest");
-				mixpanel.FEProp.setProperty("Ad ID", "524fdf1b-3577-4379-bbb4-cf004da5f120");
 				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
 				mixpanel.FEProp.setProperty("Video View", "1");
-				mixpanel.ValidateParameter("", "Video View");
+				
+				String pContentId = mixpanel.fetchContentId("", "Video View");
+				String pDistinctId = mixpanel.DistinctId;
+				ResponseInstance.getContentDetails(pContentId);
+				
+				mixpanel.ValidateParameter(pDistinctId, "Video View");
 			}
 		} else {
 			logger.info("Watchlist is not applicable for " + usertype);
@@ -1836,7 +1840,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		waitTime(4000);
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 30);
+		waitTime(2000);
 		verifyIsElementDisplayed(AMDPlayerScreen.objPlayer);
 		if (usertype.equalsIgnoreCase("SubscribedUser")) {
 			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
@@ -1846,9 +1850,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 		mixpanel.FEProp.setProperty("Video View", "1");
-		mixpanel.ValidateParameter("", "Video View");
+		
+		String pContentId = Mixpanel.fetchContentId("", "Video View");
+		String pDistinctId = mixpanel.DistinctId;
+		ResponseInstance.getContentDetails(pContentId);
+		
+		mixpanel.ValidateParameter(pDistinctId, "Video View");
 	}
-
+	
 	public void videoViewEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("Verify Video View event of content from Upnext rail");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
@@ -1874,14 +1883,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("User Type", "guest");
-		mixpanel.FEProp.setProperty("Ad ID", "524fdf1b-3577-4379-bbb4-cf004da5f120");
 		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
 		mixpanel.FEProp.setProperty("Video View", "1");
-		mixpanel.ValidateParameter("", "Video View");
+		
+		String pContentId = mixpanel.fetchContentId("", "Video View");
+		String pDistinctId = mixpanel.DistinctId;
+		ResponseInstance.getContentDetails(pContentId);
+		
+		mixpanel.ValidateParameter(pDistinctId, "Video View");
 	}
 
 	public void videoExitEventForPremiumContent(String usertype, String tabName) throws Exception {
@@ -3133,12 +3143,26 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			SelectTopNavigationTab(tabName);
 			waitForElementDisplayed(AMDHomePage.objCarouselTitle, 60);
 			Swipe("UP", 1);
+			String pUsername = null, pPwd = null;
+			switch (userType) {
+			case "NonSubscribedUser":
+				pUsername = getParameterFromXML("NonsubscribedUserName");
+				pPwd = getParameterFromXML("NonsubscribedPassword");
+				break;
+
+			case "SubscribedUser":
+				pUsername = getParameterFromXML("SubscribedUserName");
+				pPwd = getParameterFromXML("SubscribedPassword");
+				break;
+			}
+			
 			boolean var = false;
 			for (int i = 0; i < 3; i++) {
 				waitTime(1000);
 				var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
 				if (var == true) {
 					verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
+					waitTime(5000);
 					verifyIsElementDisplayed(AMDPlayerScreen.objPlayer, "Player screen");
 					waitTime(3000);
 					break;
@@ -3147,17 +3171,25 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				}
 			}
 			if (var == true) {
-				mixpanel.FEProp.setProperty("Source", "N/A");
+								
+				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Page Name", "home");
-				mixpanel.FEProp.setProperty("Player Name", "N/A");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 				mixpanel.FEProp.setProperty("Video View", "1");
-				Mixpanel.ValidateParameter("", "Video View");
+				
+				String pContentId = mixpanel.fetchContentId("", "Video View");				
+				String pDistinctId = mixpanel.DistinctId;
+				ResponseInstance.getContentDetails(pContentId);
+				
+				mixpanel.ValidateParameter(pDistinctId, "Video View");
 			}
 			if (var == false) {
 				logger.info("Premium content is not displayed in the screen");
 				extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
 			}
+		}else {
+			logger.info("Premium content is not displayed in the screen");
+			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
 		}
 	}
 
@@ -6298,7 +6330,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
 		}
 	}
-
+	
 	public void AudioLanguageChangeEventForTrailerContent(String usertype, String keyword7) throws Exception {
 		extent.HeaderChildNode("Verify Audio Language Change event for Trailer content");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
@@ -6337,7 +6369,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				} else {
 					verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Audio Language option");
 				}
+				Back(2);
 				waitTime(4000);
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				
+				String pContentId = mixpanel.fetchContentId("", "Language Audio Change");				
+				String pDistinctId = mixpanel.DistinctId;
+				ResponseInstance.getContentDetails(pContentId);
+				
+				mixpanel.ValidateParameter(pDistinctId, "Language Audio Change");
 			}
 		} else {
 			logger.info("no Audio Language is displayed");

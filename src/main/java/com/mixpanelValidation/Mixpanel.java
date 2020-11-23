@@ -62,6 +62,7 @@ public class Mixpanel extends ExtentReporter {
 	static String Modelname;
 	static String propValue = "Empty";
 	public static boolean fetchUserdata = false;
+	public static String DistinctId;
 
 	public static void ValidateParameter(String distinctID, String eventName)
 			throws JsonParseException, JsonMappingException, IOException, InterruptedException {
@@ -499,4 +500,71 @@ public class Mixpanel extends ExtentReporter {
 		}
 		return "";
 	}
+	
+	// added by Kushal
+	
+	@SuppressWarnings("unused")
+	public static String fetchContentId(String distinct_id, String eventName)
+			throws JsonParseException, JsonMappingException, IOException {
+		try {
+			Thread.sleep(180000);
+		} catch (InterruptedException e) {
+		}
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime now = LocalDateTime.now();
+		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
+		System.out.println("Current Date : " + currentDate);
+		if (platform.equals("Android")) {
+			APIKey = "b2514b42878a7e7769945befa7857ef1";
+			UserID = "$model";
+			distinct_id = modelName();
+		} else {
+			APIKey = "58baafb02e6e8ce03d9e8adb9d3534a6";
+			if (distinct_id.contains("-")) {
+				UserID = "Unique ID";
+				UserType = "Login";
+			}
+		}
+		Response request = RestAssured.given().auth().preemptive().basic(APIKey, "")
+				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
+				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
+				.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
+				.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
+				.post("https://data.mixpanel.com/api/2.0/export/");
+		request.print();
+		String getContentId = null,getDistinctId=null;
+		sheet = eventName.trim().replace(" ", "");
+		if (request.toString() != null) {
+			if (platform.equals("Web") || platform.equals("MPWA")) {
+				parseResponse(getLatestEvent(request));
+			} else {
+				String response = request.asString();
+				String s[] = response.split("\n");
+				parseResponse(s[s.length - 1]);
+				System.out.println("LATEST RESPONSE: \n"+s[s.length - 1]);
+				getContentId = parseContentId(s[s.length-1]);
+				getDistinctId= parseDistinctId(s[s.length-1]);
+				DistinctId = getDistinctId;
+			}
+		}else {
+			System.out.println("Event not triggered");
+			extentReportFail("Event not triggered", "Event not triggered");
+		}
+		return getContentId;
+	}
+	
+	public static String parseContentId(String response) {
+		String strContentID = response.split("Content ID")[1].split(",")[0].replace("\":\"", "").replace("\"", "");
+		System.out.println("CONTENT ID : "+strContentID);
+		return strContentID;
+	}
+
+
+public static String parseDistinctId(String response) {
+		String strDistinctID = response.split("distinct_id")[1].split(",")[0].replace("\":\"", "").replace("\"", "");
+		System.out.println("Distinct ID : "+strDistinctID);
+		return strDistinctID;
+	}
+	
+	
 }
