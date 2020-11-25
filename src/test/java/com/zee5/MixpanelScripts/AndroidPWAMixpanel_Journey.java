@@ -315,7 +315,7 @@ public class AndroidPWAMixpanel_Journey {
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyPopUpLaunchEventForGetPremiumPopUp(userType,keyword2);
 	}
 	
-	@Test(priority = 154)
+	@Test(priority = 44)
 	@Parameters({ "userType", "keyword" })
 	public void verifyPopUpLaunchEventForRegisterPopUp(String userType, String keyword) throws Exception {
 		System.out.println("Verify Pop Up Launch Event when Native popup is displayed");
@@ -323,7 +323,7 @@ public class AndroidPWAMixpanel_Journey {
 	}
 	
 	
-	@Test(priority = 155)
+	@Test(priority = 45)
 	@Parameters({ "userType" })
 	public void verifyPopUpLaunchEventForCompleteProfilePopUp(String userType) throws Exception {
 		System.out.println("Verify Pop Up Launch Event when Complete Profile popup is displayed");
@@ -332,35 +332,35 @@ public class AndroidPWAMixpanel_Journey {
 	
 	
 	// Login through ClubUser Id
-	@Test(priority = 156)
+	@Test(priority = 46)
 	@Parameters({ "userType", "keyword6" })
 	public void verifyPopUpLaunchEventForClubUser(String userType, String keyword6) throws Exception {
 		System.out.println("Verify Pop Up Launch Event when user gets Upgrade popup for Club User");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyPopUpLaunchEventForClubUser(userType,keyword6);
 	}
 
-	@Test(priority = 37)
+	@Test(priority = 47)
 	@Parameters({ "userType" })
 	public void verifyCTAsEventHeader(String userType) throws Exception {
 		System.out.println("Verify CTAs Event");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyCTAsEventHeader(userType,"Shows");
 	}
 	
-	@Test(priority = 157)
+	@Test(priority = 48)
 	@Parameters({ "userType", "keyword6" })
 	public void verifyPopUpCTAsEvent(String userType, String keyword6) throws Exception {
 		System.out.println("Verify Pop Up CTA's Event when user clicks on CTA button displayed on the popup");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyPopUpCTAsEvent(userType,keyword6);
 	}
 	
-	@Test(priority = 303)
+	@Test(priority = 49)
 	@Parameters({ "userType" })
 	public void verifyCTAsEventForIcons(String userType) throws Exception {
 		System.out.println("Verify CTAs Event");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyCTAsEventForIcons(userType,"Language");
 	}
 	
-	@Test(priority = 304)
+	@Test(priority = 50)
 	@Parameters({ "userType" })
 	public void verifyCTAsEventForSubscribeBtn(String userType) throws Exception {
 		System.out.println("Verify CTAs Event when user clicks on subscription option");
@@ -368,13 +368,13 @@ public class AndroidPWAMixpanel_Journey {
 	}
 	
 	
-	@Test(priority = 305)
+	@Test(priority = 51)
 	public void verifyCTAsEventForOptionInHamburger() throws Exception {
 		System.out.println("Verify CTAs Event when user clicks on any option in hamburger menu");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyCTAsEventForOptionInHamburger();
 	}
 	
-	@Test(priority = 201)
+	@Test(priority = 52)
 	@Parameters({ "userType"})
 	public void verifyRecommendedRailImpressionEventByScrollingPage() throws Exception {
 		System.out.println("Verify Recommended Rail Impression event when user is able to see the recommended tray by scrolling down the page");
@@ -382,21 +382,21 @@ public class AndroidPWAMixpanel_Journey {
 	}
 	
 	
-	@Test(priority = 202)
+	@Test(priority = 53)
 	@Parameters({ "keyword"})
 	public void verifyRecommendedRailImpressionEventInShowDetailPage(String keyword) throws Exception {
 		System.out.println("Verify Recommended Rail Impression Event In Show Detail Page");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyRecommendedRailImpressionEventInShowDetailPage(keyword,"Trending");
 	}
 	
-	@Test(priority = 203)
+	@Test(priority = 54)
 	@Parameters({ "keyword1"})
 	public void verifyRecommendedRailImpressionEventInConsumptionScreen(String keyword1) throws Exception {
 		System.out.println("Verify Recommended Rail Impression Event In Consumption Screen");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyRecommendedRailImpressionEventInConsumptionScreen(keyword1,"Trending");
 	}
 	
-	@Test(priority = 160)
+	@Test(priority = 55)
 	@Parameters({ "userType" })
 	public void verifyToastMessageImpressionEventInParentalControlScreen(String userType) throws Exception {
 		System.out.println("Verify Toast Message Impression Event In Parental Control Screen");
@@ -405,7 +405,7 @@ public class AndroidPWAMixpanel_Journey {
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyToastMessageImpressionEventInParentalControlScreen(userType);
 	}
 	
-	@Test(priority = 162)
+	@Test(priority = 56)
 	@Parameters({ "userType" })
 	public void verifyToastMessageImpressionEventInAuthenticateScreen(String userType) throws Exception {
 		System.out.println("Verify Toast Message Impression Event In Authenticate Screen");
@@ -413,7 +413,7 @@ public class AndroidPWAMixpanel_Journey {
 	}
 	
 	
-	@Test(priority = 163)
+	@Test(priority = 57)
 	@Parameters({ "userType" })
 	public void verifyToastMessageImpressionEventForAddToWatchlist(String userType) throws Exception {
 		System.out.println("Verify Toast Message Impression Event after adding card to watchlist");
@@ -421,69 +421,69 @@ public class AndroidPWAMixpanel_Journey {
 	}
 	
 	
-	@Test(priority = 164)
+	@Test(priority = 58)
 	@Parameters({ "userType" })
 	public void verifyToastMessageImpressionEventForRemoveFomWatchlist(String userType) throws Exception {
 		System.out.println("Verify Toast Message Impression Event after removing card from watchlist");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyToastMessageImpressionEventForRemoveFomWatchlist(userType);
 	}
 	
-	@Test(priority = 165)
+	@Test(priority = 59)
 	@Parameters({ "userType", "keyword1" })
 	public void verifyToastMessageImpressionEventForEmbedPopUp(String userType,String keyword1) throws Exception {
 		System.out.println("Verify Toast Message Impression Event when user gets a toast message in embed popup");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyToastMessageImpressionEventForEmbedPopUp(userType,keyword1);
 	}
 	
-	@Test(priority = 138)
+	@Test(priority = 60)
 	@Parameters({ "userType"})
 	public void verifyToastMessageImpressionEventInSignInScreen(String userType) throws Exception {
 		System.out.println("Verify Toast Message Impression Event In Sign In Screen");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyToastMessageImpressionEventInSignInScreen(userType);
 	}
 	
-	@Test(priority = 139)
+	@Test(priority = 61)
 	@Parameters({ "userType"})
 	public void verifyToastMessageImpressionEventInOTPScreen(String userType) throws Exception {
 		System.out.println("Verify Toast Message Impression Event In OTP Screen");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyToastMessageImpressionEventInOTPScreen(userType);
 	}
 	
-	@Test(priority = 136)
+	@Test(priority = 62)
 	@Parameters({ "userType" })
 	public void verifyToastMessageImpressionEventInPaymentPage(String userType) throws Exception {
 		System.out.println("Verify Toast Message Impression Event in payment page");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyToastMessageImpressionEventInPaymentPage(userType);
 	}
 	
-	@Test(priority = 142)
+	@Test(priority = 63)
 	@Parameters({ "userType"})
 	public void verifyToastMessageImpressionEventInSignUpScreen(String userType) throws Exception {
 		System.out.println("Verify Toast Message Impression Event In Sign Up Screen");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyToastMessageImpressionEventInSignUpScreen(userType);
 	}
 	
-	@Test(priority = 151)
+	@Test(priority = 64)
 	public void verifyToastMessageImpressionEventAfterResetSettingsToDefault() throws Exception {
 		System.out.println("Verify Toast Message Impression Event After Reset Settings To Default");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyToastMessageImpressionEventAfterResetSettingsToDefault();
 	}
 	
-	@Test(priority = 200)
+	@Test(priority = 65)
 	@Parameters({ "userType"})
 	public void verifyToastMessageImpressionEventAfterUpdatingProfile(String userType) throws Exception {
 		System.out.println("Verify Toast Message Impression event when user updates the profile details");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyToastMessageImpressionEventAfterUpdatingProfile(userType);
 	}
 	
-	@Test(priority = 204)
+	@Test(priority = 66)
 	@Parameters({ "userType"})
 	public void verifyToastMessageImpressionEventInPackSelectionPage(String userType) throws Exception {
 		System.out.println("Verify Toast Message Impression event in pack selection page");
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyToastMessageImpressionEventInPackSelectionPage(userType);
 	}
 	
-	@Test(priority = 347)
+	@Test(priority = 67)
 	@Parameters({ "userType"})
 	public void verifyToastMessageImpressionEventAfterChangingPassword(String userType) throws Exception {
 		System.out.println("Verify Toast Message Impression event when user changes the password");

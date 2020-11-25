@@ -1759,7 +1759,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Change Password Started Event");
 			verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
-			click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+			click(PWAHamburgerMenuPage.objProfileIcon, "Profile Icon");
 			click(PWAHamburgerMenuPage.objProfileIconInProfilePage, "profile icon");
 			click(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
 			click(PWAHamburgerMenuPage.objChangeOldPassword, "password field");
@@ -1794,7 +1794,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Change Password Result Event");
 			verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
-			click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+			click(PWAHamburgerMenuPage.objProfileIcon, "Profile Icon");
 			click(PWAHamburgerMenuPage.objProfileIconInProfilePage, "profile icon");
 			click(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
 			click(PWAHamburgerMenuPage.objChangeOldPassword, "password field");
@@ -2320,7 +2320,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			getDriver().getKeyboard().sendKeys("123");
 			hideKeyboard();
 			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
-			waitTime(10000);
+			getDriver().context("CHROMIUM");
+			waitTime(8000);
 
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Subscription Call Initiated");
@@ -2382,8 +2383,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			getDriver().getKeyboard().sendKeys("123");
 			hideKeyboard();
 			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
-			waitTime(10000);
-
+			getDriver().context("CHROMIUM");
+			waitTime(8000);
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Subscription Call Initiated");
 		}
@@ -5022,7 +5023,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Profile Update Result Event");
 			waitTime(5000);
 			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-			click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+			click(PWAHamburgerMenuPage.objProfileIcon, "Profile Icon");
 			click(PWAHamburgerMenuPage.objProfileIconInProfilePage, "profile icon");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objProfileEditBtn, "Edit button");
 			verifyElementPresent(PWAHamburgerMenuPage.objEditProfileTextWEB, "edit profile page");
@@ -5335,22 +5336,25 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		if (icon.equalsIgnoreCase("Search")) {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
+			mixpanel.FEProp.setProperty("Element", "Search");
 			waitTime(5000);
 		}
 
 		if (icon.equalsIgnoreCase("Language")) {
 			click(PWAHomePage.objLanguageBtn, "Language button");
+			mixpanel.FEProp.setProperty("Element", "Language");
 			waitTime(5000);
 		}
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			if (icon.equalsIgnoreCase("Profile")) {
-				click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+				click(PWAHamburgerMenuPage.objProfileIcon, "Profile Icon");
+				mixpanel.FEProp.setProperty("Element", "MY_PROFILE");
 				waitTime(5000);
 			}
 		}
 		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", "home");
-		mixpanel.FEProp.setProperty("Element", "Language");
+		
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "CTAs");
@@ -5629,7 +5633,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Toast Message Impression event when user changes the password");
 			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-			click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+			click(PWAHamburgerMenuPage.objProfileIcon, "Profile Icon");
 			click(PWAHamburgerMenuPage.objProfileIconInProfilePage, "profile icon");
 			click(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
 			click(PWAHamburgerMenuPage.objChangeOldPassword, "password field");

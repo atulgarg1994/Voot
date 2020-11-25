@@ -5396,6 +5396,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
+			
+			LocalStorage local = null;
+			String localToken = null;
 
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
@@ -5407,6 +5410,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
 					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					localToken = local.getItem("ID");
+					System.out.println(local.getItem("ID"));
+				}
+				else {
+					Thread.sleep(20000);
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					localToken = local.getItem("ID");
+					System.out.println(local.getItem("ID"));
 				}
 			}
 			waitTime(10000);
@@ -5423,13 +5435,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objEnterCVV, "CVV");
 			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
 			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
+			getWebDriver().switchTo().defaultContent();
 			waitTime(10000);
 			click(PWASubscriptionPages.objZeeLink, "Zee link");
 			waitTime(5000);
 
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Call Returned");
-
+			mixpanel.ValidateParameter(localToken, "Subscription Call Returned");
 		}
 	}
 
@@ -5448,17 +5459,31 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
+			LocalStorage local = null;
+			String localToken = null;
 
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
 					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
+					Thread.sleep(5000);
 					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed Button");
 					// Password Popup
 					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
 					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
+					Thread.sleep(5000);
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+					Thread.sleep(20000);
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					localToken = local.getItem("ID");
+					System.out.println(local.getItem("ID"));
+				}
+				else {
+					Thread.sleep(20000);
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					localToken = local.getItem("ID");
+					System.out.println(local.getItem("ID"));
 				}
 			}
 			waitTime(10000);
@@ -5476,9 +5501,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
 			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
 			waitTime(10000);
+			getWebDriver().switchTo().defaultContent();
+			waitTime(10000);
 
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Call Initiated");
+			mixpanel.ValidateParameter(localToken, "Subscription Call Initiated");
+
 
 		}
 	}
@@ -5506,6 +5533,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 
+			LocalStorage local = null;
+			String localToken = null;
+
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
@@ -5516,6 +5546,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
 					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					localToken = local.getItem("ID");
+					System.out.println(local.getItem("ID"));
+				}
+				else {
+					Thread.sleep(20000);
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					localToken = local.getItem("ID");
+					System.out.println(local.getItem("ID"));
 				}
 			}
 			waitTime(10000);
@@ -5532,10 +5571,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objEnterCVV, "CVV");
 			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
 			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
+			getWebDriver().switchTo().defaultContent();
 			waitTime(10000);
 
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Call Initiated");
+			mixpanel.ValidateParameter(localToken, "Subscription Call Initiated");
 
 		}
 	}

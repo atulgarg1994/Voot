@@ -193,7 +193,7 @@
 		<dependency>
 			<groupId>com.epam.reportportal</groupId>
 			<artifactId>agent-java-testng</artifactId>
-			<version>4.2.1</version>
+			<version>5.0.7</version>
 		</dependency>
 
 		<dependency>
@@ -205,19 +205,19 @@
 		<dependency>
 			<groupId>com.epam.reportportal</groupId>
 			<artifactId>logger-java-log4j</artifactId>
-			<version>4.0.1</version>
+			<version>5.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
-			<version>2.10.0</version>
+			<version>2.13.3</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<version>2.10.0</version>
+			<version>2.13.1</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
@@ -226,7 +226,7 @@
 			<artifactId>log4j-slf4j-impl</artifactId>
 			<version>2.13.2</version>
 		</dependency>
-		
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -250,10 +250,15 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.20</version>
 				<configuration>
-					<!-- <systemPropertyVariables> <UserType>${UserType}</UserType> <runMode>${runMode}</runMode> 
-						<runModule>${runModule}</runModule> </systemPropertyVariables> <suiteXmlFiles> 
+					<systemPropertyVariables>
+						<UserType>${UserType}</UserType>
 						<url>${env}</url>
-						TestNG suite XML files <suiteXmlFile>${suiteXmlFile}</suiteXmlFile> </suiteXmlFiles> -->
+						<!-- <runMode>${runMode}</runMode>
+						<runModule>${runModule}</runModule> -->
+					</systemPropertyVariables>
+					<suiteXmlFiles>
+						<suiteXmlFile>${suiteXmlFile}.xml</suiteXmlFile>
+					</suiteXmlFiles>
 					<suiteXmlFiles>
 						<!-- TestNG suite XML files -->
 						<!-- <suiteXmlFile>${rp.launch}.xml</suiteXmlFile> -->
