@@ -1942,36 +1942,22 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void verifyMuteChangedEventForNewsContent() throws Exception {
 		extent.HeaderChildNode("Verify Mute Changed Event");
 		navigateToAnyScreenOnWeb("News");
-		waitForElementDisplayed(PWANewsPage.objBannerUnMute, 30);
-		if (checkElementDisplayed(PWANewsPage.objBannerUnMute, "Volume icon")) {
-			JSClick(PWANewsPage.objBannerUnMute, "UnMute Icon");
-			mixpanel.FEProp.setProperty("Source", "news_landing");
-			mixpanel.FEProp.setProperty("Element", "Mute");
-			mixpanel.FEProp.setProperty("Mute Value", "On");
-			mixpanel.FEProp.setProperty("Page Name", "news_landing");
-			mixpanel.FEProp.setProperty("Tab Name", "news_landing");
-			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			if (userType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Mute Changed");
-			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Mute Changed");
-			}
+		waitForElementDisplayed(PWANewsPage.objVolume, 30);
+
+		JSClick(PWANewsPage.objVolume, "Mute Icon");
+		mixpanel.FEProp.setProperty("Source", "news_landing");
+		mixpanel.FEProp.setProperty("Element", "Mute");
+		mixpanel.FEProp.setProperty("Page Name", "news_landing");
+		mixpanel.FEProp.setProperty("Tab Name", "news_landing");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+	
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Mute Changed");
 		} else {
-			JSClick(PWANewsPage.objBannerMute, "Mute Icon");
-			mixpanel.FEProp.setProperty("Source", "news_landing");
-			mixpanel.FEProp.setProperty("Element", "Mute");
-			mixpanel.FEProp.setProperty("Mute Value", "Off");
-			mixpanel.FEProp.setProperty("Page Name", "news_landing");
-			mixpanel.FEProp.setProperty("Tab Name", "news_landing");
-			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			if (userType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Mute Changed");
-			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Mute Changed");
-			}
+			mixpanel.ValidateParameter(local.getItem("ID"), "Mute Changed");
 		}
+		
 	}
 
 	public void verifyResumeEventForFreeContent(String userType, String keyword4) throws Exception {
@@ -5198,14 +5184,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(6000);
 		click(PWAPlayerPage.audioBtn, "Mute Icon");
 		waitTime(2000);
-		click(PWAPlayerPage.audioBtn, "Unmute Icon");
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		mixpanel.FEProp.setProperty("Source", "news_landing");
-		mixpanel.FEProp.setProperty("Page Name", "channel_detail");
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Element", "Mute");
-		mixpanel.FEProp.setProperty("Mute Value", "On");
-		mixpanel.FEProp.setProperty("Tab Name", "news_landing");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
+		
 		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 		Matcher m = p.matcher(id);

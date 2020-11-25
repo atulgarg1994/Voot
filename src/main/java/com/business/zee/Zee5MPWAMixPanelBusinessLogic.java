@@ -8,6 +8,8 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.html5.LocalStorage;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -2460,7 +2462,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Banner Autoplay Event For News Content");
 		navigateToAnyScreen("News");
 		waitTime(6000);
-		waitForElementDisplayed(PWANewsPage.objBannerUnMute, 30);
 		waitForElementDisplayed(PWANewsPage.objVolume, 30);
 		checkElementDisplayed(PWANewsPage.objVolume, "Volume icon");
 		mixpanel.FEProp.setProperty("Source", "news_landing");
@@ -12030,10 +12031,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
-			mandatoryRegistrationPopUp(userType);
 			waitTime(4000);
 			click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
-			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
 			waitTime(5000);
@@ -12547,4 +12546,51 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
 		}
 	}
+	
+	public void verifyMuteChangedEventForNewsContent() throws Exception {
+		extent.HeaderChildNode("Verify Mute Changed Event");
+		navigateToAnyScreen("News");
+		waitForElementDisplayed(PWANewsPage.objVolume, 30);
+		JSClick(PWANewsPage.objVolume, "Mute Icon");
+		mixpanel.FEProp.setProperty("Source", "news_landing");
+		mixpanel.FEProp.setProperty("Element", "Mute");
+		mixpanel.FEProp.setProperty("Page Name", "news_landing");
+		mixpanel.FEProp.setProperty("Tab Name", "news_landing");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Mute Changed");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Mute Changed");
+		}
+	}
+
+	public void verifyMuteChangedEventDuringContentPlayback(String keyword1) throws Exception {
+		extent.HeaderChildNode("Verify Mute Changed Event During Content Playback");
+		click(PWAHomePage.objSearchBtn, "Search Icon");
+		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+		waitTime(4000);
+		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(6000);
+		click(PWAPlayerPage.audioBtn, "Mute Icon");
+		waitTime(2000);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Element", "Mute");
+		mixpanel.FEProp.setProperty("Button Type", "Player");
+		
+		if (userType.equals("Guest")) {
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Mute Changed");
+		} else {
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Mute Changed");
+		}
+		
+	}
+
 }

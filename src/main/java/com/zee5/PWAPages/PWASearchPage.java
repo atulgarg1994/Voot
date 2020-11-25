@@ -17,10 +17,6 @@ public class PWASearchPage {
 	// Trending Searches tray
 	public static By objTrendingSearchesTray = By.xpath("//div[@class='trayHeader']//h2[text()='Trending Searches']");
 
-	// First asset of Trending Searches tray
-	public static By objFirstAssetThumbnailTrendingSearch = By.xpath(
-			"//div[@class='trayHeader']//h2[text()='Trending Searches']//parent::*//following-sibling::div[@class='latestEpisodeTrayWrapper']//div[@data-index='0']");
-
 	// First asset name of Trending Searches tray
 	public static By objFirstAssetTitleTrendingSearch = By.xpath(
 			"//div[@class='trayHeader']//h2[text()='Trending Searches']//parent::*//following-sibling::div[@class='latestEpisodeTrayWrapper']//div[@data-index='0']//h3[@class='cardTitle']");
@@ -154,12 +150,6 @@ public class PWASearchPage {
 
 	// Recent Searches overlay
 	public static By objRecentSearchesOverlay = By.xpath("//div[@class='recentSearchWrapper']");
-
-	// List of locators after performing Search functionality
-
-	// Asset title under ang Search navigation tab
-	public static By objAssetTitleSearchNavigationTab = By.xpath(
-			"(//div[@class='listingGrid']//div[@class='metaData']//h3[contains(@class,'cardTitle')]//span[@class='highLight'])[1]");
 
 	// Search result based on Search key
 	public static By objSearchedResult(String keyword) {
@@ -333,4 +323,18 @@ public class PWASearchPage {
 	public static By objSearchResult2(String title) {
 		return By.xpath("(//*[@class='highLight' and contains(text(), '" + title + "')])[2]");
 	}
+	
+	//Top Searches
+	public static By objTopSearchesTray = By.xpath("//div[@class='labelHeaderSearch']//h3[text()='Top Searches']");
+
+	// Second asset of Trending Searches tray
+	public static By objSecondAssetThumbnailTrendingSearch = By.xpath(
+	"//div[@class='trayHeader']//h2[text()='Trending Searches']//parent::*//following-sibling::div[@class='latestEpisodeTrayWrapper']//div[@data-index='1']");
+	
+	public static By objTopsearches=By.xpath("//div[@class='labelHeaderSearch']//h3[text()='Top Searches']");
+	
+	public static By objFirstAssetThumbnailTrendingSearch = By.xpath(
+			"//div[@class='trayHeader']//h2[text()='Trending Searches']//parent::*//following-sibling::div[@class='latestEpisodeTrayWrapper']//div[@data-index='1']");
+
+public static By objAssetTitleSearchNavigationTab = By.xpath("(//div[@class='listingGrid']//div[@class='metaData']//h3[contains(@class,'cardTitle')])[1]");
 }

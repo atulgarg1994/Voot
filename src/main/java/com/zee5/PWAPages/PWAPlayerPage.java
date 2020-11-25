@@ -332,10 +332,6 @@ public class PWAPlayerPage {
 	public static By objFirstCardFreeChnnelName = By.xpath(
 			"(((((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='FREE Channels']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content']//img)[1])");
 
-	// Consumption page content title
-	public static By objContentTitle = By
-			.xpath("//div[@class='consumptionMetaDiv' or contains(@class,'bannerTitle')]//h1");
-
 //	 Total Duration time
 	public static By totalDurationTime = By.xpath("//*[@class='totalDuration']//*[@class='playkit-time-display']//*");
 //	 Current duration time
@@ -404,13 +400,21 @@ public class PWAPlayerPage {
 	
 	public static By objSubtitleIcon = By.xpath("//*[@class='playkit-icon playkit-icon-language']");
 	
-	public static By objGoToEduauraa=By.xpath("//button[@class='noSelect buttonGradient ']//span[text()='Go to Eduauraa']");
-
-	public static By objContinue=By.xpath("//button[@class='noSelect buttonGradient ']//span[text()='Continue']");
-	
-	public static By objclaimofferBelowPlayerScreen=By.xpath("//button[@class='noSelect buttonGradient ']");
-	
 	public static By objAdPlayerOverlay = By.xpath(".//*[@class='videoAdUi']");
 
 	public static By objPlayerProgressScrubber = By.xpath("//div[@class='playkit-bottom-bar']//*[@class='playkit-progress-bar']//*[@class='playkit-scrubber']");
+
+	// Consumption page content title
+	public static By objContentTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//h1");
+
+	public static By objSubscribeCTAWithPremiumIcon = By.xpath("//*[@class='subscribe-teaser-button ']");
+	public static By objSubtitleTextOnPlayer = By.xpath("//div[@class='playkit-subtitles']//div[contains(@style,'plaintext')]");
+
+	public static By objChromecastButton = By.xpath("//div[@class='chromeCastBtnContainer']");
+	
+	public static By objGoToEduauraa=By.xpath("//*[text()='Go to Eduauraa']");
+
+	public static By objContinue=By.xpath("//*[text()='Continue']");
+	
+	public static By objclaimofferBelowPlayerScreen=By.xpath("//*[text()='Claim Offer']");
 }

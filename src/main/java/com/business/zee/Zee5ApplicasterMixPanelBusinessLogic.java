@@ -41,6 +41,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	private int retryCount;
 	ExtentReporter extent = new ExtentReporter();
 
+	
 	/** The Constant logger. */
 //	final static Logger logger = Logger.getLogger("rootLogger");
 	static LoggingUtils logger = new LoggingUtils();
@@ -6284,52 +6285,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.ValidateParameter("", "Prepaid Code Result");
 
 	}
-
-	public void AudioLanguageChangeEventForPremiumContent(String usertype, String tabName) throws Exception {
-		extent.HeaderChildNode("Audio Language Change Event for premium content");
-		waitTime(10000);
-		SelectTopNavigationTab(tabName);
-		Swipe("UP", 1);
-		boolean var = false;
-		for (int i = 0; i < 3; i++) {
-			var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
-			if (var == true) {
-				verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
-				waitTime(10000);
-				boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objAvailableAudioLanguages,
-						"Available Audio Languages");
-				if (lang == true) {
-					String noOfAudioLanguages = getText(AMDConsumptionScreen.objAvailableAudioLanguages);
-					if (noOfAudioLanguages.equalsIgnoreCase("Available in 1 language")) {
-						logger.info("Only one language is displayed");
-						extent.extentLogger("Audio Language", "Only one language is displayed");
-					} else {
-						click(AMDConsumptionScreen.objAudioLanguageValue, "Audio Language Value");
-						String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
-						String firstAudioLanguageOption = getText(AMDConsumptionScreen.objAudioLanguages(1));
-						if (selectedAudioLanguageOption.equalsIgnoreCase(firstAudioLanguageOption)) {
-							verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2),
-									"Audio Language option");
-						} else {
-							verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1),
-									"Audio Language option");
-						}
-						waitTime(4000);
-					}
-				} else {
-					logger.info("no Audio Language is displayed");
-					extent.extentLogger("Audio Language", "No Audio Language is displayed");
-				}
-				break;
-			} else {
-				Swipe("UP", 1);
-			}
-		}
-		if (var == false) {
-			logger.info("Premium content is not displayed in the screen");
-			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
-		}
-	}
 	
 	public void AudioLanguageChangeEventForTrailerContent(String usertype, String keyword7) throws Exception {
 		extent.HeaderChildNode("Verify Audio Language Change event for Trailer content");
@@ -6409,6 +6364,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Audio Language option");
 				}
 				waitTime(3000);
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				
+				String pContentId = mixpanel.fetchContentId("", "Language Audio Change");				
+				String pDistinctId = mixpanel.DistinctId;
+				ResponseInstance.getContentDetails(pContentId);
+				
+				mixpanel.ValidateParameter(pDistinctId, "Language Audio Change");
 			}
 		} else {
 			logger.info("no Audio Language is displayed");
@@ -6443,6 +6406,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Audio Language option");
 				}
 				waitTime(3000);
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				
+				String pContentId = mixpanel.fetchContentId("", "Language Audio Change");				
+				String pDistinctId = mixpanel.DistinctId;
+				ResponseInstance.getContentDetails(pContentId);
+				
+				mixpanel.ValidateParameter(pDistinctId, "Language Audio Change");
 			}
 		} else {
 			logger.info("no Audio Language is displayed");
@@ -6532,6 +6503,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Audio Language option");
 				}
 				waitTime(4000);
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				
+				String pContentId = mixpanel.fetchContentId("", "Language Audio Change");				
+				String pDistinctId = mixpanel.DistinctId;
+				ResponseInstance.getContentDetails(pContentId);
+				
+				mixpanel.ValidateParameter(pDistinctId, "Language Audio Change");
 			}
 		} else {
 			logger.info("no Audio Language is displayed");
@@ -6563,7 +6542,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 								"Subtitle Language option");
 					}
 					waitTime(4000);
-
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+									
+					String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");				
+					String pDistinctId = mixpanel.DistinctId;
+					ResponseInstance.getContentDetails(pContentId);
+									
+					mixpanel.ValidateParameter(pDistinctId, "Subtitle Language Change");
 				} else {
 					logger.info("No Subtitles for this content");
 					extent.extentLogger("Subtitle", "No Subtitles for this content");
@@ -6579,7 +6565,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void SubtitleLanguageChangeEventForTrailerContent(String usertype, String keyword7) throws Exception {
+public void SubtitleLanguageChangeEventForTrailerContent(String usertype, String keyword7) throws Exception {
 		extent.HeaderChildNode("Verify Subtitle Language Change event for Trailer content");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -6611,6 +6597,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Subtitle option");
 			}
 			waitTime(4000);
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+							
+			String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");				
+			String pDistinctId = mixpanel.DistinctId;
+			ResponseInstance.getContentDetails(pContentId);
+							
+			mixpanel.ValidateParameter(pDistinctId, "Subtitle Language Change");
 		} else {
 			logger.info("No Subtitles for this content");
 			extent.extentLogger("Subtitle", "No Subtitles for this content");
@@ -6618,7 +6612,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void SubtitleLanguageChangeEventForCarouselContent(String usertype, String tabName) throws Exception {
+public void SubtitleLanguageChangeEventForCarouselContent(String usertype, String tabName) throws Exception {
 		extent.HeaderChildNode("Subtitle Language Change Event for carousel content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
@@ -6634,6 +6628,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Subtitle option");
 			}
 			waitTime(3000);
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+							
+			String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");				
+			String pDistinctId = mixpanel.DistinctId;
+			ResponseInstance.getContentDetails(pContentId);
+							
+			mixpanel.ValidateParameter(pDistinctId, "Subtitle Language Change");
 		} else {
 			logger.info("No Subtitles for this content");
 			extent.extentLogger("Subtitle", "No Subtitles for this content");
@@ -6641,7 +6643,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void SubtitleLanguageChangeEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+public void SubtitleLanguageChangeEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("Subtitle Language Change Event of content from search page");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -6661,13 +6663,22 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Subtitle option");
 			}
 			waitTime(3000);
+			
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+							
+			String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");				
+			String pDistinctId = mixpanel.DistinctId;
+			ResponseInstance.getContentDetails(pContentId);
+							
+			mixpanel.ValidateParameter(pDistinctId, "Subtitle Language Change");
 		} else {
 			logger.info("No Subtitles for this content");
 			extent.extentLogger("Subtitle", "No Subtitles for this content");
 		}
 	}
 
-	public void SubtitleLanguageChangeEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+public void SubtitleLanguageChangeEventOfContentFromMyWatchListPage(String usertype) throws Exception {
 		if (!(usertype.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Subtitle Language Change Event of content from My WatchList page");
 			click(AMDHomePage.objMoreMenu, "More menu");
@@ -6692,6 +6703,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 						verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Subtitle option");
 					}
 					waitTime(3000);
+					
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+									
+					String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");				
+					String pDistinctId = mixpanel.DistinctId;
+					ResponseInstance.getContentDetails(pContentId);
+									
+					mixpanel.ValidateParameter(pDistinctId, "Subtitle Language Change");
 				} else {
 					logger.info("No Subtitles for this content");
 					extent.extentLogger("Subtitle", "No Subtitles for this content");
@@ -6707,7 +6727,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void SubtitleLanguageChangeEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+public void SubtitleLanguageChangeEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("Verify Subtitle Language Change event of content from Upnext rail");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -6732,11 +6752,75 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Subtitle option");
 			}
 			waitTime(3000);
+			
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+							
+			String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");				
+			String pDistinctId = mixpanel.DistinctId;
+			ResponseInstance.getContentDetails(pContentId);
+							
+			mixpanel.ValidateParameter(pDistinctId, "Subtitle Language Change");
 		} else {
 			logger.info("No Subtitles for this content");
 			extent.extentLogger("Subtitle", "No Subtitles for this content");
 		}
 	}
+
+
+public void AudioLanguageChangeEventForPremiumContent(String usertype, String tabName) throws Exception {
+	extent.HeaderChildNode("Audio Language Change Event for premium content");
+	waitTime(10000);
+	SelectTopNavigationTab(tabName);
+	Swipe("UP", 1);
+	boolean var = false;
+	for (int i = 0; i < 3; i++) {
+		var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
+		if (var == true) {
+			verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
+			waitTime(10000);
+			boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objAvailableAudioLanguages,
+					"Available Audio Languages");
+			if (lang == true) {
+				String noOfAudioLanguages = getText(AMDConsumptionScreen.objAvailableAudioLanguages);
+				if (noOfAudioLanguages.equalsIgnoreCase("Available in 1 language")) {
+					logger.info("Only one language is displayed");
+					extent.extentLogger("Audio Language", "Only one language is displayed");
+				} else {
+					click(AMDConsumptionScreen.objAudioLanguageValue, "Audio Language Value");
+					String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
+					String firstAudioLanguageOption = getText(AMDConsumptionScreen.objAudioLanguages(1));
+					if (selectedAudioLanguageOption.equalsIgnoreCase(firstAudioLanguageOption)) {
+						verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2),
+								"Audio Language option");
+					} else {
+						verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1),
+								"Audio Language option");
+					}
+					waitTime(4000);
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+					
+					String pContentId = mixpanel.fetchContentId("", "Language Audio Change");				
+					String pDistinctId = mixpanel.DistinctId;
+					ResponseInstance.getContentDetails(pContentId);
+					
+					mixpanel.ValidateParameter(pDistinctId, "Language Audio Change");
+				}
+			} else {
+				logger.info("no Audio Language is displayed");
+				extent.extentLogger("Audio Language", "No Audio Language is displayed");
+			}
+			break;
+		} else {
+			Swipe("UP", 1);
+		}
+	}
+	if (var == false) {
+		logger.info("Premium content is not displayed in the screen");
+		extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
+	}
+}
 
 	public void SkipIntroEventForPremiumContent(String usertype, String keyword4) throws Exception {
 		if (usertype.equalsIgnoreCase("SubscribedUser")) {

@@ -30,5 +30,5 @@ public class PWANewsPage {
 	public static By objBannerUnMute = By.xpath("//*[@class='playkit-icon playkit-icon-volume-waves']");
 	public static By objLiveNewsConsumptionsTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv')]//h1");
 	public static By objAutoPlayContent =By.xpath("//*[@class='playkit-icon playkit-icon-volume-waves']//ancestor::*[@id='anchorTag']");
-	public static By objVolume = By.xpath("//*[@class='volume-container']");
+	public static By objVolume = By.xpath("//*[@class='playkit-control-button-container playkit-volume-control']");
 }

@@ -4,7 +4,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.business.zee.Zee5ApplicasterMixPanelBusinessLogic;
 import com.utility.Utilities;
 
@@ -38,11 +37,11 @@ public class ZNAMixpanel_SubtitleLanguageChange {
 	}
 	
 	@Test(priority = 3)
-	@Parameters({ "userType", "keyword7"})
-	public void SubtitleLanguageChangeEventofTrailerContent(String userType, String keyword7) throws Exception {
+	@Parameters({ "userType", "keyword9"})
+	public void SubtitleLanguageChangeEventofTrailerContent(String userType, String keyword9) throws Exception {
 		System.out.println("Subtitle Language Change event of Trailer content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.SubtitleLanguageChangeEventForTrailerContent(userType,keyword7);
+		Zee5ApplicasterMixPanelBusinessLogic.SubtitleLanguageChangeEventForTrailerContent(userType,keyword9);
 		
 	}
 
@@ -55,11 +54,11 @@ public class ZNAMixpanel_SubtitleLanguageChange {
 	}
 
 	@Test(priority = 5)
-	@Parameters({ "userType","keyword4"})
-	public void SubtitleLanguageChangeEventFromsearchpage(String userType, String keyword4) throws Exception {
+	@Parameters({ "userType","keyword9"})
+	public void SubtitleLanguageChangeEventFromsearchpage(String userType, String keyword9) throws Exception {
 		System.out.println("Subtitle Language Change event of Content from Search page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.SubtitleLanguageChangeEventOfcontentFromSearchPage(userType, keyword4);
+		Zee5ApplicasterMixPanelBusinessLogic.SubtitleLanguageChangeEventOfcontentFromSearchPage(userType, keyword9);
 	}
 	
 	@Test(priority = 6)
@@ -72,11 +71,11 @@ public class ZNAMixpanel_SubtitleLanguageChange {
 	}
 	
 	@Test(priority = 7)
-	@Parameters({ "userType", "keyword4"})
-	public void SubtitleLanguageChangeEventFromUpNextRail(String userType, String keyword4) throws Exception {
+	@Parameters({ "userType", "keyword9"})
+	public void SubtitleLanguageChangeEventFromUpNextRail(String userType, String keyword9) throws Exception {
 		System.out.println("Subtitle Language Change event of Content from Upnext Rail");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.SubtitleLanguageChangeEventOfContentFromUpNextRail(userType, keyword4);
+		Zee5ApplicasterMixPanelBusinessLogic.SubtitleLanguageChangeEventOfContentFromUpNextRail(userType, keyword9);
 		
 	}
 	

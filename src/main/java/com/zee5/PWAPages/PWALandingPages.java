@@ -91,9 +91,6 @@ public class PWALandingPages {
 		return By.xpath("(//div[@class='trayHeader']//h2[contains(text(),\"" + apiTitle
 				+ "\")]) | (//h2//a[contains(text(),\"" + apiTitle + "\")])");
 	}
-
-	public static By objViewAllPageFirstContent = By.xpath(
-			"((//div[@class='viewAllGrid']//div[@data-minutelytitle]) | (//div[@class='viewAllGrid']//a[@data-minutelytitle]))[1]");
 	public static By objViewAllPageSecondContent = By.xpath(
 			"((//div[@class='viewAllGrid']//div[@data-minutelytitle]) | (//div[@class='viewAllGrid']//a[@data-minutelytitle]))[2]");
 
@@ -127,6 +124,12 @@ public class PWALandingPages {
 	public static By trayCard = By.xpath("//*[@data-minutelytitle]");
 	
 	public static By trayCard(String trayTitle) {
-		return By.xpath("//*[text()='Trending Shows']//ancestor::*[@class='trayHeader']//following-sibling::*//*[@data-minutelytitle]");
+		return By.xpath("//*[contains(text(),'"+trayTitle+"')]//ancestor::*[@class='trayHeader']//following-sibling::*//*[@data-minutelytitle]");
 	}
+	
+	public static By objViewAllPageFirstContent = By.xpath(
+			"((//div[@class='viewAllGrid']//div[@data-minutelytitle]) | (//div[@class='viewAllGrid']//a[@data-minutelytitle]) | (//div[contains(@class,'channelNewsCard')]//figure))[1]");
+
+	public static By objNavigateToTopStories = By.xpath("//*[contains(@class,'arrow-up')]");
+
 }

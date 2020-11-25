@@ -322,4 +322,10 @@ public class PWASubscriptionPages {
 	public static By objCreditDebitClose = By.xpath("(//*[contains(@src,'ic_search_cancel')])[2]");
 	
 	public static By objProceedBtnInSubscriptionPage = By.xpath("//*[text()='PROCEED']");
+	
+	public static By objPremiumPack = By.xpath("//span[contains(text(),'Premium')]");
+	public static By objActiveStatusTransaction = By.xpath("//*[text()='Status']//following-sibling::*[text()='Active']");
+	
+	public static By objUpgradePopupTitle = By.xpath("//div[contains(@class,'popupContent upgradePopupContent')]");
+
 }

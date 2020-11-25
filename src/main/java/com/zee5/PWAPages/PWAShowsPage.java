@@ -61,7 +61,6 @@ public class PWAShowsPage {
 	public static By objTwitterPostBtn1 = By.xpath("//*[@text='Tweet' or @text='TWEET']");
 	
 	public static By objEpisodeTrayinShowdetailPage = By.xpath("//div[@class='AllEpisodesListDiv']");
-	public static By objShowdeatilPlayIcon = By.xpath("(//div[@class='showDetailIcon'])[2]");
 	public static By objShowDetailEpisodeDropdown = By
 			.xpath("(//div[@class='AllEpisodesListDiv']//div[@class='allEpisodeSelect']//div)[4]");
 
@@ -144,4 +143,5 @@ public class PWAShowsPage {
 	// First asset title from first content rail
 	public static By objFirstAssetTitleFirstRail = By.xpath("(//div[@class='slick-list'])[1]//div[@data-index='0']//h3[@class='showCardTitle']");
 
+	public static By objShowdeatilPlayIcon = By.xpath("//a[@class='playIcon']");
 }

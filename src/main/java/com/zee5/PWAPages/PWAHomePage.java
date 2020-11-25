@@ -482,6 +482,25 @@ public class PWAHomePage {
 	
 	public static By objFirstItemLearnWithEduauraaTray = By.xpath("//*[@class='titleLink' and text()='Learn with Eduauraa']//ancestor::*[@class='trayContentWrap']//*[@class='slick-list']//*[@data-index='0']");
 	
+	public static By objPlayBtn = By.xpath("//div[contains(@class,'slick-slide slick-active')]//*[contains(@class,'playIcon')]");
+
+	public static By objTitleTextCarousel(String text) {
+		return By.xpath(
+				"//*[contains(@class,'legendTitle') and contains(text(),'"+text +"')]");
+	}
+	
+	public static By objClubContentCardFromTray = By.xpath("//div[@class='page-container']//div[@class='slick-list']//div[@data-minutelyurl and (.//div[contains(@class,'clubPackContent')])]");
+	public static By objStoriesPageCardTitle = By.xpath("//h3[@class='cardTitle']");
+	public static By objUpgradeBtnInHeader = By.xpath("//*[contains(@class,'headerContainer')]//span[text()='Upgrade']");
+	public static By objJoyStickTag = By.xpath("//*[contains(@class,'cardJoystickContent')]");
+	public static By objStoriesPageConsumptionsTitle = By.xpath("//*[@class='storyTitle']");
+	
+	public static By objtrayname(String text)
+	{
+		return By.xpath("//*[@class='trayHeader']//*[contains(text(),'"+text+"')]");
+	}
+	public static By objcontentcard=By.xpath("//div[@data-index='0']");
+
 	public static By objClaimOffer =By.xpath("//button//span[text()='Claim Offer']");
 	
 	public static By objGetClubCta = By.xpath("//div[contains(@class,'slick-active')]//*[text()='Get Club']//parent::a");
@@ -490,14 +509,9 @@ public class PWAHomePage {
 	
 	public static By objGetPremiumCta = By.xpath("//div[contains(@class,'slick-active')]//*[text()='Get premium']//parent::a");
 	
-	public static By objPlayBtn = By.xpath("//div[contains(@class,'slick-slide slick-active')]//*[contains(@class,'playIcon')]");
+	//public static By objPlayBtn = By.xpath("//div[contains(@class,'slick-slide slick-active')]//*[contains(@class,'playIcon')]");
 
 	public static By objUpgradeBtn = By.xpath("//div[contains(@class,'slick-slide slick-active')]//*[contains(text(),'Upgrade')]");
 
 	public static By objEduauraaCardCarousel = By.xpath("//h2[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
-
-	public static By objTitleTextCarousel(String text) {
-		return By.xpath(
-				"//*[contains(@class,'legendTitle') and contains(text(),'"+text +"')]");
-	}
 }

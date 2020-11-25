@@ -392,6 +392,152 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.validatingclaimCTA(userType ,"Premium");
 	}
 
+	@Test(priority = 29)
+	@Parameters({ "userType" })
+	public void HomePagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.Homepagevalidation(userType, "Home");
+//		Zee5WEBPWASanityBusinessLogic.trayTitleAndContentValidationWithApiDataHome("Home", "home");
+//		Zee5WEBPWASanityBusinessLogic.MetadataOnCarousel("Premium", userType);
+		// Zee5WEBPWASanityBusinessLogic.MetadataOnCarousel("Premium", userType);
+	}
+
+	@Test(priority = 30)
+	@Parameters({ "userType" })
+	public void MoviePagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.movies("Movies", userType);
+	}
+
+	@Test(priority = 31)
+	@Parameters({ "userType" })
+	public void ShowsPagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.Shows("Shows", userType);
+	}
+
+	@Test(priority = 32)
+	@Parameters({ "userType" })
+	public void onboardingHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.silentRegistrationViaEmail(userType);
+		Zee5WEBPWASanityBusinessLogic.SocialLogin(userType);
+		Zee5WEBPWASanityBusinessLogic.Carouselcontent(userType);
+	}
+
+	@Test(priority = 33)
+	@Parameters({ "userType" })
+	public void NewsPagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.newsValidation(userType, "News");
+	}
+
+	@Test(priority = 34)
+	@Parameters({ "userType" })
+	public void ClubPagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.Clubvalidation("Club", userType);
+	}
+
+	@Test(priority = 35)
+	@Parameters({ "userType" })
+	public void PremiumPagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.Premiumvalidation("Premium", userType);
+	}
+
+	@Test(priority = 36)
+	@Parameters({ "userType" })
+	public void musicPagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.Musicvalidation("Music", userType);
+	}
+
+	@Test(priority = 37)
+	@Parameters({ "userType" })
+	public void LivePagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.LiveTVValidation(userType, "Music");
+	}
+
+	@Test(priority = 38)
+	@Parameters({ "userType" })
+	public void StoriesPagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.storiesvalidation(userType, "Stories");
+	}
+
+	@Test(priority = 39)
+	@Parameters({ "userType" })
+	public void videoPagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.videoValidation(userType, "Videos");
+	}
+
+	@Test(priority = 40)
+	@Parameters({ "userType" })
+	public void Zee5PagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.Zee5OriginalsValidation(userType, "ZEE5 Originals");
+	}
+
+	@Test(priority = 41)
+	@Parameters({ "userType" })
+	public void SearchPagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.Search("Parru ");
+	}
+
+	@Test(priority = 42)
+	@Parameters({ "userType" })
+	public void PlayPagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.PlayValidation("Play", userType);
+	}
+
+	@Test(priority = 44)
+	@Parameters({ "userType" })
+	public void KalturaPagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.kaltura(userType, "Home");
+	}
+
+	@Test(priority = 45)
+	@Parameters({ "userType" })
+	public void SubscriptionPagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.Subscriptionjourney(userType, "Home");
+	}
+
+	@Test(priority = 46)
+	@Parameters({ "userType" })
+	public void MySubscriptionPagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.MySubscription(userType);
+		Zee5WEBPWASanityBusinessLogic.MyTransactions(userType);
+	}
+
+	@Test(priority = 47)
+	@Parameters({ "userType" })
+	public void UpgradePagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.upgrade(userType);
+	}
+
+	@Test(priority = 48)
+	@Parameters({ "userType" })
+	public void zeeplexvalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.zeeplexvalidation("ZEEPLEX", userType);
+	}
+
+	@Test(priority = 49)
+	@Parameters({ "userType" })
+	public void KidsPagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.kidsvalidation(userType, "Kids");
+	}
+
 	@AfterClass
 	public void tearDown() {
 		Zee5WEBPWASanityBusinessLogic.tearDown();

@@ -79,4 +79,6 @@ public class PWAZee5OriginalPage {
 	
 	// First tray
 	public static By objTrayTitle1 = By.xpath("(//*[@class='titleLink'])[1]");
+	
+	public static By objTrayTitle = By.xpath("(//*[@class='titleLink' or @class='trayHeader'])[1]");
 }

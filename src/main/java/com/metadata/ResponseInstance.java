@@ -14,6 +14,7 @@ import com.jayway.restassured.specification.RequestSpecification;
 import com.mixpanelValidation.Mixpanel;
 import com.propertyfilereader.PropertyFileReader;
 import java.util.Properties;
+import java.util.stream.Stream;
 
 public class ResponseInstance {
 
@@ -281,14 +282,17 @@ public class ResponseInstance {
 	 */
 	public static Response getResponseForPages(String page) {
 		Response respCarousel = null;
+		String Uri ;
 		if (page.equals("news")) {
 			page = "626";
 		} else if (page.equals("music")) {
 			page = "2707";
 		} else if (page.equals("home")) {
 			page = "homepage";
+		}else if(page.equals("live tv")) {
+			Uri = "https://catalogapi.zee5.com/v1/channel/genres?translation=en&country=IN";
 		}
-		String Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page
+			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page
 				+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages=en,kn&version=6";
 		respCarousel = given().urlEncodingEnabled(false).when().get(Uri);
 		return respCarousel;
@@ -725,17 +729,17 @@ public class ResponseInstance {
 		String bearerToken = getBearerToken(pUsername, pPassword);
 		String url = "https://userapi.zee5.com/v1/user";
 		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
-		resp.print();
-//		String commaSplit[] = resp.asString().replace("{", "").replace("}", "").replaceAll("[.,](?=[^\\[]*\\])", "-")
-//				.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-//		for (int i = 0; i < commaSplit.length; i++) {
-//			if (Stream.of(userData).anyMatch(commaSplit[i]::contains)) {
-//				String com[] = commaSplit[i].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-//				Mixpanel.FEProp.setProperty(com[0].replace("\"", ""), com[1].replace("\"", ""));
-//			}
-//		}
-//		getDOB();
-//		Mixpanel.fetchUserdata = true;
+//		resp.print();
+		String commaSplit[] = resp.asString().replace("{", "").replace("}", "").replaceAll("[.,](?=[^\\[]*\\])", "-")
+				.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+		for (int i = 0; i < commaSplit.length; i++) {
+			if (Stream.of(userData).anyMatch(commaSplit[i]::contains)) {
+				String com[] = commaSplit[i].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+				Mixpanel.FEProp.setProperty(com[0].replace("\"", ""), com[1].replace("\"", ""));
+			}
+		}
+		getDOB();
+		Mixpanel.fetchUserdata = true;
 	}
 	
 	@SuppressWarnings("unused")

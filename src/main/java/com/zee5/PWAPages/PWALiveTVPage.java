@@ -176,8 +176,6 @@ public class PWALiveTVPage {
 	public static By objPremiumPopUp = By.xpath("//h2[contains(@class,'popupTitle') and text()='Get premium']");
 
 	public static By objClosePremiumPopup = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
-
-	public static By objPlayerInlineSubscriptionLink = By.xpath("(//div[@class='main-container-1'])[1]");
 //		SUSHMA
 	public static By objLiveChannelCard = By.xpath("(//*[@class=\"noSelect content\"])[1]");
 
@@ -371,4 +369,8 @@ public class PWALiveTVPage {
 	public static By objSetReminderOn = By.xpath("//*[@class='noSelect reminder iconNavi-ic_reminder btnIconActive']");
 	
 	public static By objSetReminder = By.xpath("//*[@class='noSelect reminder iconNavi-ic_reminder']");
+	
+	public static By objPlayerInlineSubscriptionLink = By.xpath("//div[@class='main-container-1']//span[contains(@class,'subscribe-link')]");
+	public static By objChannelsEPGOuter = By.xpath("//*[@class='epgOuter']");
+
 }

@@ -16,7 +16,7 @@
 
 	<parameter name="browserType" value="chrome" />
 
-	<parameter name="userType" value="Guest" />
+	<parameter name="userType" value="ClubUser" />
 
 	<!-- Guest/NonSubscribedUser/SubscribedUser/ClubUser -->
 
@@ -28,21 +28,21 @@
 	<!-- NONSubscribed User -->
 
 	<parameter name="NonsubscribedUserName"
-		value="" />
+		value="impact0314@gmail.com" />
 
 	<parameter name="NonsubscribedPassword" value="" />
 
 	<!-- Subscribed User -->
 
 
-	<parameter name="SubscribedUserName" value="" />
+	<parameter name="SubscribedUserName" value="thomas.cutinha1@gmail.com" />
 
 	<parameter name="SubscribedPassword" value="" />
 	
-	<parameter name="ClubUserName" value="" />
+	<parameter name="ClubUserName" value="edpwa4@mailnesia.com" />
 
 	<parameter name="ClubPassword" value="" />
-
+	
 	<parameter name="devicePin" value="1619" />
 
 	<!-- data -->

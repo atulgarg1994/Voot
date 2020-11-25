@@ -1550,6 +1550,19 @@ public class AndroidPWAMixpanel_PlayerEvents {
 		Zee5PWAMixPanelAndroidBusinessLogic.verifyParentalOverlayResultEventForContentFromSharedLink(freeContentURL,userType);
 	}
 	
+	@Test(priority = 222)
+	public void verifyMuteChangedEventForNewsContent() throws Exception {
+		System.out.println("Verify Mute Changed Event");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyMuteChangedEventForNewsContent();
+	}
+	
+	@Test(priority = 223)
+	@Parameters({"keyword1"})
+	public void verifyMuteChangedEventDuringContentPlayback(String keyword1) throws Exception {
+		System.out.println("Verify Mute Changed Event During Content Playback");
+		Zee5PWAMixPanelAndroidBusinessLogic.verifyMuteChangedEventDuringContentPlayback(keyword1);
+	}
+	
 	@AfterClass
 	public void tearDown() {
 		Zee5PWAMixPanelAndroidBusinessLogic.tearDown();

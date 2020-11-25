@@ -632,8 +632,6 @@ public class PWAHamburgerMenuPage {
 
 	public static By objzeeAppInterstitialAddClose = By.xpath("//*[@content-desc='Interstitial close button']");
 
-	public static By objEduauraaSignupPage = By.xpath("//div[@class='signup-block']");
-
 	// Edit Profile Save changes
 	public static By objEditProfileSavechangesBtn = By
 			.xpath("//span[text()='save changes']//parent::button[contains(@class,'noSelect buttonGradient')]");
@@ -647,4 +645,61 @@ public class PWAHamburgerMenuPage {
 	public static By objUnselectedKannadaContentLanguage = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='Kannada']");
 	
 	public static By objUnselectedHindiContentLanguage = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='Hindi']");
+	
+public static By objplay = By.xpath("//span[text()='Play']");
+	
+	public static By objGetpremium = By.xpath("//*[text()='Get premium']");
+	public static By objClub = By.xpath("//*[text()='Get Club']");
+	public static By objfooter = By.xpath("//div[@class='megaMenuFooter']");
+	//div[@class='page-container']
+	public static By objrail = By.xpath("//div[@class='page-container']");
+	
+	public static By objpremiumcard = By.xpath("//div[@class='cardPremiumContent']");
+	public static By objFirstCard = By.xpath("//div[@class='viewAllGrid']");
+	//div[@class='viewAllGrid']
+	
+	public static By objSubscribeWithClub = By.xpath("//button[@class='subscribe-teaser-button player-club-icon']");
+	
+	public static By objSubscribebtn=By.xpath("//button[@class='subscribe-teaser-button ']");
+	
+	public static By objFirstcontentCard=By.xpath("(//*[contains(@class,'trayHeader')]//parent::*//parent::*//following-sibling::*//*[contains(@class, 'content')])[1]");
+	
+	public static By obj2ndcontentCard=By.xpath("(//*[contains(@class,'trayHeader')]//parent::*//parent::*//following-sibling::*//*[contains(@class, 'content')])[2]");
+	
+	public static By objStoriescard=By.xpath("//div[contains(@class,'clickWrapper')]");
+	
+	public static By objClubAccess=By.xpath("//span[text()='Club']");
+	
+	public static By objPackactive=By.xpath("//div[contains(@class,' active')]");
+	
+	public static By objFreeContentCardFromTray =By.xpath("//div[@class='page-container']//div[@class='slick-list']//div[@data-minutelyurl and not(.//div[@class='cardPremiumContent' or contains(@class,'clubPackContent')])]");
+
+	public static By objClubcontentcard=By.xpath("//div[@class='page-container']//div[@class='slick-list']//div[@data-minutelyurl and (.//div [contains(@class,'clubPackContent')])]");
+
+	public static By objwatchfirstepisode=By.xpath("//*[text()='Watch First Episode']");
+	
+	public static By objwatchlatestepisode=By.xpath("//*[text()='Watch Latest Episode']");
+	
+	public static By objPremiumcontentcard=By.xpath("//div[@class='page-container']//div[@class='slick-list']//div[@data-minutelyurl and (.//div[@class='cardPremiumContent' or contains(@class,'clubPackContent')])]");
+	
+	public static By objFirstsearchcard=By.xpath("(//*[@class='metaData'])[1]");
+	
+	public static By objPlanPrice=By.xpath("//div[@class='amountBreakup']//p[text()='Plan Price']");
+	
+	public static By objDiscount=By.xpath("//div[@class='amountBreakup']//p[text()='Discount']");
+	
+	public static By objRoundoff=By.xpath("//div[@class='amountBreakup']//p[text()='Round Off']");
+	
+	public static By objTotalPayable=By.xpath("//div[@class='totalAmount']//p[text()='Total Payable Amount']");
+	
+	public static By objzeeplexcontent=By.xpath("//*[@class='plexTrayContainer']");
+	public static By objTrailer=By.xpath("//*[text()='Trailer']");
+	
+	public static By objrentforINR=By.xpath("//*[text()='Rent for INR 299']");
+	public static By objrentforINRpopup=By.xpath("//div[@class='popupContent']//span[text()='Rent for INR 299']");
+	public static By objrentalpopupclose=By.xpath("//div[@class='plexExpiryCloseIcon']");
+	public static By objEduauraaSignupPage = By.xpath("//div[@class='signup-block']");
+	
+	public static By objPlayBtn = By.xpath("//div[contains(@class,'slick-slide slick-active')]//*[contains(@class,'playIcon')]");
+	public static By objStorisarrowup=By.xpath("//*[@class='fa fa-arrow-up']");
 }
