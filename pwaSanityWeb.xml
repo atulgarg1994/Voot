@@ -2,19 +2,17 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Web" parallel="false" thread-count="1">
 
-	<parameter name="url" value="newpwa" /> 
+	
 	
 	<!-- <parameter name="userType" value="${UserType}"/>  Guest/NonSubscribedUser/SubscribedUser/SubscribedUserWith15daysExpiry
 	<parameter name="runMode" value="${runMode}"/>	
 	<parameter name="runModule" value="${runModule}"/>
 	<parameter name="browserType" value="${browserType}"/> -->
 	
-	<parameter name="browserType" value="Chrome"/>  <!--  Chrome/Firefox -->
-	
-	<parameter name="userType" value="Guest"/> <!--  Guest/NonSubscribedUser/SubscribedUser -->
-	
+	<parameter name="url" value="newpwa" />
+	<parameter name="browserType" value="Chrome"/>   <!-- Chrome/Firefox -->
+	<parameter name="userType" value="Guest"/>  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite"/>
-	
 	<parameter name="runMode" value="Suites"/>
 	
 	<!-- NONSubscribed User -->

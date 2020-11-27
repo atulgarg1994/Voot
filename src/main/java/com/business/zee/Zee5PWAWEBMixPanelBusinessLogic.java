@@ -4833,6 +4833,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Scrub/Seek");
 		}
+		
+		
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Direction", "forward");
+		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
+
+		
 	}
 
 	public void verifyScrubSeekEventForPremiumContent(String userType, String tab) throws Exception {
@@ -4842,7 +4850,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPremiumPage.objPremiumTag, "Premium Content");
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-			playerScrubTillLastWeb();
+ 			playerScrubTillLastWeb();
 			waitTime(5000);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
@@ -5595,26 +5603,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 
 	public void verifySkipLoginThroughBeforeTVContent() throws Exception {
-		extent.HeaderChildNode("Verify Skip Login Event gets triggered when user click on close button in login popup "
-				+ "on clicking login in Get premium popup on accessing before tv content");
-		navigateToAnyScreenOnWeb("Shows");
-		if (checkElementDisplayed(PWAHomePage.objFirstContentCardOfTray("Before"),
-				"First Content Card Of Before TV Tray")) {
-			click(PWAHomePage.objFirstContentCardOfTray("Before"), "First Content Card Of Before TV Tray");
-			waitTime(20000);
-			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-			playerScrubTillLastWeb();
-			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-			waitForElement(PWASubscriptionPages.objGetPremiumPopupTitle, 10, "Get Premium Popup Title");
-			click(PWALoginPage.objLoginCTAInPremiumPopup, "Login CTA");
-			waitForElement(PWALoginPage.objSkip, 10, "Skip Login");
-			waitTime(5000);
-			click(PWALoginPage.objSkip, "Skip Login");
-			waitTime(2000);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			Mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Login");
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode(
+					"Verify Skip Login Event gets triggered when user click on close button in login popup "
+							+ "on clicking login in Get premium popup on accessing before tv content");
+			navigateToAnyScreenOnWeb("Shows");
+			if (checkElementDisplayed(PWAHomePage.objFirstContentCardOfTray("Before"),
+					"First Content Card Of Before TV Tray")) {
+				click(PWAHomePage.objFirstContentCardOfTray("Before"), "First Content Card Of Before TV Tray");
+				waitTime(20000);
+				click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+				playerScrubTillLastWeb();
+				click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+				waitForElement(PWASubscriptionPages.objGetPremiumPopupTitle, 10, "Get Premium Popup Title");
+				click(PWALoginPage.objLoginCTAInPremiumPopup, "Login CTA");
+				waitForElement(PWALoginPage.objSkip, 10, "Skip Login");
+				waitTime(5000);
+				click(PWALoginPage.objSkip, "Skip Login");
+				waitTime(2000);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				Mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Login");
+			}
 		}
-
 	}
 
 	public void verifySettingChangedEventAfterAccountVerification(String userType) throws Exception {

@@ -29,6 +29,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 		params.put("devicePin", suite.getParameter("devicePin"));
 		params.put("runModule", suite.getParameter("runModule"));
 		params.put("runMode", suite.getParameter("runMode"));
+		System.out.println("Browser type : "+suite.getParameter("browserType"));
 		
 		if(suite.getParameter("url").equals("newpwa")) {
 			params.put("url", "https://newpwa.zee5.com/");

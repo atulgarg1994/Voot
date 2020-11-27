@@ -251,9 +251,9 @@
 				<version>2.20</version>
 				<configuration>
 					<systemPropertyVariables>
-						<UserType>${UserType}</UserType>
+						<!-- <UserType>${UserType}</UserType>
 						<BrowserType>${BrowserType}</BrowserType>
-						<url>${env}</url>
+						<url>${url}</url>  -->
 						<!-- <runMode>${runMode}</runMode>
 						<runModule>${runModule}</runModule> -->
 					</systemPropertyVariables>
@@ -261,6 +261,7 @@
 						<!-- TestNG suite XML files -->
 						<!-- <suiteXmlFile>${rp.launch}.xml</suiteXmlFile> -->
 						<suiteXmlFile>pwaSanityWeb.xml</suiteXmlFile>
+						<!-- <suiteXmlFile>${suiteXmlFile}.xml</suiteXmlFile> -->
 					</suiteXmlFiles>
 				</configuration>
 			</plugin>
