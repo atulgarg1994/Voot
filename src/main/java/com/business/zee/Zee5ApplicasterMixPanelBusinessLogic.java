@@ -41,7 +41,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	private int retryCount;
 	ExtentReporter extent = new ExtentReporter();
 
-	
 	/** The Constant logger. */
 //	final static Logger logger = Logger.getLogger("rootLogger");
 	static LoggingUtils logger = new LoggingUtils();
@@ -1728,7 +1727,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					"Continue button in Content language page");
 		}
 	}
-	
+
 	public void videoViewEventForCarouselContent(String tabName) throws Exception {
 		extent.HeaderChildNode("Video View Event for carousel content");
 		waitTime(10000);
@@ -1780,18 +1779,18 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		Back(2);
 		waitTime(4000);
-		
+
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
 		mixpanel.FEProp.setProperty("Video View", "1");
-		
+
 		String pContentId = mixpanel.fetchContentId("", "Video View");
 		String pDistinctId = mixpanel.DistinctId;
 		ResponseInstance.getContentDetails(pContentId);
-		
+
 		mixpanel.ValidateParameter(pDistinctId, "Video View");
 	}
-	
+
 	public void videoViewEventOfContentFromMyWatchListPage(String usertype) throws Exception {
 		if (!(usertype.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Video View Event of content from My WatchList page");
@@ -1819,11 +1818,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
 				mixpanel.FEProp.setProperty("Video View", "1");
-				
+
 				String pContentId = mixpanel.fetchContentId("", "Video View");
 				String pDistinctId = mixpanel.DistinctId;
 				ResponseInstance.getContentDetails(pContentId);
-				
+
 				mixpanel.ValidateParameter(pDistinctId, "Video View");
 			}
 		} else {
@@ -1851,14 +1850,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 		mixpanel.FEProp.setProperty("Video View", "1");
-		
+
 		String pContentId = Mixpanel.fetchContentId("", "Video View");
 		String pDistinctId = mixpanel.DistinctId;
 		ResponseInstance.getContentDetails(pContentId);
-		
+
 		mixpanel.ValidateParameter(pDistinctId, "Video View");
 	}
-	
+
 	public void videoViewEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("Verify Video View event of content from Upnext rail");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
@@ -1887,11 +1886,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
 		mixpanel.FEProp.setProperty("Video View", "1");
-		
+
 		String pContentId = mixpanel.fetchContentId("", "Video View");
 		String pDistinctId = mixpanel.DistinctId;
 		ResponseInstance.getContentDetails(pContentId);
-		
+
 		mixpanel.ValidateParameter(pDistinctId, "Video View");
 	}
 
@@ -2115,12 +2114,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 					waitTime(4000);
 
+					setFEProperty(usertype);
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-					mixpanel.FEProp.setProperty("New App Language", "en");
+
 					mixpanel.ValidateParameter("", "Player View Changed");
 
 					break;
@@ -2155,14 +2152,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		waitTime(5000);
 
-		mixpanel.FEProp.setProperty("Source", "home");
+		setFEProperty(usertype);
+		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-		mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-		mixpanel.FEProp.setProperty("New App Language", "en");
-		mixpanel.ValidateParameter("", "Player View Changed");
 
+		mixpanel.ValidateParameter("", "Player View Changed");
 	}
 
 	public void PlayerViewChangedEventForCarouselContent(String tabName) throws Exception {
@@ -2182,14 +2176,12 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 			waitTime(5000);
 
+			String pUserType = userType;
+			setFEProperty(pUserType);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-			mixpanel.FEProp.setProperty("New App Language", "en");
-			mixpanel.ValidateParameter("", "Player View Changed");
 
+			mixpanel.ValidateParameter("", "Player View Changed");
 		} else if (verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer)) {
 			logger.info("Player inline subscription link is displayed");
 			extentLoggerPass("Player screen", "Player inline subscription link is displayed");
@@ -2218,12 +2210,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		Back(2);
 		waitTime(4000);
 
-		mixpanel.FEProp.setProperty("Source", "home");
+		setFEProperty(usertype);
+		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-		mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-		mixpanel.FEProp.setProperty("New App Language", "en");
+
 		mixpanel.ValidateParameter("", "Player View Changed");
 	}
 
@@ -2247,12 +2237,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 				waitTime(4000);
 
+				setFEProperty(usertype);
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-				mixpanel.FEProp.setProperty("New App Language", "en");
+
 				mixpanel.ValidateParameter("", "Player View Changed");
 
 			} else {
@@ -2289,16 +2277,44 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		Back(2);
 		waitTime(4000);
-
-		mixpanel.FEProp.setProperty("Source", "home");
+		setFEProperty(usertype);
+		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
-		mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-		mixpanel.FEProp.setProperty("New App Language", "en");
+
 		mixpanel.ValidateParameter("", "Player View Changed");
 	}
 
+	public void seekVideoTillLast(By byLocator1) throws Exception {
+		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
+		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
+
+		WebElement element = getDriver().findElement(byLocator1);
+		Dimension size = element.getSize();
+		int startx = (int) (size.width);
+		int startX = startx + 180;
+		System.out.println(startX);
+		SwipeAnElement(element, startX, 0);
+
+		waitTime(2000);
+		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time after seeking in seconds : " + timeToSec(afterSeek));
+		extent.extentLogger("Seek", "Current time after seeking in seconds : " + timeToSec(afterSeek));
+
+		String totalDur = findElement(AMDPlayerScreen.objTotalDuration).getText();
+		if (timeToSec(afterSeek) > (timeToSec(totalDur) - 120)) {
+			logger.info("Seeked the video till last");
+			extentLoggerPass("Seeking the video till last", "Seeked the video till last");
+			logger.info("Seek bar is functional");
+			extent.extentLogger("Seek", "Seek bar is functional");
+		} else {
+			logger.info("Not seeked the video till last");
+			extentLoggerFail("Seeking the video till last", "Not seeked the video till last");
+			logger.info("Seek bar is not functional");
+			extent.extentLoggerFail("Seek", "Seek bar is not functional");
+		}
+	}
+	
 	public void VideoWatchDurationEventForPremiumContentComplete(String usertype, String tabName) throws Exception {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode(
@@ -2331,37 +2347,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		} else {
 			logger.info("This validation is not applicable for " + usertype);
 			extentLoggerPass("Premium Content", "This validation is not applicable for " + usertype);
-		}
-	}
-
-	public void seekVideoTillLast(By byLocator1) throws Exception {
-		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
-		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
-		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
-
-		WebElement element = getDriver().findElement(byLocator1);
-		Dimension size = element.getSize();
-		int startx = (int) (size.width);
-		int startX = startx + 180;
-		System.out.println(startX);
-		SwipeAnElement(element, startX, 0);
-
-		waitTime(2000);
-		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
-		logger.info("Current time after seeking in seconds : " + timeToSec(afterSeek));
-		extent.extentLogger("Seek", "Current time after seeking in seconds : " + timeToSec(afterSeek));
-
-		String totalDur = findElement(AMDPlayerScreen.objTotalDuration).getText();
-		if (timeToSec(afterSeek) > (timeToSec(totalDur) - 120)) {
-			logger.info("Seeked the video till last");
-			extentLoggerPass("Seeking the video till last", "Seeked the video till last");
-			logger.info("Seek bar is functional");
-			extent.extentLogger("Seek", "Seek bar is functional");
-		} else {
-			logger.info("Not seeked the video till last");
-			extentLoggerFail("Seeking the video till last", "Not seeked the video till last");
-			logger.info("Seek bar is not functional");
-			extent.extentLoggerFail("Seek", "Seek bar is not functional");
 		}
 	}
 
@@ -2730,17 +2715,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitTime(5000);
 
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
 					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
 					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
 				}
-				
+
 				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
+
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.ValidateParameter("", "Ad Initialized");
@@ -2766,7 +2751,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -2775,7 +2760,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				}
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
+
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.ValidateParameter("", "Ad Initialized");
@@ -2847,7 +2832,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -2856,7 +2841,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				}
 				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
+
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.ValidateParameter("", "Ad Initialized");
@@ -2886,9 +2871,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				if (ad == true) {
 					logger.info("Ad is Displayed");
 					extentLogger("Ad", "Ad is Displayed");
-					
+
 					String pUserType;
-					if(usertype.contains("guest")) {
+					if (usertype.contains("guest")) {
 						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -2897,7 +2882,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					}
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					
+
 					mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 					mixpanel.FEProp.setProperty("Ad Location", "instream");
 					mixpanel.ValidateParameter("", "Ad Initialized");
@@ -2933,7 +2918,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -2971,9 +2956,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("Ad is Displayed");
 				extentLogger("Ad", "Ad is Displayed");
 				waitTime(5000);
-				
+
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3009,7 +2994,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 				waitTime(2000);
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3050,7 +3035,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 						waitTime(3000);
 						String pUserType;
-						if(usertype.contains("guest")) {
+						if (usertype.contains("guest")) {
 							mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 							mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 							mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3099,7 +3084,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 				waitTime(2000);
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3142,7 +3127,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					extentLogger("Ad", "Ad is Displayed");
 					waitTime(2000);
 					String pUserType;
-					if(usertype.contains("guest")) {
+					if (usertype.contains("guest")) {
 						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3185,7 +3170,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 				waitTime(2000);
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3227,7 +3212,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				pPwd = getParameterFromXML("SubscribedPassword");
 				break;
 			}
-			
+
 			boolean var = false;
 			for (int i = 0; i < 3; i++) {
 				waitTime(1000);
@@ -3243,23 +3228,23 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				}
 			}
 			if (var == true) {
-								
+
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Page Name", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 				mixpanel.FEProp.setProperty("Video View", "1");
-				
-				String pContentId = mixpanel.fetchContentId("", "Video View");				
+
+				String pContentId = mixpanel.fetchContentId("", "Video View");
 				String pDistinctId = mixpanel.DistinctId;
 				ResponseInstance.getContentDetails(pContentId);
-				
+
 				mixpanel.ValidateParameter(pDistinctId, "Video View");
 			}
 			if (var == false) {
 				logger.info("Premium content is not displayed in the screen");
 				extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
 			}
-		}else {
+		} else {
 			logger.info("Premium content is not displayed in the screen");
 			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
 		}
@@ -3282,9 +3267,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 				verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
 				waitTime(4000);
-				
+
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3295,7 +3280,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				
+
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
@@ -3324,9 +3309,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 				verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
 				waitTime(4000);
-				
+
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3336,7 +3321,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-			
+
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
@@ -3370,7 +3355,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 						waitTime(4000);
 
 						String pUserType;
-						if(usertype.contains("guest")) {
+						if (usertype.contains("guest")) {
 							mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 							mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 							mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3379,7 +3364,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 						}
 						mixpanel.FEProp.setProperty("Source", "home");
 						mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					
+
 						mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 						mixpanel.FEProp.setProperty("Ad Location", "instream");
 						mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
@@ -3426,7 +3411,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 
 			String pUserType;
-			if(usertype.contains("guest")) {
+			if (usertype.contains("guest")) {
 				mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 				mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3467,7 +3452,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					waitTime(4000);
 
 					String pUserType;
-					if(usertype.contains("guest")) {
+					if (usertype.contains("guest")) {
 						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3516,16 +3501,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitTime(4000);
 
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
 					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
 					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
-				}				
+				}
 				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
+
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
@@ -3558,7 +3543,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitTime(4000);
 				Back(1);
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3567,7 +3552,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				}
 				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
+
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.ValidateParameter("", "Ad Watch Duration");
@@ -3598,7 +3583,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitTime(4000);
 				Back(1);
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3641,7 +3626,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 						waitTime(4000);
 						Back(1);
 						String pUserType;
-						if(usertype.contains("guest")) {
+						if (usertype.contains("guest")) {
 							mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 							mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 							mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3650,7 +3635,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 						}
 						mixpanel.FEProp.setProperty("Source", "home");
 						mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-			
+
 						mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 						mixpanel.FEProp.setProperty("Ad Location", "instream");
 						mixpanel.ValidateParameter("", "Ad Watch Duration");
@@ -3693,7 +3678,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitTime(4000);
 				Back(1);
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3702,7 +3687,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				}
 				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
+
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.ValidateParameter("", "Ad Watch Duration");
@@ -3740,7 +3725,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					waitTime(4000);
 					Back(1);
 					String pUserType;
-					if(usertype.contains("guest")) {
+					if (usertype.contains("guest")) {
 						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3749,7 +3734,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					}
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					
+
 					mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 					mixpanel.FEProp.setProperty("Ad Location", "instream");
 					mixpanel.ValidateParameter("", "Ad Watch Duration");
@@ -3785,9 +3770,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitForAdToFinishInAmd();
 				waitTime(4000);
 				Back(1);
-				
+
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -3796,7 +3781,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				}
 				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
+
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.ValidateParameter("", "Ad Watch Duration");
@@ -3833,13 +3818,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					waitTime(2000);
 					Back(1);
 
-					if(usertype.equalsIgnoreCase("guest")) {
-						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
-						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
-						mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
-						mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
-					}
+					setFEProperty(usertype);
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 
@@ -3873,13 +3852,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		waitTime(2000);
 		Back(1);
-		if(usertype.equalsIgnoreCase("guest")) {
-			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
-			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
-			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
-			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
-		}
+		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 
@@ -3902,13 +3875,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			Back(1);
 
-			if(usertype.equalsIgnoreCase("guest")) {
-				mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
-				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-				mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
-				mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
-				mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
-			}
+			setFEProperty(usertype);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 
@@ -3941,13 +3908,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		waitTime(2000);
 		Back(1);
-		if(usertype.equalsIgnoreCase("guest")) {
-			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
-			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
-			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
-			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
-		}
+		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 
@@ -3972,13 +3933,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitTime(2000);
 				Back(1);
 
-				if(usertype.equalsIgnoreCase("guest")) {
-					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
-					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
-					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
-					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
-				}
+				setFEProperty(usertype);
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 
@@ -4018,16 +3973,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		waitTime(2000);
 		Back(1);
 
-		if(usertype.equalsIgnoreCase("guest")) {
-			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
-			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
-			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
-			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
-		}
+		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		
+
 		mixpanel.ValidateParameter("", "Pause");
 	}
 
@@ -4053,16 +4002,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			waitTime(2000);
 			Back(1);
 
-			if(usertype.equalsIgnoreCase("guest")) {
-				mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
-				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-				mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
-				mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
-				mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
-			}
+			setFEProperty(usertype);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-			
+
 			mixpanel.ValidateParameter("", "Pause");
 		}
 	}
@@ -4147,10 +4090,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
 					if (selectedQualityOption.equalsIgnoreCase("Auto")) {
 						verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+						waitTime(2000);
+						setFEProperty(usertype);
 						mixpanel.ValidateParameter("", "Qualitiy Change");
 
 					} else {
 						verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+						waitTime(2000);
+						setFEProperty(usertype);
 						mixpanel.ValidateParameter("", "Qualitiy Change");
 					}
 				}
@@ -4166,7 +4113,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void QualityChangeEventForTrailerContent(String usertype, String keyword3) throws Exception {
+public void QualityChangeEventForTrailerContent(String usertype, String keyword3) throws Exception {
 		extent.HeaderChildNode("Verify Quality Change event for Trailer content");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -4188,16 +4135,20 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
 		if (selectedQualityOption.equalsIgnoreCase("Auto")) {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+			waitTime(2000);
+			setFEProperty(usertype);
 			mixpanel.ValidateParameter("", "Qualitiy Change");
 		} else {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+			waitTime(2000);
+			setFEProperty(usertype);
 			mixpanel.ValidateParameter("", "Qualitiy Change");
 		}
 		waitTime(5000);
 
 	}
 
-	public void QualityChangeEventForCarouselContent(String usertype, String tabName) throws Exception {
+public void QualityChangeEventForCarouselContent(String usertype, String tabName) throws Exception {
 		extent.HeaderChildNode("Quality Change Event for carousel content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
@@ -4217,16 +4168,20 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
 			if (selectedQualityOption.equalsIgnoreCase("Auto")) {
 				verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+				waitTime(2000);
+				setFEProperty(usertype);
 				mixpanel.ValidateParameter("", "Qualitiy Change");
 			} else {
 				verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+				waitTime(2000);
+				setFEProperty(usertype);
 				mixpanel.ValidateParameter("", "Qualitiy Change");
 			}
 		}
 		waitTime(3000);
 	}
-
-	public void QualityChangeEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+	
+public void QualityChangeEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("Quality Change Event of content from search page");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -4252,16 +4207,18 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
 		if (selectedQualityOption.equalsIgnoreCase("Auto")) {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+			waitTime(2000);
+			setFEProperty(usertype);
 			mixpanel.ValidateParameter("", "Qualitiy Change");
 		} else {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+			waitTime(2000);
+			setFEProperty(usertype);
 			mixpanel.ValidateParameter("", "Qualitiy Change");
 		}
-		waitTime(4000);
-
 	}
 
-	public void QualityChangeEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+public void QualityChangeEventOfContentFromMyWatchListPage(String usertype) throws Exception {
 		if (!(usertype.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Quality Change Event of content from My WatchList page");
 			click(AMDHomePage.objMoreMenu, "More menu");
@@ -4291,9 +4248,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
 				if (selectedQualityOption.equalsIgnoreCase("Auto")) {
 					verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+					waitTime(2000);
+					setFEProperty(usertype);
 					mixpanel.ValidateParameter("", "Qualitiy Change");
 				} else {
 					verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+					waitTime(2000);
+					setFEProperty(usertype);
 					mixpanel.ValidateParameter("", "Qualitiy Change");
 				}
 				waitTime(4000);
@@ -4308,7 +4269,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void QualityChangeEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+public void QualityChangeEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("Verify Quality Change event of content from Upnext rail");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -4339,16 +4300,20 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
 		if (selectedQualityOption.equalsIgnoreCase("Auto")) {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+			waitTime(2000);
+			setFEProperty(usertype);
 			mixpanel.ValidateParameter("", "Qualitiy Change");
 		} else {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+			waitTime(2000);
+			setFEProperty(usertype);
 			mixpanel.ValidateParameter("", "Qualitiy Change");
 		}
 		waitTime(5000);
 
 	}
 
-	public void QualityChangeEventForLinearContent(String usertype, String tabName) throws Exception {
+public void QualityChangeEventForLinearContent(String usertype, String tabName) throws Exception {
 		extent.HeaderChildNode("Quality Change Event for Linear content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
@@ -4371,9 +4336,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
 		if (selectedQualityOption.equalsIgnoreCase("Auto")) {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
+			waitTime(2000);
+			setFEProperty(usertype);
 			mixpanel.ValidateParameter("", "Qualitiy Change");
 		} else {
 			verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+			waitTime(2000);
+			setFEProperty(usertype);
 			mixpanel.ValidateParameter("", "Qualitiy Change");
 		}
 		waitTime(3000);
@@ -6480,7 +6449,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.ValidateParameter("", "Prepaid Code Result");
 
 	}
-	
+
 	public void AudioLanguageChangeEventForTrailerContent(String usertype, String keyword7) throws Exception {
 		extent.HeaderChildNode("Verify Audio Language Change event for Trailer content");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
@@ -6523,11 +6492,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitTime(4000);
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
-				String pContentId = mixpanel.fetchContentId("", "Language Audio Change");				
+
+				String pContentId = mixpanel.fetchContentId("", "Language Audio Change");
 				String pDistinctId = mixpanel.DistinctId;
 				ResponseInstance.getContentDetails(pContentId);
-				
+
 				mixpanel.ValidateParameter(pDistinctId, "Language Audio Change");
 			}
 		} else {
@@ -6561,11 +6530,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitTime(3000);
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
-				String pContentId = mixpanel.fetchContentId("", "Language Audio Change");				
+
+				String pContentId = mixpanel.fetchContentId("", "Language Audio Change");
 				String pDistinctId = mixpanel.DistinctId;
 				ResponseInstance.getContentDetails(pContentId);
-				
+
 				mixpanel.ValidateParameter(pDistinctId, "Language Audio Change");
 			}
 		} else {
@@ -6603,11 +6572,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitTime(3000);
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
-				String pContentId = mixpanel.fetchContentId("", "Language Audio Change");				
+
+				String pContentId = mixpanel.fetchContentId("", "Language Audio Change");
 				String pDistinctId = mixpanel.DistinctId;
 				ResponseInstance.getContentDetails(pContentId);
-				
+
 				mixpanel.ValidateParameter(pDistinctId, "Language Audio Change");
 			}
 		} else {
@@ -6700,11 +6669,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitTime(4000);
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
-				String pContentId = mixpanel.fetchContentId("", "Language Audio Change");				
+
+				String pContentId = mixpanel.fetchContentId("", "Language Audio Change");
 				String pDistinctId = mixpanel.DistinctId;
 				ResponseInstance.getContentDetails(pContentId);
-				
+
 				mixpanel.ValidateParameter(pDistinctId, "Language Audio Change");
 			}
 		} else {
@@ -6739,11 +6708,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					waitTime(4000);
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-									
-					String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");				
+
+					String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");
 					String pDistinctId = mixpanel.DistinctId;
 					ResponseInstance.getContentDetails(pContentId);
-									
+
 					mixpanel.ValidateParameter(pDistinctId, "Subtitle Language Change");
 				} else {
 					logger.info("No Subtitles for this content");
@@ -6760,7 +6729,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-public void SubtitleLanguageChangeEventForTrailerContent(String usertype, String keyword7) throws Exception {
+	public void SubtitleLanguageChangeEventForTrailerContent(String usertype, String keyword7) throws Exception {
 		extent.HeaderChildNode("Verify Subtitle Language Change event for Trailer content");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -6794,11 +6763,11 @@ public void SubtitleLanguageChangeEventForTrailerContent(String usertype, String
 			waitTime(4000);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-							
-			String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");				
+
+			String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");
 			String pDistinctId = mixpanel.DistinctId;
 			ResponseInstance.getContentDetails(pContentId);
-							
+
 			mixpanel.ValidateParameter(pDistinctId, "Subtitle Language Change");
 		} else {
 			logger.info("No Subtitles for this content");
@@ -6807,7 +6776,7 @@ public void SubtitleLanguageChangeEventForTrailerContent(String usertype, String
 
 	}
 
-public void SubtitleLanguageChangeEventForCarouselContent(String usertype, String tabName) throws Exception {
+	public void SubtitleLanguageChangeEventForCarouselContent(String usertype, String tabName) throws Exception {
 		extent.HeaderChildNode("Subtitle Language Change Event for carousel content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
@@ -6825,11 +6794,11 @@ public void SubtitleLanguageChangeEventForCarouselContent(String usertype, Strin
 			waitTime(3000);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-							
-			String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");				
+
+			String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");
 			String pDistinctId = mixpanel.DistinctId;
 			ResponseInstance.getContentDetails(pContentId);
-							
+
 			mixpanel.ValidateParameter(pDistinctId, "Subtitle Language Change");
 		} else {
 			logger.info("No Subtitles for this content");
@@ -6838,7 +6807,7 @@ public void SubtitleLanguageChangeEventForCarouselContent(String usertype, Strin
 
 	}
 
-public void SubtitleLanguageChangeEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
+	public void SubtitleLanguageChangeEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("Subtitle Language Change Event of content from search page");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -6858,14 +6827,14 @@ public void SubtitleLanguageChangeEventOfcontentFromSearchPage(String usertype, 
 				verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Subtitle option");
 			}
 			waitTime(3000);
-			
+
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-							
-			String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");				
+
+			String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");
 			String pDistinctId = mixpanel.DistinctId;
 			ResponseInstance.getContentDetails(pContentId);
-							
+
 			mixpanel.ValidateParameter(pDistinctId, "Subtitle Language Change");
 		} else {
 			logger.info("No Subtitles for this content");
@@ -6873,7 +6842,7 @@ public void SubtitleLanguageChangeEventOfcontentFromSearchPage(String usertype, 
 		}
 	}
 
-public void SubtitleLanguageChangeEventOfContentFromMyWatchListPage(String usertype) throws Exception {
+	public void SubtitleLanguageChangeEventOfContentFromMyWatchListPage(String usertype) throws Exception {
 		if (!(usertype.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Subtitle Language Change Event of content from My WatchList page");
 			click(AMDHomePage.objMoreMenu, "More menu");
@@ -6898,14 +6867,14 @@ public void SubtitleLanguageChangeEventOfContentFromMyWatchListPage(String usert
 						verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Subtitle option");
 					}
 					waitTime(3000);
-					
+
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-									
-					String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");				
+
+					String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");
 					String pDistinctId = mixpanel.DistinctId;
 					ResponseInstance.getContentDetails(pContentId);
-									
+
 					mixpanel.ValidateParameter(pDistinctId, "Subtitle Language Change");
 				} else {
 					logger.info("No Subtitles for this content");
@@ -6922,7 +6891,7 @@ public void SubtitleLanguageChangeEventOfContentFromMyWatchListPage(String usert
 
 	}
 
-public void SubtitleLanguageChangeEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
+	public void SubtitleLanguageChangeEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
 		extent.HeaderChildNode("Verify Subtitle Language Change event of content from Upnext rail");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -6947,14 +6916,14 @@ public void SubtitleLanguageChangeEventOfContentFromUpNextRail(String usertype, 
 				verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1), "Subtitle option");
 			}
 			waitTime(3000);
-			
+
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-							
-			String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");				
+
+			String pContentId = mixpanel.fetchContentId("", "Subtitle Language Change");
 			String pDistinctId = mixpanel.DistinctId;
 			ResponseInstance.getContentDetails(pContentId);
-							
+
 			mixpanel.ValidateParameter(pDistinctId, "Subtitle Language Change");
 		} else {
 			logger.info("No Subtitles for this content");
@@ -6962,60 +6931,59 @@ public void SubtitleLanguageChangeEventOfContentFromUpNextRail(String usertype, 
 		}
 	}
 
-
-public void AudioLanguageChangeEventForPremiumContent(String usertype, String tabName) throws Exception {
-	extent.HeaderChildNode("Audio Language Change Event for premium content");
-	waitTime(10000);
-	SelectTopNavigationTab(tabName);
-	Swipe("UP", 1);
-	boolean var = false;
-	for (int i = 0; i < 3; i++) {
-		var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
-		if (var == true) {
-			verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
-			waitTime(10000);
-			boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objAvailableAudioLanguages,
-					"Available Audio Languages");
-			if (lang == true) {
-				String noOfAudioLanguages = getText(AMDConsumptionScreen.objAvailableAudioLanguages);
-				if (noOfAudioLanguages.equalsIgnoreCase("Available in 1 language")) {
-					logger.info("Only one language is displayed");
-					extent.extentLogger("Audio Language", "Only one language is displayed");
-				} else {
-					click(AMDConsumptionScreen.objAudioLanguageValue, "Audio Language Value");
-					String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
-					String firstAudioLanguageOption = getText(AMDConsumptionScreen.objAudioLanguages(1));
-					if (selectedAudioLanguageOption.equalsIgnoreCase(firstAudioLanguageOption)) {
-						verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2),
-								"Audio Language option");
+	public void AudioLanguageChangeEventForPremiumContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Audio Language Change Event for premium content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		Swipe("UP", 1);
+		boolean var = false;
+		for (int i = 0; i < 3; i++) {
+			var = verifyIsElementDisplayed(AMDHomePage.objPremiumTag, "Premium Tag");
+			if (var == true) {
+				verifyElementPresentAndClick(AMDHomePage.objPremiumTag, "Premium content");
+				waitTime(10000);
+				boolean lang = verifyIsElementDisplayed(AMDConsumptionScreen.objAvailableAudioLanguages,
+						"Available Audio Languages");
+				if (lang == true) {
+					String noOfAudioLanguages = getText(AMDConsumptionScreen.objAvailableAudioLanguages);
+					if (noOfAudioLanguages.equalsIgnoreCase("Available in 1 language")) {
+						logger.info("Only one language is displayed");
+						extent.extentLogger("Audio Language", "Only one language is displayed");
 					} else {
-						verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1),
-								"Audio Language option");
+						click(AMDConsumptionScreen.objAudioLanguageValue, "Audio Language Value");
+						String selectedAudioLanguageOption = getText(AMDConsumptionScreen.objSelectedAudioLanguage);
+						String firstAudioLanguageOption = getText(AMDConsumptionScreen.objAudioLanguages(1));
+						if (selectedAudioLanguageOption.equalsIgnoreCase(firstAudioLanguageOption)) {
+							verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(2),
+									"Audio Language option");
+						} else {
+							verifyElementPresentAndClick(AMDConsumptionScreen.objAudioLanguages(1),
+									"Audio Language option");
+						}
+						waitTime(4000);
+						mixpanel.FEProp.setProperty("Source", "home");
+						mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+
+						String pContentId = mixpanel.fetchContentId("", "Language Audio Change");
+						String pDistinctId = mixpanel.DistinctId;
+						ResponseInstance.getContentDetails(pContentId);
+
+						mixpanel.ValidateParameter(pDistinctId, "Language Audio Change");
 					}
-					waitTime(4000);
-					mixpanel.FEProp.setProperty("Source", "home");
-					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					
-					String pContentId = mixpanel.fetchContentId("", "Language Audio Change");				
-					String pDistinctId = mixpanel.DistinctId;
-					ResponseInstance.getContentDetails(pContentId);
-					
-					mixpanel.ValidateParameter(pDistinctId, "Language Audio Change");
+				} else {
+					logger.info("no Audio Language is displayed");
+					extent.extentLogger("Audio Language", "No Audio Language is displayed");
 				}
+				break;
 			} else {
-				logger.info("no Audio Language is displayed");
-				extent.extentLogger("Audio Language", "No Audio Language is displayed");
+				Swipe("UP", 1);
 			}
-			break;
-		} else {
-			Swipe("UP", 1);
+		}
+		if (var == false) {
+			logger.info("Premium content is not displayed in the screen");
+			extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
 		}
 	}
-	if (var == false) {
-		logger.info("Premium content is not displayed in the screen");
-		extentLoggerWarning("Premium Content", "Premium content is not displayed in the screen");
-	}
-}
 
 	public void SkipIntroEventForPremiumContent(String usertype, String keyword4) throws Exception {
 		if (usertype.equalsIgnoreCase("SubscribedUser")) {
@@ -7029,14 +6997,19 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 			waitForElementDisplayed(AMDPlayerScreen.objSkipIntro, 30);
 			verifyElementPresentAndClick(AMDPlayerScreen.objSkipIntro, "Skip Intro");
-			waitTime(3000);
+			waitTime(2000);
+			setFEProperty(usertype);
+			mixpanel.FEProp.setProperty("Source", "Search_Tab");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+
+			mixpanel.ValidateParameter("", "Skip Intro");
 		} else {
 			logger.info("This scenario is not applicable to " + usertype);
 			extent.extentLogger("Skip Intro", "This scenario is not applicable to " + usertype);
 		}
 	}
 
-	public void SkipIntroEventOfContentFromContentTrays(String usertype, String tabName) throws Exception {
+public void SkipIntroEventOfContentFromContentTrays(String usertype, String tabName) throws Exception {
 		extent.HeaderChildNode("Skip Intro Event of Content from Content trays");
 		waitTime(5000);
 		SelectTopNavigationTab(tabName);
@@ -7052,6 +7025,11 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				if (skip == true) {
 					click(AMDPlayerScreen.objSkipIntro, "Skip Intro");
 					waitTime(3000);
+					setFEProperty(usertype);
+					mixpanel.FEProp.setProperty("Source", "home");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+
+					mixpanel.ValidateParameter("", "Skip Intro");
 				} else {
 					logger.info("Skip Intro is not displayed for this content");
 					extent.extentLogger("Skip Intro", "Skip Intro is not displayed for this content");
@@ -7067,7 +7045,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		}
 	}
 
-	public void SkipIntroEventForCarouselContent(String usertype, String tabName) throws Exception {
+public void SkipIntroEventForCarouselContent(String usertype, String tabName) throws Exception {
 		extent.HeaderChildNode("Skip Intro Event for carousel content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
@@ -7077,100 +7055,51 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		if (skip == true) {
 			click(AMDPlayerScreen.objSkipIntro, "Skip Intro");
 			waitTime(3000);
+			setFEProperty(usertype);
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+
+			mixpanel.ValidateParameter("", "Skip Intro");
 		} else {
 			logger.info("Skip Intro is not displayed for this content");
 			extent.extentLogger("Skip Intro", "Skip Intro is not displayed for this content");
 		}
 	}
 
-	public void SkipIntroEventOfcontentFromSearchPage(String usertype, String keyword8) throws Exception {
+public void SkipIntroEventOfcontentFromSearchPage(String usertype, String keyword8) throws Exception {
 		extent.HeaderChildNode("Skip Intro Event of content from search page");
-		click(AMDSearchScreen.objSearchIcon, "Search icon");
-		click(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, keyword8 + "\n", "Search bar");
-		hideKeyboard();
-		waitTime(4000);
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-			waitForAdToFinishInAmd();
-		}
-		registerPopUpClose();
-		completeProfilePopUpClose(usertype);
-		waitTime(3000);
-		boolean skip = verifyIsElementDisplayed(AMDPlayerScreen.objSkipIntro, "Skip Intro");
-		if (skip == true) {
-			click(AMDPlayerScreen.objSkipIntro, "Skip Intro");
-			waitTime(3000);
-		} else {
-			logger.info("Skip Intro is not displayed for this content");
-			extent.extentLogger("Skip Intro", "Skip Intro is not displayed for this content");
-		}
-	}
-
-	public void SkipIntroEventOfContentFromMyWatchListPage(String usertype) throws Exception {
-		if (!(usertype.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Skip Intro Event of content from My WatchList page");
-			click(AMDHomePage.objMoreMenu, "More menu");
-			click(AMDMoreMenu.objWatchlist, "Watchlist option");
-			click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
-			waitTime(5000);
-			boolean contentsInMoviesTab = verifyIsElementDisplayed(
-					AMDUserSessionManagement.objcontentTitleInWatchListAndReminders);
-			if (contentsInMoviesTab == true) {
-				getDriver()
-						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[1]"))
-						.click();
-				waitTime(5000);
-				boolean skip = verifyIsElementDisplayed(AMDPlayerScreen.objSkipIntro, "Skip Intro");
-				if (skip == true) {
-					click(AMDPlayerScreen.objSkipIntro, "Skip Intro");
-					waitTime(3000);
-				} else {
-					logger.info("Skip Intro is not displayed for this content");
-					extent.extentLogger("Skip Intro", "Skip Intro is not displayed for this content");
-				}
-
-			} else {
-				logger.info("No contents in Watchlist");
-				extentLoggerWarning("Watchlist", "No contents in Watchlist");
+		if(!usertype.equalsIgnoreCase("guest")) {
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword8 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+			if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+				waitForAdToFinishInAmd();
 			}
-
-		} else {
-			logger.info("Watchlist is not applicable for " + usertype);
-			extentLogger("Guest User", "Watchlist is not applicable for " + usertype);
-		}
-	}
-
-	public void SkipIntroEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
-		extent.HeaderChildNode("Skip Intro event of content from Upnext rail");
-		click(AMDSearchScreen.objSearchIcon, "Search icon");
-		click(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
-		hideKeyboard();
-		waitTime(4000);
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-		waitTime(8000);
-		Swipe("UP", 1);
-		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
-			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
-		}
-		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-			waitForAdToFinishInAmd();
-		}
-		registerPopUpClose();
-		completeProfilePopUpClose(usertype);
-		waitTime(3000);
-		boolean skip = verifyIsElementDisplayed(AMDPlayerScreen.objSkipIntro, "Skip Intro");
-		if (skip == true) {
-			click(AMDPlayerScreen.objSkipIntro, "Skip Intro");
+			registerPopUpClose();
+			completeProfilePopUpClose(usertype);
 			waitTime(3000);
-		} else {
-			logger.info("Skip Intro is not displayed for this content");
-			extent.extentLogger("Skip Intro", "Skip Intro is not displayed for this content");
-		}
+			boolean skip = verifyIsElementDisplayed(AMDPlayerScreen.objSkipIntro, "Skip Intro");
+			if (skip == true) {
+				click(AMDPlayerScreen.objSkipIntro, "Skip Intro");
+				waitTime(3000);
+				setFEProperty(usertype);
+				mixpanel.FEProp.setProperty("Source", "Search_Tab");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 
+				mixpanel.ValidateParameter("", "Skip Intro");
+			} else {
+				logger.info("Skip Intro is not displayed for this content");
+				extent.extentLogger("Skip Intro", "Skip Intro is not displayed for this content");
+			}
+		}else {
+			logger.info("Skip Intro is not applicable for "+usertype);
+			extent.extentLogger("Skip Intro", "Skip Intro is not applicable for "+usertype);
+		}
+		
 	}
 
 	public void forwardAutoSeek(int n) throws Exception {
@@ -7222,7 +7151,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 					waitTime(3000);
 					Back(1);
 					String pUserType;
-					if(usertype.contains("guest")) {
+					if (usertype.contains("guest")) {
 						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7231,7 +7160,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 					}
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					
+
 					mixpanel.ValidateParameter("", "Auto-seek");
 				}
 				break;
@@ -7266,7 +7195,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 
 					Back(1);
 					String pUserType;
-					if(usertype.contains("guest")) {
+					if (usertype.contains("guest")) {
 						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7275,7 +7204,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 					}
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					
+
 					mixpanel.ValidateParameter("", "Auto-seek");
 				}
 				break;
@@ -7306,7 +7235,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		waitTime(5000);
 		Back(1);
 		String pUserType;
-		if(usertype.contains("guest")) {
+		if (usertype.contains("guest")) {
 			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7315,7 +7244,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		}
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-	
+
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
@@ -7336,7 +7265,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		waitTime(3000);
 		Back(1);
 		String pUserType;
-		if(usertype.contains("guest")) {
+		if (usertype.contains("guest")) {
 			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7345,7 +7274,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		}
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		
+
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
@@ -7364,7 +7293,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 
 			Back(1);
 			String pUserType;
-			if(usertype.contains("guest")) {
+			if (usertype.contains("guest")) {
 				mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 				mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7373,7 +7302,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 			}
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-			
+
 			mixpanel.ValidateParameter("", "Auto-seek");
 		}
 	}
@@ -7393,7 +7322,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 			waitTime(3000);
 			Back(1);
 			String pUserType;
-			if(usertype.contains("guest")) {
+			if (usertype.contains("guest")) {
 				mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 				mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7425,7 +7354,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		waitTime(3000);
 		Back(1);
 		String pUserType;
-		if(usertype.contains("guest")) {
+		if (usertype.contains("guest")) {
 			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7456,7 +7385,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		waitTime(3000);
 		Back(1);
 		String pUserType;
-		if(usertype.contains("guest")) {
+		if (usertype.contains("guest")) {
 			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7465,7 +7394,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		}
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		
+
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
@@ -7490,7 +7419,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				waitTime(4000);
 				Back(1);
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7499,7 +7428,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				}
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
+
 				mixpanel.ValidateParameter("", "Auto-seek");
 			} else {
 				logger.info("No contents in Watchlist");
@@ -7535,7 +7464,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 
 				Back(1);
 				String pUserType;
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7544,7 +7473,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				}
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
+
 				mixpanel.ValidateParameter("", "Auto-seek");
 			} else {
 				logger.info("No contents in Watchlist");
@@ -7579,7 +7508,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		waitTime(4000);
 		Back(1);
 		String pUserType;
-		if(usertype.contains("guest")) {
+		if (usertype.contains("guest")) {
 			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7588,7 +7517,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		}
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		
+
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
@@ -7615,7 +7544,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		waitTime(3000);
 		Back(1);
 		String pUserType;
-		if(usertype.contains("guest")) {
+		if (usertype.contains("guest")) {
 			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7624,7 +7553,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		}
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		
+
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
@@ -7668,7 +7597,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 //							verifyElementPresentAndClick(AMDConsumptionScreen.objDowloadStatus, "Download status button");
 //							verifyElementPresentAndClick(AMDConsumptionScreen.objCancelDownload, "Cancel download button");
 //						}
-							if(usertype.contains("guest")) {
+							if (usertype.contains("guest")) {
 								mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 								mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 								mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7679,7 +7608,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 							mixpanel.FEProp.setProperty("Source", "home");
 							mixpanel.FEProp.setProperty("User Type", pUserType);
 							mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-							
+
 							mixpanel.FEProp.setProperty("Brand", getOEMName);
 							mixpanel.FEProp.setProperty("Manufacturer", getOEMName);
 							mixpanel.ValidateParameter("", "Download Start");
@@ -7731,7 +7660,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				verifyElementPresentAndClick(AMDConsumptionScreen.objStartDowloadBtn, "Start download button");
 
 				waitTime(2000);
-				if(usertype.contains("guest")) {
+				if (usertype.contains("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7741,7 +7670,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("User Type", pUserType);
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
+
 				mixpanel.FEProp.setProperty("Brand", getOEMName);
 				mixpanel.FEProp.setProperty("Manufacturer", getOEMName);
 				mixpanel.ValidateParameter("", "Download Start");
@@ -7784,7 +7713,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 					verifyElementPresentAndClick(AMDConsumptionScreen.objStartDowloadBtn, "Start download button");
 
 					waitTime(2000);
-					if(usertype.equalsIgnoreCase("guest")) {
+					if (usertype.equalsIgnoreCase("guest")) {
 						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7794,7 +7723,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("User Type", pUserType);
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					
+
 					mixpanel.FEProp.setProperty("Brand", getOEMName);
 					mixpanel.FEProp.setProperty("Manufacturer", getOEMName);
 					mixpanel.ValidateParameter("", "Download Start");
@@ -7850,7 +7779,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				}
 
 				waitTime(2000);
-				if(usertype.equalsIgnoreCase("guest")) {
+				if (usertype.equalsIgnoreCase("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7860,7 +7789,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("User Type", pUserType);
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
+
 				mixpanel.FEProp.setProperty("Brand", getOEMName);
 				mixpanel.FEProp.setProperty("Manufacturer", getOEMName);
 				mixpanel.ValidateParameter("", "Download Start");
@@ -7906,7 +7835,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 					verifyElementPresentAndClick(AMDConsumptionScreen.objStartDowloadBtn, "Start download button");
 
 					waitTime(2000);
-					if(usertype.equalsIgnoreCase("guest")) {
+					if (usertype.equalsIgnoreCase("guest")) {
 						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7916,7 +7845,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("User Type", pUserType);
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					
+
 					mixpanel.FEProp.setProperty("Brand", getOEMName);
 					mixpanel.FEProp.setProperty("Manufacturer", getOEMName);
 					mixpanel.ValidateParameter("", "Download Start");
@@ -7978,7 +7907,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				}
 
 				waitTime(2000);
-				if(usertype.equalsIgnoreCase("guest")) {
+				if (usertype.equalsIgnoreCase("guest")) {
 					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
@@ -7988,7 +7917,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("User Type", pUserType);
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				
+
 				mixpanel.FEProp.setProperty("Brand", getOEMName);
 				mixpanel.FEProp.setProperty("Manufacturer", getOEMName);
 				mixpanel.ValidateParameter("", "Download Start");
@@ -8409,7 +8338,7 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
 		}
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		seekVideo(AMDPlayerScreen.objProgressBar, usertype); 
+		seekVideo(AMDPlayerScreen.objProgressBar, usertype);
 		waitTime(5000);
 
 		Back(1);
@@ -8567,4 +8496,27 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		mixpanel.ValidateParameter("", "Scrub/Seek");
 	}
 
+	public void setFEProperty(String pUserType) {
+		if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", "Good");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "true");
+			
+		}else if(pUserType.equalsIgnoreCase("SubscribedUser")){
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+			
+		}else {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+		}
+	}
 }
