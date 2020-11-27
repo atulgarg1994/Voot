@@ -24,7 +24,6 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
-		
 	}
 	
 	@Test(priority = 2)

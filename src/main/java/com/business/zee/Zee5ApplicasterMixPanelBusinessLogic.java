@@ -2729,10 +2729,18 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 				waitTime(5000);
 
-				mixpanel.FEProp.setProperty("Source", "home");
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
+				
+				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.ValidateParameter("", "Ad Initialized");
@@ -2757,10 +2765,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("Ad is Displayed");
 				extentLogger("Ad", "Ad is Displayed");
 
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.ValidateParameter("", "Ad Initialized");
@@ -2831,10 +2846,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("Ad is Displayed");
 				extentLogger("Ad", "Ad is Displayed");
 
-				mixpanel.FEProp.setProperty("Source", "home");
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
+				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.ValidateParameter("", "Ad Initialized");
@@ -2864,11 +2886,18 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				if (ad == true) {
 					logger.info("Ad is Displayed");
 					extentLogger("Ad", "Ad is Displayed");
-
+					
+					String pUserType;
+					if(usertype.contains("guest")) {
+						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+						mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+						mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+					}
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+					
 					mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 					mixpanel.FEProp.setProperty("Ad Location", "instream");
 					mixpanel.ValidateParameter("", "Ad Initialized");
@@ -2903,10 +2932,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("Ad is Displayed");
 				extentLogger("Ad", "Ad is Displayed");
 
-				mixpanel.FEProp.setProperty("Source", "home");
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
+				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.ValidateParameter("", "Ad Initialized");
@@ -2935,11 +2971,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("Ad is Displayed");
 				extentLogger("Ad", "Ad is Displayed");
 				waitTime(5000);
-
-				mixpanel.FEProp.setProperty("Source", "home");
+				
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
+				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
 				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
 
 				mixpanel.ValidateParameter("", "Ad view");
@@ -2965,12 +3007,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (var == true) {
 				logger.info("Ad is Displayed");
 				extentLogger("Ad", "Ad is Displayed");
-
 				waitTime(2000);
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
 				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
 
 				mixpanel.ValidateParameter("", "Ad view");
@@ -3002,10 +3049,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 						extentLogger("Ad", "Ad is Displayed");
 
 						waitTime(3000);
+						String pUserType;
+						if(usertype.contains("guest")) {
+							mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+							mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+							mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+							mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+							mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+						}
 						mixpanel.FEProp.setProperty("Source", "home");
 						mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-						mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-						mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
 						mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
 
 						mixpanel.ValidateParameter("", "Ad view");
@@ -3045,10 +3098,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 
 				waitTime(2000);
-				mixpanel.FEProp.setProperty("Source", "home");
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
+				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
 				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
 
 				mixpanel.ValidateParameter("", "Ad view");
@@ -3082,10 +3141,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					logger.info("Ad is Displayed");
 					extentLogger("Ad", "Ad is Displayed");
 					waitTime(2000);
+					String pUserType;
+					if(usertype.contains("guest")) {
+						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+						mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+						mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+					}
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
 					mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
 
 					mixpanel.ValidateParameter("", "Ad view");
@@ -3119,10 +3184,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("Ad is Displayed");
 				extentLogger("Ad", "Ad is Displayed");
 				waitTime(2000);
-				mixpanel.FEProp.setProperty("Source", "home");
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
+				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
 				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
 
 				mixpanel.ValidateParameter("", "Ad view");
@@ -3211,11 +3282,20 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 				verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
 				waitTime(4000);
+				
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
 
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
@@ -3244,11 +3324,19 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 				verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
 				waitTime(4000);
-
+				
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+			
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
@@ -3281,16 +3369,22 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 						verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
 						waitTime(4000);
 
+						String pUserType;
+						if(usertype.contains("guest")) {
+							mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+							mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+							mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+							mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+							mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+						}
 						mixpanel.FEProp.setProperty("Source", "home");
 						mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-						mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-						mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+					
 						mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 						mixpanel.FEProp.setProperty("Ad Location", "instream");
 						mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
 
 						mixpanel.ValidateParameter("", "Ad click");
-
 					} else {
 						logger.info("Ad is not displayed");
 						extentLogger("Ad", "Ad is not displayed");
@@ -3331,10 +3425,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			}
 			waitTime(4000);
 
-			mixpanel.FEProp.setProperty("Source", "home");
+			String pUserType;
+			if(usertype.contains("guest")) {
+				mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+				mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+				mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+				mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+			}
+			mixpanel.FEProp.setProperty("Source", "Search_Tab");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
 			mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 			mixpanel.FEProp.setProperty("Ad Location", "instream");
 			mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
@@ -3365,6 +3466,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
 					waitTime(4000);
 
+					String pUserType;
+					if(usertype.contains("guest")) {
+						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+						mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+						mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+					}
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
@@ -3406,10 +3515,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
 				waitTime(4000);
 
-				mixpanel.FEProp.setProperty("Source", "home");
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}				
+				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
@@ -3441,10 +3557,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitForAdToFinishInAmd();
 				waitTime(4000);
 				Back(1);
-				mixpanel.FEProp.setProperty("Source", "home");
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
+				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.ValidateParameter("", "Ad Watch Duration");
@@ -3474,10 +3597,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitForAdToFinishInAmd();
 				waitTime(4000);
 				Back(1);
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.ValidateParameter("", "Ad Watch Duration");
@@ -3511,10 +3640,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 						waitForAdToFinishInAmd();
 						waitTime(4000);
 						Back(1);
+						String pUserType;
+						if(usertype.contains("guest")) {
+							mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+							mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+							mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+							mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+							mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+						}
 						mixpanel.FEProp.setProperty("Source", "home");
 						mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-						mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-						mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+			
 						mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 						mixpanel.FEProp.setProperty("Ad Location", "instream");
 						mixpanel.ValidateParameter("", "Ad Watch Duration");
@@ -3556,10 +3692,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitForAdToFinishInAmd();
 				waitTime(4000);
 				Back(1);
-				mixpanel.FEProp.setProperty("Source", "home");
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
+				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.ValidateParameter("", "Ad Watch Duration");
@@ -3596,10 +3739,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					waitForAdToFinishInAmd();
 					waitTime(4000);
 					Back(1);
+					String pUserType;
+					if(usertype.contains("guest")) {
+						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+						mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+						mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+					}
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+					
 					mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 					mixpanel.FEProp.setProperty("Ad Location", "instream");
 					mixpanel.ValidateParameter("", "Ad Watch Duration");
@@ -3635,10 +3785,18 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitForAdToFinishInAmd();
 				waitTime(4000);
 				Back(1);
-				mixpanel.FEProp.setProperty("Source", "home");
+				
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
+				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				
 				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
 				mixpanel.FEProp.setProperty("Ad Location", "instream");
 				mixpanel.ValidateParameter("", "Ad Watch Duration");
@@ -3675,10 +3833,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					waitTime(2000);
 					Back(1);
 
+					if(usertype.equalsIgnoreCase("guest")) {
+						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+						mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+						mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+					}
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
 
 					mixpanel.ValidateParameter("", "Pause");
 				}
@@ -3710,10 +3873,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		waitTime(2000);
 		Back(1);
-		mixpanel.FEProp.setProperty("Source", "home");
+		if(usertype.equalsIgnoreCase("guest")) {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+		}
+		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
 
 		mixpanel.ValidateParameter("", "Pause");
 	}
@@ -3734,9 +3902,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			Back(1);
 
+			if(usertype.equalsIgnoreCase("guest")) {
+				mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+				mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+				mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+				mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+			}
+			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
 
 			mixpanel.ValidateParameter("", "Pause");
 		}
@@ -3767,11 +3941,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		waitTime(2000);
 		Back(1);
-
-		mixpanel.FEProp.setProperty("Source", "home");
+		if(usertype.equalsIgnoreCase("guest")) {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+		}
+		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
 
 		mixpanel.ValidateParameter("", "Pause");
 	}
@@ -3794,10 +3972,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitTime(2000);
 				Back(1);
 
+				if(usertype.equalsIgnoreCase("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
 
 				mixpanel.ValidateParameter("", "Pause");
 			} else {
@@ -3835,10 +4018,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		waitTime(2000);
 		Back(1);
 
-		mixpanel.FEProp.setProperty("Source", "home");
+		if(usertype.equalsIgnoreCase("guest")) {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+		}
+		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		
 		mixpanel.ValidateParameter("", "Pause");
 	}
 
@@ -3864,10 +4053,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			waitTime(2000);
 			Back(1);
 
+			if(usertype.equalsIgnoreCase("guest")) {
+				mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+				mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+				mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+				mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+			}
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+			
 			mixpanel.ValidateParameter("", "Pause");
 		}
 	}
@@ -7025,12 +7220,18 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				} else {
 					forwardAutoSeek(1);
 					waitTime(3000);
-
 					Back(1);
+					String pUserType;
+					if(usertype.contains("guest")) {
+						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+						mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+						mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+					}
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+					
 					mixpanel.ValidateParameter("", "Auto-seek");
 				}
 				break;
@@ -7064,10 +7265,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 					waitTime(3000);
 
 					Back(1);
+					String pUserType;
+					if(usertype.contains("guest")) {
+						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+						mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+						mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+					}
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+					
 					mixpanel.ValidateParameter("", "Auto-seek");
 				}
 				break;
@@ -7097,10 +7305,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		forwardAutoSeek(1);
 		waitTime(5000);
 		Back(1);
-		mixpanel.FEProp.setProperty("Source", "home");
+		String pUserType;
+		if(usertype.contains("guest")) {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+		}
+		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+	
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
@@ -7120,10 +7335,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		rewindAutoSeek(1);
 		waitTime(3000);
 		Back(1);
-		mixpanel.FEProp.setProperty("Source", "home");
+		String pUserType;
+		if(usertype.contains("guest")) {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+		}
+		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
@@ -7141,10 +7363,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 			forwardAutoSeek(1);
 
 			Back(1);
+			String pUserType;
+			if(usertype.contains("guest")) {
+				mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+				mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+				mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+				mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+			}
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+			
 			mixpanel.ValidateParameter("", "Auto-seek");
 		}
 	}
@@ -7163,10 +7392,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 			rewindAutoSeek(1);
 			waitTime(3000);
 			Back(1);
+			String pUserType;
+			if(usertype.contains("guest")) {
+				mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+				mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+				mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+				mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+				mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+			}
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-			mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-			mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
 			mixpanel.ValidateParameter("", "Auto-seek");
 		}
 	}
@@ -7188,10 +7424,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		forwardAutoSeek(1);
 		waitTime(3000);
 		Back(1);
-		mixpanel.FEProp.setProperty("Source", "home");
+		String pUserType;
+		if(usertype.contains("guest")) {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+		}
+		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
@@ -7212,10 +7455,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		rewindAutoSeek(1);
 		waitTime(3000);
 		Back(1);
-		mixpanel.FEProp.setProperty("Source", "home");
+		String pUserType;
+		if(usertype.contains("guest")) {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+		}
+		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
@@ -7239,10 +7489,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				forwardAutoSeek(1);
 				waitTime(4000);
 				Back(1);
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				
 				mixpanel.ValidateParameter("", "Auto-seek");
 			} else {
 				logger.info("No contents in Watchlist");
@@ -7277,10 +7534,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				waitTime(2000);
 
 				Back(1);
+				String pUserType;
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				
 				mixpanel.ValidateParameter("", "Auto-seek");
 			} else {
 				logger.info("No contents in Watchlist");
@@ -7314,10 +7578,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		forwardAutoSeek(1);
 		waitTime(4000);
 		Back(1);
-		mixpanel.FEProp.setProperty("Source", "home");
+		String pUserType;
+		if(usertype.contains("guest")) {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+		}
+		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
@@ -7343,10 +7614,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 		rewindAutoSeek(1);
 		waitTime(3000);
 		Back(1);
-		mixpanel.FEProp.setProperty("Source", "home");
+		String pUserType;
+		if(usertype.contains("guest")) {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+		}
+		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-		mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+		
 		mixpanel.ValidateParameter("", "Auto-seek");
 	}
 
@@ -7390,13 +7668,18 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 //							verifyElementPresentAndClick(AMDConsumptionScreen.objDowloadStatus, "Download status button");
 //							verifyElementPresentAndClick(AMDConsumptionScreen.objCancelDownload, "Cancel download button");
 //						}
-
+							if(usertype.contains("guest")) {
+								mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+								mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+								mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+								mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+								mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+							}
 							waitTime(2000);
 							mixpanel.FEProp.setProperty("Source", "home");
 							mixpanel.FEProp.setProperty("User Type", pUserType);
 							mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-							mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-							mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+							
 							mixpanel.FEProp.setProperty("Brand", getOEMName);
 							mixpanel.FEProp.setProperty("Manufacturer", getOEMName);
 							mixpanel.ValidateParameter("", "Download Start");
@@ -7448,11 +7731,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				verifyElementPresentAndClick(AMDConsumptionScreen.objStartDowloadBtn, "Start download button");
 
 				waitTime(2000);
+				if(usertype.contains("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("User Type", pUserType);
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				
 				mixpanel.FEProp.setProperty("Brand", getOEMName);
 				mixpanel.FEProp.setProperty("Manufacturer", getOEMName);
 				mixpanel.ValidateParameter("", "Download Start");
@@ -7495,11 +7784,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 					verifyElementPresentAndClick(AMDConsumptionScreen.objStartDowloadBtn, "Start download button");
 
 					waitTime(2000);
+					if(usertype.equalsIgnoreCase("guest")) {
+						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+						mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+						mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+					}
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("User Type", pUserType);
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+					
 					mixpanel.FEProp.setProperty("Brand", getOEMName);
 					mixpanel.FEProp.setProperty("Manufacturer", getOEMName);
 					mixpanel.ValidateParameter("", "Download Start");
@@ -7555,11 +7850,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				}
 
 				waitTime(2000);
+				if(usertype.equalsIgnoreCase("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
 				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("User Type", pUserType);
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				
 				mixpanel.FEProp.setProperty("Brand", getOEMName);
 				mixpanel.FEProp.setProperty("Manufacturer", getOEMName);
 				mixpanel.ValidateParameter("", "Download Start");
@@ -7605,11 +7906,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 					verifyElementPresentAndClick(AMDConsumptionScreen.objStartDowloadBtn, "Start download button");
 
 					waitTime(2000);
+					if(usertype.equalsIgnoreCase("guest")) {
+						mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+						mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+						mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+						mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+						mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+					}
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("User Type", pUserType);
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-					mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-					mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+					
 					mixpanel.FEProp.setProperty("Brand", getOEMName);
 					mixpanel.FEProp.setProperty("Manufacturer", getOEMName);
 					mixpanel.ValidateParameter("", "Download Start");
@@ -7671,11 +7978,17 @@ public void AudioLanguageChangeEventForPremiumContent(String usertype, String ta
 				}
 
 				waitTime(2000);
-				mixpanel.FEProp.setProperty("Source", "home");
+				if(usertype.equalsIgnoreCase("guest")) {
+					mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+					mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
+					mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
+					mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
+					mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+				}
+				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("User Type", pUserType);
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				
 				mixpanel.FEProp.setProperty("Brand", getOEMName);
 				mixpanel.FEProp.setProperty("Manufacturer", getOEMName);
 				mixpanel.ValidateParameter("", "Download Start");
