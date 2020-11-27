@@ -9087,7 +9087,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				}
 			}
 		}
-//		JSClick(PWAMoviesPage.objPremiumContentCard, "PremiumContent"); // changed
+		// JSClick(PWAMoviesPage.objPremiumContentCard, "PremiumContent"); // changed
 		extent.HeaderChildNode("Verifing that premium content videos in landscape mode");
 		waitTime(15000);
 		if (checkElementDisplayed(PWAPremiumPage.objPremiumPopUp, "Premium PopUp")) {
@@ -9137,18 +9137,44 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(5000);
 		extent.HeaderChildNode("Verifing free movie content");
 		mandatoryRegistrationPopUp(userType);
-		chkPremiumORFreeFromVideosTabAndSelect("Trending Movies", "FREE", userType);
-		waitTime(3000);
-		if (userType.equalsIgnoreCase("Guest")) {
-			if (checkElementDisplayed(PWAPlayerPage.objRegisterPopUp, "Register PopUp")) {
-				verifyElementPresentAndClick(PWAPlayerPage.objCloseRegisterDialog, "Register popup close icon");
+		if (!chkPremiumORFreeFromVideosTabAndSelect("Trending Movies", "FREE", userType).equals("")) {
+			waitTime(3000);
+			if (userType.equalsIgnoreCase("Guest")) {
+				if (checkElementDisplayed(PWAPlayerPage.objRegisterPopUp, "Register PopUp")) {
+					verifyElementPresentAndClick(PWAPlayerPage.objCloseRegisterDialog, "Register popup close icon");
+				}
 			}
-		}
-		if (userType.equalsIgnoreCase("Guest")) {
-			if (checkElementDisplayed(PWAPlayerPage.objAdultView, "AdultContent")) {
-				logger.info("Maximize icon is not displayed since the content is adult view");
-				extent.extentLogger("Maximize icon", "Maximize icon is not displayed since the content is adult view");
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			if (userType.equalsIgnoreCase("Guest")) {
+				if (checkElementDisplayed(PWAPlayerPage.objAdultView, "AdultContent")) {
+					logger.info("Maximize icon is not displayed since the content is adult view");
+					extent.extentLogger("Maximize icon",
+							"Maximize icon is not displayed since the content is adult view");
+					verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+				} else {
+					waitForPlayerAdToComplete2("Video Player");
+					if (BROWSER.equals("Chrome")) {
+						moviePausePlayer();
+					} else {
+						if (verifyElementPresent(PWAPlayerPage.objPlayerscreen, "Playback Overlay")) {
+							firefoxpause();
+						}
+					}
+					extent.HeaderChildNode("Verifing free movie content in landscape");
+					click(PWAPlayerPage.maximizeBtn, "Maximize icon");
+					for (int i = 0; i < 5; i++) {
+						if (checkElementDisplayed(PWAPlayerPage.minimizeBtn, "Minimize icon")) {
+							logger.info("User is able to watch free content in landscape mode");
+							extent.extentLogger("Landscape mode",
+									"User is able to watch free content in landscape mode");
+							waitTime(3000);
+							click(PWAPlayerPage.minimizeBtn, "Minimize icon");
+							break;
+						} else {
+							click(PWAPlayerPage.objPlaybackVideoOverlay, "player screen");
+						}
+					}
+					verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+				}
 			} else {
 				waitForPlayerAdToComplete2("Video Player");
 				if (BROWSER.equals("Chrome")) {
@@ -9171,32 +9197,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 						click(PWAPlayerPage.objPlaybackVideoOverlay, "player screen");
 					}
 				}
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 			}
 		} else {
-			waitForPlayerAdToComplete2("Video Player");
-			if (BROWSER.equals("Chrome")) {
-				moviePausePlayer();
-			} else {
-				if (verifyElementPresent(PWAPlayerPage.objPlayerscreen, "Playback Overlay")) {
-					firefoxpause();
-				}
-			}
-			extent.HeaderChildNode("Verifing free movie content in landscape");
-			click(PWAPlayerPage.maximizeBtn, "Maximize icon");
-			for (int i = 0; i < 5; i++) {
-				if (checkElementDisplayed(PWAPlayerPage.minimizeBtn, "Minimize icon")) {
-					logger.info("User is able to watch free content in landscape mode");
-					extent.extentLogger("Landscape mode", "User is able to watch free content in landscape mode");
-					waitTime(3000);
-					click(PWAPlayerPage.minimizeBtn, "Minimize icon");
-					break;
-				} else {
-					click(PWAPlayerPage.objPlaybackVideoOverlay, "player screen");
-				}
-			}
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+			logger.info("No free movies displayed");
+			extent.extentLoggerWarning("Landscape mode", "No free movies displayed");
 		}
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 	}
 
 	/**
@@ -9295,10 +9301,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public String chkPremiumORFreeFromVideosTabAndSelect(String str, String premiumORfree, String usertype)
 			throws Exception {
+		boolean foundContent = false;
 		ScrollToTheElementWEB(PWAMoviesPage.TextToXpath(str));
 		waitTime(5000);
 		String ValueOfPremiumTumbnail = null;
 		int p = 0;
+		extent.extentLogger("", "Checking availability of " + premiumORfree + " content");
+		logger.info("Checking availability of " + premiumORfree + " content");
 		main: for (int j = 0; j < 5; j++) {
 			List<WebElement> tumnails = findElements(By.xpath("//div[@class='trayHeader']/child::h2[contains(text(),'"
 					+ str
@@ -9311,12 +9320,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 								+ "')]/parent::*/following-sibling::*/child::*/child::div/child::*/child::*/child::*/child::*/child::a/child::figure)["
 								+ i + "]"));
 				boolean elevisibility = checkElementDisplayed(PWAHomePage.objVideoIsPremiumTumbnail(str, i),
-						"is Premium");
+						"Premium Card");
 				if (elevisibility == true) {
 					ValueOfPremiumTumbnail = getAttributValue("title", PWAHomePage.objVideoTumbnailTitle(str, i));
 					System.out.println("Premium Tumbnail Title : " + ValueOfPremiumTumbnail);
 					if (premiumORfree.equals("PREMIUM")) {
 						clickByElement(specificTumbnail, "Specific Tumbnail from Premium");
+						foundContent = true;
 						break main;
 					}
 				} else if (elevisibility == false) {
@@ -9324,17 +9334,21 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					System.out.println("Non-Premium Tumbnail Title : " + ValueOfPremiumTumbnail);
 					if (premiumORfree.equals("FREE")) {
 						clickByElement(specificTumbnail, "Specific Tumbnail from Non-Premium");
+						foundContent = true;
 						break main;
 					}
 				}
 			}
-			p = tumnails.size();
-			getWebDriver().findElement(By.xpath("//div[@class='trayHeader']/child::h2[contains(text(),'" + str
-					+ "')]/parent::*/following-sibling::*/child::*/child::button[@class='slick-arrow slick-next']"))
-					.click();
-			waitTime(3000);
+			if (foundContent) {
+				p = tumnails.size();
+				getWebDriver().findElement(By.xpath("//div[@class='trayHeader']/child::h2[contains(text(),'" + str
+						+ "')]/parent::*/following-sibling::*/child::*/child::button[@class='slick-arrow slick-next']"))
+						.click();
+				waitTime(3000);
+				return ValueOfPremiumTumbnail;
+			}
 		}
-		return ValueOfPremiumTumbnail;
+		return "";
 	}
 
 	/**

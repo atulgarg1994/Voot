@@ -252,13 +252,11 @@
 				<configuration>
 					<systemPropertyVariables>
 						<UserType>${UserType}</UserType>
+						<BrowserType>${BrowserType}</BrowserType>
 						<url>${env}</url>
 						<!-- <runMode>${runMode}</runMode>
 						<runModule>${runModule}</runModule> -->
 					</systemPropertyVariables>
-					<suiteXmlFiles>
-						<suiteXmlFile>${suiteXmlFile}.xml</suiteXmlFile>
-					</suiteXmlFiles>
 					<suiteXmlFiles>
 						<!-- TestNG suite XML files -->
 						<!-- <suiteXmlFile>${rp.launch}.xml</suiteXmlFile> -->

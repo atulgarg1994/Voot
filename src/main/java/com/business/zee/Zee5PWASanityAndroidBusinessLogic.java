@@ -1,6 +1,10 @@
 package com.business.zee;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -44,6 +48,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		new CommandBase(Application);
 		init();
 	}
+
+	Process execute;
 
 	private int timeout;
 
@@ -3315,6 +3321,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			verifyElementPresent(PWALoginPage.objFacebookLoginpassword, " Password Field");
 			type(PWALoginPage.objFacebookLoginpassword, "Igs$123Zee\n", "Password Field");
 			verifyElementPresentAndClick(PWALoginPage.objFacebookLoginButtonInFbPage, "Login Button");
+			waitTime(3000);
+			directClickReturnBoolean(PWALoginPage.objFacebookContinueButton, "Continue button");
 			waitTime(10000);
 			getDriver().switchTo().window("CDwindow-0");
 			if (checkElementExist(PWALoginPage.objSignUpHeaderInSignUpPage, "SignUp Page")) {
@@ -5141,9 +5149,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 
 	public void selectEnglishContentLanguage() throws Exception {
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu");
+		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu");
 		waitTime(3000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objLanguageBtn, "Language Button");
+		click(PWAHamburgerMenuPage.objLanguageBtn, "Language Button");
 		waitTime(2000);
 		waitForElementAndClick(PWAHamburgerMenuPage.objContentLanguageBtn, 2, "Content Languages");
 		waitTime(2000);
@@ -11052,9 +11060,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				trays = apitotaltrays.size();
 			for (int i = 1; i < trays; i++) {
 				String traytitle = resp.jsonPath().getString("buckets[" + i + "].title");
-				apiTitleList.add(traytitle);
+				if (!traytitle.contains("ZEEPLEX"))
+					apiTitleList.add(traytitle);
 			}
-			endindex = trays - 1;
+			endindex = apiTitleList.size();
 		}
 		logger.info("Trays from API: " + apiTitleList);
 		extent.extentLogger("", "Trays from API: " + apiTitleList);
@@ -12789,7 +12798,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 	public void reloadHome() throws Exception {
 		String url = getParameterFromXML("url");
-		System.out.println(getDriver());
+		// System.out.println(getDriver());
 		getDriver().get(url);
 		waitTime(5000);
 		// dismissAppInstallPopUp();
@@ -12963,6 +12972,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 			extent.HeaderChildNode("HLS_011 : Verify user is able to play the content from the collection page");
 			playCardFromCollections(userType, "Club");
+			reloadHome();
 			break;
 
 		case "SubscribedUser":
@@ -12983,6 +12993,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 			extent.HeaderChildNode("HLS_011 : Verify user is able to play the content from the collection page");
 			playCardFromCollections(userType, "Club");
+			reloadHome();
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 		}
 	}
@@ -13050,7 +13061,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 	}
 
-	public void playCardFromCollections(String userType, String tabName) throws Exception {
+	public boolean playCardFromCollections(String userType, String tabName) throws Exception {
 		navigateToAnyScreen(tabName);
 		// handle mandatory pop up
 		mandatoryRegistrationPopUp(userType);
@@ -13117,7 +13128,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					waitTime(3000);
 					// handle mandatory pop up
 					mandatoryRegistrationPopUp(userType);
-					waitTime(5000);
+					waitTime(7000);
 					if (directClickReturnBoolean(PWALandingPages.objViewAllPageFirstContent, "First asset")) {
 						if (verifyIsElementDisplayed(PWAPlayerPage.objContentShowTitle, "Show Details")) {
 							String viewallnavigationtittle = getText(PWAPlayerPage.objContentShowTitle);
@@ -13125,13 +13136,18 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 									"Navigated to Show Details page from View All Page: " + viewallnavigationtittle);
 							extent.extentLogger("View All",
 									"Navigated to Show Details page from View All Page: " + viewallnavigationtittle);
+						} else if (verifyIsElementDisplayed(PWAMoviesPage.objNowShowingText, "ZEE Plex Page")) {
+							String movietittle = getText(PWAMoviesPage.objTVODTitle);
+							logger.info("Navigated to ZEE Plex Page displaying movie title : " + movietittle);
+							extent.extentLogger("",
+									"Navigated to ZEE Plex Page displaying movie title : " + movietittle);
 						} else {
-							directClickReturnBoolean(PWASubscriptionPages.objPopupCloseButton, "Popup Close Button");
-							pausePlayer();
+							// pausePlayer();
 							String viewallnavigationtittle = getText(PWAPlayerPage.objContentTitle);
 							logger.info("Navigated to Consumption page from View All Page: " + viewallnavigationtittle);
 							extent.extentLogger("View All",
 									"Navigated to Consumption page from View All Page: " + viewallnavigationtittle);
+							return true;
 						}
 
 					} else {
@@ -13144,6 +13160,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				extent.extentLoggerFail("View All", "Not navigated to View All Page");
 			}
 		}
+		return false;
 	}
 
 	public void PWAHomeLandingPageHLS(String userType) throws Exception {
@@ -13156,6 +13173,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		pagesTrayValidation("Home");
 		extent.HeaderChildNode("HLS_015 : Verify On click View All CTA then screen is navigated to a particular page.");
 		playCardFromCollections(userType, "Home");
+		reloadHome();
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 		extent.HeaderChildNode("HLS_016 : Verify the Continue Watching tray");
 		if (userType.equals("Guest")) {
@@ -13192,25 +13210,32 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 	public void PWAMoviesPageHLS(String usertype, String Tabname) throws Exception {
 		extent.HeaderChildNode("HLS_022 : Verify user navigation to the Movies page");
+		System.out.println("HLS_022 : Verify user navigation to the Movies page");
 		PWAPagesNavigationAndTabHighlight(Tabname);
 		extent.HeaderChildNode("HLS_023 : Verify the Auto rotation of carousel");
+		System.out.println("HLS_023 : Verify the Auto rotation of carousel");
 		verifyAutoroatingOnCarousel(Tabname);
 		extent.HeaderChildNode("HLS_024 : Verify the rails name and content are loaded for first 2 scroll");
+		System.out.println("HLS_024 : Verify the rails name and content are loaded for first 2 scroll");
 		pagesTrayValidation(Tabname);
 		extent.HeaderChildNode("HLS_025 : Check for View all from different rails navigates to accurate screen");
+		System.out.println("HLS_025 : Check for View all from different rails navigates to accurate screen");
 		playCardFromCollections(userType, Tabname);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+		reloadHome();
 		extent.HeaderChildNode(
+				"HLS_026 : Verify the premium/Club tag is given on top left for all premium / Club content card");
+		System.out.println(
 				"HLS_026 : Verify the premium/Club tag is given on top left for all premium / Club content card");
 		PWAPremiumOrClubIconVerification(Tabname);
 		extent.HeaderChildNode("HLS_028 : Verify user can play any Free movie Content from the page");
+		System.out.println("HLS_028 : Verify user can play any Free movie Content from the page");
 		selectEnglishContentLanguage();
 		navigateToAnyScreen("Movies");
 		// handle mandatory pop up
 		mandatoryRegistrationPopUp(usertype);
 		click(PWAMoviesPage.objFreeContentCardFromTray, "Free Content from Tray");
-		waitForPlayerAdToComplete("Video Player");
-		pausePlayer();
+		// waitForPlayerAdToComplete("Video Player");
+		// pausePlayer();
 		String freeMovieTitle = "";
 		try {
 			freeMovieTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle,
@@ -13225,26 +13250,34 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		if (userType.equals("Guest") || userType.equals("NonSubscribed")) {
 			extent.HeaderChildNode(
 					"HLS_029 : Verify whether user is able to play Premium Movie Contents as a Guest/Non-Subscribed user");
+			System.out.println(
+					"HLS_029 : Verify whether user is able to play Premium Movie Contents as a Guest/Non-Subscribed user");
 		}
 		if (userType.equals("ClubUser")) {
 			extent.HeaderChildNode(
 					"HLS_031 : Verify weather user is able to play Premium Movie Contents as Club/RSVOD user");
+			System.out
+					.println("HLS_031 : Verify weather user is able to play Premium Movie Contents as Club/RSVOD user");
 		}
 		if (userType.equals("SubscribedUser")) {
 			extent.HeaderChildNode(
 					"HLS_030 : Verify the User can play the Premium Movie Contents as a Premium all access user");
+			System.out.println(
+					"HLS_030 : Verify the User can play the Premium Movie Contents as a Premium all access user");
 		}
+		// handle mandatory pop up
+		mandatoryRegistrationPopUp(usertype);
 		selectLanguages();
 		navigateToAnyScreen("Movies");
 		click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
-		waitTime(8000);
+		waitTime(10000);
 		if (userType.equals("Guest") || userType.equals("NonSubscribed") || userType.equals("ClubUser")) {
 			if (!verifyIsElementDisplayed(PWAPlayerPage.objWatchingATrailerMessage,
 					"'You're watching a trailer' message on the player")) {
-				verifyElementPresent(PWALiveTVPage.objPlayerInlineSubscriptionLink, "Inline Subscribe Link");
+				verifyIsElementDisplayed(PWALiveTVPage.objPlayerInlineSubscriptionLink, "Inline Subscribe Link");
 			}
 		}
-		pausePlayer();
+		// pausePlayer();
 		String premiumMovieTitle = "";
 		try {
 			premiumMovieTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle,
@@ -13255,10 +13288,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error("Failed to fetch Premium Movie Title in Consumptions Page");
 			extent.extentLoggerFail("", "Failed to fetch Premium Movie Title in Consumptions Page");
 		}
-		Back(1);
+		reloadHome();
 		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 			extent.HeaderChildNode(
 					"HLS_032 : Validate the subscription popup availability at the end of the play back");
+			System.out.println("HLS_032 : Validate the subscription popup availability at the end of the play back");
 			String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("premiumMovieWithTrailer");
 			zeeSearchForContentAndClickOnFirstResult(keyword);
@@ -13269,6 +13303,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		Back(1);
 		extent.HeaderChildNode(
+				"HLS_034 : Verify at right side bottom arrow is given to navigate top of screen without scrolling");
+		System.out.println(
 				"HLS_034 : Verify at right side bottom arrow is given to navigate top of screen without scrolling");
 		verificationOfBackToTop(Tabname);
 
@@ -13287,7 +13323,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("HLS_044 : Check for View all from different rails navigates to accurate screen");
 		System.out.println("HLS_044 : Check for View all from different rails navigates to accurate screen");
 		playCardFromCollections(userType, Tabname);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+		reloadHome();
 		extent.HeaderChildNode(
 				"HLS_045 : Verify the Premium/ Club tag is given on top left for all premium / Club content card");
 		System.out.println(
@@ -13322,7 +13358,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verificationOfBackToTop(Tabname);
 		extent.HeaderChildNode("HLS_053 : Verify the Before TV are available");
 		System.out.println("HLS_53 : Verify the Before TV are available");
-		verifyTrayPresence("Premiere Episodes | Before TV");
+		verifyTrayPresence("Premiere Episodes | Before Zee TV");
 		Swipe("DOWN", 2);
 		extent.HeaderChildNode("HLS_054 : Verify the  Before TV content playback as a Guest/Non-Subscribed user");
 		System.out.println("HLS_054 : Verify the  Before TV content playback as a Guest/Non-Subscribed user");
@@ -13399,7 +13435,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		System.out.println(
 				"HLS_060 : Verify the \" View All\" option given on tray right side top and functionality of View all");
 		playCardFromCollections(userType, Tabname);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+		reloadHome();
+		navigatetoAnyScreen(Tabname);
 		extent.HeaderChildNode(
 				"HLS_063 : Verify the right side bottom arrow is given to navigate top of screen without scrolling");
 		System.out.println(
@@ -13410,8 +13447,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		System.out.println(
 				"HLS_064 : Verify whether user is navigate to Playback page when user tap on any Live News content");
 		swipeTillTrayAndClickContentCard("Live News");
-		click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
-		navigatetoAnyScreen("News");
+		navigatetoAnyScreen(Tabname);
 		extent.HeaderChildNode(
 				"HLS_065 : Verify whether user is navigate to Playback page when user tap on any News VOD content");
 		System.out.println(
@@ -13458,7 +13494,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			// directClickReturnBoolean(PWASubscriptionPages.objPopupCloseButton, "Subscribe
 			// Pop Up Close button");
 			// waitForPlayerAdToComplete("Video Player");
-			pausePlayer();
+			// pausePlayer();
 			String freeMovieTitle = "";
 			try {
 				freeMovieTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle,
@@ -13469,8 +13505,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				logger.error("Failed to fetch Free Movie Title in Consumptions Page");
 				extent.extentLoggerFail("", "Failed to fetch Free Movie Title in Consumptions Page");
 			}
-			reloadHome();
-			navigatetoAnyScreen(Tabname);
 		} else {
 			logger.info("No Free Content Card displayed");
 			extent.extentLoggerWarning("", "No Free Content Card displayed");
@@ -13481,12 +13515,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		reloadHome();
 		navigatetoAnyScreen(Tabname);
 		swipeTillTrayAndClickContentCard("Club Movies");
-		reloadHome();
 		navigatetoAnyScreen(Tabname);
 		extent.HeaderChildNode("HLS_074 : Verify whether user can play any before tv content.");
 		System.out.println("HLS_074 : Verify whether user can play any before tv content.");
 		swipeTillTrayAndClickContentCard("Premiere Episodes | Before Zee TV");
-		reloadHome();
+		navigatetoAnyScreen(Tabname);
 		boolean verifyClub = false;
 		if (userType.equals("SubscribedUser")) {
 			extent.HeaderChildNode("HLS_075 : Verify whether \"Premium pack\" user can play any club content.");
@@ -13504,7 +13537,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			verifyClub = true;
 		}
 		if (verifyClub == true) {
-			navigatetoAnyScreen(Tabname);
 			waitTime(4000);// added time to wait for first tray to load
 			click(PWAHomePage.objClubContentCardFromTray, "Club Content from Tray");
 			waitTime(8000);
@@ -13512,7 +13544,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			if (verifyIsElementDisplayed(PWAShowsPage.objShowsTitle, "Shows Details page"))
 				clubTitle = getText(PWAShowsPage.objShowsTitle);
 			else {
-				pausePlayer();
 				try {
 					clubTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle,
 							"Club Title in Consumptions Page").toString();
@@ -13563,6 +13594,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("HLS_086 : Verify View All option and functionality");
 		System.out.println("HLS_086 : Verify View All option and functionality");
 		playCardFromCollections(userType, Tabname);
+		reloadHome();
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 		boolean checkPremiumPlay = false;
 		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
@@ -13589,7 +13621,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search icon");
 			type(PWAHomePage.objSearchField, keyword + "\n", "Search");
 			verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
-			pausePlayer();
+			// pausePlayer();
 			if (userType.equals("Guest") || userType.equals("ClubUser")) {
 				verifyIsElementDisplayed(PWAPlayerPage.objWatchingATrailerMessage,
 						"'You're watching a trailer' message on the player");
@@ -13656,8 +13688,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("HLS_101 : Verify View All option and functionality");
 		System.out.println("HLS_101 : Verify View All option and functionality");
 		playCardFromCollections(userType, Tabname);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
-		navigateToAnyScreen(Tabname);
+		reloadHome();
 		extent.HeaderChildNode("HLS_103 : Verify the Joystick icon is given on top left for all Play content card");
 		System.out.println("HLS_103 : Verify the Joystick icon is given on top left for all Play content card");
 		PWAPremiumOrClubIconVerification(Tabname);
@@ -13665,8 +13696,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				"HLS_105 : Verify user is navigate to respective games screen in new tab on click of feature carousel banner content.");
 		System.out.println(
 				"HLS_105 : Verify user is navigate to respective games screen in new tab on click of feature carousel banner content.");
-		click(PWAPlayPage.objPlayNowButton, "Play Now button of Carousel");
 		String currentHandle = getDriver().getWindowHandle();
+		click(PWAPlayPage.objPlayNowButton, "Play Now button of Carousel");
 		Set<String> handles = getDriver().getWindowHandles();
 		Iterator it = handles.iterator();
 		for (int i = 0; i < handles.size(); i++) {
@@ -13686,8 +13717,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info("Failed to navigate to Games screen");
 			extent.extentLogger("", "Failed to navigate to Games screen");
 		}
-		Back(1);
-		Back(1);
+		closeAllHandlesExceptCurrentHandle(currentHandle);
 		getDriver().switchTo().window(currentHandle);
 		extent.HeaderChildNode(
 				"HLS_106 : Verify the joystick icon is displayed on top left corner of the content card");
@@ -13707,12 +13737,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchedResult(keyword), "Search Result");
 		waitTime(3000);
 		currentUrl = "";
-		currentHandle = getDriver().getWindowHandle();
 		handles = getDriver().getWindowHandles();
 		it = handles.iterator();
 		for (int i = 0; i < handles.size(); i++) {
 			String handle = it.next().toString();
-			System.out.println("handle: " + handle);
 			if (!handle.equals(currentHandle)) {
 				getDriver().switchTo().window(handle);
 				break;
@@ -13728,9 +13756,21 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info("Failed to navigate to Games screen");
 			extent.extentLogger("", "Failed to navigate to Games screen");
 		}
-		Back(1);
-		Back(1);
+		closeAllHandlesExceptCurrentHandle(currentHandle);
 		getDriver().switchTo().window(currentHandle);
+	}
+
+	public void closeAllHandlesExceptCurrentHandle(String currentHandle) throws Exception {
+		Set<String> handles = getDriver().getWindowHandles();
+		System.out.println("All handles: " + handles);
+		Iterator it = handles.iterator();
+		for (int i = 0; i < handles.size(); i++) {
+			String handle = it.next().toString();
+			if (!handle.equals(currentHandle)) {
+				getDriver().switchTo().window(handle).close();
+				System.out.println("Closed handle: " + handle);
+			}
+		}
 	}
 
 	public void PWAKidsPageHLS(String usertype, String Tabname) throws Exception {
@@ -13761,7 +13801,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		System.out.println(
 				"HLS_113 : Verify the \" View All\" option given on tray right side top and functionality of View all");
 		playCardFromCollections(userType, Tabname);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
+		reloadHome();
 		extent.HeaderChildNode("HLS_116 : Verify the EDR contents available in the Kids Page");
 		System.out.println("HLS_116 : Verify the EDR contents available in the Kids Page");
 		navigateToAnyScreen(Tabname);
@@ -13769,6 +13809,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode(
 				"HLS_117 : Verify user is navigated to Consumption page if user taps on any EDR content");
 		System.out.println("HLS_117 : Verify user is navigated to Consumption page if user taps on any EDR content");
+		String currentHandle = getDriver().getWindowHandle();
 		click(PWAHomePage.objEduauraaCardCarousel, "Eduauraa Card in Carousel");
 		String currenturl = getDriver().getCurrentUrl();
 		logger.info("Current URL :" + currenturl);
@@ -13780,7 +13821,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error("Failed to navigate to Collections page");
 			extent.extentLoggerFail("url", "Failed to navigate to Collections page");
 		}
-		Back(1);
+		closeAllHandlesExceptCurrentHandle(currentHandle);
+		getDriver().switchTo().window(currentHandle);
 		verifyElementPresent(PWAHomePage.objLearnWithEduauraaTray, "Learn with Eduauraa tray");
 		verifyElementPresentAndClick(PWAHomePage.objFirstItemLearnWithEduauraaTray,
 				"First card under Learn with Eduauraa tray");
@@ -13788,7 +13830,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		String consumptionPageTitle = getText(PWAPlayerPage.objContentTitle);
 		extent.extentLogger("", "Navigated to the Consumption page: " + consumptionPageTitle);
 		logger.info("Navigated to the Consumption page: " + consumptionPageTitle);
-		pausePlayer();
 		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 			extent.HeaderChildNode(
 					"HLS_118 : Verify on tapping on Claim offer CTA user should navigates to Select pack page");
@@ -13834,6 +13875,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		System.out.println(
 				"HLS_125 : Verify the \" View All\" option given on tray right side top and functionality of View all, HLS_129 : Verify whether user is navigate to consumption page when user tap on any music content in Listed collection");
 		playCardFromCollections(userType, Tabname);
+		reloadHome();
 		extent.HeaderChildNode("HLS_130 : Verify that Recommended Videos are displayed right side of the player");
 		System.out.println("HLS_130 : Verify that Recommended Videos are displayed right side of the player");
 		swipeTillTrayAndClickContentCard("Recommended Videos");
@@ -14086,10 +14128,18 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				"HLS_151 : Verify the \" View All\" option given on tray right side top and functionality of View all, HLS_155 : Verify whether user is navigate to consumption page when user tap on any video content in Listed collection");
 		System.out.println(
 				"HLS_151 : Verify the \" View All\" option given on tray right side top and functionality of View all, HLS_155 : Verify whether user is navigate to consumption page when user tap on any video content in Listed collection");
-		playCardFromCollections(userType, Tabname);
-		extent.HeaderChildNode("HLS_156 : Verify that Recommended Videos are displayed right side of the player");
-		System.out.println("HLS_156 : Verify that Recommended Videos are displayed right side of the player");
-		swipeTillTrayAndClickContentCard("Recommended Videos");
+		if (playCardFromCollections(userType, Tabname)) {
+			extent.HeaderChildNode("HLS_156 : Verify that Recommended Videos are displayed right side of the player");
+			System.out.println("HLS_156 : Verify that Recommended Videos are displayed right side of the player");
+			swipeTillTrayAndClickContentCard("Recommended Videos");
+		} else {
+			extent.HeaderChildNode("HLS_156 : Verify that Recommended Videos are displayed right side of the player");
+			System.out.println("HLS_156 : Verify that Recommended Videos are displayed right side of the player");
+			logger.info(
+					"Verifying presence of Recommended Videos in consumptions page is blocked because player navigation did not occur in previous test case");
+			extent.extentLoggerWarning("",
+					"Verifying presence of Recommended Videos in consumptions page is blocked because player navigation did not occur in previous test case");
+		}
 	}
 
 	public void PWAZEE5OriginalsPageHLS(String usertype, String Tabname) throws Exception {
@@ -14109,6 +14159,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		System.out.println(
 				"HLS_159 : Verify the \" View All\" option given on tray right side top and functionality of View all");
 		playCardFromCollections(userType, Tabname);
+		reloadHome();
 		extent.HeaderChildNode(
 				"HLS_163 : Verify the Club & Premium icons are displayed on the Zee originals content cards");
 		System.out
@@ -15230,10 +15281,13 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		if (carouselItemsCount > 7)
 			carouselItemsCount = 7;
 		for (int i = 0; i < carouselItemsCount; i++) {
-			if (tabResponse.jsonPath().get("buckets[0].items[" + i + "].tags[0]").toString().equals("Autoplay")) {
-				autoplayItem = i;
-				autoplayingItemsPresent = true;
-				break;
+			try {
+				if (tabResponse.jsonPath().get("buckets[0].items[" + i + "].tags[0]").toString().equals("Autoplay")) {
+					autoplayItem = i;
+					autoplayingItemsPresent = true;
+					break;
+				}
+			} catch (Exception e) {
 			}
 		}
 		if (autoplayingItemsPresent == false) {
@@ -15344,7 +15398,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error(trayTitle + " tray is not present in Page");
 			extent.extentLoggerFail("", trayTitle + " tray is not present in Page");
 		}
-
+		reloadHome();
 	}
 
 	public boolean verifyTrayPresence(String trayTitle) throws Exception {
@@ -15466,6 +15520,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 	public void PWAPremiumOrClubIconVerification(String Tabname) throws Exception {
 		navigateToAnyScreen(Tabname);
+		waitTime(3000);
 		if (Tabname.equalsIgnoreCase("Club") || Tabname.equalsIgnoreCase("Shows")) {
 			for (int i = 0; i < 5; i++) {
 				if (findElements(PWAHomePage.objClubTag).size() > 0) {
@@ -15476,6 +15531,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					logger.info("Club Tag is not displayed");
 					extent.extentLogger("Club Tag", "Club Tag is not displayed");
 					PartialSwipe("UP", 1);
+					waitTime(2000);
 				}
 			}
 		} else if (Tabname.equalsIgnoreCase("Play")) {
@@ -15504,6 +15560,47 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 		}
 		clickElementWithLocator(PWAHomePage.objBackToTopArrow);
+	}
+
+	public void fetchLogs() throws IOException, InterruptedException {
+		String path = System.getProperty("user.dir") + File.separator + "tempLogFile.txt";
+		System.out.println(path);
+		File myfile = new File(path);
+		myfile.createNewFile();
+		FileWriter myWriter = new FileWriter(path);
+		myWriter.write(startAdbLogs().toString());
+		myWriter.close();
+	}
+
+	public ArrayList<String> startAdbLogs() throws InterruptedException, IOException {
+		// String command="adb logcat > \""+path+"\"";
+		String command = "adb logcat";
+		System.out.println(command);
+		execute = Runtime.getRuntime().exec(command);
+		InputStream is = execute.getInputStream();
+		InputStreamReader isr = new InputStreamReader(is);
+		BufferedReader br = new BufferedReader(isr);
+		final StringBuffer output = new StringBuffer();
+		String line;
+		ArrayList<String> arrList = new ArrayList<String>();
+		for (int i = 0; i < 10000; i++) {
+			try {
+				line = br.readLine();
+				if (line == null) {
+					execute.destroy();
+					break;
+				}
+				System.out.println(line);
+				arrList.add(line);
+			} catch (Exception e) {
+			}
+
+		}
+		/*
+		 * while ((line = br.readLine()) != null) { System.out.println(line); }
+		 */
+		return arrList;
+
 	}
 
 }

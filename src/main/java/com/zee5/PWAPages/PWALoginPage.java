@@ -197,5 +197,6 @@ public class PWALoginPage {
 	public static By objLoginBtnLoginPage = By.xpath("//span[contains(text(),'Login')]//parent::button");
 	
 	public static By objOKBtnInFbPage = By.xpath("//button[@name='__CONFIRM__']");
-
+	
+	public static By objFacebookContinueButton= By.xpath("//*[text()='Continue']");
 }
