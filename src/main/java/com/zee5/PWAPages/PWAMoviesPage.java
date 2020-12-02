@@ -70,4 +70,6 @@ public class PWAMoviesPage {
 	public static By objNowShowingText = By.xpath("//*[@class='plexTrayHeader' and text()='Now Showing']");
 	
 	public static By objTVODTitle = By.xpath("(//*[@class='tvodTitle'])[1]");
+	
+	public static By objTVODTitles = By.xpath("//*[@class='tvodTitle']");
 }

@@ -141,7 +141,7 @@ public class Mixpanel extends ExtentReporter {
 //		fileName = "CTAs";
 //		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
 //		platform = "Web";
-//		fetchEvent("5d94e150a85711e9a4028141f97a2ff1","CTAs");
+//		fetchEvent("5d94e150a85711e9a4028141f97a2ff1","Login Initiated");
 	}
 
 	@SuppressWarnings("unused")
@@ -172,6 +172,7 @@ public class Mixpanel extends ExtentReporter {
 		LocalDateTime now = LocalDateTime.now();
 		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
 		System.out.println("Current Date : " + currentDate);
+		platform = "MPWA";
 		if (platform.equals("Android")) {
 			APIKey = "b2514b42878a7e7769945befa7857ef1";
 			UserID = "$model";

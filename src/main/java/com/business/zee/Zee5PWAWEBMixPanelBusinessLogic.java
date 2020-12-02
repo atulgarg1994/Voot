@@ -915,7 +915,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
-
+		waitTime(4000);
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		mixpanel.FEProp.setProperty("Source", tabName);
+		mixpanel.FEProp.setProperty("Page Name", "home");
+		mixpanel.FEProp.setProperty("Element", "Play");
+		if (userType.equals("Guest")) {
+			System.out.println(local.getItem("guestToken"));
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Thumbnail Click");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Thumbnail Click");
+		}
 	}
 
 	public void verifyThumbnailClickEventFromTray(String tabName) throws Exception {
@@ -926,6 +944,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAPremiumPage.objThumbnail, "Thumbnail from a tray");
 
 		waitTime(2000);
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		mixpanel.FEProp.setProperty("Source", tabName);
 		mixpanel.FEProp.setProperty("Page Name", "home");
@@ -944,6 +970,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		click(PWAPremiumPage.objViewAllBtn, "View All Button");
 		verifyElementPresentAndClick(PWAPremiumPage.objThumbnail, "Thumbnail from View More Page");
+		waitTime(4000);
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		mixpanel.FEProp.setProperty("Source", tabName);
 		mixpanel.FEProp.setProperty("Page Name", "view_all_top-20-on-zee5-kannada");
@@ -963,6 +998,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResult(keyword), "Search Result");
 
 		verifyElementPresentAndClick(PWAPremiumPage.obj1stContentInShowDetailPage, "Thumbnail from Show detail page");
+		waitTime(4000);
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
@@ -984,6 +1028,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.obj1stContentInShowDetailPage, "Thumbnail");
 		mandatoryRegistrationPopUp(userType);
 		verifyElementPresentAndClick(PWAPremiumPage.obj1stContentInShowDetailPage, "Thumbnail from playback page");
+		waitTime(5000);
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		mixpanel.FEProp.setProperty("Source", "show_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");

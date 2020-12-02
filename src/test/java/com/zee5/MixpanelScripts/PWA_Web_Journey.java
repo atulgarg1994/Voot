@@ -193,7 +193,7 @@ public class PWA_Web_Journey {
 				.println("Verify Remove from Watchlist Event by mouse hovering on a Content Card In show detail page");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyRemoveFomWatchlistEventByMouseHoverInShowDetailPage(userType, keyword);
-	}
+	} 
 
 	@Test(priority = 24)
 	@Parameters({ "userType", "keyword" })

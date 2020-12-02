@@ -10072,8 +10072,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			k = tumnails.size() + 1;
 		}
 		if (flag == false) {
-			logger.error("There are no " + premiumORfree + " contents in " + str + " tray");
-			extent.extentLoggerFail("", "There are no " + premiumORfree + " contents in " + str + " tray");
+			logger.info("There are no " + premiumORfree + " contents in " + str + " tray");
+			extent.extentLoggerWarning("", "There are no " + premiumORfree + " contents in " + str + " tray");
 			return "";
 		} else {
 			return ValueOfPremiumTumbnail;
@@ -10564,21 +10564,19 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 
 	public void loginWithUserEmail(String email, String pwd) throws Exception {
-		String emailid = "edpwa4@mailnesia.com";
-		String pass = "1234567";
 		if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
-			verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+			click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 		}
 		waitTime(3000);
 		click(PWALoginPage.objLoginBtn, "Login button");
-		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+		click(PWALoginPage.objEmailField, "Email field");
 		waitTime(2000);
-		type(PWALoginPage.objEmailField, emailid, "Email Field");
+		type(PWALoginPage.objEmailField, email, "Email Field");
 		hideKeyboard();
 		waitTime(3000);
 		// dismissSystemPopUp();
-		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-		type(PWALoginPage.objPasswordField, pass + "\n", "Password field");
+		click(PWALoginPage.objPasswordField, "Password Field");
+		type(PWALoginPage.objPasswordField, pwd + "\n", "Password field");
 		hideKeyboard();
 		waitTime(5000);
 		directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
@@ -13310,6 +13308,179 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 	}
 
+	public void PWAZeePlexPageHLS(String usertype, String Tabname) throws Exception {
+		extent.HeaderChildNode("HLS_035 : Verify user navigation to ZEEPLEX landing page");
+		System.out.println("HLS_035 : Verify user navigation to ZEEPLEX landing page");
+		PWAPagesNavigationAndTabHighlight(Tabname);
+		extent.HeaderChildNode("HLS_036 : Verify Whether ZEEPLEX  contents are displayed on the Zeeplex landing page");
+		System.out.println("HLS_036 : Verify Whether ZEEPLEX  contents are displayed on the Zeeplex landing page");
+		List<WebElement> titles = getDriver().findElements(PWAMoviesPage.objTVODTitles);
+		if (titles.size() == 0) {
+			logger.error("No contents in the ZEEPLEX landing page");
+			extent.extentLoggerFail("", "No contents in the ZEEPLEX landing page");
+		} else {
+			for (int i = 0; i < titles.size(); i++) {
+				logger.info("Contents title displayed in the ZEEPLEX page: " + titles.get(i).getAttribute("innerText"));
+				extent.extentLogger("",
+						"Contents title displayed in the ZEEPLEX pages: " + titles.get(i).getAttribute("innerText"));
+			}
+		}
+		extent.HeaderChildNode(
+				"HLS_037 : Verify whether ZEEPLEX contents trailer are played post click on the Trailer CTA");
+		System.out
+				.println("HLS_037 : Verify whether ZEEPLEX contents trailer are played post click on the Trailer CTA");
+		Swipe("UP", 1);
+		click(PWAHamburgerMenuPage.objTrailer, "Trailer button");
+		waitTime(5000);
+		verifyElementPresent(PWAPlayerPage.objWatchingATrailerMessage,
+				"'You're watching a trailer' message on the player");
+		Back(1);
+		extent.HeaderChildNode(
+				"HLS_038 : Verify whether Rental popup displayed post click on the Rent for INR CTA of the Zeeplex contents");
+		System.out.println(
+				"HLS_038 : Verify whether Rental popup displayed post click on the Rent for INR CTA of the Zeeplex contents");
+		click(PWAHamburgerMenuPage.objrentforINR, "Rent for INR");
+		if (verifyIsElementDisplayed(PWAHamburgerMenuPage.objrentforINRpopup, "Pop Up")) {
+			extent.extentLoggerPass("", "Rental Pop Up is displayed");
+			click(PWAHamburgerMenuPage.objrentalpopupclose, "Rental Pop Up Close button");
+		} else {
+			logger.error("Failed to display Rental Pop Up");
+			extent.extentLoggerFail("", "Failed to display Rental Pop Up");
+		}
+	}
+
+	public void PWARSVODUserHLS(String usertype) throws Exception {
+		if (userType.equals("Guest")) {
+			String rsvodusername = "boat@mailnesia.com";
+			String rsvodpassword = "123456";
+			String rsvodlanguage = "Tamil";
+			extent.HeaderChildNode("HLS_077 : Verify whether \"RSVOD pack\" user can play same language club content.");
+			System.out.println("HLS_077 : Verify whether \"RSVOD pack\" user can play same language club content.");
+			loginWithUserEmail(rsvodusername, rsvodpassword);
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu");
+			waitTime(3000);
+			click(PWAHamburgerMenuPage.objLanguageBtn, "Language Button");
+			waitTime(2000);
+			waitForElementAndClick(PWAHamburgerMenuPage.objContentLanguageBtn, 2, "Content Languages");
+			waitTime(2000);
+			unselectAllContentLanguages();
+			clickElementWithLocator(PWAHamburgerMenuPage.objUnselectedContentLanguage(rsvodlanguage));
+			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
+			waitTime(3000);
+			navigateToAnyScreen("Club");
+			// handle mandatory pop up
+			mandatoryRegistrationPopUp(userType);
+			for (int i = 0; i < 10; i++) {
+				try {
+					waitForElementAndClick(PWAHomePage.objPlayBtn, 20, "Play icon");
+					break;
+				} catch (Exception e) {
+					waitTime(1000);
+					if (i == 9)
+						logger.info("Failed to click on Play icon in carousel");
+				}
+			}
+			waitTime(5000);
+			if (verifyIsElementDisplayed(PWAPlayerPage.objWatchingATrailerMessage,
+					"'You're watching a trailer' message on the player")) {
+				logger.error("RSVOD user of " + rsvodlanguage + " language is unable to play Club " + rsvodlanguage
+						+ " contents");
+				extent.extentLoggerFail("", "RSVOD user of " + rsvodlanguage + " language is unable to play Club "
+						+ rsvodlanguage + " contents");
+			} else {
+				pausePlayer();
+				logger.info("RSVOD user of " + rsvodlanguage + " language is able to play Club " + rsvodlanguage
+						+ " contents");
+				extent.extentLoggerPass("", "RSVOD user of " + rsvodlanguage + " language is able to play Club "
+						+ rsvodlanguage + " contents");
+			}
+
+			extent.HeaderChildNode(
+					"HLS_092 : Verify whether \"RSVOD pack\" user can play same language  Premium content.");
+			System.out.println("HLS_092 : Verify whether \"RSVOD pack\" user can play same language  Premium content.");
+			reloadHome();
+			navigateToAnyScreen("Premium");
+			// handle mandatory pop up
+			mandatoryRegistrationPopUp(userType);
+			for (int i = 0; i < 10; i++) {
+				try {
+					waitForElementAndClick(PWAHomePage.objPlayBtn, 20, "Play icon");
+					break;
+				} catch (Exception e) {
+					waitTime(1000);
+					if (i == 9)
+						logger.info("Failed to click on Play icon in carousel");
+				}
+			}
+			waitTime(5000);
+			if (verifyIsElementDisplayed(PWAPlayerPage.objWatchingATrailerMessage,
+					"'You're watching a trailer' message on the player")) {
+				logger.error("RSVOD user of " + rsvodlanguage + " language is unable to play Premium " + rsvodlanguage
+						+ " contents");
+				extent.extentLoggerFail("", "RSVOD user of " + rsvodlanguage + " language is unable to play Premium "
+						+ rsvodlanguage + " contents");
+			} else {
+				pausePlayer();
+				logger.info("RSVOD user of " + rsvodlanguage + " language is able to play Premium " + rsvodlanguage
+						+ " contents");
+				extent.extentLoggerPass("", "RSVOD user of " + rsvodlanguage + " language is able to play Premium "
+						+ rsvodlanguage + " contents");
+			}
+			extent.HeaderChildNode(
+					"HLS_078 : Verify whether \"RSVOD pack\" user can play different language club content.");
+			System.out
+					.println("HLS_078 : Verify whether \"RSVOD pack\" user can play different language club content.");
+			reloadHome();
+			selectLanguages();
+			// handle mandatory pop up
+			mandatoryRegistrationPopUp(userType);
+			String keyword = "Soojidaara";// Kannada Club movie
+			click(PWAHomePage.objSearchBtn, "Search icon");
+			type(PWAHomePage.objSearchField, keyword + "\n", "Search");
+			click(PWASearchPage.objSearchMoviesTab, "Movies tab");
+			click(PWASearchPage.objSearchedResult(keyword), "Search Result");
+			if (waitExplicitlyForElementPresence(PWAPlayerPage.objWatchingATrailerMessage, 60,
+					"'You're watching a trailer' message on the player")) {
+				logger.info("RSVOD user of " + rsvodlanguage
+						+ " language is unable to play Club contents of other languages, expected behavior");
+				extent.extentLoggerPass("", "RSVOD user of " + rsvodlanguage
+						+ " language is unable to play Club contents of other languages, expected behavior");
+			} else {
+				logger.error("RSVOD user of " + rsvodlanguage
+						+ " language is able to play Club contents of other languages");
+				extent.extentLoggerFail("",
+						"RSVOD user of " + rsvodlanguage + " language is able to playClub contents of other languages");
+			}
+			extent.HeaderChildNode(
+					"HLS_093 : Verify whether \"RSVOD pack\" user can play different language Premium content.");
+			System.out.println(
+					"HLS_093 : Verify whether \"RSVOD pack\" user can play different language Premium content.");
+			reloadHome();
+			// handle mandatory pop up
+			mandatoryRegistrationPopUp(userType);
+			keyword = "Shivaji Surathkal";// Kannada Premium movie
+			click(PWAHomePage.objSearchBtn, "Search icon");
+			type(PWAHomePage.objSearchField, keyword + "\n", "Search");
+			click(PWASearchPage.objSearchMoviesTab, "Movies tab");
+			click(PWASearchPage.objSearchedResult(keyword), "Search Result");
+			waitTime(5000);
+			if (waitExplicitlyForElementPresence(PWAPlayerPage.objWatchingATrailerMessage, 60,
+					"'You're watching a trailer' message on the player")) {
+				logger.info("RSVOD user of " + rsvodlanguage
+						+ " language is unable to play Premium contents of other languages, expected behavior");
+				extent.extentLoggerPass("", "RSVOD user of " + rsvodlanguage
+						+ " language is unable to play Premium contents of other languages, expected behavior");
+			} else {
+				logger.error("RSVOD user of " + rsvodlanguage
+						+ " language is able to play Premium contents of other languages");
+				extent.extentLoggerFail("", "RSVOD user of " + rsvodlanguage
+						+ " language is able to play Premium contents of other languages");
+			}
+			reloadHome();
+			logout();
+		}
+	}
+
 	public void PWAShowsPageHLS(String usertype, String Tabname) throws Exception {
 		extent.HeaderChildNode("HLS_041 : Verify user navigation to Show landing page");
 		System.out.println("HLS_041 : Verify user navigation to Show landing page");
@@ -13875,10 +14046,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		System.out.println(
 				"HLS_125 : Verify the \" View All\" option given on tray right side top and functionality of View all, HLS_129 : Verify whether user is navigate to consumption page when user tap on any music content in Listed collection");
 		playCardFromCollections(userType, Tabname);
-		reloadHome();
 		extent.HeaderChildNode("HLS_130 : Verify that Recommended Videos are displayed right side of the player");
 		System.out.println("HLS_130 : Verify that Recommended Videos are displayed right side of the player");
-		swipeTillTrayAndClickContentCard("Recommended Videos");
+		swipeTillTrayAndClickContentCard("Recommended Songs");
 	}
 
 	public void PWALiveTVPageHLS(String usertype, String Tabname) throws Exception {
@@ -13938,8 +14108,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWALiveTVPage.objNothighlightedChannelGuideToggle, "Channel guide toggle");
 		waitTime(5000);
 		if (verifyElementPresent(PWALiveTVPage.objHighlightedChannelGuideToggle, "Highlighted Channel guide toggle")) {
-			logger.info(", User is navigated to Channel guide screen");
-			extent.extentLogger("", "Channel guide toggle is highlighted, User is navigated to Channel guide screen");
+			logger.info("User is navigated to Channel guide screen");
+			extent.extentLogger("", "User is navigated to Channel guide screen");
 		}
 		if (waitforChannelGuideToLoad()) {
 			extent.HeaderChildNode("HLS_139 : Validate that Channel/Day Strip is available channel guide screen.");
