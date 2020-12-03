@@ -1,6 +1,8 @@
 package com.business.zee;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -12448,7 +12450,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objSkipIntro, "Skip Intro CTA");
 		if (var == true) {
 			waitTime(2000);
-		     click(AMDPlayerScreen.objSkipIntro, "Skip Intro CTA");
+			click(AMDPlayerScreen.objSkipIntro, "Skip Intro CTA");
 			waitTime(3000);
 			click(AMDPlayerScreen.objPlayIcon, "Play icon");
 
@@ -16891,5 +16893,51 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		return episodeName;
 
+	}
+
+	public void captureADBLogs(String fileName, String pFilter) throws IOException {
+
+		String dir = System.getProperty("user.dir");
+		String platform = getDriver().getPlatformName();
+//		String newADBfile = dir + "\\ADBLogs\\" +platform + "\\" +fileName + ".txt";
+		String newADBfile = "D:\\ADBLogs\\" + platform + "\\" + fileName + ".txt";
+
+		System.out.println(newADBfile);
+
+		File file = new File(newADBfile);
+		if (!file.isDirectory()) {
+			file.mkdirs();
+		}
+
+		if (file.exists()) {
+			file.delete();
+			waitTime(5000);
+		}
+		file.createNewFile();
+		try {
+			System.out.println("\nStarted capturing AdB logs...");
+
+			Runtime process = Runtime.getRuntime();
+			if (pFilter.length() > 1) {
+//				process.exec("cmd /c adb logcat -s \"W GoogleTagManager\" >" + newADBfile);
+				process.exec("cmd /c adb logcat -s " + pFilter + " >" + newADBfile);
+			} else {
+				process.exec("cmd /c adb logcat >" + newADBfile);
+			}
+
+		} catch (Throwable t) {
+			t.printStackTrace();
+		}
+	}
+
+	public void stopADBLogcat() {
+		try {
+			Runtime process = Runtime.getRuntime();
+			process.exec("adb.exe kill-server");
+			System.out.println("ADB Logs captured\n");
+
+		} catch (Throwable t) {
+			t.printStackTrace();
+		}
 	}
 }

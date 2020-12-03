@@ -698,7 +698,6 @@ public static By objplay = By.xpath("//span[text()='Play']");
 	public static By objrentalpopupclose=By.xpath("//div[@class='plexExpiryCloseIcon']");
 	public static By objEduauraaSignupPage = By.xpath("//div[@class='signup-block']");
 	public static By objStorisarrowup=By.xpath("//*[@class='fa fa-arrow-up']");
-	public static By objPlayBtn = By.xpath("//*[@class='playBtn']");
 	public static By objsendotp=By.xpath("//*[text()='Send OTP']");
 	public static By objzeeplextab=By.xpath("(//a[contains(@class,'noSelect')][contains(text(),'ZEEPLEX')])[2]");
 	public static By objrentforINR=By.xpath("//*[contains(text(),'Rent for INR ')]");
@@ -706,4 +705,6 @@ public static By objplay = By.xpath("//span[text()='Play']");
 	public static By objUnselectedContentLanguage (String language) {
 		return By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='"+language+"']");
 	}
+	public static By objPlayBtn = By.xpath("//a[@class='playIcon']");
+
 }

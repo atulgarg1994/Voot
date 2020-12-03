@@ -301,6 +301,16 @@ public class Utilities extends ExtentReporter {
 			return false;
 		}
 	}
+	
+	public boolean clickElementWithWebLocator(By locator) throws Exception {
+		try {
+			getWebDriver().findElement(locator).click();
+			return true;
+		} 
+		catch (Exception e) {
+			return false;
+		}
+	}
 
 	/**
 	 * @param byLocator

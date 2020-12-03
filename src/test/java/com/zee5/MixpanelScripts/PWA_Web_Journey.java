@@ -1,5 +1,6 @@
 package com.zee5.MixpanelScripts;
 
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -547,4 +548,8 @@ public class PWA_Web_Journey {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventAfterChangingPassword(userType);
 	}
 
+	@AfterClass
+	public void tearDown() {
+		Zee5PWAWEBMixPanelBusinessLogic.tearDown();
+	}
 }
