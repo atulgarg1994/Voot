@@ -98,8 +98,6 @@ public class PWAPremiumPage {
 	public static By objNewsMastheadCarousel = By
 			.xpath("//div[contains(@class,'slick-active')]//div[@class='carouselMain']");
 
-	public static By objViewAllBtn = By.xpath("(//*[@class='arrow iconInitialLoad-ic_viewall noSelect'])[1]");
-
 	public static By objNextArrowBtn = By.xpath("(//button[@class='slick-arrow slick-next'])[2]");
 	public static By objPreviousArrowBtn = By.xpath("(//button[@class='slick-arrow slick-prev'])[2]");
 	public static By objContentCard = By.xpath("//div[@class='slick-slide slick-active slick-current']");
@@ -156,4 +154,7 @@ public class PWAPremiumPage {
 	public static By objSimilarMovie = By.xpath("(//*[@class='similarTray']//*[@class='movieCard card marginRight minutelyUrl zoomCardHover'])[1]");
 
 	public static By objPremiumTagMobile = By.xpath("(//div[@class='slick-slide slick-active slick-current']//div[@class='cardPremiumContent'])[1]");
+	
+	public static By objViewAllBtn = By.xpath("(//*[@class='arrow iconInitialLoad-ic_viewall noSelect']//div)[1]");
+
 }

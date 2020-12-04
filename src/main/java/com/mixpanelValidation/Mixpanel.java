@@ -172,7 +172,6 @@ public class Mixpanel extends ExtentReporter {
 		LocalDateTime now = LocalDateTime.now();
 		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
 		System.out.println("Current Date : " + currentDate);
-		platform = "MPWA";
 		if (platform.equals("Android")) {
 			APIKey = "b2514b42878a7e7769945befa7857ef1";
 			UserID = "$model";

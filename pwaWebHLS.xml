@@ -146,7 +146,7 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
-	<test name="">
+	<test name="WebPWAHLSScript">
 		<classes>
 			<class name="com.zee5.PWASanityScripts.WebPWAHLSScript" />
 		</classes>

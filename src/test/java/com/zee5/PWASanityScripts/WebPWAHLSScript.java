@@ -22,7 +22,7 @@ public class WebPWAHLSScript {
 	public void PWAWEBLogin(String userType) throws Exception {
 		System.out.println("PWAWEBLogin");
 		Zee5WEBPWASanityBusinessLogic.ZeeWEBPWALogin(userType);
-		Zee5WEBPWASanityBusinessLogic.selectLanguages1();
+//		Zee5WEBPWASanityBusinessLogic.selectLanguages1();
 	}
 
 //	@Test(priority = 2)
@@ -35,14 +35,14 @@ public class WebPWAHLSScript {
 		// Zee5WEBPWASanityBusinessLogic.MetadataOnCarousel("Premium", userType);
 	}
 
-	@Test(priority = 3)
+//	@Test(priority = 3)
 	@Parameters({ "userType" })
 	public void MoviePagevalidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.movies("Movies", userType);
 	}
 
-	@Test(priority = 4)
+//	@Test(priority = 4)
 	@Parameters({ "userType" })
 	public void ShowsPagevalidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -107,7 +107,7 @@ public class WebPWAHLSScript {
 		Zee5WEBPWASanityBusinessLogic.videoValidation(userType, "Videos");
 	}
 
-//	@Test(priority = 13)
+	@Test(priority = 13)
 	@Parameters({ "userType" })
 	public void Zee5PagevalidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -157,7 +157,7 @@ public class WebPWAHLSScript {
 		Zee5WEBPWASanityBusinessLogic.upgrade(userType);
 	}
 
-//	@Test(priority = 20)
+	@Test(priority = 20)
 	@Parameters({ "userType" })
 	public void zeeplexvalidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();

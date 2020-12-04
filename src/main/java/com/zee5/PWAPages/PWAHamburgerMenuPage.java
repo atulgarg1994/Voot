@@ -706,5 +706,6 @@ public static By objplay = By.xpath("//span[text()='Play']");
 		return By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='"+language+"']");
 	}
 	public static By objPlayBtn = By.xpath("//a[@class='playIcon']");
+	public static By objLanguageBtnWeb = By.xpath("//*[@id='languageBtn']");
 
 }

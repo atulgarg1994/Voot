@@ -42,6 +42,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 		// Pass region specific data
 		Response regionResponse=given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
 		String region=regionResponse.getBody().jsonPath().getString("state_code");
+		System.out.println(region);
 		if(region.equals("KA")) {
 			params.put("searchModuleSearchKey", "Kamali");
 			params.put("consumptionsEpisode", "Digvijay stunned on hearing Sambhashiva");

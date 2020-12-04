@@ -118,10 +118,6 @@ public class PWAShowsPage {
 	
 	public static By objEpisodesSetTray = By.xpath("//div[@class='allEpisodeSelect']");
 	
-	public static By objEpisodeCard = By.xpath("//div[@data-index='0']//img");
-	
-	public static By objEpisodeCardTwo = By.xpath("//div[@data-index='1']//img");
-	
 	public static By objTwitterApp = By.xpath("//*[@text='Tweet' or @text='Twitter']");
 	
 	public static By objTrayTitle1(String str) {
@@ -144,4 +140,9 @@ public class PWAShowsPage {
 	public static By objFirstAssetTitleFirstRail = By.xpath("(//div[@class='slick-list'])[1]//div[@data-index='0']//h3[@class='showCardTitle']");
 
 	public static By objShowdeatilPlayIcon = By.xpath("//a[@class='playIcon']");
+	
+	public static By objEpisodeCard = By.xpath("//div[@data-index='0']//a");
+	
+	public static By objEpisodeCardTwo = By.xpath("//div[@data-index='1']//a");
+
 }
