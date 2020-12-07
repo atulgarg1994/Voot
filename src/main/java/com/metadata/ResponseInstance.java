@@ -742,7 +742,6 @@ public class ResponseInstance {
 		Mixpanel.fetchUserdata = true;
 	}
 	
-	@SuppressWarnings("unused")
 	private static void getDOB() {
 		LocalDate dob = LocalDate.parse(Mixpanel.FEProp.getProperty("birthday").split("T")[0]);
 		LocalDate curDate = LocalDate.now();

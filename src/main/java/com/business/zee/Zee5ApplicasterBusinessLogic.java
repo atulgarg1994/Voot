@@ -16895,6 +16895,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	}
 
+	@SuppressWarnings("unused")
 	public void captureADBLogs(String fileName, String pFilter) throws IOException {
 
 		String dir = System.getProperty("user.dir");

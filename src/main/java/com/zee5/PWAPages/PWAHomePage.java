@@ -142,7 +142,6 @@ public class PWAHomePage {
 	public static By objSearchResult = By.xpath("//*[@title='Ramayana']");
 	public static By objPopUpMobileField = By.xpath("//input[@id='textField']");
 	public static By objPopUpPasswordField = By.xpath("//input[@name='inputPassword']");
-	public static By objPopUpProceedButton = By.xpath("//button[@class='noSelect buttonGradient ']");
 
 //	public static By objPopUpProceedButton = By.xpath("//div[@class='registerLoginContainer']//button[@class='noSelect buttonGradient null']");
 	public static By objOtpPopUp = By.xpath("//div[@class='poupWrapper']");
@@ -514,4 +513,6 @@ public class PWAHomePage {
 	public static By objUpgradeBtn = By.xpath("//div[contains(@class,'slick-slide slick-active')]//*[contains(text(),'Upgrade')]");
 
 	public static By objEduauraaCardCarousel = By.xpath("//h2[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
+	
+	public static By objPopUpProceedButton = By.xpath("//button[contains(@class='noSelect buttonGradient')]");
 }

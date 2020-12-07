@@ -144,5 +144,9 @@ public class PWAShowsPage {
 	public static By objEpisodeCard = By.xpath("//div[@data-index='0']//a");
 	
 	public static By objEpisodeCardTwo = By.xpath("//div[@data-index='1']//a");
+	
+	public static By objPlayAndWinFirstItem = By.xpath("//h2//a[contains(text(),'Play ') and contains(text(),' Win')]//ancestor::div[@class='trayHeader']//following-sibling::div[@class='latestEpisodeTrayWrapper']//*[@data-index='0']//figure//img");
+	
+	public static By objPlayAndWinViewAllFirstItem=By.xpath("//*[@class='viewAllGrid']//figure//img");
 
 }

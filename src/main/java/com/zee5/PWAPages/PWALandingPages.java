@@ -131,5 +131,12 @@ public class PWALandingPages {
 			"((//div[@class='viewAllGrid']//div[@data-minutelytitle]) | (//div[@class='viewAllGrid']//a[@data-minutelytitle]) | (//div[contains(@class,'channelNewsCard')]//figure))[1]");
 
 	public static By objNavigateToTopStories = By.xpath("//*[contains(@class,'arrow-up')]");
+	
+	public static By objLanguageBtnWEB = By.xpath("//div[contains(@class,'languageBtn')]");
+	
+	public static By objFirstAssetInTrayIndexType2(String trayTitleUI) {
+		return By.xpath("//a[contains(text(),\"" + trayTitleUI
+				+ "\")]//ancestor::div[@class='trayHeader']//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index='0']//a");
+	}
 
 }

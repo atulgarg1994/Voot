@@ -160,7 +160,6 @@ public class Mixpanel extends ExtentReporter {
 	 * @throws JsonMappingException
 	 * @throws JsonParseException
 	 */
-	@SuppressWarnings("unused")
 	public static void fetchEvent(String distinct_id, String eventName)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
@@ -503,7 +502,6 @@ public class Mixpanel extends ExtentReporter {
 	
 	// added by Kushal
 	
-	@SuppressWarnings("unused")
 	public static String fetchContentId(String distinct_id, String eventName)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {

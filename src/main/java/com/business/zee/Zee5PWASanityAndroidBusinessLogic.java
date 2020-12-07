@@ -58,7 +58,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 	ExtentReporter extent = new ExtentReporter();
 
-	@SuppressWarnings("unused")
 	private SoftAssert softAssert = new SoftAssert();
 
 	/** The Constant logger. */
@@ -10258,6 +10257,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 * Function to verify internal links
 	 */
 
+	@SuppressWarnings("unused")
 	public void InternalLinksValidation() throws Exception {
 		String url = "";
 		// Internal Links
@@ -11870,6 +11870,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 * 
 	 */
 
+	@SuppressWarnings("rawtypes")
 	public void FooterSectionValidation(String userType) throws Exception {
 		HeaderChildNode("Footer Section");
 		click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
@@ -13841,6 +13842,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void PWAPlayPageHLS(String usertype, String Tabname) throws Exception {
 		extent.HeaderChildNode("HLS_098 : Verify whether user is able to navigate Play Landing Page ");
 		System.out.println("HLS_098 : Verify whether user is able to navigate Play Landing Page ");
@@ -13931,6 +13933,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		getDriver().switchTo().window(currentHandle);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void closeAllHandlesExceptCurrentHandle(String currentHandle) throws Exception {
 		Set<String> handles = getDriver().getWindowHandles();
 		System.out.println("All handles: " + handles);
@@ -14492,6 +14495,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void PWASearchLandingHLS(String usertype) throws Exception {
 		extent.HeaderChildNode(
 				"HLS_184 : Validate that user lands on search landing screen post tapping/clicking on search icon");
@@ -14983,6 +14987,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unused" })
 	public void PWAPlayerControlsHLS(String usertype) throws Exception {
 		extent.HeaderChildNode("HLS_194 : Validate the Player Controls on Live Content playback");
 		System.out.println("HLS_194 : Validate the Player Controls on Live Content playback");
@@ -15742,6 +15747,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		myWriter.close();
 	}
 
+	@SuppressWarnings("unused")
 	public ArrayList<String> startAdbLogs() throws InterruptedException, IOException {
 		// String command="adb logcat > \""+path+"\"";
 		String command = "adb logcat";

@@ -707,5 +707,7 @@ public static By objplay = By.xpath("//span[text()='Play']");
 	}
 	public static By objPlayBtn = By.xpath("//a[@class='playIcon']");
 	public static By objLanguageBtnWeb = By.xpath("//*[@id='languageBtn']");
+	public static By objWouldYouLikeWatchMorePopup = By.xpath("//div[contains(text(),'Would you like to watch more')]");
+	public static By objWouldYouLikeWatchMoreCloseButton  = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 
 }
