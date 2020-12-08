@@ -3,6 +3,7 @@ package com.driverInstance;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Date;
 import java.util.stream.Stream;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -40,6 +41,8 @@ public class Drivertools {
 	private static String driverVersion = "";
 	public static boolean click = true;
 	public static String methodName = "";
+	Date date = new Date();
+	long StartTime;
 
 	public static String getTestName() {
 		return testName;

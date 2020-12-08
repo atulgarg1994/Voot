@@ -105,6 +105,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("SettingsNonsubscribedPassword", suite.getParameter("SettingsNonsubscribedPassword"));
 			params.put("SettingsSubscribedUserName", suite.getParameter("SettingsSubscribedUserName"));
 			params.put("SettingsSubscribedPassword", suite.getParameter("SettingsSubscribedPassword"));
+			params.put("dfpSearchKeyword","Kaafir");
 		}
 		if(region.equals("MH")) {
 			params.put("searchModuleSearchKey", "Kundali Bhagya");
@@ -168,6 +169,7 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("SettingsNonsubscribedPassword", suite.getParameter("SettingsNonsubscribedPassword"));
 			params.put("SettingsSubscribedUserName", suite.getParameter("SettingsSubscribedUserName"));
 			params.put("SettingsSubscribedPassword", suite.getParameter("SettingsSubscribedPassword"));
+			params.put("dfpSearchKeyword","Kaafir");
 		}
         suite.setParameters(params);	
 	}
