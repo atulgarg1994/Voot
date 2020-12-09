@@ -233,7 +233,7 @@ public class Drivertools {
 		setHost(getHandler().getproperty("HOST_IP"));
 		setPort(Integer.parseInt(getHandler().getproperty("HOST_PORT")));
 		setappTimeOut(Integer.parseInt(getHandler().getproperty("APP_TIMEOUT")));
-		setremoteUrl("http://" + getHost());
+		setremoteUrl("http://" + getHost() +"/wd/hub");
 
 		setHandler(new PropertyFileReader("properties/AppPackageActivity.properties"));
 		setAppPackage(getHandler().getproperty(application + "Package"));
