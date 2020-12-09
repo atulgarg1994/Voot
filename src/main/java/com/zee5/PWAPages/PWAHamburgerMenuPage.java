@@ -710,4 +710,19 @@ public static By objplay = By.xpath("//span[text()='Play']");
 	public static By objWouldYouLikeWatchMorePopup = By.xpath("//div[contains(text(),'Would you like to watch more')]");
 	public static By objWouldYouLikeWatchMoreCloseButton  = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 
+	public static By objzeeplex=By.xpath("//*[.='ZEEPLEX Rentals']");
+	
+	public static By objzeeplexbanner=By.xpath("//*[@class='plexLandingPageBanner']");
+	public static By objzeeplexHowitWorks=By.xpath("//span[.='How it Works ?']");
+	public static By objzeeplexHowitWorkspopup=By.xpath("//div[@class='popupContent']");
+	public static By objplexTrayTitle(int i) {
+		return By.xpath("(//div[contains(@class,'plexTrayContainer')]//h2[@class='plexTrayHeader'])[" + i + "]");
+	}
+	
+	public static By objzeeplexHowitworkscloseicon=By.xpath("//div[@class='PlexLearnNowCloseIcon']");
+
+	public static By objzeeplexbannerHome=By.xpath("//div[@class='plexContainer']");
+	
+	public static By objzeeplexcontentcard=By.xpath("(//*[contains(@class,'plexTrayHeader')]//parent::*//parent::*//following-sibling::*//*[contains(@class, 'content')])[1]");
+	public static By objrentforinrbelowtheplayer=By.xpath("//div[@class='rentButton']");
 }
