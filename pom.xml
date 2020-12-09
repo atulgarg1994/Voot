@@ -190,7 +190,7 @@
 			<version>3.158.9</version>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.epam.reportportal</groupId>
 			<artifactId>agent-java-testng</artifactId>
 			<version>5.0.7</version>
@@ -206,7 +206,7 @@
 			<groupId>com.epam.reportportal</groupId>
 			<artifactId>logger-java-log4j</artifactId>
 			<version>5.0.1</version>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
@@ -260,7 +260,7 @@
 					<suiteXmlFiles>
 						<!-- TestNG suite XML files -->
 						<!-- <suiteXmlFile>${rp.launch}.xml</suiteXmlFile> -->
-						<suiteXmlFile>pwaWebHLS.xml</suiteXmlFile>
+						<suiteXmlFile>pwaSanityAndroid.xml</suiteXmlFile>
 						<!-- <suiteXmlFile>${suiteXmlFile}.xml</suiteXmlFile> -->
 					</suiteXmlFiles>
 				</configuration>

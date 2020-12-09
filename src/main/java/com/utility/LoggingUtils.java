@@ -2,7 +2,7 @@ package com.utility;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import rp.com.google.common.io.BaseEncoding;
+//import rp.com.google.common.io.BaseEncoding;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class LoggingUtils {
 	}
 
     public void log(byte[] bytes, String message) {
-        LOGGER.info("RP_MESSAGE#BASE64#{}#{}", BaseEncoding.base64().encode(bytes), message);
+//        LOGGER.info("RP_MESSAGE#BASE64#{}#{}", BaseEncoding.base64().encode(bytes), message);
     }
 
 	public void logBase64(String base64, String message) {

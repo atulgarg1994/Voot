@@ -25,7 +25,7 @@
 
 	<!-- data -->
 	
-	<parameter name="dfpSearchKeyword" value="Kaafir" /> 
+	<parameter name="dfpSearchKeyword" value="Bablu Dablu - Robo Rumble" /> 
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
@@ -36,7 +36,7 @@
 
 	<test name="WebPWADFPScript">
 		<classes>
-			<class name="com.zee5.PWASanityScripts.WebPWADFPScript" />
+			<class name="com.zee5.DFP.WebPWADFPScript" />
 		</classes>
 	</test> 
 </suite>
