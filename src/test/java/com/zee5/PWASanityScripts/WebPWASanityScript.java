@@ -391,6 +391,13 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.validatingEduaraa(userType ,"Club");
 		Zee5WEBPWASanityBusinessLogic.validatingclaimCTA(userType ,"Premium");
 	}
+	
+	@Test(priority = 29)
+	@Parameters({ "userType" })
+	public void zeeplexvalidation(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.zeeplex(userType ,"ZEEPLEX");
+	}
 
 	@AfterClass
 	public void tearDown() {
