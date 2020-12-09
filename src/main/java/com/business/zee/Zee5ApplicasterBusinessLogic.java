@@ -16941,4 +16941,156 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			t.printStackTrace();
 		}
 	}
+
+//======================================================================================================
+	public void Zee5AppLoginDFP(String LoginMethod) throws Exception {
+		extent.HeaderChildNode("Login Functionality");
+
+		String UserType = getParameterFromXML("userType");
+		if (UserType.equals("Guest")) {
+			extent.extentLogger("userType", "UserType : Guest");
+		}
+
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+		waitTime(3000);
+
+		switch (LoginMethod) {
+		case "Guest":
+			extent.HeaderChildNode("Guest User");
+			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
+			waitTime(1000);
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+			waitTime(3000);
+			break;
+
+		case "NonSubscribedUser":
+			extent.HeaderChildNode("Login as NonSubscribed User");
+
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
+
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, Password, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
+
+		case "SubscribedUser":
+			extent.HeaderChildNode("Login as Subscribed User");
+
+			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
+			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
+
+		}
+	}
+
+	public void AMDDFPValidation(String userType, String pSearchContent) throws Exception {
+
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Ad View event for Trailer content");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, pSearchContent + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+
+			// PRE-ROLL
+			waitTime(8000);
+			boolean adPreroll = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (adPreroll == true) {
+				logger.info("Ad play in progress");
+				extentLoggerPass("Ad", "Ad play in progress");
+				waitForAdToFinishInAmd();
+			} else {
+				logger.info("Ad is not available for the content");
+				extent.extentLogger("Ad", "Ad is not available for the content");
+			}
+
+			registerPopUpClose();
+//			scrubProgressBarToMid(AMDPlayerScreen.objProgressBar);
+			scrubProgressBarToMidDFP(AMDPlayerScreen.objProgressBar);
+			waitTime(5000);
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+
+			// MID-ROLL
+			boolean adMidRoll = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (adMidRoll) {
+				logger.info("Ad play in progress");
+				extent.extentLoggerPass("Ad", "Ad played in Midroll");
+				waitTime(5000);
+				waitForAdToFinishInAmd();
+			} else {
+				logger.info("Ad is not available for the content");
+				extent.extentLogger("Ad", "Ad is not available for the content");
+			}
+
+			waitTime(6000);
+			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+			scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
+			waitTime(5000);
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+
+			// POST-ROLL
+			boolean adPostroll = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (adPostroll) {
+				logger.info("Ad play in progress");
+				extent.extentLoggerPass("Ad", "Ad played in Postroll");
+				waitTime(5000);
+
+			} else {
+				logger.info("Ad is not available for the content");
+				extent.extentLogger("Ad", "Ad is not available for the content");
+			}
+
+		} else {
+			logger.info("Ad validation is not applicable for - " + userType);
+			extent.extentLogger("Ad", "Ad validation is not applicable for - " + userType);
+		}
+
+	}
+
+	public void scrubProgressBarToMid(By byLocator1) throws Exception {
+		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
+		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
+		click(AMDPlayerScreen.objPauseIcon, "Pause");
+		WebElement element = getDriver().findElement(byLocator1);
+		String xDuration = getAttributValue("x", AMDPlayerScreen.objTotalDuration);
+		int endX = Integer.parseInt(xDuration) - 60;
+		SwipeAnElement(element, endX, 0);
+		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time after seeking : " + timeToSec(afterSeek));
+		extent.extentLogger("Seek", "Current time after seeking in seconds: " + timeToSec(afterSeek));
+		click(AMDPlayerScreen.objPlayIcon, "Play");
+		waitTime(6000);
+	}
+
+	public void scrubProgressBarToMidDFP(By byLocator1) throws Exception {
+		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
+		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
+		click(AMDPlayerScreen.objPauseIcon, "Pause");
+		WebElement element = getDriver().findElement(byLocator1);
+		String xDuration = getAttributValue("x", AMDPlayerScreen.objTotalDuration);
+		int endX = Integer.parseInt(xDuration) - 60;
+		SwipeAnElement(element, endX, 0);
+		waitTime(6000);
+	}
 }

@@ -9,7 +9,7 @@ import java.util.Date;
 public class CharlesConfigure {
 
 	static InetAddress localhost;
-	static String PortNumber = "9999";
+	static String PortNumber = "8888";
 	public static String charlesName = "";
 	public static boolean charles = false;
 
