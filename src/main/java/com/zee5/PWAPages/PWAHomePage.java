@@ -121,10 +121,6 @@ public class PWAHomePage {
 						+ text + "')]");
 	}
 
-	public static By objHomeBarText(String HomeBartitle) {
-		return By.xpath("//a[contains(@class,'noSelect')][contains(text(),'" + HomeBartitle + "')]");
-	}
-
 	public static By objMoreMenuTabs(String tabName) {
 		return By.xpath(
 				"//*[@class='moreMenuBtn iconInitialLoad-ic_Bento']/following-sibling::*/child::*/child::*[text()='"
@@ -515,4 +511,8 @@ public class PWAHomePage {
 	public static By objEduauraaCardCarousel = By.xpath("//h2[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
 	
 	public static By objPopUpProceedButton = By.xpath("//button[contains(@class='noSelect buttonGradient')]");
+	
+	public static By objHomeBarText(String HomeBartitle) {
+		return By.xpath("//a[contains(@class,'noSelect') and text()='" + HomeBartitle + "']");
+	}
 }

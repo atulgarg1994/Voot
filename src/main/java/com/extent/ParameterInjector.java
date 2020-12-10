@@ -106,6 +106,10 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("SettingsSubscribedUserName", suite.getParameter("SettingsSubscribedUserName"));
 			params.put("SettingsSubscribedPassword", suite.getParameter("SettingsSubscribedPassword"));
 			params.put("dfpSearchKeyword","Kaafir");
+			params.put("movieDFP","Love U Ganesh");
+			params.put("zee5OriginalDFP","Once Upon A Time Se Leke");
+			params.put("musicDFP","Biba - Dil Hi Toh Hai Season");
+			params.put("episodeDFP","Preeta gets evidence against Mahira");
 		}
 		if(region.equals("MH")) {
 			params.put("searchModuleSearchKey", "Kundali Bhagya");
@@ -170,6 +174,10 @@ public class ParameterInjector implements IAlterSuiteListener  {
 			params.put("SettingsSubscribedUserName", suite.getParameter("SettingsSubscribedUserName"));
 			params.put("SettingsSubscribedPassword", suite.getParameter("SettingsSubscribedPassword"));
 			params.put("dfpSearchKeyword","Kaafir");
+			params.put("movieDFP","Love U Ganesh");
+			params.put("zee5OriginalDFP","Once Upon A Time Se Leke");
+			params.put("musicDFP","Biba - Dil Hi Toh Hai Season");
+			params.put("episodeDFP","Preeta gets evidence against Mahira");
 		}
         suite.setParameters(params);	
 	}

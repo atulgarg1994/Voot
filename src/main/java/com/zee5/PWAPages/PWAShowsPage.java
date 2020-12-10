@@ -148,5 +148,7 @@ public class PWAShowsPage {
 	public static By objPlayAndWinFirstItem = By.xpath("//h2//a[contains(text(),'Play ') and contains(text(),' Win')]//ancestor::div[@class='trayHeader']//following-sibling::div[@class='latestEpisodeTrayWrapper']//*[@data-index='0']//figure//img");
 	
 	public static By objPlayAndWinViewAllFirstItem=By.xpath("//*[@class='viewAllGrid']//figure//img");
+	
+	public static By objThirdAssetImageFirstRail = By.xpath("(//div[@class='slick-list'])[1]//div[@data-index='2']");
 
 }

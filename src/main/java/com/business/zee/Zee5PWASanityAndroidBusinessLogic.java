@@ -2870,7 +2870,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					playerDisplayed = true;
 					Thread.sleep(1000);
 					confirmCount++;
-					System.out.println(confirmCount);
+					// System.out.println(confirmCount);
 					if (confirmCount == 2) {
 						if (adDisplayed == false) {
 							logger.info("Ad did not play");
@@ -15777,6 +15777,169 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		 */
 		return arrList;
 
+	}
+
+	public void PWADFPHighLevel(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+			extent.HeaderChildNode("DFP Validation - Movie");
+			logger.info("DFP Validation - Movie");
+			String movieContent = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("movieDFP");
+			verifyAdForContentUsingAPIForDuration(movieContent, "movie");
+			reloadHome();
+
+			/*
+			 * extent.HeaderChildNode("DFP Validation - ZEE5 Originals");
+			 * logger.info("DFP Validation - ZEE5 Originals"); String originalsContent =
+			 * Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().
+			 * getParameter("zee5OriginalDFP");
+			 * verifyAdForContentUsingAPIForDuration(originalsContent,"zee5originals");
+			 * 
+			 * extent.HeaderChildNode("DFP Validation - Music");
+			 * logger.info("DFP Validation - Music"); String musicContent =
+			 * Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().
+			 * getParameter("musicDFP");
+			 * verifyAdForContentUsingAPIForDuration(musicContent,"music"); reloadHome();
+			 * 
+			 * extent.HeaderChildNode("DFP Validation - Episode");
+			 * logger.info("DFP Validation - Episode"); String episodeContent =
+			 * Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().
+			 * getParameter("episodeDFP");
+			 * verifyAdForContentUsingAPIForDuration(episodeContent,"episode");
+			 * reloadHome();
+			 */
+
+		}
+	}
+
+	public void verifyAdForContentUsingAPIForDuration(String contentName, String contentType) throws Exception {
+		int deviceWidth = getDriver().manage().window().getSize().width;
+		int deviceHeight = getDriver().manage().window().getSize().height;
+		int x = deviceWidth / 2;
+		int y = deviceHeight / 4;
+		TouchAction act = new TouchAction(getDriver());
+		String totalDuration = "", currentDuration = "", currentUrl = "", contentURL = "", midRollUrl = "",
+				postRollUrl = "";
+		// handle mandatory pop up
+		mandatoryRegistrationPopUp(userType);
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWAHomePage.objSearchField, contentName + "\n", "Search");
+		waitTime(5000);
+		click(PWASearchPage.objSearchedResult(contentName), "Search Result");
+		// Get API details
+		contentURL = getDriver().getCurrentUrl();
+		System.out.println(contentURL);
+		String[] abc = contentURL.split("/");
+		String contentID = abc[abc.length - 1];
+		System.out.println("contentID fetched from URL: " + contentID);
+		Response resp = ResponseInstance.getContentDetails(contentID, contentType);
+		System.out.println(resp.getBody().asString());
+		if (resp.getBody().asString().contains("\"error_code\":401")) {
+			resp = ResponseInstance.getContentDetails(contentID, contentType);
+			System.out.println(resp.getBody().asString());
+		}
+		String durationAPI = resp.jsonPath().get("duration").toString().trim();
+
+		int durationfullInt = Integer.parseInt(durationAPI);
+		int durationmidInt = durationfullInt / 2;
+		String durationfull = String.valueOf(durationfullInt);
+		String durationmid = String.valueOf(durationmidInt);
+		String contenturl = getDriver().getCurrentUrl();
+
+		// PRE-ROLL
+		extent.extentLogger("", "-----------------------Verification of PRE-ROLL-----------------------");
+		logger.info("Verification of PRE-ROLL");
+		currentUrl = getDriver().getCurrentUrl();
+		extent.extentLogger("", "Current URL: " + currentUrl);
+		logger.info("Current URL: " + currentUrl);
+		waitForPlayerAdToComplete("Video Player");
+		act.tap(PointOption.point(x, y)).perform();
+		try {
+			WebElement totalDurationElement = getDriver().findElement(PWAPlayerPage.objtotaltime);
+			totalDuration = totalDurationElement.getText();
+			extent.extentLogger("apidata", "Total Duration displayed on player: " + totalDuration);
+			logger.info("Total Duration displayed on player: " + totalDuration);
+			WebElement currentDurationElement = getDriver().findElement(PWAPlayerPage.objcurrenttime);
+			currentDuration = currentDurationElement.getText();
+			extent.extentLogger("apidata", "Current Duration displayed on player: " + currentDuration);
+			logger.info("Current Duration displayed on player: " + currentDuration);
+		} catch (Exception e) {
+		}
+
+		// MID-ROLL
+		extent.extentLogger("", "-----------------------Verification of MID-ROLL-----------------------");
+		logger.info("Verification of MID-ROLL");
+		midRollUrl = contenturl + "?t=" + durationmid;
+		getDriver().get(midRollUrl);
+		currentUrl = getDriver().getCurrentUrl();
+		extent.extentLogger("", "Current URL: " + currentUrl);
+		logger.info("Current URL: " + currentUrl);
+		waitForPlayerAdToComplete("Video Player");
+		act.tap(PointOption.point(x, y)).perform();
+		try {
+			WebElement currentDurationElement = getDriver().findElement(PWAPlayerPage.objcurrenttime);
+			currentDuration = currentDurationElement.getText();
+			extent.extentLogger("apidata", "Current Duration displayed on player: " + currentDuration);
+			logger.info("Current Duration displayed on player: " + currentDuration);
+		} catch (Exception e) {
+		}
+
+		// POST-ROLL
+		extent.extentLogger("", "-----------------------Verification of POST-ROLL-----------------------");
+		logger.info("Verification of POST-ROLL");
+		postRollUrl = contenturl + "?t=" + durationfull;
+		getDriver().get(postRollUrl);
+		currentUrl = getDriver().getCurrentUrl();
+		extent.extentLogger("", "Current URL: " + currentUrl);
+		logger.info("Current URL: " + currentUrl);
+		waitForPlayerAdToComplete("Video Player");
+	}
+
+	public void verifyAdForContentUsingLocatorForDuration(String userType) throws Exception {
+		// handle mandatory pop up
+		mandatoryRegistrationPopUp(userType);
+		// String keyword =
+		// Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("consumptionsFreeContent");
+		String keyword = "Love U Ganesh";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWAHomePage.objSearchField, keyword + "\n", "Search");
+		waitTime(5000);
+		click(PWASearchPage.objSearchedResult(keyword), "Search Result");
+
+		// PRE-ROLL
+		extent.extentLogger("", "Verification of PRE-ROLL");
+		logger.info("Verification of PRE-ROLL");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(3000);
+		String totalduration = "";
+		try {
+			totalduration = getText(PWAPlayerPage.totalDurationTime);
+			extent.extentLogger("apidata", "Total Duration displayed on player: " + totalduration);
+			logger.info("Total Duration displayed on player: " + totalduration);
+		} catch (Exception e) {
+		}
+
+		int durationfullInt = timeToSec(totalduration);
+		System.out.println(durationfullInt);
+		int durationmidInt = durationfullInt / 2;
+		System.out.println(durationmidInt);
+		String durationfull = String.valueOf(durationfullInt);
+		String durationmid = String.valueOf(durationmidInt);
+		String url = getDriver().getCurrentUrl();
+
+		// MID-ROLL
+		extent.extentLogger("", "Verification of MID-ROLL");
+		logger.info("Verification of MID-ROLL");
+		url = url + "?t=" + durationmid;
+		getDriver().get(url);
+		waitForPlayerAdToComplete("Video Player");
+
+		// POST-ROLL
+		extent.extentLogger("", "Verification of POST-ROLL");
+		logger.info("Verification of POST-ROLL");
+		url = url + "?t=" + durationfull;
+		getDriver().get(url);
+		waitForPlayerAdToComplete("Video Player");
 	}
 
 }

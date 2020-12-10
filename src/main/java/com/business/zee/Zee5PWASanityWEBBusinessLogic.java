@@ -1361,7 +1361,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 * Generic function to Logout.
 	 */
 	public void logout() throws Exception {
-		extent.HeaderChildNode("Logout");
 		verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
 		// click(PWAHamburgerMenuPage.objProfileIconWEB, "profile icon");
 		waitTime(3000);
@@ -4072,6 +4071,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchedResult(contentTitle), 10, "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			verifyElementPresentAndClick(PWASearchPage.objSearchedResult(contentTitle), "Search Result");
+			waitTime(10000);
 			consumptionPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,
 					"Content Title").toString();
 		}
@@ -4124,8 +4124,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				logger.error("Incorrect button text displayed: " + watchLatestCTAText);
 			}
 			partialScroll();
-			verifyElementPresentAndClick(PWAShowsPage.objSecondAssetImageFirstRail,
-					"Second asset image from first rail");
+			verifyElementPresentAndClick(PWAShowsPage.objThirdAssetImageFirstRail, "Third asset image from first rail");
 			// Get API details
 			String contentURL = getWebDriver().getCurrentUrl();
 			String[] abc = contentURL.split("/");
@@ -4157,6 +4156,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("Age Rating fetched from API: " + ageRatingAPI);
 
 			waitForElementAndClickIfPresent(PWASearchPage.objCloseRegisterDialog, 5, "Close in Register Pop Up");
+			waitForPlayerAdToComplete("Video Player");
+			waitTime(10000);
 			String episode = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,
 					"Episode title in Consumption Page").toString();
 			String show = getElementPropertyToString("innerText", PWAPlayerPage.objConsumptionsShowTitle,
@@ -4784,6 +4785,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if (userType.equals("Guest"))
 			waitForElementAndClickIfPresent(PWASearchPage.objCloseRegisterDialog, 5, "Close in Register Pop Up");
 		waitForElement(PWAPlayerPage.objContentTitle, 20, "Content title");
+		waitTime(10000);
 		String consumptionPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,
 				"Content Title").toString();
 		if (consumptionPageTitle.contains(contentTitle)) {
@@ -12383,6 +12385,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				logger.info("NO RECO Tray");
 			}
 		}
+		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
+		}
 	}
 
 	public void scrollToTheElementWEB(By element) throws Exception {
@@ -12433,7 +12438,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		switchToWindow(2);
 		Thread.sleep(2000);
 		// Verify user is navigate to Facebook page
-		if (checkElementDisplayed(PWALiveTVPage.objFacebookEmailField, "Facebook Email field")) {
+		if (checkElementDisplayed(PWALiveTVPage.objPostToFacebookBtn, "Post to Facebook")) {
+			verifyElementPresentAndClick(PWALiveTVPage.objPostToFacebookBtn, "Post to Facebook");
+			waitTime(3000);
+			verifyAlert();
+			switchToWindow(1);
+			waitTime(3000);
+		} else {
 			verifyElementPresentAndClick(PWALiveTVPage.objFacebookEmailField, "Facebook Email field");
 			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
 				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
@@ -13077,7 +13088,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 //		waitTime(3000);
 //	}
 	public void selectLanguages() throws Exception {
-		extent.HeaderChildNode("Language selection");
+		extent.extentLogger("", "Language selection");
 		waitTime(3000);
 		click(PWAHamburgerMenuPage.objLanguageBtnWeb, "Language Button");
 		waitTime(2000);
@@ -17920,92 +17931,83 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void zeeplex(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("PWA_2686 , PWA_2699, PWA_2712 : Verify user navigation " + tabName + "page");
-		if (userType.equalsIgnoreCase("Guest")) {
-			navigateToAnyScreenOnWeb(tabName);
+		navigateToAnyScreenOnWeb(tabName);
+		waitTime(3000);
+		if (checkElementDisplayed(PWAHomePage.objActiveTab, "Active tab")) {
+			String tab = getText(PWAHomePage.objActiveTab);
+			System.out.println(tab);
+			logger.info(tab + " tab is highlighted");
+			extent.extentLogger("Tab", tab + " tab is highlighted");
+		} else {
+			logger.error(tabName + " tab is not highlighted");
+			extent.extentLoggerFail("Tab", tabName + " tab is highlighted");
 		}
-		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplextab, "Zeeplex tab");
+		extent.HeaderChildNode(" PWA_2687 ,PWA_2700, PWA_2713: Verify content is loaded when user scroll the page");
+		scrollDownByY(300);
+		logger.info("Scrolled the page UP");
+		extent.extentLogger("Tab", "Scrolled the page UP");
+		List<WebElement> titles = getWebDriver().findElements(PWAMoviesPage.objTVODTitles);
+		ArrayList titlestext = new ArrayList<String>();
+		if (titles.size() > 1) {
+			for (int i = 0; i < titles.size(); i++) {
+				titlestext.add(titles.get(i).getText());
+			}
+			logger.info("TVOD Titles displayed: " + titlestext);
+			extent.extentLogger("titles", "TVOD Titles displayed: " + titlestext);
+			logger.info("TVOD contents are loaded when user scroll the page");
+			extent.extentLoggerPass("Tab", "TVOD contents are loaded when user scroll the page");
+		} else {
+			logger.error("TVOD Titles failed to load after scrolling");
+			extent.extentLoggerFail("Tab", "TVOD Titles failed to load after scrolling");
 		}
-
-		extent.HeaderChildNode(" PWA_2687 , PWA_2700, PWA_2713: Verify content is loaded when user scroll the page");
-//		for (int i = 1; i <= 2; i++) {
-//			if (checkElementDisplayed(PWAHamburgerMenuPage.objplexTrayTitle(i), "Tray")) 
-//			{
-//				System.out.println("Tray is loaded for " + i + " scroll");
-//				logger.info("Tray is loaded for " + i + " scroll");
-//				extent.extentLogger("Tray load", "Tray is loaded for " + i + " scroll");
-//			} else 
-//			{
-//				ScrollToTheElement(PWAHamburgerMenuPage.objplexTrayTitle(i));
-//				checkElementDisplayed(PWAHamburgerMenuPage.objplexTrayTitle(i), "Tray");
-//			}
-//		}
-		partialScroll();
-		System.out.println("Tray is loaded for 1 scroll");
-		partialScroll();
-		System.out.println("Tray is loaded for 2 scroll");
-
-		extent.HeaderChildNode("PWA_2688 , PWA_2701, PWA_2714 : Verify the Plex content trialer is available");
+		extent.HeaderChildNode("PWA_2688 , PWA_2701, PWA_2714 : Verify the Plex content trailer is available");
 		ScrollToTheElementWEB(PWAHamburgerMenuPage.objTrailer);
-		click(PWAHamburgerMenuPage.objTrailer, "Trailer");
+		click(PWAHamburgerMenuPage.objTrailer, "Trailer button");
 		waitTime(5000);
 		if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
-			logger.info("Navigated to Consumption Page");
-			extent.extentLogger("Consumption Page", "Navigated to the Trailer Consumption playback screen");
+			if (!checkElementDisplayed(PWAPlayerPage.objWatchingATrailerMessage,
+					"'You're watching a trailer' message on the player")) {
+				extent.extentLoggerFail("", "Plex content trailer is unavailable");
+				logger.error("Plex content trailer is unavailable");
+			}
 		} else {
-			logger.info("Not navigated to the Trailer Consumption playback screen");
+			logger.error("Not navigated to the Trailer Consumption playback screen");
 			extent.extentLoggerFail("Consumption Page", "Not navigated to the Trailer Consumption playback screen");
 		}
 		Back(1);
 		waitTime(3000);
 
 		extent.HeaderChildNode(
-				"PWA_2691 , PWA_2704, PWA_2717 : Verify Rental pop-up is displaye when User Click on Rent INR CTA");
+				"PWA_2691 , PWA_2704, PWA_2717 : Verify Rental pop-up is displayed when User Click on Rent INR CTA");
 		ScrollToTheElementWEB(PWAHamburgerMenuPage.objrentforINR);
 		click(PWAHamburgerMenuPage.objrentforINR, "Rent for INR");
-		if (verifyElementPresent(PWAHamburgerMenuPage.objrentforINRpopup, "Rental Pop Up")) {
-			extent.extentLoggerPass("", "Rental pop Up is displayed");
-			click(PWAHamburgerMenuPage.objrentalpopupclose, "Rental PopUp Close button");
-		} else {
-			logger.error("Failed to display rental popup");
-			extent.extentLoggerFail("", "Failed to display rental popup");
-		}
+		verifyElementPresent(PWAHamburgerMenuPage.objrentforINRpopup, "Rental Pop Up");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objrentforINRpopupClose, "Rental Pop Up Close icon");
 
 		if (userType.equalsIgnoreCase("Subscribeduser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.HeaderChildNode(
 					"PWA_2705 ,PWA_2718  : Verify Plex rented details are displayed in My Profile-> Zeeplex rentals");
-			if (verifyElementExist(PWALandingPages.objWebProfileIcon, "Profile Icon")) {
-
-				click(PWALandingPages.objWebProfileIcon, "Profile Icon");
-
-				boolean myAccountPresent = verifyElementExist(PWAHamburgerMenuPage.objWEBMyAccount, "My Account");
-				if (myAccountPresent == true) {
-					verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplex, "zeeplex Rentals");
-					Thread.sleep(3000);
-					verifyElementPresent(PWAHamburgerMenuPage.objzeeplex, "zeeplex Rentals Page");
-					Thread.sleep(5000);
-				}
-			}
-
+			click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplex, "ZEEPLEX Rentals");
+			Thread.sleep(3000);
+			verifyElementPresent(PWAHamburgerMenuPage.objzeeplex, "ZEEPLEX Rentals Page");
+			Thread.sleep(5000);
+			Back(1);
 		}
-		Back(1);
+
 		extent.HeaderChildNode(
 				"PWA_2693, PWA_2706, PWA_2719 : Verify Zee Plex Theatre comes to You banner is displayed on Top of the page");
-		navigateToAnyScreenOnWeb(tabName);
-		verifyElementExist(PWAHamburgerMenuPage.objzeeplexbanner, "Zeeplex banner");
+		click(PWAHamburgerMenuPage.objzeeplextab, "Zeeplex tab");
+		verifyElementPresent(PWAHamburgerMenuPage.objZeeplexComesToYou, "Zee Plex 'Theatre comes to You' banner");
 
 		extent.HeaderChildNode(
-				"PWA_2694, PWA_2707, PWA_2720 : Verify How its work pop-up is displayed when user taps on How it works CTA");
-		verifyElementExist(PWAHamburgerMenuPage.objzeeplexHowitWorks, "Zeeplex How It Works");
-		click(PWAHamburgerMenuPage.objzeeplexHowitWorks, "Zeeplex How It Works");
+				"PWA_2694, PWA_2707, PWA_2720 : Verify 'How it works' pop-up is displayed when user taps on 'How it works' CTA");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplexHowitWorks, "How it Works button");
 		waitTime(3000);
-		if (verifyElementPresent(PWAHamburgerMenuPage.objzeeplexHowitWorkspopup, "Zeeplex How It Works Pop Up")) {
-			extent.extentLoggerPass("", "Zeeplex How It Works pop Up is displayed");
-			click(PWAHamburgerMenuPage.objzeeplexHowitworkscloseicon, "Zeeplex How It Works PopUp Close button");
-		} else {
-			logger.error("Failed to display Zeeplex How It Works popup");
-			extent.extentLoggerFail("", "Failed to display Zeeplex How It Works popup");
-		}
+		verifyElementPresent(PWAHamburgerMenuPage.objzeeplexHowitWorkspopup, "Zeeplex How It Works Pop Up");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplexHowitworkspopupClose,
+				"Close icon of How It Works Pop Up");
 
 		extent.HeaderChildNode(
 				"PWA_2695, PWA_2721, PWA_2708 : Verify not able to watch the Zee plex content once the Watch Time & Rental period expries");
@@ -18013,42 +18015,34 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Subscribeduser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
 			logout();
 		}
+		waitTime(5000);
 		TVODLogin();
-		if (userType.equalsIgnoreCase("Guest")) {
-			navigateToAnyScreenOnWeb(tabName);
-		}
-		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplextab, "Zeeplex tab");
-		}
-		checkElementDisplayed(PWAHamburgerMenuPage.objzeeplexcontentcard, "Zeeplex content card");
-		click(PWAHamburgerMenuPage.objzeeplexcontentcard, "Zeeplex content card");
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objrentforinrbelowtheplayer, "Rent for INR below the player ")) {
-			extent.extentLoggerPass("", "User not able to play the zeeplex content");
-
+		navigateToAnyScreenOnWeb(tabName);
+		checkElementDisplayed(PWAHamburgerMenuPage.objzeeplexcontentcard, "ZEEPLEX content card");
+		click(PWAHamburgerMenuPage.objzeeplexcontentcard, "ZEEPLEX content card");
+		waitTime(5000);
+		if (checkElementDisplayed(PWAHamburgerMenuPage.objrentforinrbelowtheplayer, "Rent for INR")) {
+			if (checkElementDisplayed(PWAPlayerPage.objWatchingATrailerMessage,
+					"'You're watching a trailer' message on the player")) {
+				logger.info("Expired User is not able to play the zeeplex content, expected behavior");
+				extent.extentLoggerPass("", "Expired User is not able to play the zeeplex content, expected behavior");
+			} else {
+				extent.extentLoggerFail("", "Trailer is not shown, Expired User can watch the zeeplex content");
+				logger.error("Trailer is not shown, Expired User can watch the zeeplex content");
+			}
 		} else {
-			logger.error("user is able to play the zeeplex content ");
-			extent.extentLoggerFail("", "user is able to play the zeeplex content");
+			logger.error("Expired User is not displayed with Rent for INR below the card");
+			extent.extentLoggerFail("", "Expired User is not displayed with Rent for INR below the card");
 		}
+		navigateHome();
 		if (userType.equalsIgnoreCase("Subscribeduser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
 			logout();
 			ZeeWEBPWALogin(userType);
 		}
-//		extent.HeaderChildNode("PWA_2690, PWA_2703, PWA_2716 : Verify Zee Plex Theatre comes to You banner is displayed on Top of the page");
-//		navigateToAnyScreenOnWeb("Home");
-//		ScrollToTheElementWEB(PWAHamburgerMenuPage.objzeeplexbannerHome);
-//		//checkElementDisplayed(PWAHamburgerMenuPage.objzeeplexbannerHome,"zeeplex banner");
-//		if (verifyElementPresent(PWAHamburgerMenuPage.objzeeplexbannerHome,"zeeplex banner")){
-//			extent.extentLoggerPass("", "Zeeplex banner is displayed");
-//			
-//		} else {
-//			logger.error("Failed to display Zeeplex banner ");
-//			extent.extentLoggerFail("", "Failed to display Zeeplex banner");
-//		}
-//		
 	}
 
 	public void TVODLogin() throws Exception {
-		extent.HeaderChildNode("Login through TVOD User");
+		extent.extentLogger("", "Login through TVOD User");
 		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 		waitTime(5000);
 		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");

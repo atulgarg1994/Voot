@@ -17024,10 +17024,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 
 			registerPopUpClose();
-//			scrubProgressBarToMid(AMDPlayerScreen.objProgressBar);
 			scrubProgressBarToMidDFP(AMDPlayerScreen.objProgressBar);
 			waitTime(5000);
 			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			waitTime(2000);
 
 			// MID-ROLL
 			boolean adMidRoll = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
@@ -17042,10 +17042,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 
 			waitTime(6000);
-			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-			scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
-			waitTime(5000);
 			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			scrubProgressBarTillEndDFP(AMDPlayerScreen.objProgressBar);
+			waitTime(5000);
 
 			// POST-ROLL
 			boolean adPostroll = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
@@ -17064,6 +17063,22 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLogger("Ad", "Ad validation is not applicable for - " + userType);
 		}
 
+	}
+	
+	public void scrubProgressBarTillEndDFP(By byLocator1) throws Exception {
+		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
+		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
+		click(AMDPlayerScreen.objPauseIcon, "Pause");
+		WebElement element = getDriver().findElement(byLocator1);
+		String xDuration = getAttributValue("x", AMDPlayerScreen.objTotalDuration);
+		int endX = Integer.parseInt(xDuration) - 60;
+		SwipeAnElement(element, endX, 0);
+		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time after seeking : " + timeToSec(afterSeek));
+		extent.extentLogger("Seek", "Current time after seeking in seconds: " + timeToSec(afterSeek));
+		click(AMDPlayerScreen.objPlayIcon, "Play");
+		waitTime(6000);
 	}
 
 	public void scrubProgressBarToMid(By byLocator1) throws Exception {

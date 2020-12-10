@@ -19,7 +19,7 @@ public class AMDDFPTestScript {
 
 	@Test(priority = 1)
 	@Parameters({ "userType" })
-	public void PWAWEBMixPanelLogin(String userType) throws Exception {
+	public void AMDLogin(String userType) throws Exception {
 		System.out.println("\nLogin to App");
 		zee5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		zee5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
