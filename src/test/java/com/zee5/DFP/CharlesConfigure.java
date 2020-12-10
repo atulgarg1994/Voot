@@ -22,7 +22,7 @@ public class CharlesConfigure {
 	public static void openCharles() throws IOException, InterruptedException {
 		try {
 			System.out.println("Open Charles");
-			Runtime.getRuntime().exec("Charles.exe -config C:\\Users\\IGS0026\\Documents\\CharlesSettingsConfig.xml");
+			Runtime.getRuntime().exec("Charles.exe -config C:\\Users\\IGS0026\\Documents\\Charles\\CharlesSettings.xml");
 			Thread.sleep(20000);
 			localhost = InetAddress.getLocalHost();
 			String ipAddress = localhost.getHostAddress().trim();
