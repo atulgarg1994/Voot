@@ -729,5 +729,8 @@ public static By objplay = By.xpath("//span[text()='Play']");
 	public static By objZeeplexComesToYou=By.xpath("//*[@class='planLandingPageHeader' and text()='Theatre Comes to you']");
 	public static By objzeeplexHowitworkspopupClose=By.xpath("//*[@class='PlexLearnNowCloseIcon']");
 	public static By objrentforINRpopupClose=By.xpath("//*[@class='plexExpiryCloseIcon']");
+	
+	public static By objzeeplexHowitWorksMobile=By.xpath("//div[@class='plexLearnMoreLink' and .='How it Works ?']");
+	public static By objZeeplexComesToYouHomePage=By.xpath("//*[@class='plexContainer']//*[.='Theatre comes to you']");
 
 }

@@ -2849,7 +2849,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 	}
 
-	public void waitForPlayerAdToComplete(String playerType) throws Exception {
+	public boolean waitForPlayerAdToComplete(String playerType) throws Exception {
 		boolean adDisplayed = false;
 		boolean playerDisplayed = false;
 		int confirmCount = 0;
@@ -2875,11 +2875,12 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 						if (adDisplayed == false) {
 							logger.info("Ad did not play");
 							extent.extentLogger("AdDidNotPlay", "Ad did not play");
+							return false;
 						} else {
 							logger.info("Ad play complete");
 							extent.extentLogger("AdPlayComplete", "Ad play complete");
+							return true;
 						}
-						break main;
 					}
 				} catch (Exception e1) {
 					waitTime(2000);
@@ -2890,6 +2891,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info("Ad play failure");
 			extent.extentLogger("failedAd", "Ad play failure");
 		}
+		return false;
 	}
 
 	/**
@@ -15787,7 +15789,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					.getParameter("movieDFP");
 			verifyAdForContentUsingAPIForDuration(movieContent, "movie");
 			reloadHome();
-
 			/*
 			 * extent.HeaderChildNode("DFP Validation - ZEE5 Originals");
 			 * logger.info("DFP Validation - ZEE5 Originals"); String originalsContent =
@@ -15800,14 +15801,14 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			 * Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().
 			 * getParameter("musicDFP");
 			 * verifyAdForContentUsingAPIForDuration(musicContent,"music"); reloadHome();
-			 * 
-			 * extent.HeaderChildNode("DFP Validation - Episode");
-			 * logger.info("DFP Validation - Episode"); String episodeContent =
-			 * Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().
-			 * getParameter("episodeDFP");
-			 * verifyAdForContentUsingAPIForDuration(episodeContent,"episode");
-			 * reloadHome();
 			 */
+
+			extent.HeaderChildNode("DFP Validation - Episode");
+			logger.info("DFP Validation - Episode");
+			String episodeContent = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("episodeDFP");
+			verifyAdForContentUsingAPIForDuration(episodeContent, "episode");
+			reloadHome();
 
 		}
 	}
@@ -15824,14 +15825,14 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWAHomePage.objSearchField, contentName + "\n", "Search");
-		waitTime(5000);
+		waitTime(7000);
 		click(PWASearchPage.objSearchedResult(contentName), "Search Result");
 		// Get API details
 		contentURL = getDriver().getCurrentUrl();
-		System.out.println(contentURL);
 		String[] abc = contentURL.split("/");
 		String contentID = abc[abc.length - 1];
-		System.out.println("contentID fetched from URL: " + contentID);
+		extent.extentLogger("", "Content ID fetched from URL: " + contentID);
+		logger.info("Content ID fetched from URL: " + contentID);
 		Response resp = ResponseInstance.getContentDetails(contentID, contentType);
 		System.out.println(resp.getBody().asString());
 		if (resp.getBody().asString().contains("\"error_code\":401")) {
@@ -15839,7 +15840,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			System.out.println(resp.getBody().asString());
 		}
 		String durationAPI = resp.jsonPath().get("duration").toString().trim();
-
+		extent.extentLogger("", "Total Duration in seconds from API: " + durationAPI);
+		logger.info("Total Duration in seconds from API: " + durationAPI);
 		int durationfullInt = Integer.parseInt(durationAPI);
 		int durationmidInt = durationfullInt / 2;
 		String durationfull = String.valueOf(durationfullInt);
@@ -15852,18 +15854,35 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		currentUrl = getDriver().getCurrentUrl();
 		extent.extentLogger("", "Current URL: " + currentUrl);
 		logger.info("Current URL: " + currentUrl);
-		waitForPlayerAdToComplete("Video Player");
-		act.tap(PointOption.point(x, y)).perform();
-		try {
-			WebElement totalDurationElement = getDriver().findElement(PWAPlayerPage.objtotaltime);
-			totalDuration = totalDurationElement.getText();
-			extent.extentLogger("apidata", "Total Duration displayed on player: " + totalDuration);
-			logger.info("Total Duration displayed on player: " + totalDuration);
-			WebElement currentDurationElement = getDriver().findElement(PWAPlayerPage.objcurrenttime);
-			currentDuration = currentDurationElement.getText();
-			extent.extentLogger("apidata", "Current Duration displayed on player: " + currentDuration);
-			logger.info("Current Duration displayed on player: " + currentDuration);
-		} catch (Exception e) {
+		if (!waitForPlayerAdToComplete("Video Player")) {
+			logger.error("Ad Play failure");
+			extent.extentLoggerFail("", "Ad Play failure");
+		}
+		for (int i = 0; i < 2; i++) {
+			act.tap(PointOption.point(x, y)).perform();
+			try {
+				WebElement totalDurationElement = getDriver().findElement(PWAPlayerPage.objtotaltime);
+				totalDuration = totalDurationElement.getText();
+				if (!totalDuration.equals("")) {
+					extent.extentLogger("apidata", "Total Duration displayed on player: " + totalDuration);
+					logger.info("Total Duration displayed on player: " + totalDuration);
+					break;
+				}
+			} catch (Exception e) {
+			}
+		}
+		for (int i = 0; i < 2; i++) {
+			act.tap(PointOption.point(x, y)).perform();
+			try {
+				WebElement currentDurationElement = getDriver().findElement(PWAPlayerPage.objcurrenttime);
+				currentDuration = currentDurationElement.getText();
+				if (!currentDuration.equals("")) {
+					extent.extentLogger("apidata", "Current Duration displayed on player: " + currentDuration);
+					logger.info("Current Duration displayed on player: " + currentDuration);
+					break;
+				}
+			} catch (Exception e) {
+			}
 		}
 
 		// MID-ROLL
@@ -15874,14 +15893,22 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		currentUrl = getDriver().getCurrentUrl();
 		extent.extentLogger("", "Current URL: " + currentUrl);
 		logger.info("Current URL: " + currentUrl);
-		waitForPlayerAdToComplete("Video Player");
-		act.tap(PointOption.point(x, y)).perform();
-		try {
-			WebElement currentDurationElement = getDriver().findElement(PWAPlayerPage.objcurrenttime);
-			currentDuration = currentDurationElement.getText();
-			extent.extentLogger("apidata", "Current Duration displayed on player: " + currentDuration);
-			logger.info("Current Duration displayed on player: " + currentDuration);
-		} catch (Exception e) {
+		if (!waitForPlayerAdToComplete("Video Player")) {
+			logger.error("Ad Play failure");
+			extent.extentLoggerFail("", "Ad Play failure");
+		}
+		for (int i = 0; i < 2; i++) {
+			act.tap(PointOption.point(x, y)).perform();
+			try {
+				WebElement currentDurationElement = getDriver().findElement(PWAPlayerPage.objcurrenttime);
+				currentDuration = currentDurationElement.getText();
+				if (!currentDuration.equals("")) {
+					extent.extentLogger("apidata", "Current Duration displayed on player: " + currentDuration);
+					logger.info("Current Duration displayed on player: " + currentDuration);
+					break;
+				}
+			} catch (Exception e) {
+			}
 		}
 
 		// POST-ROLL
@@ -15892,7 +15919,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		currentUrl = getDriver().getCurrentUrl();
 		extent.extentLogger("", "Current URL: " + currentUrl);
 		logger.info("Current URL: " + currentUrl);
-		waitForPlayerAdToComplete("Video Player");
+		if (!waitForPlayerAdToComplete("Video Player")) {
+			logger.error("Ad Play failure");
+			extent.extentLoggerFail("", "Ad Play failure");
+		}
 	}
 
 	public void verifyAdForContentUsingLocatorForDuration(String userType) throws Exception {
@@ -15942,4 +15972,141 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 	}
 
+	public void PWAZEEPLEXPage(String userType, String tabName) throws Exception {
+		extent.HeaderChildNode("PWA_2686, PWA_2699, PWA_2712 : Verify user is navigate to ZeePlex landing page");
+		System.out.println("PWA_2686, PWA_2699, PWA_2712 : Verify user is navigate to ZeePlex landing page");
+		PWAPagesNavigationAndTabHighlight(tabName);
+
+		extent.HeaderChildNode("PWA_2687, PWA_2700, PWA_2713 : Verify content is loaded when user scroll the page");
+		System.out.println("PWA_2687, PWA_2700, PWA_2713 : Verify content is loaded when user scroll the page");
+		Swipe("UP", 2);
+		List<WebElement> titles = getDriver().findElements(PWAMoviesPage.objTVODTitles);
+		ArrayList<String> titlestext = new ArrayList<String>();
+		if (titles.size() > 1) {
+			for (int i = 0; i < titles.size(); i++) {
+				titlestext.add(titles.get(i).getText());
+			}
+			logger.info("TVOD Titles displayed: " + titlestext);
+			extent.extentLogger("titles", "TVOD Titles displayed: " + titlestext);
+			logger.info("TVOD contents are loaded when user scroll the page");
+			extent.extentLoggerPass("Tab", "TVOD contents are loaded when user scroll the page");
+		} else {
+			logger.error("TVOD Titles failed to load after scrolling");
+			extent.extentLoggerFail("Tab", "TVOD Titles failed to load after scrolling");
+		}
+
+		extent.HeaderChildNode("PWA_2688, PWA_2701, PWA_2714 : Verify the Plex content trailer is available");
+		System.out.println("PWA_2688, PWA_2701, PWA_2714 : Verify the Plex content trailer is available");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objTrailer, "Trailer button");
+		waitTime(5000);
+		verifyElementPresent(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		if (!waitExplicitlyForElementPresence(PWAPlayerPage.objWatchingATrailerMessage, 60,
+				"'You're watching a trailer' message on the player")) {
+			extent.extentLoggerFail("", "Plex content trailer is unavailable");
+			logger.error("Plex content trailer is unavailable");
+		}
+		Back(1);
+		waitTime(3000);
+		extent.HeaderChildNode(
+				"PWA_2691, PWA_2704, PWA_2717 : Verify Rental pop-up is displayed when User Click on Rent INR CTA");
+		System.out.println(
+				"PWA_2691, PWA_2704, PWA_2717 : Verify Rental pop-up is displayed when User Click on Rent INR CTA");
+		Swipe("UP", 1);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objrentforINR, "Rent for INR");
+		verifyElementPresent(PWAHamburgerMenuPage.objrentforINRpopup, "Rental Pop Up");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objrentforINRpopupClose, "Rental Pop Up Close icon");
+
+		if (userType.equalsIgnoreCase("Subscribeduser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+			extent.HeaderChildNode(
+					"PWA_2705, PWA_2718  : Verify Plex rented details are displayed in My Profile-> Zeeplex rentals");
+			System.out.println(
+					"PWA_2705, PWA_2718  : Verify Plex rented details are displayed in My Profile-> Zeeplex rentals");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			waitTime(2000);
+			click(PWAHamburgerMenuPage.objDownArrow("My Account"), "Expander button");
+			PartialSwipe("UP", 1);
+			waitTime(3000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplex, "ZEEPLEX Rentals");
+			Thread.sleep(3000);
+			verifyElementPresent(PWAHamburgerMenuPage.objzeeplex, "ZEEPLEX Rentals Page");
+			Thread.sleep(5000);
+			Back(1);
+		}
+
+		extent.HeaderChildNode("PWA_2690, PWA_2703, PWA_2716 : Verify Zeeplex content banner in Home page");
+		System.out.println("PWA_2693, PWA_2706, PWA_2719 : Verify Zeeplex content banner in Home page");
+		navigateToAnyScreen("Home");
+		boolean foundBannerInHome = false;
+		for (int i = 0; i < 20; i++) {
+			List<WebElement> zeePlexBanner = findElements(PWAHamburgerMenuPage.objZeeplexComesToYouHomePage);
+			if (zeePlexBanner.size() > 0) {
+				logger.info("Zee Plex 'Theatre comes to You' banner is displayed in Home page");
+				extent.extentLogger("", "Zee Plex 'Theatre comes to You' banner is displayed in Home page");
+				foundBannerInHome = true;
+				break;
+			} else
+				PartialSwipe("UP", 1);
+		}
+		if (!foundBannerInHome) {
+			extent.extentLoggerFail("", "Zee Plex 'Theatre comes to You' banner is not displayed in Home page");
+			logger.error("Zee Plex 'Theatre comes to You' banner is not displayed in Home page");
+		}
+		click(PWAHomePage.objBackToTopArrow, "Back to Top arrow");
+
+		extent.HeaderChildNode(
+				"PWA_2693, PWA_2706, PWA_2719 : Verify Zee Plex Theatre comes to You banner is displayed on Top of the page");
+		System.out.println(
+				"PWA_2693, PWA_2706, PWA_2719 : Verify Zee Plex Theatre comes to You banner is displayed on Top of the page");
+		navigateToAnyScreen(tabName);
+		verifyElementPresent(PWAHamburgerMenuPage.objZeeplexComesToYou, "Zee Plex 'Theatre comes to You' banner");
+
+		extent.HeaderChildNode(
+				"PWA_2694, PWA_2707, PWA_2720 : Verify 'How it works' pop-up is displayed when user taps on 'How it works' CTA");
+		System.out.println(
+				"PWA_2694, PWA_2707, PWA_2720 : Verify 'How it works' pop-up is displayed when user taps on 'How it works' CTA");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplexHowitWorksMobile, "How it Works button");
+		waitTime(3000);
+		verifyElementPresent(PWAHamburgerMenuPage.objzeeplexHowitWorkspopup, "Zeeplex How It Works Pop Up");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplexHowitworkspopupClose,
+				"Close icon of How It Works Pop Up");
+
+		extent.HeaderChildNode(
+				"PWA_2695, PWA_2708, PWA_2721,  : Verify not able to watch the Zee plex content once the Watch Time & Rental period expries");
+		System.out.println(
+				"PWA_2695, PWA_2708, PWA_2721 : Verify not able to watch the Zee plex content once the Watch Time & Rental period expries");
+		if (userType.equalsIgnoreCase("Subscribeduser") || userType.equalsIgnoreCase("NonSubscribedUser"))
+			logout();
+		waitTime(5000);
+		loginWithUserEmail("tvod@mailnesia.com", "123456");
+		navigateToAnyScreen(tabName);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplexcontentcard, "ZEEPLEX content card");
+		waitTime(5000);
+		verifyElementPresent(PWAHamburgerMenuPage.objrentforinrbelowtheplayer, "Rent for INR");
+		if (verifyIsElementDisplayed(PWAPlayerPage.objWatchingATrailerMessage,
+				"'You're watching a trailer' message on the player")) {
+			logger.info("Expired User is not able to play the zeeplex content, expected behavior");
+			extent.extentLoggerPass("", "Expired User is not able to play the zeeplex content, expected behavior");
+		} else {
+			extent.extentLoggerFail("", "Trailer is not shown, Expired User can watch the zeeplex content");
+			logger.error("Trailer is not shown, Expired User can watch the zeeplex content");
+		}
+		String user = "", pass = "";
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			user = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserName");
+			pass = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedPassword");
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			user = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedUserName");
+			pass = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedPassword");
+		}
+		reloadHome();
+		if (userType.equalsIgnoreCase("Subscribeduser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+			logout();
+			loginWithUserEmail(user, pass);
+			selectLanguages();
+		}
+	}
 }
