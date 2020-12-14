@@ -31,13 +31,7 @@ public class DriverInstance extends Drivertools {
 			case "Android":
 				tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),
 						this.generateAndroidCapabilities(Application)));
-				
 				util.waitForElementDisplayed(AMDOnboardingScreen.objWaitForSplashScreenDisapear, 240);
-				Date date = new Date();
-				long EndTime = date.getTime();
-				logger.info("App End time : "+EndTime);
-				long diff = (EndTime-StartTime);
-				logger.info("App launch time : "+diff);
 				break;
 
 			case "MPWA":
@@ -91,9 +85,6 @@ public class DriverInstance extends Drivertools {
 		if (Utilities.relaunch) {
 			removePermisson(getAppPackage());
 		}
-		Date date = new Date();
-		long StartTime = date.getTime();
-		logger.info("App Start time : "+StartTime);
 		return capabilities;
 	}
 

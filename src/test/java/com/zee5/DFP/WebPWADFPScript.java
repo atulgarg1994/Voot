@@ -25,15 +25,16 @@ public class WebPWADFPScript {
 	}
 
 	@Test(priority = 2)
-	@Parameters({ "userType", "dfpSearchKeyword" })
-	public void DFPValidation(String userType, String dfpSearchKeyword) throws Exception {
+	@Parameters({ "userType", "dfpAdContent" })
+	public void DFPValidation(String userType, String dfpAdContent) throws Exception {
 		System.out.println("DFP Validation");
-		Zee5WEBPWASanityBusinessLogic.DFPValidation(userType, dfpSearchKeyword);
+		Zee5WEBPWASanityBusinessLogic.DFPValidation(userType, dfpAdContent);
 	}
 
 	@AfterClass
 	public void tearDown() {
 		Zee5WEBPWASanityBusinessLogic.tearDown();
-		CharlesConfigure.saveCharles("DFP Content log");
+		CharlesConfigure.saveCharles("DFPContentlog_1");
+//		PubAds.main(null);
 	}
 }

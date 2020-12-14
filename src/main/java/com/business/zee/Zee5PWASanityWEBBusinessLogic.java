@@ -17862,7 +17862,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		WebElement scrubber = getWebDriver().findElement(PWAPlayerPage.objPlayerScrubber);
 		WebElement progressBar = getWebDriver().findElement(PWAPlayerPage.objPlayerProgressBar);
 		Actions action = new Actions(getWebDriver());
-		action.clickAndHold(scrubber).moveToElement(progressBar, 180, 0).release().perform();
+		action.clickAndHold(scrubber).moveToElement(progressBar, 150, 0).release().perform();
 	}
 
 	public void playerScrubTillLastWeb() {
@@ -17872,56 +17872,57 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		action.clickAndHold(scrubber).moveToElement(progressBar, 350, 0).release().perform();
 	}
 
-	public void DFPValidation(String userType, String dfpSearchKeyword) throws Exception {
-
+public void DFPValidation(String userType,String dfpAdContent) throws Exception {
+		
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, dfpSearchKeyword + "\n", "Search Edit box: " + dfpSearchKeyword);
+			type(PWASearchPage.objSearchEditBox, dfpAdContent + "\n", "Search Edit box: " + dfpAdContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(dfpSearchKeyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(dfpSearchKeyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResult(dfpAdContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResult(dfpAdContent), "Search Result");
 			waitTime(5000);
+			click(PWAPremiumPage.obj1stContentInShowDetailPage, "Content Card");
 			mandatoryRegistrationPopUp(userType);
 
-			// PRE-ROLL
+			//PRE-ROLL
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				waitTime(5000);
 				waitForPlayerAdToComplete("Video Player");
-			} else {
+			}else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
-
+			
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillMidWeb();
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-
-			// MID-ROLL
+			
+			//MID-ROLL
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				waitTime(5000);
 				waitForPlayerAdToComplete("Video Player");
-			} else {
+			}else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
-
+			
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillLastWeb();
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-
-			// POST-ROLL
+			
+			//POST-ROLL
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				waitTime(5000);
 				waitForPlayerAdToComplete("Video Player");
-			} else {
+			}else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}

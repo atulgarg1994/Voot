@@ -17,12 +17,13 @@ public class CharlesConfigure {
 		openCharles();
 		saveCharles("ChlsXMLFile");
 //		System.out.println(System.getProperty("user.dir") + "\\DifferenceBtwTemplateAndUIPlayedContent.chlsx");
+//		-config C:\\Users\\IGS0026\\Documents\\Charles\\CharlesSettings.xml
 	}
 
 	public static void openCharles() throws IOException, InterruptedException {
 		try {
 			System.out.println("Open Charles");
-			Runtime.getRuntime().exec("Charles.exe -config C:\\Users\\IGS0026\\Documents\\Charles\\CharlesSettings.xml");
+			Runtime.getRuntime().exec("Charles.exe");
 			Thread.sleep(20000);
 			localhost = InetAddress.getLocalHost();
 			String ipAddress = localhost.getHostAddress().trim();
