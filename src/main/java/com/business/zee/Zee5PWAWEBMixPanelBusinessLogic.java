@@ -1597,9 +1597,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(10000);
 		getWebDriver().quit();
 		new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
-			if(!userType.equals("Guest")) {
-				ZeeWEBPWAMixPanelLogin(userType);
-			}
+		ZeeWEBPWAMixPanelLogin(userType);
 	}
 
 	public void verifyQualityChangeEvent(String keyword1) throws Exception {
@@ -5278,7 +5276,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				click(PWALoginPage.objEmailField, "Email field");
 				type(PWALoginPage.objEmailField, "7892215214", "Phone Number Field");
 				click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
+			
+				mixpanel.FEProp.setProperty("Source", "sign_in");
+				mixpanel.FEProp.setProperty("Page Name", "otp_page");
+				
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Login Initiated");
 				break;
+				
 
 			case "emailLogin":
 				String Username = getParameterFromXML("NonsubscribedUserName");
@@ -5317,11 +5322,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				waitTime(3000);
 				click(PWASignupPage.objVerifyBtnWeb, "Verified Button");
 				mixpanel.FEProp.setProperty("Source", "sign_in");
-				mixpanel.FEProp.setProperty("Element", "Cross");
 				mixpanel.FEProp.setProperty("Page Name", "otp_page");
 				mixpanel.FEProp.setProperty("Failure Reason", "Either OTP is not valid or has expired");
 				mixpanel.FEProp.setProperty("Success", "false");
-				mixpanel.FEProp.setProperty("method", "Social");
+				
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				mixpanel.ValidateParameter(local.getItem("ID"), "Login Result");
 				break;
@@ -12611,4 +12615,150 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Login Password Entered");
 		}
 	}
+	
+	public void verifyRentalPurchaseCallInitiatedEvent(String userType) throws Exception {
+		extent.HeaderChildNode("Rental Purchase Call Initiated Event for All access pack");
+
+		
+		if (!(userType.equals("SubscribedUser"))) {
+			Thread.sleep(5000);
+			navigateToAnyScreenOnWeb("ZEEPLEX");
+			waitTime(4000);
+			scrollByWEB();
+			
+			verifyElementExist(PWAHomePage.objRentforINR, "RentforINR");
+			JSClick(PWAHomePage.objRentforINR, "RentforINR");
+			waitTime(4000);		
+			JSClick(PWAHomePage.objRentforINRPopupRentforINRBtn, "RentforINR Btn");
+
+
+//			mixpanel.FEProp.setProperty("Page Name", "payment_page");
+//			mixpanel.FEProp.setProperty("Source", "account_info");
+//			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
+//			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
+//			mixpanel.FEProp.setProperty("cost", cost[1]);
+//			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+			Thread.sleep(5000);
+			
+			String TokenORID =null;
+			if (userType.equals("Guest")) {
+				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
+					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
+					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
+					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed Button");
+					// Password Popup
+					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
+					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+					waitTime(10000);
+
+					TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
+					System.out.println(TokenORID);	
+					waitTime(10000);					
+				}
+			}else {
+				TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
+				System.out.println(TokenORID);	
+				waitTime(10000);	
+			}
+			waitTime(10000);
+			WebElement iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			getWebDriver().switchTo().frame(iframeElement);
+
+			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
+			type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
+			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
+			click(PWASubscriptionPages.objEnterCVV, "CVV");
+			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
+			waitTime(20000);
+			getWebDriver().switchTo().defaultContent();
+			waitTime(5000);
+			
+			
+			
+
+			Mixpanel.ValidateParameter(TokenORID, "Rental Purchase Call Initiated");
+
+		}
+	}
+
+	
+	
+	
+	public void verifyRentalPurchaseCallReturnedEvent(String userType) throws Exception {
+		extent.HeaderChildNode("Rental Purchase Call Returned Event for All access pack");
+
+		
+		if (!(userType.equals("SubscribedUser"))) {
+			Thread.sleep(5000);
+			navigateToAnyScreenOnWeb("ZEEPLEX");
+			waitTime(4000);
+			scrollByWEB();
+			
+			verifyElementExist(PWAHomePage.objRentforINR, "RentforINR");
+			JSClick(PWAHomePage.objRentforINR, "RentforINR");
+			waitTime(4000);		
+			JSClick(PWAHomePage.objRentforINRPopupRentforINRBtn, "RentforINR Btn");
+
+
+//			mixpanel.FEProp.setProperty("Page Name", "payment_page");
+//			mixpanel.FEProp.setProperty("Source", "account_info");
+//			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
+//			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
+//			mixpanel.FEProp.setProperty("cost", cost[1]);
+//			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+			Thread.sleep(5000);
+			
+			String TokenORID =null;
+			if (userType.equals("Guest")) {
+				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
+					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
+					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
+					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed Button");
+					// Password Popup
+					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
+					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+					waitTime(10000);
+
+					TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
+					System.out.println(TokenORID);	
+					waitTime(10000);					
+				}
+			}else {
+				TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
+				System.out.println(TokenORID);	
+				waitTime(10000);	
+			}
+			waitTime(10000);
+			WebElement iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			getWebDriver().switchTo().frame(iframeElement);
+
+			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
+			type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
+			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
+			click(PWASubscriptionPages.objEnterCVV, "CVV");
+			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
+			waitTime(20000);
+			getWebDriver().switchTo().defaultContent();
+			waitTime(5000);
+			click(PWASubscriptionPages.objZeeLink, "Zee link");
+			waitTime(5000);
+
+			Mixpanel.ValidateParameter(TokenORID, "Rental Purchase Call Returned");
+		}
+	}
+	
 }

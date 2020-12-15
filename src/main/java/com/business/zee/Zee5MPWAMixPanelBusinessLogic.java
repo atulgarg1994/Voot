@@ -1538,7 +1538,22 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitTime(10000);
 		getDriver().quit();
 		relaunch = clearData;
+		new Zee5MPWAMixPanelBusinessLogic("Chrome");
+	}
+	
+	/**
+	 * Function to Relaunch the driver
+	 */
+	public void relaunch() throws Exception {
+		HeaderChildNode("Relaunch the app");
+		logger.info("Relaunching the application");
+		extent.extentLogger("Relaunch", "Relaunching the application");
+		waitTime(10000);
+		getDriver().quit();
 		new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
+			if(!userType.equals("Guest")) {
+				ZeePWALogin("E-mail",userType);
+			}
 	}
 
 	public void verifyParentalRestrictionEvent(String userType, String restriction) throws Exception {
@@ -12566,7 +12581,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitTime(6000);
 		click(PWAPlayerPage.audioBtn, "Mute Icon");
 		waitTime(2000);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Element", "Mute");
@@ -12582,4 +12597,162 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		
 	}
 
+	
+	public void verifyRentalPurchaseCallInitiatedEvent(String userType) throws Exception {
+		extent.HeaderChildNode("Rental Purchase Call Initiated Event for All access pack");
+
+		
+		if (!(userType.equals("SubscribedUser"))) {
+			Thread.sleep(5000);
+			navigateToAnyScreen("ZEEPLEX");
+			waitTime(4000);
+			scrollByWEB();
+			
+			verifyElementExist(PWAHomePage.objRentforINR, "RentforINR");
+			JSClick(PWAHomePage.objRentforINR, "RentforINR");
+			waitTime(4000);		
+			JSClick(PWAHomePage.objRentforINRPopupRentforINRBtn, "RentforINR Btn");
+
+
+//			mixpanel.FEProp.setProperty("Page Name", "payment_page");
+//			mixpanel.FEProp.setProperty("Source", "account_info");
+//			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
+//			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
+//			mixpanel.FEProp.setProperty("cost", cost[1]);
+//			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+			Thread.sleep(5000);
+			
+			String TokenORID =null;
+			if (userType.equals("Guest")) {
+				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
+					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
+					getDriver().getKeyboard().sendKeys("igszee5test123g@gmail.com");
+					hideKeyboard();
+					// type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com",
+					// "Email Id");
+					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted, "Proceed Button");
+					// Password Popup
+					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
+					getDriver().getKeyboard().sendKeys("igs@12345");
+					hideKeyboard();
+					// type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password
+					// Field");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+				}
+			}
+			waitTime(5000);
+			Swipe("UP", 1);
+			waitTime(3000);
+			getDriver().context("NATIVE_APP");
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+
+			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
+			Thread.sleep(5000);
+			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
+			// type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card
+			// Number");
+			getDriver().getKeyboard().sendKeys("5123456789012346");
+			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+			getDriver().getKeyboard().sendKeys("0224");
+			// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
+			click(PWASubscriptionPages.objEnterCVV, "CVV");
+			// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+			getDriver().getKeyboard().sendKeys("123");
+			hideKeyboard();
+			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
+			getDriver().context("CHROMIUM");
+			waitTime(8000);
+
+			
+
+			Mixpanel.ValidateParameter(TokenORID, "Rental Purchase Call Initiated");
+
+		}
+	}
+
+	
+	
+	
+	public void verifyRentalPurchaseCallReturnedEvent(String userType) throws Exception {
+		extent.HeaderChildNode("Rental Purchase Call Returned Event for All access pack");
+
+		
+		if (!(userType.equals("SubscribedUser"))) {
+			Thread.sleep(5000);
+			navigateToAnyScreen("ZEEPLEX");
+			waitTime(4000);
+			scrollByWEB();
+			
+			verifyElementExist(PWAHomePage.objRentforINR, "RentforINR");
+			JSClick(PWAHomePage.objRentforINR, "RentforINR");
+			waitTime(4000);		
+			JSClick(PWAHomePage.objRentforINRPopupRentforINRBtn, "RentforINR Btn");
+
+
+//			mixpanel.FEProp.setProperty("Page Name", "payment_page");
+//			mixpanel.FEProp.setProperty("Source", "account_info");
+//			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
+//			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
+//			mixpanel.FEProp.setProperty("cost", cost[1]);
+//			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+			Thread.sleep(5000);
+			
+			String TokenORID =null;
+			if (userType.equals("Guest")) {
+				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
+					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
+					getDriver().getKeyboard().sendKeys("igszee5test123g@gmail.com");
+					hideKeyboard();
+					// type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com",
+					// "Email Id");
+					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted, "Proceed Button");
+					// Password Popup
+					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
+					getDriver().getKeyboard().sendKeys("igs@12345");
+					hideKeyboard();
+					// type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password
+					// Field");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+				}
+			}
+			waitTime(5000);
+			Swipe("UP", 1);
+			waitTime(3000);
+			getDriver().context("NATIVE_APP");
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
+			Thread.sleep(5000);
+			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
+			// type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card
+			// Number");
+			getDriver().getKeyboard().sendKeys("5123456789012346");
+			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+			getDriver().getKeyboard().sendKeys("0224");
+			// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
+			click(PWASubscriptionPages.objEnterCVV, "CVV");
+			// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+			getDriver().getKeyboard().sendKeys("123");
+			hideKeyboard();
+			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
+			waitTime(5000);
+			getDriver().context("CHROMIUM");
+			waitTime(8000);
+			waitForElementDisplayed(PWASubscriptionPages.objZeeLink, 20);
+			PartialSwipe("UP", 1);
+			click(PWASubscriptionPages.objZeeLink, "Zee link");
+			waitTime(10000);
+
+			
+			
+			
+
+			Mixpanel.ValidateParameter(TokenORID, "Rental Purchase Call Returned");
+
+		}
+	}
 }

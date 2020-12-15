@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.stream.Stream;
@@ -22,6 +23,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.deviceDetails.DeviceDetails;
 import com.driverInstance.DriverInstance;
+import com.emailReport.SendEmail;
 import com.excel.ExcelUpdate;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.LoggingUtils;
@@ -44,9 +46,14 @@ public class ExtentReporter implements ITestListener {
 	private static String AppVersion;
 	public static String ReportName;
 	public static String userType;
+	public static ArrayList<String> mailBodyPart = new ArrayList<String>();
+	public static int totalTests = 0;
+	private static int totalPassedTest = 0;
+	private static int totalFailedTest = 0;
+	private static int totalSkipedTest = 0;
+	
 
 	/** The Constant logger. */
-//	final static Logger logger = Logger.getLogger("rootLogger");
 	static LoggingUtils logger = new LoggingUtils();
 
 	@SuppressWarnings("static-access")
@@ -141,6 +148,7 @@ public class ExtentReporter implements ITestListener {
 			DriverInstance.methodName = result.getName();
 			logger.info(":::::::::Test " + result.getName() + " Started::::::::");
 			test.set(extent.get().createTest(result.getName(),DriverInstance.getENvironment()));
+			totalTests++;
 //			ExcelUpdate.creatExcel();
 		} else {
 			runmode = false;
@@ -153,6 +161,7 @@ public class ExtentReporter implements ITestListener {
 		screencapture();
 		childTest.get().log(Status.PASS, result.getName() + " is PASSED");
 		logger.info("::::::::::Test " + result.getName() + " PASSED::::::::::");
+//		mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
 	}
 
 	@Override
@@ -160,6 +169,7 @@ public class ExtentReporter implements ITestListener {
 		screencapture();
 		childTest.get().log(Status.FAIL, result.getName() + " is FAILED");
 		logger.info("::::::::::Test " + result.getName() + " FAILED::::::::::");
+//		mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
 	}
 
 	@Override
@@ -168,13 +178,14 @@ public class ExtentReporter implements ITestListener {
 			HeaderChildNode(result.getTestName());
 			childTest.get().log(Status.SKIP, result.getName() + " is SKIPPED");
 			logger.info("::::::::::Test " + result.getName() + " SKIPPED::::::::::");
+//			mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
 		}
 	}
 
 	public void HeaderChildNode(String header) {
 		if (test.get() != null)
 			childTest.set(test.get().createNode(header));
-//			ExcelUpdate.Node(header);
+			ExcelUpdate.Node(header);
 	}
 
 	public void extentLogger(String stepName, String details) {
@@ -207,8 +218,12 @@ public class ExtentReporter implements ITestListener {
 			extent.get().setSystemInfo("Browser Name ", BrowserType);
 //			extent.get().setSystemInfo("Browser Version ", BrowserType);
 		}
+//		ExcelUpdate.updateResult();
 		extent.get().flush();
-//		MailReport.EmailReport();
+		totalPassedTest = context.getPassedTests().size();
+		totalFailedTest = context.getFailedTests().size();
+		totalSkipedTest = context.getSkippedTests().size();
+//		SendEmail.EmailReport();
 	}
 
 	@Override
@@ -265,4 +280,12 @@ public class ExtentReporter implements ITestListener {
 		}
 	}
 
+	public static StringBuilder updateResult() {
+		StringBuilder builder = new StringBuilder();
+				builder.append("        <tr>\r\n" + "          <td> " + (totalPassedTest+totalFailedTest+totalSkipedTest) + " </td>\r\n" + "          <td> "
+						+ totalPassedTest + " </td>\r\n" + "          <td> " + totalFailedTest + " </td>\r\n"
+						+ "        </tr>\r\n");
+				System.out.println(builder);
+			return builder;
+	}
 }

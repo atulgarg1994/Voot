@@ -14,7 +14,7 @@
         <Root level="INFO">
             <AppenderRef ref="ConsoleAppender"/>
             <AppenderRef ref="ReportPortalAppender"/>
-            <Appender-ref ref="FILE" />
+            <AppenderRef ref="FILE" />
         </Root>
     </Loggers>
 </Configuration> 

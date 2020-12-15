@@ -14876,7 +14876,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Tab", tabName + " tab is highlighted");
 		}
 
-		extent.HeaderChildNode(" HLS_023 : Verify The carousels are Auto scrolled in landing pages.");
+		extent.HeaderChildNode("HLS_023 : Verify The carousels are Auto scrolled in landing pages.");
 		waitTime(5000);
 		String firstCarouselTitle = "", secondCarouselTitle = "", thirdCarouselTitle = "";
 		new WebDriverWait(getWebDriver(), 15);

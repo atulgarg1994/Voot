@@ -22,7 +22,7 @@ public class WebPWAHLSScript {
 	public void PWAWEBLogin(String userType) throws Exception {
 		System.out.println("PWAWEBLogin");
 		Zee5WEBPWASanityBusinessLogic.ZeeWEBPWALogin(userType);
-//		Zee5WEBPWASanityBusinessLogic.selectLanguages1();
+//		Zee5WEBPWASanityBusinessLogic.selectLanguages();
 	}
 
 //	@Test(priority = 2)
@@ -49,7 +49,7 @@ public class WebPWAHLSScript {
 		Zee5WEBPWASanityBusinessLogic.Shows("Shows", userType);
 	}
 
-	@Test(priority = 5)
+//	@Test(priority = 5)
 	@Parameters({ "userType" })
 	public void onboardingHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -65,14 +65,14 @@ public class WebPWAHLSScript {
 		Zee5WEBPWASanityBusinessLogic.newsValidation(userType, "News");
 	}
 
-	@Test(priority = 7)
+//	@Test(priority = 7)
 	@Parameters({ "userType" })
 	public void ClubPagevalidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.Clubvalidation("Club", userType);
 	}
 
-	@Test(priority = 8)
+//	@Test(priority = 8)
 	@Parameters({ "userType" })
 	public void PremiumPagevalidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -93,35 +93,35 @@ public class WebPWAHLSScript {
 		Zee5WEBPWASanityBusinessLogic.LiveTVValidation(userType, "Music");
 	}
 
-	@Test(priority = 11)
+//	@Test(priority = 11)
 	@Parameters({ "userType" })
 	public void StoriesPagevalidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.storiesvalidation(userType, "Stories");
 	}
 
-	@Test(priority = 12)
+//	@Test(priority = 12)
 	@Parameters({ "userType" })
 	public void videoPagevalidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.videoValidation(userType, "Videos");
 	}
 
-	@Test(priority = 13)
+//	@Test(priority = 13)
 	@Parameters({ "userType" })
 	public void Zee5PagevalidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.Zee5OriginalsValidation(userType, "ZEE5 Originals");
 	}
 
-	@Test(priority = 14)
+//	@Test(priority = 14)
 	@Parameters({ "userType" })
 	public void SearchPagevalidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.Search("Parru ");
 	}
 
-	@Test(priority = 15)
+//	@Test(priority = 15)
 	@Parameters({ "userType" })
 	public void PlayPagevalidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -135,14 +135,14 @@ public class WebPWAHLSScript {
 		Zee5WEBPWASanityBusinessLogic.kaltura(userType, "Home");
 	}
 
-	@Test(priority = 17)
+//	@Test(priority = 17)
 	@Parameters({ "userType" })
 	public void SubscriptionPagevalidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.Subscriptionjourney(userType, "Home");
 	}
 
-	@Test(priority = 18)
+//	@Test(priority = 18)
 	@Parameters({ "userType" })
 	public void MySubscriptionPagevalidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -150,14 +150,14 @@ public class WebPWAHLSScript {
 		Zee5WEBPWASanityBusinessLogic.MyTransactions(userType);
 	}
 
-	@Test(priority = 19)
+//	@Test(priority = 19)
 	@Parameters({ "userType" })
 	public void UpgradePagevalidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.upgrade(userType);
 	}
 
-	@Test(priority = 20)
+//	@Test(priority = 20)
 	@Parameters({ "userType" })
 	public void zeeplexvalidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();

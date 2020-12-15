@@ -28,7 +28,7 @@ public class MailReport {
 		String[] cc = {};
 		String[] bcc = {};
 
-		sendMail("Zee5latest@gmail.com", "User@123", "smtp.gmail.com", "25", "true", "true", true, "javax.net.ssl.SSLSocketFactory",
+		sendMail("teamviewerigs123@gmail.com", "gqvyrlfrixgizfbi", "smtp.gmail.com", "25", "true", "true", true, "javax.net.ssl.SSLSocketFactory",
 				"false", to, cc, bcc, "AUTOMATION REPORT", "Please find the reports attached.\n\n Regards\n Automation Team",
 				filepath);
 	}

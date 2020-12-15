@@ -515,4 +515,14 @@ public class PWAHomePage {
 	public static By objHomeBarText(String HomeBartitle) {
 		return By.xpath("//a[contains(@class,'noSelect') and text()='" + HomeBartitle + "']");
 	}
+	
+public static By objRentforINR = By.xpath("(//div[@class='rentNowButton']//div//button)[1]");	
+	
+	public static By objRentforINRPopupRentforINRBtn = By.xpath("(//div[@class='plexBottomWrapper']//div//button)[1]");
+
+	public static By objRestrictDescription = By.xpath("//div[@class='RestrictDesc']");
+	
+	public static By objRestrictContentNotnowBtn = By.xpath("//div[@class='btwrap']//div[@class='closeBtn']//div");
+	public static By objPersonalizedNotificationPopup = By.xpath("//p[contains(text(),'Click Allow on the next prompt to subscribe to our push notifications')]");
+	public static By objPersonalizedNotificationPopupNotNowBtn = By.xpath("((//p[contains(text(),'Click Allow on the next prompt to subscribe to our push notifications')]//parent::*//parent::*//parent::*)//div[2]//button)[1]");
 }

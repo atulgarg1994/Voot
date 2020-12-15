@@ -15,6 +15,8 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.extent.ExtentReporter;
+
 public class ExcelUpdate {
 
 	static String xlpath = System.getProperty("user.dir") + "\\Analysed_Reports\\Analysed_Reports.xlsx";
@@ -26,6 +28,7 @@ public class ExcelUpdate {
 	public static int passCounter = 0;
 	public static int failCounter = 0;
 	public static int warningCounter = 0;
+	static String sheet1 = "Module Result";
 
 	public static void creatExcel() { 
 		try {
@@ -209,9 +212,52 @@ public class ExcelUpdate {
 		return "";
 	}
 
-	public static void EnterResult(String ID, String result) throws NumberFormatException, IOException {
-		if (!ID.isEmpty()) {
-//			writeData(Integer.valueOf(Iterator(ID)), result);
+	public static void updateResult() {
+		if (ExtentReporter.mailBodyPart.size() > 0) {
+			for (int i = 0; i < ExtentReporter.mailBodyPart.size(); i++) {
+				String result[] = ExtentReporter.mailBodyPart.get(i).toString().split(",");
+//				System.out.println(result[0]+result[1]+result[2]);
+				try {
+					XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
+					FileOutputStream output = new FileOutputStream(xlpath);
+					XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet1);
+					// Update the value of cell
+					if (i == 0) {
+						XSSFRow xrow = myExcelSheet.getRow(i);
+						if (xrow == null) {
+							xrow = myExcelSheet.createRow(i);
+						}
+
+						Cell cell = null;
+						if (cell == null) {
+							cell = xrow.createCell(1);
+							cell.setCellValue("Module Name, APP verison - 20.21106.3");
+							cell = xrow.createCell(2);
+							cell.setCellValue("Module Result");
+						}
+					}
+//						myExcelSheet
+					XSSFRow xrow = myExcelSheet.getRow((i + 1));
+					if (xrow == null) {
+						xrow = myExcelSheet.createRow((i + 1));
+					}
+
+					Cell cell = null;
+					if (cell == null) {
+						cell = xrow.createCell(1);
+						cell.setCellValue(result[0]);
+						cell = xrow.createCell(2);
+						if (failCounter == 0) {
+							cell.setCellValue("Pass");
+						} else {
+							cell.setCellValue("Fail");
+						}
+					}
+					myExcelBook.write(output);
+					myExcelBook.close();
+				} catch (Exception e) {
+				}
+			}
 		}
 	}
 
