@@ -12939,7 +12939,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		// Subscription_button
 		waitTime(2000);
-		if (verifyElementPresent(PWALandingPages.obj_Pwa_Subcription_teaser_btn, "Subcription button")) {
+		if (checkElementDisplayed(PWALandingPages.obj_Pwa_Subcription_teaser_btn, "Subcription button")) {
 			logger.info("Subscription button is displayed");
 			extent.extentLogger("Subscription", "Subscription button is displayed");
 		} else {

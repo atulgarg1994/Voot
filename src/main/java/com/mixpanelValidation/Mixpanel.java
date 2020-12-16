@@ -189,7 +189,7 @@ public class Mixpanel extends ExtentReporter {
 				.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
 				.post("https://data.mixpanel.com/api/2.0/export/");
 		request.print();
-		sheet = eventName.trim().replace(" ", "");
+		sheet = eventName.trim().replace(" ", "").replace("/", "");
 		if (request.toString() != null) {
 			if (!platform.equals("Web") || !platform.equals("MPWA")) {
 				parseResponse(getLatestEvent(request));

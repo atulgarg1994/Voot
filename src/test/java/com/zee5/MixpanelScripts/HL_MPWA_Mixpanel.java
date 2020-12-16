@@ -37,7 +37,7 @@ private Zee5MPWAMixPanelBusinessLogic zee5PWABusinessLogic;
 	public void verifyLoginInitiatedEvent(String userType) throws Exception {
 		System.out.println("Verify Login Initiated Event");
 		zee5PWABusinessLogic.relaunch();
-		zee5PWABusinessLogic.verifyLoginInitiatedEventForInvalidCredentials(userType,"mobileNumberLogin");
+		zee5PWABusinessLogic.verifyLoginInitiatedEventForInvalidCredentials(userType,"E-mail");
 	}
 
 	
@@ -47,7 +47,7 @@ private Zee5MPWAMixPanelBusinessLogic zee5PWABusinessLogic;
 	public void verifyLoginResultEventForInvalidCredentials(String userType) throws Exception {
 		System.out.println("Verify Login Result Event post entering invalid credentials");
 		zee5PWABusinessLogic.relaunch();
-		zee5PWABusinessLogic.verifyLoginResultEventForInvalidCredentials(userType,"mobileNumberLogin");
+		zee5PWABusinessLogic.verifyLoginResultEventForInvalidCredentials(userType,"E-mail");
 	}
 
 	
@@ -126,7 +126,7 @@ private Zee5MPWAMixPanelBusinessLogic zee5PWABusinessLogic;
 		
 		//=============================ContentBucketSwipe Event===================================
 		@Test(priority = 11)
-		public void verifyContentBucketSwipeEvent(String userType) throws Exception {
+		public void verifyContentBucketSwipeEvent() throws Exception {
 			System.out.println("Verify Content Bucket Swipe Event");
 			zee5PWABusinessLogic.relaunch();
 			zee5PWABusinessLogic.verifyContentBucketSwipeEvent("Shows");
@@ -154,7 +154,6 @@ private Zee5MPWAMixPanelBusinessLogic zee5PWABusinessLogic;
 		
 		//=============================SearchButtonClick Event===================================
 		@Test(priority = 14)
-		@Parameters({ "userType" })
 		public void verifySearchButtonClickEvent() throws Exception {
 			System.out.println("Verify Search Button Click Event");
 			zee5PWABusinessLogic.relaunch();
@@ -182,31 +181,31 @@ private Zee5MPWAMixPanelBusinessLogic zee5PWABusinessLogic;
 		
 		//=============================VideoView Event===================================
 		@Test(priority = 17)
-		@Parameters({ "userType", "consumptionEpisode"})
-		public void verifyVideoViewEventForFreeContent(String userType,String consumptionEpisode) throws Exception {
+		@Parameters({ "userType", "keyword4"})
+		public void verifyVideoViewEventForFreeContent(String userType,String keyword4) throws Exception {
 			System.out.println("Verify Video View Event For Free Content");
 			zee5PWABusinessLogic.relaunch();
-			zee5PWABusinessLogic.verifyVideoViewEventForFreeContent(userType,consumptionEpisode);
+			zee5PWABusinessLogic.verifyVideoViewEventForFreeContent(userType,keyword4);
 		}
 
 
 		//=============================Pause Event===================================
 		@Test(priority = 18)
-		@Parameters({ "userType", "consumptionEpisode"})
-		public void verifyPauseViewEventForFreeContent(String userType,String consumptionEpisode) throws Exception {
+		@Parameters({ "userType", "keyword4"})
+		public void verifyPauseViewEventForFreeContent(String userType,String keyword4) throws Exception {
 			System.out.println("Verify Pause Event For Free Content");
 			zee5PWABusinessLogic.relaunch();
-			zee5PWABusinessLogic.verifyPauseEventForFreeContent(userType,consumptionEpisode);
+			zee5PWABusinessLogic.verifyPauseEventForFreeContent(userType,keyword4);
 		}
 
 		
 		//=============================Resume Event===================================
 		@Test(priority = 19)
-		@Parameters({ "userType", "consumptionEpisode"})
-		public void verifyResumeEventForFreeContent(String userType,String consumptionEpisode) throws Exception {
+		@Parameters({ "userType", "keyword4"})
+		public void verifyResumeEventForFreeContent(String userType,String keyword4) throws Exception {
 			System.out.println("Verify Resume Event For Free Content");
 			zee5PWABusinessLogic.relaunch();
-			zee5PWABusinessLogic.verifyResumeEventForFreeContent(userType,consumptionEpisode);
+			zee5PWABusinessLogic.verifyResumeEventForFreeContent(userType,keyword4);
 		}
 		
 		
@@ -221,7 +220,7 @@ private Zee5MPWAMixPanelBusinessLogic zee5PWABusinessLogic;
 		
 		
 		//=============================SeekScrub Event===================================
-	//	@Test(priority = 21)
+		@Test(priority = 21)
 		@Parameters({ "userType", "keyword4"})
 		public void verifySeekScrubEventForFreeContent(String userType,String keyword4) throws Exception {
 			System.out.println("Verify SeekScrub Event For Free Content");
@@ -235,31 +234,31 @@ private Zee5MPWAMixPanelBusinessLogic zee5PWABusinessLogic;
 		
 		//=============================ADInitialised Event===================================
 		@Test(priority = 22)
-		@Parameters({ "userType", "consumptionEpisode"})
-		public void verifyAdInitializedEventForFreeContent(String userType, String consumptionEpisode) throws Exception {
+		@Parameters({ "userType", "audioTrackContent"})
+		public void verifyAdInitializedEventForFreeContent(String userType, String audioTrackContent) throws Exception {
 			System.out.println("Verify Ad Initialized Event For Free Content");
 			zee5PWABusinessLogic.relaunch();
-			zee5PWABusinessLogic.verifyAdInitializedEventForFreeContent(userType,consumptionEpisode);
+			zee5PWABusinessLogic.verifyAdInitializedEventForFreeContent(userType,audioTrackContent);
 		}
 
 		
 		//=============================ADView Event===================================
 		@Test(priority = 23)
-		@Parameters({ "userType", "consumptionEpisode"})
-		public void verifyAdViewEventForFreeContent(String userType,String consumptionEpisode) throws Exception {
+		@Parameters({ "userType", "audioTrackContent"})
+		public void verifyAdViewEventForFreeContent(String userType,String audioTrackContent) throws Exception {
 			System.out.println("Verify Ad View Event For Free Content");
 			zee5PWABusinessLogic.relaunch();
-			zee5PWABusinessLogic.verifyAdViewEventForFreeContent(userType,consumptionEpisode);
+			zee5PWABusinessLogic.verifyAdViewEventForFreeContent(userType,audioTrackContent);
 		}
 
 		
 		//=============================ADWatchDuration Event===================================
 		@Test(priority = 24)
-		@Parameters({ "userType", "consumptionEpisode"})
-		public void verifyAdWatchDurationEventForFreeContentForceExit(String userType,String consumptionEpisode) throws Exception {
+		@Parameters({ "userType", "audioTrackContent"})
+		public void verifyAdWatchDurationEventForFreeContentForceExit(String userType,String audioTrackContent) throws Exception {
 			System.out.println("Verify Ad Watch Duration Event when user force quits the ad playback for free content");
 			zee5PWABusinessLogic.relaunch();
-			zee5PWABusinessLogic.verifyAdWatchDurationEventForFreeContentForceExit(userType,consumptionEpisode);
+			zee5PWABusinessLogic.verifyAdWatchDurationEventForFreeContentForceExit(userType,audioTrackContent);
 		}
 
 		

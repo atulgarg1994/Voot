@@ -43,7 +43,7 @@ public class SendEmail {
 			String starttls, String auth, boolean debug, String socketFactoryClass, String fallback, String[] to,
 			String[] cc, String[] bcc, String subject, StringBuilder text, String attachmentPath) {
 		
-		String textTable1 ="Hi Team,<br/>Please find attacthed test automation execution results."
+		String textTable1 ="Hi Team,<br/>Please find attached test automation execution results."
 				+"<br>"
 				+"<html>\r\n"
 				+"<br>"
