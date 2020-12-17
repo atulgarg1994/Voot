@@ -3623,7 +3623,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				break;
 			} else {
 				scrollDownByY(100);
-
 			}
 		}
 	}

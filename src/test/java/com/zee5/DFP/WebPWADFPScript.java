@@ -34,7 +34,7 @@ public class WebPWADFPScript {
 	@AfterClass
 	public void tearDown() {
 		Zee5WEBPWASanityBusinessLogic.tearDown();
-		CharlesConfigure.saveCharles("DFPContentlog_1");
-//		PubAds.main(null);
+		CharlesConfigure.saveCharles("DFPContentlog_");
+		PubAds.main(null);
 	}
 }

@@ -262,7 +262,6 @@ public class PWASubscriptionPages {
 
 	public static By objLoginButtonInPopup = By.xpath("//div[contains(@class,'popupBtn accentBtn')]");
 
-	public static By objMobileCreditDebitCardOption = By.xpath("//*[@text='Credit / Debit Card']");
 	public static By objMobileCreditDebitCardRecurrenceMessage = By
 			.xpath("//*[@text='You will be charged every billing cycle until you cancel']");
 	public static By objMobileAddCardText = By.xpath("//*[@text='Add Card']");
@@ -327,5 +326,6 @@ public class PWASubscriptionPages {
 	public static By objActiveStatusTransaction = By.xpath("//*[text()='Status']//following-sibling::*[text()='Active']");
 	
 	public static By objUpgradePopupTitle = By.xpath("//div[contains(@class,'popupContent upgradePopupContent')]");
+	public static By objMobileCreditDebitCardOption = By.xpath("//*[contains(text(),'Credit/Debit Card')]");
 
 }

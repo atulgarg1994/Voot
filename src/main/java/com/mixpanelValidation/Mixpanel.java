@@ -141,7 +141,7 @@ public class Mixpanel extends ExtentReporter {
 //		fileName = "CTAs";
 //		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
 //		platform = "Web";
-//		fetchEvent("5d94e150a85711e9a4028141f97a2ff1","Login Initiated");
+//		fetchEvent("4b33865960727c7d933aa8e4ac03b7b8","Login Screen Display");
 	}
 
 	@SuppressWarnings("unused")
@@ -163,7 +163,7 @@ public class Mixpanel extends ExtentReporter {
 	public static void fetchEvent(String distinct_id, String eventName)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
-			Thread.sleep(180000);
+			Thread.sleep(18000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -171,6 +171,7 @@ public class Mixpanel extends ExtentReporter {
 		LocalDateTime now = LocalDateTime.now();
 		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
 		System.out.println("Current Date : " + currentDate);
+		platform = "Web";
 		if (platform.equals("Android")) {
 			APIKey = "b2514b42878a7e7769945befa7857ef1";
 			UserID = "$model";
@@ -182,16 +183,17 @@ public class Mixpanel extends ExtentReporter {
 				UserType = "Login";
 			}
 		}
+	
 		Response request = RestAssured.given().auth().preemptive().basic(APIKey, "")
 				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
 				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
 				.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
 				.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
 				.post("https://data.mixpanel.com/api/2.0/export/");
-		request.print();
+		System.out.println("Response : "+request.asString());
 		sheet = eventName.trim().replace(" ", "").replace("/", "");
 		if (request.toString() != null) {
-			if (!platform.equals("Web") || !platform.equals("MPWA")) {
+			if (platform.equals("Android")) {
 				parseResponse(getLatestEvent(request));
 			} else {
 				String response = request.asString();

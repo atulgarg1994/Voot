@@ -1028,7 +1028,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				break;
 
 			}
-
+			
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
 
@@ -1387,7 +1387,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 
 		waitTime(2000);
 
-		mixpanel.FEProp.setProperty("Source", tabName);
+		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -1546,7 +1546,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		relaunch = clearData;
 		new Zee5MPWAMixPanelBusinessLogic("Chrome");
 	}
-
+	
 	/**
 	 * Function to Relaunch the driver
 	 */
@@ -1557,12 +1557,12 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitTime(10000);
 		getDriver().quit();
 		new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
-		if (userType.equals("Guest")) {
+		if(userType.equals("Guest")) {
 			dismissAllPopUps();
 		}
-
-		if (!userType.equals("Guest")) {
-			ZeePWALogin("E-mail", userType);
+		
+		if(!userType.equals("Guest")) {
+			ZeePWALogin("E-mail",userType);
 		}
 	}
 
@@ -2317,28 +2317,11 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
 				}
 			}
-//			waitTime(5000);
-//			Swipe("UP", 1);
-//			waitTime(3000);
-//			getDriver().context("NATIVE_APP");
-//			Thread.sleep(5000);
-//			Thread.sleep(5000);
-//
-//			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
-//			Thread.sleep(5000);
-//			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
-//			type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
-//		//	getDriver().getKeyboard().sendKeys("5123456789012346");
-//			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
-//	//		getDriver().getKeyboard().sendKeys("0224");
-//			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
-//			click(PWASubscriptionPages.objEnterCVV, "CVV");
-//			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
-//			//getDriver().getKeyboard().sendKeys("123");
-//			hideKeyboard();
-//			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
-//			getDriver().context("CHROMIUM");
-//			waitTime(8000);
+
+			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
+
+			waitTime(10000);
+			
 			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
 
 			waitTime(10000);
@@ -2348,18 +2331,24 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			Thread.sleep(5000);
 			getDriver().switchTo().frame(iframeElement);
 
+			
 			Thread.sleep(5000);
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
-			type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
-			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
-			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
-			click(PWASubscriptionPages.objEnterCVV, "CVV");
-			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
-			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
+			//	type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
+				getDriver().getKeyboard().sendKeys("5123456789012346");
+				click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+				getDriver().getKeyboard().sendKeys("0224");
+				// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
+			//	click(PWASubscriptionPages.objEnterCVV, "CVV");
+				// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+				waitTime(3000);
+				getDriver().getKeyboard().sendKeys("123");
+				hideKeyboard();
+			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
 			waitTime(10000);
 			getDriver().switchTo().defaultContent();
-			waitTime(10000);
-
+			waitTime(8000);
+			
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Subscription Call Initiated");
 		}
@@ -2399,29 +2388,35 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
 				}
 			}
-			waitTime(5000);
-			Swipe("UP", 1);
-			waitTime(3000);
-			getDriver().context("NATIVE_APP");
-			Thread.sleep(5000);
-			Thread.sleep(5000);
-			Thread.sleep(5000);
+			waitTime(10000);
+			
 			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
+
+			waitTime(10000);
+			WebElement iframeElement = getDriver().findElement(By.id("juspay_iframe"));
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			getDriver().switchTo().frame(iframeElement);
+
+			
 			Thread.sleep(5000);
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
-			// type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card
-			// Number");
-			getDriver().getKeyboard().sendKeys("5123456789012346");
-			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
-			getDriver().getKeyboard().sendKeys("0224");
-			// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
-			click(PWASubscriptionPages.objEnterCVV, "CVV");
-			// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
-			getDriver().getKeyboard().sendKeys("123");
-			hideKeyboard();
+			//	type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
+				getDriver().getKeyboard().sendKeys("5123456789012346");
+				click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+				getDriver().getKeyboard().sendKeys("0224");
+				// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
+			//	click(PWASubscriptionPages.objEnterCVV, "CVV");
+				// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+				waitTime(3000);
+				getDriver().getKeyboard().sendKeys("123");
+				hideKeyboard();
 			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
-			getDriver().context("CHROMIUM");
+			waitTime(10000);
+			getDriver().switchTo().defaultContent();
 			waitTime(8000);
+			
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Subscription Call Initiated");
 		}
@@ -2434,12 +2429,12 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (!(userType.equals("SubscribedUser"))) {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
 
-			mixpanel.FEProp.setProperty("Page Name", "payment_page");
-			mixpanel.FEProp.setProperty("Source", "account_info");
+			mixpanel.FEProp.setProperty("Page Name", "payment_failure");
+			mixpanel.FEProp.setProperty("Source", "N/A");
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
 			mixpanel.FEProp.setProperty("cost", cost[1]);
-			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+			mixpanel.FEProp.setProperty("Payment Method", "Qwikcilver");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 
@@ -2462,7 +2457,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				}
 			}
 			waitTime(10000);
-
+			
 			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
 
 			waitTime(10000);
@@ -2472,19 +2467,19 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			Thread.sleep(5000);
 			getDriver().switchTo().frame(iframeElement);
 
+			
 			Thread.sleep(5000);
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
-			// type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card
-			// Number");
-			getDriver().getKeyboard().sendKeys("5123456789012346");
-			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
-			getDriver().getKeyboard().sendKeys("0224");
-			// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
-			// click(PWASubscriptionPages.objEnterCVV, "CVV");
-			// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
-			waitTime(3000);
-			getDriver().getKeyboard().sendKeys("123");
-			hideKeyboard();
+			//	type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
+				getDriver().getKeyboard().sendKeys("5123456789012346");
+				click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+				getDriver().getKeyboard().sendKeys("0224");
+				// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
+			//	click(PWASubscriptionPages.objEnterCVV, "CVV");
+				// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+				waitTime(3000);
+				getDriver().getKeyboard().sendKeys("123");
+				hideKeyboard();
 			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
 			waitTime(10000);
 			getDriver().switchTo().defaultContent();
@@ -2493,34 +2488,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			PartialSwipe("UP", 1);
 			click(PWASubscriptionPages.objZeeLink, "Zee link");
 			waitTime(10000);
-
-//			waitTime(5000);
-//			Swipe("UP", 1);
-//			waitTime(3000);
-//			getDriver().context("NATIVE_APP");
-//			Thread.sleep(5000);
-//			Thread.sleep(5000);
-//			Thread.sleep(5000);
-//			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
-//			Thread.sleep(5000);
-//			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
-//		//	type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
-//			getDriver().getKeyboard().sendKeys("5123456789012346");
-//			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
-//			getDriver().getKeyboard().sendKeys("0224");
-//			// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
-//			click(PWASubscriptionPages.objEnterCVV, "CVV");
-//			// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
-//			getDriver().getKeyboard().sendKeys("123");
-//			hideKeyboard();
-//			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
-//			waitTime(5000);
-//			getDriver().context("CHROMIUM");
-//			waitTime(8000);
-//			waitForElementDisplayed(PWASubscriptionPages.objZeeLink, 20);
-//			PartialSwipe("UP", 1);
-//			click(PWASubscriptionPages.objZeeLink, "Zee link");
-//			waitTime(10000);
 
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Subscription Call Returned");
@@ -2598,6 +2565,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.ValidateParameter(ID, "Video View");
 		}
 	}
+
 
 	public void verifyVideoViewEventForPremiumContent(String userType, String tab) throws Exception {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
@@ -4246,7 +4214,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			playerScrubTillLastWeb();
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 			waitTime(6000);
-
+			
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Video Watch Duration");
@@ -4266,6 +4234,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		
 
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
@@ -4279,12 +4248,12 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-
+		
 		pausePlayer();
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitTime(6000);
-
+		
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Video Watch Duration");
@@ -4300,7 +4269,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitForElementAndClick(PWAHomePage.objPlayBtn, 20, "Carousel Content");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-
+		
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -4317,7 +4286,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitTime(6000);
-
+		
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Video Watch Duration");
@@ -4333,7 +4302,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objThumbnail, "Content From a tray");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-
+	
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -4346,12 +4315,12 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-
+		
 		pausePlayer();
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitTime(6000);
-
+		
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Video Watch Duration");
@@ -4371,7 +4340,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-
+		
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -4409,9 +4378,9 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchResultTxt(subtitleTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 			waitTime(4000);
-
+			
 			mandatoryRegistrationPopUp(userType);
-
+			
 			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon")) {
 				click(PWAPremiumPage.objContentCardAddToWatchlistBtnMobile, "Add To Watchlist icon");
 			}
@@ -4422,6 +4391,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			click(PWAAddToWatchListPage.objWatchlistedItemsMobile, "Content Card in Watchlist page");
 			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
+			
 
 			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
@@ -4435,13 +4405,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-
+			
 			pausePlayer();
 			playerScrubTillLastWeb();
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
-
+			
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Video Watch Duration");
@@ -4466,7 +4436,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
-
+		
 		mixpanel.FEProp.setProperty("Source", "episode_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -4484,7 +4454,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
-
+		
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Video Watch Duration");
@@ -4513,7 +4483,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
-
+	
 		mixpanel.FEProp.setProperty("Source", "episode_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -4526,13 +4496,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-
+		
 		pausePlayer();
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
-
+		
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Video Watch Duration");
@@ -4550,7 +4520,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(5000);
-
+		
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -5420,7 +5390,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", "home");
-
+		
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "CTAs");
@@ -6319,7 +6289,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdInitializedEventForFreeContent(String userType, String audioTrackContent) throws Exception {
+	public void verifyAdInitializedEventForFreeContent(String userType, String audioTrackContent)
+			throws Exception {
 
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Initialized Event For Free Content");
@@ -6333,11 +6304,11 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
-
+				
 				mixpanel.FEProp.setProperty("Source", "search");
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-
+				
 				String id = getDriver().getCurrentUrl();
 				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
 				Matcher m = p.matcher(id);
@@ -9124,7 +9095,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-
+		
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Scrub/Seek");
@@ -11129,11 +11100,11 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		pausePlayer();
+		waitTime(6000);
 		click(PWAPlayerPage.forward10SecBtn, "Forward 10 sec button");
-		waitTime(5000);
+		waitTime(10000);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Direction", "forward");
@@ -11146,6 +11117,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		while (m.find()) {
 			value = m.group(0);
 		}
+		System.out.println(value);
 		ResponseInstance.getContentDetails(value);
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -12135,7 +12107,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 
 			waitTime(4000);
 			click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);			
 
 			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
 			waitTime(5000);
@@ -12551,11 +12523,11 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 			waitTime(4000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
-
+			
 			waitTime(4000);
 			click(PWAPremiumPage.objContentInPlaylistMobile, "Content card in Playlist");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-
+			
 			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
 			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
 			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
@@ -12615,7 +12587,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
 		}
 	}
-
+	
 	public void verifyMuteChangedEventForNewsContent() throws Exception {
 		extent.HeaderChildNode("Verify Mute Changed Event");
 		navigateToAnyScreen("News");
@@ -12646,12 +12618,12 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitTime(6000);
 		click(PWAPlayerPage.audioBtn, "Mute Icon");
 		waitTime(2000);
-
+		
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Element", "Mute");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
-
+		
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Mute Changed");
@@ -12659,32 +12631,32 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Mute Changed");
 		}
-
+		
 	}
 
+	
 	public void verifyRentalPurchaseCallInitiatedEvent(String userType) throws Exception {
 		extent.HeaderChildNode("Rental Purchase Call Initiated Event for All access pack");
 
+		
 		if (!(userType.equals("SubscribedUser"))) {
 			Thread.sleep(5000);
 			navigateToAnyScreen("ZEEPLEX");
 			waitTime(4000);
 			scrollByWEB();
-
-			verifyElementExist(PWAHomePage.objRentforINR, "RentforINR");
+			
+			verifyElementExist(PWAHomePage.objRentforINR, "Rent forINR");
 			JSClick(PWAHomePage.objRentforINR, "RentforINR");
-			waitTime(4000);
-			JSClick(PWAHomePage.objRentforINRPopupRentforINRBtn, "RentforINR Btn");
+			waitTime(4000);		
+			JSClick(PWAHomePage.objRentforINRPopupRentforINRBtn, "Rent for INR Button");
 
-//			mixpanel.FEProp.setProperty("Page Name", "payment_page");
-//			mixpanel.FEProp.setProperty("Source", "account_info");
-//			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
-//			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
-//			mixpanel.FEProp.setProperty("cost", cost[1]);
-//			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+			mixpanel.FEProp.setProperty("Page Name", "payment_failure");
+			mixpanel.FEProp.setProperty("Source", "N/A");
+			mixpanel.FEProp.setProperty("Payment Method", "Qwikcilver");
+			
 			Thread.sleep(5000);
-
-			String TokenORID = null;
+			
+			String TokenORID =null;
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
@@ -12703,58 +12675,67 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
 				}
 			}
-			waitTime(5000);
-			Swipe("UP", 1);
-			waitTime(3000);
-			getDriver().context("NATIVE_APP");
-			Thread.sleep(5000);
-			Thread.sleep(5000);
-
+			
+			waitTime(10000);
+			
 			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
+
+			waitTime(10000);
+			WebElement iframeElement = getDriver().findElement(By.id("juspay_iframe"));
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			getDriver().switchTo().frame(iframeElement);
+
+			
 			Thread.sleep(5000);
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
-			// type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card
-			// Number");
-			getDriver().getKeyboard().sendKeys("5123456789012346");
-			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
-			getDriver().getKeyboard().sendKeys("0224");
-			// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
-			click(PWASubscriptionPages.objEnterCVV, "CVV");
-			// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
-			getDriver().getKeyboard().sendKeys("123");
-			hideKeyboard();
+			//	type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
+				getDriver().getKeyboard().sendKeys("5123456789012346");
+				click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+				getDriver().getKeyboard().sendKeys("0224");
+				// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
+			//	click(PWASubscriptionPages.objEnterCVV, "CVV");
+				// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+				waitTime(3000);
+				getDriver().getKeyboard().sendKeys("123");
+				hideKeyboard();
 			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
-			getDriver().context("CHROMIUM");
-			waitTime(8000);
+			waitTime(10000);
+			getDriver().switchTo().defaultContent();
+			
+			waitTime(10000);
+
 
 			Mixpanel.ValidateParameter(TokenORID, "Rental Purchase Call Initiated");
 
 		}
 	}
 
+	
+	
+	
 	public void verifyRentalPurchaseCallReturnedEvent(String userType) throws Exception {
 		extent.HeaderChildNode("Rental Purchase Call Returned Event for All access pack");
 
+		
 		if (!(userType.equals("SubscribedUser"))) {
 			Thread.sleep(5000);
 			navigateToAnyScreen("ZEEPLEX");
 			waitTime(4000);
 			scrollByWEB();
-
+			
 			verifyElementExist(PWAHomePage.objRentforINR, "RentforINR");
 			JSClick(PWAHomePage.objRentforINR, "RentforINR");
-			waitTime(4000);
+			waitTime(4000);		
 			JSClick(PWAHomePage.objRentforINRPopupRentforINRBtn, "RentforINR Btn");
 
-//			mixpanel.FEProp.setProperty("Page Name", "payment_page");
-//			mixpanel.FEProp.setProperty("Source", "account_info");
-//			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
-//			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
-//			mixpanel.FEProp.setProperty("cost", cost[1]);
-//			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+			mixpanel.FEProp.setProperty("Page Name", "payment_failure");
+			mixpanel.FEProp.setProperty("Source", "N/A");
+			mixpanel.FEProp.setProperty("Payment Method", "Qwikcilver");
 			Thread.sleep(5000);
-
-			String TokenORID = null;
+			
+			String TokenORID =null;
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
@@ -12773,29 +12754,34 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
 				}
 			}
-			waitTime(5000);
-			Swipe("UP", 1);
-			waitTime(3000);
-			getDriver().context("NATIVE_APP");
-			Thread.sleep(5000);
-			Thread.sleep(5000);
-			Thread.sleep(5000);
+			
+			waitTime(10000);
+			
 			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
+
+			waitTime(10000);
+			WebElement iframeElement = getDriver().findElement(By.id("juspay_iframe"));
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			Thread.sleep(5000);
+			getDriver().switchTo().frame(iframeElement);
+
+			
 			Thread.sleep(5000);
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
-			// type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card
-			// Number");
-			getDriver().getKeyboard().sendKeys("5123456789012346");
-			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
-			getDriver().getKeyboard().sendKeys("0224");
-			// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
-			click(PWASubscriptionPages.objEnterCVV, "CVV");
-			// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
-			getDriver().getKeyboard().sendKeys("123");
-			hideKeyboard();
+			//	type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
+				getDriver().getKeyboard().sendKeys("5123456789012346");
+				click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+				getDriver().getKeyboard().sendKeys("0224");
+				// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
+			//	click(PWASubscriptionPages.objEnterCVV, "CVV");
+				// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+				waitTime(3000);
+				getDriver().getKeyboard().sendKeys("123");
+				hideKeyboard();
 			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
-			waitTime(5000);
-			getDriver().context("CHROMIUM");
+			waitTime(10000);
+			getDriver().switchTo().defaultContent();
 			waitTime(8000);
 			waitForElementDisplayed(PWASubscriptionPages.objZeeLink, 20);
 			PartialSwipe("UP", 1);

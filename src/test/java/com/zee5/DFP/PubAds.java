@@ -38,7 +38,7 @@ public class PubAds {
 	XSSFWorkbook myExcelBook;
 	XSSFSheet myExcelSheet;
 
-	String xlPath = System.getProperty("user.dir") + "\\DFPExcelDump\\DFP3.xlsx";
+	String xlPath = System.getProperty("user.dir") + "\\DFPExcelDump\\DFP100.xlsx";
 	String sheet = "Sheet1";
 	static int rc = 0;
 	int colNumber = 1;
@@ -81,7 +81,7 @@ public class PubAds {
 	public void readDocumnet() throws ParserConfigurationException, SAXException, IOException, InterruptedException {
 		ArrayList<String> AllCalls = new ArrayList<String>();
 
-		File file = new File("C:\\Users\\IGS0026\\Documents\\Charles\\Session.chlsx");
+		File file = new File(System.getProperty("User.dir")+"//"+CharlesConfigure.charlesName);
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setValidating(false);
 		dbf.setNamespaceAware(true);
@@ -287,7 +287,7 @@ public class PubAds {
 			pub.creatExcel();
 			pub.readDocumnet();
 //		extent.HeaderChildNode("DFP not null validation");
-//		pub.validateForNotNull();
+			pub.validateForNotNull();
 			LocalDateTime now1 = LocalDateTime.now();
 			System.out.println("After : " + dtf.format(now1));
 		} catch (Exception e) {

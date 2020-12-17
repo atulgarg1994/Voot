@@ -926,9 +926,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-		mixpanel.FEProp.setProperty("Element", "Play");
+		
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Carousal Banner Click");
@@ -1725,7 +1723,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		while (m.find()) {
 			value = m.group(0);
 		}
-		mixpanel.FEProp.setProperty("Carousal ID", value);
+		mixpanel.FEProp.setProperty("Carousal ID", value.replace("/", ""));
 		mixpanel.FEProp.setProperty("Carousal Name", TrayTitle);
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "tv_shows_view_all");
@@ -5278,8 +5276,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				waitForElementDisplayed(PWALoginPage.objEmailField, 5);
 				click(PWALoginPage.objEmailField, "Email field");
 				type(PWALoginPage.objEmailField, "7892215214", "Phone Number Field");
+				
 				click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
-			
+				type(PWASignupPage.objOTP1, "1", "OTP box1");
+				type(PWASignupPage.objOTP2, "2", "OTP box2");
+				type(PWASignupPage.objOTP3, "3", "OTP box3");
+				type(PWASignupPage.objOTP4, "4", "OTP box4");
+				waitTime(3000);
+				click(PWASignupPage.objVerifyBtnWeb, "Verified Button");
 				mixpanel.FEProp.setProperty("Source", "sign_in");
 				mixpanel.FEProp.setProperty("Page Name", "otp_page");
 				
@@ -5462,12 +5466,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if (!(userType.equals("SubscribedUser"))) {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
 
-			mixpanel.FEProp.setProperty("Page Name", "payment_page");
-			mixpanel.FEProp.setProperty("Source", "account_info");
+			mixpanel.FEProp.setProperty("Page Name", "payment_failure");
+			mixpanel.FEProp.setProperty("Source", "N/A");
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
 			mixpanel.FEProp.setProperty("cost", cost[1]);
-			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+			mixpanel.FEProp.setProperty("Payment Method", "Qwikcilver");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 			
@@ -5525,12 +5529,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if (!(userType.equals("SubscribedUser"))) {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
 
-			mixpanel.FEProp.setProperty("Page Name", "payment_page");
-			mixpanel.FEProp.setProperty("Source", "account_info");
+			mixpanel.FEProp.setProperty("Page Name", "payment_failure");
+			mixpanel.FEProp.setProperty("Source", "N/A");
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
 			mixpanel.FEProp.setProperty("cost", cost[1]);
-			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+			mixpanel.FEProp.setProperty("Payment Method", "Qwikcilver");
 
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
@@ -5599,12 +5603,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
 			click(PWASubscriptionPages.objClubPack, "Club Pack");
 			click(PWASubscriptionPages.objPackAmount1, "Pack");
-			mixpanel.FEProp.setProperty("Page Name", "payment_page");
-			mixpanel.FEProp.setProperty("Source", "account_info");
+			mixpanel.FEProp.setProperty("Page Name", "payment_failure");
+			mixpanel.FEProp.setProperty("Source", "N/A");
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
 			mixpanel.FEProp.setProperty("cost", cost[1]);
-			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+			mixpanel.FEProp.setProperty("Payment Method", "Qwikcilver");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 
@@ -12642,12 +12646,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			JSClick(PWAHomePage.objRentforINRPopupRentforINRBtn, "RentforINR Btn");
 
 
-//			mixpanel.FEProp.setProperty("Page Name", "payment_page");
-//			mixpanel.FEProp.setProperty("Source", "account_info");
-//			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
-//			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
-//			mixpanel.FEProp.setProperty("cost", cost[1]);
-//			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+			mixpanel.FEProp.setProperty("Page Name", "payment_failure");
+			mixpanel.FEProp.setProperty("Source", "N/A");
+			mixpanel.FEProp.setProperty("Payment Method", "Qwikcilver");
 			Thread.sleep(5000);
 			
 			String TokenORID =null;
@@ -12713,13 +12714,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);		
 			JSClick(PWAHomePage.objRentforINRPopupRentforINRBtn, "RentforINR Btn");
 
-
-//			mixpanel.FEProp.setProperty("Page Name", "payment_page");
-//			mixpanel.FEProp.setProperty("Source", "account_info");
-//			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
-//			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
-//			mixpanel.FEProp.setProperty("cost", cost[1]);
-//			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+			mixpanel.FEProp.setProperty("Page Name", "payment_failure");
+			mixpanel.FEProp.setProperty("Source", "N/A");
+			mixpanel.FEProp.setProperty("Payment Method", "Qwikcilver");
 			Thread.sleep(5000);
 			
 			String TokenORID =null;
