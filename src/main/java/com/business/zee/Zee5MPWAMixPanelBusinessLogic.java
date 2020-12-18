@@ -2298,7 +2298,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
-
+		
+			String TokenORID =null;
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
@@ -2315,23 +2316,27 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					// type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password
 					// Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+					TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
+					System.out.println(TokenORID);	
+					waitTime(10000);
 				}
+			}else {
+				waitTime(15000);
+				TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
+				System.out.println(TokenORID);	
+				waitTime(10000);	
 			}
 
-			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
-
-			waitTime(10000);
 			
-			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
-
 			waitTime(10000);
 			WebElement iframeElement = getDriver().findElement(By.id("juspay_iframe"));
 			Thread.sleep(5000);
 			Thread.sleep(5000);
 			Thread.sleep(5000);
 			getDriver().switchTo().frame(iframeElement);
+			waitTime(10000);
+			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
 
-			
 			Thread.sleep(5000);
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
 			//	type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
@@ -2343,14 +2348,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				// type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
 				waitTime(3000);
 				getDriver().getKeyboard().sendKeys("123");
+				waitTime(2000);
 				hideKeyboard();
 			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
 			waitTime(10000);
 			getDriver().switchTo().defaultContent();
-			waitTime(8000);
+			waitTime(20000);
 			
-			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-			mixpanel.ValidateParameter(ID, "Subscription Call Initiated");
+			mixpanel.ValidateParameter(TokenORID, "Subscription Call Initiated");
 		}
 	}
 
@@ -2369,7 +2374,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
-
+			
+			String TokenORID =null;
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
@@ -2386,18 +2392,26 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					// type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password
 					// Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
-				}
+				
+				TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
+				System.out.println(TokenORID);	
+				waitTime(10000);
 			}
-			waitTime(10000);
-			
-			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
-
+		}else {
+			waitTime(15000);
+			TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
+			System.out.println(TokenORID);	
+			waitTime(10000);	
+		}
+		
 			waitTime(10000);
 			WebElement iframeElement = getDriver().findElement(By.id("juspay_iframe"));
 			Thread.sleep(5000);
 			Thread.sleep(5000);
 			Thread.sleep(5000);
 			getDriver().switchTo().frame(iframeElement);
+			waitTime(10000);
+			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
 
 			
 			Thread.sleep(5000);
@@ -2417,8 +2431,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			getDriver().switchTo().defaultContent();
 			waitTime(8000);
 			
-			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-			mixpanel.ValidateParameter(ID, "Subscription Call Initiated");
+			mixpanel.ValidateParameter(TokenORID, "Subscription Call Initiated");
 		}
 	}
 
@@ -2438,6 +2451,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 
+			String TokenORID =null;
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
@@ -2454,20 +2468,28 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					// type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password
 					// Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+					
+					TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
+					System.out.println(TokenORID);	
+					waitTime(10000);
 				}
+			}else {
+				waitTime(15000);
+				TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
+				System.out.println(TokenORID);	
+				waitTime(10000);	
 			}
 			waitTime(10000);
 			
-			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
-
-			waitTime(10000);
 			WebElement iframeElement = getDriver().findElement(By.id("juspay_iframe"));
 			Thread.sleep(5000);
 			Thread.sleep(5000);
 			Thread.sleep(5000);
 			getDriver().switchTo().frame(iframeElement);
 
-			
+			waitTime(10000);
+			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
+
 			Thread.sleep(5000);
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
 			//	type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
@@ -2489,8 +2511,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objZeeLink, "Zee link");
 			waitTime(10000);
 
-			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-			mixpanel.ValidateParameter(ID, "Subscription Call Returned");
+			mixpanel.ValidateParameter(TokenORID, "Subscription Call Returned");
 
 		}
 	}
@@ -12645,8 +12666,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			scrollByWEB();
 			
-			verifyElementExist(PWAHomePage.objRentforINR, "Rent forINR");
-			JSClick(PWAHomePage.objRentforINR, "RentforINR");
+			verifyElementExist(PWAHomePage.objRentforINR, "Rent for INR");
+			JSClick(PWAHomePage.objRentforINR, "Rent for INR");
 			waitTime(4000);		
 			JSClick(PWAHomePage.objRentforINRPopupRentforINRBtn, "Rent for INR Button");
 
@@ -12656,7 +12677,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			
 			Thread.sleep(5000);
 			
-			String TokenORID =null;
+			String TokenORID=null;
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
@@ -12673,19 +12694,27 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					// type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password
 					// Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+					
+					TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
+					System.out.println(TokenORID);	
+					waitTime(10000);
 				}
+			}else {
+				waitTime(15000);
+				TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
+				System.out.println(TokenORID);	
+				waitTime(10000);	
 			}
 			
-			waitTime(10000);
 			
-			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
-
-			waitTime(10000);
+			waitTime(20000);
 			WebElement iframeElement = getDriver().findElement(By.id("juspay_iframe"));
 			Thread.sleep(5000);
 			Thread.sleep(5000);
 			Thread.sleep(5000);
 			getDriver().switchTo().frame(iframeElement);
+			waitTime(15000);
+			JSClick(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
 
 			
 			Thread.sleep(5000);
@@ -12700,7 +12729,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				waitTime(3000);
 				getDriver().getKeyboard().sendKeys("123");
 				hideKeyboard();
-			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
+				JSClick(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
 			waitTime(10000);
 			getDriver().switchTo().defaultContent();
 			
@@ -12725,10 +12754,10 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			scrollByWEB();
 			
-			verifyElementExist(PWAHomePage.objRentforINR, "RentforINR");
-			JSClick(PWAHomePage.objRentforINR, "RentforINR");
+			verifyElementExist(PWAHomePage.objRentforINR, "Rent for INR");
+			JSClick(PWAHomePage.objRentforINR, "Rent for INR");
 			waitTime(4000);		
-			JSClick(PWAHomePage.objRentforINRPopupRentforINRBtn, "RentforINR Btn");
+			JSClick(PWAHomePage.objRentforINRPopupRentforINRBtn, "Rent for INR Button");
 
 			mixpanel.FEProp.setProperty("Page Name", "payment_failure");
 			mixpanel.FEProp.setProperty("Source", "N/A");
@@ -12752,13 +12781,21 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					// type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password
 					// Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+					
+					TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
+					System.out.println(TokenORID);	
+					waitTime(10000);
 				}
+			}else {
+				waitTime(15000);
+				TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
+				System.out.println(TokenORID);	
+				waitTime(10000);	
 			}
 			
 			waitTime(10000);
 			
-			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
-
+			
 			waitTime(10000);
 			WebElement iframeElement = getDriver().findElement(By.id("juspay_iframe"));
 			Thread.sleep(5000);
@@ -12766,7 +12803,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			Thread.sleep(5000);
 			getDriver().switchTo().frame(iframeElement);
 
-			
+			click(PWASubscriptionPages.objMobileCreditDebitCardOption, "Credit/Debit card option");
+
 			Thread.sleep(5000);
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
 			//	type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");

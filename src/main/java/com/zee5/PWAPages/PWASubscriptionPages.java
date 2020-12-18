@@ -269,7 +269,6 @@ public class PWASubscriptionPages {
 	public static By objMobileCardNumberEditBox = By.xpath("//*[@resource-id='987654321']");
 	public static By objMobileExpiryText = By.xpath("//*[@text='Expiry']");
 	public static By objMobileCVVText = By.xpath("//*[@text='CVV']");
-	public static By objMobileProceedToPayButton = By.xpath("//*[@text='Proceed to pay']");
 	public static By objMobileWalletsOption = By.xpath("//*[@text='Wallets']");
 	public static By objMobilePaytmOption = By.xpath("//*[@text='Paytm']");
 	public static By objMobilePaytmNumberField = By.xpath("//*[@class='android.widget.EditText']");
@@ -326,6 +325,8 @@ public class PWASubscriptionPages {
 	public static By objActiveStatusTransaction = By.xpath("//*[text()='Status']//following-sibling::*[text()='Active']");
 	
 	public static By objUpgradePopupTitle = By.xpath("//div[contains(@class,'popupContent upgradePopupContent')]");
-	public static By objMobileCreditDebitCardOption = By.xpath("//*[contains(text(),'Credit/Debit Card')]");
+	
+	public static By objMobileCreditDebitCardOption = By.xpath("//div[@class='textView centralViewText1 ']//article[contains(text(),'Credit / Debit Card')]");
+	public static By objMobileProceedToPayButton = By.xpath("(//div[@class='textView ']//article[contains(text(),'Proceed to pay')])[2]");
 
 }

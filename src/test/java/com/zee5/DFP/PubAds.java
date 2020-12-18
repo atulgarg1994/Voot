@@ -80,8 +80,8 @@ public class PubAds {
 
 	public void readDocumnet() throws ParserConfigurationException, SAXException, IOException, InterruptedException {
 		ArrayList<String> AllCalls = new ArrayList<String>();
-
-		File file = new File(System.getProperty("User.dir")+"//"+CharlesConfigure.charlesName);
+		System.out.println(System.getProperty("user.dir")+"//"+CharlesConfigure.charlesName);
+		File file = new File(System.getProperty("user.dir")+"//"+CharlesConfigure.charlesName);
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setValidating(false);
 		dbf.setNamespaceAware(true);
@@ -263,12 +263,12 @@ public class PubAds {
 
 	public void creatExcel() {
 		try {
-			File file = new File(System.getProperty("user.dir") + "\\DFPExcelDump\\DFP3.xlsx");
+			File file = new File(xlPath);
 			if (!file.exists()) {
 				XSSFWorkbook workbook = new XSSFWorkbook();
 				workbook.createSheet(sheet);
 				FileOutputStream fos = new FileOutputStream(
-						new File(System.getProperty("user.dir") + "\\DFPExcelDump\\DFP3.xlsx"));
+						new File(xlPath));
 				workbook.write(fos);
 				workbook.close();
 				write();

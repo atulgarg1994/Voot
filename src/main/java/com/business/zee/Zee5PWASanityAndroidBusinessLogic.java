@@ -15785,8 +15785,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.HeaderChildNode("DFP Validation - Movie");
 			logger.info("DFP Validation - Movie");
-			String movieContent = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("movieDFP");
+			String movieContent = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("movieDFP");
 			verifyAdForContentUsingAPIForDuration(movieContent, "movie");
 			reloadHome();
 			/*
@@ -15805,8 +15804,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 			extent.HeaderChildNode("DFP Validation - Episode");
 			logger.info("DFP Validation - Episode");
-			String episodeContent = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("episodeDFP");
+			String episodeContent = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("episodeDFP");
 			verifyAdForContentUsingAPIForDuration(episodeContent, "episode");
 			reloadHome();
 
@@ -15884,7 +15882,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			} catch (Exception e) {
 			}
 		}
-
+		// handle mandatory pop up
+		mandatoryRegistrationPopUp(userType);
 		// MID-ROLL
 		extent.extentLogger("", "-----------------------Verification of MID-ROLL-----------------------");
 		logger.info("Verification of MID-ROLL");
@@ -15910,7 +15909,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			} catch (Exception e) {
 			}
 		}
-
+		// handle mandatory pop up
+		mandatoryRegistrationPopUp(userType);
 		// POST-ROLL
 		extent.extentLogger("", "-----------------------Verification of POST-ROLL-----------------------");
 		logger.info("Verification of POST-ROLL");
@@ -15923,6 +15923,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error("Ad Play failure");
 			extent.extentLoggerFail("", "Ad Play failure");
 		}
+		// handle mandatory pop up
+		mandatoryRegistrationPopUp(userType);
 	}
 
 	public void verifyAdForContentUsingLocatorForDuration(String userType) throws Exception {

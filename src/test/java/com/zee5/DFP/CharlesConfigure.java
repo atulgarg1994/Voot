@@ -10,12 +10,13 @@ public class CharlesConfigure {
 
 	static InetAddress localhost;
 	static String PortNumber = "8888";
-	public static String charlesName = "";
+	public static String charlesName = "DFPContentlog_173920111213.xml";
 	public static boolean charles = false;
 
 	public static void main(String[] args) throws IOException, InterruptedException {
-		openCharles();
-		saveCharles("ChlsXMLFile");
+//		openCharles();
+//		saveCharles("ChlsXMLFile");
+		PubAds.main(null);
 //		System.out.println(System.getProperty("user.dir") + "\\DifferenceBtwTemplateAndUIPlayedContent.chlsx");
 //		-config C:\\Users\\IGS0026\\Documents\\Charles\\CharlesSettings.xml
 	}
