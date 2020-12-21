@@ -12721,7 +12721,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
 			//	type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
 				getDriver().getKeyboard().sendKeys("5123456789012346");
-				click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+		//		click(PWASubscriptionPages.objEnterExpiry, "Expiry");
 				getDriver().getKeyboard().sendKeys("0224");
 				// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
 			//	click(PWASubscriptionPages.objEnterCVV, "CVV");
@@ -12809,7 +12809,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
 			//	type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
 				getDriver().getKeyboard().sendKeys("5123456789012346");
-				click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+			//	click(PWASubscriptionPages.objEnterExpiry, "Expiry");
 				getDriver().getKeyboard().sendKeys("0224");
 				// type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
 			//	click(PWASubscriptionPages.objEnterCVV, "CVV");

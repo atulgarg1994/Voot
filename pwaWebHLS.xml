@@ -17,11 +17,6 @@
 	<parameter name="runMode" value="Suites" />
 	<!-- Guest/NonSubscribedUser/SubscribedUser/ClubUser -->
 
-
-	<parameter name="runModule" value="Suite" />
-
-	<parameter name="runMode" value="Suites" />
-
 	<!-- NONSubscribed User -->
 
 	<parameter name="NonsubscribedUserName"

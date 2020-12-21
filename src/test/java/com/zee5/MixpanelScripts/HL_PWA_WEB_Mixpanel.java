@@ -268,7 +268,7 @@ private Zee5PWAWEBMixPanelBusinessLogic zee5PWABusinessLogic;
 		@Test(priority = 25)
 		@Parameters({ "userType"})
 		public void verifyRentalPurchaseCallInitiatedEvent(String userType) throws Exception {
-			System.out.println("Verify RentalPurchase Call Initiated Event for All access pack");
+			System.out.println("Verify Rental Purchase Call Initiated Event for All access pack");
 			zee5PWABusinessLogic.relaunch();
 			zee5PWABusinessLogic.verifyRentalPurchaseCallInitiatedEvent(userType);
 		}
@@ -280,11 +280,21 @@ private Zee5PWAWEBMixPanelBusinessLogic zee5PWABusinessLogic;
 		@Test(priority = 26)
 		@Parameters({ "userType"})
 		public void verifyRentalPurchaseCallReturnedEvent(String userType) throws Exception {
-			System.out.println("Verify RentalPurchase Call Initiated Event for All access pack");
+			System.out.println("Verify Rental Purchase Call Initiated Event for All access pack");
 			zee5PWABusinessLogic.relaunch();
 			zee5PWABusinessLogic.verifyRentalPurchaseCallReturnedEvent(userType);
 		}
 		
+		
+		//=============================MegamenuThumbnailClick Event==================================
+		
+		@Test(priority = 27)
+		@Parameters({ "userType"})
+		public void verifyMegamenuThumbnailClickEvent(String userType) throws Exception {
+			System.out.println("Verify Megamenu Thumbnail Click Event");
+			zee5PWABusinessLogic.relaunch();
+			zee5PWABusinessLogic.verifyMegamenuThumbnailClickEvent(userType);
+		}
 		
 		
 	

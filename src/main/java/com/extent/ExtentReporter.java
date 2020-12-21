@@ -200,7 +200,7 @@ public class ExtentReporter implements ITestListener {
 
 	public void extentLoggerFail(String stepName, String details) {
 		childTest.get().log(Status.FAIL, details);
-		screencapture();
+//		screencapture();
 //		ExcelUpdate.writeData("", "Fail", details);
 	}
 

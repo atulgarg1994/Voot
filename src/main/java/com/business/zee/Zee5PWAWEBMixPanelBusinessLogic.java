@@ -77,8 +77,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-//			dismissDisplayContentLanguagePopUp();
-//			waitTime(3000);
+			dismissDisplayContentLanguagePopUp();
+			waitTime(3000);
 			break;
 
 		case "NonSubscribedUser":
@@ -12769,6 +12769,39 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	
+	public void verifyMegamenuThumbnailClickEvent(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Megamenu Thumbnail Click Event");
+		waitTime(15000);
+		
+		Actions actions = new Actions(getWebDriver());
+		WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
+		actions.moveToElement(contentCard).build().perform();
+
+		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitTime(10000);
+		
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		
+		String id = getWebDriver().getCurrentUrl();
+		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+		Matcher m = p.matcher(id);
+		String value = null;
+		while (m.find()) {
+			value = m.group(0);
+		}
+		ResponseInstance.getContentDetails(value);
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Megamenu Thumbnail Click");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Megamenu Thumbnail Click");
+		}
+
+	}
+
 	
 }

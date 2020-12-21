@@ -13,6 +13,7 @@ public class AMDDFPTestScript {
 
 	@BeforeTest
 	public void init() throws Exception {
+		CharlesConfigure.openCharles();
 		Utilities.relaunch = true;
 		zee5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
@@ -37,5 +38,7 @@ public class AMDDFPTestScript {
 	public void tearDownApp() {
 		System.out.println("\nExecution Complete - Quiting the App");
 		zee5ApplicasterBusinessLogic.tearDown();
+		CharlesConfigure.saveCharles("DFPContentlog_");
+		PubAds.main(null);
 	}
 }

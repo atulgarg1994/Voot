@@ -26,7 +26,6 @@ public class ParameterInjector implements IAlterSuiteListener {
 		params.put("NonsubscribedPassword", suite.getParameter("NonsubscribedPassword"));
 		params.put("SubscribedUserName", suite.getParameter("SubscribedUserName"));
 		params.put("SubscribedPassword", suite.getParameter("SubscribedPassword"));
-		params.put("devicePin", suite.getParameter("devicePin"));
 		params.put("runModule", suite.getParameter("runModule"));
 		params.put("runMode", suite.getParameter("runMode"));
 		System.out.println("Browser type : " + suite.getParameter("browserType"));

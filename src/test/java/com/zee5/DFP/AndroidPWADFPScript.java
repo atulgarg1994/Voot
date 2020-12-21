@@ -12,6 +12,7 @@ public class AndroidPWADFPScript {
 
 	@BeforeTest
 	public void init() throws Exception {
+		CharlesConfigure.openCharles();
 		Zee5PWASanityBusinessLogic = new Zee5PWASanityAndroidBusinessLogic("Chrome");
 	}
 	
@@ -27,9 +28,12 @@ public class AndroidPWADFPScript {
 	public void PWADFPHighLevel(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.PWADFPHighLevel(userType);
 	}
-
+ 
 	@AfterClass
 	public void tearDown() {
-		Zee5PWASanityBusinessLogic.tearDown();
+		Zee5PWASanityBusinessLogic.tearDown(); 
+		CharlesConfigure.saveCharles("DFPContentlog_");
+		PubAds.main(null);
 	}
+	
 }

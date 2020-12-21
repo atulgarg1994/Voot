@@ -10,7 +10,7 @@ public class CharlesConfigure {
 
 	static InetAddress localhost;
 	static String PortNumber = "8888";
-	public static String charlesName = "DFPContentlog_173920111213.xml";
+	public static String charlesName ;
 	public static boolean charles = false;
 
 	public static void main(String[] args) throws IOException, InterruptedException {

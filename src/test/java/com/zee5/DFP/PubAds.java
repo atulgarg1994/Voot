@@ -29,6 +29,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import com.excel.ExcelFunctions;
+import com.extent.ExtentReporter;
 
 public class PubAds {
 
@@ -37,8 +38,9 @@ public class PubAds {
 	ArrayList<String> Postrollai = new ArrayList<String>();
 	XSSFWorkbook myExcelBook;
 	XSSFSheet myExcelSheet;
+	static ExtentReporter extent  = new ExtentReporter();
 
-	String xlPath = System.getProperty("user.dir") + "\\DFPExcelDump\\DFP100.xlsx";
+	String xlPath = System.getProperty("user.dir") + "\\DFPExcelDump\\DFP102.xlsx";
 	String sheet = "Sheet1";
 	static int rc = 0;
 	int colNumber = 1;
@@ -286,7 +288,7 @@ public class PubAds {
 			System.out.println("Before : " + dtf.format(now));
 			pub.creatExcel();
 			pub.readDocumnet();
-//		extent.HeaderChildNode("DFP not null validation");
+			extent.HeaderChildNode("DFP not null validation");
 			pub.validateForNotNull();
 			LocalDateTime now1 = LocalDateTime.now();
 			System.out.println("After : " + dtf.format(now1));
@@ -333,7 +335,7 @@ public class PubAds {
 						String roll = ExcelFunctions.getCellValue(xlPath, sheet, 0, i);
 						String emptyValueKey = ExcelFunctions.getCellValue(xlPath, sheet, j, 0);
 						System.out.println(roll + " == " + emptyValueKey);
-//						extent.extentLoggerFail("","Call : "+roll+" Null Value for the Key : "+emptyValueKey);
+						extent.extentLoggerFail("","Call : "+roll+" Null Value for the Key : "+emptyValueKey);
 					}
 				}
 			} else {
