@@ -17105,4 +17105,109 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(6000);
 	}
 	
+	public void subscriptionValidationForHLS(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Join Now/Subscribe Now CTA in Intro screen");
+		verifyElementPresent(AMDOnboardingScreen.objSubscribeNowBtn, "Subscribe now CTA");
+		ZeeApplicasterLogin(userType);
+		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Get Premium/Subscribe CTA in Header");
+			verifyElementPresent(AMDHomePage.objSubscribeTeaser, "Subscribe CTA");
+			
+			extent.HeaderChildNode("Verify Get Premium CTA on carousel");
+			boolean flag =false;
+			for(int i=0; i<3; i++) {
+				boolean premiumTag = verifyIsElementDisplayed(AMDHomePage.objGetPremiumCTAOnCarousel);
+				if(premiumTag==true) {
+					break;
+				}	
+			}
+			if(flag==true) {
+				logger.info("Get Premium CTA on carousel is displayed for Premium content cards");
+				extentLoggerPass("Get Premium CTA", "Get Premium CTA on carousel is displayed for Premium content cards");
+			}else {
+				logger.info("Get Premium CTA on carousel is not displayed for Premium content cards");
+				extentLoggerFail("Get Premium CTA", "Get Premium CTA on carousel is not displayed for Premium content cards");
+			}
+		}
+		click(AMDHomePage.objSubscribeTeaser, "Subscribe CTA");
+		waitTime(5000);
+		click(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo");
+		type(AMDSubscibeScreen.objApplyPromoCodeTextbox, PromoCode, "Promo code");
+		hideKeyboard();
+		click(AMDSubscibeScreen.objApply, "Apply button");
+		verifyElementExist(AMDSubscibeScreen.objApplyPromoCodeappliedText, "Promo code applied successfully text");
+
+		Swipe("UP", 2);
+		PartialSwipe("UP", 2);
+		verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
+		Swipe("DOWN", 1);
+		verifyElementExist(AMDSubscibeScreen.objPremiumTab, "Premium pack tab");
+		verifyElementExist(AMDSubscibeScreen.objClubTab, "Club pack tab");
+		Swipe("UP", 1);
+		int size = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
+		for (int i = 0; i < size; i++) {
+			boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).isDisplayed();
+			if (isDisplayed) {
+				String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
+				extent.extentLoggerPass("", "Available Pack " + i + " : " + pack);
+				logger.info("Available Pack " + i + " : " + pack);
+			} else {
+				extent.extentLoggerFail("Packs", "No Packs are available");
+				logger.info("No Packs are available");
+			}
+		}
+		Swipe("UP", 1);
+		verifyElementExist(AMDSubscibeScreen.objContinueBtn, "Continue button in subscribe page");
+		if (getDriver().findElement(AMDSubscibeScreen.objContinueBtn).isEnabled()) {
+			logger.info("Continue button is highlighted");
+			extent.extentLoggerPass("Highlighted", "Continue button is highlighted");
+		}
+		Swipe("DOWN", 1);
+	}
+	
+	public void home_LandingScreen(String userType) throws Exception {
+		extent.HeaderChildNode("Validation of Home Landing screen");
+		
+		verifyElementPresent(AMDHomePage.objCarouselConetentCard, "Carousel unit");
+	
+		verifyElementExist(AMDHomePage.objGetPremiumButtonOnPremiumContent, "Get premium button");
+			
+		String courselContentTitle = getText(AMDHomePage.objCarouselTitle1);
+		verifyElementPresentAndClick(AMDHomePage.objCarouselTitle1, "Carousel content");
+		waitTime(5000);
+		if (verifyIsElementDisplayed(AMDHomePage.objSubscribePopup)) {
+			Back(1);
+			// click(AMDGenericObjects.objPopUpDivider, "Pop Up divider");
+		}
+		verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
+		String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
+		if (courselContentTitle.equalsIgnoreCase(consumptionScreenTitle)) {
+			logger.info("Respective content screen on tap of any carousel banner is displayed");
+			extent.extentLoggerPass("Consumption screen", "Respective content screen on tap of any carousel banner is displayed");
+		} else {
+			logger.error("Respective content screen on tap of any carousel banner is not displayed");
+			extent.extentLoggerFail("Consumption screen",
+					"Respective content screen on tap of any carousel banner is not displayed");
+		}
+		
+		if(userType.equalsIgnoreCase("Guest")) {
+			waitTime(5000);
+			boolean flag = verifyIsElementDisplayed(AMDHomePage.objLoginButtonOnPlayerscreen);
+			if(flag == true) {
+				logger.info("user is navigated to consumption screen with Login button on player post tapping any premium content from the banner section");
+				extentLoggerPass("Login button", "user is navigated to consumption screen with Login button on player post tapping any premium content from the banner section");
+			}else {
+				logger.info("user is navigated to consumption screen with Trailer on player post tapping any premium content from the banner section");
+				extentLogger("Login button", "user is navigated to consumption screen with Trailer on player post tapping any premium content from the banner section");	
+			}
+		}
+		
+		Back(1);
+		
+	}
+	
+	public void TextSearchAndVoiceSearch(String userType) throws Exception {
+		verifySearchOption(userType);
+		
+	}
 }

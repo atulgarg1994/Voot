@@ -218,6 +218,7 @@ public class AMDHomePage {
 	
 	public static By objFirstThumbnailOfTray = By.xpath("(//*[@resource-id='com.graymatrix.did:id/horizontal_list_1_parent'])[1]");
 	public static By objFirstViewAllbtn = By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_arrow'])[1]");
-	public static By objGetPremiumCTAOnCarousel = By.xpath("//*[@id='get_premium_hero_component' and @text='Get Premium']");
 	public static By objContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[2]");
+	public static By objGetPremiumCTAOnCarousel = By.xpath("//*[@id='get_premium_hero_component' and @text='GET PREMIUM']");
+	public static By objGetPremiumButtonOnPremiumContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/special_image_1'])[1]/following-sibling::*[@text='Get Premium']");
 }
