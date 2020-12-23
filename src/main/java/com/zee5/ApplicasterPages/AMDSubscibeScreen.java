@@ -11,7 +11,6 @@ public class AMDSubscibeScreen {
 	
 	public static By objSubscribePageBackButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_back']");
 	public static By objSelectPackText  = By.xpath("//*[@text='Select Pack']");
-	public static By objAccountInfoText1 = By.xpath("//*[@text='Account Info']");
 	public static By objPaymentText = By.xpath("//*[@class='android.widget.TextView' and @text='Payment Options']");
 	public static By objAdbanner = By.xpath("//*[@id='packSelectionCrousalImageView']");
 	public static By objApplyPromoCodeTextbox = By.xpath("//*[@id='txtET_promocode_input']");
@@ -84,5 +83,17 @@ public class AMDSubscibeScreen {
 	public static By objHaveAPromocode = By.xpath("//*[@text='Have a code?']");
 	
 	public static By objClub365daysPack = By.xpath("//*[@id='holder_price' and ./*[./*[@text='INR 365 for 365 days']]]");
+	
+	public static By objPackDescription = By.xpath("//*[@resource-id='com.graymatrix.did:id/decription_tv']");
+	public static By objApplyBtn = By.xpath("//*[@id='apply']");
+	
+	public static By objInvalidPrepaidCodePopUp = By.xpath("//*[@id='prepaid_code_layout']");
+	public static By objDoneBtn = By.xpath("//*[@id='btn_dialog_done']");
+	
+	public static By objDefaultSelectedPack = By.xpath("(//*[@id='selectionImageSelector' and @selected='true']//parent::*//parent::*//child::*//child::*)[1]");
+
+	public static By objGetPremiumBtn = By.xpath("//*[@id='get_premium_button']");
+	
+	public static By objAccountInfoText1 = By.xpath("(//*[@text='Account Info'])[1]");
 
 }
