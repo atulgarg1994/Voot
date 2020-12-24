@@ -21,6 +21,12 @@ public class Zee5TVCarousel {
 		return By.xpath("//*[@id='banner_title' and @text='"+str+"']");
 	}
 	
+	public static By objSubscribePageLoginPopup = By.xpath("//*[@id='tv_pop_up_un_subscribe_text' and @text='LOGIN']");
+	
+	public static By objSubscribePagePacks = By.xpath("//*[@id='price_text']");
 	public static By objSubscriptionPlanPage = By.xpath("//*[@id='subscrptionPlan']");
+	
+	public static By objActivePlan= By.xpath("//*[@id='active_plans_recycle']");
+	public static By objSubscribePopUptitle = By.xpath("//*[@id='pop_up_relative' or @id='subscribe_title']");
 	
 }

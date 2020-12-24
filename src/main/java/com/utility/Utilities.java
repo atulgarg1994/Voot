@@ -28,6 +28,9 @@ import com.driverInstance.DriverInstance;
 import com.extent.ExtentReporter;
 import com.google.common.collect.Ordering;
 import com.zee5.ApplicasterPages.AMDGenericObjects;
+import com.zee5.TVPages.Zee5TvHomePage;
+import com.zee5.TVPages.Zee5TvSearchPage;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
@@ -1934,7 +1937,7 @@ public class Utilities extends ExtentReporter {
 		}
 		return false;
 	}
-
+	
 	public void TVclick(By byLocator, String validationtext) throws Exception {
 
 		try {
@@ -1945,35 +1948,75 @@ public class Utilities extends ExtentReporter {
 			logger.error(e);
 		}
 	}
+
+	public void  TVTabSelect(String str) throws Exception
+	{
+		
+		TVclick(Zee5TvHomePage.objSelectTab(str), str);
+		Thread.sleep(2000);
+		try{
+			
+			if(TVgetAttributValue("focused", Zee5TvHomePage.objSelectTab(str)).equals("false"))
+			{
+				TVclick(Zee5TvHomePage.objSelectTab(str), str);
+			}
+			else{
+				logger.info("Highlighted Tab:"+TVgetText(Zee5TvHomePage.objHighlightedTab));
+				extent.extentLoggerPass("Tab", "Highlighted Tab:"+TVgetText(Zee5TvHomePage.objHighlightedTab));
+			}
+		}
+		catch(Exception e)
+		{		
+			System.out.println(e);
+		}
+	}
 	
 	public String TVgetText(By byLocator) throws Exception {
 		String Value = null;
 		Value = getDriver().findElement(byLocator).getText();
 		return Value;
 	}
-
-	public void TVRemoteEvent(int value) throws Exception {
-
-		String cmd = "adb shell input keyevent " + value + "";
-		System.out.println(cmd);
-		Runtime.getRuntime().exec(cmd);
-
+	
+	public void type(String array[]) throws Exception {
+		String searchdata[] = array;
+		int searchdatalength = searchdata.length;
+		StringBuilder searchData = new StringBuilder();
+		for (int j = 0; j < searchdatalength; j++) {
+			getDriver().findElement(Zee5TvSearchPage.objSearchKeyboardBtn(searchdata[j])).click();
+			searchData.append(searchdata[j]);
+		}
+		logger.info("Typing the content : " + searchData);
+		extentLogger("search", "Typing the content : "  +  searchData);
 	}
-
-	public boolean TVVerifyElementNotPresent(By byLocator, int waitTime) {
-		try {
+	public void TVRemoteEvent(int value) throws Exception {
+		
+		String cmd = "adb shell input keyevent "+value+"";
+	//	System.out.println(cmd);
+		Runtime.getRuntime().exec(cmd);
+		
+	}
+	
+	public boolean TVVerifyElementNotPresent(By byLocator, int waitTime)
+	{
+		try{
 			WebDriverWait wait = new WebDriverWait(getDriver(), waitTime);
 			wait.until(ExpectedConditions.invisibilityOfElementLocated(byLocator));
 			return false;
-		} catch (Exception e) {
+		}catch(Exception e)
+		{
 			return true;
 		}
 	}
-
+	
+	
 	public String TVgetAttributValue(String property, By byLocator) throws Exception {
 		String Value = null;
 		Value = getDriver().findElement(byLocator).getAttribute(property);
 		return Value;
+	}
+	
+	public void BrowsertearDown() {
+		getWebDriver().quit();
 	}
 
 }

@@ -366,7 +366,7 @@ public class PWAPlayerPage {
 			.xpath("//button[@class='playkit-control-button']//*[@class='playkit-icon playkit-icon-play']");
 
 	public static By megaMenuContentCard = By.xpath(
-			"(((((//div[@class='navMenuWrapper ']//li//a[contains(text(),'Music')]//parent::*)//div[@class='megaMenu megaMenuCards cardTypetvshows'])//ul//li[1])[1]//ul//li)[1]//div)//a");
+			"(((((//div[@class='navMenuWrapper ']//li//a[contains(text(),'Movies')]//parent::*)//div[@class='megaMenu megaMenuCards cardTypetvshows'])//ul//li[1])[1]//ul//li)[1]//div)//a");
 
 	// Player settings
 	public static By objPlayerSettings = By.xpath("//*[contains(@class,'playkit-icon playkit-icon-settings')]");

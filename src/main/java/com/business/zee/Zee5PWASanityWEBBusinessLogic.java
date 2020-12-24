@@ -15108,6 +15108,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if (!nextPageTitle.equals("")) {
 			logger.info("Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
 			extent.extentLogger("playerScreen", "Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
+			screencapture();
 			if (!userType.equals("SubscribedUser"))
 				try {
 					getWebDriver().findElement(PWASearchPage.objClosePremiumDialog).click();

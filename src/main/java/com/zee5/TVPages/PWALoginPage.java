@@ -20,7 +20,8 @@ public class PWALoginPage {
 
 	// PasswordField
 	public static By objPasswordField = By.xpath("//input[@type='password']");
-
+	
+	public static By objProceedbuttoninpopup = By.xpath("//div[contains(text(),'PROCEED')]");
 	// ForgotPsswrdTxt
 	public static By objForgotPasswordTxt = By.xpath("//div[contains(@class,'redirectLinkContainer')]//span");
 
@@ -102,7 +103,8 @@ public class PWALoginPage {
 	public static By objWebLoginBtn = By.xpath("//a[@href='/signin' and text()='Login']");
 	public static By objWebLoginPageText = By.xpath("//h1[.='Login']");
 	public static By objWebLoginButton = By.xpath("//button//span[.='Login']");
-
+	
+	public static By objWebMobileEnterPasswordButton = By.xpath("//span[text()='Enter Password']//parent::*[@type='button']");
 	public static By objLoginButton = By.xpath("//a[@href='/signin']//span[.='Login']");
 	
 	public static By objSignUpBtnWEB = By.xpath("//a[contains(text(),'Sign up for FREE')]");
@@ -192,4 +194,7 @@ public class PWALoginPage {
 	public static By objLoginLink = By.xpath("//*[@class='noSelect registerRedirectlink' and contains(text(),'Login')]");
 	
 	public static By objLoginCTAInPremiumPopup = By.xpath("//*[@class='popupBtn accentBtn' and contains(text(),'Login')]");
+	
+	public static By objContinueWatchingTrayWeb = By.xpath("//h2[contains(text(),'Continue Watching')]");
+	
 }

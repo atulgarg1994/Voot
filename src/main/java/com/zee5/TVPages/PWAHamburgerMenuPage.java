@@ -209,8 +209,9 @@ public class PWAHamburgerMenuPage {
 	public static By objCancelButtonInContentLangugaePopup = By.xpath("//div[@class='popupBtn accentBtn noSelect']");
 	public static By objAuthenticateDevice = By.xpath("//div[contains(text(),'Authenticate Device')]");
 	public static By objParentControlPageTitle = By.xpath("//h2[contains(@class,'pageTitle')]");
-	public static By objNoRestrictionSelected = By.xpath("//div[contains(text(),'No Restrictions')]//child::*");
+	public static By objNoRestrictionSelected = By.xpath("//div[contains(text(),'No Restrictions')]");
 	public static By objRestrictAll = By.xpath("//div[contains(text(),'Restrict All Content')]");
+	public static By objRestrict13 = By.xpath("//div[contains(text(),'Restrict 13+ Content')]");
 	public static By objParentalLockPin1 = By.xpath("//input[contains(@name,'pin1')]");
 	public static By objParentalLockPin2 = By.xpath("//input[contains(@name,'pin2')]");
 	public static By objParentalLockPin3 = By.xpath("//input[contains(@name,'pin3')]");

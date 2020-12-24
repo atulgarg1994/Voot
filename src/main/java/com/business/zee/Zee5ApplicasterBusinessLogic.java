@@ -17243,11 +17243,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void home_LandingScreen(String userType) throws Exception {
 		extent.HeaderChildNode("Validation of Home Landing screen");
-
+		
 		verifyElementPresent(AMDHomePage.objCarouselConetentCard, "Carousel unit");
-
-		verifyElementExist(AMDHomePage.objGetPremiumButtonOnPremiumContent, "Get premium button");
-
+	
+		if(userType.equalsIgnoreCase("Guest")) {
+			verifyElementExist(AMDHomePage.objGetPremiumButtonOnPremiumContent, "Get premium button");
+		}
+		
 		String courselContentTitle = getText(AMDHomePage.objCarouselTitle1);
 		verifyElementPresentAndClick(AMDHomePage.objCarouselTitle1, "Carousel content");
 		waitTime(5000);
@@ -17259,36 +17261,256 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
 		if (courselContentTitle.equalsIgnoreCase(consumptionScreenTitle)) {
 			logger.info("Respective content screen on tap of any carousel banner is displayed");
-			extent.extentLoggerPass("Consumption screen",
-					"Respective content screen on tap of any carousel banner is displayed");
+			extent.extentLoggerPass("Consumption screen", "Respective content screen on tap of any carousel banner is displayed");
 		} else {
 			logger.error("Respective content screen on tap of any carousel banner is not displayed");
 			extent.extentLoggerFail("Consumption screen",
 					"Respective content screen on tap of any carousel banner is not displayed");
 		}
-
-		if (userType.equalsIgnoreCase("Guest")) {
+		
+		if(userType.equalsIgnoreCase("Guest")) {
 			waitTime(5000);
 			boolean flag = verifyIsElementDisplayed(AMDHomePage.objLoginButtonOnPlayerscreen);
-			if (flag == true) {
-				logger.info(
-						"user is navigated to consumption screen with Login button on player post tapping any premium content from the banner section");
-				extentLoggerPass("Login button",
-						"user is navigated to consumption screen with Login button on player post tapping any premium content from the banner section");
-			} else {
-				logger.info(
-						"user is navigated to consumption screen with Trailer on player post tapping any premium content from the banner section");
-				extentLogger("Login button",
-						"user is navigated to consumption screen with Trailer on player post tapping any premium content from the banner section");
+			if(flag == true) {
+				logger.info("user is navigated to consumption screen with Login button on player post tapping any premium content from the banner section");
+				extentLoggerPass("Login button", "user is navigated to consumption screen with Login button on player post tapping any premium content from the banner section");
+			}else {
+				logger.info("user is navigated to consumption screen with Trailer on player post tapping any premium content from the banner section");
+				extentLogger("Login button", "user is navigated to consumption screen with Trailer on player post tapping any premium content from the banner section");	
 			}
 		}
-
 		Back(1);
-
 	}
 
-	public void TextSearchAndVoiceSearch(String userType) throws Exception {
+	public void TextSearchAndVoiceSearch(String userType, String keyword) throws Exception {
 		verifySearchOption(userType);
+		
+		extent.HeaderChildNode("Verify Recent search Overlay");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		waitTime(10000);
+		boolean var = verifyIsElementDisplayed(AMDSearchScreen.objRecentsearchOverlay);
+		if(var == true) {
+			logger.info("Recent search Overlay is displayed");
+			extentLoggerPass("Recent searches", "Recent search Overlay is displayed");
+		}else {
+			logger.info("Recent search Overlay is not displayed for this user");
+			extentLogger("Recent searches", "Recent search Overlay is not displayed for this user");
+		}
+		
+		extent.HeaderChildNode("Verify Search results");
+		
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword + "\n", "Search bar");
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);
+		
+		String searchResults = findElement(AMDMoreMenu.objSearchResult(keyword)).getText();
+		System.out.println("Search result : " + searchResults);
+
+		if (searchResults.contains(keyword)) {
+			logger.info("Proper search results are displayed");
+			extent.extentLoggerPass("Proper search results", "Proper search results are displayed");
+		} else {
+			logger.error("Proper search results are not displayed");
+			extent.extentLoggerFail("Proper search results", "Proper search results are not displayed");
+		}
+		
+		String searchResultTitle = getText(AMDSearchScreen.objFirstContentInSearchResult);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		if (verifyIsElementDisplayed(AMDHomePage.objSubscribePopup)) {
+			Back(1);
+			// click(AMDGenericObjects.objPopUpDivider, "Pop Up divider");
+		}
+		verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
+		String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
+		if (searchResultTitle.equalsIgnoreCase(consumptionScreenTitle)) {
+			logger.info("User taken to respective consumption screen on tapping any search result.");
+			extent.extentLoggerPass("Consumption screen", "User taken to respective consumption screen on tapping any search result.");
+		} else {
+			logger.error("User not taken to respective consumption screen on tapping any search result.");
+			extent.extentLoggerFail("Consumption screen",
+					"User not taken to respective consumption screen on tapping any search result.");
+		}
+		Back(3);
+	}
+	
+	public void playBack(String userType, String keyword1, String keyword2) throws Exception {
+		extent.HeaderChildNode("Verify Playback Page");
+
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword1 + "\n", "Search bar");
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+			// click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		}
+		registerPopUpClose();
+		completeProfilePopUpClose(userType);
+		waitTime(5000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		boolean flag = verifyIsElementDisplayed(AMDPlayerScreen.objPlayer);
+		if(flag == true) {
+			logger.info("the playback of free TV Show episode is displayed");
+			extentLoggerPass("PlayBack", "the playback of free TV Show episode is displayed");
+		}else {
+			logger.info("the playback of free TV Show episode is not displayed");
+			extentLoggerPass("PlayBack", "the playback of free TV Show episode is not displayed");
+		}
+		Back(2);
+		
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword2 + "\n", "Search bar");
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);
+		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			verifyElementPresent(AMDPlayerScreen.objSubscribeButtonBelowThePlayer, "GetPremium Banner");
+		}
+		
+		verifyElementPresent(AMDConsumptionScreen.objShareBtn, "Share CTA");
+		verifyElementPresent(AMDConsumptionScreen.objWatchlistBtn, "Watchlist CTA");
+		verifyElementPresent(AMDConsumptionScreen.objDownloadBtn, "Download CTA");
+
+	}
+	
+	public void subscriptionValidationForHLS(String userType,String contentWithoutTrailer) throws Exception {
+		extent.HeaderChildNode("Verify Join Now/Subscribe Now CTA in Intro screen");
+		verifyElementPresent(AMDOnboardingScreen.objSubscribeNowBtn, "Subscribe now CTA");
+		ZeeApplicasterLogin(userType);
+		if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Get Premium/Subscribe CTA in Header");
+			verifyElementPresent(AMDHomePage.objSubscribeTeaser, "Subscribe CTA");
+			
+			extent.HeaderChildNode("Verify Get Premium CTA on carousel");
+			waitTime(2000);
+			verifyElementPresent(AMDHomePage.objGetPremiumCTAOnCarousel,"Get Premium CTA on carousel");
+			
+			
+		click(AMDHomePage.objSubscribeTeaser, "Subscribe CTA");
+		waitTime(5000);
+		String prepaidcode = "Z56MSK93rJGDyi";
+		click(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Prepaid code");
+		type(AMDSubscibeScreen.objApplyPromoCodeTextbox, prepaidcode, "Prepaid code");
+		hideKeyboard();
+		click(AMDSubscibeScreen.objApply, "Apply button");
+		if (userType.equals("Guest")) {
+			boolean objAccountinfo = verifyIsElementDisplayed(AMDSubscibeScreen.objAccountInfoText1);
+			if (objAccountinfo) {
+				logger.info("User is navigated to Account info screen on tapping apply button after entering prepaid code");
+				extent.extentLoggerPass("Account info",
+						"User is navigated to Account info screen on tapping apply button after entering prepaid code");
+			} else {
+				logger.error("User is unable to navigate to Account info screen");
+				extent.extentLoggerFail("Account info",
+						"User is unable to navigate to Account info screen");
+			}
+			
+			click(AMDSubscibeScreen.objEmailID, "Email field");
+			type(AMDSubscibeScreen.objEmailID, "zee5latest@gmail.com", "Email field");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
+			click(AMDSubscibeScreen.objPasswordTextField, "Password field");
+			type(AMDSubscibeScreen.objPasswordTextField, "User@123", "Password field");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objProceedPWDScreen, "Proceed button");
+			waitTime(5000);
+			verifyElementPresent(AMDSubscibeScreen.objInvalidPrepaidCodePopUp, "Invalid Prepaid code pop up");
+			verifyElementPresentAndClick(AMDSubscibeScreen.objDoneBtn, "Done Button");
+			waitTime(5000);
+			
+			Back(1);
+			waitTime(2000);
+			click(AMDHomePage.objMoreMenu, "More Menu");
+			Swipe("UP", 2);
+			click(AMDHomePage.objLogout, "Logout");
+			click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
+			waitTime(2000);
+			Back(1);
+			waitTime(5000);
+			click(AMDHomePage.objSubscribeTeaser, "Subscribe CTA");
+		}
+	
+		waitTime(5000);
+		Swipe("UP", 2);
+		PartialSwipe("UP", 2);
+		Swipe("DOWN", 1);
+		
+		String defaultSelectedPack = getText(AMDSubscibeScreen.objDefaultSelectedPack);
+		logger.info("Default Selected Pack : " + defaultSelectedPack);
+		extentLoggerPass("Default Selected Pack","Default Selected Pack : " + defaultSelectedPack);
+		
+		verifyElementPresent(AMDSubscibeScreen.objPremiumTab, "Premium pack tab");
+		verifyElementPresent(AMDSubscibeScreen.objClubTab, "Club pack tab");
+		Swipe("UP", 1);
+		int size = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
+		for (int i = 0; i < size; i++) {
+			boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).isDisplayed();
+			if (isDisplayed) {
+				String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
+				extent.extentLoggerPass("", "Pack Title " + i + " : " + pack);
+				logger.info("Pack Title " + i + " : " + pack);
+				
+				String packDescription = getDriver().findElements(AMDSubscibeScreen.objPackDescription).get(i).getText();
+				extent.extentLoggerPass("", "Pack Description " + i + " : " + packDescription);
+				logger.info("Pack Description " + i + " : " + packDescription);
+				
+			} else {
+				extent.extentLoggerFail("Packs", "No Packs are available");
+				logger.info("No Packs are available");
+			}
+		}
+		
+		Back(1);
+		waitTime(5000);
+		click(AMDHomePage.objSearchBtn, "Search button");
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, contentWithoutTrailer, "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDSearchScreen.objContentNameInPlayer(contentWithoutTrailer), "Search result");
+		waitTime(5000);
+		verifyIsElementDisplayed(AMDSearchScreen.objContentNameInPlayer(contentWithoutTrailer));
+		waitTime(3000);
+		click(AMDSubscibeScreen.objGetPremiumBtn, "Get Premium Button");
+		verifyElementPresent(AMDHomePage.objGetPremiumPopUP, "Get Premium PopUp");
+		
+		click(AMDSubscibeScreen.objHaveAPromocode, "Prepaid code");
+		type(AMDSubscibeScreen.objHaveAPromocode, prepaidcode, "Prepaid code");
+		hideKeyboard();
+		click(AMDSubscibeScreen.objApplyBtn, "Apply button");
+		
+		if (userType.equals("Guest")) {
+			boolean objAccountinfo = verifyIsElementDisplayed(AMDSubscibeScreen.objAccountInfoText1);
+			if (objAccountinfo) {
+				logger.info("User is navigated to Account info screen on tapping apply button after entering prepaid code");
+				extent.extentLoggerPass("Account info",
+						"User is navigated to Account info screen on tapping apply button after entering prepaid code");
+			} else {
+				logger.error("User is unable to navigate to Account info screen");
+				extent.extentLoggerFail("Account info",
+						"User is unable to navigate to Account info screen");
+			}
+			
+			click(AMDSubscibeScreen.objEmailID, "Email field");
+			type(AMDSubscibeScreen.objEmailID, "zee5latest@gmail.com", "Email field");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
+			click(AMDSubscibeScreen.objPasswordTextField, "Password field");
+			type(AMDSubscibeScreen.objPasswordTextField, "User@123", "Password field");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objProceedPWDScreen, "Proceed button");
+			waitTime(5000);
+			verifyElementPresent(AMDSubscibeScreen.objInvalidPrepaidCodePopUp, "Invalid Prepaid code pop up");
+			verifyElementPresentAndClick(AMDSubscibeScreen.objDoneBtn, "Done Button");
+		}
+		
+		}
 
 	}
 }

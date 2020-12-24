@@ -253,9 +253,11 @@ public class Drivertools {
 		
 		if(getTestName().equals("Android_UserSessionManagement")) {
 			setPlatfrom(Utilities.setPlatform);
-		}else if(methodName.equals("Login")) {
+		}else if(methodName.equals("Login") || methodName.equals("setting") || methodName.equals("subscription") || methodName.equals("continueWatching") || methodName.equals("deviceAuthentication")) {
 			setPlatfrom("Web");
 		}
+		
+		
 
 		try {
 			connectURL = new URL("https://www.google.com");

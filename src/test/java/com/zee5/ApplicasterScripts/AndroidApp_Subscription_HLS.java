@@ -4,6 +4,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
 import com.business.zee.Zee5ApplicasterBusinessLogic;
 import com.utility.Utilities;
 
@@ -23,12 +24,14 @@ public class AndroidApp_Subscription_HLS {
 
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+
 	}
 
 	@Test(priority = 1)
-	@Parameters({ "userType" })
-	public void subscriptionValidationHLS(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.subscriptionValidationForHLS(userType);
+	@Parameters({ "userType", "contentWithoutTrailer" })
+	public void subscriptionValidationHLS(String userType,String contentWithoutTrailer) throws Exception {
+		System.out.println("\n---Subscription Validation ---\n");
+		ZEE5ApplicasterBusinessLogic.subscriptionValidationForHLS(userType,contentWithoutTrailer);
 	}
 
 	@AfterTest
