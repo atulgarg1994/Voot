@@ -26,8 +26,15 @@ public class AndroidApp_HLS {
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 
 	}
+	
+	@Test(priority = 1) // Manasa
+	@Parameters({ "userType", "contentWithoutTrailer" })
+	public void subscriptionValidationHLS(String userType, String contentWithoutTrailer) throws Exception {
+		System.out.println("\n---Subscription Validation ---\n");
+		ZEE5ApplicasterBusinessLogic.subscriptionValidationForHLS(userType, contentWithoutTrailer);
+	}
 
-	@Test(priority = 1) // Sushma
+	@Test(priority = 2) // Sushma
 	@Parameters({ "userType", "searchModuleKeyword", "searchKeyword10", "searchKeyword4" })
 	public void HLS(String userType, String searchModuleKeyword, String searchKeyword10, String searchKeyword4)
 			throws Exception {
@@ -41,13 +48,6 @@ public class AndroidApp_HLS {
 		System.out.println("\n---Verify Playback ---\n");
 		ZEE5ApplicasterBusinessLogic.playBack(userType, searchKeyword10, searchKeyword4);
 
-	}
-
-	@Test(priority = 2) // Manasa
-	@Parameters({ "userType", "contentWithoutTrailer" })
-	public void subscriptionValidationHLS(String userType, String contentWithoutTrailer) throws Exception {
-		System.out.println("\n---Subscription Validation ---\n");
-		ZEE5ApplicasterBusinessLogic.subscriptionValidationForHLS(userType, contentWithoutTrailer);
 	}
 
 	@AfterTest

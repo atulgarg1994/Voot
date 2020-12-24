@@ -122,9 +122,9 @@ public class Mixpanel extends ExtentReporter {
 //				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
 //				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
 //				.formParam("to_date", currentDate).formParam("event", "[ \"Login Password Entered\"]")
-//				.formParam("where", "properties[\"$distinct_id\"]==\"" + distinct_id + "\"")
+//				.formParam("where", "properties[\"$distinct_id\"]==\"471e10be-5629-4c90-8d00-f04f1c1e0711\"")
 //				.post("https://data.mixpanel.com/api/2.0/export/");
-////				.post("https://mixpanel.com/api/2.0/segmentation/");
+//				.post("https://mixpanel.com/api/2.0/segmentation/");
 //		request.print();
 //		platform = "Android";
 //		fetchEvent("SM-M205F","Video Exit");

@@ -128,6 +128,7 @@ public class DriverInstance extends Drivertools {
 		tlWebDriver.get().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		tlWebDriver.get().get(getURL());
 		tlWebDriver.get().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		tlWebDriver.get().manage().window().maximize();
 	}
 
 	/**
