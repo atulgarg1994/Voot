@@ -22,8 +22,6 @@
 	<parameter name="SubscribedUserName" value="zeetest10@test.com"/>
 	<parameter name="SubscribedPassword" value="123456"/>
 
-	<parameter name="devicePin" value="1619"/>
-
 	<!-- data -->
 	<parameter name="searchModuleSearchKey" value="Kamali"/>
 	<parameter name="consumptionsEpisode" value="Digvijay stunned on hearing Sambhashiva"/>

@@ -7059,14 +7059,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode(tabName + " Page Validation");
 		navigateToAnyScreenOnWeb(tabName);
 		waitTime(3000);
-		if (checkElementDisplayed(PWAHomePage.objActiveTab, "Active tab")) {
+		if (verifyElementEnabled(PWAHomePage.objActiveTab, "Active tab")) {
 			String tab = getText(PWAHomePage.objActiveTab);
 			System.out.println(tab);
 			logger.info(tab + " tab is highlighted");
 			extent.extentLogger("Tab", tab + " tab is highlighted");
 		} else {
 			logger.error(tabName + " tab is not highlighted");
-			extent.extentLoggerFail("Tab", tabName + " tab is highlighted");
+			extent.extentLoggerFail("Tab", tabName + " tab is not highlighted");
 		}
 		// check if tray is loaded
 		for (int i = 1; i <= 2; i++) {
@@ -9757,14 +9757,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("ZEE5 Originals Page Validation");
 		navigateToAnyScreenOnWeb(tabName);
 		waitTime(3000);
-		if (checkElementDisplayed(PWAHomePage.objActiveTab, "Active tab")) {
+		if (verifyElementEnabled(PWAHomePage.objActiveTab, "Active tab")) {
 			String tab = getText(PWAHomePage.objActiveTab);
 			System.out.println(tab);
 			logger.info(tab + " tab is highlighted");
 			extent.extentLogger("Tab", tab + " tab is highlighted");
 		} else {
 			logger.error(tabName + " tab is not highlighted");
-			extent.extentLoggerFail("Tab", tabName + " tab is highlighted");
+			extent.extentLoggerFail("Tab", tabName + " tab is not highlighted");
 		}
 
 		waitTime(3000);
