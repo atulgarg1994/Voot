@@ -312,10 +312,6 @@ public class PWASubscriptionPages {
 	
 	public static By objZeeLink = By.xpath("(//a[contains(text(),'www.zee5.com')])[1]");
 	
-	public static void main(String [] args) {
-		System.out.println("INR 99".split(" ")[1]);
-	}
-	
 	public static By objCreditDebitClose = By.xpath("(//*[contains(@src,'ic_search_cancel')])[2]");
 	
 	public static By objProceedBtnInSubscriptionPage = By.xpath("//*[text()='PROCEED']");
@@ -324,8 +320,9 @@ public class PWASubscriptionPages {
 	public static By objActiveStatusTransaction = By.xpath("//*[text()='Status']//following-sibling::*[text()='Active']");
 	
 	public static By objUpgradePopupTitle = By.xpath("//div[contains(@class,'popupContent upgradePopupContent')]");
-	public static By objMobileProceedToPayButton = By.xpath("(//div[@class='textView ']//article[contains(text(),'Proceed to pay')])[2]");
 	public static By objMobileCreditDebitCardOption = By.xpath("//*[text()='Credit / Debit Card']");
 	public static By objMobileWalletsOption = By.xpath("//*[text()='Wallets']");
+	public static By objMobileProceedToPayButton = By.xpath("//*[text()='Proceed to pay']");
+
 
 }

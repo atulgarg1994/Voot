@@ -2,35 +2,32 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Web" parallel="false" thread-count="1">
 
-	<parameter name="url" value="newpwa" />
-
-	<!-- <parameter name="userType" value="${UserType}"/> Guest/NonSubscribedUser/SubscribedUser/SubscribedUserWith15daysExpiry 
-		<parameter name="runMode" value="${runMode}"/> <parameter name="runModule" 
-		value="${runModule}"/> <parameter name="browserType" value="${browserType}"/> -->
-
-	<parameter name="browserType" value="Chrome" />  <!-- Chrome/Firefox -->
-
-	<parameter name="userType" value="Guest" /> <!-- Guest/NonSubscribedUser/SubscribedUser -->
+	 <parameter name="userType" value="${UserType}"/> 
+	 <parameter name="browserType" value="${BrowserType}"/> 
+	 <parameter name="url" value="${url}" />
+	 
+	<!--  <parameter name="url" value="prod" />
+	<parameter name="browserType" value="chrome" />
+	<parameter name="userType" value="Guest" /> -->
 
 	<parameter name="runModule" value="Suite" />
 
 	<parameter name="runMode" value="Suites" />
-	<!-- Guest/NonSubscribedUser/SubscribedUser/ClubUser -->
 
 	<!-- NONSubscribed User -->
 
 	<parameter name="NonsubscribedUserName"
-		value="impact0314@gmail.com" />
+		value="basavaraj.pn5@gmail.com" />
 
-	<parameter name="NonsubscribedPassword" value="" />
+	<parameter name="NonsubscribedPassword" value="igsindia123" />
 
 	<!-- Subscribed User -->
 
 
 	<parameter name="SubscribedUserName"
-		value="thomas.cutinha1@gmail.com" />
+		value="zeetest10@test.com" />
 
-	<parameter name="SubscribedPassword" value="" />
+	<parameter name="SubscribedPassword" value="123456" />
 
 	<parameter name="ClubUserName" value="edpwa4@mailnesia.com" />
 

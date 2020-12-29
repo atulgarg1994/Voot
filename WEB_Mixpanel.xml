@@ -20,7 +20,7 @@
 	<!-- NONSubscribed User -->
 	<parameter name="NonsubscribedUserName"
 		value="basavaraj.pn5@gmail.com" />
-	<parameter name="NonsubscribedUserPassword" value="igsindia123" />
+	<parameter name="NonSubscribedUserPassword" value="igsindia123" />
 	<!-- Subscribed User -->
 	<parameter name="SubscribedUserName"
 		value="zeetest10@test.com" />

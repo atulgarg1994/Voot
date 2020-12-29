@@ -285,6 +285,31 @@ private Zee5MPWAMixPanelBusinessLogic zee5PWABusinessLogic;
 			zee5PWABusinessLogic.verifyRentalPurchaseCallReturnedEvent(userType);
 		}
 		
+		@Test(priority = 28)
+		@Parameters({ "userType" })
+		public void verifySubscriptionPageViewedEventViaBuySubscription(String userType) throws Exception {
+			System.out.println("Verify Subscription Page Viewed Event by clicking on Buy subscription in hamburger menu");
+			zee5PWABusinessLogic.relaunch();
+			zee5PWABusinessLogic.verifySubscriptionPageViewedEventViaBuySubscription(userType);
+		}
+		
+		@Test(priority = 29)
+		@Parameters({ "userType" })
+		public void verifySubscriptionPageViewedEventViaPrepaidCode(String userType) throws Exception {
+			System.out.println("Verify Subscription Page Viewed Event by clicking on prepaid code option in hamburger menu");
+			zee5PWABusinessLogic.relaunch();
+			zee5PWABusinessLogic.verifySubscriptionPageViewedEventViaPrepaidCode(userType);
+		}
+		
+		@Test(priority = 30)
+		@Parameters({ "userType" })
+		public void verifySubscriptionPageViewedEventByClickingGetPremiumCTAOnCarousel(String userType) throws Exception {
+			System.out.println("Verify Subscription Page Viewed Event By Clicking on Get Premium CTA On Carousel");
+			zee5PWABusinessLogic.relaunch();
+			zee5PWABusinessLogic.verifySubscriptionPageViewedEventByClickingGetPremiumCTAOnCarousel(userType);
+		}
+		
+	
 		
 		
 	

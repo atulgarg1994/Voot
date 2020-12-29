@@ -307,7 +307,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		if (userType.equals("NonSubscribedUser")) {
 			extent.HeaderChildNode("Relaunch functionality");
-			verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login button");
+		//	verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login button");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			click(AMDLoginScreen.objEmailIdField, "Email field");
 			verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, NonsubscribedUserName, "Email field");
@@ -334,7 +335,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		if (userType.equals("SubscribedUser")) {
 			extent.HeaderChildNode("Relaunch functionality");
-			verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login button");
+		//	verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login button");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			click(AMDLoginScreen.objEmailIdField, "Email field");
 			verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUserName, "Email field");
@@ -600,7 +602,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue");
 		verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn, "Continue");
 
-		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login button");
+	//	verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login button");
+		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 		click(AMDLoginScreen.objEmailIdField, "Email field");
 		verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
 
@@ -2367,26 +2370,26 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						"Subscribe Now button failed to displayed in selected launguage: " + strSubsNow);
 				logger.error("Subscribe Now button failed to displayed in selected launguage: " + strSubsNow);
 			}
-			String strHavePrepaidCode = findElement(AMDOnboardingScreen.objHavePrepaidBtn).getText();
-			if (strHavePrepaidCode != "Have a prepaid code") {
-				extent.extentLoggerPass("Intro screen",
-						"Have a Prepaid code CTA is displayed in selected launguage: " + strHavePrepaidCode);
-				logger.info("Have a Prepaid code CTA is displayed in selected launguage: " + strHavePrepaidCode);
-			} else {
-				extent.extentLoggerFail("Intro screen",
-						"Have a Prepaid code CTA failed to displayed in selected launguage: " + strHavePrepaidCode);
-				logger.error(
-						"Have a Prepaid code CTA failed to displayed in selected launguage: " + strHavePrepaidCode);
-			}
-			String strLoginCTA = findElement(AMDOnboardingScreen.objLoginLnk).getText();
-			if (strHavePrepaidCode != "Login") {
-				extent.extentLoggerPass("Intro screen", "Login CTA is displayed in selected launguage: " + strLoginCTA);
-				logger.info("Login CTA is displayed in selected launguage: " + strLoginCTA);
-			} else {
-				extent.extentLoggerFail("Intro screen",
-						"Login CTA failed to displayed in selected launguage: " + strLoginCTA);
-				logger.error("Login CTA failed to displayed in selected launguage: " + strLoginCTA);
-			}
+//			String strHavePrepaidCode = findElement(AMDOnboardingScreen.objHavePrepaidBtn).getText();
+//			if (strHavePrepaidCode != "Have a prepaid code") {
+//				extent.extentLoggerPass("Intro screen",
+//						"Have a Prepaid code CTA is displayed in selected launguage: " + strHavePrepaidCode);
+//				logger.info("Have a Prepaid code CTA is displayed in selected launguage: " + strHavePrepaidCode);
+//			} else {
+//				extent.extentLoggerFail("Intro screen",
+//						"Have a Prepaid code CTA failed to displayed in selected launguage: " + strHavePrepaidCode);
+//				logger.error(
+//						"Have a Prepaid code CTA failed to displayed in selected launguage: " + strHavePrepaidCode);
+//			}
+//			String strLoginCTA = findElement(AMDOnboardingScreen.objLoginLnk).getText();
+//			if (strHavePrepaidCode != "Login") {
+//				extent.extentLoggerPass("Intro screen", "Login CTA is displayed in selected launguage: " + strLoginCTA);
+//				logger.info("Login CTA is displayed in selected launguage: " + strLoginCTA);
+//			} else {
+//				extent.extentLoggerFail("Intro screen",
+//						"Login CTA failed to displayed in selected launguage: " + strLoginCTA);
+//				logger.error("Login CTA failed to displayed in selected launguage: " + strLoginCTA);
+//			}
 			Back(2);
 			if (findElement(AMDOnboardingScreen.objSelectedDisplayLang).getText() != "English") {
 				click(AMDOnboardingScreen.objSelectDisplayLang("English"), "English language");
@@ -2396,10 +2399,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			click(AMDOnboardingScreen.objContent_ContinueBtn, "[Content Language] Continue button");
 			// Verify Login button is displayed
-			verifyElementExist(AMDOnboardingScreen.objLoginLnk, "Login button");
+			//verifyElementExist(AMDOnboardingScreen.objLoginLnk, "Login button");
+			verifyElementExist(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free button");
 
 			// Verify user is navigated to Login Registration screen
-			click(AMDOnboardingScreen.objLoginLnk, "Login button");
+			//click(AMDOnboardingScreen.objLoginLnk, "Login button");
+			click(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free button");
 			hideKeyboard();
 			// Click operation is used for the device which do not identify the keyboard
 			click(AMDLoginScreen.objContinueWithTxt, "Or Continue with");
@@ -2457,19 +2462,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDOnboardingScreen.objBackBtn, "Back button");
 
 			// Verify that Have a prepaid code? is displayed
-			verifyElementPresentAndClick(AMDOnboardingScreen.objHavePrepaidBtn, "Have a preapaid code? button");
-
-			// Verify Prepaid code screen is displayed after tapping on Prepaid code button
-			if (findElement(AMDOnboardingScreen.objPrepaidPopupLabel).isDisplayed()) {
-				extent.extentLoggerPass("Verify navigation post tapping Prepaid code button", "User is navigated to "
-						+ findElement(AMDOnboardingScreen.objPrepaidPopupLabel).getText() + " Screen");
-				logger.info("User is navigated to " + findElement(AMDOnboardingScreen.objPrepaidPopupLabel).getText()
-						+ " Screen");
-			} else {
-				extent.extentLoggerFail("Verify navigation post tapping Prepaid code button",
-						"Failed to navigate into Prepaid screen post tapping Have a prepaid code button");
-				logger.error("Failed to navigate into Prepaid screen post tapping Have a prepaid code button");
-			}
+//			verifyElementPresentAndClick(AMDOnboardingScreen.objHavePrepaidBtn, "Have a preapaid code? button");
+//
+//			// Verify Prepaid code screen is displayed after tapping on Prepaid code button
+//			if (findElement(AMDOnboardingScreen.objPrepaidPopupLabel).isDisplayed()) {
+//				extent.extentLoggerPass("Verify navigation post tapping Prepaid code button", "User is navigated to "
+//						+ findElement(AMDOnboardingScreen.objPrepaidPopupLabel).getText() + " Screen");
+//				logger.info("User is navigated to " + findElement(AMDOnboardingScreen.objPrepaidPopupLabel).getText()
+//						+ " Screen");
+//			} else {
+//				extent.extentLoggerFail("Verify navigation post tapping Prepaid code button",
+//						"Failed to navigate into Prepaid screen post tapping Have a prepaid code button");
+//				logger.error("Failed to navigate into Prepaid screen post tapping Have a prepaid code button");
+//			}
 			Back(1);
 		} else {
 			extent.extentLoggerPass("Intro Screen", "Intro Screen is not displayed for " + userType);
@@ -2510,11 +2515,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Login/Register Screen", "Login/Register Screen is not displayed");
 			}
 
-		} else if (loginThrough.equals("login")) {
-			HeaderChildNode("Validate Login/Register Screen");
-			click(AMDLoginScreen.objLoginLnk, "Login link");
-		}
-
+		} 
+//		else if (loginThrough.equals("login")) {
+//			HeaderChildNode("Validate Login/Register Screen");
+//			click(AMDLoginScreen.objLoginLnk, "Login link");
+//		}
 	}
 
 	public void validateRegister(String firstName, String secoundName) throws Exception {
@@ -2730,8 +2735,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLogger("userType", "UserType : Guest");
 		}
 
-		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-		waitTime(3000);
+//		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+//		waitTime(3000);
 
 		switch (LoginMethod) {
 		case "Guest":
@@ -2749,6 +2754,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
 
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -2764,6 +2771,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
@@ -9684,7 +9692,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("\nNavigation to Home Screen");
 
 		if (pUserType.equals("Guest")) {
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+		//	verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
 			waitTime(3000);
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
@@ -11957,8 +11965,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (UserType.equals("Guest")) {
 			extent.extentLogger("userType", "UserType : Guest");
 		}
-		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-		waitTime(3000);
+//		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+//		waitTime(3000);
 
 		switch (LoginMethod) {
 		case "Guest":
@@ -11974,6 +11982,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as NonSubscribed User for Settings");
 			String SUsername = getParameterFromXML("SettingsNonsubscribedUserName");
 			String SPassword = getParameterFromXML("SettingsNonsubscribedPassword");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -11988,6 +11997,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User for Settings");
 			String SettingsSubscribedUsername = getParameterFromXML("SettingsSubscribedUserName");
 			String SettingsSubscribedPassword = getParameterFromXML("SettingsSubscribedPassword");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SettingsSubscribedUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -13379,7 +13389,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		case "NonSubscribedUser":
 			navigateToIntroScreen_DisplaylangScreen();
 			extent.HeaderChildNode("Login as NonSubscribed User");
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+		//	verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
 
@@ -13396,7 +13407,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		case "SubscribedUser":
 			navigateToIntroScreen_DisplaylangScreen();
 			extent.HeaderChildNode("Login as Subscribed User");
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+		//	verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
 
@@ -14974,8 +14986,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (UserType.equals("Guest")) {
 			extent.extentLogger("userType", "UserType : Guest");
 		}
-		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-		waitTime(3000);
+//		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+//		waitTime(3000);
 
 		switch (LoginMethod) {
 		case "Guest":
@@ -14991,7 +15003,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Non-Subscribed User for Settings");
 			String SUsername = getParameterFromXML("NonsubscribedUserName");
 			String SPassword = getParameterFromXML("NonsubscribedPassword");
-
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -15006,7 +15018,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User for Settings");
 			String ClubUsername = getParameterFromXML("ClubUserName");
 			String ClubPassword = getParameterFromXML("ClubPassword");
-
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, ClubUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -15652,8 +15664,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (UserType.equals("Guest")) {
 			extent.extentLogger("userType", "UserType : Guest");
 		}
-		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-		waitTime(3000);
+//		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+//		waitTime(3000);
 
 		switch (LoginMethod) {
 		case "Guest":
@@ -15669,6 +15681,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as NonSubscribed User for User Session Management");
 			String SUsername = getParameterFromXML("USMNonsubscribedUserName");
 			String SPassword = getParameterFromXML("USMNonsubscribedPassword");
+			
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -15683,6 +15697,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User for User Session Management");
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -16376,7 +16391,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void ZEE5AppLogin(String pUserType) throws Exception {
 
 		if (!pUserType.equals("Guest")) {
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+		//	verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			waitTime(3000);
 		}
 
@@ -16385,19 +16401,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.HeaderChildNode(
 					"Validating the Navigation to Login or Register Screen Tapping on the Login link available in Intro Screen");
 
-			verifyElementPresent(AMDLoginScreen.objLoginLnk, "Login Link");
-			click(AMDLoginScreen.objLoginLnk, "Login Link");
-			if (verifyIsElementDisplayed(AMDLoginScreen.objLoginPage)) {
-				logger.info(
-						"User navigated to Login/Register Screen Tapping on the Login link present on the Intro Screen");
-				extent.extentLoggerPass("Login/Register Screen",
-						"User is navigated to Login/register Screen Tapping on the Login link present on the Intro Screen");
-			} else {
-				logger.error(
-						"User is not navigated to Login/Register Screen Tapping on the Login link present on the Intro Screen");
-				extent.extentLoggerFail("Login/Register Screen",
-						"User is not navigated to Login/register Screen Tapping on the Login link present on the Intro Screen");
-			}
+//			verifyElementPresent(AMDLoginScreen.objLoginLnk, "Login Link");
+//			click(AMDLoginScreen.objLoginLnk, "Login Link");
+//			if (verifyIsElementDisplayed(AMDLoginScreen.objLoginPage)) {
+//				logger.info(
+//						"User navigated to Login/Register Screen Tapping on the Login link present on the Intro Screen");
+//				extent.extentLoggerPass("Login/Register Screen",
+//						"User is navigated to Login/register Screen Tapping on the Login link present on the Intro Screen");
+//			} else {
+//				logger.error(
+//						"User is not navigated to Login/Register Screen Tapping on the Login link present on the Intro Screen");
+//				extent.extentLoggerFail("Login/Register Screen",
+//						"User is not navigated to Login/register Screen Tapping on the Login link present on the Intro Screen");
+//			}
 			waitTime(1000);
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
@@ -16712,8 +16728,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (UserType.equals("Guest")) {
 			extent.extentLogger("userType", "UserType : Guest");
 		}
-		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-		waitTime(3000);
+//		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+//		waitTime(3000);
 
 		switch (LoginMethod) {
 		case "Guest":
@@ -16729,6 +16745,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as NonSubscribed User for Settings");
 			String pUsername = getParameterFromXML("NonSubsUserKids");
 			String pPassword = getParameterFromXML("NonSubsPwdKids");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, pUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -16744,6 +16761,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			String pClubPackUser = getParameterFromXML("SubsUserClubPack");
 			String pClubPackPwd = getParameterFromXML("SubsPwdClubPack");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, pClubPackUser, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -16951,8 +16969,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLogger("userType", "UserType : Guest");
 		}
 
-		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-		waitTime(3000);
+//		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+//		waitTime(3000);
 
 		switch (LoginMethod) {
 		case "Guest":
@@ -16969,7 +16987,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
-
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -16985,7 +17003,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
-
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -17526,5 +17544,106 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(2000);
 			Back(1);
 		}
+	}
+	
+public void IntroScreenAndLoginScreenValidation(String userType, String RegisteredEmail) throws Exception {
+		
+		extent.HeaderChildNode("Intro screen and Login/Register screen validation");
+		if(userType.equalsIgnoreCase("Guest")){
+			verifyElementPresent(AMDOnboardingScreen.objCarouselInIntroScreen, "Carousel features");
+			verifyElementPresent(AMDOnboardingScreen.objBenefitsTextSection, "Benefits of premium member section");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			waitTime(3000);
+			if (findElement(AMDOnboardingScreen.objScreenTitle).getText().equals("Login/Register")) {
+				extent.extentLoggerPass("Verify Navigation on clicking Login button",
+						"User is navigated to" + findElement(AMDOnboardingScreen.objScreenTitle).getText() + " screen");
+				logger.info("User is navigated to " + findElement(AMDOnboardingScreen.objScreenTitle).getText()
+						+ " screen");
+			} else {
+				extent.extentLoggerFail("Verify Navigation on clicking Login button",
+						"Failed to navigate into Login/Register screen post tapping Login button");
+				logger.error("Failed to navigate into Login/Register screen post tapping Login button");
+			}
+			click(AMDOnboardingScreen.objBackBtn, "Back button");
+			
+			verifyElementPresentAndClick(AMDOnboardingScreen.objSubscribeNowBtn, "Subscribe Now");
+			waitTime(2000);
+			if (findElement(AMDOnboardingScreen.objScreenTitle).getText().equals("Subscribe")) {
+				extent.extentLoggerPass("Verify Navigation on clicking Subscribe Now button",
+						"User is navigated to" + findElement(AMDOnboardingScreen.objScreenTitle).getText() + " screen");
+				logger.info("User is navigated to " + findElement(AMDOnboardingScreen.objScreenTitle).getText()
+						+ " screen");
+			} else {
+				extent.extentLoggerFail("Verify Navigation on clicking Subcribe button",
+						"Failed to navigate into Subscribe screen post tapping Subscribe Now button");
+				logger.error("Failed to navigate into Subscribe screen post tapping Subcribe Now button");
+			}
+			click(AMDOnboardingScreen.objBackBtn, "Back button");
+			
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+			waitTime(3000);
+			verifyElementExist(AMDHomePage.objHomeBtn, "Landing screen");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objGuestUserAccount, "Login/Register button");
+			waitTime(3000);
+			if (findElement(AMDOnboardingScreen.objScreenTitle).getText().equals("Login/Register")) {
+				extent.extentLoggerPass("Login Page",
+						"User is navigated to" + findElement(AMDOnboardingScreen.objScreenTitle).getText() + " screen");
+				logger.info("User is navigated to " + findElement(AMDOnboardingScreen.objScreenTitle).getText()
+						+ " screen");
+			} else {
+				extent.extentLoggerFail("Login Page",
+						"Failed to navigate into Login/Register screen");
+				logger.error("Failed to navigate into Login/Register screen");
+			}
+			
+			type(AMDLoginScreen.objEmailIdField, RegisteredEmail, "Email Id or Mobile Number field");
+			hideKeyboard();
+			click(AMDLoginScreen.objProceedBtn, "Proceed button");
+			if (findElement(AMDOnboardingScreen.objScreenTitle).getText().equals("Login")) {
+				extent.extentLoggerPass("Login Page",
+						"User is navigated to" + findElement(AMDOnboardingScreen.objScreenTitle).getText() + " screen");
+				logger.info("User is navigated to " + findElement(AMDOnboardingScreen.objScreenTitle).getText()
+						+ " screen");
+			} else {
+				extent.extentLoggerFail("Login Page",
+						"Failed to navigate into Login/Register screen");
+				logger.error("Failed to navigate into Login/Register screen");
+			}
+			
+			verifyElementExist(AMDLoginScreen.objPasswordField, "Password field");
+			Back(1);
+			clearField(AMDLoginScreen.objEmailIdField, "Email Id");
+			verifyElementPresentAndClick(AMDLoginScreen.objfbBtn, "Facebook icon");
+			waitTime(5000);
+			if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
+				logger.info("User logged in successfully");
+				extent.extentLoggerPass("Login", "User logged in successfully");
+				verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+				Swipe("UP", 1);
+
+				verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
+				verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout Button");
+				waitTime(5000);
+				Swipe("Down", 2);
+				verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
+			} else {
+				logger.info("Pre conditions not met, Account is not logged In");
+				extentLoggerWarning("Facebook", "Pre conditions not met, Account is not logged In");
+				if (checkElementExist(AMDLoginScreen.objFBEmail, "Email Id field")) {
+					logger.info("Facebook login screen is displayed");
+					extentLoggerPass("Facebook login page", "Facebook login screen is displayed");
+				}else{
+					logger.info("Facebook login screen is not displayed");
+					extentLogger("Facebook login page", "Facebook login screen is not displayed");
+				}
+				Back(1);
+			}
+			relaunch(false);
+		}else {
+			logger.info("This is NOT applicable for "+userType);
+			extentLoggerWarning("Login", "This is NOT applicable for "+userType);
+		}
+		
 	}
 }

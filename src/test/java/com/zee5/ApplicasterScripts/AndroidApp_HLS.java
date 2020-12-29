@@ -28,13 +28,20 @@ public class AndroidApp_HLS {
 	}
 	
 	@Test(priority = 1) // Manasa
+	@Parameters({ "userType", "RegisteredEmail" })
+	public void IntroScreenAndLoginScreenValidation(String userType, String RegisteredEmail) throws Exception {
+		System.out.println("\n---Onboarding screen Validation ---\n");
+		ZEE5ApplicasterBusinessLogic.IntroScreenAndLoginScreenValidation(userType, RegisteredEmail);
+	}
+	
+	@Test(priority = 2) // Manasa
 	@Parameters({ "userType", "contentWithoutTrailer" })
 	public void subscriptionValidationHLS(String userType, String contentWithoutTrailer) throws Exception {
 		System.out.println("\n---Subscription Validation ---\n");
 		ZEE5ApplicasterBusinessLogic.subscriptionValidationForHLS(userType, contentWithoutTrailer);
 	}
 
-	@Test(priority = 2) // Sushma
+	@Test(priority = 3) // Sushma
 	@Parameters({ "userType", "searchModuleKeyword", "searchKeyword10", "searchKeyword4" })
 	public void HLS(String userType, String searchModuleKeyword, String searchKeyword10, String searchKeyword4)
 			throws Exception {

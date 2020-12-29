@@ -145,5 +145,7 @@ public class AMDOnboardingScreen {
 	public static By objContinueBtnInDebugBuild = By.xpath("//*[@resource-id='com.graymatrix.did:id/continue_button']");
 	
 	public static By objContinueBtnInCountryPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/country_selection_button']");
+	
+	public static By objCarouselInIntroScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/zee5RailsTypeCarouselFragmentId']");
 
 }

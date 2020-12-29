@@ -703,7 +703,8 @@ public class ResponseInstance {
 //		getWatchList("basavaraj.pn5@gmail.com","igsindia123");
 //		getUserData("basavaraj.pn5@gmail.com","igsindia123");
 //		getUserOldSettingsDetails("amdnonmixpanel@yopmail.com","123456");
-		ValidateRailsAndContents("Guest","Movies");
+//		ValidateRailsAndContents("Guest","Movies");
+		getUserData("basavaraj.pn5@gmail.com","igsindia123");
 //		ArrayList<List<String>> AL = new ArrayList<List<String>>();
 //		List<String> List = new ArrayList<String>();
 //		
@@ -760,7 +761,7 @@ public class ResponseInstance {
 		String bearerToken = getBearerToken(pUsername, pPassword);
 		String url = "https://userapi.zee5.com/v1/user";
 		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
-//		resp.print();
+		resp.print();
 		String commaSplit[] = resp.asString().replace("{", "").replace("}", "").replaceAll("[.,](?=[^\\[]*\\])", "-")
 				.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 		for (int i = 0; i < commaSplit.length; i++) {
