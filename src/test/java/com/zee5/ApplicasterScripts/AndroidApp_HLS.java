@@ -27,7 +27,7 @@ public class AndroidApp_HLS {
 
 	}
 	
-	@Test(priority = 1) // Manasa
+	@Test(priority = 1) // Kushal
 	@Parameters({ "userType", "RegisteredEmail" })
 	public void IntroScreenAndLoginScreenValidation(String userType, String RegisteredEmail) throws Exception {
 		System.out.println("\n---Onboarding screen Validation ---\n");
@@ -43,7 +43,7 @@ public class AndroidApp_HLS {
 
 	@Test(priority = 3) // Sushma
 	@Parameters({ "userType", "searchModuleKeyword", "searchKeyword10", "searchKeyword4" })
-	public void HLS(String userType, String searchModuleKeyword, String searchKeyword10, String searchKeyword4)
+	public void homeScreen_Search_Playback_HLS(String userType, String searchModuleKeyword, String searchKeyword10, String searchKeyword4)
 			throws Exception {
 
 		System.out.println("\n---Verify Home landing screen---\n");

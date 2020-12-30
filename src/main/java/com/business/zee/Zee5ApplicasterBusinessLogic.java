@@ -17268,8 +17268,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementExist(AMDHomePage.objGetPremiumButtonOnPremiumContent, "Get premium button");
 		}
 
+		waitTime(3000);
+		
+		String width = getAttributValue("width", AMDHomePage.objCarouselConetentCard);
+		String bounds = getAttributValue("bounds", AMDHomePage.objCarouselConetentCard);
+		String b = bounds.replaceAll(",", " ").replaceAll("]", " ");
+		String height = b.split(" ")[1];
+
+		carouselCardsSwipe("LEFT", 1, width, height);
 		String courselContentTitle = getText(AMDHomePage.objCarouselTitle1);
-		verifyElementPresentAndClick(AMDHomePage.objCarouselTitle1, "Carousel content");
+		System.out.println(courselContentTitle);
+		click(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content");
 		waitTime(5000);
 		if (verifyIsElementDisplayed(AMDHomePage.objSubscribePopup)) {
 			Back(1);
@@ -17277,7 +17286,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
 		String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
-		if (courselContentTitle.equalsIgnoreCase(consumptionScreenTitle)) {
+		if (consumptionScreenTitle.contains(courselContentTitle)) {
 			logger.info("Respective content screen on tap of any carousel banner is displayed");
 			extent.extentLoggerPass("Consumption screen",
 					"Respective content screen on tap of any carousel banner is displayed");
@@ -17412,13 +17421,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			extent.HeaderChildNode("Verify Get Premium CTA on carousel");
 			waitTime(2000);
-			verifyElementPresent(AMDHomePage.objGetPremiumButtonOnPremiumContent, "Get Premium CTA on carousel");
+			verifyElementPresent(AMDHomePage.objGetPremiumCTAOnCarousel, "Get Premium CTA on carousel");
 
 			click(AMDHomePage.objSubscribeTeaser, "Subscribe CTA");
 			waitTime(5000);
 			String prepaidcode = "Z56MSK93rJGDyi";
 			click(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Prepaid code");
-			type(AMDSubscibeScreen.objApplyPromoCodeTextbox, prepaidcode, "Prepaid code");
+			waitTime(2000);
+			getDriver().getKeyboard().sendKeys(prepaidcode);
+		//	type(AMDSubscibeScreen.objApplyPromoCodeTextbox, prepaidcode, "Prepaid code");
 			hideKeyboard();
 			click(AMDSubscibeScreen.objApply, "Apply button");
 			if (userType.equals("Guest")) {
@@ -17438,7 +17449,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				hideKeyboard();
 				click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
 				click(AMDSubscibeScreen.objPasswordTextField, "Password field");
-				type(AMDSubscibeScreen.objPasswordTextField, "User@123", "Password field");
+		//		type(AMDSubscibeScreen.objPasswordTextField, "User@123"+"\n", "Password field");
+				getDriver().getKeyboard().sendKeys("User@123"+"\n");
+
 				hideKeyboard();
 				click(AMDSubscibeScreen.objProceedPWDScreen, "Proceed button");
 				waitTime(5000);
@@ -17505,7 +17518,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementPresent(AMDHomePage.objGetPremiumPopUP, "Get Premium PopUp");
 
 			click(AMDSubscibeScreen.objHaveAPromocode, "Prepaid code");
-			type(AMDSubscibeScreen.objHaveAPromocode, prepaidcode, "Prepaid code");
+			waitTime(2000);
+			getDriver().getKeyboard().sendKeys(prepaidcode);
+			//type(AMDSubscibeScreen.objHaveAPromocode, prepaidcode, "Prepaid code");
 			hideKeyboard();
 			click(AMDSubscibeScreen.objApplyBtn, "Apply button");
 
@@ -17535,7 +17550,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 		}
 		Back(3);
-
 		if (userType.equals("Guest")) {
 			click(AMDHomePage.objMoreMenu, "More Menu");
 			Swipe("UP", 2);
@@ -17612,14 +17626,19 @@ public void IntroScreenAndLoginScreenValidation(String userType, String Register
 			}
 			
 			verifyElementExist(AMDLoginScreen.objPasswordField, "Password field");
+			waitTime(4000);
 			Back(1);
+			click(AMDLoginScreen.objBackBtn, "Back button");
+			waitTime(4000);
 			clearField(AMDLoginScreen.objEmailIdField, "Email Id");
+			waitTime(3000);
 			verifyElementPresentAndClick(AMDLoginScreen.objfbBtn, "Facebook icon");
 			waitTime(5000);
 			if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
 				logger.info("User logged in successfully");
 				extent.extentLoggerPass("Login", "User logged in successfully");
 				verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+				waitTime(4000);
 				Swipe("UP", 1);
 
 				verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");

@@ -2291,7 +2291,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (!(userType.equals("SubscribedUser"))) {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
 			mixpanel.FEProp.setProperty("Page Name", "payment_page");
-			mixpanel.FEProp.setProperty("Source", "account_info");
+			
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
 			mixpanel.FEProp.setProperty("cost", cost[1]);
@@ -2302,6 +2302,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			String TokenORID =null;
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
+					mixpanel.FEProp.setProperty("Source", "account_info");
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
 					getDriver().getKeyboard().sendKeys("igszee5test123g@gmail.com");
 					hideKeyboard();
@@ -2321,6 +2322,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					waitTime(10000);
 				}
 			}else {
+				mixpanel.FEProp.setProperty("Source", "pack_selection");
 				waitTime(15000);
 				TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
 				System.out.println(TokenORID);	
@@ -2351,7 +2353,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				waitTime(2000);
 				hideKeyboard();
 			click(PWASubscriptionPages.objMobileProceedToPayButton, "Proceed To Pay Button");
-			waitTime(10000);
+		//	waitTime(10000);
 			getDriver().switchTo().defaultContent();
 			waitTime(20000);
 			
@@ -2367,7 +2369,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objClubPack, "Club Pack");
 			click(PWASubscriptionPages.objPackAmount1, "Pack");
 			mixpanel.FEProp.setProperty("Page Name", "payment_page");
-			mixpanel.FEProp.setProperty("Source", "account_info");
+			
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
 			mixpanel.FEProp.setProperty("cost", cost[1]);
@@ -2378,6 +2380,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			String TokenORID =null;
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
+					mixpanel.FEProp.setProperty("Source", "account_info");
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
 					getDriver().getKeyboard().sendKeys("igszee5test123g@gmail.com");
 					hideKeyboard();
@@ -2399,6 +2402,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			}
 		}else {
 			waitTime(15000);
+			mixpanel.FEProp.setProperty("Source", "pack_selection");
 			TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
 			System.out.println(TokenORID);	
 			waitTime(10000);	
@@ -2447,7 +2451,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
 			mixpanel.FEProp.setProperty("cost", cost[1]);
-			mixpanel.FEProp.setProperty("Payment Method", "Qwikcilver");
+			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 
@@ -5292,7 +5296,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 	public void verifyPopUpLaunchEventForCompleteProfilePopUp(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.HeaderChildNode("Verify Pop Up Launch Event when Complete Profile popup is displayed");
-
+			relaunch();
 			logout();
 			waitTime(3000);
 			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
@@ -12657,7 +12661,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 
 	
 	public void verifyRentalPurchaseCallInitiatedEvent(String userType) throws Exception {
-		extent.HeaderChildNode("Rental Purchase Call Initiated Event for All access pack");
+		extent.HeaderChildNode("Rental Purchase Call Initiated Event");
 
 		
 		if (!(userType.equals("SubscribedUser"))) {
@@ -12671,15 +12675,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);		
 			JSClick(PWAHomePage.objRentforINRPopupRentforINRBtn, "Rent for INR Button");
 
-			mixpanel.FEProp.setProperty("Page Name", "payment_failure");
-			mixpanel.FEProp.setProperty("Source", "N/A");
-			mixpanel.FEProp.setProperty("Payment Method", "Qwikcilver");
-			
+			mixpanel.FEProp.setProperty("Page Name", "payment_page");
+			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
 			Thread.sleep(5000);
 			
 			String TokenORID=null;
 			if (userType.equals("Guest")) {
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
+					mixpanel.FEProp.setProperty("Source", "account_info");
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
 					getDriver().getKeyboard().sendKeys("igszee5test123g@gmail.com");
 					hideKeyboard();
@@ -12701,6 +12704,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				}
 			}else {
 				waitTime(15000);
+				mixpanel.FEProp.setProperty("Source", "pack_selection");
 				TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
 				System.out.println(TokenORID);	
 				waitTime(10000);	
@@ -12745,7 +12749,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 	
 	
 	public void verifyRentalPurchaseCallReturnedEvent(String userType) throws Exception {
-		extent.HeaderChildNode("Rental Purchase Call Returned Event for All access pack");
+		extent.HeaderChildNode("Rental Purchase Call Returned Event");
 
 		
 		if (!(userType.equals("SubscribedUser"))) {
@@ -12759,9 +12763,10 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);		
 			JSClick(PWAHomePage.objRentforINRPopupRentforINRBtn, "Rent for INR Button");
 
-			mixpanel.FEProp.setProperty("Page Name", "payment_failure");
-			mixpanel.FEProp.setProperty("Source", "N/A");
-			mixpanel.FEProp.setProperty("Payment Method", "Qwikcilver");
+			mixpanel.FEProp.setProperty("Page Name", "payment_page");
+			mixpanel.FEProp.setProperty("Source", "payment_failure");
+			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+	
 			Thread.sleep(5000);
 			
 			String TokenORID =null;

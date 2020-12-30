@@ -7510,7 +7510,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				} else {
 					firefoxpause();
 				}
-				actions.moveToElement(player).build().perform();
+//				actions.moveToElement(player).build().perform();
 				click(PWAPlayerPage.maximizeBtn, "Maximize button");
 				waitTime(1000);
 				click(PWAPlayerPage.minimizeBtn, "Minimize button");

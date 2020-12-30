@@ -289,9 +289,9 @@ public class WebPWASanityScript {
 // -------------------------BHAVANA Content Details--------------------------
 
 	@Test(priority = 24)
-	@Parameters({ "browserType", "url", "userType", "devicePin", "consumptionsEpisode", "consumptionsShow",
+	@Parameters({ "browserType", "url", "userType", "consumptionsEpisode", "consumptionsShow",
 			"consumptionsFreeContent", "consumptionsPremiumContent" })
-	public void PWAContentDetails(String browser, String url, String userType, String devicePin,
+	public void PWAContentDetails(String browser, String url, String userType, 
 			String consumptionsEpisode, String consumptionsShow, String consumptionsFreeContent,
 			String consumptionsPremiumContent) throws Exception {
 

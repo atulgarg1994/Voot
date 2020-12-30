@@ -1,9 +1,13 @@
 package com.driverInstance;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,6 +15,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.SkipException;
 import com.propertyfilereader.PropertyFileReader;
+import com.sun.glass.events.KeyEvent;
 import com.utility.Utilities;
 import com.zee5.ApplicasterPages.AMDOnboardingScreen;
 import io.appium.java_client.AppiumDriver;
@@ -128,7 +133,35 @@ public class DriverInstance extends Drivertools {
 		tlWebDriver.get().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		tlWebDriver.get().get(getURL());
 		tlWebDriver.get().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		tlWebDriver.get().manage().window().maximize();
+//		Robot robot;
+//		try {
+//			robot = new Robot();
+//			for (int i = 0; i < 2; i++) {
+//				robot.keyPress(KeyEvent.VK_CONTROL);
+//				robot.keyPress(KeyEvent.VK_SUBTRACT);
+//				robot.keyRelease(KeyEvent.VK_SUBTRACT);
+//				robot.keyRelease(KeyEvent.VK_CONTROL);
+//			}
+//		} catch (AWTException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+//		JavascriptExecutor js = (JavascriptExecutor) tlWebDriver.get();
+//		js.executeScript("document.body.style.zoom'60%'");
+		
+//		Robot robot;
+//		try {
+//		robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_CONTROL);
+//		robot.keyPress(KeyEvent.VK_MINUS);
+//		robot.keyRelease(KeyEvent.VK_CONTROL);
+//		robot.keyRelease(KeyEvent.VK_MINUS);
+//		} catch (AWTException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		tlWebDriver.get().manage().window().maximize();
 	}
 
 	/**
