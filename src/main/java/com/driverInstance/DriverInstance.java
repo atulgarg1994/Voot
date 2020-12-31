@@ -2,6 +2,7 @@ package com.driverInstance;
 
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
@@ -11,9 +12,12 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.SkipException;
+
+import com.google.common.collect.ImmutableMap;
 import com.propertyfilereader.PropertyFileReader;
 import com.sun.glass.events.KeyEvent;
 import com.utility.Utilities;
@@ -120,6 +124,17 @@ public class DriverInstance extends Drivertools {
 			tlWebDriver.set(new ChromeDriver(options));
 //			WebDriverEventListener popupListener = new PopUpListener();
 //			tlWebDriver.set(new EventFiringWebDriver(new ChromeDriver(options)).register(popupListener));
+			
+			
+//			try {
+//				ChromeDriverService chromeDriverService = new ChromeDriverService.Builder()
+//				        .usingDriverExecutable(new File("/home/tarun/Downloads/chromedriver"))
+//				        .usingAnyFreePort().withEnvironment(ImmutableMap.of("DISPLAY", ":1")).build();
+//				chromeDriverService.start();
+//				tlWebDriver.set(new ChromeDriver(chromeDriverService));
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 		}
 
 		else if (browserName.equalsIgnoreCase("IE")) {
@@ -133,35 +148,7 @@ public class DriverInstance extends Drivertools {
 		tlWebDriver.get().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		tlWebDriver.get().get(getURL());
 		tlWebDriver.get().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-//		Robot robot;
-//		try {
-//			robot = new Robot();
-//			for (int i = 0; i < 2; i++) {
-//				robot.keyPress(KeyEvent.VK_CONTROL);
-//				robot.keyPress(KeyEvent.VK_SUBTRACT);
-//				robot.keyRelease(KeyEvent.VK_SUBTRACT);
-//				robot.keyRelease(KeyEvent.VK_CONTROL);
-//			}
-//		} catch (AWTException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-//		JavascriptExecutor js = (JavascriptExecutor) tlWebDriver.get();
-//		js.executeScript("document.body.style.zoom'60%'");
-		
-//		Robot robot;
-//		try {
-//		robot = new Robot();
-//		robot.keyPress(KeyEvent.VK_CONTROL);
-//		robot.keyPress(KeyEvent.VK_MINUS);
-//		robot.keyRelease(KeyEvent.VK_CONTROL);
-//		robot.keyRelease(KeyEvent.VK_MINUS);
-//		} catch (AWTException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		tlWebDriver.get().manage().window().maximize();
+
 	}
 
 	/**
@@ -169,7 +156,7 @@ public class DriverInstance extends Drivertools {
 	 * 
 	 * @param packagename
 	 */
-	public static void removePermisson(String packagename) 
+	public static void removePermisson(String packagename)
 	{
 		logger.info("****Clearing the App Data****");
 		String cmd2 = "adb shell pm clear " + packagename;

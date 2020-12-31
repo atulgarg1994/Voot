@@ -1,10 +1,30 @@
 package com.zee5.DFP;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+import org.aspectj.lang.annotation.After;
+
+import com.epam.reportportal.listeners.ListenerParameters;
+import com.epam.reportportal.service.LockFile;
+import com.epam.reportportal.service.ReportPortal;
+import com.epam.reportportal.service.ReportPortalClient;
+import com.epam.ta.reportportal.ws.model.FinishExecutionRQ;
+import com.epam.ta.reportportal.ws.model.launch.Mode;
+
+import java.io.*;
+import java.nio.file.*;
+import java.util.zip.*;
+
 
 public class CharlesConfigure {
 
@@ -16,9 +36,11 @@ public class CharlesConfigure {
 	public static void main(String[] args) throws IOException, InterruptedException {
 //		openCharles();
 //		saveCharles("ChlsXMLFile");
-		PubAds.main(null);
+//		PubAds.main(null);
 //		System.out.println(System.getProperty("user.dir") + "\\DifferenceBtwTemplateAndUIPlayedContent.chlsx");
 //		-config C:\\Users\\IGS0026\\Documents\\Charles\\CharlesSettings.xml
+		
+	        zipFile("C:\\Users\\IGS0026\\Downloads\\jenkins.msi");
 	}
 
 	public static void openCharles() throws IOException, InterruptedException {
@@ -65,5 +87,27 @@ public class CharlesConfigure {
 
 		}
 	}
+
+	 private static void zipFile(String filePath) {
+	        try {
+	            File file = new File(filePath);
+	            String zipFileName = file.getName().concat(".zip");
+	 
+	            FileOutputStream fos = new FileOutputStream(zipFileName);
+	            ZipOutputStream zos = new ZipOutputStream(fos);
+	 
+	            zos.putNextEntry(new ZipEntry(file.getName()));
+	 
+	            byte[] bytes = Files.readAllBytes(Paths.get(filePath));
+	            zos.write(bytes, 0, bytes.length);
+	            zos.closeEntry();
+	            zos.close();
+	 
+	        } catch (FileNotFoundException ex) {
+	            System.err.format("The file %s does not exist", filePath);
+	        } catch (IOException ex) {
+	            System.err.println("I/O error: " + ex);
+	        }
+	    }
 
 }

@@ -2,13 +2,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Web" parallel="false" thread-count="1">
 
-	 <parameter name="userType" value="${UserType}"/> 
+	 <!-- <parameter name="userType" value="${UserType}"/> 
 	 <parameter name="browserType" value="${BrowserType}"/> 
-	 <parameter name="url" value="${url}" />
+	 <parameter name="url" value="${url}" /> -->
 	 
-	<!--  <parameter name="url" value="prod" />
+	 <parameter name="url" value="prod" />
 	<parameter name="browserType" value="chrome" />
-	<parameter name="userType" value="Guest" /> -->
+	<parameter name="userType" value="Guest" /> 
 
 	<parameter name="runModule" value="Suite" />
 
@@ -134,7 +134,7 @@
 	<listeners>
 		<listener class-name="com.extent.ParameterInjector" />
 		<listener class-name="com.extent.ExtentReporter" />
-		<!-- <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->
+		<listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/>
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 

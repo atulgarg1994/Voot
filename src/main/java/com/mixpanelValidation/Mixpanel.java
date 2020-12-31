@@ -163,7 +163,7 @@ public class Mixpanel extends ExtentReporter {
 	public static void fetchEvent(String distinct_id, String eventName)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
-			Thread.sleep(18000);
+			Thread.sleep(180000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -171,7 +171,6 @@ public class Mixpanel extends ExtentReporter {
 		LocalDateTime now = LocalDateTime.now();
 		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
 		System.out.println("Current Date : " + currentDate);
-		platform = "Web";
 		if (platform.equals("Android")) {
 			APIKey = "b2514b42878a7e7769945befa7857ef1";
 			UserID = "$model";

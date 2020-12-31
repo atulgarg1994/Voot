@@ -732,5 +732,6 @@ public static By objplay = By.xpath("//span[text()='Play']");
 	
 	public static By objzeeplexHowitWorksMobile=By.xpath("//div[@class='plexLearnMoreLink' and .='How it Works ?']");
 	public static By objZeeplexComesToYouHomePage=By.xpath("//*[@class='plexContainer']//*[.='Theatre comes to you']");
+	public static By objFirstAssetImageFirstRail = By.xpath("(//div[@class='slick-list'])[1]//div[@data-index='0']");
 
 }
