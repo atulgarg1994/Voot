@@ -197,8 +197,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			extent.extentLogger("userType", "UserType : Guest");
 		}
 
-		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-		waitTime(3000);
+//		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+//		waitTime(3000);
 
 		switch (LoginMethod) {
 		case "Guest":
@@ -216,6 +216,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
 
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -232,6 +234,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
 
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -248,6 +252,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			String ClubUsername = getParameterFromXML("ClubSubscribedUserName");
 			String ClubPassword = getParameterFromXML("ClubSubscribedPassword");
 
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, ClubUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -4485,7 +4491,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonSubscribedUserName");
+			String Username = getParameterFromXML("NonsubscribedUserName");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 			waitTime(3000);
@@ -4506,7 +4512,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 			verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login link");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonSubscribedUserName");
+			String Username = getParameterFromXML("NonsubscribedUserName");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 			waitTime(3000);
@@ -4526,7 +4532,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
 			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonSubscribedUserName");
+			String Username = getParameterFromXML("NonsubscribedUserName");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 			waitTime(3000);
@@ -4555,7 +4561,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			Swipe("Up", 1);
 			verifyElementPresentAndClick(AMDPlayerScreen.objLoginCTA, "Login CTA");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonSubscribedUserName");
+			String Username = getParameterFromXML("NonsubscribedUserName");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 			waitTime(3000);
@@ -4662,6 +4668,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "User@123", "Password field");
+		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -4780,6 +4787,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "098765409876", "Password field");
+		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5041,6 +5049,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		hideKeyboard();
 		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5108,6 +5117,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "098765409876", "Password field");
+		hideKeyboard();
 		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5133,6 +5143,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for free CTA");
 		verifyElementPresentAndClick(AMDLoginScreen.objtwitterBtn, "Twitter button");
+		 waitTime(4000);
+	      if (verifyIsElementDisplayed(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App")) {
+				click(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App");
+		 }
+	      waitTime(15000);
 		if (verifyIsElementDisplayed(AMDHomePage.objHome, "Home tab")) {
 			logger.info("User Logged in Successfully");
 			extent.extentLogger("Logged in", "User Logged in Successfully");
@@ -5225,6 +5240,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "User@123", "Password field");
+		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5248,6 +5264,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "dfghj@123", "Password field");
+		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5292,6 +5309,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 		verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login Link");
 		verifyElementPresentAndClick(AMDLoginScreen.objtwitterBtn, "Twitter button");
+		 waitTime(4000);
+	      if (verifyIsElementDisplayed(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App")) {
+				click(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App");
+		 }
+	      waitTime(15000);
 		if (verifyIsElementDisplayed(AMDHomePage.objHome, "Home tab")) {
 			logger.info("User Logged in Successfully");
 			extent.extentLogger("Logged in", "User Logged in Successfully");

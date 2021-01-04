@@ -1,5 +1,6 @@
 package com.zee5.MixpanelScripts;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -37,7 +38,7 @@ public class ZNAMixpanel_OnboardingSuite1 {
 		Zee5ApplicasterMixPanelBusinessLogic.verifySkipLoginEventBrowseForFreeScreen(userType);
 	}
 
-	@Test(priority = 2)
+//	@Test(priority = 2)
 	@Parameters({ "userType" })
 	public void verifySkipLoginEventFromLoginCTA(String userType) throws Exception {
 		System.out.println("Skip Login Event when user navigated from Login CTA");
@@ -57,14 +58,12 @@ public class ZNAMixpanel_OnboardingSuite1 {
 	@Parameters({ "userType", "keyword2" })
 	public void verifySkipLogin_LoginInGetPremiumPopUp(String userType, String keyword2) throws Exception {
 		System.out.println("Verify Skip Login Event from Get Ptremium Popup");
-		if (!userType.equals("SubscribedUser")) {
 			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 			Zee5ApplicasterMixPanelBusinessLogic.verifySkipLogin_LoginInGetPremiumPopUp(userType, keyword2);
-		}
 
 	}
 
-	@Test(priority = 5)
+//	@Test(priority = 5)
 	@Parameters({ "userType" })
 	public void verifySkipLoginEvent(String userType) throws Exception {
 		System.out.println("Verify Skip Login Event");
@@ -75,7 +74,7 @@ public class ZNAMixpanel_OnboardingSuite1 {
 	 * Logout Event
 	 */
 
-	@Test(priority = 6)
+//  @Test(priority = 6)
 	@Parameters({ "userType" })
 	public void verifyLogoutEvent(String userType) throws Exception {
 		System.out.println("Verify Logout Event");
@@ -95,7 +94,7 @@ public class ZNAMixpanel_OnboardingSuite1 {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginScreenDisplayEventThroughBrowseForScreen(userType);
 	}
 
-//	@Test(priority = 8)/
+//	@Test(priority = 8)
 	@Parameters({ "userType" })
 	public void verifyLoginScreenDisplayEventThroughLoginLinkInWelcomeScreen(String userType) throws Exception {
 		System.out.println("Verify Login Screen Display Event By Clicking On Login link in welcome screen");
@@ -128,80 +127,69 @@ public class ZNAMixpanel_OnboardingSuite1 {
 	@Test(priority = 11)
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventGPlusUserFromGetPremiumCTA(String userType) throws Exception {
-		if (!userType.equals("SubscribedUer")) {
 			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 			Zee5ApplicasterMixPanelBusinessLogic.verifyLoginIntiatedEventGPlusUserFromGetPremiumCTA();
-		}
 	}
 
 	@Test(priority = 12)
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventFBUserFromGetPremiumCTA(String userType) throws Exception {
-		if (!userType.equals("SubscribedUer")) {
 			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 			Zee5ApplicasterMixPanelBusinessLogic.verifyLoginIntiatedEventFBUserFromGetPremiumCTA();
-		}
+		
 	}
 
 	@Test(priority = 13)
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventTwitterUserFromGetPremiumCTA(String userType) throws Exception {
-		if (!userType.equals("SubscribedUer")) {
 			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 			Zee5ApplicasterMixPanelBusinessLogic.verifyLoginIntiatedEventTwitterUserFromGetPremiumCTA();
-		}
+	
 	}
 
 	@Test(priority = 14)
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventMobileOTPFromGetPremiumCTA(String userType) throws Exception {
-		if (!userType.equals("SubscribedUer")) {
 			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 			Zee5ApplicasterMixPanelBusinessLogic.verifyLoginIntiatedEventMobileOTPFromGetPremiumCTA();
-		}
+		
 	}
 
 	@Test(priority = 15)
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventNonSubUserGetPremiumCTA(String userType) throws Exception {
-		if (!userType.equals("SubscribedUer")) {
 			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 			Zee5ApplicasterMixPanelBusinessLogic.verifyLoginIntiatedEventNonSubUserGetPremiumCTA();
-		}
 	}
 
 	@Test(priority = 16)
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventSubUserFromGetPremiumCTA(String userType) throws Exception {
-		if (!userType.equals("SubscribedUer")) {
 			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 			Zee5ApplicasterMixPanelBusinessLogic.verifyLoginIntiatedEventSubUserFromGetPremiumCTA();
-		}
+		
 	}
 
 	@Test(priority = 17)
 	@Parameters({ "userType" })
 	public void verifyLoginInitiatedEventForInvalidDataEmailGetPremiumCTA(String userType) throws Exception {
-		if (!userType.equals("SubscribedUer")) {
 			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 			Zee5ApplicasterMixPanelBusinessLogic.verifyLoginInitiatedEventForInvalidDataEmailGetPremiumCTA();
-		}
+		
 	}
 
 	@Test(priority = 18)
 	@Parameters({ "userType" })
 	public void verifyLoginInitiatedEventForInvalidDataMobileGetPremiumCTA(String userType) throws Exception {
-		if (!userType.equals("SubscribedUer")) {
 			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 			Zee5ApplicasterMixPanelBusinessLogic.verifyLoginInitiatedEventForInvalidDataMobileGetPremiumCTA();
-		}
 	}
 
 	/*
 	 * Navigation : Login CTA Event : Login Initiated
 	 */
 
-	@Test(priority = 19)
+//	@Test(priority = 19)
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventGPlusUserFromLoginCTA(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
@@ -209,7 +197,7 @@ public class ZNAMixpanel_OnboardingSuite1 {
 
 	}
 
-	@Test(priority = 20)
+//	@Test(priority = 20)
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventFBUserFromLoginCTA(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
@@ -217,28 +205,28 @@ public class ZNAMixpanel_OnboardingSuite1 {
 
 	}
 
-	@Test(priority = 21)
+//	@Test(priority = 21)
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventTwitterUserFromLoginCTA(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginIntiatedEventTwitterUserFromLoginCTA();
 	}
 
-	@Test(priority = 22)
+//	@Test(priority = 22)
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventMobileOTPFromLoginCTA(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginIntiatedEventMobileOTPFromLoginCTA();
 	}
 
-	@Test(priority = 23)
+//	@Test(priority = 23)
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventNonSubUserLoginCTA(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginIntiatedEventNonSubUserLoginCTA();
 	}
 
-	@Test(priority = 24)
+//	@Test(priority = 24)
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventSubUserFromLoginCTA(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
@@ -246,7 +234,7 @@ public class ZNAMixpanel_OnboardingSuite1 {
 
 	}
 
-	@Test(priority = 25)
+//	@Test(priority = 25)
 	@Parameters({ "userType" })
 	public void verifyLoginInitiatedEventForInvalidDataEmailLoginCTA(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
@@ -254,7 +242,7 @@ public class ZNAMixpanel_OnboardingSuite1 {
 
 	}
 
-	@Test(priority = 26)
+//	@Test(priority = 26)
 	@Parameters({ "userType" })
 	public void verifyLoginInitiatedEventForInvalidDataMobileLoginCTA(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
@@ -274,42 +262,42 @@ public class ZNAMixpanel_OnboardingSuite1 {
 
 	}
 
-//	@Test(priority = 28)  
+	@Test(priority = 28)  
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventFBUserFromBrowseForFreeCTA(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginIntiatedEventFBUserFromBrowseForFreeCTA();
 	}
 
-//	@Test(priority = 29)  
+	@Test(priority = 29)  
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventTwitterUserFromBrowseForFreeCTA(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginIntiatedEventTwitterUserFromBrowseForFreeCTA();
 	}
 
-//	@Test(priority = 30)  
+	@Test(priority = 30)  
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventMobileOTPFromBrowseForFreeCTA(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginIntiatedEventMobileOTPFromBrowseForFreeCTA();
 	}
 
-//	@Test(priority = 31)  
+	@Test(priority = 31)  
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventNonSubUserBrowseForFreeCTA(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginIntiatedEventNonSubUserBrowseForFreeCTA();
 	}
 
-//	@Test(priority = 32)  
+	@Test(priority = 32)  
 	@Parameters({ "userType" })
 	public void verifyLoginIntiatedEventSubUserBrowseForFreeCTA(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginIntiatedEventSubUserBrowseForFreeCTA();
 	}
 
-//	@Test(priority = 33)  
+	@Test(priority = 33)  
 	@Parameters({ "userType" })
 	public void verifyLoginInitiatedEventForInvalidDataEmailLogin(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
@@ -327,21 +315,21 @@ public class ZNAMixpanel_OnboardingSuite1 {
 	 * Event : Login Result Navigation : Browse for Free
 	 */
 
-//	@Test(priority = 35)  
+	@Test(priority = 35)  
 	@Parameters({ "userType" })
 	public void LoginResultEventFromBrowseforFreeTwitterUser(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromBrowseforFreeTwitterUser();
 	}
 
-//	@Test(priority = 36)  
+	@Test(priority = 36)  
 	@Parameters({ "userType" })
 	public void LoginResultEventFromBrowseforFreeCTANonSubUser(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromBrowseforFreeCTANonSubUser();
 	}
 
-//	@Test(priority = 37)  
+	@Test(priority = 37)  
 	@Parameters({ "userType" })
 	public void LoginResultEventFromBrowseforFreeCTASubUser(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
@@ -373,45 +361,51 @@ public class ZNAMixpanel_OnboardingSuite1 {
 	 * Event : Login Result Navigation : Login CTA
 	 */
 
-	@Test(priority = 41)
+//	@Test(priority = 41)
 	@Parameters({ "userType" })
 	public void LoginResultEventFromLoginCTATwitterUser(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromLoginCTATwitterUser();
 	}
 
-	@Test(priority = 42)
+//	@Test(priority = 42)
 	@Parameters({ "userType" })
 	public void LoginResultEventFromLoginCTANonSubUser(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromLoginCTANonSubUser();
 	}
 
-	@Test(priority = 43)
+//	@Test(priority = 43)
 	@Parameters({ "userType" })
 	public void LoginResultEventFromLoginCTASubUser(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromLoginCTASubUser();
 	}
 
-	@Test(priority = 44)
+//	@Test(priority = 44)
 	@Parameters({ "userType" })
 	public void LoginResultEventFromLoginCTAMobileLogin(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromLoginCTAMobileLogin();
 	}
 
-	@Test(priority = 45)
+//	@Test(priority = 45)
 	@Parameters({ "userType" })
 	public void LoginResultEventFromLoginCTAMobileLoginInvalidData(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromLoginCTAMobileLoginInvalidData();
 	}
 
-	@Test(priority = 46)
+//	@Test(priority = 46)
 	@Parameters({ "userType" })
 	public void LoginResultEventFromLoginCTAInvalidEmailID(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromLoginCTAInvalidEmailID();
+	}
+	
+	@AfterTest
+	public void tearDownApp() {
+		System.out.println("Quit the App");
+		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
 }

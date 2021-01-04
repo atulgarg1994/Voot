@@ -72,10 +72,10 @@ public class AMDSearchScreen {
 	public static By objFreeMovies = By
 			.xpath("//*[@id='title']//ancestor::*[@class='android.support.v7.app.ActionBar$b']");
 
-	public static By objSearchEditBox = By.xpath("//*[@id='searchToolbarTitle']");
-
-	public static By objSearchBoxBar = By.xpath("//*[@resource-id='com.graymatrix.did:id/searchBar']");
-
+	public static By objSearchEditBox = By.xpath("//*[@resource-id='com.graymatrix.did:id/searchBar']");
+	
+	public static By objSearchBoxBar = By.xpath("//*[@resource-id='com.graymatrix.did:id/searchBarText']");
+	
 	public static By objEnterKey = By.xpath("(//*[@id='icon'])[11]");
 
 	public static By objNoSearchResults = By.xpath("//*[@id='tvNoResults']");
@@ -115,7 +115,7 @@ public class AMDSearchScreen {
 	public static By objYouWillBeChargedInfo = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/payment_recurring_msg']");
 
-	public static By objAllTab = By.xpath("(//*[@id='title'and @text='All'])");
+	public static By objAllTab = By.xpath("(//*[@text='All'])");
 
 	public static By objEpsiodesTab = By.xpath("(//*[@id='title'and @text='Episodes'])");
 
@@ -198,8 +198,7 @@ public class AMDSearchScreen {
 		System.out.println("//*[@id='item_primary_text' and contains(text(), " + title + ")]");
 	}
 
-	public static By objFirstContentInSearchResult = By.xpath(
-			"(//*[@resource-id='com.graymatrix.did:id/tabLayout_container']/following-sibling::*/child::*/child::*/child::*/child::*)[1]/child::*[@resource-id='com.graymatrix.did:id/item_primary_text']");
+	public static By objFirstContentInSearchResult = By.xpath("(//*[@resource-id='com.graymatrix.did:id/searchItemTitleText'])[1]");
 	
 	public static By objSearchIcon = By.xpath("//*[@id='title_and_logo_container']//following-sibling::*");
 	
@@ -210,7 +209,7 @@ public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.
 	public static By objSelectFirstEpisodeResult = By.xpath("//*[@id='item_secondary_text'][1]");
 	
 	public static By objSearchResult(String title) {
-		return By.xpath("//*[@id='item_primary_text' and contains(text(), \""+title+"\")]");
+		return By.xpath("//*[@id='searchItemTitleText' and contains(text(), \""+title+"\")]");
 	}
 	public static By objFirstSearchResult(String title) {
 		return By.xpath("(//*[@id='item_primary_text' and contains(text(), \""+title+"\")])[1]");
