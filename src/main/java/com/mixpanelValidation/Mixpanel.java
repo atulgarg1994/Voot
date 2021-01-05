@@ -307,6 +307,8 @@ public class Mixpanel extends ExtentReporter {
 						validateBoolean(value);
 					} else if (isContain(integerParameters, key)) {
 						validateInteger(value);
+					}else if (isContain(integerParameters, key)) {
+						validateFloat(value);
 					}
 					validateParameterValue(key, value);
 					extentInfo();
@@ -365,6 +367,18 @@ public class Mixpanel extends ExtentReporter {
 		}
 	}
 
+	private static void validateFloat(String value) {
+		if (!value.equals("N/A")) {
+//			Pattern p = Pattern.compile("[0-9]+");
+//			Matcher m = p.matcher(value);
+//			if (!m.matches()) {
+//				fillCellColor();
+//				extentReportFail("Empty parameter",
+//						"Value is not a Integer Data-Type :- <b>Key : " + key + " <br/> value : " + value + "</b>");
+//			}
+		}
+	}
+	
 	private static boolean isContain(String source, String subItem) {
 		String pattern = "\\b" + subItem + "\\b";
 		Pattern p = Pattern.compile(pattern);

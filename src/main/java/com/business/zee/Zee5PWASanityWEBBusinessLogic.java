@@ -15416,7 +15416,7 @@ public void newsValidation(String userType, String tabName) throws Exception {
 				extent.extentLogger("Autoplay",
 						"Rewind button on Autoplaying carousel is not displayed, expected behavior");
 			}
-			if (verifyIsElementDisplayed(PWAPlayerPage.minimizeBtn)) {
+			if (verifyElementDisplayed(PWAPlayerPage.minimizeBtn)) {
 				logger.error("Autoplaying carousel should not be in full screen mode");
 				extent.extentLoggerFail("Autoplay", "Autoplaying carousel should not be in full screen mode");
 			} else {

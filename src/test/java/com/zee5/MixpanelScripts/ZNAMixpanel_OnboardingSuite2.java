@@ -1,5 +1,6 @@
 package com.zee5.MixpanelScripts;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -32,61 +33,43 @@ public class ZNAMixpanel_OnboardingSuite2 {
 	@Test(priority = 2)
 	@Parameters({ "userType" })
 	public void LoginResultEventFromGetPremiumCTATwitterLogin(String userType) throws Exception {
-
-		if (!userType.equalsIgnoreCase("SubscribedUser")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromGetPremiumCTATwitterLogin();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromGetPremiumCTATwitterLogin();
 	}
 
 	@Test(priority = 3)
 	@Parameters({ "userType" })
 	public void LoginResultEventFromGetPremiumCTANonSubUser(String userType) throws Exception {
-
-		if (!userType.equalsIgnoreCase("SubscribedUser")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromGetPremiumCTANonSubUser();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromGetPremiumCTANonSubUser();
 	}
 
 	@Test(priority = 4)
 	@Parameters({ "userType" })
 	public void LoginResultEventFromGetPremiumCTASubUser(String userType) throws Exception {
-
-		if (!userType.equalsIgnoreCase("SubscribedUser")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromGetPremiumCTASubUser();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromGetPremiumCTASubUser();
 	}
 
 	@Test(priority = 5)
 	@Parameters({ "userType" })
 	public void LoginResultEventFromGetPremiumCTAMobileLogin(String userType) throws Exception {
-
-		if (!userType.equalsIgnoreCase("SubscribedUser")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromGetPremiumCTAMobileLogin();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromGetPremiumCTAMobileLogin();
 	}
 
 	@Test(priority = 6)
 	@Parameters({ "userType" })
 	public void LoginResultEventFromGetPremiumCTAMobileLoginInvlaidData(String userType) throws Exception {
-
-		if (!userType.equalsIgnoreCase("SubscribedUser")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromGetPremiumCTAMobileLoginInvlaidData();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromGetPremiumCTAMobileLoginInvlaidData();
 	}
 
 	@Test(priority = 7)
 	@Parameters({ "userType" })
 	public void LoginResultEventFromGetPremiumCTAEmailInvlaidData(String userType) throws Exception {
-
-		if (!userType.equalsIgnoreCase("SubscribedUser")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromGetPremiumCTAEmailInvlaidData();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.LoginResultEventFromGetPremiumCTAEmailInvlaidData();
 	}
 
 	/*
@@ -100,21 +83,21 @@ public class ZNAMixpanel_OnboardingSuite2 {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyRegisterScreenDisplayEventFromBrowseForFreeCTAEmailIDLogin();
 	}
 
-	@Test(priority =9)
+	@Test(priority = 9)
 	@Parameters({ "userType" })
 	public void verifyRegisterScreenDisplayEventFromBrowseForFreeCTAMobileLogin(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyRegisterScreenDisplayEventFromBrowseForFreeCTAMobileLogin();
 	}
 
-	@Test(priority = 10)
+//	@Test(priority = 10)
 	@Parameters({ "userType" })
 	public void verifyRegisterScreenDisplayEventFromLoginCTAEmailIDLogin(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyRegisterScreenDisplayEventFromLoginCTAEmailIDLogin();
 	}
 
-	@Test(priority = 11)
+//	@Test(priority = 11)
 	@Parameters({ "userType" })
 	public void verifyRegisterScreenDisplayEventFromLoginCTAMobileLogin(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
@@ -138,19 +121,15 @@ public class ZNAMixpanel_OnboardingSuite2 {
 	@Test(priority = 14)
 	@Parameters({ "userType" })
 	public void verifyRegisterScreenDisplayEventFromGetPremiumPageEmailIDLogin(String userType) throws Exception {
-		if (!userType.equalsIgnoreCase("SubscribedUser")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic.verifyRegisterScreenDisplayEventFromGetPremiumPageEmailIDLogin();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyRegisterScreenDisplayEventFromGetPremiumPageEmailIDLogin();
 	}
 
 	@Test(priority = 15)
 	@Parameters({ "userType" })
 	public void verifyRegisterScreenDisplayEventFromGetPremiumPageMobileLogin(String userType) throws Exception {
-		if (!userType.equalsIgnoreCase("SubscribedUser")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic.verifyRegisterScreenDisplayEventFromGetPremiumPageEmailIDLogin();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyRegisterScreenDisplayEventFromGetPremiumPageEmailIDLogin();
 	}
 
 	/*
@@ -171,14 +150,14 @@ public class ZNAMixpanel_OnboardingSuite2 {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrationInitiatedEventFromBrowseForFreeCTAMobileLogin();
 	}
 
-	@Test(priority = 18)
+//	@Test(priority = 18)
 	@Parameters({ "userType" })
 	public void verifyRegistrationInitiatedEventFromLoginCTAEmailLogin(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrationInitiatedEventFromLoginCTAEmailLogin();
 	}
 
-	@Test(priority = 19)
+//	@Test(priority = 19)
 	@Parameters({ "userType" })
 	public void verifyRegistrationInitiatedEventFromLoginCTAMobileLogin(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
@@ -188,41 +167,31 @@ public class ZNAMixpanel_OnboardingSuite2 {
 	@Test(priority = 20)
 	@Parameters({ "userType" })
 	public void verifyRegistrationInitiatedEventFromGetPremiumCTAValidEmailLogin(String userType) throws Exception {
-		if (!userType.equalsIgnoreCase("SuscibedUser")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrationInitiatedEventFromGetPremiumCTAValidEmailLogin();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrationInitiatedEventFromGetPremiumCTAValidEmailLogin();
 	}
 
 	@Test(priority = 21)
 	@Parameters({ "userType" })
 	public void verifyRegistrtionInitiatedEventFroGetPremiumCTAMobileLoginInvalidData(String userType)
 			throws Exception {
-		if (!userType.equalsIgnoreCase("SuscibedUser")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic
-					.verifyRegistrtionInitiatedEventFroGetPremiumCTAMobileLoginInvalidData();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrtionInitiatedEventFroGetPremiumCTAMobileLoginInvalidData();
 	}
 
 	@Test(priority = 22)
 	@Parameters({ "userType" })
 	public void verifyRegistrationInitiatedEventFromHamburgerMenuValidEmailLogin(String userType) throws Exception {
-		if (userType.equalsIgnoreCase("Guest")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrationInitiatedEventFromHamburgerMenuValidEmailLogin();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrationInitiatedEventFromHamburgerMenuValidEmailLogin();
 	}
 
 	@Test(priority = 23)
 	@Parameters({ "userType" })
 	public void verifyRegistrtionInitiatedEventFromHamburgerMenuMobileLoginInvalidData(String userType)
 			throws Exception {
-		if (userType.equalsIgnoreCase("Guest")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic
-					.verifyRegistrtionInitiatedEventFromHamburgerMenuMobileLoginInvalidData();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrtionInitiatedEventFromHamburgerMenuMobileLoginInvalidData();
 	}
 
 	/*
@@ -246,14 +215,14 @@ public class ZNAMixpanel_OnboardingSuite2 {
 				.verifyRegistrationResultEventFromBrowseForFreeCTAInvalidMobileDataRegistration();
 	}
 
-	@Test(priority = 26)
+//	@Test(priority = 26)
 	@Parameters({ "userType" })
 	public void verifyRegistrationResultEventFromLoginCTAValidEmailRegistration(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrationResultEventFromLoginCTAValidEmailRegistration();
 	}
 
-	@Test(priority = 27)
+//	@Test(priority = 27)
 	@Parameters({ "userType" })
 	public void verifyRegistrationResultEventFromLoginCTACTAInvalidMobileDataRegistration(String userType)
 			throws Exception {
@@ -265,37 +234,29 @@ public class ZNAMixpanel_OnboardingSuite2 {
 	@Test(priority = 28)
 	@Parameters({ "userType" })
 	public void verifyRegistrationResultEventFromGetPremiumCTAValidEmailLogin(String userType) throws Exception {
-		if (!userType.equalsIgnoreCase("SuscibedUser")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrationResultEventFromGetPremiumCTAValidEmailLogin();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrationResultEventFromGetPremiumCTAValidEmailLogin();
 	}
 
 	@Test(priority = 29)
 	@Parameters({ "userType" })
 	public void verifyRegistrtionResultEventFroGetPremiumCTAMobileLoginInvalidData(String userType) throws Exception {
-		if (!userType.equalsIgnoreCase("SuscibedUser")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrtionResultEventFroGetPremiumCTAMobileLoginInvalidData();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrtionResultEventFroGetPremiumCTAMobileLoginInvalidData();
 	}
 
 	@Test(priority = 30)
 	@Parameters({ "userType" })
 	public void verifyRegistrationResultEventFromHamburgerMenuValidEmailLogin(String userType) throws Exception {
-		if (!userType.equalsIgnoreCase("SuscibedUser")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrationResultEventFromHamburgerMenuValidEmailLogin();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrationResultEventFromHamburgerMenuValidEmailLogin();
 	}
 
 	@Test(priority = 31)
 	@Parameters({ "userType" })
 	public void verifyRegistrtionResultEventFromHamburgerMenuMobileLoginInvalidData(String userType) throws Exception {
-		if (!userType.equalsIgnoreCase("SuscibedUser")) {
-			Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-			Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrtionResultEventFromHamburgerMenuMobileLoginInvalidData();
-		}
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrtionResultEventFromHamburgerMenuMobileLoginInvalidData();
 	}
 
 	/*
@@ -349,5 +310,11 @@ public class ZNAMixpanel_OnboardingSuite2 {
 		System.out.println("Verify Promo Code Result Event For Invalid code");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyPromoCodeResultEventForInvalid(userType);
+	}
+
+	@AfterTest
+	public void tearDownApp() {
+		System.out.println("Quit the App");
+		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
 }

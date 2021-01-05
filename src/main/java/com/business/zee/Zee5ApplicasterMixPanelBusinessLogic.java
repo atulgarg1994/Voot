@@ -5483,9 +5483,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		Swipe("Up", 1);
 		verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA");
 		verifyElementPresentAndClick(AMDLoginScreen.objtwitterBtn, "Twitter button");
-		if (verifyIsElementDisplayed(AMDHomePage.objHome, "Home tab")) {
+		waitTime(4000);
+		 if (verifyIsElementDisplayed(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App")) {
+				click(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App");
+		 }
+		 waitTime(20000);
+		if (verifyIsElementDisplayed(AMDPlayerScreen.objPlayerScreen, "Player Screen")) {
 			logger.info("User Logged in Successfully");
 			extent.extentLogger("Logged in", "User Logged in Successfully");
+			Back(1);
 			logout();
 		} else if (verifyIsElementDisplayed(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App")) {
 			click(AMDLoginScreen.objAuthorizeAppInTwitterpage, "Authorize App");
@@ -5540,6 +5546,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5571,6 +5578,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5601,6 +5609,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "User@123", "Password field");
+		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5631,6 +5640,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "asdf@123", "Password field");
+		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5660,6 +5670,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "asdf@123", "Password field");
+		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5894,6 +5905,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDRegistrationScreen.objMale, "Male gender");
 		verifyElementPresentAndClick(AMDRegistrationScreen.objPasswordTxtField, "Password field");
 		type(AMDRegistrationScreen.objPasswordTxtField, "123456", "Password field");
+        hideKeyboard();
+
 
 	}
 
@@ -6402,9 +6415,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Subscription Selected Event");
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
+			waitTime(3000);
 			Swipe("Up", 2);
 			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
 			waitTime(6000);
+			hideKeyboard();
 			setFEProperty(userType);
 			mixpanel.FEProp.setProperty("Element", "Continue");
 			mixpanel.FEProp.setProperty("Page Name", "subscriptionPlan");
@@ -6422,6 +6437,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			click(AMDSubscibeScreen.objClub365daysPack, "Pack");
 			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
 			waitTime(2000);
+			hideKeyboard();
 			setFEProperty(userType);
 			mixpanel.FEProp.setProperty("Element", "Continue");
 			mixpanel.FEProp.setProperty("Page Name", "subscriptionPlan");
