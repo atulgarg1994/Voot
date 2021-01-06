@@ -40,7 +40,7 @@ public class PubAds {
 	XSSFSheet myExcelSheet;
 	static ExtentReporter extent  = new ExtentReporter();
 
-	String xlPath = System.getProperty("user.dir") + "\\DFPExcelDump\\DFP102.xlsx";
+	String xlPath = System.getProperty("user.dir") + "\\DFPExcelDump\\DFP104.xlsx";
 	String sheet = "Sheet1";
 	static int rc = 0;
 	int colNumber = 1;
@@ -76,14 +76,16 @@ public class PubAds {
 			"app_version",
 			"moatactive",
 			"content_creator",
-			"ppid"};
+			"ppid",
+			"label"};
 
 	static String[] headerkeys = { "Keys", "VMAP", "VAST-PreRoll", "VAST-MidRoll", "VAST-PostRoll" };
 
 	public void readDocumnet() throws ParserConfigurationException, SAXException, IOException, InterruptedException {
 		ArrayList<String> AllCalls = new ArrayList<String>();
-		System.out.println(System.getProperty("user.dir")+"//"+CharlesConfigure.charlesName);
-		File file = new File(System.getProperty("user.dir")+"//"+CharlesConfigure.charlesName);
+//		System.out.println(System.getProperty("user.dir")+"//"+CharlesConfigure.charlesName);
+		
+		File file = new File("E:\\Zee5_Project\\Zee5\\zee5_updated\\DFPContentlog_173920111213.xml");
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setValidating(false);
 		dbf.setNamespaceAware(true);

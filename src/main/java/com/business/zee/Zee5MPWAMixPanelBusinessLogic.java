@@ -8,8 +8,6 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.html5.LocalStorage;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -1651,7 +1649,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreen(screen);
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", screen + "_landing");
+		mixpanel.FEProp.setProperty("Page Name", "tv_shows_view_all");
 
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -5161,17 +5159,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreen(tabName);
 		waitTime(5000);
 		swipeTumbnailToLeft();
-		String TrayTitle = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getText();
-		String link = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]"))
-				.getAttribute("href");
-		Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		Matcher m = p.matcher(link);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		mixpanel.FEProp.setProperty("Carousal ID", value);
-		mixpanel.FEProp.setProperty("Carousal Name", TrayTitle);
+		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "tv_shows_view_all");
 		mixpanel.FEProp.setProperty("Element", "right-arrow");

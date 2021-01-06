@@ -1072,7 +1072,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Screen View Event");
 		navigateToAnyScreenOnWeb(screen);
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", screen + "_landing");
+		mixpanel.FEProp.setProperty("Page Name", "tv_shows_view_all");
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
@@ -3274,6 +3274,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchResult(keyword2), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(keyword2), "Search Result");
 			checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP");
+			waitTime(6000);
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			String id = getWebDriver().getCurrentUrl();
@@ -5856,6 +5857,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
 			waitForElement(PWALoginPage.objCloseRegisterPopup, 10, "Register Pop Up");
+			waitTime(6000);
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			String id = getWebDriver().getCurrentUrl();
@@ -5896,6 +5898,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
 			waitTime(4000);
 			checkElementDisplayed(CompleteYourProfilePopUp.objCompleteYourProfileTxt, "Complete Your Profile");
+			waitTime(6000);
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			String id = getWebDriver().getCurrentUrl();
@@ -5928,6 +5931,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchResult(keyword6), 10, "Search Result");
 			click(PWASearchPage.objSearchResult(keyword6), "Search Result");
 			waitForElement(PWAHamburgerMenuPage.objPopupClose, 10, "Upgrade Pop Up");
+			waitTime(6000);
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			String id = getWebDriver().getCurrentUrl();

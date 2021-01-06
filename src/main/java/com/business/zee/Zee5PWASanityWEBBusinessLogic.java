@@ -17022,8 +17022,10 @@ public void newsValidation(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode(" HLS_116 : Verify the EDR contents available in the Kids Page.");
 		
 		navigateToAnyScreenOnWeb(tabName);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.Objnextarrowcarousel, "Next arrow ");
+		waitTime(3000);
 		waitForElement(PWAHomePage.objEduauraaCardCarousel,20, "Eduauraa Card in Carousel");
-
+		
 		extent.HeaderChildNode(
 				"HLS_117: Verify navigated to Consumption page taps on  EDR content and Claim Offer CTA is displayed below the player.");
 		verifyElementPresentAndClick(PWAHomePage.objFirstItemLearnWithEduauraaTray,
