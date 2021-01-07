@@ -133,12 +133,12 @@ public class WebPWAHLSScript {
 //		Zee5WEBPWASanityBusinessLogic.PlayValidation("Play", userType);
 //	}
 //
-////	@Test(priority = 16)
-//	@Parameters({ "userType" })
-//	public void KalturaPagevalidationHLS(String userType) throws Exception {
-//		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-//		Zee5WEBPWASanityBusinessLogic.kaltura(userType, "Home");
-//	}
+	@Test(priority = 16)
+	@Parameters({ "userType" })
+	public void KalturaPagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.kaltura(userType, "Home");
+	}
 //
 ////	@Test(priority = 17)
 //	@Parameters({ "userType" })
@@ -175,46 +175,6 @@ public class WebPWAHLSScript {
 //		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 //		Zee5WEBPWASanityBusinessLogic.kidsvalidation(userType, "Kids");
 //	}
-	
-	/**
-     * Save the Launch URL in system property
-     * Will be used for printing it to the console
-     *
-     * @param parameters
-     */
-    @After("execution(com.epam.ta.reportportal.ws.model.launch.StartLaunchRQ com.epam.reportportal.testng.TestNGService.buildStartLaunchRq(com.epam.reportportal.listeners.ListenerParameters))" +
-            "&& args(parameters)")
-    public void saveLaunchBaseUrl(ListenerParameters parameters) {
-    	System.out.println("Save");
-        if (parameters == null) {
-            return;
-        }
-        Mode mode = parameters.getLaunchRunningMode();
-        String page = (mode == Mode.DEBUG) ? "userdebug" : "launches";
-        System.setProperty("LaunchURL",
-                parameters.getBaseUrl() + "/ui/#" + parameters.getProjectName() + "/" + page + "/all/");
-        System.out.println("Launches ALL : "+ parameters.getBaseUrl() + "/ui/#" + parameters.getProjectName() + "/" + page + "/all/");
-
-    }
-
- /**
-     * add the Launch ID to the Saved URL
-     *
-     * @param id
-     * @param rq
-     */
-    @After("call(* com.epam.reportportal.service.ReportPortalClient.finishLaunch(..))" +
-            "&& args(id,rq)")
-    public void saveLaunchURL(String id, FinishExecutionRQ rq) {
-        if (id == null || id.equals("null")) {
-            return;
-        }
-        if (!System.getProperty("LaunchURL", "").isEmpty()) {
-            String launchURL = System.getProperty("LaunchURL") + id;
-            System.setProperty("LaunchURL", launchURL);
-            System.out.println("Launch ID : "+launchURL);
-        }
-    }
 
 	@AfterClass
 	public void tearDown() {

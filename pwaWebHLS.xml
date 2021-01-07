@@ -8,7 +8,7 @@
 	 
 	 <parameter name="url" value="prod" />
 	<parameter name="browserType" value="chrome" />
-	<parameter name="userType" value="Guest" /> 
+	<parameter name="userType" value="SubscribedUser" />
 
 	<parameter name="runModule" value="Suite" />
 

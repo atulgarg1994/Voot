@@ -117,9 +117,9 @@ public class DriverInstance extends Drivertools {
 			options.addArguments("--disable-dev-shm-usage");
 			options.addArguments("--disable-browser-side-navigation");
 			options.addArguments("--disable-gpu");
-			options.addArguments("--headless");
-			options.addArguments("--start-maximized");
-			options.addArguments("--window-size=1616, 876");
+//			options.addArguments("--headless");
+//			options.addArguments("--start-maximized");
+//			options.addArguments("--window-size=1616, 876");
 			options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 			tlWebDriver.set(new ChromeDriver(options));
 //			WebDriverEventListener popupListener = new PopUpListener();

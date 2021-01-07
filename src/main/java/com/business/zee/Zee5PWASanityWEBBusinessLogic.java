@@ -12944,7 +12944,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 //	}
 	public void selectLanguages() throws Exception {
 		extent.extentLogger("", "Language selection");
-		waitTime(3000);
+		waitTime(5000);
 		click(PWAHamburgerMenuPage.objLanguageBtnWeb, "Language Button");
 		waitTime(2000);
 		waitForElementAndClick(PWAHamburgerMenuPage.objContentLanguageBtn, 2, "Content Languages");
