@@ -95,6 +95,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		relaunch = clearData;
 		new Zee5ApplicasterBusinessLogic("zee");
 		accessDeviceLocationPopUp("Allow", userType);
+		click(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "Continuebutton(Country_Screen)");
 	}
 
 	public void relaunchTillIntroScreen(boolean clearData) throws Exception {
@@ -779,9 +780,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
 		type(AMDSearchScreen.objSearchBoxBar, keyword2 + "\n", "Search bar");
+		hideKeyboard();
 		waitTime(4000);
 		setFEProperty(userType);
-		mixpanel.FEProp.setProperty("Source", "Landingsearch");
+		mixpanel.FEProp.setProperty("Source", "user_setting");
 		mixpanel.FEProp.setProperty("page_name", "Search");
 		mixpanel.FEProp.setProperty("tab_name", "All");
 		mixpanel.ValidateParameter("", "Search Executed");
@@ -862,7 +864,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDOnboardingScreen.objSelectContentLang("English"), "English language");
 		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in Content language screen");
 
-		mixpanel.FEProp.setProperty("Source", "DisplayLanguage");
+		mixpanel.FEProp.setProperty("Source", "user_setting");
 		mixpanel.FEProp.setProperty("Page Name", "ContentLanguage");
 		mixpanel.ValidateParameter("", "Content Language Changed");
 		;
@@ -1064,7 +1066,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar, keyword2 + "\n", "Search bar");
 			hideKeyboard();
-			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			//waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowLinkOnPlayer, "Subscribe Now Link");
 			setFEProperty(userType);
@@ -1082,16 +1084,18 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			type(AMDSearchScreen.objSearchBoxBar, searchKeyword + "\n", "Search bar");
 			hideKeyboard();
 			// closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
-			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			//waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 
 			if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 				waitForAdToFinishInAmd();
 			}
 			completeProfilePopUpClose(usertype);
-		}
+		
 		setFEProperty(userType);
 		mixpanel.ValidateParameter("", "Popup launch");
+		
+		}
 	}
 
 	@SuppressWarnings("static-access")
@@ -1103,7 +1107,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			type(AMDSearchScreen.objSearchBoxBar, keyword + "\n", "Search bar");
 			hideKeyboard();
 			// closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
-			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			//waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 
 			if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
@@ -1123,7 +1127,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar, keyword2 + "\n", "Search bar");
 			hideKeyboard();
-			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		//	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowLinkOnPlayer, "Subscribe Now Link");
 			Swipe("Up", 1);
@@ -1262,15 +1266,17 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			waitTime(5000);
 			String pEmailID = generateRandomString(5) + "@gmail.com";
 			type(AMDRegistrationScreen.objEmailIDTextField, pEmailID, "Email field");
+			hideKeyboard();
 			verifyElementPresentAndClick(AMDRegistrationScreen.objProceedBtn, "Proceed button");
 			verifyElementPresent(AMDRegistrationScreen.objScreenTitle, "Register for Free screen");
 			click(AMDRegistrationScreen.objDOBTxtField, "DOB");
 			type(AMDRegistrationScreen.objDOBTxtField, "01/01/1990", "DOB");
+			hideKeyboard();
 			waitTime(3000);
 
 			setFEProperty(userType);
 			mixpanel.FEProp.setProperty("Page Name", "Registration");
-			mixpanel.FEProp.setProperty("Source", "Login");
+			mixpanel.FEProp.setProperty("Source", "LoginRegister");
 			mixpanel.ValidateParameter("", "Registration DoB Entered");
 		}
 	}
@@ -1533,7 +1539,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		type(AMDSearchScreen.objSearchBoxBar, keyword2 + "\n", "Search bar");
 		hideKeyboard();
 		waitTime(4000);
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		//waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 		waitTime(3000);
 		SwipeRail(AMDHomePage.objContent);
@@ -1579,7 +1585,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
 			hideKeyboard();
 			waitTime(4000);
-			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			//waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 			waitForElementDisplayed(AMDPlayerScreen.objPlayer, 30);
 			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
@@ -4696,7 +4702,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
-		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		type(AMDLoginScreen.objPasswordField, "1234567", "Password field");
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -4885,7 +4891,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
-		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		type(AMDLoginScreen.objPasswordField, "1234567", "Password field");
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5048,7 +5054,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
-		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		type(AMDLoginScreen.objPasswordField, "1234567", "Password field");
 		hideKeyboard();
 		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
@@ -5218,7 +5224,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		type(AMDLoginScreen.objEmailIdField, "rsvod3@gmail.com", "Email ID/Mobile Number");
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
-		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		type(AMDLoginScreen.objPasswordField, "1234566", "Password field");
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5234,12 +5240,12 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 		HeaderChildNode("Verify Login Result event is triggered when user enters valid Mobile number user credentials");
 
-		click(AMDOnboardingScreen.objLoginLnk, "Login Link");
+		click(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free CTA");
 		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email ID/Mobile Number");
 		type(AMDLoginScreen.objEmailIdField, "9880710182", "Email ID/Mobile Number");
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
-		type(AMDLoginScreen.objPasswordField, "User@123", "Password field");
+		type(AMDLoginScreen.objPasswordField, "User@1234", "Password field");
 		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
@@ -5364,7 +5370,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
-		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		type(AMDLoginScreen.objPasswordField, "1234567", "Password field");
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5545,7 +5551,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		type(AMDLoginScreen.objEmailIdField, "zeebuild@gmail.com", "Email ID/Mobile Number");
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
-		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		type(AMDLoginScreen.objPasswordField, "1234567", "Password field");
 		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
@@ -6485,20 +6491,20 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	@SuppressWarnings("static-access")
 	public void verifyPrepaidCodeResultEvent() throws Exception {
-
-		extent.HeaderChildNode("Verify Prepaid Code Result event");
-		waitTime(2000);
-		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-		verifyElementPresentAndClick(AMDMoreMenu.objHaveaPrepaidCode, "Have a Prepaid code");
-		verifyElementPresentAndClick(AMDMoreMenu.objPrepaidCodeTxt, "Prepaid code text box");
-		type(AMDMoreMenu.objPrepaidCodeTxt, "abcdefg", "Prepaid code text box");
-		hideKeyboard();
-		click(AMDMoreMenu.objApplyBtn, "Apply button");
-		setFEProperty(userType);
-		mixpanel.FEProp.setProperty("Page Name", "More");
-		mixpanel.FEProp.setProperty("Element", "Apply");
-		mixpanel.ValidateParameter("", "Prepaid Code Result");
-
+		if (!userType.equals("Guest")) {
+			extent.HeaderChildNode("Verify Prepaid Code Result event");
+			waitTime(2000);
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objHaveaPrepaidCode, "Have a Prepaid code");
+			verifyElementPresentAndClick(AMDMoreMenu.objPrepaidCodeTxt, "Prepaid code text box");
+			type(AMDMoreMenu.objPrepaidCodeTxt, "abcdefg", "Prepaid code text box");
+			hideKeyboard();
+			click(AMDMoreMenu.objApplyBtn, "Apply button");
+			setFEProperty(userType);
+			mixpanel.FEProp.setProperty("Page Name", "More");
+			mixpanel.FEProp.setProperty("Element", "Apply");
+			mixpanel.ValidateParameter("", "Prepaid Code Result");
+		}
 	}
 
 	public void AudioLanguageChangeEventForTrailerContent(String usertype, String keyword7) throws Exception {
@@ -8400,7 +8406,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 		String userName = getParameterFromXML("NonsubscribedUserName");
 		String Password = getParameterFromXML("NonsubscribedPassword");
-		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for Free CTA");
 		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 		type(AMDLoginScreen.objEmailIdField, userName, "Email Field");
 		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -8410,7 +8416,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		waitTime(10000);
 		setFEProperty(userType);
 
-		mixpanel.FEProp.setProperty("Source", "Login");
+		mixpanel.FEProp.setProperty("Source", "LoginRegister");
 		mixpanel.FEProp.setProperty("Page Name", "Login");
 		mixpanel.ValidateParameter("", "Login Password Entered");
 
@@ -8421,13 +8427,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		HeaderChildNode("User Name Entered event");
 
 		String userName = getParameterFromXML("NonsubscribedUserName");
-		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for Free CTA");
 		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 		type(AMDLoginScreen.objEmailIdField, userName, "Email Field");
+		hideKeyboard();
 		waitTime(10000);
 		setFEProperty(userType);
 
-		mixpanel.FEProp.setProperty("Page Name", "Login");
+		mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
 		mixpanel.FEProp.setProperty("Source", "Intro");
 		mixpanel.ValidateParameter("", "Username Entered");
 
@@ -8465,20 +8472,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		setFEProperty(userType);
 
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Tab Name", "home");
+		mixpanel.FEProp.setProperty("Tab Name", "movies");
 		mixpanel.ValidateParameter("", "Carousal Banner Swipe");
 
-		HeaderChildNode("Carousel Banner Swipe Right");
-		String Carouseltitle2 = getText(AMDHomePage.objCarouselTitle1);
-		logger.info(Carouseltitle2);
-		extentLoggerPass("Carousel Title", Carouseltitle2);
-		carouselCardsSwipe("RIGHT", 1, width, height);
-		setFEProperty(userType);
-
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Tab Name", "home");
-		mixpanel.FEProp.setProperty("Element", "Trending");
-		mixpanel.ValidateParameter("", "Carousal Banner Swipe");
 	}
 
 	public void verifySessionEvent(String userType) throws Exception {
