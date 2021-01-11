@@ -943,7 +943,6 @@ public class ResponseInstance {
 	public static void ValidateRailsAndContents(String userType, String tab) throws Exception {
 		List<String> apiTrayList = new ArrayList<String>();
 		List<String> apiTotalTrays;
-		int trays = 0;
 		String language = getLanguage1(userType);
 		Response resp = ResponseInstance.getResponseForPages2(tab, language, 1, userType);
 		

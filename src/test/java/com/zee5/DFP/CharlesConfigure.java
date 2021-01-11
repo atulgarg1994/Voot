@@ -8,22 +8,9 @@ import java.net.InetAddress;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.ExecutorService;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import org.aspectj.lang.annotation.After;
-
-import com.epam.reportportal.listeners.ListenerParameters;
-import com.epam.reportportal.service.LockFile;
-import com.epam.reportportal.service.ReportPortal;
-import com.epam.reportportal.service.ReportPortalClient;
-import com.epam.ta.reportportal.ws.model.FinishExecutionRQ;
-import com.epam.ta.reportportal.ws.model.launch.Mode;
-
-import java.io.*;
 import java.nio.file.*;
-import java.util.zip.*;
 
 
 public class CharlesConfigure {

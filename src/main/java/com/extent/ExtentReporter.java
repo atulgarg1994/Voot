@@ -223,7 +223,7 @@ public class ExtentReporter implements ITestListener {
 		totalPassedTest = context.getPassedTests().size();
 		totalFailedTest = context.getFailedTests().size();
 		totalSkipedTest = context.getSkippedTests().size();
-		SendEmail.EmailReport();
+//		SendEmail.EmailReport();
 	}
 
 	@Override
