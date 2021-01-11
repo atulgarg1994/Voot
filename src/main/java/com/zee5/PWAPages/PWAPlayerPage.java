@@ -230,8 +230,6 @@ public class PWAPlayerPage {
 
 	public static By objlatestepisode = By.xpath("//p[contains(text(),'Watch Latest Episode')]");
 
-	public static By objWhyRegisterPopUp = By.xpath("//div[.='Sign Up']");
-
 	public static By objPopUpafterPlayer = By
 			.xpath("//div[@class='ReactModal__Content ReactModal__Content--after-open popupModal']");
 
@@ -417,4 +415,7 @@ public class PWAPlayerPage {
 	public static By objContinue=By.xpath("//*[text()='Continue']");
 	
 	public static By objclaimofferBelowPlayerScreen=By.xpath("//*[text()='Claim Offer']");
+	
+	public static By objWhyRegisterPopUp = By.xpath("//div[.='Create a new account']");
+	public static By objPlayerUpnextTrayCardTitle = By.xpath("(//div[@class='upNextTitle'])[1]");
 }

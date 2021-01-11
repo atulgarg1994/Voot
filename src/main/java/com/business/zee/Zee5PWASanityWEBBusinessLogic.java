@@ -2867,50 +2867,101 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 */
 
 	public void upnext(String userType) throws Exception {
-
+		mandatoryRegistrationPopUp(userType);
+		String totalDuration = "", currentDuration = "", currentUrl = "", contentURL = "", midRollUrl = "",postRollUrl = "";
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
-		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter("freeEpisode3");
+		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeEpisode3");
 		type(PWASearchPage.objSearchEditBox, keyword, "Search edit");
 		click(PWASearchPage.objspecificSearch, "Searched content");
-		if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Register pop up") == true) {
-			click(PWAPlayerPage.oblClosePopup, "Close button");
+		waitTime(4000);
+		if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Create New Account Popup") == true) {
+			click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Create New Account Popup close button");
 		}
 		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 			waitForPlayerAdToComplete("Video");
 		}
-		Thread.sleep(5000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		Thread.sleep(5000);
-		WebElement scrubber = getWebDriver().findElement(By.xpath("//a[@class='playkit-scrubber']"));
-//		Actions move = new Actions(getWebDriver());
-//		Action action = (Action) move.dragAndDropBy(scrubber, 620, 0).build();
-//		action.perform();
-		Actions action = new Actions(getWebDriver());
-		action.clickAndHold(scrubber);
-		action.moveByOffset(40, 0).build().perform();
-
-		// click(PWAPlayerPage.objPlaybackVideoOverlay,"Player");
-		verifyElementPresent(PWAPlayerPage.objUpnextCard, "Up Next Rail on player");
-		action.clickAndHold(scrubber).release();
-//		action.moveToElement(getWebDriver().findElement(PWAHomePage.objMoreMenuIcon)).release();
-
+		contentURL = getWebDriver().getCurrentUrl();
+		String[] abc = contentURL.split("/");
+		String contentID = abc[abc.length - 1];
+		extent.extentLogger("", "Content ID fetched from URL: " + contentID);
+		logger.info("Content ID fetched from URL: " + contentID);
+		Response respContent=null;
+		for(int i=0;i<10;i++) {
+			respContent = ResponseInstance.getContentDetails(contentID, "content");
+			//System.out.println(resp.getBody().asString());
+			if (!respContent.getBody().asString().contains("\"error_code\":401")) {
+				waitTime(1000);
+				break;
+			}
+			else waitTime(1000);
+		}
+		//System.out.println(respContent.getBody().asString());
+		mandatoryRegistrationPopUp(userType);
+		String durationAPI = respContent.jsonPath().get("duration").toString().trim();
+		extent.extentLogger("", "Total Duration in seconds from API: " + durationAPI);
+		logger.info("Total Duration in seconds from API: " + durationAPI);
+		int durationfullInt = Integer.parseInt(durationAPI);
+		durationfullInt=durationfullInt-5;
+		String durationfull = String.valueOf(durationfullInt);
+		postRollUrl = contentURL + "?t=" + durationfull;
+		getWebDriver().get(postRollUrl);
+		mandatoryRegistrationPopUp(userType);
+		currentUrl = getWebDriver().getCurrentUrl();	
+		extent.extentLogger("", "Current URL: " + currentUrl);
+		String upnextTrayCardTitle="";
+		for(int i=0;i<50;i++) {
+			try {
+				upnextTrayCardTitle= getElementPropertyToString("innerText",PWAPlayerPage.objPlayerUpnextTrayCardTitle,"");
+				logger.info("Up Next Rail on player is displayed");
+				extent.extentLogger("", "Up Next Rail on player is displayed");
+				logger.info("First Card Title fetched from Up Next Rail : "+upnextTrayCardTitle);
+				extent.extentLogger("", "First Card Title fetched from Up Next Rail : "+upnextTrayCardTitle);
+				upnextTrayCardTitle=upnextTrayCardTitle.replace("'", "");
+				break;
+			}
+			catch(Exception e) {}
+		}	
+		mandatoryRegistrationPopUp(userType);
 		// Verify the Upnext content is auto playing
 		getResponseUpNextRail.getResponse1();
 		String episodeName = getText(PWAPlayerPage.objContentName);
-		System.out.println(episodeName);
 		String APIData = getResponseUpNextRail.getMediaContentName();
-		System.out.println(APIData);
-		if (APIData.equals(episodeName)) {
-			softAssert.assertEquals(APIData, episodeName);
-			extent.extentLogger("Upnext Rail", "The first content Auto played in Upnext rail");
-			logger.info("Upnext rail content is auto played");
+		logger.info("Up Next First Card Title returned by API : "+APIData);
+		extent.extentLogger("", "Up Next First Card Title returned by API : "+APIData);
+		APIData=APIData.replace("'", "");
+		if (APIData.contains(upnextTrayCardTitle)) {
+			softAssert.assertEquals(APIData, upnextTrayCardTitle);
+			extent.extentLoggerPass("Upnext Rail", "Card displayed in Upnext rail matches with API");
+			logger.info("Card displayed in Upnext rail matches with API");
+			if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+				waitForPlayerAdToComplete("Video");
+				mandatoryRegistrationPopUp(userType);
+				waitForPlayerAdToComplete("Video");
+			}
+			else
+				waitTime(10000);
+			try {
+				String contentPlayed=getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,
+						"Content Title").toString();
+				extent.extentLogger("Upnext Rail", "Up Next Content played in UI :"+contentPlayed);
+				logger.info("Up Next Content played in UI :"+contentPlayed);
+				contentPlayed=contentPlayed.replace("'", "");
+				if(APIData.contains(contentPlayed)) {
+					extent.extentLoggerPass("Upnext Rail", "Upnext content played matches with API");
+					logger.info("Upnext content played matches with API");
+				}
+				else {				
+					extent.extentLoggerFail("", "Upnext content played does not match with API");
+					logger.error("Upnext content played does not match with API");
+				}
+			}catch(Exception e) {}
+			
 		} else {
-			softAssert.assertAll();
-			softAssert.assertNotEquals(APIData, episodeName);
-			extent.extentLoggerFail("Verify UpNext Rail", "Upnext content auto play is failed");
-			logger.info("Upnext content playabck is failed");
+			softAssert.assertNotEquals(APIData, upnextTrayCardTitle);
+			extent.extentLoggerFail("Verify UpNext Rail", "Card displayed in Upnext rail does not match with API");
+			logger.error("Card displayed in Upnext rail does not match with API");
 		}
+		mandatoryRegistrationPopUp(userType);
 	}
 
 	/*
@@ -15432,7 +15483,7 @@ public void newsValidation(String userType, String tabName) throws Exception {
 		}
 		
 
-		extent.HeaderChildNode(" HLS_060 : Verify On click View All/> ");
+		extent.HeaderChildNode(" HLS_060 : Verify On click View All ");
 
 		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
 			click(PWAPremiumPage.objViewAllBtn, "View All Button");
@@ -16267,17 +16318,8 @@ public void newsValidation(String userType, String tabName) throws Exception {
 
 	public void storiesvalidation(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("HLS_145: Verify user navigation " + tabName + "page");
-		navigateToAnyScreenOnWeb(tabName);
-		waitTime(3000);
-		if (checkElementDisplayed(PWAHomePage.objActiveTab, "Active tab")) {
-			String tab = getText(PWAHomePage.objActiveTab);
-			System.out.println(tab);
-			logger.info(tab + " tab is highlighted");
-			extent.extentLogger("Tab", tab + " tab is highlighted");
-		} else {
-			logger.error(tabName + " tab is not highlighted");
-			extent.extentLoggerFail("Tab", tabName + " tab is not highlighted");
-		}
+		PWAPagesNavigationAndTabHighlight(tabName);
+		
 		extent.HeaderChildNode(" HLS_146 : Verify the rails name and content are loaded for first 2 scroll");
 		dataValidationOnScrollForStories();
 

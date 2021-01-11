@@ -336,10 +336,6 @@ public class PWAHomePage {
 
 	public static By objTwitterIcon = By.xpath("//*[@class='noSelect twittercon iconSocial-ic_social_twitter']");
 
-	public static By objHighlightedTab(String tabname) {
-		return By.xpath("//a[@class='noSelect active' and text()=\""+tabname+"\"]");
-	}
-
 	public static By objSearchResultWeb = By.xpath("//div[@class='searchListingNewsWrap']//img[@title='Ramayana']");
 
 	// Subscribe PopUp Home Page
@@ -516,7 +512,7 @@ public class PWAHomePage {
 		return By.xpath("//a[contains(@class,'noSelect') and text()='" + HomeBartitle + "']");
 	}
 	
-public static By objRentforINR = By.xpath("(//div[@class='rentNowButton']//div//button)[1]");	
+	public static By objRentforINR = By.xpath("(//div[@class='rentNowButton']//div//button)[1]");	
 	
 	public static By objRentforINRPopupRentforINRBtn = By.xpath("(//div[@class='plexBottomWrapper']//div//button)[1]");
 
@@ -525,4 +521,7 @@ public static By objRentforINR = By.xpath("(//div[@class='rentNowButton']//div//
 	public static By objRestrictContentNotnowBtn = By.xpath("//div[@class='btwrap']//div[@class='closeBtn']//div");
 	public static By objPersonalizedNotificationPopup = By.xpath("//p[contains(text(),'Click Allow on the next prompt to subscribe to our push notifications')]");
 	public static By objPersonalizedNotificationPopupNotNowBtn = By.xpath("((//p[contains(text(),'Click Allow on the next prompt to subscribe to our push notifications')]//parent::*//parent::*//parent::*)//div[2]//button)[1]");
+	public static By objHighlightedTab(String tabname) {
+		return By.xpath("//a[contains(@class,'noSelect') and contains(@class,'active') and text()=\""+tabname+"\"]");
+	}
 }

@@ -98,6 +98,8 @@ public class Zee5TvHomePage {
 	public static By objSplCharechter = By.xpath("//*[@id='spl_char']");
 	public static By objatbutton = By.xpath("//*[@text='@']");
 	public static By objdotbutton = By.xpath("//*[@text='.']");
+	
+	public static By objmessagebox = By.xpath("//*[@id='edittext_msg']");
 
 	public static By objAlphaKeyboard = By.xpath("//*[@id='caps_turn_On']");
 
@@ -114,6 +116,21 @@ public class Zee5TvHomePage {
 	
 	public static By objCountryCodePopup = By.xpath("//*[@id='country_code_text']");
 	
+	public static By objClubPremiumPopup = By.xpath("//*[@id='tv_pop_up_un_subscribe_text']");
+	
+	public static By objAllaccessButton = By.xpath("//*[@id='allaccessBtn']");
+	
+	public static By objWatchNextTray = By.xpath("//*[@id='row_header' and @text='Watch Next']");
+	
+	public static By objEditBox = By.xpath("//*[@id='edittext_msg']");
 	public static By objSelectCountryBox = By.xpath("//*[@id='select_your_country_hint']");
 	public static By objResetButton = By.xpath("//*[@id='reset_button']");
+	
+	public static By objrowHeaderTray(String trayname) {
+		return By.xpath("//*[@id='row_header' and @text='"+ trayname +"']");
+	}
+	
+	public static By objClubContent(String contentName) {
+		return By.xpath("//*[@id='home_title' and @text='"+ contentName +"']");
+	}
 }

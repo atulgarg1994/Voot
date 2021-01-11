@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="TV" parallel="false" thread-count="1">
-
+	<!-- <groups>
+		<run>
+			<include name="SanityTest" />
+		</run>
+	</groups> -->
 	<!-- <parameter name="userType" value="${UserType}"/> Guest/NonSubscribedUser/SubscribedUser 
 		<parameter name="runMode" value="${runMode}"/> <parameter name="runModule" 
 		value="${runModule}"/> <parameter name="browserType" value="${browserType}"/> -->
@@ -19,6 +23,8 @@
 	<parameter name="SubscribedPassword" value="123456"/>
 	<parameter name="MobileLogin" value="7892215214"/>
 	<parameter name="MobilePassword" value="User@123"/>
+	<parameter name="ClubUserName" value="upiprime@mailnesia.com"/>
+	<parameter name="ClubPassword" value="123456"/>
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

@@ -49,6 +49,8 @@ public class Zee5TvSearchPage {
 	public static By objResumePlayIcon = By.xpath("//*[@id='seekbar_resume_layout']");
 	public static By objwatchTrailerIcon = By.xpath("(//*[@text='Watch\nTrailer']//parent::*//child::*)[1]");
 	public static By objEditbox = By.xpath("//*[@id='editText']");
+	
+	public static By objSearchedText = By.xpath("//*[@id='popular_his_sugg' and @text='Googly']");
 
 	public static By objNamefieldbox = By.xpath("//*[@id='profile_edit_tv_name_enter']");
 	public static By objElapsedTime = By.xpath("(//*[@id='search_title_elapsed_time'])[1]");

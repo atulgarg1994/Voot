@@ -136,7 +136,7 @@ public class ZNAMixpanel_Journey {
 	@Test(priority = 16)
 	public void verifydefaultsettingsRestoreEvent() throws Exception {
 		System.out.println("Default settings Restore Event");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true); 
 		Zee5ApplicasterMixPanelBusinessLogic.verifyDefaultSettingRestoredEvent();
 	}
 	

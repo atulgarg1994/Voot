@@ -189,9 +189,14 @@ public class ResponseInstance {
 		}
 		Response regionResponse = given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
 		String region = regionResponse.getBody().jsonPath().getString("state_code");
-		String Uri = "https://gwapi.zee5.com/content/reco?country=IN&translation=en&languages=" + contLang
+		String Uri;
+		if(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite().getName().equals("TV")) {
+			Uri = "https://gwapi.zee5.com/content/reco?country=IN&translation=en&languages=" + contLang
+					+ "&version=9&collection_id=0-8-" + tab + "&region=" + region;
+		}else {
+		 Uri = "https://gwapi.zee5.com/content/reco?country=IN&translation=en&languages=" + contLang
 				+ "&version=6&collection_id=0-8-" + tab + "&region=" + region;
-		System.out.println("Hitting api:\n" + Uri);
+		}
 		String xAccessToken = getXAccessToken();
 		if (userType.equalsIgnoreCase("Guest")) {
 			// Get Guest Token
@@ -324,7 +329,7 @@ public class ResponseInstance {
 		} else if (contentType.contentEquals("Manual")) {
 			Uri = "https://gwapi.zee5.com/content/collection/" + contentID + "?translation=en&country=IN";
 		} else {
-			Uri = "https://gwapi.zee5.com/content/details/" + contentID + "?translation=en&country=IN";
+			Uri = "https://gwapi.zee5.com/content/details/" + contentID + "?translation=en&country=IN&version=2";
 		}
 		respContentDetails = given().when().get(Uri);
 		// System.out.println("Content Details API Response:
@@ -704,7 +709,7 @@ public class ResponseInstance {
 //		getUserData("basavaraj.pn5@gmail.com","igsindia123");
 //		getUserOldSettingsDetails("amdnonmixpanel@yopmail.com","123456");
 //		ValidateRailsAndContents("Guest","Movies");
-		getUserData("basavaraj.pn5@gmail.com","igsindia123");
+		getUserData("amdnonmixpanel@yopmail.com","123456");
 //		ArrayList<List<String>> AL = new ArrayList<List<String>>();
 //		List<String> List = new ArrayList<String>();
 //		
@@ -775,6 +780,7 @@ public class ResponseInstance {
 	}
 	
 	private static void getDOB() {
+		System.out.println(Mixpanel.FEProp.getProperty("birthday").split("T")[0]);
 		LocalDate dob = LocalDate.parse(Mixpanel.FEProp.getProperty("birthday").split("T")[0]);
 		LocalDate curDate = LocalDate.now();
 		Mixpanel.FEProp.setProperty("Age",String.valueOf(Period.between(dob, curDate).getYears()));

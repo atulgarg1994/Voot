@@ -11,40 +11,50 @@ public class Zee5TvWelcomePage {
 	public static By objauthenticatetext = By.xpath("//*[@id='authenticate_text']");
 	public static By objloginCode = By.xpath("//*[@id='code_text']");
 	public static By objHomepageTrayContent = By.xpath(
-			"(//*[@id='row_header' and contains(text(),'Top 20 on ZEE5')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*//child::*[@id='main_image'])[1]");
+			"(//*[@id='row_header' and contains(text(),'Top')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*//child::*[@id='main_image'])[1]");
 
 	public static By objContinuewatchingTrayImage = By.xpath(
 			"(//*[@id='row_header' and contains(text(),'Continue')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*//child::*[@id='main_image'])[1]");
 	public static By objBeforeTVTray = By.xpath(
 			"	(//*[@id='row_header' and contains(text(),'Before')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 	public static By objshowpageTrayContent = By.xpath(
-			"(//*[@id='row_header' and contains(text(),'Trending') or contains(text(),'Top Zee ')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
+			"(//*[@id='row_header' and contains(text(),'Trending') or contains(text(),'Top')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
+	
+	public static By objshowpageTrayContentClub = By.xpath(
+			"(//*[@id='row_header' and contains(text(),'Top')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 
+	
 	public static By objLandingshowpageTrayContent = By.xpath(
-			"(//*[@id='row_header' and contains(text(),'Top Zee ')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
+			"(//*[@id='row_header' and contains(text(),'Top')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 
 	public static By objViewAllPremium = By.xpath("//*[@id='premium_tag']");
 
 	public static By objMoviePageTrayContent = By.xpath(
-			"(//*[@id='row_header' and contains(text(),'Trending') or contains(text(),'Top Zee ')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
+			"(//*[@id='row_header' and contains(text(),'Trending') or contains(text(),'Top Zee ') or contains(text(),'For You')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 
 	public static By objLandingMoviePageTrayContent = By.xpath(
-			"(//*[@id='row_header' and  contains(text(),'Only on ')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
+			"(//*[@id='row_header' and  contains(text(),'Popular')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 
 	public static By objPremiumPageTrayContent = By.xpath(
 			"(//*[@id='row_header' and contains(text() ,'Premium')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 
 	public static By objLandingPremiumPageTrayContent = By.xpath(
-			"(//*[@id='row_header' and contains(text() ,'Top ZEE5')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
+			"(//*[@id='row_header' and contains(text() ,'Top')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 
-	public static By objVideoPageTrayContent = By.xpath(
+	public static By objVideoPageTrayContentPlayback = By.xpath(
 			"(//*[@id='row_header' and contains(text() ,'Latest on')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 
+	public static By objVideoPageTrayContent= By.xpath(
+			"(//*[@id='row_header' and contains(text() ,'Recommended')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
+	
 	public static By objLiveNewsContentinNewsPage = By.xpath(
 			"(//*[@id='row_header' and contains(text() ,'Live News')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 
 	public static By objLandingNewsContentinNewsPage = By.xpath(
 			"	(//*[@id='row_header' and contains(text() ,'Entertainment News')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
+	
+	public static By objLandingNewsContentinVideosPage = By.xpath(
+			"	(//*[@id='row_header' and contains(text() ,'Latest')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 	public static By objcontinueButtonInLoginPage = By.xpath("//*[@id='continue_button_reg']");
 
 	public static By objContentTitleIncontentPage = By.xpath("//*[@id='detail_title']");
@@ -78,7 +88,7 @@ public class Zee5TvWelcomePage {
 	}
 
 	public static By objViewallTray = By.xpath(
-			"(//*[@id='row_header' and contains(text(),'Top ZEE5')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
+			"(//*[@id='row_header' and contains(text(),'Top')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 
 	public static By objNameColumn = By.xpath("//*[@id='profile_name']");
 	public static By objEmailIdColumn = By.xpath("//*[@id='profile_id_view']");
@@ -142,6 +152,10 @@ public class Zee5TvWelcomePage {
 
 	public static By objMenuTopParticular(int str) {
 		return By.xpath("(//*[@id='menu_items_title'])[" + str + "]");
+	}
+	
+	public static By objApiRecoTray(String trayname) {
+		return By.xpath("//*[@id='row_header' and contains(text(),'"+ trayname +"')]");
 	}
 
 	public static By objHomeTabTrending = By.xpath("//*[@id='row_header' and contains(text(),'Trending on')]");

@@ -1,25 +1,15 @@
 package com.driverInstance;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.SkipException;
-
-import com.google.common.collect.ImmutableMap;
 import com.propertyfilereader.PropertyFileReader;
-import com.sun.glass.events.KeyEvent;
 import com.utility.Utilities;
 import com.zee5.ApplicasterPages.AMDOnboardingScreen;
 import io.appium.java_client.AppiumDriver;

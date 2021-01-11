@@ -943,16 +943,20 @@ public class Utilities extends ExtentReporter {
 	public void SwipeRail(By From) throws Exception {
 
 		WebElement element = findElement(From);
-		String eleX = element.getAttribute("x");
+		Dimension size = getDriver().manage().window().getSize();
+		int startx = (int) (size.width * 0.8);
+		int endx = (int) (size.width * 0.1);
+		
 		String eleY = element.getAttribute("y");
-		int currentPosX = Integer.parseInt(eleX);
 		int currentPosY = Integer.parseInt(eleY);
+		System.out.println(currentPosY);
+		currentPosY = Integer.parseInt(eleY)+200;
+		System.out.println(currentPosY);
 		touchAction = new TouchAction(getDriver());
-		touchAction.press(PointOption.point(currentPosX, currentPosY))
-				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000))).moveTo(PointOption.point(0, currentPosY))
+		touchAction.press(PointOption.point(startx, currentPosY))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000))).moveTo(PointOption.point(endx, currentPosY))
 				.release().perform();
 	}
-
 	/**
 	 * Swipes the screen in left or right or Up or Down or direction
 	 * 

@@ -214,8 +214,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
 
-			String Username = getParameterFromXML("NonsubscribedUserName");
-			String Password = getParameterFromXML("NonsubscribedPassword");
+			String Username = getParameterFromXML("NonSubscribedUserName");
+			String Password = getParameterFromXML("NonSubscribedUserPassword");
 
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			
@@ -233,7 +233,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User");
 
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
-			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+			String SubscribedPassword = getParameterFromXML("SubscribedUserPassword");
 
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			
@@ -352,7 +352,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (verifyIsElementDisplayed(AMDPlayerScreen.objRegisterPopUp, "Register popUp")) {
 				verifyElementPresentAndClick(AMDPlayerScreen.objLoginButtonInRegisterPopUp, "Login link");
 				verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-				String Username = getParameterFromXML("NonsubscribedUserName");
+				String Username = getParameterFromXML("NonSubscribedUserName");
 				type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 				verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 				waitTime(3000);
@@ -748,8 +748,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String Username = "";
 		String Password = "";
 		if (userType.equals("NonSubscribedUser")) {
-			Username = getParameterFromXML("NonsubscribedUserName");
-			Password = getParameterFromXML("NonsubscribedPassword");
+			Username = getParameterFromXML("NonSubscribedUserName");
+			Password = getParameterFromXML("NonSubscribedUserPassword");
 		} else {
 			Username = getParameterFromXML("SubscribedUserName");
 			Password = getParameterFromXML("SubscribedPassword");
@@ -2392,7 +2392,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-		Back(2);
 		waitTime(4000);
 
 		setFEProperty(usertype);
@@ -2460,7 +2459,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-		Back(2);
 		waitTime(4000);
 		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
@@ -2549,7 +2547,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 		scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
 		waitTime(2000);
-		Back(2);
 		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -2585,21 +2582,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void scrubProgressBarTillEnd(By byLocator1) throws Exception {
-		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
-		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
-		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
-		click(AMDPlayerScreen.objPauseIcon, "Pause");
-		WebElement element = getDriver().findElement(byLocator1);
-		String xDuration = getAttributValue("x", AMDPlayerScreen.objTotalDuration);
-		int endX = Integer.parseInt(xDuration) - 30;
-		SwipeAnElement(element, endX, 0);
-		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
-		logger.info("Current time after seeking : " + timeToSec(afterSeek));
-		extent.extentLogger("Seek", "Current time after seeking in seconds: " + timeToSec(afterSeek));
-		click(AMDPlayerScreen.objPlayIcon, "Play");
-		waitTime(6000);
-	}
+	
 
 	public void VideoWatchDurationEventOfcontentFromSearchPageComplete(String usertype, String keyword4)
 			throws Exception {
@@ -2696,6 +2679,22 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 
 		mixpanel.ValidateParameter("", "Video Watch Duration");
+	}
+	
+	public void scrubProgressBarTillEnd(By byLocator1) throws Exception {
+		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
+		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
+		click(AMDPlayerScreen.objPauseIcon, "Pause");
+		WebElement element = getDriver().findElement(byLocator1);
+		String xDuration = getAttributValue("x", AMDPlayerScreen.objTotalDuration);
+		int endX = Integer.parseInt(xDuration) - 30;
+		SwipeAnElement(element, endX, 0);
+		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time after seeking : " + timeToSec(afterSeek));
+		extent.extentLogger("Seek", "Current time after seeking in seconds: " + timeToSec(afterSeek));
+		click(AMDPlayerScreen.objPlayIcon, "Play");
+		waitTime(6000);
 	}
 
 	public void VideoWatchDurationEventForPremiumContentAbrupt(String usertype, String tabName) throws Exception {
@@ -3308,8 +3307,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			String pUsername = null, pPwd = null;
 			switch (userType) {
 			case "NonSubscribedUser":
-				pUsername = getParameterFromXML("NonsubscribedUserName");
-				pPwd = getParameterFromXML("NonsubscribedPassword");
+				pUsername = getParameterFromXML("NonSubscribedUserName");
+				pPwd = getParameterFromXML("NonSubscribedUserPassword");
 				break;
 
 			case "SubscribedUser":
@@ -3715,7 +3714,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				extentLogger("Ad", "Ad is Displayed");
 				waitForAdToFinishInAmd();
 				waitTime(4000);
-				Back(1);
+				
 				setFEProperty(usertype);
 				mixpanel.FEProp.setProperty("Source", "Search_Tab");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -3755,7 +3754,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					extentLogger("Ad", "Ad is Displayed");
 					waitForAdToFinishInAmd();
 					waitTime(4000);
-					Back(1);
+				
 					setFEProperty(usertype);
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -3834,8 +3833,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 					verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 					waitTime(2000);
-					Back(1);
-
+					
 					setFEProperty(usertype);
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -3861,15 +3859,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
 		hideKeyboard();
 		waitTime(4000);
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+	//	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 30);
 		if (usertype.equalsIgnoreCase("SubscribedUser")) {
 			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer button");
 		}
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-		waitTime(2000);
-		Back(1);
+		waitTime(5000);
+	
 		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -3888,11 +3886,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			logger.info("Player inline subscription link is displayed");
 			extentLogger("Player screen", "Player inline subscription link is displayed");
 		} else {
-			waitTime(4000);
+			waitTime(6000);
 			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-			Back(1);
-
+			
 			setFEProperty(usertype);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -3909,14 +3906,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
 		hideKeyboard();
 		waitTime(4000);
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+	//	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			waitForAdToFinishInAmd();
 		}
 		registerPopUpClose();
 		completeProfilePopUpClose(usertype);
-		waitTime(4000);
+		waitTime(6000);
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		waitTime(5000);
@@ -3925,7 +3922,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		waitTime(2000);
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		waitTime(2000);
-		Back(1);
+	
 		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -3949,7 +3946,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 						.click();
 				verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 				waitTime(2000);
-				Back(1);
+				
 
 				setFEProperty(usertype);
 				mixpanel.FEProp.setProperty("Source", "home");
@@ -3973,10 +3970,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
 		hideKeyboard();
 		waitTime(4000);
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+	//	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 		waitTime(8000);
-		Swipe("UP", 1);
+	//	Swipe("UP", 1);
 		if (verifyElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray)) {
 			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpnextTray, "Upnext rail content");
 		}
@@ -3989,8 +3986,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		waitTime(2000);
-		Back(1);
-
+		
 		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -4018,8 +4014,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			waitTime(2000);
-			Back(1);
-
+			
 			setFEProperty(usertype);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -4497,7 +4492,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Username = getParameterFromXML("NonSubscribedUserName");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 			waitTime(3000);
@@ -4518,7 +4513,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 			verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login link");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Username = getParameterFromXML("NonSubscribedUserName");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 			waitTime(3000);
@@ -4538,7 +4533,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
 			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Username = getParameterFromXML("NonSubscribedUserName");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 			waitTime(3000);
@@ -4567,7 +4562,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			Swipe("Up", 1);
 			verifyElementPresentAndClick(AMDPlayerScreen.objLoginCTA, "Login CTA");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Username = getParameterFromXML("NonSubscribedUserName");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 			waitTime(3000);
@@ -4703,6 +4698,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "1234567", "Password field");
+		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -4733,6 +4729,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -4763,6 +4760,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "098765409876", "Password field");
+		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5034,6 +5032,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "User@123", "Password field");
+		hideKeyboard();
 		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5078,6 +5077,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		hideKeyboard();
 		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5100,6 +5100,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "098765409876", "Password field");
+		hideKeyboard();
 		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5204,6 +5205,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5225,6 +5227,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "1234566", "Password field");
+		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -5293,6 +5296,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, "asdfghj", "Password field");
+		hideKeyboard();
 		click(AMDLoginScreen.objLoginBtn, "Login button");
 		waitTime(5000);
 		setFEProperty(userType);
@@ -7215,7 +7219,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				} else {
 					forwardAutoSeek(1);
 					waitTime(3000);
-					Back(1);
+					
 					setFEProperty(usertype);
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -7252,7 +7256,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					rewindAutoSeek(1);
 					waitTime(3000);
 
-					Back(1);
 					setFEProperty(usertype);
 					mixpanel.FEProp.setProperty("Source", "home");
 					mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -7285,7 +7288,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 		forwardAutoSeek(1);
 		waitTime(5000);
-		Back(1);
+		
 		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -7308,7 +7311,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 		rewindAutoSeek(1);
 		waitTime(3000);
-		Back(1);
+		
 		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -7329,7 +7332,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		} else {
 			forwardAutoSeek(1);
 
-			Back(1);
 			setFEProperty(usertype);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -7351,7 +7353,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		} else {
 			rewindAutoSeek(1);
 			waitTime(3000);
-			Back(1);
 			setFEProperty(usertype);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -7376,7 +7377,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		completeProfilePopUpClose(usertype);
 		forwardAutoSeek(1);
 		waitTime(3000);
-		Back(1);
+		
 		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -7400,7 +7401,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		completeProfilePopUpClose(usertype);
 		rewindAutoSeek(1);
 		waitTime(3000);
-		Back(1);
+		
 		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -7427,7 +7428,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				}
 				forwardAutoSeek(1);
 				waitTime(4000);
-				Back(1);
+				
 				setFEProperty(usertype);
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -7465,7 +7466,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				rewindAutoSeek(1);
 				waitTime(2000);
 
-				Back(1);
 				setFEProperty(usertype);
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -7502,7 +7502,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		completeProfilePopUpClose(usertype);
 		forwardAutoSeek(1);
 		waitTime(4000);
-		Back(1);
 		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -7531,7 +7530,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		completeProfilePopUpClose(usertype);
 		rewindAutoSeek(1);
 		waitTime(3000);
-		Back(1);
 		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -7911,8 +7909,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					boolean eventFlag = false;
 					eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 					waitTime(2000);
-					Back(1);
-
+					
 					if (eventFlag) {
 						setFEProperty(usertype);
 						mixpanel.FEProp.setProperty("Source", "home");
@@ -7959,8 +7956,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		boolean eventFlag = false;
 		eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		waitTime(2000);
-		Back(1);
-
+	
 		if (eventFlag) {
 			setFEProperty(usertype);
 			mixpanel.FEProp.setProperty("Source", "home");
@@ -7994,7 +7990,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			boolean eventFlag = false;
 			eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 			waitTime(2000);
-			Back(1);
+			
 			if (eventFlag) {
 				setFEProperty(usertype);
 				mixpanel.FEProp.setProperty("Source", "home");
@@ -8043,8 +8039,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		boolean eventFlag = false;
 		eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		waitTime(2000);
-		Back(2);
-
+		
 		if (eventFlag) {
 			setFEProperty(usertype);
 			mixpanel.FEProp.setProperty("Source", "Search_Tab");
@@ -8078,8 +8073,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				boolean eventFlag = false;
 				eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 				waitTime(2000);
-				Back(1);
-
+				
 				if (eventFlag) {
 					setFEProperty(usertype);
 					mixpanel.FEProp.setProperty("Source", "home");
@@ -8129,8 +8123,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		boolean eventFlag = false;
 		eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		waitTime(2000);
-		Back(1);
-
+		
 		if (eventFlag) {
 			setFEProperty(usertype);
 			mixpanel.FEProp.setProperty("Source", "Search_Tab");
@@ -8163,7 +8156,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		boolean eventFlag = false;
 		eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
 		waitTime(2000);
-		Back(1);
+		
 
 		if (eventFlag) {
 			setFEProperty(usertype);
@@ -8199,7 +8192,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 					seekVideo(AMDPlayerScreen.objProgressBar, usertype);
 					waitTime(3000);
-					Back(1);
+					
 
 					setFEProperty(usertype);
 					mixpanel.FEProp.setProperty("Source", "home");
@@ -8235,7 +8228,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		seekVideo(AMDPlayerScreen.objProgressBar, usertype);
 		waitTime(5000);
 
-		Back(1);
+
 		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -8259,7 +8252,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			seekVideo(AMDPlayerScreen.objProgressBar, usertype);
 			waitTime(3000);
-			Back(1);
+			
 			setFEProperty(usertype);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -8288,7 +8281,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		seekVideo(AMDPlayerScreen.objProgressBar, usertype);
 		waitTime(4000);
-		Back(1);
+		
 		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "Search_Tab");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
@@ -8314,7 +8307,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 				seekVideo(AMDPlayerScreen.objProgressBar, usertype);
 				waitTime(4000);
-				Back(1);
+				
 
 				setFEProperty(usertype);
 				mixpanel.FEProp.setProperty("Source", "home");
@@ -8355,7 +8348,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		seekVideo(AMDPlayerScreen.objProgressBar, usertype);
 		waitTime(5000);
-		Back(1);
+		
 
 		setFEProperty(usertype);
 		mixpanel.FEProp.setProperty("Source", "home");
@@ -8404,8 +8397,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void verifyLoginPasswordEnteredEvent() throws Exception {
 		HeaderChildNode("Login Password Entered event");
 
-		String userName = getParameterFromXML("NonsubscribedUserName");
-		String Password = getParameterFromXML("NonsubscribedPassword");
+		String userName = getParameterFromXML("NonSubscribedUserName");
+		String Password = getParameterFromXML("NonSubscribedUserPassword");
 		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for Free CTA");
 		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 		type(AMDLoginScreen.objEmailIdField, userName, "Email Field");
@@ -8424,19 +8417,22 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	@SuppressWarnings("static-access")
 	public void verifyUserNameEnteredEvent(String userType) throws Exception {
-		HeaderChildNode("User Name Entered event");
+		if(userType.equalsIgnoreCase("Guest")) {
+			HeaderChildNode("User Name Entered event");
 
-		String userName = getParameterFromXML("NonsubscribedUserName");
-		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for Free CTA");
-		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-		type(AMDLoginScreen.objEmailIdField, userName, "Email Field");
-		hideKeyboard();
-		waitTime(10000);
-		setFEProperty(userType);
+			String userName = getParameterFromXML("NonSubscribedUserName");
+			verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for Free CTA");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, userName, "Email Field");
+			hideKeyboard();
+			waitTime(10000);
+			setFEProperty(userType);
 
-		mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
-		mixpanel.FEProp.setProperty("Source", "Intro");
-		mixpanel.ValidateParameter("", "Username Entered");
+			mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
+			mixpanel.FEProp.setProperty("Source", "Intro");
+			mixpanel.ValidateParameter("", "Username Entered");
+		}
+		
 
 	}
 
