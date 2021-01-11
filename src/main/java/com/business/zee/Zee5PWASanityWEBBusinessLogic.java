@@ -160,7 +160,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-//			dismissDisplayContentLanguagePopUp();
+			dismissDisplayContentLanguagePopUp();
 			waitTime(3000);
 			break;
 
@@ -2866,6 +2866,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 * Validating Upnext Rail on Playback
 	 */
 
+	@SuppressWarnings("unused")
 	public void upnext(String userType) throws Exception {
 		mandatoryRegistrationPopUp(userType);
 		String totalDuration = "", currentDuration = "", currentUrl = "", contentURL = "", midRollUrl = "",postRollUrl = "";
@@ -7497,6 +7498,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 * 
 	 */
 
+	@SuppressWarnings("unused")
 	public void musicPageValidation(String tabName, String userType, String searchText) throws Exception {
 		extent.HeaderChildNode("Music Page Playback Validation for Free Content and Premium Content");
 		navigateToAnyScreenOnWeb(tabName);
@@ -15096,27 +15098,27 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode(" HLS_043 : Verify the rails name and content are loaded for first 2 scroll");
 		pagesTrayValidation(tabName);
 
-		extent.HeaderChildNode("HLS_046 : Verify that user is able to rotate tray");
-		verifyElementPresentAndClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
+		extent.HeaderChildNode("HLS_046,HLS_044 : Verify that user is able to rotate tray");
+		verifyElementPresent(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
+		JSClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
 		if (checkElementDisplayed(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button")) {
+			waitTime(3000);
 			logger.info("Tray is rotated");
 			extent.extentLogger("Tray is rotated", "Tray is rotated");
 		} else {
-			logger.error("Tray is not rotated");
-			extent.extentLoggerFail("Tray is not rotated", "Tray is not rotated");
+			logger.info("Tray is not rotated");
+			extent.extentLogger("Tray is not rotated", "Tray is not rotated");
 		}
-		click(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
-
-		extent.HeaderChildNode(" HLS_044 : Verify View All functionality");
+		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
 		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
 			click(PWAPremiumPage.objViewAllBtn, "View All Button");
-			waitTime(5000);
+			waitTime(10000);
 			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "View All Page")) {
 				logger.info("Navigated to View All Page");
 				extent.extentLogger("View All", "Navigated to View All Page");
 			} else {
-				logger.error("Not navigated to View All Page");
-				extent.extentLoggerFail("View All", "Not navigated to View All Page");
+				logger.info("Not navigated to View All Page");
+				extent.extentLogger("View All", "Not navigated to View All Page");
 			}
 		}
 		Back(1);
@@ -15481,9 +15483,7 @@ public void newsValidation(String userType, String tabName) throws Exception {
 			extent.extentLoggerWarning("Autoplay",
 					"Player controls on Autoplaying carousel content could not be verified");
 		}
-		
-
-		extent.HeaderChildNode(" HLS_060 : Verify On click View All ");
+		extent.HeaderChildNode(" HLS_060 : Verify On click View All/> ");
 
 		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
 			click(PWAPremiumPage.objViewAllBtn, "View All Button");
@@ -15497,10 +15497,7 @@ public void newsValidation(String userType, String tabName) throws Exception {
 		}
 		Back(1);
 		extent.HeaderChildNode(" HLS_061 : Verify the button (>) rotate and functional");
-
 		RotateTrayValidation();
-
-		navigateToAnyScreenOnWeb("News");
 
 		extent.HeaderChildNode("HLS_063 :Verify the right side bottom arrow ");
 		waitTime(2000);
@@ -15511,35 +15508,61 @@ public void newsValidation(String userType, String tabName) throws Exception {
 			click(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
 		}
 
-		extent.HeaderChildNode(
-				"HLS_064 : Verify whether user is navigate to Playback page when user tap on any Live News content");
-		waitForElementDisplayed(PWAPlayerPage.objLiveTag, 10);
-		// checkElementDisplayed(PWAPlayerPage.objLiveTag, "Live Tag");
-		waitTime(3000);
-		// click(PWAPlayerPage.objLiveTag, "Live Tag");
-		if (checkElementDisplayed(PWAPlayerPage.objLiveTag, "Live Tag")) {
-			logger.info(" Navigated to Live News playback screen");
-			extent.extentLogger("Live News", " Navigated to Live News playback screen");
-		} else {
-			logger.info("Not  Navigated to Live News playback screen");
-			extent.extentLoggerFail("Live News", "Not  Navigated to Live News playback screen");
-		}
+		extent.HeaderChildNode("HLS_064 : Verify whether user is navigate to Playback page when user tap on any Live News content");
+		waitTime(2000);scrollDownByY(200);
+		verifyElementPresent(PWALandingPages.trayCardImg("Live News"), "First Card under 'Live News' tray");
+		JSClick(PWALandingPages.trayCardImg("Live News"), "First Card under 'Live News' tray");
+		String nextPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitleLiveTVname,
+				"Content Title").toString();
 
-		extent.HeaderChildNode(
-				"HLS_65 : Verify whether user is navigate to Playback page when user tap on any News VOD content");
+		logger.info("Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
+		extent.extentLogger("playerScreen","Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
+
+		extent.HeaderChildNode("HLS_65 : Verify whether user is navigate to Playback page when user tap on any News VOD content");
 		navigateToAnyScreenOnWeb(tabName);
-		// scrollToTheElementWEB(PWAHomePage.objtrayname("Trending News"));
-		waitTime(3000);
-		click(PWAHamburgerMenuPage.objFirstcontentCard, "First Card");
-		if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
-			logger.info("Navigated to Consumption Page");
-			extent.extentLogger("Consumption Page", "Navigated to Consumption Page");
-		} else {
-			logger.info("Not navigated to Consumption Page");
+		swipeTillTrayAndVerifyPlayback(userType,"News","Trending News");
+	}
 
-			extent.extentLogger("Consumption Page", "Not navigated to Consumption Page");
+public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, String trayTitle)
+		throws Exception {
+	String nextPageTitle = "";
+	boolean firstAssetClicked = false;
+	firstAssetClicked = swipeTillTrayAndClickFirstAsset(userType, 15, trayTitle,
+			"\"" + trayTitle + "\" tray", tabName);
+	if (firstAssetClicked) {
+		try {
+			nextPageTitle = getText(PWAShowsPage.objShowsTitle);
+			logger.info("Shows Details page is displayed");
+			extent.extentLogger("showDetails", "Shows Details page is displayed");
+		} catch (Exception e) {
+			try {
+				nextPageTitle = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
+				logger.info("Player screen is displayed");
+				extent.extentLogger("playerScreen", "Player screen is displayed");
+			} catch (Exception e1) {
+				nextPageTitle = "";
+			}
 		}
 	}
+	if (!nextPageTitle.equals("")) {
+		logger.info("Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
+		extent.extentLogger("playerScreen",
+				"Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
+		if (!userType.equals("SubscribedUser"))
+			try {
+				getWebDriver().findElement(PWASearchPage.objClosePremiumDialog).click();
+			} catch (Exception e) {
+			}
+		try {
+			getWebDriver().findElement(By.xpath("//a[text()='Home']")).click();
+		} catch (Exception e) {
+		}
+	} else {
+		logger.error("Failed to navigate to consumption/details page: \"" + nextPageTitle + "\"");
+		extent.extentLoggerFail("playerScreen",
+				"Failed to navigate to consumption/details page: \"" + nextPageTitle + "\"");
+	}
+}
 
 	public boolean verifyAutoPlay(String Tabname) throws Exception {
 		boolean autoplayingItemsPresent = false;
@@ -17792,6 +17815,7 @@ public void DFPValidation(String userType,String dfpAdContent) throws Exception 
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void zeeplex(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("PWA_2686 , PWA_2699, PWA_2712 : Verify user navigation " + tabName + "page");
 		navigateToAnyScreenOnWeb(tabName);

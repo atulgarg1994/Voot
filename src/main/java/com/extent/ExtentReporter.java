@@ -132,7 +132,6 @@ public class ExtentReporter implements ITestListener {
 		extent.get().attachReporter(htmlReport.get());
 		BrowserType = context.getCurrentXmlTest().getParameter("browserType");
 		ExcelUpdate.UserType = context.getCurrentXmlTest().getParameter("userType");
-		ExcelUpdate.ModuleName = context.getCurrentXmlTest().getName();
 		if (!getPlatform().equals("Web")) {
 			DeviceDetails.getTheDeviceManufacturer();
 			DeviceDetails.getTheDeviceOSVersion();
@@ -146,9 +145,11 @@ public class ExtentReporter implements ITestListener {
 				|| result.getName().equals("PWAWEBLogin") || result.getName().equals("tvLogin")) {
 			ReportName = result.getName();
 			DriverInstance.methodName = result.getName();
+			ExcelUpdate.ModuleName = result.getName();
 			logger.info(":::::::::Test " + result.getName() + " Started::::::::");
 			test.set(extent.get().createTest(result.getName(),DriverInstance.getENvironment()));
 			totalTests++;
+			ExcelUpdate.passCounter = ExcelUpdate.failCounter = ExcelUpdate.warningCounter = 0;
 //			ExcelUpdate.creatExcel();
 		} else {
 			runmode = false;
@@ -200,7 +201,7 @@ public class ExtentReporter implements ITestListener {
 
 	public void extentLoggerFail(String stepName, String details) {
 		childTest.get().log(Status.FAIL, details);
-//		screencapture();
+		screencapture();
 //		ExcelUpdate.writeData("", "Fail", details);
 	}
 
@@ -216,14 +217,13 @@ public class ExtentReporter implements ITestListener {
 			extent.get().setSystemInfo("App version : ", getAppVersion().replace("Build", ""));
 		} else if (getPlatformFromtools().equals("Web")) {
 			extent.get().setSystemInfo("Browser Name ", BrowserType);
-//			extent.get().setSystemInfo("Browser Version ", BrowserType);
 		}
 //		ExcelUpdate.updateResult();
 		extent.get().flush();
 		totalPassedTest = context.getPassedTests().size();
 		totalFailedTest = context.getFailedTests().size();
 		totalSkipedTest = context.getSkippedTests().size();
-//		SendEmail.EmailReport();
+		SendEmail.EmailReport();
 	}
 
 	@Override
@@ -280,12 +280,27 @@ public class ExtentReporter implements ITestListener {
 		}
 	}
 
+	public static StringBuilder updateTVResult() {
+		StringBuilder builder = new StringBuilder();
+		if (mailBodyPart.size() > 0) {
+			for (int i = 0; i < mailBodyPart.size(); i++) {
+				String result[] = mailBodyPart.get(i).toString().split(",");
+				System.out.println(result[0]+result[1]+result[2]);
+				builder.append("        <tr>\r\n" + "          <td> " + result[0] + " </td>\r\n" + "          <td> "
+						+ result[1] + " </td>\r\n" + "          <td> " + result[2] + " </td>\r\n"
+						+ "        </tr>\r\n");
+			}
+			return builder;
+		}else {
+			return null;
+		}
+	}
+	
 	public static StringBuilder updateResult() {
 		StringBuilder builder = new StringBuilder();
 				builder.append("        <tr>\r\n" + "          <td> " + (totalPassedTest+totalFailedTest+totalSkipedTest) + " </td>\r\n" + "          <td> "
 						+ totalPassedTest + " </td>\r\n" + "          <td> " + totalFailedTest + " </td>\r\n"
 						+ "        </tr>\r\n");
-				System.out.println(builder);
 			return builder;
 	}
 }

@@ -138,5 +138,9 @@ public class PWALandingPages {
 		return By.xpath("//a[contains(text(),\"" + trayTitleUI
 				+ "\")]//ancestor::div[@class='trayHeader']//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index='0']//a");
 	}
+	
+	public static By trayCardImg(String trayTitle) {
+		return By.xpath("//*[contains(text(),'"+trayTitle+"')]//ancestor::*[@class='trayHeader']//following-sibling::*//*[@data-minutelytitle]//img");
+	}
 
 }

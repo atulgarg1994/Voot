@@ -2849,6 +2849,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	public boolean waitForPlayerAdToComplete(String playerType) throws Exception {
 		boolean adDisplayed = false;
 		boolean playerDisplayed = false;
@@ -15811,6 +15812,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void verifyAdForContentUsingAPIForDuration(String contentName, String contentType) throws Exception {
 		int deviceWidth = getDriver().manage().window().getSize().width;
 		int deviceHeight = getDriver().manage().window().getSize().height;

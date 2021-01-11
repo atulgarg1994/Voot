@@ -17411,6 +17411,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	public void subscriptionValidationForHLS(String userType, String contentWithoutTrailer) throws Exception {
 		extent.HeaderChildNode("Verify Join Now/Subscribe Now CTA in Intro screen");
 		verifyElementPresent(AMDOnboardingScreen.objSubscribeNowBtn, "Subscribe now CTA");

@@ -9,7 +9,7 @@
 	<parameter name="runMode" value="${runMode}"/>	
 	<parameter name="runModule" value="${runModule}"/>
 	<parameter name="browserType" value="${browserType}"/>
-	<parameter name="url" value="${env}"/> -->
+	<parameter name="url" value="${url}" /> -->
 
 
 	<parameter name="url" value="prod" />

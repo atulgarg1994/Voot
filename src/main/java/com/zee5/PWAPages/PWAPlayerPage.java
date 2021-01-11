@@ -418,4 +418,7 @@ public class PWAPlayerPage {
 	
 	public static By objWhyRegisterPopUp = By.xpath("//div[.='Create a new account']");
 	public static By objPlayerUpnextTrayCardTitle = By.xpath("(//div[@class='upNextTitle'])[1]");
+	
+	// Consumption page content title for Live News Card
+	public static By objContentTitleLiveTVname = By.xpath("//div[@class='channelConsumptionMetaDiv']//h1");
 }

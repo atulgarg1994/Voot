@@ -14,34 +14,33 @@ import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import com.extent.ExtentReporter;
 
 public class ExcelUpdate {
 
 	static String xlpath = System.getProperty("user.dir") + "\\Analysed_Reports\\Analysed_Reports.xlsx";
-	static String sheet = "Analysed_Reports"; 
-	public static String UserType = "NA"; 
+	static String sheet = "Analysed_Reports";
+	static String sheet1 = "Module Result";
+	public static String UserType = "NA";
 	public static String ModuleName = "NA";
-	static int row = (getRowCount()+1);
+	static int row = (getRowCount() + 1);
 	static int counter = 0;
 	public static int passCounter = 0;
 	public static int failCounter = 0;
 	public static int warningCounter = 0;
-	static String sheet1 = "Module Result";
 
-	public static void creatExcel() { 
+	public static void creatExcel() {
 		try {
-			File dir = new File(System.getProperty("user.dir")+"\\Analysed_Reports");
-			if(!dir.isDirectory()) {
+			File dir = new File(System.getProperty("user.dir") + "\\Analysed_Reports");
+			if (!dir.isDirectory()) {
 				dir.mkdir();
 			}
 			File file = new File(xlpath);
 			if (!file.exists()) {
 				XSSFWorkbook workbook = new XSSFWorkbook();
 				workbook.createSheet(sheet);
-				FileOutputStream fos = new FileOutputStream(
-						new File(xlpath));
+				workbook.createSheet(sheet1);
+				FileOutputStream fos = new FileOutputStream(new File(xlpath));
 				workbook.write(fos);
 				workbook.close();
 			}
@@ -61,7 +60,7 @@ public class ExcelUpdate {
 				xrow = myExcelSheet.createRow(row);
 			}
 			Cell cell = null;
-			if(counter == 0) {
+			if (counter == 0) {
 				xrow = myExcelSheet.getRow(0);
 				if (xrow == null) {
 					xrow = myExcelSheet.createRow(0);
@@ -215,8 +214,7 @@ public class ExcelUpdate {
 	public static void updateResult() {
 		if (ExtentReporter.mailBodyPart.size() > 0) {
 			for (int i = 0; i < ExtentReporter.mailBodyPart.size(); i++) {
-				String result[] = ExtentReporter.mailBodyPart.get(i).toString().split(",");
-//				System.out.println(result[0]+result[1]+result[2]);
+				String result[] = ExtentReporter.mailBodyPart.get(i).toString().split(",");				
 				try {
 					XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
 					FileOutputStream output = new FileOutputStream(xlpath);
@@ -274,7 +272,7 @@ public class ExcelUpdate {
 //		System.out.println((getRowCount()+1));
 //		row = (getRowCount()+1);
 //		writeData("ABC","Fail","Error");
-		
+		creatExcel();
 	}
 
 }
