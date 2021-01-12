@@ -6929,7 +6929,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWASubscriptionPages.objPackAmount1, "Discounted pack");
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(5000);
-			// paymentPageValidation(userType);
+			paymentPageValidation(userType);
 		}
 	}
 
@@ -10121,7 +10121,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("Shows Details page is displayed " + nextPageTitle);
 			extent.extentLogger("showDetails", "Shows Details page is displayed " + nextPageTitle);
 			scrollDownByY(300);
-			click(PWAShowsPage.objEpisodeCard, "First Episode Card");
+			click(PWAShowsPage.objEpisodeCard, "Second Episode Card");
 		} catch (Exception e) {
 			try {
 				nextPageTitle = getText(PWAPlayerPage.objContentTitleInConsumptionPage);

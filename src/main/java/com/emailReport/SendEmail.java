@@ -32,12 +32,15 @@ public class SendEmail {
 		String fileName = ExtentReporter.fileName;
 		String columnHeader = "Number of Total Test";
 		StringBuilder InsertResult = ExtentReporter.updateResult();
+		String columnHeader2 = "Number of Test";
 		
 		if(DriverInstance.getPlatform().equals("TV")) {
 			Subject = "Android TV Analysed Report, APP verison - 20.21106.3";
 			columnHeader = "Module Name";
 			InsertResult = ExtentReporter.updateTVResult();
 			filepath = System.getProperty("user.dir") + "\\Analysed_Reports\\Analysed_Reports.xlsx";
+			columnHeader2 = "Number of validation";
+			
 		}
 		// mail extent reports
 //		String[] to = {"murali.appadi@zee.com","durgesh.panda@zee.com"};
@@ -47,18 +50,17 @@ public class SendEmail {
 				+"<br>"
 				+"<html>\r\n"
 				+"<br>"
-				+"<h3><table align=\"center\" </h3>\n\n"
+				+"<h3><table align=\"center\">"+"</h3>\n\n"
 				+ "      <table width=\"600\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\" style=\"border:1px solid #ccc;\">\r\n"
 				+ "        <tr>\r\n"
 				+ "          <td> "+columnHeader+" </span></td>\r\n"
-				+ "          <td><span style=\"font-weight:bold\"> Number of Test Passed </span></td>\r\n"
-				+ "          <td><span style=\"font-weight:bold\"> Number of Test Failed </span></td>\r\n"
+				+ "          <td><span style=\"font-weight:bold\"> "+columnHeader2+" Passed </span></td>\r\n"
+				+ "          <td><span style=\"font-weight:bold\"> "+columnHeader2+" Failed </span></td>\r\n"
 				+ "        </tr>\r\n"
 				+  			InsertResult
 				+ "      </table>\r\n\n\n"
 				+ "</html>"
 				+"<br/> Regards,<br> IGS Automation Team";
-		
 		
 		
 		sendMail(UserName, Password, to, cc, bcc, Subject, Table, filepath,fileName,EnableAttachment);
@@ -110,7 +112,7 @@ public class SendEmail {
 			}
 			msg.saveChanges();
 			Transport transport = session.getTransport("smtp");
-			transport.connect("true", userName, passWord);
+			transport.connect("smtp.gmail.com", userName, passWord);
 			transport.sendMessage(msg, msg.getAllRecipients());
 			transport.close();
 			return true;
