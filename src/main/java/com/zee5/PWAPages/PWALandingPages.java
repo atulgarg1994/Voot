@@ -55,28 +55,6 @@ public class PWALandingPages {
 				"(//a[@class='titleLink' and text()=\"" + apiTitle + "\"]) | (//h2[text()=\"" + apiTitle + "\"])");
 	}
 
-	public static By objFirstAssetInTray(String apiTrayTitle, String apiContentTitle) {
-		return By.xpath("//h2[text()=\"" + apiTrayTitle
-				+ "\"]//parent::div//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index='0']//*[@data-minutelytitle=\""
-				+ apiContentTitle + "\"]");
-	}
-
-	public static By objFirstAssetInTrayIndex(String trayTitleUI) {
-		return By.xpath("//h2[contains(text(),\"" + trayTitleUI
-				+ "\")]//parent::div//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index='0']//a");
-	}
-
-	public static By objAssetInTray(String apiTrayTitle, String apiContentTitle, String index) {
-		return By.xpath("//h2[text()=\"" + apiTrayTitle
-				+ "\"]//parent::div//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index=\""
-				+ index + "\"]//div[@data-minutelytitle=\"" + apiContentTitle + "\"]");
-	}
-
-	public static By objTray(String apiTrayTitle) {
-		return By.xpath("//h2[text()=\"" + apiTrayTitle
-				+ "\"]//parent::div[@class='trayHeader']//following-sibling::div//div[@class='slick-track']");
-	}
-
 	public static By objHindiInContentLanguageSelected = By
 			.xpath("//*[@class='checkboxWrap checkedHighlight']//*[@for='content_hi']");
 
@@ -141,6 +119,23 @@ public class PWALandingPages {
 	
 	public static By trayCardImg(String trayTitle) {
 		return By.xpath("//*[contains(text(),'"+trayTitle+"')]//ancestor::*[@class='trayHeader']//following-sibling::*//*[@data-minutelytitle]//img");
+	}
+	
+	public static By objFirstAssetInTray(String apiTrayTitle, String apiContentTitle) {
+		return By.xpath("//*[contains(text(),\""+apiTrayTitle+"\")]//ancestor::div[@class='trayHeader']//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index='0']//*[@data-minutelytitle=\""
+				+ apiContentTitle + "\"]");
+	}
+
+	public static By objFirstAssetInTrayIndex(String trayTitleUI) {
+		return By.xpath("//*[contains(text(),\""+trayTitleUI+"\")]//ancestor::div[@class='trayHeader']//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index='0']//a");
+	}
+
+	public static By objAssetInTray(String apiTrayTitle, String apiContentTitle, String index) {
+		return By.xpath("//*[contains(text(),\""+apiTrayTitle+"\")]//ancestor::div[@class='trayHeader']//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index=\""+ index + "\"]//div[@data-minutelytitle=\"" + apiContentTitle + "\"]");
+	}
+
+	public static By objTray(String apiTrayTitle) {
+		return By.xpath("//*[contains(text(),\""+apiTrayTitle+"\")]//ancestor::div[@class='trayHeader']//following-sibling::div//div[@class='slick-track']");
 	}
 
 }
