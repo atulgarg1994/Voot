@@ -19,7 +19,7 @@ public class Android_ClubPack {
 
 	@Test(priority = 0)
 	@Parameters({ "userType" })
-	public void Login(String userType) throws Exception {
+	public void ApplicasterLogin(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLoginForClubPack(userType);

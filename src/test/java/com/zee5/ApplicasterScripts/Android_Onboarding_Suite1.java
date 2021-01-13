@@ -17,14 +17,13 @@ public class Android_Onboarding_Suite1 {
 		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
 	
-	
 	@Test(priority = 1)
 	@Parameters({"userType"})
 	public void verificationOfLoginPage(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-			ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
-			ZEE5ApplicasterBusinessLogic.ZEE5AppLogin(userType);
-			ZEE5ApplicasterBusinessLogic.VerifyLoginPage();
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZEE5AppLogin(userType);
+		ZEE5ApplicasterBusinessLogic.VerifyLoginPage();
 	}
 
 	@Test(priority = 2) // Sushma==Scenarios only for guest user

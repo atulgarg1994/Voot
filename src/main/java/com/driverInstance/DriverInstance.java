@@ -28,9 +28,9 @@ public class DriverInstance extends Drivertools {
 		try {
 			switch (getPlatform()) {
 			case "Android":
-				tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),
-						this.generateAndroidCapabilities(Application)));
-				util.waitForElementDisplayed(AMDOnboardingScreen.objWaitForSplashScreenDisapear, 240);
+//				tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),
+//						this.generateAndroidCapabilities(Application)));
+//				util.waitForElementDisplayed(AMDOnboardingScreen.objWaitForSplashScreenDisapear, 240);
 				break;
 
 			case "MPWA":
@@ -112,19 +112,6 @@ public class DriverInstance extends Drivertools {
 //			options.addArguments("--window-size=1616, 876");
 			options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 			tlWebDriver.set(new ChromeDriver(options));
-//			WebDriverEventListener popupListener = new PopUpListener();
-//			tlWebDriver.set(new EventFiringWebDriver(new ChromeDriver(options)).register(popupListener));
-			
-			
-//			try {
-//				ChromeDriverService chromeDriverService = new ChromeDriverService.Builder()
-//				        .usingDriverExecutable(new File("/home/tarun/Downloads/chromedriver"))
-//				        .usingAnyFreePort().withEnvironment(ImmutableMap.of("DISPLAY", ":1")).build();
-//				chromeDriverService.start();
-//				tlWebDriver.set(new ChromeDriver(chromeDriverService));
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
 		}
 
 		else if (browserName.equalsIgnoreCase("IE")) {

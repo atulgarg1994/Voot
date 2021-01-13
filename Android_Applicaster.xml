@@ -150,7 +150,7 @@
 		</classes>
 	</test>
 
-	<!--  <test name="Android_Onboarding_Suite1">
+	<test name="Android_Onboarding_Suite1">
 		<classes>
 			<class
 				name="com.zee5.ApplicasterScripts.Android_Onboarding_Suite1" />
@@ -262,6 +262,8 @@
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_Consumption_Screen" />
 		</classes>
-	</test> -->
+	</test>
+	
+	
 
 </suite>

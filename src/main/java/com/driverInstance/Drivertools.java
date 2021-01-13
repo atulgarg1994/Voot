@@ -253,10 +253,9 @@ public class Drivertools {
 		
 		if(getTestName().equals("Android_UserSessionManagement")) {
 			setPlatfrom(Utilities.setPlatform);
-		}else if(methodName.equals("Login") || methodName.equals("setting") || methodName.equals("subscription") || methodName.equals("continueWatching") || methodName.equals("deviceAuthentication") || methodName.equals("club")) {
+		}else if(methodName.equals("TvLogin") || methodName.equals("setting") || methodName.equals("subscription") || methodName.equals("continueWatching") || methodName.equals("deviceAuthentication") || methodName.equals("club")) {
 			setPlatfrom("Web");
 		}
-		
 		
 
 		try {

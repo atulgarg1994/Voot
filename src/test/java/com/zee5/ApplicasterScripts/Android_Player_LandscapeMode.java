@@ -26,7 +26,7 @@ public class Android_Player_LandscapeMode {
 
 	@Test(priority = 1)
 	@Parameters({ "userType" })
-	public void Login(String userType) throws Exception {
+	public void ApplicasterLogin(String userType) throws Exception {
 		System.out.println("\nVerify Display Language Screen and login flow for various usertypes");
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);

@@ -128,4 +128,6 @@ public class PWAMusicPage {
 	public static By objclubTag = By.xpath("//*[@class='cardPremiumContent']");
 	
 	public static By objJoysticktag = By.xpath("//*[@class='cardJoystickContent cardPremiumContent']");
+	
+	public static By objRecommendedSongsVideosTray = By.xpath("//div[@class='recommendCol']//h2[.='Recommended Songs Videos']");
 }

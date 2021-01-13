@@ -117,7 +117,6 @@ public class ExtentReporter implements ITestListener {
 		setPlatform(context.getSuite().getName());
 		userType = context.getCurrentXmlTest().getParameter("userType");
 		appVersion();
-
 		filePath = System.getProperty("user.dir") + "/Reports" + "/" + currentDate + "/" + getPlatform() + "/"
 				+ context.getCurrentXmlTest().getParameter("userType") + "/" + context.getName() + "/"
 				+ context.getCurrentXmlTest().getParameter("userType") + "_" + context.getName() + "_" + getAppVersion()
@@ -140,8 +139,12 @@ public class ExtentReporter implements ITestListener {
 
 	@Override
 	public void onTestStart(ITestResult result) {
+		System.out.println("Test Start : "+DriverInstance.startTest+" ** "+DriverInstance.getRunModule());
+		System.out.println((Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals)
+				&& DriverInstance.startTest)|| result.getName().equals("Login")
+				|| result.getName().equals("PWAWEBLogin") || result.getName().equals("tvLogin"));
 		if ((Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals)
-				&& DriverInstance.startTest) || result.getName().equals("Login")
+				&& DriverInstance.startTest)|| result.getName().equals("Login")
 				|| result.getName().equals("PWAWEBLogin") || result.getName().equals("tvLogin")) {
 			ReportName = result.getName();
 			DriverInstance.methodName = result.getName();
@@ -166,11 +169,12 @@ public class ExtentReporter implements ITestListener {
 	}
 
 	@Override
-	public void onTestFailure(ITestResult result) { 
-		screencapture();
+	public void onTestFailure(ITestResult result) {
+		if((getDriver() != null) || (getWebDriver() != null)) {
 		childTest.get().log(Status.FAIL, result.getName() + " is FAILED");
 		logger.info("::::::::::Test " + result.getName() + " FAILED::::::::::");
 //		mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
+		}
 	}
 
 	@Override

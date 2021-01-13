@@ -734,4 +734,9 @@ public static By objplay = By.xpath("//span[text()='Play']");
 	public static By objZeeplexComesToYouHomePage=By.xpath("//*[@class='plexContainer']//*[.='Theatre comes to you']");
 	public static By objFirstAssetImageFirstRail = By.xpath("(//div[@class='slick-list'])[1]//div[@data-index='0']");
 	public static By Objnextarrowcarousel=By.xpath("(//button[@class='slick-arrow slick-next'])[1]");
+	public static By objgetclubinKannada=By.xpath("//span[text()='ಕ್ಲಬ್ಗೆ ಹೋಗಿ']");
+	
+	public static By objeposidedate=By.xpath("(//div[@class='metaInfo']//p)[2]");
+	public static By objproceedbtn=By.xpath("//*[text()='PROCEED']");
+	public static By objproceed2btn=By.xpath("(//*[text()='PROCEED'])[2]");
 }

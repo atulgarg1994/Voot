@@ -494,6 +494,7 @@ public class Mixpanel extends ExtentReporter {
 	}
 	
 	public static String getLatestEvent(Response responseEvent) {
+		try {
 		String response = responseEvent.asString();
 		String s[] = response.split("\n");
 		List<Integer> list = new ArrayList<Integer>();
@@ -506,11 +507,13 @@ public class Mixpanel extends ExtentReporter {
 		}
 		System.out.println(String.valueOf(Collections.max(list)));
 		for(int i = 0; i < s.length; i++) {
-			
 			if(s[i].contains(String.valueOf(Collections.max(list)))) {
 				System.out.println(s[i]);
 				return s[i];
 			}
+		}
+		}catch(Exception e) {
+			
 		}
 		return "";
 	}
