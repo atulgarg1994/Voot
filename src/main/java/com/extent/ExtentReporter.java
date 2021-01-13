@@ -139,10 +139,7 @@ public class ExtentReporter implements ITestListener {
 
 	@Override
 	public void onTestStart(ITestResult result) {
-		System.out.println("Test Start : "+DriverInstance.startTest+" ** "+DriverInstance.getRunModule());
-		System.out.println((Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals)
-				&& DriverInstance.startTest)|| result.getName().equals("Login")
-				|| result.getName().equals("PWAWEBLogin") || result.getName().equals("tvLogin"));
+		if(DriverInstance.startTest) {
 		if ((Stream.of(result.getName(), "Suite").anyMatch(DriverInstance.getRunModule()::equals)
 				&& DriverInstance.startTest)|| result.getName().equals("Login")
 				|| result.getName().equals("PWAWEBLogin") || result.getName().equals("tvLogin")) {
@@ -154,7 +151,8 @@ public class ExtentReporter implements ITestListener {
 			totalTests++;
 			ExcelUpdate.passCounter = ExcelUpdate.failCounter = ExcelUpdate.warningCounter = 0;
 //			ExcelUpdate.creatExcel();
-		} else {
+			} 
+		}else {
 			runmode = false;
 			throw new SkipException("");
 		}
@@ -170,10 +168,12 @@ public class ExtentReporter implements ITestListener {
 
 	@Override
 	public void onTestFailure(ITestResult result) {
+		if(DriverInstance.startTest) {
 		if((getDriver() != null) || (getWebDriver() != null)) {
 		childTest.get().log(Status.FAIL, result.getName() + " is FAILED");
 		logger.info("::::::::::Test " + result.getName() + " FAILED::::::::::");
 //		mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
+		}
 		}
 	}
 

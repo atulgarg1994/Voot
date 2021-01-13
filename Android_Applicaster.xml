@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Android" parallel="false" thread-count="1">  <!-- name="Android" -->
-
-
+	
 	<!-- <parameter name="userType" value="${UserType}"/> Guest/NonSubscribedUser/SubscribedUser 
 		<parameter name="runMode" value="${runMode}"/> <parameter name="runModule" 
 		value="${runModule}"/> <parameter name="browserType" value="${browserType}"/> -->

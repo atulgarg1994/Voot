@@ -171,17 +171,31 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.extentLogger("User Type", "UserType : " + userType);
 		logger.info("UserType : " + userType);
 		System.out.println("Access Device Location PopUp");
+		Thread.sleep(10000);
 
-		if (checkElementExist(AMDOnboardingScreen.objAllowBtn)) {
+		if (verifyElementExist(AMDOnboardingScreen.objAllowLocationAccessPopup, "AllowPopup")) {
 			Wait(5000);
-			verifyElementPresent(AMDOnboardingScreen.objAllowBtn, "Allow button");
-			verifyElementPresent(AMDOnboardingScreen.objDenyBtn, "Deny button");
 
-			if (permission.equalsIgnoreCase("Allow")) {
-				click(AMDOnboardingScreen.objAllowBtn, "Allow button");
-			} else {
-				click(AMDOnboardingScreen.objDenyBtn, "Deny button");
+			String str1 = getAttributValue("text", AMDOnboardingScreen.objFirstPermissionButton);
+			String str2 = getAttributValue("text", AMDOnboardingScreen.objSecondPermissionButton);
+
+			if (str1.contains("ALLOW")) {
+				System.out.println("ALLOW is present");
+				click(AMDOnboardingScreen.objAllow(str1), str1);
+			} else if (str1.contains("Allow")) {
+				System.out.println("Allow is present");
+				click(AMDOnboardingScreen.objAllow(str1), str1);
+			} else if (str2.contains("ALLOW")) {
+				System.out.println("ALLOW is present");
+				click(AMDOnboardingScreen.objAllow(str2), str2);
+			} else if (str2.contains("Allow")) {
+				System.out.println("Allow is present");
+				click(AMDOnboardingScreen.objAllow(str2), str2);
 			}
+
+			Thread.sleep(10000);
+		} else {
+			System.out.println("Access Device Location PopUp not displayed");
 		}
 	}
 

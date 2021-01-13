@@ -147,5 +147,13 @@ public class AMDOnboardingScreen {
 	public static By objContinueBtnInCountryPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/country_selection_button']");
 	
 	public static By objCarouselInIntroScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/zee5RailsTypeCarouselFragmentId']");
+	
+	public static By objFirstPermissionButton = By.xpath("(//*[@class='android.widget.Button'])[1]");
+	public static By objSecondPermissionButton = By.xpath("(//*[@class='android.widget.Button'])[2]");	
+	public static By objAllow(String str){
+		return By.xpath("//*[@text='"+str+"']");
+	}
+	
+	public static By objAllowLocationAccessPopup = By.xpath("//*[@id='permission_message']");
 
 }
