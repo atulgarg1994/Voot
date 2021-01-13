@@ -28,9 +28,9 @@ public class DriverInstance extends Drivertools {
 		try {
 			switch (getPlatform()) {
 			case "Android":
-//				tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),
-//						this.generateAndroidCapabilities(Application)));
-//				util.waitForElementDisplayed(AMDOnboardingScreen.objWaitForSplashScreenDisapear, 240);
+				tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),
+						this.generateAndroidCapabilities(Application)));
+				util.waitForElementDisplayed(AMDOnboardingScreen.objWaitForSplashScreenDisapear, 240);
 				break;
 
 			case "MPWA":
