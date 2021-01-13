@@ -9756,46 +9756,37 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		switch (UserType) {
 
 		case "Guest":
-			/*
-			 * extent.HeaderChildNode("Guest user");
-			 * extent.extentLogger("Accessing as Guest User", "Accessing as Guest User");
-			 * logger.info("Accessing as Guest User"); //
-			 * dismissDisplayContentLanguagePopUp(); mandatoryRegistrationPopUp(UserType);
-			 * landingPagesValidationZeeoriginals(Tabname);
-			 * zee5originalstrayvalidation(Tabname); mandatoryRegistrationPopUp(UserType);
-			 * trayTitleAndContentValidationWithApiDataZeeoriginals(Tabname,
-			 * "zeeoriginals"); ValidatingPremiumTag(Tabname);
-			 * mandatoryRegistrationPopUp(UserType); ConsumptionScreen(Tabname);
-			 */
-			Subscriptionpopup(UserType, Tabname);
-			break;
+			  landingPagesValidationZeeoriginals(Tabname);
+			  zee5originalstrayvalidation(Tabname); 
+			  mandatoryRegistrationPopUp(UserType);
+			  extent.HeaderChildNode("ZEE5 Originals page tray asset validation");
+			  trayTitleAndContentValidationWithApiDataZeeoriginals(Tabname,"zeeoriginals"); 
+			  ValidatingPremiumTag(Tabname);
+			  mandatoryRegistrationPopUp(UserType); 
+			  ConsumptionScreen(Tabname);
+			  Subscriptionpopup(UserType, Tabname,"ZEE5 Original Movies");
+			  break;
 
 		case "NonSubscribedUser":
-			extent.HeaderChildNode("NonSubscribedUser");
-			extent.extentLogger("Accessing as NonSubscribedUser User", "Accessing as NonSubscribedUser User");
-			logger.info("Accessing as NonSubscribedUser User");
-			// ZeeWEBPWALogin11("NonSubscribedUser");
-			// dismissDisplayContentLanguagePopUp();
 			landingPagesValidationZeeoriginals(Tabname);
 			zee5originalstrayvalidation(Tabname);
+			extent.HeaderChildNode("ZEE5 Originals page tray asset validation");
 			trayTitleAndContentValidationWithApiDataZeeoriginals(Tabname, "zeeoriginals");
 			ValidatingPremiumTag(Tabname);
+			mandatoryRegistrationPopUp(UserType); 
 			ConsumptionScreen(Tabname);
-			Subscriptionpopup(UserType, Tabname);
+			Subscriptionpopup(UserType, Tabname,"ZEE5 Original Movies");
 			break;
 
 		case "SubscribedUser":
-			extent.HeaderChildNode("SubscribedUser");
-			extent.extentLogger("Accessing as SubscribedUser User", "Accessing as SubscribedUser User");
-			logger.info("Accessing as SubscribedUser User");
-			// ZeeWEBPWALogin11("SubscribedUser");
-			// dismissDisplayContentLanguagePopUp();
 			landingPagesValidationZeeoriginals(Tabname);
 			zee5originalstrayvalidation(Tabname);
+			extent.HeaderChildNode("ZEE5 Originals page tray asset validation");
 			trayTitleAndContentValidationWithApiDataZeeoriginals(Tabname, "zeeoriginals");
 			ValidatingPremiumTag(Tabname);
+			mandatoryRegistrationPopUp(UserType); 
 			ConsumptionScreen(Tabname);
-			Subscriptionpopup(UserType, Tabname);
+			Subscriptionpopup(UserType, Tabname,"ZEE5 Original Movies");
 		}
 	}
 
@@ -10096,13 +10087,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 	}
 
-	public void Subscriptionpopup(String UserType, String Tabname) throws Exception {
-		extent.HeaderChildNode("Validating the Subscriptionpopup after some interval of time");
-		navigateToAnyScreenOnWeb(Tabname);
+	@SuppressWarnings("unused")
+	public void Subscriptionpopup(String UserType, String tabName, String trayTitle) throws Exception {
+		extent.HeaderChildNode("Validating the Subscription popup after some interval of time");
+		navigateToAnyScreenOnWeb(tabName);
 		waitTime(20000);
 		// handle mandatory pop up
-		mandatoryRegistrationPopUp(userType);
-		click(PWAZee5OriginalPage.objPremiumContentCard, "Premium Content");
+		mandatoryRegistrationPopUp(UserType);
+		boolean firstAssetClicked = swipeTillTrayAndClickFirstAsset(userType, 15, trayTitle,"\"" + trayTitle + "\" tray", tabName);
 		waitTime(3000);
 		String nextPageTitle = "";
 		try {
@@ -10110,7 +10102,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("Shows Details page is displayed " + nextPageTitle);
 			extent.extentLogger("showDetails", "Shows Details page is displayed " + nextPageTitle);
 			scrollDownByY(300);
-			click(PWAShowsPage.objEpisodeCard, "Second Episode Card");
+			click(PWAShowsPage.objEpisodeCard, "First Episode Card");
 		} catch (Exception e) {
 			try {
 				nextPageTitle = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
@@ -10122,15 +10114,21 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 		}
 		if (UserType.equals("Guest") || UserType.equals("NonSubscribedUser")) {
-			waitForElement(PWASubscriptionPages.objGetPremiumPopupTitle, 20, "Subscribe Pop Up");
+			if(waitForElement(PWASubscriptionPages.objGetPremiumPopupTitle, 20, "Subscribe Pop Up"))
 			click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
 		} else {
 			if (checkElementDisplayed(PWASubscriptionPages.objGetPremiumPopupTitle, "Subscribe Pop Up")) {
 				logger.error("Subscribe Pop Up should not be displayed for Subscribed User");
 				extent.extentLoggerFail("", "Subscribe Pop Up should not be displayed for Subscribed User");
 			}
+			else {
+				logger.info("Subscribe Pop Up not displayed is expected behavior for Subscribed User");
+				extent.extentLogger("", "Subscribe Pop Up not displayed is expected behavior for Subscribed User");
+			}
 		}
 		navigateHome();
+		// handle mandatory pop up
+		mandatoryRegistrationPopUp(UserType);
 	}
 
 	/**

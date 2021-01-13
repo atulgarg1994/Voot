@@ -3,6 +3,8 @@ package com.business.zee;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.ScreenOrientation;
@@ -187,6 +189,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 	}
 
+	String Username;
+	String Password;
+	
+	
 	/**
 	 * Function to Login to Zee5
 	 */
@@ -214,8 +220,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
 
-			String Username = getParameterFromXML("NonSubscribedUserName");
-			String Password = getParameterFromXML("NonSubscribedUserPassword");
+		    Username = getParameterFromXML("NonSubscribedUserName");
+			Password = getParameterFromXML("NonSubscribedUserPassword");
 
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			
@@ -232,16 +238,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		case "SubscribedUser":
 			extent.HeaderChildNode("Login as Subscribed User");
 
-			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
-			String SubscribedPassword = getParameterFromXML("SubscribedUserPassword");
+			Username = getParameterFromXML("SubscribedUserName");
+			Password = getParameterFromXML("SubscribedUserPassword");
 
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
+			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
-			type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
+			type(AMDLoginScreen.objPasswordField, Password, "Password field");
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
 			waitTime(3000);
@@ -752,7 +758,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			Password = getParameterFromXML("NonSubscribedUserPassword");
 		} else {
 			Username = getParameterFromXML("SubscribedUserName");
-			Password = getParameterFromXML("SubscribedPassword");
+			Password = getParameterFromXML("SubscribedUserPassword");
 
 		}
 
@@ -1127,13 +1133,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar, keyword2 + "\n", "Search bar");
 			hideKeyboard();
-		//	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			//waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowLinkOnPlayer, "Subscribe Now Link");
 			Swipe("Up", 1);
-			verifyElementPresentAndClick(AMDPlayerScreen.objLoginCTA, "Login CTA");
+			verifyElementPresentAndClick(AMDConsumptionScreen.objProceedBtnOnSubscribePopUpInPlayerScreen, "Proceed CTA");
 			setFEProperty(userType);
-			mixpanel.FEProp.setProperty("Element", "Login");
+			mixpanel.FEProp.setProperty("Element", "Proceed");
 			mixpanel.ValidateParameter("", "Pop Up CTAs");
 
 		}
@@ -1365,7 +1371,21 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			type(AMDChangePasswordScreen.objConfirmPwdField, "1234567", "Confirm Password field");
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDChangePasswordScreen.objUpdateBtn, "Update button");
+			waitTime(5000);
+			
+			verifyElementPresentAndClick(AMDMyProfileScreen.objChangePassword, "Change Password");
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objCurrentPwdField, "Current Password field");
+			type(AMDChangePasswordScreen.objCurrentPwdField, "1234567", "Current Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objNewPwdField, "New Password field");
+			type(AMDChangePasswordScreen.objNewPwdField, "123456", "New Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objConfirmPwdField, "Confirm Password field");
+			type(AMDChangePasswordScreen.objConfirmPwdField, "123456", "Confirm Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objUpdateBtn, "Update button");
 			waitTime(3000);
+			
 			setFEProperty(userType);
 			mixpanel.FEProp.setProperty("Page Name", "ChangePassword");
 			mixpanel.FEProp.setProperty("Source", "MyProfile");
@@ -1394,6 +1414,19 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			type(AMDChangePasswordScreen.objConfirmPwdField, "1234567", "Confirm Password field");
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDChangePasswordScreen.objUpdateBtn, "Update button");
+			waitTime(5000);
+			
+			verifyElementPresentAndClick(AMDMyProfileScreen.objChangePassword, "Change Password");
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objCurrentPwdField, "Current Password field");
+			type(AMDChangePasswordScreen.objCurrentPwdField, "1234567", "Current Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objNewPwdField, "New Password field");
+			type(AMDChangePasswordScreen.objNewPwdField, "123456", "New Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objConfirmPwdField, "Confirm Password field");
+			type(AMDChangePasswordScreen.objConfirmPwdField, "123456", "Confirm Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDChangePasswordScreen.objUpdateBtn, "Update button");
 			waitTime(3000);
 
 			setFEProperty(userType);
@@ -1417,6 +1450,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			extentLoggerWarning("Video Auto Play", "the default state of the 'Auto Play' option is in ON state");
 		} else {
 			click(AMDMoreMenu.objVideo_Autoply, "Video Auto play toggle");
+			waitTime(4000);
+			click(AMDMoreMenu.objVideo_Autoply, "Video Auto play toggle");
 
 			mixpanel.FEProp.setProperty("Source", "More");
 			mixpanel.FEProp.setProperty("Page Name", "user_setting");
@@ -1434,9 +1469,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String elementAutoPlayToggleStatus = getText(AMDMoreMenu.objVideo_Autoply);
 		if (elementAutoPlayToggleStatus.equalsIgnoreCase("ON")) {
 			click(AMDMoreMenu.objVideo_Autoply, "Video Auto play toggle");
+			waitTime(5000);
+			click(AMDMoreMenu.objVideo_Autoply, "Video Auto play toggle");
 
 			mixpanel.FEProp.setProperty("Source", "More");
-			mixpanel.FEProp.setProperty("Page Name", "selector");
+			mixpanel.FEProp.setProperty("Page Name", "user_setting");
 			mixpanel.ValidateParameter("", "Video Streaming Autoplay Changed");
 
 		} else {
@@ -1453,7 +1490,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
 			hideKeyboard();
 			waitTime(4000);
-			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			//waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchlistBtn, "Watchlist icon");
@@ -1479,7 +1516,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
 			hideKeyboard();
 			waitTime(4000);
-			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			//waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchlistBtn, "Watchlist icon");
@@ -1831,10 +1868,35 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Remove an content from My WatchList page");
 			click(AMDHomePage.objMoreMenu, "More menu");
 			click(AMDMoreMenu.objWatchlist, "Watchlist option");
+			boolean flag = false;
 			click(AMDUserSessionManagement.objShowsTabUnderWatchList, "Shows Tab");
-			verifyElementPresentAndClick(AMDWatchlistPage.objEditBtn, "Edit button");
-			verifyElementPresentAndClick(AMDWatchlistPage.objSelectContentByIndex(1), "check box");
-			verifyElementPresentAndClick(AMDWatchlistPage.objDeleteAllBtn, "Delete All");
+			if(verifyIsElementDisplayed(AMDWatchlistPage.objEditBtn)) {
+				verifyElementPresentAndClick(AMDWatchlistPage.objEditBtn, "Edit button");
+				flag = true;
+			}else{
+				click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
+				if(verifyIsElementDisplayed(AMDWatchlistPage.objEditBtn)) {
+					verifyElementPresentAndClick(AMDWatchlistPage.objEditBtn, "Edit button");
+					flag = true;
+				}else {
+					click(AMDUserSessionManagement.objVideosTabUnderWatchList, "Videos Tab");
+					if(verifyIsElementDisplayed(AMDWatchlistPage.objEditBtn)) {
+						verifyElementPresentAndClick(AMDWatchlistPage.objEditBtn, "Edit button");
+						flag = true;
+					}else {
+						logger.info("No contents in watchlist to remove");
+						extentLogger("Remove contents from watchlist page", "No contents in watchlist to remove");
+					}
+				}
+				
+			}
+			if(flag==true) {
+				verifyElementPresentAndClick(AMDWatchlistPage.objSelectContentByIndex(1), "check box");
+				verifyElementPresentAndClick(AMDWatchlistPage.objDeleteAllBtn, "Delete All");
+				
+			}
+			
+			
 		}
 
 	}
@@ -1876,6 +1938,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
 		verifyElementPresentAndClick(AMDMoreMenu.objDownloads_Quality, "Download quality option");
 		verifyElementPresentAndClick(AMDSettingsScreen.objVideoQualityBest, "Best option");
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDMoreMenu.objDownloads_Quality, "Download quality option");
+		verifyElementPresentAndClick(AMDSettingsScreen.objVideoQualityGood, "Good option");
+		
 		mixpanel.FEProp.setProperty("Source", "More");
 		mixpanel.FEProp.setProperty("Page Name", "selector");
 		mixpanel.ValidateParameter("", "Download Quality Changed");
@@ -1888,7 +1954,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDHomePage.MoreMenuIcon, "More menu icon");
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
 		verifyElementPresentAndClick(AMDMoreMenu.objDownloads_WifiOnly, "Download over wifi only switch");
-		waitTime(3000);
+		waitTime(10000);
 		verifyElementPresentAndClick(AMDMoreMenu.objDownloads_WifiOnly, "Download over wifi only switch");
 		mixpanel.FEProp.setProperty("Source", "More");
 		mixpanel.FEProp.setProperty("Page Name", "user_setting");
@@ -1901,7 +1967,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDHomePage.MoreMenuIcon, "More menu icon");
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
 		verifyElementPresentAndClick(AMDMoreMenu.objDownloads_WifiOnly, "Download over wifi only switch");
-		waitTime(3000);
+		waitTime(10000);
 		verifyElementPresentAndClick(AMDMoreMenu.objDownloads_WifiOnly, "Download over wifi only switch");
 		mixpanel.FEProp.setProperty("Source", "More");
 		mixpanel.FEProp.setProperty("Page Name", "user_setting");
@@ -3313,7 +3379,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 			case "SubscribedUser":
 				pUsername = getParameterFromXML("SubscribedUserName");
-				pPwd = getParameterFromXML("SubscribedPassword");
+				pPwd = getParameterFromXML("SubscribedUserPassword");
 				break;
 			}
 
@@ -8358,20 +8424,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	}
 
 	public void setFEProperty(String pUserType) {
-		if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
-			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
-			mixpanel.FEProp.setProperty("New Download Quality Setting", "Good");
-			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "true");
-
-		} else if (pUserType.equalsIgnoreCase("SubscribedUser")) {
-			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
-			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
-			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
-			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
-			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
-
+		if (!(pUserType.equalsIgnoreCase("Guest"))) {
+			Properties pro = new Properties();
+			pro = ResponseInstance.getUserSettingsDetails(Username,Password);
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", pro.getProperty("streaming_quality"));
+			mixpanel.FEProp.setProperty("New Autoplay Setting", pro.getProperty("auto_play"));
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", pro.getProperty("stream_over_wifi"));
+			mixpanel.FEProp.setProperty("New Download Quality Setting",pro.getProperty("download_quality"));
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", pro.getProperty("download_over_wifi"));
 		} else {
 			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
@@ -8381,15 +8441,18 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void VerifyFirstAppLaunchEvent() throws Exception {
-		HeaderChildNode("Verify First App Launch event");
+	public void VerifyFirstAppLaunchEvent(String usertype) throws Exception {
+		if(usertype.equalsIgnoreCase("Guest")) {
+			HeaderChildNode("Verify First App Launch event");
 
-		new Zee5ApplicasterBusinessLogic("zee");
-		waitTime(5000);
-		Swipe("Up", 1);
-		click(AMDOnboardingScreen.objContinueBtnInDebugBuild, "Continue button");
-		setFEProperty(userType);
-		mixpanel.ValidateParameter("", "First Launch");
+			new Zee5ApplicasterBusinessLogic("zee");
+			waitTime(5000);
+			Swipe("Up", 1);
+			click(AMDOnboardingScreen.objContinueBtnInDebugBuild, "Continue button");
+			setFEProperty(userType);
+			mixpanel.ValidateParameter("", "First Launch");
+		}
+		
 
 	}
 

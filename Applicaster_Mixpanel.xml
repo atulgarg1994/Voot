@@ -11,11 +11,11 @@
 	<parameter name="keyword2" value="Chemistry of Kariyappa" />
 	<parameter name="displayLanguage" value="Marathi" />
 	
-	<parameter name="NonsubscribedUserName" value="amdnonmixpanel@yopmail.com" />
-	<parameter name="NonsubscribedPassword" value="123456" />
+	<parameter name="NonSubscribedUserName" value="amdnonmixpanel@yopmail.com" />
+	<parameter name="NonSubscribedUserPassword" value="123456" />
 	
 	<parameter name="SubscribedUserName" value="zeetestigs923@gmail.com" />
-	<parameter name="SubscribedPassword" value="123456" />
+	<parameter name="SubscribedUserPassword" value="123456" />
 	
 	<parameter name="ParentalNonsubscribedUserName" value="juspayuser@mailnesia.com" />
 	<parameter name="ParentalNonsubscribedPassword" value="123456" />

@@ -30,26 +30,11 @@ public class ZNAMixpanel_Journey {
 	@Test(priority = 2)
 	public void verifyCarouselBannerClickEvent() throws Exception {
 		System.out.println("Verify Carousel Banner Click Event");
-//		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyCarouselBannerClickEvent();
 	}
 	
-//	@Test(priority = 3)
-	public void verifyThumbnailClickEventFromTray() throws Exception {
-		System.out.println("Verify Thumbnail Click Event form Tray");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyThumbnailClickEventFromTray();
-	}
-	
-//	@Test(priority = 4)
-	@Parameters({ "keyword2" })
-	public void verifyThumbnailClickEventByClickingThumbnialFromPlaybackPage(String keyword2) throws Exception {
-		System.out.println("Verify Thumbnail Click Event form Tray from playback page");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyThumbnailClickEventFromTrayInPlayBackPage(keyword2);
-	}
-	
-	@Test(priority = 5)
+	@Test(priority = 3)//NonSubscribed and Subscribed user only
 	@Parameters({ "userType" })
 	public void verifyClearSearchHistoryEvent(String userType) throws Exception {
 		System.out.println("Verify Clear Search Histroy Event");
@@ -57,7 +42,7 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.clearSearchHistoryEvent(userType);
 	}
 	
-	@Test(priority = 6)
+	@Test(priority = 4)
 	@Parameters({ "userType" })
 	public void verifyScreenViewEvent(String userType) throws Exception {
 		System.out.println("Verify Screen View Event");
@@ -65,22 +50,7 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyScreenViewEvent("Shows",userType);
 	}
 	
-//	@Test(priority = 7)
-	public void verifyViewMoreSelectedEventFromTray() throws Exception {
-		System.out.println("Verify View More Selected Event For content played from Tray");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyViewMoreSelectedEventFromTray();
-	}
-	
-//	@Test(priority = 8)
-	@Parameters({"keyword2"})
-	public void verifyViewMoreSelectedEventFromPlaybackPage(String keyword2) throws Exception {
-		System.out.println("Verify View More Selected Event For content played from Playback page");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyViewMoreSelectedEventFromPlaybackPage(keyword2);
-	}
-	
-	@Test(priority = 9)
+	@Test(priority = 5)
 	@Parameters({"userType"})
 	public void verifySearchButtonClickEvent(String userType) throws Exception {
 		System.out.println("Verify Search Button Click Event");
@@ -88,37 +58,29 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifySearchButtonClickEvent(userType);
 	}
 	
-	@Test(priority = 10)
+	@Test(priority = 6)
 	@Parameters({"keyword2"})
 	public void verifySearchExecutedEvent(String keyword2) throws Exception {
-		System.out.println("Verify Clear Search Histroy Event");
+		System.out.println("Verify search executed event");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifySearchExecutedEvent(keyword2);
 	}
 	
-//	@Test(priority = 11)
-	@Parameters({"keyword2"})
-	public void verifySearchResultClickedEvent(String keyword2) throws Exception {
-		System.out.println("Verify Search Result Clicked Event");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifySearchResultClickedEvent(keyword2);
-	}
-	
-	@Test(priority = 12)
+	@Test(priority = 7)
 	public void verifyVideoQualityChangeEvent() throws Exception {
 		System.out.println("Video Streaming Quality Changed");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyVideoQualityChangeEvent();
 	}
 	
-	@Test(priority = 13)
+	@Test(priority = 8)
 	public void verifyVideoAutoPlayChangeEventforDisable() throws Exception {
 		System.out.println("Video Streaming AutoPlay Changed for disable");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyVideoAutoPlayChangeEventforDisable();
 	}
 	
-	@Test(priority = 14)
+	@Test(priority = 9)
 	@Parameters({"displayLanguage"})
 	public void verifyDisplayLanguageChangeEvent(String displayLanguage) throws Exception {
 		System.out.println("Display language Change");
@@ -126,44 +88,21 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyDisplayLanguageChangeEvent(displayLanguage);
 	}
 	
-	@Test(priority = 15)
+	@Test(priority = 10)
 	public void verifyContentLanguageChangeEvent() throws Exception {
 		System.out.println("content language Change");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyContentLanguageChangeEvent();
 	}
 	
-	@Test(priority = 16)
+	@Test(priority = 11)
 	public void verifydefaultsettingsRestoreEvent() throws Exception {
 		System.out.println("Default settings Restore Event");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true); 
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyDefaultSettingRestoredEvent();
 	}
 	
-//	@Test(priority = 17)
-	@Parameters({ "userType" })
-	public void verifyParentalRestrictionEvent(String userType) throws Exception {
-		System.out.println("Verify Parental Restriction Event");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch2(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyParentalRestrictionEvent(userType,"Age13+");
-	}
-	
-//	@Test(priority = 18)
-	@Parameters({ "userType" })
-	public void verifySettingsChanged(String userType) throws Exception {
-		System.out.println("Verify Parental Restriction Event");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyParentalRestrictionEvent(userType,"Age13+");
-	}
-	
-//	@Test(priority = 19)
-	@Parameters({ "userType" })
-	public void verifySessionEvent(String userType) throws Exception {
-		System.out.println("Verify Session Event");
-		Zee5ApplicasterMixPanelBusinessLogic.verifySessionEvent(userType);
-	}
-	
-	@Test(priority = 20)
+	@Test(priority = 12)
 	@Parameters({ "tabName","userType" })
 	public void verifyCarouselBannerSwipeEvent(String tabName,String userType) throws Exception {
 		System.out.println("Verify Carousel Banner Swipe Event");
@@ -171,15 +110,15 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyCarouselBannerSwipeEvent(tabName,userType);
 	}
 	
-	@Test(priority = 21)
-	@Parameters({ "userType", "keyword2" })
+	@Test(priority = 13)
+	@Parameters({ "userType", "keyword2" })//NonSubscribed and Guest user only
 	public void verifyPopUpLaunchEventForGetPremiumPopUp(String userType, String keyword2) throws Exception {
 		System.out.println("Verify Pop Up Launch Event when get premium popup is displayed on playing premium content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyPopUpLaunchEventForGetPremiumPopUp(userType,keyword2);
 	}
 	
-	@Test(priority = 22)
+	@Test(priority = 14)//NonSubscribed user only
 	@Parameters({ "userType", "keyword1" })
 	public void verifyPopUpLaunchEventForCompleteProfilePopUp(String userType, String keyword1) throws Exception {
 		System.out.println("Verify Pop Up Launch Event when Complete Profile popup is displayed");
@@ -187,7 +126,7 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyPopUpLaunchEventForCompleteProfilePopUp(userType, keyword1);
 	}
 	
-	@Test(priority = 23)
+	@Test(priority = 15)//Guest user only
 	@Parameters({ "userType", "keyword1" })
 	public void verifyPopUpLaunchEventForRegisterPopUp(String userType, String keyword1) throws Exception {
 		System.out.println("Verify Pop Up Launch Event when get register popup is displayed");
@@ -195,7 +134,7 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyPopUpLaunchEventForRegisterPopUp(userType,keyword1);
 	}
 	
-	@Test(priority = 24)
+	@Test(priority = 16)//NonSubscribed and Guest user only
 	@Parameters({ "userType", "keyword2" })
 	public void verifyPopUpCTAsEvent(String userType, String keyword2) throws Exception {
 		System.out.println("Verify Pop Up CTA's Event when user clicks on CTA button displayed on the popup");
@@ -203,7 +142,7 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyPopUpCTAsEvent(userType,keyword2);
 	}
 	
-	@Test(priority = 25)
+	@Test(priority = 17)
 	@Parameters({ "userType", "tabName" })
 	public void verifyCTAsEvent(String userType,String tabName) throws Exception {
 		System.out.println("Verify CTAs Event");
@@ -211,7 +150,7 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEvent(userType,tabName);
 	}
 	
-	@Test(priority = 26)
+	@Test(priority = 18)//Guest user only
 	@Parameters({ "userType" })
 	public void verifyLoginUsernameEnteredEvent(String userType) throws Exception {
 		System.out.println("Verify Login Username Entered Event");
@@ -219,7 +158,7 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyUserNameEnteredEvent(userType);
 	}
 	
-	@Test(priority = 27)
+	@Test(priority = 19)//Guest user only
 	@Parameters({ "userType" })
 	public void verifyLoginPasswordEnteredEvent(String userType) throws Exception {
 		System.out.println("Verify Login Password Entered Event");
@@ -227,7 +166,7 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginPasswordEnteredEvent();
 	}
 	
-	@Test(priority = 28)
+	@Test(priority = 20)//Guest user only
 	@Parameters({ "userType" })
 	public void verifyRegistrationDOBEnteredEvent(String userType) throws Exception {
 		System.out.println("Verify Registration DOB entered Event");
@@ -235,7 +174,7 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrationDOBEnteredEvent(userType);
 	}
 	
-	@Test(priority = 29)
+	@Test(priority = 21)//Guest user only
 	@Parameters({ "userType" })
 	public void verifyRegistrationGenderEnteredEvent(String userType) throws Exception {
 		System.out.println("Verify Registration Gender entered Event");
@@ -243,7 +182,7 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrationGenderEnteredEvent(userType);
 	}
 	
-	@Test(priority = 30)
+	@Test(priority = 22)//Guest user only
 	@Parameters({ "userType" })
 	public void verifyRegistrationUserNameEnteredEvent(String userType) throws Exception {
 		System.out.println("Verify Registration Username entered Event");
@@ -251,7 +190,7 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrationUserNameEnteredEvent(userType);
 	}
 	
-//	@Test(priority = 31)
+    @Test(priority = 23)//Guest only
 	@Parameters({ "userType" })
 	public void verifyRegistrationPasswordEnteredEvent(String userType) throws Exception {
 		System.out.println("Verify Registration Password entered Event");
@@ -259,7 +198,7 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyRegistrationPasswordEnteredEvent(userType);
 	}
 	
-	@Test(priority = 32)
+	@Test(priority = 24)//NonSubscribed and Subscribed user only
 	@Parameters({ "userType" })
 	public void verifyChangePasswordStartedEvent(String userType) throws Exception {
 		System.out.println("Verify Change Password Started Event");
@@ -267,7 +206,7 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyChangePasswordStartedEvent(userType);
 	}
 	
-	@Test(priority = 33)
+	@Test(priority = 25)//NonSubscribed and Subscribed user only
 	@Parameters({ "userType" })
 	public void verifyChangePasswordResultEvent(String userType) throws Exception {
 		System.out.println("Verify Change Password Result Event");
@@ -275,46 +214,37 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyChangePasswordResultEvent(userType);
 	}
 	
-	@Test(priority = 34)
+	@Test(priority = 26)
 	public void verifyVideoAutoPlayChangeEventForEnable() throws Exception {
 		System.out.println("Video Streaming AutoPlay Changed for enable");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyVideoAutoPlayChangeEventForEnable();
 	}
 	
-	@Test(priority = 35)
+	@Test(priority = 27)//NonSubscribed and Subscribed user only
 	@Parameters({ "userType", "keyword3" })
-	public void verifyAddtoWatchlistFromPlaybackPage(String keyword3,String userType) throws Exception {
+	public void verifyAddtoWatchlistFromPlaybackPage(String userType, String keyword3) throws Exception {
 		System.out.println("Verify Add to Watchlist Event From Playback Page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyAddtoWatchlistFromPlaybackPageInPotrait(userType,keyword3);
 	}
 	
-	@Test(priority = 36)
+	@Test(priority = 28)//NonSubscribed and Subscribed user only
 	@Parameters({ "userType", "keyword3" })
 	public void verifyRemoveFomWatchlistEventFromPlaybackPage(String userType,String keyword3) throws Exception {
 		System.out.println("Verify Remove From Watchlist Event From Playback Page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyRemoveFromWatchListPlaybackPageInPotrait(userType,keyword3);
 	}
-
-	// Login through ClubUser Id
-	@Test(priority = 37)
-	@Parameters({ "userType", "keyword6" })
-	public void verifyPopUpLaunchEventForClubUser(String userType, String keyword6) throws Exception {
-	    System.out.println("Verify Pop Up Launch Event when user gets Upgrade popup for Club User");
-	    Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-	    Zee5ApplicasterMixPanelBusinessLogic.verifyPopUpLaunchEventForClubUser(userType,keyword6);
-	}
 	
-	@Test(priority = 38)
-	public void verifyContentBucketSwipeEvent(String tabName) throws Exception {
+	@Test(priority = 29)
+	public void verifyContentBucketSwipeEvent() throws Exception {
 		System.out.println("Verify Content Bucket Swipe Event");
-		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyContentBucketSwipeEvent();
 	}
 	
-	@Test(priority = 39)
+	@Test(priority = 30)
 	@Parameters({ "keyword2" })
 	public void verifyContentBucketSwipeEventInPlayBackPage(String keyword2) throws Exception {
 		System.out.println("Verify Content Bucket Swipe Event in playback page");
@@ -322,7 +252,7 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyContentBucketSwipeEventInPlayBackPage(keyword2);
 	}
 	
-	@Test(priority = 40)
+	@Test(priority = 31)//NonSubscribed and Subscribed user only
 	@Parameters({ "userType" })
 	public void verifyProfileUpdateResultEvent(String userType) throws Exception {
 		System.out.println("Verify Profile Update Result Event");
@@ -330,74 +260,50 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyProfileUpdateResultEvent(userType);
 	}
 	
-	@Test(priority = 41)
-	@Parameters({ "userType", "keyword3" })
-	public void verifyAddtoWatchlistFromPlaybackPageInFullScreen(String keyword3,String userType) throws Exception {
-		System.out.println("Verify Add to Watchlist Event From Playback Page in Full screen");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyAddtoWatchlistFromPlaybackPageInFullScreen(userType,keyword3);
-	}
-	
-	@Test(priority = 42)
-	@Parameters({ "userType", "keyword3" })
-	public void verifyRemoveFomWatchlistEventFromPlaybackPageInFullScreen(String userType,String keyword3) throws Exception {
-		System.out.println("Verify Remove From Watchlist Event From Playback Page in Full screen");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyRemoveFromWatchlistFromPlaybackPageInFullScreen(userType,keyword3);
-	}
-	
-//	@Test(priority = 43)
-	@Parameters({ "userType"})
-	public void verifyRemoveFomWatchlistEventFromWatchListpage(String userType) throws Exception {
-		System.out.println("Verify Remove From Watchlist Event From WatchList page");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyRemoveFromWatchlistFromWatchListPage(userType);
-	}
-
-	@Test(priority = 44)
+	@Test(priority = 32)
 	public void verifyVideoStreamOverWifiChangeEventWhenEnable() throws Exception {
 		System.out.println("Verify Video stream  over Wifi Change event");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyVideoStreamOverWifiChangeEventForEnable();
 	}
 	
-	@Test(priority = 45)
+	@Test(priority = 33)
 	public void verifyVideoStreamOverWifiChangeEventWhenDisable() throws Exception {
 		System.out.println("Verify Video stream  over Wifi Change event");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyVideoStreamOverWifiChangeEventForDisable();
 	}
 	
-	@Test(priority = 46)
+	@Test(priority = 34)
 	public void verifyDownloadQualityChangeEvent() throws Exception {
 		System.out.println("Verify Download Quality change event");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyDownloadQualityChangeEvent();
 	}
 	
-	@Test(priority = 47)
+	@Test(priority = 35)
 	public void verifyDownloadOverWfiEventForEnable() throws Exception {
 		System.out.println("Verify Download over wifi change for Enable");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyDownloadOverWifiChangeEventForEnable();
 	}
 	
-	@Test(priority = 48)
+	@Test(priority = 36)
 	public void verifyDownloadOverWfiEventForDisable() throws Exception {
 		System.out.println("Verify Download over wifi change for Disable");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyDownloadOverWifiChangeEventForDisable();
 	}
 	
-	@Test(priority = 49)
-	@Parameters({ "userType", "DisplayLanguage" })
-	public void verifyDisplayLanguageChangeFromWelcomPage(String userType, String DisplayLanguage) throws Exception {
+	@Test(priority = 37)//Guest user only
+	@Parameters({ "userType", "displayLanguage" })
+	public void verifyDisplayLanguageChangeFromWelcomPage(String userType, String displayLanguage) throws Exception {
 		System.out.println("Verify Display Language change from Welcome page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunchTillDisplayLanguageScreen(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyDisplayLanguageChangeFromWelcomePage(userType, DisplayLanguage);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyDisplayLanguageChangeFromWelcomePage(userType, displayLanguage);
 	}
 	
-	@Test(priority = 50)
+	@Test(priority = 38)//Guest user only
 	@Parameters({ "userType"})
 	public void verifyContentLanguageChangeFromWelcomPage(String userType) throws Exception {
 		System.out.println("Verify Content Language change from Welcome page");
@@ -405,11 +311,11 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyContinueLanguageFromWelcomePage(userType);
 	}
 	
-	@Test(priority = 51)
+	@Test(priority = 39)//Guest user only
 	@Parameters({ "userType" })
 	public void verifyFirstAppLaunchEvent(String userType) throws Exception {
 		System.out.println("Verify First App launch Event");
-		Zee5ApplicasterMixPanelBusinessLogic.VerifyFirstAppLaunchEvent();
+		Zee5ApplicasterMixPanelBusinessLogic.VerifyFirstAppLaunchEvent(userType);
 	}
 	
 	@AfterTest

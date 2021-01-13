@@ -120,4 +120,5 @@ public class AMDConsumptionScreen {
 	}
 	
 	public static By objSubtitleValue = By.xpath("//*[@resource-id='com.graymatrix.did:id/subtitlesValueTv']");
+	public static By objProceedBtnOnSubscribePopUpInPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/proceed']");
 }
