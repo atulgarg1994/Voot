@@ -154,36 +154,39 @@ public class ExtentReporter implements ITestListener {
 			} 
 		}else {
 			runmode = false;
-			throw new SkipException("");
 		}
 	}
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		screencapture();
-		childTest.get().log(Status.PASS, result.getName() + " is PASSED");
-		logger.info("::::::::::Test " + result.getName() + " PASSED::::::::::");
+		if (DriverInstance.startTest) {
+			screencapture();
+			childTest.get().log(Status.PASS, result.getName() + " is PASSED");
+			logger.info("::::::::::Test " + result.getName() + " PASSED::::::::::");
 //		mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
+		}
 	}
 
 	@Override
 	public void onTestFailure(ITestResult result) {
-		if(DriverInstance.startTest) {
-		if((getDriver() != null) || (getWebDriver() != null)) {
-		childTest.get().log(Status.FAIL, result.getName() + " is FAILED");
-		logger.info("::::::::::Test " + result.getName() + " FAILED::::::::::");
+		if (DriverInstance.startTest) {
+			if ((getDriver() != null) || (getWebDriver() != null)) {
+				childTest.get().log(Status.FAIL, result.getName() + " is FAILED");
+				logger.info("::::::::::Test " + result.getName() + " FAILED::::::::::");
 //		mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
-		}
+			}
 		}
 	}
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
-		if (runmode) {
-			HeaderChildNode(result.getTestName());
-			childTest.get().log(Status.SKIP, result.getName() + " is SKIPPED");
-			logger.info("::::::::::Test " + result.getName() + " SKIPPED::::::::::");
+		if (DriverInstance.startTest) {
+			if (runmode) {
+				HeaderChildNode(result.getTestName());
+				childTest.get().log(Status.SKIP, result.getName() + " is SKIPPED");
+				logger.info("::::::::::Test " + result.getName() + " SKIPPED::::::::::");
 //			mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
+			}
 		}
 	}
 

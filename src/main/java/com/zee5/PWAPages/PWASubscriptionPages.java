@@ -226,8 +226,8 @@ public class PWASubscriptionPages {
 			.xpath("//*[contains(@class, 'linearLayout PaymentOptionViewNotList ')]//*[contains(text(), 'Wallets')]");
 	public static By objPaytmWallet = By.xpath(
 			"//*[@class='linearLayout sidebarItem_object ']//following-sibling::*//article[contains(text(),'Paytm')]");
-	public static By objPaymentPageProceedBtn = By
-			.xpath("//button[contains(@class, 'noSelect buttonGradient ')]/span[contains(text(),'PROCEED')]");
+//	public static By objPaymentPageProceedBtn = By
+//			.xpath("//button[contains(@class, 'noSelect buttonGradient ')]/span[contains(text(),'PROCEED')]");
 	public static By objEnterCreditAndDebitCardDetails = By
 			.xpath("//*[contains(@class,'editText') and contains(@placeholder,'Enter card number here')]");
 	public static By objJusPayIframe = By.xpath("//iframe[@id='juspay_iframe']");
@@ -323,6 +323,6 @@ public class PWASubscriptionPages {
 	public static By objMobileCreditDebitCardOption = By.xpath("//*[text()='Credit / Debit Card']");
 	public static By objMobileWalletsOption = By.xpath("//*[text()='Wallets']");
 	public static By objMobileProceedToPayButton = By.xpath("//*[text()='Proceed to pay']");
-
+	public static By objPaymentPageProceedBtn = By.xpath("//button[contains(@class,'noSelect buttonGradient')]");
 
 }

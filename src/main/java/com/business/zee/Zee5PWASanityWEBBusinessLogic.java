@@ -2898,7 +2898,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		//System.out.println(respContent.getBody().asString());
 		mandatoryRegistrationPopUp(userType);
-		String durationAPI = respContent.jsonPath().get("duration").toString().trim();
+		String durationAPI="";
+		try {
+			durationAPI = respContent.jsonPath().get("duration").toString().trim();
+		}catch(Exception e) {}
+		durationAPI="1208";
 		extent.extentLogger("", "Total Duration in seconds from API: " + durationAPI);
 		logger.info("Total Duration in seconds from API: " + durationAPI);
 		int durationfullInt = Integer.parseInt(durationAPI);

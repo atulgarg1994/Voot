@@ -336,5 +336,6 @@ public class PWASearchPage {
 	public static By objFirstAssetThumbnailTrendingSearch = By.xpath(
 			"//div[@class='trayHeader']//h2[text()='Trending Searches']//parent::*//following-sibling::div[@class='latestEpisodeTrayWrapper']//div[@data-index='1']");
 
-public static By objAssetTitleSearchNavigationTab = By.xpath("(//div[@class='listingGrid']//div[@class='metaData']//h3[contains(@class,'cardTitle')])[1]");
+//	public static By objAssetTitleSearchNavigationTab = By.xpath("(//div[@class='listingGrid']//div[@class='metaData']//h3[contains(@class,'cardTitle')])[1]");
+	public static By objAssetTitleSearchNavigationTab = By.xpath("(//a[@class='noSelect'])[1]");
 }
