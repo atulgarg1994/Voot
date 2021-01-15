@@ -12602,6 +12602,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			verifyElementPresent(PWAPlayerPage.pauseBtn, "Pause button");
 		}
 		click(PWAHomePage.objZeelogo1, "Zee logo");
+		 if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup") == true) {
+				click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
+			}
 		verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
 		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Subscription"), "My Subscription");
 		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Watchlist"), "My watchlist");
@@ -12636,7 +12639,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search button");
 		type(PWASearchPage.objSearchEditBox, Moviename, "Search field");
 		waitTime(5000);
-		click(PWASearchPage.objAssetTitleSearchNavigationTab, "Movie");
+//		click(PWASearchPage.objAssetTitleSearchNavigationTab, "Movie");
+		JSClick(PWASearchPage.objAssetTitleSearchNavigationTab, "Movie");
 		waitTime(5000);
 		if (checkElementDisplayed(PWASearchPage.objSubscribepopup, "Subscribepopup")) {
 			logger.info("Premium contents are not played for expired user");
