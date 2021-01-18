@@ -107,9 +107,7 @@ public class PWALoginPage {
 	
 	public static By objSignUpBtnWEB = By.xpath("//a[contains(text(),'Sign up for FREE')]");
 
-
-	public static By objForgotPasswordLinkButtonWEB = By.xpath("//div[@class='pwdgradientBtnContainer']//button[@class='noSelect buttonGradient ']");
-
+//	public static By objForgotPasswordLinkButtonWEB = By.xpath("//div[@class='pwdgradientBtnContainer']//button[@class='noSelect buttonGradient ']");
 	
 	public static By objForgotNextPageTextWEB = By.xpath("//div[@class='formHeader']");
 	
@@ -199,4 +197,6 @@ public class PWALoginPage {
 	public static By objOKBtnInFbPage = By.xpath("//button[@name='__CONFIRM__']");
 	
 	public static By objFacebookContinueButton= By.xpath("//*[text()='Continue']");
+	
+	 public static By objForgotPasswordLinkButtonWEB = By.xpath("//button[contains(@class,'noSelect buttonGradient')]");
 }

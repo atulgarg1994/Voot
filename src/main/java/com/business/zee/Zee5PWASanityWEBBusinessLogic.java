@@ -6696,10 +6696,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresent(PWALiveTVPage.objOngoingLiveTvShowTitle, "Ongoing Live TV Show card");
 		JSClick(PWALiveTVPage.objOngoingLiveTvShowTitle, "Ongoing Live TV Show card");
 		waitForElementDisplayed(PWASearchPage.objShowTitleInconsumptionPage(onGoingLiveTvShowCardTitle), 5);
-		while (!(checkElementDisplayed(PWASearchPage.objShowTitleInconsumptionPage(onGoingLiveTvShowCardTitle),
-				"Title in Consumption Screen"))) {
-			scrollDownWEB();
-		}
+//		while (!(checkElementDisplayed(PWASearchPage.objShowTitleInconsumptionPage(onGoingLiveTvShowCardTitle),
+//				"Title in Consumption Screen"))) {
+//			scrollDownWEB();
+//		}
 		String ConsumptionScreenShowTitle = getText(
 				PWASearchPage.objShowTitleInconsumptionPage(onGoingLiveTvShowCardTitle));
 		System.out.println(ConsumptionScreenShowTitle);

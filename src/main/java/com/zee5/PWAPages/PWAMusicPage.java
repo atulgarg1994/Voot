@@ -82,7 +82,7 @@ public class PWAMusicPage {
 //	Minimize window button
 	public static By minimizeBtn = By.xpath("//*[contains(@class,'playkit-icon-minimize')]");
 
-	public static By objArrowToNavigateTop = By.xpath(".//*[@class='iconNavi-ic_arrow_back']");
+//	public static By objArrowToNavigateTop = By.xpath(".//*[@class='iconNavi-ic_arrow_back']");
 
 	public static By objPremiumTagContentCard(String str) {
 		return By.xpath("((//div[@class='clickWrapper'])//a//img[@title='" + str
@@ -130,4 +130,6 @@ public class PWAMusicPage {
 	public static By objJoysticktag = By.xpath("//*[@class='cardJoystickContent cardPremiumContent']");
 	
 	public static By objRecommendedSongsVideosTray = By.xpath("//div[@class='recommendCol']//h2[.='Recommended Songs Videos']");
+	
+	public static By objArrowToNavigateTop = By.xpath("//div[contains(@class, 'iconOther-ic_arrow_back')]");
 }

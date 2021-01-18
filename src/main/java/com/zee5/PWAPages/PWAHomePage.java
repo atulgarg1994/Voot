@@ -330,11 +330,11 @@ public class PWAHomePage {
 
 	public static By objIoSAppStoreIcon = By.xpath("//*[@class='appStoreIcon']//a[@class='noSelect content']");
 
-	public static By objFacebookIcon = By.xpath("//*[@class='noSelect facebookIcon iconSocial-ic_social_facebook']");
+//	public static By objFacebookIcon = By.xpath("//*[@class='noSelect facebookIcon iconSocial-ic_social_facebook']");
 
-	public static By objInstagramIcon = By.xpath("//*[@class='noSelect instagramIcon iconSocial-ic_social_instagram']");
+//	public static By objInstagramIcon = By.xpath("//*[@class='noSelect instagramIcon iconSocial-ic_social_instagram']");
 
-	public static By objTwitterIcon = By.xpath("//*[@class='noSelect twittercon iconSocial-ic_social_twitter']");
+//	public static By objTwitterIcon = By.xpath("//*[@class='noSelect twittercon iconSocial-ic_social_twitter']");
 
 	public static By objSearchResultWeb = By.xpath("//div[@class='searchListingNewsWrap']//img[@title='Ramayana']");
 
@@ -524,4 +524,11 @@ public class PWAHomePage {
 	public static By objHighlightedTab(String tabname) {
 		return By.xpath("//a[contains(@class,'noSelect') and contains(@class,'active') and text()=\""+tabname+"\"]");
 	}
+	
+	public static By objFacebookIcon = By.xpath("//a[contains(@class, 'noSelect facebookIcon iconOther-ic_facebook')]");
+	
+	public static By objInstagramIcon = By.xpath("//a[contains(@class, 'noSelect instagramIcon iconOther-ic_instagram')]");
+	
+	public static By objTwitterIcon = By.xpath("//a[contains(@class, 'noSelect twittercon iconOther-ic_twitter')]");
+
 }

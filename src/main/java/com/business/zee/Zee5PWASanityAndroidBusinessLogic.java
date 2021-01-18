@@ -2318,7 +2318,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		if (waitforLiveTabToLoad()) {
 			verifyElementPresentAndClick(PWALiveTVPage.objFilterOption("FREE Channels"), "Free Channels filter");
 			waitForElementDisplayed(PWALiveTVPage.objFirstfreeContentCard, 5);
-			verifyElementPresentAndClick(PWALiveTVPage.objFirstfreeContentCard, "Free Content card");
+//			verifyElementPresentAndClick(PWALiveTVPage.objFirstfreeContentCard, "Free Content card");
+			JSClick(PWALiveTVPage.objFirstfreeContentCard, "Free Content card");
 			waitForElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, 5);
 			if (!(verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up"))) {
 				logger.info("User is able to watch the free Content");
@@ -6857,7 +6858,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe pop up")) {
 			click(PWASubscriptionPages.objPopupCloseButton, "Close button of Pop Up");
 		}
-		verifyElementPresentAndClick(PWASubscriptionPages.objLoginLinkInPlayer, "Login link");
+//		verifyElementPresentAndClick(PWASubscriptionPages.objLoginLinkInPlayer, "Login link");
+		waitTime(3000);
+		verifyElementPresent(PWASubscriptionPages.objLoginLinkInPlayer, "Login link");
+		JSClick(PWASubscriptionPages.objLoginLinkInPlayer, "Login link");
+		
 		waitTime(5000);
 		if (verifyIsElementDisplayed(PWALoginPage.objEmailField, "Login")) {
 			logger.info("User is redirected to login page");
@@ -8186,9 +8191,14 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				}
 			} else {
 				try {
-					(new WebDriverWait(getDriver(), 40))
-							.until(ExpectedConditions.elementToBeClickable(PWAHomePage.objGetPremiumGetClubButton))
-							.click();
+//					(new WebDriverWait(getDriver(), 40))
+//							.until(ExpectedConditions.elementToBeClickable(PWAHomePage.objGetPremiumGetClubButton))
+//							.click();
+					
+					verifyElementPresent(PWAHomePage.objGetPremiumGetClubButton,"GetPremium/GetClub");
+					
+					JSClick(PWAHomePage.objGetPremiumGetClubButton,"GetPremium/GetClub");
+
 					logger.info("Clicked on Get Premium/Get Club button");
 					extent.extentLogger("premiumbutton", "Clicked on Get Premium/Get Club button");
 					clicked = true;
