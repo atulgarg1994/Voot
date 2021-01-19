@@ -6862,7 +6862,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresent(PWASubscriptionPages.objLoginLinkInPlayer, "Login link");
 		JSClick(PWASubscriptionPages.objLoginLinkInPlayer, "Login link");
-		
 		waitTime(5000);
 		if (verifyIsElementDisplayed(PWALoginPage.objEmailField, "Login")) {
 			logger.info("User is redirected to login page");

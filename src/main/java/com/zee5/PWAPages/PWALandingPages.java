@@ -17,7 +17,6 @@ public class PWALandingPages {
 	public static By obj_Pwa_Popup_Close = By.xpath("//*[@class='manCloseIcon']");
 	public static By obj_Pwa_Subcription_teaser_btn = By.xpath("//*[@class='subscribeBtn noSelect']");
 
-	public static By obj_Pwa_Back_to_Top_Arrow_btn = By.xpath("//*[@class='iconNavi-ic_arrow_back']");
 	public static By objFirstTray = By.xpath("(//div[contains(@class,'trayHeader')])[1]");
 
 	public static By objtrayTitle(String trayTitleFromAPI) {
@@ -137,5 +136,6 @@ public class PWALandingPages {
 	public static By objTray(String apiTrayTitle) {
 		return By.xpath("//*[contains(text(),\""+apiTrayTitle+"\")]//ancestor::div[@class='trayHeader']//following-sibling::div//div[@class='slick-track']");
 	}
+	public static By obj_Pwa_Back_to_Top_Arrow_btn = By.xpath("//div[contains(@class, 'iconOther-ic_arrow_back')]");
 
 }

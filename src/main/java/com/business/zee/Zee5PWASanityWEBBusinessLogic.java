@@ -683,11 +683,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		} else {
 			click(PWALiveTVPage.objLiveTVMenu, "Live TV Tab");
 		}
-		verifyElementPresentAndClick(PWALiveTVPage.objChannelGuideToggle, "Channel Guide Toggle");
-		waitTime(8000);
-		checkElementDisplayed(PWASearchPage.objActivePrograme, "Active program");
-		String ActiveProgram = getText(PWASearchPage.objActivePrograme);
-		System.out.println(ActiveProgram);
+		waitforLiveTabToLoad();
+		checkElementDisplayed(PWALiveTVPage.objCardTitle, "Active program");
+		String ActiveProgram = getText(PWALiveTVPage.objCardTitle);
+		logger.info("Active program fetched from Live TV : "+ActiveProgram);
+		extent.extentLogger("Result", "Active program fetched from Live TV : "+ActiveProgram);
 		click(PWAHomePage.objZeelogo1, "Home page");
 		waitTime(3000);
 		click(PWAHomePage.objSearchBtn, "Search");
@@ -698,8 +698,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("Active program Search result is present in all tab");
 			extent.extentLogger("Result", "Active program Search result is present in all tab");
 		} else {
-			logger.info("Active program Search result is not present in all tab");
-			extent.extentLogger("Result", "Active program Search result is not present in all tab");
+			logger.error("Active program Search result is not present in all tab");
+			extent.extentLoggerFail("Result", "Active program Search result is not present in all tab");
 		}
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("News"), "News Tab");
 		if (checkElementDisplayed(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result")) {
@@ -12594,7 +12594,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
 			type(PWALoginPage.objPasswordField, SubPassword, "Password field");
-
 			waitTime(5000);
 			click(PWALoginPage.objWebLoginButton, "Login Button");
 			waitTime(10000);
@@ -14787,9 +14786,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		new WebDriverWait(getWebDriver(), 15);
 		try {
 			firstCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
-			waitTime(10000);
+			waitTime(6000);
 			secondCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
-			waitTime(10000);
+			waitTime(6000);
 			thirdCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
 
 		} catch (Exception e) {
@@ -16235,6 +16234,8 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 
 	public void LiveTVValidation(String userType, String tabName) throws Exception {
 
+		
+
 		navigateToAnyScreenOnWeb("Live TV");
 		waitforLiveTabToLoad();
 		// waitTime(30000);
@@ -16310,20 +16311,15 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		verifyElementPresent(PWAHomePage.objPlayiconAfterMouseHover, "Play icon");
 		verifyElementPresent(PWAHomePage.objShareiconAfterMouseHover, "Share icon");
 
-		extent.HeaderChildNode(
-				" HLS_135 :Verifing that On tapping of 'Right side bottom arrow' user is navigated to top of screen");
-
+		extent.HeaderChildNode("HLS_135 :Verifing that On tapping of 'Right side bottom arrow' user is navigated to top of screen");
 		waitTime(2000);
 		scrollToBottomOfPageWEB();
-		waitTime(5000);
 		if (checkElementDisplayed(PWAMusicPage.objArrowToNavigateTop, "Arrow icon")) {
 			waitTime(2000);
 			click(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
 		}
-
 		waitTime(3000);
-		extent.HeaderChildNode(
-				" HLS_136 :verifying that multiple languages are given to select with apply and reset button");
+		extent.HeaderChildNode("HLS_136 :verifying that multiple languages are given to select with apply and reset button");
 		verifyElementPresentAndClick(PWALiveTVPage.objLiveTvFilterOption, "Filter option");
 		waitTime(2000);
 		List<WebElement> languages = getWebDriver()
@@ -16453,7 +16449,6 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 			extent.extentLogger("Free content", "user is able to watch the free Content");
 		}
 		Back(1);
-
 	}
 
 	public void storiesvalidation(String userType, String tabName) throws Exception {

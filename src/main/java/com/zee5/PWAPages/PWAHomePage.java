@@ -261,7 +261,7 @@ public class PWAHomePage {
 	public static By objKalLivetvChannel = By.xpath("//div[@class='channelConsumptionMetaDiv']//h1");
 
 //		CONTENT DETAILS MODULE
-	public static By objSeletedTab = By.xpath("//div[@class='navMenuWrapper ']//a[@class='noSelect active']");
+	public static By objSeletedTab = By.xpath("//div[contains(@class, 'navMenuWrapper')]//a[contains(@class,'noSelect active')]");
 
 	public static By objZeelogo1 = By.xpath("//a[@class='zeeLogo noSelect']//child::*");
 
@@ -287,7 +287,7 @@ public class PWAHomePage {
 	public static By objDownloadApps = By.xpath("//h3[contains(text(),'Download Apps')]");
 
 	// Up Arrow
-	public static By objUpArrow = By.xpath("//div[@class='iconNavi-ic_arrow_back']");
+	public static By objUpArrow = By.xpath("//div[contains(@class, 'iconOther-ic_arrow_back')]");
 
 	// Facebook page
 	public static By objFacebookPage = By.xpath("(//*[@text='Log In'])[2]");

@@ -97,7 +97,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		relaunch = clearData;
 		new Zee5ApplicasterBusinessLogic("zee");
 		accessDeviceLocationPopUp("Allow", userType);
-		click(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "Continuebutton(Country_Screen)");
+		if(verifyIsElementDisplayed(AMDOnboardingScreen.objContinueBtnInCountryPopUp)) {
+			click(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "Continuebutton(Country_Screen)");
+		}
 	}
 
 	public void relaunchTillIntroScreen(boolean clearData) throws Exception {
@@ -164,7 +166,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		System.out.println("Access Device Location PopUp");
 
 		Swipe("Up", 1);
-		click(AMDOnboardingScreen.objContinueBtnInDebugBuild, "Continue button");
+		if(verifyIsElementDisplayed(AMDOnboardingScreen.objContinueBtnInDebugBuild)) {
+			click(AMDOnboardingScreen.objContinueBtnInDebugBuild, "Continue button");
+		}
 		if (checkElementExist(AMDOnboardingScreen.objAllowBtn)) {
 			Wait(5000);
 			verifyElementPresent(AMDOnboardingScreen.objAllowBtn, "Allow button");
@@ -183,7 +187,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	 */
 	public void navigateToIntroScreen_DisplaylangScreen() throws Exception {
 		extent.HeaderChildNode("Navigation to Intro Screen");
-		click(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "Continuebutton(Country_Screen)");
+		if(verifyIsElementDisplayed(AMDOnboardingScreen.objContinueBtnInCountryPopUp)) {
+			click(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "Continuebutton(Country_Screen)");
+		}
 		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button (Display-LanguageScreen)");
 		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
 		verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
@@ -8448,12 +8454,12 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			new Zee5ApplicasterBusinessLogic("zee");
 			waitTime(5000);
 			Swipe("Up", 1);
-			click(AMDOnboardingScreen.objContinueBtnInDebugBuild, "Continue button");
+			if(verifyIsElementDisplayed(AMDOnboardingScreen.objContinueBtnInDebugBuild)) {
+				click(AMDOnboardingScreen.objContinueBtnInDebugBuild, "Continue button");
+			}
 			setFEProperty(userType);
 			mixpanel.ValidateParameter("", "First Launch");
 		}
-		
-
 	}
 
 	@SuppressWarnings("static-access")
