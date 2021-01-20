@@ -19,7 +19,7 @@ public class Android_ClubPack {
 
 	@Test(priority = 0)
 	@Parameters({ "userType" })
-	public void ApplicasterLogin(String userType) throws Exception {
+	public void Login(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLoginForClubPack(userType);
@@ -49,10 +49,10 @@ public class Android_ClubPack {
 	@Parameters({ "userType" })
 	public void ValidateClubIconForLandingPages(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.validateClubIconOnContentCards(userType);
-		if (userType.contains("SubscribedUser")) {
-			ZEE5ApplicasterBusinessLogic.ValidateClubIconForRecoTray(userType);
-			ZEE5ApplicasterBusinessLogic.ValidateClubIconForEpisodes(userType);
-			ZEE5ApplicasterBusinessLogic.ValidateClubIconForMovies(userType);
+		if(userType.contentEquals("SubscribedUser")) {			
+		ZEE5ApplicasterBusinessLogic.ValidateClubIconForRecoTray(userType);
+		ZEE5ApplicasterBusinessLogic.ValidateClubIconForEpisodes(userType);
+		ZEE5ApplicasterBusinessLogic.ValidateClubIconForMovies(userType);
 		}
 	}
 

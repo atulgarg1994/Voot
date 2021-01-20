@@ -141,10 +141,6 @@ public class AMDMoreMenu {
 	public static By objDisplayLanguageOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/displayLanguage']");
 	public static By objContentLanguageOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/contentLanguage']");
 
-	public static By objSearchResult(String title) {
-		return By.xpath("//*[@id='item_primary_text' and contains(text(), '" + title + "')]");
-	}
-
 	public static By objWhatsAppMessage = By.xpath("//*[@id='content' and ./*[@text='WhatsApp']]");
 
 	public static By objTransactionDate1 = By
@@ -279,4 +275,7 @@ public class AMDMoreMenu {
 	public static By objRestrict13Above = By.xpath("//*[@text='Restrict 13+ Content']");
 	public static By objPrepaidCodeTxt = By.xpath("//*[@resource-id='com.graymatrix.did:id/edit_prepaid_code']");
 	public static By objApplyBtn = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_promo_code_next']");
+	public static By objSearchResult(String title) {
+		return By.xpath("//*[@id='searchItemTitleText' and contains(text(), '"+title+"')]");
+	}
 }

@@ -83,8 +83,6 @@ public class PWAShowsPage {
 	// First asset image from second content rail
 	public static By objSecondAssetImageFirstRail = By.xpath("(//div[@class='slick-list'])[1]//div[@data-index='1']");
 
-	public static By objBackToTopArrow = By.xpath("//div[@class='iconNavi-ic_arrow_back']");
-
 	public static By objShowsTitle = By.xpath("//*[contains(@class,'bannerTitle')]//h1");
 
 	public static By objWatchLatestCTA = By.xpath("//*[@class='playWrap']//following-sibling::p");
@@ -150,5 +148,8 @@ public class PWAShowsPage {
 	public static By objPlayAndWinViewAllFirstItem=By.xpath("//*[@class='viewAllGrid']//figure//img");
 	
 	public static By objThirdAssetImageFirstRail = By.xpath("(//div[@class='slick-list'])[1]//div[@data-index='2']");
+	
+	public static By objBackToTopArrow = By.xpath("//*[contains(@class, 'iconOther-ic_arrow_back')]");
+
 
 }

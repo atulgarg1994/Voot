@@ -19,12 +19,12 @@ public class Android_Onboarding_Suite2 {
 	
 	@Test(priority = 0)
 	@Parameters({ "userType" })
-	public void ApplicasterLogin(String userType) throws Exception {
+	public void Login(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLoginForOnboarding();
 	}
 	
-	@Test (priority = 1)
+	//@Test (priority = 1)  //Have a prepaid code is removed in the intro screen
 	@Parameters({"userType"})	//  Kushal
 	public void HaveAPrepaidCodeUIVerification(String userType) throws Exception {
 		System.out.println("\nVerify Have a Prepaid Code PopUp Screen");
@@ -35,7 +35,10 @@ public class Android_Onboarding_Suite2 {
 	@Parameters({"userType"})	//  Kushal
 	public void BrowseforFreeSkipLoginRegistration(String userType) throws Exception {
 		System.out.println("\nBrowse for Free - Skip Login/Register page to Home Screen");
-		ZEE5ApplicasterBusinessLogic.VerifySkipLoginRegistrationScreen();
+		if(userType.contentEquals("Guest")) {
+			ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		}
+				ZEE5ApplicasterBusinessLogic.VerifySkipLoginRegistrationScreen();
 	}
 	
 	@Test (priority = 3)	//  Kushal
@@ -46,7 +49,7 @@ public class Android_Onboarding_Suite2 {
 		ZEE5ApplicasterBusinessLogic.VerifyLoginWithEmailId(pEmailId, pPassword);
 	}
 	
-	@Test (priority = 4)	//  Kushal
+	//@Test (priority = 4)	//  Kushal   //Have a prepaid code is removed in the intro screen
 	@Parameters({"userType","NonsubscribedUserName","NonsubscribedPassword"})
 	public void InvalidPrepaidCodeValidationAfterLogin(String userType,String pEmailId,String pPassword) throws Exception {
 		System.out.println("\nVerify Invalid Prepaid Code PopUp for registered user");
@@ -56,7 +59,7 @@ public class Android_Onboarding_Suite2 {
 		ZEE5ApplicasterBusinessLogic.verifyInvalidPrepaidCodePopUpAfterLogin(pEmailId, pPassword);
 	}
 	
-	@Test (priority = 5)	//  Kushal
+	//@Test (priority = 5)	//  Kushal
 	@Parameters({"userType"})
 	public void InvalidPrepaidCodeValidationAfterRegistration(String userType) throws Exception {
 		System.out.println("\nVerify Invalid Prepaid Code PopUp for unregistered user");

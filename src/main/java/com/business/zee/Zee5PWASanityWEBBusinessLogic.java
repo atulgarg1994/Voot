@@ -14402,15 +14402,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				String b=getText(PWAHamburgerMenuPage.objeposidedate);
 				System.out.println(b);
 				//Boolean.parseBoolean(b);
-				if(a!=b)
-				{
-					logger.info("Not Navigated to Before tv eposide");
-					extent.extentLoggerFail("", "Not Navigated to Before tv eposide");
-				}
-				else 
+				if(a.equalsIgnoreCase(b))
 				{
 					logger.info(" Navigated to Before tv eposide");
 					extent.extentLogger("", " Navigated to Before tv eposide");
+				}
+				else 
+				{
+				        logger.info("Not Navigated to Before tv eposide");
+				 	extent.extentLoggerFail("", "Not Navigated to Before tv eposide");
 				}
 				logout();
 				}
@@ -15827,21 +15827,22 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		extent.HeaderChildNode(" HLS_068 : Verify the rails name and content are loaded for first 2 scroll");
 		pagesTrayValidation(tabName);
 		
-		extent.HeaderChildNode(" HLS_070 : Verify tray rotation functionality");
-		verifyElementPresentAndClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
+		extent.HeaderChildNode(" HLS_069,HLS_07 : Verify On click View All/> ");
+
+		verifyElementPresent(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
+		JSClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
 		if (checkElementDisplayed(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button")) {
+			waitTime(3000);
 			logger.info("Tray is rotated");
 			extent.extentLogger("Tray is rotated", "Tray is rotated");
 		} else {
-			logger.error("Tray is not rotated");
-			extent.extentLoggerFail("Tray is not rotated", "Tray is not rotated");
+			logger.info("Tray is not rotated");
+			extent.extentLogger("Tray is not rotated", "Tray is not rotated");
 		}
-		click(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
-
-		extent.HeaderChildNode(" HLS_069 : Verify View All funcitonality");
+		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
 		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
 			click(PWAPremiumPage.objViewAllBtn, "View All Button");
-			waitTime(5000);
+			waitTime(10000);
 			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "View All Page")) {
 				logger.info("Navigated to View All Page");
 				extent.extentLogger("View All", "Navigated to View All Page");
@@ -15942,7 +15943,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 			logger.error("Back to Top Arrow icon is not displayed");
 			extent.extentLoggerFail("", "Back to Top Arrow icon is not displayed");
 		}
-}
+	}
 
 	public void Premiumvalidation(String tabName, String userType) throws Exception {
 		extent.HeaderChildNode("HLS_083: Verify user navigation " + tabName + "page");

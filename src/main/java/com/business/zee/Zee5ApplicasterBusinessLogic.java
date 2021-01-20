@@ -669,6 +669,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void registerForFreeScreen(String user) throws Exception {
 		extent.HeaderChildNode("Register for free Page");
 		System.out.println("\nRegister for free Page");
+		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 		if (user.equals("Email")) {
 			type(AMDRegistrationScreen.objEmailIDTextField, generateRandomString(5) + "@gmail.com", "Email field");
 			click(AMDRegistrationScreen.objProceedBtn, "Proceed button");
@@ -1534,7 +1535,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDSearchScreen.objDownloadsOption, "Bottom bar Downloads Option");
 		verifyElementExist(AMDSearchScreen.objMoreOption, "Bottom bar More Option");
 
-		WebElement elementBackBtn = findElement(AMDLoginScreen.objBackBtn);
+		WebElement elementBackBtn = findElement(AMDLoginScreen.objSearchBackBtn);
 		int BackBtnleftX = elementBackBtn.getLocation().getX();
 		int BAckBtnrightX = BackBtnleftX + elementBackBtn.getSize().getWidth();
 		int BackBtnmiddleX1 = (BAckBtnrightX + BackBtnleftX) / 2;
@@ -1579,8 +1580,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Voice Search icon", "Device Microphone access permission pop up is not displayed");
 		}
 
-		verifyElementExist(AMDSearchScreen.objVoiceSearchBackButton, "Back button");
-		click(AMDSearchScreen.objVoiceSearchBackButton, "Back button");
+//		verifyElementExist(AMDSearchScreen.objVoiceSearchBackButton, "Back button");
+//		click(AMDSearchScreen.objVoiceSearchBackButton, "Back button");
+		Back(1);
 
 		waitTime(2000);
 
@@ -1599,7 +1601,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Search Box", "Water Marked Text is not displayed by default in Search Box");
 		}
 
-		verifyElementPresentAndClick(AMDLoginScreen.objBackBtn, "Back Button");
+		verifyElementPresentAndClick(AMDLoginScreen.objSearchBackBtn, "Back Button");
 		if (verifyElementPresent(AMDLoginScreen.objHomeTab, "Home Tab")) {
 			logger.info("User navigated to previous screen on tapping of back button available on the search screen");
 			extent.extentLoggerPass("Previous screen",
@@ -1700,7 +1702,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Search Screen", "User not navigated to Search Landing screen");
 			}
 
-			click(AMDLoginScreen.objBackBtn, "Back Button");
+			click(AMDLoginScreen.objSearchBackBtn, "Back Button");
 			waitTime(2000);
 
 			if (liveTV) {
@@ -1887,6 +1889,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		navigateToRegisterScreen(loginThrough);
 		extent.HeaderChildNode("Validating Login/Registration screen");
 		System.out.println("\nValidating Login/Registration screen");
+		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
+		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 		if (userType.equalsIgnoreCase("Guest")) {
 			WebElement element = findElement(AMDLoginScreen.objLoginOrRegisterPageTitle);
 			int leftX = element.getLocation().getX();
@@ -2540,6 +2544,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Validate Registration screen UI/UX");
 		System.out.println("\nValidate Registration screen UI/UX");
 		waitTime(5000);
+		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 		String pEmailID = generateRandomString(5) + "@gmail.com";
 		type(AMDRegistrationScreen.objEmailIDTextField, pEmailID, "Email field");
 		verifyElementPresentAndClick(AMDRegistrationScreen.objProceedBtn, "Proceed button");
@@ -2681,8 +2686,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDRegistrationScreen.objEyeIcon, "Eye Icon");
 		}
 		click(AMDRegistrationScreen.objFirstNameTxtField, "First name"); // Clicking on First Name field to get device
-																			// keys
-
 		hideKeyboard();
 		checkRegisterButton();
 		verifyElementPresent(AMDRegistrationScreen.objTermsOfUseAndPrivacyPolicy, "Terms and condition text ");
@@ -3073,8 +3076,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				}
 
 				WebElement eleTab = findElement(
-						By.xpath("(//*[@id='clearSearch']//following::*[@id='title'])[" + i + "]"));
-				tabName = findElement(By.xpath("(//*[@id='clearSearch']//following::*[@id='title'])[" + i + "]"))
+						By.xpath("(//*[@id='searchTypeTabLayout']//*[@class='android.widget.TextView'])[" + i + "]"));
+				tabName = findElement(By.xpath("(//*[@id='searchTypeTabLayout']//*[@class='android.widget.TextView'])[" + i + "]"))
 						.getText();
 
 				System.out.println(tabName);
@@ -3082,8 +3085,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			} else {
 				WebElement eleTab = findElement(
-						By.xpath("(//*[@id='clearSearch']//following::*[@id='title'])[" + i + "]"));
-				tabName = findElement(By.xpath("(//*[@id='clearSearch']//following::*[@id='title'])[" + i + "]"))
+						By.xpath("(//*[@id='searchTypeTabLayout']//*[@class='android.widget.TextView'])[" + i + "]"));
+				tabName = findElement(By.xpath("(//*[@id='searchTypeTabLayout']//*[@class='android.widget.TextView'])[" + i + "]"))
 						.getText();
 				System.out.println(tabName);
 				eleTab.click();

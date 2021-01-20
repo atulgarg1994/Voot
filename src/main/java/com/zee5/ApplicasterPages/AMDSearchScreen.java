@@ -17,12 +17,6 @@ public class AMDSearchScreen {
 	public static By objMoreOption = By
 			.xpath("//*[@id='bb_bottom_bar_icon' and (./preceding-sibling::* | ./following-sibling::*)[@text='More']]");
 
-	public static By objVoiceicon = By.xpath("//*[@id='voice_icon']");
-
-	public static By objsearchBox = By.xpath("//*[@id='searchToolbarTitle']");
-
-	public static By objMicroPhone = By.xpath("//*[@id='mainLabelTv']");
-
 	public static By objSearchBoxEdit = By.xpath("//*[@resource-id='com.graymatrix.did:id/searchToolbarTitle']");
 
 	public static By objVoiceSearchBackButton = By.xpath("//*[@id='backIv']");
@@ -71,10 +65,6 @@ public class AMDSearchScreen {
 
 	public static By objFreeMovies = By
 			.xpath("//*[@id='title']//ancestor::*[@class='android.support.v7.app.ActionBar$b']");
-
-	public static By objSearchEditBox = By.xpath("//*[@resource-id='com.graymatrix.did:id/searchBar']");
-	
-	public static By objSearchBoxBar = By.xpath("//*[@resource-id='com.graymatrix.did:id/searchBarText']");
 	
 	public static By objEnterKey = By.xpath("(//*[@id='icon'])[11]");
 
@@ -125,20 +115,10 @@ public class AMDSearchScreen {
 	public static By objNewsTabIndx = By.xpath("(//*[@id='title'and @text='News'])[2]");
 
 	public static By objVideosTab = By.xpath("(//*[@id='title'and @text='Videos'])");
-
-	public static By objSearchResultPage = By.xpath("//*[@id='searchResultsContent']");
-
-	public static By objMicrophoneIcon = By.xpath("//*[@id='voice_icon']");
-
+	
 	public static By objBackBtn = By.xpath("//*[@id='backIv']");
 
-	public static By objVoiceSearchPermission = By.xpath("//*[@id='mainLabelTv']");
-
 	public static By objMicrophoneIconLogo = By.xpath("//*[@id='micLogoIv']");
-
-	public static By objTermsAndConditions = By.xpath("//*[@id='termsAndConditionsTv']");
-
-	public static By objProceedBtn = By.xpath("//*[@id='proceedBtn']");
 
 	public static By objAllow = By.xpath("//*[@id='permission_allow_button']");
 
@@ -149,8 +129,6 @@ public class AMDSearchScreen {
 	public static By objCloseBtn = By.xpath("//*[@id='closeButton']");
 
 	public static By objSeeUrTextMsg = By.xpath("//*[@id='resultsOfRec']");
-
-	public static By objMicrophoneLogoInVoiceSearch = By.xpath("//*[@id='resultsOfRec']");
 
 	public static By objRecentSearch = By.xpath("//*[@text='Recent Searches']");
 
@@ -186,10 +164,6 @@ public class AMDSearchScreen {
 	public static By objContentCardTitleOfTopSearchesTray = By.xpath(
 			"//*[@text='Top Searches']/parent::*/parent::*/following-sibling::*/child::*/child::*[@resource-id='com.graymatrix.did:id/item_primary_text']");
 
-	// public static By objSearchBox =
-	// By.xpath("//*[@resource-id='com.graymatrix.did:id/searchBar']");
-	public static By objSearchBar = By.xpath("//*[@id='searchBar' and //*[@class='android.widget.EditText']]");
-
 	// public static By objSearchResultPage =
 	// By.xpath("//*[@id='searchResultsContent']");
 
@@ -197,8 +171,6 @@ public class AMDSearchScreen {
 		String title = "f";
 		System.out.println("//*[@id='item_primary_text' and contains(text(), " + title + ")]");
 	}
-
-	public static By objFirstContentInSearchResult = By.xpath("(//*[@resource-id='com.graymatrix.did:id/searchItemTitleText'])[1]");
 	
 	public static By objSearchIcon = By.xpath("//*[@id='title_and_logo_container']//following-sibling::*");
 	
@@ -220,8 +192,6 @@ public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.
 	
 	public static By objEpisodeSearch = By.xpath("//*[@id='item_secondary_text']");
 	
-	public static By objClearSearch = By.xpath("//*[@id='clearSearch']");
-	
 	public static By objSearchMoviesTab = By.xpath("(//*[@text='Movies' and @id='title'])[2]");
 	
 	public static By objSearchShowsTab = By.xpath("(//*[@id='title' and @text='Shows'])[2]");
@@ -233,5 +203,20 @@ public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.
 
 	public static By objTrendingSearches = By.xpath("//*[@id='header_primary_text' and @text='Trending Searches']");
 	
-	public static By objTabs = By.xpath("//*[@id='clearSearch']//following::*[@id='title']");
+	public static By objSearchEditBox = By.xpath("//*[@id='searchBarText']"); 
+	public static By objVoiceicon = By.xpath("//*[@id='searchBarVoiceRecord']");
+	public static By objMicroPhone = By.xpath("//*[@id='searchRecordingPermissionText']");
+	public static By objsearchBox = By.xpath("//*[@id='searchBarText']");
+	public static By objSearchBar = By.xpath("//*[@id='searchBarText']");
+	public static By objFirstContentInSearchResult = By.xpath("(//*[@id='Zee5SearchResultItem'])[1]");
+	public static By objSearchBoxBar = By.xpath("//*[@id='searchBarText']");
+	public static By objClearSearch = By.xpath("//*[@id='searchBarClearText']");
+	public static By objMicrophoneIcon = By.xpath("//*[@id='searchBarVoiceRecord']");
+	public static By objVoiceSearchPermission = By.xpath("//*[@id='searchRecordingPermissionText']");
+	public static By objTermsAndConditions = By.xpath("//*[@id='termsAndConditionsText']");
+	public static By objProceedBtn = By.xpath("//*[@id='proceedButton']");
+	public static By objMicrophoneLogoInVoiceSearch = By.xpath("//*[@id='voiceRecordingGroup']");
+	public static By objSearchResultPage = By.xpath("//*[@id='searchItemTitleText']");
+	public static By objTabs = By.xpath("//*[@id='searchTypeTabLayout']//*[@class='android.widget.TextView']");
+
 }

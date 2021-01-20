@@ -176,4 +176,5 @@ public class AMDLoginScreen {
 	public static By objAuthorizeAppInTwitterpage = By.xpath("//*[@resource-id='com.twitter.android:id/ok_button']");
 	public static By objPasswordFieldInFBPage = By.xpath("//*[@class='android.widget.EditText' and @contentDescription='Password']");
 	public static By objtwAuthorizeAppBtn = By.xpath("//*[@id='allow' and @text='Authorize app']");
+	public static By objSearchBackBtn = By.xpath("//*[@id='searchBarBackButton']");
 }
