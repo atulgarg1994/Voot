@@ -3080,32 +3080,58 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 //	====================For Autorotating=======================
 	public void verifyAutoroatingOnCarousel(String screen) throws Exception {
-		extent.HeaderChildNode("Verifying autorotating of carousel pages on : " + screen);
-		String firstCarouselTitle = "", secondCarouselTitle = "", thirdCarouselTitle = "";
-		navigateToAnyScreenOnWeb(screen);
-		new WebDriverWait(getWebDriver(), 15);
-		try {
-			firstCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
-			waitTime(10000);
-			secondCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
-			waitTime(10000);
-			thirdCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
-
-		} catch (Exception e) {
-			e.getMessage();
+		boolean autoplayingItemsPresent = false;
+		// String languageSmallText = allSelectedLanguages();
+		Response tabResponse = ResponseInstance.getResponseForPages(screen.toLowerCase(), "en,hi,kn");
+		int carouselItemsCount = tabResponse.jsonPath().get("buckets[0].items.size()");
+		System.out.println(carouselItemsCount);
+		if (carouselItemsCount > 7)
+			carouselItemsCount = 7;
+		for (int i = 0; i < carouselItemsCount; i++) {
+			try {
+				if (tabResponse.jsonPath().get("buckets[0].items[" + i + "].tags[0]").toString().equals("Autoplay")) {
+					logger.info("Autorotation could not be verified because Carousel contains auto playing items");
+					extent.extentLoggerWarning("",
+							"Autorotation could not be verified because Carousel contains auto playing items");
+					autoplayingItemsPresent = true;
+					break;
+				}
+			} catch (Exception e) {
+			}
 		}
-		extent.extentLogger("Autorotating", "First content title :" + firstCarouselTitle + " second content title :"
-				+ secondCarouselTitle + " and third content title :" + thirdCarouselTitle);
-		logger.info("First content title :" + firstCarouselTitle + " second content title :" + secondCarouselTitle
-				+ " and third content title :" + thirdCarouselTitle);
-		if (firstCarouselTitle.equals(secondCarouselTitle) == false
-				&& firstCarouselTitle.equals(thirdCarouselTitle) == false) {
-			softAssert.assertFalse(firstCarouselTitle.equals(secondCarouselTitle));
-			logger.info("Content is auto rotated");
-			extent.extentLogger("Autorotating", "Content is auto rotated");
-		} else {
-			logger.error("Content is not auto rotated");
-			extent.extentLoggerFail("Autorotating", "Content is not auto rotated");
+		if (autoplayingItemsPresent == false) {
+			if (navigateToAnyScreen(screen)) {
+				String firstCarouselTitle = "", secondCarouselTitle = "", thirdCarouselTitle = "";
+				(new WebDriverWait(getDriver(), 30))
+						.until(ExpectedConditions.presenceOfElementLocated(PWAHomePage.objContTitleOnCarousel));
+				firstCarouselTitle = getElementPropertyToString("innerText", PWAHomePage.objContTitleOnCarousel,
+						"Carousel Content Title").toString();
+				logger.info("Carousel content title fetched first time: " + firstCarouselTitle);
+				extent.extentLogger("Autorotating", "Carousel content title fetched first time: " + firstCarouselTitle);
+				Thread.sleep(4000);
+				secondCarouselTitle = getElementPropertyToString("innerText", PWAHomePage.objContTitleOnCarousel,
+						"Carousel Content Title").toString();
+				logger.info("Carousel content title fetched second time: " + secondCarouselTitle);
+				extent.extentLogger("Autorotating",
+						"Carousel content title fetched second time: " + secondCarouselTitle);
+				Thread.sleep(4000);
+				thirdCarouselTitle = getElementPropertyToString("innerText", PWAHomePage.objContTitleOnCarousel,
+						"Carousel Content Title").toString();
+				logger.info("Carousel content title fetched third time: " + thirdCarouselTitle);
+				extent.extentLogger("Autorotating", "Carousel content title fetched third time: " + thirdCarouselTitle);
+				Thread.sleep(4000);
+				if (firstCarouselTitle.equals(secondCarouselTitle) || secondCarouselTitle.equals(thirdCarouselTitle)) {
+					logger.error("Autorotation failed");
+					extent.extentLoggerFail("Autorotating", "Autorotation failed");
+				} else {
+					logger.info("Different carousel titles are displayed at different instances, Autorotation passed");
+					extent.extentLogger("Autorotating",
+							"Different carousel titles are displayed at different instances, Autorotation passed");
+				}
+			} else {
+				logger.error("Failed to validate carousel autorotation on tab : " + screen);
+				extent.extentLoggerFail("Autorotating", "Failed to validate carousel autorotation on tab : " + screen);
+			}
 		}
 	}
 
@@ -15551,39 +15577,16 @@ public void newsValidation(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("HLS_055: Verify user navigation " + tabName + "page");
 		PWAPagesNavigationAndTabHighlight(tabName);	
 		
-		navigateToAnyScreenOnWeb(tabName);
+		
 		extent.HeaderChildNode("HLS_062 :  Verify the Play, share and add to watch list CTA buttons");
 		waitTime(3000);
 		trayTitleAndContentValidationWithApiDataNews(tabName, "news");
 
 		
 		extent.HeaderChildNode(" HLS_056 : Verify The carousels are Auto scrolled in landing pages.");
-		waitTime(5000);
-		String firstCarouselTitle = "", secondCarouselTitle = "", thirdCarouselTitle = "";
-		new WebDriverWait(getWebDriver(), 15);
-		try {
-			firstCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
-			waitTime(10000);
-			secondCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
-			waitTime(10000);
-			thirdCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
-
-		} catch (Exception e) {
-			e.getMessage();
-		}
-		extent.extentLogger("Autorotating", "First content title :" + firstCarouselTitle + " second content title :"
-				+ secondCarouselTitle + " and third content title :" + thirdCarouselTitle);
-		logger.info("First content title :" + firstCarouselTitle + " second content title :" + secondCarouselTitle
-				+ " and third content title :" + thirdCarouselTitle);
-		if (firstCarouselTitle.equals(secondCarouselTitle) == false
-				&& firstCarouselTitle.equals(thirdCarouselTitle) == false) {
-			softAssert.assertFalse(firstCarouselTitle.equals(secondCarouselTitle));
-			logger.info("Content is auto rotated");
-			extent.extentLogger("Autorotating", "Content is auto rotated");
-		} else {
-			logger.error("Content is not auto rotated");
-			extent.extentLoggerFail("Autorotating", "Content is not auto rotated");
-		}
+		navigateToAnyScreenOnWeb(tabName);
+		
+		verifyAutoroatingOnCarousel(tabName);
 		extent.HeaderChildNode(" HLS_057 : Verify the trays displayed in the News page.");
 		PWAPagesNavigationAndTabHighlight(tabName);
 
