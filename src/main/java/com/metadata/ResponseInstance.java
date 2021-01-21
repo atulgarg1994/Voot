@@ -373,7 +373,9 @@ public class ResponseInstance {
 		}
 		if (page.equals("stories")) {
 			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
-		} else {
+		} else if(page.equals("live tv")) {
+			Uri = "https://catalogapi.zee5.com/v1/channel/genres?translation=en&country=IN";
+		}else {
 			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page
 					+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages=" + contLang + "&version=10";
 			System.out.println(Uri);

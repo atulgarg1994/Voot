@@ -55,7 +55,7 @@
 	<parameter name="RSVODPassword" value="123456" />
 	<parameter name="invalidSearchKeyword" value="@$_-(;_+" />
 	<parameter name="partlySpeltSearchKeyword" value="Kam" />
-	<parameter name="searchModuleKeyword" value="Kamali" />
+	<parameter name="searchModuleKeyword" value="Paaru" />
 	
 	<parameter name="searchKeyword" value="Aditya praises Paaru" />
 	<parameter name="searchKeyword1" value="Paaru gets tipsy" />

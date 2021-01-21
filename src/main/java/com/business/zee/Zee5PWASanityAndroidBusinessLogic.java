@@ -11046,8 +11046,18 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	public void pagesTrayValidation(String tabName) throws Exception {
 		navigateToAnyScreen(tabName);
 		int endindex = 0;
-		// String languageSmallText = allSelectedLanguages();
-		Response resp = ResponseInstance.getResponseForPages(tabName.toLowerCase(), "en,hi,kn");
+		Response resp = null;
+		for(int i=0;i<5;i++) {
+			try {
+				resp=ResponseInstance.getResponseForPages(tabName.toLowerCase(), "en,hi,kn");
+			}
+			catch(Exception e) {}
+			if (!resp.getBody().asString().contains("\"error_code\":401")) break;				
+			else {
+				logger.info(resp.getBody().asString());
+				extent.extentLogger("", resp.getBody().asString());
+			}
+		}
 		List<String> apiTitleList = new LinkedList<String>();
 		List<String> apitotaltrays;
 		int trays = 0;
@@ -11082,8 +11092,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			for (int swipe = 0; swipe < 5; swipe++) {
 				try {
 					findElement(By.xpath("(//div[@class='trayHeader'])//h2[.=\"" + apititle + "\"]")).getText();
-					logger.info("Located Tray " + apititle + " in UI");
-					extent.extentLogger("", "Located Tray " + apititle + " in UI");
+					logger.info("Located tray in UI : " + apititle);
+					extent.extentLogger("", "Located tray in UI : " + apititle);
 					break;
 				} catch (Exception e) {
 					Swipe("UP", 1);
@@ -14232,34 +14242,42 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				System.out.println(
 						"HLS_143 : Verify the Subscribe now or Login pop is not displayed when user click on premium content");
 			}
+			boolean clicked=false;
 			for (int scroll = 0; scroll <= 8; scroll++) {
 				if (directClickReturnBoolean(PWALiveTVPage.objFirstPremiumCardinTray, "Premium Content")) {
 					logger.info("Clicked on Premium Content Card");
 					extent.extentLogger("", "Clicked on Premium Content Card");
+					clicked=true;
 					break;
 				} else {
 					Swipe("UP", 1);
 					waitTime(2000);
+					if(scroll==8) {
+						logger.info("Premium Content Card not available in Live TV Page");
+						extent.extentLogger("", "Premium Content Card not available in Live TV Page");
+						clicked=false;
+					}
 				}
 			}
-			waitTime(5000);
-			if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
-				waitForElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, 5);
-				if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up")) {
-					click(PWAPremiumPage.objClosePremiumPopup, "Subscribe Pop Up Close icon");
-				} else {
-					logger.error("Subscribe Pop Up failed to get displayed");
-					extent.extentLoggerFail("", "Subscribe Pop Up failed to get displayed");
+			if(clicked==true) {
+				waitTime(5000);
+				if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+					waitForElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, 5);
+					if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up")) {
+						click(PWAPremiumPage.objClosePremiumPopup, "Subscribe Pop Up Close icon");
+					} else {
+						logger.error("Subscribe Pop Up failed to get displayed");
+						extent.extentLoggerFail("", "Subscribe Pop Up failed to get displayed");
+					}
 				}
-			}
-			if (userType.equals("SubscribedUser")) {
-				if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle,
-						"Subscribe Pop Up for Subscribed User")) {
-					click(PWAPremiumPage.objClosePremiumPopup, "Subscribe Pop Up Close icon");
-					logger.error("Subscribe Pop Up should not be displayued for Subscribed User");
-					extent.extentLoggerFail("", "Subscribe Pop Up should not be displayued for Subscribed User");
+				if (userType.equals("SubscribedUser")) {
+					if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle,"Subscribe Pop Up for Subscribed User")) {
+						click(PWAPremiumPage.objClosePremiumPopup, "Subscribe Pop Up Close icon");
+						logger.error("Subscribe Pop Up should not be displayued for Subscribed User");
+						extent.extentLoggerFail("", "Subscribe Pop Up should not be displayued for Subscribed User");
+					}
 				}
-			}
+			}			
 		}
 	}
 
@@ -14304,27 +14322,27 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("HLS_150 : Verify the rails name and content are loaded for first 2 scroll");
 		System.out.println("HLS_150 : Verify the rails name and content are loaded for first 2 scroll");
 		pagesTrayValidation(Tabname);
-		extent.HeaderChildNode(
-				"HLS_154 : Verify at right side bottom arrow is given to navigate top of screen without scrolling");
-		System.out.println(
-				"HLS_154 : Verify at right side bottom arrow is given to navigate top of screen without scrolling");
+		extent.HeaderChildNode("HLS_154 : Verify at right side bottom arrow is given to navigate top of screen without scrolling");
+		System.out.println("HLS_154 : Verify at right side bottom arrow is given to navigate top of screen without scrolling");
 		verificationOfBackToTop(Tabname);
-		extent.HeaderChildNode(
-				"HLS_151 : Verify the \" View All\" option given on tray right side top and functionality of View all, HLS_155 : Verify whether user is navigate to consumption page when user tap on any video content in Listed collection");
-		System.out.println(
-				"HLS_151 : Verify the \" View All\" option given on tray right side top and functionality of View all, HLS_155 : Verify whether user is navigate to consumption page when user tap on any video content in Listed collection");
-		if (playCardFromCollections(userType, Tabname)) {
-			extent.HeaderChildNode("HLS_156 : Verify that Recommended Videos are displayed right side of the player");
-			System.out.println("HLS_156 : Verify that Recommended Videos are displayed right side of the player");
-			swipeTillTrayAndClickContentCard("Recommended Videos");
-		} else {
-			extent.HeaderChildNode("HLS_156 : Verify that Recommended Videos are displayed right side of the player");
-			System.out.println("HLS_156 : Verify that Recommended Videos are displayed right side of the player");
-			logger.info(
-					"Verifying presence of Recommended Videos in consumptions page is blocked because player navigation did not occur in previous test case");
-			extent.extentLoggerWarning("",
-					"Verifying presence of Recommended Videos in consumptions page is blocked because player navigation did not occur in previous test case");
-		}
+		extent.HeaderChildNode("HLS_151 : Verify the \" View All\" option given on tray right side top and functionality of View all, HLS_155 : Verify whether user is navigate to consumption page when user tap on any video content in Listed collection");
+		System.out.println("HLS_151 : Verify the \" View All\" option given on tray right side top and functionality of View all, HLS_155 : Verify whether user is navigate to consumption page when user tap on any video content in Listed collection");
+		playCardFromCollections(userType, Tabname);
+		reloadHome();
+		String keyword = "16th and 17th June Episodes of High Fever";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWAHomePage.objSearchField, keyword + "\n", "Search");
+		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
+		waitTime(2000);
+		String videoTitle = "";
+		try {
+			videoTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle,"Video Title in Consumptions Page").toString();
+			logger.info("Video Title in Consumptions Page: " + videoTitle);
+			extent.extentLoggerPass("", "Video Title in Consumptions Page: " + videoTitle);
+		}catch(Exception e) {}
+		extent.HeaderChildNode("HLS_156 : Verify that Recommended Videos are displayed right side of the player");
+		System.out.println("HLS_156 : Verify that Recommended Videos are displayed right side of the player");
+		swipeTillTrayAndClickContentCard("Recommended Videos");
 	}
 
 	public void PWAZEE5OriginalsPageHLS(String usertype, String Tabname) throws Exception {
@@ -14667,6 +14685,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("HLS_190 : Verify the Searched contents/Term is shown to the user as Recent searches");
 		System.out.println("HLS_190 : Verify the Searched contents/Term is shown to the user as Recent searches");
 		String keywordB = "Gattimela";
+		click(PWASearchPage.objSearchEditBox,"Search edit box");
 		type(PWASearchPage.objSearchEditBox, keywordB, "Search edit box");
 		waitTime(4000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchShowsTab, "Shows tab");
@@ -14714,7 +14733,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info("Previous Recent searched Keywords are not displayed");
 			extent.extentLogger("", "Previous Recent searched Keywords are not displayed");
 		}
-
 	}
 
 	public void PWASubscriptionJourneyHLS(String usertype) throws Exception {

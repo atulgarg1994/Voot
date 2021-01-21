@@ -279,7 +279,8 @@ public class PWAHomePage {
 	public static By objPWANews = By.xpath("//div[contains(text(),'News')]");
 
 //		SUSHMA SANITY LIVETV MODULE
-	public static By objBackToTopArrow = By.xpath("//div[@class='iconNavi-ic_arrow_back']");
+//	public static By objBackToTopArrow = By.xpath("//div[@class='iconNavi-ic_arrow_back']");
+	public static By objBackToTopArrow = By.xpath("//div[@class='iconOther-ic_arrow_back'or @class='iconNavi-ic_arrow_back']");
 
 	// Footer section of home page
 
@@ -515,7 +516,7 @@ public class PWAHomePage {
 	public static By objRentforINR = By.xpath("(//div[@class='rentNowButton']//div//button)[1]");	
 	
 	public static By objRentforINRPopupRentforINRBtn = By.xpath("(//div[@class='plexBottomWrapper']//div//button)[1]");
-
+	
 	public static By objRestrictDescription = By.xpath("//div[@class='RestrictDesc']");
 	
 	public static By objRestrictContentNotnowBtn = By.xpath("//div[@class='btwrap']//div[@class='closeBtn']//div");
@@ -525,10 +526,10 @@ public class PWAHomePage {
 		return By.xpath("//a[contains(@class,'noSelect') and contains(@class,'active') and text()=\""+tabname+"\"]");
 	}
 	
-	public static By objFacebookIcon = By.xpath("//a[contains(@class, 'noSelect facebookIcon iconOther-ic_facebook')]");
+	public static By objFacebookIcon = By.xpath("//a[contains(@class, 'noSelect facebookIcon')]");
 	
-	public static By objInstagramIcon = By.xpath("//a[contains(@class, 'noSelect instagramIcon iconOther-ic_instagram')]");
+	public static By objInstagramIcon = By.xpath("//a[contains(@class, 'noSelect instagramIcon')]");
 	
-	public static By objTwitterIcon = By.xpath("//a[contains(@class, 'noSelect twittercon iconOther-ic_twitter')]");
-
+	public static By objTwitterIcon = By.xpath("//a[contains(@class, 'noSelect twittercon')]");
+	
 }

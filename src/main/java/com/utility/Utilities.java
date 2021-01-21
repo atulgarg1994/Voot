@@ -546,8 +546,15 @@ public class Utilities extends ExtentReporter {
 	public void type(By byLocator, String text, String FieldName) {
 
 		try {
-			WebElement element = findElement(byLocator);
-			element.sendKeys(text);
+			waitTime(1000);
+			if (!getPlatform().equals("Web")) {
+				Actions a = new Actions(getDriver());
+				a.sendKeys(text);
+				a.perform();
+			} else {
+				WebElement element = findElement(byLocator);
+				element.sendKeys(text);
+			}
 			text = text.split("\n")[0];
 			logger.info("Typed the value " + text + " into " + FieldName);
 			extent.extentLogger("", "Typed the value " + text + " into " + FieldName);
@@ -662,7 +669,7 @@ public class Utilities extends ExtentReporter {
 					getDriver().navigate().back();
 					logger.info("Back button is tapped");
 					extent.extentLogger("Back", "Back button is tapped");
-					waitTime(2000);
+					waitTime(6000);
 				}
 			}
 		} catch (Exception e) {

@@ -7,7 +7,8 @@ public class PWASearchPage {
 // List of locators before performing Search functionality
 
 	// Back button in Search Edit box
-	public static By objBackButton = By.xpath("//div[contains(@class,'iconNavi-ic_back')]");
+//	public static By objBackButton = By.xpath("//div[contains(@class,'iconNavi-ic_back')]");
+	public static By objBackButton = By.xpath("//div[@class='noSelect backBtn iconOther-ic_back' or @class='noSelect backBtn iconNavi-ic_back']");
 	
 	public static By objSearchButton = By.xpath("//a[@class='noSelect searchBtn iconInitialLoad-ic_search']");
 

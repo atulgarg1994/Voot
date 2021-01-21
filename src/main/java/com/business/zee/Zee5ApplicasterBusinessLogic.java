@@ -1719,6 +1719,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void verifySearchOption(String userType) throws Exception {
 		extent.HeaderChildNode("Verify Search Icon on Landing pages as : " + userType);
 		System.out.println("\nVerify Search Icon on Landing pages as " + userType);
+		click(AMDHomePage.objBottomNavigation("Home"), "Home");
 		waitTime(10000);
 		verifyElementPresent(AMDLoginScreen.objHomeTab, "Home Tab");
 		boolean liveTV = false;
@@ -1774,6 +1775,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			if (tabName.equalsIgnoreCase("Live TV")) {
 				liveTV = true;
 			}
+			waitTime(3000);
 
 		}
 
@@ -17372,7 +17374,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
 		String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
-		if (searchResultTitle.equalsIgnoreCase(consumptionScreenTitle)) {
+		if (searchResults.equalsIgnoreCase(consumptionScreenTitle)) {
 			logger.info("User taken to respective consumption screen on tapping any search result.");
 			extent.extentLoggerPass("Consumption screen",
 					"User taken to respective consumption screen on tapping any search result.");
@@ -17566,8 +17568,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				verifyElementPresent(AMDSubscibeScreen.objInvalidPrepaidCodePopUp, "Invalid Prepaid code pop up");
 				verifyElementPresentAndClick(AMDSubscibeScreen.objDoneBtn, "Done Button");
 			}
+			if (userType.equals("Guest")) {
+				Back(3);
+			}else {
+				Back(4);
+			}
+			
 		}
-		Back(3);
+		
 		if (userType.equals("Guest")) {
 			click(AMDHomePage.objMoreMenu, "More Menu");
 			Swipe("UP", 2);

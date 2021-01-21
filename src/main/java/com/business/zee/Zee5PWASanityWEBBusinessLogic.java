@@ -9988,31 +9988,30 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		Response resp = ResponseInstance.getResponseForPages(api, languageSmallText);
 		List<String> apiTitleList = new LinkedList<String>();
 		String Tray_Title = resp.jsonPath().getString("buckets[1].title");
-		System.out.println("The Title of the Tray is " + Tray_Title + "");
+		logger.info("The Title of the Tray is " + Tray_Title + "");
+		extent.extentLogger("Metadata", "The Title of the Tray is " + Tray_Title + "");
 		List<String> contentList = resp.jsonPath().getList("buckets[1].items");
 		System.out.println(contentList.size());
 		partialScrollDown();
+		Actions actions = new Actions(getWebDriver());
 		for (int i = 0; i < 5; i++) {
-			String titles = resp.jsonPath().getString("buckets[1].items[" + i + "].title");
-			logger.info("Api data : " + titles);
-			extent.extentLogger("", "Api data : " + titles);
-			apiTitleList.add(titles);
-			waitTime(6000);
-			Actions actions = new Actions(getWebDriver());
-			WebElement contentCard = getWebDriver()
-					.findElement(By.xpath("(//div[@class='slick-list']//div[@class='content'])[" + (i + 1) + "]"));
+			String title = resp.jsonPath().getString("buckets[1].items[" + i + "].title");
+			logger.info("Api data : " + title);
+			extent.extentLogger("", "Api data : " + title);
+			apiTitleList.add(title);
+			waitTime(6000);			
+			WebElement contentCard = getWebDriver().findElement(By.xpath("(//div[@class='slick-list']//div[@class='content'])[" + (i + 1) + "]"));
 			actions.moveToElement(contentCard).build().perform();
 			String trayTitle = apiTitleList.get(i);
-			logger.info("UI data " + titles);
+			logger.info("UI data " + trayTitle);
 
-			if (trayTitle.equalsIgnoreCase(apiTitleList.get(i))) {
+			if (trayTitle.equalsIgnoreCase(title)) {
 				logger.info("Metadata on the content card is validated with Api data");
 				extent.extentLogger("Metadata", "Metadata on the content card is validated with Api data");
 			} else {
-				logger.info("Metadata on the content card is not validated with Api data");
+				logger.error("Metadata on the content card is not validated with Api data");
 				extent.extentLoggerFail("Metadata", "Metadata on the content card is not validated with Api data");
 			}
-
 			waitTime(1000);
 			checkElementDisplayed(PWAPremiumPage.objContentCardPlayBtn, "Play Button");
 			waitTime(1000);
@@ -16237,8 +16236,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 	}
 
 	public void LiveTVValidation(String userType, String tabName) throws Exception {
-
-		
+		extent.HeaderChildNode(" Verify user navigation " + tabName + "page");
 
 		navigateToAnyScreenOnWeb("Live TV");
 		waitforLiveTabToLoad();
@@ -17238,29 +17236,26 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 			checkElementDisplayed(PWAPlayerPage.objContinue, "Continue offer");
 			click(PWAPlayerPage.objContinue, "Continue offer");
 			if (checkElementDisplayed(PWAHamburgerMenuPage.objEduauraaSignupPage, "Eduauraa Sign Up page")) {
-				logger.info("User is navigated to EduauraaSign Up page");
-				extent.extentLogger("Contact Us", "User is navigated to EduauraaSign Up page");
+				logger.info("User is navigated to Eduauraa Sign Up page");
+				extent.extentLogger("Contact Us", "User is navigated to Eduauraa Sign Up page");
 			} else {
-				logger.info("Not navigated to EduauraaSign Up Page");
-				extent.extentLoggerFail("Zee5 Subscription Page", "Not navigated to EduauraaSign Up Page");
+				logger.info("Not navigated to Eduauraa Sign Up Page");
+				extent.extentLoggerFail("Zee5 Subscription Page", "Not navigated to Eduauraa Sign Up Page");
 			}
-			Back(1);
-			Back(1);
+			
 		}
-		verifyElementPresentAndClick(PWALandingPages.obj_Pwa_Zee5Logo, "ZeeLogo");
-
+		navigateToHome();
 		waitTime(3000);
-		extent.HeaderChildNode(
-				"HLS_121: V Verify that Play, share, watchlist CTA and metadata like Movies names are displayed on each content card");
+		extent.HeaderChildNode("HLS_121: Verify that Play, share, watchlist CTA and metadata like Movies names are displayed on each content card");
 		trayTitleAndContentValidationWithApiDataZeeoriginals(tabName, "kids");
-
+		navigateToAnyScreenOnWeb(tabName);
 		extent.HeaderChildNode("HLS_122 :Verify the right side bottom arrow ");
 		scrollDownByY(300);
 		scrollDownByY(300);
 		logger.info("Scrolled Up the page");
-		if (checkElementDisplayed(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon")) {
+		if (checkElementDisplayed(PWAMusicPage.objArrowToNavigateTop, "Back to Top Arrow icon")) {
 			waitTime(2000);
-			click(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon");
+			click(PWAMusicPage.objArrowToNavigateTop, "Back to Top Arrow icon");
 		} else {
 			logger.error("Back to Top Arrow icon is not displayed");
 			extent.extentLoggerFail("", "Back to Top Arrow icon is not displayed");

@@ -80,7 +80,7 @@ public class PWAHamburgerMenuPage {
 
 //	Explore Down arrow icon
 	public static By objDownArrow(String expanderName) {
-		return By.xpath("//h5[.='" + expanderName + "']//span[contains(@class,'iconNavi-ic_expand_less')]");
+		return By.xpath("//div[@class='menuTitle noSelect  menuForMyAccount']");
 	}
 
 //	Check Explore down arrow icon is Active
