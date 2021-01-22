@@ -132,5 +132,7 @@ public class PWAMusicPage {
 	public static By objRecommendedSongsVideosTray = By.xpath("//div[@class='recommendCol']//h2[.='Recommended Songs Videos']");
 	
 	public static By objArrowToNavigateTop = By.xpath("//div[contains(@class, 'ic_arrow_back')]");
+	
+	public static By objBannerPlusTrayCard = By.xpath("//div[contains(@class,'bannerPlusTray')]//div[@data-minutelytitle]//img");
 
 }

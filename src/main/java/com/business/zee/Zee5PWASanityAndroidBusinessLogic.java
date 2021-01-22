@@ -9592,6 +9592,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info(successMessage + " is displayed");
 			extent.extentLogger("Success Message", successMessage + " is displayed");
 			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACodeCloseBtn, "Close Button");
+			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "Have A Code section");
 			type(PWASubscriptionPages.objHaveACode, "pNB20", "Prepaid Code");
 			verifyElementPresentAndClick(PWASubscriptionPages.objApplyBtn, "Apply Button");
 			boolean ele2 = verifyElementPresent(PWASubscriptionPages.objAppliedSuccessfullyMessage,

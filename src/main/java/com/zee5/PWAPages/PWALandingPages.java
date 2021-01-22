@@ -136,6 +136,6 @@ public class PWALandingPages {
 	public static By objTray(String apiTrayTitle) {
 		return By.xpath("//*[contains(text(),\""+apiTrayTitle+"\")]//ancestor::div[@class='trayHeader']//following-sibling::div//div[@class='slick-track']");
 	}
-	public static By obj_Pwa_Back_to_Top_Arrow_btn = By.xpath("//div[contains(@class, 'iconOther-ic_arrow_back')]");
-
+	
+	public static By obj_Pwa_Back_to_Top_Arrow_btn = By.xpath("//div[contains(@class, 'ic_arrow_back')]");
 }

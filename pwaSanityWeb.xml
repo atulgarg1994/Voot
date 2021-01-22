@@ -69,7 +69,7 @@
 		<listener class-name="com.extent.ParameterInjector" />
 		<!--  <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
-	</listeners>	
+	</listeners>
 
 	<test name="WebPWASanityScript">
 		<classes>

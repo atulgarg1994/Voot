@@ -14811,9 +14811,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		new WebDriverWait(getWebDriver(), 15);
 		try {
 			firstCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
-			waitTime(6000);
+			waitTime(5000);
 			secondCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
-			waitTime(6000);
+			waitTime(5000);
 			thirdCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
 
 		} catch (Exception e) {
@@ -14986,9 +14986,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		new WebDriverWait(getWebDriver(), 15);
 		try {
 			firstCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
-			waitTime(10000);
+			waitTime(6000);
 			secondCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
-			waitTime(10000);
+			waitTime(6000);
 			thirdCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
 
 		} catch (Exception e) {
@@ -16200,7 +16200,12 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		}
 		extent.HeaderChildNode("HLS_130 : Verify that Recommended Videos are displayed right side of the player");
 		mandatoryRegistrationPopUp(userType);
-		verifyElementPresentAndClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel card");
+		if (checkElementDisplayed(PWAPremiumPage.objWEBMastheadCarousel, "Carousel card")) {
+			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel card");
+		}
+		else if (checkElementDisplayed(PWAMusicPage.objBannerPlusTrayCard, "Banner Tray Card")) {
+			click(PWAMusicPage.objBannerPlusTrayCard, "Banner Tray card");
+		}
 		if (checkElementDisplayed(PWASubscriptionPages.objGetPremiumPopupTitle, "Subscribe Pop Up")) {
 			verifyElementPresentAndClick(PWAPremiumPage.objClosePremiumPopup, "Premium PopUp Close icon");
 		}
