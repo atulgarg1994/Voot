@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -50,7 +51,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		new CommandBase(Application);
 		init();
 	}
-	
+
 	private int timeout;
 
 	/** Retry Count */
@@ -321,7 +322,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		if (userType.equals("NonSubscribedUser")) {
 			extent.HeaderChildNode("Relaunch functionality");
-		//	verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login button");
+			// verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login
+			// button");
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			click(AMDLoginScreen.objEmailIdField, "Email field");
 			verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
@@ -349,7 +351,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		if (userType.equals("SubscribedUser")) {
 			extent.HeaderChildNode("Relaunch functionality");
-		//	verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login button");
+			// verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login
+			// button");
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			click(AMDLoginScreen.objEmailIdField, "Email field");
 			verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
@@ -616,7 +619,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue");
 		verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn, "Continue");
 
-	//	verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login button");
+		// verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login
+		// button");
 		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 		click(AMDLoginScreen.objEmailIdField, "Email field");
 		verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
@@ -2419,11 +2423,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			click(AMDOnboardingScreen.objContent_ContinueBtn, "[Content Language] Continue button");
 			// Verify Login button is displayed
-			//verifyElementExist(AMDOnboardingScreen.objLoginLnk, "Login button");
+			// verifyElementExist(AMDOnboardingScreen.objLoginLnk, "Login button");
 			verifyElementExist(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free button");
 
 			// Verify user is navigated to Login Registration screen
-			//click(AMDOnboardingScreen.objLoginLnk, "Login button");
+			// click(AMDOnboardingScreen.objLoginLnk, "Login button");
 			click(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free button");
 			hideKeyboard();
 			// Click operation is used for the device which do not identify the keyboard
@@ -2535,7 +2539,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Login/Register Screen", "Login/Register Screen is not displayed");
 			}
 
-		} 
+		}
 //		else if (loginThrough.equals("login")) {
 //			HeaderChildNode("Validate Login/Register Screen");
 //			click(AMDLoginScreen.objLoginLnk, "Login link");
@@ -3079,8 +3083,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 				WebElement eleTab = findElement(
 						By.xpath("(//*[@id='searchTypeTabLayout']//*[@class='android.widget.TextView'])[" + i + "]"));
-				tabName = findElement(By.xpath("(//*[@id='searchTypeTabLayout']//*[@class='android.widget.TextView'])[" + i + "]"))
-						.getText();
+				tabName = findElement(
+						By.xpath("(//*[@id='searchTypeTabLayout']//*[@class='android.widget.TextView'])[" + i + "]"))
+								.getText();
 
 				System.out.println(tabName);
 				eleTab.click();
@@ -3088,8 +3093,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			} else {
 				WebElement eleTab = findElement(
 						By.xpath("(//*[@id='searchTypeTabLayout']//*[@class='android.widget.TextView'])[" + i + "]"));
-				tabName = findElement(By.xpath("(//*[@id='searchTypeTabLayout']//*[@class='android.widget.TextView'])[" + i + "]"))
-						.getText();
+				tabName = findElement(
+						By.xpath("(//*[@id='searchTypeTabLayout']//*[@class='android.widget.TextView'])[" + i + "]"))
+								.getText();
 				System.out.println(tabName);
 				eleTab.click();
 			}
@@ -9711,7 +9717,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("\nNavigation to Home Screen");
 
 		if (pUserType.equals("Guest")) {
-		//	verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+			// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
 			waitTime(3000);
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
@@ -13408,7 +13414,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		case "NonSubscribedUser":
 			navigateToIntroScreen_DisplaylangScreen();
 			extent.HeaderChildNode("Login as NonSubscribed User");
-		//	verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+			// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
@@ -13426,7 +13432,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		case "SubscribedUser":
 			navigateToIntroScreen_DisplaylangScreen();
 			extent.HeaderChildNode("Login as Subscribed User");
-		//	verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+			// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
@@ -15700,7 +15706,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as NonSubscribed User for User Session Management");
 			String SUsername = getParameterFromXML("USMNonsubscribedUserName");
 			String SPassword = getParameterFromXML("USMNonsubscribedPassword");
-			
+
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SUsername, "Email Field");
@@ -16410,7 +16416,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void ZEE5AppLogin(String pUserType) throws Exception {
 
 		if (!pUserType.equals("Guest")) {
-		//	verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+			// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			waitTime(3000);
 		}
@@ -17288,7 +17294,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 
 		waitTime(3000);
-		
+
 		String width = getAttributValue("width", AMDHomePage.objCarouselConetentCard);
 		String bounds = getAttributValue("bounds", AMDHomePage.objCarouselConetentCard);
 		String b = bounds.replaceAll(",", " ").replaceAll("]", " ");
@@ -17449,7 +17455,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Prepaid code");
 			waitTime(2000);
 			getDriver().getKeyboard().sendKeys(prepaidcode);
-		//	type(AMDSubscibeScreen.objApplyPromoCodeTextbox, prepaidcode, "Prepaid code");
+			// type(AMDSubscibeScreen.objApplyPromoCodeTextbox, prepaidcode, "Prepaid
+			// code");
 			hideKeyboard();
 			click(AMDSubscibeScreen.objApply, "Apply button");
 			if (userType.equals("Guest")) {
@@ -17469,8 +17476,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				hideKeyboard();
 				click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
 				click(AMDSubscibeScreen.objPasswordTextField, "Password field");
-		//		type(AMDSubscibeScreen.objPasswordTextField, "User@123"+"\n", "Password field");
-				getDriver().getKeyboard().sendKeys("User@123"+"\n");
+				// type(AMDSubscibeScreen.objPasswordTextField, "User@123"+"\n", "Password
+				// field");
+				getDriver().getKeyboard().sendKeys("User@123" + "\n");
 
 				hideKeyboard();
 				click(AMDSubscibeScreen.objProceedPWDScreen, "Proceed button");
@@ -17540,7 +17548,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDSubscibeScreen.objHaveAPromocode, "Prepaid code");
 			waitTime(2000);
 			getDriver().getKeyboard().sendKeys(prepaidcode);
-			//type(AMDSubscibeScreen.objHaveAPromocode, prepaidcode, "Prepaid code");
+			// type(AMDSubscibeScreen.objHaveAPromocode, prepaidcode, "Prepaid code");
 			hideKeyboard();
 			click(AMDSubscibeScreen.objApplyBtn, "Apply button");
 
@@ -17570,12 +17578,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 			if (userType.equals("Guest")) {
 				Back(3);
-			}else {
+			} else {
 				Back(4);
 			}
-			
+
 		}
-		
+
 		if (userType.equals("Guest")) {
 			click(AMDHomePage.objMoreMenu, "More Menu");
 			Swipe("UP", 2);
@@ -17585,11 +17593,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Back(1);
 		}
 	}
-	
-public void IntroScreenAndLoginScreenValidation(String userType, String RegisteredEmail) throws Exception {
-		
+
+	public void IntroScreenAndLoginScreenValidation(String userType, String RegisteredEmail) throws Exception {
+
 		extent.HeaderChildNode("Intro screen and Login/Register screen validation");
-		if(userType.equalsIgnoreCase("Guest")){
+		if (userType.equalsIgnoreCase("Guest")) {
 			verifyElementPresent(AMDOnboardingScreen.objCarouselInIntroScreen, "Carousel features");
 			verifyElementPresent(AMDOnboardingScreen.objBenefitsTextSection, "Benefits of premium member section");
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
@@ -17605,7 +17613,7 @@ public void IntroScreenAndLoginScreenValidation(String userType, String Register
 				logger.error("Failed to navigate into Login/Register screen post tapping Login button");
 			}
 			click(AMDOnboardingScreen.objBackBtn, "Back button");
-			
+
 			verifyElementPresentAndClick(AMDOnboardingScreen.objSubscribeNowBtn, "Subscribe Now");
 			waitTime(2000);
 			if (findElement(AMDOnboardingScreen.objScreenTitle).getText().equals("Subscribe")) {
@@ -17619,7 +17627,7 @@ public void IntroScreenAndLoginScreenValidation(String userType, String Register
 				logger.error("Failed to navigate into Subscribe screen post tapping Subcribe Now button");
 			}
 			click(AMDOnboardingScreen.objBackBtn, "Back button");
-			
+
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
 			waitTime(3000);
 			verifyElementExist(AMDHomePage.objHomeBtn, "Landing screen");
@@ -17632,11 +17640,10 @@ public void IntroScreenAndLoginScreenValidation(String userType, String Register
 				logger.info("User is navigated to " + findElement(AMDOnboardingScreen.objScreenTitle).getText()
 						+ " screen");
 			} else {
-				extent.extentLoggerFail("Login Page",
-						"Failed to navigate into Login/Register screen");
+				extent.extentLoggerFail("Login Page", "Failed to navigate into Login/Register screen");
 				logger.error("Failed to navigate into Login/Register screen");
 			}
-			
+
 			type(AMDLoginScreen.objEmailIdField, RegisteredEmail, "Email Id or Mobile Number field");
 			hideKeyboard();
 			click(AMDLoginScreen.objProceedBtn, "Proceed button");
@@ -17646,11 +17653,10 @@ public void IntroScreenAndLoginScreenValidation(String userType, String Register
 				logger.info("User is navigated to " + findElement(AMDOnboardingScreen.objScreenTitle).getText()
 						+ " screen");
 			} else {
-				extent.extentLoggerFail("Login Page",
-						"Failed to navigate into Login/Register screen");
+				extent.extentLoggerFail("Login Page", "Failed to navigate into Login/Register screen");
 				logger.error("Failed to navigate into Login/Register screen");
 			}
-			
+
 			verifyElementExist(AMDLoginScreen.objPasswordField, "Password field");
 			waitTime(4000);
 			Back(1);
@@ -17678,67 +17684,216 @@ public void IntroScreenAndLoginScreenValidation(String userType, String Register
 				if (checkElementExist(AMDLoginScreen.objFBEmail, "Email Id field")) {
 					logger.info("Facebook login screen is displayed");
 					extentLoggerPass("Facebook login page", "Facebook login screen is displayed");
-				}else{
+				} else {
 					logger.info("Facebook login screen is not displayed");
 					extentLogger("Facebook login page", "Facebook login screen is not displayed");
 				}
 				Back(1);
 			}
 			relaunch(false);
-		}else {
-			logger.info("This is NOT applicable for "+userType);
-			extentLoggerWarning("Login", "This is NOT applicable for "+userType);
+		} else {
+			logger.info("This is NOT applicable for " + userType);
+			extentLoggerWarning("Login", "This is NOT applicable for " + userType);
 		}
-		
+
 	}
 
-public void ScreenNavigation(String tabName) throws Exception {
-	extent.HeaderChildNode("Navigating to different screen from Home screen");
-	System.out.println("\nNavigating to different screen from Home screen");
+	public void ScreenNavigation(String tabName) throws Exception {
+		extent.HeaderChildNode("Navigating to different screen from Home screen");
+		System.out.println("\nNavigating to different screen from Home screen");
 
-	// Selecting HOME tab from Top Navigation
-	verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home Screen");
-	// Navigating to different tab from Top Navigation
-	SelectTopNavigationTab(tabName);
-}
+		waitTime(8000);
+		waitForElementDisplayed(AMDHomePage.objHomeBtn, 5000);
+		// Selecting HOME tab from Top Navigation
+		verifyElementPresent(AMDHomePage.objHomeBtn, "Home Screen");
+		// Navigating to different tab from Top Navigation
+		SelectTopNavigationTab_Timer(tabName);
+	}
 
-public void deepLink_Validation(String pDeeplink) {
+	public void SelectTopNavigationTab_Timer(String pTabname) throws Exception {
+		System.out.println("\nSelecting " + pTabname + " from Top navigation tabs");
+
+		verifyElementPresentAndClick(AMDHomePage.objHome, "Home button");
+
+		Instant startTime = Instant.now();
+		logger.info("Start time: " + startTime);
+
+		int noOfTabs = getCount(AMDHomePage.objTitle);
+		System.out.println("\nTop Navigation Tabs: " + noOfTabs);
+		for (int k = 1; k <= noOfTabs; k++) {
+			if (verifyIsElementDisplayed(AMDGenericObjects.objPageTitle(pTabname))) {
+				click(AMDGenericObjects.objPageTitle(pTabname), pTabname);
+				Instant endTime = Instant.now();
+				logger.info("End time: " + endTime);
+
+				Duration timeElapsed = Duration.between(startTime, endTime);
+				logger.info("Time taken to navigate from Home screen to " + pTabname + " screen (millisec): "
+						+ timeElapsed.toMillis());
+				extent.extentLogger("Timer", "Time taken to navigate from Home screen to " + pTabname
+						+ " screen (millisec): " + timeElapsed.toMillis());
+				break;
+			} else {
+				Instant endTime = Instant.now();
+				logger.info("End time: " + endTime);
+
+				Duration timeElapsed = Duration.between(startTime, endTime);
+				logger.info("Time taken to navigate between screen (millisec): " + timeElapsed.toMillis());
+				extent.extentLogger("Timer",
+						"Time taken to navigate between screen (millisec): " + timeElapsed.toMillis());
+
+				List<WebElement> element = getDriver().findElements(By.xpath("//*[@id='title']"));
+				element.get(noOfTabs - 1).click();
+				waitTime(1000);
+			}
+		}
+
+	}
+
+	public void deepLink_Validation(String pDeeplink) {
 		try {
 			getDriver().close();
 			waitTime(5000);
 			String command = null;
-			if(pDeeplink.equalsIgnoreCase("Consumption")) {
+			Instant startTime = Instant.now();
+			logger.info("Start time: " + startTime);
+			extent.extentLogger("Start Time", "Start time: " + startTime);
+			if (pDeeplink.equalsIgnoreCase("Consumption")) {
 				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/movies/details/rog/0-0-46027";
-			}else if(pDeeplink.equalsIgnoreCase("LiveTV")) {
+			} else if (pDeeplink.equalsIgnoreCase("LiveTV")) {
 				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/channels/details/republic-tv/0-9-channel_1422341819";
 			}
-			
+
 			Process process = Runtime.getRuntime().exec(command);
 			new BufferedReader(new InputStreamReader(process.getInputStream()));
-			waitTime(12000);
+//		waitTime(12000);
 			HeaderChildNode("DeepLink to Consumption screen");
 			if (pDeeplink.equalsIgnoreCase("Consumption")) {
-				verifyElementExist(AMDHomePage.objPlayerScreen, "Player Screen");
-					if (verifyElementExist(AMDHomePage.objPlayerScreen, "Player Screen")) {
-						logger.info("Consumption Screen is displayed for the deeplink");
-						extent.extentLoggerPass("Consumption","Consumption Screen is displayed for the deeplink");
-					}else {
-						logger.info("Consumption Screen is not displayed for the deeplink");
-						extent.extentLoggerFail("Consumption screen","Consumption Screen is not displayed for the deeplink");
-					}
-
-			} else if(pDeeplink.equalsIgnoreCase("LiveTV")) {
 				if (verifyElementExist(AMDHomePage.objPlayerScreen, "Player Screen")) {
+					Instant endTime = Instant.now();
+					logger.info("End time: " + endTime);
+
+					logger.info("Consumption Screen is displayed for the deeplink");
+					extent.extentLoggerPass("Consumption", "Consumption Screen is displayed for the deeplink");
+
+					Duration timeElapsed = Duration.between(startTime, endTime);
+					logger.info("Time taken to play through deeplink (millisec): " + timeElapsed.toMillis());
+					extent.extentLogger("Timer",
+							"Time taken to play through deeplink (millisec): " + timeElapsed.toMillis());
+				} else {
+					logger.info("Consumption Screen is not displayed for the deeplink");
+					extent.extentLoggerFail("Consumption screen",
+							"Consumption Screen is not displayed for the deeplink");
+				}
+
+			} else if (pDeeplink.equalsIgnoreCase("LiveTV")) {
+				if (verifyElementExist(AMDHomePage.objPlayerScreen, "Player Screen")) {
+					Instant endTime = Instant.now();
+					logger.info("End time: " + endTime);
+
 					logger.info("Live TV is played for the deeplink");
-					extent.extentLoggerPass("Live TV","Live TV is played for the deeplink");
-				}else {
+					extent.extentLoggerPass("Live TV", "Live TV is played for the deeplink");
+
+					Duration timeElapsed = Duration.between(startTime, endTime);
+					logger.info("Time taken to play through deeplink (millisec): " + timeElapsed.toMillis());
+					extent.extentLogger("Timer",
+							"Time taken to play through deeplink (millisec): " + timeElapsed.toMillis());
+				} else {
 					logger.info("Live TV is not played for the deeplink");
-					extent.extentLoggerFail("Live TV","Live TV is not played for the deeplink");
+					extent.extentLoggerFail("Live TV", "Live TV is not played for the deeplink");
 				}
 			}
 			waitTime(3000);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void ZeeApplicasterLogin_Timer(String LoginMethod) throws Exception {
+		extent.HeaderChildNode("Login Functionality");
+
+		String UserType = getParameterFromXML("userType");
+		if (UserType.equals("Guest")) {
+			extent.extentLogger("userType", "UserType : Guest");
+		}
+
+		switch (LoginMethod) {
+		case "Guest":
+			extent.HeaderChildNode("Guest User");
+			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
+			waitTime(1000);
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+			waitTime(3000);
+			break;
+
+		case "NonSubscribedUser":
+			extent.HeaderChildNode("Login as NonSubscribed User");
+
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
+
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, Password, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			// waitTime(3000);
+			Date date = new Date();
+			long StartTime = date.getTime();
+			logger.info("App Start time : " + StartTime);
+
+			Instant startT = Instant.now();
+			waitForElementDisplayed(AMDHomePage.objHome, 20);
+			Instant endT = Instant.now();
+
+			date = new Date();
+			long EndTime = date.getTime();
+			logger.info("App End time : " + EndTime);
+
+			Duration timeElapsed = Duration.between(startT, endT);
+			logger.info("Time taken to login with registered user (millisec): " + timeElapsed.toMillis());
+			extent.extentLogger("Timer",
+					"Time taken to login with registered user (millisec): " + timeElapsed.toMillis());
+			break;
+
+		case "SubscribedUser":
+			extent.HeaderChildNode("Login as Subscribed User");
+
+			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
+			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+//		waitTime(3000);
+			Date date1 = new Date();
+			long StartTime1 = date1.getTime();
+			logger.info("App Start time : " + StartTime1);
+
+			Instant startT1 = Instant.now();
+			waitForElementDisplayed(AMDHomePage.objHome, 20);
+			Instant endT1 = Instant.now();
+
+			date = new Date();
+			long EndTime1 = date.getTime();
+			logger.info("App End time : " + EndTime1);
+
+			Duration timeElapsed1 = Duration.between(startT1, endT1);
+			logger.info("Time taken to login with registered user (millisec): " + timeElapsed1.toMillis());
+			extent.extentLogger("Timer",
+					"Time taken to login with registered user (millisec): " + timeElapsed1.toMillis());
+			break;
+
 		}
 	}
 }

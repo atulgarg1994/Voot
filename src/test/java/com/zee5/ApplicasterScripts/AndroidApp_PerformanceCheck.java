@@ -4,7 +4,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.business.zee.Zee5ApplicasterBusinessLogic;
 import com.utility.Utilities;
 
@@ -28,9 +27,9 @@ public class AndroidApp_PerformanceCheck {
 	@Test(priority = 1)
 	@Parameters({ "userType" })		//Login with registered user
 	public void ApplicasterLogin(String userType) throws Exception {
-		System.out.println("\nVerify Display Language Screen and login flow for various usertypes");
+		System.out.println("\nVerify login with registered user for various usertypes");
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
-		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin_Timer(userType);
 	}
 	
 	@Test(priority = 2)
