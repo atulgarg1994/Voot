@@ -831,6 +831,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		String user = getParameterFromXML("userType");
 		mandatoryRegistrationPopUp(user);
 		extent.HeaderChildNode("Validating that user is able to search Movie");
+		verifyElementPresentAndClick(PWASearchPage.objSearchEditBox, "Search bar");
 		type(PWASearchPage.objSearchEditBox, title + "\n", "Search bar");
 		waitTime(4000);
 		waitForElementDisplayed(PWASearchPage.objSearchNavigationTab("All"), 5);
@@ -1006,6 +1007,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Validating that user is able to search content by Language");
 
 		waitTime(3000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchEditBox, "Search bar");
 		type(PWASearchPage.objSearchEditBox, language + "\n", "Search bar");
 
 		waitForElementDisplayed(PWASearchPage.objSearchNavigationTab("All"), 5);
@@ -9581,7 +9583,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info("Failure message: " + failureMsg + " is displayed");
 			extent.extentLogger("Failure Message", "Failure message: " + failureMsg + " is displayed");
 			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACodeCloseBtn, "Close Button");
-
 			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "Have A Code section");
 			clearField(PWASubscriptionPages.objHaveACode, "Prepaid Code");
 			type(PWASubscriptionPages.objHaveACode, "pnb20", "Prepaid Code");

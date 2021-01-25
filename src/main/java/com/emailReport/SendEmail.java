@@ -32,7 +32,11 @@ public class SendEmail {
 		String fileName = ExtentReporter.fileName;
 		String columnHeader = "Number of Total Test";
 		StringBuilder InsertResult = ExtentReporter.updateResult();
+		StringBuilder InsertModuleResult = ExtentReporter.updateModuleResult();
 		String columnHeader2 = "Number of Test";
+		String moduleName = "Module Name";
+		String moduleResult = "Module Result";
+		String Table ;
 		
 		if(DriverInstance.getPlatform().equals("TV")) {
 			Subject = "Android TV Analysed Report, APP verison - 20.21106.3";
@@ -40,13 +44,25 @@ public class SendEmail {
 			InsertResult = ExtentReporter.updateTVResult();
 			filepath = System.getProperty("user.dir") + "\\Analysed_Reports\\Analysed_Reports.xlsx";
 			columnHeader2 = "Number of validation";
-			
-		}
-		// mail extent reports
-//		String[] to = {"murali.appadi@zee.com","durgesh.panda@zee.com"};
-//		String[] cc = {"basavaraj.pn@igsindia.net", "shreenidhi.g@igsindia.net","hitesh.c@igsindia.net","Tanisha.c@igsindia.net","kushal.revankar@igsindia.net","abhilash.s@igsindia.net","kaushik.mr@igsindia.net","Karthikeyan.S@igsindia.net","indu.karunakaran@zee.com","raksha.gs@igsindia.net","deepak.prakash@igsindia.net"};
+			Table ="Hi Team,<br/>Please find attached test automation execution results."
+					+"<br>"
+					+"<html>\r\n"
+					+"<br>"
+					+"<h3><table align=\"center\">"+"</h3>\n\n"
+					+ "      <table width=\"600\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\" style=\"border:1px solid #ccc;\">\r\n"
+					+ "        <tr>\r\n"
+					+ "          <td> "+columnHeader+" </span></td>\r\n"
+					+ "          <td><span style=\"font-weight:bold\"> "+columnHeader2+" Passed </span></td>\r\n"
+					+ "          <td><span style=\"font-weight:bold\"> "+columnHeader2+" Failed </span></td>\r\n"
+					+ "        </tr>\r\n"
+					+  			InsertResult
+					+ "      </table>\r\n\n\n"
+					+"<br>"
+					+ "</html>"
+					+"<br/> Regards,<br> IGS Automation Team";
+		}else {
 
-		String Table ="Hi Team,<br/>Please find attached test automation execution results."
+				Table ="Hi Team,<br/>Please find attached test automation execution results."
 				+"<br>"
 				+"<html>\r\n"
 				+"<br>"
@@ -59,8 +75,18 @@ public class SendEmail {
 				+ "        </tr>\r\n"
 				+  			InsertResult
 				+ "      </table>\r\n\n\n"
+				+"<br>"
+				+"<h3><table align=\"center\">"+"</h3>\n\n"
+				+ "      <table width=\"600\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\" style=\"border:1px solid #ccc;\">\r\n"
+				+ "        <tr>\r\n"
+				+ "          <td> "+moduleName+" </span></td>\r\n"
+				+ "          <td><span style=\"font-weight:bold\"> "+moduleResult+" </span></td>\r\n"
+				+ "        </tr>\r\n"
+				+  			InsertModuleResult
+				+ "      </table>\r\n\n\n"
 				+ "</html>"
 				+"<br/> Regards,<br> IGS Automation Team";
+		}
 		
 		
 		sendMail(UserName, Password, to, cc, bcc, Subject, Table, filepath,fileName,EnableAttachment);

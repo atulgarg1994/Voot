@@ -16788,6 +16788,9 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 	}
 
 	public void Search(String title) throws Exception {
+		// handle mandatory pop up
+		String user = getParameterFromXML("userType");
+		mandatoryRegistrationPopUp(user);
 		extent.HeaderChildNode("HLS_184: Validating that user lands on search landing screen");
 
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
@@ -16859,49 +16862,72 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
 		if (verifyElementExist(PWASearchPage.objTrendingSearchesTray, "Trending Searches tray")) {
-
 			verifyElementExist(PWASearchPage.objFirstAssetThumbnailTrendingSearch,
 					"First asset thumbnail of Trending searches tray");
-
 			verifyElementExist(PWASearchPage.objFirstAssetTitleTrendingSearch,
 					"First asset title of Trending searches tray");
-
-			if (checkElementDisplayed(PWAPlayerPage.objCloseBtnLoginPopup, "Login Pop-up")) {
-				click(PWAPlayerPage.objCloseBtnLoginPopup, "Login Pop-up");
+			String searchScreenTitle = getElementPropertyToString("innerText",PWASearchPage.objFirstAssetTitleTrendingSearch, "First Asset Title Trending Search");
+			logger.info("First Asset Title in Trending Search : "+searchScreenTitle);
+			extent.extentLogger("", "First Asset Title in Trending Search : "+searchScreenTitle);
+			String zeeTab=getWebDriver().getWindowHandle();
+			JSClick(PWASearchPage.objFirstAssetTitleTrendingSearch, "First card under Trending Searches Tray");
+			waitTime(5000);
+			if(searchScreenTitle.contains("Play ") && searchScreenTitle.contains(" Win Prizes")) {
+				String externalTab="";boolean extOpened=false;
+				System.out.println(getWebDriver().getWindowHandles());
+				for(String winHandle : getWebDriver().getWindowHandles()){	
+					System.out.println(winHandle);
+					if(!winHandle.equals(zeeTab)) {
+						externalTab=winHandle;
+						getWebDriver().switchTo().window(externalTab);
+						logger.info("Switched to External Tab");
+						extent.extentLogger("","Switched to External Tab");
+						String extUrl=getWebDriver().getCurrentUrl();
+						logger.info("Navigated to the External Tab : "+extUrl);
+						extent.extentLogger("playerScreen","Navigated to the External Tab : "+extUrl);
+						screencapture();
+						getWebDriver().close();
+						logger.info("Closed External Tab");
+						extent.extentLogger("playerScreen","Closed External Tab");
+						getWebDriver().switchTo().window(zeeTab);
+						logger.info("Switched to Zee Tab");
+						extent.extentLogger("","Switched to Zee Tab");
+						extOpened=true;
+						break;
+					}				
+				}
+				if(extOpened==false) {
+					logger.error("Failed to open External Tab");
+					extent.extentLoggerFail("playerScreen","Failed to open External Tab");
+				}
 			}
-
-			String searchScreenTitle = getElementPropertyToString("innerText",
-					PWASearchPage.objFirstAssetTitleTrendingSearch, "FirstAssetTitleTrending Search");
-			System.out.println(searchScreenTitle);
-			click(PWASearchPage.objFirstAssetThumbnailTrendingSearch,
-					"First asset thumbnail of Trending searches tray");
-			waitTime(6000);
-			waitTime(6000);
-			partialScroll();
-			if (verifyElementExist(PWASearchPage.objShowTitleInConsumptionPage, "Show title In Consumption")) {
-				String ConsumptionScreenShowTitle = getText(PWASearchPage.objShowTitleInConsumptionPage);
-				waitTime(3000);
-				System.out.println(searchScreenTitle + " " + ConsumptionScreenShowTitle);
-				if (searchScreenTitle.contains(ConsumptionScreenShowTitle)) {
+			else {
+				waitTime(6000);
+				waitTime(6000);
+				partialScroll();
+				mandatoryRegistrationPopUp(user);
+				//if news
+				String nextPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitleLiveTVname,"Content Title");
+				//if consumptions
+				if(nextPageTitle==null) {
+					nextPageTitle=getElementPropertyToString("innerText", PWAPlayerPage.objContentTitleInConsumptionPage,"Content Title");
+				}
+				//if show details
+				if(nextPageTitle==null) {
+					nextPageTitle= getElementPropertyToString("innerText", PWAShowsPage.objShowsTitle,"Content Title");
+				}
+				logger.info("Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
+				extent.extentLogger("playerScreen","Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
+				if (searchScreenTitle.contains(nextPageTitle)) {
 					logger.info("user is navigated to respective consumption screen");
 					extent.extentLogger("Consumption Screen", "user is navigated to respective consumption screen");
 				} else {
-					logger.info("user is not navigated to respective consumption screen");
-					extent.extentLogger("Consumption Screen", "user is navigated to respective consumption screen");
+					logger.error("User is not navigated to respective consumption screen");
+					extent.extentLoggerFail("Consumption Screen", "User is not navigated to respective consumption screen");
 				}
-			} else {
-				String showtitle = getText(PWASearchPage.objShowTitle(searchScreenTitle));
-				waitTime(3000);
-
-				if (searchScreenTitle.contains(showtitle)) {
-					logger.info("user is navigated to respective consumption screen");
-					extent.extentLogger("Consumption Screen", "user is navigated to respective consumption screen");
-				} else {
-					logger.info("user is not navigated to respective consumption screen");
-					extent.extentLogger("Consumption Screen", "user is navigated to respective consumption screen");
-				}
-			}
+			}			
 		}
+		navigateToHome();
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
 		extent.HeaderChildNode("HLS_190 : Verify the Searched contents/Term is shown to the user as Recent searches");
@@ -16910,8 +16936,6 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		type(PWASearchPage.objSearchEditBox, keywordB, "Search edit box");
 		waitTime(4000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchShowsTab, "Shows tab");
-		// handle mandatory pop up
-		String user = getParameterFromXML("userType");
 		mandatoryRegistrationPopUp(user);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keywordB), "Search Result " + keywordB);
 		waitTime(2000);
@@ -16952,7 +16976,6 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 			logger.info("Previous Recent searched Keywords are not displayed");
 			extent.extentLogger("", "Previous Recent searched Keywords are not displayed");
 		}
-
 	}
 
 	public void PlayValidation(String tabName, String userType) throws Exception {
@@ -17252,9 +17275,9 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		navigateToHome();
 		waitTime(3000);
 		extent.HeaderChildNode("HLS_121: Verify that Play, share, watchlist CTA and metadata like Movies names are displayed on each content card");
-		trayTitleAndContentValidationWithApiDataZeeoriginals(tabName, "kids");
-		navigateToAnyScreenOnWeb(tabName);
+		trayTitleAndContentValidationWithApiDataZeeoriginals(tabName, "kids");		
 		extent.HeaderChildNode("HLS_122 :Verify the right side bottom arrow ");
+		navigateToAnyScreenOnWeb(tabName);
 		scrollDownByY(300);
 		scrollDownByY(300);
 		logger.info("Scrolled Up the page");

@@ -16,7 +16,6 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
-import org.testng.SkipException;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -51,6 +50,9 @@ public class ExtentReporter implements ITestListener {
 	private static int totalPassedTest = 0;
 	private static int totalFailedTest = 0;
 	private static int totalSkipedTest = 0;
+	private static ArrayList<String> moduleFail = new ArrayList<String>();
+	private static int moduleFailCount = 0;
+	private static int logfail = 0;
 	
 
 	/** The Constant logger. */
@@ -149,7 +151,7 @@ public class ExtentReporter implements ITestListener {
 			logger.info(":::::::::Test " + result.getName() + " Started::::::::");
 			test.set(extent.get().createTest(result.getName(),DriverInstance.getENvironment()));
 			totalTests++;
-			ExcelUpdate.passCounter = ExcelUpdate.failCounter = ExcelUpdate.warningCounter = 0;
+			ExcelUpdate.passCounter = ExcelUpdate.failCounter = ExcelUpdate.warningCounter = moduleFailCount = 0;
 //			ExcelUpdate.creatExcel();
 			} 
 		}else {
@@ -163,6 +165,16 @@ public class ExtentReporter implements ITestListener {
 			screencapture();
 			childTest.get().log(Status.PASS, result.getName() + " is PASSED");
 			logger.info("::::::::::Test " + result.getName() + " PASSED::::::::::");
+			if(moduleFailCount == 0) {
+			moduleFail.add(result.getName()+","+"Pass");
+			}else {
+			moduleFail.add(result.getName()+","+"Fail");
+			}
+			if(logfail != 0) {
+				totalFailedTest++;
+			}else {
+				totalPassedTest++;
+			}
 //		mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
 		}
 	}
@@ -173,6 +185,8 @@ public class ExtentReporter implements ITestListener {
 			if ((getDriver() != null) || (getWebDriver() != null)) {
 				childTest.get().log(Status.FAIL, result.getName() + " is FAILED");
 				logger.info("::::::::::Test " + result.getName() + " FAILED::::::::::");
+				moduleFail.add(result.getName()+","+"Fail");
+				totalFailedTest++;
 //		mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
 			}
 		}
@@ -209,6 +223,8 @@ public class ExtentReporter implements ITestListener {
 	public void extentLoggerFail(String stepName, String details) {
 		childTest.get().log(Status.FAIL, details);
 		screencapture();
+		moduleFailCount = 1;
+		logfail++;
 //		ExcelUpdate.writeData("", "Fail", details);
 	}
 
@@ -227,9 +243,9 @@ public class ExtentReporter implements ITestListener {
 		}
 //		ExcelUpdate.updateResult();
 		extent.get().flush();
-		totalPassedTest = context.getPassedTests().size();
-		totalFailedTest = context.getFailedTests().size();
-		totalSkipedTest = context.getSkippedTests().size();
+//		totalPassedTest = context.getPassedTests().size();
+//		totalFailedTest = context.getFailedTests().size();
+//		totalSkipedTest = context.getSkippedTests().size();
 //		SendEmail.EmailReport();
 	}
 
@@ -292,7 +308,7 @@ public class ExtentReporter implements ITestListener {
 		if (mailBodyPart.size() > 0) {
 			for (int i = 0; i < mailBodyPart.size(); i++) {
 				String result[] = mailBodyPart.get(i).toString().split(",");
-				System.out.println(result[0]+result[1]+result[2]);
+//				System.out.println(result[0]+result[1]+result[2]);
 				builder.append("        <tr>\r\n" + "          <td> " + result[0] + " </td>\r\n" + "          <td> "
 						+ result[1] + " </td>\r\n" + "          <td> " + result[2] + " </td>\r\n"
 						+ "        </tr>\r\n");
@@ -310,4 +326,20 @@ public class ExtentReporter implements ITestListener {
 						+ "        </tr>\r\n");
 			return builder;
 	}
+	
+	public static StringBuilder updateModuleResult() {
+		StringBuilder builder = new StringBuilder();
+		if (moduleFail.size() > 0) {
+			for (int i = 0; i < moduleFail.size(); i++) {
+				String result[] = moduleFail.get(i).toString().split(",");
+				builder.append("        <tr>\r\n" + "          <td> " + result[0] + " </td>\r\n" + "          <td> "
+						+ result[1] + " </td>\r\n"
+						+ "        </tr>\r\n");
+			}
+			return builder;
+		}else {
+			return null;
+		}
+	}
+	
 }
