@@ -17691,4 +17691,54 @@ public void IntroScreenAndLoginScreenValidation(String userType, String Register
 		}
 		
 	}
+
+public void ScreenNavigation(String tabName) throws Exception {
+	extent.HeaderChildNode("Navigating to different screen from Home screen");
+	System.out.println("\nNavigating to different screen from Home screen");
+
+	// Selecting HOME tab from Top Navigation
+	verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home Screen");
+	// Navigating to different tab from Top Navigation
+	SelectTopNavigationTab(tabName);
+}
+
+public void deepLink_Validation(String pDeeplink) {
+		try {
+			getDriver().close();
+			waitTime(5000);
+			String command = null;
+			if(pDeeplink.equalsIgnoreCase("Consumption")) {
+				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/movies/details/rog/0-0-46027";
+			}else if(pDeeplink.equalsIgnoreCase("LiveTV")) {
+				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/channels/details/republic-tv/0-9-channel_1422341819";
+			}
+			
+			Process process = Runtime.getRuntime().exec(command);
+			new BufferedReader(new InputStreamReader(process.getInputStream()));
+			waitTime(12000);
+			HeaderChildNode("DeepLink to Consumption screen");
+			if (pDeeplink.equalsIgnoreCase("Consumption")) {
+				verifyElementExist(AMDHomePage.objPlayerScreen, "Player Screen");
+					if (verifyElementExist(AMDHomePage.objPlayerScreen, "Player Screen")) {
+						logger.info("Consumption Screen is displayed for the deeplink");
+						extent.extentLoggerPass("Consumption","Consumption Screen is displayed for the deeplink");
+					}else {
+						logger.info("Consumption Screen is not displayed for the deeplink");
+						extent.extentLoggerFail("Consumption screen","Consumption Screen is not displayed for the deeplink");
+					}
+
+			} else if(pDeeplink.equalsIgnoreCase("LiveTV")) {
+				if (verifyElementExist(AMDHomePage.objPlayerScreen, "Player Screen")) {
+					logger.info("Live TV is played for the deeplink");
+					extent.extentLoggerPass("Live TV","Live TV is played for the deeplink");
+				}else {
+					logger.info("Live TV is not played for the deeplink");
+					extent.extentLoggerFail("Live TV","Live TV is not played for the deeplink");
+				}
+			}
+			waitTime(3000);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
