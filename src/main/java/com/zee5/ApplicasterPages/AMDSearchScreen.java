@@ -199,13 +199,11 @@ public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.
 
 	public static By objTrendingSearches = By.xpath("//*[@id='header_primary_text' and @text='Trending Searches']");
 	
-	public static By objSearchEditBox = By.xpath("//*[@id='searchBarText']"); 
 	public static By objVoiceicon = By.xpath("//*[@id='searchBarVoiceRecord']");
 	public static By objMicroPhone = By.xpath("//*[@id='searchRecordingPermissionText']");
 	public static By objsearchBox = By.xpath("//*[@id='searchBarText']");
 	public static By objSearchBar = By.xpath("//*[@id='searchBarText']");
 	public static By objFirstContentInSearchResult = By.xpath("(//*[@id='Zee5SearchResultItem'])[1]");
-	public static By objSearchBoxBar = By.xpath("//*[@id='searchBarText']");
 	public static By objClearSearch = By.xpath("//*[@id='searchBarClearText']");
 	public static By objMicrophoneIcon = By.xpath("//*[@id='searchBarVoiceRecord']");
 	public static By objVoiceSearchPermission = By.xpath("//*[@id='searchRecordingPermissionText']");
@@ -218,4 +216,6 @@ public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.
 		return By.xpath("//*[@resource-id='com.graymatrix.did:id/searchItemTitleText' and @text='" + ResultName + "']");
 	}
 
+	public static By objSearchEditBox = By.xpath("//*[@id='searchBarText'] | //*[@id='searchToolbarTitle']");
+	public static By objSearchBoxBar = By.xpath("//*[@id='searchBarText'] | //*[@id='searchToolbarTitle']");
 }

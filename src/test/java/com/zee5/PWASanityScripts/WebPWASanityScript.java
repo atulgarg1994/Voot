@@ -381,6 +381,13 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.zeeplex(userType ,"ZEEPLEX");
 	}
 
+	@Test(priority = 30)
+	@Parameters({ "userType" })
+	public void ConvivaVerification(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.ConvivaVerification(userType);
+	}
+	
 	@AfterClass
 	public void tearDown() {
 		Zee5WEBPWASanityBusinessLogic.tearDown();

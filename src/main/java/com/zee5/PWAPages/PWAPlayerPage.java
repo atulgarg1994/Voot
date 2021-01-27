@@ -421,4 +421,6 @@ public class PWAPlayerPage {
 	
 	// Consumption page content title for Live News Card
 	public static By objContentTitleLiveTVname = By.xpath("//div[@class='channelConsumptionMetaDiv']//h1");
+	
+	public static By objSubTitleOverlay = By.xpath("//div[@class='playkit-subtitles']");
 }

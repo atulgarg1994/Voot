@@ -46,6 +46,13 @@ public class AndroidApp_PerformanceCheck {
 		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.ScreenNavigation("ZEE5 Originals");
 	}
+	
+	@Test(priority = 4)
+	public void SearchVOD() throws Exception {
+		System.out.println("\nVerify VOD content Playback");
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.searchforContent("Jogi");
+	}
 
 	@AfterTest
 	public void tearDownApp() {

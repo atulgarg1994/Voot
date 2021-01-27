@@ -17766,7 +17766,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Process process = Runtime.getRuntime().exec(command);
 			new BufferedReader(new InputStreamReader(process.getInputStream()));
 //		waitTime(12000);
-			HeaderChildNode("DeepLink to Consumption screen");
+			HeaderChildNode("DeepLink to Playback "+pDeeplink+ " screen");
 			if (pDeeplink.equalsIgnoreCase("Consumption")) {
 				if (verifyElementExist(AMDHomePage.objPlayerScreen, "Player Screen")) {
 					Instant endTime = Instant.now();
@@ -17807,7 +17807,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void ZeeApplicasterLogin_Timer(String LoginMethod) throws Exception {
 		extent.HeaderChildNode("Login Functionality");
 
@@ -17894,6 +17894,40 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"Time taken to login with registered user (millisec): " + timeElapsed1.toMillis());
 			break;
 
+		}
+	}
+	
+	public void searchforContent(String pContent) throws Exception {
+		extent.HeaderChildNode("Search Result Screen Validation");
+		
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search Icon");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+
+		type(AMDSearchScreen.objSearchBoxBar, pContent + "\n", "Search bar");
+		Instant startTime = Instant.now();
+		logger.info("Start time: " + startTime);
+		
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);
+		verifyElementExist(AMDSearchScreen.objSearchResultFirstContent, "Search Result Screen");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchResultFirstContent, "Select First Result");
+		
+		waitForElementDisplayed(AMDHomePage.objPlayerScreen, 30);
+		if (verifyElementExist(AMDPlayerScreen.objShareIcon, "Player Screen") |verifyIsElementDisplayed(AMDPlayerScreen.objAd) ) {
+			Instant endTime = Instant.now();
+			logger.info("End time: " + endTime);
+
+			logger.info("Playback Screen is started for VOD Content");
+			extent.extentLoggerPass("Playback", "Playback Screen is started for VOD Content");
+
+			Duration timeElapsed = Duration.between(startTime, endTime);
+			logger.info("Time taken to playback VOD (millisec): " + timeElapsed.toMillis());
+			extent.extentLogger("Timer",
+					"Time taken to playback VOD (millisec): " + timeElapsed.toMillis());
+		}else {
+			logger.info("Playback failed to start on selecting the VOD content");
+			extent.extentLoggerFail("Playback Screen",
+					"Playback failed to start on selecting the VOD content");
 		}
 	}
 }
