@@ -2,6 +2,8 @@ package com.driverInstance;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebElement;
@@ -28,9 +30,13 @@ public class DriverInstance extends Drivertools {
 		try {
 			switch (getPlatform()) {
 			case "Android":
-				tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),
-						this.generateAndroidCapabilities(Application)));
+				
+				tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),this.generateAndroidCapabilities(Application)));
 				util.waitForElementDisplayed(AMDOnboardingScreen.objWaitForSplashScreenDisapear, 240);
+				Instant endTime  = Instant.now();
+				Duration timeElapsed = Duration.between(startTime , endTime  );
+				logger.info("Time taken to the App (millisec): " + timeElapsed.toMillis());
+				extent.extentLogger("Timer","to the App (millisec): " + timeElapsed.toMillis());
 				break;
 
 			case "MPWA":
@@ -84,6 +90,7 @@ public class DriverInstance extends Drivertools {
 		if (Utilities.relaunch) {
 			removePermisson(getAppPackage());
 		}
+		startTime = Instant.now();
 		return capabilities;
 	}
 

@@ -3,6 +3,7 @@ package com.driverInstance;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.Instant;
 import java.util.Date;
 import java.util.stream.Stream;
 import org.openqa.selenium.WebDriver;
@@ -43,6 +44,7 @@ public class Drivertools {
 	public static String methodName = "";
 	Date date = new Date();
 	long StartTime;
+	Instant startTime ;
 
 	public static String getTestName() {
 		return testName;
