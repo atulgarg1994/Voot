@@ -104,7 +104,7 @@ public class PWAShowsPage {
 	public static By objTwitterDeletePost = By.xpath("//*[@text='DELETE']");
 	// POST button in Facebook app
 //	public static By objFacebookPostBtn = By.xpath("//*[@text='POST' or @text='Post' or @text='SHARE']");
-	public static By objFacebookPostBtn = By.xpath("//*[@contentDescription='POST']");
+	public static By objFacebookPostBtn = By.xpath("//*[@contentDescription='POST']"); 
 
 	public static By metainfolist=By.xpath("//div[contains(@class,'metaInfo')]//span");
 	
