@@ -3285,22 +3285,23 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			checkElementExist(AMDSearchScreen.objMicrophoneIconLogo, "Microphone icon");
 			checkElementExist(AMDSearchScreen.objTermsAndConditions, "Terms of Use and Privacy Policy Message");
 			checkElementExist(AMDSearchScreen.objProceedBtn, "Proceed Button");
-			checkElementExist(AMDSearchScreen.objBackBtn, "Back button");
+			//checkElementExist(AMDSearchScreen.objBackBtn, "Back button");
 
-			WebElement elementBackBtn = findElement(AMDSearchScreen.objBackBtn);
-			int BackBtnleftX = elementBackBtn.getLocation().getX();
-			int BAckBtnrightX = BackBtnleftX + elementBackBtn.getSize().getWidth();
-			int BackBtnmiddleX = (BAckBtnrightX + BackBtnleftX) / 2;
-
-			if (BackBtnmiddleX <= 200) {
-				logger.info("Back button is displayed at top left of the screen");
-				extent.extentLoggerPass("Back button", "Back button is displayed at top left of the screen");
-			} else {
-				logger.error("Back button is not displayed at top left of the screen");
-				extent.extentLoggerFail("Back button", "Back button is not displayed at top left of the screen");
-			}
-
-			click(AMDSearchScreen.objBackBtn, "Back button");
+//			WebElement elementBackBtn = findElement(AMDSearchScreen.objBackBtn);
+//			int BackBtnleftX = elementBackBtn.getLocation().getX();
+//			int BAckBtnrightX = BackBtnleftX + elementBackBtn.getSize().getWidth();
+//			int BackBtnmiddleX = (BAckBtnrightX + BackBtnleftX) / 2;
+//
+//			if (BackBtnmiddleX <= 200) {
+//				logger.info("Back button is displayed at top left of the screen");
+//				extent.extentLoggerPass("Back button", "Back button is displayed at top left of the screen");
+//			} else {
+//				logger.error("Back button is not displayed at top left of the screen");
+//				extent.extentLoggerFail("Back button", "Back button is not displayed at top left of the screen");
+//			}
+//
+//			click(AMDSearchScreen.objBackBtn, "Back button");
+			Back(1);
 
 			if (verifyElementDisplayed(AMDSearchScreen.objSearchEditBox)) {
 				logger.info(
@@ -3319,7 +3320,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDSearchScreen.objProceedBtn, "Proceed Button");
 			if (checkElementExist(AMDSearchScreen.objAudioPermissionPopUp, "Audio Permission Popup")) {
 				verifyElementPresentAndClick(AMDSearchScreen.objAllow, "Allow Option");
-				checkElementExist(AMDSearchScreen.objVoiceSearchScreen, "Voice Search Screen");
+				waitTime(2000);
+				//checkElementExist(AMDSearchScreen.objVoiceSearchScreen, "Voice Search Screen");
 				checkElementExist(AMDSearchScreen.objMicrophoneLogoInVoiceSearch, "Microphone icon");
 				checkElementExist(AMDSearchScreen.objSeeUrTextMsg, "See your text here message");
 				verifyElementPresentAndClick(AMDSearchScreen.objCloseBtn, "Close Button");
@@ -3329,6 +3331,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 		}
 	}
+	
 
 	/*
 	 * =============================================================================

@@ -53,6 +53,6 @@ public class AMDUpcomingPage {
 	public static By objContentCard1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/thumbnailImage'])[1]");
     public static By objGenre = By.xpath("(//*[@resource-id='com.graymatrix.did:id/categories'])[1]");
     
-	public static By objContentCardTitle1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[1]");
+    public static By objContentCardTitle1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/showTitle'])[1]");
 	public static By objContentCardTitle = By.xpath("(//*[@resource-id='com.graymatrix.did:id/showTitle'])[1]");
 }

@@ -105,16 +105,10 @@ public class AMDSearchScreen {
 
 	public static By objEpsiodesTab = By.xpath("(//*[@id='title'and @text='Episodes'])");
 
-	public static By objShowsTabIndx = By.xpath("(//*[@id='title'and @text='Shows'])[2]");
 	public static By objMoviesTabIndx = By.xpath("(//*[@id='title'and @text='Movies'])[2]");
-	public static By objMusicTabIndx = By.xpath("(//*[@id='title'and @text='Music'])");
 	public static By objNewsTabIndx = By.xpath("(//*[@id='title'and @text='News'])[2]");
-
-	public static By objVideosTab = By.xpath("(//*[@id='title'and @text='Videos'])");
 	
 	public static By objBackBtn = By.xpath("//*[@id='backIv']");
-
-	public static By objMicrophoneIconLogo = By.xpath("//*[@id='micLogoIv']");
 
 	public static By objAllow = By.xpath("//*[@id='permission_allow_button']");
 
@@ -218,4 +212,9 @@ public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.
 
 	public static By objSearchEditBox = By.xpath("//*[@id='searchBarText'] | //*[@id='searchToolbarTitle']");
 	public static By objSearchBoxBar = By.xpath("//*[@id='searchBarText'] | //*[@id='searchToolbarTitle']");
+	
+	public static By objMicrophoneIconLogo = By.xpath("//*[@id='searchRecordingIcon']");
+	public static By objMusicTabIndx = By.xpath("//*[@text='Music']");
+	public static By objShowsTabIndx = By.xpath("//*[@text='Shows']");
+	public static By objVideosTab = By.xpath("(//*[@text='Videos'])");
 }
