@@ -532,4 +532,6 @@ public class PWAHomePage {
 	
 	public static By objTwitterIcon = By.xpath("//a[contains(@class, 'noSelect twittercon')]");
 	
+	public static By objCarouselContentPremiumTag = By.xpath("(.//*[@class='cardJoystickContent cardPremiumContent'])[1]");
+	
 }

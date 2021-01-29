@@ -12770,9 +12770,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objZeeLink, "Zee link");
 			waitTime(5000);
 			
-			
-			
-
 			Mixpanel.ValidateParameter(TokenORID, "Rental Purchase Call Returned");
 
 		}
@@ -12813,4 +12810,115 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 
 	
+	public void verifyPopupLaunchEventTriggerforParentControl(String userType) throws Exception {
+		extent.HeaderChildNode("verify Popup Launch Event Trigger for ParentControl");
+		waitTime(3000);
+		if(!userType.equals("Guest")) {
+		verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "Parent control");
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		mixpanel.ValidateParameter(local.getItem("ID"), "Popup Launch");
+		}
+	}
+	
+	
+	public void verifPopupLaunchEventTriggerforSubscribePage(String userType) throws Exception {
+		extent.HeaderChildNode("verify Popup Launch Event Trigger for Subscribe");
+		waitTime(3000);
+		if(!userType.equals("SubscribedUser")) {
+		verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscribe button");
+		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue button");
+		type(PWASubscriptionPages.objEmailIDTextField, Username,"Email ID");
+		verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtn, "Proceed button");
+		
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Popup Launch");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Popup Launch");
+		}
+	}
+}
+	
+	public void verifyCTAEventTriggerInEduauraaExpandIcon(String userType) throws Exception {
+		extent.HeaderChildNode("verify CTA Event Trigger In Eduauraa Expand Icon");
+		waitTime(3000);
+		navigateToAnyScreenOnWeb("Kids");
+		waitTime(2000);
+		partialScrollDown();
+		verifyElementPresentAndClick(PWAHomePage.objFirstContentCardOfTray("Learn with Eduauraa"), "First content of Eduauraa tray");
+		verifyElementPresentAndClick(PWAKidsPage.objFirstContentOfEduauraa, "First content of Eduaraa");
+		partialScrollDown();
+		verifyElementPresentAndClick(PWAKidsPage.objExpanderIconInEduauraaPlayback, "Expander Icon");
+		
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "CTA");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "CTA");
+		}
+	}
+	
+	public void verifyPromoCodeResultEventTriggered(String userType,String tab) throws Exception {
+		extent.HeaderChildNode("verify CTA Event Trigger In Eduauraa Expand Icon");
+		navigateToAnyScreenOnWeb(tab);
+		verifyElementPresentAndClick(PWAHomePage.objCarouselContentPremiumTag, "Premium Content");
+		verifyElementPresentAndClick(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen, "Subscribed");
+		verifyElementPresent(PWAPlayerPage.objHavePromoCodeEditTxt, "Have a Promo Code ?");
+		type(PWAPlayerPage.objHavePromoCodeEditTxt, "PNB20", "Have a Promo Code ?");
+		verifyElementPresentAndClick(PWAPlayerPage.objProceedBtn, "Proceed Button");
+		
+		mixpanel.FEProp.setProperty("Pop Up Group", "Pop up group");
+		mixpanel.FEProp.setProperty("Pop Up Name", "Pop Up Name");
+		mixpanel.FEProp.setProperty("Pop Up Type", "Pop Up Type");
+		mixpanel.FEProp.setProperty("Promo Code", "PNB20");
+		mixpanel.FEProp.setProperty("Success", "true");
+		
+		
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Promo Code Result");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Promo Code Result");
+		}
+	}
+	
+	public void verifyCTAEventTriggerInEduauraaClickOneTermAndCondition(String userType) throws Exception {
+		extent.HeaderChildNode("verify CTA Event Trigger In Eduauraa playback page when user click on Tearm and conditions");
+		waitTime(3000);
+		navigateToAnyScreenOnWeb("Kids");
+		waitTime(2000);
+		partialScrollDown();
+		verifyElementPresentAndClick(PWAHomePage.objFirstContentCardOfTray("Learn with Eduauraa"), "First content of Eduauraa tray");
+		verifyElementPresentAndClick(PWAKidsPage.objFirstContentOfEduauraa, "First content of Eduaraa");
+		waitTime(2000);
+		verifyElementPresentAndClick(PWAKidsPage.objTermAndCondition, "Tearm and Conditions");
+		
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "CTA");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "CTA");
+		}
+	}
+	
+	public void verifyCTAEventTriggerInEduauraaClickOnePrivacyPolicy(String userType) throws Exception {
+		extent.HeaderChildNode("verify CTA Event Trigger In Eduauraa playback page when user click on privacy policy");
+		waitTime(3000);
+		navigateToAnyScreenOnWeb("Kids");
+		waitTime(2000);
+		partialScrollDown();
+		verifyElementPresentAndClick(PWAHomePage.objFirstContentCardOfTray("Learn with Eduauraa"), "First content of Eduauraa tray");
+		verifyElementPresentAndClick(PWAKidsPage.objFirstContentOfEduauraa, "First content of Eduaraa");
+		waitTime(2000);
+		verifyElementPresentAndClick(PWAKidsPage.objPrivacyPolicy, "privacy policy");
+		
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "CTA");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "CTA");
+		}
+	}
 }

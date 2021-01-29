@@ -2618,10 +2618,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
 			}
 
-			getWebDriver().findElement(PWALiveTVPage.objFacebookEmailField).sendKeys("igszeetest@gmail.com");
+			getWebDriver().findElement(PWALiveTVPage.objFacebookEmailField).sendKeys("helloigs6@gmail.com");
 //		waitTime(3000);
 			verifyElementPresentAndClick(PWALiveTVPage.objFacebookPasswordField, "Facebook Password field");
-			getWebDriver().findElement(PWALiveTVPage.objFacebookPasswordField).sendKeys("igs@12345");
+			getWebDriver().findElement(PWALiveTVPage.objFacebookPasswordField).sendKeys("hello@12345");
 //		waitTime(3000);
 			verifyElementPresentAndClick(PWALiveTVPage.objFacebookLoginBtn, "Facebook Login button");
 			waitTime(2000);
@@ -6774,7 +6774,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			waitTime(1000);
 			// click(PWALiveTVPage.objTimeSlotRightArrowMark, "Right Arrow");
 			getWebDriver().findElement(By.xpath(
-					"//div[@class='outerTimeContainer']/child::div[@class='noSelect iconNavi-ic_back rightArrow']"))
+					"//div[@class='outerTimeContainer']/child::div[contains(@class, 'ic_back rightArrow')]"))
 					.click();
 		}
 		waitTime(5000);
@@ -10289,7 +10289,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		// Adding Episodes to Watch list
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		// Enter an episode
-		type(PWASearchPage.objSearchEditBox, "Comedy Kiladigalu Championship - Episode 1 - July 7, 2018 - Full Episode",
+		type(PWASearchPage.objSearchEditBox, "Grand Premiere - Comedy Khiladigalu Season 3",
 				"Search edit box");
 		waitTime(3000);
 		type(PWASearchPage.objSearchEditBox, " ", "Search bar");
@@ -11599,32 +11599,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void FooterSectionValidation() throws Exception {
 		HeaderChildNode("Footer Section");
-		partialScroll();
-		scrollDownWEB();
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		JSClick(PWAHamburgerMenuPage.objAboutUsOption, "About Us option");
 		verifyElementPresent(PWAHomePage.objDownloadApps, "Download Apps text");
 		verifyElementPresent(PWAHomePage.objAndroidPlayStoreIcon, "Android play store icon");
-
 		// Instagram
-		waitTime(3000);
-		verifyElementPresent(PWAHomePage.objInstagramIcon, "Instagram icon");
-		for (int i = 0; i < 6; i++) {
-			scrollDownWEB();
-			waitTime(6000);
-			if (checkElementDisplayed(PWAHomePage.objWhatToWatchPopUp, "wondering what to watch pop up")) {
-				checkElementDisplayed(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
-				waitTime(4000);
-				click(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
-				break;
-			}
-		}
-		click(PWAHomePage.objInstagramIcon, "Instagram icon");
 
-		if (checkElementDisplayed(PWAHomePage.objWhatToWatchPopUp, "wondering what to watch pop up")) {
-			waitTime(3000);
-			verifyElementPresent(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
-			waitTime(5000);
-			click(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
-		}
+		verifyElementPresent(PWAHomePage.objInstagramIcon, "Instagram icon");
+		click(PWAHomePage.objInstagramIcon, "Instagram icon");
 		switchToWindow(2);
 		if (checkElementDisplayed(PWAHomePage.objInstagramPage, "Instagram page follow button")) {
 			logger.info("User is navigated to Instagram page");
@@ -11652,11 +11634,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		getWebDriver().close();
 		switchToParentWindow();
 		verifyElementPresent(PWAHomePage.objCopyRightText, "Copyright text");
-		verifyElementPresentAndClick(PWAHomePage.objUpArrow, "Up Arrow");
-		if (getWebDriver().findElement(PWAHomePage.objUpArrow).isDisplayed() == false) {
-			logger.info("After clicking the Up arrow top of the page is displayed");
-			extent.extentLogger("Up Arrow", "After clicking the Up arrow top of the page is displayed");
-		}
 		// Contact Us screen
 		verifyElementPresentAndClick(PWAHomePage.objHelp, "Help Center in footer section");
 		switchToWindow(2);
@@ -16907,7 +16884,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 					extent.extentLoggerFail("playerScreen","Failed to open External Tab");
 				}
 			}
-			else {
+			else { 
 				waitTime(6000);
 				waitTime(6000);
 				partialScroll();
@@ -16924,7 +16901,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 				}
 				logger.info("Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
 				extent.extentLogger("playerScreen","Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
-				if (searchScreenTitle.contains(nextPageTitle)) {
+				if (searchScreenTitle.contains(nextPageTitle) || nextPageTitle.contains(searchScreenTitle)) {
 					logger.info("user is navigated to respective consumption screen");
 					extent.extentLogger("Consumption Screen", "user is navigated to respective consumption screen");
 				} else {

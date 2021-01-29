@@ -423,4 +423,8 @@ public class PWAPlayerPage {
 	public static By objContentTitleLiveTVname = By.xpath("//div[@class='channelConsumptionMetaDiv']//h1");
 	
 	public static By objSubTitleOverlay = By.xpath("//div[@class='playkit-subtitles']");
+	
+	public static By objHavePromoCodeEditTxt = By.xpath(".//*[@placeholder='Have a Code?']");
+	
+	public static By objProceedBtn = By.xpath(".//*[@class='popupBtn '] |  //*[@text='PROCEED']");
 }

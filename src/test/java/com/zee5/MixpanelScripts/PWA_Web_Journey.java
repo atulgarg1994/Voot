@@ -548,6 +548,16 @@ public class PWA_Web_Journey {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventAfterChangingPassword(userType);
 	}
 
+	@Test(priority = 69)
+	@Parameters
+	public void verifyPopupLaunchEventTriggerforParentControl(String userType) throws Exception {
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		System.out.println("Verify Toast Message Impression event when user changes the password");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyPopupLaunchEventTriggerforParentControl(userType);
+	}
+	
+	
+	
 	@AfterClass
 	public void tearDown() {
 		Zee5PWAWEBMixPanelBusinessLogic.tearDown();
