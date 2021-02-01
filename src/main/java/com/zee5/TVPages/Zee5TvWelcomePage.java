@@ -23,7 +23,6 @@ public class Zee5TvWelcomePage {
 	public static By objshowpageTrayContentClub = By.xpath(
 			"(//*[@id='row_header' and contains(text(),'Top')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 
-	
 	public static By objLandingshowpageTrayContent = By.xpath(
 			"(//*[@id='row_header' and contains(text(),'Top')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 

@@ -321,7 +321,7 @@ public class ExtentReporter implements ITestListener {
 	
 	public static StringBuilder updateResult() {
 		StringBuilder builder = new StringBuilder();
-				builder.append("        <tr>\r\n" + "          <td> " + (totalPassedTest+totalFailedTest+totalSkipedTest) + " </td>\r\n" + "          <td> "
+				builder.append("        <tr>\r\n" + "          <td> " + (totalTests) + " </td>\r\n" + "          <td> "
 						+ totalPassedTest + " </td>\r\n" + "          <td> " + totalFailedTest + " </td>\r\n"
 						+ "        </tr>\r\n");
 			return builder;

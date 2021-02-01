@@ -103,7 +103,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			Password = getParameterFromXML("SubscribedUserPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
-			verifyElementPresent(PWALoginPage.objWebLoginPageText, "Login page");
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
 			type(PWALoginPage.objEmailField, Username, "Email Field");
 			waitTime(3000);
@@ -120,7 +119,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			String ClubPassword = getParameterFromXML("ClubSubscribedPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
-			verifyElementPresent(PWALoginPage.objWebLoginPageText, "Login page");
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
 			type(PWALoginPage.objEmailField, ClubUsername, "Email Field");
 			waitTime(3000);
@@ -12921,4 +12919,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.ValidateParameter(local.getItem("ID"), "CTA");
 		}
 	}
+	
+	
 }

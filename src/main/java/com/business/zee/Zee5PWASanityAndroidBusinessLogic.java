@@ -2470,7 +2470,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		if (checkElementDisplayed(PWAPlayerPage.objCloseRegisterDialog, "Sign Up Pop Up")) {
 			logger.info("Sign Up Pop Up is verifed in portrait mode");
 			extent.extentLogger("Popup", "Sign Up Pop Up is verifed in portrait mode");
-			checkElementDisplayed(PWAHomePage.objPopUpMobileField, "Mobile Number field");
+//			checkElementDisplayed(PWAHomePage.objPopUpMobileField, "Mobile Number field");
+			verifyElementPresentAndClick(PWAHomePage.objPopUpMobileField, "Mobile Number field");
 			type(PWAHomePage.objPopUpMobileField, "9964955239", "Mobile Number field");
 			hideKeyboard();
 			verifyElementPresentAndClick(CompleteYourProfilePopUp.objSendOtp, "Send OTP button");
@@ -3015,8 +3016,13 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Phone Number Registration");
 		click(PWALoginPage.objSignUpBtn, "Sign up button");
 		waitTime(4000);
-		checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
-		type(PWALoginPage.objEmailField, "7892215\n", "PhoneNumber Field");
+	//	checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+		
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+		
+		waitTime(2000);
+		
+		type(PWALoginPage.objEmailField, "789221521\n", "PhoneNumber Field");
 		hideKeyboard();
 		waitTime(3000);
 		String PhoneNumberField = getText(PWALoginPage.objEmailField);
@@ -3024,17 +3030,19 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info("User is allowed to enter PhoneNumber");
 			extentLogger("PhoneNumber", "User is allowed to enter PhoneNumber in PhoneNumber Field");
 		}
-		if (checkElementDisplayed(PWALoginPage.objIncorrectPhoneNumberMessage, "PhoneNumber Error Message")) {
+		if (checkElementDisplayed(PWALoginPage.objIncorrectPhoneNumberMessage, "PhoneNumber Error Message") == false) {
 			logger.info("When User Enter Invalid PhoneNumber Error Message is displayed");
 			extent.extentLogger("Error Message", "When User Enter Invalid PhoneNumber Error Message is displayed");
 		}
 
-		int lenText = findElement(PWALoginPage.objEmailField).getAttribute("value").length();
+	/*	int lenText = findElement(PWALoginPage.objEmailField).getAttribute("value").length();
 		for (int i = 0; i < lenText; i++) {
 			getDriver().findElement(PWALoginPage.objEmailField).sendKeys(Keys.BACK_SPACE);
 		}
 		waitTime(5000);
-		type(PWALoginPage.objEmailField, "789221521\n", "PhoneNumber Field");
+		type(PWALoginPage.objEmailField, "789221521\n", "PhoneNumber Field"); */
+		
+		
 		if (checkElementDisplayed(PWALoginPage.objIncorrectPhoneNumberMessage, "PhoneNumber Error Message") == false) {
 			logger.info("User is allowed to enter valid PhoneNumber");
 			extent.extentLogger("PhoneNumber", "User is allowed to enter valid PhoneNumber");
@@ -3056,18 +3064,33 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error("Send OTP button is enabled even though incorrect mobile number is entered");
 			extent.extentLoggerFail("", "Send OTP button is enabled even though incorrect mobile number is entered");
 		}
+		
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+		
+		waitTime(2000);
+		
 		type(PWALoginPage.objEmailField, "4\n", "PhoneNumber Field");
 		hideKeyboard();
-		click(PWASignupPage.objSendOTPButtonEnabled, "Send OTP Button");
+		
+		waitTime(5000);
+		
+		JSClick(PWASignupPage.objSendOTPButtonEnabled, "Send OTP Button");
 		waitTime(3000);
-		hideKeyboard();
+	//	hideKeyboard();
 
 		verifyElementPresentAndClick(PWASignupPage.objChangeNumberLink, "Change Number Option");
 		waitTime(4000);
+		
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+		
+		waitTime(2000);
+		
 		type(PWALoginPage.objEmailField, "7892215214\n", "PhoneNumber Field");
 		hideKeyboard();
-		waitTime(3000);
-		click(PWASignupPage.objSignUpButtonHighlighted, "Continue Button");
+		waitTime(5000);
+		
+		JSClick(PWASignupPage.objSignUpButtonHighlighted, "Continue Button");
+		
 		waitTime(2000);
 		hideKeyboard();
 
@@ -3131,7 +3154,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 
 //------------------------------------------------------------------------------------------------------------------------	
-	/*
+	/**
 	 * Validation of SignUp screen using Email-id
 	 */
 	public void emailRegistration() throws Exception {
@@ -3148,6 +3171,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			extent.extentLogger("Password Field", "Password field is not displayed when email field is empty");
 		}
 
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+		waitTime(2000);
+		
 		type(PWALoginPage.objEmailField, "zee5latest@gmail.com", "Email field");
 		hideKeyboard();
 		if (verifyIsElementDisplayed(PWALoginPage.objPasswordField, "Password field") == true) {
@@ -3155,6 +3181,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			extent.extentLogger("Password Field", "Password field is displayed when user enter email-id");
 		}
 
+		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password field");
+		waitTime(2000);
+		
 		type(PWALoginPage.objPasswordField, "abc", "password field");
 		click(PWALoginPage.objShowPasswordButton, "Show Password icon");
 		hideKeyboard();
@@ -3166,6 +3195,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		} catch (Exception e) {
 		}
 		waitTime(5000);
+		
+		verifyElementPresentAndClick(PWALoginPage.objPasswordFieldFilled, "Password field");
+		waitTime(1000);
+		
 		type(PWALoginPage.objPasswordFieldFilled, "user@123", "password field");
 		hideKeyboard();
 		if (verifyIsElementDisplayed(PWASignupPage.objPasswordHiddenField, "Password field")) {
@@ -3200,7 +3233,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 
 	// -----------------------------------------------------------------
-	/*
+	/**
 	 * Validation of Forgot password screen using Email-id
 	 */
 	public void forgotPasswordEmailSanity() throws Exception {
@@ -3219,7 +3252,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		verifyElementPresentAndClick(PWALoginPage.objForgotPasswordTxt, "Forgot password");
 		waitTime(2000);
-		verifyIsElementDisplayed(PWALoginPage.objEmailField, "Email field");
+	//	verifyIsElementDisplayed(PWALoginPage.objEmailField, "Email field");
+		
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+		waitTime(2000);
+		
 		type(PWALoginPage.objEmailField, "s\n", "Email field");
 		hideKeyboard();
 		if (getDriver().findElement(PWASignupPage.objPasswordResetLinkDisabled).isDisplayed()) {
@@ -3233,6 +3270,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		getDriver().findElement(PWALoginPage.objEmailField).clear();
 		waitTime(4000);
+		
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+		waitTime(2000);
+		
 		type(PWALoginPage.objEmailField, "hreenidhi080@gmail.com", "Email field");
 		hideKeyboard();
 		if (checkElementDisplayed(PWALoginPage.objForgotPasswordMessage, "Message")) {
@@ -3257,7 +3298,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 
 	// ----------------------------------------------------------------------------------------------------
-	/*
+	/**
 	 * Validation of Forgot password screen using Phone number
 	 */
 	public void forgotPasswordMobileNumberSanity() throws Exception {
@@ -3266,6 +3307,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWALoginPage.objLoginBtn, "Login button");
 		verifyElementPresentAndClick(PWALoginPage.objForgotPasswordTxt, "Forgot password");
 		waitTime(2000);
+		
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+		waitTime(1000);
+		
 		type(PWALoginPage.objEmailField, "789221\n", "Email field");
 		hideKeyboard();
 		if (getDriver().findElement(PWASignupPage.objForgotPasswordContinueDisabled).isDisplayed()) {
@@ -3278,6 +3323,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					"Continue button is enabled even though user enters invalid mobile number");
 		}
 		getDriver().findElement(PWALoginPage.objEmailField).clear();
+		
+		
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+		waitTime(2000);
+		
 		type(PWALoginPage.objEmailField, "5214\n", "Email field");
 		hideKeyboard();
 		if (checkElementDisplayed(PWALoginPage.objForgotPasswordMessage, "Message")) {
@@ -3286,9 +3336,17 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		click(PWASignupPage.objForgotPasswordContinueEnabled, "Continue button");
 		waitTime(3000);
-		checkElementDisplayed(PWALoginPage.objNewPasswordField, "New password page");
+	//	checkElementDisplayed(PWALoginPage.objNewPasswordField, "New password page");
+		
+		verifyElementPresentAndClick(PWALoginPage.objNewPasswordField, "New password page");
+		waitTime(2000);
+		
 		type(PWALoginPage.objNewPasswordField, "User@123\n", "Password field");
 		hideKeyboard();
+		
+		verifyElementPresentAndClick(PWALoginPage.objConfirmNewPasswordField, "Confirm Password field");
+		waitTime(2000);
+		
 		type(PWALoginPage.objConfirmNewPasswordField, "User@123\n", "Confirm Password field");
 		hideKeyboard();
 		click(PWALoginPage.objForgotPasswordLinkButton, "Continue button");
@@ -3300,7 +3358,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 
 //-------------------------------------------------------------------------------------------	
-	/*
+	/**
 	 * Login through Facebook
 	 */
 	public void facebookLogin() throws Exception {
@@ -3321,9 +3379,17 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 
 		else if (checkElementExist(PWALoginPage.objFacebookPageVerification, "Facebook page")) {
-			verifyElementPresent(PWALoginPage.objFacebookLoginEmail, " Email Field");
+		//	verifyElementPresent(PWALoginPage.objFacebookLoginEmail, " Email Field");
+			
+			verifyElementPresentAndClick(PWALoginPage.objFacebookLoginEmail, " Email Field");
+			waitTime(2000);
+			
 			type(PWALoginPage.objFacebookLoginEmail, "igszeetesttest@gmail.com", "Emial Field");
-			verifyElementPresent(PWALoginPage.objFacebookLoginpassword, " Password Field");
+		//	verifyElementPresent(PWALoginPage.objFacebookLoginpassword, " Password Field");
+			
+			verifyElementPresentAndClick(PWALoginPage.objFacebookLoginpassword, " Password Field");
+			waitTime(2000);
+			
 			type(PWALoginPage.objFacebookLoginpassword, "Igs$123Zee\n", "Password Field");
 			verifyElementPresentAndClick(PWALoginPage.objFacebookLoginButtonInFbPage, "Login Button");
 			waitTime(3000);
@@ -3371,10 +3437,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		// logout();
 	}
 
-	/*
-	 * Login through Gmail
-	 */
-	/*
+	/**
 	 * Login through Gmail
 	 */
 	public void gmailLogin() throws Exception {
@@ -3397,7 +3460,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			hideKeyboard();
 			verifyElementPresentAndClick(PWALoginPage.objGmailNextButton, "clicked on next button");
 			waitTime(3000);
-			verifyElementPresent(PWALoginPage.objGmailPasswordField, " Password Field");
+			
+			verifyElementPresentAndClick(PWALoginPage.objGmailPasswordField, " Password Field");
+			waitTime(2000);
+			
 			type(PWALoginPage.objGmailPasswordField, "User@123\n", "Password Field");
 			hideKeyboard();
 			verifyElementPresentAndClick(PWALoginPage.objGmailNextButton, "clicked on next button");
@@ -3441,7 +3507,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 	}
 
-	/*
+
+	/**
 	 * Login through Twitter
 	 */
 	public void twitterLogin() throws Exception {
@@ -3466,6 +3533,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 
 		else if (verifyIsElementDisplayed(PWALoginPage.objTwitterEmaildField, "Twitter Email field")) {
+			
+			verifyElementPresentAndClick(PWALoginPage.objTwitterEmaildField, "Email Field");
+			waitTime(2000);
 
 			type(PWALoginPage.objTwitterEmaildField, "Zee5latest@gmail.com", "Email Field");
 			hideKeyboard();
@@ -6738,6 +6808,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	/**
 	 * Function To check the SignIn page from MyPlans screen.
 	 */
+
 	public void navigationToSignInFromMyplans(String Usertype) throws Exception {
 		Swipe("UP", 1);
 		if (verifyIsElementDisplayed(PWASubscriptionPages.objadhocPopupArea, "Adoric Popup")) {
@@ -6751,13 +6822,21 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			Swipe("UP", 1);
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue button");
 			waitTime(3000);
-			verifyElementPresent(PWALoginPage.objEmailField, "Sign in page");
+
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Sign in page");
+
 			if (Usertype == "Logged in") {
+
 				type(PWALoginPage.objEmailField, "zee5latest@gmail.com", "Email");
 				hideKeyboard();
 				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
 				waitTime(3000);
-				verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+//		verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+
+				verifyElementPresentAndClick(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+
+				waitTime(5000);
+
 				type(PWASubscriptionPages.objPasswordField, "User@123\n", "Password");
 				hideKeyboard();
 				// click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
@@ -6768,12 +6847,22 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				}
 			}
 			if (Usertype == "NewRegister") {
+
+				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email");
+
+				waitTime(2000);
+
 				type(PWALoginPage.objEmailField, RandomStringGenerator(5) + "@gmail.com", "Email");
 				hideKeyboard();
 				waitTime(3000);
 				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
 				waitTime(3000);
-				verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+//		verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+
+				verifyElementPresentAndClick(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+
+				waitTime(5000);
+
 				type(PWASubscriptionPages.objPasswordField, "User@123\n", "Password");
 				hideKeyboard();
 				// click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
@@ -6796,13 +6885,21 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			Swipe("UP", 1);
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue button");
 			waitTime(3000);
-			verifyElementPresent(PWALoginPage.objEmailField, "Sign in page");
+
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Sign in page");
+
 			if (Usertype == "Logged in") {
+
 				type(PWALoginPage.objEmailField, "zee5latest@gmail.com", "Email");
 				hideKeyboard();
 				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
 				waitTime(3000);
-				verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+//		verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+
+				verifyElementPresentAndClick(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+
+				waitTime(5000);
+
 				type(PWASubscriptionPages.objPasswordField, "User@123\n", "Password");
 				hideKeyboard();
 				waitTime(10000);
@@ -6819,11 +6916,21 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 
 			if (Usertype == "NewRegister") {
+
+				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Sign in page");
+
+				waitTime(1000);
+
 				type(PWALoginPage.objEmailField, RandomStringGenerator(5) + "@gmail.com", "Email");
 				hideKeyboard();
 				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
 				waitTime(3000);
-				verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+//	verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+
+				verifyElementPresentAndClick(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+
+				waitTime(5000);
+
 				type(PWASubscriptionPages.objPasswordField, "User@123\n", "Password");
 				hideKeyboard();
 				waitTime(10000);

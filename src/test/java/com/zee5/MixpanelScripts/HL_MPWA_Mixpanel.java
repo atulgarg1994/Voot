@@ -19,18 +19,6 @@ private Zee5MPWAMixPanelBusinessLogic zee5PWABusinessLogic;
 	}
 
 	
-	
-//	@Test(priority = 1)
-	@Parameters({ "userType" })
-	public void PWAWEBLoginUserType(String userType) throws Exception
-	{
-	//	zee5PWABusinessLogic.launchURL();
-	//	zee5PWABusinessLogic.dismissDisplayContentLanguagePopUp();
-	//	zee5PWABusinessLogic.ZeeWEBPWALogin(userType);
-	}
-
-
-	
 	//==============================LoginInitiated Event=================================
 	@Test(priority = 2)
 	@Parameters({ "userType" })

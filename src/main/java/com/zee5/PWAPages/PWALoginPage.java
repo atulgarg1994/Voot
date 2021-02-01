@@ -100,7 +100,6 @@ public class PWALoginPage {
 	
 	//webLogin
 	public static By objWebLoginBtn = By.xpath("//a[@href='/signin' and text()='Login']");
-	public static By objWebLoginPageText = By.xpath("//h1[.='Login']");
 	public static By objWebLoginButton = By.xpath("//button//span[.='Login']");
 
 	public static By objLoginButton = By.xpath("//a[@href='/signin']//span[.='Login']");
@@ -199,4 +198,6 @@ public class PWALoginPage {
 	public static By objFacebookContinueButton= By.xpath("//*[text()='Continue']");
 	
 	 public static By objForgotPasswordLinkButtonWEB = By.xpath("//button[contains(@class,'noSelect buttonGradient')]");
+	 
+	 public static By objWebLoginPageText = By.xpath("//div[@class='formHeader loginHeaderIn']");
 }

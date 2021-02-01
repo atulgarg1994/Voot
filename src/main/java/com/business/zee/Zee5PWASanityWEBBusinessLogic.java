@@ -552,9 +552,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		switchToWindow(2);
 		if (!checkElementDisplayed(PWALiveTVPage.objPostToFacebookBtn, "Post to Facebook")) {
 			verifyElementPresentAndClick(PWALiveTVPage.objFacebookEmailField, "Facebook Email field");
-			getWebDriver().findElement(PWALiveTVPage.objFacebookEmailField).sendKeys("igszeetest@gmail.com");
+			getWebDriver().findElement(PWALiveTVPage.objFacebookEmailField).sendKeys("helloigs6@gmail.com");
 			verifyElementPresentAndClick(PWALiveTVPage.objFacebookPasswordField, "Facebook Password field");
-			getWebDriver().findElement(PWALiveTVPage.objFacebookPasswordField).sendKeys("igs@12345");
+			getWebDriver().findElement(PWALiveTVPage.objFacebookPasswordField).sendKeys("hello@12345");
 			verifyElementPresentAndClick(PWALiveTVPage.objFacebookLoginBtn, "Facebook Login button");
 			waitTime(4000);
 		}
@@ -12356,9 +12356,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
 				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
 			}
-			getWebDriver().findElement(PWALiveTVPage.objFacebookEmailField).sendKeys("igszeetest@gmail.com");
+			getWebDriver().findElement(PWALiveTVPage.objFacebookEmailField).sendKeys("helloigs6@gmail.com");
 			verifyElementPresentAndClick(PWALiveTVPage.objFacebookPasswordField, "Facebook Password field");
-			getWebDriver().findElement(PWALiveTVPage.objFacebookPasswordField).sendKeys("igs@12345");
+			getWebDriver().findElement(PWALiveTVPage.objFacebookPasswordField).sendKeys("hello@12345");
 			verifyElementPresentAndClick(PWALiveTVPage.objFacebookLoginBtn, "Facebook Login button");
 			waitTime(2000);
 			verifyAlert();
@@ -18732,6 +18732,7 @@ public void DFPValidation(String userType,String dfpAdContent) throws Exception 
 		}			
 	}
 	
+	@SuppressWarnings("unused")
 	public void verifySessionClose(String userType,String zeeTab,String convivaTab) throws Exception {
 		extent.HeaderChildNode("ID 20 : Verify Session Close");
 		System.out.println("------------------- ID 20 : Verify Session Close -------------------");
@@ -18982,6 +18983,7 @@ public void DFPValidation(String userType,String dfpAdContent) throws Exception 
 	
 	}
 	
+	@SuppressWarnings({ "unused", "rawtypes" })
 	public ArrayList verifyPlayOnAdClick(String userType,String zeeTab,String convivaTab) throws Exception {
 		ArrayList<String> returnString=new ArrayList<String>();
 		extent.HeaderChildNode("ID 29 : Verify Play On Ad Click");
@@ -19164,6 +19166,7 @@ public void DFPValidation(String userType,String dfpAdContent) throws Exception 
  * CONVIVA
  */
 
+	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	public void ConvivaVerification(String userType)throws Exception{	
 		extent.HeaderChildNode("Conviva launch, login and initial setup");
 		System.out.println("------------------- Conviva launch, login and initial setup -------------------");
@@ -19190,6 +19193,7 @@ public void DFPValidation(String userType,String dfpAdContent) throws Exception 
 		verifyCustomTags(assetDetails,zeeTab,convivaTab);
 	}
 	
+	@SuppressWarnings("unused")
 	public String verifyDeviceTags(String userType,String zeeTab,String convivaTab) throws Exception {
 		extent.HeaderChildNode("ID 45 : Verify Device Tags");
 		System.out.println("------------------- ID 45 : Verify Device Tags -------------------");
@@ -19308,6 +19312,7 @@ public void DFPValidation(String userType,String dfpAdContent) throws Exception 
 	}
 	
 	
+	@SuppressWarnings("rawtypes")
 	public void verifyRequiredTags(ArrayList assetDetails) throws Exception {
 		extent.HeaderChildNode("ID 46 : Verify Required Tags");
 		System.out.println("------------------- ID 46 : Verify Required Tags -------------------");
@@ -19348,6 +19353,7 @@ public void DFPValidation(String userType,String dfpAdContent) throws Exception 
 		
 	}
 	
+	@SuppressWarnings({ "unused", "rawtypes" })
 	public void verifyCustomTags(ArrayList assetDetails,String zeeTab,String convivaTab) throws Exception {		
 		extent.HeaderChildNode("ID 47 : Verify Custom Tags");
 		System.out.println("------------------- ID 47 : Verify Custom Tags -------------------");		
@@ -19578,6 +19584,7 @@ public void DFPValidation(String userType,String dfpAdContent) throws Exception 
 
 	
 	
+	@SuppressWarnings("unused")
 	public static String getValuesFromLocalStorage(String key) {
 		WebStorage webStorage = (WebStorage) new Augmenter().augment(getWebDriver());
 		LocalStorage localStorage = webStorage.getLocalStorage();
