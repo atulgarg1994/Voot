@@ -739,4 +739,6 @@ public static By objplay = By.xpath("//span[text()='Play']");
 	public static By objproceedbtn=By.xpath("//*[text()='PROCEED']");
 	public static By objproceed2btn=By.xpath("(//*[text()='PROCEED'])[2]");
 	public static By objgetclubinKannada=By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//a[1]//span[contains(text(), 'ಕ್ಲಬ್ಗೆ ಹೋಗಿ')]");
+
+	
 }
