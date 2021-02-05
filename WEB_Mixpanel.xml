@@ -18,7 +18,7 @@
 	<parameter name="keyword2" value="Chemistry of Kariyappa" />
 
 	<!-- NONSubscribed User -->
-	<parameter name="NonsubscribedUserName"
+	<parameter name="NonSubscribedUserName"
 		value="basavaraj.pn5@gmail.com" />
 	<parameter name="NonSubscribedUserPassword" value="igsindia123" />
 	<!-- Subscribed User -->
@@ -54,7 +54,7 @@
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
-		<!-- <listener class-name="com.extent.ParameterInjector" /> -->
+		<listener class-name="com.extent.ParameterInjector" />
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
