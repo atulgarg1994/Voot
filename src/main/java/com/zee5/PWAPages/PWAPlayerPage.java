@@ -313,8 +313,7 @@ public class PWAPlayerPage {
 			.xpath("//*[contains(@class,'subMenuWrapper') and not(contains(@class,'tickMark'))]//div");
 
 	public static By objPlayerUnSelectedAudioTrack(String track) {
-		return By.xpath(
-				"//*[contains(@class,'subMenuWrapper') and not(contains(@class,'tickMark'))]//div[.='" + track + "']");
+		return By.xpath("//*[contains(@class,'subMenuWrapper') and (contains(@class,'subMenu'))]//div[.='" + track + "']");
 	}
 
 	public static By objFirstCardFreeChnnels = By.xpath(
@@ -348,8 +347,7 @@ public class PWAPlayerPage {
 			.xpath("//div[contains(@class,'add_Watchlist')]//p[contains(text(),'Watchlist')]");
 
 	// Subscribe Now Link on player
-	public static By objSubscribeNowLink = By
-			.xpath("//span[contains(@class,'subscribe-link') and contains(text(),'Subscribe')]");
+	public static By objSubscribeNowLink = By.xpath("//span[@class = 'subscribe-link subscribemsg_en']");
 
 	// Get Premium CTA Below the Player Screen
 	public static By objGetPremiumCTABelowPlayerScreen = By
@@ -427,4 +425,6 @@ public class PWAPlayerPage {
 	public static By objHavePromoCodeEditTxt = By.xpath(".//*[@placeholder='Have a Code?']");
 	
 	public static By objProceedBtn = By.xpath(".//*[@class='popupBtn '] |  //*[@text='PROCEED']");
+	
+	
 }

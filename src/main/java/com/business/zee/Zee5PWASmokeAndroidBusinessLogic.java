@@ -4431,7 +4431,9 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		waitTime(5000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objPopupCloseButton, "Popup Close Button");
 		waitTime(5000);
-		verifyElementPresentAndClick(PWAPlayerPage.objSubscribeNowLink, "In-Line Subscribe Link on Player");
+		verifyElementPresent(PWAPlayerPage.objSubscribeNowLink, "In-Line Subscribe Link on Player");
+		waitTime(1000);
+		JSClick(PWAPlayerPage.objSubscribeNowLink, "In-Line Subscribe Link on Player");
 		zeeVerifyGetPremiumPopup();
 		waitTime(5000);
 		if (userType.equalsIgnoreCase("Guest")) {
@@ -6217,6 +6219,8 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			getDriver().findElement(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn).click();
 		} catch (Exception e) {
 		}
+		verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "Zee5 Logo");
+		waitTime(2000);
 		if (navigatetoAnyScreen1(tabName)) {
 			trayTitle = swipeTillTray(7, recoTrayTitle, "\"" + recoTrayTitle + "\" tray");
 			if (!trayTitle.equals("")) {

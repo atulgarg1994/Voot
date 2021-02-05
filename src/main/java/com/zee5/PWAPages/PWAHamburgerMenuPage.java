@@ -70,7 +70,7 @@ public class PWAHamburgerMenuPage {
 	public static By objLoginBtn = By.xpath("//span[@class='loginButton borderGradient ']//span[.='Login']");
 
 //	SignUp for free button
-	public static By objSignUpForFree = By.xpath("//span[@class='loginButton ']//span[.='Sign up for FREE']");
+	public static By objSignUpForFree = By.xpath("//a[@class='noSelect buttonGradient ']//span[.= 'Sign up for FREE']");
 
 //	Home Button
 	public static By objHomeBtn = By.xpath("//div[@class='noSelect menuItem  active']/div[.='Home']");
@@ -739,6 +739,6 @@ public static By objplay = By.xpath("//span[text()='Play']");
 	public static By objproceedbtn=By.xpath("//*[text()='PROCEED']");
 	public static By objproceed2btn=By.xpath("(//*[text()='PROCEED'])[2]");
 	public static By objgetclubinKannada=By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//a[1]//span[contains(text(), 'ಕ್ಲಬ್ಗೆ ಹೋಗಿ')]");
-
+	
 	
 }

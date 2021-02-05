@@ -45,9 +45,6 @@ public class PWAZee5OriginalPage {
 						+ tabname + "']");
 	}
 
-	// Scroll to Top of screen
-	public static By objNavigateToTop = By.xpath("//div[@class='iconNavi-ic_arrow_back']");
-
 	// Premium card
 	public static By objPremiumCard = By.xpath("(//div[@class='cardPremiumContent']/preceding-sibling::*/child::*/child::img)[1]");
 
@@ -81,4 +78,6 @@ public class PWAZee5OriginalPage {
 	public static By objTrayTitle1 = By.xpath("(//*[@class='titleLink'])[1]");
 	
 	public static By objTrayTitle = By.xpath("(//*[@class='titleLink' or @class='trayHeader'])[1]");
+	
+	public static By objNavigateToTop = By.xpath("//div[@class='iconOther-ic_arrow_back'or @class='iconNavi-ic_arrow_back']");
 }

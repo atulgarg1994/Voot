@@ -18,9 +18,9 @@
 	<parameter name="keyword2" value="Chemistry of Kariyappa" />
 
 	<!-- NONSubscribed User -->
-	<parameter name="NonsubscribedUserName"
+	<parameter name="NonSubscribedUserName"
 		value="basavaraj.pn5@gmail.com" />
-	<parameter name="NonsubscribedUserPassword" value="igsindia123" />
+	<parameter name="NonSubscribedUserPassword" value="igsindia123" />
 	<!-- Subscribed User -->
 	<parameter name="SubscribedUserName"
 		value="zeetest10@test.com" />

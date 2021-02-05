@@ -291,6 +291,7 @@ public class Mixpanel extends ExtentReporter {
 		int NumberOfRows = getRowCount();
 		System.out.println(NumberOfRows);
 		extent.HeaderChildNode("Parameter Validation");
+		if(NumberOfRows != 0) {
 		for (rownumber = 1; rownumber < NumberOfRows; rownumber++) {
 			try {
 				XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
@@ -316,6 +317,10 @@ public class Mixpanel extends ExtentReporter {
 			} catch (Exception e) {
 				System.out.println(e);
 			}
+		}
+		}else {
+			System.out.println("Event not triggered");
+			extentReportFail("Event not triggered", "Event not triggered");
 		}
 		FEProp.clear();
 	}

@@ -13134,12 +13134,20 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		Swipe("UP", 1);
 		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue button");
 		String generatedEmail = RandomStringGenerator(5) + "@g.com";
+		
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email");
+		waitTime(2000);
+		
 		type(PWALoginPage.objEmailField, generatedEmail, "Email");
 		hideKeyboard();
 		waitTime(3000);
 		click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
 		waitTime(3000);
-		verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+//		verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+		
+		verifyElementPresentAndClick(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+		waitTime(2000);
+			
 		type(PWASubscriptionPages.objPasswordField, "123456\n", "Password");
 		hideKeyboard();
 		// click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");

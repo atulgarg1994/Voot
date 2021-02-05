@@ -96,4 +96,7 @@ public class LiveTVPage {
 	// Description under the Consumption Screen
 	public static By objDescText = By.xpath("//*[@id='description']");
 	
+	public static By objPostToFB = By.xpath("//*[@contentDescription='POST']");
+
+	
 }
