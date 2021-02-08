@@ -534,4 +534,6 @@ public class PWAHomePage {
 	
 	public static By objCarouselContentPremiumTag = By.xpath("(.//*[@class='cardJoystickContent cardPremiumContent'])[1]");
 	
+	public static By objNotNow = By.xpath(".//*[text()='Not Now']");
+	
 }

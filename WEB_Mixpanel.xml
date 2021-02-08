@@ -3,7 +3,7 @@
 
 <suite name="Web" parallel="false" thread-count="1">
 
-	<parameter name="url" value="https://newpwa.zee5.com/" />
+	<parameter name="url" value="newpwa" />
 	<parameter name="browserType" value="Chrome" />  <!-- Chrome/Firefox -->
 
 	<parameter name="userType" value="Guest" /> <!-- Guest/NonSubscribedUser/SubscribedUser/ClubUser -->
@@ -18,13 +18,13 @@
 	<parameter name="keyword2" value="Chemistry of Kariyappa" />
 
 	<!-- NONSubscribed User -->
-	<parameter name="NonSubscribedUserName"
-		value="basavaraj.pn5@gmail.com" />
+	<parameter name="NonSubscribedUserName"	value="basavaraj.pn5@gmail.com" />
 	<parameter name="NonSubscribedUserPassword" value="igsindia123" />
+	
 	<!-- Subscribed User -->
-	<parameter name="SubscribedUserName"
-		value="zeetest10@test.com" />
+	<parameter name="SubscribedUserName" value="zeetest10@test.com" />
 	<parameter name="SubscribedUserPassword" value="123456" />
+	
 	<parameter name="keyword4" value="Paaru gets tipsy" />
 	<parameter name="keyword5" value="Bhinna" />
 
@@ -54,13 +54,13 @@
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
-		<listener class-name="com.extent.ParameterInjector" />
+		<!-- <listener class-name="com.extent.ParameterInjector" /> -->
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
 	<test name="WebPWAMixpanelScript">
 		<classes>
-			<class name="com.zee5.MixpanelScripts.WebPWAMixpanelScript" />
+			<class name="com.zee5.MixpanelScripts.PWA_Web_Journey" />
 		</classes>
 	</test>
 

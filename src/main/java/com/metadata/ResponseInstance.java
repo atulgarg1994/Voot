@@ -561,6 +561,7 @@ public class ResponseInstance {
 		String finalApiKey = apiKeyInResponse.replaceAll("<br>rel - API-KEY : ", "");
 		String UriForToken = "http://gwapi.zee5.com/user/getToken";
 		respToken = given().headers("API-KEY", finalApiKey).when().get(UriForToken);
+		System.out.println(respToken.print());
 		String xAccessToken = respToken.jsonPath().getString("X-ACCESS-TOKEN");
 		return xAccessToken;
 	}
@@ -686,16 +687,6 @@ public class ResponseInstance {
 
 //			:::::::::::::::Mixpanel:::::::::::::::::::::: 
 
-	public static void getDetailsOfCustomer(String pUsername, String pPassword) {
-//		String url = "https://userapi.zee5.com/v1/user";
-//		String url = "https://newpwa.zee5.com/settings"; //Dummy
-//		String url = "https://subscriptionapi.zee5.com/v1/purchase";
-//		String url = "https://subscriptionapi.zee5.com/v1/subscription";
-//		String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";
-//		resp = given().headers("x-access-token", xAccessToken).when().get(url);
-		resp.print();
-	}
-
 	public static void main(String[] args) throws Exception {
 //		getResponseForApplicasterPages("Guest", "3673").print();
 //		System.out.println(BeforeTV("Guest","Home"));
@@ -711,7 +702,7 @@ public class ResponseInstance {
 //		getUserData("basavaraj.pn5@gmail.com","igsindia123");
 //		getUserOldSettingsDetails("amdnonmixpanel@yopmail.com","123456");
 //		ValidateRailsAndContents("Guest","Movies");
-		getUserData("amdnonmixpanel@yopmail.com","123456");
+//		getUserData("amdnonmixpanel@yopmail.com","123456");
 //		ArrayList<List<String>> AL = new ArrayList<List<String>>();
 //		List<String> List = new ArrayList<String>();
 //		
@@ -728,6 +719,8 @@ public class ResponseInstance {
 //			}
 //		}
 //		System.out.println(AL);
+		resp = given().headers("x-access-token", "eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJwcm9kdWN0X2NvZGUiOiJ6ZWU1QDk3NSIsInBsYXRmb3JtX2NvZGUiOiJXZWJAJCF0Mzg3MTIiLCJpc3N1ZWRBdCI6IjIwMjEtMDItMDZUMDY6MzA6MDErMDAwMCIsInR0bCI6ODY0MDB9.B3cYAVCh9eO66f8KgyzigthG28q8NVbAVR7HlJ6I5WA").when().post("https://spapi-preprod.zee5.com/singlePlayback/getDetails?content_id=0-0-265644&device_id=WebBrowser&platform_name=desktop_web&translation=en&user_language=en,kn&country=IN&state=KA&app_version=2.49.79&user_type=guest&vms=false&check_parental_control=false&ppid=186e4092b98742ad95579079fa87da80");
+		resp.print();
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -785,7 +778,7 @@ public class ResponseInstance {
 		System.out.println(Mixpanel.FEProp.getProperty("birthday").split("T")[0]);
 		LocalDate dob = LocalDate.parse(Mixpanel.FEProp.getProperty("birthday").split("T")[0]);
 		LocalDate curDate = LocalDate.now();
-		Mixpanel.FEProp.setProperty("Age",String.valueOf(Period.between(dob, curDate).getYears()));
+		Mixpanel.FEProp.setProperty("Age",String.valueOf((Period.between(dob, curDate).getYears())+1));
 	}
 
 	public static String getRegion() {
@@ -867,23 +860,24 @@ public class ResponseInstance {
 	}
 	
 	public static void getContentDetails(String ID) {
+		System.out.println("Content ID :"+ID);
 		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
 //		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/0-1-84080?translation=en&country=IN&version=2");
 		Mixpanel.FEProp.setProperty("Content Duration", resp.jsonPath().getString("duration"));
 		Mixpanel.FEProp.setProperty("Content ID", resp.jsonPath().getString("id"));
 		Mixpanel.FEProp.setProperty("Content Name", resp.jsonPath().getString("original_title"));
 		Mixpanel.FEProp.setProperty("Content Specification", resp.jsonPath().getString("asset_subtype"));
-		Mixpanel.FEProp.setProperty("Characters",resp.jsonPath().getList("actors").toString().replaceAll(",","-"));
-		Mixpanel.FEProp.setProperty("Audio Language",resp.jsonPath().getList("audio_languages").toString());
+		Mixpanel.FEProp.setProperty("Characters",resp.jsonPath().getList("actors").toString().replaceAll(",","-").replaceAll("\\s", ""));
+		Mixpanel.FEProp.setProperty("Audio Language",resp.jsonPath().getList("audio_languages").toString().replace("[", "").replace("]", ""));
 		Mixpanel.FEProp.setProperty("Subtitle Language", resp.jsonPath().getString("subtitle_languages").toString());
 		Mixpanel.FEProp.setProperty("Content Type",resp.jsonPath().getString("business_type"));
-		Mixpanel.FEProp.setProperty("Genre",resp.jsonPath().getList("genre.id").toString().replaceAll(",","-").trim());
+		Mixpanel.FEProp.setProperty("Genre",resp.jsonPath().getList("genre.id").toString().replaceAll(",","-").replaceAll("\\s", ""));
 		Mixpanel.FEProp.setProperty("Content Original Language",resp.jsonPath().getString("languages").replace("[", "").replace("]", ""));
-		if(resp.jsonPath().getString("is_drm").equals("1")) {
-			Mixpanel.FEProp.setProperty("DRM Video","true");
-		}else {
-			Mixpanel.FEProp.setProperty("DRM Video","false");
-		}
+//		if(resp.jsonPath().getString("is_drm").equals("1")) {
+		Mixpanel.FEProp.setProperty("DRM Video",resp.jsonPath().getString("is_drm"));
+//		}else {
+//			Mixpanel.FEProp.setProperty("DRM Video","false");
+//		}
 //		resp.print();
 //		Mixpanel.FEProp.forEach((key, value) -> System.out.println(key + " : " + value));
 		}

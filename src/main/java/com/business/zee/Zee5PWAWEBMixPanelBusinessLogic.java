@@ -85,6 +85,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as NonSubscribed User");
 			Username = getParameterFromXML("NonSubscribedUserName");
 			Password = getParameterFromXML("NonSubscribedUserPassword");
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -101,6 +102,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User");
 			Username = getParameterFromXML("SubscribedUserName");
 			Password = getParameterFromXML("SubscribedUserPassword");
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -117,6 +119,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Club User");
 			String ClubUsername = getParameterFromXML("ClubSubscribedUserName");
 			String ClubPassword = getParameterFromXML("ClubSubscribedPassword");
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -143,6 +146,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			String SUsername = getParameterFromXML("SettingsNonsubscribedUserName");
 			String SPassword = getParameterFromXML("SettingsNonsubscribedPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
@@ -160,6 +164,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 		case "SubscribedUser":
 			extent.HeaderChildNode("Login as Subscribed User");
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			String SettingsSubscribedUsername = getParameterFromXML("SettingsSubscribedUserName");
 			String SettingsSubscribedPassword = getParameterFromXML("SettingsSubscribedPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
@@ -182,6 +187,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	 */
 	public void dismissDisplayContentLanguagePopUp() throws Exception {
 		extent.HeaderChildNode("Dismiss Display and Content Language Pop Ups");
+		waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 		waitForElementAndClickIfPresent(PWAHomePage.objContinueDisplayContentLangPopup, 90,
 				"Continue on Display Language Pop Up");
 		Thread.sleep(5000);
@@ -420,8 +426,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 			click(PWAPremiumPage.obj1stContentInShowDetailPage, "Content Card");
 			waitForElement(PWALoginPage.objLoginLink, 20, "Login Link");
 			click(PWALoginPage.objLoginLink, "Login Link");
@@ -447,8 +453,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword2 + "\n", "Search Edit box: " + keyword2);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword2), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword2), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword2), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword2), "Search Result");
 			click(PWALoginPage.objLoginCTAInPremiumPopup, "Login CTA");
 			waitForElement(PWALoginPage.objSkip, 20, "Skip Login");
 			waitTime(5000);
@@ -846,8 +852,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword2 + "\n", "Search Edit box: " + keyword2);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword2), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword2), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword2), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword2), "Search Result");
 
 			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
 				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
@@ -891,8 +897,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword2 + "\n", "Search Edit box: " + keyword2);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword2), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword2), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword2), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword2), "Search Result");
 
 			waitTime(5000);
 			
@@ -922,6 +928,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		while (m.find()) {
 			value = m.group(0);
 		}
+		
 		ResponseInstance.getContentDetails(value);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		
@@ -992,7 +999,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 		waitTime(4000);
-		click(PWASearchPage.objSearchResult(keyword), "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 
 		verifyElementPresentAndClick(PWAPremiumPage.obj1stContentInShowDetailPage, "Thumbnail from Show detail page");
 		waitTime(4000);
@@ -1020,7 +1027,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 		waitTime(4000);
-		click(PWASearchPage.objSearchResult(keyword), "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 
 		click(PWAPremiumPage.obj1stContentInShowDetailPage, "Thumbnail");
 		mandatoryRegistrationPopUp(userType);
@@ -1165,8 +1172,17 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(2000);
+		if(UserType.equals("Guest")) {
+			if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Create New Account Popup") == true) {
+				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Create New Account Popup close button");
+			}
+		}
+		ResponseInstance.getContentDetails(fetchContentID(getWebDriver().getCurrentUrl()));
 		click(PWAPlayerPage.shareBtn, "Share Option");
 		click(PWAPlayerPage.facebookShareBtn, "Facebook share option");
 		switchToWindow(2);
@@ -1204,9 +1220,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
-
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
+			ResponseInstance.getContentDetails(fetchContentID(getWebDriver().getCurrentUrl()));
 			if (checkElementDisplayed(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon")) {
 				click(PWAPlayerPage.objAddToWatchlist, "Watchlist icon");
 				waitTime(4000);
@@ -1229,8 +1245,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 
 			if (checkElementDisplayed(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon")) {
 				click(PWAPlayerPage.objAddToWatchlist, "Watchlist icon");
@@ -1283,17 +1299,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	public void verifyRemoveFomWatchlistEventByMouseHoverInShowDetailPage(String userType, String keyword)
 			throws Exception {
-
 		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode(
-					"Verify Remove from Watchlist Event by mouse hovering on a Content Card In show detail page");
-
+			extent.HeaderChildNode("Verify Remove from Watchlist Event by mouse hovering on a Content Card In show detail page");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
-
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
+			String link = findElement(PWAPremiumPage.obj1stContentInShowDetailPage).getAttribute("data-minutelyurl");
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
@@ -1308,6 +1321,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				waitTime(4000);
 			}
 			waitTime(4000);
+			ResponseInstance.getContentDetails(fetchContentID(link));
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "show_detail");
 			mixpanel.FEProp.setProperty("Element", "Watchlist");
@@ -1324,6 +1338,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		navigateToAnyScreenOnWeb("Movies");
 		waitTime(5000);
+		String link = findElement(By.xpath("(//div[@class='movieCard card marginRight minutelyUrl zoomCardHover'])[1]")).getAttribute("data-minutelyurl");
 		Actions actions = new Actions(getWebDriver());
 		WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInViewAllPage);
 
@@ -1350,6 +1365,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		getWebDriver().close();
 		switchToWindow(1);
 		waitTime(3000);
+		ResponseInstance.getContentDetails(fetchContentID(link));
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_landing");
 		mixpanel.FEProp.setProperty("Sharing Platform", "Facebook");
@@ -1385,7 +1401,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 		waitTime(4000);
-		click(PWASearchPage.objSearchResult(keyword), "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 
 		click(PWAPlayerPage.shareBtn, "Share Option");
 		click(PWAPlayerPage.facebookShareBtn, "Facebook share option");
@@ -1425,7 +1441,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 		waitTime(4000);
-		click(PWASearchPage.objSearchResult(keyword), "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 		waitTime(4000);
 		click(PWAShowsPage.objShowDetailEpisodeDropdown, "Episode Dropdown");
 		click(PWAShowsPage.objShowDetailEpisodeDropdownValues(2), "Episodes 11-20");
@@ -1447,19 +1463,19 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 		waitTime(4000);
-		click(PWASearchPage.objSearchResult(keyword), "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 		click(PWAPremiumPage.objRightArrowBtn, "Right Arrow Button");
-		String TrayTitle = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getText();
-		String link = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]"))
-				.getAttribute("href");
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(link);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		mixpanel.FEProp.setProperty("Carousal ID", value);
-		mixpanel.FEProp.setProperty("Carousal Name", TrayTitle);
+//		String TrayTitle = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getText();
+//		String link = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]"))
+//				.getAttribute("href");
+//		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
+//		Matcher m = p.matcher(link);
+//		String value = null;
+//		while (m.find()) {
+//			value = m.group(0);
+//		}
+//		mixpanel.FEProp.setProperty("Carousal ID", value);
+//		mixpanel.FEProp.setProperty("Carousal Name", TrayTitle);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
 		mixpanel.FEProp.setProperty("Element", "right-arrow");
@@ -1478,7 +1494,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 		waitTime(4000);
-		click(PWASearchPage.objSearchResult(keyword), "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 		waitTime(4000);
 		verifyElementPresentAndClick(PWAPremiumPage.objViewAllBtn, "View All Button");
 
@@ -1500,10 +1516,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify View More Selected Event For content played from Playback page");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+		mandatoryRegistrationPopUp(userType);
 		waitTime(4000);
 		click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 		waitTime(4000);
-		mandatoryRegistrationPopUp(userType);
 		verifyElementPresentAndClick(PWAPremiumPage.objViewAllBtn, "View All Button");
 
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -1545,8 +1561,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 			waitTime(5000);
+			String link = findElement(PWAPremiumPage.obj1stContentInShowDetailPage).getAttribute("data-minutelyurl");
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
@@ -1561,6 +1578,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWAAddToWatchListPage.objRemoveContentsInWatchList,
 					"Remove From Watchlist option");
 			waitTime(3000);
+			ResponseInstance.getContentDetails(fetchContentID(link));
 			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Page Name", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Element", "Watchlist");
@@ -1603,7 +1621,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitTime(5000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		click(PWAPlayerPage.settingsBtn, "Setting icon");
@@ -1638,7 +1656,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitTime(5000);
 
 		click(PWAPremiumPage.objNextArrowBtn, "Right Arrow Button");
@@ -2016,8 +2034,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Resume Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		waitTime(2000);
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
@@ -2086,8 +2104,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
@@ -2184,8 +2202,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
@@ -2220,8 +2238,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
@@ -2306,7 +2324,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
 		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -2344,8 +2362,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Video View Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -2408,8 +2426,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 
@@ -2495,8 +2513,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 
@@ -2527,8 +2545,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
@@ -2604,7 +2622,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
 		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -2638,8 +2656,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		getWebDriver().navigate().refresh();
@@ -2669,8 +2687,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Video Exit Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -2728,8 +2746,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		mixpanel.FEProp.setProperty("Source", "search");
@@ -2810,8 +2828,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		mixpanel.FEProp.setProperty("Source", "search");
@@ -2840,8 +2858,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
@@ -2915,7 +2933,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
 		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -2948,8 +2966,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 
@@ -2981,8 +2999,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Video Watch Duration Event when video is closed abruptly For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -3043,8 +3061,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		mixpanel.FEProp.setProperty("Source", "search");
@@ -3126,8 +3144,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		mixpanel.FEProp.setProperty("Source", "search");
@@ -3158,8 +3176,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
@@ -3234,7 +3252,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
 		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -3269,8 +3287,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword2 + "\n", "Search Edit box: " + keyword2);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword2), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword2), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword2), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword2), "Search Result");
 			checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP");
 			waitTime(6000);
 			mixpanel.FEProp.setProperty("Source", "search");
@@ -3284,7 +3302,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			}
 			ResponseInstance.getContentDetails(value);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			mixpanel.ValidateParameter(local.getItem("ID"), "Popup launch");
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Popup launch");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Popup launch");
+			}
 		}
 	}
 
@@ -3292,8 +3314,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Pause Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		waitTime(2000);
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
@@ -3358,8 +3380,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
@@ -3448,8 +3470,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
@@ -3482,8 +3504,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
@@ -3563,7 +3585,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
 		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -3693,8 +3715,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Quality Change Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
@@ -3761,8 +3783,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -3859,8 +3881,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -3896,8 +3918,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
@@ -3982,7 +4004,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
 		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -4020,7 +4042,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -4104,8 +4126,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Resume Event for content autoplayed from Upnext rail");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
@@ -4147,8 +4169,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Pause Event for content autoplayed from Upnext rail");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -4186,8 +4208,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Video View Event for content autoplayed from Upnext rail");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -4225,8 +4247,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Video Exit Event for content autoplayed from Upnext rail");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -4423,8 +4445,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Video Watch Duration when user completely watches For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -4491,8 +4513,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		
@@ -4595,8 +4617,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 
@@ -4634,8 +4656,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
@@ -4727,7 +4749,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
 		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -4768,8 +4790,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				"Verify Video Watch Duration Event When user completely watches the  auto-played content from Upnext rail");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
@@ -4817,8 +4839,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				"Verify Video Watch Duration Event when video is closed abruptly on auto-played content from Upnext rail");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
@@ -4857,8 +4879,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Scrub/Seek Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
@@ -4929,8 +4951,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -5018,8 +5040,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -5051,8 +5073,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
@@ -5131,7 +5153,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
 		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -5166,7 +5188,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -5237,8 +5259,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.audioBtn, "Mute Icon");
@@ -5832,8 +5854,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 		waitTime(5000);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
@@ -5850,8 +5872,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 			waitTime(4000);
 			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
 			waitForElement(PWALoginPage.objCloseRegisterPopup, 10, "Register Pop Up");
@@ -5867,7 +5889,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			}
 			ResponseInstance.getContentDetails(value);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			mixpanel.ValidateParameter(local.getItem("ID"), "Popup launch");
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Popup launch");
 		}
 	}
 
@@ -5926,8 +5948,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword6 + "\n", "Search Edit box: " + keyword6);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword6), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword6), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword6), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword6), "Search Result");
 			waitForElement(PWAHamburgerMenuPage.objPopupClose, 10, "Upgrade Pop Up");
 			waitTime(6000);
 			mixpanel.FEProp.setProperty("Source", "search");
@@ -6115,8 +6137,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		click(PWAPremiumPage.objEmbedPopUp, "Embed option");
 		click(PWAPremiumPage.objEmbedCopy, "Copy");
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -6136,8 +6158,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Auto Seek Forward Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
@@ -6203,8 +6225,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -6298,8 +6320,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -6334,8 +6356,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
@@ -6420,7 +6442,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
 		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -6457,7 +6479,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -6529,8 +6551,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Auto Seek Rewind Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
@@ -6597,8 +6619,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -6692,8 +6714,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -6728,8 +6750,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
@@ -6812,7 +6834,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitTime(2000);
 		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -6849,7 +6871,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -6922,8 +6944,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Audio Language Change Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
-		waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
@@ -7003,8 +7025,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		type(PWASearchPage.objSearchEditBox, audioTrackTrailerContent + "\n",
 				"Search Edit box: " + audioTrackTrailerContent);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(audioTrackTrailerContent), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(audioTrackTrailerContent), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(audioTrackTrailerContent), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(audioTrackTrailerContent), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -7137,8 +7159,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -7175,8 +7197,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			waitTime(4000);
 			mandatoryRegistrationPopUp(userType);
 
@@ -7275,7 +7297,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 
 		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -7315,7 +7337,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -7440,8 +7462,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Subtitle Language Change Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
-		waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(subtitleTrackContent), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
@@ -7517,8 +7539,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword5 + "\n", "Search Edit box: " + keyword5);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword5), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword5), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword5), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword5), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -7629,8 +7651,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(subtitleTrackContent), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -7667,8 +7689,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
 					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 			waitTime(4000);
 			mandatoryRegistrationPopUp(userType);
 
@@ -7765,7 +7787,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 
 		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -7805,7 +7827,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n", "Search Edit box: " + subtitleTrackContent);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -7881,8 +7903,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Skip Intro Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
-		waitForElement(PWASearchPage.objSearchResult(freeMovie2), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(freeMovie2), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(freeMovie2), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
@@ -7957,8 +7979,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword5 + "\n", "Search Edit box: " + keyword5);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword5), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword5), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword5), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword5), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -8065,8 +8087,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(freeMovie2), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(freeMovie2), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(freeMovie2), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -8099,8 +8121,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(freeMovie2), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(freeMovie2), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(freeMovie2), "Search Result");
 			waitTime(4000);
 			mandatoryRegistrationPopUp(userType);
 
@@ -8192,7 +8214,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(freeMovie2), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 
 		click(PWAPremiumPage.objThumbnail, "Content card in Playlist");
@@ -8235,7 +8257,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(freeMovie2), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(freeMovie2), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -8354,8 +8376,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-			waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitForPlayerAdToComplete("Video Player");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
@@ -8421,8 +8443,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
 			waitTime(5000);
@@ -8517,8 +8539,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
 			waitTime(5000);
@@ -8552,8 +8574,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
@@ -8636,7 +8658,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -8674,7 +8696,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 			
 			waitTime(4000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -8744,8 +8766,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(5000);
 			getWebDriver().navigate().refresh();
@@ -8781,8 +8803,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-			waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitForPlayerAdToComplete("Video Player");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
@@ -8862,8 +8884,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
 			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
@@ -8979,8 +9001,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
 			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
@@ -9021,8 +9043,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
@@ -9118,7 +9140,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -9162,7 +9184,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);			
 
@@ -9329,8 +9351,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
-		waitForElement(PWASearchPage.objSearchResult(keyword), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword), 20, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 		waitTime(4000);
 		WebElement element = getWebDriver().findElement(PWAShowsPage.objTrayTitle1(trayTitle));
 		((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
@@ -9353,8 +9375,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitTime(4000);
 		WebElement element = getWebDriver().findElement(PWAShowsPage.objTrayTitle1(trayTitle));
 		((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
@@ -9475,8 +9497,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -9583,8 +9605,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
 					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
@@ -9623,8 +9645,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			waitTime(4000);
 			mandatoryRegistrationPopUp(userType);
 			waitTime(4000);
@@ -9717,7 +9739,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 
 			waitTime(2000);
@@ -9759,7 +9781,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 
 			mandatoryRegistrationPopUp(userType);
 			waitForPlayerAdToComplete("Video Player");
@@ -9843,8 +9865,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
-			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
-			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 20, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -9885,8 +9907,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -9996,8 +10018,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
 					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
@@ -10038,8 +10060,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			waitTime(2000);
 			mandatoryRegistrationPopUp(userType);
 			waitTime(4000);
@@ -10135,7 +10157,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -10178,7 +10200,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 
 			mandatoryRegistrationPopUp(userType);
 			waitForPlayerAdToComplete("Video Player");
@@ -10303,8 +10325,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -10416,8 +10438,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
 					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
@@ -10459,8 +10481,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			waitTime(4000);
 			mandatoryRegistrationPopUp(userType);
 			Actions actions = new Actions(getWebDriver());
@@ -10554,7 +10576,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -10596,7 +10618,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 
 			mandatoryRegistrationPopUp(userType);
 			waitForPlayerAdToComplete("Video Player");
@@ -10724,8 +10746,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -10836,8 +10858,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
 					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
@@ -10877,8 +10899,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			Actions actions = new Actions(getWebDriver());
@@ -10973,7 +10995,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -11016,7 +11038,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 
 			mandatoryRegistrationPopUp(userType);
 			waitForPlayerAdToComplete("Video Player");
@@ -11104,8 +11126,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
-			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
-			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 20, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -11145,8 +11167,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -11253,8 +11275,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
 					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
@@ -11293,8 +11315,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			Actions actions = new Actions(getWebDriver());
@@ -11387,7 +11409,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -11429,7 +11451,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 
 			mandatoryRegistrationPopUp(userType);
 			waitForPlayerAdToComplete("Video Player");
@@ -11510,7 +11532,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 			waitTime(5000);
 
 			Actions actions = new Actions(getWebDriver());
@@ -11542,8 +11564,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
-			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
-			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 20, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -11587,8 +11609,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -11711,8 +11733,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
 					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -11755,8 +11777,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			Actions actions = new Actions(getWebDriver());
@@ -11857,7 +11879,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
@@ -11903,7 +11925,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 
 			mandatoryRegistrationPopUp(userType);
 			waitForPlayerAdToComplete("Video Player");
@@ -12083,8 +12105,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Ad Initialized Event For Free Content");
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
-			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 20, "Search Result");
-			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 20, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			
 			waitTime(6000);
@@ -12128,8 +12150,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -12242,8 +12264,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASearchPage.objSearchEditBox, subtitleTrackContent + "\n",
 					"Search Edit box: " + subtitleTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(subtitleTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(subtitleTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(subtitleTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
@@ -12283,8 +12305,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			waitTime(4000);
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
@@ -12378,7 +12400,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 
 			waitTime(2000);
@@ -12421,7 +12443,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 
 			mandatoryRegistrationPopUp(userType);
 			waitForPlayerAdToComplete("Video Player");
@@ -12510,8 +12532,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(keyword), 10, "Search Result");
-			click(PWASearchPage.objSearchResult(keyword), "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 			click(PWAPremiumPage.obj1stContentInShowDetailPage, "Content Card");
 			waitForElement(PWALoginPage.objLoginLink, 20, "Login Link");
 			click(PWALoginPage.objLoginLink, "Login Link");
@@ -12530,9 +12552,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResult(audioTrackContent), 10, "Search Result");
+			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 10, "Search Result");
 
-			click(PWASearchPage.objSearchResult(audioTrackContent), "Search Result");
+			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
 			waitTime(2000);
 			Actions actions = new Actions(getWebDriver());
@@ -12920,5 +12942,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 	
+	
+	public String fetchContentID(String url) {
+		String contentID = null ;
+		String[] id = url.split("/");
+		for (int i = 0; i < id.length; i++) {
+			if(id[i].contains("0-")) {
+				contentID = id[i];
+			}
+		}
+		return contentID;
+	}
 	
 }
