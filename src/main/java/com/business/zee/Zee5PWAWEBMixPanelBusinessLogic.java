@@ -1,8 +1,12 @@
 package com.business.zee;
 
+import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -56,6 +60,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 
 	Mixpanel mixpanel = new Mixpanel();
+	
+	LocalStorage local ;
 
 	String UserType = getParameterFromXML("userType");
 
@@ -341,6 +347,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	public void tearDown() {
 		getWebDriver().quit();
+		local.clear();
 	}
 
 	public void navigateHome() {
@@ -408,7 +415,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objSkip, "Skip Login");
 			waitTime(5000);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Element", "Cross");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
@@ -428,6 +435,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
 			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
+			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 			click(PWAPremiumPage.obj1stContentInShowDetailPage, "Content Card");
 			waitForElement(PWALoginPage.objLoginLink, 20, "Login Link");
 			click(PWALoginPage.objLoginLink, "Login Link");
@@ -436,7 +445,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWALoginPage.objSkip, "Skip Login");
 			waitTime(5000);
 		
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "episode_detail");
 			mixpanel.FEProp.setProperty("Element", "Cross");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
@@ -455,13 +464,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResultTxt(keyword2), 10, "Search Result");
 			click(PWASearchPage.objSearchResultTxt(keyword2), "Search Result");
+			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 			click(PWALoginPage.objLoginCTAInPremiumPopup, "Login CTA");
 			waitForElement(PWALoginPage.objSkip, 20, "Skip Login");
 			waitTime(5000);
 			click(PWALoginPage.objSkip, "Skip Login");
 			waitTime(5000);
 			
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "movie_detail");
 			mixpanel.FEProp.setProperty("Element", "Cross");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
@@ -478,7 +489,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 //			JSClick(PWALoginPage.objSkip, "Skip Registration");
 			verifyElementPresentAndClick(PWALoginPage.objSkip, "Skip Registration");
 			waitTime(3000);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Element", "Cross");
 			mixpanel.FEProp.setProperty("Page Name", "register");
@@ -491,7 +502,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Register Screen Display Event");
 			click(PWALoginPage.objSignUpBtnWEB, "Sign Up For Free");
 			waitTime(3000);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "register");
 			System.out.println(local.getItem("guestToken"));
@@ -507,7 +518,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(5000);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Page Viewed");
 			} else {
@@ -524,7 +535,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHamburgerMenuPage.objBuySubscription, "Buy Subscription option");
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Page Viewed");
 		}
 	}
@@ -537,7 +548,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHamburgerMenuPage.objHaveAPrepaidCode, "Have a Prepaid Code? option");
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Page Viewed");
 		}
 	}
@@ -556,10 +567,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 			if (userType.equals("Guest")) {
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Selected");
 			} else {
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Selected");
 			}
 
@@ -581,10 +592,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 			if (userType.equals("Guest")) {
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Selected");
 			} else {
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Selected");
 			}
 		}
@@ -623,10 +634,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Promo Code", promoCode);
 
 			if (userType.equals("Guest")) {
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Promo Code Result");
 			} else {
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				mixpanel.ValidateParameter(local.getItem("ID"), "Promo Code Result");
 			}
 		}
@@ -665,10 +676,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Promo Code", promocode);
 
 			if (userType.equals("Guest")) {
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Promo Code Result");
 			} else {
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				mixpanel.ValidateParameter(local.getItem("ID"), "Promo Code Result");
 			}
 		}
@@ -681,7 +692,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(3000);
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objAuthenticationOption, "Authenticate Device");
 			waitTime(5000);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			System.out.println(local.getItem("ID"));
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "device_authentication");
@@ -811,7 +822,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			socialLogin(loginMethod);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Login Initiated");
 		}
 	}
@@ -820,7 +831,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Result Event for Valid Credentials");
 			socialLogin(loginMethod);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
 		
@@ -836,7 +847,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(5000);
 			
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Login Screen Display");
@@ -854,7 +865,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResultTxt(keyword2), 10, "Search Result");
 			click(PWASearchPage.objSearchResultTxt(keyword2), "Search Result");
-
+			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
 				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
 			}
@@ -862,7 +874,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			JSClick(PWASubscriptionPages.objLoginLinkInPlayer, "Login link");
 			
 			waitTime(5000);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 
 			mixpanel.FEProp.setProperty("Source", "movie_detail");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
@@ -880,7 +892,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			JSClick(PWALoginPage.objLoginLink, "Login link");
 
 			waitTime(5000);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "register");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Login Screen Display");
@@ -899,7 +911,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			waitForElement(PWASearchPage.objSearchResultTxt(keyword2), 10, "Search Result");
 			click(PWASearchPage.objSearchResultTxt(keyword2), "Search Result");
-
+			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(5000);
 			
 			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
@@ -908,7 +921,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				
 			}
 			waitTime(5000);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "movie_detail");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Login Screen Display");
@@ -927,10 +940,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		String value = null;
 		while (m.find()) {
 			value = m.group(0);
-		}
-		
+		}		
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
@@ -956,7 +968,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", tabName);
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Element", "Play");
@@ -983,7 +995,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", tabName);
 		mixpanel.FEProp.setProperty("Page Name", "view_all_top-20-on-zee5-kannada");
 		if (userType.equals("Guest")) {
@@ -1011,7 +1023,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
 		if (userType.equals("Guest")) {
@@ -1041,7 +1053,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "show_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		if (userType.equals("Guest")) {
@@ -1064,7 +1076,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Results Returned", ResponseInstance.getresponse(searchtxt));
 		mixpanel.FEProp.setProperty("Search Query", searchtxt);
 		mixpanel.FEProp.setProperty("Search Success", "true");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Search Executed");
@@ -1078,7 +1090,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreenOnWeb(screen);
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "tv_shows_view_all");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Screen View");
@@ -1096,7 +1108,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "search");
 		mixpanel.FEProp.setProperty("Setting Changed", "clear search history");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Clear Search History");
@@ -1156,7 +1168,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				break;
 			}
 
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Parent Control Setting", "A");
 			mixpanel.FEProp.setProperty("Setting Changed", "A");
@@ -1206,7 +1218,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Sharing Platform", "Facebook");
 
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Share");
 		} else {
@@ -1234,7 +1246,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			mixpanel.FEProp.setProperty("Element", "Watchlist");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Remove From Watchlist");
 		}
 	}
@@ -1257,7 +1269,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				waitTime(4000);
 			}
 			waitTime(4000);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			mixpanel.FEProp.setProperty("Element", "Watchlist");
@@ -1288,7 +1300,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				waitTime(4000);
 			}
 			waitTime(4000);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "movie_landing");
 			mixpanel.FEProp.setProperty("Element", "Watchlist");
@@ -1325,7 +1337,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "show_detail");
 			mixpanel.FEProp.setProperty("Element", "Watchlist");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Remove From Watchlist");
 
 		}
@@ -1370,7 +1382,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "movie_landing");
 		mixpanel.FEProp.setProperty("Sharing Platform", "Facebook");
 
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Share");
 		} else {
@@ -1387,7 +1399,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Results Returned", "0");
 		mixpanel.FEProp.setProperty("Search Query", "N/A");
 		mixpanel.FEProp.setProperty("Search Type", "N/A");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Search Cancelled");
 		} else {
@@ -1428,7 +1440,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
 		mixpanel.FEProp.setProperty("Sharing Platform", "Facebook");
 
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Share");
 		} else {
@@ -1449,7 +1461,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
 		mixpanel.FEProp.setProperty("Series", "Jodi Hakki");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Episode list Chosen");
 		} else {
@@ -1480,7 +1492,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
 		mixpanel.FEProp.setProperty("Element", "right-arrow");
 		mixpanel.FEProp.setProperty("Direction", "Right");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Content Bucket Swipe");
 		} else {
@@ -1498,7 +1510,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(4000);
 		verifyElementPresentAndClick(PWAPremiumPage.objViewAllBtn, "View All Button");
 
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Element", "View All");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
@@ -1522,7 +1534,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(4000);
 		verifyElementPresentAndClick(PWAPremiumPage.objViewAllBtn, "View All Button");
 
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Element", "View All");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
@@ -1540,7 +1552,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAPremiumPage.objViewAllBtn, "View All Button");
 
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "sign_in");
 		mixpanel.FEProp.setProperty("Element", "View All");
 		mixpanel.FEProp.setProperty("Page Name", "home");
@@ -1582,7 +1594,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Page Name", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Element", "Watchlist");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Remove From Watchlist");
 		}
 	}
@@ -1598,7 +1610,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		getWebDriver().quit();
 		relaunch = clearData;
 		new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.ValidateParameter(local.getItem("guestToken"), "Session");
 	}
 
@@ -1629,7 +1641,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAQualitySettingsPage.objIndividualQuality(1), "Quality option");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Source", "search");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "news_landing");
 		mixpanel.FEProp.setProperty("Page Name", "search");
 		mixpanel.FEProp.setProperty("Preview status", "Minutely");
@@ -1675,7 +1687,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Element", "right-arrow");
 		mixpanel.FEProp.setProperty("Direction", "Right");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Content Bucket Swipe");
 		} else {
@@ -1692,7 +1704,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		JSClick(PWALanguageSettingsPage.objApplyBtn, "Apply button");
 		waitTime(5000);
 		JSClick(PWALanguageSettingsPage.objApplyBtn, "Apply button");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Display Language Change");
@@ -1716,7 +1728,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		JSClick(PWALanguageSettingsPage.objAllLangByindex(1), "Hindi content language");
 		JSClick(PWALanguageSettingsPage.objApplyBtn, "Apply button");
 		waitTime(3000);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Content Language Change");
@@ -1745,7 +1757,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "tv_shows_view_all");
 		mixpanel.FEProp.setProperty("Element", "right-arrow");
 		mixpanel.FEProp.setProperty("Direction", "Right");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Content Bucket Swipe");
 		} else {
@@ -1761,7 +1773,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objRightArrowBtn, "Right Arrow Button");
 
 		waitTime(5000);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "tv_shows_view_all");
 		mixpanel.FEProp.setProperty("Element", "right-arrow");
@@ -1780,7 +1792,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
 		checkElementDisplayed(PWAHomePage.objAdBanner, "Ad Banner");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Banner Impression");
 		} else {
@@ -1798,7 +1810,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "settings");
 		mixpanel.FEProp.setProperty("Setting Changed", "Default Setting Restored");
 		mixpanel.FEProp.setProperty("Element", "Reset Settings to default");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Default Setting Restored");
 		} else {
@@ -1851,7 +1863,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "tv_guide");
 		mixpanel.FEProp.setProperty("Sharing Platform", "Facebook");
 
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Share");
 		} else {
@@ -1880,7 +1892,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "live_tv");
 			mixpanel.FEProp.setProperty("Page Name", "tv_guide");
 			mixpanel.FEProp.setProperty("element", "Set Reminder");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Set Reminder");
 		}
 
@@ -1920,7 +1932,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Element", "Update");
 			mixpanel.FEProp.setProperty("Page Name", "my_profile");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Change Password Started");
 		}
 	}
@@ -1954,7 +1966,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Element", "Update");
 			mixpanel.FEProp.setProperty("Page Name", "my_profile");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Change Password Result");
 		}
 	}
@@ -1974,7 +1986,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objEditProfileSavechangesBtn, "save changes");
 			waitTime(2000);
 
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "my_profile");
 			mixpanel.FEProp.setProperty("Partner Name", "Zee5");
@@ -1988,7 +2000,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Banner Autoplay Event For News Content");
 		navigateToAnyScreenOnWeb("News");
 		waitForElementDisplayed(PWANewsPage.objBannerUnMute, 20);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "news_landing");
 		mixpanel.FEProp.setProperty("Page Name", "news_landing");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -2021,7 +2033,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Tab Name", "news_landing");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 	
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Mute Changed");
 		} else {
@@ -2057,7 +2069,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
 		} else {
@@ -2089,7 +2101,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
 			} else {
@@ -2125,7 +2137,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
 		} else {
@@ -2157,7 +2169,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
 		} else {
@@ -2188,7 +2200,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
 		} else {
@@ -2223,7 +2235,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
 		} else {
@@ -2273,7 +2285,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
 			} else {
@@ -2310,7 +2322,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
 		} else {
@@ -2348,7 +2360,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
@@ -2381,7 +2393,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
 		} else {
@@ -2411,7 +2423,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
 			} else {
@@ -2444,7 +2456,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
 		} else {
@@ -2472,7 +2484,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
 		} else {
@@ -2499,7 +2511,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
 		} else {
@@ -2530,7 +2542,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
 		} else {
@@ -2575,7 +2587,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
 			} else {
@@ -2608,7 +2620,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
 		} else {
@@ -2643,7 +2655,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
 		} else {
@@ -2675,7 +2687,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
 		} else {
@@ -2705,7 +2717,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
 		} else {
@@ -2732,7 +2744,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			}
 			ResponseInstance.getContentDetails(value);
 			Back(1);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
 			} else {
@@ -2762,7 +2774,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
 		} else {
@@ -2790,7 +2802,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
 		} else {
@@ -2815,7 +2827,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
 		} else {
@@ -2844,7 +2856,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
 		} else {
@@ -2888,7 +2900,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			}
 			ResponseInstance.getContentDetails(value);
 			Back(1);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
 			} else {
@@ -2919,7 +2931,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
 		} else {
@@ -2953,7 +2965,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "episode_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
 		} else {
@@ -2987,7 +2999,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
 		} else {
@@ -3018,7 +3030,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -3047,7 +3059,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			}
 			ResponseInstance.getContentDetails(value);
 			Back(1);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 			} else {
@@ -3077,7 +3089,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -3103,7 +3115,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -3129,7 +3141,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -3160,7 +3172,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -3206,7 +3218,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			}
 			ResponseInstance.getContentDetails(value);
 			Back(1);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 			} else {
@@ -3237,7 +3249,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -3271,7 +3283,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -3301,7 +3313,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Popup launch");
 			} else {
@@ -3336,7 +3348,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
 		} else {
@@ -3366,7 +3378,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
 			} else {
@@ -3400,7 +3412,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
 		} else {
@@ -3429,7 +3441,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
 		} else {
@@ -3457,7 +3469,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
 		} else {
@@ -3490,7 +3502,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
 		} else {
@@ -3537,7 +3549,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
 			} else {
@@ -3572,7 +3584,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
 		} else {
@@ -3607,7 +3619,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
 		} else {
@@ -3637,7 +3649,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
 		} else {
@@ -3669,7 +3681,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
 		} else {
@@ -3703,7 +3715,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
 		} else {
@@ -3738,7 +3750,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
 		} else {
@@ -3769,7 +3781,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
 			} else {
@@ -3805,7 +3817,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
 		} else {
@@ -3837,7 +3849,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
 		} else {
@@ -3868,7 +3880,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
 		} else {
@@ -3903,7 +3915,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
 		} else {
@@ -3953,7 +3965,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
 			} else {
@@ -3990,7 +4002,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
 		} else {
@@ -4029,7 +4041,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
 		} else {
@@ -4074,7 +4086,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
 		} else {
@@ -4107,7 +4119,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Quality Change");
 		} else {
@@ -4157,7 +4169,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
 		} else {
@@ -4196,7 +4208,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
 		} else {
@@ -4235,7 +4247,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
 		} else {
@@ -4272,7 +4284,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
 		} else {
@@ -4298,7 +4310,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
 		} else {
@@ -4322,7 +4334,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
 		} else {
@@ -4349,7 +4361,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pause");
 		} else {
@@ -4378,7 +4390,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
 		} else {
@@ -4403,7 +4415,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		Back(1);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -4432,7 +4444,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -4468,7 +4480,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -4499,7 +4511,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			playerScrubTillLastWeb();
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 			waitTime(6000);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 			} else {
@@ -4536,7 +4548,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitTime(6000);
 		
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -4569,7 +4581,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitTime(6000);
 		
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -4603,7 +4615,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -4640,7 +4652,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitTime(6000);
 		
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -4694,7 +4706,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 			} else {
@@ -4734,7 +4746,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(6000);
 		
 		
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -4776,7 +4788,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -4824,7 +4836,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -4867,7 +4879,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
 		} else {
@@ -4900,7 +4912,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
 		} else {
@@ -4937,7 +4949,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
 			} else {
@@ -4970,7 +4982,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
 		} else {
@@ -4999,7 +5011,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
 		} else {
@@ -5027,7 +5039,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
 		} else {
@@ -5059,7 +5071,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
 		} else {
@@ -5106,7 +5118,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
 			} else {
@@ -5140,7 +5152,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
 		} else {
@@ -5175,7 +5187,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
 		} else {
@@ -5217,7 +5229,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
 		} else {
@@ -5246,7 +5258,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Scrub/Seek");
 		} else {
@@ -5265,7 +5277,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(6000);
 		click(PWAPlayerPage.audioBtn, "Mute Icon");
 		waitTime(2000);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Element", "Mute");
@@ -5308,7 +5320,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Page Name", "sign_in");
 				
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);fetchUserType(local);
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Login Initiated");
 				break;
 				
@@ -5354,7 +5366,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Failure Reason", "Either OTP is not valid or has expired");
 				mixpanel.FEProp.setProperty("Success", "false");
 				
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);fetchUserType(local);
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Login Result");
 				break;
 
@@ -5385,7 +5397,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWALoginPage.objEmailField, "Email/PhoneNo Field");
 			type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
 			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "sign_in");
 			mixpanel.FEProp.setProperty("Page Name", "otp_page");
 			mixpanel.FEProp.setProperty("Toast Message", "OTP has been sent to your registered Mobile Number!");
@@ -5407,7 +5419,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASignupPage.objOTP4, "4", "OTP box4");
 			waitTime(3000);
 			click(PWASignupPage.objVerifyBtnWeb, "Verified Button");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "sign_in");
 			mixpanel.FEProp.setProperty("Page Name", "otp_page");
 			mixpanel.FEProp.setProperty("Toast Message", "Either OTP is not valid or has expired");
@@ -5434,7 +5446,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			
 			mixpanel.FEProp.setProperty("Source", "register");
 			mixpanel.FEProp.setProperty("Page Name", "otp_page");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Registration Initiated");
 		}
 	}
@@ -5458,7 +5470,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "register");
 			mixpanel.FEProp.setProperty("Page Name", "otp_page");
 			mixpanel.FEProp.setProperty("Failure Reason", "Either OTP is not valid or has expired");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Registration Result");
 		}
 	}
@@ -5472,7 +5484,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
 			click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
 
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "register");
 			mixpanel.FEProp.setProperty("Page Name", "otp_page");
 			mixpanel.FEProp.setProperty("Toast Message", "OTP has been sent to your registered Mobile Number!");
@@ -5496,7 +5508,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 			
-			LocalStorage local = null;
+			local = null;
 			String localToken = null;
 
 			if (userType.equals("Guest")) {
@@ -5511,13 +5523,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
 					Thread.sleep(20000);
-					local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 					localToken = local.getItem("ID");
 					System.out.println(local.getItem("ID"));
 				}
 			}else if(userType.equals("NonSubscribedUser")){
 				Thread.sleep(20000);
-				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				localToken = local.getItem("ID");
 				System.out.println(local.getItem("ID"));
 			}
@@ -5558,7 +5570,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
-			LocalStorage local = null;
+			local = null;
 			String localToken = null;
 
 			if (userType.equals("Guest")) {
@@ -5575,7 +5587,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					Thread.sleep(5000);
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
 					Thread.sleep(20000);
-					local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 					localToken = local.getItem("ID");
 					System.out.println(local.getItem("ID"));
 				}
@@ -5583,7 +5595,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			}else if(userType.equals("NonSubscribedUser")){
 				mixpanel.FEProp.setProperty("Source", "pack_selection");
 				Thread.sleep(20000);
-				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				localToken = local.getItem("ID");
 				System.out.println(local.getItem("ID"));
 			}
@@ -5633,7 +5645,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 
-			LocalStorage local = null;
+			local = null;
 			String localToken = null;
 
 			if (userType.equals("Guest")) {
@@ -5647,14 +5659,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
 					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
-					local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 					localToken = local.getItem("ID");
 					System.out.println(local.getItem("ID"));
 				}	
 			}else if(userType.equals("NonSubscribedUser")){
 				mixpanel.FEProp.setProperty("Source", "pack_selection");
 				Thread.sleep(20000);
-				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				localToken = local.getItem("ID");
 				System.out.println(local.getItem("ID"));
 			}
@@ -5684,7 +5696,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void verifyLogoutEvent(String userType) throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			waitTime(5000);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Element", "LOGOUT");
 			mixpanel.FEProp.setProperty("Page Name", "home");
 			String ID = local.getItem("ID");
@@ -5714,7 +5726,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				waitTime(5000);
 				click(PWALoginPage.objSkip, "Skip Login");
 				waitTime(2000);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				Mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Login");
 			}
 		}
@@ -5740,7 +5752,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Page Name", "home");
 			mixpanel.FEProp.setProperty("Element", "Continue");
 			mixpanel.FEProp.setProperty("Setting Changed", "Parental Control Account Verification");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Setting Changed");
 		}
 	}
@@ -5775,7 +5787,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Page Name", "parental_control");
 			mixpanel.FEProp.setProperty("Setting Changed", "Parental Control Age Set");
 			mixpanel.FEProp.setProperty("Element", "Set parental lock");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Setting Changed");
 		}
 	}
@@ -5811,7 +5823,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Setting Changed", "Parental Control Age Set");
 			mixpanel.FEProp.setProperty("Element", "Set parental lock");
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U/A");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Setting Changed");
 		}
 	}
@@ -5822,7 +5834,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHamburgerMenuPage.objMoreSettingInHamburger, "More settings");
 		click(PWAHamburgerMenuPage.objResetSettingsToDefault, "Reset Settings to Default");
 		waitTime(5000);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "settings");
 		mixpanel.FEProp.setProperty("Toast Message", "Changes Saved Successfully");
@@ -5841,7 +5853,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Element", "Search");
 		mixpanel.FEProp.setProperty("Page Name", "home");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			Mixpanel.ValidateParameter(local.getItem("guestToken"), "Search Button Click");
 		} else {
@@ -5857,7 +5869,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
 		click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 		waitTime(5000);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			Mixpanel.ValidateParameter(local.getItem("guestToken"), "Search Result Clicked");
 		} else {
@@ -5888,7 +5900,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Popup launch");
 		}
 	}
@@ -5929,7 +5941,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Popup launch");
 		}
 	}
@@ -5962,7 +5974,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Popup launch");
 		}
 	}
@@ -5988,7 +6000,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			Matcher m = p.matcher(id);
 			m.find();
 			ResponseInstance.getContentDetails(m.group(0));
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Pop Up CTAs");
 			} else {
@@ -6023,7 +6035,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
 			waitTime(2000);
 
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "parental_control");
 			mixpanel.FEProp.setProperty("Toast Message", "Changes Saved Successfully");
@@ -6048,7 +6060,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Page Name", "device_authentication");
 			mixpanel.FEProp.setProperty("Failure Reason", "Device code " + AuthPin + " has expired");
 			mixpanel.FEProp.setProperty("Element", "Authenticate");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			System.out.println(local.getItem("ID"));
 			mixpanel.ValidateParameter(local.getItem("ID"), "Device Authentication");
 		}
@@ -6063,7 +6075,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objAuthenticationOption, "Authenticate Device");
 			type(PWAHamburgerMenuPage.objAuthenticationField, "abcdef", "AuthenticationField");
 			click(PWAHamburgerMenuPage.objAuthenticationButtonHighlighted, "Authenticate button");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "device_authentication");
 			mixpanel.FEProp.setProperty("Toast Message", "Device code ABCDEF has expired");
@@ -6090,7 +6102,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				actions.moveToElement(contentCard).build().perform();
 				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
 			}
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "movie_landing");
 			mixpanel.FEProp.setProperty("Toast Message", "Added to Watchlist");
@@ -6125,7 +6137,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "movie_landing");
 			mixpanel.FEProp.setProperty("Toast Message", "Removed from Watchlist");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Toast Message Impression");
 		}
 
@@ -6141,7 +6153,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		click(PWAPremiumPage.objEmbedPopUp, "Embed option");
 		click(PWAPremiumPage.objEmbedCopy, "Copy");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Toast Message", "Copied to Clipboard");
@@ -6180,7 +6192,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6211,7 +6223,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 			} else {
@@ -6246,7 +6258,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6277,7 +6289,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6307,7 +6319,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6341,7 +6353,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6393,7 +6405,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 			} else {
@@ -6429,7 +6441,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6466,7 +6478,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6508,7 +6520,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6539,7 +6551,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6574,7 +6586,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6605,7 +6617,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 			} else {
@@ -6640,7 +6652,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6671,7 +6683,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6701,7 +6713,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6735,7 +6747,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6785,7 +6797,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 			} else {
@@ -6821,7 +6833,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6858,7 +6870,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6900,7 +6912,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6931,7 +6943,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Auto-seek");
 		} else {
@@ -6969,7 +6981,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
 		} else {
@@ -6983,6 +6995,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			navigateToAnyScreenOnWeb(tab);
 			click(PWAPremiumPage.objPremiumTag, "Premium Content");
 			waitTime(6000);
+			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 			if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
@@ -7003,7 +7017,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
 				} else {
@@ -7027,6 +7041,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchResultTxt(audioTrackTrailerContent), 10, "Search Result");
 		click(PWASearchPage.objSearchResultTxt(audioTrackTrailerContent), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -7048,7 +7064,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
 		} else {
@@ -7060,6 +7076,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Audio Language Change Event For Carousel Content");
 		waitTime(5000);
 		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -7082,7 +7100,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
 			} else {
@@ -7107,7 +7125,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
 		} else {
@@ -7121,6 +7139,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objThumbnail, "Content From a tray");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
@@ -7141,7 +7161,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
 			} else {
@@ -7161,6 +7181,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 10, "Search Result");
 		click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -7182,7 +7204,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
 		} else {
@@ -7201,6 +7223,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			waitTime(4000);
 			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 
 			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
 				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
@@ -7233,7 +7256,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
 				} else {
@@ -7256,6 +7279,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		actions.moveToElement(contentCard).build().perform();
 
 		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -7278,7 +7303,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
 			} else {
@@ -7299,6 +7324,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(4000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
 
 		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 		mandatoryRegistrationPopUp(userType);
@@ -7323,7 +7349,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
 		} else {
@@ -7368,7 +7394,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
 		} else {
@@ -7401,7 +7427,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
 		} else {
@@ -7439,7 +7465,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objPay, "Pay Button");
 			waitTime(5000);
 
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 
 			if (userType.equals("Guest")) {
 
@@ -7485,7 +7511,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Subtitle Language Change");
 		} else {
@@ -7498,6 +7524,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Subtitle Language Change Event For Premium Content");
 			navigateToAnyScreenOnWeb(tab);
 			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(6000);
 
@@ -7519,7 +7547,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Subtitle Language Change");
 				} else {
@@ -7541,6 +7569,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchResultTxt(keyword5), 10, "Search Result");
 		click(PWASearchPage.objSearchResultTxt(keyword5), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -7561,7 +7591,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Subtitle Language Change");
 		} else {
@@ -7575,6 +7605,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 
 		if (checkElementDisplayed(PWAPlayerPage.objSubtitleIcon, "Subtitle option") == true) {
@@ -7595,7 +7627,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Subtitle Language Change");
 			} else {
@@ -7613,6 +7645,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPremiumPage.objThumbnail, "Content From a tray");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		if (checkElementDisplayed(PWAPlayerPage.objSubtitleIcon, "Subtitle option") == true) {
 			click(PWAPlayerPage.subtitlesBtn, "Subtitle option");
@@ -7632,7 +7666,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Subtitle Language Change");
 			} else {
@@ -7654,6 +7688,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElement(PWASearchPage.objSearchResultTxt(subtitleTrackContent), 10, "Search Result");
 		click(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		click(PWAPlayerPage.objSubtitleIcon, "Subtitle option");
@@ -7673,7 +7709,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
 		} else {
@@ -7693,6 +7729,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 			waitTime(4000);
 			mandatoryRegistrationPopUp(userType);
+			waitForPlayerAdToComplete("Video Player");
 
 			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
 				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
@@ -7724,7 +7761,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Subtitle Language Change");
 				} else {
@@ -7748,6 +7785,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		if (checkElementDisplayed(PWAPlayerPage.objSubtitleIcon, "Subtitle option") == true) {
@@ -7768,7 +7807,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Subtitle Language Change");
 			} else {
@@ -7789,6 +7828,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(4000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(subtitleTrackContent), "Search Result");
 		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
 
 		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
 		mandatoryRegistrationPopUp(userType);
@@ -7812,7 +7852,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Subtitle Language Change");
 		} else {
@@ -7857,7 +7897,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Subtitle Language Change");
 		} else {
@@ -7870,6 +7910,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Subtitle Language Change Event For content played from Shared Link");
 		getWebDriver().get(subtitleTrackURL);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -7890,7 +7932,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Subtitle Language Change");
 		} else {
@@ -7926,7 +7968,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Intro");
 		} else {
@@ -7960,7 +8002,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (UserType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Intro");
 				} else {
@@ -8001,7 +8043,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			}
 			ResponseInstance.getContentDetails(value);
 
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Intro");
 			} else {
@@ -8036,7 +8078,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Intro");
 			} else {
@@ -8070,7 +8112,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Intro");
 			} else {
@@ -8107,7 +8149,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Intro");
 		} else {
@@ -8154,7 +8196,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (UserType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Intro");
 				} else {
@@ -8196,7 +8238,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Intro");
 			} else {
@@ -8239,7 +8281,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			}
 			ResponseInstance.getContentDetails(value);
 
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Intro");
 			} else {
@@ -8285,7 +8327,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Intro");
 			} else {
@@ -8321,7 +8363,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Intro");
 		} else {
@@ -8338,7 +8380,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(5000);
 			mixpanel.FEProp.setProperty("Source", "N/A");
 			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Subscription Page Viewed");
 			} else {
@@ -8397,7 +8439,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
 			} else {
@@ -8428,7 +8470,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
 			} else {
@@ -8462,7 +8504,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
 			} else {
@@ -8493,7 +8535,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
 			} else {
@@ -8523,7 +8565,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
 			} else {
@@ -8558,7 +8600,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
 			} else {
@@ -8607,7 +8649,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
 			} else {
@@ -8642,7 +8684,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
 			} else {
@@ -8680,7 +8722,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
 			} else {
@@ -8719,7 +8761,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
 			} else {
@@ -8750,7 +8792,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
 			} else {
@@ -8787,7 +8829,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Impression");
 			} else {
@@ -8831,7 +8873,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
@@ -8868,7 +8910,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
@@ -8909,7 +8951,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
@@ -8947,7 +8989,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
@@ -8984,7 +9026,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
@@ -9026,7 +9068,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
@@ -9082,7 +9124,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
@@ -9124,7 +9166,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
@@ -9168,7 +9210,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
@@ -9211,7 +9253,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
@@ -9248,7 +9290,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				value = m.group(0);
 			}
 			ResponseInstance.getContentDetails(value);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Parental Overlay Result");
 			} else {
@@ -9270,7 +9312,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			click(PWAHamburgerMenuPage.objEditProfileSavechangesBtn, "Save Changes Button");
 			waitTime(2000);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "my_profile");
 			mixpanel.FEProp.setProperty("Toast Message", "Changes Saved Successfully");
@@ -9295,7 +9337,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted, "Update password button");
 			waitTime(2000);
 
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "my_profile");
 			mixpanel.FEProp.setProperty("Toast Message", "Password was changed successfully");
@@ -9336,7 +9378,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", "home");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Recommended Rail Impression");
 		} else {
@@ -9360,7 +9402,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Recommended Rail Impression");
 		} else {
@@ -9384,7 +9426,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Recommended Rail Impression");
 		} else {
@@ -9402,7 +9444,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(2000);
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "pack_selection");
 			mixpanel.FEProp.setProperty("Page Name", "home");
 			mixpanel.FEProp.setProperty("Toast Message", "You are already subscribed to ZEE5 Club Pack");
@@ -9441,7 +9483,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("cost", cost[1]);
 			mixpanel.FEProp.setProperty("Promo Code Type", "Product");
 			mixpanel.FEProp.setProperty("Promo Code", promocode);
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Prepaid Code Result");
 			} else {
@@ -9478,7 +9520,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
 				} else {
@@ -9516,7 +9558,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
 				} else {
@@ -9551,7 +9593,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
 				} else {
@@ -9584,7 +9626,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
 				} else {
@@ -9625,7 +9667,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
 				} else {
@@ -9681,7 +9723,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
 				} else {
@@ -9720,7 +9762,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
 				} else {
@@ -9761,7 +9803,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
 				} else {
@@ -9809,7 +9851,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
 				} else {
@@ -9844,7 +9886,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
 				} else {
@@ -9884,7 +9926,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
 				} else {
@@ -9926,7 +9968,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
 				} else {
@@ -9962,7 +10004,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
 				} else {
@@ -9997,7 +10039,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
 				} else {
@@ -10039,7 +10081,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
 				} else {
@@ -10095,7 +10137,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
 				} else {
@@ -10136,7 +10178,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
 				} else {
@@ -10178,7 +10220,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
 				} else {
@@ -10227,7 +10269,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
 				} else {
@@ -10263,7 +10305,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Forced Exit");
 				} else {
@@ -10306,7 +10348,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				ResponseInstance.getContentDetails(value);
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				waitTime(3000);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
 				} else {
@@ -10345,7 +10387,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
 				} else {
@@ -10381,7 +10423,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
 				} else {
@@ -10416,7 +10458,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
 				} else {
@@ -10460,7 +10502,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
 				} else {
@@ -10515,7 +10557,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
 				} else {
@@ -10556,7 +10598,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
 				} else {
@@ -10597,7 +10639,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
 				} else {
@@ -10645,7 +10687,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
 				} else {
@@ -10681,7 +10723,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
 				} else {
@@ -10724,7 +10766,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -10765,7 +10807,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -10801,7 +10843,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -10836,7 +10878,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -10878,7 +10920,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -10934,7 +10976,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -10974,7 +11016,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -11016,7 +11058,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -11066,7 +11108,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -11103,7 +11145,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -11145,7 +11187,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				}
 				ResponseInstance.getContentDetails(value);
 				Back(1);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -11184,7 +11226,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -11219,7 +11261,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -11253,7 +11295,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -11294,7 +11336,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -11348,7 +11390,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -11387,7 +11429,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -11429,7 +11471,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -11476,7 +11518,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -11512,7 +11554,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 				} else {
@@ -11548,7 +11590,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				click(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon");
 				waitTime(4000);
 			}
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "show_detail");
 			mixpanel.FEProp.setProperty("Element", "Watchlist");
@@ -11584,7 +11626,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 						value = m.group(0);
 					}
 					ResponseInstance.getContentDetails(value);
-					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 					if (userType.equals("Guest")) {
 						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 					} else {
@@ -11629,7 +11671,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 						value = m.group(0);
 					}
 					ResponseInstance.getContentDetails(value);
-					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 					if (userType.equals("Guest")) {
 						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 					} else {
@@ -11669,7 +11711,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 						value = m.group(0);
 					}
 					ResponseInstance.getContentDetails(value);
-					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 					if (userType.equals("Guest")) {
 						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 					} else {
@@ -11708,7 +11750,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 						value = m.group(0);
 					}
 					ResponseInstance.getContentDetails(value);
-					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 					if (userType.equals("Guest")) {
 						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 					} else {
@@ -11753,7 +11795,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 						value = m.group(0);
 					}
 					ResponseInstance.getContentDetails(value);
-					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 					if (userType.equals("Guest")) {
 						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 					} else {
@@ -11812,7 +11854,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 						value = m.group(0);
 					}
 					ResponseInstance.getContentDetails(value);
-					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 					if (userType.equals("Guest")) {
 						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 					} else {
@@ -11855,7 +11897,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 						value = m.group(0);
 					}
 					ResponseInstance.getContentDetails(value);
-					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 					if (userType.equals("Guest")) {
 						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 					} else {
@@ -11900,7 +11942,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 						value = m.group(0);
 					}
 					ResponseInstance.getContentDetails(value);
-					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 					if (userType.equals("Guest")) {
 						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 					} else {
@@ -11953,7 +11995,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 						value = m.group(0);
 					}
 					ResponseInstance.getContentDetails(value);
-					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 					if (userType.equals("Guest")) {
 						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 					} else {
@@ -11995,7 +12037,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 						value = m.group(0);
 					}
 					ResponseInstance.getContentDetails(value);
-					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+					local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 					if (userType.equals("Guest")) {
 						mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Watch Duration");
 					} else {
@@ -12033,7 +12075,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			}
 		}
 
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Element", "Language");
@@ -12052,7 +12094,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify CTAs Event when user clicks on subscription option");
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
 
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "N/A");
 			mixpanel.FEProp.setProperty("Page Name", "home");
 			mixpanel.FEProp.setProperty("Element", "Subscribe");
@@ -12071,7 +12113,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(3000);
 		click(PWAHamburgerMenuPage.objMoreSettingInHamburger, "More settings");
 
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Element", "More Settings");
@@ -12087,7 +12129,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify CTAs Event");
 		navigateToAnyScreenOnWeb(tabName);
 
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Element", "Shows");
@@ -12115,7 +12157,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				mixpanel.FEProp.setProperty("Source", "search");
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -12169,7 +12211,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
 				} else {
@@ -12207,7 +12249,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
 				} else {
@@ -12242,7 +12284,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
 				} else {
@@ -12284,7 +12326,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
 				} else {
@@ -12340,7 +12382,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
 				} else {
@@ -12380,7 +12422,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
 				} else {
@@ -12422,7 +12464,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
 				} else {
@@ -12471,7 +12513,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
 				} else {
@@ -12508,7 +12550,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
 				} else {
@@ -12539,7 +12581,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWALoginPage.objLoginLink, "Login Link");
 			waitTime(5000);
 
-			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "episode_detail");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Login Screen Display");
@@ -12586,7 +12628,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					value = m.group(0);
 				}
 				ResponseInstance.getContentDetails(value);
-				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Clicks");
 				} else {
@@ -12647,7 +12689,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "sign_in");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		if (EventName.equals("UserName")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Login Username Entered");
 		} else {
@@ -12819,7 +12861,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}
 		ResponseInstance.getContentDetails(value);
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Megamenu Thumbnail Click");
@@ -12836,7 +12878,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if(!userType.equals("Guest")) {
 		verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "Parent control");
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		mixpanel.ValidateParameter(local.getItem("ID"), "Popup Launch");
 		}
 	}
@@ -12851,7 +12893,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		type(PWASubscriptionPages.objEmailIDTextField, Username,"Email ID");
 		verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtn, "Proceed button");
 		
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		fetchUserType(local);
 		
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Popup Launch");
@@ -12872,7 +12915,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		partialScrollDown();
 		verifyElementPresentAndClick(PWAKidsPage.objExpanderIconInEduauraaPlayback, "Expander Icon");
 		
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "CTA");
 		} else {
@@ -12896,7 +12940,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Success", "true");
 		
 		
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Promo Code Result");
 		} else {
@@ -12915,7 +12960,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(2000);
 		verifyElementPresentAndClick(PWAKidsPage.objTermAndCondition, "Tearm and Conditions");
 		
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "CTA");
 		} else {
@@ -12934,7 +12980,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(2000);
 		verifyElementPresentAndClick(PWAKidsPage.objPrivacyPolicy, "privacy policy");
 		
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		fetchUserType(local);
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "CTA");
 		} else {
@@ -12954,4 +13001,22 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		return contentID;
 	}
 	
+	public void fetchUserType(LocalStorage local) {
+		Properties KEYVALUE = new Properties();
+		for(String key : local.keySet())
+        {
+			KEYVALUE.setProperty(key, local.getItem(key));
+        }		
+		Set<String> keys = KEYVALUE.stringPropertyNames();
+		for (String key : keys) {
+			if (key.startsWith("mp_")) {
+				JSONObject jsonObj = new JSONObject(KEYVALUE.getProperty(key));
+				mixpanel.FEProp.setProperty("isPWA", jsonObj.get("isPWA").toString());
+				mixpanel.FEProp.setProperty("User Type", jsonObj.get("User Type").toString());
+				mixpanel.FEProp.setProperty("isEduauraa", jsonObj.get("isEduauraa").toString());
+				mixpanel.FEProp.setProperty("hasEduauraa", jsonObj.get("hasEduauraa").toString());
+				break;
+			}
+		}
+	}
 }

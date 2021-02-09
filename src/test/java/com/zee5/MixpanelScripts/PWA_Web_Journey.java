@@ -15,7 +15,7 @@ public class PWA_Web_Journey {
 		Zee5PWAWEBMixPanelBusinessLogic = new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
 	}
 
-	@Test(priority = 1)
+//	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void PWAWEBMixPanelLogin(String userType) throws Exception {
 		System.out.println("Login");
@@ -32,41 +32,41 @@ public class PWA_Web_Journey {
 	@Parameters({ "userType" })
 	public void verifyCarouselBannerClickEvent(String userType) throws Exception {
 		System.out.println("Verify Carousel Banner Click Event");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+//		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEvent("Home");
 	}
 
-	@Test(priority = 4)
-	@Parameters({ "userType" })
-	public void verifyThumbnailClickEventFromTray(String userType) throws Exception {
-		System.out.println("Verify Thumbnail Click Event form Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyThumbnailClickEventFromTray("Shows");
-	}
+//	@Test(priority = 4)
+//	@Parameters({ "userType" })
+//	public void verifyThumbnailClickEventFromTray(String userType) throws Exception {
+//		System.out.println("Verify Thumbnail Click Event form Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyThumbnailClickEventFromTray("Shows");
+//	}
+//
+//	@Test(priority = 5)
+//	@Parameters({ "userType" })
+//	public void verifyThumbnailClickEventFromViewMorePage(String userType) throws Exception {
+//		System.out.println("Verify Thumbnail Click Event From View More Page");
+//		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyThumbnailClickEventFromViewMorePage("Shows");
+//	}
 
-	@Test(priority = 5)
-	@Parameters({ "userType" })
-	public void verifyThumbnailClickEventFromViewMorePage(String userType) throws Exception {
-		System.out.println("Verify Thumbnail Click Event From View More Page");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyThumbnailClickEventFromViewMorePage("Shows");
-	}
-
-	@Test(priority = 6)
-	@Parameters({ "userType" })
-	public void verifyThumbnailClickEventFromShowDetailPage(String userType) throws Exception {
-		System.out.println("Verify Thumbnail Click Event From Show Detail Page");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyThumbnailClickEventFromShowDetailPage(userType);
-	}
-
-	@Test(priority = 7)
-	@Parameters({ "userType", "keyword" })
-	public void verifyThumbnailClickEventFromPlaybackPage(String keyword, String userType) throws Exception {
-		System.out.println("Verify Thumbnail Click Event From Playback Page");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyThumbnailClickEventFromPlaybackPage(userType, keyword);
-	}
+//	@Test(priority = 6)
+//	@Parameters({ "userType" })
+//	public void verifyThumbnailClickEventFromShowDetailPage(String userType) throws Exception {
+//		System.out.println("Verify Thumbnail Click Event From Show Detail Page");
+//		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyThumbnailClickEventFromShowDetailPage(userType);
+//	}
+//
+//	@Test(priority = 7)
+//	@Parameters({ "userType", "keyword" })
+//	public void verifyThumbnailClickEventFromPlaybackPage(String keyword, String userType) throws Exception {
+//		System.out.println("Verify Thumbnail Click Event From Playback Page");
+//		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyThumbnailClickEventFromPlaybackPage(userType, keyword);
+//	}
 
 //	@Test(priority = 8)
 //	@Parameters({ "userType" })
@@ -564,13 +564,16 @@ public class PWA_Web_Journey {
 	public static void main(String[] args) {
 		
 //		String url = "https://newpwa.zee5.com/tvshows/details/agent-raghav-crime-branch/0-6-965/episode-13-agent-raghav/0-1-agentragh_1895058002-agentragh_1804723548-episode_779139720";
-		String url = "https://newpwa.zee5.com/tvshows/details/naagini-2/0-6-2498/latest1";
-		String[] id = url.split("/");
-		for (int i = 0; i < id.length; i++) {
-			if(id[i].contains("0-")) {
-				System.out.println(id[i]);
-			}
-		}
+//		String url = "https://newpwa.zee5.com/tvshows/details/naagini-2/0-6-2498/latest1";
+//		String[] id = url.split("/");
+//		for (int i = 0; i < id.length; i++) {
+//			if(id[i].contains("0-")) {
+//				System.out.println(id[i]);
+//			}
+//		}
+		
+		String mp = "mp_bd3945ca2b9d542adaad70063481a89d_mixpanel";
+		System.out.println(mp.startsWith("mp_"));
 	}
 
 }

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import org.json.JSONObject;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.html5.LocalStorage;
 import org.testng.Reporter;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
@@ -14,13 +16,12 @@ import com.jayway.restassured.specification.RequestSpecification;
 import com.mixpanelValidation.Mixpanel;
 import com.propertyfilereader.PropertyFileReader;
 import java.util.Properties;
+import java.util.Set;
 import java.util.stream.Stream;
 
 public class ResponseInstance {
 
 	protected static Response resp = null;
-	
-	Mixpanel mixpanel =  new Mixpanel();
 
 	public static Response getResponse() {
 		resp = given().urlEncodingEnabled(false).when().get(
@@ -696,7 +697,7 @@ public class ResponseInstance {
 //		getDetailsOfCustomer("zeetest@gmail.com","zee123");
 //		getUserSettingsDetails("","");	
 //		getFreeContent("home", "zee5latest@gmail.com", "User@123");
-//		getContentDetails("0-9-indiatoday");
+		getContentDetails("0-0-232924","originals");
 //		Player("basavaraj.pn5@gmail.com","igsindia123");
 //		getWatchList("basavaraj.pn5@gmail.com","igsindia123");
 //		getUserData("basavaraj.pn5@gmail.com","igsindia123");
@@ -903,21 +904,16 @@ public class ResponseInstance {
 	
 	public static String getLanguage1(String userType)
 	{
-
 		String language = null;
 		if(userType.contains("Guest"))
-		{System.out.println("a");
+		{
 			language = "en,hi,kn";
 		}else{
-			System.out.println("b");
 			Response resplanguage = ResponseInstance.getUserinfoforNonSubORSub(userType);			
 		//	System.out.println(resplanguage.print());
-			
 			//System.out.println(resplanguage.jsonPath().getList("array").size());
-		
 			for(int i=0 ; i<resplanguage.jsonPath().getList("array").size() ; i++)
 			{
-				
 				String key = resplanguage.jsonPath().getString("["+i+"].key");
 			//	System.out.println(language);
 				if(key.contains("content_language"))
@@ -928,115 +924,8 @@ public class ResponseInstance {
 				}
 			}
 		}
-		
-
 		return language;	
-		
 	}
 	
-	static ArrayList<List<String>> apiTraysContent = new ArrayList<>();
-	static List<String> apiFirstTrayContentList = new ArrayList<String>();
-	public static void ValidateRailsAndContents(String userType, String tab) throws Exception {
-		List<String> apiTrayList = new ArrayList<String>();
-		List<String> apiTotalTrays;
-		String language = getLanguage1(userType);
-		Response resp = ResponseInstance.getResponseForPages2(tab, language, 1, userType);
-		
-//		System.out.println(resp.print());
-
-		apiTotalTrays = resp.jsonPath().getList("buckets");
-		if(apiTotalTrays.size() >= 5) {			
-			for(int i=1 ; i<apiTotalTrays.size(); i++) {
-				String title = resp.jsonPath().getString("buckets["+i+"].title");
-//				System.out.println("title ="+title);
-				
-				apiTrayList.add(title);
-				
-				//getcontentsize
-				int contentSize = resp.jsonPath().getList("buckets["+i+"].items").size();
-				System.out.println(contentSize);
-				
-//				if(contentSize >= 2) {
-					apiFirstTrayContentList.clear();
-					System.out.println(i + "Before Before ArrayList = "+apiTraysContent);
-					for(int j=0; j<2 ; j++) {
-						String trayContent = resp.jsonPath().getString("buckets["+i+"].items["+j+"].title");
-						System.out.println("content ="+trayContent);
-						
-						apiFirstTrayContentList.add(trayContent);
-						System.out.println("Before list : "+apiFirstTrayContentList);
-					}
-					System.out.println("List = "+apiFirstTrayContentList);	
-					
-					System.out.println(i + "Before ArrayList = "+apiTraysContent);
-					
-					//add List content to Arraylist
-					apiTraysContent.add(apiFirstTrayContentList);
-					System.out.println("ArrayList = "+apiTraysContent);
-//				}
-			}
-		}
-//		apiFirstTrayContentList.removeAll(apiFirstTrayContentList);
-	}
-
-	public static Response getResponseForPages2(String page, String contLang,int q,String userType) {
-		Response respCarousel = null;
-		String Uri = "";
-		if (page.equalsIgnoreCase("news")) {
-			page = "626";
-		} else if (page.equalsIgnoreCase("music")) {
-			page = "2707";
-		} else if (page.equalsIgnoreCase("home")) {
-			page = "homepage";
-		} else if(page.equalsIgnoreCase("kids")) {
-			page = "3673";
-		}else if(page.equalsIgnoreCase("movies")) {
-			page = "movies";
-		}else if(page.equalsIgnoreCase("play")) {
-			page = "4603";
-		}else if(page.equalsIgnoreCase("shows")) {
-			page = "tvshows";
-		}else if(page.equalsIgnoreCase("club")) {
-			page = "5851";
-		}else if(page.equalsIgnoreCase("premium")) {
-			page = "premiumcontents";
-		}else if(page.equalsIgnoreCase("play")) {
-			page = "4603";
-		}else if(page.equalsIgnoreCase("videos")) {
-			page = "videos";
-		}else if(page.equalsIgnoreCase("zeeoriginals")) {
-			page = "zeeoriginals";
-		}
-		
-		if(page.equals("stories")) {
-			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
-		}else {
-			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page+ "?page="+q+"&limit=5&item_limit=20&country=IN&translation=en&languages="+contLang+"&version=10";
-		}	
-
-		String xAccessToken = getXAccessToken1();
-		if (userType.equalsIgnoreCase("Guest")) {
-			respCarousel = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when()
-					.get(Uri);
-		} else if (userType.equalsIgnoreCase("SubscribedUser")) 
-		{
-			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
-			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
-			String bearerToken = getBearerToken(email, password);
-			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
-		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) 
-		{
-			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
-			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
-			
-			
-			String bearerToken = getBearerToken(email, password);
-			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
-		} else {
-			System.out.println("Incorrect user type passed to method");
-		}
-		return respCarousel;
-	}
-
 	
 }
