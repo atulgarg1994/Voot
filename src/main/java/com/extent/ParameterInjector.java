@@ -57,7 +57,7 @@ public class ParameterInjector implements IAlterSuiteListener {
 			params.put("freeMovie2", "Bablu Dablu - Robo Rumble");
 			params.put("freeMovie3", "Pup Scouts");
 			params.put("freeMovie4", "Robin Hood");
-			params.put("premiumMovie", "The Road Within");
+			params.put("premiumMovie", "Natasaarvabhowma");
 			params.put("premiumMovie2", "Bhinna");
 			params.put("premiumMovieNoTrailer", "Mugulu Nage");
 			params.put("premiumMovieNoTrailer2", "Londonalli Lambodara");
@@ -116,6 +116,8 @@ public class ParameterInjector implements IAlterSuiteListener {
 			params.put("zee5OriginalDFP", "Once Upon A Time Se Leke");
 			params.put("musicDFP", "Biba - Dil Hi Toh Hai Season");
 			params.put("episodeDFP", "Preeta gets evidence against Mahira");
+			params.put("ClubUserName", suite.getParameter("ClubUserName"));
+			params.put("ClubPassword", suite.getParameter("ClubPassword"));
 		}
 		if (region.equals("MH")) {
 			params.put("searchModuleSearchKey", "Kundali Bhagya");
@@ -130,7 +132,7 @@ public class ParameterInjector implements IAlterSuiteListener {
 			params.put("freeMovie2", "Manthan");
 			params.put("freeMovie3", "Pup Scouts");
 			params.put("freeMovie4", "Robin Hood");
-			params.put("premiumMovie", "The Road Within");
+			params.put("premiumMovie", "Natasaarvabhowma");
 			params.put("premiumMovie2", "Hotel Mumbai");
 			params.put("premiumMovieNoTrailer", "Fitoor");
 			params.put("premiumMovieNoTrailer2", "The Real Tiger");
@@ -188,6 +190,8 @@ public class ParameterInjector implements IAlterSuiteListener {
 			params.put("zee5OriginalDFP", "Once Upon A Time Se Leke");
 			params.put("musicDFP", "Biba - Dil Hi Toh Hai Season");
 			params.put("episodeDFP", "Preeta gets evidence against Mahira");
+			params.put("ClubUserName", suite.getParameter("ClubUserName"));
+			params.put("ClubPassword", suite.getParameter("ClubPassword"));
 		}
 		suite.setParameters(params);
 	}

@@ -13002,21 +13002,22 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 	
 	public void fetchUserType(LocalStorage local) {
-		Properties KEYVALUE = new Properties();
-		for(String key : local.keySet())
-        {
-			KEYVALUE.setProperty(key, local.getItem(key));
-        }		
-		Set<String> keys = KEYVALUE.stringPropertyNames();
-		for (String key : keys) {
-			if (key.startsWith("mp_")) {
-				JSONObject jsonObj = new JSONObject(KEYVALUE.getProperty(key));
-				mixpanel.FEProp.setProperty("isPWA", jsonObj.get("isPWA").toString());
-				mixpanel.FEProp.setProperty("User Type", jsonObj.get("User Type").toString());
-				mixpanel.FEProp.setProperty("isEduauraa", jsonObj.get("isEduauraa").toString());
-				mixpanel.FEProp.setProperty("hasEduauraa", jsonObj.get("hasEduauraa").toString());
-				break;
+		try {
+			Properties KEYVALUE = new Properties();
+			for (String key : local.keySet()) {
+				KEYVALUE.setProperty(key, local.getItem(key));
 			}
+			Set<String> keys = KEYVALUE.stringPropertyNames();
+			for (String key : keys) {
+				if (key.startsWith("mp_")) {
+					JSONObject jsonObj = new JSONObject(KEYVALUE.getProperty(key));
+					mixpanel.FEProp.setProperty("isPWA", jsonObj.get("isPWA").toString());
+					mixpanel.FEProp.setProperty("User Type", jsonObj.get("User Type").toString());
+					break;
+				}
+			}
+		} catch (Exception e) {
+
 		}
 	}
 }

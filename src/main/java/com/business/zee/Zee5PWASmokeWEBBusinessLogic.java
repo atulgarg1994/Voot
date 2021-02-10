@@ -3772,8 +3772,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 
 //-----------------------------------TANISHA-------------------------------------------------
 
-	public void verifyConsumptionsScreenTappingOnCard(String userType, String contentType, String contentTitle,
-			String devicePin) throws Exception {
+	public void verifyConsumptionsScreenTappingOnCard(String userType, String contentType, String contentTitle) throws Exception {
 		extent.HeaderChildNode("Verify Consumption Page for Content type: " + contentType);
 		System.out.println("Verify Consumption Page for Content type: " + contentType);
 		String consumptionPageTitle = "";
@@ -4236,8 +4235,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifySubscriptionPopupForPremiumContent(String userType, String contentType, String contentTitle,
-			String devicePin) throws Exception {
+	public void verifySubscriptionPopupForPremiumContent(String userType, String contentType, String contentTitle) throws Exception {
 		extent.HeaderChildNode("Verify Subscription Popup For Premium Content");
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);
@@ -4293,8 +4291,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyNoSubscriptionPopupForFreeContent(String userType, String contentType, String contentTitle,
-			String devicePin) throws Exception {
+	public void verifyNoSubscriptionPopupForFreeContent(String userType, String contentType, String contentTitle) throws Exception {
 		extent.HeaderChildNode("Verify No Subscription Popup For Free Content");
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);

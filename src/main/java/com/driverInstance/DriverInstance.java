@@ -20,6 +20,7 @@ import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class DriverInstance extends Drivertools {
@@ -103,7 +104,7 @@ public class DriverInstance extends Drivertools {
 		setHandler(new PropertyFileReader("properties/AppPackageActivity.properties"));
 		if (browserName.equalsIgnoreCase("Firefox")) {
 			WebDriverManager.firefoxdriver().version("0.26.0").setup();
-//			tlWebDriver.set(new FirefoxDriver());
+			tlWebDriver.set(new FirefoxDriver());
 		} else if (browserName.equalsIgnoreCase("Chrome")) {
 			WebDriverManager.chromedriver().version(getDriverVersion()).setup();
 			ChromeOptions options = new ChromeOptions();

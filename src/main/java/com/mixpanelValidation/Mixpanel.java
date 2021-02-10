@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -142,6 +143,9 @@ public class Mixpanel extends ExtentReporter {
 //		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
 //		platform = "Web";
 //		fetchEvent("4b33865960727c7d933aa8e4ac03b7b8","Login Screen Display");
+//		System.out.println(1612873997 <= 1612873637);
+//		String empty[] = null;
+//		System.out.println(empty == null);
 	}
 
 	@SuppressWarnings("unused")
@@ -197,7 +201,14 @@ public class Mixpanel extends ExtentReporter {
 			} else {
 				String response = request.asString();
 				String s[] = response.split("\n");
-				parseResponse(s[s.length - 1]);
+				String time = checkLatestEvent(s[s.length - 1]);
+				if(time == null) {
+					parseResponse(s[s.length - 1]);
+				}else {
+					System.out.println("Event not triggered");
+					extentReportFail("Event not triggered", "Event not triggered");
+					return;
+				}
 			}
 			validation();
 		}else {
@@ -206,6 +217,21 @@ public class Mixpanel extends ExtentReporter {
 		}
 	}
 
+	public static String checkLatestEvent(String s) {
+		String empty = null;
+		String commaSplit[] = s.replace("\"properties\":{", "").replace("}", "").replaceAll("[.,](?=[^\\[]*\\])", "-")
+				.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+		String com[] = commaSplit[1].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+		int MPTime = Integer.valueOf(com[1].replace("\"", "").replace("$", ""));
+		long currentTime = Instant.now().getEpochSecond();
+		long subCurrentTime = (currentTime - 360);
+		if (subCurrentTime <= MPTime) {
+			return s;
+		}
+		return empty;
+	}
+	
+	
 	/**
 	 * Parse the response and split the response
 	 * 
@@ -513,7 +539,7 @@ public class Mixpanel extends ExtentReporter {
 		System.out.println(String.valueOf(Collections.max(list)));
 		for(int i = 0; i < s.length; i++) {
 			if(s[i].contains(String.valueOf(Collections.max(list)))) {
-				System.out.println(s[i]);
+//				System.out.println(s[i]);
 				return s[i];
 			}
 		}

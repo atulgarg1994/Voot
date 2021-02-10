@@ -1,5 +1,7 @@
 package com.zee5.MixpanelScripts;
 
+import java.io.File;
+
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
@@ -572,8 +574,19 @@ public class PWA_Web_Journey {
 //			}
 //		}
 		
-		String mp = "mp_bd3945ca2b9d542adaad70063481a89d_mixpanel";
-		System.out.println(mp.startsWith("mp_"));
+//		String mp = "mp_bd3945ca2b9d542adaad70063481a89d_mixpanel";
+//		System.out.println(mp.startsWith("mp_"));
+		
+		File folder = new File("C:\\Users\\IGS0026\\Documents");
+		File[] listOfFiles = folder.listFiles();
+
+		for (int i = 0; i < listOfFiles.length; i++) {
+		  if (listOfFiles[i].isFile()) {
+		    System.out.println("File " + listOfFiles[i].getName());
+		  } else if (listOfFiles[i].isDirectory()) {
+		    System.out.println("Directory " + listOfFiles[i].getName());
+		  }
+		}
 	}
 
 }

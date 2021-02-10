@@ -639,14 +639,12 @@ public class PWAHamburgerMenuPage {
 	// UpdatePasswordBtnHighlighted
 	public static By objUpdatePasswordBtnHighlighted = By
 			.xpath("//span[text()='Update']//parent::button[contains(@class,'noSelect buttonGradient')]");
-
-	public static By objUnselectedEnglishContentLanguage = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='English']");
 	
 	public static By objUnselectedKannadaContentLanguage = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='Kannada']");
 	
 	public static By objUnselectedHindiContentLanguage = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='Hindi']");
 	
-public static By objplay = By.xpath("//span[text()='Play']");
+	public static By objplay = By.xpath("//span[text()='Play']");
 	
 	public static By objGetpremium = By.xpath("//*[text()='Get premium']");
 	public static By objClub = By.xpath("//*[text()='Get Club']");
@@ -740,5 +738,7 @@ public static By objplay = By.xpath("//span[text()='Play']");
 	public static By objproceed2btn=By.xpath("(//*[text()='PROCEED'])[2]");
 	public static By objgetclubinKannada=By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//a[1]//span[contains(text(), 'ಕ್ಲಬ್ಗೆ ಹೋಗಿ')]");
 	
+	public static By objUnselectedEnglishContentLanguage = By.xpath("//span[@class= 'nativeName' and .='English']");
+
 	
 }

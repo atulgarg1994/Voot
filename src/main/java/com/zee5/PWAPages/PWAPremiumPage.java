@@ -53,7 +53,7 @@ public class PWAPremiumPage {
 		return By.xpath("((//div[.='" + trayTitle + "']//parent::*//parent::*)//div[.='View All'])[1]");
 	}
 
-	public static By objPremiumTag = By.xpath("(//div[@class='cardPremiumContent'])[1]");
+	public static By objPremiumTag = By.xpath("(//div[@class='cardPremiumContent'])");
 
 	public static By objViewAllPageTitle = By.xpath("//h1");
 

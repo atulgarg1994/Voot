@@ -31,17 +31,17 @@ public class WebPWASmokeScript {
 	}
 	 
 	@Test(priority = 2)
-	@Parameters({ "browserType", "url", "userType", "devicePin", "consumptionsEpisode", "consumptionsShow",
+	@Parameters({ "browserType", "url", "userType", "consumptionsEpisode", "consumptionsShow",
 		"consumptionsFreeContent", "consumptionsPremiumContent" })
-public void WEBPWAConsumptionScreen(String browser, String url, String userType, String devicePin,
+public void WEBPWAConsumptionScreen(String browser, String url, String userType,
 		String consumptionsEpisode, String consumptionsShow, String consumptionsFreeContent,
 		String consumptionsPremiumContent) throws Exception {
 		zee5WebBusinessLogic.navigateHome();
-		zee5WebBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Episode", consumptionsEpisode, devicePin); // Episode
-		zee5WebBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Live TV", "", devicePin); // Live TV Card
+		zee5WebBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Episode", consumptionsEpisode); // Episode
+		zee5WebBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Live TV", ""); // Live TV Card
 		//zee5WebBusinessLogic.verifyWatchLatestEpisodeCTA(consumptionsShow);
-		zee5WebBusinessLogic.verifyNoSubscriptionPopupForFreeContent(userType, "Movies", consumptionsFreeContent,devicePin);
-		zee5WebBusinessLogic.verifySubscriptionPopupForPremiumContent(userType, "Movies", consumptionsPremiumContent,devicePin);
+		zee5WebBusinessLogic.verifyNoSubscriptionPopupForFreeContent(userType, "Movies", consumptionsFreeContent);
+		zee5WebBusinessLogic.verifySubscriptionPopupForPremiumContent(userType, "Movies", consumptionsPremiumContent);
 		zee5WebBusinessLogic.verifyShareAndMetaDataInDetailsAndConsumption(consumptionsShow);
 	}
 

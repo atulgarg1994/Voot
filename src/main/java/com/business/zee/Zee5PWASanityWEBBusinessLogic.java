@@ -202,7 +202,23 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			click(PWALoginPage.objWebLoginButton, "Login Button");
 			waitTime(3000);
 			break;
+		case "ClubUser":
+			extent.HeaderChildNode("Login as Subscribed User");
+			String clubUserName = getParameterFromXML("ClubUserName");
+			String clubPassword = getParameterFromXML("ClubPassword");
+			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			type(PWALoginPage.objEmailField, clubUserName, "Email Field");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			type(PWALoginPage.objPasswordField, clubPassword, "Password field");
+			waitTime(5000);
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(3000);
+			break;
 		}
+		
 		selectLanguages();
 	}
 
@@ -11979,12 +11995,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void ExternalLinksValidation() throws Exception {
 		extent.HeaderChildNode("External Links Validation");
-		waitTime(5000);
+//		waitTime(5000);
 		// Instagram
-		scrollDownWEB();
-		if (checkElementDisplayed(PWAHomePage.objWhatToWatchPopUp, "wondering what to watch pop up")) {
-			verifyElementPresentAndClick(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
-		}
+//		scrollDownWEB();
+//		if (checkElementDisplayed(PWAHomePage.objWhatToWatchPopUp, "wondering what to watch pop up")) {
+//			verifyElementPresentAndClick(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
+//		}
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		JSClick(PWAHamburgerMenuPage.objAboutUsOption, "About Us option");
 		waitTime(5000);
 		verifyElementPresent(PWAHomePage.objInstagramIcon, "Instagram icon");
 		JSClick(PWAHomePage.objInstagramIcon, "Instagram icon");
@@ -12050,10 +12068,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		switchToParentWindow();
 	}
 
-//public static void scrollDownWEB() {
-//	JavascriptExecutor jse = (JavascriptExecutor) getWebDriver();
-//	jse.executeScript("window.scrollBy(0,250)", "");
-//}
 
 	/**
 	 * ===============================BHAVANA CONTENT
