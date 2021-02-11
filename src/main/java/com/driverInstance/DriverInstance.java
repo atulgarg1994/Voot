@@ -103,7 +103,7 @@ public class DriverInstance extends Drivertools {
 	public void LaunchBrowser(String browserName) {
 		setHandler(new PropertyFileReader("properties/AppPackageActivity.properties"));
 		if (browserName.equalsIgnoreCase("Firefox")) {
-			WebDriverManager.firefoxdriver().version("0.26.0").setup();
+			WebDriverManager.firefoxdriver().version("0.27.0").setup();
 			tlWebDriver.set(new FirefoxDriver());
 		} else if (browserName.equalsIgnoreCase("Chrome")) {
 			WebDriverManager.chromedriver().version(getDriverVersion()).setup();

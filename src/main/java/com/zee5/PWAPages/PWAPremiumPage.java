@@ -156,5 +156,7 @@ public class PWAPremiumPage {
 	public static By objPremiumTagMobile = By.xpath("(//div[@class='slick-slide slick-active slick-current']//div[@class='cardPremiumContent'])[1]");
 	
 	public static By objViewAllBtn = By.xpath("(//*[@class='arrow iconInitialLoad-ic_viewall noSelect']//div)[1]");
+	
+	public static By objPlayBtn = By.xpath("(//div[@class='playBtn'])");
 
 }

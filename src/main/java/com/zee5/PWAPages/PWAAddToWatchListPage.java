@@ -56,5 +56,5 @@ public class PWAAddToWatchListPage {
 
 	public static By objWatchlistedItems = By.xpath("//*[contains(@class,'cardTitle')]//*");
 	public static By objWatchlistedItemsMobile = By.xpath("(//*[contains(@class,'cardTitle overflowEllipsis')])[1]");
-
+	public static By objWatchlistedItem = By.xpath("(//*[contains(@class,'cardTitle')]//*)[1]");
 }

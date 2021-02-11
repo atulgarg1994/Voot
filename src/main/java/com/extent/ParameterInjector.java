@@ -106,9 +106,8 @@ public class ParameterInjector implements IAlterSuiteListener {
 			if (suite.getFileName().contains("WEB_Mixpanel")) {
 				params.put("ClubUserName", suite.getParameter("ClubUserName"));
 				params.put("ClubPassword", suite.getParameter("ClubPassword"));
-				params.put("SettingsNonsubscribedUserName", suite.getParameter("SettingsNonsubscribedUserName"));
-				params.put("SettingsNonsubscribedPassword", suite.getParameter("SettingsNonsubscribedPassword"));
-				params.put("SettingsSubscribedUserName", suite.getParameter("SettingsSubscribedUserName"));
+				params.put("SettingsNonSubscribedUserName", suite.getParameter("SettingsNonSubscribedUserName"));
+				params.put("SettingsNonSubscribedPassword", suite.getParameter("SettingsNonSubscribedPassword"));
 				params.put("SettingsSubscribedPassword", suite.getParameter("SettingsSubscribedPassword"));
 			}
 			params.put("dfpAdContent", "Jodi Hakki");
@@ -118,6 +117,9 @@ public class ParameterInjector implements IAlterSuiteListener {
 			params.put("episodeDFP", "Preeta gets evidence against Mahira");
 			params.put("ClubUserName", suite.getParameter("ClubUserName"));
 			params.put("ClubPassword", suite.getParameter("ClubPassword"));
+			params.put("freeContentURL",
+					"https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paaru-gets-tipsy-paaru-highlights/0-1-249189");
+			
 		}
 		if (region.equals("MH")) {
 			params.put("searchModuleSearchKey", "Kundali Bhagya");
@@ -180,8 +182,8 @@ public class ParameterInjector implements IAlterSuiteListener {
 			if(suite.getFileName().contains("WEB_Mixpanel")) {
 				params.put("ClubUserName", suite.getParameter("ClubUserName"));
 				params.put("ClubPassword", suite.getParameter("ClubPassword"));
-				params.put("SettingsNonsubscribedUserName", suite.getParameter("SettingsNonsubscribedUserName"));
-				params.put("SettingsNonsubscribedPassword", suite.getParameter("SettingsNonsubscribedPassword"));
+				params.put("SettingsNonSubscribedUserName", suite.getParameter("SettingsNonSubscribedUserName"));
+				params.put("SettingsNonSubscribedPassword", suite.getParameter("SettingsNonSubscribedPassword"));
 				params.put("SettingsSubscribedUserName", suite.getParameter("SettingsSubscribedUserName"));
 				params.put("SettingsSubscribedPassword", suite.getParameter("SettingsSubscribedPassword"));
 				}
@@ -192,6 +194,9 @@ public class ParameterInjector implements IAlterSuiteListener {
 			params.put("episodeDFP", "Preeta gets evidence against Mahira");
 			params.put("ClubUserName", suite.getParameter("ClubUserName"));
 			params.put("ClubPassword", suite.getParameter("ClubPassword"));
+			params.put("freeContentURL",
+					"https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paaru-gets-tipsy-paaru-highlights/0-1-249189");
+			
 		}
 		suite.setParameters(params);
 	}

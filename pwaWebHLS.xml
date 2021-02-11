@@ -16,10 +16,10 @@
 
 	<!-- NONSubscribed User -->
 
-	<parameter name="NonSubscribedUserName"
+	<parameter name="NonsubscribedUserName"
 		value="basavaraj.pn5@gmail.com" />
 
-	<parameter name="NonSubscribedUserPassword" value="igsindia123" />
+	<parameter name="NonsubscribedPassword" value="igsindia123" />
 
 	<!-- Subscribed User -->
 
@@ -27,11 +27,11 @@
 	<parameter name="SubscribedUserName"
 		value="zeetest10@test.com" />
 
-	<parameter name="SubscribedUserPassword" value="123456" />
+	<parameter name="SubscribedPassword" value="123456" />
 
 	<parameter name="ClubUserName" value="edpwa4@mailnesia.com" />
 
-	<parameter name="ClubPassword" value="" />
+	<parameter name="ClubPassword" value="123456" />
 
 	<parameter name="devicePin" value="1619" />
 
@@ -62,7 +62,7 @@
 
 	<parameter name="freeMovie4" value="Robin Hood" />
 
-	<parameter name="premiumMovie" value="The Road Within" />
+	<parameter name="premiumMovie" value="Natasaarvabhowma" />
 
 	<parameter name="premiumMovie2" value="Bhinna" />
 
