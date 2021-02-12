@@ -16,6 +16,11 @@ public class PWA_Web_Player {
 		Zee5PWAWEBMixPanelBusinessLogic = new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
 	}
 	
+	@Test
+	public void checkPageName() throws Exception {
+		Zee5PWAWEBMixPanelBusinessLogic.clickOnTab();
+	}
+	
 //	@Test(priority = 1)
 //	@Parameters({ "userType" })
 //	public void PWAWEBMixPanelLogin(String userType) throws Exception {
@@ -30,13 +35,13 @@ public class PWA_Web_Player {
 //	}
 //	
 ////	=========================================================================================================
-	@Test(priority = 3)
-	@Parameters({ "userType", "keyword4"})
-	public void verifyVideoViewEventForContentFromUpnextRail(String userType,String keyword4) throws Exception {
-		System.out.println("Verify Video View Event for content autoplayed from Upnext rail");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentFromUpnextRail(userType,keyword4);
-	}
+//	@Test(priority = 3)
+//	@Parameters({ "userType", "keyword4"})
+//	public void verifyVideoViewEventForContentFromUpnextRail(String userType,String keyword4) throws Exception {
+//		System.out.println("Verify Video View Event for content autoplayed from Upnext rail");
+//		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentFromUpnextRail(userType,keyword4);
+//	}
 //	
 //	@Test(priority = 4)
 //	@Parameters({"freeContentURL"})

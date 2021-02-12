@@ -8,10 +8,8 @@
 
 	<parameter name="userType" value="Guest" /> <!-- Guest/NonSubscribedUser/SubscribedUser/ClubUser -->
 	
-	
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" />
-	
 	
 	<parameter name="keyword" value="Jodi Hakki" />
 	<parameter name="keyword1" value="Shivaji Surathkal" />
@@ -44,12 +42,12 @@
 	<parameter name="audioTrackContent"	value="Episode 13 - Agent Raghav" />
 	<parameter name="subtitleTrackContent"	value="Episode 01 - Ganga Enters Widowhood" />
 	<parameter name="audioTrackTrailerContent"	value="Trailer - No Entry" />
-	<parameter name="audioTrackURL"	value="https://newpwa.zee5.com/tv-shows/agent-raghav-crime-branch/0-6-965/episode-13-agent-raghav/0-1-agentragh_1895058002-agentragh_1804723548-episode_779139720" />
-	<parameter name="subtitleTrackURL"	value="https://newpwa.zee5.com/tv-shows/gangaa/0-6-972/episode-01-ganga-enters-widowhood/0-1-136585" />
+	<parameter name="audioTrackURL"	value="https://newpwa.zee5.com/tvshows/details/agent-raghav-crime-branch/0-6-965/episode-13-agent-raghav/0-1-agentragh_1895058002-agentragh_1804723548-episode_779139720" />
+	<parameter name="subtitleTrackURL"	value="https://newpwa.zee5.com/tvshows/details/gangaa/0-6-972/episode-01-ganga-enters-widowhood/0-1-136585" />
 	<parameter name="subtitleTrackPremiumContent"	value="Welcome Back" />
 	
 	<parameter name="skipIntroPremium"	value="The Rum Diary" />
-	<parameter name="skipIntroURL"	value="https://newpwa.zee5.com/kids/kids-movies/bablu-dablu-robo-rumble/0-0-54219" />
+	<parameter name="skipIntroURL"	value="https://newpwa.zee5.com/movies/details/bablu-dablu-robo-rumble/0-0-54219" />
 	<parameter name="NonsubscribedInvalidPassword" value="igsindia"/>
 
 	<parameter name="freeContentURL" value="https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paaru-gets-tipsy-paaru-highlights/0-1-249189" />
@@ -62,7 +60,7 @@
 
 	<test name="WebPWAMixpanelScript">
 		<classes>
-			<class name="com.zee5.MixpanelScripts.PWA_Web_Journey" />
+			<class name="com.zee5.MixpanelScripts.PWA_Web_Player" />
 		</classes>
 	</test>
 

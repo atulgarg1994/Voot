@@ -17128,6 +17128,18 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 	public void kidsvalidation(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("HLS_109: Verify whether user is able to navigate Kids landing page ");
 		PWAPagesNavigationAndTabHighlight(tabName);
+		extent.HeaderChildNode("HLS_122 :Verify the right side bottom arrow ");
+		navigateToAnyScreenOnWeb(tabName);
+		scrollDownByY(300);
+		scrollDownByY(300);
+		logger.info("Scrolled Up the page");
+		if (checkElementDisplayed(PWAMusicPage.objArrowToNavigateTop, "Back to Top Arrow icon")) {
+			waitTime(2000);
+			click(PWAMusicPage.objArrowToNavigateTop, "Back to Top Arrow icon");
+		} else {
+			logger.error("Back to Top Arrow icon is not displayed");
+			extent.extentLoggerFail("", "Back to Top Arrow icon is not displayed");
+		}
 		extent.HeaderChildNode(" HLS_112 : Verify whether \"Play text\" CTA is displaying on Kids feature carousel");
 		checkElementDisplayed(PWAKidsPage.objPlayButton, "Play text on Carousel card");
 		extent.HeaderChildNode(" HLS_110 : Verify Feature carousel banners should rotate at fixed interval of time");
@@ -17274,18 +17286,18 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		waitTime(3000);
 		extent.HeaderChildNode("HLS_121: Verify that Play, share, watchlist CTA and metadata like Movies names are displayed on each content card");
 		trayTitleAndContentValidationWithApiDataZeeoriginals(tabName, "kids");		
-		extent.HeaderChildNode("HLS_122 :Verify the right side bottom arrow ");
-		navigateToAnyScreenOnWeb(tabName);
-		scrollDownByY(300);
-		scrollDownByY(300);
-		logger.info("Scrolled Up the page");
-		if (checkElementDisplayed(PWAMusicPage.objArrowToNavigateTop, "Back to Top Arrow icon")) {
-			waitTime(2000);
-			click(PWAMusicPage.objArrowToNavigateTop, "Back to Top Arrow icon");
-		} else {
-			logger.error("Back to Top Arrow icon is not displayed");
-			extent.extentLoggerFail("", "Back to Top Arrow icon is not displayed");
-		}
+//		extent.HeaderChildNode("HLS_122 :Verify the right side bottom arrow ");
+//		navigateToAnyScreenOnWeb(tabName);
+//		scrollDownByY(300);
+//		scrollDownByY(300);
+//		logger.info("Scrolled Up the page");
+//		if (checkElementDisplayed(PWAMusicPage.objArrowToNavigateTop, "Back to Top Arrow icon")) {
+//			waitTime(2000);
+//			click(PWAMusicPage.objArrowToNavigateTop, "Back to Top Arrow icon");
+//		} else {
+//			logger.error("Back to Top Arrow icon is not displayed");
+//			extent.extentLoggerFail("", "Back to Top Arrow icon is not displayed");
+//		}
 	}
 
 	public void pagesTrayValidation(String tabName) throws Exception {

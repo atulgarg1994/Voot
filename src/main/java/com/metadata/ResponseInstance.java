@@ -924,8 +924,28 @@ public class ResponseInstance {
 				}
 			}
 		}
-		return language;	
+		return language;
 	}
 	
-	
+	public static void getContentDetailsForNews(String ID) {
+		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
+		Mixpanel.FEProp.setProperty("Content Duration", resp.jsonPath().getString("duration"));
+		Mixpanel.FEProp.setProperty("Content ID", resp.jsonPath().getString("id"));
+		Mixpanel.FEProp.setProperty("Content Name", resp.jsonPath().getString("original_title"));
+		Mixpanel.FEProp.setProperty("Characters",resp.jsonPath().getList("actors").toString().replaceAll(",", "-").replaceAll("\\s", ""));
+		Mixpanel.FEProp.setProperty("Audio Language",resp.jsonPath().getList("audio_languages").toString().replace("[", "").replace("]", ""));
+		Mixpanel.FEProp.setProperty("Subtitle Language", resp.jsonPath().getString("subtitle_languages").toString());
+		Mixpanel.FEProp.setProperty("Content Type", resp.jsonPath().getString("business_type"));
+		Mixpanel.FEProp.setProperty("Genre",resp.jsonPath().getList("genre.id").toString().replaceAll(",", "-").replaceAll("\\s", ""));
+		Mixpanel.FEProp.setProperty("Content Original Language",resp.jsonPath().getString("languages").replace("[", "").replace("]", ""));
+//		if(resp.jsonPath().getString("is_drm").equals("1")) {
+		Mixpanel.FEProp.setProperty("DRM Video", resp.jsonPath().getString("is_drm"));
+//		}else {
+//			Mixpanel.FEProp.setProperty("DRM Video","false");
+//		}
+//		Mixpanel.FEProp.forEach((key, value) -> System.out.println(key + " : " + value));
+	}
+
 }
+
+//0-0-232924

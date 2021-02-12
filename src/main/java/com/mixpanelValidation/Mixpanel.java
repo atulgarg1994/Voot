@@ -113,20 +113,20 @@ public class Mixpanel extends ExtentReporter {
 //	        long ut3 = now.getTime() / 1000L;
 //	        System.out.println(ut3);
 
-//		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//		LocalDateTime now = LocalDateTime.now();
-//		String currentDate = dtf.format(now);
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime now = LocalDateTime.now();
+		String currentDate = dtf.format(now);
 //		String distinct_id = "SM-M315F"; 
 
 //		String distinct_id = "71046f70-7486-4238-9d9f-0dd6a67ede97";
-//		Response request = RestAssured.given().auth().preemptive().basic("b2514b42878a7e7769945befa7857ef1", "")
-//				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
-//				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
-//				.formParam("to_date", currentDate).formParam("event", "[ \"Login Password Entered\"]")
-//				.formParam("where", "properties[\"$distinct_id\"]==\"471e10be-5629-4c90-8d00-f04f1c1e0711\"")
-//				.post("https://data.mixpanel.com/api/2.0/export/");
+		Response request = RestAssured.given().auth().preemptive().basic("58baafb02e6e8ce03d9e8adb9d3534a6", "")
+				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
+				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
+				.formParam("to_date", currentDate).formParam("event", "[ \"Ad View\"]")
+				.formParam("where", "properties[\"$distinct_id\"]==\"f81174907b5a4bcbe4205e4c3666f97e\"")
+				.post("https://data.mixpanel.com/api/2.0/export/");
 //				.post("https://mixpanel.com/api/2.0/segmentation/");
-//		request.print();
+		request.print();
 //		platform = "Android";
 //		fetchEvent("SM-M205F","Video Exit");
 //		modelName();
@@ -175,6 +175,7 @@ public class Mixpanel extends ExtentReporter {
 		LocalDateTime now = LocalDateTime.now();
 		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
 		System.out.println("Current Date : " + currentDate);
+		
 		if (platform.equals("Android")) {
 			APIKey = "b2514b42878a7e7769945befa7857ef1";
 			UserID = "$model";
@@ -201,14 +202,14 @@ public class Mixpanel extends ExtentReporter {
 			} else {
 				String response = request.asString();
 				String s[] = response.split("\n");
-				String time = checkLatestEvent(s[s.length - 1]);
-				if(time == null) {
+//				String time = checkLatestEvent(s[s.length - 1]);
+//				if(time == null) {
 					parseResponse(s[s.length - 1]);
-				}else {
-					System.out.println("Event not triggered");
-					extentReportFail("Event not triggered", "Event not triggered");
-					return;
-				}
+//				}else {
+//					System.out.println("Event not triggered");
+//					extentReportFail("Event not triggered", "Event not triggered");
+//					return;
+//				}
 			}
 			validation();
 		}else {
