@@ -1684,13 +1684,13 @@ public class PWA_Web_Player {
 //		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForFreeContent(userType,keyword4);
 //	}
 //	
-//	@Test(priority = 293)
-//	@Parameters({ "userType"})
-//	public void verifyAutoSeekRewindEventForPremiumContent(String userType) throws Exception {
-//		System.out.println("Verify Auto Seek Rewind Event For Premium Content");
-//		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-//		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForPremiumContent(userType,"Home");
-//	}
+	@Test(priority = 293)
+	@Parameters({ "userType"})
+	public void verifyAutoSeekRewindEventForPremiumContent(String userType) throws Exception {
+		System.out.println("Verify Auto Seek Rewind Event For Premium Content");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForPremiumContent(userType,"Home");
+	}
 //	
 //	@Test(priority = 294)
 //	@Parameters({ "keyword1"})

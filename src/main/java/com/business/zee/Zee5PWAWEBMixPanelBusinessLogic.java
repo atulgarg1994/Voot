@@ -13508,7 +13508,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			} else {
 				logger.error("Autoplay has failed");
 				extent.extentLoggerFail("", "Autoplay has failed");
-
 			}
 		}
 		if (autoPlayed)
@@ -13520,10 +13519,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	
 	public void pageName() throws Exception {
 		String pageNameTxt = findElement(By.xpath(".//*[@class='noSelect active ']")).getText();
-		
 		System.out.println("   "+pageNameTxt);
-		
-		
 	}
 	
 	public void clickOnTab() throws Exception {
@@ -13531,4 +13527,5 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreenOnWeb("Movies");
 		pageName();
 	}
+	
 }
