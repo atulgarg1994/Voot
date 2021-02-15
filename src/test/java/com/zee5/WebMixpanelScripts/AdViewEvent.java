@@ -1,0 +1,104 @@
+package com.zee5.WebMixpanelScripts;
+
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+import com.business.zee.Zee5PWAWEBMixPanelBusinessLogic;
+
+public class AdViewEvent {
+
+	private Zee5PWAWEBMixPanelBusinessLogic Zee5PWAWEBMixPanelBusinessLogic;
+
+	@BeforeTest
+	public void init() throws Exception {
+		Zee5PWAWEBMixPanelBusinessLogic = new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
+	}
+
+	@Test(priority = 1)
+	@Parameters({ "userType", "audioTrackContent" })
+	public void verifyAdViewEventForFreeContent(String userType, String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad View Event For Free Content");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForFreeContent(userType, audioTrackContent);
+	}
+
+	@Test(priority = 2)
+	@Parameters({ "userType", "keyword1" })
+	public void verifyAdViewEventForTrailer(String userType, String keyword1) throws Exception {
+		System.out.println("Verify Ad View Event For Trailer Content");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForTrailer(userType, keyword1);
+	}
+
+	@Test(priority = 3)
+	@Parameters({ "userType" })
+	public void verifyAdViewEventForCarouselContent(String userType) throws Exception {
+		System.out.println("Verify Ad View Event For Carousel Content");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForCarouselContent(userType);
+	}
+
+	@Test(priority = 4)
+	@Parameters({ "userType" })
+	public void verifyAdViewEventForContentInTray(String userType) throws Exception {
+		System.out.println("Verify Ad View Event For Content played from Tray");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForContentInTray(userType);
+	}
+
+	@Test(priority = 5)
+	@Parameters({ "userType", "subtitleTrackContent" })
+	public void verifyAdViewEventForContentFromSearchPage(String userType, String subtitleTrackContent)
+			throws Exception {
+		System.out.println("Verify Ad View Event For Content From Search Page");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForContentFromSearchPage(userType, subtitleTrackContent);
+	}
+
+	@Test(priority = 6)
+	@Parameters({ "userType", "audioTrackContent" })
+	public void verifyAdViewEventForContentFromMyWatchlistPage(String userType, String audioTrackContent)
+			throws Exception {
+		System.out.println("Verify Ad View Event For Content From My Watchlist Page");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForContentFromMyWatchlistPage(userType, audioTrackContent);
+	}
+
+	@Test(priority = 7)
+	@Parameters({ "userType" })
+	public void verifyAdViewEventForContentInMegamenu(String userType) throws Exception {
+		System.out.println("Verify Ad View Event For Content played from Megamenu");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForContentInMegamenu(userType);
+	}
+
+	@Test(priority = 8)
+	@Parameters({ "userType", "audioTrackContent" })
+	public void verifyAdViewEventForContentInPlaylist(String userType, String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad View Event For Content played from Playlist");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForContentInPlaylist(userType, audioTrackContent);
+	}
+
+	@Test(priority = 9)
+	@Parameters({ "userType", "audioTrackContent" })
+	public void verifyAdViewEventForContentFromUpnextRail(String userType, String audioTrackContent) throws Exception {
+		System.out.println("Verify Ad View Event For Content played from Upnext rail");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForContentFromUpnextRail(userType, audioTrackContent);
+	}
+
+	@Test(priority = 10)
+	@Parameters({ "userType", "audioTrackURL" })
+	public void verifyAdViewEventForContentFromSharedLink(String userType, String audioTrackURL) throws Exception {
+		System.out.println("Verify Ad View Event For content played from Shared Link");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForContentFromSharedLink(userType, audioTrackURL);
+	}
+	
+	@AfterClass
+	public void tearDown() {
+		Zee5PWAWEBMixPanelBusinessLogic.tearDown();
+	}
+}

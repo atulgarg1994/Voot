@@ -17809,6 +17809,9 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 				"HLS_037: Verify ZEEPLEX  content trailer are played through clicking Trailer CTA of the Zeeplex contents");
 		ScrollToTheElementWEB(PWAHamburgerMenuPage.objTrailer);
 		click(PWAHamburgerMenuPage.objTrailer, "Trailer");
+		if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup")) {
+			click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
+		}
 		waitTime(3000);
 		if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
 			logger.info("Navigated to Consumption Page");
@@ -17823,6 +17826,9 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 				"HLS_038: Verify Rental popup displayed through clicking Rent for INR CTA of the Zeeplex contents");
 		ScrollToTheElementWEB(PWAHamburgerMenuPage.objrentforINR);
 		click(PWAHamburgerMenuPage.objrentforINR, "Rent for INR");
+		if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup")) {
+			click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
+		}
 		if (verifyElementPresent(PWAHamburgerMenuPage.objrentforINRpopup, "Rental Pop Up")) {
 			extent.extentLoggerPass("", "Rental pop Up is displayed");
 			click(PWAHamburgerMenuPage.objrentalpopupclose, "Rental PopUp Close button");

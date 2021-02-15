@@ -16,10 +16,9 @@
 
 	<parameter name="browserType" value="chrome" />
 
-	<parameter name="userType" value="ClubUser" />
+	<parameter name="userType" value="SubscribedUser" />
 
 	<!-- Guest/NonSubscribedUser/SubscribedUser/ClubUser -->
-
 
 	<parameter name="runModule" value="Suite" />
 	
@@ -27,13 +26,11 @@
 
 	<!-- NONSubscribed User -->
 
-	<parameter name="NonsubscribedUserName"
-		value="impact0314@gmail.com" />
+	<parameter name="NonsubscribedUserName" value="impact0314@gmail.com" />
 
 	<parameter name="NonsubscribedPassword" value="" />
 
 	<!-- Subscribed User -->
-
 
 	<parameter name="SubscribedUserName" value="thomas.cutinha1@gmail.com" />
 
@@ -50,8 +47,7 @@
 
 	<parameter name="searchModuleSearchKey" value="Kamali" />
 
-	<parameter name="consumptionsEpisode"
-		value="Digvijay stunned on hearing Sambhashiva" />
+	<parameter name="consumptionsEpisode" value="Digvijay stunned on hearing Sambhashiva" />
 
 	<parameter name="consumptionsShow" value="Gattimela" />
 

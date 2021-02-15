@@ -275,7 +275,8 @@
 						<!-- TestNG suite XML files -->
 						<!-- <suiteXmlFile>${rp.launch}.xml</suiteXmlFile> -->
 						<!-- <suiteXmlFile>pwaSanityWeb.xml</suiteXmlFile> -->
-						<suiteXmlFile>${suiteXmlFile}.xml</suiteXmlFile>
+						<!-- <suiteXmlFile>${suiteXmlFile}.xml</suiteXmlFile> -->
+						<suiteXmlFile>pwaAndroidHLS.xml</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>
 			</plugin>
