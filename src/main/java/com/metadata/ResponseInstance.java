@@ -946,6 +946,73 @@ public class ResponseInstance {
 //		Mixpanel.FEProp.forEach((key, value) -> System.out.println(key + " : " + value));
 	}
 
+	public static Response getResponseDetails(String contentID) {
+
+		Response responseRAW = null;
+		String URI = "https://gwapi.zee5.com/content/details/" + contentID + "?translation=en&country=IN&version=2";
+		responseRAW = given().headers("X-ACCESS-TOKEN", getXAccessTokenAMD()).when().get(URI);
+		System.out.println("\n" + URI);
+		if (responseRAW.statusCode() != 200) {
+			System.out.println(responseRAW.getStatusLine() + " | Content ID: " + contentID);
+		}
+		return responseRAW;
+	}
+
+	public static String getXAccessTokenAMD() {
+		Response respToken = null, respForKey = null;
+		// get APi-KEY
+		String Uri = "https://gwapi.zee5.com/user/getKey?=aaa";
+		respForKey = given().urlEncodingEnabled(false).when().post(Uri);
+		String rawApiKey = respForKey.getBody().asString();
+		String apiKeyInResponse = rawApiKey.substring(0, rawApiKey.indexOf("<br>airtel "));
+		String finalApiKey = apiKeyInResponse.replaceAll("<br>rel - API-KEY : ", "");
+		String UriForToken = "http://gwapi.zee5.com/user/getToken";
+		respToken = given().headers("API-KEY", finalApiKey).when().get(UriForToken);
+		String xAccessToken = respToken.jsonPath().getString("X-ACCESS-TOKEN");
+		return xAccessToken;
+	}
+
+	public static Response getResponseForAppPages(String page, String contLang) {
+		Response respCarousel = null;
+		String Uri = "";
+		if (page.equals("news")) {
+			page = "5857";
+		} else if (page.equals("music")) {
+			page = "2707";
+		} else if (page.equals("home")) {
+			page = "homepage";
+		} else if (page.equals("kids")) {
+			page = "3673";
+		} else if (page.equals("freemovies")) {
+			page = "5011";
+		} else if (page.equals("play")) {
+			page = "4603";
+		} else if (page.equals("zeeoriginals") || page.equals("zee5 originals")) {
+			page = "zeeoriginals";
+		} else if (page.equals("videos")) {
+			page = "videos";
+		} else if (page.equals("movies")) {
+			page = "movies";
+		} else if (page.equals("shows")) {
+			page = "tvshows";
+		} else if (page.equals("premium")) {
+			page = "premiumcontents";
+		} else if (page.equals("club")) {
+			page = "5851";
+		}
+		if (page.equals("stories")) {
+			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
+		} else if (page.equals("live tv")) {
+			Uri = "https://catalogapi.zee5.com/v1/channel/genres?translation=en&country=IN";
+		} else {
+			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page
+					+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages=" + contLang + "&version=10";
+			System.out.println(Uri);
+		}
+		respCarousel = given().headers("X-ACCESS-TOKEN", getXAccessTokenAMD()).when().get(Uri);
+		System.out.println("Response status : " + respCarousel.statusCode());
+		return respCarousel;
+	}
+
 }
 
-//0-0-232924
