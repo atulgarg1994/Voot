@@ -185,6 +185,9 @@ public class Mixpanel extends ExtentReporter {
 			if (distinct_id.contains("-")) {
 				UserID = "Unique ID";
 				UserType = "Login";
+				FEProp.setProperty("Unique ID", distinct_id);
+			}else {
+				FEProp.setProperty("distinct_id", distinct_id);
 			}
 		}
 	

@@ -625,7 +625,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Element", "APPLY");
-			mixpanel.FEProp.setProperty("Success", "true");
+			if(findElements(By.xpath(".//*[@class='applyPromo applyFailure']")).size() != 1) {
+				mixpanel.FEProp.setProperty("Success", "true");
+			}else {
+				mixpanel.FEProp.setProperty("Success", "false");
+			}
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
 			mixpanel.FEProp.setProperty("cost", cost[1]);
@@ -5759,7 +5763,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "N/A");
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
-			mixpanel.FEProp.setProperty("cost", cost[1]);
+			mixpanel.FEProp.setProperty("Cost", cost[1]);
+			mixpanel.FEProp.setProperty("Failure Reason", "AUTHORIZATION_FAILED");
 //			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);

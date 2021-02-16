@@ -1015,20 +1015,22 @@ public class ResponseInstance {
 	
 	public static void subscriptionDetails() {
 		String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";
-		String bearerToken = getBearerToken("zeetest10@test.com", "123456");
-		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
-		System.out.println("Resp ");
-		resp.prettyPrint();
-	}
-	
-	public static void getSubscriptionDetails(String pUsername, String pPassword) {
-		String xAccessToken = getXAccessTokenWithApiKey();
+		String UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+				.getParameter(UserType + "Name");
+		String pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+				.getParameter(UserType + "Password");
 		String bearerToken = getBearerToken(pUsername, pPassword);
-		String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";
-		Response res = null;
-		res = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
-		res.prettyPrint();	
+		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
+		Mixpanel.FEProp.setProperty("pack duration",resp.jsonPath().getString("[0].subscription_plan.billing_frequency")); 
+		String uri = "[0].subscription_plan.";
+		String id = resp.jsonPath().getString(uri+"id");
+		String original_title = resp.jsonPath().getString(uri+"original_title");
+		String subscription_plan_Type = resp.jsonPath().getString(uri+"subscription_plan_type");
+		Mixpanel.FEProp.setProperty("Pack Selected",id+"_"+original_title+"_"+subscription_plan_Type); 
+		Mixpanel.FEProp.setProperty("Cost",resp.jsonPath().getString("[0].subscription_plan.price")); 
 	}
+
 
 }
 
