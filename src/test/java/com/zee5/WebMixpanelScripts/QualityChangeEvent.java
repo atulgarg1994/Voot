@@ -16,11 +16,17 @@ public class QualityChangeEvent {
 		Zee5PWAWEBMixPanelBusinessLogic = new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
 	}
 
+	@Test(priority = 0)
+	@Parameters({ "userType" })
+	public void PWAWEBMixPanelLogin(String userType) throws Exception {
+		System.out.println("Login");
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
+	}
+	
 	@Test(priority = 1)
 	@Parameters({ "keyword1" })
 	public void verifyQualityChangeEvent(String keyword1) throws Exception {
 		System.out.println("Verify Quality Change Event");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyQualityChangeEvent(keyword1);
 	}
 

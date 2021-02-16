@@ -15,13 +15,19 @@ public class AdWatchDurationEvent {
 	public void init() throws Exception {
 		Zee5PWAWEBMixPanelBusinessLogic = new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
 	}
+	
+	@Test(priority = 0)
+	@Parameters({ "userType" })
+	public void PWAWEBMixPanelLogin(String userType) throws Exception {
+		System.out.println("Login");
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
+	}
 
 	@Test(priority = 1)
 	@Parameters({ "userType", "audioTrackContent" })
 	public void verifyAdWatchDurationEventForFreeContentForceExit(String userType, String audioTrackContent)
 			throws Exception {
 		System.out.println("Verify Ad Watch Duration Event when user force quits the ad playback for free content");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAdWatchDurationEventForFreeContentForceExit(userType, audioTrackContent);
 	}
 

@@ -324,5 +324,8 @@ public class PWASubscriptionPages {
 	public static By objMobileWalletsOption = By.xpath("//*[text()='Wallets']");
 	public static By objMobileProceedToPayButton = By.xpath("//*[text()='Proceed to pay']");
 	public static By objPaymentPageProceedBtn = By.xpath("//button[contains(@class,'noSelect buttonGradient')]");
+	
+	public static By objcardDetails = By.xpath(".//*[@placeholder='Enter card number here']//following-sibling::*[@class='imageView']");
+	
 
 }

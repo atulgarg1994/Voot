@@ -15,11 +15,17 @@ public class PauseEvent {
 		Zee5PWAWEBMixPanelBusinessLogic = new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
 	}
 
+	@Test(priority = 0)
+	@Parameters({ "userType" })
+	public void PWAWEBMixPanelLogin(String userType) throws Exception {
+		System.out.println("Login");
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
+	}
+	
 	@Test(priority = 1)
 	@Parameters({ "userType", "keyword4" })
 	public void verifyPauseEventForFreeContent(String userType, String keyword4) throws Exception {
 		System.out.println("Verify Pause Event For Free Content");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForFreeContent(userType, keyword4);
 	}
 

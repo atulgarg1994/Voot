@@ -562,7 +562,6 @@ public class ResponseInstance {
 		String finalApiKey = apiKeyInResponse.replaceAll("<br>rel - API-KEY : ", "");
 		String UriForToken = "http://gwapi.zee5.com/user/getToken";
 		respToken = given().headers("API-KEY", finalApiKey).when().get(UriForToken);
-		System.out.println(respToken.print());
 		String xAccessToken = respToken.jsonPath().getString("X-ACCESS-TOKEN");
 		return xAccessToken;
 	}
@@ -697,7 +696,7 @@ public class ResponseInstance {
 //		getDetailsOfCustomer("zeetest@gmail.com","zee123");
 //		getUserSettingsDetails("","");	
 //		getFreeContent("home", "zee5latest@gmail.com", "User@123");
-		getContentDetails("0-0-232924","originals");
+//		getContentDetails("0-0-232924","originals");
 //		Player("basavaraj.pn5@gmail.com","igsindia123");
 //		getWatchList("basavaraj.pn5@gmail.com","igsindia123");
 //		getUserData("basavaraj.pn5@gmail.com","igsindia123");
@@ -720,8 +719,8 @@ public class ResponseInstance {
 //			}
 //		}
 //		System.out.println(AL);
-		resp = given().headers("x-access-token", "eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJwcm9kdWN0X2NvZGUiOiJ6ZWU1QDk3NSIsInBsYXRmb3JtX2NvZGUiOiJXZWJAJCF0Mzg3MTIiLCJpc3N1ZWRBdCI6IjIwMjEtMDItMDZUMDY6MzA6MDErMDAwMCIsInR0bCI6ODY0MDB9.B3cYAVCh9eO66f8KgyzigthG28q8NVbAVR7HlJ6I5WA").when().post("https://spapi-preprod.zee5.com/singlePlayback/getDetails?content_id=0-0-265644&device_id=WebBrowser&platform_name=desktop_web&translation=en&user_language=en,kn&country=IN&state=KA&app_version=2.49.79&user_type=guest&vms=false&check_parental_control=false&ppid=186e4092b98742ad95579079fa87da80");
-		resp.print();
+		subscriptionDetails();
+//		getSubscriptionDetails("zeetest10@test.com", "123456");
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -1012,6 +1011,23 @@ public class ResponseInstance {
 		respCarousel = given().headers("X-ACCESS-TOKEN", getXAccessTokenAMD()).when().get(Uri);
 		System.out.println("Response status : " + respCarousel.statusCode());
 		return respCarousel;
+	}
+	
+	public static void subscriptionDetails() {
+		String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";
+		String bearerToken = getBearerToken("zeetest10@test.com", "123456");
+		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
+		System.out.println("Resp ");
+		resp.prettyPrint();
+	}
+	
+	public static void getSubscriptionDetails(String pUsername, String pPassword) {
+		String xAccessToken = getXAccessTokenWithApiKey();
+		String bearerToken = getBearerToken(pUsername, pPassword);
+		String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";
+		Response res = null;
+		res = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+		res.prettyPrint();	
 	}
 
 }

@@ -15,13 +15,19 @@ public class SubtitleLanguageChangeEvent {
 	public void init() throws Exception {
 		Zee5PWAWEBMixPanelBusinessLogic = new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
 	}
+	
+	@Test(priority = 0)
+	@Parameters({ "userType" })
+	public void PWAWEBMixPanelLogin(String userType) throws Exception {
+		System.out.println("Login");
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
+	}
 
 	@Test(priority = 1)
 	@Parameters({ "userType", "subtitleTrackContent" })
 	public void verifySubtitleLanguageChangeEventForFreeContent(String userType, String subtitleTrackContent)
 			throws Exception {
 		System.out.println("Verify Subtitle Language Change Event For Free Content");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifySubtitleLanguageChangeEventForFreeContent(userType, subtitleTrackContent);
 	}
 

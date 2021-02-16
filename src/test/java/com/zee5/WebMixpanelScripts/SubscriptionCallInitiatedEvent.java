@@ -6,7 +6,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.business.zee.Zee5PWAWEBMixPanelBusinessLogic;
 
-public class MuteChangedEvent {
+public class SubscriptionCallInitiatedEvent {
 
 	private Zee5PWAWEBMixPanelBusinessLogic Zee5PWAWEBMixPanelBusinessLogic;
 
@@ -23,17 +23,18 @@ public class MuteChangedEvent {
 	}
 
 	@Test(priority = 1)
-	public void verifyMuteChangedEventForNewsContent() throws Exception {
-		System.out.println("Verify Mute Changed Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyMuteChangedEventForNewsContent();
+	@Parameters({ "userType" })
+	public void verifySubscriptionCallInitiatedEvent(String userType) throws Exception {
+		System.out.println("Verify Subscription Call Initiated Event for All access pack");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubscriptionCallInitiatedEvent(userType);
 	}
 
 	@Test(priority = 2)
-	@Parameters({ "keyword1" })
-	public void verifyMuteChangedEventDuringContentPlayback(String keyword1) throws Exception {
-		System.out.println("Verify Mute Changed Event During Content Playback");
+	@Parameters({ "userType" })
+	public void verifySubscriptionCallInitiatedEventClubPack(String userType) throws Exception {
+		System.out.println("Verify Subscription Call Initiated Event for Club pack");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyMuteChangedEventDuringContentPlayback(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifySubscriptionCallInitiatedEventClubPack(userType);
 	}
 
 	@AfterClass

@@ -15,12 +15,18 @@ public class ResumeEvent {
 	public void init() throws Exception {
 		Zee5PWAWEBMixPanelBusinessLogic = new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
 	}
+	
+	@Test(priority = 0)
+	@Parameters({ "userType" })
+	public void PWAWEBMixPanelLogin(String userType) throws Exception {
+		System.out.println("Login");
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
+	}
 
 	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void verifyResumeEventForPremiumContent(String userType) throws Exception {
 		System.out.println("Verify Resume Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForPremiumContent(userType, "Home");
 	}
 

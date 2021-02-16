@@ -16,11 +16,17 @@ public class VideoViewEvent {
 		Zee5PWAWEBMixPanelBusinessLogic = new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
 	}
 	
+	@Test(priority = 0)
+	@Parameters({ "userType" })
+	public void PWAWEBMixPanelLogin(String userType) throws Exception {
+		System.out.println("Login");
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
+	}
+	
 	@Test(priority = 1)
 	@Parameters({ "userType", "keyword4"})
 	public void verifyVideoViewEventForContentFromUpnextRail(String userType,String keyword4) throws Exception {
 		System.out.println("Verify Video View Event for content autoplayed from Upnext rail");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentFromUpnextRail(userType,keyword4);
 	}
 	

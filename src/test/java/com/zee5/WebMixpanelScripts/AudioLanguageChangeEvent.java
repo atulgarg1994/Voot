@@ -15,13 +15,19 @@ public class AudioLanguageChangeEvent {
 	public void init() throws Exception {
 		Zee5PWAWEBMixPanelBusinessLogic = new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
 	}
+	
+	@Test(priority = 0)
+	@Parameters({ "userType" })
+	public void PWAWEBMixPanelLogin(String userType) throws Exception {
+		System.out.println("Login");
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
+	}
 
 	@Test(priority = 1)
 	@Parameters({ "userType", "audioTrackContent" })
 	public void verifyAudioLanguageChangeEventForFreeContent(String userType, String audioTrackContent)
 			throws Exception {
 		System.out.println("Verify Audio Language Change Event For Free Content");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAudioLanguageChangeEventForFreeContent(userType, audioTrackContent);
 	}
 

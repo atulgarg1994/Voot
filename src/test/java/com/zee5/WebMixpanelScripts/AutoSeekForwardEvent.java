@@ -16,11 +16,17 @@ public class AutoSeekForwardEvent {
 		Zee5PWAWEBMixPanelBusinessLogic = new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
 	}
 
+	@Test(priority = 0)
+	@Parameters({ "userType" })
+	public void PWAWEBMixPanelLogin(String userType) throws Exception {
+		System.out.println("Login");
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
+	}
+	
 	@Test(priority = 1)
 	@Parameters({ "userType", "keyword4" })
 	public void verifyAutoSeekForwardEventForFreeContent(String userType, String keyword4) throws Exception {
 		System.out.println("Verify Auto Seek Forward Event For Free Content");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForFreeContent(userType, keyword4);
 	}
 

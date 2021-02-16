@@ -4,9 +4,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
 import com.business.zee.Zee5PWAWEBMixPanelBusinessLogic;
 
-public class MuteChangedEvent {
+public class RegistrationResultEvent {
 
 	private Zee5PWAWEBMixPanelBusinessLogic Zee5PWAWEBMixPanelBusinessLogic;
 
@@ -23,17 +24,11 @@ public class MuteChangedEvent {
 	}
 
 	@Test(priority = 1)
-	public void verifyMuteChangedEventForNewsContent() throws Exception {
-		System.out.println("Verify Mute Changed Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyMuteChangedEventForNewsContent();
-	}
-
-	@Test(priority = 2)
-	@Parameters({ "keyword1" })
-	public void verifyMuteChangedEventDuringContentPlayback(String keyword1) throws Exception {
-		System.out.println("Verify Mute Changed Event During Content Playback");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyMuteChangedEventDuringContentPlayback(keyword1);
+	@Parameters({ "userType" })
+	public void verifyRegistrationResultEventForInvalidCredentials(String userType) throws Exception {
+		System.out.println("Verify Registration Result Event post entering invalid credentials");
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyRegistrationResultEventForInvalidCredentials(userType);
 	}
 
 	@AfterClass

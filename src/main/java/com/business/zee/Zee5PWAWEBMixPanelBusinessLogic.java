@@ -5760,7 +5760,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
 			mixpanel.FEProp.setProperty("cost", cost[1]);
-			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+//			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 			
@@ -5802,6 +5802,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
 			click(PWASubscriptionPages.objEnterCVV, "CVV");
 			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+			String cardDetrails = getWebDriver().findElement(PWASubscriptionPages.objcardDetails).getAttribute("href");
+			mixpanel.FEProp.setProperty("Payment Method", fetchCardDetails(cardDetrails));
 			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
 			getWebDriver().switchTo().defaultContent();
 			waitTime(10000);
@@ -5810,6 +5812,17 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			mixpanel.ValidateParameter(localToken, "Subscription Call Returned");
 		}
+	}
+	
+	public String fetchCardDetails(String cardDetrails) {
+		String contentID = null ;
+		String[] id = cardDetrails.split("/");
+		for (int i = 0; i < id.length; i++) {
+			if(id[i].contains(".png")) {
+				contentID = id[i].replace(".png", "");
+			}
+		}
+		return contentID;
 	}
 
 	public void verifySubscriptionCallInitiatedEvent(String userType) throws Exception {
@@ -5897,7 +5910,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
 			mixpanel.FEProp.setProperty("cost", cost[1]);
-			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+//			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 
@@ -5939,6 +5952,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
 			click(PWASubscriptionPages.objEnterCVV, "CVV");
 			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+			String cardDetrails = getWebDriver().findElement(PWASubscriptionPages.objcardDetails).getAttribute("href");
+			mixpanel.FEProp.setProperty("Payment Method", fetchCardDetails(cardDetrails));
 			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
 			getWebDriver().switchTo().defaultContent();
 			waitTime(10000);
@@ -13519,7 +13534,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	
 	public void pageName() throws Exception {
 		String pageNameTxt = findElement(By.xpath(".//*[@class='noSelect active ']")).getText();
-		System.out.println("   "+pageNameTxt);
 	}
 	
 	public void clickOnTab() throws Exception {
