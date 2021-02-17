@@ -8552,5 +8552,96 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.ValidateParameter("", "App session");
 
 	}
+	
+	
+	public void VerifyUIUXDownloadScreen(String userType) throws Exception {
+		extent.HeaderChildNode("Verify the UI/UX of Download landing screen as "+userType);
+		System.out.println("\nVerify the UI/UX of Download landing screen as "+userType);
+		waitTime(5000);
+		verifyElementExist(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		waitTime(3000);
+		verifyElementExist(AMDDownloadPage.objDwnloadsHeader,"Downloads header at the top on center of the screen");
+		verifyElementExist(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
+		verifyElementExist(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
+		verifyElementExist(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen ");
+		String getPropertyValue = getAttributValue("enabled", AMDDownloadPage.objshowstab);
+		if (getPropertyValue.equalsIgnoreCase("true")) {
+			extent.extentLogger("Shows tab", "Shows tab is by default highlighted");
+			logger.info("Shows tab is by default highlighted");
+		} else {
+			extent.extentLoggerFail("Shows tab", "Shows tab fails to highlight by default");
+			logger.error("Shows tab fails to highlight by default");
+		}
+		
+		verifyElementPresentAndClick(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
+		verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
+		verifyElementPresentAndClick(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
+		verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
+		verifyElementPresentAndClick(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
+		verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
+	
+	}
+	
+	public void VerifyBrowseToDownloadFunctionality(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Browse to Download CTA functionality as "+userType);
+		System.out.println("\nVerify Browse to Download CTA functionality as "+userType);
+		String getSelectedTabName;
+		verifyElementPresentAndClick(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
+		verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn,"Browse to Download CTA under Shows tab");
+		waitTime(3000);
+		getSelectedTabName = getText(AMDHomePage.objSelectedTab);
+		if (getSelectedTabName.equalsIgnoreCase("Shows")) {
+			extent.extentLogger("Shows tab","User is navigated to Shows landing page");
+			logger.info("User is navigated to Shows landing page");
+		} else {
+			extent.extentLoggerFail("Shows tab", "User fails to navigate to Shows landing page and instead displayed : "+getSelectedTabName+" landing screen");
+			logger.error("User fails to navigate to Shows landing page and instead displayed : "+getSelectedTabName+" landing screen");
+		}
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		verifyElementPresentAndClick(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
+		verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn,"Browse to Download CTA under Movies tab");
+		waitTime(3000);
+		getSelectedTabName = getText(AMDHomePage.objSelectedTab);
+		if (getSelectedTabName.equalsIgnoreCase("Movies")){
+			extent.extentLogger("Movies tab", "User is navigated to Movies landing page");
+			logger.info("User is navigated to Movies landing page");
+		} else {
+			extent.extentLoggerFail("Movies tab", "User fails to navigate to Movies landing page and instead displayed : "+getSelectedTabName+" landing screen");
+			logger.error("User fails to navigate to Movies landing page and instead displayed : "+getSelectedTabName+" landing screen");
+		}
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		verifyElementPresentAndClick(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
+		verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn,"Browse to Download CTA under Videos tab");
+		waitTime(3000);
+		getSelectedTabName = getText(AMDHomePage.objSelectedTab);
+		if (getSelectedTabName.equalsIgnoreCase("Videos")) {
+			extent.extentLogger("Videos tab", "User is navigated to videos landing page");
+			logger.info("User is navigated to Videos landing page");
+		} else {
+			extent.extentLoggerFail("Movies tab", "User fails to navigate to Videos landing page and instead displayed : "+getSelectedTabName+" landing screen");
+			logger.error("User fails to navigate to Videos landing page and instead displayed : "+getSelectedTabName+" landing screen");
+		}
+	}
+	
+	public void videoViewEventFromHomePage(String usertype, String tabName) throws Exception {
+		
+		setFEProperty(usertype);
+		String trayName = ResponseInstance.getTrayNameFromPage(tabName);
+		SwipeUntilFindElement(AMDHomePage.objTrayTitle(trayName), "UP");
+		waitTime(3000);
+		click(AMDGenericObjects.objSelectFirstCardFromTrayTitle(trayName), "Content Card");
+		waitTime(5000);
+		
+		String pManufacturer = DeviceDetails.OEM;
+		System.out.println(pManufacturer);
+		mixpanel.FEProp.setProperty("Source", "N/A");
+		mixpanel.FEProp.setProperty("Page Name", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+//		mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
+		mixpanel.FEProp.setProperty("Brand", pManufacturer);
+		
+		mixpanel.ValidateParameter("", "Video View");
+	}
 
 }

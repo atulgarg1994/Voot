@@ -11931,17 +11931,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		extent.HeaderChildNode("Internal Links Validation");
 		waitTime(2000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		JSClick(PWAHamburgerMenuPage.objAboutUsOption, "About Us option");
+		waitTime(2000);
 		verifyElementPresent(PWAHomePage.objAboutUsInFooterSection, "About Us in footer section");
-		// for (int i = 0; i < 6; i++) {
-		// scrollDownWEB();
-		// waitTime(6000);
-		if (checkElementDisplayed(PWAHomePage.objWhatToWatchPopUp, "wondering what to watch pop up")) {
-			checkElementDisplayed(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
-			waitTime(4000);
-			click(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
-			// break;
-		}
-		// }
 		waitTime(2000);
 		JSClick(PWAHomePage.objAboutUsInFooterSection, "About Us in footer section");
 		waitTime(4000);
@@ -11949,17 +11942,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("User is navigated to About Us Screen");
 		}
 		Back(1);
-		scrollDownWEB();
-		// for (int i = 0; i < 6; i++) {
-		// scrollDownWEB();
-		// waitTime(6000);
-		if (checkElementDisplayed(PWAHomePage.objWhatToWatchPopUp, "wondering what to watch pop up")) {
-			checkElementDisplayed(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
-			waitTime(4000);
-			click(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
-			// break;
-		}
-		// }
 		waitTime(5000);
 		verifyElementPresent(PWAHomePage.objHelp, "Help Center in footer section");
 		JSClick(PWAHomePage.objHelp, "Help Center in footer section");
@@ -11972,16 +11954,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		getWebDriver().close();
 		switchToParentWindow();
 		verifyElementPresent(PWAHomePage.objPrivacyPolicyInFooterSection, "Privacy Policy in footer section");
-		scrollDownWEB();
-		if (checkElementDisplayed(PWAHomePage.objWhatToWatchPopUp, "wondering what to watch pop up")) {
-			verifyElementPresentAndClick(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
-		}
 		JSClick(PWAHomePage.objPrivacyPolicyInFooterSection, "Privacy Policy in footer section");
 		if (checkElementDisplayed(PWAHomePage.objPrivacyPolicy, "Privacy Policy screen")) {
 			logger.info("User is navigated to Privacy Policy Screen");
 		}
 		Back(1);
-		scrollDownWEB();
 		verifyElementPresentAndClick(PWAHomePage.objTermsOfUseInfooterSection, "Terms of Use in footer section");
 		if (checkElementDisplayed(PWAHomePage.objTerms, "Terms of Use screen")) {
 			logger.info("User is navigated to Terms of Use Screen");
@@ -17203,6 +17180,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 			extent.extentLoggerFail("Tray is not rotated", "Tray is not rotated");
 		}
 		click(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
+		click(PWAMusicPage.objArrowToNavigateTop, "Back to Top Arrow icon");
 
 		extent.HeaderChildNode(" HLS_113 : Verify View All functionality");
 		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {

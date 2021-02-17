@@ -91,4 +91,8 @@ public class AMDGenericObjects {
 	public static By objBottomNavigation(String tabName) {
 		return By.xpath("//*[@id='bb_bottom_bar_title' and @text='"+tabName+"']");
 	}
+	
+	public static By objSelectFirstCardFromTrayTitle(String text) {
+		return By.xpath("//*[@id='header_primary_text' and contains(text(),\"" + text + "\")]//following::*[@id='item_image']");
+	}
 }
