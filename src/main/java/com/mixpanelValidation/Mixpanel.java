@@ -57,7 +57,7 @@ public class Mixpanel extends ExtentReporter {
 	private static String value;
 	private static String key;
 	static ExtentReporter extent = new ExtentReporter();
-	static String UserID = "$distinct_id";
+	static String UserID = "Unique ID";
 	static String UserType = "guest";
 	static String APIKey;
 	static String Modelname;
@@ -185,9 +185,9 @@ public class Mixpanel extends ExtentReporter {
 			if (distinct_id.contains("-")) {
 				UserID = "Unique ID";
 				UserType = "Login";
-				FEProp.setProperty("Unique ID", distinct_id);
+//				FEProp.setProperty("Unique ID", distinct_id);
 			}else {
-				FEProp.setProperty("distinct_id", distinct_id);
+//				FEProp.setProperty("distinct_id", distinct_id);
 			}
 		}
 	

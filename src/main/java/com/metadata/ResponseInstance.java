@@ -129,7 +129,7 @@ public class ResponseInstance {
 		Response respToken = null, respForKey = null;
 		// get APi-KEY
 		String Uri = "https://gwapi.zee5.com/user/getKey?=aaa";
-		respForKey = given().urlEncodingEnabled(false).when().post(Uri);
+		respForKey = given().urlEncodingEnabled(false).when().get(Uri);
 		String rawApiKey = respForKey.getBody().asString();
 		String apiKeyInResponse = rawApiKey.substring(0, rawApiKey.indexOf("<br>airtel "));
 		String finalApiKey = apiKeyInResponse.replaceAll("<br>rel - API-KEY : ", "");
@@ -556,7 +556,7 @@ public class ResponseInstance {
 		Response respToken = null, respForKey = null;
 		// get APi-KEY
 		String Uri = "https://gwapi.zee5.com/user/getKey?=aaa";
-		respForKey = given().urlEncodingEnabled(false).when().post(Uri);
+		respForKey = given().urlEncodingEnabled(false).when().get(Uri);
 		String rawApiKey = respForKey.getBody().asString();
 		String apiKeyInResponse = rawApiKey.substring(0, rawApiKey.indexOf("<br>airtel "));
 		String finalApiKey = apiKeyInResponse.replaceAll("<br>rel - API-KEY : ", "");
@@ -719,8 +719,13 @@ public class ResponseInstance {
 //			}
 //		}
 //		System.out.println(AL);
-		subscriptionDetails();
+//		subscriptionDetails();
 //		getSubscriptionDetails("zeetest10@test.com", "123456");
+		
+		resp = given().headers("x-access-token", getXAccessToken()).when().get("https://gwapi.zee5.com/content/details/0-0-manual_5dtffmaonrs0?translation=en&country=IN&version=2");
+		resp.prettyPrint();
+		
+//		getTrayNameFromPage("home");
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -796,7 +801,7 @@ public class ResponseInstance {
 	public static String getFreeContent(String tabName, String pUsername, String pPassword) {
 		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
 		String language;
-		String pageName = handler.getproperty(tabName);
+		String pageName = handler.getproperty(tabName.toLowerCase());
 		if (!pUsername.equals("")) {
 			Properties prop = getUserSettingsDetails(pUsername, pPassword);
 			System.out.println(prop.getProperty("content_language"));
@@ -961,7 +966,7 @@ public class ResponseInstance {
 		Response respToken = null, respForKey = null;
 		// get APi-KEY
 		String Uri = "https://gwapi.zee5.com/user/getKey?=aaa";
-		respForKey = given().urlEncodingEnabled(false).when().post(Uri);
+		respForKey = given().urlEncodingEnabled(false).when().get(Uri);
 		String rawApiKey = respForKey.getBody().asString();
 		String apiKeyInResponse = rawApiKey.substring(0, rawApiKey.indexOf("<br>airtel "));
 		String finalApiKey = apiKeyInResponse.replaceAll("<br>rel - API-KEY : ", "");
@@ -1342,5 +1347,70 @@ public static String getTrayNameFromPage(String pTabName) {
 	}
 
 
+	public void getPageResponse(String tabName,String mediaType) {
+		String Uri;
+		Response respCarousel;
+		String userType = null;
+		String q= null;
+		String contLang= null;
+		
+		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
+		String page = handler.getproperty(tabName.toLowerCase());
+		
+		if(page.equals("stories")) {
+			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
+		}else {
+			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page+ "?page="+q+"&limit=5&item_limit=20&country=IN&translation=en&languages="+contLang+"&version=10";
+		}
+		String xAccessToken = getXAccessToken();
+		if (userType.equalsIgnoreCase("Guest")) {
+			respCarousel = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when().get(Uri);
+		} else if (userType.equalsIgnoreCase("SubscribedUser"))
+		{
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+			String bearerToken = getBearerToken(email, password);
+			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser"))
+		{
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
+			String bearerToken = getBearerToken(email, password);
+			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
+		} else {
+			System.out.println("Incorrect user type passed to method");
+		}
+	}
+	
+	public void getContentByMediaType(String mediaType, String content) {
+
+		switch (mediaType) {
+
+		case "carousel":
+			switch (content) {
+			case "freeContent":
+				break;
+
+			case "PremiumContent":
+				break;
+
+			case "trailer":
+				break;
+			}
+			break;
+		case "tray":
+			switch (content) {
+			case "freeContent":
+				break;
+
+			case "PremiumContent":
+				break;
+
+			case "trailer":
+				break;
+			}
+			break;
+		}
+	}
 }
 
