@@ -2,16 +2,17 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Web" parallel="false" thread-count="1">
 
-	 <!-- <parameter name="userType" value="${UserType}"/> 
-	 <parameter name="browserType" value="${BrowserType}"/> 
-	 <parameter name="url" value="${url}" /> -->
+	 <!-- <parameter name="url" value="${url}" />
+	 <parameter name="userType" value="${UserType}"/> 
+		<parameter name="runMode" value="${runMode}"/> 
+		<parameter name="runModule" value="${runModule}"/>
+		 <parameter name="browserType" value="${browserType}"/>  -->
 	 
 	 <parameter name="url" value="prod" />
 	<parameter name="browserType" value="chrome" />
 	<parameter name="userType" value="SubscribedUser" /> <!-- Guest | NonSubscribedUser | SubscribedUser -->
 
 	<parameter name="runModule" value="Suite" />
-
 	<parameter name="runMode" value="Suites" />
 
 	<!-- NONSubscribed User -->

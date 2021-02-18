@@ -250,12 +250,6 @@ public class Mixpanel extends ExtentReporter {
 				String com[] = commaSplit[i].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 				/** Write key value into excel */
 				write(i, com[0].replace("\"", "").replace("$", ""), com[1].replace("\"", "").replace("$", ""));
-//				if( i == 1) {
-//					if(validateEventTriggerTime(com[1].replace("\"", "").replace("$", ""))) {
-//						System.out.println();
-//						break;
-//					}
-//				}
 			}
 		}
 	}

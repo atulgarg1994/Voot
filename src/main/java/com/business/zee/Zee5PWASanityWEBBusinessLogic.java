@@ -16295,10 +16295,17 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 
 		extent.HeaderChildNode("HLS_135 :Verifing that On tapping of 'Right side bottom arrow' user is navigated to top of screen");
 		waitTime(2000);
-		scrollToBottomOfPageWEB();
-		if (checkElementDisplayed(PWAMusicPage.objArrowToNavigateTop, "Arrow icon")) {
-			waitTime(2000);
+		partialScroll();
+		partialScroll();
+		if (verifyElementPresent(PWAMusicPage.objArrowToNavigateTop, "Arrow icon")) {
+			
+			logger.info("Back to Top arrow is displayed");
+			extent.extentLoggerPass("", "Back to Top arrow is displayed");
 			click(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
+			
+		} else {
+			logger.error("Back to Top arrow is not displayed");
+			extent.extentLoggerFail("", "Back to Top arrow is not displayed");
 		}
 		waitTime(3000);
 		extent.HeaderChildNode("HLS_136 :verifying that multiple languages are given to select with apply and reset button");
@@ -17181,7 +17188,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		}
 		click(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
 		click(PWAMusicPage.objArrowToNavigateTop, "Back to Top Arrow icon");
-
+		waitTime(2000);
 		extent.HeaderChildNode(" HLS_113 : Verify View All functionality");
 		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
 			click(PWAPremiumPage.objViewAllBtn, "View All Button");
@@ -17788,7 +17795,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		ScrollToTheElementWEB(PWAHamburgerMenuPage.objTrailer);
 		click(PWAHamburgerMenuPage.objTrailer, "Trailer");
 		if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup")) {
-			click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
+			JSClick(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
 		}
 		waitTime(3000);
 		if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
@@ -17805,7 +17812,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		ScrollToTheElementWEB(PWAHamburgerMenuPage.objrentforINR);
 		click(PWAHamburgerMenuPage.objrentforINR, "Rent for INR");
 		if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup")) {
-			click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
+			JSClick(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
 		}
 		if (verifyElementPresent(PWAHamburgerMenuPage.objrentforINRpopup, "Rental Pop Up")) {
 			extent.extentLoggerPass("", "Rental pop Up is displayed");

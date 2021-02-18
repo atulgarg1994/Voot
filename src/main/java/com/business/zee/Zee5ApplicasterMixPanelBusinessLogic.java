@@ -125,9 +125,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		getDriver().quit();
 		relaunch = clearData;
 		new Zee5ApplicasterBusinessLogic("zee");
-		accessDeviceLocationPopUp("Allow", userType);
-		navigateToIntroScreen_DisplaylangScreen();
-		ZeeApplicasterLogin(userType);
+		if(userType!="Guest"  & clearData==false) {
+			System.out.println("Navigates to Landing Sccreen..");
+		}else {
+			accessDeviceLocationPopUp("Allow", userType);
+			navigateToIntroScreen_DisplaylangScreen();
+			ZeeApplicasterLogin(userType);
+		}
 	}
 
 	/**
@@ -8625,14 +8629,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	}
 	
 	public void videoViewEventFromHomePage(String usertype, String tabName) throws Exception {
-		
+
 		setFEProperty(usertype);
 		String trayName = ResponseInstance.getTrayNameFromPage(tabName);
 		SwipeUntilFindElement(AMDHomePage.objTrayTitle(trayName), "UP");
 		waitTime(3000);
 		click(AMDGenericObjects.objSelectFirstCardFromTrayTitle(trayName), "Content Card");
 		waitTime(5000);
-		
+
 		String pManufacturer = DeviceDetails.OEM;
 		System.out.println(pManufacturer);
 		mixpanel.FEProp.setProperty("Source", "N/A");
@@ -8640,8 +8644,145 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 //		mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
 		mixpanel.FEProp.setProperty("Brand", pManufacturer);
-		
+
 		mixpanel.ValidateParameter("", "Video View");
 	}
 
+	public static String getSource(String tabName) {
+
+		String pSource = "N/A";
+		switch (tabName.toLowerCase()) {
+		case "home":
+			pSource = "N/A";
+			break;
+
+		case "shows":
+			pSource = "home";
+			break;
+
+		case "movies":
+			pSource = "home";
+			break;
+
+		case "premium":
+			pSource = "home";
+			break;
+
+		case "news":
+			pSource = "home";
+			break;
+
+		case "club":
+			pSource = "news";
+			break;
+
+		case "kids":
+			pSource = "premium";
+			break;
+
+		case "music":
+			pSource = "kids";
+			break;
+
+		case "live tv":
+			pSource = "music";
+			break;
+
+		case "zeeoriginals":
+			pSource = "livetv";
+			break;
+
+		case "zee5 originals":
+			pSource = "livetv";
+			break;
+
+		}
+		return pSource;
+	}
+
+	public static String getPageName(String tabName) {
+
+		String pPageName = "N/A";
+		switch (tabName.toLowerCase()) {
+		case "home":
+			pPageName = "home";
+			break;
+
+		case "shows":
+			pPageName = "tvshows";
+			break;
+
+		case "movies":
+			pPageName = "movies";
+			break;
+
+		case "premium":
+			pPageName = "premium";
+			break;
+
+		case "music":
+			pPageName = "music";
+			break;
+
+		case "kids":
+			pPageName = "kids";
+			break;
+
+		case "news":
+			pPageName = "news";
+			break;
+
+		case "club":
+			pPageName = "premium";
+			break;
+
+		case "zeeoriginals":
+			pPageName = "originals";
+			break;
+
+		case "zee5 originals":
+			pPageName = "originals";
+			break;
+
+		case "live tv":
+			pPageName = "livetv";
+			break;
+
+		default:
+			pPageName = "home";
+			break;
+		}
+		return pPageName;
+	}
+
+	public void videoViewEventFromTopNavigationPage(String usertype, String tabName) throws Exception {
+
+		setFEProperty(usertype);
+		waitForElementDisplayed(AMDHomePage.objTitle, 20);
+		SelectTopNavigationTab(tabName);
+		String trayName = ResponseInstance.getTrayNameFromPage(tabName);
+		SwipeUntilFindElement(AMDHomePage.objTrayTitle(trayName), "UP");
+		waitTime(5000);
+		click(AMDGenericObjects.objSelectFirstCardFromTrayTitle(trayName), "Content Card");
+		waitForAdToFinishInAmd();
+		waitTime(5000);
+
+		if (usertype.equalsIgnoreCase("SubscribedUser")) {
+			ResponseInstance.subscriptionDetails();
+		}
+		String pPage = getPageName(tabName);
+		String pSource = getSource(tabName);
+		String pManufacturer = DeviceDetails.OEM;
+
+		mixpanel.FEProp.setProperty("Source", pSource);
+		mixpanel.FEProp.setProperty("Page Name", pPage);
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
+		mixpanel.FEProp.setProperty("Brand", pManufacturer);
+
+		mixpanel.ValidateParameter("", "Video View");
+	}
+
+	
+	
 }

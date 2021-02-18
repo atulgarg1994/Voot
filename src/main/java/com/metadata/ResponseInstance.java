@@ -721,11 +721,10 @@ public class ResponseInstance {
 //		System.out.println(AL);
 //		subscriptionDetails();
 //		getSubscriptionDetails("zeetest10@test.com", "123456");
-		
-		resp = given().headers("x-access-token", getXAccessToken()).when().get("https://gwapi.zee5.com/content/details/0-0-manual_5dtffmaonrs0?translation=en&country=IN&version=2");
-		resp.prettyPrint();
-		
+//		resp = given().headers("x-access-token", getXAccessToken()).when().get("https://gwapi.zee5.com/content/details/0-0-manual_5dtffmaonrs0?translation=en&country=IN&version=2");
+//		resp.prettyPrint();
 //		getTrayNameFromPage("home");
+		getPageResponse("home","premium_downloadable");
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -1051,10 +1050,10 @@ public class ResponseInstance {
 public static String getTrayNameFromPage(String pTabName) {
 		
 		String tabName = pTabName;
-		resp=ResponseInstance.getResponseForAppPages(tabName,"en,hi,kn");
+		resp=ResponseInstance.getResponseForAppPages(tabName,"en,kn");
 		System.out.println(resp.toString());
 		
-		String assettype="",contentID="",contentName="",pTrayName="";
+		String assettype="",contentID="",contentName="",pTrayName="",topCatogery="";
 		if(tabName.equalsIgnoreCase("live tv")) {
 			pTrayName = resp.jsonPath().get("genres[0].value");
 			System.out.println(pTrayName);
@@ -1065,9 +1064,12 @@ public static String getTrayNameFromPage(String pTabName) {
 				if (assettype.equals("0") || assettype.equals("1")) {
 					contentID = resp.jsonPath().get("buckets[" + i + "].items[0].id").toString();
 					contentName = resp.jsonPath().get("buckets[" + i + "].items[0].title").toString();
+					topCatogery = resp.jsonPath().get("buckets[" + i + "].items[0].asset_subtype").toString();
+					
 					System.out.println("\nTrayName: " + pTrayName);
 					System.out.println("ContentID: " + contentID);
 					System.out.println("ContentName: " + contentName);
+					System.out.println("Top Category: " + topCatogery);
 					System.out.println("Vertical Index: " + i);
 					break;
 				}
@@ -1186,6 +1188,7 @@ public static String getTrayNameFromPage(String pTabName) {
 				System.out.println(pContentBillingType);
 				System.out.println("AssetType : " +assetType);
 				System.out.println(onAir);
+				System.out.println(topCatogery);
 
 				// ----- Mix Panel Content Parameters Validation ------
 				Mixpanel.FEProp.setProperty("Audio Language", pAudioLangguage);
@@ -1204,6 +1207,8 @@ public static String getTrayNameFromPage(String pTabName) {
 				Mixpanel.FEProp.setProperty("Image URL", pImgURL);
 				Mixpanel.FEProp.setProperty("Publishing Date", pPublishedDate);
 				Mixpanel.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);
+				Mixpanel.FEProp.setProperty("Top Category", topCatogery);
+				
 
 			} else {
 				int getDuration = contentResp.jsonPath().get("duration");
@@ -1305,6 +1310,7 @@ public static String getTrayNameFromPage(String pTabName) {
 				System.out.println(pContentBillingType);
 				System.out.println("AssetType : " + assetType);
 				System.out.println(onAir);
+				System.out.println(topCatogery);
 
 				// ----- Mix Panel Content Parameters Validation ------
 				Mixpanel.FEProp.setProperty("Audio Language", pAudioLangguage);
@@ -1323,6 +1329,7 @@ public static String getTrayNameFromPage(String pTabName) {
 				Mixpanel.FEProp.setProperty("Image URL", pImgURL);
 				Mixpanel.FEProp.setProperty("Publishing Date", pPublishedDate);
 				Mixpanel.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);
+				Mixpanel.FEProp.setProperty("Top Category", topCatogery);
 			}	
 		}
 		return pTrayName;
@@ -1347,22 +1354,22 @@ public static String getTrayNameFromPage(String pTabName) {
 	}
 
 
-	public void getPageResponse(String tabName,String mediaType) {
+	public static void getPageResponse(String tabName,String typeOfContent) {
 		String Uri;
-		Response respCarousel;
-		String userType = null;
+		Response respCarousel = null;
+		String userType = "Guest";
 		String q= null;
-		String contLang= null;
+		String contLang= "en,kn";
 		
 		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
 		String page = handler.getproperty(tabName.toLowerCase());
-		
+		title:for (int i = 1; i < 5; i++) {
 		if(page.equals("stories")) {
 			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
 		}else {
-			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page+ "?page="+q+"&limit=5&item_limit=20&country=IN&translation=en&languages="+contLang+"&version=10";
+			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page+ "?page="+i+"&limit=5&item_limit=20&country=IN&translation=en&languages="+contLang+"&version=10";
 		}
-		String xAccessToken = getXAccessToken();
+		String xAccessToken = getXAccessTokenWithApiKey();
 		if (userType.equalsIgnoreCase("Guest")) {
 			respCarousel = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when().get(Uri);
 		} else if (userType.equalsIgnoreCase("SubscribedUser"))
@@ -1379,6 +1386,43 @@ public static String getTrayNameFromPage(String pTabName) {
 			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
 		} else {
 			System.out.println("Incorrect user type passed to method");
+		}
+		
+		if(typeOfContent.equalsIgnoreCase("FreeContent")) {
+			int bucketSize = respCarousel.jsonPath().getList("buckets").size();
+			for (int j = 0; j < bucketSize; j++) {
+				int itemsSize = respCarousel.jsonPath().getList("buckets["+j+"].items").size();
+				for (int k = 0; k < itemsSize; k++) {
+					if(respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].business_type").contains("free")) {
+						System.out.println("title : "+respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].title"));
+						break title;
+					}
+				}
+			}
+		}else if(typeOfContent.equalsIgnoreCase("premium_downloadable")){
+			int bucketSize = respCarousel.jsonPath().getList("buckets").size();
+			for (int j = 0; j < bucketSize; j++) {
+				int itemsSize = respCarousel.jsonPath().getList("buckets["+j+"].items").size();
+				for (int k = 0; k < itemsSize; k++) {
+					if(respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].business_type").contains("premium_downloadable")) {
+						System.out.println("title : "+respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].title"));
+						break title;
+					}
+				}
+			}
+		}else if(typeOfContent.equalsIgnoreCase("trailer")){
+			int bucketSize = respCarousel.jsonPath().getList("buckets").size();
+			for (int j = 0; j < bucketSize; j++) {
+				int itemsSize = respCarousel.jsonPath().getList("buckets["+j+"].items").size();
+				for (int k = 0; k < itemsSize; k++) {
+					if(respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].business_type").contains("premium_downloadable")) {
+						System.out.println("title : "+respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].title"));
+						break title;
+					}
+				}
+			}
+		}
+//		respCarousel.prettyPrint();
 		}
 	}
 	
@@ -1411,6 +1455,7 @@ public static String getTrayNameFromPage(String pTabName) {
 			}
 			break;
 		}
+		
 	}
 }
 
