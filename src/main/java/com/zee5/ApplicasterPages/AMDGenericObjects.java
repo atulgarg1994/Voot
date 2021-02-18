@@ -93,6 +93,6 @@ public class AMDGenericObjects {
 	}
 	
 	public static By objSelectFirstCardFromTrayTitle(String text) {
-		return By.xpath("//*[@id='header_primary_text' and contains(text(),\"" + text + "\")]//following::*[@id='item_image']");
+		return By.xpath("(//*[@id='header_primary_text' and contains(text(),\"" + text + "\")]//following::*[@id='item_image'])[1]");
 	}
 }

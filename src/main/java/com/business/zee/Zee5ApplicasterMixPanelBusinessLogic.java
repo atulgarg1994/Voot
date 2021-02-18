@@ -8437,19 +8437,32 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (!(pUserType.equalsIgnoreCase("Guest"))) {
 			Properties pro = new Properties();
 			pro = ResponseInstance.getUserSettingsDetails(Username,Password);
+			String value = pro.getProperty("eduauraaClaimed");
+			if(value.equalsIgnoreCase("Empty")) {
+				value="false";
+			}
+			
 			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", pro.getProperty("streaming_quality"));
 			mixpanel.FEProp.setProperty("New Autoplay Setting", pro.getProperty("auto_play"));
 			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", pro.getProperty("stream_over_wifi"));
 			mixpanel.FEProp.setProperty("New Download Quality Setting",pro.getProperty("download_quality"));
 			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", pro.getProperty("download_over_wifi"));
+			mixpanel.FEProp.setProperty("New App Language", pro.getProperty("display_language"));
+			mixpanel.FEProp.setProperty("New Content Language", pro.getProperty("content_language"));
+			mixpanel.FEProp.setProperty("hasEduauraa", value);
+			mixpanel.FEProp.setProperty("isEduauraa", value);
+			mixpanel.FEProp.setProperty("Gender", ResponseInstance.getUserData(Username,Password).getProperty("gender"));
 		} else {
 			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
 			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "false");
 			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
 			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
+			mixpanel.FEProp.setProperty("New App Language", "en");
+			mixpanel.FEProp.setProperty("New Content Language", "en,kn");
 		}
 	}
+
 
 	public void VerifyFirstAppLaunchEvent(String usertype) throws Exception {
 		if(usertype.equalsIgnoreCase("Guest")) {
@@ -8783,6 +8796,33 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.ValidateParameter("", "Video View");
 	}
 
-	
+	public void ResumeEventForTrayContent(String usertype, String tabName, String AdvertisementID) throws Exception {
+		extent.HeaderChildNode("Resume Event for Tray content of "+tabName);
+
+		String trayName = ResponseInstance.getTrayNameFromPage(tabName);
+		waitTime(10000);
+		SwipeUntilFindElement(AMDHomePage.objTrayTitle(trayName), "UP");
+		waitTime(3000);
+		click(AMDGenericObjects.objSelectFirstCardFromTrayTitle(trayName), "Content Card");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+
+		setFEProperty(usertype);
+    	if(usertype.equalsIgnoreCase("SubscribedUser")) {
+    		ResponseInstance.subscriptionDetails();
+    	}
+		String pManufacturer = DeviceDetails.OEM;
+		System.out.println(pManufacturer);
+		
+		mixpanel.FEProp.setProperty("Source", "N/A");
+		mixpanel.FEProp.setProperty("Page Name", "home");
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Brand", pManufacturer);
+		mixpanel.FEProp.setProperty("Advertisement ID", AdvertisementID);
+		
+		
+		mixpanel.ValidateParameter("", "Resume");
+    }
 	
 }

@@ -757,7 +757,7 @@ public class ResponseInstance {
 	}
 
 	@SuppressWarnings("unused")
-	public static void getUserData(String pUsername,String pPassword) {
+	public static Properties getUserData(String pUsername,String pPassword) {
 		String[] userData = { "email", "first_name", "last_name", "birthday", "gender", "registration_country",
 				"recurring_enabled" };
 		Properties pro = new Properties();
@@ -765,17 +765,21 @@ public class ResponseInstance {
 		String bearerToken = getBearerToken(pUsername, pPassword);
 		String url = "https://userapi.zee5.com/v1/user";
 		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
-		resp.print();
+//		resp.prettyPrint();
 		String commaSplit[] = resp.asString().replace("{", "").replace("}", "").replaceAll("[.,](?=[^\\[]*\\])", "-")
 				.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 		for (int i = 0; i < commaSplit.length; i++) {
 			if (Stream.of(userData).anyMatch(commaSplit[i]::contains)) {
 				String com[] = commaSplit[i].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 				Mixpanel.FEProp.setProperty(com[0].replace("\"", ""), com[1].replace("\"", ""));
+				pro.setProperty(com[0].replace("\"", ""), com[1].replace("\"", ""));
 			}
 		}
+		pro.forEach((key, value) -> System.out.println(key + " : " + value));
 		getDOB();
 		Mixpanel.fetchUserdata = true;
+		
+		return pro;
 	}
 	
 	private static void getDOB() {
