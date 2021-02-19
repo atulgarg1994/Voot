@@ -18,10 +18,10 @@ public class PWA_Web_Player {
 
 	@Test
 	public void checkPageName() throws Exception {
-		Zee5PWAWEBMixPanelBusinessLogic.clickOnTab();
+		Zee5PWAWEBMixPanelBusinessLogic.clickOnCarousel("Shows","free");
 	}
 
-	@Test(priority = 1)
+//	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void PWAWEBMixPanelLogin(String userType) throws Exception {
 		System.out.println("Login");

@@ -255,7 +255,8 @@ public class PWAPlayerPage {
 			.xpath("//div[@class='playkit-playback-controls']//i[contains(@class,'playkit-icon-pause')]");
 	public static By objWouldYouLikeClosePopup = By
 			.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
-	public static By objWebZeeLogo = By.xpath("//div[@class='zeeLogo noSelect']//child::*");
+	public static By objWebZeeLogo = By.xpath("//*[@class='zeeLogo noSelect']//child::*");
+
 	public static By objZeeLogo = By.xpath("//div[@class='zeeLogo noSelect']");
 	public static By objSpinner = By.xpath(".//*[@class='playkit-spinner']");
 	public static By objContentTitleInConsumptionPage = By.xpath("//div[@class='consumptionMetaDiv']//h1");

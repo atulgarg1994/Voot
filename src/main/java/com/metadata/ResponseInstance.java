@@ -724,7 +724,7 @@ public class ResponseInstance {
 //		resp = given().headers("x-access-token", getXAccessToken()).when().get("https://gwapi.zee5.com/content/details/0-0-manual_5dtffmaonrs0?translation=en&country=IN&version=2");
 //		resp.prettyPrint();
 //		getTrayNameFromPage("home");
-		getPageResponse("home","premium_downloadable");
+		System.out.println(getPageResponse("home","free"));
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -756,7 +756,6 @@ public class ResponseInstance {
 		return pro;
 	}
 
-	@SuppressWarnings("unused")
 	public static Properties getUserData(String pUsername,String pPassword) {
 		String[] userData = { "email", "first_name", "last_name", "birthday", "gender", "registration_country",
 				"recurring_enabled" };
@@ -876,7 +875,7 @@ public class ResponseInstance {
 		Mixpanel.FEProp.setProperty("Content Name", resp.jsonPath().getString("original_title"));
 		Mixpanel.FEProp.setProperty("Content Specification", resp.jsonPath().getString("asset_subtype"));
 		Mixpanel.FEProp.setProperty("Characters",resp.jsonPath().getList("actors").toString().replaceAll(",","-").replaceAll("\\s", ""));
-		Mixpanel.FEProp.setProperty("Audio Language",resp.jsonPath().getList("audio_languages").toString().replace("[", "").replace("]", ""));
+//		Mixpanel.FEProp.setProperty("Audio Language",resp.jsonPath().getList("audio_languages").toString().replace("[", "").replace("]", ""));
 		Mixpanel.FEProp.setProperty("Subtitle Language", resp.jsonPath().getString("subtitle_languages").toString());
 		Mixpanel.FEProp.setProperty("Content Type",resp.jsonPath().getString("business_type"));
 		Mixpanel.FEProp.setProperty("Genre",resp.jsonPath().getList("genre.id").toString().replaceAll(",","-").replaceAll("\\s", ""));
@@ -979,7 +978,7 @@ public class ResponseInstance {
 		return xAccessToken;
 	}
 
-	public static Response getResponseForAppPages(String page, String contLang) {
+	public static Response getResponseForAppPages(String page, String contLang,String pUserType) {
 		Response respCarousel = null;
 		String Url = "";
 		switch (page.toLowerCase()) {
@@ -1024,11 +1023,11 @@ public class ResponseInstance {
 				break;
 				
 			case "zeeoriginals":
-				page = "5851";
+				page = "zeeoriginals";
 				break;
 				
 			case "zee5 originals":
-				page = "5851";
+				page = "zeeoriginals";
 				break;
 					
 			case "live tv":
@@ -1051,16 +1050,41 @@ public class ResponseInstance {
 		return respCarousel;
 	}
 	
-public static String getTrayNameFromPage(String pTabName) {
+	public static String getTrayNameFromPage(String pTabName, String UserType) {
 		
 		String tabName = pTabName;
-		resp=ResponseInstance.getResponseForAppPages(tabName,"en,kn");
+		String pUserType = UserType;
+		String assettype="",contentID="",contentName="",pTrayName="",setContentType = "0";
+		
+		String pContentLang = getContentLanguageForAppMixpanel(pUserType);
+		System.out.println("CONTENT LANG: "+pContentLang);
+		
+		resp=ResponseInstance.getResponseForAppPages(tabName,pContentLang,pUserType);
 		System.out.println(resp.toString());
 		
-		String assettype="",contentID="",contentName="",pTrayName="",topCatogery="";
-		if(tabName.equalsIgnoreCase("live tv")) {
+		if(tabName.equalsIgnoreCase("club")) {
+			setContentType = "1";
+		}else if(tabName.equalsIgnoreCase("ZEE5 Originals")|| tabName.equalsIgnoreCase("ZEEOriginals")) {
+			setContentType = "6";
+		}
+
+		if(tabName.equalsIgnoreCase("live tv") || tabName.equalsIgnoreCase("livetv")) {
 			pTrayName = resp.jsonPath().get("genres[0].value");
 			System.out.println(pTrayName);
+		}else if(tabName.equalsIgnoreCase("premium")|| tabName.equalsIgnoreCase("club") ||tabName.equalsIgnoreCase("ZEE5 Originals")|| tabName.equalsIgnoreCase("ZEEOriginals") ){
+			for (int i = 1; i < 5; i++) {
+				assettype = resp.jsonPath().get("buckets[" + i + "].items[0].asset_type").toString();
+				pTrayName = resp.jsonPath().get("buckets[" + i + "].title").toString();
+				if (assettype.equals(setContentType)) {
+					contentID = resp.jsonPath().get("buckets[" + i + "].items[0].id").toString();
+					contentName = resp.jsonPath().get("buckets[" + i + "].items[0].title").toString();
+					
+					System.out.println("\nTrayName: " + pTrayName);
+					System.out.println("ContentID: " + contentID);
+					System.out.println("ContentName: " + contentName);
+					break;
+				}
+			}	
 		}else {
 			for (int i = 1; i < 5; i++) {
 				assettype = resp.jsonPath().get("buckets[" + i + "].items[0].asset_type").toString();
@@ -1068,275 +1092,323 @@ public static String getTrayNameFromPage(String pTabName) {
 				if (assettype.equals("0") || assettype.equals("1")) {
 					contentID = resp.jsonPath().get("buckets[" + i + "].items[0].id").toString();
 					contentName = resp.jsonPath().get("buckets[" + i + "].items[0].title").toString();
-					topCatogery = resp.jsonPath().get("buckets[" + i + "].items[0].asset_subtype").toString();
 					
 					System.out.println("\nTrayName: " + pTrayName);
 					System.out.println("ContentID: " + contentID);
 					System.out.println("ContentName: " + contentName);
-					System.out.println("Top Category: " + topCatogery);
-					System.out.println("Vertical Index: " + i);
 					break;
 				}
 			}
-
-			Response contentResp = null, subContentResp = null;
-			contentResp = getResponseDetails(contentID);
-			System.out.println("RESPONSE StatusCode: " + contentResp.statusCode());
-
-			int relatedNodelength = contentResp.jsonPath().getList("related").size();
-			System.out.println("Related Node: " + relatedNodelength);
-			String newContentId = null;
-			String pCharacters = null;
-			if (relatedNodelength >= 1) {
-				newContentId = contentResp.jsonPath().get("related[0].id");
-				System.out.println("Related Node is Present | contentID: " + newContentId);
-				subContentResp = getResponseDetails(newContentId);
-				System.out.println("RESPONSE StatusCode: " + subContentResp.statusCode());
-
-				String pOriginalTitle = subContentResp.jsonPath().get("original_title");
-				int contentDuration = subContentResp.jsonPath().get("duration");
-				String pDuration = Integer.toString(contentDuration);
-				String onAir = subContentResp.jsonPath().get("on_air");
-				String pBussinessType = subContentResp.jsonPath().get("business_type");
-				String pImgURL = subContentResp.jsonPath().get("image_url");
-				int assetType = subContentResp.jsonPath().get("asset_type");
-				String pContentSpecification = subContentResp.jsonPath().get("asset_subtype");
-				int episode = subContentResp.jsonPath().get("episode_number");
-				String pEpisodeNum = Integer.toString(episode);
-				String release_date = subContentResp.jsonPath().get("release_date").toString();
-				String pPublishedDate = release_date.replace(release_date.substring(10), "");
-				String pContentBillingType = subContentResp.jsonPath().get("billing_type");
-				if (pContentBillingType.length() == 0) {
-					pContentBillingType = "N/A";
-				}
-
-				int languageCount = subContentResp.jsonPath().getList("languages").size();
-				String pLanguages = null;
-				if (languageCount > 1) {
-					System.out.println("MULTIPLE LANGUAGES");
-				} else if (languageCount == 1) {
-					pLanguages = subContentResp.jsonPath().get("languages[0]");
-				} else {
-					System.out.println("Original Languages is Empty");
-				}
-
-				int audioLangCount = subContentResp.jsonPath().getList("audio_languages").size();
-				String pAudioLangguage = null;
-				if (audioLangCount > 1) {
-					System.out.println("AUDIO LANGUAGES");
-				} else if (audioLangCount == 1) {
-					pAudioLangguage = subContentResp.jsonPath().get("audio_languages[0]");
-				} else {
-					pAudioLangguage = "N/A";
-					System.out.println("Audio Language is Empty");
-				}
-
-				int subTitleLangCount = subContentResp.jsonPath().getList("subtitle_languages").size();
-				String pSubTitleLangguage = null;
-				if (subTitleLangCount > 1) {
-					System.out.println("SUBTITLE LANGUAGES");
-				} else if (subTitleLangCount == 1) {
-					pSubTitleLangguage = subContentResp.jsonPath().get("subtitle_languages[0]");
-				} else {
-					System.out.println("Subtitle Language is Empty");
-					pSubTitleLangguage = "N/A";
-				}
-
-				int genreCount = subContentResp.jsonPath().getList("genres").size();
-				String pGenre = null;
-				for (int i = 0; i < genreCount; i++) {
-					if (genreCount == 1) {
-						pGenre = subContentResp.jsonPath().get("genre[" + i + "].value");
-					} else {
-						pGenre = pGenre + " - " + subContentResp.jsonPath().get("genre[" + i + "].value");
-					}
-				}
-				pGenre = pGenre.replace("null - ", "");
-
-				int actorsCount = subContentResp.jsonPath().getList("actors").size();
-				ArrayList<String> getCharacters = new ArrayList<String>();
-				if (actorsCount >= 1) {
-					for (int j = 0; j < actorsCount; j++) {
-						getCharacters.add(subContentResp.jsonPath().get("actors[" + j + "]").toString());
-					}
-					pCharacters = getCharacters.toString();
-				} else if (tabName.equalsIgnoreCase("Live TV") | tabName.equalsIgnoreCase("Livetv")) {
-					getCharacters.add("N/A");
-					pCharacters = getCharacters.toString().replace("[", "").replace("]", "");
-				} else {
-					pCharacters = getCharacters.toString();
-				}
-
-				int isDRM = subContentResp.jsonPath().get("is_drm");
-				String pDRM_Video = "false";
-				if (isDRM == 1) {
-					pDRM_Video = "true";
-				}
-
-				System.out.println("\n--PRINTING VALIDATION PARAMETERS--");
-				System.out.println(pTrayName);
-				System.out.println(newContentId);
-				System.out.println(pOriginalTitle);
-				System.out.println(pDuration);
-				System.out.println(pBussinessType);
-				System.out.println(pGenre);
-				System.out.println(pContentSpecification);
-				System.out.println(pEpisodeNum);
-				System.out.println(pPublishedDate);
-				System.out.println(pLanguages);
-				System.out.println(pAudioLangguage);
-				System.out.println(pSubTitleLangguage);
-				System.out.println(pCharacters);
-				System.out.println(pDRM_Video);
-				System.out.println(pImgURL);
-				System.out.println(pContentBillingType);
-				System.out.println("AssetType : " +assetType);
-				System.out.println(onAir);
-				System.out.println(topCatogery);
-
-				// ----- Mix Panel Content Parameters Validation ------
-				Mixpanel.FEProp.setProperty("Audio Language", pAudioLangguage);
-				Mixpanel.FEProp.setProperty("Carousal Name", pTrayName);
-				Mixpanel.FEProp.setProperty("Content ID", newContentId);
-				Mixpanel.FEProp.setProperty("Content Name", pOriginalTitle);
-				Mixpanel.FEProp.setProperty("Content Duration", pDuration);
-				Mixpanel.FEProp.setProperty("Content Type", pBussinessType);
-				Mixpanel.FEProp.setProperty("Content Specification", pContentSpecification);
-				Mixpanel.FEProp.setProperty("Content Original Language", pLanguages);
-				Mixpanel.FEProp.setProperty("Characters", pCharacters.toString());
-				Mixpanel.FEProp.setProperty("Content Billing Type", pContentBillingType);
-				Mixpanel.FEProp.setProperty("DRM Video", pDRM_Video);
-				Mixpanel.FEProp.setProperty("Episode No", pEpisodeNum);
-				Mixpanel.FEProp.setProperty("Genre", pGenre);
-				Mixpanel.FEProp.setProperty("Image URL", pImgURL);
-				Mixpanel.FEProp.setProperty("Publishing Date", pPublishedDate);
-				Mixpanel.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);
-				Mixpanel.FEProp.setProperty("Top Category", topCatogery);
-				
-
-			} else {
-				int getDuration = contentResp.jsonPath().get("duration");
-				String pDuration = Integer.toString(getDuration);
-				String onAir = contentResp.jsonPath().get("on_air");
-				String pBusinessType = contentResp.jsonPath().get("business_type");
-				int assetType = contentResp.jsonPath().get("asset_type");
-				String pAssetSubType = contentResp.jsonPath().get("asset_subtype");
-				String pImgURL = contentResp.jsonPath().get("image_url");
-				int getEpisodeNumber = contentResp.jsonPath().get("episode_number");
-				String pEpisodeNumber = Integer.toString(getEpisodeNumber);
-				String pTitle = contentResp.jsonPath().get("title");
-				String releaseDate = contentResp.jsonPath().get("release_date").toString();
-				String pPublishedDate = releaseDate.replace(releaseDate.substring(10), "");
-				String pContentBillingType = contentResp.jsonPath().get("billing_type");
-				if (pContentBillingType.length() == 0) {
-					pContentBillingType = "N/A";
-				}
-
-				int languageCount = contentResp.jsonPath().getList("languages").size();
-				String pLanguages = null;
-				if (languageCount > 1) {
-					System.out.println("MULTIPLE LANGUAGES");
-				} else if (languageCount == 1) {
-					pLanguages = contentResp.jsonPath().get("languages[0]");
-				} else {
-					System.out.println("Original Languages is Empty");
-				}
-
-				int genreSize = contentResp.jsonPath().getList("genre").size();
-				String pGenre = null;
-				for (int i = 0; i < genreSize; i++) {
-					if (genreSize == 1) {
-						pGenre = contentResp.jsonPath().get("genre[" + i + "].value");
-					} else {
-						pGenre = pGenre + " - " + contentResp.jsonPath().get("genre[" + i + "].value");
-					}
-				}
-				pGenre = pGenre.replace("null - ", "");
-
-				int audioLangCount = contentResp.jsonPath().getList("audio_languages").size();
-				String pAudioLangguage = null;
-				if (audioLangCount > 1) {
-					System.out.println("AUDIO LANGUAGES");
-				} else if (audioLangCount == 1) {
-					pAudioLangguage = contentResp.jsonPath().get("audio_languages[0]");
-				} else {
-					pAudioLangguage = "N/A";
-					System.out.println("Audio Language is Empty");
-				}
-
-				int subTitleLangCount = contentResp.jsonPath().getList("subtitle_languages").size();
-				String pSubTitleLangguage = null;
-				if (subTitleLangCount > 1) {
-					System.out.println("SUBTITLE LANGUAGES");
-				} else if (subTitleLangCount == 1) {
-					pSubTitleLangguage = contentResp.jsonPath().get("subtitle_languages[0]");
-				} else {
-					System.out.println("Subtitle Language is Empty");
-					pSubTitleLangguage = "N/A";
-				}
-
-				int actorsCount = contentResp.jsonPath().getList("actors").size();
-				ArrayList<String> getCharacters = new ArrayList<String>();
-				if (actorsCount >= 1) {
-					for (int j = 0; j < actorsCount; j++) {
-						getCharacters.add(contentResp.jsonPath().get("actors[" + j + "]").toString());
-					}
-					pCharacters = getCharacters.toString();
-				} else if (tabName.equalsIgnoreCase("Live TV") | tabName.equalsIgnoreCase("Livetv")) {
-					getCharacters.add("N/A");
-					pCharacters = getCharacters.toString().replace("[", "").replace("]", "");
-				} else {
-					pCharacters = getCharacters.toString();
-				}
-
-				int isDRM = contentResp.jsonPath().get("is_drm");
-				String pDRM_Video = "false";
-				if (isDRM == 1) {
-					pDRM_Video = "true";
-				}
-
-				System.out.println("\n--PRINTING VALIDATION PARAMETERS--");
-				System.out.println(pTrayName);
-				System.out.println(contentID);
-				System.out.println(pTitle);
-				System.out.println(pDuration);
-				System.out.println(pBusinessType);
-				System.out.println(pGenre);
-				System.out.println(pAssetSubType);
-				System.out.println(pEpisodeNumber);
-				System.out.println(pPublishedDate);
-				System.out.println(pLanguages);
-				System.out.println(pAudioLangguage);
-				System.out.println(pSubTitleLangguage);
-				System.out.println(pCharacters);
-				System.out.println(pDRM_Video);
-				System.out.println(pImgURL);
-				System.out.println(pContentBillingType);
-				System.out.println("AssetType : " + assetType);
-				System.out.println(onAir);
-				System.out.println(topCatogery);
-
-				// ----- Mix Panel Content Parameters Validation ------
-				Mixpanel.FEProp.setProperty("Audio Language", pAudioLangguage);
-				Mixpanel.FEProp.setProperty("Carousal Name", pTrayName);
-				Mixpanel.FEProp.setProperty("Content ID", contentID);
-				Mixpanel.FEProp.setProperty("Content Name", pTitle);
-				Mixpanel.FEProp.setProperty("Content Duration", pDuration);
-				Mixpanel.FEProp.setProperty("Content Type", pBusinessType);
-				Mixpanel.FEProp.setProperty("Content Specification", pAssetSubType);
-				Mixpanel.FEProp.setProperty("Content Original Language", pLanguages);
-				Mixpanel.FEProp.setProperty("Characters", pCharacters.toString());
-				Mixpanel.FEProp.setProperty("Content Billing Type", pContentBillingType);
-				Mixpanel.FEProp.setProperty("DRM Video", pDRM_Video);
-				Mixpanel.FEProp.setProperty("Episode No", pEpisodeNumber);
-				Mixpanel.FEProp.setProperty("Genre", pGenre);
-				Mixpanel.FEProp.setProperty("Image URL", pImgURL);
-				Mixpanel.FEProp.setProperty("Publishing Date", pPublishedDate);
-				Mixpanel.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);
-				Mixpanel.FEProp.setProperty("Top Category", topCatogery);
-			}	
 		}
+		
+		setContentFEProperty(pUserType, contentID, pTabName,pTrayName);
 		return pTrayName;
+	}
+	
+	public static void setContentFEProperty(String pUserType,String pContentID,String pTabName,String pTrayName) {
+		
+		Response contentResp = null, subContentResp = null;
+		
+		contentResp = getResponseDetails(pContentID);
+		System.out.println("ContentID RESPONSE Status: " + contentResp.getStatusCode());
+		
+		int relatedNodelength = contentResp.jsonPath().getList("related").size();
+		System.out.println("Related Node: " + relatedNodelength);
+		String newContentId = null;
+		String pCharacters = null;
+		if (relatedNodelength >= 1 & pUserType!="SubscribedUser") {
+			newContentId = contentResp.jsonPath().get("related[0].id");
+			System.out.println("Related Node is Present | contentID: " + newContentId);
+			subContentResp = getResponseDetails(newContentId);
+			System.out.println("RESPONSE StatusCode: " + subContentResp.statusCode());
+
+			String pOriginalTitle = subContentResp.jsonPath().get("original_title");
+			int contentDuration = subContentResp.jsonPath().get("duration");
+			String pDuration = Integer.toString(contentDuration);
+			String onAir = subContentResp.jsonPath().get("on_air");
+			String pBussinessType = subContentResp.jsonPath().get("business_type");
+			String pImgURL = subContentResp.jsonPath().get("image_url");
+			int assetType = subContentResp.jsonPath().get("asset_type");
+			String pContentSpecification = subContentResp.jsonPath().get("asset_subtype");
+			int episode = subContentResp.jsonPath().get("episode_number");
+			String pEpisodeNum = Integer.toString(episode);
+			String release_date = subContentResp.jsonPath().get("release_date").toString();
+			String pPublishedDate = release_date.replace(release_date.substring(10), "");
+			String pContentBillingType = subContentResp.jsonPath().get("billing_type");
+			if (pContentBillingType.length() == 0) {
+				pContentBillingType = "N/A";
+			}
+
+			int languageCount = subContentResp.jsonPath().getList("languages").size();
+			String pLanguages = null;
+			if (languageCount > 1) {
+				System.out.println("MULTIPLE LANGUAGES");
+			} else if (languageCount == 1) {
+				pLanguages = subContentResp.jsonPath().get("languages[0]");
+			} else {
+				System.out.println("Original Languages is Empty");
+			}
+
+			int audioLangCount = subContentResp.jsonPath().getList("audio_languages").size();
+			String pAudioLangguage = null;
+			if (audioLangCount > 1) {
+				System.out.println("AUDIO LANGUAGES");
+			} else if (audioLangCount == 1) {
+				pAudioLangguage = subContentResp.jsonPath().get("audio_languages[0]");
+			} else {
+				pAudioLangguage = "N/A";
+				System.out.println("Audio Language is Empty");
+			}
+
+			int subTitleLangCount = subContentResp.jsonPath().getList("subtitle_languages").size();
+			String pSubTitleLangguage = null;
+			if (subTitleLangCount > 1) {
+				System.out.println("SUBTITLE LANGUAGES");
+			} else if (subTitleLangCount == 1) {
+				pSubTitleLangguage = subContentResp.jsonPath().get("subtitle_languages[0]");
+			} else {
+				System.out.println("Subtitle Language is Empty");
+				pSubTitleLangguage = "N/A";
+			}
+
+			int genreCount = subContentResp.jsonPath().getList("genres").size();
+			String pGenre = null;
+			for (int i = 0; i < genreCount; i++) {
+				if (genreCount == 1) {
+					pGenre = subContentResp.jsonPath().get("genre[" + i + "].value");
+				} else {
+					pGenre = pGenre + "," + subContentResp.jsonPath().get("genre[" + i + "].value");
+				}
+			}
+			pGenre = pGenre.replace("null,", "");
+
+			int actorsCount = subContentResp.jsonPath().getList("actors").size();
+			ArrayList<String> getCharacters = new ArrayList<String>();
+			if (actorsCount >= 1) {
+				for (int j = 0; j < actorsCount; j++) {
+					getCharacters.add(subContentResp.jsonPath().get("actors[" + j + "]").toString());
+				}
+				pCharacters = getCharacters.toString();
+			} else if (pTabName.equalsIgnoreCase("Live TV") | pTabName.equalsIgnoreCase("Livetv")) {
+				getCharacters.add("N/A");
+				pCharacters = getCharacters.toString().replace("[", "").replace("]", "");
+			} else {
+				pCharacters = getCharacters.toString();
+			}
+
+			int isDRM = subContentResp.jsonPath().get("is_drm");
+			String pDRM_Video = "false";
+			if (isDRM == 1) {
+				pDRM_Video = "true";
+			}
+
+			System.out.println("\n--PRINTING VALIDATION PARAMETERS--");
+			System.out.println(pTrayName);
+			System.out.println(newContentId);
+			System.out.println(pOriginalTitle);
+			System.out.println(pDuration);
+			System.out.println(pBussinessType);
+			System.out.println(pGenre);
+			System.out.println(pContentSpecification);
+			System.out.println(pEpisodeNum);
+			System.out.println(pPublishedDate);
+			System.out.println(pLanguages);
+			System.out.println(pAudioLangguage);
+			System.out.println(pSubTitleLangguage);
+			System.out.println(pCharacters);
+			System.out.println(pDRM_Video);
+			System.out.println(pImgURL);
+			System.out.println(pContentBillingType);
+			System.out.println("AssetType : " +assetType);
+			System.out.println(onAir);
+			
+
+			// ----- Mix Panel Content Parameters Validation ------
+			Mixpanel.FEProp.setProperty("Audio Language", pAudioLangguage);
+			Mixpanel.FEProp.setProperty("Carousal Name", pTrayName);
+			Mixpanel.FEProp.setProperty("Content ID", newContentId);
+			Mixpanel.FEProp.setProperty("Content Name", pOriginalTitle);
+			Mixpanel.FEProp.setProperty("Content Duration", pDuration);
+			Mixpanel.FEProp.setProperty("Content Type", pBussinessType);
+			Mixpanel.FEProp.setProperty("Content Specification", pContentSpecification);
+			Mixpanel.FEProp.setProperty("Content Original Language", pLanguages);
+			Mixpanel.FEProp.setProperty("Characters", pCharacters.toString());
+			Mixpanel.FEProp.setProperty("Content Billing Type", pContentBillingType);
+			Mixpanel.FEProp.setProperty("DRM Video", pDRM_Video);
+			Mixpanel.FEProp.setProperty("Episode No", pEpisodeNum);
+			Mixpanel.FEProp.setProperty("Genre", pGenre);
+			Mixpanel.FEProp.setProperty("Image URL", pImgURL);
+			Mixpanel.FEProp.setProperty("Publishing Date", pPublishedDate);
+			Mixpanel.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);
+		} else {
+			
+			int getDuration = contentResp.jsonPath().get("duration");
+			String pDuration = Integer.toString(getDuration);
+			String onAir = contentResp.jsonPath().get("on_air");
+			String pBusinessType = contentResp.jsonPath().get("business_type");
+			int assetType = contentResp.jsonPath().get("asset_type");
+			String pAssetSubType = contentResp.jsonPath().get("asset_subtype");
+			String pImgURL = contentResp.jsonPath().get("image_url");
+			int getEpisodeNumber = contentResp.jsonPath().get("episode_number");
+			String pEpisodeNumber = Integer.toString(getEpisodeNumber);
+			String pTitle = contentResp.jsonPath().get("title");
+			String releaseDate = contentResp.jsonPath().get("release_date").toString();
+			String pPublishedDate = releaseDate.replace(releaseDate.substring(10), "");
+			String pContentBillingType = contentResp.jsonPath().get("billing_type");
+			if (pContentBillingType.length() == 0) {
+				pContentBillingType = "N/A";
+			}
+
+			int languageCount = contentResp.jsonPath().getList("languages").size();
+			String pLanguages = null;
+			if (languageCount > 1) {
+				System.out.println("MULTIPLE LANGUAGES");
+			} else if (languageCount == 1) {
+				pLanguages = contentResp.jsonPath().get("languages[0]");
+			} else {
+				System.out.println("Original Languages is Empty");
+			}
+
+			int genreSize = contentResp.jsonPath().getList("genre").size();
+			String pGenre = null;
+			for (int i = 0; i < genreSize; i++) {
+				if (genreSize == 1) {
+					pGenre = contentResp.jsonPath().get("genre[" + i + "].value");
+				} else {
+					pGenre = pGenre + "," + contentResp.jsonPath().get("genre[" + i + "].value");
+				}
+			}
+			pGenre = pGenre.replace("null,", "");
+
+			int audioLangCount = contentResp.jsonPath().getList("audio_languages").size();
+			String pAudioLangguage = null;
+			if (audioLangCount > 1) {
+				System.out.println("AUDIO LANGUAGES");
+			} else if (audioLangCount == 1) {
+				pAudioLangguage = contentResp.jsonPath().get("audio_languages[0]");
+			} else {
+				pAudioLangguage = "N/A";
+				System.out.println("Audio Language is Empty");
+			}
+
+			int subTitleLangCount = contentResp.jsonPath().getList("subtitle_languages").size();
+			String pSubTitleLangguage = null;
+			if (subTitleLangCount > 1) {
+				System.out.println("SUBTITLE LANGUAGES");
+			} else if (subTitleLangCount == 1) {
+				pSubTitleLangguage = contentResp.jsonPath().get("subtitle_languages[0]");
+			} else {
+				System.out.println("Subtitle Language is Empty");
+				pSubTitleLangguage = "N/A";
+			}
+
+			int actorsCount = contentResp.jsonPath().getList("actors").size();
+			ArrayList<String> getCharacters = new ArrayList<String>();
+			if (actorsCount >= 1) {
+				for (int j = 0; j < actorsCount; j++) {
+					getCharacters.add(contentResp.jsonPath().get("actors[" + j + "]").toString());
+				}
+				pCharacters = getCharacters.toString();
+			} else if (pTabName.equalsIgnoreCase("Live TV") | pTabName.equalsIgnoreCase("Livetv")) {
+				getCharacters.add("N/A");
+				pCharacters = getCharacters.toString().replace("[", "").replace("]", "");
+			} else {
+				pCharacters = getCharacters.toString();
+			}
+
+			int isDRM = contentResp.jsonPath().get("is_drm");
+			String pDRM_Video = "false";
+			if (isDRM == 1) {
+				pDRM_Video = "true";
+			}
+
+			System.out.println("\n--PRINTING VALIDATION PARAMETERS--");
+			System.out.println(pTrayName);
+			System.out.println(pContentID);
+			System.out.println(pTitle);
+			System.out.println(pDuration);
+			System.out.println(pBusinessType);
+			System.out.println(pGenre);
+			System.out.println(pAssetSubType);
+			System.out.println(pEpisodeNumber);
+			System.out.println(pPublishedDate);
+			System.out.println(pLanguages);
+			System.out.println(pAudioLangguage);
+			System.out.println(pSubTitleLangguage);
+			System.out.println(pCharacters);
+			System.out.println(pDRM_Video);
+			System.out.println(pImgURL);
+			System.out.println(pContentBillingType);
+			System.out.println("AssetType : " + assetType);
+			System.out.println(onAir);
+			
+			// ----- Mix Panel Content Parameters Validation ------
+			Mixpanel.FEProp.setProperty("Audio Language", pAudioLangguage);
+			Mixpanel.FEProp.setProperty("Carousal Name", pTrayName);
+			Mixpanel.FEProp.setProperty("Content ID", pContentID);
+			Mixpanel.FEProp.setProperty("Content Name", pTitle);
+			Mixpanel.FEProp.setProperty("Content Duration", pDuration);
+			Mixpanel.FEProp.setProperty("Content Type", pBusinessType);
+			Mixpanel.FEProp.setProperty("Content Specification", pAssetSubType);
+			Mixpanel.FEProp.setProperty("Content Original Language", pLanguages);
+			Mixpanel.FEProp.setProperty("Characters", pCharacters.toString());
+			Mixpanel.FEProp.setProperty("Content Billing Type", pContentBillingType);
+			Mixpanel.FEProp.setProperty("DRM Video", pDRM_Video);
+			Mixpanel.FEProp.setProperty("Episode No", pEpisodeNumber);
+			Mixpanel.FEProp.setProperty("Genre", pGenre);
+			Mixpanel.FEProp.setProperty("Image URL", pImgURL);
+			Mixpanel.FEProp.setProperty("Publishing Date", pPublishedDate);
+			Mixpanel.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);
+		}	
+	}
+	
+	public static Response getUserinfoforNonSubORSubForAppMixpanel(String userType) {
+		Response resp = null;
+		String url = "https://userapi.zee5.com/v1/settings";
+
+		String xAccessToken = getXAccessTokenWithApiKey();
+					
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserPassword");
+			String bearerToken = getBearerToken(email, password);
+			resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonSubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonSubscribedUserPassword");
+			String bearerToken = getBearerToken(email, password);
+			resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+		} else {
+			System.out.println("Incorrect user type passed to method");
+		}
+
+		return resp;
+
+	}
+	
+	public static String getContentLanguageForAppMixpanel(String userType) {
+		String language = null;
+		if (userType.contains("Guest")) {
+			language = "en,kn";
+		} else {
+			Response resplanguage = getUserinfoforNonSubORSubForAppMixpanel(userType);
+			
+			for (int i = 0; i < resplanguage.jsonPath().getList("array").size(); i++) {
+
+				String key = resplanguage.jsonPath().getString("[" + i + "].key");
+				// System.out.println(language);
+				if (key.contains("content_language")) {
+					language = resplanguage.jsonPath().getString("[" + i + "].value");
+					System.out.println("UserType Language: " + language);
+					break;
+				}
+			}
+		}
+		return language;
 	}
 	
 	public static void subscriptionDetails() {
@@ -1358,7 +1430,82 @@ public static String getTrayNameFromPage(String pTabName) {
 	}
 
 
-	public static void getPageResponse(String tabName,String typeOfContent) {
+	public static String getPageResponse(String tabName, String typeOfContent) {
+		String Uri;
+		Response respCarousel = null;
+		String userType = "Guest";
+		String q = null;
+		String contLang = "en,kn";
+
+		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
+		String page = handler.getproperty(tabName.toLowerCase());
+
+		if (page.equals("stories")) {
+			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
+		} else {
+			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page
+					+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages=" + contLang + "&version=10";
+		}
+		String xAccessToken = getXAccessTokenWithApiKey();
+		if (userType.equalsIgnoreCase("Guest")) {
+			respCarousel = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when()
+					.get(Uri);
+		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserPassword");
+			
+			String bearerToken = getBearerToken(email, password);
+			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+					.get(Uri);
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonSubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonSubscribedUserPassword");
+			
+			String bearerToken = getBearerToken(email,password);
+			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+					.get(Uri);
+		} else {
+			System.out.println("Incorrect user type passed to method");
+		}
+
+		if (typeOfContent.equalsIgnoreCase("Free")) {
+			int itemsSize = respCarousel.jsonPath().getList("buckets[0].items").size();
+			for (int k = 0; k < 6; k++) {
+				if (respCarousel.jsonPath().getString("buckets[0].items[" + k + "].business_type").contains("free")) {
+					return respCarousel.jsonPath().getString("buckets[0].items[" + k + "].title");
+					
+				}
+			}
+		} else if (typeOfContent.equalsIgnoreCase("premium")) {
+			int itemsSize = respCarousel.jsonPath().getList("buckets[0].items").size();
+			for (int k = 0; k < 6; k++) {
+				if (respCarousel.jsonPath().getString("buckets[0].items[" + k + "].business_type")
+						.contains("premium_downloadable")) {
+					return respCarousel.jsonPath().getString("buckets[0].items[" + k + "].title");
+				}
+			}
+		} else if (typeOfContent.equalsIgnoreCase("trailer")) {
+			int itemsSize = respCarousel.jsonPath().getList("buckets[0].items").size();
+			for (int k = 0; k < 6; k++) {
+				if (respCarousel.jsonPath().getList("buckets[0].items[" + k + "].related") != null) {
+					String relatedID = respCarousel.jsonPath().getString("buckets[0].items[" + k + "].id");
+					Response relatedtrailerID = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/" + relatedID+ "?translation=en&country=IN&version=2");
+					String trailerID = relatedtrailerID.jsonPath().getString("related[0].id");
+					System.out.println("Trailer ID : " + trailerID);
+					given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/" + trailerID+ "?translation=en&country=IN&version=2");
+					getContentDetails(trailerID);
+					return respCarousel.jsonPath().getString("buckets[0].items[" + k + "].title");
+				}
+			}
+		}
+		return "NoContent";
+	}
+	
+	public static void getTrayResponse(String tabName,String typeOfContent) {
 		String Uri;
 		Response respCarousel = null;
 		String userType = "Guest";
@@ -1367,6 +1514,7 @@ public static String getTrayNameFromPage(String pTabName) {
 		
 		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
 		String page = handler.getproperty(tabName.toLowerCase());
+		
 		title:for (int i = 1; i < 5; i++) {
 		if(page.equals("stories")) {
 			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
@@ -1392,24 +1540,24 @@ public static String getTrayNameFromPage(String pTabName) {
 			System.out.println("Incorrect user type passed to method");
 		}
 		
-		if(typeOfContent.equalsIgnoreCase("FreeContent")) {
+		if(typeOfContent.equalsIgnoreCase("Free")) {
 			int bucketSize = respCarousel.jsonPath().getList("buckets").size();
 			for (int j = 0; j < bucketSize; j++) {
-				int itemsSize = respCarousel.jsonPath().getList("buckets["+j+"].items").size();
+				int itemsSize = respCarousel.jsonPath().getList("buckets[0].items").size();
 				for (int k = 0; k < itemsSize; k++) {
-					if(respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].business_type").contains("free")) {
-						System.out.println("title : "+respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].title"));
+					if(respCarousel.jsonPath().getString("buckets[0].items["+k+"].business_type").contains("free")) {
+						System.out.println("title : "+respCarousel.jsonPath().getString("buckets[0].items["+k+"].title"));
 						break title;
 					}
 				}
 			}
-		}else if(typeOfContent.equalsIgnoreCase("premium_downloadable")){
+		}else if(typeOfContent.equalsIgnoreCase("premium")){
 			int bucketSize = respCarousel.jsonPath().getList("buckets").size();
 			for (int j = 0; j < bucketSize; j++) {
-				int itemsSize = respCarousel.jsonPath().getList("buckets["+j+"].items").size();
+				int itemsSize = respCarousel.jsonPath().getList("buckets[0].items").size();
 				for (int k = 0; k < itemsSize; k++) {
-					if(respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].business_type").contains("premium_downloadable")) {
-						System.out.println("title : "+respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].title"));
+					if(respCarousel.jsonPath().getString("buckets[0].items["+k+"].business_type").contains("premium_downloadable")) {
+						System.out.println("title : "+respCarousel.jsonPath().getString("buckets[0].items["+k+"].title"));
 						break title;
 					}
 				}
@@ -1417,49 +1565,23 @@ public static String getTrayNameFromPage(String pTabName) {
 		}else if(typeOfContent.equalsIgnoreCase("trailer")){
 			int bucketSize = respCarousel.jsonPath().getList("buckets").size();
 			for (int j = 0; j < bucketSize; j++) {
-				int itemsSize = respCarousel.jsonPath().getList("buckets["+j+"].items").size();
+				int itemsSize = respCarousel.jsonPath().getList("buckets[0].items").size();
 				for (int k = 0; k < itemsSize; k++) {
-					if(respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].business_type").contains("premium_downloadable")) {
-						System.out.println("title : "+respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].title"));
+					if(respCarousel.jsonPath().getList("buckets[0].items["+k+"].related")  != null) {
+						String relatedID = respCarousel.jsonPath().getString("buckets[0].items["+k+"].id");
+						System.out.println(relatedID);
+						Response relatedtrailerID =  given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+relatedID+"?translation=en&country=IN&version=2");
+						String trailerID = relatedtrailerID.jsonPath().getString("related[0].id");
+						System.out.println("Trailer ID : "+trailerID);
+						given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+trailerID+"?translation=en&country=IN&version=2").prettyPrint();
+						getContentDetails(trailerID);
 						break title;
 					}
 				}
 			}
 		}
-//		respCarousel.prettyPrint();
-		}
+	  }
 	}
 	
-	public void getContentByMediaType(String mediaType, String content) {
-
-		switch (mediaType) {
-
-		case "carousel":
-			switch (content) {
-			case "freeContent":
-				break;
-
-			case "PremiumContent":
-				break;
-
-			case "trailer":
-				break;
-			}
-			break;
-		case "tray":
-			switch (content) {
-			case "freeContent":
-				break;
-
-			case "PremiumContent":
-				break;
-
-			case "trailer":
-				break;
-			}
-			break;
-		}
-		
-	}
 }
 

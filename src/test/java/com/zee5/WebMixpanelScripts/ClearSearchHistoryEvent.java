@@ -6,8 +6,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.business.zee.Zee5PWAWEBMixPanelBusinessLogic;
 
-public class RegistrationResultEvent {
-
+public class ClearSearchHistoryEvent {
 	private Zee5PWAWEBMixPanelBusinessLogic Zee5PWAWEBMixPanelBusinessLogic;
 
 	@BeforeTest
@@ -21,16 +20,18 @@ public class RegistrationResultEvent {
 		System.out.println("Login");
 		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
 	}
-
+	
 	@Test(priority = 1)
-	@Parameters({ "userType" })
-	public void verifyRegistrationResultEventForInvalidCredentials(String userType) throws Exception {
-		System.out.println("Verify Registration Result Event post entering invalid credentials");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyRegistrationResultEventForInvalidCredentials(userType);
+	@Parameters({ "keyword1" })
+	public void verifyClearSearchHistoryEvent(String keyword1) throws Exception {
+		System.out.println("Verify Clear Search Histroy Event");
+		Zee5PWAWEBMixPanelBusinessLogic.clearSearchHistoryEvent(keyword1);
 	}
+
 
 	@AfterClass
 	public void tearDown() {
 		Zee5PWAWEBMixPanelBusinessLogic.tearDown();
 	}
+
 }

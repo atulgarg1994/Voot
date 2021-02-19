@@ -6,15 +6,14 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.business.zee.Zee5PWAWEBMixPanelBusinessLogic;
 
-public class RegistrationResultEvent {
-
+public class ScreenViewEvent {
 	private Zee5PWAWEBMixPanelBusinessLogic Zee5PWAWEBMixPanelBusinessLogic;
 
 	@BeforeTest
 	public void init() throws Exception {
 		Zee5PWAWEBMixPanelBusinessLogic = new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
 	}
-	
+
 	@Test(priority = 0)
 	@Parameters({ "userType" })
 	public void PWAWEBMixPanelLogin(String userType) throws Exception {
@@ -23,14 +22,14 @@ public class RegistrationResultEvent {
 	}
 
 	@Test(priority = 1)
-	@Parameters({ "userType" })
-	public void verifyRegistrationResultEventForInvalidCredentials(String userType) throws Exception {
-		System.out.println("Verify Registration Result Event post entering invalid credentials");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyRegistrationResultEventForInvalidCredentials(userType);
+	public void verifyScreenViewEvent() throws Exception {
+		System.out.println("Verify Screen View Event");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyScreenViewEvent("Shows");
 	}
 
 	@AfterClass
 	public void tearDown() {
 		Zee5PWAWEBMixPanelBusinessLogic.tearDown();
 	}
+
 }

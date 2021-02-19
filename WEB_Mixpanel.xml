@@ -58,9 +58,14 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
-	<test name="WebPWAMixpanelScript">
+	<!-- <test name="WebPWAMixpanelScript">
 		<classes>
 			<class name="com.zee5.MixpanelScripts.PWA_Web_Player" />
+		</classes>
+	</test> -->
+	<test name="WebPWAMixpanelScript">
+		<classes>
+			<class name="com.zee5.WebMixpanelScripts.PrepaidCodeResultEvent" />
 		</classes>
 	</test>
 

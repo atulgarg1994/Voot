@@ -158,5 +158,8 @@ public class PWAPremiumPage {
 	public static By objViewAllBtn = By.xpath("(//*[@class='arrow iconInitialLoad-ic_viewall noSelect']//div)[1]");
 	
 	public static By objPlayBtn = By.xpath("(//div[@class='playBtn'])");
+	
+	public static By objShowThumbnail = By.xpath(
+			"(//*[@class='showCard   zoomCardHover minutelyUrl card marginRight positionRelative' or @class='movieCard card marginRight minutelyUrl noZoomOverlay'])[1]");
 
 }

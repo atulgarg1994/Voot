@@ -16670,9 +16670,10 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		extent.HeaderChildNode("HLS_164 : Verify the Premium user is able to watch all the zee originals shows");
 		if (userType.equalsIgnoreCase("Subscribeduser")) {
 			navigateToAnyScreenOnWeb(tabName);
-			scrollToTheElementWEB(PWAHomePage.objtrayname("Best of ZEE5 Originals in Hindi"));
-			checkElementDisplayed(PWAHamburgerMenuPage.objFirstcontentCard, "1st content card");
-			click(PWAHamburgerMenuPage.objFirstcontentCard, "1st content card");
+			swipeTillTrayAndClickFirstAsset(userType, 15, "Best of ZEE5 Originals in Hindi","Best of ZEE5 Originals in Hindi tray", tabName);
+//			scrollToTheElementWEB(PWAHomePage.objtrayname("Best of ZEE5 Originals in Hindi"));
+//			checkElementDisplayed(PWAHamburgerMenuPage.objFirstcontentCard, "1st content card");
+//			click(PWAHamburgerMenuPage.objFirstcontentCard, "1st content card");
 
 			// click(PWAShowsPage.objFirstAssetTitleFirstRail, "Content Title in Details
 			// Page");
@@ -16696,7 +16697,6 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 			navigateToAnyScreenOnWeb("ZEE5 Originals");
 			checkElementDisplayed(PWAHamburgerMenuPage.objClubcontentcard, "content card");
 			click(PWAHamburgerMenuPage.objClubcontentcard, "content card");
-
 			waitTime(3000);
 			JSClick(PWAShowsPage.objEpisodeCard, "First Episode Card");
 

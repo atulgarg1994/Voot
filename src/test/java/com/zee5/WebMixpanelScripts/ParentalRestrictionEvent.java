@@ -6,15 +6,14 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.business.zee.Zee5PWAWEBMixPanelBusinessLogic;
 
-public class RegistrationResultEvent {
-
+public class ParentalRestrictionEvent {
 	private Zee5PWAWEBMixPanelBusinessLogic Zee5PWAWEBMixPanelBusinessLogic;
 
 	@BeforeTest
 	public void init() throws Exception {
 		Zee5PWAWEBMixPanelBusinessLogic = new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
 	}
-	
+
 	@Test(priority = 0)
 	@Parameters({ "userType" })
 	public void PWAWEBMixPanelLogin(String userType) throws Exception {
@@ -24,13 +23,14 @@ public class RegistrationResultEvent {
 
 	@Test(priority = 1)
 	@Parameters({ "userType" })
-	public void verifyRegistrationResultEventForInvalidCredentials(String userType) throws Exception {
-		System.out.println("Verify Registration Result Event post entering invalid credentials");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyRegistrationResultEventForInvalidCredentials(userType);
+	public void verifyParentalRestrictionEvent(String userType, String restriction) throws Exception {
+		System.out.println("Verify Parental Restriction Event");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalRestrictionEvent(userType, "Age13+");
 	}
 
 	@AfterClass
 	public void tearDown() {
 		Zee5PWAWEBMixPanelBusinessLogic.tearDown();
 	}
+
 }

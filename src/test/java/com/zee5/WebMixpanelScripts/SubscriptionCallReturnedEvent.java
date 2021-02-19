@@ -33,6 +33,6 @@ public class SubscriptionCallReturnedEvent {
 
 	@AfterClass
 	public void tearDown() {
-		Zee5PWAWEBMixPanelBusinessLogic.tearDown();
+//		Zee5PWAWEBMixPanelBusinessLogic.tearDown();
 	}
 }

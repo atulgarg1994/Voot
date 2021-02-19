@@ -132,6 +132,7 @@ public class Utilities extends ExtentReporter {
 			logger.error(text + " " + " is not clicked");
 			extent.extentLoggerFail("checkElementNotPresent", "" + text + " is not clicked");
 			screencapture();
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -432,10 +433,17 @@ public class Utilities extends ExtentReporter {
 		}
 	}
 
-	public static boolean verifyIsElementDisplayed(By by) {
-		getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		List<WebElement> list = getDriver().findElements(by);
-		getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	public boolean verifyIsElementDisplayed(By by) {
+		List<WebElement> list = null;
+		if (getPlatform().equals("Web")) {
+			getWebDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			list = getWebDriver().findElements(by);
+			getWebDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		} else {
+			getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			list = getDriver().findElements(by);
+			getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		}
 		if (list.size() == 0) {
 			return false;
 		} else {
@@ -443,10 +451,17 @@ public class Utilities extends ExtentReporter {
 		}
 	}
 
-	public static boolean verifyIsElementDisplayed(By by, String validationtext) {
-		getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-		List<WebElement> list = getDriver().findElements(by);
-		getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	public boolean verifyIsElementDisplayed(By by, String validationtext) {
+		List<WebElement> list = null;
+		if(getPlatform().equals("Web")) {
+		getWebDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+		 list = getWebDriver().findElements(by);
+		getWebDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		}else {
+			getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+			 list = getDriver().findElements(by);
+			getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		}
 		if (list.size() == 0) {
 			logger.info("Element " + validationtext + " " + " is not displayed");
 			extent.extentLogger("checkElementPresent", "" + validationtext + " is not displayed");

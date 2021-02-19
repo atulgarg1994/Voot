@@ -6,8 +6,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.business.zee.Zee5PWAWEBMixPanelBusinessLogic;
 
-public class RegistrationResultEvent {
-
+public class CarouselBannerClickEvent {
 	private Zee5PWAWEBMixPanelBusinessLogic Zee5PWAWEBMixPanelBusinessLogic;
 
 	@BeforeTest
@@ -21,16 +20,17 @@ public class RegistrationResultEvent {
 		System.out.println("Login");
 		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
 	}
-
+	
 	@Test(priority = 1)
 	@Parameters({ "userType" })
-	public void verifyRegistrationResultEventForInvalidCredentials(String userType) throws Exception {
-		System.out.println("Verify Registration Result Event post entering invalid credentials");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyRegistrationResultEventForInvalidCredentials(userType);
+	public void verifyCarouselBannerClickEvent(String userType) throws Exception {
+		System.out.println("Verify Carousel Banner Click Event");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEvent("Home");
 	}
 
 	@AfterClass
 	public void tearDown() {
 		Zee5PWAWEBMixPanelBusinessLogic.tearDown();
 	}
+
 }

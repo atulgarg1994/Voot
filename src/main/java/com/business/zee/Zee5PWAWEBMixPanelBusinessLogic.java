@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -345,8 +344,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 
 	public void tearDown() {
-		getWebDriver().quit();
 		local.clear();
+		getWebDriver().quit();
 	}
 
 	public void navigateHome() {
@@ -689,7 +688,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void verifyTVAuthenticationScreenDisplayEvent(String userType) throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify TV Authentication Screen Display Event");
-			click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+			waitTime(5000);
+			JSClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objAuthenticationOption, "Authenticate Device");
 			waitTime(5000);
@@ -932,6 +932,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Carousel Banner Click Event For content played from Carousel");
 		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
+		mandatoryRegistrationPopUp(UserType);
 		verifyElementPresentAndClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		waitTime(4000);
 		String id = getWebDriver().getCurrentUrl();
@@ -942,6 +943,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			value = m.group(0);
 		}		
 		ResponseInstance.getContentDetails(value);
+	//	mixpanel.FEProp.setProperty("Source", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
 		
 		if (userType.equals("Guest")) {
@@ -985,7 +988,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
 		click(PWAPremiumPage.objViewAllBtn, "View All Button");
-		verifyElementPresentAndClick(PWAPremiumPage.objThumbnail, "Thumbnail from View More Page");
+		verifyElementPresentAndClick(PWAPremiumPage.objShowThumbnail, "Thumbnail from View More Page");
 		waitTime(4000);
 		String id = getWebDriver().getCurrentUrl();
 		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
@@ -996,8 +999,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 		ResponseInstance.getContentDetails(value);
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
-		mixpanel.FEProp.setProperty("Source", tabName);
-		mixpanel.FEProp.setProperty("Page Name", "view_all_top-20-on-zee5-kannada");
+		mixpanel.FEProp.setProperty("Source", "tv_shows_view_all");
+		mixpanel.FEProp.setProperty("Page Name", "view_all_latest-kannada-episodes");
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Thumbnail Click");
@@ -1102,18 +1105,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void clearSearchHistoryEvent(String keyword1) throws Exception {
 		extent.HeaderChildNode("Verify Clear Search History Event");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 		waitTime(5000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchCloseButton, "Clear Search Icon");
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "search");
-		mixpanel.FEProp.setProperty("Setting Changed", "clear search history");
-		local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
-		if (userType.equals("Guest")) {
-			System.out.println(local.getItem("guestToken"));
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Clear Search History");
+		if (verifyIsElementDisplayed(PWASearchPage.objClearAllTextofRecentSearches, "Clear Search Icon")) {
+			click(PWASearchPage.objClearAllTextofRecentSearches, "Clear Search Icon");
+			waitTime(8000);
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "search");
+			mixpanel.FEProp.setProperty("Setting Changed", "clear search history");
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			fetchUserType(local);
+			if (userType.equals("Guest")) {
+				System.out.println(local.getItem("guestToken"));
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Clear Search History");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Clear Search History");
+			}
 		} else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Clear Search History");
+			logger.info("Clear Search is not available");
+			extent.extentLogger("Clear Search", "Clear Search is not available");
 		}
 	}
 
@@ -1802,10 +1812,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	public void verifyDefaultSettingRestoredEvent() throws Exception {
 		extent.HeaderChildNode("Verify Default Setting Restored Event");
-		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		waitTime(5000);
+		click(PWAHomePage.objHamburgerMenu, "Hamburger menu");
 		click(PWAHamburgerMenuPage.objMoreSettingInHamburger, "More settings");
 		click(PWAHamburgerMenuPage.objResetSettingsToDefault, "Reset Settings to Default");
-		waitTime(3000);
+		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "settings");
 		mixpanel.FEProp.setProperty("Setting Changed", "Default Setting Restored");
@@ -5800,11 +5811,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
 			type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
+			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
 			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
 			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
 			click(PWASubscriptionPages.objEnterCVV, "CVV");
 			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
-			String cardDetrails = getWebDriver().findElement(PWASubscriptionPages.objcardDetails).getAttribute("href");
+			String cardDetrails = getWebDriver().findElement(PWASubscriptionPages.objcardDetails).getAttribute("src");
 			mixpanel.FEProp.setProperty("Payment Method", fetchCardDetails(cardDetrails));
 			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
 			getWebDriver().switchTo().defaultContent();
@@ -5838,7 +5850,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
 			mixpanel.FEProp.setProperty("cost", cost[1]);
-			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
+//			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 			local = null;
@@ -5880,10 +5892,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
 			type(PWASubscriptionPages.objEnterCardNumber, "5123456789012346", "Card Number");
+			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
 			click(PWASubscriptionPages.objEnterExpiry, "Expiry");
 			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
 			click(PWASubscriptionPages.objEnterCVV, "CVV");
 			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
+			String cardDetrails = getWebDriver().findElement(PWASubscriptionPages.objcardDetails).getAttribute("src");
+			mixpanel.FEProp.setProperty("Payment Method", fetchCardDetails(cardDetrails));
 			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
 			getWebDriver().switchTo().defaultContent();
 			waitTime(10000);
@@ -5954,7 +5969,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWASubscriptionPages.objEnterExpiry, "0224", "Expiry");
 			click(PWASubscriptionPages.objEnterCVV, "CVV");
 			type(PWASubscriptionPages.objEnterCVV, "123", "CVV");
-			String cardDetrails = getWebDriver().findElement(PWASubscriptionPages.objcardDetails).getAttribute("href");
+			String cardDetrails = getWebDriver().findElement(PWASubscriptionPages.objcardDetails).getAttribute("src");
 			mixpanel.FEProp.setProperty("Payment Method", fetchCardDetails(cardDetrails));
 			click(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
 			getWebDriver().switchTo().defaultContent();
@@ -5976,7 +5991,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			logout();
 			waitTime(5000);
 			mixpanel.ValidateParameter(ID, "Logout");
-
 		}
 	}
 
@@ -6077,7 +6091,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
 			String password = "";
 			if (userType.equals("NonSubscribedUser")) {
-				password = getParameterFromXML("SettingsNonsubscribedPassword");
+				password = getParameterFromXML("SettingsNonSubscribedPassword");
 			} else if (userType.equals("SubscribedUser")) {
 				password = getParameterFromXML("SettingsSubscribedPassword");
 			}
@@ -9772,6 +9786,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objApplyBtn, "Apply Button");
 
 			if (userType.equals("Guest")) {
+				mixpanel.FEProp.setProperty("Source", "account_info");
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
 					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
@@ -9781,10 +9796,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 					click(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
 					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+					mixpanel.FEProp.setProperty("Source", "account_info");
 				}
+			}else {
+				mixpanel.FEProp.setProperty("Source", "home");
 			}
 			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
-			mixpanel.FEProp.setProperty("Source", "home");
+			
 			mixpanel.FEProp.setProperty("Element", "APPLY");
 			mixpanel.FEProp.setProperty("Success", "false");
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
@@ -9793,11 +9811,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Promo Code Type", "Prepaid");
 			mixpanel.FEProp.setProperty("Promo Code", promocode);
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();fetchUserType(local);
-			if (userType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Prepaid Code Result");
-			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Prepaid Code Result");
-			}
+			mixpanel.ValidateParameter(local.getItem("ID"), "Prepaid Code Result");
+			
 		}
 	}
 
@@ -13537,14 +13552,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 	
 	
-	public void pageName() throws Exception {
+	public String pageName() throws Exception {
+		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
 		String pageNameTxt = findElement(By.xpath(".//*[@class='noSelect active ']")).getText();
+		if (pageNameTxt.equals("Shows")) {
+			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 1) {
+				return handler.getproperty("episode_details".toLowerCase());
+			}
+		}
+		return handler.getproperty(pageNameTxt + "_details".toLowerCase());
 	}
 	
-	public void clickOnTab() throws Exception {
-		extent.HeaderChildNode("Tab Name");
-		navigateToAnyScreenOnWeb("Movies");
-		pageName();
+	public void clickOnCarousel(String tabName, String typeOfContent) throws Exception {
+		extent.HeaderChildNode("Carousel");
+		navigateToAnyScreenOnWeb(tabName);
+		String contentTitle = ResponseInstance.getPageResponse(tabName, typeOfContent);
+		System.out.println(contentTitle);
+		if (!contentTitle.equals("NoContent")) {
+			JSClick(PWAHomePage.objcarouselContent(contentTitle), contentTitle);
+		}
+		waitTime(10000);
 	}
 	
 }

@@ -49,7 +49,7 @@ import com.jayway.restassured.response.Response;
 		
 		//get APi-KEY
 		String Uri = "https://gwapi.zee5.com/user/getKey?=aaa";
-		respForKey = given().urlEncodingEnabled(false).when().post(Uri);
+		respForKey = given().urlEncodingEnabled(false).when().get(Uri);
 
 		String rawApiKey = respForKey.getBody().asString();
 		String apiKeyInResponse = rawApiKey.substring(0, rawApiKey.indexOf("<br>airtel "));

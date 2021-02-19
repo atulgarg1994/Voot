@@ -76,7 +76,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	GmailInbox gmail = new GmailInbox();
 
 	Mixpanel mixpanel = new Mixpanel();
-
+	String pUserType = getParameterFromXML("userType");
+	
 	String FirstName = getParameterFromXML("FirstName");
 	String LastName = getParameterFromXML("LastName");
 
@@ -8644,7 +8645,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void videoViewEventFromHomePage(String usertype, String tabName) throws Exception {
 
 		setFEProperty(usertype);
-		String trayName = ResponseInstance.getTrayNameFromPage(tabName);
+		String trayName = ResponseInstance.getTrayNameFromPage(tabName,usertype);
 		SwipeUntilFindElement(AMDHomePage.objTrayTitle(trayName), "UP");
 		waitTime(3000);
 		click(AMDGenericObjects.objSelectFirstCardFromTrayTitle(trayName), "Content Card");
@@ -8773,7 +8774,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		setFEProperty(usertype);
 		waitForElementDisplayed(AMDHomePage.objTitle, 20);
 		SelectTopNavigationTab(tabName);
-		String trayName = ResponseInstance.getTrayNameFromPage(tabName);
+		String contentLang = ResponseInstance.getLanguage(usertype);
+		System.out.println(contentLang);
+		Response str = ResponseInstance.getResponseForApplicasterPages(usertype, "home");
+		
+		String trayName = ResponseInstance.getTrayNameFromPage(tabName, pUserType);
+		
+		boolean flagBox = verifyIsElementDisplayed(AMDHomePage.objSboxIcon);
+		String pSugarBox = String.valueOf(flagBox);
+		
 		SwipeUntilFindElement(AMDHomePage.objTrayTitle(trayName), "UP");
 		waitTime(5000);
 		click(AMDGenericObjects.objSelectFirstCardFromTrayTitle(trayName), "Content Card");
@@ -8792,6 +8801,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 		mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
 		mixpanel.FEProp.setProperty("Brand", pManufacturer);
+		mixpanel.FEProp.setProperty("Sugar Box Value",pSugarBox );
 
 		mixpanel.ValidateParameter("", "Video View");
 	}
@@ -8799,7 +8809,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void ResumeEventForTrayContent(String usertype, String tabName, String AdvertisementID) throws Exception {
 		extent.HeaderChildNode("Resume Event for Tray content of "+tabName);
 
-		String trayName = ResponseInstance.getTrayNameFromPage(tabName);
+		String trayName = ResponseInstance.getTrayNameFromPage(tabName,usertype);
 		waitTime(10000);
 		SwipeUntilFindElement(AMDHomePage.objTrayTitle(trayName), "UP");
 		waitTime(3000);

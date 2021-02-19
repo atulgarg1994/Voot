@@ -14,7 +14,7 @@ public class PWAHomePage {
 	public static By objSearchBtn = By.xpath("//*[contains(@class,'searchBtn')]");
 
 	// Hamburger menu
-	public static By objHamburgerMenu = By.xpath("//*[text()='Open Menu']");
+	public static By objHamburgerMenu = By.xpath("(//*[text()='Open Menu'])[1]");
 
 	// Select tab by text
 	public static By objTabName(String tabName) {
@@ -536,4 +536,8 @@ public class PWAHomePage {
 	
 	public static By objNotNow = By.xpath(".//*[text()='Not Now']");
 	
+	public static By objcarouselContent(String carouselContentname) {
+		return By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//following-sibling::*[text()=\""+carouselContentname+"\"]");
+	}
+
 }

@@ -220,5 +220,7 @@ public class AMDHomePage {
 		return By.xpath("//*[@id='header_primary_text' and @text='" + text + "']");
 	}
 	
+	// SugarBox Icon
+	public static By objSboxIcon = By.xpath("//*[@id='sbox_icon']");
 	
 }
