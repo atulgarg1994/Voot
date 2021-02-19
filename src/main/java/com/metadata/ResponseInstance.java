@@ -724,7 +724,8 @@ public class ResponseInstance {
 //		resp = given().headers("x-access-token", getXAccessToken()).when().get("https://gwapi.zee5.com/content/details/0-0-manual_5dtffmaonrs0?translation=en&country=IN&version=2");
 //		resp.prettyPrint();
 //		getTrayNameFromPage("home");
-		System.out.println(getPageResponse("home","free"));
+//		System.out.println(getPageResponse("home","free"));
+		System.out.println(getTrayResponse("Shows","premium"));
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -1365,9 +1366,7 @@ public class ResponseInstance {
 	public static Response getUserinfoforNonSubORSubForAppMixpanel(String userType) {
 		Response resp = null;
 		String url = "https://userapi.zee5.com/v1/settings";
-
 		String xAccessToken = getXAccessTokenWithApiKey();
-					
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedUserName");
@@ -1385,9 +1384,7 @@ public class ResponseInstance {
 		} else {
 			System.out.println("Incorrect user type passed to method");
 		}
-
 		return resp;
-
 	}
 	
 	public static String getContentLanguageForAppMixpanel(String userType) {
@@ -1433,9 +1430,9 @@ public class ResponseInstance {
 	public static String getPageResponse(String tabName, String typeOfContent) {
 		String Uri;
 		Response respCarousel = null;
-		String userType = "Guest";
+		String userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
 		String q = null;
-		String contLang = "en,kn";
+		String contLang = getLanguage(userType);
 
 		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
 		String page = handler.getproperty(tabName.toLowerCase());
@@ -1448,14 +1445,12 @@ public class ResponseInstance {
 		}
 		String xAccessToken = getXAccessTokenWithApiKey();
 		if (userType.equalsIgnoreCase("Guest")) {
-			respCarousel = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when()
-					.get(Uri);
+			respCarousel = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when().get(Uri);
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedUserName");
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedUserPassword");
-			
 			String bearerToken = getBearerToken(email, password);
 			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
@@ -1464,7 +1459,6 @@ public class ResponseInstance {
 					.getParameter("NonSubscribedUserName");
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("NonSubscribedUserPassword");
-			
 			String bearerToken = getBearerToken(email,password);
 			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
@@ -1475,7 +1469,8 @@ public class ResponseInstance {
 		if (typeOfContent.equalsIgnoreCase("Free")) {
 			int itemsSize = respCarousel.jsonPath().getList("buckets[0].items").size();
 			for (int k = 0; k < 6; k++) {
-				if (respCarousel.jsonPath().getString("buckets[0].items[" + k + "].business_type").contains("free")) {
+				if (respCarousel.jsonPath().getString("buckets[0].items[" + k + "].business_type").contains("free")
+						|| respCarousel.jsonPath().getString("buckets[0].items["+k+"].business_type").contains("advertisement_downloadable") ) {
 					return respCarousel.jsonPath().getString("buckets[0].items[" + k + "].title");
 					
 				}
@@ -1505,12 +1500,13 @@ public class ResponseInstance {
 		return "NoContent";
 	}
 	
-	public static void getTrayResponse(String tabName,String typeOfContent) {
+	public static ArrayList<String> getTrayResponse(String tabName,String typeOfContent) {
+		ArrayList<String> contentAndTrayTitle = new ArrayList<>();
 		String Uri;
 		Response respCarousel = null;
 		String userType = "Guest";
 		String q= null;
-		String contLang= "en,kn";
+		String contLang = getLanguage(userType);
 		
 		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
 		String page = handler.getproperty(tabName.toLowerCase());
@@ -1519,7 +1515,7 @@ public class ResponseInstance {
 		if(page.equals("stories")) {
 			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
 		}else {
-			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page+ "?page="+i+"&limit=5&item_limit=20&country=IN&translation=en&languages="+contLang+"&version=10";
+			Uri = "https://gwapi.zee5.com/content/collection/0-8-"+ page+"?page="+i+"&limit=5&item_limit=20&country=IN&translation=en&languages="+contLang+"&version=10";
 		}
 		String xAccessToken = getXAccessTokenWithApiKey();
 		if (userType.equalsIgnoreCase("Guest")) {
@@ -1542,46 +1538,53 @@ public class ResponseInstance {
 		
 		if(typeOfContent.equalsIgnoreCase("Free")) {
 			int bucketSize = respCarousel.jsonPath().getList("buckets").size();
-			for (int j = 0; j < bucketSize; j++) {
-				int itemsSize = respCarousel.jsonPath().getList("buckets[0].items").size();
+			System.out.println(bucketSize);
+			for (int j = 1; j < bucketSize; j++) {
+				int itemsSize = respCarousel.jsonPath().getList("buckets["+j+"].items").size();
 				for (int k = 0; k < itemsSize; k++) {
-					if(respCarousel.jsonPath().getString("buckets[0].items["+k+"].business_type").contains("free")) {
-						System.out.println("title : "+respCarousel.jsonPath().getString("buckets[0].items["+k+"].title"));
-						break title;
+					System.out.println(respCarousel.jsonPath().getString("buckets["+j+"].title"));
+					if(respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].business_type").contains("free") 
+							|| respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].business_type").contains("advertisement_downloadable") ) {
+						System.out.println("title : "+respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].title"));
+						contentAndTrayTitle.add(respCarousel.jsonPath().getString("buckets["+j+"].title"));
+						contentAndTrayTitle.add(respCarousel.jsonPath().getString("buckets["+j+"].items[" + k + "].title"));
+						return contentAndTrayTitle;
 					}
 				}
 			}
 		}else if(typeOfContent.equalsIgnoreCase("premium")){
 			int bucketSize = respCarousel.jsonPath().getList("buckets").size();
-			for (int j = 0; j < bucketSize; j++) {
-				int itemsSize = respCarousel.jsonPath().getList("buckets[0].items").size();
+			for (int j = 1; j < bucketSize; j++) {
+				int itemsSize = respCarousel.jsonPath().getList("buckets["+j+"].items").size();
 				for (int k = 0; k < itemsSize; k++) {
-					if(respCarousel.jsonPath().getString("buckets[0].items["+k+"].business_type").contains("premium_downloadable")) {
-						System.out.println("title : "+respCarousel.jsonPath().getString("buckets[0].items["+k+"].title"));
-						break title;
+					System.out.println(respCarousel.jsonPath().getString("buckets["+j+"].title"));
+					if(respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].business_type").contains("premium_downloadable")) {
+						System.out.println("title : "+respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].title"));
+						return contentAndTrayTitle;
 					}
 				}
 			}
 		}else if(typeOfContent.equalsIgnoreCase("trailer")){
 			int bucketSize = respCarousel.jsonPath().getList("buckets").size();
-			for (int j = 0; j < bucketSize; j++) {
-				int itemsSize = respCarousel.jsonPath().getList("buckets[0].items").size();
+			for (int j = 1; j < bucketSize; j++) {
+				int itemsSize = respCarousel.jsonPath().getList("buckets["+j+"].items").size();
 				for (int k = 0; k < itemsSize; k++) {
-					if(respCarousel.jsonPath().getList("buckets[0].items["+k+"].related")  != null) {
-						String relatedID = respCarousel.jsonPath().getString("buckets[0].items["+k+"].id");
+					if(respCarousel.jsonPath().getList("buckets["+j+"].items["+k+"].related")  != null) {
+						String relatedID = respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].id");
 						System.out.println(relatedID);
 						Response relatedtrailerID =  given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+relatedID+"?translation=en&country=IN&version=2");
 						String trailerID = relatedtrailerID.jsonPath().getString("related[0].id");
 						System.out.println("Trailer ID : "+trailerID);
 						given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+trailerID+"?translation=en&country=IN&version=2").prettyPrint();
 						getContentDetails(trailerID);
-						break title;
+						return contentAndTrayTitle;
 					}
 				}
 			}
 		}
-	  }
 	}
+		return contentAndTrayTitle ;
+}
 	
 }
 

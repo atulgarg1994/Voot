@@ -4,10 +4,9 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.business.zee.Zee5PWAWEBMixPanelBusinessLogic;
 
-public class LoginInitiatedEvent {
+public class DeviceAuthenticationEvent {
 
 	private Zee5PWAWEBMixPanelBusinessLogic Zee5PWAWEBMixPanelBusinessLogic;
 
@@ -22,22 +21,14 @@ public class LoginInitiatedEvent {
 		System.out.println("Login");
 		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
 	}
-
+	
 	@Test(priority = 1)
 	@Parameters({ "userType" })
-	public void verifyLoginInitiatedEventForValidCredentials(String userType) throws Exception {
-		System.out.println("Verify Login Initiated Event for Valid Credentials");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginInitiatedEvent(userType, "mobileNumberLogin");
+	public void verifyDeviceAuthenticationEvent(String userType) throws Exception {
+		System.out.println("Verify Device Authentication Event when authentication fails in TV Authentication screen");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyDeviceAuthenticationEvent(userType);
 	}
 
-	
-	@Test(priority = 2)
-	@Parameters({ "userType"})
-	public void verifyLoginInitiatedEventForInvalidCredentials(String userType) throws Exception {
-		System.out.println("Verify Login Initiated Event post entering invalid credentials");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginInitiatedEvent(userType,"emailLogin");
-	}
-	
 	@AfterClass
 	public void tearDown() {
 		Zee5PWAWEBMixPanelBusinessLogic.tearDown();

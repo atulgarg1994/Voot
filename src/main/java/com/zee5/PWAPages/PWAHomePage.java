@@ -539,5 +539,8 @@ public class PWAHomePage {
 	public static By objcarouselContent(String carouselContentname) {
 		return By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//following-sibling::*[text()=\""+carouselContentname+"\"]");
 	}
-
+	
+	public static By objTrayContentIcon(String trayName,String contentTitle) {
+		return By.xpath("(//div[@class='trayHeader']//h2[.=\""+trayName+"\"])//parent::*//parent::*//following-sibling::*//child::*[@title=\""+contentTitle+"\"]");
+	}
 }

@@ -26,11 +26,8 @@
 	<parameter name="keyword4" value="Paaru gets tipsy" />
 	<parameter name="keyword5" value="Bhinna" />
 
-	<parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com" />
-	<parameter name="SettingsSubscribedPassword" value="123456" />
-	
-	<parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com" />
-	<parameter name="SettingsSubscribedPassword" value="123456" />
+	<parameter name="SettingsNonSubscribedUserName" value="zeetest@gmail.com" />
+	<parameter name="SettingsNonSubscribedPassword" value="zee123" />
 	
 	<parameter name="ClubSubscribedUserName" value="365clublg@gmail.com" />
 	<parameter name="ClubSubscribedPassword" value="123456" />
@@ -58,15 +55,15 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
-	<!-- <test name="WebPWAMixpanelScript">
+	<test name="WebPWAMixpanelScript">
 		<classes>
 			<class name="com.zee5.MixpanelScripts.PWA_Web_Player" />
 		</classes>
-	</test> -->
-	<test name="WebPWAMixpanelScript">
+	</test>
+	<!-- <test name="WebPWAMixpanelScript">
 		<classes>
 			<class name="com.zee5.WebMixpanelScripts.PrepaidCodeResultEvent" />
 		</classes>
-	</test>
+	</test> -->
 
 </suite>

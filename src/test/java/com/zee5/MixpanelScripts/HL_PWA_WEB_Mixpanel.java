@@ -37,7 +37,7 @@ private Zee5PWAWEBMixPanelBusinessLogic zee5PWABusinessLogic;
 	public void verifyLoginInitiatedEvent(String userType) throws Exception {
 		System.out.println("Verify Login Initiated Event");
 		zee5PWABusinessLogic.relaunch();
-		zee5PWABusinessLogic.verifyLoginInitiatedEventForInvalidCredentials(userType,"mobileNumberLogin");
+//		zee5PWABusinessLogic.verifyLoginInitiatedEventForInvalidCredentials(userType,"mobileNumberLogin");
 	}
 
 	

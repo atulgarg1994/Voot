@@ -1,13 +1,12 @@
-package com.zee5.MixpanelScripts;
+package com.zee5.WebMixpanelScripts;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.business.zee.Zee5PWAWEBMixPanelBusinessLogic;
 
-public class PWA_Web_Player {
+public class LoginUsernameEnteredEvent {
 
 	private Zee5PWAWEBMixPanelBusinessLogic Zee5PWAWEBMixPanelBusinessLogic;
 
@@ -15,18 +14,13 @@ public class PWA_Web_Player {
 	public void init() throws Exception {
 		Zee5PWAWEBMixPanelBusinessLogic = new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
 	}
-
-	@Test
-	public void checkPageName() throws Exception {
-//		Zee5PWAWEBMixPanelBusinessLogic.clickOnCarousel("Shows","free");
-		Zee5PWAWEBMixPanelBusinessLogic.clickOnTrayContent("Home","free");
-	}
-
-//	@Test(priority = 1)
+	
+	
+	@Test(priority = 1)
 	@Parameters({ "userType" })
-	public void PWAWEBMixPanelLogin(String userType) throws Exception {
-		System.out.println("Login");
-		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
+	public void verifyLoginUsernameEnteredEvent(String userType) throws Exception {
+		System.out.println("Verify Login Username Entered Event");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginUsernameEnteredEvent(userType);
 	}
 
 	@AfterClass

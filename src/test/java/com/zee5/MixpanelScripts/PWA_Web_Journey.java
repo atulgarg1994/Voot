@@ -112,7 +112,7 @@ public class PWA_Web_Journey {
 	public void verifyLoginPasswordEnteredEvent(String userType) throws Exception {
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		System.out.println("Verify Login Password Entered Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginUsernameEnteredEvent(userType, "Password");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginUsernameEnteredEvent(userType, "Password");
 	}
 
 	@Test(priority = 43)
@@ -120,7 +120,7 @@ public class PWA_Web_Journey {
 	public void verifyLoginUsernameEnteredEvent(String userType) throws Exception {
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		System.out.println("Verify Login Username Entered Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginUsernameEnteredEvent(userType, "UserName");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginUsernameEnteredEvent(userType, "UserName");
 	}
 
 	@Test(priority = 44)

@@ -19,16 +19,8 @@ public class SettingChangedEvent {
 	@Parameters({ "userType" })
 	public void verifySettingChangedEventAfterAgeIsSet(String userType) throws Exception {
 		System.out.println("Verify Setting Changed Event when Parental Control Age is Set");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
 		Zee5PWAWEBMixPanelBusinessLogic.verifySettingChangedEventAfterAgeIsSet(userType);
-	}
-	
-	@Test(priority = 2)
-	public void verifyDefaultSettingRestoredEvent() throws Exception {
-		System.out.println("Verify Default Setting Restored Event");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyDefaultSettingRestoredEvent();
 	}
 	
 	@AfterClass

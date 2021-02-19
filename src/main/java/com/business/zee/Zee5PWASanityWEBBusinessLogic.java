@@ -1963,13 +1963,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "'Have A Code?' field");
 		waitTime(3000);
 		if (platform.equalsIgnoreCase("Android")) {
-			type(PWASubscriptionPages.objHaveACode, "PNB20" + "\n", "'Have A Code?' field");
+			type(PWASubscriptionPages.objHaveACode, "ZEE5SBI20" + "\n", "'Have A Code?' field");
 		} else if (platform.equalsIgnoreCase("Web")) {
-			type(PWASubscriptionPages.objHaveACode, "PNB20", "'Have A Code?' field");
+			type(PWASubscriptionPages.objHaveACode, "ZEE5SBI20", "'Have A Code?' field");
 		}
 
-//		driver.findElement(PWASubscriptionPages.objHaveACode).sendKeys("ZEE5PTM20");
-//		hideKeyboard();
+		// driver.findElement(PWASubscriptionPages.objHaveACode).sendKeys("ZEE5PTM20");
+		// hideKeyboard();
 		waitTime(5000);
 		click(PWASubscriptionPages.objApplyBtn, "Apply Button");
 		waitTime(5000);
@@ -4561,7 +4561,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				// waitForElementAndClickIfPresent(PWALiveTVPage.objFacebookEmailField, 5,
 				// "Facebook Email field");
 				click(PWALiveTVPage.objFacebookEmailField, "Facebook Email field");
-				getWebDriver().findElement(PWALiveTVPage.objFacebookEmailField).sendKeys("igszeetest@gmail.com");
+				getWebDriver().findElement(PWALiveTVPage.objFacebookEmailField).sendKeys("");//igszeetest@gmail.com
 				verifyElementPresentAndClick(PWALiveTVPage.objFacebookPasswordField, "Facebook Password field");
 				getWebDriver().findElement(PWALiveTVPage.objFacebookPasswordField).sendKeys("igs@12345");
 				waitForElementAndClickIfPresent(PWALiveTVPage.objFacebookLoginBtn, 5, "Facebook Login button");
@@ -4586,14 +4586,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					"Content Title in Details Page").toString();
 			String detailsEpisode = getElementPropertyToString("innerText", PWAShowsPage.objFirstAssetEpisodeFirstRail,
 					"Content Episode number in Details Page").toString();
-			String detailsDuration = getElementPropertyToString("innerText",
+			String detailsDate = getElementPropertyToString("innerText",
 					PWAShowsPage.objFirstAssetDurationFirstRail, "Content total Duration in Details Page").toString();
 			System.out.println("Data fetched from Show details: Title: " + detailsTitle + ", Episode: " + detailsEpisode
-					+ ", Duration: " + detailsDuration);
+					+ ", Date: " + detailsDate);
 			extent.extentLogger("dataFetched", "Data fetched from Show details: Title: " + detailsTitle + ", Episode: "
-					+ detailsEpisode + ", Duration: " + detailsDuration);
+					+ detailsEpisode + ", Date: " + detailsDate);
 			logger.info("Data fetched from Show details: Title: " + detailsTitle + ", Episode: " + detailsEpisode
-					+ ", Duration: " + detailsDuration);
+					+ ", Date: " + detailsDate);
 			detailsEpisode = detailsEpisode.split("E")[1];
 			verifyElementPresentAndClick(PWAShowsPage.objFirstAssetImageFirstRail, "First asset image from first rail");
 			waitForElementDisplayed(PWAPlayerPage.objContentTitle, 10);
@@ -4601,14 +4601,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					"Content Title in Consumption Page").toString();
 			String consumptionEpisode = getElementPropertyToString("innerText", PWAPlayerPage.objContentMetaEpisode,
 					"Content Episode Number in Consumption Page").toString();
-			String consumptionDuration = getElementPropertyToString("innerText", PWAPlayerPage.objContentMetaDuration,
-					"Content Total Duration in Consumption Page").toString();
+			String consumptionDate = getElementPropertyToString("innerText", PWAPlayerPage.objContentMetaDate,
+					"Content Date in Consumption Page").toString();
 			System.out.println("Data fetched from Consumptions page: Title: " + consumptionTitle + ", Episode: "
-					+ consumptionEpisode + ", Duration: " + consumptionDuration);
+					+ consumptionEpisode + ", Duration: " + consumptionDate);
 			extent.extentLogger("dataFetched", "Data fetched from Consumptions page: Title: " + consumptionTitle
-					+ ", Episode: " + consumptionEpisode + ", Duration: " + consumptionDuration);
+					+ ", Episode: " + consumptionEpisode + ", Date: " + consumptionDate);
 			logger.info("Data fetched from Consumptions page: Title: " + consumptionTitle + ", Episode: "
-					+ consumptionEpisode + ", Duration: " + consumptionDuration);
+					+ consumptionEpisode + ", Date: " + consumptionDate);
 			consumptionEpisode = consumptionEpisode.split("Episode ")[1];
 			if (detailsTitle.equals(consumptionTitle)) {
 				extent.extentLogger("titleMatch",
@@ -4629,15 +4629,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				logger.error(
 						"Details page and Consumption page content episode number mismatched: " + consumptionEpisode);
 			}
-			if (detailsDuration.equals(consumptionDuration)) {
+			if (consumptionDate.contains(detailsDate)) {
 				extent.extentLogger("durationMatch",
-						"Details page and Consumption page content total duration matched: " + consumptionDuration);
-				logger.info("Details page and Consumption page content total duration matched: " + consumptionDuration);
+						"Details page and Consumption page content date matched: " + consumptionDate);
+				logger.info("Details page and Consumption page content date matched: " + consumptionDate);
 			} else {
 				extent.extentLoggerFail("durationMismatch",
-						"Details page and Consumption page content total duration mismatched: " + consumptionDuration);
+						"Details page and Consumption page content date mismatched: " + consumptionDate);
 				logger.error(
-						"Details page and Consumption page content total duration mismatched: " + consumptionDuration);
+						"Details page and Consumption page content date mismatched: " + consumptionDate);
 			}
 		} else {
 			extent.extentLoggerFail("incorrectNavigation",
@@ -4957,15 +4957,25 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search content");
 
 		Thread.sleep(2000);
-		if (checkElementDisplayed(PWASearchPage.objCloseRegisterDialog, "Pop Up") == false) {
+		if (checkElementDisplayed(PWASearchPage.objMandatoryPopup, "Pop Up") == false) {
 			logger.info("Register Popup is not displayed for premium content");
 			extent.extentLogger("Pop-Up", "Register Popup is not displayed for premium content");
 
 		} else {
+			click(PWASearchPage.objCloseRegisterDialog, "Pop Up");
 			logger.info("Register Popup is displayed for premium content");
 			extent.extentLoggerFail("Pop-Up", "Register Popup is displayed for premium content");
 
 		}
+
+		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
+			click(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
+		}
+
+		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
+			click(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
+		}
+
 		extent.HeaderChildNode("SignUp-PopUp Funtionality");
 		Thread.sleep(2000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
@@ -4977,7 +4987,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		// mandatoryRegistrationPopUp(userType);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword1), "Search Result");
 		waitTime(10000);
-		if (checkElementDisplayed(PWASearchPage.objCloseRegisterDialog, "Pop Up")) {
+		if (checkElementDisplayed(PWASearchPage.objMandatoryPopup, "Pop Up")) {
 			logger.info("Register Popup is displayed");
 			extent.extentLogger("Pop-Up", "Register Popup is displayed");
 			logger.info("PopUp is verifed in portrait mode");
@@ -9395,42 +9405,37 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	}
 
 	public void MicrophoneVoiceInput() throws Exception {
-
 		extent.HeaderChildNode("Validating that user is asked to give the voice input post tapping on microphone icon");
-
 		if (BROWSER.equals("Chrome")) {
-
-			waitTime(5000);
-			click(PWASearchPage.objSearchButton, "seach icon");
-			click(PWASearchPage.objVoiceSearchButton, "Voice seach icon");
-
+			click(PWASearchPage.objVoiceSearchButton, "Voice search icon");
+			waitTime(2000);
 			logger.info("Voice Search Icon is present in Chrome Browser and clicked on Voice Search Icon ");
-			extent.extentLogger("Voice input",
-					"Voice Search Icon is present in Chrome Browser and clicked on Voice Search Icon");
-			waitTime(8000);
+			extent.extentLogger("Voice input","Voice Search Icon is present in Chrome Browser and clicked on Voice Search Icon");
 
 			Robot robot = new Robot();
 			robot.keyPress(KeyEvent.VK_TAB);
+			waitTime(1000);
 			robot.keyPress(KeyEvent.VK_TAB);
+			waitTime(1000);
 			robot.keyPress(KeyEvent.VK_ENTER);
 
+			waitTime(2000);
+			click(PWASearchPage.objVoiceSearchButton,"Voice seach icon");
 			String searchBarText = getAttributValue("placeholder", PWASearchPage.objSearchEditBox);
-			System.out.println(searchBarText);
-
+			logger.info("String displayed on search field :"+searchBarText);
+			extent.extentLogger("","String displayed on search field :"+searchBarText);
 			if (searchBarText.equalsIgnoreCase("Speak to Search on ZEE5")) {
 				logger.info("User is asked to give the voice input");
 				extent.extentLogger("Voice input", "User is asked to give the voice input");
 			} else {
-				logger.info("User is not asked to give the voice input");
-				extent.extentLogger("Voice input", "User is not asked to give the voice input");
+				logger.error("User is not asked to give the voice input");
+				extent.extentLoggerFail("Voice input", "User is not asked to give the voice input");
 			}
 
 		}
-
 		else {
 			logger.error("Voice Search Icon is not applicable for Firefox Browser");
 			extent.extentLoggerFail("Voice Search icon", "Voice Search Icon is not applicable for Firefox Browser");
-
 		}
 
 		Back(1);
@@ -17113,16 +17118,19 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		extent.HeaderChildNode("HLS_109: Verify whether user is able to navigate Kids landing page ");
 		PWAPagesNavigationAndTabHighlight(tabName);
 		extent.HeaderChildNode("HLS_122 :Verify the right side bottom arrow ");
-		navigateToAnyScreenOnWeb(tabName);
-		scrollDownByY(300);
-		scrollDownByY(300);
-		logger.info("Scrolled Up the page");
-		if (checkElementDisplayed(PWAMusicPage.objArrowToNavigateTop, "Back to Top Arrow icon")) {
-			waitTime(2000);
-			click(PWAMusicPage.objArrowToNavigateTop, "Back to Top Arrow icon");
+		waitTime(2000);
+		partialScroll();
+		partialScroll();
+		waitTime(3000);
+		if (verifyElementPresent(PWAMusicPage.objArrowToNavigateTop, "Arrow icon")) {
+			
+			logger.info("Back to Top arrow is displayed");
+			extent.extentLoggerPass("", "Back to Top arrow is displayed");
+			click(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
+			
 		} else {
-			logger.error("Back to Top Arrow icon is not displayed");
-			extent.extentLoggerFail("", "Back to Top Arrow icon is not displayed");
+			logger.error("Back to Top arrow is not displayed");
+			extent.extentLoggerFail("", "Back to Top arrow is not displayed");
 		}
 		extent.HeaderChildNode(" HLS_112 : Verify whether \"Play text\" CTA is displaying on Kids feature carousel");
 		checkElementDisplayed(PWAKidsPage.objPlayButton, "Play text on Carousel card");
@@ -17794,9 +17802,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 				"HLS_037: Verify ZEEPLEX  content trailer are played through clicking Trailer CTA of the Zeeplex contents");
 		ScrollToTheElementWEB(PWAHamburgerMenuPage.objTrailer);
 		click(PWAHamburgerMenuPage.objTrailer, "Trailer");
-		if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup")) {
-			JSClick(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
-		}
+
 		waitTime(3000);
 		if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
 			logger.info("Navigated to Consumption Page");
@@ -17806,21 +17812,32 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 			extent.extentLogger("Consumption Page", "Not navigated to the Trailer Consumption playback screen");
 		}
 		Back(1);
-		waitTime(3000);
-		extent.HeaderChildNode(
-				"HLS_038: Verify Rental popup displayed through clicking Rent for INR CTA of the Zeeplex contents");
-		ScrollToTheElementWEB(PWAHamburgerMenuPage.objrentforINR);
-		click(PWAHamburgerMenuPage.objrentforINR, "Rent for INR");
 		if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup")) {
 			JSClick(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
 		}
-		if (verifyElementPresent(PWAHamburgerMenuPage.objrentforINRpopup, "Rental Pop Up")) {
-			extent.extentLoggerPass("", "Rental pop Up is displayed");
-			click(PWAHamburgerMenuPage.objrentalpopupclose, "Rental PopUp Close button");
-		} else {
-			logger.error("Failed to display rental popup");
-			extent.extentLoggerFail("", "Failed to display rental popup");
+		waitTime(3000);
+		partialScroll();
+		if(checkElementDisplayed(PWAHamburgerMenuPage.objrentforINR, "Rent for INR"))
+		{
+			extent.HeaderChildNode(
+					"HLS_038: Verify Rental popup displayed through clicking Rent for INR CTA of the Zeeplex contents");
+			ScrollToTheElementWEB(PWAHamburgerMenuPage.objrentforINR);
+			click(PWAHamburgerMenuPage.objrentforINR, "Rent for INR");
+			
+			if (verifyElementPresent(PWAHamburgerMenuPage.objrentforINRpopup, "Rental Pop Up")) {
+				extent.extentLoggerPass("", "Rental pop Up is displayed");
+				click(PWAHamburgerMenuPage.objrentalpopupclose, "Rental PopUp Close button");
+			} else {
+				logger.error("Failed to display rental popup");
+				extent.extentLoggerFail("", "Failed to display rental popup");
+			}
 		}
+		else 
+		{
+			logger.info("Rent for INR movie contents are not displayed");
+			extent.extentLoggerWarning(" ", "Rent for INR movie contents are not displayed");
+		}
+
 	}
 
 	public void upgrade(String userType) throws Exception {

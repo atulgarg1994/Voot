@@ -221,7 +221,7 @@ public class PWASubscriptionPages {
 			.xpath("//*[contains(@class, 'popupBtn') and contains(text(), 'PROCEED')]");
 
 	public static By objCreditAndDebitCardBtn = By.xpath(
-			"//*[@class='linearLayout sidebarItem_object ']//following-sibling::*//article[contains(text(),'Credit / Debit Card')]");
+			"//*[contains(@class,'linearLayout sidebarItem_object')]//following-sibling::*//article[contains(text(),'Credit / Debit Card')]");
 	public static By objWallets = By
 			.xpath("//*[contains(@class, 'linearLayout PaymentOptionViewNotList ')]//*[contains(text(), 'Wallets')]");
 	public static By objPaytmWallet = By.xpath(
@@ -253,8 +253,8 @@ public class PWASubscriptionPages {
 	public static By objAccountDetailInSubscription = By.xpath("//*[@class='autoPopulatedDetail']");
 
 	public static By objPaytmProceedToPay = By.xpath("(//article[contains(text(), 'Proceed to pay')])[2]");
-	public static By objCreditDebitProceedToPay = By
-			.xpath("//div[@class='textView ']//article[contains(text(),'Proceed to pay')]");
+	
+	public static By objCreditDebitProceedToPay = By.xpath("//article[contains(text(),'Proceed to pay')]");
 
 	public static By objarrowbtn = By.xpath("//div[@class='linearLayout sidebarItem_object ']");
 

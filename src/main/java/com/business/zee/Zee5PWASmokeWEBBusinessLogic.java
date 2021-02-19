@@ -3499,14 +3499,21 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			logger.info("Search button is not displayed");
 			extent.extentLogger("Search", "Search button is not displayed");
 		}
+		
 		// Subscription_button
 		waitTime(2000);
-		if (verifyElementPresent(PWALandingPages.obj_Pwa_Subcription_teaser_btn, "Subcription button")) {
+		if (checkElementDisplayed(PWALandingPages.obj_Pwa_Subcription_teaser_btn, "Subcription button")) {
 			logger.info("Subscription button is displayed");
 			extent.extentLogger("Subscription", "Subscription button is displayed");
 		} else {
-			logger.info("Subscription button is not displayed");
-			extent.extentLogger("Subscription", "Subscription button is not displayed");
+
+			if(userType.equalsIgnoreCase("SubscribedUser")) {
+				logger.info("Subscription button should not display for Subscribed User");
+				extent.extentLoggerWarning("Subscription", "Subscritpion button should not displayed for Subscribed User");
+			} else {
+				logger.error("Subscription button is not displayed");
+				extent.extentLoggerFail("Subscription", "Subscription button is not displayed");
+			}
 		}
 
 		partialScroll();

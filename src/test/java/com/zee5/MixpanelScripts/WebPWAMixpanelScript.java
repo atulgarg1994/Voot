@@ -1106,14 +1106,14 @@ public class WebPWAMixpanelScript {
 	@Parameters({ "userType" })
 	public void verifyLoginUsernameEnteredEvent(String userType) throws Exception {
 		System.out.println("Verify Login Username Entered Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginUsernameEnteredEvent(userType,"UserName");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginUsernameEnteredEvent(userType,"UserName");
 	}
 	
 	@Test(priority = 159)
 	@Parameters({ "userType" })
 	public void verifyLoginPasswordEnteredEvent(String userType) throws Exception {
 		System.out.println("Verify Login Password Entered Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginUsernameEnteredEvent(userType,"Password");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginUsernameEnteredEvent(userType,"Password");
 	}
 	
 	@Test(priority = 160)
@@ -1671,7 +1671,7 @@ public class WebPWAMixpanelScript {
 	@Parameters({ "userType"})
 	public void verifyLoginInitiatedEventForInvalidCredentials(String userType) throws Exception {
 		System.out.println("Verify Login Initiated Event post entering invalid credentials");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginInitiatedEventForInvalidCredentials(userType,"emailLogin");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginInitiatedEventForInvalidCredentials(userType,"emailLogin");
 	}
 	
 	@Test(priority = 241)

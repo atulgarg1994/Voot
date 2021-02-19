@@ -738,7 +738,7 @@ public class PWAHamburgerMenuPage {
 	public static By objproceed2btn=By.xpath("(//*[text()='PROCEED'])[2]");
 	public static By objgetclubinKannada=By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//a[1]//span[contains(text(), 'ಕ್ಲಬ್ಗೆ ಹೋಗಿ')]");
 	
-	public static By objUnselectedEnglishContentLanguage = By.xpath("//span[@class= 'nativeName' and .='English']");
+	public static By objUnselectedEnglishContentLanguage = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='English']");
 
 	
 }
