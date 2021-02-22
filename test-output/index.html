@@ -5,8 +5,8 @@
   <meta charset='utf-8'>
   <title>TestNG reports</title>
 
-    <link type="text/css" href="testng-reports.css" rel="stylesheet" />  
-    <script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+    <link type="text/css" href="testng-reports.css" rel="stylesheet" />
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="testng-reports.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type='text/javascript'>
@@ -29,16 +29,16 @@
     <div class="navigator-root">
       <div class="navigator-suite-header">
         <span>All suites</span>
-        <a href="#" title="Collapse/expand all the suites" class="collapse-all-link">
-          <img src="collapseall.gif" class="collapse-all-icon">
+        <a href="#" class="collapse-all-link" title="Collapse/expand all the suites">
+          <img class="collapse-all-icon" src="collapseall.gif">
           </img> <!-- collapse-all-icon -->
         </a> <!-- collapse-all-link -->
       </div> <!-- navigator-suite-header -->
       <div class="suite">
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
-            <a href="#" panel-name="suite-MPWA" class="navigator-link">
-              <span class="suite-name border-passed">MPWA</span>
+            <a href="#" class="navigator-link" panel-name="suite-Web">
+              <span class="suite-name border-passed">Web</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -48,37 +48,37 @@
             <div class="suite-section-content">
               <ul>
                 <li>
-                  <a href="#" panel-name="test-xml-MPWA" class="navigator-link ">
-                    <span>D:\Zee5_Project\Zee5\zee5_updated\testng.xml</span>
+                  <a href="#" class="navigator-link " panel-name="test-xml-Web">
+                    <span>E:\Zee5_Project\Zee5\zee5_updated\WEB_Mixpanel.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" panel-name="testlist-MPWA" class="navigator-link ">
+                  <a href="#" class="navigator-link " panel-name="testlist-Web">
                     <span class="test-stats">1 test</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" panel-name="group-MPWA" class="navigator-link ">
-                    <span>2 groups</span>
+                  <a href="#" class="navigator-link " panel-name="group-Web">
+                    <span>0 groups</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" panel-name="times-MPWA" class="navigator-link ">
+                  <a href="#" class="navigator-link " panel-name="times-Web">
                     <span>Times</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" panel-name="reporter-MPWA" class="navigator-link ">
+                  <a href="#" class="navigator-link " panel-name="reporter-Web">
                     <span>Reporter output</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" panel-name="ignored-methods-MPWA" class="navigator-link ">
+                  <a href="#" class="navigator-link " panel-name="ignored-methods-Web">
                     <span>Ignored methods</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" panel-name="chronological-MPWA" class="navigator-link ">
+                  <a href="#" class="navigator-link " panel-name="chronological-Web">
                     <span>Chronological view</span>
                   </a> <!-- navigator-link  -->
                 </li>
@@ -96,16 +96,16 @@
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
                     <span class="show-or-hide-methods passed">
-                      <a href="#" panel-name="suite-MPWA" class="hide-methods passed suite-MPWA"> (hide)</a> <!-- hide-methods passed suite-MPWA -->
-                      <a href="#" panel-name="suite-MPWA" class="show-methods passed suite-MPWA"> (show)</a> <!-- show-methods passed suite-MPWA -->
+                      <a href="#" panel-name="suite-Web" class="hide-methods passed suite-Web"> (hide)</a> <!-- hide-methods passed suite-Web -->
+                      <a href="#" panel-name="suite-Web" class="show-methods passed suite-Web"> (show)</a> <!-- show-methods passed suite-Web -->
                     </span>
-                    <div class="method-list-content passed suite-MPWA">
+                    <div class="method-list-content passed suite-Web">
                       <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-MPWA" title="com.GroupingExample.GroupTests" class="method navigator-link" hash-for-method="PWAWEBMixPanelLogin3">PWAWEBMixPanelLogin3</a> <!-- method navigator-link -->
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Web" title="com.zee5.MixpanelScripts.PWA_Web_Player" hash-for-method="checkPageName">checkPageName</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                    </div> <!-- method-list-content passed suite-MPWA -->
+                    </div> <!-- method-list-content passed suite-Web -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -116,90 +116,103 @@
     </div> <!-- navigator-root -->
     <div class="wrapper">
       <div class="main-panel-root">
-        <div panel-name="suite-MPWA" class="panel MPWA">
-          <div class="suite-MPWA-class-passed">
+        <div panel-name="suite-Web" class="panel Web">
+          <div class="suite-Web-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
-              <span class="class-name">com.GroupingExample.GroupTests</span>
+              <span class="class-name">com.zee5.MixpanelScripts.PWA_Web_Player</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="PWAWEBMixPanelLogin3">
-                  </a> <!-- PWAWEBMixPanelLogin3 -->
-                  <span class="method-name">PWAWEBMixPanelLogin3</span>
+                  <a name="checkPageName">
+                  </a> <!-- checkPageName -->
+                  <span class="method-name">checkPageName</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-MPWA-class-passed -->
-        </div> <!-- panel MPWA -->
-        <div panel-name="test-xml-MPWA" class="panel">
+          </div> <!-- suite-Web-class-passed -->
+        </div> <!-- panel Web -->
+        <div panel-name="test-xml-Web" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">D:\Zee5_Project\Zee5\zee5_updated\testng.xml</span>
+            <span class="header-content">E:\Zee5_Project\Zee5\zee5_updated\WEB_Mixpanel.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;!DOCTYPE suite SYSTEM &quot;http://testng.org/testng-1.0.dtd&quot;&gt;
-&lt;suite thread-count=&quot;1&quot; name=&quot;MPWA&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
-  &lt;groups&gt;
-    &lt;run&gt;
-      &lt;include name=&quot;Login3&quot;/&gt;
-    &lt;/run&gt;
-  &lt;/groups&gt;
-  &lt;test name=&quot;Test&quot;&gt;
+&lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
+&lt;suite thread-count=&quot;1&quot; guice-stage=&quot;DEVELOPMENT&quot; name=&quot;Web&quot;&gt;
+  &lt;parameter name=&quot;SettingsNonSubscribedUserName&quot; value=&quot;zeetest@gmail.com&quot;/&gt;
+  &lt;parameter name=&quot;audioTrackPremiumContent&quot; value=&quot;No Entry&quot;/&gt;
+  &lt;parameter name=&quot;skipIntroURL&quot; value=&quot;https://newpwa.zee5.com/movies/details/bablu-dablu-robo-rumble/0-0-54219&quot;/&gt;
+  &lt;parameter name=&quot;SubscribedUserPassword&quot; value=&quot;123456&quot;/&gt;
+  &lt;parameter name=&quot;keyword5&quot; value=&quot;Bhinna&quot;/&gt;
+  &lt;parameter name=&quot;keyword6&quot; value=&quot;Popcorn Monkey Tiger (A)&quot;/&gt;
+  &lt;parameter name=&quot;NonsubscribedInvalidPassword&quot; value=&quot;igsindia&quot;/&gt;
+  &lt;parameter name=&quot;keyword4&quot; value=&quot;Paaru gets tipsy&quot;/&gt;
+  &lt;parameter name=&quot;keyword1&quot; value=&quot;Shivaji Surathkal&quot;/&gt;
+  &lt;parameter name=&quot;subtitleTrackContent&quot; value=&quot;Episode 01 - Ganga Enters Widowhood&quot;/&gt;
+  &lt;parameter name=&quot;keyword2&quot; value=&quot;Chemistry of Kariyappa&quot;/&gt;
+  &lt;parameter name=&quot;browserType&quot; value=&quot;Chrome&quot;/&gt;
+  &lt;parameter name=&quot;audioTrackURL&quot; value=&quot;https://newpwa.zee5.com/tvshows/details/agent-raghav-crime-branch/0-6-965/episode-13-agent-raghav/0-1-agentragh_1895058002-agentragh_1804723548-episode_779139720&quot;/&gt;
+  &lt;parameter name=&quot;audioTrackTrailerContent&quot; value=&quot;Trailer - No Entry&quot;/&gt;
+  &lt;parameter name=&quot;runModule&quot; value=&quot;Suite&quot;/&gt;
+  &lt;parameter name=&quot;SubscribedUserName&quot; value=&quot;zeetest10@test.com&quot;/&gt;
+  &lt;parameter name=&quot;ClubSubscribedUserName&quot; value=&quot;365clublg@gmail.com&quot;/&gt;
+  &lt;parameter name=&quot;audioTrackContent&quot; value=&quot;Episode 13 - Agent Raghav&quot;/&gt;
+  &lt;parameter name=&quot;NonSubscribedUserPassword&quot; value=&quot;igsindia123&quot;/&gt;
+  &lt;parameter name=&quot;keyword&quot; value=&quot;Jodi Hakki&quot;/&gt;
+  &lt;parameter name=&quot;freeContentURL&quot; value=&quot;https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paaru-gets-tipsy-paaru-highlights/0-1-249189&quot;/&gt;
+  &lt;parameter name=&quot;ClubSubscribedPassword&quot; value=&quot;123456&quot;/&gt;
+  &lt;parameter name=&quot;url&quot; value=&quot;https://newpwa.zee5.com/&quot;/&gt;
+  &lt;parameter name=&quot;runMode&quot; value=&quot;Suites&quot;/&gt;
+  &lt;parameter name=&quot;freeMovie2&quot; value=&quot;Bablu Dablu - Robo Rumble&quot;/&gt;
+  &lt;parameter name=&quot;SettingsNonSubscribedPassword&quot; value=&quot;zee123&quot;/&gt;
+  &lt;parameter name=&quot;NonSubscribedUserName&quot; value=&quot;basavaraj.pn5@gmail.com&quot;/&gt;
+  &lt;parameter name=&quot;subtitleTrackPremiumContent&quot; value=&quot;Welcome Back&quot;/&gt;
+  &lt;parameter name=&quot;userType&quot; value=&quot;Guest&quot;/&gt;
+  &lt;parameter name=&quot;subtitleTrackURL&quot; value=&quot;https://newpwa.zee5.com/tvshows/details/gangaa/0-6-972/episode-01-ganga-enters-widowhood/0-1-136585&quot;/&gt;
+  &lt;parameter name=&quot;skipIntroPremium&quot; value=&quot;The Rum Diary&quot;/&gt;
+  &lt;listeners&gt;
+    &lt;listener class-name=&quot;com.extent.ExtentReporter&quot;/&gt;
+  &lt;/listeners&gt;
+  &lt;test thread-count=&quot;1&quot; name=&quot;WebPWAMixpanelScript&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.GroupingExample.GroupTests&quot;/&gt;
+      &lt;class name=&quot;com.zee5.MixpanelScripts.PWA_Web_Player&quot;/&gt;
     &lt;/classes&gt;
-  &lt;/test&gt; &lt;!-- Test --&gt;
-&lt;/suite&gt; &lt;!-- MPWA --&gt;
+  &lt;/test&gt; &lt;!-- WebPWAMixpanelScript --&gt;
+&lt;/suite&gt; &lt;!-- Web --&gt;
             </pre>
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="testlist-MPWA" class="panel">
+        <div panel-name="testlist-Web" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">Tests for MPWA</span>
+            <span class="header-content">Tests for Web</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">Test (1 class)</span>
+                <span class="test-name">WebPWAMixpanelScript (1 class)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="group-MPWA" class="panel">
+        <div panel-name="group-Web" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">Groups for MPWA</span>
+            <span class="header-content">Groups for Web</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
-            <div class="test-group">
-              <span class="test-group-name">Login3</span>
-              <br/>
-              <div class="method-in-group">
-                <span class="method-in-group-name">PWAWEBMixPanelLogin3</span>
-                <br/>
-              </div> <!-- method-in-group -->
-            </div> <!-- test-group -->
-            <div class="test-group">
-              <span class="test-group-name">SmokeTest</span>
-              <br/>
-              <div class="method-in-group">
-                <span class="method-in-group-name">PWAWEBMixPanelLogin3</span>
-                <br/>
-              </div> <!-- method-in-group -->
-            </div> <!-- test-group -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="times-MPWA" class="panel">
+        <div panel-name="times-Web" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">Times for MPWA</span>
+            <span class="header-content">Times for Web</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="times-div">
               <script type="text/javascript">
-suiteTableInitFunctions.push('tableData_MPWA');
-function tableData_MPWA() {
+suiteTableInitFunctions.push('tableData_Web');
+function tableData_Web() {
 var data = new google.visualization.DataTable();
 data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
@@ -207,53 +220,54 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'PWAWEBMixPanelLogin3')
-data.setCell(0, 2, 'com.GroupingExample.GroupTests')
-data.setCell(0, 3, 8);
-window.suiteTableData['MPWA']= { tableData: data, tableDiv: 'times-div-MPWA'}
+data.setCell(0, 1, 'checkPageName')
+data.setCell(0, 2, 'com.zee5.MixpanelScripts.PWA_Web_Player')
+data.setCell(0, 3, 86536);
+window.suiteTableData['Web']= { tableData: data, tableDiv: 'times-div-Web'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 8 ms</span>
-              <div id="times-div-MPWA">
-              </div> <!-- times-div-MPWA -->
+              <span class="suite-total-time">Total running time: 1 minutes</span>
+              <div id="times-div-Web">
+              </div> <!-- times-div-Web -->
             </div> <!-- times-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="reporter-MPWA" class="panel">
+        <div panel-name="reporter-Web" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">Reporter output for MPWA</span>
+            <span class="header-content">Reporter output for Web</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="ignored-methods-MPWA" class="panel">
+        <div panel-name="ignored-methods-Web" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">2 ignored methods</span>
+            <span class="header-content">0 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
-            <div class="ignored-class-div">
-              <span class="ignored-class-name">com.GroupingExample.GroupTests</span>
-              <div class="ignored-methods-div">
-                <span class="ignored-method-name">PWAWEBMixPanelLogin1</span>
-                <br/>
-                <span class="ignored-method-name">PWAWEBMixPanelLogin2</span>
-                <br/>
-              </div> <!-- ignored-methods-div -->
-            </div> <!-- ignored-class-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="chronological-MPWA" class="panel">
+        <div panel-name="chronological-Web" class="panel">
           <div class="main-panel-header rounded-window-top">
             <span class="header-content">Methods in chronological order</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">com.GroupingExample.GroupTests</div> <!-- chronological-class-name -->
-              <div class="test-method">
-                <span class="method-name">PWAWEBMixPanelLogin3</span>
+              <div class="chronological-class-name">com.zee5.MixpanelScripts.PWA_Web_Player</div> <!-- chronological-class-name -->
+              <div class="configuration-test before">
+                <span class="method-name">init</span>
                 <span class="method-start">0 ms</span>
+              </div> <!-- configuration-test before -->
+              <div class="test-method">
+                <span class="method-name">checkPageName</span>
+                <span class="method-start">13229 ms</span>
               </div> <!-- test-method -->
+              <div class="configuration-class after">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">tearDown</span>
+                <span class="method-start">100153 ms</span>
+              </div> <!-- configuration-class after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
       </div> <!-- main-panel-root -->

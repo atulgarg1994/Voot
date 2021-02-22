@@ -1,62 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite thread-count="1" guice-stage="DEVELOPMENT" name="Failed suite [Android]">
   <parameter name="searchKeyword8" value="Shivaji Surathkal"/>
   <parameter name="searchKeyword7" value="Paaru"/>
+  <parameter name="SubscriptionPackwithMultipleAccessPaclsUsername" value="zeetest08@gmail.com"/>
   <parameter name="searchModuleKeyword" value="Kamali"/>
   <parameter name="searchKeyword6" value="Jamai 2.0"/>
-  <parameter name="SubscriptionPackwithMultipleAccessPaclsUsername" value="testzee5_cp@gmail.com"/>
   <parameter name="SubscribedUserWith15daysExpiryPassword" value="123456"/>
   <parameter name="invalidSearchKeyword" value="@$_-(;_+"/>
   <parameter name="searchKeyword5" value="Chemistry of Kariyappa"/>
   <parameter name="MovieName" value="O God Ganesha 2"/>
+  <parameter name="ClubContent" value="Paani Jaisa Pyaar"/>
   <parameter name="searchKeyword4" value="Bhinna"/>
   <parameter name="RegisteredEmail" value="zee5latest@gmail.com"/>
   <parameter name="searchKeyword3" value="Bablu Dablu - Robo Rumble"/>
   <parameter name="searchKeyword2" value="Jodi Hakki"/>
   <parameter name="searchKeyword1" value="Paaru gets tipsy"/>
   <parameter name="tabName1" value="Home"/>
+  <parameter name="SVODEpisode" value="Aditya apologises to Paarvathi - Paaru"/>
   <parameter name="tabName2" value="Movies"/>
   <parameter name="tabName3" value="ZEE5 Originals"/>
+  <parameter name="tabName4" value="Live TV"/>
+  <parameter name="tabName5" value="Shows"/>
   <parameter name="searchKeyword9" value="Jamai 2.0"/>
+  <parameter name="SubsUserClubPack" value="zeetest510@gmail.com"/>
   <parameter name="validPhnNumber" value="7892215214"/>
   <parameter name="SubscribedUserName" value="zeetest998@test.com"/>
+  <parameter name="SVODShow" value="Code M"/>
   <parameter name="SubscriptionPackwithMultipleAccessPaclsPassword" value="123456"/>
   <parameter name="UnRegisteredMobile" value="8073661163"/>
-  <parameter name="NonsubscribedUserName" value="igszee23@yopmail.com"/>
-  <parameter name="RSVODPassword" value="ABCD1234"/>
+  <parameter name="NonsubscribedUserName" value="zee5latest@gmail.com"/>
+  <parameter name="RSVODPassword" value="123456"/>
   <parameter name="displayLanguageSelection2" value="Marathi"/>
-  <parameter name="NonsubscribedPassword" value="123456"/>
-  <parameter name="SettingsNonsubscribedUserName" value="zeetest@gmail.com"/>
-  <parameter name="runMode" value="Suites"/>
+  <parameter name="NonsubscribedPassword" value="User@123"/>
+  <parameter name="SettingsNonsubscribedUserName" value="gdm@mailnesia.com"/>
+  <parameter name="contentWithoutTrailer" value="Londonalli Lambodara"/>
+  <parameter name="runMode" value="Android_Onboarding_Suite1"/>
+  <parameter name="ClubPassword" value="000000"/>
+  <parameter name="searchKeyword10" value="Vikrant and Aarati reconcile - Gattimela"/>
   <parameter name="RegisteredMobilePassword" value="User@123"/>
   <parameter name="NonsubscribedUserWithInActivePackPassword" value="123456"/>
   <parameter name="RegisteredEmailPassword" value="User@123"/>
-  <parameter name="userType" value="SubscribedUser"/>
+  <parameter name="userType" value="Guest"/>
   <parameter name="LastName" value="UserZee"/>
   <parameter name="NonsubscribedUserWithNoTransactionPassword" value="User@123"/>
   <parameter name="SubscribedPassword" value="123456"/>
   <parameter name="PackWithDiscountPassword" value="12345678"/>
   <parameter name="PromoCode" value="PNB20"/>
+  <parameter name="SVODMovie" value="47 Days"/>
+  <parameter name="keyword3" value="Kam"/>
+  <parameter name="NonSubsUserKids" value="igszee0406@yopmail.com"/>
   <parameter name="searchKeyword" value="Aditya praises Paaru"/>
-  <parameter name="RSVODUser" value="9663128823"/>
+  <parameter name="SearchVODContent4" value="Kurukshetra"/>
+  <parameter name="SearchVODContent2" value="Prema Baraha"/>
+  <parameter name="RSVODUser" value="testzee5@gmail.com"/>
+  <parameter name="SearchVODContent3" value="Happy New Year"/>
+  <parameter name="browserType" value="Chrome"/>
   <parameter name="otp1" value="1"/>
   <parameter name="displayLanguageSelection1" value="English"/>
   <parameter name="otp2" value="2"/>
+  <parameter name="SVODMusic" value="Kalede Hode Naanu - Chambal | Sathish Ninasam | Sonu Gowda"/>
   <parameter name="NonsubscribedUserWithInActivePackUsername" value="zeetestww@test.com"/>
   <parameter name="runModule" value="Suite"/>
   <parameter name="searchcontent6" value="Comedy Kiladigalu Championship - Episode 11"/>
   <parameter name="validPassword" value="User@123"/>
   <parameter name="searchcontent5" value="Comedy Kiladigalu Championship - Episode 10"/>
   <parameter name="NonsubscribedUserWithNoTransactionUsername" value="zeebuild@gmail.com"/>
-  <parameter name="SettingsNonsubscribedPassword" value="zee12345"/>
+  <parameter name="SettingsNonsubscribedPassword" value="654321"/>
+  <parameter name="RSVODContent" value="LockUp"/>
   <parameter name="partlySpeltSearchKeyword" value="Kam"/>
+  <parameter name="NonSubsPwdKids" value="654321"/>
   <parameter name="SettingsSubscribedPassword" value="123456"/>
   <parameter name="otp3" value="3"/>
   <parameter name="searchcontent2" value="Comedy Kiladigalu Championship - Episode 8"/>
   <parameter name="otp4" value="4"/>
-  <parameter name="searchcontent1" value="Dil Bechara – Title Track"/>
+  <parameter name="searchcontent1" value="Sanchari Hrudaya - Chambal"/>
+  <parameter name="USMNonsubscribedUserName" value="gdm@mailnesia.com"/>
   <parameter name="searchcontent4" value="Comedy Kiladigalu Championship - Episode 9"/>
+  <parameter name="ClubUserName" value="clubpacktesting1@gmail.com"/>
   <parameter name="searchcontent3" value="Comedy Kiladigalu Championship - Episode 24"/>
   <parameter name="PackWithDiscountUsername" value="dmgowthu@mailinator.com"/>
   <parameter name="loginThrough" value="login"/>
@@ -64,17 +85,283 @@
   <parameter name="FirstName" value="Zee"/>
   <parameter name="PrepaidCode" value="Z5PWATI9WlD"/>
   <parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com"/>
+  <parameter name="url" value="newpwa"/>
   <parameter name="regPassword" value="123456"/>
   <parameter name="inValidPhnNumber" value="7892215"/>
   <parameter name="VideoQuality" value="Data saver"/>
+  <parameter name="USMNonsubscribedPassword" value="654321"/>
+  <parameter name="SearchVODContent" value="Ammana Mane"/>
+  <parameter name="SubsPwdClubPack" value="000000"/>
   <parameter name="SubscribedUserWith15daysExpiryUsername" value="testzee5_4@gmail.com"/>
   <parameter name="RegisteredMobile" value="7892215214"/>
   <listeners>
     <listener class-name="com.extent.ExtentReporter"/>
   </listeners>
-  <test name="Android_BeforeTV">
+  <test thread-count="1" name="Android_AppLaunch(failed)">
     <classes>
-      <class name="com.zee5.ApplicasterScripts.Android_BeforeTV"/>
+      <class name="com.zee5.ApplicasterScripts.Android_AppLaunch">
+        <methods>
+          <include name="accessDeviceLocation"/>
+          <include name="offlineScreenValidation"/>
+          <include name="AppLaunch"/>
+          <include name="ValidateFieldsAfterRelaunch"/>
+          <include name="ApplicasterLogin"/>
+          <include name="tearDownApp"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_AppLaunch -->
     </classes>
-  </test> <!-- Android_BeforeTV -->
+  </test> <!-- Android_AppLaunch(failed) -->
+  <test thread-count="1" name="Android_Onboarding_Suite2(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_Onboarding_Suite2">
+        <methods>
+          <include name="InvalidPrepaidCodeValidationAfterLogin"/>
+          <include name="InvalidPrepaidCodeValidationAfterRegistration"/>
+          <include name="BrowseforFreeSkipLoginRegistration"/>
+          <include name="HaveAPrepaidCodeUIVerification"/>
+          <include name="AppLaunch"/>
+          <include name="tearDownApp"/>
+          <include name="ApplicasterLogin"/>
+          <include name="BrowseforFreeLoginwithEmailID"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_Onboarding_Suite2 -->
+    </classes>
+  </test> <!-- Android_Onboarding_Suite2(failed) -->
+  <test thread-count="1" name="Android_Onboarding_Suite3(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_Onboarding_Suite3">
+        <methods>
+          <include name="AppLaunch"/>
+          <include name="tearDownApp"/>
+          <include name="mobileRegistration"/>
+          <include name="socialLoginValidation"/>
+          <include name="subscribeNow"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_Onboarding_Suite3 -->
+    </classes>
+  </test> <!-- Android_Onboarding_Suite3(failed) -->
+  <test thread-count="1" name="Android_Subscription(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_Subscription">
+        <methods>
+          <include name="ApplicasterLogin"/>
+          <include name="SubscriptionScreenValidation"/>
+          <include name="tearDownApp"/>
+          <include name="AppLaunch"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_Subscription -->
+    </classes>
+  </test> <!-- Android_Subscription(failed) -->
+  <test thread-count="1" name="Android_Search(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_Search">
+        <methods>
+          <include name="ApplicasterLogin"/>
+          <include name="SearchScreen"/>
+          <include name="tearDownApp"/>
+          <include name="voiceSearchValidation"/>
+          <include name="AppLaunch"/>
+          <include name="searchResultScreenValidation"/>
+          <include name="TopAndTrendingSearches"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_Search -->
+    </classes>
+  </test> <!-- Android_Search(failed) -->
+  <test thread-count="1" name="Android_LandingScreen_BottomNavigation(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_LandingScreen_BottomNavigation">
+        <methods>
+          <include name="downloadScreenAndParentalPinValidation"/>
+          <include name="AppLaunch"/>
+          <include name="tearDownApp"/>
+          <include name="accessDeviceLocation"/>
+          <include name="moreScreenValidation"/>
+          <include name="upcomingScreenValidation"/>
+          <include name="ApplicasterLogin"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_LandingScreen_BottomNavigation -->
+    </classes>
+  </test> <!-- Android_LandingScreen_BottomNavigation(failed) -->
+  <test thread-count="1" name="Android_Downloads(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_Downloads">
+        <methods>
+          <include name="ApplicasterLogin"/>
+          <include name="DonwloadsLandingScreen"/>
+          <include name="AppLaunch"/>
+          <include name="tearDownApp"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_Downloads -->
+    </classes>
+  </test> <!-- Android_Downloads(failed) -->
+  <test thread-count="1" name="Android_LandingScreen_TopNavigation(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation">
+        <methods>
+          <include name="tearDownApp"/>
+          <include name="Zee5Originals_LandingScreen"/>
+          <include name="News_LandingScreen"/>
+          <include name="Premium_LandingScreen"/>
+          <include name="Eduauraa_LandingScreen"/>
+          <include name="Home_LandingScreen"/>
+          <include name="Music_LandingScreen"/>
+          <include name="Movies_LandingScreen"/>
+          <include name="Shows_LandinScreen"/>
+          <include name="LiveTV_landingScreen"/>
+          <include name="ChannelGuide_LandingScreen"/>
+          <include name="ApplicasterLogin"/>
+          <include name="AppLaunch"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation -->
+    </classes>
+  </test> <!-- Android_LandingScreen_TopNavigation(failed) -->
+  <test thread-count="1" name="Android_ListingScreen(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_ListingScreen">
+        <methods>
+          <include name="AppLaunch"/>
+          <include name="tearDownApp"/>
+          <include name="ListingCollection_EntryPoints"/>
+          <include name="ApplicasterLogin"/>
+          <include name="ListingCollection"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_ListingScreen -->
+    </classes>
+  </test> <!-- Android_ListingScreen(failed) -->
+  <test thread-count="1" name="Android_Settings(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_Settings">
+        <methods>
+          <include name="AppLaunch"/>
+          <include name="tearDownApp"/>
+          <include name="ApplicasterLogin"/>
+          <include name="Settings_Screen"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_Settings -->
+    </classes>
+  </test> <!-- Android_Settings(failed) -->
+  <test thread-count="1" name="Android_ExitPop(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_ExitPop">
+        <methods>
+          <include name="ExipPopup_LandingScreen"/>
+          <include name="ApplicasterLogin"/>
+          <include name="ExipPopup_DisplayLanguage"/>
+          <include name="AppLaunch"/>
+          <include name="tearDownApp"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_ExitPop -->
+    </classes>
+  </test> <!-- Android_ExitPop(failed) -->
+  <test thread-count="1" name="DeepLinkValidation(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.DeepLinkValidation">
+        <methods>
+          <include name="ValidatingDeepLink"/>
+          <include name="AppLaunch"/>
+          <include name="tearDownApp"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.DeepLinkValidation -->
+    </classes>
+  </test> <!-- DeepLinkValidation(failed) -->
+  <test thread-count="1" name="Android_MoreScreen(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_MoreScreen">
+        <methods>
+          <include name="AboutUsValidation"/>
+          <include name="AppLaunch"/>
+          <include name="Settings"/>
+          <include name="AccountDetails"/>
+          <include name="BuySubscription"/>
+          <include name="tearDownApp"/>
+          <include name="TermsOfUseValidation"/>
+          <include name="HelpCenterValidation"/>
+          <include name="MyReminders"/>
+          <include name="Haveaprepaidcode"/>
+          <include name="LogoutValidation"/>
+          <include name="PrivacyPolicyValidation"/>
+          <include name="MyWatchlist"/>
+          <include name="ApplicasterLogin"/>
+          <include name="InviteAFriend"/>
+          <include name="MySubscription"/>
+          <include name="MyTransactions"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_MoreScreen -->
+    </classes>
+  </test> <!-- Android_MoreScreen(failed) -->
+  <test thread-count="1" name="Android_BeforeTV(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_BeforeTV">
+        <methods>
+          <include name="ApplicasterLogin"/>
+          <include name="AppLaunch"/>
+          <include name="BeforeTV"/>
+          <include name="tearDownApp"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_BeforeTV -->
+    </classes>
+  </test> <!-- Android_BeforeTV(failed) -->
+  <test thread-count="1" name="Android_ClubPack(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_ClubPack">
+        <methods>
+          <include name="ApplicasterLogin"/>
+          <include name="ValidateSubscribeAndLoginCTAForClubContent"/>
+          <include name="ClubUpgradeToAllAccess"/>
+          <include name="AppLaunch"/>
+          <include name="tearDownApp"/>
+          <include name="ValidateClubIconForLandingPages"/>
+          <include name="ClubPack"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_ClubPack -->
+    </classes>
+  </test> <!-- Android_ClubPack(failed) -->
+  <test thread-count="1" name="Android_UserSessionManagement(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_UserSessionManagement">
+        <methods>
+          <include name="WebDetails"/>
+          <include name="launchChromeApplication_2"/>
+          <include name="launchZee5App"/>
+          <include name="AppLoginSecondTime"/>
+          <include name="App_Update"/>
+          <include name="PWAWEBLogin"/>
+          <include name="Web_Update"/>
+          <include name="launchChromeApplication"/>
+          <include name="ApptearDown"/>
+          <include name="AppDetails"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_UserSessionManagement -->
+    </classes>
+  </test> <!-- Android_UserSessionManagement(failed) -->
+  <test thread-count="1" name="Android_PlayerScreen(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_PlayerScreen">
+        <methods>
+          <include name="Player_Potrait"/>
+          <include name="ApplicasterLogin"/>
+          <include name="parentalPinPopUpValidationInLandscapeMode"/>
+          <include name="tearDownApp"/>
+          <include name="verifyPlayerScreenInLandscapeMode"/>
+          <include name="AppLaunch"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_PlayerScreen -->
+    </classes>
+  </test> <!-- Android_PlayerScreen(failed) -->
+  <test thread-count="1" name="Android_Consumption_Screen(failed)">
+    <classes>
+      <class name="com.zee5.ApplicasterScripts.Android_Consumption_Screen">
+        <methods>
+          <include name="tearDownApp"/>
+          <include name="ApplicasterLogin"/>
+          <include name="SVODConsumptionScreenForMusicTab"/>
+          <include name="MandatoryRegistrationPopUp"/>
+          <include name="SVODConsumptionScreenForMoviesTab"/>
+          <include name="SVODConsumptionScreenForShowTab"/>
+          <include name="NSVODConsumptionScreen"/>
+          <include name="AppLaunch"/>
+        </methods>
+      </class> <!-- com.zee5.ApplicasterScripts.Android_Consumption_Screen -->
+    </classes>
+  </test> <!-- Android_Consumption_Screen(failed) -->
 </suite> <!-- Failed suite [Android] -->
