@@ -92,7 +92,6 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.continueWatchingtrayData(userType);
 	}
 
-	// --------------------------YASHASWINI LandingPages--------------------------
 	@Test(priority = 9)
 	@Parameters({ "userType" })
 	public void landingPageValidation(String userType) throws Exception {
@@ -112,7 +111,23 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.ContinuewatchingTray(userType);
 		Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
 		Zee5WEBPWASanityBusinessLogic.FreeContentAndPremiumContent(userType);
+		
+		
+		Zee5WEBPWASanityBusinessLogic.PWAVerifyTitleInAnchorTags(userType);
+		Zee5WEBPWASanityBusinessLogic.PWAVerifyImageWebP(userType);
+		Zee5WEBPWASanityBusinessLogic.PWAVerifyMetaTags(userType);
+		Zee5WEBPWASanityBusinessLogic.PWABreadcrumbImplementation(userType);
+		Zee5WEBPWASanityBusinessLogic.PWASubtitleSelection(userType);
+		Zee5WEBPWASanityBusinessLogic.PWAVerifyPageFreezeForChannel(userType);
+		Zee5WEBPWASanityBusinessLogic.PWAEmbedFunctionality(userType);
+		Zee5WEBPWASanityBusinessLogic.PWAClickOnPromotionalBanners(userType);
+		Zee5WEBPWASanityBusinessLogic.PWAZeeplexDisclaimer(userType);
+		Zee5WEBPWASanityBusinessLogic.verifyPremiumPopUpForPremiumLiveChannel(userType);
+		Zee5WEBPWASanityBusinessLogic.verifyMandatoryRegistrationPopUpCount(userType);
+		Zee5WEBPWASanityBusinessLogic.verifyClubTagForLiveTVContents(userType);
+		Zee5WEBPWASanityBusinessLogic.PWAVerifyMetaTagsForTwitter(userType);
 	}
+
 
 	// -------------------------SUSHMA MoviePage--------------------------
 	@Test(priority = 10)
