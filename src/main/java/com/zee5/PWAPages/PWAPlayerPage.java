@@ -435,10 +435,4 @@ public class PWAPlayerPage {
 	public static By objEmbedCopyButton = By.xpath("//button//*[text()='Copy']");
 	public static By objEmbedCloseButton = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 
-
-
-
-
-
-	
 }

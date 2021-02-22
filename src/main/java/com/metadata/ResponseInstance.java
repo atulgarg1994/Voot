@@ -332,9 +332,8 @@ public class ResponseInstance {
 		} else {
 			Uri = "https://gwapi.zee5.com/content/details/" + contentID + "?translation=en&country=IN&version=2";
 		}
-		respContentDetails = given().when().get(Uri);
-		// System.out.println("Content Details API Response:
-		// "+respContentDetails.getBody().asString());
+		respContentDetails = given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(Uri);
+		System.out.println("Content Details API Response: "+respContentDetails.getBody().asString());
 		return respContentDetails;
 	}
 
