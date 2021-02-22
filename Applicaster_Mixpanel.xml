@@ -14,7 +14,7 @@
 	<parameter name="NonSubscribedUserName" value="amdnonmixpanel@yopmail.com" />
 	<parameter name="NonSubscribedUserPassword" value="123456" />
 	
-	<parameter name="SubscribedUserName" value="zeetestigs923@gmail.com" />
+	<parameter name="SubscribedUserName" value="clubRK@g.com" />
 	<parameter name="SubscribedUserPassword" value="123456" />
 	
 	<parameter name="ParentalNonsubscribedUserName" value="juspayuser@mailnesia.com" />
@@ -41,22 +41,11 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 	
-	<test name="ZNAMixpanel_AdWatchDuration">
+	<test name="ZNAMixpanel_VideoView">
 		<classes>
-			<class name="com.zee5.MixpanelScripts.ZNAMixpanel_AdWatchDuration" />
+			<class name="com.zee5.AMDMixpanelScripts.ZNAMixpanel_VideoView" />
 		</classes>
 	</test>
 	
-	<test name="ApplicasterMixpanelScript">
-		<classes>
-			<class name="com.zee5.PWAMixpanelScripts.ZNAMixpanelScript_Onboarding" />
-		</classes>
-	</test>
-	
-	<test name="ZNAMixpanel_QualityChange">
-		<classes>
-			<class name="com.zee5.MixpanelScripts.ZNAMixpanel_QualityChange" />
-		</classes>
-	</test>
 
 </suite>

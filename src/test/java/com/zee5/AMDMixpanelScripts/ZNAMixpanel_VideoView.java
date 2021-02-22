@@ -29,15 +29,15 @@ public class ZNAMixpanel_VideoView {
 	@Test(priority = 2)
 	@Parameters({ "userType" })
 	public void VideoViewEvent_HomePage(String userType) throws Exception {
-		System.out.println("\nVideo View validation from Home Page");
-//		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromHomePage(userType, "Home");
+		System.out.println("\nVideo View validation from Home tab");
+		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromHomePage(userType, "Home");
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, "Home");
 	}
 
 	@Test(priority = 3)
 	@Parameters({ "userType" })
 	public void VideoViewEvent_ShowsPage(String userType) throws Exception {
-		System.out.println("\nVideo View validation from Shows Page");
+		System.out.println("\nVideo View validation from Shows tab");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(false);
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, "Shows");
 	}
@@ -45,7 +45,7 @@ public class ZNAMixpanel_VideoView {
 	@Test(priority = 4)
 	@Parameters({ "userType" })
 	public void VideoViewEvent_MusicPage(String userType) throws Exception {
-		System.out.println("\nVideo View validation from Music Page");
+		System.out.println("\nVideo View validation from Music tab");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(false);
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, "Music");
 	}
@@ -53,31 +53,55 @@ public class ZNAMixpanel_VideoView {
 	@Test(priority = 5)
 	@Parameters({ "userType" })
 	public void VideoViewEvent_MoviesPage(String userType) throws Exception {
-		System.out.println("\nVideo View validation from Movies Page");
+		System.out.println("\nVideo View validation from Movies tab");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(false);
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, "Movies");
 	}
 
 	@Test(priority = 6)
 	@Parameters({ "userType" })
+	public void VideoViewEvent_PremiumPage(String userType) throws Exception {
+		System.out.println("\nVideo View validation from Premium tab");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(false);
+		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, "premium");
+	}
+	
+	@Test(priority = 7)
+	@Parameters({ "userType" })
 	public void VideoViewEvent_NewsPage(String userType) throws Exception {
-		System.out.println("\nVideo View validation from Movies Page");
+		System.out.println("\nVideo View validation from News tab");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(false);
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, "News");
 	}
 
-	@Test(priority = 7)
+	@Test(priority = 8)
 	@Parameters({ "userType" })
 	public void VideoViewEvent_ClubPage(String userType) throws Exception {
-		System.out.println("\nVideo View validation from Movies Page");
+		System.out.println("\nVideo View validation from Club tab");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(false);
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, "Club");
 	}
 
-	@Test(priority = 8)
+	@Test(priority = 9)
+	@Parameters({ "userType" })
+	public void VideoViewEvent_LiveTVPage(String userType) throws Exception {
+		System.out.println("\nVideo View validation from Live TV tab");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(false);
+		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, "Live TV");
+	}
+	
+	@Test(priority = 10)
+	@Parameters({ "userType" })
+	public void VideoViewEvent_EduauraaPage(String userType) throws Exception {
+		System.out.println("\nVideo View validation from Eduauraa tab");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(false);
+		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, "Eduauraa");
+	}
+	
+	@Test(priority = 11)
 	@Parameters({ "userType" })
 	public void VideoViewEvent_ZEE5OriginalsPage(String userType) throws Exception {
-		System.out.println("\nVideo View validation from Movies Page");
+		System.out.println("\nVideo View validation from ZEE5 Originals tab");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(false);
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, "Zee5 Originals");
 	}

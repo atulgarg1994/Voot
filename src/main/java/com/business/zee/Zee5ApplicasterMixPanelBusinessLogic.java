@@ -8774,7 +8774,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		setFEProperty(usertype);
 		waitForElementDisplayed(AMDHomePage.objTitle, 20);
 		SelectTopNavigationTab(tabName);
-		String contentLang = ResponseInstance.getLanguage(usertype);
+		String contentLang = ResponseInstance.getContentLanguageForAppMixpanel(usertype);
+		
 		System.out.println(contentLang);
 		Response str = ResponseInstance.getResponseForApplicasterPages(usertype, "home");
 		

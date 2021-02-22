@@ -426,6 +426,19 @@ public class PWAPlayerPage {
 	public static By objHavePromoCodeEditTxt = By.xpath(".//*[@placeholder='Have a Code?']");
 	
 	public static By objProceedBtn = By.xpath(".//*[@class='popupBtn '] |  //*[@text='PROCEED']");
-	
+	public static By objEmbedButton = By.xpath("//*[@class='iconInitialLoad-ic_embed']");
+	public static By objEmbedHeader = By.xpath("//*[@class='embedHeader' and contains(text(),'Embed Video')]");
+	public static By objEmbedText = By.xpath("//*[@id='copyEmbed' and contains(text(),'<iframe width=')]");
+	public static By objEmbedCheckbox = By.xpath("//*[@class='checker iconOther-ic_check']");
+	public static By objEmbedStartAtText = By.xpath("//div[@class='embedDiv']//p[text()='Start at']");
+	public static By objEmbedStartAtValue = By.xpath("//div[@class='embedDiv']//input[@type='text' and @value='0:00']");
+	public static By objEmbedCopyButton = By.xpath("//button//*[text()='Copy']");
+	public static By objEmbedCloseButton = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
+
+
+
+
+
+
 	
 }

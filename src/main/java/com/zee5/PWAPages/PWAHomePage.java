@@ -80,9 +80,7 @@ public class PWAHomePage {
 
 	public static By objLanguageBtn = By.xpath("//div[@id='languageBtn']");
 
-	// Masthead carousel current content
-	public static By objMastheadCarouselCurrentContent = By.xpath(
-			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'content')]//img");
+	
 	// Display Language popup Title
 	public static By objDisplayLanguagePopupTitle = By.xpath(
 			"//div[contains(@class, 'popupContent langFilterPopupWrapper')]//div[contains(text(), 'Display Language')]");
@@ -542,5 +540,57 @@ public class PWAHomePage {
 	
 	public static By objTrayContentIcon(String trayName,String contentTitle) {
 		return By.xpath("(//div[@class='trayHeader']//h2[.=\""+trayName+"\"])//parent::*//parent::*//following-sibling::*//child::*[@title=\""+contentTitle+"\"]");
+	}
+	
+	public static By objTitle = By.xpath("//span[@class='html-tag' and contains(text(),'title')]//ancestor::td");
+	public static By objOgTitle = By.xpath("//span[.='og:title']//following-sibling::span//following-sibling::span");
+	public static By objOgDesc = By.xpath("//span[.='og:description']//following-sibling::span//following-sibling::span");
+	public static By objTwitterOgTitle = By.xpath("//span[.='twitter:title']//following-sibling::span//following-sibling::span");
+	public static By objTwitterOgDesc = By.xpath("//span[.='twitter:description']//following-sibling::span//following-sibling::span");
+	public static By objMyProfileBreadCrumb = By.xpath("//ul[contains(@class,'breadcrumbContainer')]//span[.='Home']//parent::li//following-sibling::li//span[.='My Profile']");
+	public static By objBreadCrumb (int number) {
+		return By.xpath("//ul[contains(@class,'breadcrumbContainer')]//li["+number+"]//span[1]");
+	}
+	public static By objOpenProfile = By.xpath("//div[contains(@class,'bm-icon profileMenuBtn')]//parent::*//button[.='Open Menu']");
+	public static By objOpenProfileIcon = By.xpath("(//div[@class='iconInitialLoad-ic_profile profilePic'])[2]");
+	public static By objViewAllBreadCrumb (String tab,String trayTitle) {
+		return By.xpath("//ul[contains(@class,'breadcrumbContainer')]//span[.='"+tab+"']//parent::li//following-sibling::li//span[.='"+trayTitle+"' or .='"+trayTitle.toLowerCase()+"']");
+	}
+	public static By objMovieBreadCrumb (String movieTitle) {
+		return By.xpath("//ul[contains(@class,'breadcrumbContainer')]//span[.='Home']//parent::li//following-sibling::li//span[.='Movies']//parent::li//following-sibling::li//span[.='"+movieTitle+"']");
+	}
+	public static By objShowDetailsBreadCrumb (String showTitle) {
+		return By.xpath("//ul[contains(@class,'breadcrumbContainer')]//span[.='Home']//parent::li//following-sibling::li//span[.='Shows']//parent::li//following-sibling::li//span[.='"+showTitle+"']");
+	}
+	public static By objChannelsBreadCrumb (String channelTitle) {
+		return By.xpath("//ul[contains(@class,'breadcrumbContainer')]//span[.='Home']//parent::li//following-sibling::li//span[.='Channels']//parent::li//following-sibling::li//span[.='"+channelTitle+"']");
+	}
+	public static By objMySubscriptionsBreadCrumb = By.xpath("//ul[contains(@class,'breadcrumbContainer')]//span[.='Home']//parent::li//following-sibling::li//span[.='My Profile']//parent::li//following-sibling::li//span[.='Subscriptions']");
+	public static By objLivePlayerBreadCrumb = By.xpath("//ul[contains(@class,'breadcrumbContainer')]//span[.='Home']//parent::li//following-sibling::li//span[.='Live TV']");
+	public static By objSubtitleButton = By.xpath("//div[@title='Subtitles']//button");
+	public static By objSubtitleEnglish = By.xpath("//div[@class='subMenu' and .='English']");
+	public static By objSubtitleEnglishSelected = By.xpath("//div[contains(@class,'tickMark')]//div[@class='subMenu' and .='English']");
+	public static By objPromotionalBanner = By.xpath("//div[@class='slick-slide slick-active slick-current']//img");
+	public static By objPromotionalBannerCarouselDots = By.xpath("//div[@class='carouselDots']");
+	public static By objPromotionalBannerCarouselDots (int dotCount) {
+		return By.xpath("(//div[@class='carouselDots'])["+dotCount+"]");
+	}
+	public static By objZeePlexDisclaimer = By.xpath("//div[@class='plexZee5SubscriptionText']");
+	public static By objMarathiWEB = By.xpath("//span[contains(text(),'Marathi')]");
+	public static By objTrayBesidePlayer = By.xpath("//div[@class='recommendCol']//h2");
+	public static By objMarathi = By.xpath("//input[@value='mr']//parent::*//span");
+	public static By objPremiumIcon = By.xpath("//*[contains(@class,'cardPremiumContent')]//div[@class[contains(.,'cardPremiunIconContainer') and not(contains(.,'clubPackContent'))]]");
+	public static By objClubIcon = By.xpath("//*[contains(@class,'cardPremiumContent')]//div[@class[contains(.,'cardPremiunIconContainer') and contains(.,'clubPackContent')]]");
+	// Continue in Display/Content language popup
+	public static By objApplyContentLangPopup = By.xpath("//div[contains(@class,'popupBtn noSelect') and text()='APPLY']");
+// Masthead carousel current content
+	public static By objMastheadCarouselCurrentContent = By.xpath(
+			"//div[contains(@class,'heroBannerCarousel')]//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'content')]//img");
+	public static By objInnerMegaMenuFirstCardAnchor(String tab) {
+		return By.xpath("(//a[contains(@class,'noSelect') and text()='" + tab + "']//following-sibling::div[contains(@class,'megaMenuCards')]//a)[1]");
+	}
+	
+	public static By objInnerMegaMenuFirstCardImg(String tab) {
+		return By.xpath("(//a[contains(@class,'noSelect') and text()='" + tab + "']//following-sibling::div[contains(@class,'megaMenuCards')]//a//img)[1]");
 	}
 }
