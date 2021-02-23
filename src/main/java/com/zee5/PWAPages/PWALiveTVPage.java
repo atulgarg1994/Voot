@@ -301,8 +301,7 @@ public class PWALiveTVPage {
 				"//img[@title='" + liveshow + "']//parent::a//div//div[@class='progressBar']//div[@class='filler']");
 	}
 
-	public static By objBanglaShow1 = By
-			.xpath("(//*[@title='Zee Bangla']//parent::*//parent::*//following-sibling::*//div)[2]");
+	public static By objBanglaShow1 = By.xpath("(//*[@title='Zee Bangla']//parent::*//parent::*//following-sibling::*//following-sibling::*)[2]");
 
 	public static By objLiveChannelConsumptionPageTitle = By.xpath("//div[@class='channelConsumptionMetaDiv']//h2");
 
@@ -366,11 +365,12 @@ public class PWALiveTVPage {
 	
 	public static By objLiveChannelConsumptionChannelTitle = By.xpath("//div[@class='channelConsumptionMetaDiv']//h1");
 	
-	public static By objSetReminderOn = By.xpath("//*[@class='noSelect reminder iconNavi-ic_reminder btnIconActive']");
+	public static By objSetReminderOn = By.xpath("//*[@class='noSelect reminder iconOther-ic_reminder btnIconActive']");
 	
-	public static By objSetReminder = By.xpath("//*[@class='noSelect reminder iconNavi-ic_reminder']");
+	public static By objSetReminder = By.xpath("//*[@class='noSelect reminder iconOther-ic_reminder']");
 	
 	public static By objPlayerInlineSubscriptionLink = By.xpath("//div[@class='main-container-1']//span[contains(@class,'subscribe-link')]");
+	
 	public static By objChannelsEPGOuter = By.xpath("//*[@class='epgOuter']");
 
 }

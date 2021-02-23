@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -8053,8 +8055,25 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Resume Event for carousel content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
-		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
-		waitTime(3000);
+		
+		boolean flagBox = verifyIsElementDisplayed(AMDHomePage.objSboxIcon);
+		String pSugarBox = String.valueOf(flagBox);
+		
+		String contentName = ResponseInstance.getCarouselContentFromAPI(usertype, tabName);
+		System.out.println(contentName);
+		
+		for(int i=0;i<3;i++) {
+			if(verifyElementDisplayed(AMDHomePage.objCarouselContentTitle(contentName))) {
+				click(AMDHomePage.objCarouselContentTitle(contentName), "carousal content");
+				break;
+			}
+					
+		}
+		
+		waitForAdToFinishInAmd();
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+	
 		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
 		if (inlineLink == true) {
 			logger.info("Player inline subscription link is displayed");
@@ -8069,11 +8088,19 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			waitTime(2000);
 			
 			if (eventFlag) {
+				if (usertype.equalsIgnoreCase("SubscribedUser")) {
+					ResponseInstance.subscriptionDetails();
+				}
+				String pPage = getPageName(tabName);
+				String pSource = getSource(tabName);
+				String pManufacturer = DeviceDetails.OEM;
 				setFEProperty(usertype);
-				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Source", pSource);
+				mixpanel.FEProp.setProperty("Page Name", pPage);
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
-				mixpanel.FEProp.setProperty("Appsflyer ID", "VzZG4KdWFLkrRKZheffaHe");
+				mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
+				mixpanel.FEProp.setProperty("Brand", pManufacturer);
+				mixpanel.FEProp.setProperty("Sugar Box Value",pSugarBox );
 
 				mixpanel.ValidateParameter("", "Resume");
 			} else {
@@ -8835,5 +8862,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		
 		mixpanel.ValidateParameter("", "Resume");
     }
+	
 	
 }

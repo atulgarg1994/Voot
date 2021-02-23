@@ -2445,13 +2445,12 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		// mandatoryRegistrationPopUp(user);
 		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 				.getParameter("premiumMovie2");
-		typeAndGetSearchResult(PWASearchPage.objSearchEditBox, keyword, "Search Field");
+		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Premium content: " + keyword);
-		if (checkElementDisplayed(PWAPlayerPage.objWatchingATrailerMessage,
-				"'You're watching a trailer' message on the player")) {
+		waitTime(7000);
+		if (checkElementDisplayed(PWAPlayerPage.objWatchingATrailerMessage,"'You're watching a trailer' message on the player")) {
 			logger.info("Subscribe Pop up is not displayed for Premium content because trailer is playing");
-			extent.extentLogger("Subscribe Pop pup",
-					"Subscribe Pop up is not displayed for Premium content because trailer is playing");
+			extent.extentLogger("Subscribe Pop pup","Subscribe Pop up is not displayed for Premium content because trailer is playing");
 		} else {
 			logger.error("Premium content is played with no Subscribe Pop Up displayed");
 			extent.extentLogger("", "Premium content is played with no Subscribe Pop Up displayed");
@@ -2503,7 +2502,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Change language and verification of pop up");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objLanguageBtn, "Language button");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objkannadalanguage, "kannada Language button");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objkannadalanguage, "Kannada Display Language");
 		click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply buttton");
 		waitTime(3000);
 		click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply buttton");
@@ -4814,7 +4813,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		// handle mandatory pop up
 		mandatoryRegistrationPopUp(userType);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
-		typeAndGetSearchResult(PWASearchPage.objSearchEditBox, keyword, "Search Edit box: " + keyword);
+		type(PWASearchPage.objSearchEditBox, keyword, "Search Edit box: " + keyword);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
 		waitTime(7000);
 		String currenturl = getDriver().getCurrentUrl();
@@ -6822,21 +6821,16 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			Swipe("UP", 1);
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue button");
 			waitTime(3000);
-
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Sign in page");
 
 			if (Usertype == "Logged in") {
-
+				System.out.println("nereg");
 				type(PWALoginPage.objEmailField, "zee5latest@gmail.com", "Email");
 				hideKeyboard();
 				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
 				waitTime(3000);
-//		verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
-
 				verifyElementPresentAndClick(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
-
 				waitTime(5000);
-
 				type(PWASubscriptionPages.objPasswordField, "User@123\n", "Password");
 				hideKeyboard();
 				// click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
@@ -6847,25 +6841,17 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				}
 			}
 			if (Usertype == "NewRegister") {
-
+				System.out.println("nereg");
 				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email");
-
 				waitTime(2000);
-
 				type(PWALoginPage.objEmailField, RandomStringGenerator(5) + "@gmail.com", "Email");
 				hideKeyboard();
 				waitTime(3000);
-				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
-				waitTime(3000);
-//		verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
-
-				verifyElementPresentAndClick(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
-
+				verifyElementPresentAndClick(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password pop up");
+				click(PWASubscriptionPages.objPasswordField, "Password");
 				waitTime(5000);
-
 				type(PWASubscriptionPages.objPasswordField, "User@123\n", "Password");
 				hideKeyboard();
-				// click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
 				waitTime(10000);
 				if (verifyIsElementDisplayed(PWASubscriptionPages.objAccountDetailInSubscription, "Account details")) {
 					logger.info("Verified subscribe flow for logged in user");
@@ -6885,25 +6871,17 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			Swipe("UP", 1);
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue button");
 			waitTime(3000);
-
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Sign in page");
-
 			if (Usertype == "Logged in") {
-
 				type(PWALoginPage.objEmailField, "zee5latest@gmail.com", "Email");
 				hideKeyboard();
 				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
 				waitTime(3000);
-//		verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
-
 				verifyElementPresentAndClick(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
-
 				waitTime(5000);
-
 				type(PWASubscriptionPages.objPasswordField, "User@123\n", "Password");
 				hideKeyboard();
 				waitTime(10000);
-				// click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
 				try {
 					getDriver().findElement(PWASubscriptionPages.objProceedButtonInPassword).click();
 				} catch (Exception e) {
@@ -6916,21 +6894,15 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 
 			if (Usertype == "NewRegister") {
-
 				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Sign in page");
-
 				waitTime(1000);
-
 				type(PWALoginPage.objEmailField, RandomStringGenerator(5) + "@gmail.com", "Email");
 				hideKeyboard();
 				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
 				waitTime(3000);
-//	verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
-
-				verifyElementPresentAndClick(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
-
+				verifyElementPresentAndClick(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password pop up");
+				click(PWASubscriptionPages.objPasswordField, "Password");
 				waitTime(5000);
-
 				type(PWASubscriptionPages.objPasswordField, "User@123\n", "Password");
 				hideKeyboard();
 				waitTime(10000);
@@ -6995,7 +6967,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(2000);
 		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 				.getParameter("premiumMovie");
-		typeAndGetSearchResult(PWASearchPage.objSearchEditBox, keyword, "Search Field");
+		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
 		hideKeyboard();
 		waitTime(3000);
 		// handle mandatory pop up
@@ -7890,7 +7862,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		// getParameterFromXML("audioTrackContent");
 		String keyword = "Episode 13 - Agent Raghav";
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
-		typeAndGetSearchResult(PWAHomePage.objSearchField, keyword, "Search");
+		type(PWAHomePage.objSearchField, keyword, "Search");
 		waitTime(5000);
 		for (int i = 0; i < 2; i++) {
 			try {
@@ -12848,6 +12820,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 
 	public void dismissAllPopUps() throws Exception {
+		String url = getParameterFromXML("url");
 		for (int trial = 0; trial < 8; trial++) {
 			if (directClickReturnBoolean(PWAHomePage.objAppInstallPopUpClose, "Close in App Install Pop Up"))
 				break;
@@ -12861,15 +12834,15 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				getDriver().context("CHROMIUM");
 				directClickReturnBoolean(PWAHomePage.objAppInstallPopUpClose, "Close in App Install Pop Up");
 				directClickReturnBoolean(PWAHomePage.objStayTunedPopUpClose, "Close in Stay Tuned Pop Up");
-				WebElement displayContentLang = (new WebDriverWait(getDriver(), 60))
-						.until(ExpectedConditions.elementToBeClickable(PWAHomePage.objContinueDisplayContentLangPopup));
+				if(directClickReturnBoolean(PWAHomePage.objApplyContentLangPopup,"Apply on Content Language Pop Up")) {
+					break;					
+				}
+				WebElement displayContentLang = (new WebDriverWait(getDriver(), 60)).until(ExpectedConditions.elementToBeClickable(PWAHomePage.objContinueDisplayContentLangPopup));
 				if (displayContentLang.isDisplayed() == true) {
-					if (directClickReturnBoolean(PWAHomePage.objContinueDisplayContentLangPopup,
-							"Continue on Display Language Pop Up")) {
+					if (directClickReturnBoolean(PWAHomePage.objContinueDisplayContentLangPopup,"Continue on Display Language Pop Up")) {
 						dismissSystemPopUp();
 						waitTime(3000);
-						directClickReturnBoolean(PWAHomePage.objContinueDisplayContentLangPopup,
-								"Continue on Content Language Pop Up");
+						directClickReturnBoolean(PWAHomePage.objContinueDisplayContentLangPopup,"Continue on Content Language Pop Up");
 						break;
 					}
 				}
@@ -15519,7 +15492,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				"HLS_203 : Validate the availability and functionality of the Audio track option under settings");
 		String keywordau = "Episode 13 - Agent Raghav";
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
-		typeAndGetSearchResult(PWAHomePage.objSearchField, keywordau, "Search");
+		type(PWAHomePage.objSearchField, keywordau, "Search");
 		waitTime(5000);
 		for (int i = 0; i < 2; i++) {
 			try {

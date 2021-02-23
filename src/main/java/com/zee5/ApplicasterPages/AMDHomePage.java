@@ -223,4 +223,7 @@ public class AMDHomePage {
 	// SugarBox Icon
 	public static By objSboxIcon = By.xpath("//*[@id='sbox_icon']");
 	
+	public static By objCarouselContentTitle(String title) {
+		return By.xpath("//*[@resource-id='com.graymatrix.did:id/hero_1_cell_parent']/child::*[@resource-id='com.graymatrix.did:id/item_primary_text' and @text='"+title+"']");
+	}
 }

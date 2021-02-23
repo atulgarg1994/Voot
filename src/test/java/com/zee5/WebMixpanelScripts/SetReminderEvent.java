@@ -6,7 +6,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.business.zee.Zee5PWAWEBMixPanelBusinessLogic;
 
-public class ParentalRestrictionEvent {
+public class SetReminderEvent {
 	private Zee5PWAWEBMixPanelBusinessLogic Zee5PWAWEBMixPanelBusinessLogic;
 
 	@BeforeTest
@@ -18,14 +18,14 @@ public class ParentalRestrictionEvent {
 	@Parameters({ "userType" })
 	public void PWAWEBMixPanelLogin(String userType) throws Exception {
 		System.out.println("Login");
-		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLogin(userType);
 	}
 
 	@Test(priority = 1)
 	@Parameters({ "userType" })
-	public void verifyParentalRestrictionEvent(String userType) throws Exception {
-		System.out.println("Verify Parental Restriction Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalRestrictionEvent(userType, "Age13+");
+	public void verifySetReminderEventForUpcomingProgram(String userType) throws Exception {
+		System.out.println("Verify Set Reminder Event For Upcoming Program");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySetReminderEventForUpcomingProgram(userType);
 	}
 
 	@AfterClass
