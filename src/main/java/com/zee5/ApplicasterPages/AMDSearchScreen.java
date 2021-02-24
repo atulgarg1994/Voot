@@ -217,4 +217,8 @@ public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.
 	public static By objMusicTabIndx = By.xpath("//*[@text='Music']");
 	public static By objShowsTabIndx = By.xpath("//*[@text='Shows']");
 	public static By objVideosTab = By.xpath("(//*[@text='Videos'])");
+	
+	public static By objSearchItemBySearchTitle(String title) {
+		return By.xpath("//*[@id='searchItemTitleText' and text()='"+title+"']");
+	}
 }

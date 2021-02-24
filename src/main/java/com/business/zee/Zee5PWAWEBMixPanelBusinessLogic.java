@@ -965,15 +965,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		waitTime(4000);
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
-		// mixpanel.FEProp.setProperty("Source", "movie_detail");
-		mixpanel.FEProp.setProperty("Page Name", pageName());
+		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
+		// Matcher m = p.matcher(id);
+		// String value = null;
+		// while (m.find()) {
+		// value = m.group(0);
+		// }
+		System.out.println("Current URL : " + id);
+		ResponseInstance.getContentDetails(fetchContentID(id));
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name","tv_shows_view_all");
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 
@@ -1260,7 +1261,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWALiveTVPage.objPostToFacebookBtn, "Post to Facebook");
 		getWebDriver().close();
 		switchToWindow(1);
-		waitTime(10000);
+		waitTime(20000);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Sharing Platform", "Facebook");
@@ -1309,12 +1310,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
 			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 
-			if (checkElementDisplayed(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon")) {
-				click(PWAPlayerPage.objAddToWatchlist, "Watchlist icon");
+			if (checkElementDisplayed(PWAPlayerPage.objPlaybackAddToWatchlist, "Add To Watchlist icon")) {
+				click(PWAPlayerPage.objPlaybackAddToWatchlist, "Watchlist icon");
 			} else {
-				click(PWAPlayerPage.objRemoveFromWatchlist, "Remove From Watchlist icon");
+				click(PWAPlayerPage.objPlaybackRemoveFromWatchlist, "Remove From Watchlist icon");
 				waitTime(4000);
-				click(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon");
+				click(PWAPlayerPage.objPlaybackAddToWatchlist, "Add To Watchlist icon");
 				waitTime(4000);
 			}
 			waitTime(4000);
@@ -1334,7 +1335,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(5000);
 			navigateToAnyScreenOnWeb("Movies");
 			waitTime(5000);
-			scrollByWEB();
+			scrollDownWEB();
+			scrollDownWEB();
 			waitTime(2000);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInViewAllPage);
@@ -1430,7 +1432,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWALiveTVPage.objPostToFacebookBtn, "Post to Facebook");
 		getWebDriver().close();
 		switchToWindow(1);
-		waitTime(10000);
+		waitTime(20000);
 		ResponseInstance.getContentDetails(fetchContentID(link));
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_landing");
@@ -1492,7 +1494,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		//waitTime(5000);
 		getWebDriver().close();
 		switchToWindow(1);
-		waitTime(3000);
+		waitTime(20000);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
 		mixpanel.FEProp.setProperty("Sharing Platform", "Facebook");
@@ -1513,12 +1515,21 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(4000);
 		click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 		waitTime(4000);
+		scrollDownWEB();
 		click(PWAShowsPage.objShowDetailEpisodeDropdown, "Episode Dropdown");
 		click(PWAShowsPage.objShowDetailEpisodeDropdownValues(2), "Episodes 11-20");
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
 		mixpanel.FEProp.setProperty("Series", "Jodi Hakki");
+		
+		String id = getWebDriver().getCurrentUrl();
+//		String value = null;
+//		String[] splits=id.split("/");
+//		value=splits[splits.length-1];
+//		System.out.println(value);
+		ResponseInstance.getContentDetailsForNews(fetchContentID(id));
+		
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -1972,14 +1983,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 		}
 		click(PWALiveTVPage.objPostToFacebookBtn, "Post to Facebook");
-		waitTime(7000);
+//		waitTime(7000);
 //		acceptAlert();
 //		waitTime(3000);
 //		switchToParentWindow();
 		getWebDriver().close();
 		switchToWindow(1);
-		waitTime(3000);
-		waitTime(7000);
+		waitTime(20000);
 		mixpanel.FEProp.setProperty("Source", "live_tv");
 		mixpanel.FEProp.setProperty("Page Name", "tv_guide");
 		mixpanel.FEProp.setProperty("Sharing Platform", "Facebook");
@@ -2044,7 +2054,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWAHamburgerMenuPage.objConfirmNewPassword, "igszee5", "Current confirm field");
 			waitTime(3000);
 			click(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted, "Update password button");
-			waitTime(2000);
+			waitTime(5000);
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Element", "Update");
+			mixpanel.FEProp.setProperty("Page Name", "my_profile");
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			fetchUserType(local);
+			mixpanel.ValidateParameter(local.getItem("ID"), "Change Password Started");
 			click(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
 			click(PWAHamburgerMenuPage.objChangeOldPassword, "password field");
 			type(PWAHamburgerMenuPage.objChangeOldPassword, "igszee5", "Current password field");
@@ -2054,13 +2070,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWAHamburgerMenuPage.objConfirmNewPassword, "igsindia123", "Current confirm field");
 			waitTime(3000);
 			click(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted, "Update password button");
-			waitTime(2000);
-			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Element", "Update");
-			mixpanel.FEProp.setProperty("Page Name", "my_profile");
-			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			fetchUserType(local);
-			mixpanel.ValidateParameter(local.getItem("ID"), "Change Password Started");
+			waitTime(8000);
+		
 		}
 	}
 
@@ -2069,7 +2080,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Change Password Result Event");
 			click(PWALandingPages.objWebProfileIcon, "Profile Icon");
 			click(PWAHamburgerMenuPage.objProfileIconInProfilePage, "profile icon");
-			click(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
+			JSClick(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
 			click(PWAHamburgerMenuPage.objChangeOldPassword, "password field");
 			type(PWAHamburgerMenuPage.objChangeOldPassword, "igsindia123", "Current password field");
 			click(PWAHamburgerMenuPage.objNewPassword, "new password field");
@@ -2078,9 +2089,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWAHamburgerMenuPage.objConfirmNewPassword, "igszee5", "Current confirm field");
 			waitTime(3000);
 			click(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted, "Update password button");
-			waitTime(2000);
+			waitTime(5000);
 
-			click(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Element", "Update");
+			mixpanel.FEProp.setProperty("Page Name", "my_profile");
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			fetchUserType(local);
+			mixpanel.ValidateParameter(local.getItem("ID"), "Change Password Result");
+			JSClick(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
 			click(PWAHamburgerMenuPage.objChangeOldPassword, "password field");
 			type(PWAHamburgerMenuPage.objChangeOldPassword, "igszee5", "Current password field");
 			click(PWAHamburgerMenuPage.objNewPassword, "new password field");
@@ -2089,13 +2106,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			type(PWAHamburgerMenuPage.objConfirmNewPassword, "igsindia123", "Current confirm field");
 			waitTime(3000);
 			click(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted, "Update password button");
-			waitTime(2000);
-			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Element", "Update");
-			mixpanel.FEProp.setProperty("Page Name", "my_profile");
-			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			fetchUserType(local);
-			mixpanel.ValidateParameter(local.getItem("ID"), "Change Password Result");
+			waitTime(8000);
+			
 		}
 	}
 
@@ -6209,7 +6221,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
 			String password = "";
 			if (userType.equals("NonSubscribedUser")) {
-				password = getParameterFromXML("SettingsNonsubscribedPassword");
+				password = getParameterFromXML("SettingsNonSubscribedPassword");
 			} else if (userType.equals("SubscribedUser")) {
 				password = getParameterFromXML("SettingsSubscribedPassword");
 			}
@@ -6235,7 +6247,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
 			String password = "";
 			if (userType.equals("NonSubscribedUser")) {
-				password = getParameterFromXML("SettingsNonsubscribedPassword");
+				password = getParameterFromXML("SettingsNonSubscribedPassword");
 			} else if (userType.equals("SubscribedUser")) {
 				password = getParameterFromXML("SettingsSubscribedPassword");
 			}
@@ -6384,7 +6396,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void verifyPopUpLaunchEventForCompleteProfilePopUp(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.HeaderChildNode("Verify Pop Up Launch Event when Complete Profile popup is displayed");
-			relaunch();
+		//	relaunch();
 			logout();
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
@@ -6408,15 +6420,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			checkElementDisplayed(CompleteYourProfilePopUp.objCompleteYourProfileTxt, "Complete Your Profile");
 			waitTime(6000);
 			mixpanel.FEProp.setProperty("Source", "search");
-			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			String id = getWebDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
+			// Matcher m = p.matcher(id);
+			// String value = null;
+			// while (m.find()) {
+			// value = m.group(0);
+			// }
+			System.out.println("Current URL : " + id);
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Popup launch");
@@ -6498,7 +6511,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
 			String password = "";
 			if (userType.equals("NonSubscribedUser")) {
-				password = getParameterFromXML("SettingsNonsubscribedPassword");
+				password = getParameterFromXML("SettingsNonSubscribedPassword");
 			} else if (userType.equals("SubscribedUser")) {
 				password = getParameterFromXML("SettingsSubscribedPassword");
 			}
@@ -8976,7 +8989,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
 			String password = "";
 			if (userType.equals("NonSubscribedUser")) {
-				password = getParameterFromXML("SettingsNonsubscribedPassword");
+				password = getParameterFromXML("SettingsNonSubscribedPassword");
 			} else if (userType.equals("SubscribedUser")) {
 				password = getParameterFromXML("SettingsSubscribedPassword");
 			}
@@ -12278,7 +12291,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 			waitTime(5000);
-
+			scrollDownWEB();
+			scrollDownWEB();
+			waitTime(2000);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
@@ -12292,6 +12307,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				click(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon");
 				waitTime(4000);
 			}
+			String id = getWebDriver().getCurrentUrl();
+			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
+			// Matcher m = p.matcher(id);
+			// String value = null;
+			// while (m.find()) {
+			// value = m.group(0);
+			// }
+			System.out.println("Current URL : " + id);
+			ResponseInstance.getContentDetails(fetchContentID(id));
+			
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "show_detail");
@@ -13610,11 +13635,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 
 	public void verifyPopupLaunchEventTriggerforParentControl(String userType) throws Exception {
-		extent.HeaderChildNode("verify Popup Launch Event Trigger for ParentControl");
+		extent.HeaderChildNode("Verify Popup Launch Event Trigger for Parent Control");
 		waitTime(3000);
 		if (!userType.equals("Guest")) {
 			verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "Parent control");
+			waitTime(10000);
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Popup Launch");

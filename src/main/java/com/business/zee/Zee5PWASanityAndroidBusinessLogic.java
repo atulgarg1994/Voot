@@ -2135,7 +2135,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("My subscriptions");
 		click(PWAHamburgerMenuPage.objDownArrow("My Account"), "expander button");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objExploreItemBtn("My Subscription"), "My Subscriptions");
-		waitTime(4000);
+		waitTime(7000);
 		verifyElementPresent(PWAHamburgerMenuPage.objMyAccountOptionsText("My Subscription"), "My Subscriptions page");
 		if (userType.equals("NonSubscribedUser")) {
 			if (verifyIsElementDisplayed(PWAHamburgerMenuPage.objSubscribitionPageActivePlan, "My Subscription")) {
@@ -2181,16 +2181,31 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("My Transactions");
 		click(PWAHamburgerMenuPage.objDownArrow("My Account"), "expander button");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objExploreItemBtn("My Transactions"), "My Transactions");
-		waitTime(4000);
+		waitTime(7000);
 		verifyElementPresent(PWAHamburgerMenuPage.objMyAccountOptionsText("My Transactions"), "My Transactions page");
-		if (verifyIsElementDisplayed(PWAHamburgerMenuPage.objTransactionPageGrid, "Transaction")) {
-			logger.info("Transaction details is displayed");
-			extent.extentLogger("Transaction", "Transaction details is displayed");
+		String userType= getParameterFromXML("userType");
+		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			if (verifyIsElementDisplayed(PWAHamburgerMenuPage.objNoTranscationText, "No Transaction text")) {
+				logger.info("No transaction text is displayed for Guest/Non Subscribed user, expected behavior");
+				extent.extentLogger("Transaction", "No transaction text is displayed for Guest/Non Subscribed user, expected behavior");
+			}
+			else {
+				logger.error("No transaction text should be displayed for Guest/Non Subscribed user");
+				extent.extentLoggerFail("Transaction", "No transaction text should be displayed for Guest/Non Subscribed user");
+			}
 		}
-		if (verifyIsElementDisplayed(PWAHamburgerMenuPage.objNoTranscationText, "Transaction")) {
-			logger.info("No transaction text is displayed");
-			extent.extentLogger("Transaction", "No transaction text is displayed");
+		else {
+			if (verifyIsElementDisplayed(PWAHamburgerMenuPage.objTransactionPageGrid, "Transaction details")) {
+				logger.info("Transaction details are displayed");
+				extent.extentLogger("Transaction", "Transaction details are displayed");
+			}
+			else {
+				logger.error("Transaction details are not displayed for Club/Subscribed user");
+				extent.extentLoggerFail("Transaction", "Transaction details are not displayed for Club/Subscribed user");
+			}
 		}
+		
+		
 		Back(1);
 		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		waitTime(2000);
@@ -3033,15 +3048,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info("When User Enter Invalid PhoneNumber Error Message is displayed");
 			extent.extentLogger("Error Message", "When User Enter Invalid PhoneNumber Error Message is displayed");
 		}
-
-	/*	int lenText = findElement(PWALoginPage.objEmailField).getAttribute("value").length();
-		for (int i = 0; i < lenText; i++) {
-			getDriver().findElement(PWALoginPage.objEmailField).sendKeys(Keys.BACK_SPACE);
-		}
-		waitTime(5000);
-		type(PWALoginPage.objEmailField, "789221521\n", "PhoneNumber Field"); */
-		
-		
 		if (checkElementDisplayed(PWALoginPage.objIncorrectPhoneNumberMessage, "PhoneNumber Error Message") == false) {
 			logger.info("User is allowed to enter valid PhoneNumber");
 			extent.extentLogger("PhoneNumber", "User is allowed to enter valid PhoneNumber");
@@ -3064,35 +3070,23 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			extent.extentLoggerFail("", "Send OTP button is enabled even though incorrect mobile number is entered");
 		}
 		
-		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email/PhoneNo Field");
-		
-		waitTime(2000);
-		
-		type(PWALoginPage.objEmailField, "4\n", "PhoneNumber Field");
-		hideKeyboard();
-		
-		waitTime(5000);
-		
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email/PhoneNo Field");	
+		waitTime(2000);		
+		type(PWALoginPage.objEmailField, "4", "PhoneNumber Field");
+		hideKeyboard();		
+		waitTime(5000);		
 		JSClick(PWASignupPage.objSendOTPButtonEnabled, "Send OTP Button");
-		waitTime(3000);
-	//	hideKeyboard();
-
+		waitTime(7000);
 		verifyElementPresentAndClick(PWASignupPage.objChangeNumberLink, "Change Number Option");
-		waitTime(4000);
-		
-		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email/PhoneNo Field");
-		
-		waitTime(2000);
-		
-		type(PWALoginPage.objEmailField, "7892215214\n", "PhoneNumber Field");
+		waitTime(4000);	
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email/PhoneNo Field");	
+		waitTime(2000);	
+		type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
 		hideKeyboard();
-		waitTime(5000);
-		
-		JSClick(PWASignupPage.objSignUpButtonHighlighted, "Continue Button");
-		
+		waitTime(5000);		
+		JSClick(PWASignupPage.objSendOTPButtonEnabled, "Send OTP Button");
 		waitTime(2000);
 		hideKeyboard();
-
 		checkElementDisplayed(PWASignupPage.objOTPTimer, "OTP timer");
 		String OtpTimer1 = getText(PWASignupPage.objOTPTimer);
 		waitTime(6000);
@@ -3148,8 +3142,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			} catch (Exception e) {
 				System.out.println("Toast message is not displayed");
 			}
-		}
-		Back(3);
+		}	
+		reloadHome();
 	}
 
 //------------------------------------------------------------------------------------------------------------------------	
@@ -3327,7 +3321,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
 		waitTime(2000);
 		
-		type(PWALoginPage.objEmailField, "5214\n", "Email field");
+		type(PWALoginPage.objEmailField, "5214", "Email field");
 		hideKeyboard();
 		if (checkElementDisplayed(PWALoginPage.objForgotPasswordMessage, "Message")) {
 			logger.info("Supporting description is displayed");
@@ -6878,6 +6872,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
 				waitTime(3000);
 				verifyElementPresentAndClick(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+				click(PWASubscriptionPages.objPasswordField, "Password");
 				waitTime(5000);
 				type(PWASubscriptionPages.objPasswordField, "User@123\n", "Password");
 				hideKeyboard();
@@ -16229,5 +16224,1094 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			loginWithUserEmail(user, pass);
 			selectLanguages();
 		}
+	}
+	
+	
+	public void PWAVerifyTitleInAnchorTags(String userType) throws Exception {
+		extent.HeaderChildNode("Task PWA2-6003 : SEO - Anchor Text and Link for Top Navigation, Mega Menu & Footer");
+		reloadHome();
+		Actions act=new Actions(getDriver());
+		{
+			// Home Mega Menu Bar
+			extent.extentLogger("","---------- Home Mega Menu Bar verification -----------");
+			navigateToAnyScreen("Home");
+			String anchorTitleForHomeExp="Watch TV Shows, Originals, Movies & Live News Online";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForHomeExp);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForHomeExp);
+			String anchorTitleForHome = getElementPropertyToString("title",PWAHomePage.objHomeBarText("Home"), "Home anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForHome);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForHome);	
+			if(anchorTitleForHome.equals(anchorTitleForHomeExp)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+		}
+		{
+			//Movies Mega Menu Bar
+			extent.extentLogger("","---------- Movies Mega Menu Bar verification -----------");
+			navigateToAnyScreen("Movies");
+			String anchorTitleForMoviesExp="Watch Movies Online";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForMoviesExp);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForMoviesExp);
+			String anchorTitleForMovies = getElementPropertyToString("title",PWAHomePage.objHomeBarText("Movies"), "Movies anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForMovies);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForMovies);	
+			if(anchorTitleForMovies.equals(anchorTitleForMoviesExp)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+		}
+		{
+			//Movies Inner Mega Menu
+			extent.extentLogger("","---------- Movies Inner Mega Menu Bar verification -----------");
+			String titleAPI="",languageAPI="",anchorTitleForMoviesExpInnerMenu="";
+			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Home"))).build().perform();
+			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Movies"))).build().perform();
+			String firstCardHref = getElementPropertyToString("href",PWAHomePage.objInnerMegaMenuFirstCardAnchor("Movies"), "First Card href");
+			logger.info("Movies Inner Mega Menu First card href : "+firstCardHref);
+			extent.extentLogger("","Movies Inner Mega Menu First card href : "+firstCardHref);
+			String[] content=firstCardHref.split("/");
+			String contentID=content[content.length-1];
+			logger.info("Movies Inner Mega Menu First card content ID : "+contentID);
+			extent.extentLogger("","Movies Inner Mega Menu First card content ID : "+contentID);
+			Response respContent=null;
+			for(int i=0;i<10;i++) {
+				respContent = ResponseInstance.getContentDetails(contentID, "content");
+				//System.out.println(resp.getBody().asString());
+				if (!respContent.getBody().asString().contains("\"error_code\":401")) {
+					waitTime(1000);
+					break;
+				}
+				else waitTime(1000);
+			}
+			try {
+				titleAPI = respContent.jsonPath().get("title").toString().trim();
+				logger.info("Title from API : "+titleAPI);
+				extent.extentLogger("","Title from API : "+titleAPI);
+			}catch(Exception e) {
+				logger.error("Failed to fetch Title from API");
+				extent.extentLoggerFail("","Failed to fetch Title from API");
+			}
+			try {
+				languageAPI = respContent.jsonPath().get("languages[0]").toString().trim();
+				logger.info("Language from API : "+languageAPI);
+				extent.extentLogger("","Language from API : "+languageAPI);
+			}catch(Exception e) {
+				logger.error("Failed to fetch Language from API");
+				extent.extentLoggerFail("","Failed to fetch Language from API");
+			}
+			String language=getLanguageComplete(languageAPI);
+			anchorTitleForMoviesExpInnerMenu="Watch "+titleAPI+" "+language+" Movie";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForMoviesExpInnerMenu);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForMoviesExpInnerMenu);
+			String anchorTitleForMoviesInnerMenu = getElementPropertyToString("title",PWAHomePage.objInnerMegaMenuFirstCardImg("Movies"), "Movies anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForMoviesInnerMenu);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForMoviesInnerMenu);	
+			if(anchorTitleForMoviesInnerMenu.equals(anchorTitleForMoviesExpInnerMenu)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+		}
+		{
+			//TV Shows Mega Menu Bar
+			extent.extentLogger("","---------- TV Shows Mega Menu Bar verification -----------");
+			navigateToAnyScreen("Shows");
+			String anchorTitleForShowsExp="Watch TV Serials & Shows Online";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForShowsExp);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForShowsExp);
+			String anchorTitleForShows = getElementPropertyToString("title",PWAHomePage.objHomeBarText("Shows"), "Shows anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForShows);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForShows);	
+			if(anchorTitleForShows.equals(anchorTitleForShowsExp)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}	
+		}
+		{
+			//Shows Inner Mega Menu
+			extent.extentLogger("","---------- Shows Inner Mega Menu Bar verification -----------");
+			String showtitleAPI="",showlanguageAPI="",anchorTitleForShowsExpInnerMenu="";
+			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Home"))).build().perform();
+			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Shows"))).build().perform();
+			String firstCardShowsHref = getElementPropertyToString("href",PWAHomePage.objInnerMegaMenuFirstCardAnchor("Shows"), "First Card href");
+			logger.info("Shows Inner Mega Menu First card href : "+firstCardShowsHref);
+			extent.extentLogger("","Shows Inner Mega Menu First card href : "+firstCardShowsHref);
+			String[] contentShow=firstCardShowsHref.split("/");
+			String contentIDShow=contentShow[contentShow.length-1];
+			logger.info("Shows Inner Mega Menu First card content ID : "+contentIDShow);
+			extent.extentLogger("","Shows Inner Mega Menu First card content ID : "+contentIDShow);
+			Response respContentShow=null;
+			for(int i=0;i<10;i++) {
+				respContentShow = ResponseInstance.getContentDetails(contentIDShow, "original");
+				//System.out.println(resp.getBody().asString());
+				if (!respContentShow.getBody().asString().contains("\"error_code\":401")) {
+					waitTime(1000);
+					break;
+				}
+				else waitTime(1000);
+			}
+			try {
+				showtitleAPI = respContentShow.jsonPath().get("title").toString().trim();
+				logger.info("Title from API : "+showtitleAPI);
+				extent.extentLogger("","Title from API : "+showtitleAPI);
+			}catch(Exception e) {
+				logger.error("Failed to fetch Title from API");
+				extent.extentLoggerFail("","Failed to fetch Title from API");
+			}
+			try {
+				showlanguageAPI = respContentShow.jsonPath().get("languages[0]").toString().trim();
+				logger.info("Language from API : "+showlanguageAPI);
+				extent.extentLogger("","Language from API : "+showlanguageAPI);
+			}catch(Exception e) {
+				logger.error("Failed to fetch Language from API");
+				extent.extentLoggerFail("","Failed to fetch Language from API");
+			}
+			String languageShow=getLanguageComplete(showlanguageAPI);
+			anchorTitleForShowsExpInnerMenu="Watch "+showtitleAPI+" "+languageShow+" TV Serial";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForShowsExpInnerMenu);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForShowsExpInnerMenu);
+			String anchorTitleForShowsInnerMenu = getElementPropertyToString("title",PWAHomePage.objInnerMegaMenuFirstCardImg("Shows"), "Shows anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForShowsInnerMenu);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForShowsInnerMenu);	
+			if(anchorTitleForShowsInnerMenu.equals(anchorTitleForShowsExpInnerMenu)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+		}
+		{
+			//Club Mega Menu Bar
+			extent.extentLogger("","---------- Club Mega Menu Bar verification -----------");
+			navigateToAnyScreen("Club");
+			String anchorTitleForClubExp="ZEE5 Club Package Subscription";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForClubExp);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForClubExp);
+			String anchorTitleForClub = getElementPropertyToString("title",PWAHomePage.objHomeBarText("Club"), "Club anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForClub);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForClub);	
+			if(anchorTitleForClub.equals(anchorTitleForClubExp)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}	
+		}
+		{
+			//Club Inner Mega Menu
+			extent.extentLogger("","---------- Club Inner Mega Menu Bar verification -----------");
+			String clubtitleAPI="",clublanguageAPI="",anchorTitleForClubExpInnerMenu="";
+			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Home"))).build().perform();
+			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Club"))).build().perform();
+			String firstCardClubHref = getElementPropertyToString("href",PWAHomePage.objInnerMegaMenuFirstCardAnchor("Club"), "First Card href");
+			logger.info("Club Inner Mega Menu First card href : "+firstCardClubHref);
+			extent.extentLogger("","Club Inner Mega Menu First card href : "+firstCardClubHref);
+			String[] contentClub=firstCardClubHref.split("/");
+			String contentIDClub=contentClub[contentClub.length-1];
+			logger.info("Club Inner Mega Menu First card content ID : "+contentIDClub);
+			extent.extentLogger("","Club Inner Mega Menu First card content ID : "+contentIDClub);
+			Response respContentClub=null;
+			for(int i=0;i<10;i++) {
+				respContentClub = ResponseInstance.getContentDetails(contentIDClub, "original");
+				//System.out.println(resp.getBody().asString());
+				if (!respContentClub.getBody().asString().contains("\"error_code\":401")) {
+					waitTime(1000);
+					break;
+				}
+				else waitTime(1000);
+			}
+			try {
+				clubtitleAPI = respContentClub.jsonPath().get("title").toString().trim();
+				logger.info("Title from API : "+clubtitleAPI);
+				extent.extentLogger("","Title from API : "+clubtitleAPI);
+			}catch(Exception e) {
+				logger.error("Failed to fetch Title from API");
+				extent.extentLoggerFail("","Failed to fetch Title from API");
+			}
+			try {
+				clublanguageAPI = respContentClub.jsonPath().get("languages[0]").toString().trim();
+				logger.info("Language from API : "+clublanguageAPI);
+				extent.extentLogger("","Language from API : "+clublanguageAPI);
+			}catch(Exception e) {
+				logger.error("Failed to fetch Language from API");
+				extent.extentLoggerFail("","Failed to fetch Language from API");
+			}
+			String languageClub=getLanguageComplete(clublanguageAPI);
+			anchorTitleForClubExpInnerMenu="Watch "+clubtitleAPI+" "+languageClub+" Web Series";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForClubExpInnerMenu);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForClubExpInnerMenu);
+			String anchorTitleForClubInnerMenu = getElementPropertyToString("title",PWAHomePage.objInnerMegaMenuFirstCardImg("Club"), "Club anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForClubInnerMenu);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForClubInnerMenu);	
+			if(anchorTitleForClubInnerMenu.equals(anchorTitleForClubExpInnerMenu)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+		}
+		{
+			//Play Mega Menu Bar
+			extent.extentLogger("","---------- Play Mega Menu Bar verification -----------");
+			navigateToAnyScreen("Play");
+			String anchorTitleForPlayExp="Play Game Online";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForPlayExp);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForPlayExp);
+			String anchorTitleForPlay = getElementPropertyToString("title",PWAHomePage.objHomeBarText("Play"), "Play anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForPlay);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForPlay);	
+			if(anchorTitleForPlay.equals(anchorTitleForPlayExp)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+		}
+		{
+			//Music Mega Menu Bar
+			extent.extentLogger("","---------- Music Mega Menu Bar verification -----------");
+			navigateToAnyScreen("Music");
+			String anchorTitleForMusicExp="Watch Music Videos Online";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForMusicExp);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForMusicExp);
+			String anchorTitleForMusic = getElementPropertyToString("title",PWAHomePage.objHomeBarText("Music"), "Music anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForMusic);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForMusic);	
+			if(anchorTitleForMusic.equals(anchorTitleForMusicExp)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+		}
+		{
+			//Stories Mega Menu Bar
+			extent.extentLogger("","---------- Stories Mega Menu Bar verification -----------");
+			String anchorTitleForStoriesExp="Stories";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForStoriesExp);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForStoriesExp);
+			String anchorTitleForStories = getElementPropertyToString("title",PWAHomePage.objHomeBarText("Stories"), "Stories anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForStories);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForStories);	
+			if(anchorTitleForStories.equals(anchorTitleForStoriesExp)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+			reloadHome();
+		}
+		{
+			//ZEE5 Originals Mega Menu Bar
+			extent.extentLogger("","---------- ZEE5 Originals Mega Menu Bar verification -----------");
+			navigateToAnyScreen("ZEE5 Originals");
+			String anchorTitleForZEE5OriginalsExp="Watch ZEE5 Original Web Series & Movies";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForZEE5OriginalsExp);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForZEE5OriginalsExp);
+			String anchorTitleForZEE5Originals = getElementPropertyToString("title",PWAHomePage.objHomeBarText("ZEE5 Originals"), "ZEE5 Originals anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForZEE5Originals);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForZEE5Originals);	
+			if(anchorTitleForZEE5Originals.equals(anchorTitleForZEE5OriginalsExp)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+		}
+		{
+			//ZEE5 Plex Mega Menu Bar
+			extent.extentLogger("","---------- ZEE5 Plex Mega Menu Bar verification -----------");
+			navigateToAnyScreen("ZEEPLEX");
+			String anchorTitleForZeeplexExp="Rent & Watch Movies on ZEEPLEX";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForZeeplexExp);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForZeeplexExp);
+			String anchorTitleForZeeplex = getElementPropertyToString("title",PWAHomePage.objHomeBarText("ZEEPLEX"), "ZEE5 Originals anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForZeeplex);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForZeeplex);	
+			if(anchorTitleForZeeplex.equals(anchorTitleForZeeplexExp)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+		}
+		{
+			//News Mega Menu Bar
+			extent.extentLogger("","---------- News Mega Menu Bar verification -----------");
+			navigateToAnyScreen("News");
+			String anchorTitleForNewsExp="Watch Latest News & Updates";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForNewsExp);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForNewsExp);
+			String anchorTitleForNews = getElementPropertyToString("title",PWAHomePage.objHomeBarText("News"), "News anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForNews);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForNews);	
+			if(anchorTitleForNews.equals(anchorTitleForNewsExp)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+			reloadHome();
+		}
+		{
+			//News Inner Mega Menu
+			extent.extentLogger("","---------- News Inner Mega Menu Bar verification -----------");
+			String newstitleAPI="",newslanguageAPI="",anchorTitleForNewsExpInnerMenu="";
+			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Home"))).build().perform();
+			act.moveToElement(findElement(PWAHomePage.objHomeBarText("News"))).build().perform();
+			String firstCardNewsHref = getElementPropertyToString("href",PWAHomePage.objInnerMegaMenuFirstCardAnchor("News"), "First Card href");
+			logger.info("News Inner Mega Menu First card href : "+firstCardNewsHref);
+			extent.extentLogger("","News Inner Mega Menu First card href : "+firstCardNewsHref);
+			String[] contentNews=firstCardNewsHref.split("/");
+			String contentIDNews=contentNews[contentNews.length-1];
+			logger.info("News Inner Mega Menu First card content ID : "+contentIDNews);
+			extent.extentLogger("","News Inner Mega Menu First card content ID : "+contentIDNews);
+			Response respContentNews=null;
+			for(int i=0;i<10;i++) {
+				respContentNews = ResponseInstance.getContentDetails(contentIDNews, "news");
+				//System.out.println(resp.getBody().asString());
+				if (!respContentNews.getBody().asString().contains("\"error_code\":401")) {
+					waitTime(1000);
+					break;
+				}
+				else waitTime(1000);
+			}
+			try {
+				newstitleAPI = respContentNews.jsonPath().get("title").toString().trim();
+				logger.info("Title from API : "+newstitleAPI);
+				extent.extentLogger("","Title from API : "+newstitleAPI);
+			}catch(Exception e) {
+				logger.error("Failed to fetch Title from API");
+				extent.extentLoggerFail("","Failed to fetch Title from API");
+			}
+			anchorTitleForNewsExpInnerMenu="Watch "+newstitleAPI+" News";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForNewsExpInnerMenu);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForNewsExpInnerMenu);
+			String anchorTitleForNewsInnerMenu = getElementPropertyToString("title",PWAHomePage.objInnerMegaMenuFirstCardImg("News"), "News anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForNewsInnerMenu);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForNewsInnerMenu);	
+			if(anchorTitleForNewsInnerMenu.equals(anchorTitleForNewsExpInnerMenu)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+		}
+		{
+			//Premium Mega Menu Bar
+			extent.extentLogger("","---------- Premium Mega Menu Bar verification -----------");
+			navigateToAnyScreen("Premium");
+			String anchorTitleForPremiumExp="ZEE5 Premium Package Subscription";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForPremiumExp);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForPremiumExp);
+			String anchorTitleForPremium = getElementPropertyToString("title",PWAHomePage.objHomeBarText("Premium"), "Premium anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForPremium);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForPremium);	
+			if(anchorTitleForPremium.equals(anchorTitleForPremiumExp)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+		}
+		{
+			//Premium Inner Mega Menu
+			extent.extentLogger("","---------- Premium Inner Mega Menu Bar verification -----------");
+			String premiumtitleAPI="",premiumlanguageAPI="",anchorTitleForPremiumExpInnerMenu="";
+			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Home"))).build().perform();
+			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Premium"))).build().perform();
+			String firstCardPremiumHref = getElementPropertyToString("href",PWAHomePage.objInnerMegaMenuFirstCardAnchor("Premium"), "First Card href");
+			logger.info("Premium Inner Mega Menu First card href : "+firstCardPremiumHref);
+			extent.extentLogger("","Premium Inner Mega Menu First card href : "+firstCardPremiumHref);
+			String[] contentPremium=firstCardPremiumHref.split("/");
+			String contentIDPremium=contentPremium[contentPremium.length-1];
+			logger.info("Premium Inner Mega Menu First card content ID : "+contentIDPremium);
+			extent.extentLogger("","Premium Inner Mega Menu First card content ID : "+contentIDPremium);
+			Response respContentPremium=null;
+			for(int i=0;i<10;i++) {
+				respContentPremium = ResponseInstance.getContentDetails(contentIDPremium, "original");
+				//System.out.println(resp.getBody().asString());
+				if (!respContentPremium.getBody().asString().contains("\"error_code\":401")) {
+					waitTime(1000);
+					break;
+				}
+				else waitTime(1000);
+			}
+			try {
+				premiumtitleAPI = respContentPremium.jsonPath().get("title").toString().trim();
+				logger.info("Title from API : "+premiumtitleAPI);
+				extent.extentLogger("","Title from API : "+premiumtitleAPI);
+			}catch(Exception e) {
+				logger.error("Failed to fetch Title from API");
+				extent.extentLoggerFail("","Failed to fetch Title from API");
+			}
+			try {
+				premiumlanguageAPI = respContentPremium.jsonPath().get("languages[0]").toString().trim();
+				logger.info("Language from API : "+premiumlanguageAPI);
+				extent.extentLogger("","Language from API : "+premiumlanguageAPI);
+			}catch(Exception e) {
+				logger.error("Failed to fetch Language from API");
+				extent.extentLoggerFail("","Failed to fetch Language from API");
+			}
+			String languagePremium=getLanguageComplete(premiumlanguageAPI);
+			anchorTitleForPremiumExpInnerMenu="Watch "+premiumtitleAPI+" Online-ZEE5 Originals "+languagePremium+" Web Series";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForPremiumExpInnerMenu);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForPremiumExpInnerMenu);
+			String anchorTitleForPremiumInnerMenu = getElementPropertyToString("title",PWAHomePage.objInnerMegaMenuFirstCardImg("Premium"), "Premium anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForPremiumInnerMenu);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForPremiumInnerMenu);	
+			if(anchorTitleForPremiumInnerMenu.equals(anchorTitleForPremiumExpInnerMenu)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+		}
+		{
+			//Kids Mega Menu Bar
+			extent.extentLogger("","---------- Kids Mega Menu Bar verification -----------");
+			navigateToAnyScreen("Kids");
+			String anchorTitleForKidsExp="Watch Kids Shows, Cartoons. Movies & Videos Online";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForKidsExp);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForKidsExp);
+			String anchorTitleForKids = getElementPropertyToString("title",PWAHomePage.objHomeBarText("Kids"), "Kids anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForKids);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForKids);	
+			if(anchorTitleForKids.equals(anchorTitleForKidsExp)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+		}
+		{
+			//Live TV Mega Menu Bar
+			extent.extentLogger("","---------- Live TV Mega Menu Bar verification -----------");
+			navigateToAnyScreen("Live TV");
+			String anchorTitleForLiveTVExp="Watch Live TV Channels Online";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForLiveTVExp);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForLiveTVExp);
+			String anchorTitleForLiveTV = getElementPropertyToString("title",PWAHomePage.objHomeBarText("Live TV"), "Live TV anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForLiveTV);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForLiveTV);	
+			if(anchorTitleForLiveTV.equals(anchorTitleForLiveTVExp)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+		}
+		{
+			//Videos Mega Menu Bar
+			extent.extentLogger("","---------- Videos Mega Menu Bar verification -----------");
+			navigateToAnyScreen("Videos");
+			String anchorTitleForVideosExp="Watch Official Films Videos";
+			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForVideosExp);
+			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForVideosExp);
+			String anchorTitleForVideos = getElementPropertyToString("title",PWAHomePage.objHomeBarText("Videos"), "Videos anchor title");
+			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForVideos);
+			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForVideos);	
+			if(anchorTitleForVideos.equals(anchorTitleForVideosExp)) {
+				logger.info("Anchor tag title attribute value matched with expected value");
+				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
+			}
+			else {
+				logger.error("Anchor tag title attribute value did not match with expected value");
+				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
+			}
+		}
+	}
+	
+	public String getLanguageComplete(String languageAPI) throws Exception {
+		if(languageAPI.equals("kn"))
+			return "Kannada";
+		else if(languageAPI.equals("en"))
+			return "English";
+		else if(languageAPI.equals("mr"))
+			return "Marati";
+		else if(languageAPI.equals("hi"))
+			return "Hindi";
+		else if(languageAPI.equals("te"))
+			return "Telugu";
+		else if(languageAPI.equals("ta"))
+			return "Tamil";
+		else if(languageAPI.equals("ml"))
+			return "Malayalam";
+		else if(languageAPI.equals("bn"))
+			return "Bengali";
+		else return "";
+	}
+	
+	public void PWAVerifyImageWebP(String userType) throws Exception {
+		extent.HeaderChildNode("Task PWA2-6030 : Serve WebP image instead of JPEG");
+		reloadHome();
+		String imageSource=getElementPropertyToString("src",PWAHomePage.objMastheadCarouselCurrentContent, "Carousel Card");
+		if(imageSource.contains("f_webp")) {
+			logger.info("Tag img src attribute value contains f_webp as expected");
+			extent.extentLogger("","Tag img src attribute value contains f_webp as expected");	
+		}
+		else {
+			logger.error("Tag img src attribute value does not contain f_webp");
+			extent.extentLoggerFail("","Tag img src attribute value does not contain f_webp");	
+		}
+		if(imageSource.contains("f_auto")) {
+			logger.error("Tag img src attribute value should not contain f_auto");
+			extent.extentLoggerFail("","Tag img src attribute value should not contain f_auto");	
+		}
+		else {
+			logger.info("Tag img src attribute value does not contain f_auto as expected");
+			extent.extentLogger("","Tag img src attribute value does not contain f_auto as expected");	
+		}
+	}
+	
+	public void PWAVerifyMetaTags(String userType) throws Exception {
+		extent.HeaderChildNode("Task PWA2-6005 : SEO - Meta Tags for Static Pages, Originals, Kids, Videos, Music Videos & Live TV");
+		extent.extentLogger("","-------------- Meta Tags for Home Tab --------------");		
+		String homeTitleExpected="ZEE5 - Watch TV Shows, 100+ Originals, Movies, News & Live TV Online";
+		String homeDescExpected="Watch premieres of your favourite TV show episodes a day before telecast on ZEE5 & explore blockbuster movies, 100+ original content, music videos, live TV channels, news in HD quality & language of your choice.";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,"Home",homeTitleExpected,homeDescExpected);
+		extent.extentLogger("","-------------- Meta Tags for ZEEPLEX Tab --------------");		
+		String zeeplexTitleExpected="ZEEPLEX - Rent & Watch Latest Releases in Movies on ZEE5";
+		String zeeplexDescExpected="Rent a movie online on ZEEPLEX for as low as ₹99 and watch your choice of movie from new blockbuster releases to premier movies. Find the latest and popular movies on ZEE5 today.";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,"ZEEPLEX",zeeplexTitleExpected,zeeplexDescExpected);
+		extent.extentLogger("","-------------- Meta Tags for Club Tab --------------");		
+		String clubTitleExpected="ZEE5 Club Pack: Subscribe and Watch Premier Episodes before TV Telecast, Selected ZEE5 Original and Movies on ZEE5";
+		String clubDescExpected="Join the ZEE5 Club to watch premieres of TV show episodes a day before telecast. Enjoy ZEE5-Alt Balaji Original Web Series, your favourite Zindagi Shows, Live TV, Kids Entertainment, Movies, Latest News & much more. Watch on 2 devices at a time.";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,"Club",clubTitleExpected,clubDescExpected);
+		extent.extentLogger("","-------------- Meta Tags for Search Screen --------------");		
+		String searchTitleExpected="Search for Shows, Movies, Originals, Live TV Channels & More on ZEE5";
+		String searchDescExpected="Search for your favourite ZEE5 shows, movies, originals, live TV channels, music videos, news and much more. Browse through the abundant options that you can watch and select what suits your mood.";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,"Search",searchTitleExpected,searchDescExpected);
+		extent.extentLogger("","-------------- Meta Tags for Login Screen --------------");		
+		String loginTitleExpected="Login to ZEE5 & watch the Best Shows, Movies, News and More";
+		String loginDescExpected="Login to ZEE5 and enjoy the Latest and the best of TV Shows, Movies, Originals, News, Live TV Channels and much more.";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,"Login",loginTitleExpected,loginDescExpected);
+		extent.extentLogger("","-------------- Meta Tags for Sign Up Screen --------------");		
+		String signUpTitleExpected="Register with ZEE5 - Enjoy Uninterrupted Video Experience and Help us serve you better";
+		String signUpDescExpected="Register with ZEE5 and enjoy the best of Bollywood & Hollywood movies, TV Shows, News and much more in Hindi, Marathi, English and other Regional Languages.";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,"SignUp",signUpTitleExpected,signUpDescExpected);
+		extent.extentLogger("","-------------- Meta Tags for Subscribe Screen --------------");		
+		String subscribeTitleExpected="Subscribe to ZEE5 - Avail the Best offers with ZEE5 Premium & Club Subscription Plans";
+		String subscribeDescExpected="Get ZEE5 premium membership to watch latest episodes Premier before TV, All ZEE5 Originals, Movies, Live TV Channels & latest News online. Avail the best offers with ZEE5 monthly & yearly subscription plans; Watch all shows on 5 devices at a time";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,"Subscribe",subscribeTitleExpected,subscribeDescExpected);
+		extent.extentLogger("","-------------- Meta Tags for ZEE5 Originals Screen --------------");		
+		String zee5OriginalsTitleExpected="ZEE5 Originals - Watch ZEE5 Originals Web Series and Movies Online in HD";
+		String zee5OriginalsDescExpected="Explore ZEE5 Originals shows, movies and short films in HD quality. Explore new Web Series and Movies in Hindi, Marathi, English and other regional languages.";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,"ZEE5 Originals",zee5OriginalsTitleExpected,zee5OriginalsDescExpected);
+		extent.extentLogger("","-------------- Meta Tags for Web Series Page --------------");	
+		String webSeries="Poison";
+		String home = getParameterFromXML("url");
+		String url=home+"zee5originals/details/poison/0-6-1558";
+		String webSeriesPageTitleExpected=webSeries+" Web Series - Watch ZEE5 Originals Show "+webSeries+" Online in HD on ZEE5";
+		String webSeriesPageDescExpected=webSeries+" - ZEE5 Originals Web Series. 👀 Watch "+webSeries+" full Web Series online in HD quality on ZEE5. Explore the star cast and watch all episodes of all seasons only on ZEE5.";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,url,webSeriesPageTitleExpected,webSeriesPageDescExpected);
+		extent.extentLogger("","-------------- Meta Tags for Web Series Season Page --------------");	
+		webSeries="Poison";
+		String season="1";
+		url=home+"zee5originals/details/poison/0-6-1558/episodes";
+		String webSeriesSeasonPageTitleExpected=webSeries+" Season "+season+" - Watch All Episodes of ZEE5 Originals Show "+webSeries+" "+season+" in HD on ZEE5";
+		String webSeriesSeasonPageDescExpected=webSeries+" Season "+season+" Episodes - Watch all episodes of the ZEE5 Originals Web Series "+webSeries+" "+season+", online. Explore trailers, teasers & download all episodes in HD only on ZEE5.";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,url,webSeriesSeasonPageTitleExpected,webSeriesSeasonPageDescExpected);
+		extent.extentLogger("","-------------- Meta Tags for Specific Episode Page --------------");	
+		mandatoryRegistrationPopUp(userType);
+		webSeries="Poison";
+		season="1";
+		String episode="1";
+		String episodeTitle="The Hunter's Scent";
+		url=home+"zee5originals/details/poison/0-6-1558/episode-1-the-hunters-scent/0-1-202652";
+		String episodeTitleExpected="Watch "+webSeries+" Season "+season+" Episode "+episode+" - "+episodeTitle+" online in HD on ZEE5";
+		String episodeDescExpected="Watch "+webSeries+" ZEE5 Originals Web Series, Season "+season+" Episode "+episode+", "+episodeTitle+". Explore all the episodes of Poison in HD quality on ZEE5. ";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,url,episodeTitleExpected,episodeDescExpected);
+		mandatoryRegistrationPopUp(userType);
+		extent.extentLogger("","-------------- Meta Tags for Web Series Season Page --------------");	
+		webSeries="Poison";
+		season="2";
+		url=home+"zee5originals/details/poison/0-6-1558/season-2/episodes";
+		webSeriesSeasonPageTitleExpected=webSeries+" Season "+season+" - Watch All Episodes of ZEE5 Originals Show "+webSeries+" "+season+" in HD on ZEE5";
+		webSeriesSeasonPageDescExpected=webSeries+" Season "+season+" Episodes - Watch all episodes of the ZEE5 Originals Web Series "+webSeries+" "+season+", online. Explore trailers, teasers & download all episodes in HD only on ZEE5.";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,url,webSeriesSeasonPageTitleExpected,webSeriesSeasonPageDescExpected);
+		extent.extentLogger("","-------------- Meta Tags for Specific Episode Page --------------");	
+		mandatoryRegistrationPopUp(userType);
+		webSeries="Poison";
+		season="2";
+		episode="1";
+		episodeTitle="Dark Horse";
+		url=home+"zee5originals/details/poison/0-6-1558/episode-1-the-hunters-scent/0-1-202652";
+		episodeTitleExpected="Watch "+webSeries+" Season "+season+" Episode "+episode+" - "+episodeTitle+" online in HD on ZEE5";
+		episodeDescExpected="Watch "+webSeries+" ZEE5 Originals Web Series, Season "+season+" Episode "+episode+", "+episodeTitle+". Explore all the episodes of Poison in HD quality on ZEE5. ";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,url,episodeTitleExpected,episodeDescExpected);
+		mandatoryRegistrationPopUp(userType);
+		extent.extentLogger("","-------------- Meta Tags for Trailer Page --------------");	
+		mandatoryRegistrationPopUp(userType);
+		webSeries="Poison";
+		season="2";
+		url=home+"zee5originals/details/poison/0-6-1558/poison-2-trailer/0-1-416653";
+		String trailerTitleExpected=webSeries+" "+season+" Trailer - Watch "+webSeries+" "+season+" Official Trailer in HD on ZEE5";
+		String trailerDescExpected=webSeries+" "+season+" Official Trailer - Watch "+webSeries+" "+season+" ZEE5 Originals Web Series trailer online in HD quality. Explore trailers, teasers & download all episodes in HD only on ZEE5.";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,url,trailerTitleExpected,trailerDescExpected);
+		mandatoryRegistrationPopUp(userType);
+		extent.extentLogger("","-------------- Meta Tags for Kids Tab --------------");		
+		String kidsTitleExpected="Watch Kids Shows and Animated Movies Online in HD on ZEE5";
+		String kidsDescExpected="Watch Kids TV shows and movies online in HD. Find all popular kids shows, series and animated movies on ZEE5.";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,"Kids",kidsTitleExpected,kidsDescExpected);
+		extent.extentLogger("","-------------- Meta Tags for Specific Kids Show Page Page --------------");	
+		webSeries="Sa Re Ga Ma Pa Li'l Champs 2019";
+		url=home+"kids/kids-shows/sa-re-ga-ma-pa-lil-champs-2019/0-6-1317";
+		webSeriesSeasonPageTitleExpected="Watch "+webSeries+" Kids Show Online on ZEE5";
+		webSeriesSeasonPageDescExpected="Watch "+webSeries+" Show online in HD. Also explore kid’s latest movies, videos & show’s episodes on ZEE5..";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,url,webSeriesSeasonPageTitleExpected,webSeriesSeasonPageDescExpected);
+		extent.extentLogger("","-------------- Meta Tags for Videos Tab --------------");		
+		String videosTitleExpected="Watch Film Videos, Promo Videos, Trailers and Music Videos Free Online on ZEE5";
+		String videosDescExpected="Enjoy watching movie videos, promo videos, music videos, Bollywood songs and celebrity gossips in 12 different languages online for free on ZEE5";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,"Videos",videosTitleExpected,videosDescExpected);
+		extent.extentLogger("","-------------- Meta Tags for Live TV Tab --------------");		
+		String liveTVTitleExpected="Live Streaming TV Shows, News, Movies, TV Channels Online in HD on ZEE5";
+		String liveTVDescExpected="Enjoy 90+ Live TV channels online only on ZEE5 in HD. With ZEE5, watch your favourite TV shows, news, movies & entertainment videos live in Hindi, English other regional languages.";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,"Live TV",liveTVTitleExpected,liveTVDescExpected);
+		extent.extentLogger("","-------------- Meta Tags for Specific Channel Page --------------");	
+		mandatoryRegistrationPopUp(userType);
+		String channel="TV9 Marathi News";
+		url=home+"channels/details/tv9-marathi/0-9-257";
+		String channelTitleExpected="Watch "+channel+" Channel Live Online in HD on ZEE5";
+		String channelDescExpected="Watch live streaming of "+channel+" channel in HD quality. Also explore other live channel steaming like News, Entertainment, Music and more only on ZEE5.";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,url,channelTitleExpected,channelDescExpected);
+		extent.extentLogger("","-------------- Meta Tags Channel Guide Page --------------");	
+		url=home+"tvguide";
+		String channelGuideTitleExpected="ZEE5 TV Guide Listings : View Schedule for all Live TV Channels on ZEE5";
+		String channelGuideDescExpected="View TV guide listings for all the Live TV Channels and explore the shows schedules on ZEE5. Know when to watch your favourite TV shows live online.";
+		PWAVerifyMetaTagsThroughExternalPageSource(userType,url,channelGuideTitleExpected,channelGuideDescExpected);
+		mandatoryRegistrationPopUp(userType);
+		
+	}
+	
+	public void PWAVerifyMetaTagsThroughExternalPageSource(String userType,String navigationPoint,String expectedTitle,String expectedDesc) throws Exception {
+		reloadHome();
+		if(navigationPoint.equalsIgnoreCase("Search"))
+			click(PWAHomePage.objSearchBtn, "Search icon");
+		else if(navigationPoint.equalsIgnoreCase("Login"))
+			click(PWALoginPage.objWebLoginBtn, "Login button");
+		else if(navigationPoint.equalsIgnoreCase("SignUp"))
+			click(PWALoginPage.objSignUpBtnWEB, "Sign up for FREE button");
+		else if(navigationPoint.equalsIgnoreCase("Subscribe"))
+			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
+		else if(navigationPoint.contains(".com"))
+			getDriver().get(navigationPoint);
+		else
+			navigateToAnyScreen(navigationPoint);
+		logger.info("Expected title : "+expectedTitle);
+		extent.extentLogger("","Expected title : "+expectedTitle);		
+		logger.info("Expected description : "+expectedDesc);
+		extent.extentLogger("","Expected description : "+expectedDesc);
+		String url=getDriver().getCurrentUrl();
+		url="view-source:"+url;
+		getDriver().get(url);
+		waitTime(3000);
+		String ogtitle=getElementPropertyToString("innerText",PWAHomePage.objOgTitle,"Title"); 
+		ogtitle=ogtitle.replace("&amp;", "&").replace("&#x27;", "'");
+		logger.info("Actual og:title content value : "+ogtitle);
+		extent.extentLogger("","Actual og:title content value : "+ogtitle);
+		String ogdescription=getElementPropertyToString("innerText",PWAHomePage.objOgDesc,"Title"); 
+		ogdescription=ogdescription.replace("&amp;", "&").replace("&#x27;", "'");
+		logger.info("Actual og:description content value : "+ogdescription);
+		extent.extentLogger("","Actual og:description content value : "+ogdescription);
+		if(ogtitle.equals(expectedTitle)) {
+			logger.info("og:title content value is as expected");
+			extent.extentLogger("","og:title content value is as expected");	
+		}
+		else {
+			logger.error("og:title content value is not as expected");
+			extent.extentLoggerFail("","og:title content value is not as expected");	
+		}
+		if(ogdescription.equals(expectedDesc)) {
+			logger.info("og:description content value is as expected");
+			extent.extentLogger("","og:description content value is as expected");	
+		}
+		else {
+			logger.error("og:description content value is not as expected");
+			extent.extentLoggerFail("","og:description content value is not as expected");	
+		}
+
+	}
+	
+	public void PWASubtitleSelection(String userType) throws Exception {
+		extent.HeaderChildNode("Task PWA2-4178 : If subtitle language is selected; the same should be enables by default for next contents.");
+		mandatoryRegistrationPopUp(userType);
+		String content="This or That game with Manit Joura - Kundali Bhagya Highlights";
+		reloadHome();
+		click(PWAHomePage.objSearchBtn, "Search button");	
+		type(PWASearchPage.objSearchEditBox, content + "\n", "Search Edit box: " + content);
+		waitForElement(PWASearchPage.objSearchedResult(content), 30, "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(content), "Search Result");
+		directClickReturnBoolean(PWAHomePage.objCreateNewAccountPopUpClose, "Close in Sign Up Pop Up");
+		if(!(userType.equals("SubscribedUser") || userType.equals("ClubUser"))) {
+			waitForPlayerAdToComplete("Video Player");
+		}
+		playerTap();
+		click(PWAHomePage.objSubtitleButton, "Subtitle button");
+		click(PWAHomePage.objSubtitleEnglish, "Subtitle English");
+		/////////////////////////////////////////////////////
+		waitTime(10000);
+		extent.extentLogger("", "Waited for current content to complete play");
+		logger.info("Waited for current content to complete play");		
+		if(!(userType.equals("SubscribedUser") || userType.equals("ClubUser"))) {
+			extent.extentLogger("", "Postroll Ad play check");
+			logger.info("Postroll Ad play check");
+			waitForPlayerAdToComplete("Video Player");
+			extent.extentLogger("", "Preroll Ad play check");
+			logger.info("Preroll Ad play check");
+			waitForPlayerAdToComplete("Video Player");
+		}
+		try {
+			String ConsumptionTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle,"Consumptions Title").toString();
+			logger.info("Next content played: " + ConsumptionTitle);
+			extent.extentLogger("", "Next content played: " + ConsumptionTitle);
+		} catch (Exception e) {
+			logger.error("Failed to fetch title of the next content played");
+			extent.extentLoggerFail("", "Failed to fetch title of the next content played");
+		}
+		playerTap();
+		click(PWAHomePage.objSubtitleButton, "Subtitle button");
+		verifyElementPresent(PWAHomePage.objSubtitleEnglishSelected, "Subtitle English tickmarked");
+	}
+	
+	public void PWAVerifyPageFreezeForChannel (String userType) throws Exception {	
+		mandatoryRegistrationPopUp(userType);
+		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			extent.HeaderChildNode("Defect PWA2-4699 : Entitlement flow for Live Streams");
+		}
+		else {
+			extent.HeaderChildNode("Defect PWA2-5158 : \"&xplorHD\" channel consumption screen verification");
+		}	
+		String content="xplorHD";
+		reloadHome();
+		click(PWAHomePage.objSearchBtn, "Search button");	
+		type(PWASearchPage.objSearchEditBox, content + "\n", "Search Edit box: " + content);
+		waitForElement(PWASearchPage.objSearchedResult(content), 30, "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(content), "Search Result");
+		waitTime(4000);
+		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			verifyElementPresent(PWAPlayerPage.subscribePopUp, "Subscription popup");
+			verifyElementPresentAndClick(PWAPlayerPage.ObjSubscriptionpopupCloseIcon, "Subscription popup close icon");
+			verifyElementPresent(PWALiveTVPage.objPlayerInlineSubscriptionLink,"Player inline Subscribtion link");
+		}
+		else {
+			verifyElementPresent(PWAPlayerPage.objLiveTag, "Live Tag");
+			verifyElementPresent(PWAPlayerPage.pauseBtn, "Play/Pause icon");
+			verifyElementPresent(PWAPlayerPage.settingsBtn, "Settings icon");
+		}
+	}
+	
+	
+	public void PWAClickOnPromotionalBanners (String userType) throws Exception {
+		extent.HeaderChildNode("Defect PWA2-5286 : Click on Promotional Banner");
+		String currentUrl="",homeUrl="";
+		homeUrl=getParameterFromXML("url");
+		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
+			List<WebElement> carouselDots = findElements(PWAHomePage.objPromotionalBannerCarouselDots);
+			for(int dot=0;dot<carouselDots.size();dot++) {
+				click(PWAHomePage.objPromotionalBannerCarouselDots(dot+1),"Carousel Dot "+(dot+1));
+				click(PWAHomePage.objPromotionalBanner,"Promotional Banner "+(dot+1));
+				currentUrl=getDriver().getCurrentUrl();
+				logger.info("Current URL : "+currentUrl);
+				extent.extentLogger("", "Current URL : "+currentUrl);
+				if(currentUrl.equals(homeUrl+"myaccount/subscription")) {
+					logger.info("Click on Promotional Banner shows no response, expected behavior");
+					extent.extentLogger("", "Click on Promotional Banner shows no response, expected behavior");
+				}
+				else {
+					logger.error("Click on Promotional Banner has caused page navigation");
+					extent.extentLoggerFail("", "Click on Promotional Banner has caused page navigation");
+				}
+			}
+			getDriver().navigate().back();
+			logger.info("Called driver back");
+			extent.extentLogger("", "Called driver back");
+			currentUrl=getDriver().getCurrentUrl();
+			logger.info("Current URL : "+currentUrl);
+			extent.extentLogger("", "Current URL : "+currentUrl);
+			if(currentUrl.equals(homeUrl)) {
+				logger.info("Navigated back to Home page");
+				extent.extentLogger("", "Navigated back to Home page");
+			}
+			else {
+				logger.error("Failed to navigate back to Home page");
+				extent.extentLoggerFail("", "Failed to navigate back to Home page");
+			}	
+		}
+	}
+	
+	public void PWAZeeplexDisclaimer (String userType) throws Exception {
+		extent.HeaderChildNode("PWA2-5409 : ZEEPLEX-Addition of disclaimer text for user on frontend");
+		reloadHome();
+		navigateToAnyScreen("ZEEPLEX");
+		String disclaimerText=getElementPropertyToString("innerText",PWAHomePage.objZeePlexDisclaimer,"Disclaimer text");
+		String expectedDisclaimerText="ZEEPLEX movies are not part of ZEE5 Premium Subscription";
+		if(disclaimerText.contains(expectedDisclaimerText)) {
+			logger.info("Expected Disclaimer text is displayed : "+expectedDisclaimerText);
+			extent.extentLogger("titles", "Expected Disclaimer text is displayed : "+expectedDisclaimerText);
+		}
+		else {
+			logger.info("Disclaimer text displayed : "+disclaimerText);
+			extent.extentLogger("titles", "Disclaimer text displayed : "+disclaimerText);
+			logger.error("Expected Disclaimer text is not displayed");
+			extent.extentLoggerFail("", "Expected Disclaimer text is not displayed");
+		}
+
+	}
+	
+	public void verifyMandatoryRegistrationPopUpCount(String userType) throws Exception {
+		String home = getParameterFromXML("url");
+		String url="";
+		JavascriptExecutor js = (JavascriptExecutor) getDriver();	
+		if (userType.equals("Guest")){			
+			js.executeScript("window.localStorage.setItem('mandatoryRegistrationPopupCount','0')");
+			extent.HeaderChildNode("PWA2-6113 : Mandatory Registration allow video views from 5 to 2");			
+			url=home+"movies/details/robin-hood-enemies-forever/0-0-103560";
+			getDriver().get(url);
+			logger.info("First content is played");
+			extent.extentLogger("","First content is played");	
+			if (checkElementDisplayed(PWAPlayerPage.objCloseRegisterDialog, "Create New Account Pop Up")) {
+				click(PWAPlayerPage.objCloseRegisterDialog, "Create New Account Pop Up close icon");
+			}			
+			waitForPlayerAdToComplete("Video");
+			String count=js.executeScript("return window.localStorage.getItem('mandatoryRegistrationPopupCount')").toString();
+			logger.info("mandatoryRegistrationPopupCount value in local Storage : "+count);
+			extent.extentLogger("","mandatoryRegistrationPopupCount value in local Storage : "+count);
+			
+			url=home+"movies/details/robin-hood-and-the-invincible-knight/0-0-103553";
+			getDriver().get(url);
+			logger.info("Second content is played");
+			extent.extentLogger("","Second content is played");
+			if (checkElementDisplayed(PWAPlayerPage.objCloseRegisterDialog, "Create New Account Pop Up")) {
+				click(PWAPlayerPage.objCloseRegisterDialog, "Create New Account Pop Up close icon");
+			}	
+			waitForPlayerAdToComplete("Video");
+			count=js.executeScript("return window.localStorage.getItem('mandatoryRegistrationPopupCount')").toString();
+			logger.info("mandatoryRegistrationPopupCount value in local Storage : "+count);
+			extent.extentLogger("","mandatoryRegistrationPopupCount value in local Storage : "+count);
+		
+			url=home+"movies/details/robin-hood-kings-return/0-0-144742";
+			getDriver().get(url);
+			logger.info("Third content is played");
+			extent.extentLogger("","Third content is played");
+			verifyElementPresent(PWAPlayerPage.objWhyRegisterPopUp, "Create New Account Popup");
+			if (checkElementDisplayed(PWAPlayerPage.objCloseRegisterDialog, "Create New Account Pop Up close icon")) {
+				logger.error("Close icon in Create New Account Pop Up should not be displayed on playing 3rd content");
+				extent.extentLoggerFail("","Close icon in Create New Account Pop Up should not be displayed on playing 3rd content");
+			}
+			else {
+				logger.info("Close icon in Create New Account Pop Up is not displayed on playing 3rd content, expected behavior");
+				extent.extentLogger("","Close icon in Create New Account Pop Up is not displayed on playing 3rd content, expected behavior");			
+			}
+			count=js.executeScript("return window.localStorage.getItem('mandatoryRegistrationPopupCount')").toString();
+			logger.info("mandatoryRegistrationPopupCount value in local Storage : "+count);
+			extent.extentLogger("","mandatoryRegistrationPopupCount value in local Storage : "+count);
+			if(count.equals("2")) {
+				logger.info("mandatoryRegistrationPopupCount update is as expected");
+				extent.extentLogger("","mandatoryRegistrationPopupCount update is as expected");
+			}
+			else {
+				logger.error("mandatoryRegistrationPopupCount update is not as expected");
+				extent.extentLoggerFail("","mandatoryRegistrationPopupCount update is not as expected");
+			}
+			mandatoryRegistrationPopUp(userType);
+		}
+		extent.HeaderChildNode("PWA2-5454 : Handling country mismatch in URL");
+		reloadHome();
+		String currentUrl=getDriver().getCurrentUrl();
+		if(currentUrl.contains("global")) {
+			logger.error("Home page contains \"global\" in the URL");
+			extent.extentLoggerFail("","Home page contains \"global\" in the URL");
+		}
+		else {
+			logger.info("Home page does not contain \"global\" in the URL, expected behavior");
+			extent.extentLogger("","Home page does not contain \"global\" in the URL, expected behavior");			
+		}
+		extent.HeaderChildNode("Task PWA2-5455 : Handling language mismatch in URL");
+		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu");
+		waitTime(3000);
+		click(PWAHamburgerMenuPage.objLanguageBtn, "Language Button");
+		waitTime(2000);
+		click(PWAHomePage.objMarathi, "Marathi Display language");
+		click(PWAHamburgerMenuPage.objApply, "Apply button on display language screen");
+		click(PWAHamburgerMenuPage.objApplybutton, "Apply button on content language screen");
+		url=home+"hi/movies/details/comedy-couple/0-0-213623";
+		getDriver().get(url);
+		logger.info("Navigated to url: "+url);
+		extent.extentLogger("","Navigated to url: "+url);
+		waitTime(10000);
+		currentUrl=getDriver().getCurrentUrl();
+		if(currentUrl.contains("mr/movies/details/comedy-couple/0-0-213623")) {
+			logger.info("Current url fetched : "+currentUrl);
+			extent.extentLogger("","Current url fetched : "+currentUrl);
+			logger.info("Redirection to set display language successful");
+			extent.extentLoggerPass("","Redirection to set display language successful");
+		}
+		else {
+			logger.info("Current url fetched : "+currentUrl);
+			extent.extentLogger("","Current url fetched : "+currentUrl);
+			logger.error("Redirection to set display language failed");
+			extent.extentLoggerFail("","Redirection to set display language failed");
+		}
+		reloadHome();
+		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu");
+		waitTime(3000);
+		click(PWAHamburgerMenuPage.objLanguageBtn, "Language Button");
+		waitTime(2000);
+		click(PWAHamburgerMenuPage.objEnglishOption, "English display language");
+		click(PWAHamburgerMenuPage.objApply, "Apply button on display language screen");
+		click(PWAHamburgerMenuPage.objApplybutton, "Apply button on content language screen");
+		waitTime(4000);
+		extent.HeaderChildNode("PWA2-3873 : \"Recommended Videos for You\" next to the player on Videos playback");
+		url=home+"videos/details/forbidden-love-press-conference/0-0-224005";
+		logger.info("Launched video Forbidden Love Press Conference");
+		extent.extentLogger("","Launched video Forbidden Love Press Conference");
+		getDriver().get(url);
+		waitTime(5000);
+		Swipe("UP",1);
+		String trayName=getElementPropertyToString("innerText",PWAHomePage.objTrayBesidePlayer,"tray beside player");
+		logger.info("Tray name displayed below player: "+trayName);
+		extent.extentLogger("","Tray name displayed below player: "+trayName);
+		if(trayName.equals("Recommended Videos for You")) {
+			logger.info("Expected tray name is displayed");
+			extent.extentLogger("","Expected tray name is displayed");
+		}
+		else {
+			logger.error("Tray name should be Recommended Videos for You");
+			extent.extentLoggerFail("","Tray name should be Recommended Videos for You");
+		}	
+		reloadHome();
+		if ((userType.equals("Guest"))){
+			extent.HeaderChildNode("PWA2-4421 : guest token should not be refreshed if user logs in or logs out");
+			String guestToken1=js.executeScript("return window.localStorage.getItem('guestToken')").toString();
+			logger.info("Guest Token fetched from local storage before login: "+guestToken1);
+			extent.extentLogger("","Guest Token fetched from local storage before login: "+guestToken1);
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
+			loginWithUserEmail(Username, Password);
+			String guestToken2=js.executeScript("return window.localStorage.getItem('guestToken')").toString();
+			logger.info("Guest Token fetched from local storage after login: "+guestToken2);
+			extent.extentLogger("","Guest Token fetched from local storage after login: "+guestToken2);
+			if(guestToken1.equals(guestToken2)) {
+				logger.info("Same Guest Token before and after login, expected behavior");
+				extent.extentLogger("","Same Guest Token before and after login, expected behavior");
+			}
+			else {
+				logger.error("Guest Token is not same before and after login");
+				extent.extentLoggerFail("","Guest Token is not same before and after login");
+			}
+			logout();
+		}
+		else {
+			String guestToken1=js.executeScript("return window.localStorage.getItem('guestToken')").toString();				
+			logout();
+			extent.HeaderChildNode("PWA2-4421 : guest token should not be refreshed if user logs in or logs out");
+			logger.info("Guest Token fetched from local storage before logout: "+guestToken1);
+			extent.extentLogger("","Guest Token fetched from local storage before logout: "+guestToken1);
+			String guestToken2=js.executeScript("return window.localStorage.getItem('guestToken')").toString();
+			logger.info("Guest Token fetched from local storage after logout: "+guestToken2);
+			extent.extentLogger("","Guest Token fetched from local storage after logout: "+guestToken2);
+			if(guestToken1.equals(guestToken2)) {
+				logger.info("Same Guest Token before and after logout, expected behavior");
+				extent.extentLogger("","Same Guest Token before and after logout, expected behavior");
+			}
+			else {
+				logger.error("Guest Token is not same before and after logout");
+				extent.extentLoggerFail("","Guest Token is not same before and after logout");
+			}
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
+			loginWithUserEmail(Username, Password);
+			
+		}		
+		
+	}
+	
+	
+	public void verifyClubTagForLiveTVContents(String userType) throws Exception {
+		extent.HeaderChildNode("PWA2-3700 : Club badge for Live TV channels");
+		boolean foundPremium=false,foundClub=false;
+		reloadHome();
+		navigateToAnyScreen("Live TV");
+		for(int i=0;i<10;i++) {
+			List<WebElement> premiumIcons=findElements(PWAHomePage.objPremiumIcon);
+			if(premiumIcons.size()>0) {
+				logger.error("Premium icon found for Live contents in Live TV Tab");
+				extent.extentLoggerFail("", "Premium icon found for Live contents in Live TV Tab");
+				foundPremium=true;
+				break;
+			}
+			else {
+				Swipe("UP",1);
+			}
+		}
+		if(foundPremium==false) {
+			logger.info("Premium icon not found for Live contents in Live TV Tab, expected behavior");
+			extent.extentLogger("", "Premium icon not found for Live contents in Live TV Tab, expected behavior");
+		}
+		click(PWAHomePage.objBackToTopArrow, "Back to Top arrow");
+		waitTime(2000);
+		for(int i=0;i<10;i++) {
+			List<WebElement> clubIcons=findElements(PWAHomePage.objClubIcon);
+			if(clubIcons.size()>0) {
+				logger.info("Club icon found for Live contents in Live TV Tab, expected behavior");
+				extent.extentLogger("", "Club icon found for Live contents in Live TV Tab, expected behavior");
+				foundClub=true;
+				break;
+			}
+			else {
+				Swipe("UP",1);
+			}
+		}
+		if(foundClub==false) {
+			logger.error("Club icon not found for Live contents in Live TV Tab");
+			extent.extentLoggerFail("", "Club icon not found for Live contents in Live TV Tab");
+		}
+		
 	}
 }

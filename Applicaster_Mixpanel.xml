@@ -34,6 +34,12 @@
 	<parameter name="keyword8" value="Bublu Dablu - Robo Rumble"/>
 	<parameter name="keyword9" value="Kurukshetra"/>
 	
+	<parameter name="trailerContent" value="Shivaji Surathkal | Trailer" />
+	<parameter name="trailerContentID" value="0-0-197301" />
+	<parameter name="freeContent" value="Bablu Dablu - Robo Rumble" />
+	<parameter name="freeContentID" value="0-0-54219" />
+	<parameter name="premiumContent" value="Shivaji Surathkal" />
+	<parameter name="premiumContentID" value="0-0-197297" />
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

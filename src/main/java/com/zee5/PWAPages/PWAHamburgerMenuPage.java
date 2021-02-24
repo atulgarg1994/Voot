@@ -26,7 +26,7 @@ public class PWAHamburgerMenuPage {
 	public static By objSubscritionBtn = By.xpath("//div[@class='gridWrap']");
 
 //	Change Password Button
-	public static By objChangePasswordBtn = By.xpath("//div[@class='noSelect btnContnet']");
+	public static By objChangePasswordBtn = By.xpath("//div[@class='noSelect btnContnet' and contains(text(),'Change Password')]");
 
 //	Move Top Arrow Icon
 	public static By objMoveTopArrowIcon = By.xpath("//div[@class='iconNavi-ic_arrow_back']");

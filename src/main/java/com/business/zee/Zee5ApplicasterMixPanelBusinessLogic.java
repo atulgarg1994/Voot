@@ -8567,20 +8567,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 		// Validating Carousel manual swipe
 		String width = getAttributValue("width", AMDHomePage.objCarouselConetentCard);
-
 		String bounds = getAttributValue("bounds", AMDHomePage.objCarouselConetentCard);
 		String b = bounds.replaceAll(",", " ").replaceAll("]", " ");
 		String height = b.split(" ")[1];
-
 		waitTime(3000);
 		HeaderChildNode("Carousel Banner Swipe Left");
 		String Carouseltitle1 = getText(AMDHomePage.objCarouselTitle1);
 		logger.info(Carouseltitle1);
 		extentLoggerPass("Carousel Title", Carouseltitle1);
 		carouselCardsSwipe("LEFT", 1, width, height);
-
 		setFEProperty(userType);
-
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Tab Name", "movies");
 		mixpanel.ValidateParameter("", "Carousal Banner Swipe");
@@ -8588,14 +8584,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	}
 
 	public void verifySessionEvent(String userType) throws Exception {
-
 		HeaderChildNode("App Session event");
 		relaunchTillDisplayLanguageScreen(true);
 		mixpanel.FEProp.setProperty("User Type", "guest");
-
 		setFEProperty(userType);
 		mixpanel.ValidateParameter("", "App session");
-
 	}
 	
 	
@@ -8618,14 +8611,12 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Shows tab", "Shows tab fails to highlight by default");
 			logger.error("Shows tab fails to highlight by default");
 		}
-		
 		verifyElementPresentAndClick(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
 		verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
 		verifyElementPresentAndClick(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
 		verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
 		verifyElementPresentAndClick(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
 		verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
-	
 	}
 	
 	public void VerifyBrowseToDownloadFunctionality(String userType) throws Exception {
@@ -8670,14 +8661,12 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	}
 	
 	public void videoViewEventFromHomePage(String usertype, String tabName) throws Exception {
-
 		setFEProperty(usertype);
 		String trayName = ResponseInstance.getTrayNameFromPage(tabName,usertype);
 		SwipeUntilFindElement(AMDHomePage.objTrayTitle(trayName), "UP");
 		waitTime(3000);
 		click(AMDGenericObjects.objSelectFirstCardFromTrayTitle(trayName), "Content Card");
 		waitTime(5000);
-
 		String pManufacturer = DeviceDetails.OEM;
 		System.out.println(pManufacturer);
 		mixpanel.FEProp.setProperty("Source", "N/A");
@@ -8685,7 +8674,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 //		mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
 		mixpanel.FEProp.setProperty("Brand", pManufacturer);
-
 		mixpanel.ValidateParameter("", "Video View");
 	}
 
@@ -8802,9 +8790,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(AMDHomePage.objTitle, 20);
 		SelectTopNavigationTab(tabName);
 		String contentLang = ResponseInstance.getContentLanguageForAppMixpanel(usertype);
-		
 		System.out.println(contentLang);
-		Response str = ResponseInstance.getResponseForApplicasterPages(usertype, "home");
 		
 		String trayName = ResponseInstance.getTrayNameFromPage(tabName, pUserType);
 		
@@ -8816,7 +8802,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDGenericObjects.objSelectFirstCardFromTrayTitle(trayName), "Content Card");
 		waitForAdToFinishInAmd();
 		waitTime(5000);
-
+		Back(1);
+		
 		if (usertype.equalsIgnoreCase("SubscribedUser")) {
 			ResponseInstance.subscriptionDetails();
 		}
@@ -8836,7 +8823,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	public void ResumeEventForTrayContent(String usertype, String tabName, String AdvertisementID) throws Exception {
 		extent.HeaderChildNode("Resume Event for Tray content of "+tabName);
-
 		String trayName = ResponseInstance.getTrayNameFromPage(tabName,usertype);
 		waitTime(10000);
 		SwipeUntilFindElement(AMDHomePage.objTrayTitle(trayName), "UP");
@@ -8845,23 +8831,56 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		waitTime(3000);
 		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
-
 		setFEProperty(usertype);
     	if(usertype.equalsIgnoreCase("SubscribedUser")) {
     		ResponseInstance.subscriptionDetails();
     	}
 		String pManufacturer = DeviceDetails.OEM;
-		System.out.println(pManufacturer);
-		
+		System.out.println(pManufacturer);		
 		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", "home");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 		mixpanel.FEProp.setProperty("Brand", pManufacturer);
 		mixpanel.FEProp.setProperty("Advertisement ID", AdvertisementID);
-		
-		
 		mixpanel.ValidateParameter("", "Resume");
     }
+	
+	public void SearchContentFromSearchPage(String userType, String contentType, String contentId, String contentName)
+			throws Exception {
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search edit box");
+		type(AMDSearchScreen.objSearchEditBox, contentName, "Search edit box");
+		click(AMDSearchScreen.objSearchItemBySearchTitle(contentName), "Searched content");
+		if (!userType.equalsIgnoreCase("SubscribedUser")) {
+			waitForAdToFinishInAmd();
+		}
+
+		if (contentType.equalsIgnoreCase("Trailer")) {
+			ResponseInstance.setPropertyForContentDetailsFromSearchPage(contentId);
+		}
+
+		if (contentType.equalsIgnoreCase("Free")) {
+			ResponseInstance.setPropertyForContentDetailsFromSearchPage(contentId);
+		}
+
+		if (contentType.equalsIgnoreCase("Premium")) {
+			ResponseInstance.setPropertyForContentDetailsFromSearchPage(contentId);
+		}
+	}
+
+	public void PauseEvent(String userType, String contentType, String contentID, String contentName) throws Exception {
+		HeaderChildNode("Verify Pause Event from search navigation");
+		SearchContentFromSearchPage(userType, contentType, contentID, contentName);
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(2000);
+		setFEProperty(userType);
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.ValidateParameter("", "Pause");
+
+	}
 	
 	
 }

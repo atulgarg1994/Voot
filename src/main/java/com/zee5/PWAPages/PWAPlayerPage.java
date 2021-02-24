@@ -380,10 +380,6 @@ public class PWAPlayerPage {
 	public static By objEnglishSubtitle = By
 			.xpath("//*[contains(@class,'subMenuWrapper')]//*[contains(text(),'English')]");
 	
-	public static By objRemoveFromWatchlist = By.xpath("(//*[@class='noSelect btnIconActive iconInitialLoad-ic_watchlist'])[1]");
-
-	public static By objAddToWatchlist = By.xpath("(//*[@class='iconInitialLoad-ic_add_Watchlist'])[1]");
-	
 	// Consumptions page show title
 	public static By objConsumptionsShowTitle = By.xpath("(//div[@class='metaInfo']//a[contains(@href,'shows/') or contains(@href,'zee5originals/')])[1]");
 
@@ -434,5 +430,12 @@ public class PWAPlayerPage {
 	public static By objEmbedStartAtValue = By.xpath("//div[@class='embedDiv']//input[@type='text' and @value='0:00']");
 	public static By objEmbedCopyButton = By.xpath("//button//*[text()='Copy']");
 	public static By objEmbedCloseButton = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
+	
+	public static By objPlaybackRemoveFromWatchlist = By.xpath("(//*[@class='noSelect btnIconActive iconInitialLoad-ic_watchlist'])[1]");
 
+	public static By objAddToWatchlist = By.xpath("(//*[@class='noSelect btnIcon iconInitialLoad-ic_add_Watchlist'])[1]");
+
+	public static By objPlaybackAddToWatchlist = By.xpath("(//*[@class='iconInitialLoad-ic_add_Watchlist'])[1]");
+	
+	public static By objRemoveFromWatchlist = By.xpath("(//*[@class='noSelect btnIcon btnIconActive iconInitialLoad-ic_watchlist'])[1]");
 }

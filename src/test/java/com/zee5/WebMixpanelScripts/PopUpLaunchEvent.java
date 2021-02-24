@@ -40,7 +40,7 @@ public class PopUpLaunchEvent {
 	}
 
 	// Login through ClubUser Id
-	@Test(priority = 4)
+//	@Test(priority = 4)
 	@Parameters({ "userType", "keyword6" })
 	public void verifyPopUpLaunchEventForClubUser(String userType, String keyword6) throws Exception {
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
@@ -48,13 +48,6 @@ public class PopUpLaunchEvent {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyPopUpLaunchEventForClubUser(userType, keyword6);
 	}
 
-	@Test(priority = 5)
-	@Parameters({ "userType" })
-	public void verifyPopupLaunchEventTriggerforParentControl(String userType) throws Exception {
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		System.out.println("Verify Toast Message Impression event when user changes the password");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyPopupLaunchEventTriggerforParentControl(userType);
-	}
 
 	@AfterClass
 	public void tearDown() {

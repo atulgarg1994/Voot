@@ -138,6 +138,16 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.reloadHome();
 		Zee5PWASanityBusinessLogic.ValidatingLandingPages(userType);// Tejas
 		Zee5PWASanityBusinessLogic.verifyUIofHomePage(); // manasa default home
+		
+		Zee5PWASanityBusinessLogic.PWAVerifyTitleInAnchorTags(userType);
+		Zee5PWASanityBusinessLogic.PWAVerifyImageWebP(userType);
+		Zee5PWASanityBusinessLogic.PWAVerifyMetaTags(userType); //works only in pwauat
+		Zee5PWASanityBusinessLogic.PWASubtitleSelection(userType);//defect associated PWA2-6919, PWA2-6832
+		Zee5PWASanityBusinessLogic.PWAVerifyPageFreezeForChannel(userType); //works fine
+		Zee5PWASanityBusinessLogic.PWAClickOnPromotionalBanners(userType); //works fine
+		Zee5PWASanityBusinessLogic.PWAZeeplexDisclaimer(userType);//works fine
+		Zee5PWASanityBusinessLogic.verifyMandatoryRegistrationPopUpCount(userType);
+		Zee5PWASanityBusinessLogic.verifyClubTagForLiveTVContents(userType);
 
 	}
 

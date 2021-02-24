@@ -302,7 +302,7 @@ public class PWASubscriptionPages {
 
 	public static By objCancelTransaction = By.xpath("//*[@class='Btn cancel']");
 	
-	public static By objExpandLess = By.xpath("//*[@class='iconNavi-ic_expand_less']");
+	public static By objExpandLess = By.xpath("//*[@class='iconOther-ic_expand_less']");
 
 	public static By objGiftCardNumber = By.xpath("//*[@name='giftCardNumber']");
 
