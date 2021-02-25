@@ -8070,16 +8070,21 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					
 		}
 		
-		waitForAdToFinishInAmd();
-		registerPopUpClose();
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		if(usertype.equalsIgnoreCase("Guest")) {
+			registerPopUpClose();
+		}
 		completeProfilePopUpClose(usertype);
-	
+		
+		
 		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
 		if (inlineLink == true) {
 			logger.info("Player inline subscription link is displayed");
 			extentLogger("Player screen", "Player inline subscription link is displayed");
 		} else {
-			waitTime(6000);
+			waitTime(5000);
 			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			waitTime(3000);
@@ -8107,7 +8112,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("Failed to perform Event Action");
 				extentLoggerWarning("Event Action", "Failed to perform Event Action");
 			}
-
 		}
 	}
 
@@ -8705,7 +8709,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			pSource = "news";
 			break;
 
-		case "kids":
+		case "eduauraa":
 			pSource = "premium";
 			break;
 
@@ -8714,7 +8718,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			break;
 
 		case "live tv":
-			pSource = "music";
+			pSource = "kids";
 			break;
 
 		case "zeeoriginals":
@@ -8753,7 +8757,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			pPageName = "music";
 			break;
 
-		case "kids":
+		case "eduauraa":
 			pPageName = "kids";
 			break;
 
@@ -8792,10 +8796,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String contentLang = ResponseInstance.getContentLanguageForAppMixpanel(usertype);
 		System.out.println(contentLang);
 		
-		String trayName = ResponseInstance.getTrayNameFromPage(tabName, pUserType);
+		String trayName = ResponseInstance.getTrayNameFromPage(tabName, usertype);
 		
 		boolean flagBox = verifyIsElementDisplayed(AMDHomePage.objSboxIcon);
 		String pSugarBox = String.valueOf(flagBox);
+		
+		if(tabName.equalsIgnoreCase("Live TV") || tabName.equalsIgnoreCase("News")) {
+			waitTime(5000);
+			waitForElementDisplayed(AMDGenericObjects.objTrayTitle, 30);
+		}
 		
 		SwipeUntilFindElement(AMDHomePage.objTrayTitle(trayName), "UP");
 		waitTime(5000);
@@ -8810,7 +8819,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String pPage = getPageName(tabName);
 		String pSource = getSource(tabName);
 		String pManufacturer = DeviceDetails.OEM;
+		String pAdId = getAdId();
 
+		mixpanel.FEProp.setProperty("Ad ID", pAdId);
+		mixpanel.FEProp.setProperty("Advertisement ID", pAdId);
 		mixpanel.FEProp.setProperty("Source", pSource);
 		mixpanel.FEProp.setProperty("Page Name", pPage);
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");

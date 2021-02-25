@@ -315,6 +315,16 @@ public class Utilities extends ExtentReporter {
 			return false;
 		}
 	}
+	
+	public static String getAdId() throws IOException {
+		String cmd = "adb shell grep adid_key /data/data/com.google.android.gms/shared_prefs/adid_settings.xml";
+		Process p = Runtime.getRuntime().exec(cmd);
+		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		String strBuffer = br.readLine().trim();
+		String[] getadid = strBuffer.split(">")[1].split("<");
+		System.out.println("\nAdID: "+getadid[0]);
+		return getadid[0];
+	}
 
 	/**
 	 * @param byLocator

@@ -85,7 +85,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			// dismissDisplayContentLanguagePopUp();
+//			dismissDisplayContentLanguagePopUp();
 			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			waitTime(3000);
 			break;
@@ -150,6 +150,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
 	//		dismissDisplayContentLanguagePopUp();
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			waitTime(3000);
 			break;
 
@@ -2528,28 +2529,20 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void verifyVideoViewEventForFreeContent(String userType, String keyword4) throws Exception {
+	public void verifyVideoViewEventForFreeContent(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Video View Event For Free Content");
 		mandatoryRegistrationPopUp(userType);
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		clickOnTrayContent(tabName,"Free");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Source", "Content Language");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Video View", "1");
 
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
-
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
@@ -2571,16 +2564,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Video View", "1");
-
+			
 			String id = getWebDriver().getCurrentUrl();
-//			String value = null;
-//			String[] splits=id.split("/");
-//			value=splits[splits.length-1];
-//			System.out.println(value);
-
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
@@ -13944,15 +13932,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 
 	public void clickOnTrayContent(String tabName, String typeOfContent) throws Exception {
-		extent.HeaderChildNode("Carousel");
 		navigateToAnyScreenOnWeb(tabName);
 		ArrayList<String> contentTitle = ResponseInstance.getTrayResponse(tabName, typeOfContent);
 		System.out.println(contentTitle);
-		if (scrollToElement(PWAHomePage.objtrayname(contentTitle.get(0)))) {
-			JSClick(PWAHomePage.objTrayContentIcon(contentTitle.get(0), contentTitle.get(1)),
-					"clicked on Content " + contentTitle.get(1));
+		ScrollToTheElementWEB(PWAHomePage.objtrayname(contentTitle.get(0)));
+		partialScroll();
+		waitTime(8000);
+		for (int i = 0; i <= 3; i++) {
+			if(verifyElementDisplayed(PWAHomePage.objTrayContentIcon(contentTitle.get(0), contentTitle.get(1)))) {
+				JSClick(PWAHomePage.objTrayContentIcon(contentTitle.get(0), contentTitle.get(1)),
+						"clicked on Content " + contentTitle.get(1));
+				mixpanel.FEProp.setProperty("Carousal Name",contentTitle.get(0));
+				break;
+			}else {
+				click(PWAHomePage.objNextIcon(contentTitle.get(0)), "Next Icon");
+			}
 		}
-		waitTime(10000);
+//		if (swipeTillTrayAndClickFirstAsset(contentTitle.get(0),contentTitle.get(1))) {
+//			logger.info("Tray Name "+contentTitle.get(0));
+//			extent.extentLogger("tray ", "Tray Name "+contentTitle.get(0));
+//		}
 	}
 
 	public boolean scrollToElement(By element) throws Exception {
@@ -13968,6 +13967,78 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public static void partialScroll() {
 		JavascriptExecutor jse = (JavascriptExecutor) getWebDriver();
 		jse.executeScript("window.scrollBy(0,500)", "");
+	}
+	
+	public boolean swipeTillTrayAndClickFirstAsset(String trayTitle,String contentName) throws Exception {
+		int swipeCount = 0;
+		String trayTitleInUI = "", temp = "";
+		boolean found = false, titleDisplayed = false;
+		List<WebElement> trays;
+		ArrayList<String> titles = new ArrayList<String>();
+		for (int i = 0; i <= 5; i++) {
+			trays = new ArrayList<WebElement>();
+			trays = getWebDriver().findElements(PWAHomePage.objtrayname(trayTitle));
+			for (int tr = 0; tr < trays.size(); tr++) {
+				try {
+					titles.add(trays.get(tr).getAttribute("innerText"));
+				} catch (Exception e) {
+				}
+			}
+			for (int traycount = 0; traycount < titles.size(); traycount++) {
+				temp = titles.get(traycount);
+				if (temp.toLowerCase().contains(trayTitle.toLowerCase())) {
+					trayTitleInUI = temp;
+					if (!titleDisplayed) {
+						logger.info(trayTitleInUI + " is present");
+						extent.extentLogger("trayfound", trayTitleInUI + " is present");
+						titleDisplayed = true;
+					}
+					if (trayTitle.equals("Shows")) {
+						try {
+							// handle mandatory pop up
+							mandatoryRegistrationPopUp(userType);
+							JSClick(PWAHomePage.objTrayContentIcon(trayTitle, contentName),"clicked on Content " + contentName);
+							found = true;
+						} catch (Exception e) {
+						}
+					} else {
+						// handle mandatory pop up
+						mandatoryRegistrationPopUp(userType);
+						try {
+							JSClick(PWAHomePage.objTrayContentIcon(trayTitle, contentName),"clicked on Content " + contentName);
+							if (!userType.equals("SubscribedUser")) {
+								try {
+									getWebDriver().findElement(PWASearchPage.objClosePremiumDialog).click();
+								} catch (Exception e) {
+								}
+							}
+							found = true;
+						} catch (Exception e1) {
+						}
+					}
+					if (found == true) {
+						// handle mandatory pop up
+						mandatoryRegistrationPopUp(userType);
+						waitTime(2000);
+						return true;
+					} else {
+						scrollDownByY(150);
+					}
+				}
+			}
+			scrollDownByY(350);
+			waitTime(5000);
+			swipeCount++;
+			logger.info("Scrolled down");
+			extent.extentLogger("scrolled", "Scrolled down");
+			if (swipeCount == 5) {
+				logger.error("Failed to locate reco tray " + trayTitle);
+				extent.extentLoggerFail("failedToLocate", "Failed to locate reco card " + trayTitle);
+				logger.error("Failed to locate first card");
+				extent.extentLoggerFail("failedToLocate", "Failed to locate first card");
+			}
+		}
+		return false;
 	}
 	
 }

@@ -593,4 +593,8 @@ public class PWAHomePage {
 	public static By objInnerMegaMenuFirstCardImg(String tab) {
 		return By.xpath("(//a[contains(@class,'noSelect') and text()='" + tab + "']//following-sibling::div[contains(@class,'megaMenuCards')]//a//img)[1]");
 	}
+	
+	public static By objNextIcon(String trayName) {
+		return By.xpath("(//div[@class='trayHeader']//h2[.=\""+trayName+"\"])//parent::*//parent::*//following-sibling::*//child::*//button[text()=\"Next\"]");
+	}
 }

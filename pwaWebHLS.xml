@@ -8,9 +8,9 @@
 		<parameter name="runModule" value="${runModule}"/>
 		 <parameter name="browserType" value="${browserType}"/>  -->
 	 
-	 <parameter name="url" value="prod" />
+	 <parameter name="url" value="newpwa" />
 	<parameter name="browserType" value="chrome" />
-	<parameter name="userType" value="SubscribedUser" /> <!-- Guest | NonSubscribedUser | SubscribedUser -->
+	<parameter name="userType" value="Guest" /> <!-- Guest | NonSubscribedUser | SubscribedUser -->
 
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" />

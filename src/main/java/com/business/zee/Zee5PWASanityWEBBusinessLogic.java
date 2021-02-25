@@ -16794,26 +16794,18 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 
 		extent.HeaderChildNode("HLS_186: Validate the Top Searches tray is available on the Search landing screen");
 		verifyElementExist(PWASearchPage.objTopsearches, "Top Searches tray");
-
-		extent.HeaderChildNode(
-				"HLS_187: Validate user is navigated to respective consumption screen through Search result content");
-
+		extent.HeaderChildNode("HLS_187: Validate user is navigated to respective consumption screen through Search result content");
 		type(PWASearchPage.objSearchEditBox, title, "Search bar");
 		waitForElementDisplayed(PWASearchPage.objSearchNavigationTab("All"), 5);
-
 		if (getPlatform().equals("Android")) {
 			getDriver().hideKeyboard();
 			logger.info("Hiding keyboard was Successfull");
 			extent.extentLogger("hideKeyboard", "Hiding keyboard was Successfull");
 		}
 		click(PWAHamburgerMenuPage.objFirstsearchcard, "Searched Show");
-		if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
-			logger.info("user is navigated to respective consumption screen");
-			extent.extentLogger("Consumption Screen", "user is navigated to respective consumption screen");
-		} else {
-			logger.info("user is not navigated to respective consumption screen");
-			extent.extentLogger("Consumption Screen", "user is navigated to respective consumption screen");
-		}
+		String contentPlayed = getText(PWAShowsPage.objShowsTitle);
+		logger.info("Show Details page displayed: " + contentPlayed);
+		extent.extentLogger("showDetails", "Show Details page displayed: " + contentPlayed);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
 		extent.HeaderChildNode("HLS_189: Validating that related search results are available under each tabs");
@@ -16849,8 +16841,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
 		if (verifyElementExist(PWASearchPage.objTrendingSearchesTray, "Trending Searches tray")) {
-			verifyElementExist(PWASearchPage.objFirstAssetThumbnailTrendingSearch,
-					"First asset thumbnail of Trending searches tray");
+			verifyElementExist(PWASearchPage.objFirstAssetThumbnailTrendingSearch,"First asset thumbnail of Trending searches tray");
 			verifyElementExist(PWASearchPage.objFirstAssetTitleTrendingSearch,
 					"First asset title of Trending searches tray");
 			String searchScreenTitle = getElementPropertyToString("innerText",PWASearchPage.objFirstAssetTitleTrendingSearch, "First Asset Title Trending Search");
@@ -16914,8 +16905,10 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 				}
 			}			
 		}
-		navigateToHome();
-		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
+		if (checkElementDisplayed(PWAHamburgerMenuPage.objPopupClose, "Pop Up") == true) {
+			click(PWAHamburgerMenuPage.objPopupClose, "Pop Up Close button");
+		}
+		click(PWAHomePage.objSearchBtn, "Search icon");
 		waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
 		extent.HeaderChildNode("HLS_190 : Verify the Searched contents/Term is shown to the user as Recent searches");
 
@@ -16945,7 +16938,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		extent.HeaderChildNode(
 				"HLS_191 : Verify after click on the \"Clear All\" button user is able to clear Recent Searches.");
 		click(PWASearchPage.objClearAllTextofRecentSearches, "Clear All text");
-		waitTime(2000);
+		waitTime(7000);
 		if (checkElementDisplayed(PWASearchPage.recentSearchsLabel, "Recent Searches tray")) {
 			logger.error("Recent Searches tray is displayed even after clicking Clear All text");
 			extent.extentLoggerFail("", "Recent Searches tray is displayed even after clicking Clear All text");
@@ -17777,7 +17770,6 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 
 	public void zeeplexvalidation(String tabName, String userType) throws Exception {
 		extent.HeaderChildNode("HLS_035: Verify user navigation " + tabName + "page");
-
 		waitTime(15000);
 		if (userType.equalsIgnoreCase("Guest")) {
 			navigateToAnyScreenOnWeb(tabName);
@@ -17785,59 +17777,66 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplextab, "Zeeplex tab");
 		}
-
 		extent.HeaderChildNode("HLS_036: Verify ZEEPLEX  contents are displayed in Zeeplex landing page");
 		verifyElementPresent(PWAHamburgerMenuPage.objzeeplexcontent, "Zee plex content");
-		// content");
-		waitTime(3000);
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objzeeplexcontent, "Zee plex content")) {
-			extent.extentLoggerPass("", "Zee plex content are displayed");
-
-		} else {
-			logger.error("Failed to displayed Zee plex content");
-			extent.extentLoggerFail("", "Failed to displayed Zee plex content");
-		}
-
-		extent.HeaderChildNode(
-				"HLS_037: Verify ZEEPLEX  content trailer are played through clicking Trailer CTA of the Zeeplex contents");
-		ScrollToTheElementWEB(PWAHamburgerMenuPage.objTrailer);
-		click(PWAHamburgerMenuPage.objTrailer, "Trailer");
-
-		waitTime(3000);
-		if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
-			logger.info("Navigated to Consumption Page");
-			extent.extentLogger("Consumption Page", "Navigated to the Trailer Consumption playback screen");
-		} else {
-			logger.info("Not navigated to the Trailer Consumption playback screen");
-			extent.extentLogger("Consumption Page", "Not navigated to the Trailer Consumption playback screen");
-		}
-		Back(1);
-		if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup")) {
-			JSClick(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
-		}
-		waitTime(3000);
-		partialScroll();
-		if(checkElementDisplayed(PWAHamburgerMenuPage.objrentforINR, "Rent for INR"))
-		{
-			extent.HeaderChildNode(
-					"HLS_038: Verify Rental popup displayed through clicking Rent for INR CTA of the Zeeplex contents");
-			ScrollToTheElementWEB(PWAHamburgerMenuPage.objrentforINR);
-			click(PWAHamburgerMenuPage.objrentforINR, "Rent for INR");
-			
-			if (verifyElementPresent(PWAHamburgerMenuPage.objrentforINRpopup, "Rental Pop Up")) {
-				extent.extentLoggerPass("", "Rental pop Up is displayed");
-				click(PWAHamburgerMenuPage.objrentalpopupclose, "Rental PopUp Close button");
-			} else {
-				logger.error("Failed to display rental popup");
-				extent.extentLoggerFail("", "Failed to display rental popup");
+		
+		extent.HeaderChildNode("HLS_037: Verify ZEEPLEX  content trailer are played through clicking Trailer CTA of the Zeeplex contents");
+		boolean trailerdisplayed=false;
+		for(int i=0;i<3;i++) {
+			if(checkElementDisplayed(PWAHamburgerMenuPage.objTrailer, "ZeePlex movie Trailer")) {
+				trailerdisplayed=true;
+				break;
+			}
+			else {
+				partialScroll();
+				logger.info("Swiped page..");
+				extent.extentLogger("", "Swiped page..");
 			}
 		}
-		else 
-		{
-			logger.info("Rent for INR movie contents are not displayed");
-			extent.extentLoggerWarning(" ", "Rent for INR movie contents are not displayed");
-		}
+		if(trailerdisplayed) {
+			ScrollToTheElementWEB(PWAHamburgerMenuPage.objTrailer);
+			click(PWAHamburgerMenuPage.objTrailer, "Trailer");
 
+			waitTime(3000);
+			if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
+				logger.info("Navigated to Consumption Page");
+				extent.extentLogger("Consumption Page", "Navigated to the Trailer Consumption playback screen");
+			} else {
+				logger.info("Not navigated to the Trailer Consumption playback screen");
+				extent.extentLogger("Consumption Page", "Not navigated to the Trailer Consumption playback screen");
+			}
+			Back(1);
+			if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "Would You Like Popup")) {
+				JSClick(PWAPlayerPage.objWouldYouLikeClosePopup, "Close of Popup");
+			}
+			waitTime(3000);
+			partialScroll();
+			waitTime(2000);
+			partialScroll();
+			extent.HeaderChildNode("HLS_038: Verify Rental popup displayed through clicking Rent for INR CTA of the Zeeplex contents");
+			if(checkElementDisplayed(PWAHamburgerMenuPage.objrentforINR, "Rent for INR"))
+			{			
+				ScrollToTheElementWEB(PWAHamburgerMenuPage.objrentforINR);
+				click(PWAHamburgerMenuPage.objrentforINR, "Rent for INR");
+				
+				if (verifyElementPresent(PWAHamburgerMenuPage.objrentforINRpopup, "Rental Pop Up")) {
+					extent.extentLoggerPass("", "Rental pop Up is displayed");
+					click(PWAHamburgerMenuPage.objrentalpopupclose, "Rental PopUp Close button");
+				} else {
+					logger.error("Failed to display rental popup");
+					extent.extentLoggerFail("", "Failed to display rental popup");
+				}
+			}
+			else 
+			{
+				logger.info("Rent for INR movie contents are not displayed");
+				extent.extentLoggerWarning(" ", "Rent for INR movie contents are not displayed");
+			}
+		}
+		else {
+			logger.info("Trailer click, Rent for INR features cannot be tested because trailer unavailable");
+			extent.extentLoggerWarning(" ", "Trailer click, Rent for INR features cannot be tested because trailer unavailable");
+		}
 	}
 
 	public void upgrade(String userType) throws Exception {

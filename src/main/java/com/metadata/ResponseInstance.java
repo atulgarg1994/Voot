@@ -882,11 +882,11 @@ public class ResponseInstance {
 		Mixpanel.FEProp.setProperty("Content Type",resp.jsonPath().getString("business_type"));
 		Mixpanel.FEProp.setProperty("Genre",resp.jsonPath().getList("genre.id").toString().replaceAll(",","-").replaceAll("\\s", ""));
 		Mixpanel.FEProp.setProperty("Content Original Language",resp.jsonPath().getString("languages").replace("[", "").replace("]", ""));
-//		if(resp.jsonPath().getString("is_drm").equals("1")) {
-		Mixpanel.FEProp.setProperty("DRM Video",resp.jsonPath().getString("is_drm"));
-//		}else {
-//			Mixpanel.FEProp.setProperty("DRM Video","false");
-//		}
+		if(resp.jsonPath().getString("is_drm").equals("1")) {
+		Mixpanel.FEProp.setProperty("DRM Video","true");
+		}else {
+			Mixpanel.FEProp.setProperty("DRM Video","false");
+		}
 //		resp.print();
 //		Mixpanel.FEProp.forEach((key, value) -> System.out.println(key + " : " + value));
 		}
@@ -1050,17 +1050,13 @@ public class ResponseInstance {
 //			respCarousel = given().headers("X-ACCESS-TOKEN", getXAccessTokenAMD()).when().get(Url);
 			
 			if (pUserType.equalsIgnoreCase("SubscribedUser")) {
-				String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SubscribedUserName");
-				String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SubscribedUserPassword");
+				String email = getParameterFromXML("SubscribedUserName");
+				String password = getParameterFromXML("SubscribedUserPassword");
 				String bearerToken = getBearerToken(email, password);
 				respCarousel = given().headers("x-access-token", getXAccessTokenAMD()).header("authorization", bearerToken).when().get(Url);
 			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-				String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonSubscribedUserName");
-				String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonSubscribedUserPassword");
+				String email = getParameterFromXML("NonSubscribedUserName");
+				String password = getParameterFromXML("NonSubscribedUserPassword");
 				String bearerToken = getBearerToken(email, password);
 				respCarousel = given().headers("x-access-token", getXAccessTokenAMD()).header("authorization", bearerToken).when().get(Url);
 			} else {
@@ -1211,7 +1207,7 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 	int relatedNodelength = contentResp.jsonPath().getList("related").size();
 	System.out.println("Related Node: " + relatedNodelength);
 	
-	if (relatedNodelength >= 1 & pUserType!="SubscribedUser" & relatedFlag) {
+	if (!pUserType.equalsIgnoreCase("SubscribedUser") && (relatedNodelength >= 1) && (relatedFlag)) {
 		newContentId = contentResp.jsonPath().get("related[0].id");
 		System.out.println("Related Node is Present | contentID: " + newContentId);
 		subContentResp = getResponseDetails(newContentId);
@@ -1351,12 +1347,18 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 		
 		int getDuration = contentResp.jsonPath().get("duration");
 		String pDuration = Integer.toString(getDuration);
+		if(pDuration.equalsIgnoreCase("0")) {
+			pDuration = "N/A";
+		}
 		String onAir = contentResp.jsonPath().get("on_air");
 		String pBusinessType = contentResp.jsonPath().get("business_type");
 		int assetType = contentResp.jsonPath().get("asset_type");
 		String pImgURL = contentResp.jsonPath().get("image_url");
 		int getEpisodeNumber = contentResp.jsonPath().get("episode_number");
 		String pEpisodeNumber = Integer.toString(getEpisodeNumber);
+		if(pEpisodeNumber.equalsIgnoreCase("0")) {
+			pEpisodeNumber = "N/A";
+		}
 		String pTitle = contentResp.jsonPath().get("title");
 		String pContentBillingType = contentResp.jsonPath().get("billing_type");
 		if (pContentBillingType.length() == 0) {
@@ -1402,7 +1404,7 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 		} else if (audioLangCount == 1) {
 			pAudioLangguage = contentResp.jsonPath().get("audio_languages[0]");
 		} else {
-			pAudioLangguage = "N/A";
+			pAudioLangguage = "NA";
 		}
 
 		//---Getting Subtitle Languages from API
@@ -1440,6 +1442,8 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 		if (isDRM == 1) {
 			pDRM_Video = "true";
 		}
+		
+		String pPublishedDate = "N/A";
 
 		System.out.println("\n--PRINTING VALIDATION PARAMETERS--");
 		System.out.println(pTrayName);
@@ -1456,6 +1460,7 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 		System.out.println(pDRM_Video);
 		System.out.println(pImgURL);
 		System.out.println(pContentBillingType);
+		System.out.println(pPublishedDate);
 		System.out.println("AssetType : " + assetType);
 		System.out.println(onAir);
 		
@@ -1474,6 +1479,7 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 		Mixpanel.FEProp.setProperty("Genre", pGenre);
 		Mixpanel.FEProp.setProperty("Image URL", pImgURL);
 		Mixpanel.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);
+		Mixpanel.FEProp.setProperty("Publishing Date", pPublishedDate);
 		
 	}else {
 		
@@ -1487,8 +1493,8 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 		int getEpisodeNumber = contentResp.jsonPath().get("episode_number");
 		String pEpisodeNumber = Integer.toString(getEpisodeNumber);
 		String pTitle = contentResp.jsonPath().get("title");
-		String	releaseDate = contentResp.jsonPath().get("release_date").toString();
-		String	pPublishedDate = releaseDate.replace(releaseDate.substring(10), "");
+		String releaseDate = contentResp.jsonPath().get("release_date").toString();
+		String pPublishedDate = releaseDate.replace(releaseDate.substring(10), "");
 		String pContentBillingType = contentResp.jsonPath().get("billing_type");
 		if (pContentBillingType.length() == 0) {
 			pContentBillingType = "N/A";
@@ -1608,33 +1614,28 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 		Mixpanel.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);
 	}	
 }
-	
-	public static Response getUserinfoforNonSubORSubForAppMixpanel(String userType) {	
-		Response resp = null;
-		String url = "https://userapi.zee5.com/v1/settings";
 
-		String xAccessToken = getXAccessTokenWithApiKey();
-					
-		if (userType.equalsIgnoreCase("SubscribedUser")) {
-//			String email ="clubRK@g.com";
-//			String password ="123456";
-			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
-			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserPassword");
-			String bearerToken = getBearerToken(email, password);
-			resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
-		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-//			String email ="amdnonmixpanel@yopmail.com";
-//			String password ="123456";
-			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserName");
-			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserPassword");
-			String bearerToken = getBearerToken(email, password);
-			resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
-		} else {
-			System.out.println("Incorrect user type passed to method");
-		}
-		return resp;
+public static Response getUserinfoforNonSubORSubForAppMixpanel(String userType) {
+	Response resp = null;
+	String url = "https://userapi.zee5.com/v1/settings";
+
+	String xAccessToken = getXAccessTokenWithApiKey();
+
+	if (userType.equalsIgnoreCase("SubscribedUser")) {
+		String email = getParameterFromXML("SubscribedUserName");
+		String password = getParameterFromXML("SubscribedUserPassword");
+		String bearerToken = getBearerToken(email, password);
+		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+	} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+		String email = getParameterFromXML("NonSubscribedUserName");
+		String password = getParameterFromXML("NonSubscribedUserPassword");
+		String bearerToken = getBearerToken(email, password);
+		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+	} else {
+		System.out.println("Incorrect user type passed to method");
 	}
-
+	return resp;
+}
 	
 	public static String getContentLanguageForAppMixpanel(String userType) {
 		String language = null;
@@ -1657,7 +1658,7 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 		return language;
 	}
 	
-	public static String getCarouselContentFromAPI(String usertype, String tabName) {
+public static String getCarouselContentFromAPI(String usertype, String tabName) {
 		
 		String pContentLang = ResponseInstance.getContentLanguageForAppMixpanel(usertype);
 		System.out.println("CONTENT LANG: "+pContentLang);
@@ -1684,7 +1685,7 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 				}else {
 					var="Invalid";
 				}
-			}else if(tabName.equalsIgnoreCase("Home")|| tabName.equalsIgnoreCase("Premium")| tabName.equalsIgnoreCase("Club")){
+			}else if(tabName.equalsIgnoreCase("Home")|| tabName.equalsIgnoreCase("Premium")|| tabName.equalsIgnoreCase("Club")){
 				if(asset_subtype.equalsIgnoreCase("movie")) {
 					var=asset_subtype;
 				}else {
@@ -1720,15 +1721,18 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 			
 			case "external_link":
 				contentID1 = pageResp.jsonPath().get("buckets[0].items["+i+"].slug");
-				Pattern p1 = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m1 = p1.matcher(contentID1);
-				String value = null;
-				while (m1.find()) {
-					value = m1.group(0);
-				}		
+				String value = fetchContentIDFromUrl(contentID1);
+				System.out.println(value);
 				ContentResp1 = ResponseInstance.getContentDetails(value, "original");
-				if(tabName!= "News") {
-					ContentId2 = ContentResp1.jsonPath().getString("seasons[0].episodes[1].id");
+				if(!(tabName.equalsIgnoreCase("News") || tabName.equalsIgnoreCase("Eduauraa"))) {
+					List<String> noOfEpisodes = ContentResp1.jsonPath().getList("seasons[0].episodes");
+					for(int n=0; n<noOfEpisodes.size();n++) {
+						String contenttype = ContentResp1.jsonPath().getString("seasons[0].episodes["+n+"].business_type");
+						if(contenttype.equalsIgnoreCase("advertisement_downloadable")) {
+							ContentId2 = ContentResp1.jsonPath().getString("seasons[0].episodes["+n+"].id");
+							break;
+						}
+					}
 					ContentResp2 = getContentDetails(ContentId2, "original");
 					setFEPropertyOfContentFromAPI(ContentId2,ContentResp2, tabName);
 				}else {
@@ -1751,15 +1755,18 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 				break;
 			}
 		}
-		
 		return contentName;
-		
 	}
 	
 	public static void setFEPropertyOfContentFromAPI(String contentID, Response ContentResp, String tabName) {
     	
 		String pCharacters = null;
-    	String contentDuration = ContentResp.jsonPath().getString("duration");
+    	String contentDuration =null;
+    	if(tabName.equalsIgnoreCase("News")) {
+    		contentDuration="N/A";
+		}else {
+			contentDuration = ContentResp.jsonPath().getString("duration");
+		}
 		String pBusinessType = ContentResp.jsonPath().getString("business_type");
 		String pAssetSubType = null;
 		if(tabName.equalsIgnoreCase("News")) {
@@ -1767,7 +1774,13 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 		}else {
 			pAssetSubType = ContentResp.jsonPath().getString("asset_subtype");
 		}
-		String episode = ContentResp.jsonPath().getString("episode_number");
+		String episode=null;
+		if(tabName.equalsIgnoreCase("News")) {
+			episode="N/A";
+		}else {
+			episode = ContentResp.jsonPath().getString("episode_number");
+		}
+		
 		String pTitle = ContentResp.jsonPath().getString("title");
 		String pPublishedDate=null;
 		if(tabName.equalsIgnoreCase("News")) {
@@ -1836,7 +1849,7 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 			getCharacters.add("N/A");
 			pCharacters = getCharacters.toString().replace("[", "").replace("]", "");
 		} else {
-			pCharacters = getCharacters.toString();
+			pCharacters = getCharacters.toString();	
 		}
 
 		int isDRM = ContentResp.jsonPath().get("is_drm");
@@ -2007,20 +2020,38 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 	
 	public static void subscriptionDetails() {
 		String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";
-		String UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
-		String pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter(UserType + "Name");
-		String pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter(UserType + "Password");
+		
+		String UserType = getParameterFromXML("userType");
+		String pUsername = getParameterFromXML(UserType + "Name");
+		String pPassword = getParameterFromXML(UserType + "Password");
 		String bearerToken = getBearerToken(pUsername, pPassword);
 		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
-		Mixpanel.FEProp.setProperty("pack duration",resp.jsonPath().getString("[0].subscription_plan.billing_frequency")); 
+		resp.print();
+		System.out.println("\n Subscrition related");
+		Mixpanel.FEProp.setProperty("Pack Duration",resp.jsonPath().getString("[0].subscription_plan.billing_frequency")); 
 		String uri = "[0].subscription_plan.";
 		String id = resp.jsonPath().getString(uri+"id");
 		String original_title = resp.jsonPath().getString(uri+"original_title");
 		String subscription_plan_Type = resp.jsonPath().getString(uri+"subscription_plan_type");
 		Mixpanel.FEProp.setProperty("Pack Selected",id+"_"+original_title+"_"+subscription_plan_Type); 
-		Mixpanel.FEProp.setProperty("Cost",resp.jsonPath().getString("[0].subscription_plan.price")); 
+		Mixpanel.FEProp.setProperty("Cost",resp.jsonPath().getString("[0].subscription_plan.price"));
+		
+		Mixpanel.FEProp.setProperty("Region",resp.jsonPath().getString("[0].region"));
+		Mixpanel.FEProp.setProperty("User ID",resp.jsonPath().getString("[0].user_id"));
+		Mixpanel.FEProp.setProperty("Unique ID",resp.jsonPath().getString("[0].user_id"));
+		Mixpanel.FEProp.setProperty("Active Plan Name",resp.jsonPath().getString(uri+"original_title"));
+		Mixpanel.FEProp.setProperty("Subscription Status",resp.jsonPath().getString("[0].state"));
+		
+		String getUserCountry = resp.jsonPath().getString(uri+"country");
+		Mixpanel.FEProp.setProperty("Country ID",getUserCountry);
+		Mixpanel.FEProp.setProperty("Registring Country",getUserCountry);
+		
+		String pCountry = "NA";
+		if(getUserCountry.equalsIgnoreCase("IN")) {
+			pCountry = "INDIA";
+		}
+		Mixpanel.FEProp.setProperty("User Country",pCountry);
+		
 	}
 
 
@@ -2139,7 +2170,6 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 			for (int j = 1; j < bucketSize; j++) {
 				int itemsSize = respCarousel.jsonPath().getList("buckets["+j+"].items").size();
 				for (int k = 0; k < itemsSize; k++) {
-					System.out.println(respCarousel.jsonPath().getString("buckets["+j+"].title"));
 					if(respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].business_type").contains("free") 
 							|| respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].business_type").contains("advertisement_downloadable") ) {
 						System.out.println("title : "+respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].title"));
@@ -2183,6 +2213,22 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 	}
 		return contentAndTrayTitle ;
 }
+	
+	
+	public static String getParameterFromXML(String parameter) {
+		return Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter(parameter);
+	}
+	
+	public static String fetchContentIDFromUrl(String url) {
+		String contentID = null;
+		String[] id = url.split("/");
+		for (int i = 0; i < id.length; i++) {
+			if (id[i].contains("0-")) {
+				contentID = id[i];
+			}
+		}
+		return contentID;
+	}
 	
 }
 
