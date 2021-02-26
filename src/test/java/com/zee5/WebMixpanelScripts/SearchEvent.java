@@ -29,11 +29,11 @@ public class SearchEvent {
 	}
 
 	@Test(priority = 2)
-	@Parameters({ "keyword" })
-	public void verifySearchResultClickedEvent(String keyword) throws Exception {
+	@Parameters({ "keyword4" })
+	public void verifySearchResultClickedEvent(String keyword4) throws Exception {
 		System.out.println("Verify Search Result Clicked Event");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifySearchResultClickedEvent(keyword);
+		Zee5PWAWEBMixPanelBusinessLogic.verifySearchResultClickedEvent(keyword4);
 	}
 
 	@Test(priority = 3)
@@ -43,6 +43,12 @@ public class SearchEvent {
 		Zee5PWAWEBMixPanelBusinessLogic.verifySearchExecutedEvent();
 	}
 
+	@Test(priority = 4)
+	public void verifySearchCancelledEvent() throws Exception {
+		System.out.println("Verify Search Cancelled Event");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySearchCancelledEvent();
+	}
+	
 	@AfterClass
 	public void tearDown() {
 		Zee5PWAWEBMixPanelBusinessLogic.tearDown();

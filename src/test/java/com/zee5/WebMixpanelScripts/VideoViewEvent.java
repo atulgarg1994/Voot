@@ -38,29 +38,29 @@ public class VideoViewEvent {
 //		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentFromSharedLink(freeContentURL);
 //	}
 //	
-	@Test(priority = 3)
-	@Parameters({ "userType", "Tab"})
-	public void verifyVideoViewEventForFreeContent(String userType,String Tab) throws Exception {
-		System.out.println("Verify Video View Event For Free Content");
+//	@Test(priority = 3)
+//	@Parameters({ "userType", "Tab"})
+//	public void verifyVideoViewEventForFreeContent(String userType,String Tab) throws Exception {
+//		System.out.println("Verify Video View Event For Free Content");
 //		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForFreeContent(userType,Tab);
-	}
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForFreeContent(userType,Tab);
+//	}
 //	
 //	@Test(priority = 4)
-//	@Parameters({ "userType"})
-//	public void verifyVideoViewEventForPremiumContent(String userType) throws Exception {
+//	@Parameters({ "userType","Tab"})
+//	public void verifyVideoViewEventForPremiumContent(String userType,String tabName) throws Exception {
 //		System.out.println("Verify Video View Event For Premium Content");
 //		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForPremiumContent(userType,"Home");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForPremiumContent(userType,tabName);
 //	}
 //	
-//	@Test(priority = 5)
-//	@Parameters({ "keyword1"})
-//	public void verifyVideoViewEventForTrailer(String keyword1) throws Exception {
-//		System.out.println("Verify Video View Event For Trailer Content");
+	@Test(priority = 5)
+	@Parameters({ "keyword1","Tab"})
+	public void verifyVideoViewEventForTrailer(String keyword1,String tabName) throws Exception {
+		System.out.println("Verify Video View Event For Trailer Content");
 //		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForTrailer(keyword1);
-//	}
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForTrailer(keyword1,tabName);
+	}
 //	
 //	@Test(priority = 6)
 //	public void verifyVideoViewEventForCarouselContent() throws Exception {

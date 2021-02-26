@@ -8798,9 +8798,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		
 		String trayName = ResponseInstance.getTrayNameFromPage(tabName, usertype);
 		
-		boolean flagBox = verifyIsElementDisplayed(AMDHomePage.objSboxIcon);
-		String pSugarBox = String.valueOf(flagBox);
-		
+//		boolean flagBox = verifyIsElementDisplayed(AMDHomePage.objSboxIcon);
+//		String pSugarBox = String.valueOf(flagBox);
+	
 		if(tabName.equalsIgnoreCase("Live TV") || tabName.equalsIgnoreCase("News")) {
 			waitTime(5000);
 			waitForElementDisplayed(AMDGenericObjects.objTrayTitle, 30);
@@ -8828,7 +8828,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 		mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
 		mixpanel.FEProp.setProperty("Brand", pManufacturer);
-		mixpanel.FEProp.setProperty("Sugar Box Value",pSugarBox );
+		mixpanel.FEProp.setProperty("Sugar Box Value","false" );
 
 		mixpanel.ValidateParameter("", "Video View");
 	}

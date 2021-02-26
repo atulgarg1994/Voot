@@ -972,10 +972,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		// while (m.find()) {
 		// value = m.group(0);
 		// }
-		System.out.println("Current URL : " + id);
-		ResponseInstance.getContentDetails(fetchContentID(id));
+//		System.out.println("Current URL : " + id);
+//		ResponseInstance.getContentDetails(fetchContentID(id));
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name","tv_shows_view_all");
+		mixpanel.FEProp.setProperty("Page Name","movie_landing");
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 
@@ -1109,7 +1109,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		String searchtxt = "Kam";
 		type(PWASearchPage.objSearchEditBox, searchtxt + "\n", "Search Edit box: ");
-		waitTime(4000);
+		waitTime(10000);
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Search Type", "text");
 		mixpanel.FEProp.setProperty("Results Returned", ResponseInstance.getresponse(searchtxt));
@@ -1195,6 +1195,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				waitTime(4000);
 				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
 				waitTime(3000);
+				
+				
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Parent Control Setting", "U/A");
+				mixpanel.FEProp.setProperty("Setting Changed", "U/A");
+				mixpanel.FEProp.setProperty("Page Name", "parental_control");
 
 				break;
 
@@ -1208,22 +1214,45 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				waitTime(4000);
 				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
 				waitTime(3000);
+				
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Parent Control Setting", "U");
+				mixpanel.FEProp.setProperty("Setting Changed", "U");
+				mixpanel.FEProp.setProperty("Page Name", "parental_control");
 				break;
 
 			case "NoRestriction":
 				click(PWAHamburgerMenuPage.objNoRestrictionSelected, "No Restriction option");
 				click(PWAHamburgerMenuPage.objContinueButton, "Continue Button");
+				
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Parent Control Setting", "A");
+				mixpanel.FEProp.setProperty("Setting Changed", "A");
+				mixpanel.FEProp.setProperty("Page Name", "parental_control");
+				
 				break;
 			}
 
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
-			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Parent Control Setting", "A");
-			mixpanel.FEProp.setProperty("Setting Changed", "A");
-			mixpanel.FEProp.setProperty("Page Name", "parental_control");
 
-			mixpanel.ValidateParameter(local.getItem("ID"), "Parental_Restriction");
+			mixpanel.parentalValidateParameter(local.getItem("ID"), "Parental_Restriction");
+			
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			if (userType.equals("NonSubscribedUser")) {
+				password = getParameterFromXML("SettingsNonSubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = getParameterFromXML("SettingsSubscribedPassword");
+			}
+			type(PWALoginPage.objPasswordField, password, "Password field");
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+			click(PWAHamburgerMenuPage.objNoRestrictionSelected, "No Restriction option");
+			click(PWAHamburgerMenuPage.objContinueButton, "Continue Button");
+
 		}
 	}
 
@@ -1285,12 +1314,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
 			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 			ResponseInstance.getContentDetails(fetchContentID(getWebDriver().getCurrentUrl()));
-			if (checkElementDisplayed(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon")) {
-				click(PWAPlayerPage.objAddToWatchlist, "Watchlist icon");
+			if (checkElementDisplayed(PWAPlayerPage.objPlaybackAddToWatchlist, "Add To Watchlist icon")) {
+				click(PWAPlayerPage.objPlaybackAddToWatchlist, "Watchlist icon");
 				waitTime(4000);
-				click(PWAPlayerPage.objRemoveFromWatchlist, "Remove From Watchlist icon");
+				click(PWAPlayerPage.objPlaybackRemoveFromWatchlist, "Remove From Watchlist icon");
 			} else {
-				click(PWAPlayerPage.objRemoveFromWatchlist, "Remove From Watchlist icon");
+				click(PWAPlayerPage.objPlaybackRemoveFromWatchlist, "Remove From Watchlist icon");
 				waitTime(4000);
 			}
 			mixpanel.FEProp.setProperty("Source", "search");
@@ -1380,11 +1409,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			if (checkElementDisplayed(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon")) {
 				click(PWAPlayerPage.objAddToWatchlist, "Watchlist icon");
+				waitTime(4000);
+				click(PWAPlayerPage.objRemoveFromWatchlist, "Remove From Watchlist icon");
 			} else {
 				click(PWAPlayerPage.objRemoveFromWatchlist, "Remove From Watchlist icon");
 				waitTime(3000);
-				actions.moveToElement(contentCard).build().perform();
-				click(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon");
+				
 				waitTime(4000);
 			}
 			waitTime(4000);
@@ -1452,6 +1482,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Search Cancelled Event");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		click(PWASearchPage.objSearchCancel, "Close Button");
+		waitTime(10000);
+
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "search");
 		mixpanel.FEProp.setProperty("Results Returned", "0");
@@ -1669,11 +1701,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
-			verifyElementPresentAndClick(PWAAddToWatchListPage.objRemoveContentsInWatchList,
+			verifyElementPresentAndClick(PWAAddToWatchListPage.objCancelBtn,
 					"Remove From Watchlist option");
 			waitTime(3000);
-			ResponseInstance.getContentDetails(fetchContentID(link));
-			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
+	
+			mixpanel.FEProp.setProperty("Source", "show_detail");
 			mixpanel.FEProp.setProperty("Page Name", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Element", "Watchlist");
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -2580,28 +2612,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoViewEventForTrailer(String keyword1) throws Exception {
+	public void verifyVideoViewEventForTrailer(String keyword1,String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Video View Event For Trailer Content");
 		mandatoryRegistrationPopUp(userType);
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
-		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		
+//		click(PWAHomePage.objSearchBtn, "Search Icon");
+//		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
+//		waitTime(4000);
+//		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
+//		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+
+		clickOnTrayContent(tabName,"trailer");
 		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Source", "Home");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Video View", "1");
 
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -6295,7 +6326,24 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U/A");
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
-			mixpanel.ValidateParameter(local.getItem("ID"), "Setting Changed");
+			
+			mixpanel.parentalValidateParameter(local.getItem("ID"), "Setting Changed");
+			
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			if (userType.equals("NonSubscribedUser")) {
+				password = getParameterFromXML("SettingsNonSubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = getParameterFromXML("SettingsSubscribedPassword");
+			}
+			type(PWALoginPage.objPasswordField, password, "Password field");
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+			click(PWAHamburgerMenuPage.objNoRestrictionSelected, "No Restriction option");
+			click(PWAHamburgerMenuPage.objContinueButton, "Continue Button");
+
 		}
 	}
 
@@ -6321,11 +6369,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	public void verifySearchButtonClickEvent() throws Exception {
 		extent.HeaderChildNode("Verify Search Button Click Event");
-		waitTime(5000);
+		waitTime(10000);
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Element", "Search");
-		mixpanel.FEProp.setProperty("Page Name", "home");
+		mixpanel.FEProp.setProperty("Page Name", "Content Language");
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -6342,7 +6390,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
 		click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
-		waitTime(5000);
+		waitTime(10000);
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -6362,10 +6410,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
 			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 			waitTime(4000);
-			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
+			click(PWAPremiumPage.objPlayBtn, "Content From a tray");
 			waitForElement(PWALoginPage.objCloseRegisterPopup, 10, "Register Pop Up");
 			waitTime(6000);
-			mixpanel.FEProp.setProperty("Source", "search");
+			mixpanel.FEProp.setProperty("Source", "show_detail");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			String id = getWebDriver().getCurrentUrl();
 			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
@@ -10002,9 +10050,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElement(PWASearchPage.objSearchResultTxt(keyword), 20, "Search Result");
 		click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 		waitTime(4000);
-		WebElement element = getWebDriver().findElement(PWAShowsPage.objTrayTitle1(trayTitle));
+		WebElement element = getWebDriver().findElement(PWAShowsPage.objRecoTrayTitle(trayTitle));
 		((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
-		checkElementDisplayed(PWAHomePage.objRecoTray, "Recommended Rail");
+		checkElementDisplayed(PWAShowsPage.objRecoTrayTitle(trayTitle), "Recommended Rail");
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
@@ -10027,9 +10075,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
 		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitTime(4000);
-		WebElement element = getWebDriver().findElement(PWAShowsPage.objTrayTitle1(trayTitle));
+		WebElement element = getWebDriver().findElement(PWAShowsPage.objRecoTrayTitle(trayTitle));
 		((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
-		checkElementDisplayed(PWAHomePage.objRecoTray, "Recommended Rail");
+		checkElementDisplayed(PWAShowsPage.objRecoTrayTitle(trayTitle), "Recommended Rail");
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");

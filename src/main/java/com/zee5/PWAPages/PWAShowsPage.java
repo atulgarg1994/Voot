@@ -151,6 +151,9 @@ public class PWAShowsPage {
 	public static By objThirdAssetImageFirstRail = By.xpath("(//div[@class='slick-list'])[1]//div[@data-index='2']");
 	
 	public static By objBackToTopArrow = By.xpath("//*[contains(@class, 'iconOther-ic_arrow_back')]");
-
+	
+	public static By objRecoTrayTitle(String str) {
+		return By.xpath("//h2[contains(text(),'"+str+"')]");
+	}
 
 }

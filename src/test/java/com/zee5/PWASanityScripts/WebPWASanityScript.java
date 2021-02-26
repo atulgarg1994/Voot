@@ -301,7 +301,7 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Episode", consumptionsEpisode);
 		Zee5WEBPWASanityBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Live TV", "");
 		Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
-		Zee5WEBPWASanityBusinessLogic.verifyNoSubscriptionPopupForFreeContent(userType, "Ramayana"); // changed_6th
+		Zee5WEBPWASanityBusinessLogic.verifyNoSubscriptionPopupForFreeContent(userType, "Ramayana "); // changed_6th
 		Zee5WEBPWASanityBusinessLogic.verifySubscriptionPopupForPremiumContent(userType, consumptionsPremiumContent);
 		Zee5WEBPWASanityBusinessLogic.verifyCTAandMetaDataInDetailsAndConsumption(consumptionsShow);
 	}

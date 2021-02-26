@@ -30,7 +30,7 @@ public class RecommendedRailImpressionEvent {
 	public void verifyRecommendedRailImpressionEventInShowDetailPage(String keyword) throws Exception {
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		System.out.println("Verify Recommended Rail Impression Event In Show Detail Page");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyRecommendedRailImpressionEventInShowDetailPage(keyword, "Trending");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyRecommendedRailImpressionEventInShowDetailPage(keyword, "You May Like");
 	}
 
 	@Test(priority = 3)
@@ -38,7 +38,7 @@ public class RecommendedRailImpressionEvent {
 	public void verifyRecommendedRailImpressionEventInConsumptionScreen(String keyword1) throws Exception {
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		System.out.println("Verify Recommended Rail Impression Event In Consumption Screen");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyRecommendedRailImpressionEventInConsumptionScreen(keyword1, "Trending");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyRecommendedRailImpressionEventInConsumptionScreen(keyword1, "You May Like");
 	}
 	
 	@AfterClass

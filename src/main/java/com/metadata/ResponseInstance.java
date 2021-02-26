@@ -726,7 +726,8 @@ public class ResponseInstance {
 //		resp.prettyPrint();
 //		getTrayNameFromPage("home");
 //		System.out.println(getPageResponse("home","free"));
-		System.out.println(getTrayResponse("Shows","premium"));
+//		System.out.println(getTrayResponse("Shows","premium"));
+		getContentDetails("0-0-330581");
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -872,6 +873,11 @@ public class ResponseInstance {
 		System.out.println("Content ID :"+ID);
 		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
 //		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/0-1-84080?translation=en&country=IN&version=2");
+		if(resp.jsonPath().getList("related")  != null) {
+			ID = resp.jsonPath().getString("related[0].id");
+			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
+		}
+		
 		Mixpanel.FEProp.setProperty("Content Duration", resp.jsonPath().getString("duration"));
 		Mixpanel.FEProp.setProperty("Content ID", resp.jsonPath().getString("id"));
 		Mixpanel.FEProp.setProperty("Content Name", resp.jsonPath().getString("original_title"));
@@ -887,7 +893,7 @@ public class ResponseInstance {
 		}else {
 			Mixpanel.FEProp.setProperty("DRM Video","false");
 		}
-//		resp.print();
+		resp.print();
 //		Mixpanel.FEProp.forEach((key, value) -> System.out.println(key + " : " + value));
 		}
 	
@@ -1208,7 +1214,24 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 	System.out.println("Related Node: " + relatedNodelength);
 	
 	if (!pUserType.equalsIgnoreCase("SubscribedUser") && (relatedNodelength >= 1) && (relatedFlag)) {
-		newContentId = contentResp.jsonPath().get("related[0].id");
+		
+		String assetSubType = contentResp.jsonPath().get("asset_subtype").toString();
+		System.out.println(assetSubType);
+		if(assetSubType.equalsIgnoreCase("movie")) {
+			for(int rCount=0;rCount < relatedNodelength;rCount++) {
+				String getBusinessType = contentResp.jsonPath().get("related["+rCount+"].business_type").toString();
+				System.out.println(getBusinessType);
+				if(getBusinessType.equalsIgnoreCase("free_downloadable")) {
+					newContentId = contentResp.jsonPath().get("related["+rCount+"].id").toString();
+					System.out.println(newContentId);
+					break;
+				}
+			}
+		}else {
+			newContentId = contentResp.jsonPath().get("related[0].id");
+		}
+		
+//		newContentId = contentResp.jsonPath().get("related[0].id");
 		System.out.println("Related Node is Present | contentID: " + newContentId);
 		subContentResp = getResponseDetails(newContentId);
 		System.out.println("RESPONSE StatusCode: " + subContentResp.statusCode());
@@ -1688,6 +1711,8 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 			}else if(tabName.equalsIgnoreCase("Home")|| tabName.equalsIgnoreCase("Premium")|| tabName.equalsIgnoreCase("Club")){
 				if(asset_subtype.equalsIgnoreCase("movie")) {
 					var=asset_subtype;
+				}else if(asset_subtype.equalsIgnoreCase("original")){
+					var=asset_subtype;
 				}else {
 					var="Invalid";
 				}
@@ -1700,8 +1725,8 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 			case "movie":
 				contentID1 = pageResp.jsonPath().get("buckets[0].items["+i+"].id");
 				ContentResp1 = getResponseDetails(contentID1);
-				int relatedNodelength = ContentResp1.jsonPath().getList("related").size();
-				if (relatedNodelength >= 1 & usertype!="SubscribedUser") {
+				int relatedNodelength = ContentResp1.jsonPath().getList("related").size();		
+				if (relatedNodelength >= 1 && (!(usertype.equalsIgnoreCase("SubscribedUser")))) {
 				  ContentId2 = ContentResp1.jsonPath().get("related[0].id");
 			      ContentResp2 = getResponseDetails(ContentId2);
 			      setFEPropertyOfContentFromAPI(ContentId2,ContentResp2, tabName);

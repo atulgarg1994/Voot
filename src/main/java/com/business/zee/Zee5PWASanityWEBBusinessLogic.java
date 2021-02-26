@@ -167,7 +167,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			dismissDisplayContentLanguagePopUp();
+//			dismissDisplayContentLanguagePopUp();
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			waitTime(3000);
 			break;
 
@@ -175,6 +176,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as NonSubscribed User");
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -191,6 +193,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User");
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -206,6 +209,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User");
 			String clubUserName = getParameterFromXML("ClubUserName");
 			String clubPassword = getParameterFromXML("ClubPassword");
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -4734,7 +4738,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchedResult(contentTitle), 60, "Search Result");
-		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(contentTitle), "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objfirstdata, "Searched result");
+//		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(contentTitle), "Search Result");
 		if (userType.equals("Guest")) {
 			waitForElementAndClickIfPresent(PWASearchPage.objCloseRegisterDialog, 5, "Close in Register Pop Up");
 		}
@@ -8755,7 +8760,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		waitTime(5000);
 		mandatoryRegistrationPopUp(userType);
-		click(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
+		verifyElementPresentAndClick(PWASearchPage.objfirstdata, "Searched result");
+//		click(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
 		Thread.sleep(10000);
 		if (userType.equals("Guest")) {
 			if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Why Register Popup") == true) {
@@ -16302,8 +16308,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		waitTime(2000);
 		partialScroll();
 		partialScroll();
-		if (verifyElementPresent(PWAMusicPage.objArrowToNavigateTop, "Arrow icon")) {
-			
+		if (verifyElementPresent(PWAMusicPage.objArrowToNavigateTop, "Arrow icon")) {		
 			logger.info("Back to Top arrow is displayed");
 			extent.extentLoggerPass("", "Back to Top arrow is displayed");
 			click(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
@@ -16311,6 +16316,8 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		} else {
 			logger.error("Back to Top arrow is not displayed");
 			extent.extentLoggerFail("", "Back to Top arrow is not displayed");
+			navigateToAnyScreenOnWeb("Live TV");
+			waitTime(5000);
 		}
 		waitTime(3000);
 		extent.HeaderChildNode("HLS_136 :verifying that multiple languages are given to select with apply and reset button");

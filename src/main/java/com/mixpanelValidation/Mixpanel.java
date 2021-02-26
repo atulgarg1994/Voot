@@ -605,11 +605,36 @@ public class Mixpanel extends ExtentReporter {
 	}
 
 
-public static String parseDistinctId(String response) {
+	public static String parseDistinctId(String response) {
 		String strDistinctID = response.split("distinct_id")[1].split(",")[0].replace("\":\"", "").replace("\"", "");
-		System.out.println("Distinct ID : "+strDistinctID);
+		System.out.println("Distinct ID : " + strDistinctID);
 		return strDistinctID;
 	}
-	
-	
+
+	public static void parentalValidateParameter(String distinctID, String eventName)
+			throws JsonParseException, JsonMappingException, IOException, InterruptedException {
+		System.out.println("Parameter Validation " + distinctID);
+		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		booleanParameters = Prop.getproperty("Boolean");
+		integerParameters = Prop.getproperty("Integer");
+		fileName = ReportName;
+		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
+		StaticValues();
+		getParentalParameterValue();
+		fetchEvent(distinctID, eventName);
+	}
+
+	public static void getParentalParameterValue() {
+		UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		if (!UserType.equals("Guest")) {
+			if (!fetchUserdata) {
+				String pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SettingsNonSubscribedUserName");
+				String pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SettingsNonSubscribedPassword");
+				ResponseInstance.getUserData(pUsername, pPassword);
+			}
+		}
+	}
+
 }

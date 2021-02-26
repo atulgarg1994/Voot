@@ -2226,12 +2226,12 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForPremiumContent(userType,"Home");
 	}
 	
-	@Test(priority = 320)
-	@Parameters({ "keyword1"})
-	public void verifyVideoViewEventForTrailer(String keyword1) throws Exception {
-		System.out.println("Verify Video View Event For Trailer Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForTrailer(keyword1);
-	}
+//	@Test(priority = 320)
+//	@Parameters({ "keyword1"})
+//	public void verifyVideoViewEventForTrailer(String keyword1) throws Exception {
+//		System.out.println("Verify Video View Event For Trailer Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForTrailer(keyword1);
+//	}
 	
 	@Test(priority = 321)
 	public void verifyVideoViewEventForCarouselContent() throws Exception {
