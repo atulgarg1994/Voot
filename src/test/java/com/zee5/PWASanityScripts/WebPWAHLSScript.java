@@ -111,12 +111,12 @@ public class WebPWAHLSScript {
 //		Zee5WEBPWASanityBusinessLogic.Zee5OriginalsValidation(userType, "ZEE5 Originals");
 //	}
 //
-//	@Test(priority = 14)
-//	@Parameters({ "userType" })
-//	public void SearchPagevalidationHLS(String userType) throws Exception {
-//		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-//		Zee5WEBPWASanityBusinessLogic.Search("Parru ");
-//	}
+	@Test(priority = 14)
+	@Parameters({ "userType" })
+	public void SearchPagevalidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.Search("Parru ");
+	}
 //
 //	@Test(priority = 15)
 //	@Parameters({ "userType" })

@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.html5.LocalStorage;
 import org.testng.Reporter;
+
+import com.driverInstance.DriverInstance;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
@@ -785,10 +787,17 @@ public class ResponseInstance {
 	}
 	
 	private static void getDOB() {
+
 		System.out.println(Mixpanel.FEProp.getProperty("birthday").split("T")[0]);
 		LocalDate dob = LocalDate.parse(Mixpanel.FEProp.getProperty("birthday").split("T")[0]);
 		LocalDate curDate = LocalDate.now();
-		Mixpanel.FEProp.setProperty("Age",String.valueOf((Period.between(dob, curDate).getYears())+1));
+
+		if (DriverInstance.getPlatform().equalsIgnoreCase("Android")) {
+			Mixpanel.FEProp.setProperty("Age", String.valueOf((Period.between(dob, curDate).getYears())));
+		} else {
+			Mixpanel.FEProp.setProperty("Age", String.valueOf((Period.between(dob, curDate).getYears()) + 1));
+		}
+
 	}
 
 	public static String getRegion() {

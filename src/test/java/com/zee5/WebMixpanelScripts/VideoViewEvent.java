@@ -54,13 +54,13 @@ public class VideoViewEvent {
 //		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForPremiumContent(userType,tabName);
 //	}
 //	
-	@Test(priority = 5)
-	@Parameters({ "keyword1","Tab"})
-	public void verifyVideoViewEventForTrailer(String keyword1,String tabName) throws Exception {
-		System.out.println("Verify Video View Event For Trailer Content");
+//	@Test(priority = 5)
+//	@Parameters({ "keyword1","Tab"})
+//	public void verifyVideoViewEventForTrailer(String keyword1,String tabName) throws Exception {
+//		System.out.println("Verify Video View Event For Trailer Content");
 //		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForTrailer(keyword1,tabName);
-	}
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForTrailer(keyword1,tabName);
+//	}
 //	
 //	@Test(priority = 6)
 //	public void verifyVideoViewEventForCarouselContent() throws Exception {

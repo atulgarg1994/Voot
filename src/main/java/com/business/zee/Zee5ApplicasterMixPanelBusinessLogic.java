@@ -3958,24 +3958,68 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Pause Event for carousel content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
-		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
-		waitTime(3000);
+		
+		boolean flagBox = verifyIsElementDisplayed(AMDHomePage.objSboxIcon);
+		String pSugarBox = String.valueOf(flagBox);
+		
+		String contentName = ResponseInstance.getCarouselContentFromAPI(usertype, tabName);
+		System.out.println(contentName);
+		
+		for(int i=0;i<3;i++) {
+			if(verifyElementDisplayed(AMDHomePage.objCarouselContentTitle(contentName))) {
+				click(AMDHomePage.objCarouselContentTitle(contentName), "carousal content");
+				break;
+			}
+					
+		}
+		
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		if(usertype.equalsIgnoreCase("Guest")) {
+			registerPopUpClose();
+		}
+		completeProfilePopUpClose(usertype);
+		
+		
 		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
 		if (inlineLink == true) {
 			logger.info("Player inline subscription link is displayed");
 			extentLogger("Player screen", "Player inline subscription link is displayed");
 		} else {
-			waitTime(6000);
+			waitTime(5000);
 			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			boolean eventFlag = false;
+			eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			waitTime(2000);
 			
-			setFEProperty(usertype);
-			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			if (eventFlag) {
+				if (usertype.equalsIgnoreCase("SubscribedUser")) {
+					ResponseInstance.subscriptionDetails();
+				}
+				String pPage = getPageName(tabName);
+				String pSource = getSource(tabName);
+				String pManufacturer = DeviceDetails.OEM;
+				//String pAdId = getAdId();
+				
+				setFEProperty(usertype);
+				
+//				mixpanel.FEProp.setProperty("Ad ID", pAdId);
+//				mixpanel.FEProp.setProperty("Advertisement ID", pAdId);
+				mixpanel.FEProp.setProperty("Source", pSource);
+				mixpanel.FEProp.setProperty("Page Name", pPage);
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
+				mixpanel.FEProp.setProperty("Brand", pManufacturer);
+				mixpanel.FEProp.setProperty("Sugar Box Value",pSugarBox );
 
-			mixpanel.ValidateParameter("", "Pause");
+				mixpanel.ValidateParameter("", "Pause");
+			} else {
+				logger.info("Failed to perform Event Action");
+				extentLoggerWarning("Event Action", "Failed to perform Event Action");
+			}
 		}
-		waitTime(3000);
+		
 	}
 
 	public void PauseEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
