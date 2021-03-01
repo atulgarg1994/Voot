@@ -10493,6 +10493,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error("User is not navigated to Android Google Play Store application");
 			extent.extentLogger("", "User is not navigated to Android Google Play Store application");
 		}
+		Back(1);
 		getDriver().context("CHROMIUM");
 		AndroidSwitchToParentWindow();
 		// iOS app store
