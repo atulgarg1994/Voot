@@ -2244,28 +2244,73 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		Mixpanel.ValidateParameter("", "Video Exit");
 	}
 
-	public void videoExitEventForCarouselContent(String tabName) throws Exception {
+	public void  videoExitEventForCarouselContent(String usertype,String tabName) throws Exception{
 		extent.HeaderChildNode("Video Exit Event for carousel content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
-		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
-		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 20);
-		Boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objPlayer);
-		if (var == true) {
-			logger.info("Player screen is displayed");
-			extentLoggerPass("Player screen", "Player screen is displayed");
-		} else if (verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer)) {
-			logger.info("Player inline subscription link is displayed");
-			extentLoggerPass("Player screen", "Player inline subscription link is displayed");
+		
+		boolean flagBox = verifyIsElementDisplayed(AMDHomePage.objSboxIcon);
+		String pSugarBox = String.valueOf(flagBox);
+		
+		String contentName = ResponseInstance.getCarouselContentFromAPI(usertype, tabName);
+		System.out.println(contentName);
+		
+		for(int i=0;i<3;i++) {
+			if(verifyElementDisplayed(AMDHomePage.objCarouselContentTitle(contentName))) {
+				click(AMDHomePage.objCarouselContentTitle(contentName), "carousal content");
+				break;
+			}			
 		}
-		Back(1);
-		String pUserType = userType;
-		setFEProperty(pUserType);
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Appsflyer Source", "Organic");
+		
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		if(usertype.equalsIgnoreCase("Guest")) {
+			registerPopUpClose();
+		}
+		completeProfilePopUpClose(usertype);
+		
+		
+		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+		if (inlineLink == true) {
+			logger.info("Player inline subscription link is displayed");
+			extentLogger("Player screen", "Player inline subscription link is displayed");
+		} else {
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			boolean eventFlag = false;
+			verifyElementPresent(AMDPlayerScreen.objPlayer, "Player screen");
+			waitTime(2000);
+			Back(1);
+			eventFlag = verifyElementNotPresent(AMDPlayerScreen.objPlayerScreen, 5);
+			waitTime(2000);
+			
+			if (!eventFlag) {
+				if (usertype.equalsIgnoreCase("SubscribedUser")) {
+					ResponseInstance.subscriptionDetails();
+				}
+				String pPage = getPageName(tabName);
+				String pSource = getSource(tabName);
+				String pManufacturer = DeviceDetails.OEM;
+			//	String pAdId = getAdId();
+				
+				setFEProperty(usertype);
+				
+//				mixpanel.FEProp.setProperty("Ad ID", pAdId);
+//				mixpanel.FEProp.setProperty("Advertisement ID", pAdId);
+				mixpanel.FEProp.setProperty("Source", pSource);
+				mixpanel.FEProp.setProperty("Page Name", pPage);
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
+				mixpanel.FEProp.setProperty("Brand", pManufacturer);
+				mixpanel.FEProp.setProperty("Sugar Box Value",pSugarBox );
 
-		Mixpanel.ValidateParameter("", "Video Exit");
+				mixpanel.ValidateParameter("", "Video Exit");
+			} else {
+				logger.info("Failed to Exit the Video");
+				extentLoggerWarning("Event", "Failed to Exit the video");
+			}
+		}
 	}
 
 	public void videoExitEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
@@ -8938,5 +8983,71 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	}
 	
+	public void videoViewEventForCarouselContent(String usertype,String tabName) throws Exception {
+		extent.HeaderChildNode("Video view Event for carousel content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		
+		boolean flagBox = verifyIsElementDisplayed(AMDHomePage.objSboxIcon);
+		String pSugarBox = String.valueOf(flagBox);
+		
+		String contentName = ResponseInstance.getCarouselContentFromAPI(usertype, tabName);
+		System.out.println(contentName);
+		
+		for(int i=0;i<3;i++) {
+			if(verifyElementDisplayed(AMDHomePage.objCarouselContentTitle(contentName))) {
+				click(AMDHomePage.objCarouselContentTitle(contentName), "carousal content");
+				break;
+			}			
+		}
+		
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		if(usertype.equalsIgnoreCase("Guest")) {
+			registerPopUpClose();
+		}
+		completeProfilePopUpClose(usertype);
+		
+		
+		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+		if (inlineLink == true) {
+			logger.info("Player inline subscription link is displayed");
+			extentLogger("Player screen", "Player inline subscription link is displayed");
+		} else {
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			boolean eventFlag = false;
+			eventFlag = verifyElementPresent(AMDPlayerScreen.objPlayer, "Player screen");
+			waitTime(2000);
+			
+			if (eventFlag) {
+				if (usertype.equalsIgnoreCase("SubscribedUser")) {
+					ResponseInstance.subscriptionDetails();
+				}
+				String pPage = getPageName(tabName);
+				String pSource = getSource(tabName);
+				String pManufacturer = DeviceDetails.OEM;
+				//String pAdId = getAdId();
+				
+				setFEProperty(usertype);
+				
+//				mixpanel.FEProp.setProperty("Ad ID", pAdId);
+//				mixpanel.FEProp.setProperty("Advertisement ID", pAdId);
+				mixpanel.FEProp.setProperty("Source", pSource);
+				mixpanel.FEProp.setProperty("Page Name", pPage);
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
+				mixpanel.FEProp.setProperty("Brand", pManufacturer);
+				mixpanel.FEProp.setProperty("Sugar Box Value",pSugarBox );
+
+				mixpanel.ValidateParameter("", "Video View");
+			} else {
+				logger.info("Failed to display player screen");
+				extentLoggerWarning("Event", "Failed to display player screen");
+			}
+		}
+		
+	}	
 	
 }

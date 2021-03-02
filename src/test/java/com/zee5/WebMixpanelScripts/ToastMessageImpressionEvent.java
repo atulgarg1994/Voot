@@ -58,8 +58,7 @@ public class ToastMessageImpressionEvent {
 	@Parameters({ "userType" })
 	public void verifyToastMessageImpressionEventInParentalControlScreen(String userType) throws Exception {
 		System.out.println("Verify Toast Message Impression Event In Parental Control Screen");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.relaunchParentalControl();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventInParentalControlScreen(userType);
 	}
 
@@ -95,7 +94,7 @@ public class ToastMessageImpressionEvent {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyToastMessageImpressionEventForEmbedPopUp(userType, keyword1);
 	}
 
-	@Test(priority = 11)
+//	@Test(priority = 11)
 	@Parameters({ "userType" })
 	public void verifyToastMessageImpressionEventAfterUpdatingProfile(String userType) throws Exception {
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();

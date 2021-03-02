@@ -167,7 +167,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-//			dismissDisplayContentLanguagePopUp();
+			//dismissDisplayContentLanguagePopUp();
+			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
 			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			waitTime(3000);
 			break;
@@ -176,6 +177,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as NonSubscribed User");
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
+			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
 			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
@@ -193,6 +195,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User");
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
 			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
@@ -209,6 +212,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User");
 			String clubUserName = getParameterFromXML("ClubUserName");
 			String clubPassword = getParameterFromXML("ClubPassword");
+			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
 			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
@@ -15375,12 +15379,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		trayTitleAndContentValidationWithApiDataMovie(tabName, "shows");
 
 		extent.HeaderChildNode("HLS_052 :Verify the right side bottom arrow ");
-		scrollDownByY(300);
-		scrollDownByY(300);
+		scrollToBottomOfPageWEB();
 		logger.info("Scrolled Up the page");
 		if (checkElementDisplayed(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon")) {
 			waitTime(2000);
 			click(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon");
+			logger.info("Back to Top Arrow icon is displayed");
+			extent.extentLoggerPass("", "Back to Top Arrow icon is displayed");
 		} else {
 			logger.error("Back to Top Arrow icon is not displayed");
 			extent.extentLoggerFail("", "Back to Top Arrow icon is not displayed");
@@ -16116,9 +16121,16 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		waitTime(2000);
 		scrollToBottomOfPageWEB();
 		waitTime(5000);
-		if (checkElementDisplayed(PWAMusicPage.objArrowToNavigateTop, "Arrow icon")) {
+		
+		logger.info("Scrolled Up the page");
+		if (checkElementDisplayed(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon")) {
 			waitTime(2000);
-			click(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
+			click(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon");
+			logger.info("Back to Top Arrow icon is displayed");
+			extent.extentLoggerPass("", "Back to Top Arrow icon is displayed");
+		} else {
+			logger.error("Back to Top Arrow icon is not displayed");
+			extent.extentLoggerFail("", "Back to Top Arrow icon is not displayed");
 		}
 
 		if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
@@ -16798,7 +16810,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		extent.HeaderChildNode(
 				"HLS_185: Validate the Trending Searches tray is available on the Search landing screen");
 		verifyElementExist(PWASearchPage.objTrendingSearchesTray, "Trending Searches tray");
-
+		
 		extent.HeaderChildNode("HLS_186: Validate the Top Searches tray is available on the Search landing screen");
 		verifyElementExist(PWASearchPage.objTopsearches, "Top Searches tray");
 		extent.HeaderChildNode("HLS_187: Validate user is navigated to respective consumption screen through Search result content");
@@ -16855,11 +16867,12 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 			logger.info("First Asset Title in Trending Search : "+searchScreenTitle);
 			extent.extentLogger("", "First Asset Title in Trending Search : "+searchScreenTitle);
 			String zeeTab=getWebDriver().getWindowHandle();
+			Set<String> handlesBeforeClick=getWebDriver().getWindowHandles();
 			JSClick(PWASearchPage.objFirstAssetTitleTrendingSearch, "First card under Trending Searches Tray");
 			waitTime(5000);
-			if(searchScreenTitle.contains("Play ") && searchScreenTitle.contains(" Win Prizes")) {
+			Set<String> handlesAfterClick=getWebDriver().getWindowHandles();
+			if(handlesAfterClick.size()>handlesBeforeClick.size()) {
 				String externalTab="";boolean extOpened=false;
-				System.out.println(getWebDriver().getWindowHandles());
 				for(String winHandle : getWebDriver().getWindowHandles()){	
 					System.out.println(winHandle);
 					if(!winHandle.equals(zeeTab)) {
@@ -16884,7 +16897,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 				if(extOpened==false) {
 					logger.error("Failed to open External Tab");
 					extent.extentLoggerFail("playerScreen","Failed to open External Tab");
-				}
+				}	
 			}
 			else { 
 				waitTime(6000);
@@ -16904,21 +16917,20 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 				logger.info("Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
 				extent.extentLogger("playerScreen","Navigated to the consumption/details page: \"" + nextPageTitle + "\"");
 				if (searchScreenTitle.contains(nextPageTitle) || nextPageTitle.contains(searchScreenTitle)) {
-					logger.info("user is navigated to respective consumption screen");
-					extent.extentLogger("Consumption Screen", "user is navigated to respective consumption screen");
+					logger.info("User is navigated to respective consumption screen");
+					extent.extentLogger("Consumption Screen", "User is navigated to respective consumption screen");
 				} else {
 					logger.error("User is not navigated to respective consumption screen");
 					extent.extentLoggerFail("Consumption Screen", "User is not navigated to respective consumption screen");
 				}
+				if (checkElementDisplayed(PWAHamburgerMenuPage.objPopupClose, "Pop Up") == true) {
+					click(PWAHamburgerMenuPage.objPopupClose, "Pop Up Close button");
+				}
+				click(PWAHomePage.objSearchBtn, "Search icon");
+				waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
 			}			
-		}
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objPopupClose, "Pop Up") == true) {
-			click(PWAHamburgerMenuPage.objPopupClose, "Pop Up Close button");
-		}
-		click(PWAHomePage.objSearchBtn, "Search icon");
-		waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
+		}			
 		extent.HeaderChildNode("HLS_190 : Verify the Searched contents/Term is shown to the user as Recent searches");
-
 		String keywordB = "Gattimela";
 		type(PWASearchPage.objSearchEditBox, keywordB, "Search edit box");
 		waitTime(4000);

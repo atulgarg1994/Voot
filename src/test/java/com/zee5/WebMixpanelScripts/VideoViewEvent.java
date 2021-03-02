@@ -84,13 +84,13 @@ public class VideoViewEvent {
 //		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentFromSearchPage(keyword1);
 //	}
 //	
-//	@Test(priority = 9)
-//	@Parameters({ "userType", "keyword"})
-//	public void verifyVideoViewEventForContentFromMyWatchlistPage(String userType,String keyword) throws Exception {
-//		System.out.println("Verify Video View Event For Content From My Watchlist Page");
+	@Test(priority = 9)
+	@Parameters({ "userType", "keyword"})
+	public void verifyVideoViewEventForContentFromMyWatchlistPage(String userType,String keyword) throws Exception {
+		System.out.println("Verify Video View Event For Content From My Watchlist Page");
 //		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentFromMyWatchlistPage(userType,keyword);
-//	}
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentFromMyWatchlistPage(userType,keyword);
+	}
 //	
 //	@Test(priority = 10)
 //	public void verifyVideoViewEventForContentInMegamenu() throws Exception {
@@ -115,7 +115,7 @@ public class VideoViewEvent {
 //		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventAfterRefreshingPage(keyword1);
 //	}
 	
-	@AfterClass
+//	@AfterClass
 	public void tearDown() {
 		Zee5PWAWEBMixPanelBusinessLogic.tearDown();
 	}

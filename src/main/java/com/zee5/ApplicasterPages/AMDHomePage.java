@@ -19,18 +19,6 @@ public class AMDHomePage {
 
 	public static By objGetPremium = By.xpath("//*[@id='get_premium_hero_component']");
 
-	// Bottom Navigation TEXT Buttons
-	public static By objHomeBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[1]");
-	public static By objUpcomingBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[2]");
-	public static By objDownloadBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[3]");
-	public static By objMoreMenuBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[5]");
-
-	// Bottom Navigation ICONS
-	public static By HomeIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[1]");
-	public static By UpcomingIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[2]");
-	public static By DownloadIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[3]");
-	public static By MoreMenuIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[5]");
-
 	public static By objHome = By.xpath("(//*[@text='Home']//parent::*)[1]");
 	public static By objUpcoming = By.xpath("(//*[@text='Upcoming']//parent::*)[1]");
 	public static By objDownload = By.xpath("(//*[@text='Downloads']//parent::*)[1]");
@@ -226,4 +214,17 @@ public class AMDHomePage {
 	public static By objCarouselContentTitle(String title) {
 		return By.xpath("//*[@resource-id='com.graymatrix.did:id/hero_1_cell_parent']/child::*[@resource-id='com.graymatrix.did:id/item_primary_text' and @text='"+title+"']");
 	}
+	
+	// Bottom Navigation TEXT Buttons
+		public static By objHomeBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[1] | | (//*[@id='navigationTitleTextView'])[1]");
+		public static By objUpcomingBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[2] | (//*[@id='navigationTitleTextView'])[2]");
+		public static By objDownloadBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[3] | (//*[@id='navigationTitleTextView'])[3]");
+		public static By objMoreMenuBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[5] | (//*[@id='navigationTitleTextView'])[5]");
+
+	// Bottom Navigation ICONS
+		public static By HomeIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[1] | (//*[@id='navigationIconView'])[1]");
+		public static By UpcomingIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[2] |(//*[@id='navigationIconView'])[2]");
+		public static By DownloadIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[3] | (//*[@id='navigationIconView'])[3]");
+		public static By MoreMenuIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[5] | (//*[@id='navigationIconView'])[5]");
+		
 }

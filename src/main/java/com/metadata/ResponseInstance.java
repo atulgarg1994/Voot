@@ -729,7 +729,7 @@ public class ResponseInstance {
 //		getTrayNameFromPage("home");
 //		System.out.println(getPageResponse("home","free"));
 //		System.out.println(getTrayResponse("Shows","premium"));
-		getContentDetails("0-0-330581");
+		getContentDetails("0-1-84080");
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -882,6 +882,11 @@ public class ResponseInstance {
 		System.out.println("Content ID :"+ID);
 		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
 //		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/0-1-84080?translation=en&country=IN&version=2");
+		resp.print();
+		if(resp.getStatusCode() != 200) {
+			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/tvshow/" + ID + "?translation=en&country=IN");
+		}
+		
 		if(resp.jsonPath().getList("related")  != null) {
 			ID = resp.jsonPath().getString("related[0].id");
 			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
@@ -903,7 +908,7 @@ public class ResponseInstance {
 			Mixpanel.FEProp.setProperty("DRM Video","false");
 		}
 		resp.print();
-//		Mixpanel.FEProp.forEach((key, value) -> System.out.println(key + " : " + value));
+		Mixpanel.FEProp.forEach((key, value) -> System.out.println(key + " : " + value));
 		}
 	
 	
@@ -1717,7 +1722,7 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 				}else {
 					var="Invalid";
 				}
-			}else if(tabName.equalsIgnoreCase("Home")|| tabName.equalsIgnoreCase("Premium")|| tabName.equalsIgnoreCase("Club")){
+			}else if(tabName.equalsIgnoreCase("Home")|| tabName.equalsIgnoreCase("Premium")|| tabName.equalsIgnoreCase("Club")||tabName.equalsIgnoreCase("Movies")){
 				if(asset_subtype.equalsIgnoreCase("movie")) {
 					var=asset_subtype;
 				}else if(asset_subtype.equalsIgnoreCase("original")){

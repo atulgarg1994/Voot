@@ -414,7 +414,7 @@ public class ZNAMixpanel_PlayerEvents {
 	public void VideoExitEventofCarouselContent() throws Exception {
 		System.out.println("\nVideo exit event of Carousel content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.videoExitEventForCarouselContent("Home");
+//		Zee5ApplicasterMixPanelBusinessLogic.videoExitEventForCarouselContent("Home");
 	}
 
 	@Test(priority = 48)

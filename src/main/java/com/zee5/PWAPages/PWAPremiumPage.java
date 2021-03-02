@@ -134,7 +134,7 @@ public class PWAPremiumPage {
 	
 	public static By objEmbedPopUp = By.xpath("//*[@class='iconInitialLoad-ic_embed']");
 	
-	public static By objEmbedCopy = By.xpath("//button[@class='noSelect buttonGradient ']//*[contains(text(),'Copy')]");
+	public static By objEmbedCopy = By.xpath("//*[@class='copyBtn']//*[contains(text(),'Copy')]");
 	
 	public static By objGetPremiumCTAOnCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//span[contains(text(),'Get premium')]");
 

@@ -546,7 +546,7 @@ public class PWAHamburgerMenuPage {
 
 	public static By objParentalControl = By.xpath("//*[contains(text(),'Parental Control') and @class]");
 
-	public static By objAuthenticationOption = By.xpath("//*[contains(text(),'Authenticate Device')]");
+	public static By objAuthenticationOption = By.xpath("//*[@href='/device' and contains(text(),'Authenticate Device')]");
 
 	public static By objAuthenticationButtonHighlighted = By
 			.xpath("//button[contains(@class,'noSelect buttonGradient')]");
