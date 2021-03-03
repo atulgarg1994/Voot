@@ -27,17 +27,6 @@ public class AMDHomePage {
 	public static By objLogout = By.xpath("//*[@resource-id='com.graymatrix.did:id/list_item' and @text='Logout']");
 
 	public static By objLogoutPopUpLogoutButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/logoutButton']");
-	// Top Menu Navigation tabs
-	public static By objHomeTab = By.xpath("//*[@id='title' and @text='Home']");
-	public static By objMoviesTab = By.xpath("//*[@id='title' and @text='Movies']");
-	public static By objShowsTab = By.xpath("//*[@id='title' and @text='Shows']");
-	public static By objNewsTab = By.xpath("//*[@id='title' and @text='News']");
-	public static By objFreeMoviesTab = By.xpath("//*[@id='title' and @text='Free Movies']");
-	public static By objPremiumTab = By.xpath("//*[@id='title' and @text='Premium']");
-	public static By objKidsTab = By.xpath("//*[@id='title' and @text='Kids']");
-	public static By objMusicTab = By.xpath("//*[@id='title' and @text='Music']");
-	public static By objLiveTvTab = By.xpath("//*[@id='title' and @text='Live TV']");
-	public static By objZee5OriginalsTab = By.xpath("//*[@id='title' and @text='ZEE5 Originals']");
 
 	// Banner ad
 	public static By objBannerAd = By.xpath("//*[@id='adTag' and @text='AD']");
@@ -226,5 +215,17 @@ public class AMDHomePage {
 		public static By UpcomingIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[2] |(//*[@id='navigationIconView'])[2]");
 		public static By DownloadIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[3] | (//*[@id='navigationIconView'])[3]");
 		public static By MoreMenuIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[5] | (//*[@id='navigationIconView'])[5]");
+		
+		// Top Menu Navigation tabs
+		public static By objHomeTab = By.xpath("//*[@id='title' and @text='Home'] | //*[@text='Home' and ./parent::*[@contentDescription='Home']]");
+		public static By objMoviesTab = By.xpath("//*[@id='title' and @text='Movies'] | //*[@text='Movies']");
+		public static By objShowsTab = By.xpath("//*[@id='title' and @text='Shows'] | //*[@text='Shows']");
+		public static By objNewsTab = By.xpath("//*[@id='title' and @text='News'] | //*[@text='News']");
+		public static By objFreeMoviesTab = By.xpath("//*[@id='title' and @text='Free Movies'] | //*[@text='Club']");
+		public static By objPremiumTab = By.xpath("//*[@id='title' and @text='Premium'] | //*[@text='Premium']");
+		public static By objKidsTab = By.xpath("//*[@id='title' and @text='Kids'] | //*[@text='Eduauraa']");
+		public static By objMusicTab = By.xpath("//*[@id='title' and @text='Music'] | //*[@text='Music']");
+		public static By objLiveTvTab = By.xpath("//*[@id='title' and @text='Live TV'] | //*[@text='Live TV']");
+		public static By objZee5OriginalsTab = By.xpath("//*[@id='title' and @text='ZEE5 Originals'] | //*[@text='ZEE5 Originals']");
 		
 }

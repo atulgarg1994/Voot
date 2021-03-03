@@ -26,6 +26,7 @@ import java.util.stream.Stream;
 public class ResponseInstance {
 
 	protected static Response resp = null;
+	public static String pageName; 
 
 	public static Response getResponse() {
 		resp = given().urlEncodingEnabled(false).when().get(
@@ -702,7 +703,7 @@ public class ResponseInstance {
 //		getContentDetails("0-0-232924","originals");
 //		Player("basavaraj.pn5@gmail.com","igsindia123");
 //		getWatchList("basavaraj.pn5@gmail.com","igsindia123");
-//		getUserData("basavaraj.pn5@gmail.com","igsindia123");
+		getUserData("basavaraj.pn5@gmail.com","igsindia123");
 //		getUserOldSettingsDetails("amdnonmixpanel@yopmail.com","123456");
 //		ValidateRailsAndContents("Guest","Movies");
 //		getUserData("amdnonmixpanel@yopmail.com","123456");
@@ -729,7 +730,7 @@ public class ResponseInstance {
 //		getTrayNameFromPage("home");
 //		System.out.println(getPageResponse("home","free"));
 //		System.out.println(getTrayResponse("Shows","premium"));
-		getContentDetails("0-1-84080");
+//		getContentDetails("0-1-84080");
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -775,8 +776,12 @@ public class ResponseInstance {
 		for (int i = 0; i < commaSplit.length; i++) {
 			if (Stream.of(userData).anyMatch(commaSplit[i]::contains)) {
 				String com[] = commaSplit[i].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-				Mixpanel.FEProp.setProperty(com[0].replace("\"", ""), com[1].replace("\"", ""));
-				pro.setProperty(com[0].replace("\"", ""), com[1].replace("\"", ""));
+				String key = com[0].replace("\"", "");
+				if(key.equals("gender")) {
+					key = "Gender";
+				}
+				Mixpanel.FEProp.setProperty(key, com[1].replace("\"", ""));
+				pro.setProperty(key, com[1].replace("\"", ""));
 			}
 		}
 		pro.forEach((key, value) -> System.out.println(key + " : " + value));
@@ -880,11 +885,16 @@ public class ResponseInstance {
 	
 	public static void getContentDetails(String ID) {
 		System.out.println("Content ID :"+ID);
-		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
-//		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/0-1-84080?translation=en&country=IN&version=2");
-		resp.print();
-		if(resp.getStatusCode() != 200) {
-			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/tvshow/" + ID + "?translation=en&country=IN");
+		
+		if (pageName.equalsIgnoreCase("Shows")) {
+			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+					.get("https://gwapi.zee5.com/content/tvshow/" + ID + "?translation=en&country=IN");
+		} else if (pageName.equalsIgnoreCase("Live TV")) {
+
+		} else {
+			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+					.get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
+			resp.print();
 		}
 		
 		if(resp.jsonPath().getList("related")  != null) {
@@ -2090,7 +2100,6 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 			pCountry = "INDIA";
 		}
 		Mixpanel.FEProp.setProperty("User Country",pCountry);
-		
 	}
 
 

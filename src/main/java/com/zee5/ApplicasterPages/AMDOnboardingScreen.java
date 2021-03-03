@@ -132,16 +132,6 @@ public class AMDOnboardingScreen {
 		return By.xpath("(//*[@id='btn_content_lang'])[" + index + "]");
 	}
 
-	public static By objExitPopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/verify_account_desc']");
-
-	public static By objExitYes = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_exit_yes']");
-
-	public static By objExitNo = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_exit_no']");
-	
-	public static By objExitPopupDivider = By.xpath("//*[@resource-id='com.graymatrix.did:id/dialog_divider']");
-
-	public static By objExitPopupHorizontalLinebar = By.xpath("(//*[@class='android.view.View'])[2]");
-
 	public static By objContinueBtnInDebugBuild = By.xpath("//*[@resource-id='com.graymatrix.did:id/continue_button']");
 	
 	public static By objContinueBtnInCountryPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/country_selection_button']");
@@ -155,5 +145,16 @@ public class AMDOnboardingScreen {
 	}
 	
 	public static By objAllowLocationAccessPopup = By.xpath("//*[@id='permission_message']");
+	
+	public static By objExitPopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/verify_account_desc'] | //*[@resource-id='com.graymatrix.did:id/title']");
+
+	public static By objExitYes = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_exit_yes'] | //*[@resource-id='com.graymatrix.did:id/accept']");
+
+	public static By objExitNo = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_exit_no'] | //*[@resource-id='com.graymatrix.did:id/dismiss']");
+	
+	public static By objExitPopupDivider = By.xpath("//*[@resource-id='com.graymatrix.did:id/dialog_divider'] | //*[@id='pillView']");
+
+	public static By objExitPopupHorizontalLinebar = By.xpath("(//*[@class='android.view.View'])[2] | //*[@id='pillView']");
+
 
 }

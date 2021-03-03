@@ -26,11 +26,11 @@ public class Android_ExitPop {
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 	}
 
-	@Test(priority = 1)
-	@Parameters({ "userType" })
-	public void ExipPopup_DisplayLanguage(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.verifyDisplayLanguageScreenExitPopup(userType);// Only for Guest User
-	}
+		@Test(priority = 1)
+		@Parameters({ "userType" })
+		public void ExipPopup_ContentLanguage(String userType) throws Exception {
+			ZEE5ApplicasterBusinessLogic.verifyDisplayLanguageScreenExitPopup(userType);// Only for Guest User
+		}
 
 	@Test(priority = 2)
 	@Parameters({ "userType" })

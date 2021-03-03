@@ -2813,7 +2813,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		extent.HeaderChildNode("Offline Screen Validation");
 		System.out.println("\nOffline Screen Validation");
-
+        //wait(2000);
 		TurnOFFWifi();
 		if (getOEMName.equalsIgnoreCase("Sony")) {
 			Wifi_TurnOFFnON();
@@ -2822,7 +2822,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (pUserType.contains("Guest")) {
 			verifyElementPresentAndClick(AMDHomePage.objMoviesTab, "Movies tab");
 		}
-
+		else{
+			waitTime(2000);
+			verifyElementPresentAndClick(AMDHomePage.objMoviesTab, "Movies tab");
+		}
 		verifyElementExist(AMDOfflineScreen.objYouAreOffline, "You are Offline");
 		verifyElementExist(AMDOfflineScreen.objTryAgain, "Try Again");
 		verifyElementExist(AMDOfflineScreen.objGoToDownloads, "Go to Downloads");
@@ -2833,21 +2836,35 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		click(AMDHomePage.objUpcoming, "Upcoming");
 		verifyElementExist(AMDOfflineScreen.objYouAreOffline, "You are Offline");
-		click(AMDHomePage.objMoreMenu, "More Menu");
-		verifyElementExist(AMDOfflineScreen.objYouAreOffline, "You are Offline");
+		//click(AMDHomePage.objMoreMenu, "More Menu");
+		//verifyElementExist(AMDOfflineScreen.objYouAreOffline, "You are Offline");
 
-		// verifyElementPresentAndClick(AMDOfflineScreen.objGoToDownloads, "Go to
-		// Downloads");
+		 verifyElementPresentAndClick(AMDOfflineScreen.objGoToDownloads, "Go to Downloads");
 
-		verifyElementPresentAndClick(AMDHomePage.objDownload, "Download");
-		if (verifyElementExist(AMDOfflineScreen.objDownloadScreen, "Download Section")) {
-			logger.info("Navigated to Download Section");
-			extent.extentLogger("Download Section", "Navigated to Download Section");
+		//verifyElementPresentAndClick(AMDHomePage.objDownload, "Download");
+		//*[@id='empty_text']
+	/*	 boolean getValue = verifyElementExist(By.xpath("//*[@id='empty_text']"),"Empty text" );
+		 System.out.println(getValue);
+		 if (getValue== true) {
+			logger.error("Not Navigated to Download Section");
+			extent.extentLoggerFail("Download Section", "Not Navigated to Download Section");
 		} else {
-			logger.info("Not navigated to Download Section");
-			extent.extentLogger("Download Section", "Not navigated to Download Section");
+			logger.info("Navigated to Download Section");
+			extent.extentLoggerPass("Download Section", "navigated to Download Section");
 		}
+		*/ 
+		 boolean getValue = verifyElementExist(By.xpath("//*[@text='Downloads']"),"DownloadScreen" );
+		 System.out.println(getValue);
+		 if (getValue== false) {
+			logger.error("Not Navigated to Download Section");
+			extent.extentLoggerFail("Download Section", "Not Navigated to Download Section");
+		} else {
+			logger.info("Navigated to Download Section");
+			extent.extentLoggerPass("Download Section", "navigated to Download Section");
+		}
+		 
 		verifyElementPresentAndClick(AMDHomePage.objHome, "Home Tab");
+		verifyElementPresentAndClick(AMDHomePage.objMoviesTab, "Movies tab");
 		verifyElementPresentAndClick(AMDOfflineScreen.objTryAgain, "Try Again");
 		TurnONWifi();
 		if (getOEMName.equalsIgnoreCase("Sony")) {
@@ -2865,7 +2882,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLogger("Page", "Appropriate page is not loaded");
 		}
 	}
-
+	
 	public void Wifi_TurnOFFnON() throws Exception {
 		Runtime.getRuntime()
 				.exec("adb shell am start -a android.intent.action.MAIN -n com.android.settings/.wifi.WifiSettings");
@@ -7712,13 +7729,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 * Author : Bindu Module : Exit_PopUp
 	 */
 	public void verifyDisplayLanguageScreenExitPopup(String userType) throws Exception {
-		extent.HeaderChildNode("Verify Display Language Screen");
-		System.out.println("\nVerify Display Language Screen Exit Popup");
+		extent.HeaderChildNode("Verify Content Language Screen");
+		System.out.println("\nVerify Content Language Screen Exit Popup");
 		if (userType.equalsIgnoreCase("Guest")) {
 
 			relaunch(true);
+                        //wait(1000);
 			accessDeviceLocationPopUp("Allow", userType);
-			verifyElementExist(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button (Display-LanguageScreen)");
+			//verifyElementExist(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button (Display-LanguageScreen)");
 			Back(1);
 			waitTime(1000);
 
@@ -7728,11 +7746,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			System.out.println(Exitpopup);
 			if (Exitpopup.equalsIgnoreCase("Are you sure you want to exit ZEE5?")) {
 				logger.info("Exit popup is displayed with message Are you sure you want to exit Zee5?");
-				extent.extentLoggerPass("Display Language Screen",
+				extent.extentLoggerPass("Content Language Screen",
 						"Exit popup is displayed with message Are you sure you want to exit Zee5?");
 			} else {
 				logger.error("Exit popup is not displayed with message Are you sure you want to exit Zee5?");
-				extent.extentLoggerFail("Display Language Screen",
+				extent.extentLoggerFail("Content Language Screen",
 						"Exit popup is displayed with message Are you sure you want to exit Zee5?");
 			}
 			verifyElementExist(AMDOnboardingScreen.objExitYes, "Exit Popup with Yes CTA");
@@ -7743,10 +7761,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			// waitTime(2000);
 			if (!(verifyIsElementDisplayed(AMDOnboardingScreen.objExitPopup))) {
 				logger.info("Exit Popup closes when user taps on No CTA");
-				extent.extentLoggerPass("Display Language Screen", "Exit popup closes when user taps on No CTA");
+				extent.extentLoggerPass("Content Language Screen", "Exit popup closes when user taps on No CTA");
 			} else {
 				logger.error("Exit Popup not closed when user taps on No CTA");
-				extent.extentLoggerFail("Display Language Screen", "Exit Popup not closed when user taps on No CTA");
+				extent.extentLoggerFail("Content Language Screen", "Exit Popup not closed when user taps on No CTA");
 			}
 
 			extent.HeaderChildNode("Verify Exit Popup closes by pulling down the Popup manually");
@@ -7755,11 +7773,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(2000);
 			if (!(verifyIsElementDisplayed(AMDOnboardingScreen.objExitPopup))) {
 				logger.info("Exit popup closes by pulling down the popup manually");
-				extent.extentLoggerPass("Display Language Screen",
+				extent.extentLoggerPass("Content Language Screen",
 						"Exit popup closes by pulling down the popup manually");
 			} else {
 				logger.error("Exit popup not closed by pulling down the popup manually");
-				extent.extentLoggerFail("Display Language Screen",
+				extent.extentLoggerFail("Content Language Screen",
 						"Exit popup not closed by pulling down the popup manually");
 			}
 
@@ -7770,11 +7788,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"Exit Popup Horizontal LineBar");
 			if (!(verifyIsElementDisplayed(AMDOnboardingScreen.objExitPopup))) {
 				logger.info("Exit Popup closes by tapping on the Horizontal Line Bar");
-				extent.extentLoggerPass("Display Language Screen",
+				extent.extentLoggerPass("Content Language Screen",
 						"Exit Popup closes by tapping on the Horizontal Line Bar");
 			} else {
 				logger.error("Exit Popup not closed by tapping on the Horizontal Line Bar");
-				extent.extentLoggerFail("Display Language Screen",
+				extent.extentLoggerFail("Content Language Screen",
 						"Exit Popup not closed by tapping on the Horizontal Line Bar");
 			}
 
@@ -7784,21 +7802,21 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(2000);
 			if (!(verifyIsElementDisplayed(AMDOnboardingScreen.objExitPopup))) {
 				logger.info("Exit Popup closes by tapping on the screen");
-				extent.extentLoggerPass("Display Language Screen", "Exit Popup closes by tapping on the screen");
+				extent.extentLoggerPass("Content Language Screen", "Exit Popup closes by tapping on the screen");
 			} else {
 				logger.error("Exit Popup not closed by tapping on the screen");
-				extent.extentLoggerFail("Display Language Screen", "Exit Popup not closed by tapping on the screen");
+				extent.extentLoggerFail("Content Language Screen", "Exit Popup not closed by tapping on the screen");
 			}
 
 			extent.HeaderChildNode(" Verify Exit Popuop displayed on tapping device back button");
 			Back(1);
 			if (checkElementExist(AMDOnboardingScreen.objExitPopup, "Exit Popup is displayed")) {
 				logger.error("Exit Popup appears when user taps on device back button");
-				extent.extentLoggerPass("Display Language Screen",
+				extent.extentLoggerPass("Content Language Screen",
 						"Exit Popup appears when user taps on device back button");
 			} else {
 				logger.info("Exit Popup not appeared when user taps on device back button");
-				extent.extentLoggerFail("Display Language Screen",
+				extent.extentLoggerFail("Content Language Screen",
 						"Exit Popup not appeared when user taps on device back button");
 
 			}
@@ -7807,11 +7825,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Back(1);
 			if (!(verifyIsElementDisplayed(AMDOnboardingScreen.objExitPopup))) {
 				logger.info("Exit Popup closes by tapping on the device back button");
-				extent.extentLoggerPass("Display Language Screen",
+				extent.extentLoggerPass("Content Language Screen",
 						"Exit Popup closes by tapping on the device back button");
 			} else {
 				logger.error("Exit Popup not closed by tapping on the device back button");
-				extent.extentLoggerFail("Display Language Screen",
+				extent.extentLoggerFail("Content Language Screen",
 						"Exit Popup not closed by tapping on the device back button");
 			}
 
@@ -7821,18 +7839,18 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(2000);
 			if (!(verifyIsElementDisplayed(AMDOnboardingScreen.objExitPopup))) {
 				logger.info("User exists from the app when user taps on Yes CTA");
-				extent.extentLoggerPass("Display Language Screen",
+				extent.extentLoggerPass("Content Language Screen",
 						"User exists from the app when user taps on Yes CTA");
 			} else {
 				logger.error("User not exists from the app when user taps on Yes CTA");
-				extent.extentLoggerFail("Display Language Screen",
+				extent.extentLoggerFail("Content Language Screen",
 						"User not exists from the app when user taps on Yes CTA");
 			}
 			relaunch(true);
 		} else {
 			logger.info("Display Language Screen validation is not applicable for " + userType);
-			extent.extentLoggerPass("Display Language Screen",
-					"Display Language Screen validation is not applicable for " + userType);
+			extent.extentLoggerPass("Content Language Screen",
+					"Content Language Screen validation is not applicable for " + userType);
 		}
 	}
 

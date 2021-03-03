@@ -215,7 +215,7 @@ public class PWAHamburgerMenuPage {
 	public static By objParentalLockPin3player = By.xpath("//input[@id='parentLockId3']");
 	public static By objParentalLockPin4player = By.xpath("//input[@id='parentLockId4']");
 	public static By objParentalLockNoRestrictionOption = By.xpath("//div[contains(text(),'No Restrictions')]");
-	public static By objAuthenticationText = By.xpath("//h1[contains(@class,'heading')]");
+	public static By objAuthenticationText = By.xpath("//h1[contains(@class,'pageHeading') and text()='Activate ZEE5 on your TV']");
 	public static By objAuthenticationButtonNotHighlighted = By
 			.xpath("//button[contains(@class,'noSelect buttonGradient null')]");
 	public static By objAuthenticationField = By.xpath("//input[contains(@name,'code')]");

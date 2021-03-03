@@ -499,12 +499,21 @@ public class Mixpanel extends ExtentReporter {
 
 	public static void getParameterValue() {
 		UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String pUsername = null;
+		String pPassword = null;
 		if (!UserType.equals("Guest")) {
 			if (!fetchUserdata) {
-				String pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter(UserType + "Name");
-				String pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter(UserType + "Password");
+				if(UserType.equals("NonSubscribedUser")) {
+				 pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonSubscribedUserName");
+				pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonSubscribedUserPassword");
+				}else if(UserType.equals("SubscribedUser")) {
+					pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+							.getParameter("SubscribedUserName");
+					pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+							.getParameter("SubscribedUserPassword");
+				}
 				ResponseInstance.getUserData(pUsername, pPassword);
 			}
 		}

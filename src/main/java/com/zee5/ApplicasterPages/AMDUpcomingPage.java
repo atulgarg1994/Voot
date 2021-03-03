@@ -54,5 +54,7 @@ public class AMDUpcomingPage {
     public static By objGenre = By.xpath("(//*[@resource-id='com.graymatrix.did:id/categories'])[1]");
     
     public static By objContentCardTitle1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/showTitle'])[1]");
-	public static By objContentCardTitle = By.xpath("(//*[@resource-id='com.graymatrix.did:id/showTitle'])[1]");
+	
+	public static By objContentCardTitle = By.xpath("(//*[@resource-id='com.graymatrix.did:id/showTitle'])[1] | //*[@class='android.widget.ImageView' and ./parent::*[@id='cell_top_container' and (./preceding-sibling::* | ./following-sibling::*)[@id='cell_bottom_container']]]");
+
 }

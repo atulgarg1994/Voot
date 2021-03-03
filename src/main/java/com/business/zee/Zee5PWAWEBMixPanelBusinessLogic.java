@@ -2764,18 +2764,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(6000);
-
+			ResponseInstance.pageName = "Shows";
 			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
-			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Video View", "1");
 
 			String id = getWebDriver().getCurrentUrl();
-//			String value = null;
-//			String[] splits=id.split("/");
-//			value=splits[splits.length-1];
-//			System.out.println(value);
-
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
@@ -6111,7 +6106,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(10000);
 			waitTime(5000);
 			mixpanel.ValidateParameter(localToken, "Subscription Call Initiated");
-
 		}
 	}
 
