@@ -615,12 +615,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void checkScreenAfterRelaunch(String userType, String ScreenName) throws Exception {
-		extent.HeaderChildNode("Validating that" + ScreenName + "is not present when app is relaunched");
-		verifyElementPresentAndClick(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue");
+		extent.HeaderChildNode("Validating that " + ScreenName + "is not present when app is relaunched");
+//*******Display Language screen is removed in the new app hence commenting the below line of code
+//		verifyElementPresentAndClick(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue");
 		verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn, "Continue");
 
-		// verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login
-		// button");
+		// verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Loginbutton");
 		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 		click(AMDLoginScreen.objEmailIdField, "Email field");
 		verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
@@ -631,12 +631,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
 			waitTime(2000);
 			type(AMDLoginScreen.objPasswordField, NonsubscribedPassword, "Password field");
+			hideKeyboard();
 		} else if (userType.equals("SubscribedUser")) {
 			type(AMDLoginScreen.objEmailIdField, SubscribedUserName, "Email field");
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
 			waitTime(2000);
 			type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
+			hideKeyboard();
 		}
 
 		if (userType.equalsIgnoreCase("Guest")) {
@@ -2836,13 +2838,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		click(AMDHomePage.objUpcoming, "Upcoming");
 		verifyElementExist(AMDOfflineScreen.objYouAreOffline, "You are Offline");
+		
+//******** More menu retain the option in offline mode even when wifi/data is turned off hence commenting the below code		
 		//click(AMDHomePage.objMoreMenu, "More Menu");
 		//verifyElementExist(AMDOfflineScreen.objYouAreOffline, "You are Offline");
 
 		 verifyElementPresentAndClick(AMDOfflineScreen.objGoToDownloads, "Go to Downloads");
 
 		//verifyElementPresentAndClick(AMDHomePage.objDownload, "Download");
-		//*[@id='empty_text']
+
 	/*	 boolean getValue = verifyElementExist(By.xpath("//*[@id='empty_text']"),"Empty text" );
 		 System.out.println(getValue);
 		 if (getValue== true) {
@@ -2871,6 +2875,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Wifi_TurnOFFnON();
 		}
 		waitTime(5000);
+		verifyElementPresentAndClick(AMDHomePage.HomeIcon, "Home tab");
 		verifyElementPresentAndClick(AMDHomePage.objUpcoming, "Upcoming tab");
 
 		waitForElementDisplayed(AMDUpcomingPage.objContentCardTitle, 10);
@@ -3378,7 +3383,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void navigateToIntroScreen_DisplaylangScreen() throws Exception {
 		extent.HeaderChildNode("Navigation to Intro Screen");
-		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button (Display-LanguageScreen)");
+//		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button (Display-LanguageScreen)");
 		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
 		verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 	}

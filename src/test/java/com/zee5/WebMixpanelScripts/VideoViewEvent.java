@@ -38,13 +38,13 @@ public class VideoViewEvent {
 //		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentFromSharedLink(freeContentURL);
 //	}
 //	
-//	@Test(priority = 3)
-//	@Parameters({ "userType", "Tab"})
-//	public void verifyVideoViewEventForFreeContent(String userType,String Tab) throws Exception {
-//		System.out.println("Verify Video View Event For Free Content");
+	@Test(priority = 3)
+	@Parameters({ "userType", "Tab"})
+	public void verifyVideoViewEventForFreeContent(String userType,String Tab) throws Exception {
+		System.out.println("Verify Video View Event For Free Content");
 //		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForFreeContent(userType,Tab);
-//	}
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForFreeContent(userType,Tab);
+	}
 //	
 //	@Test(priority = 4)
 //	@Parameters({ "userType","Tab"})
@@ -84,13 +84,13 @@ public class VideoViewEvent {
 //		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentFromSearchPage(keyword1);
 //	}
 //	
-	@Test(priority = 9)
-	@Parameters({ "userType", "keyword"})
-	public void verifyVideoViewEventForContentFromMyWatchlistPage(String userType,String keyword) throws Exception {
-		System.out.println("Verify Video View Event For Content From My Watchlist Page");
+//	@Test(priority = 9)
+//	@Parameters({ "userType", "keyword"})
+//	public void verifyVideoViewEventForContentFromMyWatchlistPage(String userType,String keyword) throws Exception {
+//		System.out.println("Verify Video View Event For Content From My Watchlist Page");
 //		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentFromMyWatchlistPage(userType,keyword);
-	}
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentFromMyWatchlistPage(userType,keyword);
+//	}
 //	
 //	@Test(priority = 10)
 //	public void verifyVideoViewEventForContentInMegamenu() throws Exception {

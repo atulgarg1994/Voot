@@ -83,10 +83,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		String userType = getParameterFromXML("userType");
 		switch (userType) {
 		case "Guest":
+			System.out.println("HeaderChildNode");
 			extent.HeaderChildNode("Guest User");
+			System.out.println("HeaderChildNode");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
 //			dismissDisplayContentLanguagePopUp();
 			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
+			System.out.println("HeaderChildNode");
 			waitTime(3000);
 			break;
 
@@ -2764,7 +2767,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(6000);
-			ResponseInstance.pageName = "Shows";
 			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -2800,10 +2802,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Video View", "1");
 
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -13955,8 +13953,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public String pageName() throws Exception {
 		waitTime(2000);
 		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
-		String pageNameTxt = findElement(By.xpath(".//*[@class='noSelect active ']")).getText();
+		System.out.println("JS : "+js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))));
+		String pageNameTxt = js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))).toString();
+//				findElement(By.xpath(".//*[@class='noSelect active ']")).getText();
 		System.out.println("Page : "+pageNameTxt);
+		System.out.println("JS : "+js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))));
+		System.out.println(findElement(By.xpath(".//*[@class='noSelect active ']")).getAttribute("href"));
 		if (pageNameTxt.equals("Shows")) {
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 1) {
 				return handler.getproperty("episode_details".toLowerCase());
@@ -13998,7 +14000,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void clickOnTrayContent(String tabName, String typeOfContent) throws Exception {
 		navigateToAnyScreenOnWeb(tabName);
 		ArrayList<String> contentTitle = ResponseInstance.getTrayResponse(tabName, typeOfContent);
-		System.out.println(contentTitle);
+		scrollToElement(PWAHomePage.objtrayname(contentTitle.get(0)));
 		ScrollToTheElementWEB(PWAHomePage.objtrayname(contentTitle.get(0)));
 		partialScroll();
 		waitTime(8000);
@@ -14012,16 +14014,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				click(PWAHomePage.objNextIcon(contentTitle.get(0)), "Next Icon");
 			}
 		}
-//		if (swipeTillTrayAndClickFirstAsset(contentTitle.get(0),contentTitle.get(1))) {
-//			logger.info("Tray Name "+contentTitle.get(0));
-//			extent.extentLogger("tray ", "Tray Name "+contentTitle.get(0));
-//		}
 	}
 
 	public boolean scrollToElement(By element) throws Exception {
 		for (int i = 1; i <= 10; i++) {
 			partialScroll();
-			if (verifyElementDisplayed(element)) {
+			if (findElements(element).size() > 0) {
 				return true;
 			}
 		}

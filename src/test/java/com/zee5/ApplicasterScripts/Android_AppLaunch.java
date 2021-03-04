@@ -47,7 +47,7 @@ public class Android_AppLaunch {
 		System.out.println("\nVerify App relaunch functionality");
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.checkScreenAfterRelaunch(userType, "Display & Content language screen");
+		ZEE5ApplicasterBusinessLogic.checkScreenAfterRelaunch(userType, "Content language screen");
 	}
 
 	@AfterTest

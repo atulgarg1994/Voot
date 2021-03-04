@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 public class ResponseInstance {
 
 	protected static Response resp = null;
-	public static String pageName; 
+	public static String assetSubType = "Empty"; 
 
 	public static Response getResponse() {
 		resp = given().urlEncodingEnabled(false).when().get(
@@ -703,7 +703,7 @@ public class ResponseInstance {
 //		getContentDetails("0-0-232924","originals");
 //		Player("basavaraj.pn5@gmail.com","igsindia123");
 //		getWatchList("basavaraj.pn5@gmail.com","igsindia123");
-		getUserData("basavaraj.pn5@gmail.com","igsindia123");
+//		getUserData("basavaraj.pn5@gmail.com","igsindia123");
 //		getUserOldSettingsDetails("amdnonmixpanel@yopmail.com","123456");
 //		ValidateRailsAndContents("Guest","Movies");
 //		getUserData("amdnonmixpanel@yopmail.com","123456");
@@ -730,7 +730,8 @@ public class ResponseInstance {
 //		getTrayNameFromPage("home");
 //		System.out.println(getPageResponse("home","free"));
 //		System.out.println(getTrayResponse("Shows","premium"));
-//		getContentDetails("0-1-84080");
+		assetSubType = "video"; //0-1-manual_2g3a9k82241g
+		getContentDetails("0-0-320930");
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -886,20 +887,22 @@ public class ResponseInstance {
 	public static void getContentDetails(String ID) {
 		System.out.println("Content ID :"+ID);
 		
-		if (pageName.equalsIgnoreCase("Shows")) {
+		if (assetSubType.equalsIgnoreCase("tvshow") || assetSubType.equalsIgnoreCase("episode")
+				|| assetSubType.equalsIgnoreCase("external_link")) {
 			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
 					.get("https://gwapi.zee5.com/content/tvshow/" + ID + "?translation=en&country=IN");
-		} else if (pageName.equalsIgnoreCase("Live TV")) {
+		} else if (assetSubType.equalsIgnoreCase("external_link")) { 
 
-		} else {
+		} else if(assetSubType.equalsIgnoreCase("original") || assetSubType.equalsIgnoreCase("video")
+				|| assetSubType.equalsIgnoreCase("movie")|| assetSubType.equalsIgnoreCase("trailer")){
 			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
 					.get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
-			resp.print();
-		}
-		
-		if(resp.jsonPath().getList("related")  != null) {
-			ID = resp.jsonPath().getString("related[0].id");
-			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
+//			resp.print();
+			if(!assetSubType.equalsIgnoreCase("trailer"))
+			if(resp.jsonPath().getList("related")  != null) {
+				ID = resp.jsonPath().getString("related[0].id");
+				resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
+			}
 		}
 		
 		Mixpanel.FEProp.setProperty("Content Duration", resp.jsonPath().getString("duration"));
@@ -917,7 +920,7 @@ public class ResponseInstance {
 		}else {
 			Mixpanel.FEProp.setProperty("DRM Video","false");
 		}
-		resp.print();
+//		resp.print();
 		Mixpanel.FEProp.forEach((key, value) -> System.out.println(key + " : " + value));
 		}
 	
@@ -2223,6 +2226,7 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 						System.out.println("title : "+respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].title"));
 						contentAndTrayTitle.add(respCarousel.jsonPath().getString("buckets["+j+"].title"));
 						contentAndTrayTitle.add(respCarousel.jsonPath().getString("buckets["+j+"].items[" + k + "].title"));
+						assetSubType = respCarousel.jsonPath().getString("buckets["+j+"].items[" + k + "].asset_subtype");
 						return contentAndTrayTitle;
 					}
 				}
@@ -2237,6 +2241,7 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 						System.out.println("title : "+respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].title"));
 						contentAndTrayTitle.add(respCarousel.jsonPath().getString("buckets["+j+"].title"));
 						contentAndTrayTitle.add(respCarousel.jsonPath().getString("buckets["+j+"].items[" + k + "].title"));
+						assetSubType = respCarousel.jsonPath().getString("buckets["+j+"].items[" + k + "].asset_subtype");
 						return contentAndTrayTitle;
 					}
 				}
@@ -2253,6 +2258,7 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 						getContentDetails(trailerID);
 						contentAndTrayTitle.add(respCarousel.jsonPath().getString("buckets["+j+"].title"));
 						contentAndTrayTitle.add(respCarousel.jsonPath().getString("buckets["+j+"].items[" + k + "].title"));
+						assetSubType = respCarousel.jsonPath().getString("buckets["+j+"].items[" + k + "].asset_subtype");
 						return contentAndTrayTitle;
 					}
 				}
