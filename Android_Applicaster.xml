@@ -92,8 +92,8 @@
 	<parameter name="NonsubscribedUserWithInActivePackUsername" value="zeetestww@test.com" />
 	<parameter name="NonsubscribedUserWithInActivePackPassword" value="123456" />
 
-	<parameter name="NonsubscribedUserWithNoTransactionUsername" value="zeebuild@gmail.com" />
-	<parameter name="NonsubscribedUserWithNoTransactionPassword" value="User@123" />
+	<parameter name="NonsubscribedUserWithNoTransactionUsername" value="testertony322@gmail.com" />
+	<parameter name="NonsubscribedUserWithNoTransactionPassword" value="123456" />
 
 	<parameter name="SettingsNonsubscribedUserName" value="gdm@mailnesia.com" />
 	<parameter name="SettingsNonsubscribedPassword" value="654321" />

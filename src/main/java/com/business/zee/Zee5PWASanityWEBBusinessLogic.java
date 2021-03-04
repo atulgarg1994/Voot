@@ -2900,18 +2900,46 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	@SuppressWarnings("unused")
 	public void upnext(String userType) throws Exception {
 		mandatoryRegistrationPopUp(userType);
-		String totalDuration = "", currentDuration = "", currentUrl = "", contentURL = "", midRollUrl = "",postRollUrl = "";
-		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
-		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("freeEpisode3");
-		type(PWASearchPage.objSearchEditBox, keyword, "Search edit");
-		click(PWASearchPage.objspecificSearch, "Searched content");
-		waitTime(4000);
-		if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Create New Account Popup") == true) {
-			click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Create New Account Popup close button");
-		}
+		navigateToHome();
+		String keyword="",totalDuration = "", currentDuration = "", currentUrl = "", contentURL = "", midRollUrl = "",postRollUrl = "";
+		SimpleDateFormat formatter = new SimpleDateFormat("HH");  
+	    Date date = new Date();  
+	    System.out.println("date "+ date);
+	    String hourString=formatter.format(date).toString();
+	    System.out.println("hourString "+ hourString);
+	    int hour=Integer.parseInt(hourString);
+		if(hour>=0 && hour<=2) keyword="Kumkum Bhagya";
+		else if(hour>=3 && hour<=5) keyword="Paaru";
+		else if(hour>=6 && hour<=8) keyword="Jothe Jotheyali";
+		else if(hour>=9 && hour<=11) keyword="Kundali Bhagya";
+		else if(hour>=12 && hour<=14) keyword="Kamali";
+		else if(hour>=15 && hour<=17) keyword="Tujhse Hai Raabta";
+		else if(hour>=18 && hour<=20) keyword="Apna Time Bhi Aayega";
+		else if(hour>=21 && hour<=23) keyword="Sathya";
+		else keyword="Kamali";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
+		waitTime(2000);
+		click(PWASearchPage.objSearchNavigationTab("Shows"), "Shows tab");
+		click(PWASearchPage.objSearchedResult(keyword), "Search Result");
+		click(PWAShowsPage.objShowDetailEpisodeDropdown, "Episode Dropdown");
+		click(PWAShowsPage.objShowDetailNonSelectedEpisodeDropdownValues(1), "Second Episode set");
+		waitTime(5000);
+		click(PWAShowsPage.objEpisodeCard, "First Episode Card");
+		mandatoryRegistrationPopUp(userType);
+	
+		if(userType.equals("Guest")) {
+			if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Create New Account Popup") == true) {
+				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Create New Account Popup close button");
+			}
+		}		
 		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 			waitForPlayerAdToComplete("Video");
 		}
+		if (userType.equals("SubscribedUser") || userType.equals("ClubUser")) {
+			waitTime(10000);
+		} 
+			
 		contentURL = getWebDriver().getCurrentUrl();
 		String[] abc = contentURL.split("/");
 		String contentID = abc[abc.length - 1];
@@ -2929,23 +2957,37 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		//System.out.println(respContent.getBody().asString());
 		mandatoryRegistrationPopUp(userType);
-		String durationAPI="";
+		String seasonID="";
 		try {
-			durationAPI = respContent.jsonPath().get("duration").toString().trim();
+			seasonID = respContent.jsonPath().get("season_details.id").toString().trim();
 		}catch(Exception e) {}
-		durationAPI="1208";
-		extent.extentLogger("", "Total Duration in seconds from API: " + durationAPI);
-		logger.info("Total Duration in seconds from API: " + durationAPI);
-		int durationfullInt = Integer.parseInt(durationAPI);
-		durationfullInt=durationfullInt-5;
-		String durationfull = String.valueOf(durationfullInt);
-		postRollUrl = contentURL + "?t=" + durationfull;
-		getWebDriver().get(postRollUrl);
+		extent.extentLogger("", "Season ID fetched from API: " + seasonID);
+		logger.info("Season ID fetched from API: " + seasonID);
+		
+		click(PWAPlayerPage.objSubTitleOverlay, "Playback Overlay");
+		/////////////////////////////////////////////////////
+		WebElement progressBar=findElement(PWAPlayerPage.progressBar);
+		int progressBarWidth=progressBar.getSize().getWidth();
+		System.out.println(progressBarWidth);
+		int progressBarX=progressBar.getLocation().getX();
+		System.out.println(progressBarX);
+		int progressBarEndX=progressBarX+progressBarWidth;
+		System.out.println(progressBarEndX);
+		WebElement scrubber=findElement(PWAPlayerPage.objPlayerScrubber);
+		int scrubberX=scrubber.getLocation().getX();
+		System.out.println(scrubberX);
+		int offsetForEnd=progressBarEndX-scrubberX-10;
+		
+		/////////////////////////////////////
+		Actions act = new Actions(getWebDriver());
+		act.moveToElement(scrubber, offsetForEnd, 0).click().build().perform();
+		waitTime(2000);
 		mandatoryRegistrationPopUp(userType);
-		currentUrl = getWebDriver().getCurrentUrl();	
-		extent.extentLogger("", "Current URL: " + currentUrl);
+		extent.extentLogger("", "Scrubbed to end of the player");
+		logger.info("Scrubbed to end of the player");
+		mandatoryRegistrationPopUp(userType);
 		String upnextTrayCardTitle="";
-		for(int i=0;i<50;i++) {
+		for(int i=0;i<3;i++) {
 			try {
 				upnextTrayCardTitle= getElementPropertyToString("innerText",PWAPlayerPage.objPlayerUpnextTrayCardTitle,"");
 				logger.info("Up Next Rail on player is displayed");
@@ -2956,10 +2998,20 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				break;
 			}
 			catch(Exception e) {}
-		}	
+		}
+		click(PWAPlayerPage.objPlayerPlay, "Play button");
+		if(!(userType.equals("SubscribedUser") || userType.equals("ClubUser"))) {
+			extent.extentLogger("", "Postroll Ad play check");
+			logger.info("Postroll Ad play check");
+			waitForPlayerAdToComplete("Video Player");
+			extent.extentLogger("", "Preroll Ad play check");
+			logger.info("Preroll Ad play check");
+			waitForPlayerAdToComplete("Video Player");
+		}		
+			
 		mandatoryRegistrationPopUp(userType);
 		// Verify the Upnext content is auto playing
-		getResponseUpNextRail.getResponse1();
+		getResponseUpNextRail.getUpNextResponse(seasonID,contentID);
 		String episodeName = getText(PWAPlayerPage.objContentName);
 		String APIData = getResponseUpNextRail.getMediaContentName();
 		logger.info("Up Next First Card Title returned by API : "+APIData);
@@ -2977,8 +3029,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			else
 				waitTime(10000);
 			try {
-				String contentPlayed=getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,
-						"Content Title").toString();
+				String contentPlayed=getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,"Content Title").toString();
 				extent.extentLogger("Upnext Rail", "Up Next Content played in UI :"+contentPlayed);
 				logger.info("Up Next Content played in UI :"+contentPlayed);
 				contentPlayed=contentPlayed.replace("'", "");
@@ -2997,7 +3048,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Verify UpNext Rail", "Card displayed in Upnext rail does not match with API");
 			logger.error("Card displayed in Upnext rail does not match with API");
 		}
-		mandatoryRegistrationPopUp(userType);
+		mandatoryRegistrationPopUp(userType);		
 	}
 
 	/*
@@ -15381,15 +15432,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("HLS_052 :Verify the right side bottom arrow ");
 		scrollToBottomOfPageWEB();
 		logger.info("Scrolled Up the page");
-		if (checkElementDisplayed(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon")) {
-			waitTime(2000);
+		if(verifyElementPresent(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon")) {
 			click(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon");
-			logger.info("Back to Top Arrow icon is displayed");
-			extent.extentLoggerPass("", "Back to Top Arrow icon is displayed");
 		} else {
 			logger.error("Back to Top Arrow icon is not displayed");
 			extent.extentLoggerFail("", "Back to Top Arrow icon is not displayed");
 		}
+		
 		extent.HeaderChildNode(
 				" HLS_053 :Verify the Before TV are available, HLS_054 :Verify the  Before TV content playback");
 		waitTime(2000);
@@ -15926,11 +15975,9 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		trayTitleAndContentValidationWithApiDataMovie(tabName, "club");
 
 		extent.HeaderChildNode("HLS_081 :Verify the right side bottom arrow ");
-		scrollDownByY(300);
-		scrollDownByY(300);
+		scrollToBottomOfPageWEB();
 		logger.info("Scrolled Up the page");
-		if (checkElementDisplayed(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon")) {
-			waitTime(2000);
+		if(verifyElementPresent(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon")) {
 			click(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon");
 		} else {
 			logger.error("Back to Top Arrow icon is not displayed");
@@ -16328,10 +16375,11 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		} else {
 			logger.error("Back to Top arrow is not displayed");
 			extent.extentLoggerFail("", "Back to Top arrow is not displayed");
+			navigateToHome();
 			navigateToAnyScreenOnWeb("Live TV");
 			waitTime(5000);
 		}
-		waitTime(3000);
+
 		extent.HeaderChildNode("HLS_136 :verifying that multiple languages are given to select with apply and reset button");
 		verifyElementPresentAndClick(PWALiveTVPage.objLiveTvFilterOption, "Filter option");
 		waitTime(2000);
@@ -16347,9 +16395,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		}
 		verifyElementPresent(PWALiveTVPage.objApplyBtn, "Apply button");
 		verifyElementPresent(PWALiveTVPage.objResetBtn, "Reset button");
-		verifyElementPresentAndClick(PWALiveTVPage.objCloseLanguagePopuUpBtn,
-				"Close button of Filter language setting window");
-		actions.moveToElement(contentcard).perform();
+		verifyElementPresentAndClick(PWALiveTVPage.objCloseLanguagePopuUpBtn,"Close button of Filter language setting window");
 		waitTime(3000);
 
 		extent.HeaderChildNode(" HLS_137 :Validating that user is navigated to channel guide screen");
@@ -16463,6 +16509,7 @@ public void swipeTillTrayAndVerifyPlayback(String userType, String tabName, Stri
 		}
 		Back(1);
 	}
+
 
 	public void storiesvalidation(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("HLS_145: Verify user navigation " + tabName + "page");

@@ -114,4 +114,11 @@ import com.jayway.restassured.response.Response;
 		System.out.println("TV Show Response API"+respContentDetails.getBody().asString());
 		return respContentDetails;
 	}
+	
+	public static Response getUpNextResponse(String seasonID,String contentID) {
+		String uri ="https://gwapi.zee5.com/content/season/next_previous/"+seasonID+"?episode_id="+contentID+"&type=next&limit=25&translation=en&country=IN&page=1";
+		resp = given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(uri);
+		System.out.println(resp.getBody().print());
+		return resp;
+	}
 }

@@ -46,8 +46,6 @@ public class AMDWatchlistPage {
 
 	public static By objSelectedTab = By.xpath("(//*[@id='tabLayout']//*[@class='android.widget.TextView' and @selected='true'])");
 
-	public static By objPlayerScreen = By.xpath("//*[@id='player_root']");
-
 	public static By objWatchlistIcon = By.xpath("//*[@id='watchListView']");
 
 	public static By objMoviesTab = By.xpath("//*[@text='Movies']");
@@ -60,4 +58,6 @@ public class AMDWatchlistPage {
 	}
 
 	public static By objNoContentsMessage = By.xpath("//*[@id='txt_no_reminder']");
+	
+    public static By objPlayerScreen = By.xpath("//*[@id='player_root'] | //*[@id='content_title']");
 }

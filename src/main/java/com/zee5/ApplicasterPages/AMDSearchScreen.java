@@ -4,10 +4,6 @@ import org.openqa.selenium.By;
 
 public class AMDSearchScreen {
 
-
-	public static By objHomeOption = By
-			.xpath("//*[@id='bb_bottom_bar_icon' and (./preceding-sibling::* | ./following-sibling::*)[@text='Home']]");
-
 	public static By objUpcomingOption = By.xpath(
 			"//*[@id='bb_bottom_bar_icon' and (./preceding-sibling::* | ./following-sibling::*)[@text='Upcoming']]");
 
@@ -162,9 +158,7 @@ public class AMDSearchScreen {
 		System.out.println("//*[@id='item_primary_text' and contains(text(), " + title + ")]");
 	}
 	
-	public static By objSearchIcon = By.xpath("//*[@id='title_and_logo_container']//following-sibling::*");
-	
-public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[4]");
+	public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[4]");
 	
 	public static By objNoOftraysInSearchpage = By.xpath("//*[@resource-id='com.graymatrix.did:id/header_primary_text']");
 	
@@ -221,4 +215,16 @@ public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.
 	public static By objSearchItemBySearchTitle(String title) {
 		return By.xpath("//*[@id='searchItemTitleText' and text()='"+title+"']");
 	}
+	
+	public static By objSearchResultText(String title) {
+		return By.xpath("//*[contains(text(), '"+title+"')]");
+	}
+	
+	public static By objHomeOption = By
+			.xpath("//*[@id='bb_bottom_bar_icon' and (./preceding-sibling::* | ./following-sibling::*)[@text='Home']] | //*[@id='navigationTitleTextView']");
+
+	public static By objSearchIcon = By.xpath("//*[@id='home_toolbar_search_icon']");
+	public static By objFirstContentInSearchResult(String searchcontent) {
+			return By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@id='cell_start_container'] and ./*[./*[@text='" + searchcontent + "']]]");
+				}
 }

@@ -12,17 +12,7 @@ public class AMDHomePage {
 	// Subscribe Teaser
 	public static By objSubscribeTeaser = By.xpath("//*[@text='SUBSCRIBE']");
 
-	// Search Button
-	public static By objSearchBtn = By.xpath("((//*[@id='title'] | //*[@id='logo'])//following::*)[1]");
-
-	public static By objTitle = By.xpath("//*[@id='title']");
-
 	public static By objGetPremium = By.xpath("//*[@id='get_premium_hero_component']");
-
-	public static By objHome = By.xpath("(//*[@text='Home']//parent::*)[1]");
-	public static By objUpcoming = By.xpath("(//*[@text='Upcoming']//parent::*)[1]");
-	public static By objDownload = By.xpath("(//*[@text='Downloads']//parent::*)[1]");
-	public static By objMoreMenu = By.xpath("(//*[@text='More']//parent::*)[1]");
 
 	public static By objLogout = By.xpath("//*[@resource-id='com.graymatrix.did:id/list_item' and @text='Logout']");
 
@@ -203,18 +193,6 @@ public class AMDHomePage {
 	public static By objCarouselContentTitle(String title) {
 		return By.xpath("//*[@resource-id='com.graymatrix.did:id/hero_1_cell_parent']/child::*[@resource-id='com.graymatrix.did:id/item_primary_text' and @text='"+title+"']");
 	}
-	
-	// Bottom Navigation TEXT Buttons
-		public static By objHomeBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[1] | | (//*[@id='navigationTitleTextView'])[1]");
-		public static By objUpcomingBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[2] | (//*[@id='navigationTitleTextView'])[2]");
-		public static By objDownloadBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[3] | (//*[@id='navigationTitleTextView'])[3]");
-		public static By objMoreMenuBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[5] | (//*[@id='navigationTitleTextView'])[5]");
-
-	// Bottom Navigation ICONS
-		public static By HomeIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[1] | (//*[@id='navigationIconView'])[1]");
-		public static By UpcomingIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[2] |(//*[@id='navigationIconView'])[2]");
-		public static By DownloadIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[3] | (//*[@id='navigationIconView'])[3]");
-		public static By MoreMenuIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[5] | (//*[@id='navigationIconView'])[5]");
 		
 		// Top Menu Navigation tabs
 		public static By objHomeTab = By.xpath("//*[@id='title' and @text='Home'] | //*[@text='Home' and ./parent::*[@contentDescription='Home']]");
@@ -227,5 +205,28 @@ public class AMDHomePage {
 		public static By objMusicTab = By.xpath("//*[@id='title' and @text='Music'] | //*[@text='Music']");
 		public static By objLiveTvTab = By.xpath("//*[@id='title' and @text='Live TV'] | //*[@text='Live TV']");
 		public static By objZee5OriginalsTab = By.xpath("//*[@id='title' and @text='ZEE5 Originals'] | //*[@text='ZEE5 Originals']");
+		
+		public static By objSearchBtn = By.xpath("//*[@id='home_toolbar_search_icon']");
+		
+        public static By objHome = By.xpath("(//*[@text='Home']//parent::*)[1] | (//*[@id='navigationIconView'])[1]");
+        public static By objUpcoming = By.xpath("(//*[@text='Upcoming']//parent::*)[1] | (//*[@id='navigationIconView'])[2]");
+        public static By objDownload = By.xpath("(//*[@text='Downloads']//parent::*)[1] | (//*[@id='navigationIconView'])[3]");
+        public static By objMoreMenu = By.xpath("(//*[@text='More']//parent::*)[1] | (//*[@id='navigationIconView'])[5]");
+        
+
+     // Bottom Navigation TEXT Buttons
+     	public static By objHomeBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[1] | | (//*[@id='navigationTitleTextView'])[1]");
+     	public static By objUpcomingBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[2] | (//*[@id='navigationTitleTextView'])[2]");
+     	public static By objDownloadBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[3] | (//*[@id='navigationTitleTextView'])[3]");
+     	public static By objMoreMenuBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[5] | (//*[@id='navigationTitleTextView'])[5]");
+
+     // Bottom Navigation ICONS
+     	public static By HomeIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[1] | (//*[@id='navigationIconView'])[1]");
+     	public static By UpcomingIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[2] |(//*[@id='navigationIconView'])[2]");
+     	public static By DownloadIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[3] | (//*[@id='navigationIconView'])[3]");
+     	public static By MoreMenuIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[5] | (//*[@id='navigationIconView'])[5]");
+     	
+     	
+     	public static By objTitle = By.xpath("//*[@id='homeTabLayout']/*/child::*");
 		
 }

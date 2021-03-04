@@ -30,10 +30,6 @@ public class AMDUpcomingPage {
 		return By.xpath(title);
 	}
 	
-	public static String objContentCardTitle(String title) {
-		return ("("+title+"//parent::*//child::*)[3]");
-	}
-	
 	public static String objContentGenre(String title) {
 		return ("("+title+"//parent::*//child::*)[5]");
 	}
@@ -49,12 +45,19 @@ public class AMDUpcomingPage {
 	public static By objShowTitle(String text) {
 		return By.xpath("//*[@id='item_primary_text' and contains(text(),\"" + text + "\")]");
 	}
-	
-	public static By objContentCard1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/thumbnailImage'])[1]");
-    public static By objGenre = By.xpath("(//*[@resource-id='com.graymatrix.did:id/categories'])[1]");
     
     public static By objContentCardTitle1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/showTitle'])[1]");
 	
 	public static By objContentCardTitle = By.xpath("(//*[@resource-id='com.graymatrix.did:id/showTitle'])[1] | //*[@class='android.widget.ImageView' and ./parent::*[@id='cell_top_container' and (./preceding-sibling::* | ./following-sibling::*)[@id='cell_bottom_container']]]");
+	
+	public static String objContentCardTitle(String title) {
+		return ("//*[@text='"+title+"']");
+	}
 
+	public static By objContentCard1 = By.xpath(
+			"((//*[@text='Upcoming']//parent::*)//following-sibling::*//following-sibling::*//following-sibling::*)[1]");
+
+	public static By objGenre = By.xpath("//*[@text='Drama • U • Kannada']");
+
+	public static By objDownloadIcon = By.xpath("//*[@text='Download']");
 }

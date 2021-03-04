@@ -267,9 +267,6 @@ public class AMDMoreMenu {
 
 	public static By objLoginRegisterText = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
 
-	public static By objshareOptions = By.xpath(
-			"//*[@resource-id='android:id/tw_resolver_pagemode_page_list' or @id='resolver_slide'] | //*[@id='resolver_grid'] | //*[@id='title' and contains(text(),'Share')]");
-
 	public static By objGuestUserAccount = By.xpath("//*[@text='Guest']");
 
 	public static By objRestrict13Above = By.xpath("//*[@text='Restrict 13+ Content']");
@@ -278,4 +275,7 @@ public class AMDMoreMenu {
 	public static By objSearchResult(String title) {
 		return By.xpath("//*[@id='searchItemTitleText' and contains(text(), '"+title+"')]");
 	}
+	
+	public static By objshareOptions = By.xpath(
+			"//*[@resource-id='android:id/tw_resolver_pagemode_page_list' or @id='resolver_slide'] | //*[@id='resolver_grid'] | //*[@id='title' and contains(text(),'Share')] | //*[contains(text(),'Copy')]");
 }
