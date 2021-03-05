@@ -20,16 +20,15 @@ public class Zee5TvPlayerPage {
 	public static By objPlayerScreenMetadata = By.xpath("//*[@id='player_genre_duration']");
 	public static By objPlayerScreenTitle = By.xpath("//*[@id='player_title_text']");
 	public static By objContentLangPopup = By.xpath("//*[@id='add_content_lang']");
-	
-			public static By objSearchedSpecificVideoAudioOption(int str) {
-				return By.xpath("(//*[@id='child_player_settings'])["+ str + "]");
-			}
-			
-			
-					public static By objSpecificplan(int str) {
-						return By.xpath("(//*[@id='price_text'])["+str+"]");
-					}	
-					
+
+	public static By objSearchedSpecificVideoAudioOption(int str) {
+		return By.xpath("(//*[@id='child_player_settings'])[" + str + "]");
+	}
+
+	public static By objSpecificplan(int str) {
+		return By.xpath("(//*[@id='price_text'])[" + str + "]");
+	}
+				
 	public static By objPlayerAudioLanguageOption = By
 			.xpath("(//*[@class='android.widget.RelativeLayout']//child::*[@text='AUDIO LANGUAGE']//parent::*)[1]");
 	public static By objUpNextContent = By.xpath("(//*[@id='up_next_item_main_image'])[1]");
@@ -41,7 +40,5 @@ public class Zee5TvPlayerPage {
 	
 	
 	public static By objPaymentPage = By.xpath("//*[@id='plan_selected']");
-	
-	
 	
 }

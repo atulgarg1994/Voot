@@ -18,7 +18,7 @@ public class TvZee5ATVScripts {
 	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void chooseLanguage(String userType) throws Exception {
-		Zee5TvBusiness.chooseLanguagePopup();
+		Zee5TvBusiness.chooseLanguagePopup(userType);
 	}
 
 	@Test(priority = 2)
@@ -40,7 +40,7 @@ public class TvZee5ATVScripts {
 
 	@Test(priority = 5)
 	@Parameters({ "userType" })
-	public void TVLogin(String userType) throws Exception {
+	public void Login(String userType) throws Exception {
 		Zee5TvBusiness.login(userType);
 	}
 
@@ -49,7 +49,7 @@ public class TvZee5ATVScripts {
 	public void searchScenarios(String userType) throws Exception {
 		Zee5TvBusiness.searchScenarios(userType);
 	}
-
+	
 	@Test(priority = 7)
 	@Parameters({ "userType" })
 	public void playback(String userType) throws Exception {
@@ -159,7 +159,7 @@ public class TvZee5ATVScripts {
 	public void staticPage() throws Exception {
 		Zee5TvBusiness.staticPages();
 	}
-
+	
 	@Test(priority = 25)
 	public void contactUS() throws Exception {
 		Zee5TvBusiness.contactUs();

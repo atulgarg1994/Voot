@@ -203,9 +203,6 @@ public class AMDSearchScreen {
 	public static By objContentNameInPlayer(String ResultName) {
 		return By.xpath("//*[@resource-id='com.graymatrix.did:id/searchItemTitleText' and @text='" + ResultName + "']");
 	}
-
-	public static By objSearchEditBox = By.xpath("//*[@id='searchBarText'] | //*[@id='searchToolbarTitle']");
-	public static By objSearchBoxBar = By.xpath("//*[@id='searchBarText'] | //*[@id='searchToolbarTitle']");
 	
 	public static By objMicrophoneIconLogo = By.xpath("//*[@id='searchRecordingIcon']");
 	public static By objMusicTabIndx = By.xpath("//*[@text='Music']");
@@ -227,4 +224,10 @@ public class AMDSearchScreen {
 	public static By objFirstContentInSearchResult(String searchcontent) {
 			return By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@id='cell_start_container'] and ./*[./*[@text='" + searchcontent + "']]]");
 				}
+	
+	public static By objSearchEditBox = By.xpath("//*[@id='searchBarText'] | //*[@id='searchToolbarTitle']");
+	public static By objSearchBoxBar = By.xpath("//*[@id='searchBarText'] | //*[@id='searchToolbarTitle']");
+	public static By objFirstContentAfterSearch(String title) {
+		return By.xpath("(//*[contains(text(),'"+title+"')])[2]");
+	}
 }

@@ -5,25 +5,15 @@ import org.openqa.selenium.By;
 public class AMDPlayerScreen {
 
 	public static By objPlayer = By.xpath("//*[@id='controller']");
-	public static By objPlayIcon = By.xpath("//*[@id='icon_play']");
-	public static By objPauseIcon = By.xpath("//*[@id='icon_pause']");
 	public static By objNextIcon = By.xpath("//*[@id='icon_next']");
-	public static By objProgressBar = By.xpath("//*[@id='progress']");
-	public static By objBackButton = By.xpath("//*[@id='icon_down']");
 	public static By objChromeCastIcon = By.xpath("//*[@id='icon_cast']");
-	public static By objFullscreenIcon = By.xpath("//*[@id='icon_fullscreen']");
-	public static By objTotalDuration = By.xpath("//*[@id='durationText1']");
-	public static By objTimer = By.xpath("//*[@id='positionText1']");
 	public static By objShareIcon = By.xpath("//*[@id='native_share_button']");
 	public static By objWatchlistIcon = By.xpath("//*[@id='watch_list_image']");
 	public static By objDownloadIcon = By.xpath("//*[@id='downlowd_image']");
 	public static By objfirstContentcardOfParticularTray(String trayTitle) {
 		return By.xpath("(//*[@text="+trayTitle+"]/parent::*/parent::*/following-sibling::*/child::*/child::*/child::*/child::*)[1]");
 	}
-	public static By objThreeDotsOnPlayer = By.xpath("//*[@id='icon_more']");
 	public static By objTitleOnPlayer = By.xpath("//*[@id='title_main']");
-	public static By objPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerElevationParent']");
-	
 	public static By objQuality = By.xpath("//*[@id='icon_quality_text']");
 	public static By objQualityOptions = By.xpath("//*[@id='textView2']");
 	public static By objQualityOptions(int i) {
@@ -66,7 +56,6 @@ public class AMDPlayerScreen {
 	public static By objUpnextRail = By.xpath("//*[@id='similarcontentlistView']");
 	public static By objContentTitle = By.xpath("//*[@id='title_main']");
 	public static By objShareIconOnPlayer = By.xpath("//*[@id='icon_share']"); 
-	public static By objcontentTitleInconsumptionPage = By.xpath("//*[@resource-id='com.graymatrix.did:id/contentCl']/child::*[@resource-id='com.graymatrix.did:id/item_primary_text']");
 	public static By objCompleteProfilePopUp = By.xpath("//*[@id='tellUsMoreContainer']");
 	public static By objShareNowFb = By.xpath("//*[@contentDescription='SHARE NOW']");
 	public static By objWatchCreditsCTA = By.xpath("//*[@text='Watch Credits']");
@@ -94,4 +83,20 @@ public class AMDPlayerScreen {
 	public static By objSelectedQualityOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_selected']/following-sibling::*");
 
 	public static By objAudioTrackOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_audioTrack_text']");
+	
+	public static By objPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerElevationParent'] | //*[@id='playerTouchToHideShowController']");
+	public static By objPauseIcon = By.xpath("//*[@id='playerPlayPauseButton'] | //*[@id='icon_pause']");
+	public static By objFullscreenIcon  = By.xpath("//*[@id='playerFullScreenControl'] | //*[@id='icon_fullscreen']");
+	public static By objThreeDotsOnPlayer = By.xpath("//*[@id='icon_more'] | //*[@id='playerMoreOptionButton']");
+	public static By objTimer = By.xpath("//*[@id='positionText1'] | //*[@id='playerDurationCurrent' and @onScreen='true']");
+
+	public static By objTotalDuration = By.xpath("//*[@id='playerDurationTotal' and @onScreen='true']");
+
+	public static By objProgressBar = By.xpath("//*[@id='progress'] | //*[@id='playerSeekBar' and @onScreen='true']");
+		public static By objBackButton = By.xpath("//*[@id='icon_down'] |//*[@id='playerBackButton' and @onScreen='true']");
+
+	public static By objPlayIcon = By.xpath("//*[@id='icon_play'] | //*[@id='playerPlayPauseButton']");
+	
+	public static By objcontentTitleInconsumptionPage = By.xpath("//*[@resource-id='com.graymatrix.did:id/contentCl']/child::*[@resource-id='com.graymatrix.did:id/item_primary_text'] | //*[@id='content_title']");
+
 }

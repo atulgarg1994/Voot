@@ -272,10 +272,11 @@ public class AMDMoreMenu {
 	public static By objRestrict13Above = By.xpath("//*[@text='Restrict 13+ Content']");
 	public static By objPrepaidCodeTxt = By.xpath("//*[@resource-id='com.graymatrix.did:id/edit_prepaid_code']");
 	public static By objApplyBtn = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_promo_code_next']");
-	public static By objSearchResult(String title) {
-		return By.xpath("//*[@id='searchItemTitleText' and contains(text(), '"+title+"')]");
-	}
 	
 	public static By objshareOptions = By.xpath(
 			"//*[@resource-id='android:id/tw_resolver_pagemode_page_list' or @id='resolver_slide'] | //*[@id='resolver_grid'] | //*[@id='title' and contains(text(),'Share')] | //*[contains(text(),'Copy')]");
+	
+	public static By objSearchResult(String title) {
+		return By.xpath("//*[@id='searchItemTitleText' and contains(text(), '"+title+"')] | (//*[contains(@text,'"+title+"')])[2]");
+	}
 }

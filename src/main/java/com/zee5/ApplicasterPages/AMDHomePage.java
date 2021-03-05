@@ -32,10 +32,6 @@ public class AMDHomePage {
 	// Play Button On carousel
 	public static By objPlayBtn = By.xpath("//*[@id='playImage']");
 
-	public static By objContentTitle(String title) {
-		return By.xpath("//*[@id='item_primary_text'and @text='" + title + "']");
-	}
-
 	// Select view all button from trayTile
 	public static By objViewAllBtn(String trayName) {
 		return By.xpath("//*[contains(text(),'" + trayName + "')]//following::*[@id='header_arrow'][1]");
@@ -195,7 +191,6 @@ public class AMDHomePage {
 	}
 		
 		// Top Menu Navigation tabs
-		public static By objHomeTab = By.xpath("//*[@id='title' and @text='Home'] | //*[@text='Home' and ./parent::*[@contentDescription='Home']]");
 		public static By objMoviesTab = By.xpath("//*[@id='title' and @text='Movies'] | //*[@text='Movies']");
 		public static By objShowsTab = By.xpath("//*[@id='title' and @text='Shows'] | //*[@text='Shows']");
 		public static By objNewsTab = By.xpath("//*[@id='title' and @text='News'] | //*[@text='News']");
@@ -228,5 +223,11 @@ public class AMDHomePage {
      	
      	
      	public static By objTitle = By.xpath("//*[@id='homeTabLayout']/*/child::*");
+     	
+     	public static By objContentTitle(String title) {
+    		return By.xpath("//*[@id='item_primary_text'or @text='" + title + "']");
+    	}
+     	
+    public static By objHomeTab = By.xpath("//*[@id='title' and @text='Home'] | (//*[@id='title' or @text='Home'])[1]");
 		
 }

@@ -101,6 +101,8 @@ public class PWALoginPage {
 	
 	//webLogin
 	public static By objWebLoginBtn = By.xpath("//a[@href='/signin' and text()='Login']");
+	
+	public static By objLanguageButton = By.xpath("//div[@id='languageBtn']");
 	public static By objWebLoginPageText = By.xpath("//h1[.='Login']");
 	public static By objWebLoginButton = By.xpath("//button//span[.='Login']");
 	

@@ -33,7 +33,6 @@ public class AMDConsumptionScreen {
 	public static By objSubscribePopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title']");
 	public static By objWatchlistBtn = By.xpath("//*[@id='watchListTv']");
 	public static By objContentName = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[1]");
-	public static By objShareBtn = By.xpath("//*[@resource-id='com.graymatrix.did:id/shareText']");
 	public static By objDownloadBtn = By.xpath("//*[@resource-id='com.graymatrix.did:id/downloadTv']");
 	public static By objCastBtn = By.xpath("//*[@resource-id='com.graymatrix.did:id/castTv']");
 	public static By objWatchTrialer = By.xpath("//*[@resource-id='com.graymatrix.did:id/watchTrailerTv']");
@@ -121,4 +120,6 @@ public class AMDConsumptionScreen {
 	
 	public static By objSubtitleValue = By.xpath("//*[@resource-id='com.graymatrix.did:id/subtitlesValueTv']");
 	public static By objProceedBtnOnSubscribePopUpInPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/proceed']");
+	
+	public static By objShareBtn = By.xpath("//*[@resource-id='com.graymatrix.did:id/shareText'] | //*[@id='metaInfoActionButtonTextView' and @text='Share']");
 }

@@ -4,10 +4,15 @@ import org.openqa.selenium.By;
 
 public class Zee5TvWelcomePage {
 
-	public static By objWelcomeSkipLink = By.xpath("//*[@id='welcome_skip']");
+	public static By objWelcomeSkipLink = By.xpath("//*[@id='welcome_skip' or @id='registration_skip']");
 
-	public static By objalreadyRegister = By.xpath("//*[@id='already_register']");
-
+	public static By objalreadyRegister = By.xpath("//*[@id='already_register' or @id='register_ZEE']");
+	
+	public static By objLogiButtonAmazon = By.xpath("//*[@id='login_zee5_button']");
+	
+	public static By objLoginPopupAmazon = By.xpath("//*[@id='lwa_title']");
+	
+	
 	public static By objauthenticatetext = By.xpath("//*[@id='authenticate_text']");
 	public static By objloginCode = By.xpath("//*[@id='code_text']");
 	public static By objHomepageTrayContent = By.xpath(
@@ -44,7 +49,7 @@ public class Zee5TvWelcomePage {
 			"(//*[@id='row_header' and contains(text() ,'Latest on')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 
 	public static By objVideoPageTrayContent= By.xpath(
-			"(//*[@id='row_header' and contains(text() ,'Recommended')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
+			"(//*[@id='row_header' and contains(text() ,'Top')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 	
 	public static By objLiveNewsContentinNewsPage = By.xpath(
 			"(//*[@id='row_header' and contains(text() ,'Live News')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
@@ -87,7 +92,7 @@ public class Zee5TvWelcomePage {
 	}
 
 	public static By objViewallTray = By.xpath(
-			"(//*[@id='row_header' and contains(text(),'Top')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
+			"(//*[@id='row_header' and contains(text(),'Top ZEE5')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 
 	public static By objNameColumn = By.xpath("//*[@id='profile_name']");
 	public static By objEmailIdColumn = By.xpath("//*[@id='profile_id_view']");
@@ -115,8 +120,9 @@ public class Zee5TvWelcomePage {
 			.xpath("(//*[@text='VIDEO QUALITY']//parent::*)[1]//child::*[@id='icon_image']");
 	public static By objreminderOption = By.xpath("(//*[@text='REMINDERS']//parent::*)[1]//child::*[@id='icon_image']");
 
-	public static By objMyPlanOption = By.xpath("(//*[@text='MY PLAN']//parent::*)[1]//child::*[@id='icon_image']");
-
+	public static By objMyPlanOption = By.xpath("(//*[@text='MY PLANS' or @text='MY PLAN'] //parent::*)[1]//child::*[@id='icon_image']");
+	
+			public static By objALLPlanOption = By.xpath("(//*[@text='ALL PLANS']//parent::*)[1]//child::*[@id='icon_image']");
 	public static By objnoreminder = By.xpath("//*[@id='no_reminder_msg']");
 
 	public static By objreminderLayout = By.xpath("//*[@id='reminder_vertical']");

@@ -8,8 +8,6 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Reporter;
-
-
 import com.driverInstance.CommandBase;
 import com.extent.ExtentReporter;
 import com.jayway.restassured.response.Response;
@@ -538,6 +536,15 @@ public class Zee5TvBusinessLogic extends Utilities {
 		}
 		waitTime(3000);
 		getDriver().navigate().back();
+		waitTime(4000);
+		TVTabSelect("Home");
+		getDriver().closeApp();
+		waitTime(5000);
+		getDriver().launchApp();
+		waitTime(7000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
 	public void login(String userType) throws Exception {
@@ -558,7 +565,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 			setPlatform("Web");
 			new Zee5TvBusinessLogic("zee");
 			waitTime(5000);
-
+			verifyElementPresentAndClick(PWALoginPage.objLanguageButton, "Language button");
+			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -720,6 +728,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		}
 		if (userType.equals("SubscribedUser")) {
 			// LoadingInProgress();
+			waitTime(4000);
 			Runtime.getRuntime().exec("adb shell input keyevent 23");
 			waitTime(3000);
 			Runtime.getRuntime().exec("adb shell input keyevent 23");
@@ -764,10 +773,20 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(2000);
 		getDriver().navigate().back();
 		waitTime(5000);
-		for (int k = 0; k <= 15; k++) {
+		for (int k = 0; k <= 18; k++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 19");
 			waitTime(2000);
 		}
+		getDriver().closeApp();
+
+		waitTime(3000);
+
+		getDriver().launchApp();
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
 	public void playbackShowspage() throws Exception {
@@ -1590,6 +1609,17 @@ public class Zee5TvBusinessLogic extends Utilities {
 		Runtime.getRuntime().exec("adb shell input keyevent 19");
 		waitTime(2000);
 		Runtime.getRuntime().exec("adb shell input keyevent 19");
+		waitTime(3000);
+		getDriver().closeApp();
+
+		waitTime(3000);
+
+		getDriver().launchApp();
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
 	@SuppressWarnings({ "unused", "rawtypes" })
@@ -1786,9 +1816,9 @@ public class Zee5TvBusinessLogic extends Utilities {
 		logger.info("Time before Reverse functionality : " + beforeTime1);
 		extent.extentLoggerPass("Time", "Time before Reverse functionality : " + beforeTime1);
 		Runtime.getRuntime().exec("adb shell input keyevent 21");
-		waitTime(2000);
+		waitTime(3000);
 		Runtime.getRuntime().exec("adb shell input keyevent 21");
-		waitTime(2000);
+		waitTime(5000);
 		TVclick(Zee5TvPlayerPage.objElapsedTime, "Elapsed time");
 		String afterTime1 = TVgetText(Zee5TvPlayerPage.objElapsedTime);
 		logger.info("Time after Reverse functionality : " + afterTime1);
@@ -2019,6 +2049,19 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 		}
 		getDriver().navigate().back();
+		waitTime(5000);
+		TVTabSelect("Home");
+		waitTime(5000);
+		getDriver().closeApp();
+
+		waitTime(3000);
+
+		getDriver().launchApp();
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
 	@SuppressWarnings({ "unused", "rawtypes" })
@@ -2182,10 +2225,20 @@ public class Zee5TvBusinessLogic extends Utilities {
 			logger.info("Different content Trays are present : " + rowHeaderTrays);
 			extent.extentLoggerPass("Tag", "Different content Trays are present : " + rowHeaderTrays);
 		}
-		for (int i = 1; i <= 12; i++) {
+		for (int i = 1; i <= 18; i++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 19");
 			waitTime(2000);
 		}
+		getDriver().closeApp();
+
+		waitTime(3000);
+
+		getDriver().launchApp();
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
 	@SuppressWarnings({ "unused", "rawtypes" })
@@ -2651,6 +2704,12 @@ public class Zee5TvBusinessLogic extends Utilities {
 			logger.info("Edit functionality failed");
 			extent.extentLoggerFail("Edit", "Edit functionality failed");
 		}
+		getDriver().navigate().back();
+		waitTime(3000);
+		getDriver().navigate().back();
+		waitTime(3000);
+		getDriver().navigate().back();
+		waitTime(3000);
 	}
 
 	public void parentalContorlFunctionality() throws Exception {
@@ -2672,7 +2731,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Parental", "Parental control message is not displayed");
 		}
 		getDriver().navigate().back();
-		for (int i = 0; i <= 8; i++) {
+		for (int i = 0; i <= 14; i++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 22");
 			waitTime(2000);
 		}
@@ -2692,6 +2751,19 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(8000);
 
 		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+			waitTime(10000);
+			if(verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopupAmazon, "Afs login popup")) {
+				Runtime.getRuntime().exec("adb shell input keyevent 19");
+				waitTime(2000);
+				Runtime.getRuntime().exec("adb shell input keyevent 19");
+				waitTime(2000);
+				Runtime.getRuntime().exec("adb shell input keyevent 19");
+				waitTime(2000);
+				TVclick(Zee5TvWelcomePage.objLogiButtonAmazon, "Login button amazon");
+				waitTime(7000);
+			}else {
+				logger.info("Popup not displayed");
+			}
 			code = TVgetText(Zee5TvWelcomePage.objloginCode);
 			logger.info("Authenticate code in TV : " + code);
 			extentLoggerPass("Code", "Authenticate code in TV : " + code);
@@ -2827,7 +2899,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		Runtime.getRuntime().exec("adb shell input keyevent 20");
 		waitTime(2000);
 		Runtime.getRuntime().exec("adb shell input keyevent 20");
-		for (int i = 0; i <= 10; i++) {
+		for (int i = 0; i <= 14; i++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 22");
 			waitTime(2000);
 		}
@@ -2847,6 +2919,19 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(8000);
 
 		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+			waitTime(10000);
+			if(verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopupAmazon, "Afs login popup")) {
+				Runtime.getRuntime().exec("adb shell input keyevent 19");
+				waitTime(2000);
+				Runtime.getRuntime().exec("adb shell input keyevent 19");
+				waitTime(2000);
+				Runtime.getRuntime().exec("adb shell input keyevent 19");
+				waitTime(2000);
+				TVclick(Zee5TvWelcomePage.objLogiButtonAmazon, "Login button amazon");
+				waitTime(7000);
+			}else {
+				logger.info("Popup not displayed");
+			}
 			code = TVgetText(Zee5TvWelcomePage.objloginCode);
 			logger.info("Authenticate code in TV : " + code);
 			extentLoggerPass("Code", "Authenticate code in TV : " + code);
@@ -2991,7 +3076,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		Runtime.getRuntime().exec("adb shell input keyevent 20");
 		waitTime(2000);
 		Runtime.getRuntime().exec("adb shell input keyevent 20");
-		for (int i = 0; i <= 10; i++) {
+		for (int i = 0; i <= 14; i++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 22");
 			waitTime(2000);
 		}
@@ -3015,6 +3100,19 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(8000);
 
 		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+			waitTime(10000);
+			if(verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopupAmazon, "Afs login popup")) {
+				Runtime.getRuntime().exec("adb shell input keyevent 19");
+				waitTime(2000);
+				Runtime.getRuntime().exec("adb shell input keyevent 19");
+				waitTime(2000);
+				Runtime.getRuntime().exec("adb shell input keyevent 19");
+				waitTime(2000);
+				TVclick(Zee5TvWelcomePage.objLogiButtonAmazon, "Login button amazon");
+				waitTime(7000);
+			}else {
+				logger.info("Popup not displayed");
+			}
 			code = TVgetText(Zee5TvWelcomePage.objloginCode);
 			logger.info("Authenticate code in TV : " + code);
 			extentLoggerPass("Code", "Authenticate code in TV : " + code);
@@ -3191,6 +3289,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 				"Video quality options : " + TVgetText(Zee5TvWelcomePage.objVideoQualityResolutionOptions5));
 
 		getDriver().navigate().back();
+		waitTime(3000);
 
 	}
 
@@ -3301,7 +3400,10 @@ public class Zee5TvBusinessLogic extends Utilities {
 		}
 
 		getDriver().launchApp();
-		waitTime(5000);
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
 	public void setting(String userType) throws Exception {
@@ -3320,7 +3422,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 	public void welcomescreen() throws Exception {
 		HeaderChildNode("Welcome screen validation");
-		waitTime(5000);
+		waitTime(8000);
 		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objZeelogo, "Zee logo")) {
 			logger.info("zee logo is displayed in welcome screen");
 			extent.extentLoggerPass("logo", "zee logo is displayed in welcome screen");
@@ -3374,8 +3476,14 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 		getDriver().launchApp();
 
-		waitTime(15000);
+		waitTime(10000);
 		Runtime.getRuntime().exec("adb shell input keyevent 20");
+		waitTime(2000);
+		Runtime.getRuntime().exec("adb shell input keyevent 19");
+		waitTime(2000);
+		Runtime.getRuntime().exec("adb shell input keyevent 19");
+		waitTime(2000);
+		Runtime.getRuntime().exec("adb shell input keyevent 19");
 
 	}
 
@@ -3468,6 +3576,16 @@ public class Zee5TvBusinessLogic extends Utilities {
 			getDriver().navigate().back();
 			waitTime(3000);
 		}
+		getDriver().closeApp();
+
+		waitTime(3000);
+
+		getDriver().launchApp();
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -3544,7 +3662,19 @@ public class Zee5TvBusinessLogic extends Utilities {
 			}
 			waitTime(3000);
 			Runtime.getRuntime().exec("adb shell input keyevent 23");
-			waitTime(8000);
+			waitTime(13000);
+			if(verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopupAmazon, "Afs login popup")) {
+				Runtime.getRuntime().exec("adb shell input keyevent 19");
+				waitTime(2000);
+				Runtime.getRuntime().exec("adb shell input keyevent 19");
+				waitTime(2000);
+				Runtime.getRuntime().exec("adb shell input keyevent 19");
+				waitTime(2000);
+				TVclick(Zee5TvWelcomePage.objLogiButtonAmazon, "Login button amazon");
+				waitTime(7000);
+			}else {
+				logger.info("Popup not displayed");
+			}
 			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objauthenticatetext, "Authenticate message")) {
 				logger.info("User is navigated to authenticate page post tapping on login button in subscription page");
 				extent.extentLoggerPass("Page",
@@ -3561,7 +3691,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 			setPlatform("Web");
 			new Zee5TvBusinessLogic("zee");
 			waitTime(5000);
-
+			verifyElementPresentAndClick(PWALoginPage.objLanguageButton, "Language button");
+			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -3588,7 +3719,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			setPlatform("TV");
 			waitTime(10000);
 			TVclick(Zee5TvWelcomePage.objcontinueButtonInLoginPage, "Continue button in TV authentication page");
-			waitTime(10000);
+			waitTime(15000);
 
 			if (verifyIsElementDisplayed(Zee5TVCarousel.objSubscriptionPlanPage, "My Plans page")) {
 				logger.info("User is navigated to Subscription page post login from subscription page");
@@ -3620,7 +3751,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
 			waitTime(2000);
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
-			for (int i = 0; i <= 10; i++) {
+			for (int i = 0; i <= 14; i++) {
 				Runtime.getRuntime().exec("adb shell input keyevent 22");
 				waitTime(2000);
 			}
@@ -3658,7 +3789,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 					logger.info("Navigation failed");
 					extent.extentLoggerFail("Plan", "Navigation failed");
 				}
-			}
+			
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
 			waitTime(2000);
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
@@ -3688,7 +3819,12 @@ public class Zee5TvBusinessLogic extends Utilities {
 			waitTime(2000);
 			Runtime.getRuntime().exec("adb shell input keyevent 19");
 			waitTime(2000);
+		}
 			HeaderChildNode("Subscription popup validation");
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(2000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(2000);
 			TVTabSelect("Movies");
 			waitTime(5000);
 			verifyIsElementDisplayed(Zee5TVCarousel.objCarouselPlayButton, "Play button");
@@ -3744,6 +3880,14 @@ public class Zee5TvBusinessLogic extends Utilities {
 			getDriver().navigate().back();
 			waitTime(3000);
 			getDriver().navigate().back();
+			waitTime(5000);
+			getDriver().closeApp();
+
+			waitTime(3000);
+
+			getDriver().launchApp();
+
+			waitTime(10000);
 		}
 		if (userType.equals("SubscribedUser")) {
 			HeaderChildNode("Subscription plan page validation");
@@ -3828,6 +3972,14 @@ public class Zee5TvBusinessLogic extends Utilities {
 			waitTime(2000);
 			getDriver().navigate().back();
 			waitTime(2000);
+			getDriver().closeApp();
+
+			waitTime(3000);
+
+			getDriver().launchApp();
+
+			waitTime(10000);
+
 			
 		}
 	}
@@ -3941,7 +4093,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 				setPlatform("Web");
 				new Zee5TvBusinessLogic("zee");
 				waitTime(5000);
-
+				verifyElementPresentAndClick(PWALoginPage.objLanguageButton, "Language button");
+				waitTime(3000);
 				verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 				waitTime(3000);
 				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -3988,8 +4141,21 @@ public class Zee5TvBusinessLogic extends Utilities {
 						"Continue watching tray not displayed for " + userType + " user");
 				extent.extentLoggerFail("Tray",
 						"Continue watching tray displayed for " + userType + " user");
+				BrowsertearDown();
+				setPlatform("TV");
 			}
+			
 		}
+		getDriver().closeApp();
+
+		waitTime(3000);
+
+		getDriver().launchApp();
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
 	public void liveTv() throws Exception {
@@ -4080,10 +4246,17 @@ public class Zee5TvBusinessLogic extends Utilities {
 		getDriver().navigate().back();
 		waitTime(3000);
 		getDriver().navigate().back();
-		getDriver().closeApp();
 		waitTime(3000);
+		getDriver().closeApp();
+
+		waitTime(3000);
+
 		getDriver().launchApp();
-		waitTime(4000);
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
 	public void beforeTV() throws Exception {
@@ -4205,6 +4378,16 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(3000);
 		getDriver().navigate().back();
 		waitTime(3000);
+		getDriver().closeApp();
+
+		waitTime(3000);
+
+		getDriver().launchApp();
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
 	public void upnext() throws Exception {
@@ -4375,6 +4558,16 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(3000);
 		getDriver().navigate().back();
 		waitTime(3000);
+		getDriver().closeApp();
+
+		waitTime(3000);
+
+		getDriver().launchApp();
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -4503,9 +4696,19 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(3000);
 		getDriver().navigate().back();
 		waitTime(3000);
+		getDriver().closeApp();
+
+		waitTime(3000);
+
+		getDriver().launchApp();
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
-	public void chooseLanguagePopup() throws Exception {
+	public void chooseLanguagePopup(String userType) throws Exception {
 		HeaderChildNode("Choose display/content language popup");
 		waitTime(20000);
 		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objChooseLanguagePopup, "Choose display language popup")) {
@@ -4641,6 +4844,24 @@ public class Zee5TvBusinessLogic extends Utilities {
 			logger.info("Content playback is not started after ad playback");
 			extent.extentLogger("Player", "Content playback is not started after ad playback");
 		}
+		getDriver().navigate().back();
+		waitTime(3000);
+		getDriver().navigate().back();
+		waitTime(3000);
+		getDriver().navigate().back();
+		waitTime(3000);
+		TVTabSelect("Home");
+		waitTime(3000);
+		getDriver().closeApp();
+
+		waitTime(3000);
+
+		getDriver().launchApp();
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
 	public void profile() throws Exception {
@@ -4787,13 +5008,6 @@ public class Zee5TvBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Edit", "Edit profile is displayed in setting page");
 		}
 		waitTime(3000);
-		if (!verifyIsElementDisplayed(Zee5TvWelcomePage.objParentalOption, "Parental option")) {
-			logger.info("Parental option is not displayed in setting page");
-			extent.extentLoggerPass("Parental", "Parental option is not displayed in setting pages");
-		} else {
-			logger.info("Parental option is displayed in setting page");
-			extent.extentLoggerFail("Parental", "Parental option is displayed in setting page");
-		}
 		TVclick(Zee5TvWelcomePage.objVideoqualityOption, "Video quality option");
 		waitTime(3000);
 		TVclick(Zee5TvWelcomePage.objVideoqualityOption, "Video quality option");
@@ -4878,7 +5092,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		}
 		getDriver().navigate().back();
 		waitTime(3000);
-		for (int i = 0; i <= 8; i++) {
+		for (int i = 0; i <= 18; i++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 19");
 			waitTime(2000);
 		}
@@ -4909,7 +5123,11 @@ public class Zee5TvBusinessLogic extends Utilities {
 		}
 
 		getDriver().launchApp();
-		waitTime(5000);
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 
 	}
 
@@ -4995,7 +5213,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(3000);
 		getDriver().navigate().back();
 		waitTime(3000);
-		for (int i = 0; i <= 8; i++) {
+		for (int i = 0; i <= 18; i++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 19");
 			waitTime(2000);
 		}
@@ -5069,15 +5287,17 @@ public class Zee5TvBusinessLogic extends Utilities {
 			logger.info("Skip intro is not displayed");
 			extent.extentLoggerPass("Intro", "Skip intro is not displayed");
 		}
-		waitTime(20000);
+		waitTime(12000);
 		Runtime.getRuntime().exec("adb shell input keyevent 23");
 		waitTime(2000);
-		if (verifyIsElementDisplayed(Zee5TvPlayerPage.objForward10, "Player control")) {
-			logger.info("User can play free content");
-			extent.extentLoggerPass("Player", "User can play free content");
+		Runtime.getRuntime().exec("adb shell input keyevent 23");
+		waitTime(4000);
+		if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerContainer, "Consumption screen")) {
+			logger.info("User is able to play free content");
+			extent.extentLoggerPass("play", "User is able to play free content");
 		} else {
-			logger.info("Free content playback failed");
-			extent.extentLoggerFail("Player", "Free content playback failed");
+			logger.info("playback did not initiate");
+			extent.extentLoggerFail("play", "playback did not initiate");
 		}
 		getDriver().navigate().back();
 		waitTime(2000);
@@ -5085,6 +5305,18 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(2000);
 		getDriver().navigate().back();
 		waitTime(2000);
+		TVTabSelect("Home");
+		waitTime(3000);
+		getDriver().closeApp();
+
+		waitTime(3000);
+
+		getDriver().launchApp();
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -5140,7 +5372,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 				Runtime.getRuntime().exec("adb shell input keyevent 20");
 			}
 		}
-		for (int i = 0; i <= 8; i++) {
+		for (int i = 0; i <= 11; i++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 19");
 			waitTime(2000);
 		}
@@ -5444,13 +5676,25 @@ public class Zee5TvBusinessLogic extends Utilities {
 		}
 		for (int i = 0; i <= 2; i++) {
 			getDriver().navigate().back();
+			waitTime(3000);
 		}
+		TVTabSelect("Home");
+		waitTime(3000);
+		getDriver().closeApp();
+
+		waitTime(3000);
+
+		getDriver().launchApp();
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
 	public void deviceAuthentication() throws Exception {
 		HeaderChildNode("Device Authentication functionality");
 		waitTime(15000);
-		Runtime.getRuntime().exec("adb shell input keyevent 20");
 		verifyIsElementDisplayed(Zee5TvWelcomePage.objalreadyRegister, "Already Register button");
 		TVclick(Zee5TvWelcomePage.objalreadyRegister, "Already Register button");
 		waitTime(5000);
@@ -5489,6 +5733,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 		setPlatform("Web");
 		new Zee5TvBusinessLogic("zee");
 		waitTime(5000);
+		verifyElementPresentAndClick(PWALoginPage.objLanguageButton, "Language button");
+		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -5553,7 +5799,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		Runtime.getRuntime().exec("adb shell input keyevent 20");
 		waitTime(2000);
 		Runtime.getRuntime().exec("adb shell input keyevent 20");
-		for (int i = 0; i <= 10; i++) {
+		for (int i = 0; i <= 14; i++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 22");
 			waitTime(2000);
 		}
@@ -5640,7 +5886,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			logger.info("Login functionality failed");
 			extent.extentLoggerFail("Login", "Login functionality failed");
 		}
-		for (int i = 0; i <= 10; i++) {
+		for (int i = 0; i <= 14; i++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 22");
 			waitTime(2000);
 		}
@@ -5662,13 +5908,27 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 	public void mobilenumberLogin() throws Exception {
 		HeaderChildNode("Authenticating device through mobile number");
-		waitTime(5000);
+		waitTime(10000);
+		if(verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopupAmazon, "Afs login popup")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(2000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(2000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(2000);
+			TVclick(Zee5TvWelcomePage.objLogiButtonAmazon, "Login button amazon");
+			waitTime(7000);
+		}else {
+			logger.info("Popup not displayed");
+		}
 		code = TVgetText(Zee5TvWelcomePage.objloginCode);
 		logger.info("Authenticate code in TV : " + code);
 		extentLoggerPass("Code", "Authenticate code in TV : " + code);
 		setPlatform("Web");
 		new Zee5TvBusinessLogic("zee");
 		waitTime(5000);
+		verifyElementPresentAndClick(PWALoginPage.objLanguageButton, "Language button");
+		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -5714,7 +5974,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			logger.info("Login functionality failed");
 			extent.extentLoggerFail("Login", "Login functionality failed");
 		}
-		for (int i = 0; i <= 10; i++) {
+		for (int i = 0; i <= 14; i++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 22");
 			waitTime(2000);
 		}
@@ -5749,13 +6009,27 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 	public void facebooklogin() throws Exception {
 		HeaderChildNode("Authenticating device through facebook login");
-		waitTime(5000);
+		waitTime(10000);
+		if(verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopupAmazon, "Afs login popup")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(2000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(2000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(2000);
+			TVclick(Zee5TvWelcomePage.objLogiButtonAmazon, "Login button amazon");
+			waitTime(7000);
+		}else {
+			logger.info("Popup not displayed");
+		}
 		code = TVgetText(Zee5TvWelcomePage.objloginCode);
 		logger.info("Authenticate code in TV : " + code);
 		extentLoggerPass("Code", "Authenticate code in TV : " + code);
 		setPlatform("Web");
 		new Zee5TvBusinessLogic("zee");
 		waitTime(5000);
+		verifyElementPresentAndClick(PWALoginPage.objLanguageButton, "Language button");
+		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 		waitTime(3000);
 		waitTime(10000);
@@ -5806,7 +6080,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			logger.info("Login functionality failed");
 			extent.extentLoggerFail("Login", "Login functionality failed");
 		}
-		for (int i = 0; i <= 10; i++) {
+		for (int i = 0; i <= 14; i++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 22");
 			waitTime(2000);
 		}
@@ -5821,6 +6095,15 @@ public class Zee5TvBusinessLogic extends Utilities {
 		getDriver().closeApp();
 		waitTime(3000);
 		getDriver().launchApp();
+		waitTime(7000);
+		Runtime.getRuntime().exec("adb shell input keyevent 20");
+		waitTime(2000);
+		Runtime.getRuntime().exec("adb shell input keyevent 19");
+		waitTime(2000);
+		Runtime.getRuntime().exec("adb shell input keyevent 19");
+		waitTime(2000);
+		Runtime.getRuntime().exec("adb shell input keyevent 19");
+		waitTime(2000);
 	}
 
 	public void staticPages() throws Exception {
@@ -5935,7 +6218,16 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(3000);
 		getDriver().navigate().back();
 		waitTime(3000);
+		getDriver().closeApp();
 
+		waitTime(3000);
+
+		getDriver().launchApp();
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			}
 	}
 
 	public void contactUs() throws Exception {
@@ -6072,7 +6364,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			waitTime(3000);
 
 			TVclick(Zee5TvHomePage.objSubmitButton, "Submit button");
-			waitTime(3000);
+			waitTime(7000);
 			if (verifyIsElementDisplayed(Zee5TvHomePage.objSuccessPopup, "Success popup")) {
 				logger.info("Successfully submitted popup is dsiplayed and contact us page submission succesfull");
 				extent.extentLoggerPass("Success",
@@ -6118,7 +6410,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			waitTime(3000);
 
 			TVclick(Zee5TvHomePage.objSubmitButton, "Submit button");
-			waitTime(3000);
+			waitTime(7000);
 			if (verifyIsElementDisplayed(Zee5TvHomePage.objSuccessPopup, "Success popup")) {
 				logger.info("Successfully submitted popup is dsiplayed and contact us page submission succesfull");
 				extent.extentLoggerPass("Success",
@@ -6133,7 +6425,6 @@ public class Zee5TvBusinessLogic extends Utilities {
 			waitTime(2000);
 			getDriver().navigate().back();
 			waitTime(2000);
-			
 		}
 	}
 
@@ -6166,10 +6457,10 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 	public void clubScenarios() throws Exception {
 		HeaderChildNode("Club scenarios - Login through club user id");
-		waitTime(10000);
+		waitTime(15000);
 		verifyIsElementDisplayed(Zee5TvWelcomePage.objalreadyRegister, "Already Register button");
 		TVclick(Zee5TvWelcomePage.objalreadyRegister, "Already Register button");
-		waitTime(5000);
+		waitTime(8000);
 		code = TVgetText(Zee5TvWelcomePage.objloginCode);
 		logger.info("Authenticate code in TV : " + code);
 		extentLoggerPass("Code", "Authenticate code in TV : " + code);
@@ -6177,6 +6468,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 		setPlatform("Web");
 		new Zee5TvBusinessLogic("zee");
 		waitTime(5000);
+		verifyElementPresentAndClick(PWALoginPage.objLanguageButton, "Language button");
+		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -6262,7 +6555,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		if (verifyIsElementDisplayed(Zee5TvHomePage.objMorecontentPopup, "More content popup")) {
 			logger.info(
 					"Would you like to add selected display language as content language popup is diaplyed when user clicks on different display language");
-			extent.extentLogger("Popup",
+			extent.extentLoggerPass("Popup",
 					"Would you like to add selected display language as content language popup is diaplyed when user clicks on different display language");
 			getDriver().navigate().back();
 		} else {
@@ -6271,7 +6564,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		}
 		getDriver().navigate().back();
 		waitTime(3000);
+		for (int i = 0; i <= 18; i++) {
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(2000);	
+		}
 		HeaderChildNode("Before Tv content playback validation in shows page");
+		TVTabSelect("Home");
+		waitTime(2000);
 		TVTabSelect("Shows");
 		waitTime(3000);
 		for (int i = 0; i <= 18; i++) {
@@ -6337,6 +6636,10 @@ public class Zee5TvBusinessLogic extends Utilities {
 		}
 		getDriver().navigate().back();
 		waitTime(3000);
+		for (int i = 0; i <= 18; i++) {
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(2000);	
+		}
 		HeaderChildNode("Content playback validation in News page");
 		TVTabSelect("News");
 		for (int i = 0; i <= 15; i++) {
@@ -6363,7 +6666,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			}
 		}
 		getDriver().navigate().back();
-		for (int k = 0; k <= 5; k++) {
+		for (int k = 0; k <= 15; k++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 19");
 			waitTime(3000);
 		}
@@ -6372,16 +6675,15 @@ public class Zee5TvBusinessLogic extends Utilities {
 		Runtime.getRuntime().exec("adb shell input keyevent 20");
 		waitTime(2000);
 		Runtime.getRuntime().exec("adb shell input keyevent 20");
-		for (int i = 0; i <= 15; i++) {
+		for (int i = 0; i <= 18; i++) {
 			waitTime(3000);
 			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objVideoPageTrayContent, "Videos page Tray content")) {
 				TVclick(Zee5TvWelcomePage.objVideoPageTrayContent, "Videos page Tray content");
-				waitTime(4000);
+				waitTime(8000);
 				if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Content Title")) {
 					logger.info("User is navigated to content detail page");
 					extent.extentLoggerPass("Page", "User is navigated to content detail page");
 				} else {
-					Runtime.getRuntime().exec("adb shell input keyevent 20");
 					TVclick(Zee5TvWelcomePage.objVideoPageTrayContent, "Videos page Tray content");
 				}
 				break;
@@ -6392,18 +6694,18 @@ public class Zee5TvBusinessLogic extends Utilities {
 		}
 		waitTime(8000);
 		Runtime.getRuntime().exec("adb shell input keyevent 23");
-		waitTime(3000);
+		waitTime(2000);
 		Runtime.getRuntime().exec("adb shell input keyevent 23");
 		if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerContainer, "Consumption screen")) {
 			logger.info("User can play free content in videos page for club user");
 			extent.extentLoggerPass("play", "User can play free content in videos page for club user");
 		} else {
 			logger.info("playback did not initiate");
-			extent.extentLoggerFail("play", "playback did not initiate");
+			extent.extentLogger("play", "playback did not initiate");
 		}
 		getDriver().navigate().back();
 		waitTime(5000);
-		for (int k = 0; k <= 8; k++) {
+		for (int k = 0; k <= 15; k++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 19");
 			waitTime(2000);
 		}
@@ -6589,14 +6891,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
 		}
-		waitTime(5000);
-		if (verifyIsElementDisplayed(Zee5TvSearchPage.objSearchSpaceBar, "Search page")) {
-			logger.info("User is navigated to search page after clicking on search button");
-			extent.extentLoggerPass("Search", "User is navigated to search page after clicking on search button");
-		} else {
-			logger.info("User is not navigated to serach page");
-			extent.extentLoggerFail("Navigation", "User is not navigated to serach page");
-		}
+		waitTime(10000);
 		String searchdataContent[] = { "y", "o", "u", "n", "g", };
 		String searchdataContent2[] = { "d", "r", "e", "a", "m", "s" };
 		type(searchdataContent);
@@ -6681,9 +6976,9 @@ public class Zee5TvBusinessLogic extends Utilities {
 		Runtime.getRuntime().exec("adb shell input keyevent 20");
 		waitTime(2000);
 		TVclick(Zee5TvWelcomePage.objContinuewatchingTrayImage, "Continue watching content");
-		waitTime(2000);
+		waitTime(5000);
 		Runtime.getRuntime().exec("adb shell input keyevent 23");
-		waitTime(8000);
+		waitTime(10000);
 		Runtime.getRuntime().exec("adb shell input keyevent 23");
 		waitTime(3000);
 		Runtime.getRuntime().exec("adb shell input keyevent 23");
@@ -6739,14 +7034,24 @@ public class Zee5TvBusinessLogic extends Utilities {
 		Runtime.getRuntime().exec("adb shell input keyevent 20");
 		waitTime(2000);
 		Runtime.getRuntime().exec("adb shell input keyevent 20");
-		for (int i = 0; i <= 10; i++) {
+		for (int i = 0; i <= 14; i++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 22");
 			waitTime(2000);
 		}
 		TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
-		waitTime(8000);
+		waitTime(10000);
 		getDriver().closeApp();
 		waitTime(3000);
 		getDriver().launchApp();
+		waitTime(7000);
+		Runtime.getRuntime().exec("adb shell input keyevent 20");
+		waitTime(2000);
+		Runtime.getRuntime().exec("adb shell input keyevent 19");
+		waitTime(2000);
+		Runtime.getRuntime().exec("adb shell input keyevent 19");
+		waitTime(2000);
+		Runtime.getRuntime().exec("adb shell input keyevent 19");
+		waitTime(2000);
+		
 	}
 }

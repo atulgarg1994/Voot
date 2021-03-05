@@ -77,5 +77,7 @@ public class Zee5TvSearchPage {
 	public static By objSubscribePopup = By.xpath("//*[@id='tv_pop_up_un_subscribe_text']");
 
 	public static By objContinueWatchingProgressbar = By.xpath("(//*[@id='progressbar'])[1]");
+	
+	public static By objClosePopupButton = By.xpath("//*[@id='tv_pop_up_cancel_text']");
 
 }
