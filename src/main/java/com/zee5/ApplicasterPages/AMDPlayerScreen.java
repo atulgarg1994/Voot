@@ -42,7 +42,6 @@ public class AMDPlayerScreen {
 	public static By objReplay = By.xpath("//*[@id='icon_replay']");
 	public static By objSubtitlePopUp = By.xpath("//*[@id='popup_title']");
 	public static By objEnglishSubtitle = By.xpath("//*[@text='English']");
-	public static By objSubscribeButtonBelowThePlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/get_premium_button']");
 	public static By objSubtitleDefaultSelected = By.xpath("(//*[@id='icon_selected']//parent::*//child::*)[2]");
 	public static By objPlaybackRate2 = By.xpath("//*[@text='2.0X']");
 	public static By objLoginCTA = By.xpath("//*[@id='get_premium_login']");
@@ -88,15 +87,16 @@ public class AMDPlayerScreen {
 	public static By objPauseIcon = By.xpath("//*[@id='playerPlayPauseButton'] | //*[@id='icon_pause']");
 	public static By objFullscreenIcon  = By.xpath("//*[@id='playerFullScreenControl'] | //*[@id='icon_fullscreen']");
 	public static By objThreeDotsOnPlayer = By.xpath("//*[@id='icon_more'] | //*[@id='playerMoreOptionButton']");
-	public static By objTimer = By.xpath("//*[@id='positionText1'] | //*[@id='playerDurationCurrent' and @onScreen='true']");
-
-	public static By objTotalDuration = By.xpath("//*[@id='playerDurationTotal' and @onScreen='true']");
-
-	public static By objProgressBar = By.xpath("//*[@id='progress'] | //*[@id='playerSeekBar' and @onScreen='true']");
 		public static By objBackButton = By.xpath("//*[@id='icon_down'] |//*[@id='playerBackButton' and @onScreen='true']");
 
 	public static By objPlayIcon = By.xpath("//*[@id='icon_play'] | //*[@id='playerPlayPauseButton']");
 	
 	public static By objcontentTitleInconsumptionPage = By.xpath("//*[@resource-id='com.graymatrix.did:id/contentCl']/child::*[@resource-id='com.graymatrix.did:id/item_primary_text'] | //*[@id='content_title']");
+
+	public static By objSubscribeButtonBelowThePlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribeButton']");
+	
+	public static By objTimer = By.xpath("//*[@id='playerDurationCurrent']");
+	public static By objTotalDuration = By.xpath("//*[@id='playerDurationTotal']");
+	public static By objProgressBar = By.xpath("//*[@id='playerSeekBar']");
 
 }

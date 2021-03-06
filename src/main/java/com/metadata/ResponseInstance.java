@@ -450,11 +450,40 @@ public class ResponseInstance {
 		return respCarousel;
 	}
 
-	public static Response getResponseForUpcomingPage() {
+	public static Response getResponseForUpcomingPage(String userType) {
 		Response respCarousel = null;
 
-		String Url = "https://gwapi.zee5.com/content/collection/0-8-3367?page=1&limit=10&item_limit=20&translation=en&country=IN&languages=en,kn&version=6&";
-		respCarousel = given().urlEncodingEnabled(false).when().get(Url);
+		
+		String xAccessToken = getXAccessTokenWithApiKey();
+//		respCarousel = given().urlEncodingEnabled(false).when().get(Url);
+		
+		if (userType.equalsIgnoreCase("Guest")) {
+			String Uri = "https://gwapi.zee5.com/content/collection/0-8-3367?page=1&limit=10&item_limit=20&translation=en&country=IN&languages=en,kn&version=6&";
+			
+			respCarousel = given().headers("x-access-token", xAccessToken).when().get(Uri);
+		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
+			String Uri = "https://gwapi.zee5.com/content/collection/0-8-3367?page=1&limit=10&item_limit=20&translation=en&country=IN&languages=en,kn,hi&version=6&";
+			
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedPassword");
+			String bearerToken = getBearerToken(email, password);
+			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+					.get(Uri);
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			String Uri = "https://gwapi.zee5.com/content/collection/0-8-3367?page=1&limit=10&item_limit=20&translation=en&country=IN&languages=en,kn&version=6&";
+			
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedPassword");
+			String bearerToken = getBearerToken(email, password);
+			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+					.get(Uri);
+		} else {
+			System.out.println("Incorrect user type passed to method");
+		}
 		return respCarousel;
 	}
 

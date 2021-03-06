@@ -26,11 +26,6 @@ public class AMDGenericObjects {
 		return By.xpath("//*[@id='header_primary_text' and contains(text(),\"" + text + "\")]");
 	}
 
-	// Select view all button from trayTile
-	public static By objViewAllBtn(String trayName) {
-		return By.xpath("//*[contains(text(),'" + trayName + "')]//following::*[@id='header_arrow'][1]");
-	}
-
 	public static By objHideKeyboard = By.xpath("//*[@id='hide_btn']");
 
 	public static By objCloseInterstitialAd = By.xpath(
@@ -78,9 +73,6 @@ public class AMDGenericObjects {
 		return By.xpath("//*[contains(text(),'" + text + "']");
 	}
 	
-	public static By objSearchcontentTitle(String title) {
-		return By.xpath("//*[@id='item_primary_text' and @text='"+title+"']");
-	}
 	
 	public static By objTrayTitle = By.xpath("//*[@id='header_primary_text']");
 	
@@ -95,4 +87,11 @@ public class AMDGenericObjects {
 	public static By objSelectFirstCardFromTrayTitle(String text) {
 		return By.xpath("(//*[@id='header_primary_text' and contains(text(),\"" + text + "\")]//following::*[@id='item_image'])[1]");
 	}
+	
+	 public static By objViewAllBtn(String trayName) {
+			return By.xpath("//*[contains(text(),'" + trayName + "')]//following::*[@text='a']");
+		}
+	 public static By objSearchcontentTitle(String title) {
+			return By.xpath("//*[@text='" + title + "' and @class='android.widget.TextView']");
+		}
 }

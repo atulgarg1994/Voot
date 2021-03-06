@@ -95,5 +95,10 @@ public class AMDSubscibeScreen {
 	public static By objGetPremiumBtn = By.xpath("//*[@id='get_premium_button']");
 	
 	public static By objAccountInfoText1 = By.xpath("(//*[@text='Account Info'])[1]");
+	
+	public static By objRSVODPack3Desc = By.xpath("(//*[@resource-id='com.graymatrix.did:id/decription_tv'])[3]");
+	public static By packdetailsinPaymentPage(String pack) {
+			return By.xpath("//*[@text='"+pack+"']");
+		}
 
 }

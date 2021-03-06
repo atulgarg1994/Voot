@@ -31,7 +31,6 @@ public class AMDClubPack {
 		public static By objProceedButtonInSubscribePopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/proceed']");
 		public static By objAcountInfoInSubscribePage = By.xpath("//*[@text='Account Info' and ./parent::*[@id='user_inputs_details_layout']]");
 	
-		public static By objpaymentScreenInSubscribepopup = By.xpath("//*[@text='Payment Options']");
 		public static By objBestOfZee5OriginalsTray = By.xpath("//*[@text='Best of ZEE5 Originals in Kannada']");
 		public static By objRecoMovieTray = By.xpath("//*[@text='Recommended Movies']");
 		public static By objClubicononRecoTrays = By.xpath("((//*[@id='recyclerView']/*/*[@id='recyclerView'])[3]/*/*/*[@id='special_image_1'])[1]");
@@ -58,4 +57,6 @@ public class AMDClubPack {
 		public static By objPremiumTab = By.xpath("//*[@class='android.widget.TextView' and @text='Premium']");
 		public static By objViewAllForBestOfZee5OriginalsTray = By.xpath("//*[@id='cell_top_container']//*[@text='Best of ZEE5 Originals in Kannada']//following-sibling::*[@text='a']");
 		public static By objContinueCTAInSubscribePopup = By.xpath("//*[@id='btnContinue_PackSelection']");
+		
+		public static By objpaymentScreenInSubscribepopup = By.xpath("//*[@class='android.widget.TextView' and @text='Payment Methods']");
 }

@@ -13,7 +13,7 @@ public class Android_LandingScreen_BottomNavigation {
 
 	@BeforeTest
 	public void AppLaunch() throws InterruptedException {
-		System.out.println("Launching Andriod App");
+		System.out.println("Launching Android App");
 		Utilities.relaunch = true;	// Clear App Data on First Launch
 		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
@@ -34,10 +34,11 @@ public class Android_LandingScreen_BottomNavigation {
 	}
 	
 	@Test(priority = 2)		// Manasa
-	public void upcomingScreenValidation() throws Exception {
+	@Parameters({ "userType" })
+	public void upcomingScreenValidation(String userType) throws Exception {
 		System.out.println("\nVerify Upcoming Screen");
-		ZEE5ApplicasterBusinessLogic.upcomingSectionValidation();
-		ZEE5ApplicasterBusinessLogic.upcomingContentValidationWithAPIData();
+		ZEE5ApplicasterBusinessLogic.upcomingSectionValidation(userType);
+		ZEE5ApplicasterBusinessLogic.upcomingContentValidationWithAPIData(userType);
 	}
 	
 	@Test(priority = 3)	

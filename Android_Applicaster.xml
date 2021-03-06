@@ -16,7 +16,7 @@
 	<parameter name="NonsubscribedUserName" value="zee5latest@gmail.com" />
 	<parameter name="NonsubscribedPassword" value="User@123" />
 
-	<parameter name="SubscribedUserName" value="zeetest998@test.com" />
+	<parameter name="SubscribedUserName" value="zeegpay@gmail.com" />
 	<parameter name="SubscribedPassword" value="123456" />
 
 	<parameter name="RegisteredEmail" value="zee5latest@gmail.com" />
@@ -29,7 +29,7 @@
 	<parameter name="RegisteredMobilePassword" value="User@123" />
 	
 	<parameter name="UnRegisteredMobile" value="8073661163" />
-	<parameter name="PromoCode" value="PNB20" />
+	<parameter name="PromoCode" value="zee5sbi20" />
 	
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsUsername" value="zeetest08@gmail.com" />
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsPassword" value="123456"/>
@@ -56,6 +56,7 @@
 	<parameter name="invalidSearchKeyword" value="@$_-(;_+" />
 	<parameter name="partlySpeltSearchKeyword" value="Kam" />
 	<parameter name="searchModuleKeyword" value="Paaru" />
+	
 	
 	<parameter name="searchKeyword" value="Aditya praises Paaru" />
 	<parameter name="searchKeyword1" value="Paaru gets tipsy" />

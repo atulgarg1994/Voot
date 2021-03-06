@@ -58,7 +58,6 @@ public class AMDHomePage {
 	public static By objMyProfileIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/iconSmile']");
 	public static By objGetPremiumPopUP = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title']");
 	public static By objGetPremiumPopUPProceedButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/proceed']");
-	public static By objBeforeTVContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[2]");
 
 	/**
 	 * Sushma
@@ -138,9 +137,6 @@ public class AMDHomePage {
 	public static By objFirstChannelCard = By.xpath("(//*[@id='item_primary_text'])[1]");
 	public static By objKidsContentCard = By.xpath("//*[@id='header_primary_text']//following::*[6]");
 
-	public static By objBeforeTVTray = By.xpath(
-			"(//*[@resource-id='com.graymatrix.did:id/header_primary_text' and contains(text(),'Premiere Episodes | Before Zee')])[1]");
-
 	public static By BeforeTVTrayTitle = By
 			.xpath("(//*[@id='header_primary_text' and  contains(text(),'Premiere Episodes | Before Zee')])[1]");
 
@@ -152,11 +148,6 @@ public class AMDHomePage {
 
 	public static By objFirstContentOfBeforeTvTray = By.xpath(
 			"(//*[@id='header_primary_text' and  contains(text(),'Premiere Episodes | Before Zee')]//following::*)[4]");
-
-	public static By objGetClubInConsumptionScreen = By
-			.xpath("//*[@resource-id='com.graymatrix.did:id/get_premium_button']");
-	public static By objGetPremiumCTAOnCarosel = By
-			.xpath("//*[@resource-id='com.graymatrix.did:id/get_premium_hero_component']");
 
 	public static By objBottomNavigation(String tabName) {
 		return By.xpath("//*[@id='bb_bottom_bar_title' and @text='" + tabName + "']");
@@ -201,9 +192,6 @@ public class AMDHomePage {
 		public static By objLiveTvTab = By.xpath("//*[@id='title' and @text='Live TV'] | //*[@text='Live TV']");
 		public static By objZee5OriginalsTab = By.xpath("//*[@id='title' and @text='ZEE5 Originals'] | //*[@text='ZEE5 Originals']");
 		
-		public static By objSearchBtn = By.xpath("//*[@id='home_toolbar_search_icon']");
-		
-        public static By objHome = By.xpath("(//*[@text='Home']//parent::*)[1] | (//*[@id='navigationIconView'])[1]");
         public static By objUpcoming = By.xpath("(//*[@text='Upcoming']//parent::*)[1] | (//*[@id='navigationIconView'])[2]");
         public static By objDownload = By.xpath("(//*[@text='Downloads']//parent::*)[1] | (//*[@id='navigationIconView'])[3]");
         public static By objMoreMenu = By.xpath("(//*[@text='More']//parent::*)[1] | (//*[@id='navigationIconView'])[5]");
@@ -229,5 +217,12 @@ public class AMDHomePage {
     	}
      	
     public static By objHomeTab = By.xpath("//*[@id='title' and @text='Home'] | (//*[@id='title' or @text='Home'])[1]");
+    
+    public static By objGetPremiumCTAOnCarosel = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribeButton']");
+    public static By objGetClubInConsumptionScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribeButton']");
+    public static By objSearchBtn = By.xpath("//*[@resource-id='com.graymatrix.did:id/home_toolbar_search_icon']");
+    public static By objBeforeTVTray = By.xpath("//*[@resource-id='com.graymatrix.did:id/cell_top_container']/child::*[contains(text(),'Before')]");
+    public static By objBeforeTVContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/cell_bottom_container'])[1]");
 		
+    public static By objHome = By.xpath("//*[@id='navigationTitleTextView' and @text='Home']");
 }

@@ -38,10 +38,6 @@ public class AMDNewsPage {
 	
 	public static By objNextContentImg = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_image']");
 	
-	public static By objWatchlistIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/watch_list_image' and (./preceding-sibling::* | ./following-sibling::*)[@text='Watchlist']]");
-	
-	public static By objDownlaodOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/downlowd_image' and (./preceding-sibling::* | ./following-sibling::*)[@text='Download']]");
-
 	public static By objNewsConsumptionSrnDescription = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_secondary_text']");
 	public static By objChannelName = By.xpath("(//*[@class='android.widget.TextView'])[2]");
 	public static By objContentGenere = By.xpath("(//*[@class='android.widget.TextView'])[3]");
@@ -91,5 +87,9 @@ public class AMDNewsPage {
 	public static By objLiveChannelName = By.xpath("(//*[@id='item_primary_text'])[1]");
 	
 	public static By EntertaintmentNewsTray = By.xpath("//*[@text=' Entertainment News']");
+	
+	public static By objDownlaodOption = By.xpath("//*[@id='metaInfoActionButtonTextView' and @text='Download']");
+	public static By objWatchlistIcon = By.xpath("//*[@id='metaInfoActionButtonTextView' and @text='Watchlist']");
+
 
 }

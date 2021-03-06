@@ -60,4 +60,10 @@ public class AMDUpcomingPage {
 	public static By objGenre = By.xpath("//*[@text='Drama • U • Kannada']");
 
 	public static By objDownloadIcon = By.xpath("//*[@text='Download']");
+	
+
+public static By objGenre(String title) {
+		return By.xpath(""+title+"//following-sibling::*//following-sibling::*");
+	}
+
 }
