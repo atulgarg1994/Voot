@@ -2313,5 +2313,69 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 		return contentID;
 	}
 	
+
+public static Response getResponseForPagesTv(String page, String contLang, int q, String userType) {
+	Response respCarousel = null;
+	String Uri = "";
+	if (page.equalsIgnoreCase("news")) {
+		page = "626";
+	} else if (page.equalsIgnoreCase("music")) {
+		page = "2707";
+	} else if (page.equalsIgnoreCase("home")) {
+		page = "homepage";
+	} else if (page.equalsIgnoreCase("kids")) {
+		page = "3673";
+	} else if (page.equalsIgnoreCase("movies")) {
+		page = "movies";
+	} else if (page.equalsIgnoreCase("play")) {
+		page = "4603";
+	} else if (page.equalsIgnoreCase("shows")) {
+		page = "tvshows";
+	} else if (page.equalsIgnoreCase("club")) {
+		page = "5851";
+	} else if (page.equalsIgnoreCase("premium")) {
+		page = "premiumcontents";
+	} else if (page.equalsIgnoreCase("play")) {
+		page = "4603";
+	} else if (page.equalsIgnoreCase("videos")) {
+		page = "videos";
+	} else if (page.equalsIgnoreCase("zeeoriginals")) {
+		page = "zeeoriginals";
+	}
+
+	if (page.equals("stories")) {
+		Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
+	} else {
+		Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page + "?page=" + q
+				+ "&limit=5&item_limit=20&country=IN&translation=en&languages=" + contLang + "&version=8";
+	}
+
+	String xAccessToken = getXAccessToken();
+	if (userType.equalsIgnoreCase("Guest")) {
+		respCarousel = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when()
+				.get(Uri);
+	} else if (userType.equalsIgnoreCase("SubscribedUser")) {
+		String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+				.getParameter("SubscribedUserName");
+		String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+				.getParameter("SubscribedPassword");
+		String bearerToken = getBearerToken(email, password);
+		respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+				.get(Uri);
+	} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+		String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+				.getParameter("NonsubscribedUserName");
+		String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+				.getParameter("NonsubscribedPassword");
+
+		String bearerToken = getBearerToken(email, password);
+		respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+				.get(Uri);
+	} else {
+		System.out.println("Incorrect user type passed to method");
+	}
+	return respCarousel;
+}
+	
 }
 

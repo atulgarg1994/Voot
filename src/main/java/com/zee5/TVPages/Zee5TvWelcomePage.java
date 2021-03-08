@@ -178,5 +178,11 @@ public class Zee5TvWelcomePage {
 	
 	public static By objAuthenticateNewCodeButton = By.xpath("//*[@id='new_code_button']");
 	
-
+	public static By objApiContent(String str) {
+		return By.xpath("(//*[@id='row_header' and contains(text(),'"+ str +"')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
+	}
+	
+	public static By objContentfromApi(String contentName) {
+		return By.xpath("//*[@id='home_title' and @text='"+ contentName+"']//parent::*//child::*//child::*//following-sibling::*");
+	}
 }
