@@ -16698,6 +16698,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		System.out.println("\n Validation of Settings for Video Streaming and Autoplay as " + userType);
 		waitTime(5000);
 		click(AMDHomePage.objMoreMenu, "More menu");
+		waitTime(2000);
 		click(AMDMoreMenu.objSettings, "Setting button");
 		verifyElementExist(AMDSettingsScreen.objVideoQualityDefaultvalue, "Video Quality option in Settings");
 		boolean defaultvalue = verifyIsElementDisplayed(AMDSettingsScreen.objVideoQualityDefaultvalue);
@@ -16735,9 +16736,9 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
 		waitTime(3000);
 		AndroidTouchAction touch = new AndroidTouchAction(getDriver());
-		touch.press(PointOption.point(100, 100))
-		.waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000))).release().perform();
-		waitTime(2000);
+		touch.press(PointOption.point(150, 300)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000))).release().perform();
+//		waitTime(5000);
+//		click(AMDHomePage.objPlayerScreen, "Player Screen");
 		click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
 		String value2 = findElement(AMDSettingsScreen.objQualityOptionOnPlayer).getText();
 		verifyElementExist(AMDSettingsScreen.objQualityOptionOnPlayer, "Video quality on player settings " + value2);
@@ -16757,36 +16758,37 @@ public void unRegisteredEmailSubscribe() throws Exception {
 							+ value2);
 		}
 		click(AMDSettingsScreen.objQualityOptionOnPlayer, "Video Quality");
-//		String videoOption = findElement(AMDSettingsScreen.objoptionsInVideoQuality).getText();
-//		System.out.println(videoOption);
-//		click(AMDSettingsScreen.objoptionsInVideoQuality, "Option " + videoOption);
-//		waitTime(3000);
-//		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
-//		click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
-//		String DefaultOption = findElement(AMDSettingsScreen.objQualityOptionOnPlayer).getText();
-//		System.out.println(DefaultOption);
-//		if (DefaultOption.contains(videoOption)) {
-//			logger.info("Video Quality is Functional in the player");
-//			extent.extentLoggerPass("Settings", "Video Quality is Functional in the player");
-//		} else {
-//			logger.error("Video Quality is NOT Functional in the player");
-//			extent.extentLoggerFail("Settings", "Video Quality is NOT Functional in the player");
-//		}
+		String videoOption = findElement(AMDSettingsScreen.objoptionsInVideoQuality).getText();
+		System.out.println(videoOption);
+		click(AMDSettingsScreen.objoptionsInVideoQuality, "Option " + videoOption);
+		waitTime(3000);
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
+		String DefaultOption = findElement(AMDSettingsScreen.objQualityOptionOnPlayer).getText();
+		System.out.println(DefaultOption);
+		if (DefaultOption.contains(videoOption)) {
+			logger.info("Video Quality is Functional in the player");
+			extent.extentLoggerPass("Settings", "Video Quality is Functional in the player");
+		} else {
+			logger.error("Video Quality is NOT Functional in the player");
+			extent.extentLoggerFail("Settings", "Video Quality is NOT Functional in the player");
+		}
 		Back(3);
 		click(AMDHomePage.objMoreMenu, "More menu");
+		waitTime(3000);
 		click(AMDMoreMenu.objSettings, "Settings button");
-//		String value3 = findElement(AMDSettingsScreen.objVideoQualityDefaultvalue).getText();
-//		if (DefaultOption.contains(value3) == false) {
-//			logger.info(
-//					"Settings changed from the player does not change the video settings set in the 'Select Video Quality' Settings screen.");
-//			extent.extentLoggerPass("Settings",
-//					"Settings changed from the player does not change the video settings set in the 'Select Video Quality' Settings screen");
-//		} else {
-//			logger.error(
-//					"settings changed from the player changes the video settings set in the 'Select Video Quality' Settings screen.");
-//			extent.extentLoggerFail("Settings",
-//					"settings changed from the player changes the video settings set in the 'Select Video Quality' Settings screen");
-//		}
+		String value3 = findElement(AMDSettingsScreen.objVideoQualityDefaultvalue).getText();
+		if (DefaultOption.contains(value3) == false) {
+			logger.info(
+					"Settings changed from the player does not change the video settings set in the 'Select Video Quality' Settings screen.");
+			extent.extentLoggerPass("Settings",
+					"Settings changed from the player does not change the video settings set in the 'Select Video Quality' Settings screen");
+		} else {
+			logger.error(
+					"settings changed from the player changes the video settings set in the 'Select Video Quality' Settings screen.");
+			extent.extentLoggerFail("Settings",
+					"settings changed from the player changes the video settings set in the 'Select Video Quality' Settings screen");
+		}
 		verifyElementExist(AMDSettingsScreen.objAutoPlayToggleSwitch, "Autoplay Toggle Switch");
 		String value4 = findElement(AMDSettingsScreen.objAutoPlayToggleON).getText();
 		System.out.println(value4);
@@ -16863,9 +16865,10 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			waitForAdToFinishInAmd();
 			
 		}
-		// scrubVideoToLast(AMDPlayerScreen.objProgressBar);
+		
+//		scrubVideoToLast(AMDPlayerScreen.objProgressBar);
 		waitTime(5000);
-		scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
+//		scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
 		waitTime(2000);
 		verifyElementExist(AMDPlayerScreen.objReplayIconOnPlayer, "Replay Icon");
 		boolean replay = findElement(AMDPlayerScreen.objReplayIconOnPlayer).isDisplayed();

@@ -127,7 +127,6 @@ public class AMDHomePage {
 			.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title' and @text='Subscribe']");
 
 	public static By objSubscribePopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title']");
-	public static By objPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/player_root']");
 	public static By objPauseIconOnPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_pause']");
 	public static By objOpenWithDevicePopUp = By.xpath("//*[@text='Open with']");
 	public static By objAdBannerAboveCarousel = By
@@ -225,4 +224,6 @@ public class AMDHomePage {
     public static By objBeforeTVContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/cell_bottom_container'])[1]");
 		
     public static By objHome = By.xpath("//*[@id='navigationTitleTextView' and @text='Home']");
+    
+    public static By objPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/player_root'] | //*[@id='homeTabPageRecyclerView']");
 }

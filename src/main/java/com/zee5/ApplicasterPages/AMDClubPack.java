@@ -3,9 +3,7 @@ package com.zee5.ApplicasterPages;
 import org.openqa.selenium.By;
 
 public class AMDClubPack {
-
-	public static By objupgradeIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribeiconlayout']");
-	public static By objCrownIcon = By.xpath("//*[@text='P']");
+	
 	public static By objBuySubscriptionScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title']");	
 	public static By objUpgradeCTAOnCarousel = By.xpath("//*[@resource-id='com.graymatrix.did:id/get_premium_hero_component']");
 	public static By objUpgradeCTABelowPlayer = By.xpath("//*[@class='android.widget.FrameLayout' and ./*[@text='Upgrade']]");
@@ -59,4 +57,7 @@ public class AMDClubPack {
 		public static By objContinueCTAInSubscribePopup = By.xpath("//*[@id='btnContinue_PackSelection']");
 		
 		public static By objpaymentScreenInSubscribepopup = By.xpath("//*[@class='android.widget.TextView' and @text='Payment Methods']");
+		
+		public static By objupgradeIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribeiconlayout'] | //*[@text='SUBSCRIBE']");
+		public static By objCrownIcon = By.xpath("//*[@text='P'] | //*[@id='home_subscribe_icon_view']");
 }
