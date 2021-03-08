@@ -2809,6 +2809,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
 		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
 		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
+		click(AMDPlayerScreen.objPlayerScreen,"Player screen");
 		click(AMDPlayerScreen.objPauseIcon, "Pause");
 		WebElement element = getDriver().findElement(byLocator1);
 		String xDuration = getAttributValue("x", AMDPlayerScreen.objTotalDuration);
@@ -2817,6 +2818,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
 		logger.info("Current time after seeking : " + timeToSec(afterSeek));
 		extent.extentLogger("Seek", "Current time after seeking in seconds: " + timeToSec(afterSeek));
+		if(! userType.equalsIgnoreCase("SubscribedUser")) {
+			waitForAdToFinishInAmd();
+		}
 		click(AMDPlayerScreen.objPlayIcon, "Play");
 		waitTime(6000);
 	}
@@ -3001,6 +3005,30 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 
 		mixpanel.ValidateParameter("", "Video Watch Duration");
+	}
+	
+	public void AdInitializedEvent(String userType,String contentType,String contentID,String contentName) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			SearchContentFromSearchPage(userType, contentType, contentID, contentName);
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (ad == true) {
+				logger.info("Ad is Displayed");
+				extentLogger("Ad", "Ad is Displayed");
+				waitTime(5000);
+
+				setFEProperty(userType);
+				mixpanel.FEProp.setProperty("Source", "Search_Tab");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
+				mixpanel.FEProp.setProperty("Ad Location", "instream");
+				mixpanel.ValidateParameter("", "Ad Initialized");
+
+			} else {
+				logger.info("Ad is not displayed");
+				extentLogger("Ad", "Ad is not displayed");
+			}
+
+		}
 	}
 
 	public void AdInitializedEventForTrailerContent(String usertype, String keyword4) throws Exception {
@@ -8946,26 +8974,26 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.ValidateParameter("", "Resume");
     }
 	
-	public void SearchContentFromSearchPage(String userType, String contentType, String contentId, String contentName)
-			throws Exception {
-
-		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search icon");
-		click(AMDSearchScreen.objSearchEditBox, "Search edit box");
-		type(AMDSearchScreen.objSearchEditBox, contentName, "Search edit box");
-		click(AMDSearchScreen.objSearchItemBySearchTitle(contentName), "Searched content");
-		if (!userType.equalsIgnoreCase("SubscribedUser")) {
+public void SearchContentFromSearchPage(String userType,String contentType,String contentId,String contentName) throws Exception {
+		
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn,"Search icon");
+		click(AMDSearchScreen.objSearchEditBox,"Search edit box");
+		type(AMDSearchScreen.objSearchEditBox, contentName,"Search edit box");
+		click(AMDSearchScreen.objSearchItemBySearchTitle(contentName),"Searched content");
+		
+		if(! userType.equalsIgnoreCase("SubscribedUser")) {
 			waitForAdToFinishInAmd();
 		}
-
-		if (contentType.equalsIgnoreCase("Trailer")) {
+		
+		if(contentType.equalsIgnoreCase("Trailer")) {
 			ResponseInstance.setPropertyForContentDetailsFromSearchPage(contentId);
 		}
-
-		if (contentType.equalsIgnoreCase("Free")) {
+		
+		if(contentType.equalsIgnoreCase("Free")) {
 			ResponseInstance.setPropertyForContentDetailsFromSearchPage(contentId);
 		}
-
-		if (contentType.equalsIgnoreCase("Premium")) {
+		
+		if(contentType.equalsIgnoreCase("Premium")) {
 			ResponseInstance.setPropertyForContentDetailsFromSearchPage(contentId);
 		}
 	}
@@ -9049,5 +9077,72 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 		
 	}	
+	
+	public void PlayerViewChangedEvent(String userType,String contentType,String contentID,String contentName) throws Exception {
+		HeaderChildNode("Verify Resume Event from search navigation");
+		SearchContentFromSearchPage(userType, contentType,contentID,contentName);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		waitTime(4000);
+		setFEProperty(userType);
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.ValidateParameter("", "Player View Changed");
+
+	}
+	
+	public void VideoWatchDurationEvent(String userType,String contentType,String contentID,String contentName) throws Exception {
+		HeaderChildNode("Verify Resume Event from search navigation");
+		SearchContentFromSearchPage(userType, contentType,contentID,contentName);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
+		waitTime(4000);
+		setFEProperty(userType);
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.ValidateParameter("", "Video Watch Duration");
+	}
+	
+
+	public void VideoExitEvent(String userType,String contentType,String contentID,String contentName) throws Exception {
+		HeaderChildNode("Verify Resume Event from search navigation");
+		SearchContentFromSearchPage(userType, contentType,contentID,contentName);
+		waitTime(6000);
+		verifyElementPresent(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		Back(1);
+		waitTime(2000); 
+		setFEProperty(userType);
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		Mixpanel.ValidateParameter("", "Video Exit");
+	}
+	
+	public void ResumeEvent(String userType,String contentType,String contentID,String contentName) throws Exception {
+		HeaderChildNode("Verify Resume Event from search navigation");
+		SearchContentFromSearchPage(userType, contentType,contentID,contentName);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(3000); 
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayIcon, "Play icon");
+		waitTime(2000);
+		verifyElementPresent(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		waitTime(2000); 
+		setFEProperty(userType);
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.ValidateParameter("", "Resume");
+	}
+	
+	public void VideoViewEvent(String userType,String contentType,String contentID,String contentName) throws Exception {
+		HeaderChildNode("Verify Pause Event from search navigation");
+		SearchContentFromSearchPage(userType, contentType,contentID,contentName);
+		waitTime(3000);
+		verifyElementPresent(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		waitTime(2000);
+		setFEProperty(userType);
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.ValidateParameter("", "Video View");
+	}
 	
 }

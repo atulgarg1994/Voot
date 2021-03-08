@@ -24,16 +24,13 @@ public class ZNAMixpanel_SubtitleLanguageChange {
 		Zee5ApplicasterMixPanelBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
-		
 	}
 	
 	@Test(priority = 2)
 	@Parameters({ "userType"})
 	public void SubtitleLanguageChangeEventofPremiumContent(String userType) throws Exception {
 		System.out.println("\n Subtitle Language Change event of Premium content");
-//		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.SubtitleLanguageChangeEventForPremiumContent(userType,"Home");
-		
+		Zee5ApplicasterMixPanelBusinessLogic.SubtitleLanguageChangeEventForPremiumContent(userType,"Home");	
 	}
 	
 	@Test(priority = 3)
@@ -42,7 +39,6 @@ public class ZNAMixpanel_SubtitleLanguageChange {
 		System.out.println("Subtitle Language Change event of Trailer content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.SubtitleLanguageChangeEventForTrailerContent(userType,keyword9);
-		
 	}
 
 	@Test(priority = 4)
@@ -67,7 +63,6 @@ public class ZNAMixpanel_SubtitleLanguageChange {
 		System.out.println("Subtitle Language Change event of Content from My WatchList page");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.SubtitleLanguageChangeEventOfContentFromMyWatchListPage(userType);
-		
 	}
 	
 	@Test(priority = 7)
@@ -76,7 +71,6 @@ public class ZNAMixpanel_SubtitleLanguageChange {
 		System.out.println("Subtitle Language Change event of Content from Upnext Rail");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.SubtitleLanguageChangeEventOfContentFromUpNextRail(userType, keyword9);
-		
 	}
 	
 	@AfterTest
