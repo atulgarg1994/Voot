@@ -156,5 +156,7 @@ public class AMDOnboardingScreen {
 
 	public static By objExitPopupHorizontalLinebar = By.xpath("(//*[@class='android.view.View'])[2] | //*[@id='pillView']");
 
-
+	public static By objSelectDisplayLanguage(int index) {
+		return By.xpath("//*[@id='display_language_content'][" + index + "]");
+	}
 }

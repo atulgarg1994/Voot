@@ -110,6 +110,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	String SVODEpisode = getParameterFromXML("SVODEpisode");
 	
 	String packDetails;
+	
+	String getRuntimeValue = "Auto";
 
 	public void init() {
 
@@ -393,7 +395,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo code in subscribe page");
 		verifyElementPresent(AMDSubscibeScreen.objApply, "Apply button is subscribe page");
 		PartialSwipe("UP", 4);
-	    packDetails = getText(AMDSubscibeScreen.objRSVODPack3Desc);
+	    packDetails = getText(AMDSubscibeScreen.objRSVODselectedPackDesc);
 		click(AMDSubscibeScreen.objContinueBtn, "Continue button");
 		verifyElementExist(AMDSubscibeScreen.objAccountInfoHeader, "Account info screen");
 		hideKeyboard();
@@ -4476,10 +4478,9 @@ public void unRegisteredEmailSubscribe() throws Exception {
 	public void EmptystateScreenValidation(String userType) throws Exception {
 		extent.HeaderChildNode("Downloads screen Empty-state validation as " + userType);
 		System.out.println("\nDownloads screen Empty-state validation as: " + userType);
-		click(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab");
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
 		waitTime(3000);
-		if (verifyElementExist(AMDDownloadPage.objDwnloadsHeader,
-				"Downloads header at the top on center of the screen")) {
+		if (verifyElementDisplayed(AMDHomePage.objDownloadBtn)) {
 			extent.extentLogger("Downloads tab",
 					"User is navigated to Downloads screen on tapping Downloads button present in the bottom navigation bar");
 			logger.info(
@@ -4489,7 +4490,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			logger.error("User fails to navigate to Downloads screen");
 		}
 		Back(1);
-		click(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab");
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
 
 		if (verifyElementExist(AMDDownloadPage.objBrowseToDownloadBtn,
 				"Browse to Download CTA in Empty-state screen to download")) {
@@ -4514,7 +4515,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			extent.extentLoggerFail("Shows tab", "User fails to tap the 'Browse to Download' button");
 			logger.error("User fails to tap the 'Browse to Download' button");
 		}
-		click(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab");
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
 	}
 
 	public void validationofDownloadingContent() throws Exception {
@@ -4989,15 +4990,15 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		type(AMDSearchScreen.objSearchBoxBar, contentName, "Search Field");
 		waitTime(3000);
 		hideKeyboard();
-		click(AMDSearchScreen.objSelectFirstEpisodeResult, "Searched Show");
+		click(AMDDownloadPage.objsearchresultFirst , "Searched Show");
 		waitForElementDisplayed(AMDDownloadPage.objPauseIconOnPlayer, 2000);
 		waitTime(3000);
 		verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
 		waitTime(2000);
 		DownloadVideoQualityPopUp(Quality, checkAlwaysAskOption);
-		waitTime(2000);
+		waitTime(3000);
 		Back(1);
-		click(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab");
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
 	}
 
 	public void DownloadVideoQualityPopUp(String Quality, boolean checkAlwaysAsk) throws Exception {
@@ -5015,6 +5016,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 				click(AMDDownloadPage.objAlwaysAskCheckBox, "Always ask quality for every download");
 			}
 		}
+		waitTime(3000);
 		click(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
 	}
 
@@ -5084,7 +5086,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 	public void verifyMovieContentInDownloadsScreen(String MovieName, String Quality) throws Exception {
 		extent.HeaderChildNode("Validating the downloading content in Movies tab");
 		System.out.println("\nValidating the downloading content in Movies tab");
-
+         Back(1);
 		DownloadContent(MovieName, Quality, true);
 		String getPropertyValue = getAttributValue("enabled", AMDDownloadPage.objmoviestab);
 		if (getPropertyValue.equalsIgnoreCase("true")) {
@@ -5118,10 +5120,17 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		extent.HeaderChildNode("Verify the UI/UX of Download landing screen as " + userType);
 		System.out.println("\nVerify the UI/UX of Download landing screen as " + userType);
 		waitTime(5000);
-		verifyElementExist(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab at the bottom navigation bar");
-		click(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab");
+		verifyElementPresent(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
 		waitTime(3000);
-		verifyElementExist(AMDDownloadPage.objDwnloadsHeader, "Downloads header at the top on center of the screen");
+		if(verifyElementDisplayed(AMDDownloadPage.objDwnloadsHeader)) {
+			extent.extentLoggerPass("Downloads", "Downloads header at the top on center of the screen is displayed ");
+			logger.info("Downloads header at the top on center of the screen is displayed");
+		}else {
+			extent.extentLoggerFail("Downloads", "Downloads header at the top on center of the screen is NOT  displayed [AMA2-3460]");
+			logger.error("Downloads header at the top on center of the screen is NOT displayed [AMA2-3460]");
+		}
+//		verifyElementPresent(AMDDownloadPage.objDwnloadsHeader, "Downloads header at the top on center of the screen");
 		verifyElementExist(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
 		verifyElementExist(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
 		verifyElementExist(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen ");
@@ -5148,6 +5157,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		click(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
 		click(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Shows tab");
 		waitTime(3000);
+	
 		getSelectedTabName = getText(AMDHomePage.objSelectedTab);
 		if (getSelectedTabName.equalsIgnoreCase("Shows")) {
 			extent.extentLoggerPass("Shows tab", "User is navigated to Shows landing page");
@@ -5158,7 +5168,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			logger.error("User fails to navigate to Shows landing page and instead displayed : " + getSelectedTabName
 					+ " landing screen");
 		}
-		click(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab");
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
 		verifyElementPresentAndClick(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
 		verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Movies tab");
 		waitTime(3000);
@@ -5173,7 +5183,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			logger.error("User fails to navigate to Movies landing page and instead displayed : " + getSelectedTabName
 					+ " landing screen");
 		}
-		click(AMDHomePage.objBottomNavigation("Downloads"), "Downloads tab");
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
 		verifyElementPresentAndClick(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
 		verifyElementPresentAndClick(AMDDownloadPage.objBrowseToDownloadBtn, "Browse to Download CTA under Videos tab");
 		waitTime(3000);
@@ -5232,8 +5242,9 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		System.out.println(
 				"\nValidating Video DownloadScreen and Content playback of downloaded Video with Single tier content");
 
-		verifyElementPresentAndClick(AMDSearchScreen.objDownloadsOption, "Downloading Icon");
+		//verifyElementPresentAndClick(AMDSearchScreen.objDownloadsOption, "Downloading Icon");
 		waitTime(2000);
+		Back(1);
 		DownloadContent(content1, "Good", true);
 		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
 		System.out.println(DownloadedContentText);
@@ -5248,7 +5259,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		}
 		Back(1);
 		waitTime(3000);
-		click(AMDSearchScreen.objDownloadsOption, "Downloading Icon");
+		click(AMDHomePage.objDownloadBtn, "Downloading Icon");
 		String getPropertyValue = getAttributValue("enabled", AMDDownloadPage.objvideostab);
 		if (getPropertyValue.equalsIgnoreCase("true")) {
 			extent.extentLoggerPass("Videos tab",
@@ -5734,7 +5745,6 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		verifyElementExist(AMDMoreMenu.objBuildVersion, "Build Version");
 	}
 
-	@SuppressWarnings("deprecation")
 	public void parentalPinValidation(String userType, String searchKeyword) throws Exception {
 		extent.HeaderChildNode("Parental Pin Validation");
 		System.out.println("\nParental Pin Validation");
@@ -7004,7 +7014,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 	/**
 	 * Author : Sushma Module : Settings
 	 */
-	public void settings(String usertype) throws Exception {
+	public void settingsScreenValidation(String usertype) throws Exception {
 		extent.HeaderChildNode("Settings screen validation");
 		System.out.println("\nSettings screen validation");
 
@@ -7049,16 +7059,15 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		click(AMDMoreMenu.objBackButtonInSettingsScreen, "Back button in settings screen");
 		if (verifyElementPresent(AMDMoreMenu.objSettings, "Settings option")) {
 			logger.info(
-					"on tapping on the Back button from settings screen, user is navigated to the screen from which More screen was launched");
+					"On tapping on the Back button from settings screen, user is navigated to the screen from which More screen was launched");
 			extentLoggerPass("Back button",
-					"on tapping on the Back button from settings screen, user is navigated to the screen from which More screen was launched");
+					"On tapping on the Back button from settings screen, user is navigated to the screen from which More screen was launched");
 		} else {
 			logger.error(
-					"on tapping on the Back button from settings screen, user is not navigated to the screen from which More screen was launched");
+					"On tapping on the Back button from settings screen, user is not navigated to the screen from which More screen was launched");
 			extentLoggerFail("Back button",
-					"on tapping on the Back button from settings screen, user is not navigated to the screen from which More screen was launched");
+					"On tapping on the Back button from settings screen, user is not navigated to the screen from which More screen was launched");
 		}
-
 		click(AMDMoreMenu.objSettings, "Settings option");
 	}
 
@@ -7067,6 +7076,8 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		extent.HeaderChildNode("Video Streaming validation");
 		System.out.println("\nVideo Streaming validation");
 		// Video streaming menus validation
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
 		verifyElementPresent(AMDMoreMenu.objvideoQualityOption, "Video Quality option");
 		verifyElementPresent(AMDMoreMenu.objVideoStreamOverWifiOnlyOption, "Stream over wifi only option");
 		verifyElementPresent(AMDMoreMenu.objVideoAutoPlay, "Video Autoplay option");
@@ -7082,13 +7093,13 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		verifyElementPresent(AMDMoreMenu.objAutoOption, "option Auto");
 		verifyElementPresent(AMDMoreMenu.objCloseButtonInVideoQualityScreen, "Close button");
 		if (verifyElementDisplayed(AMDMoreMenu.objSelectedVideoQualityOption("Auto"))) {
-			logger.info("the default selection in the Select Video Quality is 'Auto' option");
+			logger.info("Default selection in the Select Video Quality is 'Auto' option");
 			extentLoggerPass("Default selected Video quality option",
-					"the default selection in the Select Video Quality is 'Auto' option");
+					"Default selection in the Select Video Quality is 'Auto' option");
 		} else {
-			logger.error("the default selection in the Select Video Quality is not 'Auto' option");
+			logger.error("Default selection in the Select Video Quality is not 'Auto' option");
 			extentLoggerFail("Default selected Video quality option",
-					"the default selection in the Select Video Quality is not 'Auto' option");
+					"Default selection in the Select Video Quality is not 'Auto' option");
 		}
 
 		click(AMDMoreMenu.objCloseButtonInVideoQualityScreen, "Close button");
@@ -7134,17 +7145,17 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			}
 		}
 
-		String wifitoggleStatus = getText(AMDMoreMenu.objVideo_WifiOnly);
-		if (wifitoggleStatus.equalsIgnoreCase("OFF")) {
-			logger.info("the default state of the 'Stream over WiFi only' option is in off state.");
-			extentLoggerPass("Stream over WiFi only",
-					"the default state of the 'Stream over WiFi only' option is in off state.");
-		} else {
-			logger.error("the default state of the 'Stream over WiFi only' option is not in off state.");
-			extentLoggerFail("Stream over WiFi only",
-					"the default state of the 'Stream over WiFi only' option is not in off state.");
+		if(userType.equalsIgnoreCase("Guest")) {
+			String wifitoggleStatus = getText(AMDMoreMenu.objVideo_WifiOnly);
+			if (wifitoggleStatus.equalsIgnoreCase("OFF")) {
+				logger.info("Default state of the 'Stream over WiFi only' option is in off state.");
+				extentLoggerPass("Stream over WiFi only","Default state of the 'Stream over WiFi only' option is in off state.");
+			} else {
+				logger.error("Default state of the 'Stream over WiFi only' option is not in off state.");
+				extentLoggerFail("Stream over WiFi only",
+					"Default state of the 'Stream over WiFi only' option is not in off state.");
+			}
 		}
-
 		Back(1);
 		waitTime(3000);
 		Back(1);
@@ -7215,7 +7226,10 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			logger.info("Content playback is not playing on Wifi network");
 			extent.extentLoggerFail("Play", "Content playback is not playing on Wifi network");
 		}
-		Back(1);
+		waitTime(2000);
+//		Back(1);
+		navigateBackToHomeLandingScreen();
+		waitTime(2000);
 		verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More menu icon");
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
 		click(AMDMoreMenu.objVideo_WifiOnly, "wifi toggle");
@@ -7277,7 +7291,10 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			logger.error("Content playback is not playing on Wifi network");
 			extent.extentLoggerFail("Play", "Content playback is not playing on Wifi network");
 		}
-		Back(1);
+		waitTime(2000);
+//		Back(1);
+		navigateBackToHomeLandingScreen();
+		waitTime(2000);
 		verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More menu icon");
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
 		click(AMDMoreMenu.objVideo_WifiOnly, "wifi toggle");
@@ -7302,14 +7319,17 @@ public void unRegisteredEmailSubscribe() throws Exception {
 						"On/Off toggle is not displayed at the right side of the 'Auto Play' option");
 			}
 		}
-		String elementAutoPlayToggleStatus = getText(AMDMoreMenu.objVideo_Autoply);
-		if (elementAutoPlayToggleStatus.equalsIgnoreCase("ON")) {
-			logger.info("the default state of the 'Auto Play' option is in ON state");
-			extentLoggerPass("Video Auto Play", "the default state of the 'Auto Play' option is in ON state");
-		} else {
-			logger.info("the default state of the 'Auto Play' option is not in ON state");
-			extentLoggerFail("Video Auto Play", "the default state of the 'Auto Play' option is not in ON state");
+		if(userType.equalsIgnoreCase("Guest")) {
+			String elementAutoPlayToggleStatus = getText(AMDMoreMenu.objVideo_Autoply);
+			if (elementAutoPlayToggleStatus.equalsIgnoreCase("ON")) {
+				logger.info("Default state of the 'Auto Play' option is in ON state");
+				extentLoggerPass("Video Auto Play", "Default state of the 'Auto Play' option is in ON state");
+			} else {
+				logger.info("Default state of the 'Auto Play' option is not in ON state");
+				extentLoggerFail("Video Auto Play", "Default state of the 'Auto Play' option is not in ON state");
+			}
 		}
+		
 	}
 
 	public static String getCarouselTitleFromAPI(String userType, String pagenameforApi, String pUsername,
@@ -7347,8 +7367,12 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		extent.HeaderChildNode("Display language settings validation");
 		System.out.println("\nDisplay language settings validation");
 
-		waitTime(3000);
-		Swipe("UP", 1);
+		verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu tab");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		waitTime(1000);
+		Swipe("UP", 2);
+		waitTime(1000);
+		
 		// Display language option validation
 		WebElement selectedDisplayLanguages = findElement(AMDMoreMenu.objDisplayLang);
 		int selectedDisplayLanguagesX = selectedDisplayLanguages.getLocation().getX();
@@ -7361,7 +7385,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		if (displayLanguagetextY < (selectedDisplayLanguagesY + 10)) {
 			if (selectedDisplayLanguagesX > displayLanguagetextX) {
 				logger.info("Selected Display language is displayed at the right side of the option");
-				extent.extentLogger("Display Language",
+				extent.extentLoggerPass("Display Language",
 						"Selected Display language is displayed at the right side of the option");
 			} else {
 				logger.error("Selected Display language is not displayed at the right side of the option");
@@ -7372,11 +7396,12 @@ public void unRegisteredEmailSubscribe() throws Exception {
 
 		// Display language screen functionality validation
 		click(AMDMoreMenu.objDisplayLang, "Display language");
-
+		waitTime(2000);
 		verifyElementPresent(AMDLoginScreen.objSelectedDisplayLanguage, "Selected display language");
 		String selectedlanguage1 = getText(AMDLoginScreen.objSelectedDisplayLanguage);
-
-		click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection2), "language");
+		
+//		click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection2), "language");
+		SelectDisplayLanguage(displayLanguageSelection2);
 
 		WebElement selectedDisplayLanguage = findElement(AMDLoginScreen.objSelectedDisplayLanguage);
 		int selectedDisplayLanguageX = selectedDisplayLanguage.getLocation().getX();
@@ -7389,7 +7414,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		if (tickMarkY < (selectedDisplayLanguageY + 20)) {
 			if (tickMarkX < selectedDisplayLanguageX) {
 				logger.info("Selected Display Language screen with tick mark at the left side is displayed");
-				extent.extentLogger("Selected Display Language",
+				extent.extentLoggerPass("Selected Display Language",
 						"Selected Display Language screen with tick mark at the left side is displayed");
 			} else {
 				logger.error("Selected Display Language screen with tick mark at the left side is not displayed");
@@ -7402,7 +7427,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 
 		if (selectedlanguage1 != selectedlanguage2) {
 			logger.info("Display Language screen is functional");
-			extentLogger("Display language screen", "Display Language screen is functional");
+			extentLoggerPass("Display language screen", "Display Language screen is functional");
 		} else {
 			logger.info("Display Language screen is not functional");
 			extentLoggerFail("Display language screen", "Display Language screen is not functional");
@@ -7412,20 +7437,25 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		logger.info(totalSelectedLanguages);
 
 		if (totalSelectedLanguages == 1) {
-			logger.info("user can select only one display language");
-			extentLogger("Select one language", "user can select only one display language");
+			logger.info("User can select only one display language");
+			extentLoggerPass("Select one language", "User can select only one display language");
 		}
 
-		// Validation of swipe functionality in the display language screen
-		click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1), "language");
+		//****** Validation of swipe functionality in the display language screen
+//		click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1), "language");
+//		Unable click on display lang with above code "AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1)" so created a new method to click
+		SelectDisplayLanguage(displayLanguageSelection1);
 
-		String pos1 = getAttributValue("bounds", AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1));
+//		String pos1 = getAttributValue("bounds", AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1));
+		String pos1 = getAttributValue("bounds", AMDLoginScreen.objSelectedDisplayLanguage);
 		String pos2 = null;
-		Swipe("UP", 1);
-		pos2 = getAttributValue("bounds", AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1));
+		PartialSwipe("UP", 1);
+		PartialSwipe("DOWN", 2);
+//		pos2 = getAttributValue("bounds", AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1));
+		pos2 = getAttributValue("bounds", AMDLoginScreen.objSelectedDisplayLanguage);
 		if (pos1 != pos2) {
 			logger.info("Display Language screen is scrollable");
-			extentLogger("Swipe", "Display Language screen is scrollable");
+			extentLoggerPass("Swipe", "Display Language screen is scrollable");
 		} else {
 			logger.info("Display Language screen is not scrollable");
 			extentLoggerFail("Swipe", "Display Language screen is not scrollable");
@@ -7449,7 +7479,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		if (contentLanguagetextY < (selectedContentLanguagesY + 10)) {
 			if (selectedContentLanguagesX > contentLanguagetextX) {
 				logger.info("Selected Content language is displayed at the right side of the option");
-				extent.extentLogger("Content Language",
+				extent.extentLoggerPass("Content Language",
 						"Selected Content language is displayed at the right side of the option");
 			} else {
 				logger.error("Selected Content language is not displayed at the right side of the option");
@@ -7468,7 +7498,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		position2 = getAttributValue("bounds", AMDOnboardingScreen.objSelectContentLang("Telugu"));
 		if (position1 != position2) {
 			logger.info("Content Language screen is scrollable");
-			extentLogger("Content language", "Content Language screen is scrollable");
+			extentLoggerPass("Content language", "Content Language screen is scrollable");
 		} else {
 			logger.info("Content Language screen is not scrollable");
 			extentLoggerFail("Content language", "Content Language screen is not scrollable");
@@ -7689,8 +7719,8 @@ public void unRegisteredEmailSubscribe() throws Exception {
 	public void downloadSettingsValidation() throws Exception {
 		extent.HeaderChildNode("Verify if Quality in Downloads is set to Ask Everytime by default");
 		System.out.println("\nDownload settings validation");
-//		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-//		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
 		String quality = getText(AMDMoreMenu.objDownloads_Quality);
 		System.out.println(quality);
 		if (quality.equalsIgnoreCase("Ask each time")) {
@@ -8608,6 +8638,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void VerifyWatchListScreen() throws Exception {
 		waitTime(3000);
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
@@ -9866,12 +9897,12 @@ public void unRegisteredEmailSubscribe() throws Exception {
 	 */
 
 	public void DownloadOverWiFiOnlyONValidation(String userType, String searchKeyword1) throws Exception {
+		extent.HeaderChildNode("Download over WiFi only ON state Validation");
+		System.out.println("\nDownload over WiFi only ON state Validation");
 		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Download over WiFi only ON state Validation");
-			System.out.println("\nDownload over WiFi only ON state Validation");
-
-//			verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu tab");
-//			verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+	
+			verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu tab");
+			verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
 			waitTime(2000);
 			verifyElementPresentAndClick(AMDSettingsScreen.objDownloadOverWifiToggle, "Wifi On toggle");
 			Back(1);
@@ -9889,6 +9920,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 
 			verifyElementPresentAndClick(AMDMoreMenu.objDownloadIcon, "Download icon");
 			verifyElementPresentAndClick(AMDMoreMenu.objDataSaver, "Data Saver option");
+			Swipe("UP", 1);
 			verifyElementPresentAndClick(AMDMoreMenu.objStartDownload, "Start Download");
 
 			String wifi = "";
@@ -9907,6 +9939,9 @@ public void unRegisteredEmailSubscribe() throws Exception {
 				extent.extentLoggerFail("Download", "Content is not downloading on Wifi network");
 			}
 			Back(1);
+		}else {
+			logger.info("This Validation is NOT Applicable for "+userType);
+			extent.extentLogger("Download", "This Validation is NOT Applicable for "+userType);
 		}
 	}
 
@@ -17479,6 +17514,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		Back(1);
 	}
 
+	@SuppressWarnings("unused")
 	public void TextSearchAndVoiceSearch(String userType, String keyword) throws Exception {
 		verifySearchOption(userType);
 
@@ -18068,6 +18104,167 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			logger.info("Playback failed to start on selecting the VOD content");
 			extent.extentLoggerFail("Playback Screen",
 					"Playback failed to start on selecting the VOD content");
+		}
+	}
+	
+	public void navigateToHomeLandingScreen() throws Exception {
+		accessDeviceLocationPopUp("Allow", userType);
+		navigateToIntroScreen_DisplaylangScreen();
+		ZeeApplicasterLoginForSettings(userType);
+	}
+	
+public void navigateBackToHomeLandingScreen() throws Exception {
+		boolean flag;
+		for(int i=1;i<10;i++) {
+			flag = verifyElementDisplayed(AMDHomePage.objHomeBtn);
+			if(flag) {
+				break;
+			}else {
+				Back(1);
+				waitTime(2000);
+			}
+		}
+	}
+	
+public void SelectDisplayLanguage(String Language) throws Exception {
+			
+		if (Language.equalsIgnoreCase("Hindi")) {
+			click(AMDOnboardingScreen.objSelectDisplayLanguage(1), Language);
+		} else if (Language.equalsIgnoreCase("English")) {
+			click(AMDOnboardingScreen.objSelectDisplayLanguage(2), Language);
+		} else if (Language.equalsIgnoreCase("Marathi")) {
+			click(AMDOnboardingScreen.objSelectDisplayLanguage(3), Language);
+		} else if (Language.equalsIgnoreCase("Telugu")) {
+			click(AMDOnboardingScreen.objSelectDisplayLanguage(4), Language);
+		} else if (Language.equalsIgnoreCase("Kannada")) {
+			click(AMDOnboardingScreen.objSelectDisplayLanguage(5), Language);
+		} else if (Language.equalsIgnoreCase("Tamil")) {	
+			click(AMDOnboardingScreen.objSelectDisplayLanguage(6), Language);
+		} else if (Language.equalsIgnoreCase("Malayalam")) {
+			click(AMDOnboardingScreen.objSelectDisplayLanguage(3), Language);
+		} else if (Language.equalsIgnoreCase("Bengali")) {
+			click(AMDOnboardingScreen.objSelectDisplayLanguage(4), Language);
+		} else if (Language.equalsIgnoreCase("Gujarati")) {
+			click(AMDOnboardingScreen.objSelectDisplayLanguage(5), Language);
+		} else if (Language.equalsIgnoreCase("Punjabi")) {
+			click(AMDOnboardingScreen.objSelectDisplayLanguage(6), Language);
+		} else if (Language.equalsIgnoreCase("Bhojpuri")) {
+			click(AMDOnboardingScreen.objSelectDisplayLanguage(7), Language);
+		}
+	}
+
+	public void Settings_DefaultVideoStreamingQuality(String userType, String searchKeyword1) throws Exception {
+		extent.HeaderChildNode("Validation of Settings - Default Video Streaming quality as " + userType);
+		System.out.println("\nValidation of Settings for Default Video Streaming quality as " + userType);
+
+		click(AMDHomePage.objMoreMenu, "More menu");
+		waitTime(2000);
+		click(AMDMoreMenu.objSettings, "Setting button");
+		verifyElementExist(AMDSettingsScreen.objVideoQualityDefaultvalue, "Video Quality option in Settings");
+		boolean defaultvalue = verifyIsElementDisplayed(AMDSettingsScreen.objVideoQualityDefaultvalue);
+		String value = findElement(AMDSettingsScreen.objVideoQualityDefaultvalue).getText();
+		System.out.println(value);
+		if (defaultvalue) {
+			logger.info("Default video quality in Select video quality settings is displayed : " + value);
+			extent.extentLoggerPass("Settings",
+					"Default video quality in Select video quality settings is displayed : " + value);
+		} else {
+			logger.error("Default video quality is NOT displayed");
+			extent.extentLogger("Settings", "Default video quality is NOT displayed");
+		}
+		Back(2);
+		getRuntimeValue = value;
+	}
+	
+	public void Settings_DefaultVideoStreamingQualityInPlayer(String userType, String searchKeyword1) throws Exception {
+		extent.HeaderChildNode("Validation of Settings - Default Video Streaming quality In Player as " + userType);
+		System.out.println("\n Validation of Settings for Video Streaming and Autoplay In Player as " + userType);
+		
+		click(AMDHomePage.objSearchBtn, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, searchKeyword1 + "\n", "Search bar");
+		waitTime(2000);
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDMoreMenu.objSearchResult(searchKeyword1), "Search result");
+		if (!userType.contains("SubscribedUser")) {
+			waitTime(4000);
+			registerPopUpClose();
+			completeProfilePopUpClose(userType);
+//			LoadingInProgress();
+			waitForAdToFinishInAmd();
+			registerPopUpClose();
+			waitTime(2000);
+		}
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
+		waitTime(3000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player Screen");
+		click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
+		String getQualityValue = findElement(AMDSettingsScreen.objQualityOptionOnPlayer).getText();
+		verifyElementExist(AMDSettingsScreen.objQualityOptionOnPlayer, "Video quality on player settings " + getQualityValue);
+		if (getQualityValue.contains(getRuntimeValue)) {
+			logger.info(
+					"Default video quality on player settings is as per the selection in Select video quality settings : "
+							+ getQualityValue);
+			extent.extentLoggerPass("Settings",
+					"Default video quality on player settings is as per the selection in Select video quality settings : "
+							+ getQualityValue);
+		} else {
+			logger.error(
+					"Default video quality on player settings is NOT as per the selection in Select video quality settings : "
+							+ getQualityValue);
+			extent.extentLoggerFail("Settings",
+					"Default video quality on player settings is NOT as per the selection in Select video quality settings : "
+							+ getQualityValue);
+		}
+		
+		click(AMDSettingsScreen.objQualityOptionOnPlayer, "Video Quality");
+		String videoOption = findElement(AMDSettingsScreen.objoptionsInVideoQuality).getText();
+		System.out.println(videoOption);
+		click(AMDSettingsScreen.objoptionsInVideoQuality, "Option " + videoOption);
+		waitTime(3000);
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
+	
+		String DefaultOption = findElement(AMDSettingsScreen.objQualityOptionOnPlayer).getText();
+		System.out.println(DefaultOption);
+		if (DefaultOption.contains(videoOption)) {
+			logger.info("Video Quality is Functional in the player");
+			extent.extentLoggerPass("Settings", "Video Quality is Functional in the player");
+		} else {
+			logger.error("Video Quality is NOT Functional in the player");
+			extent.extentLoggerFail("Settings", "Video Quality is NOT Functional in the player");
+		}
+		
+		Back(3);
+		click(AMDHomePage.objMoreMenu, "More menu");
+		waitTime(3000);
+		click(AMDMoreMenu.objSettings, "Settings button");
+		String getVideoQuality = findElement(AMDSettingsScreen.objVideoQualityDefaultvalue).getText();
+		if (DefaultOption.contains(getVideoQuality) == false) {
+			logger.info(
+					"Settings changed from the player does not change the video settings set in the 'Select Video Quality' Settings screen.");
+			extent.extentLoggerPass("Settings",
+					"Settings changed from the player does not change the video settings set in the 'Select Video Quality' Settings screen");
+		} else {
+			logger.error(
+					"Settings changed from the player changes the video settings set in the 'Select Video Quality' Settings screen.");
+			extent.extentLoggerFail("Settings",
+					"Settings changed from the player changes the video settings set in the 'Select Video Quality' Settings screen");
+		}
+		verifyElementExist(AMDSettingsScreen.objAutoPlayToggleSwitch, "Autoplay Toggle Switch");
+		String getAutoPlayToggle = findElement(AMDSettingsScreen.objAutoPlayToggleON).getText();
+		System.out.println(getAutoPlayToggle);
+		boolean autoPlayON = findElement(AMDSettingsScreen.objAutoPlayToggleON).isDisplayed();
+		if (autoPlayON) {
+			logger.info("Autoplay toggle switch is " + getAutoPlayToggle);
+			extent.extentLoggerPass("Settings", "Autoplay toggle switch is " + getAutoPlayToggle);
+		} else {
+			click(AMDSettingsScreen.objAutoPlayToggleSwitch, "Autoplay Toggle Switch");
+			logger.info("Autoplay toggle switch is " + getAutoPlayToggle);
+			extent.extentLogger("Settings", "Autoplay toggle switch is " + getAutoPlayToggle);
 		}
 	}
 }

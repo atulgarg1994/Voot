@@ -16,20 +16,18 @@ public class AMDClubPage {
 	public static By objContinueButton = By.xpath("//*[@id='btnContinue_PackSelection']");
 	public static By objSelectedPackSection = By.xpath("//*[@resource-id='com.graymatrix.did:id/layoutSelectedPack']");
 	public static By objAccountInfoSection = By.xpath("//*[@resource-id='com.graymatrix.did:id/layoutSelectedUser']");
-	public static By objPaymentOptionsSection = By.xpath("//*[@id='payment_radio_button_container']");
 	public static By objAccountInfoScreenContinueButton = By.xpath("//*[@id='btnContinue_paymentdetails']");
 	public static By objSelectedPackName = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_selected_pack']");
 	public static By objSelectedPackValidity = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_pack_year']");
-	public static By objPlanPriceINR = By.xpath("//*[@resource-id='com.graymatrix.did:id/value_plan_price']");
-	public static By objDiscountPlanINR = By.xpath("//*[@resource-id='com.graymatrix.did:id/value_discount']");
-	public static By objRoundOffValue = By.xpath("//*[@resource-id='com.graymatrix.did:id/value_round_off']");
 	public static By objRevisedBillingSection = By.xpath("//*[@resource-id='com.graymatrix.did:id/revised_billing_cycle_decription']");
     public static By objPostDiscountInINR = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_selected_pack_description']");
 	public static By objEmailIdSection = By.xpath("//*[@resource-id='com.graymatrix.did:id/selectedUserDetailsName']");
     public static By objSelectPaymentOption = By.xpath("(//*[@id='payment_radio_button_container']/*[@class='android.widget.RadioButton'])[1]") ; 
     public static By objDownloadVideoQualityPopup = By.xpath("//*[@id='popup_title']");
-    
-    public static By objSearchedClubContent = By.xpath("(//*[@id='special_image_1' and (./preceding-sibling::* | ./following-sibling::*)[@id='itemImageParent']]//following-sibling::*)[1]");  
-    
+    public static By objSearchedClubContent = By.xpath("(//*[@id='special_image_1' and (./preceding-sibling::* | ./following-sibling::*)[@id='itemImageParent']]//following-sibling::*)[1]"); 
     public static By objClubIcon = By.xpath("//*[@id='cell_start_container']//*[@class='android.widget.ImageView']//following-sibling::*");
+    public static By objPaymentOptionsSection = By.xpath("//*[@class='android.widget.ImageView' and ./parent::*[@class='android.widget.LinearLayout' and ./parent::*[@class='android.widget.LinearLayout'] and (./preceding-sibling::* | ./following-sibling::*)[@class='android.widget.ImageView'] and (./preceding-sibling::* | ./following-sibling::*)[./*[./*[./*[@text='Amazon Pay']]]]]]");
+    public static By objPlanPriceINR = By.xpath("//*[@text='Plan Price']//following-sibling::*//following-sibling::*");
+    public static By objDiscountPlanINR = By.xpath("//*[@text='Discount']//following-sibling::*//following-sibling::*");
+    public static By objRoundOffValue = By.xpath("//*[@text='Round Off']//following-sibling::*//following-sibling::*");
 }

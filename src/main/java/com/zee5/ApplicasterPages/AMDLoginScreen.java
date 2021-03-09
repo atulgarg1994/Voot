@@ -116,7 +116,6 @@ public class AMDLoginScreen {
 	public static By objPageTitle = By.xpath("//*[@resource-id='com.graymatrix.did:id/dl_screen_title']");
 	public static By objContentLanguageScreenTitle = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and @text='Content Language']");
-	public static By objSelectedDisplayLanguage = By.xpath("//*[@id='selectionImage']/following-sibling::*");
 	public static By objGmailAccount = By.xpath("(//*[@id='account_name'])[1]");
 
 	public static By objDOB = By.xpath("//*[@id='dobTextView']");
@@ -177,4 +176,6 @@ public class AMDLoginScreen {
 	public static By objPasswordFieldInFBPage = By.xpath("//*[@class='android.widget.EditText' and @contentDescription='Password']");
 	public static By objtwAuthorizeAppBtn = By.xpath("//*[@id='allow' and @text='Authorize app']");
 	public static By objSearchBackBtn = By.xpath("//*[@id='searchBarBackButton']");
+	
+	public static By objSelectedDisplayLanguage = By.xpath("//*[@id='selectionImage']/following-sibling::*[@id='display_language_content'] | //*[@id='selectionImage']/following-sibling::*");
 }

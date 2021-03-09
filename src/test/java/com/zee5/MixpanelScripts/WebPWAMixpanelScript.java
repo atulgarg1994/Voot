@@ -2233,11 +2233,11 @@ public class WebPWAMixpanelScript {
 //		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForTrailer(keyword1);
 //	}
 	
-	@Test(priority = 321)
-	public void verifyVideoViewEventForCarouselContent() throws Exception {
-		System.out.println("Verify Video View Event For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForCarouselContent();
-	}
+//	@Test(priority = 321)
+//	public void verifyVideoViewEventForCarouselContent() throws Exception {
+//		System.out.println("Verify Video View Event For Carousel Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForCarouselContent();
+//	}
 	
 	@Test(priority = 322)
 	public void verifyVideoViewEventForContentInTray() throws Exception {

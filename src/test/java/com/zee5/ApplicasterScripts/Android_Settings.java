@@ -32,7 +32,7 @@ public class Android_Settings {
 	public void Settings_Screen(String userType, String displayLanguageSelection1, String displayLanguageSelection2,
 			String searchKeyword, String searchKeyword1) throws Exception {
 		ZEE5ApplicasterBusinessLogic.SettingsVideoStreamingAndAutoPlay(userType, searchKeyword1);
-		ZEE5ApplicasterBusinessLogic.settings(userType);
+		ZEE5ApplicasterBusinessLogic.settingsScreenValidation(userType);
 		ZEE5ApplicasterBusinessLogic.videoStreamingValidation(userType);
 		ZEE5ApplicasterBusinessLogic.downloadSettingsValidation();
 		ZEE5ApplicasterBusinessLogic.DownloadOverWiFiOnlyONValidation(userType, searchKeyword1);

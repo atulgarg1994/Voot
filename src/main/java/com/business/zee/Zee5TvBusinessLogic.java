@@ -23,7 +23,6 @@ import com.zee5.TVPages.Zee5TvHomePage;
 import com.zee5.TVPages.Zee5TvPlayerPage;
 import com.zee5.TVPages.Zee5TvSearchPage;
 import com.zee5.TVPages.Zee5TvWelcomePage;
-
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
@@ -279,7 +278,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		for (int i = 0; i < lenText; i++) {
 			getDriver().findElement(Zee5TvSearchPage.objSearchBackButton).click();
 		}
-		String searchdata1[] = { "g", "o", "o", "g", "l", "y" };
+		String searchdata1[] = { "p", "a", "n", "c", "h", "a","t","a","n","t","r","a" };
 		type(searchdata1);
 		waitTime(5000);
 		String content = TVgetText(Zee5TvSearchPage.objEditbox);
@@ -544,6 +543,14 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(7000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			
 			}
 	}
 
@@ -786,6 +793,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 	}
 
@@ -1619,6 +1633,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 	}
 
@@ -2061,6 +2082,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 	}
 
@@ -2238,6 +2266,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 	}
 
@@ -2633,7 +2668,14 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 	public void settings() throws Exception {
 		HeaderChildNode("Setting Page functionality");
-
+		waitTime(10000);
+		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link")) {
+			TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+			extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+		} else {
+			logger.info("User is logged in");
+			extent.extentLoggerPass("Button", "User is logged in");
+		}
 		TVTabSelect("Home");
 		for (int i = 0; i <= 10; i++) {
 			Runtime.getRuntime().exec("adb shell input keyevent 22");
@@ -3403,6 +3445,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 	}
 
@@ -3585,6 +3634,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 	}
 
@@ -4155,6 +4211,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 	}
 
@@ -4256,6 +4319,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 	}
 
@@ -4387,6 +4457,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 	}
 
@@ -4567,6 +4644,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 	}
 
@@ -4705,6 +4789,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 	}
 
@@ -4861,6 +4952,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 	}
 
@@ -4894,7 +4992,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			logger.info("User is not navigated to serach page");
 			extent.extentLoggerFail("Navigation", "User is not navigated to serach page");
 		}
-		String searchdata1[] = { "g", "o", "o", "g", "l", "y" };
+		String searchdata1[] = { "p", "a", "n", "c", "h", "a","t","a","n","t","r","a" };
 		type(searchdata1);
 		waitTime(5000);
 		String content = TVgetText(Zee5TvSearchPage.objEditbox);
@@ -5127,6 +5225,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 
 	}
@@ -5316,6 +5421,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 	}
 
@@ -5339,6 +5451,25 @@ public class Zee5TvBusinessLogic extends Utilities {
 			logger.info(plans + " Tab is displayed ");
 			extent.extentLoggerPass("Plan", plans + " Tab is displayed ");
 		}
+		TVTabSelect("Home");
+		waitTime(3000);
+		getDriver().closeApp();
+
+		waitTime(3000);
+
+		getDriver().launchApp();
+
+		waitTime(10000);
+		if(userType.equals("Guest")) {
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			}
 	}
 
 	public void talamoos() throws Exception {
@@ -5689,6 +5820,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 	}
 
@@ -6227,6 +6365,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(10000);
 		if(userType.equals("Guest")) {
 			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 19");
+			waitTime(3000);
 			}
 	}
 

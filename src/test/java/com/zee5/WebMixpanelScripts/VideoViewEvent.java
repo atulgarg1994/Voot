@@ -38,13 +38,13 @@ public class VideoViewEvent {
 //		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentFromSharedLink(freeContentURL);
 //	}
 //	
-	@Test(priority = 3)
-	@Parameters({ "userType", "Tab"})
-	public void verifyVideoViewEventForFreeContent(String userType,String Tab) throws Exception {
-		System.out.println("Verify Video View Event For Free Content");
+//	@Test(priority = 3)
+//	@Parameters({ "userType", "Tab"})
+//	public void verifyVideoViewEventForFreeContent(String userType,String Tab) throws Exception {
+//		System.out.println("Verify Video View Event For Free Content");
 //		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForFreeContent(userType,Tab);
-	}
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForFreeContent(userType,Tab);
+//	}
 //	
 //	@Test(priority = 4)
 //	@Parameters({ "userType","Tab"})
@@ -62,12 +62,13 @@ public class VideoViewEvent {
 //		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForTrailer(keyword1,tabName);
 //	}
 //	
-//	@Test(priority = 6)
-//	public void verifyVideoViewEventForCarouselContent() throws Exception {
-//		System.out.println("Verify Video View Event For Carousel Content");
+	@Test(priority = 6)
+	@Parameters({"Tab"})
+	public void verifyVideoViewEventForCarouselContent(String tabName) throws Exception {
+		System.out.println("Verify Video View Event For Carousel Content");
 //		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForCarouselContent();
-//	}
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForCarouselContent(tabName);
+	}
 //	
 //	@Test(priority = 7)
 //	public void verifyVideoViewEventForContentInTray() throws Exception {
@@ -108,11 +109,11 @@ public class VideoViewEvent {
 //	}
 //	
 //	@Test(priority = 12)
-//	@Parameters({"keyword1"})
-//	public void verifyVideoViewEventAfterRefreshingPage(String keyword1) throws Exception {
+//	@Parameters({"Tab"})
+//	public void verifyVideoViewEventAfterRefreshingPage(String Tab) throws Exception {
 //		System.out.println("Verify Video View Event after refreshing a page");
 //		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventAfterRefreshingPage(keyword1);
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventAfterRefreshingPage(Tab);
 //	}
 	
 //	@AfterClass

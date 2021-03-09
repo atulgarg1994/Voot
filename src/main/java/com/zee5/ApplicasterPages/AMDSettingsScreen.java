@@ -33,8 +33,9 @@ public class AMDSettingsScreen {
 	public static By objAutoPlayToggleOFF = By.xpath("//*[@id='autoPlaySwitch'][@text='OFF' or 'Off']");
 	public static By objAutoPlayToggleSwitch = By.xpath("//*[@id='autoPlaySwitch']");
 	public static By objVideoQualitySelectedOptionOnPlayer = By.xpath("//*[@id='popuplistitem' and ./*[@id='icon_selected']]");
-	
-	public static By objQualityOptionOnPlayer = By.xpath("//*[@id='icon_quality_text'] | //*[@id='playerOptionTitle' and @text='Quality Auto']");
 
-	public static By objoptionsInVideoQuality = By.xpath("(//*[@id='textView2'])[3] | //*[@id='playerOptionTitle']");
+	public static By objQualityOptionOnPlayer = By.xpath("//*[@id='icon_quality_text'] | //*[@id='playerOptionTitle' and @text='Quality Auto'] | //*[@id='playerOptionTitle']");
+	public static By objSelectVideoQualityInLandscapeMode = By.xpath("(//*[@id='playerOptionsTitleTextView' and @text='Select Video Quality']//following::*[@id='playerOptionTitle'])[2]");
+
+	public static By objoptionsInVideoQuality = By.xpath("(//*[@id='textView2'])[3] | (//*[@id='playerOptionTitle'])[2]");
 }

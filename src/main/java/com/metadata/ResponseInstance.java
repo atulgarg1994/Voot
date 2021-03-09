@@ -17,6 +17,9 @@ import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
 import com.mixpanelValidation.Mixpanel;
 import com.propertyfilereader.PropertyFileReader;
+import com.sun.media.jfxmedia.logging.Logger;
+import com.utility.LoggingUtils;
+
 import java.util.Properties;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -27,7 +30,8 @@ public class ResponseInstance {
 
 	protected static Response resp = null;
 	public static String assetSubType = "Empty"; 
-
+	static LoggingUtils logger = new LoggingUtils();
+	
 	public static Response getResponse() {
 		resp = given().urlEncodingEnabled(false).when().get(
 				"https://gwapi.zee5.com/content/collection/0-8-homepage?limit=20&page=1&item_limit=20&desc=no&version=6&translation=en&languages=en,kn&country=IN");
@@ -759,8 +763,9 @@ public class ResponseInstance {
 //		getTrayNameFromPage("home");
 //		System.out.println(getPageResponse("home","free"));
 //		System.out.println(getTrayResponse("Shows","premium"));
-		assetSubType = "video"; //0-1-manual_2g3a9k82241g
-		getContentDetails("0-0-320930");
+//		assetSubType = "video"; //0-1-manual_2g3a9k82241g
+//		getContentDetails("0-0-320930");
+		getTrayResponse("home","trailer");
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -926,12 +931,14 @@ public class ResponseInstance {
 				|| assetSubType.equalsIgnoreCase("movie")|| assetSubType.equalsIgnoreCase("trailer")){
 			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
 					.get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
-//			resp.print();
 			if(!assetSubType.equalsIgnoreCase("trailer"))
 			if(resp.jsonPath().getList("related")  != null) {
 				ID = resp.jsonPath().getString("related[0].id");
 				resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
 			}
+		}else {
+			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+					.get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
 		}
 		
 		Mixpanel.FEProp.setProperty("Content Duration", resp.jsonPath().getString("duration"));
@@ -2252,6 +2259,7 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 				for (int k = 0; k < itemsSize; k++) {
 					if(respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].business_type").contains("free") 
 							|| respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].business_type").contains("advertisement_downloadable") ) {
+						logger.info("Tray name : "+respCarousel.jsonPath().getString("buckets["+j+"].title"));
 						System.out.println("title : "+respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].title"));
 						contentAndTrayTitle.add(respCarousel.jsonPath().getString("buckets["+j+"].title"));
 						contentAndTrayTitle.add(respCarousel.jsonPath().getString("buckets["+j+"].items[" + k + "].title"));
@@ -2280,9 +2288,12 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 			for (int j = 1; j < bucketSize; j++) {
 				int itemsSize = respCarousel.jsonPath().getList("buckets["+j+"].items").size();
 				for (int k = 0; k < itemsSize; k++) {
-					if(respCarousel.jsonPath().getList("buckets["+j+"].items["+k+"].related")  != null) {
+					if(respCarousel.jsonPath().getList("buckets["+j+"].items["+k+"].related")  != null 
+							&& !respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].related").contains("false")) {
+//						respCarousel.print();
 						String relatedID = respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].id");
 						Response relatedtrailerID =  given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+relatedID+"?translation=en&country=IN&version=2");
+//						relatedtrailerID.print();
 						String trailerID = relatedtrailerID.jsonPath().getString("related[0].id");
 						getContentDetails(trailerID);
 						contentAndTrayTitle.add(respCarousel.jsonPath().getString("buckets["+j+"].title"));

@@ -45,7 +45,6 @@ public class AMDMoreMenu {
 	public static By objParentalLockPin4 = By.xpath("//*[@id='otpEditText4']");
 	public static By objParentalLockDone = By.xpath("//*[@id='dialog_done']");
 
-	public static By objDownloadIcon = By.xpath("//*[@id='downloadTv']");
 	public static By objRelatedSearchResult = By
 			.xpath("(//*[@id='searchResultsContent']//following-sibling::*[@id='item_primary_text'])[1]");
 	public static By objDataSaver = By.xpath("//*[@text='Data saver']");
@@ -279,4 +278,6 @@ public class AMDMoreMenu {
 	public static By objSearchResult(String title) {
 		return By.xpath("//*[@id='searchItemTitleText' and contains(text(), '"+title+"')] | (//*[contains(@text,'"+title+"')])[2]");
 	}
+	
+	public static By objDownloadIcon = By.xpath("//*[@id='downloadTv'] | //*[@id='metaInfoActionButtonTextView' and @text='Download']");
 }

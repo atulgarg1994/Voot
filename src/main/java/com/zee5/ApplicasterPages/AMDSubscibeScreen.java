@@ -11,7 +11,6 @@ public class AMDSubscibeScreen {
 	
 	public static By objSubscribePageBackButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_back']");
 	public static By objSelectPackText  = By.xpath("//*[@text='Select Pack']");
-	public static By objPaymentText = By.xpath("//*[@class='android.widget.TextView' and @text='Payment Options']");
 	public static By objAdbanner = By.xpath("//*[@id='packSelectionCrousalImageView']");
 	public static By objApplyPromoCodeTextbox = By.xpath("//*[@id='txtET_promocode_input']");
 	
@@ -75,9 +74,6 @@ public class AMDSubscibeScreen {
 	public static By objPaymentReccuringMsg = By.xpath("//*[@id='payment_recurring_msg']");
 	public static By objContinueBtnPaymentScreen = By.xpath("//*[@id='btnContinue_paymentdetails']");
 	
-	public static By objPlanPrice = By.id("value_plan_price");
-	public static By objTotalPayable = By.id("value_total_amount");
-	
 	public static By objSelectedPackText = By.xpath("//*[@resource-id='com.graymatrix.did:id/pack_selection_title']");
 	
 	public static By objHaveAPromocode = By.xpath("//*[@text='Have a code?']");
@@ -100,5 +96,11 @@ public class AMDSubscibeScreen {
 	public static By packdetailsinPaymentPage(String pack) {
 			return By.xpath("//*[@text='"+pack+"']");
 		}
-
+	
+	public static By objPlanPrice = By.xpath("//*[@text='Plan Price']//following-sibling::*//following-sibling::*");
+	public static By objTotalPayable = By.id("//*[@text='Payable Amount']//following-sibling::*//following-sibling::*");
+	
+	public static By objRSVODselectedPackDesc = By.xpath("//*[@resource-id='com.graymatrix.did:id/selectionImageSelector' and @selected='true']/parent::*/parent::*/following-sibling::*/child::*");
+	
+	public static By objPaymentText = By.xpath("//*[@text='Payment Methods']");
 }

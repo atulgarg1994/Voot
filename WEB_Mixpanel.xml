@@ -6,12 +6,12 @@
 	<parameter name="url" value="https://newpwa.zee5.com/" />
 	<parameter name="browserType" value="Chrome" />  <!-- Chrome/Firefox -->
 
-	<parameter name="userType" value="NonSubscribedUser" /> <!-- Guest/NonSubscribedUser/SubscribedUser/ClubUser -->
+	<parameter name="userType" value="SubscribedUser" /> <!-- Guest/NonSubscribedUser/SubscribedUser/ClubUser -->
 	
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" />
 	
-	<parameter name="Tab" value="Movies" />
+	<parameter name="Tab" value="Home" />
 	
 	<parameter name="keyword" value="Jodi Hakki" />
 	<parameter name="keyword1" value="Shivaji Surathkal" />

@@ -27,12 +27,6 @@ public class AMDSearchScreen {
 		return By.xpath("//*[@id='item_primary_text' and contains(text(), ' \"+title+\" ')]");
 	}
 
-	public static By objTrendingSearchOverlay = By
-			.xpath("//*[@id='header_primary_text' and contains(text(),'Trending Searches')]");
-
-	public static By objTopSearchOverlay = By
-			.xpath("//*[@id='header_primary_text' and contains(text(),'Top Searches')]");
-
 	public static By objMoviesTab = By.xpath("//*[@text='Movies' and @id='title']");
 
 	public static By objShowsTab = By.xpath("//*[@text='Shows' and @id='title']");
@@ -59,10 +53,6 @@ public class AMDSearchScreen {
 			.xpath("//*[@id='title']//ancestor::*[@class='android.support.v7.app.ActionBar$b']");
 	
 	public static By objEnterKey = By.xpath("(//*[@id='icon'])[11]");
-
-	public static By objNoSearchResults = By.xpath("//*[@id='tvNoResults']");
-
-	public static By objRelatedSearchResult = By.xpath("//*[@id='item_primary_text']");
 
 	// ***** Objects SearchPage by Manasa
 	public static By objSearchInKeyboard = By.xpath("//*[@contentDescription='Search']");
@@ -124,22 +114,8 @@ public class AMDSearchScreen {
 
 	public static By objVirtualKeypadLetter = By.xpath("//*[@id='key_pos_1_4']");
 
-//	public static By objTabs = By
-//			.xpath("//*[@id='searchResultsContent']//following-sibling::*[@id='tabLayout']//following-sibling::*");
-
 	public static By objGetPremiumBelowThePlayer = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/get_premium_button']");
-
-	// Search icon
-	public static By objSearchIcon2 = By.xpath("((//*[@id='title'] | //*[@id='logo'])//following::*)[1]");
-
-	// Trending searches tray
-//	public static By objTrendingSearches = By.xpath(
-//			"//*[@text='Recent Searches']/parent::*/parent::*/following-sibling::*[@class='android.widget.RelativeLayout']/child::*/child::*[@text='Trending Searches']");
-
-	// title on Content card of Trending searches tray
-	public static By objContentCardTitleOfTrendingSearchesTray = By.xpath(
-			"//*[@text='Trending Searches']/parent::*/parent::*/following-sibling::*/child::*/child::*/child::*/child::*/following-sibling::*[@resource-id='com.graymatrix.did:id/item_primary_text']");
 
 	public static By objConsumptionScreenTitle = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/item_primary_text']");
@@ -150,17 +126,12 @@ public class AMDSearchScreen {
 	public static By objContentCardTitleOfTopSearchesTray = By.xpath(
 			"//*[@text='Top Searches']/parent::*/parent::*/following-sibling::*/child::*/child::*[@resource-id='com.graymatrix.did:id/item_primary_text']");
 
-	// public static By objSearchResultPage =
-	// By.xpath("//*[@id='searchResultsContent']");
-
 	public static void main(String[] args) {
 		String title = "f";
 		System.out.println("//*[@id='item_primary_text' and contains(text(), " + title + ")]");
 	}
 	
 	public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[4]");
-	
-	public static By objNoOftraysInSearchpage = By.xpath("//*[@resource-id='com.graymatrix.did:id/header_primary_text']");
 	
 	public static By objSelectFirstEpisodeResult = By.xpath("//*[@id='item_secondary_text'][1]");
 	
@@ -198,7 +169,6 @@ public class AMDSearchScreen {
 	public static By objTermsAndConditions = By.xpath("//*[@id='termsAndConditionsText']");
 	public static By objProceedBtn = By.xpath("//*[@id='proceedButton']");
 	public static By objMicrophoneLogoInVoiceSearch = By.xpath("//*[@id='voiceRecordingGroup']");
-	public static By objSearchResultPage = By.xpath("//*[@id='searchItemTitleText']");
 	public static By objTabs = By.xpath("//*[@id='searchTypeTabLayout']//*[@class='android.widget.TextView']");
 	
 	public static By objMicrophoneIconLogo = By.xpath("//*[@id='searchRecordingIcon']");
@@ -232,4 +202,18 @@ public class AMDSearchScreen {
 			return By.xpath("//*[@resource-id='com.graymatrix.did:id/cell_center_container']/child::*[@text='"+ResultName+"']");
 		}
 
+	 public static By objSearchIcon2 = By.xpath("//*[@id='home_toolbar_search_icon']");
+	 public static By objTopSearchesbelowTheTrendingSearches = By.xpath("//*[@text='Trending Searches']/parent::*/parent::*/parent::*/following-sibling::*/child::*/child::*/child::*[@text='Top Searches']");
+	 public static By objRelatedSearchResult(String partlySpeltSearchKeyword) {
+	 		return By.xpath("//*[contains(text(),'"+partlySpeltSearchKeyword+"')]");
+	 	}
+	 public static By objFirstSearchResult = By.xpath("((//*[@resource-id='com.graymatrix.did:id/cell_center_container'])[2]/child::*)[1]");
+	 
+	 public static By objTrendingSearchOverlay = By.xpath("//*[@resource-id='com.graymatrix.did:id/cell_top_container']/child::*[@text='Trending Searches']");
+	 public static By objTopSearchOverlay = By.xpath("//*[@resource-id='com.graymatrix.did:id/cell_top_container']/child::*[@text='Top Searches']");
+	 public static By objNoOftraysInSearchpage = By.xpath("//*[@resource-id='com.graymatrix.did:id/cell_top_container']");
+	 public static By objContentCardTitleOfTrendingSearchesTray = By.xpath("(//*[@text='Trending Searches']/parent::*/following-sibling::*/child::*/child::*/child::*/child::*/child::*[@class='android.widget.TextView'])[1]");
+	 public static By objNoSearchResults = By.xpath("//*[@resource-id='com.graymatrix.did:id/searchResultEmptyText']");
+	 public static By objSearchResultPage = By.xpath("//*[@resource-id='com.graymatrix.did:id/searchResultViewPager']");
+	 public static By objRelatedSearchResult = By.xpath("//*[@resource-id='com.graymatrix.did:id/searchResultViewPager']");
 }

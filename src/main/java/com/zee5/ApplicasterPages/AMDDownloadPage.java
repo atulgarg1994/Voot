@@ -69,7 +69,6 @@ public class AMDDownloadPage {
 	public static By objDownloadFailedText = By.xpath("//*[@text='Download Failed']");
 	public static By objDownloadErrorText = By.xpath("	//*[@id='tv_download_again']");
 	public static By objRetryCTA = By.xpath("//*[@id='tvRetryDownload']");
-	public static By objDownloadIcon = By.xpath("//*[@id='downlowd_image']");
 	
 	public static By objSpecificSearch(String str){
 			return By.xpath("//*[@class='android.view.ViewGroup' and ./*[@id='itemImageParent'] and ./*[@text='" + str + "']]");
@@ -115,7 +114,6 @@ public class AMDDownloadPage {
 	public static By objCalloutAfterDownload = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Play']]");
 	public static By objPlayCTA = By.xpath("//*[@id='tvPlay']");
 	public static By objDeleteDownloadCTA = By.xpath("//*[@id='tvDeleteDownload']");
-	public static By objPauseIconOnPlayer = By.xpath("//*[@id='icon_pause']");
 	public static By objPlayIconOnPlayer = By.xpath("//*[@id='icon_play']");
 	public static By objBackOnPlayer = By.xpath("//*[@id='icon_down']");
 	
@@ -152,4 +150,9 @@ public class AMDDownloadPage {
 	public static By objAlwaysAskCheckBox = By.xpath("//*[@id='checkBox_rememberThis']");
 	
 	public static By objDownloadProgressIcon = By.xpath("//*[@id='circularProgressbar']");
+	
+	public static By objPauseIconOnPlayer = By.xpath("//*[@id='playerPlayPauseButton']");
+	public static By objDownloadIcon = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Download']]");
+
+	public static By objsearchresultFirst = By.xpath("(//*[@id='cell_center_container'])[2]");
 }
