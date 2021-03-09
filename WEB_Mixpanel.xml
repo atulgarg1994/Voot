@@ -31,6 +31,9 @@
 	<parameter name="SettingsNonSubscribedUserName" value="zeetest@gmail.com" />
 	<parameter name="SettingsNonSubscribedPassword" value="zee123" />
 	
+	<parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com" />
+	<parameter name="SettingsSubscribedPassword" value="123456" />
+	
 	<parameter name="ClubSubscribedUserName" value="365clublg@gmail.com" />
 	<parameter name="ClubSubscribedPassword" value="123456" />
 	
@@ -59,7 +62,7 @@
 
 	<test name="WebPWAMixpanelScript">
 		<classes>
-			<class name="com.zee5.WebMixpanelScripts.VideoViewEvent" />
+			<class name="com.zee5.WebMixpanelScripts.ParentalOverlayImpressionEvent" />
 		</classes>
 	</test>
 	<!-- <test name="WebPWAMixpanelScript">

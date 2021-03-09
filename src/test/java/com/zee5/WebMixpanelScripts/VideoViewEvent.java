@@ -116,7 +116,7 @@ public class VideoViewEvent {
 //		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventAfterRefreshingPage(Tab);
 //	}
 	
-//	@AfterClass
+	@AfterClass
 	public void tearDown() {
 		Zee5PWAWEBMixPanelBusinessLogic.tearDown();
 	}

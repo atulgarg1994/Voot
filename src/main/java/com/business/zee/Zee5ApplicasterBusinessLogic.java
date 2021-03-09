@@ -11514,6 +11514,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		}
 		// Set Text
 		clearField(AMDEditProfileScreen.objFirstNameField, "FirstName");
+		verifyElementPresentAndClick(AMDEditProfileScreen.objFirstNameField, "FirstName");
 		type(AMDEditProfileScreen.objFirstNameField, "FirstName", "First Name");
 		hideKeyboard();
 		// Verify Save Changes is highlighted

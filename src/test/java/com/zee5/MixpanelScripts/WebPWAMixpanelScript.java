@@ -1310,12 +1310,12 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForContentFromSharedLink(freeContentURL);
 	}
 	
-	@Test(priority = 188)
-	@Parameters({ "userType", "keyword4"})
-	public void verifyParentalOverlayImpressionEventForFreeContent(String userType,String keyword4) throws Exception {
-		System.out.println("Verify Parental Overlay Impression Event For Free Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForFreeContent(userType,keyword4);
-	}
+//	@Test(priority = 188)
+//	@Parameters({ "userType", "keyword4"})
+//	public void verifyParentalOverlayImpressionEventForFreeContent(String userType,String keyword4) throws Exception {
+//		System.out.println("Verify Parental Overlay Impression Event For Free Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForFreeContent(userType,keyword4);
+//	}
 	
 	@Test(priority = 189)
 	@Parameters({ "userType"})

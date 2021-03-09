@@ -161,7 +161,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as NonSubscribed User");
 		//	dismissDisplayContentLanguagePopUp();
 			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
-
 			String SUsername = getParameterFromXML("SettingsNonSubscribedUserName");
 			String SPassword = getParameterFromXML("SettingsNonSubscribedPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
@@ -178,7 +177,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 		case "SubscribedUser":
 			extent.HeaderChildNode("Login as Subscribed User");
-			dismissDisplayContentLanguagePopUp();
+//			dismissDisplayContentLanguagePopUp();
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			String SettingsSubscribedUsername = getParameterFromXML("SettingsSubscribedUserName");
 			String SettingsSubscribedPassword = getParameterFromXML("SettingsSubscribedPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
@@ -2568,6 +2568,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void verifyVideoViewEventForFreeContent(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Video View Event For Free Content");
 		mandatoryRegistrationPopUp(userType);
+		navigateToAnyScreenOnWeb(tabName);
 		clickOnTrayContent(tabName,"Free");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
@@ -8973,9 +8974,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyParentalOverlayImpressionEventForFreeContent(String userType, String keyword4) throws Exception {
+	public void verifyParentalOverlayImpressionEventForFreeContent(String userType,String tabName) throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Free Content");
+			waitTime(4000);
 			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
 			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
@@ -8999,30 +9001,32 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
 			waitTime(3000);
-
-			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-			waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
-			click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
+			navigateToAnyScreenOnWeb(tabName);
+			clickOnTrayContent(tabName,"Free");
+			
 			mandatoryRegistrationPopUp(userType);
 			waitForPlayerAdToComplete("Video Player");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
 			waitTime(5000);
 
-			mixpanel.FEProp.setProperty("Source", "search");
+			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
 
 			String id = getWebDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
+			ResponseInstance.getContentDetails(fetchContentID(id));
+			if(userType.equals("NonSubscribedUser")) {
+				String SUsername = getParameterFromXML("SettingsNonSubscribedUserName");
+				String SPassword = getParameterFromXML("SettingsNonSubscribedPassword");
+				ResponseInstance.getUserData(SUsername,SPassword);
+			}else if(userType.equals("SubscribedUser")) {
+				String SUsername = getParameterFromXML("SettingsSubscribedUserName");
+				String SPassword = getParameterFromXML("SettingsSubscribedPassword");
+				ResponseInstance.getUserData(SUsername,SPassword);
 			}
-			ResponseInstance.getContentDetails(value);
+
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			if (userType.equals("Guest")) {
@@ -9037,24 +9041,23 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Premium Content");
 			navigateToAnyScreenOnWeb(tab);
-			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			waitTime(5000);
+			JSClick(PWAPremiumPage.objPremiumTag, "Premium Content");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
 			waitTime(5000);
-
 			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
 
 			String id = getWebDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
+			ResponseInstance.getContentDetails(fetchContentID(id));
+			if(userType.equals("SubscribedUser")) {
+				String SUsername = getParameterFromXML("SettingsSubscribedUserName");
+				String SPassword = getParameterFromXML("SettingsSubscribedPassword");
+				ResponseInstance.getUserData(SUsername,SPassword);
 			}
-			ResponseInstance.getContentDetails(value);
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			if (userType.equals("Guest")) {
