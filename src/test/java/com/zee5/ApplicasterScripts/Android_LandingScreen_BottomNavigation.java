@@ -46,8 +46,8 @@ public class Android_LandingScreen_BottomNavigation {
 	@Parameters({ "userType", "searchKeyword" })	// Manasa
 	public void downloadScreenAndParentalPinValidation(String userType,String searchKeyword) throws Exception {
 		System.out.println("\nVerify Download and parental Pin Validation");
-		ZEE5ApplicasterBusinessLogic.verifySubscriptionReminderInDownloads();
-		ZEE5ApplicasterBusinessLogic.parentalPinValidation(userType, searchKeyword);
+		ZEE5ApplicasterBusinessLogic.verifySubscriptionReminderInDownloads(userType);
+	//	ZEE5ApplicasterBusinessLogic.parentalPinValidation(userType, searchKeyword);
 	}
 	
 	@Test(priority = 4)		// Manasa

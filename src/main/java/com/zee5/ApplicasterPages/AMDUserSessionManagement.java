@@ -56,5 +56,10 @@ public class AMDUserSessionManagement {
 	public static By objSelectedRestrictAllContentOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/selectionImageSelector']/parent::*/preceding-sibling::*/child::*[@text='Restrict All Content']");
 	public static By objNoTransaction = By.xpath("//*[@text='No Transactions']");
 	
+	public static By objNothingToReminder = By.xpath("//*[@resource-id='com.graymatrix.did:id/emptyText']");
+	public static By objNoContentInWatchlist = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_no_reminder']");
+	public static By objcontentTitleInWatchList = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title']");
+	public static By objcontentTitleInReminders = By.xpath("(//*[@resource-id='com.graymatrix.did:id/cell_center_container']/child::*)[1]");
+	
 
 }

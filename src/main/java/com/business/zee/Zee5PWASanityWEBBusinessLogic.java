@@ -14082,14 +14082,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				logger.info("Audio Track before selection: " + selectedTrackBefore);
 				extent.extentLogger("quality", "Audio Track before selection: " + selectedTrackBefore);
 				String track = tracks.get(i);
-				Thread.sleep(5000);
-				click(PWAPlayerPage.objPlayerUnSelectedAudioTrack(track), "Audio Track " + track);
-				Thread.sleep(5000);
-				click(PWAPlayerPage.settingsBtn, "Settings icon");
-				click(PWAPlayerPage.objPlayerAudioTrackIcon, "Audio Track icon");
 				waitTime(5000);
-				String selectedTrackAfter = getElementPropertyToString("innerText",
-						PWAPlayerPage.objPlayerSelectedAudioTrack, "Selected Audio Track");
+				click(PWAPlayerPage.objPlayerUnSelectedAudioTrack(track), "Audio Track " + track);
+				waitTime(3000);
+				click(PWAPlayerPage.settingsBtn, "Settings icon");
+				waitTime(3000);
+				click(PWAPlayerPage.objPlayerAudioTrackIcon, "Audio Track icon");
+				waitTime(3000);
+				String selectedTrackAfter = getElementPropertyToString("innerText",PWAPlayerPage.objPlayerSelectedAudioTrack, "Selected Audio Track");
 				logger.info("Audio Track after selection : " + selectedTrackAfter);
 				extent.extentLogger("quality", "Quality option after selection: " + selectedTrackAfter);
 				if (selectedTrackBefore.equals(selectedTrackAfter)) {

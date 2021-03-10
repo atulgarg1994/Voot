@@ -55,7 +55,7 @@ public class Android_UserSessionManagement {
 	@Parameters({ "userType" })
 	public void AppDetails(String userType) throws Exception {
 		System.out.println("Collecting App details and validating with Web details");
-		ZEE5ApplicasterBusinessLogic.appMyProfile();
+		ZEE5ApplicasterBusinessLogic.appMyProfile(userType);
 		ZEE5ApplicasterBusinessLogic.appWatchlist();
 		ZEE5ApplicasterBusinessLogic.appMyReminders();
 		ZEE5ApplicasterBusinessLogic.appSubscription(userType);

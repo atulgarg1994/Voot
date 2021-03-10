@@ -39,7 +39,7 @@ public class VerifySubscriptionReminderInDownloadScreen {
 	@Parameters({ "userType" })	// Manasa
 	public void verifySubscriptionReminderInDownloadScreen(String userType) throws Exception {
 		System.out.println("\nVerify Subscription Reminder In Download Screen");
-		ZEE5ApplicasterBusinessLogic.verifySubscriptionReminderInDownloads();
+		ZEE5ApplicasterBusinessLogic.verifySubscriptionReminderInDownloads(userType);
 	}
 	
 	@AfterTest

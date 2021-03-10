@@ -9,7 +9,8 @@
 	<parameter name="userType" value="Guest" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" /> 
-
+	
+	 <parameter name="url" value="https://newpwa.zee5.com/" />
 	
 	<parameter name="SubscribedUserWith15daysExpiryUsername" value="8123324529" />
 	<parameter name="SubscribedUserWith15daysExpiryPassword" value="123456" />

@@ -18,44 +18,30 @@ public class Android_Onboarding_Suite1 {
 	}
 	
 	@Test(priority = 1)
-	@Parameters({"userType"})
-	public void verificationOfLoginPage(String userType) throws Exception {
+	@Parameters({"userType", "displayLanguageSelection1", "displayLanguageSelection2"})
+	public void Verification_LoginPage(String userType,String displayLanguageSelection1,String displayLanguageSelection2) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
-//		ZEE5ApplicasterBusinessLogic.ZEE5AppLogin(userType);
-//		ZEE5ApplicasterBusinessLogic.VerifyLoginPage();
+		ZEE5ApplicasterBusinessLogic.ZEE5AppLogin(userType);
+		ZEE5ApplicasterBusinessLogic.VerifyLoginPage();
+		ZEE5ApplicasterBusinessLogic.DisplayLanguagePopUpValidation(displayLanguageSelection1,displayLanguageSelection2);
 	}
-
-	@Test(priority = 2) // Sushma==Scenarios only for guest user
-	@Parameters({ "userType", "displayLanguageSelection1", "displayLanguageSelection2" })
-	public void DisplayLanguagePopUp(String userType, String displayLanguageSelection1,
-			String displayLanguageSelection2) throws Exception {
+	
+	@Test(priority = 2) 	// Shreenidhi==Scenarios only for guest user | Kushal: Modified the flow
+	@Parameters({ "userType" })
+	public void ContentLanguagePopUp(String userType) throws Exception {
 		if(userType.equalsIgnoreCase("Guest")) {
-			System.out.println("\nVerify Display Language Screen");
+			System.out.println("\nVerify Content Language Screen");
 			ZEE5ApplicasterBusinessLogic.relaunch(true);
 			ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-			ZEE5ApplicasterBusinessLogic.DisplayLanguagePopUpValidation(displayLanguageSelection1,
-				displayLanguageSelection2);
+			ZEE5ApplicasterBusinessLogic.contentLanguage(userType);
+			ZEE5ApplicasterBusinessLogic.checkScreenAfterRelaunch(userType, "Content language");
 		}else {
-			ZEE5ApplicasterBusinessLogic.loggerForNonGuestUserTypes("Display Language PopUp");
+			ZEE5ApplicasterBusinessLogic.loggerForNonGuestUserTypes("Content Language Pop Up");
 		}
 	}
 	
-	@Test(priority = 3) // Shreenidhi==Scenarios only for guest user
-	@Parameters({ "userType" })
-	public void ContentLanguage(String userType) throws Exception {
-		if(userType.equalsIgnoreCase("Guest")) {
-			System.out.println("\nVerify Content Language Screen");
-			ZEE5ApplicasterBusinessLogic.contentLanguage(userType);
-			ZEE5ApplicasterBusinessLogic.relaunch(true);
-			ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-			ZEE5ApplicasterBusinessLogic.checkScreenAfterRelaunch(userType, "Content language");
-		}else {
-			ZEE5ApplicasterBusinessLogic.loggerForNonGuestUserTypes("Content Language");
-		}
-	}
-
-	@Test(priority = 4)
+	@Test(priority = 3)
 	@Parameters({ "userType" }) // Vinay==Scenarios only for Guest user
 	public void IntroScreenModule(String userType) throws Exception {
 		System.out.println("\nVerify Intro Screen");
@@ -65,13 +51,16 @@ public class Android_Onboarding_Suite1 {
 		ZEE5ApplicasterBusinessLogic.IntroScreen(userType);
 	}
 
-	@Test(priority = 5) // Sushma and Vinay==Scenarios only for Guest user
+	@Test(priority = 4) // Sushma and Vinay==Scenarios only for Guest user
 	@Parameters({ "inValidPhnNumber", "validPhnNumber", "validPassword", "otp1", "otp2", "otp3", "otp4", "loginThrough",
 			"userType" })
 	public void LoginRegistrationMobileLogin(String inValidPhnNumber, String validPhnNumber, String validPassword,
 			String otp1, String otp2, String otp3, String otp4, String loginThrough, String userType) throws Exception {
 		if(userType.equalsIgnoreCase("Guest")) {
 			System.out.println("\nVerifying Login flow with valid & invalid credentials");
+			ZEE5ApplicasterBusinessLogic.relaunch(true);
+			ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+			ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 			ZEE5ApplicasterBusinessLogic.loginOrRegisterScreen(inValidPhnNumber, validPhnNumber, loginThrough, userType);
 			ZEE5ApplicasterBusinessLogic.loginScreen(validPassword);
 			ZEE5ApplicasterBusinessLogic.OtpScreen(otp1, otp2, otp3, otp4);
@@ -80,7 +69,7 @@ public class Android_Onboarding_Suite1 {
 		}
 	}
 	
-	@Test(priority = 6) // Hitesh==Scenarios only for Guest user
+	@Test(priority = 5) // Hitesh==Scenarios only for Guest user
 	@Parameters({ "userType", "FirstName", "LastName", "loginThrough" })
 	public void ValidateRegistrationFields(String userType, String FirstName, String lastName, String loginThrough) throws Exception {
 		if(userType.equalsIgnoreCase("Guest")) {

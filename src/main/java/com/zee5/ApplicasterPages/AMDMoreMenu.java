@@ -166,20 +166,10 @@ public class AMDMoreMenu {
 			.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and contains(text(),'My Transactions')]");
 	public static By objUserName = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
 
-	public static By objTransactionPackDuration = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_duration']");
 	public static By objTransactionPackRental = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_amount']");
-	public static By objTransactionPackPaymentMode = By
-			.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_paymentmode']");
-	public static By objTransactionPackCountry = By
-			.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_countryvalue']");
-	public static By objTransactionPackAutoRenewal = By
-			.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_renewl_type']");
-	public static By objTransactionPackStatus = By
-			.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_status_value']");
-	public static By objDownloadInvoice = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_dialog_done']");
+
 	public static By objTransactionDate = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_invoicedate']");
-	public static By objTransactionPackName = By
-			.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_txt_allaccesspack']");
+
 	public static By objSubscriptionPackDuration = By.xpath("//*[@resource-id='com.graymatrix.did:id/pack_duration']");
 	public static By objSubscriptionPackPrice = By.xpath("//*[@resource-id='com.graymatrix.did:id/pack_amount']");
 	public static By objSubscriptionPackExpiryDate = By.xpath("//*[@resource-id='com.graymatrix.did:id/renewal_date']");
@@ -280,4 +270,12 @@ public class AMDMoreMenu {
 	}
 	
 	public static By objDownloadIcon = By.xpath("//*[@id='downloadTv'] | //*[@id='metaInfoActionButtonTextView' and @text='Download']");
+	
+	public static By objTransactionPackStatus = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_status_value'])[1]");
+	public static By objTransactionPackName = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_txt_allaccesspack'])[1]");
+	public static By objTransactionPackCountry = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_countryvalue'])[1]");
+	public static By objTransactionPackDuration = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_duration'])[1]");
+	public static By objTransactionPackPaymentMode = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_paymentmode'])[1]");
+	public static By objTransactionPackAutoRenewal = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_renewl_type'])[1]");
+	public static By objDownloadInvoice = By.xpath("(//*[@resource-id='com.graymatrix.did:id/btn_dialog_done'])[1]");
 }

@@ -764,8 +764,8 @@ public class ResponseInstance {
 //		System.out.println(getPageResponse("home","free"));
 //		System.out.println(getTrayResponse("Shows","premium"));
 //		assetSubType = "video"; //0-1-manual_2g3a9k82241g
-//		getContentDetails("0-0-320930");
-		getTrayResponse("home","trailer");
+//		getContentDetails("0-0-343385");
+//		getTrayResponse("home","trailer");
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -931,10 +931,11 @@ public class ResponseInstance {
 				|| assetSubType.equalsIgnoreCase("movie")|| assetSubType.equalsIgnoreCase("trailer")){
 			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
 					.get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
-			if(!assetSubType.equalsIgnoreCase("trailer"))
+			if(!assetSubType.equalsIgnoreCase("trailer")) {
 			if(resp.jsonPath().getList("related")  != null) {
 				ID = resp.jsonPath().getString("related[0].id");
 				resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
+				}
 			}
 		}else {
 			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
@@ -956,9 +957,9 @@ public class ResponseInstance {
 		}else {
 			Mixpanel.FEProp.setProperty("DRM Video","false");
 		}
-//		resp.print();
+		resp.print();
 		Mixpanel.FEProp.forEach((key, value) -> System.out.println(key + " : " + value));
-		}
+	}
 	
 	
 	public static void Player(String pUsername, String pPassword) {

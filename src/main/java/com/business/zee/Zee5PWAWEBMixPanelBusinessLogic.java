@@ -14017,4 +14017,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 	
 	
+	public static void trailer() {
+		getWebDriver().findElements(By.xpath(".//*[@class='trailerInfoContainer']"));
+	}
+	
 }

@@ -48,4 +48,7 @@ public class AMDProfileScreen {
 		return By.xpath("(//*[@id='subs_Title'])[" + index + "]");
 	}
 
+	public static By objSubscriptionBanner = By.xpath("//*[@text='Subscribe Now!']");
+	public static By objInactivePackStatusUnderMyProfileSection = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_pack_status_label']/following-sibling::*/child::*[@text='Inactive']");
+	public static By objactivePackStatusUnderMyProfileSection = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_pack_status_label' and @text='Valid Till']");
 }

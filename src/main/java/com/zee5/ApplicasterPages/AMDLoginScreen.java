@@ -78,13 +78,7 @@ public class AMDLoginScreen {
 
 	public static By objLoginTextChanged = By.xpath("//*[@text='लॉग इन / पंजीकरण']");
 
-	public static By objHomeTab = By.xpath("//*[@text='Home' and @id='title']");
-
 	public static By objSkipButton = By.xpath("//*[@text='Skip']");
-
-	public static By objMenu = By
-			.xpath("//*[@id='bb_bottom_bar_icon' and (./preceding-sibling::* | ./following-sibling::*)[@text='More']]");
-
 
 	public static By objDisplayLangHindi = By.xpath("//*[@text='हिन्दी']");
 
@@ -167,8 +161,6 @@ public class AMDLoginScreen {
 	
 	public static By objTwitterAutorizeAllowBtn = By.xpath("//*[@resource-id='com.twitter.android:id/ok_button']");
 
-	public static By objMenuHindi = By.xpath("(//*[@id='bb_bottom_bar_icon'])[5]");
-	
 	public static By objEmailFieldInTwitterPage = By.xpath("//*[@resource-id='com.twitter.android:id/login_identifier']");
 	public static By objPasswordFieldInTwitterPage = By.xpath("//*[@resource-id='com.twitter.android:id/login_password']");
 	public static By objLoginButtonInTwitterPage = By.xpath("//*[@resource-id='com.twitter.android:id/login_login']");
@@ -178,4 +170,14 @@ public class AMDLoginScreen {
 	public static By objSearchBackBtn = By.xpath("//*[@id='searchBarBackButton']");
 	
 	public static By objSelectedDisplayLanguage = By.xpath("//*[@id='selectionImage']/following-sibling::*[@id='display_language_content'] | //*[@id='selectionImage']/following-sibling::*");
+	
+	public static By objMenu = By
+			.xpath("//*[@id='bb_bottom_bar_icon' and (./preceding-sibling::* | ./following-sibling::*)[@text='More']] | //*[@id='navigationTitleTextView' and @text='More']");
+
+	public static By objMenuHindi = By.xpath("(//*[@id='bb_bottom_bar_icon'])[5] | (//*[@id='navigationIconView'])[5]");
+
+	public static By objHomeTab = By.xpath("//*[@text='Home' and @id='title'] | //*[@text='Home']");
+
+	public static By objContentLang = By.xpath("//*[@id='contentLanguageValue']");
+
 }
