@@ -44,8 +44,6 @@ public class AMDGenericObjects {
 
 	public static By objPageLoadingIcon = By.xpath("//*[@id='compoiste_progress_bar']");
 
-	public static By objNoOfTrays = By.xpath("//*[@id='header_primary_text']");
-
 	public static By objTrayTitleByIndx(int index) {
 		return By.xpath("(//*[@id='header_primary_text'])[" + index + "]");
 	}
@@ -94,4 +92,6 @@ public class AMDGenericObjects {
 	 public static By objSearchcontentTitle(String title) {
 			return By.xpath("//*[@text='" + title + "' and @class='android.widget.TextView']");
 		}
+	 
+	 public static By objNoOfTrays = By.xpath("//*[@id='header_primary_text'] | //*[@class='android.widget.TextView']/following::*[@text='a']");
 }

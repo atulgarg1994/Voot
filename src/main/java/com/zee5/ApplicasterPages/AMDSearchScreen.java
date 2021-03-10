@@ -135,9 +135,6 @@ public class AMDSearchScreen {
 	
 	public static By objSelectFirstEpisodeResult = By.xpath("//*[@id='item_secondary_text'][1]");
 	
-	public static By objSearchResult(String title) {
-		return By.xpath("//*[@id='searchItemTitleText' and contains(text(), \""+title+"\")]");
-	}
 	public static By objFirstSearchResult(String title) {
 		return By.xpath("(//*[@id='item_primary_text' and contains(text(), \""+title+"\")])[1]");
 	}
@@ -216,4 +213,9 @@ public class AMDSearchScreen {
 	 public static By objNoSearchResults = By.xpath("//*[@resource-id='com.graymatrix.did:id/searchResultEmptyText']");
 	 public static By objSearchResultPage = By.xpath("//*[@resource-id='com.graymatrix.did:id/searchResultViewPager']");
 	 public static By objRelatedSearchResult = By.xpath("//*[@resource-id='com.graymatrix.did:id/searchResultViewPager']");
+	 
+	 public static By objSearchResult(String title) {
+			return By.xpath("//*[@id='searchItemTitleText' and contains(text(), \""+title+"\")] | (//*[contains(@text,'"+title+"')])[2]");
+		}
+	 
 }

@@ -85,16 +85,19 @@ public class AMDDownloadPage {
 	public static By objDeleteDownloadOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/tvDeleteDownload']");
 	public static By objDownloadTextIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/iconTextView_download']");
 	public static By objSearchedContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[2]");
-	public static By objQueuedbar(String str){
-		return By.xpath("//*[@id='circularProgressbar' and ./parent::*[./parent::*[./parent::*[(./preceding-sibling::* | ./following-sibling::*)[./*[@text='" + str + "']]]]]]");
-		}
 
-	public static By objPausedIcon(String str){
-			return By.xpath("//*[@id='img_state' and ./parent::*[./parent::*[(./preceding-sibling::* | ./following-sibling::*)[./*[@text='" + str + "']]]]]");
-		}
-	
-	public static By objNoOfEpisodeList = By.xpath("//*[@id='cardContentImage']");
-	
+	public static By objQueuedbar(String str) {
+		return By.xpath(
+				"//*[@id='circularProgressbar' and ./parent::*[./parent::*[./parent::*[(./preceding-sibling::* | ./following-sibling::*)[./*[@text='"
+						+ str + "']]]]]]");
+	}
+
+	public static By objPausedIcon(String str) {
+		return By.xpath(
+				"//*[@id='img_state' and ./parent::*[./parent::*[(./preceding-sibling::* | ./following-sibling::*)[./*[@text='"
+						+ str + "']]]]]");
+	}
+
 	public static By objShowsDownloadPage = By.xpath("//*[@class='android.widget.RelativeLayout' and ./*[@id='cardContentImage']]");
 	
 	public static By objEpisodesList = By.xpath("//*[@id='rcl_show_downloaded']");
@@ -137,7 +140,7 @@ public class AMDDownloadPage {
 	public static By objtitleofNewEpisode = By.xpath("//*[@id='rl_show_details']//*[@id='tv_title']");
 
 	public static By objIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/iconTextView_download']");		
-	public static By objCallOutwithPauseAll = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Pause All']]");
+
 	public static By objSearchIcon = By.xpath("//*[@id='title' and @text='Downloads']//following::*[1]");
 	
 	/**
@@ -155,4 +158,8 @@ public class AMDDownloadPage {
 	public static By objDownloadIcon = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='Download']]");
 
 	public static By objsearchresultFirst = By.xpath("(//*[@id='cell_center_container'])[2]");
+	public static By objCallOutwithPauseAll = By.xpath("//*[@id='tvPauseAll']");
+	public static By objNoOfEpisodeList = By.xpath("//*[@id='tv_title']");
+	
+	public static By objBackinPlayer = By.xpath("//*[@id='playerBackButton']");
 }

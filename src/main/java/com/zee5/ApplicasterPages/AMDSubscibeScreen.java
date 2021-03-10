@@ -60,7 +60,6 @@ public class AMDSubscibeScreen {
 	
 	public static By objVerifyOTPScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_verify_mobile_otp_account_header']");
 	public static By objGetOTP = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_get_otp']");
-	public static By objTermsandPrivacyLink = By.xpath("//*[@text='By creating this account you agree to our Terms of Use and Privacy Policy.']");
 	public static By objForgotPasswordPageHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and @text='Forgot Password']");
 	
 	public static By objPasswordHidden = By.xpath("//*[@resource-id='com.graymatrix.did:id/input_password' and @password='true']");
@@ -103,4 +102,6 @@ public class AMDSubscibeScreen {
 	public static By objRSVODselectedPackDesc = By.xpath("//*[@resource-id='com.graymatrix.did:id/selectionImageSelector' and @selected='true']/parent::*/parent::*/following-sibling::*/child::*");
 	
 	public static By objPaymentText = By.xpath("//*[@text='Payment Methods']");
+	
+	public static By objTermsandPrivacyLink = By.xpath("//*[@text='By proceeding you agree to our Terms of Use and Privacy Policy']");
 }

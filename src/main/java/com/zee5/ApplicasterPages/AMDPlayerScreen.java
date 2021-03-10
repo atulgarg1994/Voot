@@ -84,7 +84,6 @@ public class AMDPlayerScreen {
 	public static By objAudioTrackOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_audioTrack_text']");
 	public static By objPauseIcon = By.xpath("//*[@id='playerPlayPauseButton'] | //*[@id='icon_pause']");
 	public static By objFullscreenIcon  = By.xpath("//*[@id='playerFullScreenControl'] | //*[@id='icon_fullscreen']");
-	public static By objThreeDotsOnPlayer = By.xpath("//*[@id='icon_more'] | //*[@id='playerMoreOptionButton']");
 		public static By objBackButton = By.xpath("//*[@id='icon_down'] |//*[@id='playerBackButton' and @onScreen='true']");
 
 	public static By objPlayIcon = By.xpath("//*[@id='icon_play'] | //*[@id='playerPlayPauseButton']");
@@ -98,5 +97,10 @@ public class AMDPlayerScreen {
 	public static By objProgressBar = By.xpath("//*[@id='playerSeekBar']");
 	
 	public static By objPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerElevationParent'] | //*[@id='playerTouchToHideShowController'] | (//*[@class='android.widget.FrameLayout'])[9]");
+	public static By objThreeDotsOnPlayer = By.xpath("//*[@id='playerMoreOptionButton']");
+
+	public static By obj3dotMenu = By.xpath("//*[@id='optionsLinearLayout']");
+	public static By objPlaybackrate = By.xpath("//*[@text='Playback Rate']");
+	public static By objOptionInPlaybackrate = By.xpath("//*[@id='optionsLinearLayout']");
 
 }

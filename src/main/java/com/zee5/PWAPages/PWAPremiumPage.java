@@ -132,6 +132,8 @@ public class PWAPremiumPage {
 
 	public static By objContentInPlaylist = By.xpath("(//*[@class='upNextCard'])[1]");
 	
+	public static By objContentInPlaylistbtn = By.xpath("(//*[@class='upNextCard'])[4]");
+	
 	public static By objEmbedPopUp = By.xpath("//*[@class='iconInitialLoad-ic_embed']");
 	
 	public static By objEmbedCopy = By.xpath("//*[@class='copyBtn']//*[contains(text(),'Copy')]");

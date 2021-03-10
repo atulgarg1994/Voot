@@ -71,11 +71,39 @@ public class Android_Settings_v2 {
 	}
 	
 	@Test(priority = 7)
-	@Parameters({"displayLanguageSelection1", "displayLanguageSelection2"})
+	@Parameters({"displayLanguageSelection1", "displayLanguageSelection2" })
 	public void Settings_DisplayLanguageValidation(String displayLanguageSelection1, String displayLanguageSelection2) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
 		ZEE5ApplicasterBusinessLogic.settings_Language(displayLanguageSelection1, displayLanguageSelection2);
+	}
+	
+	@Test(priority = 8)
+	@Parameters({"userType" })
+	public void Settings_SearchHistoryValidation(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.searchHistoryValidation(userType);
+	}
+	
+	@Test(priority = 9)
+	@Parameters({"userType" })
+	public void Settings_AuthenticateDeviceValidation(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.authenticateDeviceValidation(userType);
+	}
+	
+	@Test(priority = 10)
+	@Parameters({"userType" })
+	public void Settings_ResetSettingValidation(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.resetSettingsValidation(userType);
+	}
+	
+	@Test(priority = 11)
+	@Parameters({"userType","searchKeyword"})
+	public void Settings_ParentalPinValidation(String userType, String searchKeyword) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.parentalPinValidation(userType, searchKeyword);
 	}
 	
 	@AfterTest

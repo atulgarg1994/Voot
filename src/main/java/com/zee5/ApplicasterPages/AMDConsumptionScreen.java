@@ -20,12 +20,6 @@ public class AMDConsumptionScreen {
 
 	public static By objconfirmationPopUp = By.xpath("//*[@text='CONFIRMATION']");
 
-	public static By objOkBtn = By.xpath("//*[@id='okButton']");
-
-	public static By objDownloadbtn = By.xpath("//*[@id='downlowd_image']");
-
-	public static By getClubCTA = By.xpath("//*[@id='get_premium_button' and @text='Get Club']");
-
 	public static By objPopUpSubscribed = By.xpath("//*[@id='popup_title']");
 
 	public static By objLoginCTA = By.xpath("//*[@id='get_premium_login']");
@@ -122,4 +116,10 @@ public class AMDConsumptionScreen {
 	public static By objProceedBtnOnSubscribePopUpInPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/proceed']");
 	
 	public static By objShareBtn = By.xpath("//*[@resource-id='com.graymatrix.did:id/shareText'] | //*[@id='metaInfoActionButtonTextView' and @text='Share']");
+	
+	public static By objOkBtn = By.xpath("//*[@id='okButton'] | //*[@id='addDeviceButtonOK']");
+
+	public static By objDownloadbtn = By.xpath("//*[@id='downlowd_image'] | //*[@id='metaInfoActionButtonTextView' and @text='Download']");
+
+	public static By getClubCTA = By.xpath("//*[@id='get_premium_button' and @text='Get Club'] | //*[@id='subscribeButton' and @text='Get Club']");
 }

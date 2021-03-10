@@ -10,7 +10,8 @@
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" /> 
 
-	<parameter name="SubscribedUserWith15daysExpiryUsername" value="testzee5_4@gmail.com" />
+	
+	<parameter name="SubscribedUserWith15daysExpiryUsername" value="8123324529" />
 	<parameter name="SubscribedUserWith15daysExpiryPassword" value="123456" />
 
 	<parameter name="NonsubscribedUserName" value="zee5latest@gmail.com" />
@@ -33,6 +34,7 @@
 	
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsUsername" value="zeetest08@gmail.com" />
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsPassword" value="123456"/>
+	
 	
 	<parameter name="PackWithDiscountUsername" value="dmgowthu@mailinator.com" />
 	<parameter name="PackWithDiscountPassword" value="12345678" />

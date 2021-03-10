@@ -167,7 +167,7 @@ public class Mixpanel extends ExtentReporter {
 	public static void fetchEvent(String distinct_id, String eventName)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
-			Thread.sleep(180000);
+			Thread.sleep(18000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

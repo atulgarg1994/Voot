@@ -707,10 +707,10 @@ public class ResponseInstance {
 		String xAccessToken = getXAccessTokenWithApiKey();
 		if (tabName.equals("Home")) {
 			resp = given().headers("x-access-token", xAccessToken).when().get(
-					"https://gwapi.zee5.com/content/collection/0-8-homepage?page=1&limit=10&item_limit=20&translation=en&country=IN&version=6&languages=en,kn&");
+					"https://gwapi.zee5.com/content/collection/0-8-homepage?page=1&limit=10&item_limit=20&translation=en&country=IN&languages=en,kn&version=6");
 		} else if (tabName.equals("Show")) {
 			resp = given().headers("x-access-token", xAccessToken).when().get(
-					"https://gwapi.zee5.com/content/collection/0-8-tvshows?page=1&limit=10&item_limit=20&translation=en&country=IN&version=6&languages=en,kn&");
+					"https://gwapi.zee5.com/content/collection/0-8-tvshows?page=1&limit=10&item_limit=20&translation=en&country=IN&version=6&languages=en,kn&version=6");
 		}
 
 		for (int i = 0; i < resp.jsonPath().getList("buckets").size(); i++) {

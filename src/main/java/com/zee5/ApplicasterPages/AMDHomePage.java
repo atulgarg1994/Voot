@@ -137,14 +137,6 @@ public class AMDHomePage {
 	public static By BeforeTVTrayTitle = By
 			.xpath("(//*[@id='header_primary_text' and  contains(text(),'Premiere Episodes | Before Zee')])[1]");
 
-	public static By objBeforeTVViewAllArraowIcon = By.xpath(
-			"(//*[@id='header_primary_text' and contains(text(),'Premiere Episodes | Before Zee')]//parent::*[@class='android.view.ViewGroup']//*[@id='header_arrow'])[1]");
-
-	public static By objViewAllScreen = By
-			.xpath("//*[@id='title' and contains(text(),'Premiere Episodes | Before Zee')]");
-
-	public static By objFirstContentOfBeforeTvTray = By.xpath(
-			"(//*[@id='header_primary_text' and  contains(text(),'Premiere Episodes | Before Zee')]//following::*)[4]");
 
 	public static By objBottomNavigation(String tabName) {
 		return By.xpath("//*[@id='bb_bottom_bar_title' and @text='" + tabName + "']");
@@ -192,8 +184,7 @@ public class AMDHomePage {
 
 	public static By objUpcoming = By
 			.xpath("(//*[@text='Upcoming']//parent::*)[1] | (//*[@id='navigationIconView'])[2]");
-	public static By objDownload = By
-			.xpath("(//*[@text='Downloads']//parent::*)[1] | (//*[@id='navigationIconView'])[3]");
+	
 	public static By objMoreMenu = By.xpath("(//*[@text='More']//parent::*)[1] | (//*[@id='navigationIconView'])[5]");
 
 	public static By objTitle = By.xpath("//*[@id='homeTabLayout']/*/child::*");
@@ -228,4 +219,16 @@ public class AMDHomePage {
  	public static By UpcomingIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[2] |(//*[@id='navigationIconView'])[2]");
  	public static By DownloadIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[3] | (//*[@id='navigationIconView'])[4]");
  	public static By MoreMenuIcon = By.xpath("(//*[@id='bb_bottom_bar_icon'])[5] | (//*[@id='navigationIconView'])[5]");
+ 	
+ 	public static By objDownload = By.xpath("(//*[@text='Downloads']//parent::*)[1] | (//*[@id='navigationIconView'])[4]");
+ 	
+ 	public static By objBeforeTVViewAllArraowIcon = By.xpath(
+			"(//*[@id='header_primary_text' and contains(text(),'Premiere Episodes | Before Zee')]//parent::*[@class='android.view.ViewGroup']//*[@id='header_arrow'])[1] | //*[contains(text(),'Premiere Episodes | Before')]/parent::*//*[@text='a']");
+
+
+public static By objViewAllScreen = By
+			.xpath("//*[@id='title' and contains(text(),'Premiere Episodes | Before Zee')] | //*[contains(text(),'Premiere Episodes | Before Zee')]");
+			
+public static By objFirstContentOfBeforeTvTray = By.xpath(
+			"(//*[@id='header_primary_text' and  contains(text(),'Premiere Episodes | Before Zee')]//following::*)[4] | (//*[contains(text(),'Premiere Episodes | Before Zee')]//following::*)[4]");
 }

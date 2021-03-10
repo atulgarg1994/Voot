@@ -1331,12 +1331,12 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForTrailer(keyword1,userType);
 	}
 	
-	@Test(priority = 191)
-	@Parameters({ "userType"})
-	public void verifyParentalOverlayImpressionEventForCarouselContent(String userType) throws Exception {
-		System.out.println("Verify Parental Overlay Impression Event For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForCarouselContent(userType);
-	}
+//	@Test(priority = 191)
+//	@Parameters({ "userType"})
+//	public void verifyParentalOverlayImpressionEventForCarouselContent(String userType) throws Exception {
+//		System.out.println("Verify Parental Overlay Impression Event For Carousel Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyParentalOverlayImpressionEventForCarouselContent(userType);
+//	}
 	
 	@Test(priority = 192)
 	@Parameters({ "userType"})

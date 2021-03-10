@@ -21,7 +21,7 @@ public class Android_BeforeTV {
 	@Test(priority = 0)	 
 	@Parameters({ "userType" })
 	public void ApplicasterLogin(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.captureADBLogs("BeforeTVlog", "");
+//		ZEE5ApplicasterBusinessLogic.captureADBLogs("BeforeTVlog", "");
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
@@ -37,6 +37,6 @@ public class Android_BeforeTV {
 	public void tearDownApp() {
 		System.out.println("Quit the App");
 		ZEE5ApplicasterBusinessLogic.tearDown();
-		ZEE5ApplicasterBusinessLogic.stopADBLogcat();
+//		ZEE5ApplicasterBusinessLogic.stopADBLogcat();
 	}
 }

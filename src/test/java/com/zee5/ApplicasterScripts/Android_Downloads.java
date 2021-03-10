@@ -25,12 +25,18 @@ public class Android_Downloads {
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 	}
 	
-	@Test(priority = 1)
+	@Test(priority = 2)
 	@Parameters({ "userType"})
 	public void DonwloadsLandingScreen(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.DownloadScreenUIUXValidation(userType);
 		ZEE5ApplicasterBusinessLogic.BrowseToDownloadFunctionality(userType);
 		ZEE5ApplicasterBusinessLogic.DownloadScreenValidation(userType);
+	}
+	
+	@Test(priority = 1)
+	@Parameters({ "userType"})
+	public void ContentPlayBackDownloads(String userType) throws Exception {
+			ZEE5ApplicasterBusinessLogic.DownloadsContentPlayBackValidation(userType,"Better",true);
 	}
 	
 	@AfterTest

@@ -643,7 +643,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDHomePage.objShowsTab, "Shows Tab");
 			waitTime(5000);
 //			closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD - HANDLED HERE
-			Swipe("UP", 1);
+			Swipe("UP", 2);
 			waitTime(5000);
 			boolean beforTV = verifyIsElementDisplayed(AMDHomePage.objBeforeTVTray);
 			if (beforTV) {
@@ -1152,7 +1152,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 		}
 //		PartialSwipe("UP", 2);
-
+		packDetails = getText(AMDSubscibeScreen.objRSVODselectedPackDesc);
 		verifyElementPresent(AMDSubscibeScreen.objContinueBtn, "Continue button in subscribe page");
 		if (getDriver().findElement(AMDSubscibeScreen.objContinueBtn).isEnabled()) {
 			logger.info("Continue button is highlighted");
@@ -1282,26 +1282,27 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDHomePage.objSubscribeTeaser, "Subscribe icon");
 	}
 
-public void unRegisteredEmailSubscribe() throws Exception {
-	extent.HeaderChildNode("SubscribeNow Functionality for UnRegistered email-id");
-	System.out.println("\nSubscribeNow Functionality for UnRegistered email-id");
-	verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in subscription page");
-	verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in subscribe page");
-	verifyElementExist(AMDSubscibeScreen.objAdbanner, "Carosual in subscription page");
-	verifyElementExist(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo code in subscribe page");
-	verifyElementPresent(AMDSubscibeScreen.objApply, "Apply button is subscribe page");
-	Swipe("UP", 3);
-	click(AMDSubscibeScreen.objContinueBtn, "Continue button");
-	verifyElementExist(AMDSubscibeScreen.objAccountInfoHeader, "Account info screen");
-	hideKeyboard(); // Added by Kushal
-	verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header");
-	click(AMDSubscibeScreen.objEmailID, "Email id");
-	type(AMDSubscibeScreen.objEmailID, RandomStringGenerator(5) + "@gmail.com", "Email");
-	hideKeyboard();
-	click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
-	passwordScenario("UnRegistered");
+	public void unRegisteredEmailSubscribe() throws Exception {
+		extent.HeaderChildNode("SubscribeNow Functionality for UnRegistered email-id");
+		System.out.println("\nSubscribeNow Functionality for UnRegistered email-id");
+		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in subscription page");
+		verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in subscribe page");
+		verifyElementExist(AMDSubscibeScreen.objAdbanner, "Carosual in subscription page");
+		verifyElementExist(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo code in subscribe page");
+		verifyElementPresent(AMDSubscibeScreen.objApply, "Apply button is subscribe page");
+		Swipe("UP", 3);
+		packDetails = getText(AMDSubscibeScreen.objRSVODselectedPackDesc);
+		click(AMDSubscibeScreen.objContinueBtn, "Continue button");
+		verifyElementExist(AMDSubscibeScreen.objAccountInfoHeader, "Account info screen");
+		hideKeyboard(); // Added by Kushal
+		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header");
+		click(AMDSubscibeScreen.objEmailID, "Email id");
+		type(AMDSubscibeScreen.objEmailID, RandomStringGenerator(5) + "@gmail.com", "Email");
+		hideKeyboard();
+		click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
+		passwordScenario("UnRegistered");
 
-}
+	}
 
 	/*
 	 * =============================================================================
@@ -1599,10 +1600,10 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		waitTime(6000);
 
-		verifyElementExist(AMDSearchScreen.objHomeOption, "Bottom bar Home Option");
-		verifyElementExist(AMDSearchScreen.objUpcomingOption, "Bottom bar Upcoming Option");
-		verifyElementExist(AMDSearchScreen.objDownloadsOption, "Bottom bar Downloads Option");
-		verifyElementExist(AMDSearchScreen.objMoreOption, "Bottom bar More Option");
+		verifyElementExist(AMDHomePage.HomeIcon, "Bottom bar Home Option");
+		verifyElementExist(AMDHomePage.UpcomingIcon, "Bottom bar Upcoming Option");
+		verifyElementExist(AMDHomePage.DownloadIcon, "Bottom bar Downloads Option");
+		verifyElementExist(AMDHomePage.MoreMenuIcon, "Bottom bar More Option");
 
 		WebElement elementBackBtn = findElement(AMDLoginScreen.objSearchBackBtn);
 		int BackBtnleftX = elementBackBtn.getLocation().getX();
@@ -1671,7 +1672,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		}
 
 		verifyElementPresentAndClick(AMDLoginScreen.objSearchBackBtn, "Back Button");
-		if (verifyElementPresent(AMDLoginScreen.objHomeTab, "Home Tab")) {
+		if (verifyElementPresent(AMDHomePage.objTopNav_HomeTab, "Home Tab")) {
 			logger.info("User navigated to previous screen on tapping of back button available on the search screen");
 			extent.extentLoggerPass("Previous screen",
 					"User navigated to previous screen on tapping of back button available on the search screen");
@@ -1704,7 +1705,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			extent.extentLoggerPass("Search screen", "Top search overlay is displayed");
 		} else {
 			logger.info("Top search overlay is not displayed");
-			extent.extentLoggerFail("Search screen", "Top search overlay is not displayed");
+			extent.extentLoggerWarning("Search screen", "Top search overlay is not displayed");
 		}
 		if (userType.equals("Guest")) {
 			deselectContentLang_MoreMenuAndSelectDefaultLanguage("Hindi");
@@ -1724,14 +1725,14 @@ public void unRegisteredEmailSubscribe() throws Exception {
 //		}
 //		
 //		hideKeyboard();	
-		click(AMDSearchScreen.objHomeOption, "Bottom bar Home Option");
+		click(AMDHomePage.HomeIcon, "Bottom bar Home Option");
 	}
 
 	public void verifySearchLandingScreen(String userType) throws Exception {
 		extent.HeaderChildNode("Validating " + userType + " user navigates to Search landing screen");
 		System.out.println("\nValidating " + userType + "user navigates to Search landing screen");
 		waitTime(10000);
-		verifyElementPresent(AMDLoginScreen.objHomeTab, "Home Tab");
+		verifyElementPresent(AMDHomePage.objTopNav_HomeTab, "Home Tab");
 		boolean liveTV = false;
 
 		int noOfTabs = getCount(AMDHomePage.objTitle);
@@ -1742,14 +1743,14 @@ public void unRegisteredEmailSubscribe() throws Exception {
 					i = noOfTabs - 1;
 				}
 				WebElement eleTab = getDriver()
-						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
+						.findElement(By.xpath("(//*[@class='android.widget.HorizontalScrollView']/child::*/child::*/child::*)[" + i + "]"));
 				tabName = eleTab.getText();
 				System.out.println(tabName);
 				eleTab.click();
 
 			} else {
 				WebElement eleTab = getDriver()
-						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
+						.findElement(By.xpath("(//*[@class='android.widget.HorizontalScrollView']/child::*/child::*/child::*)[" + i + "]"));
 				tabName = eleTab.getText();
 				System.out.println(tabName);
 				eleTab.click();
@@ -1781,16 +1782,16 @@ public void unRegisteredEmailSubscribe() throws Exception {
 				liveTV = true;
 			}
 		}
-		click(AMDSearchScreen.objHomeOption, "Bottom bar Home Option");
+		click(AMDHomePage.HomeIcon, "Bottom bar Home Option");
 
 	}
 
 	public void verifySearchOption(String userType) throws Exception {
 		extent.HeaderChildNode("Verify Search Icon on Landing pages as : " + userType);
 		System.out.println("\nVerify Search Icon on Landing pages as " + userType);
-		click(AMDHomePage.objBottomNavigation("Home"), "Home");
+		click(AMDHomePage.HomeIcon, "Home");
 		waitTime(10000);
-		verifyElementPresent(AMDLoginScreen.objHomeTab, "Home Tab");
+		verifyElementPresent(AMDHomePage.objTopNav_HomeTab, "Home Tab");
 		boolean liveTV = false;
 
 		int noOfTabs = getCount(AMDHomePage.objTitle);
@@ -1803,14 +1804,14 @@ public void unRegisteredEmailSubscribe() throws Exception {
 					i = noOfTabs - 1;
 				}
 				WebElement eleTab = getDriver()
-						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
+						.findElement(By.xpath("(//*[@class='android.widget.HorizontalScrollView']/child::*/child::*/child::*)[" + i + "]"));
 				tabName = eleTab.getText();
 				System.out.println(tabName);
 				eleTab.click();
 
 			} else {
 				WebElement eleTab = getDriver()
-						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
+						.findElement(By.xpath("(//*[@class='android.widget.HorizontalScrollView']/child::*/child::*/child::*)[" + i + "]"));
 				tabName = eleTab.getText();
 				System.out.println(tabName);
 				eleTab.click();
@@ -1863,7 +1864,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 //			   extent.extentLoggerFail("Search icon", "Search icon is not displayed at top right of the More Screen");
 //       }
 //		
-		click(AMDSearchScreen.objHomeOption, "Bottom bar Home Option");
+		click(AMDHomePage.HomeIcon, "Bottom bar Home Option");
 
 	}
 
@@ -2257,18 +2258,17 @@ public void unRegisteredEmailSubscribe() throws Exception {
 
 	public void TopSearches(String usertype) throws Exception {
 		extent.HeaderChildNode("Top Searches module");
+		
+		if(usertype.equalsIgnoreCase("Guest")) {
+			selectContentLang_MoreMenu("Hindi");
+		}
 		waitTime(5000);
-		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search icon");
-		if (usertype.equalsIgnoreCase("NonSubscribedUser") || usertype.equalsIgnoreCase("SubscribedUser")) {
-
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
 			int noOfTrays = findElements(AMDSearchScreen.objNoOftraysInSearchpage).size();
 			System.out.println(noOfTrays);
 			boolean TopSearchFound = false;
 			for (int i = 1; i <= noOfTrays; i++) {
-				String traytitle = getDriver()
-						.findElement(
-								By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[" + i + "]"))
-						.getText();
+				String traytitle = getDriver().findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/cell_top_container']/child::*)[" + i + "]")).getText();
 //				String traytitle = getDriver()
 //						.findElement(
 //								By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[3]"))
@@ -2277,14 +2277,10 @@ public void unRegisteredEmailSubscribe() throws Exception {
 
 				if (traytitle.equalsIgnoreCase("Top Searches")) {
 					TopSearchFound = true;
-					if (checkElementExist(AMDSearchScreen.objTopSearches, "Top searches tray")) {
+					if (checkElementExist(AMDSearchScreen.objTopSearchesbelowTheTrendingSearches, "Top searches tray")) {
 						logger.info("Top searches section is displayed below Trending searches carousel");
 						extent.extentLoggerPass("Search Screen",
 								"Top searches section is displayed below Trending searches carousel");
-					} else {
-						logger.info("Top searches section is not displayed below Trending searches carousel");
-						extent.extentLoggerFail("Search Screen",
-								"Top searches section is not displayed below Trending searches carousel");
 					}
 
 //					checkElementExist(AMDSearchScreen.objContentCardTitleOfTopSearchesTray,
@@ -2314,26 +2310,22 @@ public void unRegisteredEmailSubscribe() throws Exception {
 				}
 			}
 			if (TopSearchFound == false) {
-				logger.error("Top searches is not displayed");
-				extentLoggerFail("Top searches tray", "Top searches is not displayed");
+				logger.info("Top searches is not displayed");
+				extentLoggerWarning("Top searches tray", "Top searches is not displayed");
 			}
 			Back(1);
-		} else {
-			Back(1);
-			selectContentLang_MoreMenu("Hindi");
-		}
 	}
 
 	public void TrendingSearches() throws Exception {
 		extent.HeaderChildNode("Trending Searches module");
-		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search icon");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
 		waitTime(5000);
 		int noOfTrays = findElements(AMDSearchScreen.objNoOftraysInSearchpage).size();
 		System.out.println(noOfTrays);
 		boolean TrendingSearchFound = false;
 		for (int i = 1; i <= noOfTrays; i++) {
 			String traytitle = getDriver()
-					.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[" + i + "]"))
+					.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/cell_top_container']/child::*)[" + i + "]"))
 					.getText();
 			if (traytitle.equalsIgnoreCase("Trending Searches")) {
 				TrendingSearchFound = true;
@@ -2346,7 +2338,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 //					waitTime(3000);
 //					verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search icon");
 //					
-				checkElementExist(AMDSearchScreen.objTrendingSearches, "Trending Searches tray");
+				checkElementExist(AMDSearchScreen.objTrendingSearchOverlay, "Trending Searches tray");
 				checkElementExist(AMDSearchScreen.objContentCardTitleOfTrendingSearchesTray,
 						"Content card title of Trending searches tray");
 
@@ -2370,7 +2362,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 //						    extent.extentLoggerFail("Title", "user is not navigated to respective consumption/Landing screen post tapping on any Trending searches carousel");
 //						}
 //
-//				break;
+				break;
 //				
 			}
 		}
@@ -2379,6 +2371,9 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			extentLoggerFail("Trending searches tray", "Trending searches is not displayed");
 		}
 		Back(1);
+		if (userType.equals("Guest")) {
+			deselectContentLang_MoreMenuAndSelectDefaultLanguage("Hindi");
+		}
 	}
 
 	/*
@@ -3190,8 +3185,8 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			extent.extentLoggerPass("Related search results",
 					tabName + " tab is displayed and clicked on " + tabName + " tab");
 
-			if (verifyIsElementDisplayed(AMDMoreMenu.objSearchResult(searchModuleKeyword))) {
-				String searchResults = findElement(AMDMoreMenu.objSearchResult(searchModuleKeyword)).getText();
+			if (verifyIsElementDisplayed(AMDSearchScreen.objFirstSearchResult)) {
+				String searchResults = findElement(AMDSearchScreen.objFirstSearchResult).getText();
 				System.out.println("Search result : " + searchResults);
 
 				if (searchResults.contains(searchModuleKeyword)) {
@@ -3200,13 +3195,13 @@ public void unRegisteredEmailSubscribe() throws Exception {
 							"Related search results are displayed in " + tabName + " tab");
 				} else {
 					logger.info("Related search results are not displayed in  " + tabName + " tab");
-					extent.extentLoggerPass("Related search results",
+					extent.extentLogger("Related search results",
 							"Related search results are not displayed in  " + tabName + " tab");
 				}
 
 			} else {
 				logger.info("Related search results are not displayed in  " + tabName + " tab");
-				extent.extentLoggerPass("Related search results",
+				extent.extentLogger("Related search results",
 						"Related search results are not displayed in  " + tabName + " tab");
 			}
 
@@ -3217,7 +3212,8 @@ public void unRegisteredEmailSubscribe() throws Exception {
 				Videos = true;
 			}
 		}
-		Back(1);
+		verifyElementPresentAndClick(AMDSearchScreen.objClearSearch, "Clear Search");
+
 		if (checkElementExist(AMDSearchScreen.objMicrophoneIcon, "Microphone Icon")) {
 			logger.info(
 					"Microphone icon is displayed when user navigates back to Search landing screen from Search Result screen");
@@ -3231,18 +3227,16 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public void noSearchResults(String invalidSearchKeyword) throws Exception {
 		extent.HeaderChildNode(
 				"Validating the category tab is not displayed if the searched keyword don’t have results for the particular category");
 
-		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search Icon");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
 
 		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
-		getDriver().getKeyboard().sendKeys(invalidSearchKeyword);
+		//getDriver().getKeyboard().sendKeys(invalidSearchKeyword);
+		type(AMDSearchScreen.objSearchBoxBar, invalidSearchKeyword + "\n", "Searchbar");
 		hideKeyboard();
-		// type(AMDSearchScreen.objSearchBoxBar, invalidSearchKeyword + "\n", "Search
-		// bar");
 		if (checkElementExist(AMDSearchScreen.objNoSearchResults, "No Search Results message")) {
 			String noResults = getText(AMDSearchScreen.objNoSearchResults);
 			logger.info(noResults + " message is displayed");
@@ -3274,34 +3268,34 @@ public void unRegisteredEmailSubscribe() throws Exception {
 				.release().perform();
 	}
 
-	@SuppressWarnings("deprecation")
 	public void searchPageValidation(String partlySpeltSearchKeyword) throws Exception {
 		extent.HeaderChildNode("Search Result Screen Validation");
-		getDriver().getKeyboard().sendKeys(partlySpeltSearchKeyword);
-		type(AMDSearchScreen.objSearchBoxBar, partlySpeltSearchKeyword + "\n", "Search bar");
-		verifyElementExist(AMDSearchScreen.objSearchResultPage, "Search Result Screen");
-
+		waitTime(7000);
 		if (verifyIsElementDisplayed(AMDSearchScreen.objRecentSearch)) {
 			extent.extentLoggerPass("Recent Search Overlay",
 					"Recent Search Overlay is not available in search results screen");
 			logger.info("Recent Search Overlay is not available in search results screen");
 		} else {
-			extent.extentLoggerFail("Recent Search Overlay",
+			extent.extentLogger("Recent Search Overlay",
 					"Recent Search Overlay is available in search results screen");
-			logger.error("Recent Search Overlay is available in search results screen");
+			logger.info("Recent Search Overlay is available in search results screen");
 		}
-
+		
+		//getDriver().getKeyboard().sendKeys(partlySpeltSearchKeyword);
+		type(AMDSearchScreen.objSearchBoxBar, partlySpeltSearchKeyword + "\n", "Search bar");
 		hideKeyboard();
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);
+		verifyElementExist(AMDSearchScreen.objSearchResultPage, "Search Result Screen");
+
 
 //		String enteredValue = getAttributValue("value", AMDSearchScreen.objSearchBoxBar);
 		System.out.println(partlySpeltSearchKeyword.length());
 		waitTime(20000);
 		if (partlySpeltSearchKeyword.length() >= 3) {
 
-			System.out.println(getDriver().findElements(AMDSearchScreen.objRelatedSearchResult).size());
+			System.out.println(getDriver().findElements(AMDSearchScreen.objRelatedSearchResult(partlySpeltSearchKeyword)).size());
 
-			if (getDriver().findElements(AMDSearchScreen.objRelatedSearchResult).size() > 0) {
+			if (getDriver().findElements(AMDSearchScreen.objRelatedSearchResult(partlySpeltSearchKeyword)).size() > 0) {
 				logger.info("Search result screen is displayed once user enters 3rd character in the search box.");
 				extent.extentLoggerPass("Search result screen",
 						"Search result screen is displayed once user enters 3rd character in the search box.");
@@ -3406,10 +3400,11 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			click(AMDSearchScreen.objProceedBtn, "Proceed Button");
 			if (checkElementExist(AMDSearchScreen.objAudioPermissionPopUp, "Audio Permission Popup")) {
 				verifyElementPresentAndClick(AMDSearchScreen.objAllow, "Allow Option");
-				waitTime(2000);
+				waitTime(7000);
+				click(AMDSearchScreen.objMicrophoneIcon, "Microphone icon");
 				//checkElementExist(AMDSearchScreen.objVoiceSearchScreen, "Voice Search Screen");
 				checkElementExist(AMDSearchScreen.objMicrophoneLogoInVoiceSearch, "Microphone icon");
-				checkElementExist(AMDSearchScreen.objSeeUrTextMsg, "See your text here message");
+				//checkElementExist(AMDSearchScreen.objSeeUrTextMsg, "See your text here message");
 				verifyElementPresentAndClick(AMDSearchScreen.objCloseBtn, "Close Button");
 //				verifyElementPresentAndClick(AMDSearchScreen.objMicrophoneIcon, "Microphone icon");
 //				verifyElementExist(AMDSearchScreen.objVoiceSearchPermission,"Microphone access permission popup");
@@ -4521,7 +4516,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 	public void validationofDownloadingContent() throws Exception {
 		extent.HeaderChildNode("Validating funtionality of Pause and Continue Download CTA call-Out option");
 		System.out.println("\nValidating funtionality of Pause and Continue Download CTA call-Out option");
-
+        Back(2);
 		DownloadContent(content2, pVideoQuality, true);
 		if (checkElementExist(AMDDownloadPage.objDownloadingText)) {
 			extent.extentLoggerPass("Donwloading Content", "Downloading content is displayed in Downloads screen");
@@ -4606,9 +4601,11 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		click(AMDDownloadPage.objRetryCTA, "Continue option");
 		int totalEpisodesList = getDriver().findElements(AMDDownloadPage.objNoOfEpisodeList).size();
 		logger.info(totalEpisodesList);
-		click(AMDDownloadPage.objDownloadingCircularBar, "Downloading Icon");
-		click(AMDDownloadPage.objCancelDownloadOption, "Cancel Download CTA");
 		waitTime(3000);
+		click(AMDDownloadPage.objDownloadingCircularBar, "Downloading Icon");
+		waitTime(5000);
+		click(AMDDownloadPage.objCancelDownloadOption, "Cancel Download CTA");
+		waitTime(5000);
 		int totalEpisodesList2 = getDriver().findElements(AMDDownloadPage.objNoOfEpisodeList).size();
 		logger.info(totalEpisodesList2);
 		if (totalEpisodesList != totalEpisodesList2) {
@@ -4871,10 +4868,11 @@ public void unRegisteredEmailSubscribe() throws Exception {
 
 			extent.HeaderChildNode("Verify Deleted Content from Downloads screen");
 			System.out.println("\nVerify Deleted Content from Downloads screen");
-
+			waitTime(4000);
 			click(AMDDownloadPage.objDownloadingCircularBar, "Downloading circular bar");
+			waitTime(5000);
 			click(AMDDownloadPage.objCancelDownloadOption, "Cancel Download CTA");
-
+            waitTime(6000);
 			int totalEpisodesList2 = getDriver().findElements(AMDDownloadPage.objNoOfEpisodeList).size();
 			logger.info("Content Cards: " + totalEpisodesList2);
 			if (totalEpisodesList != totalEpisodesList2) {
@@ -4899,7 +4897,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 
 			extent.HeaderChildNode("Verify multiple downloading content in Downloads screen");
 			System.out.println("\nVerify multiple downloading content in Downloads screen");
-
+            Back(1);
 			// **** Download Episode content3
 			DownloadContent(content3, pVideoQuality, true);
 			if (checkElementExist(AMDDownloadPage.objDownloadingText)) {
@@ -4910,7 +4908,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 						"Downloading content is not displayed in Downloads screen");
 				logger.error("Downloading content is not displayed in Downloads screen");
 			}
-
+           Back(1);
 			// **** Download Episode content4
 			DownloadContent(content4, "Better", true);
 			if (checkElementExist(AMDDownloadPage.objDownloadingText)) {
@@ -4937,8 +4935,8 @@ public void unRegisteredEmailSubscribe() throws Exception {
 				extent.extentLoggerFail("Queued", "User fails to Download only one content at a time");
 				logger.error("User fails to Download only one content at a time");
 			}
-			if (checkElementExist(AMDDownloadPage.objQueuedbar("Comedy Kiladigalu Championship Episode 9"),
-					"Paused icon")) {
+			if (checkElementExist(AMDDownloadPage.objDownloadingCircularBar,
+					"Downloding icon")) {
 				extent.extentLoggerPass("Queued", "Contents are Queued up in a line ");
 				logger.info("Contents are Queued up in a line ");
 			} else {
@@ -4949,7 +4947,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			click(AMDDownloadPage.objPausedBar, "Paused icon");
 			click(AMDDownloadPage.objRetryCTA, "Continue option");
 			waitTime(2000);
-			Back(1);
+			Back(2);
 
 			// **** Download Episode content5
 			DownloadContent(content5, pVideoQuality, true);
@@ -4968,7 +4966,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 				logger.error("Incomplete Downloads are allowed to be Play");
 			}
 //			switchNetworkWifiToData();
-			Back(2);
+			Back(3);
 
 			// **** Download Episode content6
 			DownloadContent(content6, "Best", true);
@@ -5123,13 +5121,16 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		verifyElementPresent(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
 		click(AMDHomePage.objDownloadBtn, "Downloads tab");
 		waitTime(3000);
-		if(verifyElementDisplayed(AMDDownloadPage.objDwnloadsHeader)) {
-			extent.extentLoggerPass("Downloads", "Downloads header at the top on center of the screen is displayed ");
-			logger.info("Downloads header at the top on center of the screen is displayed");
-		}else {
-			extent.extentLoggerFail("Downloads", "Downloads header at the top on center of the screen is NOT  displayed [AMA2-3460]");
-			logger.error("Downloads header at the top on center of the screen is NOT displayed [AMA2-3460]");
-		}
+		
+		//Downloads Header text has been removed
+		
+//		if((checkElementExist(AMDDownloadPage.objDwnloadsHeader)) == true ) {
+//			extent.extentLoggerPass("Downloads", "Downloads header at the top on center of the screen is displayed ");
+//			logger.info("Downloads header at the top on center of the screen is displayed");
+//		}else {
+//			extent.extentLoggerFail("Downloads", "Downloads header at the top on center of the screen is NOT  displayed [AMA2-3460]");
+//			logger.error("Downloads header at the top on center of the screen is NOT displayed [AMA2-3460]");
+//		}
 //		verifyElementPresent(AMDDownloadPage.objDwnloadsHeader, "Downloads header at the top on center of the screen");
 		verifyElementExist(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
 		verifyElementExist(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
@@ -5751,6 +5752,8 @@ public void unRegisteredEmailSubscribe() throws Exception {
 
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+			waitTime(1000);
+			PartialSwipe("UP", 1);
 			click(AMDMoreMenu.objSettings, "Settings option");
 			waitTime(2000);
 			click(AMDSettingsScreen.objDownloadOverWifiToggle, "Wifi Off toggle");
@@ -5764,10 +5767,12 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			hideKeyboard();
 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 
-			click(AMDSearchScreen.objSearchResultText(searchKeyword), "Search result");
-
+//			click(AMDSearchScreen.objSearchResultText(searchKeyword), "Search result");
+			click(AMDSearchScreen.objSearchResult(searchKeyword), "Search result");
+			
 			click(AMDUpcomingPage.objDownloadIcon, "Download icon");
 			click(AMDMoreMenu.objDataSaver, "Data Saver option");
+			Swipe("UP", 1);
 			click(AMDMoreMenu.objStartDownload, "Start Download");
 
 			String wifi = "";
@@ -5788,112 +5793,139 @@ public void unRegisteredEmailSubscribe() throws Exception {
 			Back(1);
 		
 
-//			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
-//			click(AMDMoreMenu.objSettings, "Settings option");
-//			waitTime(5000);
-//			Swipe("UP", 1);
-//			verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
-//			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
-//			String password = "";
-//			if (userType.equals("NonSubscribedUser")) {
-//				password = getParameterFromXML("NonsubscribedPassword");
-//			} else if (userType.equals("SubscribedUser")) {
-//				password = getParameterFromXML("SubscribedPassword");
-//			}
-//			click(AMDMoreMenu.objPasswordField, "Password field");
-//			getDriver().getKeyboard().sendKeys(password);
-//
-//			hideKeyboard();
-//			if (getOEMName.contains("vivo")) {
-//				hidePwdKeyboard();
-//			}
-//			click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
-//			waitTime(2000);
-//
-//			String state = getText(AMDMoreMenu.objNoRestriction);
-//			System.out.println(state);
-//			if (state.equalsIgnoreCase("No Restriction")) {
-//				logger.info(state + " is selected by default");
-//				extent.extentLoggerPass("Parental Pin", state + " is selected by default");
-//
-//			} else {
-//				logger.error(state + " is not selected by default");
-//				extent.extentLoggerFail("Parental Pin", state + " is not selected by default");
-//
-//			}
-//
-//			click(AMDMoreMenu.objRestrictAllContent, "Restrict All Content option");
-//			click(AMDMoreMenu.objContinueBtn, "Continue Button");
-//			waitTime(2000);
-//
-//			verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin");
-//			type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
-//			hideKeyboard();
-//			type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
-//			hideKeyboard();
-//			type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
-//			hideKeyboard();
-//			type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
-//			hideKeyboard();
-//			waitTime(4000);
-//			click(AMDMoreMenu.objSetPinContinueBtn, "Continue Button");
-//			waitTime(2000);
-//
-//			click(AMDMoreMenu.objParentalLockDone, "Done Button");
-//			Back(1);
-//			waitTime(3000);
-//			Back(1);
-//
-//			verifyElementPresentAndClick(AMDHomePage.objDownload, "Downloads tab");
-//			verifyElementPresentAndClick(AMDDownloadPage.objvideostab, "Videos tab");
-//			waitForElementDisplayed(AMDMoreMenu.objDownloadDoneIcon, 20);
-//			click(AMDDownloadPage.objDownloadedContent, "Downloaded Content");
-//			click(AMDDownloadPage.objPlayDownloadedContent, "Play Downloaded Content");
-//
-//			waitTime(2000);
-//			Back(1);
-//			verifyElementPresentAndClick(AMDDownloadPage.objEnterPinCTA, "Enter Pin CTA");
-//
-//			type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
-//			hideKeyboard();
-//			type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
-//			hideKeyboard();
-//			type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
-//			hideKeyboard();
-//			type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
-//			hideKeyboard();
-//			click(AMDMoreMenu.objSetPinContinueBtn, "Continue button");
-//			waitTime(5000);
-//			Back(1);
-//			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
-//			click(AMDMoreMenu.objSettings, "Settings option");
-//			waitTime(5000);
-//			Swipe("UP", 1);
-//			verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
-//			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
-//
-//			if (userType.equals("NonSubscribedUser")) {
-//				password = getParameterFromXML("NonsubscribedPassword");
-//			} else if (userType.equals("SubscribedUser")) {
-//				password = getParameterFromXML("SubscribedPassword");
-//			}
-//			click(AMDMoreMenu.objPasswordField, "Password field");
-//			getDriver().getKeyboard().sendKeys(password);
-//
-//			hideKeyboard();
-//			if (getOEMName.contains("vivo")) {
-//				hidePwdKeyboard();
-//			}
-//			click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
-//			waitTime(2000);
-//			click(AMDMoreMenu.objNoRestriction, "No Restriction");
-//			click(AMDMoreMenu.objContinueBtn, "Continue Button");
-//			waitTime(2000);
-//			click(AMDMoreMenu.objParentalLockDone, "Done Button");
-//			Back(1);
-//		} else {
-//			logger.info("Parental Pin Validation is NOT applicable for " + userType);
-//			extent.extentLogger("Parental Pin", "Parental Pin Validation is NOT applicable for " + userType);
+			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+			waitTime(1000);
+			click(AMDMoreMenu.objSettings, "Settings option");
+			waitTime(5000);
+			Swipe("UP", 1);
+			verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
+			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
+			String password = "";
+			if (userType.equals("NonSubscribedUser")) {
+				password = getParameterFromXML("SettingsNonsubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = getParameterFromXML("SettingsSubscribedPassword");
+			}
+			click(AMDMoreMenu.objPasswordField, "Password field");
+			getDriver().getKeyboard().sendKeys(password);
+
+			hideKeyboard();
+			if (getOEMName.contains("vivo")) {
+				hidePwdKeyboard();
+			}
+			click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
+			waitTime(2000);
+
+			String state = getText(AMDMoreMenu.objNoRestriction);
+			System.out.println(state);
+			if (state.equalsIgnoreCase("No Restriction")) {
+				logger.info(state + " is selected by default");
+				extent.extentLoggerPass("Parental Pin", state + " is selected by default");
+
+			} else {
+				logger.error(state + " is not selected by default");
+				extent.extentLoggerFail("Parental Pin", state + " is not selected by default");
+
+			}
+
+			click(AMDMoreMenu.objRestrictAllContent, "Restrict All Content option");
+			click(AMDMoreMenu.objContinueBtn, "Continue Button");
+			waitTime(2000);
+
+			if(verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin")) {
+				logger.info("Parental Pin is SET");
+				extent.extentLoggerPass("Parental Pin", "Parental Pin is SET");
+				
+				verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin");
+				type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
+				hideKeyboard();
+				waitTime(4000);
+				click(AMDMoreMenu.objSetPinContinueBtn, "Continue Button");
+				waitTime(2000);
+
+				click(AMDMoreMenu.objParentalLockDone, "Done Button");
+			}else {
+				logger.info("Parental Pin Popup is NOT displayed");
+				extent.extentLoggerFail("Parental Pin", "Parental Pin Popup is NOT displayed");
+			}
+			
+			Back(1);
+			waitTime(3000);
+			Back(1);
+
+			verifyElementPresentAndClick(AMDHomePage.objDownload, "Downloads tab");
+			verifyElementPresentAndClick(AMDDownloadPage.objvideostab, "Videos tab");
+			waitForElementDisplayed(AMDMoreMenu.objDownloadDoneIcon, 20);
+			
+			if(verifyElementDisplayed(AMDDownloadPage.objDownloadedContent)) {
+				logger.info("Content is downloaded in Downloads screen");
+				extent.extentLoggerPass("Downloaded Content", "Content is downloaded in Downloads screen");
+				
+				click(AMDDownloadPage.objDownloadedContent, "Downloaded Content");
+				click(AMDDownloadPage.objPlayDownloadedContent, "Play Downloaded Content");
+				waitTime(4000);
+			}else {
+				logger.info("Content NOT downloaded in Downloads screen");
+				extent.extentLoggerFail("Downloaded Content", "Content NOT downloaded in Downloads screen");
+			}
+			
+			Back(1);
+			/* --- Parental pin popup is not appearing in the App for downloaded content hence commented ----
+			 
+			verifyElementPresentAndClick(AMDDownloadPage.objEnterPinCTA, "Enter Pin CTA");
+
+			type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
+			hideKeyboard();
+			click(AMDMoreMenu.objSetPinContinueBtn, "Continue button");
+			
+			 --- commented above code ----
+			*/
+			waitTime(2000);
+			Back(1);
+			
+			//### Removing the Parental Pin for registered user
+			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+			PartialSwipe("UP", 1);
+			click(AMDMoreMenu.objSettings, "Settings option");
+			waitTime(5000);
+			Swipe("UP", 1);
+			verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
+			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
+
+			if (userType.equals("NonSubscribedUser")) {
+				password = getParameterFromXML("SettingsNonsubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = getParameterFromXML("SettingsSubscribedPassword");
+			}
+			click(AMDMoreMenu.objPasswordField, "Password field");
+			getDriver().getKeyboard().sendKeys(password);
+
+			hideKeyboard();
+			if (getOEMName.contains("vivo")) {
+				hidePwdKeyboard();
+			}
+			click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
+			waitTime(2000);
+			click(AMDMoreMenu.objNoRestriction, "No Restriction");
+			click(AMDMoreMenu.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			click(AMDMoreMenu.objParentalLockDone, "Done Button");
+			Back(2);
+		} else {
+			logger.info("Parental Pin Validation is NOT applicable for " + userType);
+			extent.extentLogger("Parental Pin", "Parental Pin Validation is NOT applicable for " + userType);
 		}
 	}
 
@@ -6822,6 +6854,15 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		System.out.println("\nVerify Subscription Reminder In Downloads");
 		waitTime(5000);
 		verifyElementPresentAndClick(AMDHomePage.objDownload, "Downloads tab");
+		boolean getValue = verifyElementExist(By.xpath("(//*[@text='Downloads']//parent::*)[1] | (//*[@id='navigationIconView'])[4]"),"DownloadScreen" );
+		 System.out.println(getValue);
+		 if (getValue== false) {
+			logger.error("Not Navigated to Download Section");
+			extent.extentLoggerFail("Download Section", "Not Navigated to Download Section");
+		} else {
+			logger.info("Navigated to Download Section");
+			extent.extentLoggerPass("Download Section", "navigated to Download Section");
+		}
 		String subscriptionExpiry = getText(AMDDownloadPage.objSubscriptionExpiry);
 		logger.info("Subscription Expiry Message : " + subscriptionExpiry + " is displayed");
 		extent.extentLogger("Subscription Expiry Message",
@@ -7776,9 +7817,11 @@ public void unRegisteredEmailSubscribe() throws Exception {
 	}
 
 	public void searchHistoryValidation(String userType) throws Exception {
-
 		extent.HeaderChildNode("Search History Validation");
 		System.out.println("\nSearch History Validation");
+		
+		verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu tab");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
 		waitTime(3000);
 		Swipe("UP", 2);
 		waitTime(2000);
@@ -7797,8 +7840,10 @@ public void unRegisteredEmailSubscribe() throws Exception {
 	}
 
 	public void authenticateDeviceValidation(String userType) throws Exception {
+		extent.HeaderChildNode("Authenticate Device Validation");
+		System.out.println("\nAuthenticate Device Validation");
 		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Authenticate Device Validation");
+			
 			verifyElementPresentAndClick(AMDSettingsScreen.objAuthenticateDevice, "Authenticate Device");
 
 			if (checkElementExist(AMDSettingsScreen.objAuthenticateScreen, "Authenticate Screen")) {
@@ -7809,6 +7854,9 @@ public void unRegisteredEmailSubscribe() throws Exception {
 				extent.extentLoggerFail("Authenticate Screen", "Not navigated to Authenticate Screen");
 			}
 			verifyElementPresentAndClick(AMDSettingsScreen.objAuthenticateCloseBtn, "Close Button");
+		}else {
+			logger.info("This Validation is NOT Applicable for "+userType);
+			extent.extentLoggerPass("Authenticate Screen", "This Validation is NOT Applicable for "+userType);
 		}
 	}
 
@@ -12927,15 +12975,25 @@ public void unRegisteredEmailSubscribe() throws Exception {
 				logger.info("View All screen is displayed");
 				extent.extentLoggerPass("ViewAll", "View All screen is displayed");
 				Back(1);
-				findTray(AMDHomePage.objBeforeTVTray);
+//				findTray(AMDHomePage.objBeforeTVTray);
 				click(AMDHomePage.objFirstContentOfBeforeTvTray, "First content");
 				waitTime(2000);
 				if (verifyIsElementDisplayed(AMDConsumptionScreen.objconfirmationPopUp)) {
 					click(AMDConsumptionScreen.objOkBtn, "Ok button in add this device to yoour list pop up");
 				}
-				verifyElementExist(AMDConsumptionScreen.objDownloadbtn, "Download icon");
+//				verifyElementExist(AMDConsumptionScreen.objDownloadbtn, "Download icon");
+				if(verifyElementExist(AMDConsumptionScreen.objDownloadbtn, "Download icon")) {
+					logger.info("Download CTA is displayed in Consumption screen");
+					extent.extentLoggerPass("Download CTA", "Download CTA is displayed in Consumption screen");
+				}else {
+					logger.info("Download CTA is NOT displayed in Consumption screen");
+					extent.extentLoggerFail("Download CTA", "Download CTA is NOT displayed in Consumption screen");
+				}
 				if (!userType.equals("SubscribedUser")) {
 					if (verifyElementExist(AMDConsumptionScreen.getClubCTA, "Get Club CTA")) {
+						logger.info("Get Club CTA is displayed in Consumption screen");
+						extent.extentLoggerPass("Get Club CTA", "Get Club CTA is displayed in Consumption screen");
+						
 						click(AMDConsumptionScreen.getClubCTA, "Get Club CTA");
 						verifyElementExist(AMDConsumptionScreen.objPopUpSubscribed, "Subscribe PopUp");
 						waitTime(2000);
@@ -12952,6 +13010,9 @@ public void unRegisteredEmailSubscribe() throws Exception {
 								extent.extentLoggerFail("Login screen", "Not Navigate to login/register screen");
 							}
 						}
+					}else {
+						logger.info("Get Club CTA is NOT displayed in Consumption screen");
+						extent.extentLoggerFail("Get Club CTA", "Get Club CTA is NOT displayed in Consumption screen");
 					}
 				}
 			} else {
@@ -18114,7 +18175,7 @@ public void unRegisteredEmailSubscribe() throws Exception {
 		ZeeApplicasterLoginForSettings(userType);
 	}
 	
-public void navigateBackToHomeLandingScreen() throws Exception {
+	public void navigateBackToHomeLandingScreen() throws Exception {
 		boolean flag;
 		for(int i=1;i<10;i++) {
 			flag = verifyElementDisplayed(AMDHomePage.objHomeBtn);
@@ -18123,6 +18184,9 @@ public void navigateBackToHomeLandingScreen() throws Exception {
 			}else {
 				Back(1);
 				waitTime(2000);
+				if(verifyElementDisplayed(AMDOnboardingScreen.objExitNo)) {
+					click(AMDOnboardingScreen.objExitNo, "Dismiss");
+				}
 			}
 		}
 	}
@@ -18266,6 +18330,54 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 			click(AMDSettingsScreen.objAutoPlayToggleSwitch, "Autoplay Toggle Switch");
 			logger.info("Autoplay toggle switch is " + getAutoPlayToggle);
 			extent.extentLogger("Settings", "Autoplay toggle switch is " + getAutoPlayToggle);
+		}
+	}
+	
+	public void DownloadsContentPlayBackValidation(String userType,String Quality, boolean checkAlwaysAskOption) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Content Play back of Downloaded content Validation");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, "Yennenu Soda - Hebbuli" + "\n", "Search bar");
+			waitTime(2000);
+			hideKeyboard();
+			click(AMDDownloadPage.objsearchresultFirst , "Searched Show");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
+			waitTime(2000);
+			DownloadVideoQualityPopUp(Quality, checkAlwaysAskOption);
+			waitTime(3000);
+			Back(1);
+			click(AMDHomePage.objDownloadBtn, "Downloads tab");
+			click(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
+			click(AMDDownloadPage.objDownloadedContent,"Downloaded content");
+			verifyElementPresentAndClick(AMDDownloadPage.objPlayDownloadedContent, "Play Call-out");
+			verifyElementPresentAndClick(AMDDownloadPage.objPauseIconOnPlayer, "Pause Icon");
+			verifyElementExist(AMDDownloadPage.objBackinPlayer, "Back icon");
+			verifyElementExist(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots menu overlay at top right corner of player");
+			verifyElementExist(AMDPlayerScreen.objProgressBar,"Progress bar");
+			click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
+			verifyElementExist(AMDPlayerScreen.obj3dotMenu,"Three dot Menu");
+			verifyElementPresentAndClick(AMDPlayerScreen.objPlaybackrate, "Play back rate");
+			verifyElementExist(AMDPlayerScreen.objOptionInPlaybackrate,"Play back rate options");
+			Back(1);
+			click(AMDDownloadPage.objBackinPlayer, "Back icon");
+			if((findElement(AMDDownloadPage.objvideostab)).isSelected() == true) {
+				logger.info("On tapping back icon on player, user by default navigates to Videos tab");
+				extent.extentLoggerPass("Downloads Screen", "On tapping back icon on player, user by default navigates to Videos tab");
+			}else {
+				logger.error("On tapping back icon on player, user by default fails to navigates to Videos tab");
+				extent.extentLoggerFail("Downloads Screen", "On tapping back icon on player, user by default fails to navigates to Videos tab");
+			}
+			click(AMDHomePage.objHomeBtn,"Home");
+			click(AMDHomePage.objDownloadBtn, "Downloads tab");
+			waitTime(2000);
+			click(AMDDownloadPage.objDownloadedContent,"Downloaded content");
+			waitTime(2000);
+			click(AMDDownloadPage.objDeleteDownloadCTA,"Delete Download");
+			waitTime(2000);
+			Back(1);
+			
 		}
 	}
 }

@@ -46,7 +46,7 @@ public class Android_Search {
 	@Parameters({ "userType"})		
 	public void searchResultScreenValidation(String userType) throws Exception {
 		System.out.println("\nVerify Search Result screen");
-		ZEE5ApplicasterBusinessLogic.noSearchResults("@$_-(;_+");
+		ZEE5ApplicasterBusinessLogic.noSearchResults("gsggdhshs%$$%&");
 		ZEE5ApplicasterBusinessLogic.searchPageValidation("Kam");
 		ZEE5ApplicasterBusinessLogic.searchResultsAllTabs("Kamali");
 	}
