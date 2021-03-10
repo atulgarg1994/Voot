@@ -1,15 +1,12 @@
 package com.business.zee;
 
-import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Reporter;
-
 import com.driverInstance.CommandBase;
 import com.extent.ExtentReporter;
 import com.jayway.restassured.response.Response;
@@ -25,8 +22,6 @@ import com.zee5.TVPages.Zee5TvHomePage;
 import com.zee5.TVPages.Zee5TvPlayerPage;
 import com.zee5.TVPages.Zee5TvSearchPage;
 import com.zee5.TVPages.Zee5TvWelcomePage;
-
-import ch.qos.logback.core.net.LoginAuthenticator;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
@@ -317,6 +312,19 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", "settings");
 		mixpanel.FEProp.setProperty("Page Name", "settings");
 		mixpanel.ValidateParameter("", "Logout");
+		TVTabSelect("Home");
+		waitTime(3000);
+		for (int i = 0; i <= 10; i++) {
+			Runtime.getRuntime().exec("adb shell input keyevent 22");
+			waitTime(2000);
+		}
+		Runtime.getRuntime().exec("adb shell input keyevent 20");
+		waitTime(2000);
+		Runtime.getRuntime().exec("adb shell input keyevent 20");
+		waitTime(2000);
+		Runtime.getRuntime().exec("adb shell input keyevent 20");
+		TVclick(Zee5TvWelcomePage.objLoginOption, "Login option");
+		waitTime(3000);
 		login(userType);
 		if (userType.equals("NonSubscribedUser") || userType.equals("Guest")) {
 			HeaderChildNode("Subscription page view event from carousel");
@@ -350,7 +358,7 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
 			}
 			waitTime(5000);
-			String searchdata1[] = { "g", "o", "o", "g", "l", "y" };
+			String searchdata1[] = { "p", "a", "n", "c", "h", "a", "t", "a", "n", "t", "r", "a" };
 			type(searchdata1);
 			waitTime(5000);
 			String content = TVgetText(Zee5TvSearchPage.objEditbox);
@@ -425,7 +433,6 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 					logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
 					extent.extentLoggerPass("Popup",
 							"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
-					TVclick(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup");
 					waitTime(5000);
 					Runtime.getRuntime().exec("adb shell input keyevent 22");
 					waitTime(2000);
@@ -539,8 +546,9 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 			}
 			getDriver().navigate().back();
 			waitTime(3000);
-			getDriver().navigate().back();
-			waitTime(3000);
+			for (int i = 0; i <= 15; i++) {
+				Runtime.getRuntime().exec("adb shell input keyevent 19");
+			}
 			TVTabSelect("Home");
 
 			for (int i = 0; i <= 10; i++) {
@@ -580,6 +588,10 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "Subscription Page");
 			mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
 			mixpanel.ValidateParameter("", "Subscription Page Viewed");
+			if (userType.equals("NonSubscribedUser")) {
+				getDriver().navigate().back();
+				waitTime(2000);
+			}
 
 			getDriver().navigate().back();
 			waitTime(2000);
@@ -685,7 +697,11 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
 				waitTime(2000);
 				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
-				waitTime(180000);
+				for (int i = 0; i <= 13; i++) {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+				}
+				waitTime(5000);
 				Runtime.getRuntime().exec("adb shell input keyevent 22");
 				waitTime(2000);
 				Runtime.getRuntime().exec("adb shell input keyevent 22");
@@ -697,6 +713,11 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
 				mixpanel.ValidateParameter("", "Subscription Page Viewed");
 
+				for (int i = 0; i <= 3; i++) {
+					getDriver().navigate().back();
+					waitTime(2000);
+
+				}
 			}
 		}
 	}
@@ -729,121 +750,128 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 	public void journey() throws Exception {
 		HeaderChildNode("Journey Splash screen Event");
 		waitTime(10000);
-		mixpanel.FEProp.setProperty("Source", "Splash Screen");
-		mixpanel.FEProp.setProperty("Page Name", "Splash Screen");
-		mixpanel.ValidateParameter("", "App Session");
-		getDriver().closeApp();
-		waitTime(3000);
-		getDriver().launchApp();
-		waitTime(8000);
-		logger.info("Splash screen event post minimize and relaunch application");
-		extent.extentLogger("Event", "Splash screen event post minimize and relaunch application");
-
-		mixpanel.FEProp.setProperty("Source", "Splash Screen");
-		mixpanel.FEProp.setProperty("Page Name", "Splash Screen");
-		mixpanel.ValidateParameter("", "App Session");
-
+//		mixpanel.FEProp.setProperty("Source", "Splash Screen");
+//		mixpanel.FEProp.setProperty("Page Name", "Splash Screen");
+//		mixpanel.ValidateParameter("", "App Session");
+//		getDriver().closeApp();
+//		waitTime(3000);
+//		getDriver().launchApp();
+//		waitTime(8000);
+//		logger.info("Splash screen event post minimize and relaunch application");
+//		extent.extentLogger("Event", "Splash screen event post minimize and relaunch application");
+//
+//		mixpanel.FEProp.setProperty("Source", "Splash Screen");
+//		mixpanel.FEProp.setProperty("Page Name", "Splash Screen");
+//		mixpanel.ValidateParameter("", "App Session");
+//
 		if (userType.equals("Guest")) {
 			TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
 		}
-		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
-			login(userType);
-		}
-		waitTime(3000);
-		TVTabSelect("Home");
-		waitTime(3000);
-		Runtime.getRuntime().exec("adb shell input keyevent 20");
-		waitTime(2000);
-		for (int i = 0; i <= 4; i++) {
-			Runtime.getRuntime().exec("adb shell input keyevent 22");
-		}
-		HeaderChildNode("Carousal Banner Swipe event");
-		logger.info("Swiping carousel");
-		extent.extentLogger("Swipe", "Swiping carousel");
-
-		mixpanel.FEProp.setProperty("Source", "Home");
-		mixpanel.FEProp.setProperty("Page Name", "Home");
-		mixpanel.ValidateParameter("", "Carousal Banner Swipe");
-		for (int i = 0; i <= 4; i++) {
-			Runtime.getRuntime().exec("adb shell input keyevent 21");
-		}
-		// carousel banner swipe check
-		mixpanel.FEProp.setProperty("Source", "Home");
-		mixpanel.FEProp.setProperty("Page Name", "Home");
-		mixpanel.ValidateParameter("", "Carousal Banner Swipe");
-
-		HeaderChildNode("Carousal banner click event");
-
-		verifyIsElementDisplayed(Zee5TVCarousel.objCarouselPlayButton, "Play button");
-		TVclick(Zee5TVCarousel.objCarouselPlayButton, "Play button");
-		waitTime(3000);
-		// carousel banner click
-		mixpanel.FEProp.setProperty("Source", "Home");
-		mixpanel.FEProp.setProperty("Page Name", "Home");
-		mixpanel.ValidateParameter("", "Carousal Banner Click");
-
-		
-		getDriver().navigate().back();
-		waitTime(3000);
-		HeaderChildNode("View More Selected and thumbnail click in view all page event");
-		for (int i = 0; i <= 18; i++) {
-			waitTime(3000);
-			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objViewallTray, "Tray content")) {
-				TVclick(Zee5TvWelcomePage.objViewallTray, "Tray content");
-				waitTime(3000);
-				TVclick(Zee5TvWelcomePage.objViewallTray, "Tray content");
-				waitTime(7000);
-				getDriver().navigate().back();
-				waitTime(3000);
-				break;
-			} else {
-				Runtime.getRuntime().exec("adb shell input keyevent 20");
-			}
-		}
-
-		for (int i = 0; i <= 22; i++) {
-			waitTime(3000);
-			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objViewallButton, "ViewAll button")) {
-				TVclick(Zee5TvWelcomePage.objViewallButton, "ViewAll button");
-				waitTime(5000);
-				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objViewallPageHead, "View all page")) {
-					logger.info("User is navigated to view all page");
-					extent.extentLoggerPass("Page", "User is navigated to view all page");
-				} else {
-					TVclick(Zee5TvWelcomePage.objViewallButton, "ViewAll button");
-				}
-				waitTime(7000);
-
-				break;
-			} else {
-				Runtime.getRuntime().exec("adb shell input keyevent 22");
-			}
-
-		}
-		// View More Selected event
-		waitTime(3000);
-		mixpanel.FEProp.setProperty("Source", "Home");
-		mixpanel.FEProp.setProperty("Page Name", "Home");
-		mixpanel.ValidateParameter("", "View More Selected");
-
-		Runtime.getRuntime().exec("adb shell input keyevent 20");
-		waitTime(4000);
-		Runtime.getRuntime().exec("adb shell input keyevent 20");
-		waitTime(4000);
-		Runtime.getRuntime().exec("adb shell input keyevent 23");
-		waitTime(8000);
-		// Thumbnail Click view all
-
-		mixpanel.FEProp.setProperty("Source", "Home");
-		mixpanel.FEProp.setProperty("Page Name", "Home");
-		mixpanel.ValidateParameter("", "Thumbnail Click");
-
-		getDriver().navigate().back();
-		waitTime(3000);
-		getDriver().navigate().back();
-		waitTime(3000);
-		getDriver().navigate().back();
-		waitTime(3000);
+//		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+//			login(userType);
+//		}
+//		waitTime(3000);
+//		TVTabSelect("Home");
+//		waitTime(3000);
+//		Runtime.getRuntime().exec("adb shell input keyevent 20");
+//		waitTime(2000);
+//		for (int i = 0; i <= 4; i++) {
+//			Runtime.getRuntime().exec("adb shell input keyevent 22");
+//			waitTime(2000);
+//		}
+//		HeaderChildNode("Carousal Banner Swipe event");
+//		logger.info("Swiping carousel");
+//		extent.extentLogger("Swipe", "Swiping carousel");
+//
+//		mixpanel.FEProp.setProperty("Source", "Home");
+//		mixpanel.FEProp.setProperty("Page Name", "Home");
+//		mixpanel.ValidateParameter("", "Carousal Banner Swipe");
+//
+//		TVclick(Zee5TvWelcomePage.objBannerTitle, "Carousel banner");
+//		for (int i = 0; i <= 4; i++) {
+//			Runtime.getRuntime().exec("adb shell input keyevent 21");
+//			waitTime(2000);
+//		}
+//		// carousel banner swipe check
+//		mixpanel.FEProp.setProperty("Source", "Home");
+//		mixpanel.FEProp.setProperty("Page Name", "Home");
+//		mixpanel.ValidateParameter("", "Carousal Banner Swipe");
+//
+//		HeaderChildNode("Carousal banner click event");
+//
+//		verifyIsElementDisplayed(Zee5TVCarousel.objCarouselPlayButton, "Play button");
+//		TVclick(Zee5TVCarousel.objCarouselPlayButton, "Play button");
+//		waitTime(3000);
+//		// carousel banner click
+//		mixpanel.FEProp.setProperty("Source", "Home");
+//		mixpanel.FEProp.setProperty("Page Name", "Home");
+//		mixpanel.ValidateParameter("", "Carousal Banner Click");
+//
+//		getDriver().navigate().back();
+//		waitTime(3000);
+//		HeaderChildNode("View More Selected and thumbnail click in view all page event");
+//		for (int i = 0; i <= 18; i++) {
+//			waitTime(3000);
+//			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objViewallTray, "Tray content")) {
+//				TVclick(Zee5TvWelcomePage.objViewallTray, "Tray content");
+//				waitTime(3000);
+//				TVclick(Zee5TvWelcomePage.objViewallTray, "Tray content");
+//				waitTime(7000);
+//				getDriver().navigate().back();
+//				waitTime(3000);
+//				break;
+//			} else {
+//				Runtime.getRuntime().exec("adb shell input keyevent 20");
+//			}
+//		}
+//
+//		for (int i = 0; i <= 22; i++) {
+//			waitTime(3000);
+//			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objViewallButton, "ViewAll button")) {
+//				TVclick(Zee5TvWelcomePage.objViewallButton, "ViewAll button");
+//				waitTime(5000);
+//				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objViewallPageHead, "View all page")) {
+//					logger.info("User is navigated to view all page");
+//					extent.extentLoggerPass("Page", "User is navigated to view all page");
+//				} else {
+//					TVclick(Zee5TvWelcomePage.objViewallButton, "ViewAll button");
+//				}
+//				waitTime(7000);
+//
+//				break;
+//			} else {
+//				Runtime.getRuntime().exec("adb shell input keyevent 22");
+//			}
+//
+//		}
+//		// View More Selected event
+//		waitTime(3000);
+//		mixpanel.FEProp.setProperty("Source", "Home");
+//		mixpanel.FEProp.setProperty("Page Name", "Home");
+//		mixpanel.ValidateParameter("", "View More Selected");
+//
+//		Runtime.getRuntime().exec("adb shell input keyevent 20");
+//		waitTime(4000);
+//		Runtime.getRuntime().exec("adb shell input keyevent 20");
+//		waitTime(4000);
+//		Runtime.getRuntime().exec("adb shell input keyevent 23");
+//		waitTime(8000);
+//		// Thumbnail Click view all
+//
+//		mixpanel.FEProp.setProperty("Source", "Home");
+//		mixpanel.FEProp.setProperty("Page Name", "Home");
+//		mixpanel.ValidateParameter("", "Thumbnail Click");
+//
+//		getDriver().navigate().back();
+//		waitTime(3000);
+//		getDriver().navigate().back();
+//		waitTime(3000);
+//		getDriver().navigate().back();
+//		waitTime(3000);
+//		for (int i = 0; i <= 18; i++) {
+//			Runtime.getRuntime().exec("adb shell input keyevent 19");
+//			waitTime(2000);
+//		}
 		HeaderChildNode("Search Button click event");
 		if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
 
@@ -859,7 +887,7 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "Home");
 		mixpanel.ValidateParameter("", "Search Button Click");
 		HeaderChildNode("Search Executed event");
-		String searchdata1[] = { "g", "o", "o", "g", "l", "y" };
+		String searchdata1[] = { "p", "a", "n", "c", "h", "a", "t", "a", "n", "t", "r", "a" };
 		type(searchdata1);
 		waitTime(5000);
 		String content = TVgetText(Zee5TvSearchPage.objEditbox);
@@ -957,7 +985,9 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 		waitTime(10000);
 
 		waitTime(5000);
-		AdVerify();
+		waitTime(5000);
+		waitTime(5000);
+		waitTime(5000);
 
 		waitTime(5000);
 		if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
@@ -1343,6 +1373,12 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 				mixpanel.ValidateParameter("", "Popup Launch");
 			}
 		}
+		getDriver().navigate().back();
+		waitTime(3000);
+		getDriver().navigate().back();
+		waitTime(3000);
+		getDriver().navigate().back();
+		waitTime(3000);
 		HeaderChildNode("Screen View Event");
 		TVTabSelect("Home");
 		waitTime(2000);
