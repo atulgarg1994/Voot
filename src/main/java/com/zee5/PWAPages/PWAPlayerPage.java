@@ -441,5 +441,6 @@ public class PWAPlayerPage {
 	
 	public static By objCardBesidePlayerImage = By.xpath("//div[@data-lazyload-listened]//a//img");
 	
-	public static By objFirstCardFigureFromTray;
+	public static By objFirstCardFigureFromTray = By.xpath("//div[@data-index='0']//figure");
+
 }
