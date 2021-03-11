@@ -110,7 +110,6 @@ public class AMDLoginScreen {
 	public static By objPageTitle = By.xpath("//*[@resource-id='com.graymatrix.did:id/dl_screen_title']");
 	public static By objContentLanguageScreenTitle = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and @text='Content Language']");
-	public static By objGmailAccount = By.xpath("(//*[@id='account_name'])[1]");
 
 	public static By objDOB = By.xpath("//*[@id='dobTextView']");
 
@@ -180,4 +179,7 @@ public class AMDLoginScreen {
 
 	public static By objContentLang = By.xpath("//*[@id='contentLanguageValue']");
 
+	public static By objFbPage = By.xpath("//*[@text='CREATE NEW FACEBOOK ACCOUNT']");
+
+	public static By objGmailAccount = By.xpath("(//*[@id='account_name'])[1] | (//*[@id='account_display_name'])[1]");
 }

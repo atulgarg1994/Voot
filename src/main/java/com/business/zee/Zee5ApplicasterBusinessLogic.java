@@ -283,9 +283,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void mobileRegistration(String loginThrough, String userType) throws Exception {
+		extent.HeaderChildNode("Mobile Registration From Intro screen "+loginThrough+" button");
 		if (userType.equalsIgnoreCase("Guest")) {
-			extent.HeaderChildNode("Mobile Registration From Intro screen loginlink");
-			click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
 			click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in content language screen");
 			navigateToRegisterScreen(loginThrough);
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
@@ -303,6 +302,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			for (int i = 0; i < lenText; i++) {
 				getDriver().findElement(AMDLoginScreen.objEmailIdField).sendKeys(Keys.BACK_SPACE);
 			}
+			clearField(AMDLoginScreen.objEmailIdField, "EmailId/Phone field");
 			type(AMDLoginScreen.objEmailIdField, RegisteredMobile, "Mobile number field");
 			click(AMDLoginScreen.objProceedBtn, "Proceed button");
 			type(AMDLoginScreen.objPasswordField, RegisteredMobilePassword, "Password field");
@@ -310,17 +310,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDLoginScreen.objLoginBtn, "Login button");
 			verifyElementExist(AMDHomePage.objHomeTab, "Home tab");
 			click(AMDHomePage.objMoreMenu, "More Menu");
-			Swipe("UP", 1);
+			SwipeUntilFindElement(AMDHomePage.objLogout, "UP");
 			click(AMDHomePage.objLogout, "Logout");
 			click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
 			click(AMDHomePage.objHome, "Home tab");
+		}else {
+			logger.info("Mobile Registration is NOT Applicable for Registered Users");
+			extentLoggerPass("Mobile Registration", "Mobile Registration is NOT Applicable for Registered Users");
 		}
 	}
 
 	public void subscribeNowSceanrios(String userType) throws Exception {
-		extent.HeaderChildNode("navigation to Intro screen");
+		extent.HeaderChildNode("Subscribe Now Scenarios");
 
-		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
 		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in content language screen");
 		if (userType.equals("Guest")) {
 			verifyElementPresentAndClick(AMDOnboardingScreen.objSubscribeNowBtn, "Subscribe now button");
@@ -360,8 +362,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		if (userType.equals("SubscribedUser")) {
 			extent.HeaderChildNode("Relaunch functionality");
-			// verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login
-			// button");
+			// verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login button");
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			click(AMDLoginScreen.objEmailIdField, "Email field");
 			verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
@@ -395,7 +396,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("\nSubscribeNow Functionality for UnRegistered Mobile number");
 		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in subscription page");
 		verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in subscribe page");
-//		closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD - HANDLED HERE
 		verifyElementExist(AMDSubscibeScreen.objAdbanner, "Carosual in subscription page");
 		verifyElementExist(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo code in subscribe page");
 		verifyElementPresent(AMDSubscibeScreen.objApply, "Apply button is subscribe page");
@@ -475,7 +475,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		passwordScenario("Registered");
 		Wait(5000);
 		Back(1);
-//		closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD - HANDLED HERE
 	}
 
 	public void closeInterstitialAd(By byLocator, int iTimeOut) throws Exception {
@@ -492,15 +491,16 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 
 	public void otpScenarios() throws Exception {
+		System.out.println("\nOTP Screen Verification");
 		verifyElementExist(AMDRegistrationScreen.objOTPScreen, "OTP screen");
 		verifyElementExist(AMDRegistrationScreen.objOTPTimer, "OTP timer");
 
 		if (getDriver().findElement(AMDLoginScreen.objResendOtpLink).isDisplayed()) {
-			logger.info("Didn't get OTP text is displayed with Resend CTA");
-			extentLoggerPass("Resend button", "Didn't get OTP text is displayed with Resend CTA");
+			logger.info(getText(AMDLoginScreen.objResendOtpLink)+" link is displayed");
+			extentLoggerPass("Resend button", getText(AMDLoginScreen.objResendOtpLink)+" link is displayed");
 		} else {
-			logger.info("Didn't get OTP text is not displayed with Resend CTA");
-			extentLoggerFail("Resend button", "Didn't get OTP text is not displayed with Resend CTA");
+			logger.info("Didn't get OTP? text is not displayed with Resend CTA");
+			extentLoggerFail("Resend button", "Didn't get OTP? text is not displayed with Resend CTA");
 		}
 
 		String OTPTimer1 = getText(AMDRegistrationScreen.objOTPTimer);
@@ -1119,6 +1119,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void subscribePageValidation() throws Exception {
 		System.out.println("\nVerifying Subscribe Page");
+		
 		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in subscription page");
 		verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in subscribe page");
 		verifyElementExist(AMDSubscibeScreen.objAdbanner, "Carosual in subscription page");
@@ -1230,16 +1231,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void passwordScenario(String UserType) throws Exception {
 
 		System.out.println("\nPassword Scenario");
+		String InvalidPwd="USe";
 		verifyElementExist(AMDSubscibeScreen.objPasswordTextField, "Password field");
 		click(AMDSubscibeScreen.objPasswordTextField, "Password");
-		type(AMDSubscibeScreen.objPasswordTextField, "Use", "Password field");
+		type(AMDSubscibeScreen.objPasswordTextField, InvalidPwd, "Password field");
 		hideKeyboard();
 		boolean var = verifyIsElementDisplayed(AMDSubscibeScreen.objPasswordErrorMessage);
 		if (var == true) {
 			logger.info("“Password must be a minimum of 6 characters” error message is displayed");
 			extentLoggerPass("Password", "“Password must be a minimum of 6 characters” error message is displayed");
 		}
+		clearField(AMDSubscibeScreen.objPasswordTextField, "Password field");
 		type(AMDSubscibeScreen.objPasswordTextField, "r", "Password field");
+		waitTime(2000);
 		hideKeyboard();
 		System.out.println("DEVICE NAME : " + getOEMName);
 		if (getOEMName.contains("vivo")) {
@@ -2610,11 +2614,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 
 			if (verifyIsElementDisplayed(AMDLoginScreen.objLoginLnk)) {
-				logger.info("Login/Register Screen is displayed");
-				extent.extentLoggerPass("Login/Register Screen", "Login/Register Screen is displayed");
+				logger.info("Login/Register Screen is displayed on selecting Browse for Free");
+				extent.extentLoggerPass("Login/Register Screen", "Login/Register Screen is displayed on selecting Browse for Free");
 			} else {
-				logger.error("Login/Register Screen is not displayed");
-				extent.extentLoggerFail("Login/Register Screen", "Login/Register Screen is not displayed");
+				logger.error("Login/Register Screen is not displayed on selecting Browse for Free");
+				extent.extentLoggerFail("Login/Register Screen", "Login/Register Screen is not displayed on selecting Browse for Free");
 			}
 
 		}
@@ -2984,63 +2988,63 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void socialLoginValidation(String loginThrough, String usertype) throws Exception {
-		if (usertype.equalsIgnoreCase("Guest")) {
-			extent.HeaderChildNode("Social Login Validation");
-			verifyElementPresentAndClick(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
+		extent.HeaderChildNode("Social Login Validation");
+		if (usertype.equalsIgnoreCase("Guest")) {			
+
 			verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn,
 					"Continue button in content language screen");
-			navigateToRegisterScreen(loginThrough);
+			// navigateToRegisterScreen(loginThrough);
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
 			verifyElementPresentAndClick(AMDLoginScreen.objGoogleBtn, "Gmail icon");
 
-//			if (checkElementExist(AMDLoginScreen.objGmailSignIn, "Gmail Sign In")) {
-//				verifyElementPresentAndClick(AMDLoginScreen.objGmailEmailField, "Email Field");
-//				type(AMDLoginScreen.objGmailEmailField, "zeetest55@gmail.com", "Email Field");
-//				verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
-//				verifyElementPresentAndClick(AMDLoginScreen.objGmailPasswordField, "Password Field");
-//				type(AMDLoginScreen.objGmailPasswordField, "zeetest123", "Password Field");
-//				verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
-			//
-//				if (checkElementExist(AMDLoginScreen.objGmailAddPhoneNumber, "Add Phone Number")) {
-//					verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip Button");
-//				}
-//				if (checkElementExist(AMDLoginScreen.objAgreeBtn, "Agree Button")) {
-//					click(AMDLoginScreen.objAgreeBtn, "Agree Button");
-//				}
-			//
-//				if (checkElementExist(AMDLoginScreen.objAcceptBtn, "Accept Button")) {
-//					click(AMDLoginScreen.objAcceptBtn, "Accept Button");
-//				}
-//			}
-			//
-//			if (checkElementExist(AMDLoginScreen.objGmailAccount, "Gmail Account")) {
-//				click(AMDLoginScreen.objGmailAccount, "Gmail Account");
-//				waitTime(5000);
-//			}
-//			if (checkElementExist(AMDOnboardingScreen.objTellUsMore, "More info Screen")) {
-//				if (checkElementExist(AMDLoginScreen.objEmailIdField, "Email Id field")) {
-//					type(AMDLoginScreen.objEmailIdField, "zeetest@gmail.com", "Email Id field");
-//				}
-//				verifyElementPresentAndClick(AMDLoginScreen.objDOB, "Date of Birth");
-//				verifyElementPresentAndClick(AMDLoginScreen.objDate, "Date");
-//				verifyElementPresentAndClick(AMDLoginScreen.objDateOK, "OK button");
-//				verifyElementPresentAndClick(AMDLoginScreen.objGender, "Gender Field");
-//				verifyElementPresentAndClick(AMDLoginScreen.objGenderMale, "Male");
-//				verifyElementExist(AMDLoginScreen.objSubmitButton, "Submit Button");
-//				Back(1);
-//			}
+			if (checkElementExist(AMDLoginScreen.objGmailSignIn, "Gmail Sign In")) {
+				verifyElementPresentAndClick(AMDLoginScreen.objGmailEmailField, "Email Field");
+				type(AMDLoginScreen.objGmailEmailField, "zeetest55@gmail.com", "Email Field");
+				verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
+				verifyElementPresentAndClick(AMDLoginScreen.objGmailPasswordField, "Password Field");
+				type(AMDLoginScreen.objGmailPasswordField, "zeetest123", "Password Field");
+				verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
+			
+				if (checkElementExist(AMDLoginScreen.objGmailAddPhoneNumber, "Add Phone Number")) {
+					verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip Button");
+				}
+				if (checkElementExist(AMDLoginScreen.objAgreeBtn, "Agree Button")) {
+					click(AMDLoginScreen.objAgreeBtn, "Agree Button");
+				}
+			
+				if (checkElementExist(AMDLoginScreen.objAcceptBtn, "Accept Button")) {
+					click(AMDLoginScreen.objAcceptBtn, "Accept Button");
+				}
+			}
+			
+			if (checkElementExist(AMDLoginScreen.objGmailAccount, "Gmail Account")) {
+				click(AMDLoginScreen.objGmailAccount, "Gmail Account");
+				waitTime(5000);
+			}
+			if (checkElementExist(AMDOnboardingScreen.objTellUsMore, "More info Screen")) {
+				if (checkElementExist(AMDLoginScreen.objEmailIdField, "Email Id field")) {
+					type(AMDLoginScreen.objEmailIdField, "zeetest@gmail.com", "Email Id field");
+				}
+				verifyElementPresentAndClick(AMDLoginScreen.objDOB, "Date of Birth");
+				verifyElementPresentAndClick(AMDLoginScreen.objDate, "Date");
+				verifyElementPresentAndClick(AMDLoginScreen.objDateOK, "OK button");
+				verifyElementPresentAndClick(AMDLoginScreen.objGender, "Gender Field");
+				verifyElementPresentAndClick(AMDLoginScreen.objGenderMale, "Male");
+				verifyElementExist(AMDLoginScreen.objSubmitButton, "Submit Button");
+				Back(1);
+			}
 
 			if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
-				logger.info("User logged in successfully");
-				extent.extentLoggerPass("Login", "User logged in successfully");
+				logger.info("Google login is successfull");
+				extent.extentLoggerPass("Login", "Google login is successfull");
 
 				verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-				Swipe("UP", 2);
-
+				SwipeUntilFindElement(AMDMoreMenu.objLogout, "UP");
 				verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
 				verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout Button");
 				waitTime(5000);
-				Swipe("Down", 2);
+				Swipe("DOWN", 2);
 				verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
 
 			} else {
@@ -3053,6 +3057,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(5000);
 
 			if (checkElementExist(AMDLoginScreen.objTwitterAutorizeAllowBtn, "Authorize app")) {
+				logger.info("twitter Page is displayed");
+				extent.extentLoggerPass("twitter", "twitter Page is displayed");
 				click(AMDLoginScreen.objTwitterAutorizeAllowBtn, "Authorize app");
 			}
 
@@ -3102,8 +3108,16 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extentLoggerWarning("Twitter", "Pre conditions not met, Account is not logged In");
 				Back(1);
 			}
+			
 			verifyElementPresentAndClick(AMDLoginScreen.objfbBtn, "Facebook icon");
 			waitTime(5000);
+			if(checkElementExist(AMDLoginScreen.objFbPage)) {
+				logger.info("facebook Page is displayed");
+				extent.extentLoggerPass("FB", "facebook Page is displayed");				
+			}else {
+				logger.info("facebook Page is not displayed");
+				extent.extentLoggerWarning("Login", "User logged in not successfully");
+			}
 //			if (checkElementExist(AMDLoginScreen.objFBLogIntoAnotherAccount, "Log Into Another Account")) {
 //				click(AMDLoginScreen.objFBLogIntoAnotherAccount, "Log Into Another Account");
 //				if (checkElementExist(AMDLoginScreen.objFBEmail, "Email Id field")) {
@@ -3148,6 +3162,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //				verifyElementExist(AMDLoginScreen.objSubmitButton, "Submit Button");
 //				Back(1);
 //			}
+		}else {
+			logger.info("Social Login is NOT Applicable for Registered Users");
+			extentLoggerPass("Registered User", "Social Login is NOT Applicable for Registered Users");
 		}
 	}
 

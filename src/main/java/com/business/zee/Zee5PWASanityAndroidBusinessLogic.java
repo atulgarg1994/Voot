@@ -16271,61 +16271,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 		}
 		{
-			//Movies Inner Mega Menu
-			extent.extentLogger("","---------- Movies Inner Mega Menu Bar verification -----------");
-			String titleAPI="",languageAPI="",anchorTitleForMoviesExpInnerMenu="";
-			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Home"))).build().perform();
-			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Movies"))).build().perform();
-			String firstCardHref = getElementPropertyToString("href",PWAHomePage.objInnerMegaMenuFirstCardAnchor("Movies"), "First Card href");
-			logger.info("Movies Inner Mega Menu First card href : "+firstCardHref);
-			extent.extentLogger("","Movies Inner Mega Menu First card href : "+firstCardHref);
-			String[] content=firstCardHref.split("/");
-			String contentID=content[content.length-1];
-			logger.info("Movies Inner Mega Menu First card content ID : "+contentID);
-			extent.extentLogger("","Movies Inner Mega Menu First card content ID : "+contentID);
-			Response respContent=null;
-			for(int i=0;i<10;i++) {
-				respContent = ResponseInstance.getContentDetails(contentID, "content");
-				//System.out.println(resp.getBody().asString());
-				if (!respContent.getBody().asString().contains("\"error_code\":401")) {
-					waitTime(1000);
-					break;
-				}
-				else waitTime(1000);
-			}
-			try {
-				titleAPI = respContent.jsonPath().get("title").toString().trim();
-				logger.info("Title from API : "+titleAPI);
-				extent.extentLogger("","Title from API : "+titleAPI);
-			}catch(Exception e) {
-				logger.error("Failed to fetch Title from API");
-				extent.extentLoggerFail("","Failed to fetch Title from API");
-			}
-			try {
-				languageAPI = respContent.jsonPath().get("languages[0]").toString().trim();
-				logger.info("Language from API : "+languageAPI);
-				extent.extentLogger("","Language from API : "+languageAPI);
-			}catch(Exception e) {
-				logger.error("Failed to fetch Language from API");
-				extent.extentLoggerFail("","Failed to fetch Language from API");
-			}
-			String language=getLanguageComplete(languageAPI);
-			anchorTitleForMoviesExpInnerMenu="Watch "+titleAPI+" "+language+" Movie";
-			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForMoviesExpInnerMenu);
-			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForMoviesExpInnerMenu);
-			String anchorTitleForMoviesInnerMenu = getElementPropertyToString("title",PWAHomePage.objInnerMegaMenuFirstCardImg("Movies"), "Movies anchor title");
-			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForMoviesInnerMenu);
-			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForMoviesInnerMenu);	
-			if(anchorTitleForMoviesInnerMenu.equals(anchorTitleForMoviesExpInnerMenu)) {
-				logger.info("Anchor tag title attribute value matched with expected value");
-				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
-			}
-			else {
-				logger.error("Anchor tag title attribute value did not match with expected value");
-				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
-			}
-		}
-		{
 			//TV Shows Mega Menu Bar
 			extent.extentLogger("","---------- TV Shows Mega Menu Bar verification -----------");
 			navigateToAnyScreen("Shows");
@@ -16345,61 +16290,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}	
 		}
 		{
-			//Shows Inner Mega Menu
-			extent.extentLogger("","---------- Shows Inner Mega Menu Bar verification -----------");
-			String showtitleAPI="",showlanguageAPI="",anchorTitleForShowsExpInnerMenu="";
-			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Home"))).build().perform();
-			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Shows"))).build().perform();
-			String firstCardShowsHref = getElementPropertyToString("href",PWAHomePage.objInnerMegaMenuFirstCardAnchor("Shows"), "First Card href");
-			logger.info("Shows Inner Mega Menu First card href : "+firstCardShowsHref);
-			extent.extentLogger("","Shows Inner Mega Menu First card href : "+firstCardShowsHref);
-			String[] contentShow=firstCardShowsHref.split("/");
-			String contentIDShow=contentShow[contentShow.length-1];
-			logger.info("Shows Inner Mega Menu First card content ID : "+contentIDShow);
-			extent.extentLogger("","Shows Inner Mega Menu First card content ID : "+contentIDShow);
-			Response respContentShow=null;
-			for(int i=0;i<10;i++) {
-				respContentShow = ResponseInstance.getContentDetails(contentIDShow, "original");
-				//System.out.println(resp.getBody().asString());
-				if (!respContentShow.getBody().asString().contains("\"error_code\":401")) {
-					waitTime(1000);
-					break;
-				}
-				else waitTime(1000);
-			}
-			try {
-				showtitleAPI = respContentShow.jsonPath().get("title").toString().trim();
-				logger.info("Title from API : "+showtitleAPI);
-				extent.extentLogger("","Title from API : "+showtitleAPI);
-			}catch(Exception e) {
-				logger.error("Failed to fetch Title from API");
-				extent.extentLoggerFail("","Failed to fetch Title from API");
-			}
-			try {
-				showlanguageAPI = respContentShow.jsonPath().get("languages[0]").toString().trim();
-				logger.info("Language from API : "+showlanguageAPI);
-				extent.extentLogger("","Language from API : "+showlanguageAPI);
-			}catch(Exception e) {
-				logger.error("Failed to fetch Language from API");
-				extent.extentLoggerFail("","Failed to fetch Language from API");
-			}
-			String languageShow=getLanguageComplete(showlanguageAPI);
-			anchorTitleForShowsExpInnerMenu="Watch "+showtitleAPI+" "+languageShow+" TV Serial";
-			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForShowsExpInnerMenu);
-			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForShowsExpInnerMenu);
-			String anchorTitleForShowsInnerMenu = getElementPropertyToString("title",PWAHomePage.objInnerMegaMenuFirstCardImg("Shows"), "Shows anchor title");
-			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForShowsInnerMenu);
-			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForShowsInnerMenu);	
-			if(anchorTitleForShowsInnerMenu.equals(anchorTitleForShowsExpInnerMenu)) {
-				logger.info("Anchor tag title attribute value matched with expected value");
-				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
-			}
-			else {
-				logger.error("Anchor tag title attribute value did not match with expected value");
-				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
-			}
-		}
-		{
 			//Club Mega Menu Bar
 			extent.extentLogger("","---------- Club Mega Menu Bar verification -----------");
 			navigateToAnyScreen("Club");
@@ -16417,61 +16307,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				logger.error("Anchor tag title attribute value did not match with expected value");
 				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
 			}	
-		}
-		{
-			//Club Inner Mega Menu
-			extent.extentLogger("","---------- Club Inner Mega Menu Bar verification -----------");
-			String clubtitleAPI="",clublanguageAPI="",anchorTitleForClubExpInnerMenu="";
-			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Home"))).build().perform();
-			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Club"))).build().perform();
-			String firstCardClubHref = getElementPropertyToString("href",PWAHomePage.objInnerMegaMenuFirstCardAnchor("Club"), "First Card href");
-			logger.info("Club Inner Mega Menu First card href : "+firstCardClubHref);
-			extent.extentLogger("","Club Inner Mega Menu First card href : "+firstCardClubHref);
-			String[] contentClub=firstCardClubHref.split("/");
-			String contentIDClub=contentClub[contentClub.length-1];
-			logger.info("Club Inner Mega Menu First card content ID : "+contentIDClub);
-			extent.extentLogger("","Club Inner Mega Menu First card content ID : "+contentIDClub);
-			Response respContentClub=null;
-			for(int i=0;i<10;i++) {
-				respContentClub = ResponseInstance.getContentDetails(contentIDClub, "original");
-				//System.out.println(resp.getBody().asString());
-				if (!respContentClub.getBody().asString().contains("\"error_code\":401")) {
-					waitTime(1000);
-					break;
-				}
-				else waitTime(1000);
-			}
-			try {
-				clubtitleAPI = respContentClub.jsonPath().get("title").toString().trim();
-				logger.info("Title from API : "+clubtitleAPI);
-				extent.extentLogger("","Title from API : "+clubtitleAPI);
-			}catch(Exception e) {
-				logger.error("Failed to fetch Title from API");
-				extent.extentLoggerFail("","Failed to fetch Title from API");
-			}
-			try {
-				clublanguageAPI = respContentClub.jsonPath().get("languages[0]").toString().trim();
-				logger.info("Language from API : "+clublanguageAPI);
-				extent.extentLogger("","Language from API : "+clublanguageAPI);
-			}catch(Exception e) {
-				logger.error("Failed to fetch Language from API");
-				extent.extentLoggerFail("","Failed to fetch Language from API");
-			}
-			String languageClub=getLanguageComplete(clublanguageAPI);
-			anchorTitleForClubExpInnerMenu="Watch "+clubtitleAPI+" "+languageClub+" Web Series";
-			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForClubExpInnerMenu);
-			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForClubExpInnerMenu);
-			String anchorTitleForClubInnerMenu = getElementPropertyToString("title",PWAHomePage.objInnerMegaMenuFirstCardImg("Club"), "Club anchor title");
-			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForClubInnerMenu);
-			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForClubInnerMenu);	
-			if(anchorTitleForClubInnerMenu.equals(anchorTitleForClubExpInnerMenu)) {
-				logger.info("Anchor tag title attribute value matched with expected value");
-				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
-			}
-			else {
-				logger.error("Anchor tag title attribute value did not match with expected value");
-				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
-			}
 		}
 		{
 			//Play Mega Menu Bar
@@ -16589,52 +16424,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			reloadHome();
 		}
 		{
-			//News Inner Mega Menu
-			extent.extentLogger("","---------- News Inner Mega Menu Bar verification -----------");
-			String newstitleAPI="",newslanguageAPI="",anchorTitleForNewsExpInnerMenu="";
-			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Home"))).build().perform();
-			act.moveToElement(findElement(PWAHomePage.objHomeBarText("News"))).build().perform();
-			String firstCardNewsHref = getElementPropertyToString("href",PWAHomePage.objInnerMegaMenuFirstCardAnchor("News"), "First Card href");
-			logger.info("News Inner Mega Menu First card href : "+firstCardNewsHref);
-			extent.extentLogger("","News Inner Mega Menu First card href : "+firstCardNewsHref);
-			String[] contentNews=firstCardNewsHref.split("/");
-			String contentIDNews=contentNews[contentNews.length-1];
-			logger.info("News Inner Mega Menu First card content ID : "+contentIDNews);
-			extent.extentLogger("","News Inner Mega Menu First card content ID : "+contentIDNews);
-			Response respContentNews=null;
-			for(int i=0;i<10;i++) {
-				respContentNews = ResponseInstance.getContentDetails(contentIDNews, "news");
-				//System.out.println(resp.getBody().asString());
-				if (!respContentNews.getBody().asString().contains("\"error_code\":401")) {
-					waitTime(1000);
-					break;
-				}
-				else waitTime(1000);
-			}
-			try {
-				newstitleAPI = respContentNews.jsonPath().get("title").toString().trim();
-				logger.info("Title from API : "+newstitleAPI);
-				extent.extentLogger("","Title from API : "+newstitleAPI);
-			}catch(Exception e) {
-				logger.error("Failed to fetch Title from API");
-				extent.extentLoggerFail("","Failed to fetch Title from API");
-			}
-			anchorTitleForNewsExpInnerMenu="Watch "+newstitleAPI+" News";
-			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForNewsExpInnerMenu);
-			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForNewsExpInnerMenu);
-			String anchorTitleForNewsInnerMenu = getElementPropertyToString("title",PWAHomePage.objInnerMegaMenuFirstCardImg("News"), "News anchor title");
-			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForNewsInnerMenu);
-			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForNewsInnerMenu);	
-			if(anchorTitleForNewsInnerMenu.equals(anchorTitleForNewsExpInnerMenu)) {
-				logger.info("Anchor tag title attribute value matched with expected value");
-				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
-			}
-			else {
-				logger.error("Anchor tag title attribute value did not match with expected value");
-				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
-			}
-		}
-		{
 			//Premium Mega Menu Bar
 			extent.extentLogger("","---------- Premium Mega Menu Bar verification -----------");
 			navigateToAnyScreen("Premium");
@@ -16645,61 +16434,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForPremium);
 			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForPremium);	
 			if(anchorTitleForPremium.equals(anchorTitleForPremiumExp)) {
-				logger.info("Anchor tag title attribute value matched with expected value");
-				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
-			}
-			else {
-				logger.error("Anchor tag title attribute value did not match with expected value");
-				extent.extentLoggerFail("","Anchor tag title attribute value did not match with expected value");	
-			}
-		}
-		{
-			//Premium Inner Mega Menu
-			extent.extentLogger("","---------- Premium Inner Mega Menu Bar verification -----------");
-			String premiumtitleAPI="",premiumlanguageAPI="",anchorTitleForPremiumExpInnerMenu="";
-			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Home"))).build().perform();
-			act.moveToElement(findElement(PWAHomePage.objHomeBarText("Premium"))).build().perform();
-			String firstCardPremiumHref = getElementPropertyToString("href",PWAHomePage.objInnerMegaMenuFirstCardAnchor("Premium"), "First Card href");
-			logger.info("Premium Inner Mega Menu First card href : "+firstCardPremiumHref);
-			extent.extentLogger("","Premium Inner Mega Menu First card href : "+firstCardPremiumHref);
-			String[] contentPremium=firstCardPremiumHref.split("/");
-			String contentIDPremium=contentPremium[contentPremium.length-1];
-			logger.info("Premium Inner Mega Menu First card content ID : "+contentIDPremium);
-			extent.extentLogger("","Premium Inner Mega Menu First card content ID : "+contentIDPremium);
-			Response respContentPremium=null;
-			for(int i=0;i<10;i++) {
-				respContentPremium = ResponseInstance.getContentDetails(contentIDPremium, "original");
-				//System.out.println(resp.getBody().asString());
-				if (!respContentPremium.getBody().asString().contains("\"error_code\":401")) {
-					waitTime(1000);
-					break;
-				}
-				else waitTime(1000);
-			}
-			try {
-				premiumtitleAPI = respContentPremium.jsonPath().get("title").toString().trim();
-				logger.info("Title from API : "+premiumtitleAPI);
-				extent.extentLogger("","Title from API : "+premiumtitleAPI);
-			}catch(Exception e) {
-				logger.error("Failed to fetch Title from API");
-				extent.extentLoggerFail("","Failed to fetch Title from API");
-			}
-			try {
-				premiumlanguageAPI = respContentPremium.jsonPath().get("languages[0]").toString().trim();
-				logger.info("Language from API : "+premiumlanguageAPI);
-				extent.extentLogger("","Language from API : "+premiumlanguageAPI);
-			}catch(Exception e) {
-				logger.error("Failed to fetch Language from API");
-				extent.extentLoggerFail("","Failed to fetch Language from API");
-			}
-			String languagePremium=getLanguageComplete(premiumlanguageAPI);
-			anchorTitleForPremiumExpInnerMenu="Watch "+premiumtitleAPI+" Online-ZEE5 Originals "+languagePremium+" Web Series";
-			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForPremiumExpInnerMenu);
-			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForPremiumExpInnerMenu);
-			String anchorTitleForPremiumInnerMenu = getElementPropertyToString("title",PWAHomePage.objInnerMegaMenuFirstCardImg("Premium"), "Premium anchor title");
-			logger.info("Anchor tag title attribute value in UI: "+anchorTitleForPremiumInnerMenu);
-			extent.extentLogger("","Anchor tag title attribute value in UI: "+anchorTitleForPremiumInnerMenu);	
-			if(anchorTitleForPremiumInnerMenu.equals(anchorTitleForPremiumExpInnerMenu)) {
 				logger.info("Anchor tag title attribute value matched with expected value");
 				extent.extentLogger("","Anchor tag title attribute value matched with expected value");	
 			}
@@ -16926,7 +16660,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		String channelGuideDescExpected="View TV guide listings for all the Live TV Channels and explore the shows schedules on ZEE5. Know when to watch your favourite TV shows live online.";
 		PWAVerifyMetaTagsThroughExternalPageSource(userType,url,channelGuideTitleExpected,channelGuideDescExpected);
 		mandatoryRegistrationPopUp(userType);
-		
 	}
 	
 	public void PWAVerifyMetaTagsThroughExternalPageSource(String userType,String navigationPoint,String expectedTitle,String expectedDesc) throws Exception {
@@ -16975,7 +16708,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error("og:description content value is not as expected");
 			extent.extentLoggerFail("","og:description content value is not as expected");	
 		}
-
 	}
 	
 	public void PWASubtitleSelection(String userType) throws Exception {
@@ -16995,6 +16727,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		click(PWAHomePage.objSubtitleButton, "Subtitle button");
 		click(PWAHomePage.objSubtitleEnglish, "Subtitle English");
 		/////////////////////////////////////////////////////
+		click(PWAPlayerPage.playBtn, "Play button");
 		waitTime(10000);
 		extent.extentLogger("", "Waited for current content to complete play");
 		logger.info("Waited for current content to complete play");		
@@ -17047,6 +16780,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 	
 	
+
 	public void PWAClickOnPromotionalBanners (String userType) throws Exception {
 		extent.HeaderChildNode("Defect PWA2-5286 : Click on Promotional Banner");
 		String currentUrl="",homeUrl="";
@@ -17182,6 +16916,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		click(PWAHamburgerMenuPage.objApply, "Apply button on display language screen");
 		click(PWAHamburgerMenuPage.objApplybutton, "Apply button on content language screen");
 		url=home+"hi/movies/details/comedy-couple/0-0-213623";
+		waitTime(4000);
 		getDriver().get(url);
 		logger.info("Navigated to url: "+url);
 		extent.extentLogger("","Navigated to url: "+url);
@@ -17270,7 +17005,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			loginWithUserEmail(Username, Password);
 			
 		}		
-		
 	}
 	
 	
@@ -17313,6 +17047,720 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error("Club icon not found for Live contents in Live TV Tab");
 			extent.extentLoggerFail("", "Club icon not found for Live contents in Live TV Tab");
 		}
+	}
+	
+	
+	public void PWAVerifyMetaTagsForTwitter(String userType) throws Exception {	
+		mandatoryRegistrationPopUp(userType);
+		extent.HeaderChildNode("Task PWA2-5652 : SEO - Title, Description and OG for Twitter");
+		logger.info("Task PWA2-5652 : SEO - Title, Description and OG for Twitter");
+		extent.extentLogger("","-------------- Meta Tags for Shows Tab --------------");
+		reloadHome();
+		String home = getParameterFromXML("url");
+		getDriver().get(home+"tvshows");
+		logger.info("Navigated to Shows page");
+		extent.extentLogger("", "Navigated to Shows page");
+		waitTime(4000);
+		String showTitleExpected="Watch Best TV Shows, Serials, Spoilers & Full Episodes Online | ZEE5";
+		String showDescExpected="Enjoy top TV Shows, TV Serials in Hindi, Marathi and other regional languages online in Full HD. Explore latest episodes of all your favourite shows aired on ZEE channels on ZEE5.";
+		PWAVerifyMetaTagsThroughExternalPageSourceForTwitter(userType,showTitleExpected,showDescExpected);
 		
+		extent.extentLogger("","-------------- Meta Tags for Shows Details Page --------------");
+		getDriver().get(home+"tvshows/details/kundali-bhagya/0-6-366");	
+		logger.info("Navigated to Shows Details page");
+		extent.extentLogger("", "Navigated to Shows Details page");
+		waitTime(4000);
+		String showDetailsTitleExpected="Kundali Bhagya TV Serial, Watch Tomorrow's Full Episodes Online Before TV on ZEE5";
+		String showDetailsDescExpected="Enjoy tomorrow's Premiere Episodes before tv; latest & full episodes of Kundali Bhagya TV serial online, starring Sanjay Gagnani,Anjum Fakih,Shraddha Arya,Naveen Saini,Abhishek Kapur,Ruhi Chaturvedi,Anisha Hinduja,Dheeraj Dhoopar,Manit Joura,Supriya Shukla. Watch best scenes, clips, previews & more of Kundali Bhagya in HD on ZEE5.";
+		PWAVerifyMetaTagsThroughExternalPageSourceForTwitter(userType,showDetailsTitleExpected,showDetailsDescExpected);
+		
+		extent.extentLogger("","-------------- Meta Tags for List Episodes Page --------------");
+		getDriver().get(home+"tvshows/details/kundali-bhagya/0-6-366/episodes");	
+		logger.info("Navigated to List Episodes page");
+		extent.extentLogger("", "Navigated to List Episodes page");
+		waitTime(4000);
+		String showListEpisodesTitleExpected="Watch & Enjoy All the Episodes of Kundali Bhagya TV Serial Online on ZEE5";
+		String showListEpisodesDescExpected="Binge Watch Kundali Bhagya TV Serial Online. Now select & watch your favorite episodes from the complete list of Kundali Bhagya episodes, starring Sanjay Gagnani,Anjum Fakih,Shraddha Arya,Naveen Saini,Abhishek Kapur,Ruhi Chaturvedi,Anisha Hinduja,Dheeraj Dhoopar,Manit Joura,Supriya Shukla. Watch all the episodes in HD on ZEE5.";
+		PWAVerifyMetaTagsThroughExternalPageSourceForTwitter(userType,showListEpisodesTitleExpected,showListEpisodesDescExpected);
+		
+		extent.extentLogger("","-------------- Meta Tags for Specific Episode Page --------------");
+		getDriver().get(home+"tvshows/details/kundali-bhagya/0-6-366/kundali-bhagya-october-27-2020/0-1-manual_1skn6kk1den8");	
+		logger.info("Navigated to Specific Episode page");
+		extent.extentLogger("", "Navigated to Specific Episode page");
+		waitTime(4000);
+		if (checkElementDisplayed(PWAPlayerPage.objCloseRegisterDialog, "Create New Account Pop Up")) {
+			click(PWAPlayerPage.objCloseRegisterDialog, "Create New Account Pop Up close icon");
+		}	
+		mandatoryRegistrationPopUp(userType);
+		String showSpecificEpisodeTitleExpected="Watch Kundali Bhagya TV Serial 27th October 2020 Full Episode Online on ZEE5";
+		String showSpecificEpisodeDescExpected="Enjoy 27th October 2020's full episode of Kundali Bhagya TV serial online, starring Dheeraj Dhoopar, Anjum Fakih, Shraddha Arya. Watch Kareena threatens Sameer to stay away from Srishti full episode. View best scenes, clips, previews & more of Kundali Bhagya in HD on ZEE5.";
+		PWAVerifyMetaTagsThroughExternalPageSourceForTwitter(userType,showSpecificEpisodeTitleExpected,showSpecificEpisodeDescExpected);
+		
+		mandatoryRegistrationPopUp(userType);
+		extent.extentLogger("","-------------- Meta Tags for Specific Spoiler Page --------------");
+		getDriver().get(home+"tvshows/details/kundali-bhagya/0-6-366/kundali-bhagya-october-28-2020-episode-spoiler/0-1-manual_a61qrpapbio0");	
+		logger.info("Navigated to Specific Spoiler page");
+		extent.extentLogger("", "Navigated to Specific Spoiler page");
+		waitTime(4000);
+		String showSpecificSpoilerTitleExpected="Watch Kundali Bhagya TV Serial Spoiler of 28th October 2020 Online on ZEE5";
+		String showSpecificSpoilerDescExpected="Enjoy 28th October 2020's spoiler of Kundali Bhagya TV serial online, starring Dheeraj Dhoopar, Anjum Fakih, Shraddha Arya. Watch best scenes, clips, previews & more of Kundali Bhagya in HD on ZEE5.";
+		PWAVerifyMetaTagsThroughExternalPageSourceForTwitter(userType,showSpecificSpoilerTitleExpected,showSpecificSpoilerDescExpected);
+		
+		mandatoryRegistrationPopUp(userType);
+		extent.extentLogger("","-------------- Meta Tags for Specific Webisode Page --------------");
+		getDriver().get(home+"tvshows/details/kundali-bhagya/0-6-366/kundali-bhagya-october-27-2020-webisode/0-1-manual_37msvkdj6utg");	
+		logger.info("Navigated to Specific Webisode page");
+		extent.extentLogger("", "Navigated to Specific Webisode page");
+		waitTime(4000);
+		String showWebisodeTitleExpected="Watch Kundali Bhagya TV Serial Webisode of 27th October 2020 Online on ZEE5";
+		String showWebisodeDescExpected="Enjoy 27th October 2020's webisode of Kundali Bhagya TV serial online, starring Dheeraj Dhoopar, Anjum Fakih, Shraddha Arya. Watch best scenes, clips, previews & more of Kundali Bhagya in HD on ZEE5.";
+		PWAVerifyMetaTagsThroughExternalPageSourceForTwitter(userType,showWebisodeTitleExpected,showWebisodeDescExpected);
+		
+		mandatoryRegistrationPopUp(userType);
+		extent.extentLogger("","-------------- Meta Tags for Week Short Page --------------");
+		getDriver().get(home+"tvshows/details/kundali-bhagya/0-6-366/kundali-bhagya-week-in-short-19th-october-2020-to-24th-october-2020/0-1-manual_2goo4apg01ug");	
+		logger.info("Navigated to Week Short page");
+		extent.extentLogger("", "Navigated to Week Short page");
+		waitTime(4000);
+		String showWeekShortTitleExpected="Watch Kundali Bhagya TV Serial Full Week's Episodes in Short 19th October 2020 - 24th October 2020 Online on ZEE5";
+		String showWeekShortDescExpected="Enjoy 19th October 2020 - 24th October 2020's full week in short episode of Kundali Bhagya TV serial online, starring Dheeraj Dhoopar, Anjum Fakih, Shraddha Arya. Watch best scenes, clips, previews & more of Kundali Bhagya in HD on ZEE5.";
+		PWAVerifyMetaTagsThroughExternalPageSourceForTwitter(userType,showWeekShortTitleExpected,showWeekShortDescExpected);
+
+	}
+	
+	public void PWAVerifyMetaTagsThroughExternalPageSourceForTwitter(String userType,String expectedTitle,String expectedDesc) throws Exception {
+		logger.info("Expected title : "+expectedTitle);
+		extent.extentLogger("","Expected title : "+expectedTitle);		
+		logger.info("Expected description : "+expectedDesc);
+		extent.extentLogger("","Expected description : "+expectedDesc);
+		String url=getDriver().getCurrentUrl();
+		url="view-source:"+url;
+		getDriver().get(url);
+		waitTime(3000);
+		String ogtitle=getElementPropertyToString("innerText",PWAHomePage.objTwitterOgTitle,"Title"); 
+		ogtitle=ogtitle.replace("&amp;", "&").replace("&#x27;", "'");
+		logger.info("Actual twitter:title content value : "+ogtitle);
+		extent.extentLogger("","Actual twitter:title content value : "+ogtitle);
+		String ogdescription=getElementPropertyToString("innerText",PWAHomePage.objTwitterOgDesc,"Title"); 
+		ogdescription=ogdescription.replace("&amp;", "&").replace("&#x27;", "'");
+		logger.info("Actual twitter:description content value : "+ogdescription);
+		extent.extentLogger("","Actual twitter:description content value : "+ogdescription);
+		if(ogtitle.equals(expectedTitle)) {
+			logger.info("twitter:title content value is as expected");
+			extent.extentLogger("","twitter:title content value is as expected");	
+		}
+		else {
+			logger.error("twitter:title content value is not as expected");
+			extent.extentLoggerFail("","twitter:title content value is not as expected");	
+		}
+		if(ogdescription.equals(expectedDesc)) {
+			logger.info("twitter:description content value is as expected");
+			extent.extentLogger("","twitter:description content value is as expected");	
+		}
+		else {
+			logger.error("twitter:description content value is not as expected");
+			extent.extentLoggerFail("","twitter:description content value is not as expected");	
+		}
+	}
+	
+	public void PWAVerifyZeePlexContents(String userType) throws Exception {
+		reloadHome();
+		extent.HeaderChildNode("PWA2-7202 : Any trailer featured in the collection is showcased in the front-end");
+		logger.info("PWA2-7202 : Any trailer featured in the collection is showcased in the front-end");
+		String tab="ZEEPLEX";
+		navigateToAnyScreen(tab);
+		Response tabResponse = ResponseInstance.getResponseForPages(tab.toLowerCase(), "en,hi,kn");
+		int items=tabResponse.jsonPath().get("buckets[0].items.size()");
+		String title="",type="";
+		Swipe("UP",1);
+		Swipe("UP",1);
+		for(int i=0;i<items;i++) {
+			title=tabResponse.jsonPath().get("buckets[0].items["+i+"].title");
+			type=tabResponse.jsonPath().get("buckets[0].items["+i+"].asset_subtype");
+			logger.info("API returned title: "+title+" of asset_subtype: "+type);
+			extent.extentLogger("", "API returned title: "+title+" of asset_subtype: "+type);
+			verifyElementPresent(PWAMoviesPage.objTVODTitle(title),title+" in UI");
+		}
+	}
+	
+	public void PWAVerifyWatchTrailerCTA(String userType) throws Exception {
+		reloadHome();
+		extent.HeaderChildNode("PWA2-7034 : \"Watch trailer\" CTA for shows and zee-original contents.");
+		logger.info("PWA2-7034 : \"Watch trailer\" CTA for shows and zee-original contents.");
+		extent.extentLogger("","-------------- Validation for Shows content --------------");
+		String showcontent="Kritika reveals about her marriage with Prithvi - Kundali Bhagya";
+		click(PWAHomePage.objSearchBtn, "Search button");
+		type(PWASearchPage.objSearchEditBox, showcontent, "Search edit");
+		waitTime(2000);
+		mandatoryRegistrationPopUp(userType);
+		click(PWASearchPage.objSearchedResult(showcontent), "Searched content");
+		waitTime(4000);
+		verifyElementPresentAndClick(PWAPremiumPage.objWatchTrailerBtn, "Watch Trailer Button");
+		waitTime(4000);
+		if (!checkElementDisplayed(PWAPlayerPage.objWatchingATrailerMessage,"'You're watching a trailer' message on the player")) {
+			extent.extentLoggerFail("", "Watch Trailer Button functionality failed");
+			logger.error("Watch Trailer Button functionality failed");
+		}
+		
+		extent.extentLogger("","-------------- Validation for ZEE5 Originals content --------------");
+		String zee5content="The Three B.Techs";
+		click(PWAHomePage.objSearchBtn, "Search button");
+		type(PWASearchPage.objSearchEditBox, zee5content, "Search edit");
+		waitTime(2000);
+		mandatoryRegistrationPopUp(userType);
+		click(PWASearchPage.objSearchedResult(zee5content), "Searched content");
+		waitTime(4000);
+		verifyElementPresentAndClick(PWAPremiumPage.objWatchTrailerBtn, "Watch Trailer Button");
+		waitTime(4000);
+		if (!checkElementDisplayed(PWAPlayerPage.objWatchingATrailerMessage,"'You're watching a trailer' message on the player")) {
+			extent.extentLoggerFail("", "Watch Trailer Button functionality failed");
+			logger.error("Watch Trailer Button functionality failed");
+		}
+		mandatoryRegistrationPopUp(userType);
+	}
+	
+	public void PWAWatchPromoAndVerifyTitle(String userType) throws Exception {
+		reloadHome();
+		extent.HeaderChildNode("PWA2-6936 : \"undefined Trailer\" Meta title - fix verification");
+		logger.info("PWA2-6936 : \"undefined Trailer\" Meta title - fix verification");
+		mandatoryRegistrationPopUp(userType);
+		String showcontent="Baarish";
+		click(PWAHomePage.objSearchBtn, "Search button");
+		type(PWASearchPage.objSearchEditBox, showcontent, "Search edit");
+		waitTime(2000);
+		click(PWASearchPage.objSearchNavigationTab("Shows"), "Shows Tab");
+		waitTime(2000);
+		click(PWASearchPage.objSearchedResult(showcontent), "Searched content");
+		waitTime(4000);
+		click(PWAPlayerPage.objWatchPromo, "Watch Promo icon");
+		waitTime(4000);
+		if (!checkElementDisplayed(PWAPlayerPage.objWatchingATrailerMessage,"'You're watching a trailer' message on the player")) {
+			extent.extentLoggerFail("", "Watch Trailer Button functionality failed");
+			logger.error("Watch Trailer Button functionality failed");
+		}
+		String consumptionPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,"Content Title").toString();
+		extent.extentLogger("","Navigated to the consumption page: " + consumptionPageTitle);
+		logger.info("Navigated to the consumption page " + consumptionPageTitle);
+		if (consumptionPageTitle.contains(showcontent)) {
+			extent.extentLogger("","Navigated to the correct consumption page");
+			logger.info("Navigated to the correct consumption page");
+		}
+		else {
+			extent.extentLoggerFail("n","Failed to navigate to the correct Consumption page");
+			logger.error("Failed to navigate to the correct Consumption page");
+		}
+		mandatoryRegistrationPopUp(userType);
+
+	}
+	
+	public void PWAWatchMovieAndThenClickTrailer (String userType) throws Exception {
+		if(userType.equals("SubscribedUser")) {
+			reloadHome();
+			extent.HeaderChildNode("PWA2-6932 : Plays any movie for sometime and tap on \"Watch trailer\" CTA");
+			logger.info("PWA2-6932 : Plays any movie for sometime and tap on \"Watch trailer\" CTA");
+			click(PWAHomePage.objSearchBtn, "Search icon");
+			String movie = "Popcorn Monkey Tiger";
+			type(PWASearchPage.objSearchEditBox, movie, "Search edit");
+			waitTime(3000);
+			click(PWASearchPage.objSearchMoviesTab, "Movies tab");
+			click(PWASearchPage.objspecificSearch, "Searched content");
+			waitTime(10000);
+			try {
+				Actions act = new Actions(getDriver()); 
+				WebElement scrubber=getDriver().findElement(PWAPlayerPage.objPlayerScrubber);
+				act.moveToElement(scrubber, 200, 0).click().build().perform();
+				extent.extentLogger("","Scrubbed the player");
+				logger.info("Scrubbed the player");
+				waitTime(10000);	
+			}catch(Exception e) {}
+			waitTime(7000);	
+			click(PWASearchPage.objWEBWatchTrailerBtn, "Watch Trailer option");
+			waitTime(4000);
+			if (!checkElementDisplayed(PWAPlayerPage.objWatchingATrailerMessage,"'You're watching a trailer' message on the player")) {
+				extent.extentLoggerFail("", "Watch Trailer Button functionality failed");
+				logger.error("Watch Trailer Button functionality failed");
+			}
+		}		
+	}
+	
+	public void PWAWatchNewsVODAndThenClickAnotherContent (String userType) throws Exception {
+		reloadHome();
+		extent.HeaderChildNode("PWA2-6995 : Play any news VOD content and play any other content from the same page");
+		logger.info("PWA2-6995 : Play any news VOD content and play any other content from the same page");
+		navigateToAnyScreen("News");
+		String consumptionTitle1 = swipeTillTrayAndClickCard("Trending News");
+		extent.extentLogger("","Consumption page title: " + consumptionTitle1);
+		logger.info("Consumption page title: " + consumptionTitle1);
+		playerTap();
+		click(PWAPlayerPage.pauseBtn, "Pause button");			
+		String consumptionTitle2 = swipeTillTrayAndClickCard("Viral News");
+		extent.extentLogger("","Consumption page title: " + consumptionTitle2);
+		logger.info("Consumption page title: " + consumptionTitle2);
+		if(consumptionTitle1.equals(consumptionTitle2)) {
+			extent.extentLoggerFail("", "Content click in VOD News Consumptions has failed");
+			logger.error("Content click in VOD News Consumptions has failed");
+		}
+		playerTap();
+		String currentDuration = getElementPropertyToString("innerText", PWAPlayerPage.currentDurationTime,"Current duration");
+		System.out.println("Current Duration: " + currentDuration);
+		extent.extentLogger("","Current Duration: " + currentDuration);
+		logger.info("Current Duration: " + currentDuration);
+		waitTime(10000);
+		playerTap();
+		String currentDuration10 = getElementPropertyToString("innerText", PWAPlayerPage.currentDurationTime,"Current duration");
+		extent.extentLogger("","Duration after some time: " + currentDuration10);
+		logger.info("Duration after some time: " + currentDuration10);
+		if(currentDuration.equals(currentDuration10)) {
+			extent.extentLoggerFail("", "Content play from VOD News Consumptions has failed");
+			logger.error("Content play from VOD News Consumptions has failed");
+		}
+		else {
+			extent.extentLogger("", "Content play from VOD News Consumptions has passed");
+			logger.info("Content play from VOD News Consumptions has passed");
+		}
+	}
+	
+	public String swipeTillTrayAndClickCard(String trayTitle) throws Exception {
+		String nextPageTitle = "";
+		int noOfSwipes = 10;
+		String trayTitleUI = "";
+		boolean foundtrayInPage = false, trayFoundInUI = false;
+		String userType = getParameterFromXML("userType");
+		for (int i = 0; i <= noOfSwipes; i++) {
+			List<WebElement> trays = findElements(PWALandingPages.objTrayTitle);
+			for (int j = 0; j < trays.size(); j++) {
+				try {
+					trayTitleUI = trays.get(j).getAttribute("innerText");
+					// System.out.println(trayTitleUI);
+					// System.out.println(trayTitle);
+					if (trayTitleUI.toLowerCase().contains(trayTitle.toLowerCase())) {
+						logger.info(trayTitle + " tray is present");
+						extent.extentLogger("", trayTitle + " tray is present");
+						foundtrayInPage = true;
+						break;
+					}
+				} catch (Exception e) {
+				}
+			}
+			if (foundtrayInPage == false) {
+				PartialSwipe("UP", 1);
+				waitTime(5000);
+			} else {
+				break;
+			}
+		}
+		if (foundtrayInPage == true) {
+			trayFoundInUI = swipeTillElement(15, PWALandingPages.objTrayTitleInUIContains(trayTitleUI),
+					"\"" + trayTitleUI + "\" tray");
+			if (trayFoundInUI == true) {
+				// handle mandatory pop up
+				mandatoryRegistrationPopUp(userType);
+				swipeTillElementAndClick(3, PWALandingPages.trayCard(trayTitleUI), "First Asset in tray");
+				waitTime(10000);
+				if (verifyIsElementDisplayed(PWAPlayerPage.objContentShowTitle, "Show Details")) {
+					String viewallnavigationtittle = getText(PWAPlayerPage.objContentShowTitle);
+					logger.info("Navigated to Show Details page from View All Page: " + viewallnavigationtittle);
+					extent.extentLogger("View All",
+							"Navigated to Show Details page from View All Page: " + viewallnavigationtittle);
+					click(PWAShowsPage.objFirstAssetImageFirstRail, "First card image from first rail");
+				}
+				verifyElementPresent(PWAHomePage.objKalKalturaPlayer, "Kaltura Player");
+				if (userType.equals("Guest") || userType.equals("NonSubscribedUser") || userType.equals("ClubUser")) {
+					verifyIsElementDisplayed(PWAPlayerPage.objWatchingATrailerMessage,
+							"'You're watching a trailer' message on the player");
+				}
+				nextPageTitle = getText(PWAPlayerPage.objContentTitle);
+				if (!nextPageTitle.equals("")) {
+					logger.info("Navigated to Consumptions page: \"" + nextPageTitle + "\"");
+					extent.extentLogger("", "Navigated to Consumptions page: \"" + nextPageTitle + "\"");
+				} else {
+					logger.error("Failed to navigate to Consumptions page");
+					extent.extentLoggerFail("playerScreen", "Failed to navigate to Consumptions page");
+				}
+			}
+		} else {
+			logger.error(trayTitle + " tray is not present in Page");
+			extent.extentLoggerFail("", trayTitle + " tray is not present in Page");
+		}
+		return nextPageTitle;
+	}
+	
+	
+	public void PWAClickSubscribeDuringAdPlay (String userType) throws Exception {
+		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			reloadHome();
+			extent.HeaderChildNode("PWA2-6823 : Ad and Content play after clicking Subscribe below player");
+			logger.info("PWA2-6823 : Ad and Content play after clicking Subscribe below player");
+			click(PWAHomePage.objSearchBtn, "Search icon");
+			String content="Prithvi offers Sarla a fake apology - Kundali Bhagya";
+			type(PWASearchPage.objSearchEditBox, content, "Search edit");
+			waitTime(3000);
+			click(PWASearchPage.objspecificSearch, "Searched content");		
+			if(userType.equals("Guest")){
+				waitTime(3000);
+				if (checkElementDisplayed(PWASearchPage.objCloseRegisterDialog, "Why Register Pop Up")) {
+					click(PWASearchPage.objCloseRegisterDialog, "Close Button");
+				}
+			}
+			
+			waitTime(5000);
+			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+				logger.info("Ad play in progress");
+				extent.extentLogger("", "Ad play in progress");
+				click(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen,"Subscribe button below player during Ad Play");
+				verifyElementPresent(PWASubscriptionPages.objSubscribepopup, "Subscribe popup");
+				click(PWAPremiumPage.objClosePremiumPopup, "Subscribe popup close button");
+				waitForPlayerAdToComplete("Video Player");
+				playerTap();
+				String currentDuration = getElementPropertyToString("innerText", PWAPlayerPage.currentDurationTime,"Current duration");
+				System.out.println("Current Duration: " + currentDuration);
+				extent.extentLogger("","Current Duration: " + currentDuration);
+				if(currentDuration.equals("") || currentDuration.equals(null)) {
+					extent.extentLoggerFail("", "Ad and Content failed to resume after dismissing pop up");
+					logger.error("Ad and Content failed to resume after dismissing pop up");
+				}
+				else {
+					extent.extentLogger("", "Ad and Content resumed after dismissing pop up, expected behavior");
+					logger.info("Ad and Content resumed after dismissing pop up, expected behavior");
+				}
+			}
+		}
+	}
+	
+	
+	public void PWAVmaxAdForMusicAndNews (String userType) throws Exception {
+		mandatoryRegistrationPopUp(userType);
+		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			reloadHome();
+			extent.HeaderChildNode("PWA2-6824 : Vmax Ads for Music and VOD News");
+			logger.info("PWA2-6824 : Vmax Ads for Music and VOD News");
+			navigateToAnyScreen("News");
+			swipeTillTrayAndClickCard("Trending News");
+			waitTime(5000);
+			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+				waitForPlayerAdToComplete("Video Player");
+				extent.extentLoggerFail("", "Vmax Ad played for VOD News content, expected behavior");
+				logger.error("Vmax Ad played for VOD News content, expected behavior");
+			}
+			else {
+				extent.extentLoggerFail("", "Vmax Ad failed to play for VOD News content");
+				logger.error("Vmax Ad failed to play for VOD News content");
+			}
+			mandatoryRegistrationPopUp(userType);
+			reloadHome();
+			navigateToAnyScreen("Music");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWAPlayerPage.objFirstCardFigureFromTray, "First card image from first rail");
+			waitTime(5000);
+			if(checkElementDisplayed(PWAPlayerPage.objAd,"Ad")) {
+				waitForPlayerAdToComplete("Video Player");
+				extent.extentLoggerFail("", "Vmax Ad played for VOD News content, expected behavior");
+				logger.error("Vmax Ad played for VOD News content, expected behavior");
+			}
+			else {
+				extent.extentLoggerFail("", "Vmax Ad failed to play for VOD News content");
+				logger.error("Vmax Ad failed to play for VOD News content");
+			}
+			mandatoryRegistrationPopUp(userType);
+		}
+		extent.HeaderChildNode("PWA2-6880 : Content is getting paused with mute state verification");
+		logger.info("PWA2-6880 : Content is getting paused with mute state verification");
+		if(userType.equals("SubscribedUser")) {
+			reloadHome();
+			mandatoryRegistrationPopUp(userType);
+			navigateToAnyScreen("Music");
+			waitTime(10000);
+			verifyElementPresentAndClick(PWAPlayerPage.objFirstCardFigureFromTray, "First card image from first rail");
+			waitTime(5000);
+		}
+		swipeTillTrayAndClickCard("Related Songs");
+		waitTime(10000);
+		playerTap();
+		verifyElementPresent(PWAPlayerPage.objMuteButton,"Mute button");	
+	}
+	
+	
+	public void PWALatestEpisodeInURLAndCheckSubscribe (String userType) throws Exception {
+		extent.HeaderChildNode("PWA2-6993 : Appending the playback URL as \"latest/latest1\" and verifying Subscribe CTA");
+		logger.info("PWA2-6993 : Appending the playback URL as \"latest/latest1\" and verifying Subscribe CTA");
+		mandatoryRegistrationPopUp(userType);
+		String home = getParameterFromXML("url");
+		extent.extentLogger("","---------- Appending \"latest\" to show url -----------");
+		String url=home+"zee5originals/details/baarish/0-6-2614/latest";
+		getDriver().get(url);
+		logger.info("URL opened: "+url);
+		extent.extentLogger("","URL opened: "+url);
+		waitTime(5000);
+		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			verifyElementPresent(PWAPlayerPage.objGetPremium,"Subscribe button below player");
+		}
+		else {
+			if(checkElementDisplayed(PWAPlayerPage.objGetPremium,"Subscribe button below player for Subscribed user")) {
+				extent.extentLoggerFail("", "Subscribe button below player should not be displayed for Subscribed user");
+				logger.error("Subscribe button below player should not be displayed for Subscribed user");
+			}
+		}
+		mandatoryRegistrationPopUp(userType);
+		extent.extentLogger("","---------- Appending \"latest1\" to show url -----------");
+		url=home+"zee5originals/details/poison/0-6-1558/latest1";
+		getDriver().get(url);
+		logger.info("URL opened: "+url);
+		extent.extentLogger("","URL opened: "+url);
+		waitTime(5000);
+		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			verifyElementPresent(PWAPlayerPage.objGetPremium,"Subscribe button below player");
+		}
+		else {
+			if(checkElementDisplayed(PWAPlayerPage.objGetPremium,"Subscribe button below player for Subscribed user")) {
+				extent.extentLoggerFail("", "Subscribe button below player should not be displayed for Subscribed user");
+				logger.error("Subscribe button below player should not be displayed for Subscribed user");
+			}
+		}
+		mandatoryRegistrationPopUp(userType);
+	}
+	
+	public void PWAVerifyingRefreshForShowDetailsAndConsumptions (String userType) throws Exception {
+		extent.HeaderChildNode("PWA2-6897 : Refreshing show detail page and episode consumption page");
+		logger.info("PWA2-6897 : Refreshing show detail page and episode consumption page");
+		extent.extentLogger("","---------- Refreshing show detail page -----------");
+		mandatoryRegistrationPopUp(userType);
+		reloadHome();	
+		String show = "Kundali Bhagya";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, show, "Search Field");
+		click(PWASearchPage.objSearchShowsTab, "Shows tab");
+		waitTime(3000);
+		click(PWASearchPage.objSearchedResult(show), "Searched content");
+		waitTime(5000);
+		verifyElementPresent(PWAShowsPage.objShowsTitle, "Show title");
+		String showPageTitleBeforeRefresh = getElementPropertyToString("innerText", PWAShowsPage.objShowsTitle,"Show Title").toString();
+		logger.info("Show Title displayed before refresh: "+showPageTitleBeforeRefresh);
+		extent.extentLogger("", "Show Title displayed before refresh: "+showPageTitleBeforeRefresh);
+		String url=getDriver().getCurrentUrl();
+		logger.info("URL displayed: "+url);
+		extent.extentLogger("", "URL displayed: "+url);
+		getDriver().get(url);
+		logger.info("Refreshed page");
+		extent.extentLogger("", "Refreshed page");
+		waitTime(5000);
+		verifyElementPresent(PWAShowsPage.objShowsTitle, "Show title");
+		String showPageTitleAfterRefresh = getElementPropertyToString("innerText", PWAShowsPage.objShowsTitle,"Show Title").toString();
+		logger.info("Show Title displayed after refresh: "+showPageTitleAfterRefresh);
+		extent.extentLogger("", "Show Title displayed after refresh: "+showPageTitleAfterRefresh);
+		if(showPageTitleAfterRefresh.equals(showPageTitleBeforeRefresh) && !showPageTitleAfterRefresh.equals("") && !showPageTitleAfterRefresh.equals(null)) {
+			logger.info("Page refresh successful");
+			extent.extentLogger("", "Page refresh successful");
+		}
+		else {
+			extent.extentLoggerFail("", "Page refresh failed");
+			logger.error("Page refresh failed");
+		}
+		extent.extentLogger("","---------- Refreshing episode detail page -----------");
+		mandatoryRegistrationPopUp(userType);	
+		click(PWAShowsPage.objShowDetailEpisodeDropdown, "Episode Dropdown");
+		click(PWAShowsPage.objShowDetailNonSelectedEpisodeDropdownValues(1), "Second Episode set");
+		waitTime(5000);
+		click(PWAShowsPage.objEpisodeCard, "First Episode Card");
+		mandatoryRegistrationPopUp(userType);
+		String consumptionPageTitleBeforeRefresh = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,"Content Title").toString();
+		logger.info("Episode Title displayed before refresh: "+consumptionPageTitleBeforeRefresh);
+		extent.extentLogger("", "Episode Title displayed before refresh: "+consumptionPageTitleBeforeRefresh);
+		url=getDriver().getCurrentUrl();
+		logger.info("URL displayed: "+url);
+		extent.extentLogger("", "URL displayed: "+url);
+		getDriver().get(url);
+		logger.info("Refreshed page");
+		extent.extentLogger("", "Refreshed page");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		String consumptionPageTitleAfterRefresh = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,"Content Title").toString();
+		logger.info("Show Title displayed after refresh: "+consumptionPageTitleAfterRefresh);
+		extent.extentLogger("", "Show Title displayed after refresh: "+consumptionPageTitleAfterRefresh);
+		if(consumptionPageTitleAfterRefresh.equals(consumptionPageTitleBeforeRefresh) && !consumptionPageTitleAfterRefresh.equals("") && !consumptionPageTitleAfterRefresh.equals(null)) {
+			logger.info("Page refresh successful");
+			extent.extentLogger("", "Page refresh successful");
+		}
+		else {
+			extent.extentLoggerFail("", "Page refresh failed");
+			logger.error("Page refresh failed");
+		}
+	}
+	
+	
+	public void PWAVerifyNextContentPlayAfterBeforeTVContent (String userType) throws Exception {
+		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			extent.HeaderChildNode("PWA2-6852 : Verify next content play after before TV content");
+			logger.info("PWA2-6852 : Verify next content play after before TV content");
+			mandatoryRegistrationPopUp(userType);
+			reloadHome();	
+			String contentPlayed=swipeTillTrayAndClickCard("Before Zee TV");
+			waitTime(7000);
+			if (checkElementDisplayed(PWAPlayerPage.subscribePopUp, "Subscription popup")) {
+				waitTime(3000);
+				click(PWAPlayerPage.ObjSubscriptionpopupCloseIcon, "Subscription popup close icon");
+			}
+			waitTime(7000);
+			waitForPlayerAdToComplete("Video Player");
+			String nextContent = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,"Content Title").toString();
+			logger.info("Content name playing: "+nextContent);
+			extent.extentLogger("", "Content name playing: "+nextContent);
+			if(contentPlayed.equals(nextContent)) {
+				logger.error("Next content failed to play after before tv promo play");
+				extent.extentLoggerFail("", "Next content failed to play after before tv promo play");
+			}
+			else {
+				logger.info("Next content played successfully after before tv promo play");
+				extent.extentLogger("", "Next content played successfully after before tv promo play");
+			}	
+		}
+	}
+	
+	public void PWAClickSubscribeDuringTrailerPlay (String userType) throws Exception {
+		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			reloadHome();
+			extent.HeaderChildNode("PWA2-6864 : Trailer play after clicking Subscribe below player");
+			logger.info("PWA2-6864 : Trailer play after clicking Subscribe below player");
+			click(PWAHomePage.objSearchBtn, "Search icon");
+			String content="Soojidaara | Trailer";
+			type(PWASearchPage.objSearchEditBox, content, "Search edit");
+			waitTime(3000);
+			click(PWASearchPage.objspecificSearch, "Searched content");		
+			if(userType.equals("Guest")){
+				waitTime(3000);
+				if (checkElementDisplayed(PWASearchPage.objCloseRegisterDialog, "Why Register Pop Up")) {
+					click(PWASearchPage.objCloseRegisterDialog, "Close Button");
+				}
+			}		
+			waitTime(5000);
+			click(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen,"Subscribe button below player during Ad Play");
+			verifyElementPresent(PWASubscriptionPages.objSubscribepopup, "Subscribe popup");
+			click(PWAPremiumPage.objClosePremiumPopup, "Subscribe popup close button");
+			playerTap();
+			String currentDuration = getElementPropertyToString("innerText", PWAPlayerPage.currentDurationTime,"Current duration");
+			System.out.println("Current Duration: " + currentDuration);
+			extent.extentLogger("","Current Duration: " + currentDuration);
+			if(currentDuration.equals("") || currentDuration.equals(null)) {
+				extent.extentLoggerFail("", "Trailer failed to resume after dismissing pop up");
+				logger.error("Trailer failed to resume after dismissing pop up");
+			}
+			else {
+				extent.extentLogger("", "Trailer resumed after dismissing pop up, expected behavior");
+				logger.info("Trailer resumed after dismissing pop up, expected behavior");
+			}
+		}
+	}
+	
+	
+	public void PWAVerifyNewsVODPlay (String userType) throws Exception {
+		reloadHome();
+		extent.HeaderChildNode("PWA2-6926 : Verify error is not displayed on playing News VOD Content");
+		logger.info("PWA2-6926 : Verify error is not displayed on playing News VOD Content");
+		String home = getParameterFromXML("url");
+		ArrayList<String> urlsToOpen=new ArrayList<String>();
+		urlsToOpen.add(home+"news/details/international-womens-day-2021-date-history-significance-and-theme-of-the-day/0-0-newsauto_626t9qsgl500");
+		urlsToOpen.add(home+"news/details/budget-2021-p-chidambaram-talks-about-budget-2021/0-0-newsauto_6u2nna3ugl70)");
+		urlsToOpen.add(home+"news/details/bank-of-maharashtra-gold-loans-pre-roll/0-0-newsauto_47pt91la0ag0");
+		urlsToOpen.add(home+"news/details/dixon-technologies-cfo-on-growth-run-rate-and-more/0-0-newsauto_1smvmfh58ep8");
+		urlsToOpen.add(home+"news/details/budget-2021-who-gets-affected-by-proposed-epf-changes/0-0-newsauto_5g26jf84rkg0");
+		urlsToOpen.add(home+"news/details/government-to-unveil-securities-related-laws/0-0-newsauto_6m35kvcf4lm0");
+		String currentUrl="";
+		for(int i=0;i<urlsToOpen.size();i++) {
+			currentUrl=urlsToOpen.get(i);
+			getDriver().get(currentUrl);
+			logger.info("Navigated to News VOD content : "+currentUrl);
+			extent.extentLogger("","Navigated to News VOD content : "+currentUrl);	
+			waitTime(4000);
+			if(checkElementDisplayed(PWAHomePage.objOopsNoInfo,"Oops! No Information available")) {
+				extent.extentLoggerFail("", "News VOD content play failed");
+				logger.error("News VOD content play failed");
+			}
+			else {
+				String consumptionPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,"Content Title").toString();
+				if(consumptionPageTitle.equals("") || consumptionPageTitle.equals(null)) {
+					extent.extentLoggerFail("", "Failed to fetch News VOD content title");
+					logger.error("Failed to fetch News VOD content title");
+				}
+				else {
+					extent.extentLogger("", "News VOD content title : "+consumptionPageTitle);
+					logger.info("News VOD content title : "+consumptionPageTitle);
+				}
+			}
+		}		
+	}
+	
+	
+	public void PWAVerifyImageAssetForZee5Logo (String userType) throws Exception {
+		extent.HeaderChildNode("PWA2-6964 : Verify Image Asset For Zee5 Logo");
+		logger.info("PWA2-6964 : Verify Image Asset For Zee5 Logo");
+		extent.extentLogger("","---------- Verify ZEE5 Logo src attribute value in Home page-----------");
+		reloadHome();
+		String source = getElementPropertyToString("src", PWAHomePage.objZeeLogo,"ZEE5 Logo").toString();
+		extent.extentLogger("", "Value of src attribute of ZEE5 Logo: "+source);
+		logger.info("Value of src attribute of ZEE5 Logo: "+source);
+		if(source.contains("/images/ZEE5_logo.svg")) {
+			extent.extentLogger("", "SVG image is used in place of PNG for ZEE5 Logo, expected behavior");
+			logger.info("SVG image is used in place of PNG for ZEE5 Logo, expected behavior");		
+		}
+		else {
+			extent.extentLoggerFail("", "SVG image is not used in place of PNG for ZEE5 Logo");
+			logger.error("SVG image is not used in place of PNG for ZEE5 Logo");	
+		}
+		if(userType.equals("Guest")) {
+			extent.extentLogger("","---------- Verify ZEE5 Logo src attribute value in Forgot Password page-----------");
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWALoginPage.objLoginBtn, "Login button");
+			waitTime(5000);
+			click(PWALoginPage.objForgotPasswordTxt, "Forgot Password link");		
+			String sourceInForgotPassPage = getElementPropertyToString("src", PWAHomePage.objZeeLogoInForgotPasswordPage,"ZEE5 Logo").toString();
+			extent.extentLogger("", "Value of src attribute of ZEE5 Logo: "+sourceInForgotPassPage);
+			logger.info("Value of src attribute of ZEE5 Logo: "+sourceInForgotPassPage);
+			if(sourceInForgotPassPage.contains("/images/ZEE5_logo.svg")) {
+				extent.extentLogger("", "SVG image is used in place of PNG for ZEE5 Logo, expected behavior");
+				logger.info("SVG image is used in place of PNG for ZEE5 Logo, expected behavior");		
+			}
+			else {
+				extent.extentLoggerFail("", "SVG image is not used in place of PNG for ZEE5 Logo");
+				logger.error("SVG image is not used in place of PNG for ZEE5 Logo");	
+			}
+		}
+		extent.extentLogger("","---------- Verify ZEE5 Logo src attribute value in Show Details page-----------");
+		mandatoryRegistrationPopUp(userType);
+		reloadHome();
+		String show = "Kundali Bhagya";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, show, "Search Field");
+		click(PWASearchPage.objSearchShowsTab, "Shows tab");		
+		click(PWASearchPage.objSearchedResult(show), "Searched content");
+		verifyElementPresent(PWAShowsPage.objShowsTitle, "Show title");
+		String sourceInShowPage = getElementPropertyToString("src", PWAHomePage.objZeeLogo,"ZEE5 Logo").toString();
+		extent.extentLogger("", "Value of src attribute of ZEE5 Logo: "+sourceInShowPage);
+		logger.info("Value of src attribute of ZEE5 Logo: "+sourceInShowPage);
+		if(sourceInShowPage.contains("/images/ZEE5_logo.svg")) {
+			extent.extentLogger("", "SVG image is used in place of PNG for ZEE5 Logo, expected behavior");
+			logger.info("SVG image is used in place of PNG for ZEE5 Logo, expected behavior");		
+		}
+		else {
+			extent.extentLoggerFail("", "SVG image is not used in place of PNG for ZEE5 Logo");
+			logger.error("SVG image is not used in place of PNG for ZEE5 Logo");	
+		}
+		extent.extentLogger("","---------- Verify ZEE5 Logo src attribute value in Consumptions page-----------");
+		mandatoryRegistrationPopUp(userType);
+		reloadHome();
+		String episode = "Prithvi offers Sarla a fake apology - Kundali Bhagya";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, episode, "Search Field");
+		click(PWASearchPage.objSearchedResult(episode), "Searched content");
+		String sourceInPlayerPage = getElementPropertyToString("src", PWAHomePage.objZeeLogo,"ZEE5 Logo").toString();
+		extent.extentLogger("", "Value of src attribute of ZEE5 Logo: "+sourceInPlayerPage);
+		logger.info("Value of src attribute of ZEE5 Logo: "+sourceInPlayerPage);
+		if(sourceInPlayerPage.contains("/images/ZEE5_logo.svg")) {
+			extent.extentLogger("", "SVG image is used in place of PNG for ZEE5 Logo, expected behavior");
+			logger.info("SVG image is used in place of PNG for ZEE5 Logo, expected behavior");		
+		}
+		else {
+			extent.extentLoggerFail("", "SVG image is not used in place of PNG for ZEE5 Logo");
+			logger.error("SVG image is not used in place of PNG for ZEE5 Logo");	
+		}
+		mandatoryRegistrationPopUp(userType);
 	}
 }

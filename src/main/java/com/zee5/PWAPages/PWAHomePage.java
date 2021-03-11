@@ -593,4 +593,10 @@ public class PWAHomePage {
 	}
 	
 	public static By objLogoutIcon = By.xpath(".//*[@class='noSelect menuItem ' and text()='Logout']");
+	
+	public static By objOopsNoInfo = By.xpath("//h2[@class='fallbackTitle' and text()='Oops! No Information available']");
+	public static By objZeeLogoInForgotPasswordPage = By.xpath("//img[@alt='Zee5Logo']");
+	
+	public static By objMastheadCarouselCurrentContentWeb = By.xpath(
+			"(//div[contains(@class,'heroBannerCarousel')]//div[@class='slick-slide slick-center slick-cloned']//*[contains(@class,'content')]//img)[2]");
 }

@@ -438,4 +438,8 @@ public class PWAPlayerPage {
 	public static By objPlaybackAddToWatchlist = By.xpath("(//*[@class='iconInitialLoad-ic_add_Watchlist'])[1]");
 	
 	public static By objRemoveFromWatchlist = By.xpath("(//*[@class='noSelect btnIcon btnIconActive iconInitialLoad-ic_watchlist'])[1]");
+	
+	public static By objCardBesidePlayerImage = By.xpath("//div[@data-lazyload-listened]//a//img");
+	
+	public static By objFirstCardFigureFromTray;
 }

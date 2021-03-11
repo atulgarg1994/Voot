@@ -52,7 +52,7 @@
 	<parameter name="otp4" value="4" />
 	<parameter name="FirstName" value="Zee" />
 	<parameter name="LastName" value="UserZee" />
-	<parameter name="loginThrough" value="login" />
+	<parameter name="loginThrough" value="BrowseForFree" />
 	<parameter name="PrepaidCode" value="Z5PWATI9WlD" />
 	<parameter name="RSVODUser" value="testzee5@gmail.com" />
 	<parameter name="RSVODPassword" value="123456" />
@@ -139,6 +139,7 @@
 	
 	<parameter name="searchKeyword10" value="Vikrant and Aarati reconcile - Gattimela" />
 	<parameter name="contentWithoutTrailer" value="Londonalli Lambodara" />
+	
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

@@ -72,4 +72,8 @@ public class PWAMoviesPage {
 	public static By objTVODTitle = By.xpath("(//*[@class='tvodTitle'])[1]");
 	
 	public static By objTVODTitles = By.xpath("//*[@class='tvodTitle']");
+	
+	public static By objTVODTitle(String apivalue) {
+		return By.xpath("//*[@class='tvodTitle' and text()='"+apivalue+"']");
+	}
 }

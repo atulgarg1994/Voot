@@ -110,22 +110,8 @@ public class WebPWASanityScript {
 
 		Zee5WEBPWASanityBusinessLogic.ContinuewatchingTray(userType);
 		Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
-		Zee5WEBPWASanityBusinessLogic.FreeContentAndPremiumContent(userType);
+		Zee5WEBPWASanityBusinessLogic.FreeContentAndPremiumContent(userType);		
 		
-		
-		Zee5WEBPWASanityBusinessLogic.PWAVerifyTitleInAnchorTags(userType);
-		Zee5WEBPWASanityBusinessLogic.PWAVerifyImageWebP(userType);
-		Zee5WEBPWASanityBusinessLogic.PWAVerifyMetaTags(userType);
-		Zee5WEBPWASanityBusinessLogic.PWABreadcrumbImplementation(userType);
-		Zee5WEBPWASanityBusinessLogic.PWASubtitleSelection(userType);
-		Zee5WEBPWASanityBusinessLogic.PWAVerifyPageFreezeForChannel(userType);
-		Zee5WEBPWASanityBusinessLogic.PWAEmbedFunctionality(userType);
-		Zee5WEBPWASanityBusinessLogic.PWAClickOnPromotionalBanners(userType);
-		Zee5WEBPWASanityBusinessLogic.PWAZeeplexDisclaimer(userType);
-		Zee5WEBPWASanityBusinessLogic.verifyPremiumPopUpForPremiumLiveChannel(userType);
-		Zee5WEBPWASanityBusinessLogic.verifyMandatoryRegistrationPopUpCount(userType);
-		Zee5WEBPWASanityBusinessLogic.verifyClubTagForLiveTVContents(userType);
-		Zee5WEBPWASanityBusinessLogic.PWAVerifyMetaTagsForTwitter(userType);
 	}
 
 
@@ -401,6 +387,13 @@ public class WebPWASanityScript {
 	public void ConvivaVerification(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.ConvivaVerification(userType);
+	}
+	
+	@Test(priority = 31)
+	@Parameters({ "userType" })
+	public void TasksImplementation(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.TasksAndDefects(userType);
 	}
 	
 	@AfterClass

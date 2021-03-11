@@ -138,17 +138,6 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.reloadHome();
 		Zee5PWASanityBusinessLogic.ValidatingLandingPages(userType);// Tejas
 		Zee5PWASanityBusinessLogic.verifyUIofHomePage(); // manasa default home
-		
-		Zee5PWASanityBusinessLogic.PWAVerifyTitleInAnchorTags(userType);
-		Zee5PWASanityBusinessLogic.PWAVerifyImageWebP(userType);
-		Zee5PWASanityBusinessLogic.PWAVerifyMetaTags(userType); //works only in pwauat
-		Zee5PWASanityBusinessLogic.PWASubtitleSelection(userType);//defect associated PWA2-6919, PWA2-6832
-		Zee5PWASanityBusinessLogic.PWAVerifyPageFreezeForChannel(userType); //works fine
-		Zee5PWASanityBusinessLogic.PWAClickOnPromotionalBanners(userType); //works fine
-		Zee5PWASanityBusinessLogic.PWAZeeplexDisclaimer(userType);//works fine
-		Zee5PWASanityBusinessLogic.verifyMandatoryRegistrationPopUpCount(userType);
-		Zee5PWASanityBusinessLogic.verifyClubTagForLiveTVContents(userType);
-
 	}
 
 	@Test(priority = 15)
@@ -265,6 +254,34 @@ public class AndroidPWASanityScript {
 	public void PWAVIL() throws Exception {
 		Zee5PWASanityBusinessLogic.reloadHome();
 		Zee5PWASanityBusinessLogic.verifyingVodafoneNativeApp();
+	}
+	
+	@Test(priority = 28)
+	@Parameters({ "userType" })
+	public void TasksImplementation(String userType) throws Exception {
+		Zee5PWASanityBusinessLogic.PWAVerifyTitleInAnchorTags(userType);
+		Zee5PWASanityBusinessLogic.PWAVerifyImageWebP(userType);
+		Zee5PWASanityBusinessLogic.PWAVerifyMetaTags(userType); 
+		Zee5PWASanityBusinessLogic.PWASubtitleSelection(userType);//defect associated PWA2-6919, PWA2-6832
+		Zee5PWASanityBusinessLogic.PWAVerifyPageFreezeForChannel(userType);
+		Zee5PWASanityBusinessLogic.PWAClickOnPromotionalBanners(userType); 
+		Zee5PWASanityBusinessLogic.PWAZeeplexDisclaimer(userType);
+		Zee5PWASanityBusinessLogic.verifyMandatoryRegistrationPopUpCount(userType);
+		Zee5PWASanityBusinessLogic.verifyClubTagForLiveTVContents(userType);				
+		Zee5PWASanityBusinessLogic.PWAVerifyMetaTagsForTwitter(userType);
+		Zee5PWASanityBusinessLogic.PWAVerifyZeePlexContents(userType);
+		Zee5PWASanityBusinessLogic.PWAVerifyWatchTrailerCTA(userType);
+		Zee5PWASanityBusinessLogic.PWAWatchPromoAndVerifyTitle(userType);
+		Zee5PWASanityBusinessLogic.PWAWatchMovieAndThenClickTrailer(userType);
+		Zee5PWASanityBusinessLogic.PWAWatchNewsVODAndThenClickAnotherContent(userType);
+		Zee5PWASanityBusinessLogic.PWAClickSubscribeDuringAdPlay(userType);
+		Zee5PWASanityBusinessLogic.PWAVmaxAdForMusicAndNews(userType);
+		Zee5PWASanityBusinessLogic.PWALatestEpisodeInURLAndCheckSubscribe(userType);
+		Zee5PWASanityBusinessLogic.PWAVerifyingRefreshForShowDetailsAndConsumptions(userType);
+		Zee5PWASanityBusinessLogic.PWAVerifyNextContentPlayAfterBeforeTVContent(userType);
+		Zee5PWASanityBusinessLogic.PWAClickSubscribeDuringTrailerPlay(userType);
+		Zee5PWASanityBusinessLogic.PWAVerifyNewsVODPlay(userType);
+		Zee5PWASanityBusinessLogic.PWAVerifyImageAssetForZee5Logo(userType);
 	}
 
 	@AfterClass
