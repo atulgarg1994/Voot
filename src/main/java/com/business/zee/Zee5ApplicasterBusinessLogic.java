@@ -14507,7 +14507,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Verify share options", "Share Options are not available");
 				logger.info("Share Options are not available");
 			} else {
-				for (int i = 1; i <= shareOptions; i++) {
+				for (int i = 2; i <= shareOptions; i++) {
 					String shareOptionName = getText(AMDMoreMenu.objShareOptions(i));
 					logger.info("Share Option : " + shareOptionName + " is available to share");
 					extent.extentLogger("Share Option ",
@@ -14861,7 +14861,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			// Verify the Audio language
 			click(AMDConsumptionScreen.objCurrentAudioLanguage, "Audio Language");
-			boolean isPopUp = verifyIsElementDisplayed(AMDConsumptionScreen.objPopUp);
+			boolean isPopUp = verifyIsElementDisplayed(AMDConsumptionScreen.objAudioLanguagepopup);
 			if (isPopUp) {
 				extent.extentLoggerPass("Verify Audio Language", "Audio Language Pop up is displayed");
 				int size = getDriver().findElements(AMDConsumptionScreen.objSubtitleAndAudioLangItems).size();
@@ -14897,7 +14897,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"No default audio language is available for the content :" + contentName);
 			logger.info("No default audio language is available for the content :" + contentName);
 		}
-
 	}
 
 	public void SubTitles(String userType, String contentName, String tabName) throws Exception {
@@ -14926,7 +14925,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				}
 				// Verify Subtitle
 				click(AMDConsumptionScreen.objCurrentSubTitle, "Subtitle");
-				boolean isPopUp = verifyIsElementDisplayed(AMDConsumptionScreen.objPopUp);
+				boolean isPopUp = verifyIsElementDisplayed(AMDConsumptionScreen.objAudioLanguagepopup);
 				if (isPopUp) {
 					extent.extentLoggerPass("Verify Sutitle PopUp", "Subtitles Pop up is displayed");
 					int size = getDriver().findElements(AMDConsumptionScreen.objSubtitleAndAudioLangItems).size();

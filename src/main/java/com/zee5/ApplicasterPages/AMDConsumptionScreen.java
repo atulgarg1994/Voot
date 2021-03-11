@@ -25,29 +25,13 @@ public class AMDConsumptionScreen {
 	public static By objLoginCTA = By.xpath("//*[@id='get_premium_login']");
 
 	public static By objSubscribePopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title']");
-	public static By objWatchlistBtn = By.xpath("//*[@id='watchListTv']");
-	public static By objContentName = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[1]");
-	public static By objDownloadBtn = By.xpath("//*[@resource-id='com.graymatrix.did:id/downloadTv']");
-	public static By objCastBtn = By.xpath("//*[@resource-id='com.graymatrix.did:id/castTv']");
-	public static By objWatchTrialer = By.xpath("//*[@resource-id='com.graymatrix.did:id/watchTrailerTv']");
 	public static By objMainGenre = By.xpath("//*[@resource-id='com.graymatrix.did:id/main_genre_tv']");
 	public static By objReleasYear = By.xpath("//*[@resource-id='com.graymatrix.did:id/release_year_tv']");
 	public static By objGenre = By.xpath("//*[@resource-id='com.graymatrix.did:id/genresTv']");
 	public static By objDuratation = By.xpath("//*[@resource-id='com.graymatrix.did:id/duration_tv']");
 	public static By objAgeRating = By.xpath("//*[@resource-id='com.graymatrix.did:id/ageRatingTv']");
-	public static By objAudioLanguage = By.xpath("//*[@resource-id='com.graymatrix.did:id/languageTV']");
-	public static By objCurrentAudioLanguage = By.xpath("//*[@resource-id='com.graymatrix.did:id/languageValueTV']");
-	public static By objSubtitle = By.xpath("//*[@resource-id='com.graymatrix.did:id/subtitlesTv']");
-	public static By objCurrentSubTitle = By.xpath("//*[@resource-id='com.graymatrix.did:id/subtitlesValueTv']");
-	public static By objContentDesc = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_secondary_text']");
-	public static By objExpandDesc = By.xpath("//*[@resource-id='com.graymatrix.did:id/expandIV']");
 	public static By objPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title']");
 	public static By objCLosePopUpBtn = By.xpath("//*[@resource-id='com.graymatrix.did:id/hide_button']");
-	public static By objSubtitleAndAudioLangItems = By.xpath("//*[@resource-id='com.graymatrix.did:id/textView2']");
-
-	public static By objSubtitleAndAudioLangItems(int index) {
-		return By.xpath("(//*[@resource-id='com.graymatrix.did:id/textView2'])[" + index + "]");
-	}
 
 	public static By objRegisterPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/tvtitle']");
 
@@ -122,4 +106,23 @@ public class AMDConsumptionScreen {
 	public static By objDownloadbtn = By.xpath("//*[@id='downlowd_image'] | //*[@id='metaInfoActionButtonTextView' and @text='Download']");
 
 	public static By getClubCTA = By.xpath("//*[@id='get_premium_button' and @text='Get Club'] | //*[@id='subscribeButton' and @text='Get Club']");
-}
+
+	public static By objContentName = By.xpath("//*[@id='content_title']");
+	public static By objAudioLanguage = By.xpath("//*[@id='audio_language_textView']");
+	public static By objSubtitle = By.xpath("//*[@id='subtitle_language_textView']");
+	public static By objContentDesc = By.xpath("//*[@id='contentDescriptionTextView']");
+	public static By objExpandDesc = By.xpath("//*[@id='expand_imageView']");
+	public static By objWatchlistBtn = By.xpath("//*[@id='metaInfoActionButtonTextView' and @text='Watchlist']");
+	public static By objCastBtn = By.xpath("//*[@id='metaInfoActionButtonTextView' and @text='Cast']");
+	public static By objDownloadBtn = By.xpath("//*[@id='metaInfoActionButtonTextView' and @text='Download']");
+	public static By objWatchTrialer = By.xpath("//*[@id='metaInfoActionButtonTextView' and @text='Watch Trailer']");
+	public static By objCurrentAudioLanguage = By.xpath("//*[@id='actual_audio_language_textView']");
+	public static By objSubtitleAndAudioLangItems = By.xpath("//*[@id='playerOptionTitle']");
+	public static By objCurrentSubTitle = By.xpath("//*[@id='actual_subtitle_language_textView']");
+	public static By objSubtitleAndAudioLangItems(int index) {
+			return By.xpath("(//*[@id='playerOptionTitle'])[" + index + "]");
+		}
+	
+	public static By objAudioLanguagepopup = By.xpath("//*[@id='playerOptionsTitleTextView']");
+	
+	}

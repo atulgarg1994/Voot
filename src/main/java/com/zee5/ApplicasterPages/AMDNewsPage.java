@@ -81,8 +81,6 @@ public class AMDNewsPage {
 	public static By objShareGmail = By.xpath("//*[@text='Gmail']");
 	
 	public static By objSharedLink = By.xpath("//*[@resource-id='com.google.android.gm:id/subject']");
-	
-	public static By objMetadataofthecard = By.xpath("(//*[@id='item_primary_text'])[5]");
 
 	public static By objLiveChannelName = By.xpath("(//*[@id='item_primary_text'])[1]");
 	
@@ -91,5 +89,5 @@ public class AMDNewsPage {
 	public static By objDownlaodOption = By.xpath("//*[@id='metaInfoActionButtonTextView' and @text='Download']");
 	public static By objWatchlistIcon = By.xpath("//*[@id='metaInfoActionButtonTextView' and @text='Watchlist']");
 
-
+	public static By objMetadataofthecard = By.xpath("(//*[@class='android.widget.LinearLayout' and ./*[@id='cell_top_container']]//*[@id='cell_bottom_container'])[1]//child::*");
 }

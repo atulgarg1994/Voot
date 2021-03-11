@@ -7,7 +7,7 @@ public class AMDGenericObjects {
 
 	// Get Screen title across all screen
 	public static By objgetScreenTitle = By.xpath("//*[@id='screen_title']");
- 
+
 	// Verifying page title displayed
 	public static By objScreenTitleName(String title) {
 		return By.xpath("//*[@id='screen_title' and @text='" + title + "']");
@@ -54,44 +54,49 @@ public class AMDGenericObjects {
 	public static By objMetaData = By.xpath(
 			"//*[@id='main_genre_tv'] | //*[@id='release_year_tv'] | //*[@id='duration_tv'] | //*[@id='genresTv'] | //*[@id='ageRatingTv']");
 
-	public static By objPageTitle(String title) {
-		return By.xpath("//*[@id='title' and @text='" + title + "']");
-	}
-
-	
-	public static By objCarouselTitle(String title) {
-		return By.xpath("//*[@id='header_primary_text' and @text='"+title+"']");
-	}
-	public static By objContentNameInTray =  By.xpath("(//*[@id='header_primary_text']//following::*[@id='item_primary_text'])");
-	public static By objContentNameInTray(int index) {
-		return By.xpath("(//*[@id='header_primary_text']//following::*[@id='item_primary_text'])["+index+"]");
-	}
-	
 	public static By objContainText(String text) {
 		return By.xpath("//*[contains(text(),'" + text + "']");
 	}
-	
-	
+
 	public static By objTrayTitle = By.xpath("//*[@id='header_primary_text']");
-	
+
 	public static By objTrayTitleByIndex(int index) {
-		return By.xpath("(//*[@id='header_primary_text'])["+index+"]");
+		return By.xpath("(//*[@id='header_primary_text'])[" + index + "]");
 	}
-	
+
 	public static By objBottomNavigation(String tabName) {
-		return By.xpath("//*[@id='bb_bottom_bar_title' and @text='"+tabName+"']");
+		return By.xpath("//*[@id='bb_bottom_bar_title' and @text='" + tabName + "']");
 	}
-	
+
 	public static By objSelectFirstCardFromTrayTitle(String text) {
-		return By.xpath("(//*[@id='header_primary_text' and contains(text(),\"" + text + "\")]//following::*[@id='item_image'])[1]");
+		return By.xpath("(//*[@id='header_primary_text' and contains(text(),\"" + text
+				+ "\")]//following::*[@id='item_image'])[1]");
 	}
-	
-	 public static By objViewAllBtn(String trayName) {
-			return By.xpath("//*[contains(text(),'" + trayName + "')]//following::*[@text='a']");
-		}
-	 public static By objSearchcontentTitle(String title) {
-			return By.xpath("//*[@text='" + title + "' and @class='android.widget.TextView']");
-		}
-	 
-	 public static By objNoOfTrays = By.xpath("//*[@id='header_primary_text'] | //*[@class='android.widget.TextView']/following::*[@text='a']");
+
+	public static By objViewAllBtn(String trayName) {
+		return By.xpath("//*[contains(text(),'" + trayName + "')]//following::*[@text='a']");
+	}
+
+	public static By objSearchcontentTitle(String title) {
+		return By.xpath("//*[@text='" + title + "' and @class='android.widget.TextView']");
+	}
+
+	public static By objNoOfTrays = By
+			.xpath("//*[@id='header_primary_text'] | //*[@class='android.widget.TextView']/following::*[@text='a']");
+
+	public static By objCarouselTitle(String title) {
+		return By.xpath("//*[@id='cell_top_container']//*[@text='" + title + "']");
+	}
+
+	public static By objContentNameInTray(int index) {
+		return By.xpath("(//*[@id='cell_top_container'])[" + index + "]");
+	}
+
+	public static By objContentNameInTray = By.xpath("//*[@id='cell_top_container']");
+
+	public static By objPageTitle(String title) {
+		return By.xpath(
+				"//*[@class='android.widget.LinearLayout']//*[@id='homeTabLayout']//*[@class='android.widget.LinearLayout']//*[@text='"
+						+ title + "']");
+	}
 }

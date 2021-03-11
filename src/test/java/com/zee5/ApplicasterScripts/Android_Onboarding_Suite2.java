@@ -24,7 +24,7 @@ public class Android_Onboarding_Suite2 {
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLoginForOnboarding();
 	}
 	
-	//@Test (priority = 1)  //Have a prepaid code is removed in the intro screen
+//	@Test (priority = 1)  //---- Have a prepaid code is removed in the intro screen
 	@Parameters({"userType"})	//  Kushal
 	public void HaveAPrepaidCodeUIVerification(String userType) throws Exception {
 		System.out.println("\nVerify Have a Prepaid Code PopUp Screen");
@@ -38,7 +38,7 @@ public class Android_Onboarding_Suite2 {
 		if(userType.contentEquals("Guest")) {
 			ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		}
-				ZEE5ApplicasterBusinessLogic.VerifySkipLoginRegistrationScreen();
+		ZEE5ApplicasterBusinessLogic.VerifySkipLoginRegistrationScreen();
 	}
 	
 	@Test (priority = 3)	//  Kushal
@@ -49,7 +49,7 @@ public class Android_Onboarding_Suite2 {
 		ZEE5ApplicasterBusinessLogic.VerifyLoginWithEmailId(pEmailId, pPassword);
 	}
 	
-	//@Test (priority = 4)	//  Kushal   //Have a prepaid code is removed in the intro screen
+//	@Test (priority = 4)	//  Kushal   //---- Have a prepaid code is removed in the Intro screen
 	@Parameters({"userType","NonsubscribedUserName","NonsubscribedPassword"})
 	public void InvalidPrepaidCodeValidationAfterLogin(String userType,String pEmailId,String pPassword) throws Exception {
 		System.out.println("\nVerify Invalid Prepaid Code PopUp for registered user");
@@ -59,7 +59,7 @@ public class Android_Onboarding_Suite2 {
 		ZEE5ApplicasterBusinessLogic.verifyInvalidPrepaidCodePopUpAfterLogin(pEmailId, pPassword);
 	}
 	
-	//@Test (priority = 5)	//  Kushal
+//	@Test (priority = 5)	//  Kushal //---- Have a prepaid code is removed in the Intro screen
 	@Parameters({"userType"})
 	public void InvalidPrepaidCodeValidationAfterRegistration(String userType) throws Exception {
 		System.out.println("\nVerify Invalid Prepaid Code PopUp for unregistered user");
@@ -70,7 +70,7 @@ public class Android_Onboarding_Suite2 {
 	}
 	
 
-//	@Test (priority = 9)	//  Kushal  - [Need a VALID Prepaid Code to execute this test]
+//	@Test (priority = 9)	//  Kushal  - Have a prepaid code is removed in the Intro screen [Need a VALID Prepaid Code to execute this test]
 	@Parameters({"userType","PrepaidCode","regUserName","regPassword"})
 	public void ApplyValidPrepaidCodeforRegisteredUser(String userType, String pCode, String pUserName, String pPassword) throws Exception {
 		System.out.println("\nVerify Successful message for valid Prepaid Code for registered user");

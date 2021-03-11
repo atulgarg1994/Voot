@@ -126,21 +126,10 @@ public class AMDSearchScreen {
 	public static By objContentCardTitleOfTopSearchesTray = By.xpath(
 			"//*[@text='Top Searches']/parent::*/parent::*/following-sibling::*/child::*/child::*[@resource-id='com.graymatrix.did:id/item_primary_text']");
 
-	public static void main(String[] args) {
-		String title = "f";
-		System.out.println("//*[@id='item_primary_text' and contains(text(), " + title + ")]");
-	}
 	
 	public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[4]");
 	
 	public static By objSelectFirstEpisodeResult = By.xpath("//*[@id='item_secondary_text'][1]");
-	
-	public static By objFirstSearchResult(String title) {
-		return By.xpath("(//*[@id='item_primary_text' and contains(text(), \""+title+"\")])[1]");
-	}
-	public static By objSecondSearchResult(String title) {
-		return By.xpath("(//*[@id='item_primary_text' and contains(text(), \""+title+"\")])[2]");
-	}
 	
 	public static By objEpisodeSearch = By.xpath("//*[@id='item_secondary_text']");
 	
@@ -217,5 +206,11 @@ public class AMDSearchScreen {
 	 public static By objSearchResult(String title) {
 			return By.xpath("//*[@id='searchItemTitleText' and contains(text(), \""+title+"\")] | (//*[contains(@text,'"+title+"')])[2]");
 		}
+	 public static By objFirstSearchResult(String title) {
+			return By.xpath("(//*[@id='cell_center_container']//*[@class='android.widget.TextView' and @text='"+ title +"'])[1]");
+	}
 	 
+	 public static By objSecondSearchResult(String title) {
+			return By.xpath("(//*[@id='cell_center_container']//*[@class='android.widget.TextView' and @text='"+ title +"'])[2]");
+		}
 }
