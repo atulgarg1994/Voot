@@ -206,11 +206,12 @@ public class AMDSearchScreen {
 	 public static By objSearchResult(String title) {
 			return By.xpath("//*[@id='searchItemTitleText' and contains(text(), \""+title+"\")] | (//*[contains(@text,'"+title+"')])[2]");
 		}
+	 
 	 public static By objFirstSearchResult(String title) {
 			return By.xpath("(//*[@id='cell_center_container']//*[@class='android.widget.TextView' and @text='"+ title +"'])[1]");
 	}
-	 
-	 public static By objSecondSearchResult(String title) {
+
+	public static By objSecondSearchResult(String title) {
 			return By.xpath("(//*[@id='cell_center_container']//*[@class='android.widget.TextView' and @text='"+ title +"'])[2]");
 		}
 }

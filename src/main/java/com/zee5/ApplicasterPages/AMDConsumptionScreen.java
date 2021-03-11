@@ -106,7 +106,7 @@ public class AMDConsumptionScreen {
 	public static By objDownloadbtn = By.xpath("//*[@id='downlowd_image'] | //*[@id='metaInfoActionButtonTextView' and @text='Download']");
 
 	public static By getClubCTA = By.xpath("//*[@id='get_premium_button' and @text='Get Club'] | //*[@id='subscribeButton' and @text='Get Club']");
-
+	
 	public static By objContentName = By.xpath("//*[@id='content_title']");
 	public static By objAudioLanguage = By.xpath("//*[@id='audio_language_textView']");
 	public static By objSubtitle = By.xpath("//*[@id='subtitle_language_textView']");
@@ -122,7 +122,6 @@ public class AMDConsumptionScreen {
 	public static By objSubtitleAndAudioLangItems(int index) {
 			return By.xpath("(//*[@id='playerOptionTitle'])[" + index + "]");
 		}
-	
 	public static By objAudioLanguagepopup = By.xpath("//*[@id='playerOptionsTitleTextView']");
 	
 	}

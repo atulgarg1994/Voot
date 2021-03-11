@@ -83,7 +83,8 @@ public class AMDGenericObjects {
 
 	public static By objNoOfTrays = By
 			.xpath("//*[@id='header_primary_text'] | //*[@class='android.widget.TextView']/following::*[@text='a']");
-
+	
+	
 	public static By objCarouselTitle(String title) {
 		return By.xpath("//*[@id='cell_top_container']//*[@text='" + title + "']");
 	}
