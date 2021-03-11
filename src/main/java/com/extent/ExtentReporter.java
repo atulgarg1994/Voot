@@ -16,6 +16,8 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
+import org.testng.SkipException;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -153,7 +155,10 @@ public class ExtentReporter implements ITestListener {
 			totalTests++;
 			ExcelUpdate.passCounter = ExcelUpdate.failCounter = ExcelUpdate.warningCounter = moduleFailCount = 0;
 //			ExcelUpdate.creatExcel();
-			} 
+			} else {
+				runmode = false;
+				throw new SkipException("");
+			}
 		}else {
 			runmode = false;
 		}
