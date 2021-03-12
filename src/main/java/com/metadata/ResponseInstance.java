@@ -7,23 +7,15 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import org.json.JSONObject;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.html5.LocalStorage;
 import org.testng.Reporter;
-
 import com.driverInstance.DriverInstance;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
 import com.mixpanelValidation.Mixpanel;
 import com.propertyfilereader.PropertyFileReader;
-import com.sun.media.jfxmedia.logging.Logger;
 import com.utility.LoggingUtils;
-
 import java.util.Properties;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class ResponseInstance {
