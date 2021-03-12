@@ -32,11 +32,6 @@ public class AMDHomePage {
 	// Play Button On carousel
 	public static By objPlayBtn = By.xpath("//*[@id='playImage']");
 
-	// Select view all button from trayTile
-	public static By objViewAllBtn(String trayName) {
-		return By.xpath("//*[contains(text(),'" + trayName + "')]//following::*[@id='header_arrow'][1]");
-	}
-
 	public static By objPageTitle(String title) {
 		return By.xpath("//*[@id='title' and contains(text(),'" + title + "')]");
 	}
@@ -187,8 +182,6 @@ public class AMDHomePage {
 	
 	public static By objMoreMenu = By.xpath("(//*[@text='More']//parent::*)[1] | (//*[@id='navigationIconView'])[5]");
 
-	public static By objTitle = By.xpath("//*[@id='homeTabLayout']/*/child::*");
-
 	public static By objContentTitle(String title) {
 		return By.xpath("//*[@id='item_primary_text'or @text='" + title + "']");
 	}
@@ -225,10 +218,18 @@ public class AMDHomePage {
  	public static By objBeforeTVViewAllArraowIcon = By.xpath(
 			"(//*[@id='header_primary_text' and contains(text(),'Premiere Episodes | Before Zee')]//parent::*[@class='android.view.ViewGroup']//*[@id='header_arrow'])[1] | //*[contains(text(),'Premiere Episodes | Before')]/parent::*//*[@text='a']");
 
+	public static By objViewAllScreen = By.xpath(
+			"//*[@id='title' and contains(text(),'Premiere Episodes | Before Zee')] | //*[contains(text(),'Premiere Episodes | Before Zee')]");
 
-public static By objViewAllScreen = By
-			.xpath("//*[@id='title' and contains(text(),'Premiere Episodes | Before Zee')] | //*[contains(text(),'Premiere Episodes | Before Zee')]");
-			
-public static By objFirstContentOfBeforeTvTray = By.xpath(
+	public static By objFirstContentOfBeforeTvTray = By.xpath(
 			"(//*[@id='header_primary_text' and  contains(text(),'Premiere Episodes | Before Zee')]//following::*)[4] | (//*[contains(text(),'Premiere Episodes | Before Zee')]//following::*)[4]");
+
+	public static By objTitle = By.xpath(
+			"(//*[@id='homeTabLayout']/*/child::*) | //*[@id='collectionToolBar'] | //*[@id='railDialogToolBar']");
+
+	public static By objViewAllBtn(String trayName) {
+		return By.xpath("//*[contains(text(),'" + trayName
+				+ "')]//following::*[@id='header_arrow'][1] | (//*[@id='cell_top_container']//parent::*[@text='"
+				+ trayName + "']//following::*[@text='a'])[1]");
+	}
 }

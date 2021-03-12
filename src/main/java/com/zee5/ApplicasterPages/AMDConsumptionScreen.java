@@ -28,7 +28,7 @@ public class AMDConsumptionScreen {
 	public static By objMainGenre = By.xpath("//*[@resource-id='com.graymatrix.did:id/main_genre_tv']");
 	public static By objReleasYear = By.xpath("//*[@resource-id='com.graymatrix.did:id/release_year_tv']");
 	public static By objGenre = By.xpath("//*[@resource-id='com.graymatrix.did:id/genresTv']");
-	public static By objDuratation = By.xpath("//*[@resource-id='com.graymatrix.did:id/duration_tv']");
+
 	public static By objAgeRating = By.xpath("//*[@resource-id='com.graymatrix.did:id/ageRatingTv']");
 	public static By objPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title']");
 	public static By objCLosePopUpBtn = By.xpath("//*[@resource-id='com.graymatrix.did:id/hide_button']");
@@ -79,7 +79,6 @@ public class AMDConsumptionScreen {
 			.xpath("//*[@resource-id='com.graymatrix.did:id/player_error_message']");
 	public static By objRegisterBtnOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/btnAction']");
 	public static By objFirstUpNextContent = By.xpath("(//*[@id='horizontal_list_10_parent'])[1]");
-	public static By objBeforeTVContentName = By.xpath("(//*[@id='item_primary_text'])[7]");
 
 	public static By objLoginBtnOnPopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/tvLogin']");
 	public static By objContentCardOfTrayInConsumptionPage = By
@@ -123,5 +122,10 @@ public class AMDConsumptionScreen {
 			return By.xpath("(//*[@id='playerOptionTitle'])[" + index + "]");
 		}
 	public static By objAudioLanguagepopup = By.xpath("//*[@id='playerOptionsTitleTextView']");
+	
+	public static By objBeforeTVContentName = By.xpath("	(//*[@id='cell_center_container']//*[@class='android.widget.TextView'])[1]");
+	public static By objDuratation = By.xpath("//*[@id='playerDurationTotal']");
+	
+	public static By objContentInfo = By.xpath("//*[@id='content_info']");
 	
 	}

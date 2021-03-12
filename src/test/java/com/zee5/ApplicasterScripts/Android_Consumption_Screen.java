@@ -34,7 +34,7 @@ public class Android_Consumption_Screen {
 		ZEE5ApplicasterBusinessLogic.SVODConsumptionScreen(userType, "Shows", SVODShow);
 	}
 
-//	@Test(priority = 2)
+	@Test(priority = 2)
 	@Parameters({ "userType", "SVODEpisode" })
 	public void SVODConsumptionScreenForEpisodeTab(String userType, String SVODEpisode) throws Exception {
 		ZEE5ApplicasterBusinessLogic.SVODConsumptionScreen(userType, "Episode", SVODEpisode);
@@ -56,7 +56,7 @@ public class Android_Consumption_Screen {
 	@Parameters({ "userType" })
 	public void NSVODConsumptionScreen(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.verifyNonSVODConsumptionScreen(userType);
-		ZEE5ApplicasterBusinessLogic.verifySimilarChannels();
+		//ZEE5ApplicasterBusinessLogic.verifySimilarChannels();
 	}
 	
 	@Test(priority = 6)
@@ -68,7 +68,7 @@ public class Android_Consumption_Screen {
 			ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 			ZEE5ApplicasterBusinessLogic.MandatoryPopUpScenarios(userType);
 	}
-
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("\nQuit the App\n");

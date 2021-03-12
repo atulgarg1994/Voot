@@ -21,11 +21,6 @@ public class AMDGenericObjects {
 		return By.xpath("//*[@text='" + text + "']");
 	}
 
-	// Tray Tile
-	public static By objTrayTitle(String text) {
-		return By.xpath("//*[@id='header_primary_text' and contains(text(),\"" + text + "\")]");
-	}
-
 	public static By objHideKeyboard = By.xpath("//*[@id='hide_btn']");
 
 	public static By objCloseInterstitialAd = By.xpath(
@@ -49,7 +44,7 @@ public class AMDGenericObjects {
 	}
 
 	public static By objPopUpDivider = By.xpath("//*[@id='dialog_divider']");
-	public static By objFirstTrayTitle = By.xpath("(//*[@id='header_primary_text'])[1]");
+
 	public static By objPremiumTags = By.xpath("//*[@id='special_image_1']");
 	public static By objMetaData = By.xpath(
 			"//*[@id='main_genre_tv'] | //*[@id='release_year_tv'] | //*[@id='duration_tv'] | //*[@id='genresTv'] | //*[@id='ageRatingTv']");
@@ -99,5 +94,15 @@ public class AMDGenericObjects {
 		return By.xpath(
 				"//*[@class='android.widget.LinearLayout']//*[@id='homeTabLayout']//*[@class='android.widget.LinearLayout']//*[@text='"
 						+ title + "']");
+	}
+	
+	public static By objFirstTrayTitle = By.xpath("(//*[@id='header_primary_text'])[1] | (//*[@id='cell_top_container']/following::*[@text='a']//preceding-sibling::*)");
+	
+	public static By objTrayTitle(String text) {
+		return By.xpath("//*[contains(text(),'" + text + "')]");
+	}
+	
+	public static By objcontentnameinTray(int index) {
+		return By.xpath("(//*[@id='cell_top_container']//*[@class='android.widget.TextView'])["+index+"]");
 	}
 }

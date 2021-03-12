@@ -214,4 +214,6 @@ public class AMDSearchScreen {
 	public static By objSecondSearchResult(String title) {
 			return By.xpath("(//*[@id='cell_center_container']//*[@class='android.widget.TextView' and @text='"+ title +"'])[2]");
 		}
+	
+	public static By objFirstResult = By.xpath("(//*[@id='cell_start_container'])[1]");
 }

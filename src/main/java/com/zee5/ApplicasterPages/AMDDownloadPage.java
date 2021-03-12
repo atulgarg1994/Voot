@@ -41,8 +41,6 @@ public class AMDDownloadPage {
 	
 	//Movies tab
 	public static By objmoviestab=By.xpath("//*[@text='Movies']");
-	//videos tab
-	public static By objvideostab= By.xpath("//*[@text='Videos']");
 	
 	/**
 	 * Bhavana
@@ -162,4 +160,5 @@ public class AMDDownloadPage {
 	public static By objNoOfEpisodeList = By.xpath("//*[@id='tv_title']");
 	
 	public static By objBackinPlayer = By.xpath("//*[@id='playerBackButton']");
+	public static By objvideostab= By.xpath("//*[@text='Videos' or @text='VIDEOS']");
 }

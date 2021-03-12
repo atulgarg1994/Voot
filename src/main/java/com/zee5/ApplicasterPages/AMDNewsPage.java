@@ -38,7 +38,6 @@ public class AMDNewsPage {
 	
 	public static By objNextContentImg = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_image']");
 	
-	public static By objNewsConsumptionSrnDescription = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_secondary_text']");
 	public static By objChannelName = By.xpath("(//*[@class='android.widget.TextView'])[2]");
 	public static By objContentGenere = By.xpath("(//*[@class='android.widget.TextView'])[3]");
 	public static By objContentDuration = By.xpath("(//*[@class='android.widget.TextView'])[5]");
@@ -63,8 +62,6 @@ public class AMDNewsPage {
 
     public static By objWatchlistContentTitle = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title']");
 	public static By objMetaDataOfLiveTv = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[1]");
-	
-	public static By objConsumptionScrnMetaDataOfLiveTv = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_primary_text']");
   
 	public static By objLiveChannelThumbnailImage = By.xpath("((//*[@id='recyclerView']/*/*[@id='recyclerView'])[2]/*[@id='horizontal_list_10_parent'])");
 
@@ -90,4 +87,8 @@ public class AMDNewsPage {
 	public static By objWatchlistIcon = By.xpath("//*[@id='metaInfoActionButtonTextView' and @text='Watchlist']");
 
 	public static By objMetadataofthecard = By.xpath("(//*[@class='android.widget.LinearLayout' and ./*[@id='cell_top_container']]//*[@id='cell_bottom_container'])[1]//child::*");
+	
+	public static By objNewsConsumptionSrnDescription = By.xpath("//*[@id='contentDescriptionTextView']");
+	public static By objConsumptionScrnMetaDataOfLiveTv = By.xpath("//*[@id='content_title']");
+	public static By objContentTitle = By.xpath("//*[@id='content_title']");
 }
