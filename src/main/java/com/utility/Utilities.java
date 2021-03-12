@@ -1334,6 +1334,50 @@ public class Utilities extends ExtentReporter {
 		Runtime.getRuntime().exec(
 				"adb shell content insert --uri content://settings/system --bind name:s:user_rotation --bind value:i:0");
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public void PartialSwipeInConsumptionScreen(String direction, int count) {
+		touchAction = new TouchAction(getDriver());
+		String dire = direction;
+
+		try {
+
+			if (dire.equalsIgnoreCase("UP")) {
+
+				for (int j = 0; j < count; j++) {
+					Dimension size = getDriver().manage().window().getSize();
+					int starty = (int) (size.height * 0.8);
+					int endy = (int) (size.height * 0.5);
+					int startx = size.width / 2;
+					touchAction.press(PointOption.point(startx, starty))
+							.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+							.moveTo(PointOption.point(startx, endy)).release().perform();
+					logger.info("Swiping screen in " + dire + " direction" + " " + (j + 1) + " times");
+					extent.extentLogger("SwipeUp",
+							"Swiping screen in " + " " + dire + " direction" + " " + (j + 1) + " times");
+
+				}
+			} else if (dire.equalsIgnoreCase("DOWN")) {
+				for (int j = 0; j < count; j++) {
+					Dimension size = getDriver().manage().window().getSize();
+					int starty = (int) (size.height * 0.8);
+					int endy = (int) (size.height * 0.5);
+					int startx = size.width / 2;
+					touchAction.press(PointOption.point(startx, endy))
+							.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+							.moveTo(PointOption.point(startx, starty)).release().perform();
+					logger.info("Swiping screen in " + " " + dire + " direction" + " " + (j + 1) + " times");
+					extent.extentLogger("SwipeDown",
+							"Swiping screen in " + " " + dire + " direction" + " " + (j + 1) + " times");
+
+				}
+			}
+
+		} catch (Exception e) {
+			logger.error(e);
+
+		}
+	}
 
 //====================================================================================================================================
 	/** ::::::::::::::::Web Utilities:::::::::::: */

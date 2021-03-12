@@ -37,15 +37,12 @@ public class AMDGenericObjects {
 	// Back button
 	public static By objBackBtn = By.xpath("//*[@id='icon_back'] | //*[@id='action_icon']");
 
-	public static By objPageLoadingIcon = By.xpath("//*[@id='compoiste_progress_bar']");
-
 	public static By objTrayTitleByIndx(int index) {
 		return By.xpath("(//*[@id='header_primary_text'])[" + index + "]");
 	}
 
 	public static By objPopUpDivider = By.xpath("//*[@id='dialog_divider']");
 
-	public static By objPremiumTags = By.xpath("//*[@id='special_image_1']");
 	public static By objMetaData = By.xpath(
 			"//*[@id='main_genre_tv'] | //*[@id='release_year_tv'] | //*[@id='duration_tv'] | //*[@id='genresTv'] | //*[@id='ageRatingTv']");
 
@@ -105,4 +102,13 @@ public class AMDGenericObjects {
 	public static By objcontentnameinTray(int index) {
 		return By.xpath("(//*[@id='cell_top_container']//*[@class='android.widget.TextView'])["+index+"]");
 	}
+	
+
+public static By objPageLoadingIcon = By.xpath("//*[@id='compoiste_progress_bar'] | //*[@id='homeTabPageProgressBar']");
+
+public static By objPremiumTags = By.xpath("//*[@id='special_image_1'] | //*[@id='cell_center_container']//following::*[@text='P']");
+
+public static By objConsumptionScreenFirstRail = By.xpath("(//*[@id='cell_top_container']//following::*[@text='a'])[1]//preceding-sibling::*");
+
+public static By objConsumptionScreenFirstRailViewAllBtn = By.xpath("(//*[@id='cell_top_container']//following::*[@text='a'])[1]//preceding-sibling::*//following-sibling::*");
 }

@@ -17,14 +17,12 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.SkipException;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.deviceDetails.DeviceDetails;
 import com.driverInstance.DriverInstance;
-import com.emailReport.SendEmail;
 import com.excel.ExcelUpdate;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.LoggingUtils;
@@ -51,7 +49,6 @@ public class ExtentReporter implements ITestListener {
 	public static int totalTests = 0;
 	private static int totalPassedTest = 0;
 	private static int totalFailedTest = 0;
-	private static int totalSkipedTest = 0;
 	private static ArrayList<String> moduleFail = new ArrayList<String>();
 	private static int moduleFailCount = 0;
 	private static int logfail = 0;

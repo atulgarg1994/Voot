@@ -2228,33 +2228,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void verifyResumeEventForFreeContent(String userType, String keyword4) throws Exception {
+	public void verifyResumeEventForFreeContent(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Resume Event For Free Content");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
-		waitTime(2000);
+		
+		mandatoryRegistrationPopUp(userType);
+		clickOnTrayContent(tabName,"Free");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
+		waitTime(6000);
+		
 		waitTime(2000);
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Source", "Content Language");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
+		
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -2268,26 +2263,31 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void verifyResumeEventForPremiumContent(String userType, String tab) throws Exception {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Resume Event For Premium Content");
+			mandatoryRegistrationPopUp(userType);
 			navigateToAnyScreenOnWeb(tab);
-			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			waitTime(5000);
+			scrollDownByY(500);
+			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
+			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+				mixpanel.FEProp.setProperty("Source", "show_detail");
+			}else {
+				mixpanel.FEProp.setProperty("Source", "home");
+			}
+			
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
 			waitTime(2000);
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 
-			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		
 			mixpanel.FEProp.setProperty("Element", "Resume");
 			mixpanel.FEProp.setProperty("Button Type", "Player");
 			String id = getWebDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			if (userType.equals("Guest")) {
@@ -2299,32 +2299,34 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyResumeEventForTrailer(String userType, String keyword1) throws Exception {
+	public void verifyResumeEventForTrailer(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Resume Event For Trailer Content");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
-		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		clickOnTrayContent(tabName,"trailer");
+		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		
+		if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+			JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+		}else {
+			mixpanel.FEProp.setProperty("Source", "home");
+		}
+		
+		waitTime(6000);
+		
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
 		waitTime(2000);
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
+		
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -2335,8 +2337,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void verifyResumeEventForCarouselContent() throws Exception {
+	public void verifyResumeEventForCarouselContent(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Resume Event For Carousel Content");
+		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
 		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
@@ -2346,18 +2349,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -2368,9 +2365,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void verifyResumeEventForContentInTray() throws Exception {
+	public void verifyResumeEventForContentInTray(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Resume Event For Content played from Tray");
-		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		navigateToAnyScreenOnWeb(tabName);
+		mandatoryRegistrationPopUp(userType);
+	//	click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		clickOnTrayContent(tabName,"Free");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
@@ -2378,18 +2378,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -2408,24 +2402,19 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
 		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
 		waitTime(2000);
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 
 		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -2465,18 +2454,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 
 			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
-			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Element", "Resume");
 			mixpanel.FEProp.setProperty("Button Type", "Player");
 			String id = getWebDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			if (userType.equals("Guest")) {
@@ -2508,13 +2491,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -2525,16 +2502,17 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void verifyResumeEventForContentInPlaylist(String userType, String keyword4) throws Exception {
+	public void verifyResumeEventForContentInPlaylist(String userType, String tab) throws Exception {
 		extent.HeaderChildNode("Verify Resume Event For Content played from Playlist");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
+
+		navigateToAnyScreenOnWeb(tab);
 		mandatoryRegistrationPopUp(userType);
-		waitTime(2000);
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		click(PWAPremiumPage.objContentInPlaylistbtn, "Content in playlist");
+		waitTime(5000);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause");
@@ -2547,13 +2525,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 
@@ -2564,8 +2536,88 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 
 	}
+	
+	
+	public void verifyVideoViewEventForContentFromUpnextRail(String userType, String tabName) throws Exception {
+		extent.HeaderChildNode("Verify Video View Event for content autoplayed from Upnext rail");
+		navigateToAnyScreenOnWeb(tabName);
+		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitTime(5000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
 
-	public void verifyVideoViewEventForFreeContent(String userType, String tabName) throws Exception {
+		
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitTime(6000);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Video View", "1");
+
+		String id = getWebDriver().getCurrentUrl();
+//		String value = null;
+//		String[] splits=id.split("/");
+//		value=splits[splits.length-1];
+//		System.out.println(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
+		}
+		mandatoryRegistrationPopUp(userType);
+	}
+
+	
+	public void verifyVideoViewEventForContentFromSharedLink(String freeContentURL) throws Exception {
+		extent.HeaderChildNode("Verify Video View Event For content played from Shared Link");
+		mandatoryRegistrationPopUp(userType);
+		String site = getParameterFromXML("url");
+		freeContentURL = site + freeContentURL;
+		System.out.println(freeContentURL);
+		getWebDriver().get(freeContentURL);
+		logger.info("Opened link : " + freeContentURL);
+		extent.extentLogger("", "Opened link : " + freeContentURL);
+		mandatoryRegistrationPopUp(userType);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "N/A");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		mixpanel.FEProp.setProperty("Video View", "1");
+
+		String id = getWebDriver().getCurrentUrl();
+//		String value = null;
+//		String[] splits=id.split("/");
+//		value=splits[splits.length-1];
+//		System.out.println(value);
+
+		ResponseInstance.getContentDetails(fetchContentID(id));
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
+		}
+		mandatoryRegistrationPopUp(userType);
+	}
+
+
+
+public void verifyVideoViewEventForFreeContent(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Video View Event For Free Content");
 		mandatoryRegistrationPopUp(userType);
 		clickOnTrayContent(tabName,"Free");
@@ -2621,7 +2673,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoViewEventForTrailer(String keyword1,String tabName) throws Exception {
+	public void verifyVideoViewEventForTrailer(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Video View Event For Trailer Content");
 		mandatoryRegistrationPopUp(userType);
 		clickOnTrayContent(tabName,"trailer");
@@ -2678,18 +2730,20 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoViewEventForContentInTray() throws Exception {
+
+public void verifyVideoViewEventForContentInTray(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Video View Event For Content played from Tray");
 	
-		navigateToAnyScreenOnWeb("Movies");
+		navigateToAnyScreenOnWeb(tabName);
 		mandatoryRegistrationPopUp(userType);
-		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+	//	click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		clickOnTrayContent(tabName,"Free");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Video View", "1");
 
@@ -2807,20 +2861,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoViewEventForContentInPlaylist(String userType, String tabName) throws Exception {
-		extent.HeaderChildNode("Verify Video View Event For Content played from Playlist");
-//		mandatoryRegistrationPopUp(userType);
-//		click(PWAHomePage.objSearchBtn, "Search Icon");
-//		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-//		waitTime(4000);
-//		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
-//		waitTime(4000);
-//		scrollDownByY(300);
-//		click(PWAShowsPage.objEpisodeCard, "First Episode Card");
-//		mandatoryRegistrationPopUp(userType);
-//		waitForPlayerAdToComplete("Video Player");
-//		waitTime(6000);
 
+public void verifyVideoViewEventForContentInPlaylist(String userType, String tabName) throws Exception {
+		extent.HeaderChildNode("Verify Video View Event For Content played from Playlist");
 		
 		navigateToAnyScreenOnWeb(tabName);
 		mandatoryRegistrationPopUp(userType);
@@ -2883,19 +2926,19 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoExitEventForFreeContent(String userType, String keyword4) throws Exception {
+	
+	public void verifyVideoExitEventForFreeContent(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Video Exit Event For Free Content");
+
 		mandatoryRegistrationPopUp(userType);
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		clickOnTrayContent(tabName,"Free");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		
+		mixpanel.FEProp.setProperty("Source", "Content Language");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
 		ResponseInstance.getContentDetails(fetchContentID(id));
@@ -2917,9 +2960,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(5000);
 			scrollDownByY(500);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
+			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+				mixpanel.FEProp.setProperty("Source", "show_detail");
+			}else {
+				mixpanel.FEProp.setProperty("Source", "home");
+			}
+			
+			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
 			ResponseInstance.getContentDetails(fetchContentID(id));
@@ -2934,20 +2984,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoExitEventForTrailer(String keyword1) throws Exception {
+	public void verifyVideoExitEventForTrailer(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Video Exit Event For Trailer Content");
 		mandatoryRegistrationPopUp(userType);
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
-		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
+		clickOnTrayContent(tabName,"trailer");
 		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		
+		if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+			JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+		}else {
+			mixpanel.FEProp.setProperty("Source", "home");
+		}
+		
+		waitTime(6000);
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		
 		String id = getWebDriver().getCurrentUrl();
 
 		ResponseInstance.getContentDetails(fetchContentID(id));
@@ -2961,16 +3016,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoExitEventForCarouselContent() throws Exception {
+	public void verifyVideoExitEventForCarouselContent(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Video Exit Event For Carousel Content");
 		mandatoryRegistrationPopUp(userType);
-		navigateToAnyScreenOnWeb("Movies");
+		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
 		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
@@ -2986,15 +3041,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoExitEventForContentInTray() throws Exception {
+	public void verifyVideoExitEventForContentInTray(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Video Exit Event For Content played from Tray");
 		mandatoryRegistrationPopUp(userType);
-		navigateToAnyScreenOnWeb("Movies");
-		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		navigateToAnyScreenOnWeb(tabName);
+	//	click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		clickOnTrayContent(tabName,"Free");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
 //		String value = null;
@@ -3024,7 +3080,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
 //		String value = null;
@@ -3120,28 +3176,22 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void verifyVideoExitEventForContentInPlaylist(String userType, String keyword4) throws Exception {
+	public void verifyVideoExitEventForContentInPlaylist(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Video Exit Event For Content played from Playlist");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
+		navigateToAnyScreenOnWeb(tabName);
 		mandatoryRegistrationPopUp(userType);
-		waitTime(2000);
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		click(PWAPremiumPage.objContentInPlaylistbtn, "Content in playlist");
+		waitTime(5000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitForPlayerAdToComplete("Video Player");
-
 		waitTime(6000);
-		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
 		Back(1);
+		waitTime(10000);
+		
 		mixpanel.FEProp.setProperty("Source", "episode_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -3154,24 +3204,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyVideoExitEventAfterRefreshingPage(String keyword1) throws Exception {
+public void verifyVideoExitEventAfterRefreshingPage(String tab) throws Exception {
 		extent.HeaderChildNode("Verify Video Exit Event after refreshing a page");
+
+		
 		mandatoryRegistrationPopUp(userType);
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
-		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		navigateToAnyScreenOnWeb(tab);
+		clickOnTrayContent(tab,"Free");
+		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		mandatoryRegistrationPopUp(userType);
 		getWebDriver().navigate().refresh();
 		logger.info("Refreshed the page");
 		extent.extentLogger("", "Refreshed the page");
+		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		
 		mixpanel.FEProp.setProperty("Source", "N/A");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
@@ -3191,20 +3242,102 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoWatchDurationEventForFreeContentAbrupt(String userType, String keyword4) throws Exception {
-		extent.HeaderChildNode("Verify Video Watch Duration Event when video is closed abruptly For Free Content");
+public void verifyVideoExitEventForContentFromUpnextRail(String userType, String tabName) throws Exception {
+		extent.HeaderChildNode("Verify Video Exit Event for content autoplayed from Upnext rail");
+		
+		navigateToAnyScreenOnWeb(tabName);
 		mandatoryRegistrationPopUp(userType);
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitTime(5000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+	
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		logger.info("Scrubbed till end");
+		extent.extentLogger("", "Scrubbed till end");
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		String id = getWebDriver().getCurrentUrl();
+//		String value = null;
+//		String[] splits=id.split("/");
+//		value=splits[splits.length-1];
+//		System.out.println(id);
+
+		ResponseInstance.getContentDetails(fetchContentID(id));
+		navigateToHome();
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
+		}
+		mandatoryRegistrationPopUp(userType);
+	}
+public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) throws Exception {
+		extent.HeaderChildNode("Verify Video Exit Event For content played from Shared Link");
+		mandatoryRegistrationPopUp(userType);
+		String site = getParameterFromXML("url");
+		freeContentURL = site + freeContentURL;
+		System.out.println(freeContentURL);
+		getWebDriver().get(freeContentURL);
+		logger.info("Opened link : " + freeContentURL);
+		extent.extentLogger("", "Opened link : " + freeContentURL);
+		mandatoryRegistrationPopUp(userType);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "N/A");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+
+		String id = getWebDriver().getCurrentUrl();
+//		String value = null;
+//		String[] splits=id.split("/");
+//		value=splits[splits.length-1];
+//		System.out.println(value);
+
+		ResponseInstance.getContentDetails(fetchContentID(id));
+		navigateToHome();
+		logger.info("Video exited by navigating Home");
+		extent.extentLogger("", "Video exited by navigating Home");
+
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
+		}
+		mandatoryRegistrationPopUp(userType);
+	}
+
+
+
+	public void verifyVideoWatchDurationEventForFreeContentAbrupt(String userType, String tab) throws Exception {
+		extent.HeaderChildNode("Verify Video Watch Duration Event when video is closed abruptly For Free Content");
+		
+		mandatoryRegistrationPopUp(userType);
+		clickOnTrayContent(tab,"Free");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
+				
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "Content Language");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
+	
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
 //		String value = null;
@@ -3226,20 +3359,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode(
 					"Verify Video Watch Duration Event when video is closed abruptly For Premium Content");
+			
 			mandatoryRegistrationPopUp(userType);
-			navigateToAnyScreenOnWeb("Movies");
+			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
 			scrollDownByY(500);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
+			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+				mixpanel.FEProp.setProperty("Source", "show_detail");
+			}else {
+				mixpanel.FEProp.setProperty("Source", "home");
+			}
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
-			String value = null;
-			String[] splits = id.split("/");
-			value = splits[splits.length - 1];
-			System.out.println(value);
+//			String value = null;
+//			String[] splits = id.split("/");
+//			value = splits[splits.length - 1];
+//			System.out.println(value);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			Back(1);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3252,19 +3391,20 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoWatchDurationEventForTrailerAbrupt(String userType, String keyword1) throws Exception {
+	public void verifyVideoWatchDurationEventForTrailerAbrupt(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Video Watch Duration Event when video is closed abruptly For Trailer Content");
-		mandatoryRegistrationPopUp(userType);
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
-		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
-		waitForPlayerAdToComplete("Video Player");
+
+		clickOnTrayContent(tabName,"trailer");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+			JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+		}else {
+			mixpanel.FEProp.setProperty("Source", "home");
+		}
+		mixpanel.FEProp.setProperty("Page Name", pageName());
+		
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
 //		String value = null;
@@ -3282,16 +3422,17 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoWatchDurationEventForCarouselContentAbrupt() throws Exception {
+	public void verifyVideoWatchDurationEventForCarouselContentAbrupt(String tab) throws Exception {
 		extent.HeaderChildNode("Verify Video Watch Duration Event when video is closed abruptly For Carousel Content");
 		mandatoryRegistrationPopUp(userType);
-		navigateToAnyScreenOnWeb("Movies");
+		navigateToAnyScreenOnWeb(tab);
 		waitTime(5000);
 		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
 //		String value = null;
@@ -3309,16 +3450,20 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoWatchDurationEventForContentInTrayAbrupt() throws Exception {
+	public void verifyVideoWatchDurationEventForContentInTrayAbrupt(String tabName) throws Exception {
 		extent.HeaderChildNode(
 				"Verify Video Watch Duration Event when video is closed abruptly For Content played from Tray");
+		navigateToAnyScreenOnWeb(tabName);
 		mandatoryRegistrationPopUp(userType);
-		navigateToAnyScreenOnWeb("Movies");
-		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+	//	click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		clickOnTrayContent(tabName,"Free");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
+
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
+
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
 //		String value = null;
@@ -3348,7 +3493,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
 //		String value = null;
@@ -3394,7 +3539,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(6000);
 			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
-			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
 //			String value = null;
@@ -3442,22 +3587,22 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoWatchDurationEventForContentInPlaylistAbrupt(String userType, String keyword4)
+	public void verifyVideoWatchDurationEventForContentInPlaylistAbrupt(String userType, String tab)
 			throws Exception {
 		extent.HeaderChildNode(
 				"Verify Video Watch Duration Event when video is closed abruptly For Content played from Playlist");
+		
+		navigateToAnyScreenOnWeb(tab);
 		mandatoryRegistrationPopUp(userType);
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
-		waitTime(4000);
-		scrollDownByY(300);
-		click(PWAShowsPage.objEpisodeCard, "First Episode Card");
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		click(PWAPremiumPage.objContentInPlaylistbtn, "Content in playlist");
+		waitTime(5000);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
-
+		
 		mixpanel.FEProp.setProperty("Source", "episode_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -3509,21 +3654,19 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyPauseEventForFreeContent(String userType, String keyword4) throws Exception {
+	public void verifyPauseEventForFreeContent(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Pause Event For Free Content");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		
+
 		mandatoryRegistrationPopUp(userType);
-		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
-		waitTime(2000);
+		clickOnTrayContent(tabName,"Free");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
-
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "Content Language");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
@@ -3549,12 +3692,20 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Pause Event For Premium Content");
 			navigateToAnyScreenOnWeb(tab);
-			click(PWAPremiumPage.objPremiumTag, "Premium Content");
+			waitTime(5000);
+			scrollDownByY(500);
+			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
+			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+				mixpanel.FEProp.setProperty("Source", "show_detail");
+			}else {
+				mixpanel.FEProp.setProperty("Source", "home");
+			}
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
 
-			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Element", "Pause");
 			mixpanel.FEProp.setProperty("Button Type", "Player");
@@ -3577,21 +3728,23 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyPauseEventForTrailer(String userType, String keyword1) throws Exception {
+	public void verifyPauseEventForTrailer(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Pause Event For Trailer Content");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
-		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
 		mandatoryRegistrationPopUp(userType);
-		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		clickOnTrayContent(tabName,"trailer");
 		waitForPlayerAdToComplete("Video Player");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
-
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		
+		if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+			JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+		}else {
+			mixpanel.FEProp.setProperty("Source", "home");
+		}
+		
+		waitTime(6000);
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
@@ -3613,8 +3766,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyPauseEventForCarouselContent() throws Exception {
+	public void verifyPauseEventForCarouselContent(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Pause Event For Carousel Content");
+		waitTime(5000);
+		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
 		mandatoryRegistrationPopUp(userType);
 		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
@@ -3628,7 +3783,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
 
 			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Element", "Pause");
 			mixpanel.FEProp.setProperty("Button Type", "Player");
@@ -3650,12 +3805,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyPauseEventForContentInTray() throws Exception {
+	public void verifyPauseEventForContentInTray(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Pause Event For Content played from Tray");
-		navigateToAnyScreenOnWeb("Movies");
+		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
 		mandatoryRegistrationPopUp(userType);
-		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		clickOnTrayContent(tabName,"Free");
 		waitTime(5000);
 		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
 			logger.info("Content playback is not free for the selected content");
@@ -3665,7 +3820,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
 			mixpanel.FEProp.setProperty("Source", "movie_landing");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Element", "Pause");
 			mixpanel.FEProp.setProperty("Button Type", "Player");
@@ -3701,7 +3856,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
 
 		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
@@ -3820,19 +3975,17 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyPauseEventForContentInPlaylist(String userType, String keyword4) throws Exception {
+	public void verifyPauseEventForContentInPlaylist(String userType, String tab) throws Exception {
 		extent.HeaderChildNode("Verify Pause Event For Content played from Playlist");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitTime(4000);
-		mandatoryRegistrationPopUp(userType);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
 
+		navigateToAnyScreenOnWeb(tab);
 		mandatoryRegistrationPopUp(userType);
-
-		waitTime(2000);
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		click(PWAPremiumPage.objContentInPlaylistbtn, "Content in playlist");
+		waitTime(5000);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
@@ -4441,7 +4594,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			WebElement scrubber = getWebDriver().findElement(PWAPlayerPage.objPlayerScrubber);
 			WebElement progressBar = getWebDriver().findElement(PWAPlayerPage.objPlayerProgressBar);
 			Actions action = new Actions(getWebDriver());
-			action.clickAndHold(scrubber).moveToElement(progressBar, 370, 0).release().perform();
+			action.clickAndHold(scrubber).moveToElement(progressBar, 390, 0).release().perform();
 			logger.info("Swiped till end");
 			extent.extentLogger("", "Swiped till end");
 		} catch (Exception e) {
@@ -4450,14 +4603,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyResumeEventForContentFromUpnextRail(String userType, String keyword4) throws Exception {
+	public void verifyResumeEventForContentFromUpnextRail(String userType, String tab) throws Exception {
 		extent.HeaderChildNode("Verify Resume Event for content autoplayed from Upnext rail");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		navigateToAnyScreenOnWeb(tab);
 		mandatoryRegistrationPopUp(userType);
-		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
-
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
@@ -4480,13 +4631,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Resume");
@@ -4495,14 +4640,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyPauseEventForContentFromUpnextRail(String userType, String keyword4) throws Exception {
+	public void verifyPauseEventForContentFromUpnextRail(String userType, String tab) throws Exception {
 		extent.HeaderChildNode("Verify Pause Event for content autoplayed from Upnext rail");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
+		navigateToAnyScreenOnWeb(tab);
 		mandatoryRegistrationPopUp(userType);
-		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
-		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitTime(5000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -4538,181 +4683,23 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyVideoViewEventForContentFromUpnextRail(String userType, String tabName) throws Exception {
-		extent.HeaderChildNode("Verify Video View Event for content autoplayed from Upnext rail");
-//		mandatoryRegistrationPopUp(userType);
-//		click(PWAHomePage.objSearchBtn, "Search Icon");
-//		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-//		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-//		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
-//		mandatoryRegistrationPopUp(userType);
-//		waitForPlayerAdToComplete("Video Player");
-//		waitTime(6000);
-		
-		
-		navigateToAnyScreenOnWeb(tabName);
-		mandatoryRegistrationPopUp(userType);
-		waitTime(5000);
-		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
-		waitTime(5000);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitForPlayerAdToComplete("Video Player");
-		waitTime(6000);
-
-		
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		playerScrubTillLastWeb();
-		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		waitTime(6000);
-		waitForPlayerAdToComplete("Video Player");
-		waitTime(6000);
-		mandatoryRegistrationPopUp(userType);
-		waitForPlayerAdToComplete("Video Player");
-		waitTime(6000);
-
-		mixpanel.FEProp.setProperty("Source", "episode_detail");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		mixpanel.FEProp.setProperty("Video View", "1");
-
-		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
-		ResponseInstance.getContentDetails(fetchContentID(id));
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if (userType.equals("Guest")) {
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
-		} else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
-		}
-		mandatoryRegistrationPopUp(userType);
-	}
-
-	public void verifyVideoExitEventForContentFromUpnextRail(String userType, String keyword4) throws Exception {
-		extent.HeaderChildNode("Verify Video Exit Event for content autoplayed from Upnext rail");
-		mandatoryRegistrationPopUp(userType);
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
-		mandatoryRegistrationPopUp(userType);
-		waitForPlayerAdToComplete("Video Player");
-		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		playerScrubTillLastWeb();
-		logger.info("Scrubbed till end");
-		extent.extentLogger("", "Scrubbed till end");
-		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		waitForPlayerAdToComplete("Video Player");
-		waitTime(6000);
-		mandatoryRegistrationPopUp(userType);
-		waitForPlayerAdToComplete("Video Player");
-		mandatoryRegistrationPopUp(userType);
-		waitTime(6000);
-		mixpanel.FEProp.setProperty("Source", "episode_detail");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-
-		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(id);
-
-		ResponseInstance.getContentDetails(fetchContentID(id));
-		navigateToHome();
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if (userType.equals("Guest")) {
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
-		} else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
-		}
-		mandatoryRegistrationPopUp(userType);
-	}
-
-	public void verifyVideoViewEventForContentFromSharedLink(String freeContentURL) throws Exception {
-		extent.HeaderChildNode("Verify Video View Event For content played from Shared Link");
-		mandatoryRegistrationPopUp(userType);
-		String site = getParameterFromXML("url");
-		freeContentURL = site + freeContentURL;
-		System.out.println(freeContentURL);
-		getWebDriver().get(freeContentURL);
-		logger.info("Opened link : " + freeContentURL);
-		extent.extentLogger("", "Opened link : " + freeContentURL);
-		mandatoryRegistrationPopUp(userType);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitForPlayerAdToComplete("Video Player");
-		waitTime(6000);
-		mixpanel.FEProp.setProperty("Source", "N/A");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		mixpanel.FEProp.setProperty("Video View", "1");
-
-		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
-
-		ResponseInstance.getContentDetails(fetchContentID(id));
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if (userType.equals("Guest")) {
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video View");
-		} else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Video View");
-		}
-		mandatoryRegistrationPopUp(userType);
-	}
-
-	public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) throws Exception {
-		extent.HeaderChildNode("Verify Video Exit Event For content played from Shared Link");
-		mandatoryRegistrationPopUp(userType);
-		String site = getParameterFromXML("url");
-		freeContentURL = site + freeContentURL;
-		System.out.println(freeContentURL);
-		getWebDriver().get(freeContentURL);
-		logger.info("Opened link : " + freeContentURL);
-		extent.extentLogger("", "Opened link : " + freeContentURL);
-		mandatoryRegistrationPopUp(userType);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		waitForPlayerAdToComplete("Video Player");
-		waitTime(6000);
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-
-		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
-
-		ResponseInstance.getContentDetails(fetchContentID(id));
-		navigateToHome();
-		logger.info("Video exited by navigating Home");
-		extent.extentLogger("", "Video exited by navigating Home");
-
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if (userType.equals("Guest")) {
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Exit");
-		} else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Video Exit");
-		}
-		mandatoryRegistrationPopUp(userType);
-	}
-
+	
 	public void verifyPauseEventForContentFromSharedLink(String freeContentURL) throws Exception {
 		extent.HeaderChildNode("Verify Pause Event For content played from Shared Link");
 		mandatoryRegistrationPopUp(userType);
+		String site = getParameterFromXML("url");
+		freeContentURL = site + freeContentURL;
+		System.out.println(freeContentURL);
 		getWebDriver().get(freeContentURL);
+		logger.info("Opened link : " + freeContentURL);
+		extent.extentLogger("", "Opened link : " + freeContentURL);
+		mandatoryRegistrationPopUp(userType);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Pause Icon");
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Source", "N/A");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
@@ -4730,15 +4717,21 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void verifyResumeEventForContentFromSharedLink(String freeContentURL) throws Exception {
 		extent.HeaderChildNode("Verify Resume Event For content played from Shared Link");
 		mandatoryRegistrationPopUp(userType);
+		String site = getParameterFromXML("url");
+		freeContentURL = site + freeContentURL;
+		System.out.println(freeContentURL);
 		getWebDriver().get(freeContentURL);
+		logger.info("Opened link : " + freeContentURL);
+		extent.extentLogger("", "Opened link : " + freeContentURL);
+		mandatoryRegistrationPopUp(userType);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		waitTime(2000);
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Source", "N/A");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
@@ -4762,19 +4755,22 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void verifyVideoWatchDurationEventForContentFromSharedLinkAbrupt(String freeContentURL) throws Exception {
 		extent.HeaderChildNode(
 				"Verify Video Watch Duration Event when video is closed abruptly For content played from Shared Link");
+		
+		mandatoryRegistrationPopUp(userType);
+		String site = getParameterFromXML("url");
+		freeContentURL = site + freeContentURL;
+		System.out.println(freeContentURL);
 		getWebDriver().get(freeContentURL);
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		logger.info("Opened link : " + freeContentURL);
+		extent.extentLogger("", "Opened link : " + freeContentURL);
+	
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "N/A");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
@@ -4803,8 +4799,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitTime(6000);
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Source", "N/A");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
 //		String value = null;
@@ -4821,19 +4817,20 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoWatchDurationEventForFreeContentComplete(String userType, String keyword4) throws Exception {
+	public void verifyVideoWatchDurationEventForFreeContentComplete(String userType, String tab) throws Exception {
 		extent.HeaderChildNode("Verify Video Watch Duration when user completely watches For Free Content");
+		
 		mandatoryRegistrationPopUp(userType);
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
+		clickOnTrayContent(tab,"Free");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
+				
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "Content Language");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
+		
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
 //		String value = null;
@@ -4859,14 +4856,19 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void verifyVideoWatchDurationEventForPremiumContentComplete(String userType, String tab) throws Exception {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Video Watch Duration Event when user completely watches Premium Content");
-			navigateToAnyScreenOnWeb("Movies");
+			mandatoryRegistrationPopUp(userType);
+			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
 			scrollDownByY(500);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
+			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+				mixpanel.FEProp.setProperty("Source", "show_detail");
+			}else {
+				mixpanel.FEProp.setProperty("Source", "home");
+			}
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-
-			mixpanel.FEProp.setProperty("Source", "search");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
 //			String value = null;
@@ -4887,20 +4889,20 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyVideoWatchDurationEventForTrailerComplete(String userType, String keyword1) throws Exception {
+	public void verifyVideoWatchDurationEventForTrailerComplete(String userType, String tab) throws Exception {
 		extent.HeaderChildNode("Verify Video Watch Duration Event  when user completely watches Trailer Content");
-		mandatoryRegistrationPopUp(userType);
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
-		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResult(keyword1), 10, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword1), "Search Result");
-		waitForPlayerAdToComplete("Video Player");
+
+		clickOnTrayContent(tab,"trailer");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+			JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+		}else {
+			mixpanel.FEProp.setProperty("Source", "home");
+		}
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
@@ -4924,16 +4926,19 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoWatchDurationEventForCarouselContentComplete() throws Exception {
+	public void verifyVideoWatchDurationEventForCarouselContentComplete(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Video Watch Duration Event when user completely watches Carousel Content");
+		navigateToAnyScreenOnWeb(tabName);
 		mandatoryRegistrationPopUp(userType);
-		navigateToAnyScreenOnWeb("Movies");
 		waitTime(5000);
 		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
+
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
 //		String value = null;
@@ -4954,17 +4959,20 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoWatchDurationEventForContentInTrayComplete() throws Exception {
+	public void verifyVideoWatchDurationEventForContentInTrayComplete(String tabName) throws Exception {
 		extent.HeaderChildNode(
 				"Verify Video Watch Duration Event when user completely watches Content played from Tray");
 		mandatoryRegistrationPopUp(userType);
-		navigateToAnyScreenOnWeb("Movies");
-		click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		
+		navigateToAnyScreenOnWeb(tabName);
+		mandatoryRegistrationPopUp(userType);
+	//	click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		clickOnTrayContent(tabName,"Free");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
-
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name",  pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
@@ -5003,7 +5011,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(6000);
 
 		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
@@ -5119,20 +5127,21 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoWatchDurationEventForContentInPlaylistComplete(String userType, String keyword4)
+	public void verifyVideoWatchDurationEventForContentInPlaylistComplete(String userType, String tabName)
 			throws Exception {
 		extent.HeaderChildNode(
 				"Verify Video Watch Duration Event when user completely watches Content played from Playlist");
+		navigateToAnyScreenOnWeb(tabName);
 		mandatoryRegistrationPopUp(userType);
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResult(keyword4), "Search Result");
-		waitTime(4000);
-		scrollDownByY(300);
-		click(PWAShowsPage.objEpisodeCard, "First Episode Card");
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		click(PWAPremiumPage.objContentInPlaylistbtn, "Content in playlist");
+		waitTime(5000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitForPlayerAdToComplete("Video Player");
-		waitTime(6000);
+		waitTime(10000);
 
 		mixpanel.FEProp.setProperty("Source", "episode_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
@@ -5161,66 +5170,14 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
-	public void verifyVideoWatchDurationEventForContentFromUpnextRailComplete(String userType, String keyword4)
+	public void verifyVideoWatchDurationEventForContentFromUpnextRailComplete(String userType, String tab)
 			throws Exception {
 		extent.HeaderChildNode(
 				"Verify Video Watch Duration Event When user completely watches the  auto-played content from Upnext rail");
+		navigateToAnyScreenOnWeb(tab);
 		mandatoryRegistrationPopUp(userType);
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResult(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResult(keyword4), "Search Result");
-
-		mandatoryRegistrationPopUp(userType);
-		waitForPlayerAdToComplete("Video Player");
-		waitTime(6000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		playerScrubTillLastWeb();
-		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		waitTime(6000);
-		waitForPlayerAdToComplete("Video Player");
-		waitTime(6000);
-		mandatoryRegistrationPopUp(userType);
-		waitForPlayerAdToComplete("Video Player");
-		waitTime(6000);
-
-		mixpanel.FEProp.setProperty("Source", "episode_detail");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-
-		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
-		ResponseInstance.getContentDetails(fetchContentID(id));
-
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		playerScrubTillLastWeb();
-		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
-		waitForPlayerAdToComplete("Video Player");
-		waitTime(6000);
-
-		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		if (userType.equals("Guest")) {
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
-		} else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
-		}
-		mandatoryRegistrationPopUp(userType);
-
-	}
-
-	public void verifyVideoWatchDurationEventForContentFromUpnextRailAbrupt(String userType, String keyword4)
-			throws Exception {
-		extent.HeaderChildNode(
-				"Verify Video Watch Duration Event when video is closed abruptly on auto-played content from Upnext rail");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
-		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
-
-		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -5231,20 +5188,73 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(5000);
-		Back(1);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitTime(6000);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
 
 		mixpanel.FEProp.setProperty("Source", "episode_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
+//		String value = null;
+//		String[] splits=id.split("/");
+//		value=splits[splits.length-1];
+//		System.out.println(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
+
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Video Watch Duration");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Video Watch Duration");
 		}
-		ResponseInstance.getContentDetails(value);
+		mandatoryRegistrationPopUp(userType);
+
+	}
+
+	public void verifyVideoWatchDurationEventForContentFromUpnextRailAbrupt(String userType, String tab)
+			throws Exception {
+		extent.HeaderChildNode(
+				"Verify Video Watch Duration Event when video is closed abruptly on auto-played content from Upnext rail");
+		
+		navigateToAnyScreenOnWeb(tab);
+		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(6000);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete("Video Player");
+		waitTime(5000);
+		
+		String id = getWebDriver().getCurrentUrl();
+		
+
+		mixpanel.FEProp.setProperty("Source", "episode_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		
+		System.out.println("Current URL : " + id);
+		ResponseInstance.getContentDetails(fetchContentID(id));
+		Back(1);
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -10128,24 +10138,23 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdViewEventForFreeContent(String userType, String audioTrackContent) throws Exception {
+	public void verifyAdViewEventForFreeContent(String userType, String tabName) throws Exception {
 
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For Free Content");
 
-			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
-			waitTime(6000);
-			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 20, "Search Result");
-			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-
+			clickOnTrayContent(tabName,"Free");
+			waitTime(6000);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				waitTime(5000);
-				mixpanel.FEProp.setProperty("Source", "search");
-				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Source", "Content Language");
+				mixpanel.FEProp.setProperty("Page Name", pageName());
+
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 				String id = getWebDriver().getCurrentUrl();
@@ -10170,31 +10179,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdViewEventForTrailer(String userType, String keyword1) throws Exception {
+	public void verifyAdViewEventForTrailer(String userType, String tabName) throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For Trailer Content");
-			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
-			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
+			clickOnTrayContent(tabName,"trailer");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitTime(6000);
+			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+				mixpanel.FEProp.setProperty("Source", "show_detail");
+			}else {
+				mixpanel.FEProp.setProperty("Source", "home");
+			}
+			
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 
-				mixpanel.FEProp.setProperty("Source", "search");
-				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Page Name", pageName());
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -10210,27 +10216,26 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdViewEventForCarouselContent(String userType) throws Exception {
+	public void verifyAdViewEventForCarouselContent(String userType,String tabName) throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For Carousel Content");
 			waitTime(5000);
+			navigateToAnyScreenOnWeb(tabName);
+			mandatoryRegistrationPopUp(userType);
+			waitTime(5000);
 			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			
+			
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Page Name", pageName());
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -10245,26 +10250,23 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdViewEventForContentInTray(String userType) throws Exception {
+	public void verifyAdViewEventForContentInTray(String userType,String tabName) throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For Content played from Tray");
-			click(PWAPremiumPage.objThumbnail, "Content From a tray");
+			navigateToAnyScreenOnWeb(tabName);
+			mandatoryRegistrationPopUp(userType);
+		//	click(PWAPremiumPage.objThumbnail, "Content From a tray");
+			clickOnTrayContent(tabName,"Free");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-
+			
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Page Name", pageName());
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -10300,13 +10302,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -10357,13 +10353,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -10397,14 +10387,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
-				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad View");
@@ -10418,19 +10401,20 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdViewEventForContentInPlaylist(String userType, String audioTrackContent) throws Exception {
+	public void verifyAdViewEventForContentInPlaylist(String userType, String tabName) throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For Content played from Playlist");
-			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
-			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
-			mandatoryRegistrationPopUp(userType);
 
-			waitTime(2000);
-			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			navigateToAnyScreenOnWeb(tabName);
 			mandatoryRegistrationPopUp(userType);
-
+			waitTime(5000);
+			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+			mandatoryRegistrationPopUp(userType);
+			waitTime(5000);
+			click(PWAPremiumPage.objContentInPlaylistbtn, "Content in playlist");
+			waitTime(5000);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
@@ -10439,13 +10423,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -10461,17 +10439,18 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdViewEventForContentFromUpnextRail(String userType, String audioTrackContent) throws Exception {
+	public void verifyAdViewEventForContentFromUpnextRail(String userType, String tabName) throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For Content played from Upnext rail");
-			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
-			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
-
+			navigateToAnyScreenOnWeb(tabName);
 			mandatoryRegistrationPopUp(userType);
+			waitTime(5000);
+			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+			waitTime(5000);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
+
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillLastWeb();
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
@@ -10488,13 +10467,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -10509,10 +10482,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdViewEventForContentFromSharedLink(String userType, String audioTrackURL) throws Exception {
+	public void verifyAdViewEventForContentFromSharedLink(String userType, String freeContentURL) throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View Event For content played from Shared Link");
-			getWebDriver().get(audioTrackURL);
+			mandatoryRegistrationPopUp(userType);
+			String site = getParameterFromXML("url");
+			freeContentURL = site + freeContentURL;
+			System.out.println(freeContentURL);
+			getWebDriver().get(freeContentURL);
+			logger.info("Opened link : " + freeContentURL);
+			extent.extentLogger("", "Opened link : " + freeContentURL);
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
@@ -10520,17 +10499,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 
-				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Source", "N/A");
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -10564,13 +10537,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -10607,13 +10574,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -10644,13 +10605,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -10680,13 +10635,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -10723,13 +10672,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -10780,13 +10723,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -10822,13 +10759,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -10865,13 +10796,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -10915,13 +10840,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -10952,13 +10871,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -10995,13 +10908,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				waitTime(3000);
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -11036,13 +10943,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -11073,13 +10974,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -11109,13 +11004,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -11154,13 +11043,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -11210,13 +11093,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -11252,13 +11129,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -11294,13 +11165,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -11343,13 +11208,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -11380,13 +11239,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -12913,35 +12766,27 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdInitializedEventForFreeContent(String userType, String audioTrackContent) throws Exception {
+	public void verifyAdInitializedEventForFreeContent(String userType, String tab) throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Initialized Event For Free Content");
-			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
-			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 20, "Search Result");
-			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			mandatoryRegistrationPopUp(userType);
-
+			clickOnTrayContent(tab,"Free");
+			mandatoryRegistrationPopUp(userType);
 			waitTime(6000);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 
-				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-				fetchUserType(local);
-				mixpanel.FEProp.setProperty("Source", "search");
-				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				
+				String id = getWebDriver().getCurrentUrl();
+				mixpanel.FEProp.setProperty("Source", "Content Language");
+				mixpanel.FEProp.setProperty("Page Name", pageName());
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
-				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				fetchUserType(local);
 				if (UserType.equals("Guest")) {
 					mixpanel.ValidateParameter(local.getItem("guestToken"), "Ad Initialized");
 				} else {
@@ -12958,31 +12803,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdInitializedEventForTrailer(String userType, String keyword1) throws Exception {
+	public void verifyAdInitializedEventForTrailer(String userType, String tabName) throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Initialized Event For Trailer Content");
-			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
-			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
+			clickOnTrayContent(tabName,"trailer");
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			
+			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+				mixpanel.FEProp.setProperty("Source", "show_detail");
+			}else {
+				mixpanel.FEProp.setProperty("Source", "home");
+			}
+			
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 
-				mixpanel.FEProp.setProperty("Source", "search");
-				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Page Name", pageName());
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -13000,9 +12842,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void verifyAdInitializedEventForCarouselContent(String userType) throws Exception {
+	public void verifyAdInitializedEventForCarouselContent(String userType,String tab) throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Initialized Event For Carousel Content");
+			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
 			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
@@ -13012,16 +12855,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				extent.extentLogger("Ad", "Ad play in progress");
 
 				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Page Name", pageName());
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -13037,10 +12874,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdInitializedEventForContentInTray(String userType) throws Exception {
+	public void verifyAdInitializedEventForContentInTray(String userType,String tab) throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Initialized Event For Content played from Tray");
-			click(PWAPremiumPage.objThumbnail, "Content From a tray");
+			clickOnTrayContent(tab,"Free");
+//			click(PWAPremiumPage.objThumbnail, "Content From a tray");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
@@ -13051,13 +12889,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -13094,13 +12926,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -13148,16 +12974,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				extent.extentLogger("Ad", "Ad play in progress");
 
 				mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
-				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", pageName());
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -13192,13 +13012,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -13213,19 +13027,20 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdInitializedEventForContentInPlaylist(String userType, String audioTrackContent)
+	public void verifyAdInitializedEventForContentInPlaylist(String userType, String tabName)
 			throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Initialized Event For Content played from Playlist");
-			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
-			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
-			mandatoryRegistrationPopUp(userType);
 
-			waitTime(2000);
-			click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+			navigateToAnyScreenOnWeb(tabName);
 			mandatoryRegistrationPopUp(userType);
+			waitTime(5000);
+			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+			mandatoryRegistrationPopUp(userType);
+			waitTime(5000);
+			click(PWAPremiumPage.objContentInPlaylistbtn, "Content in playlist");
+			waitTime(5000);
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
@@ -13235,13 +13050,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -13257,26 +13066,28 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdInitializedEventForContentFromUpnextRail(String userType, String audioTrackContent)
+	public void verifyAdInitializedEventForContentFromUpnextRail(String userType, String tabName)
 			throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Initialized Event For Content played from Upnext rail");
-			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
-			waitTime(4000);
-			verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
-
+		
+			navigateToAnyScreenOnWeb(tabName);
+			mandatoryRegistrationPopUp(userType);
+			waitTime(5000);
+			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 			mandatoryRegistrationPopUp(userType);
 			waitForPlayerAdToComplete("Video Player");
+			
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillLastWeb();
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+			mandatoryRegistrationPopUp(userType);
+
 			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-			mandatoryRegistrationPopUp(userType);
-
+			
 			if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
@@ -13285,13 +13096,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -13307,11 +13112,17 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyAdInitializedEventForContentFromSharedLink(String userType, String audioTrackURL)
+	public void verifyAdInitializedEventForContentFromSharedLink(String userType, String freeContentURL)
 			throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad Initialized Event For content played from Shared Link");
-			getWebDriver().get(audioTrackURL);
+			mandatoryRegistrationPopUp(userType);
+			String site = getParameterFromXML("url");
+			freeContentURL = site + freeContentURL;
+			System.out.println(freeContentURL);
+			getWebDriver().get(freeContentURL);
+			logger.info("Opened link : " + freeContentURL);
+			extent.extentLogger("", "Opened link : " + freeContentURL);
 			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 
@@ -13319,17 +13130,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				logger.info("Ad play in progress");
 				extent.extentLogger("Ad", "Ad play in progress");
 
-				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Source", "N/A");
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -13403,13 +13208,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -13629,13 +13428,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 
@@ -13989,7 +13782,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		ScrollToTheElementWEB(PWAHomePage.objtrayname(contentTitle.get(0)));
 		partialScroll();
 		waitTime(8000);
-		for (int i = 0; i <= 3; i++) {
+		for (int i = 0; i <= 20; i++) {
 			if(verifyElementDisplayed(PWAHomePage.objTrayContentIcon(contentTitle.get(0), contentTitle.get(1)))) {
 				JSClick(PWAHomePage.objTrayContentIcon(contentTitle.get(0), contentTitle.get(1)),
 						"clicked on Content " + contentTitle.get(1));
@@ -14016,9 +13809,5 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		jse.executeScript("window.scrollBy(0,500)", "");
 	}
 	
-	
-	public static void trailer() {
-		getWebDriver().findElements(By.xpath(".//*[@class='trailerInfoContainer']"));
-	}
 	
 }

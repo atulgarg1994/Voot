@@ -1974,6 +1974,7 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
     	
     }
 	
+	@SuppressWarnings("unused")
 	public static void setPropertyForContentDetailsFromSearchPage(String contentID) {
 
 		Response contentResp = null, subContentResp = null;
@@ -2135,6 +2136,7 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 	}
 
 
+	@SuppressWarnings("unused")
 	public static String getPageResponse(String tabName, String typeOfContent) {
 		String Uri;
 		Response respCarousel = null;
@@ -2208,6 +2210,7 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 		return "NoContent";
 	}
 	
+	@SuppressWarnings("unused")
 	public static ArrayList<String> getTrayResponse(String tabName,String typeOfContent) {
 		ArrayList<String> contentAndTrayTitle = new ArrayList<>();
 		String Uri;

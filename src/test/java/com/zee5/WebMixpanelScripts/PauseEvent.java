@@ -23,10 +23,10 @@ public class PauseEvent {
 	}
 	
 	@Test(priority = 1)
-	@Parameters({ "userType", "keyword4" })
-	public void verifyPauseEventForFreeContent(String userType, String keyword4) throws Exception {
+	@Parameters({ "userType", "Tab" })
+	public void verifyPauseEventForFreeContent(String userType, String Tab) throws Exception {
 		System.out.println("Verify Pause Event For Free Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForFreeContent(userType, keyword4);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForFreeContent(userType, Tab);
 	}
 
 	@Test(priority = 2)
@@ -38,36 +38,38 @@ public class PauseEvent {
 	}
 
 	@Test(priority = 3)
-	@Parameters({ "userType", "keyword1" })
-	public void verifyPauseEventForTrailer(String userType, String keyword1) throws Exception {
+	@Parameters({ "userType", "Tab" })
+	public void verifyPauseEventForTrailer(String userType, String Tab) throws Exception {
 		System.out.println("Verify Pause Event For Trailer Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForTrailer(userType, keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForTrailer(userType, Tab);
 	}
 
 	@Test(priority = 4)
-	public void verifyPauseEventForCarouselContent() throws Exception {
+	@Parameters({"Tab"})
+	public void verifyPauseEventForCarouselContent(String tabName) throws Exception {
 		System.out.println("Verify Pause Event For Carousel Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForCarouselContent();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForCarouselContent(tabName);
 	}
 
 	@Test(priority = 5)
-	public void verifyPauseEventForContentInTray() throws Exception {
+	@Parameters({"Tab"})
+	public void verifyPauseEventForContentInTray(String tabName) throws Exception {
 		System.out.println("Verify Pause Event For Content played from Tray");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForContentInTray();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForContentInTray(tabName);
 	}
 
 	@Test(priority = 6)
-	@Parameters({ "keyword1" })
-	public void verifyPauseEventForContentFromSearchPage(String keyword1) throws Exception {
+	@Parameters({ "keyword4" })
+	public void verifyPauseEventForContentFromSearchPage(String keyword4) throws Exception {
 		System.out.println("Verify Pause Event For Content From Search Page");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForContentFromSearchPage(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForContentFromSearchPage(keyword4);
 	}
 
-	@Test(priority = 7)
+//	@Test(priority = 7)
 	@Parameters({ "userType", "keyword" })
 	public void verifyPauseEventForContentFromMyWatchlistPage(String userType, String keyword) throws Exception {
 		System.out.println("Verify Pause Event For Content From My Watchlist Page");
@@ -76,11 +78,11 @@ public class PauseEvent {
 	}
 
 	@Test(priority = 8)
-	@Parameters({ "userType", "keyword" })
-	public void verifyPauseEventForContentInPlaylist(String userType, String keyword) throws Exception {
+	@Parameters({ "userType" })
+	public void verifyPauseEventForContentInPlaylist(String userType) throws Exception {
 		System.out.println("Verify Pause Event For Content played from Playlist");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForContentInPlaylist(userType, keyword);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForContentInPlaylist(userType, "Shows");
 	}
 
 	@Test(priority = 9)
@@ -91,11 +93,11 @@ public class PauseEvent {
 	}
 
 	@Test(priority = 10)
-	@Parameters({ "userType", "keyword4" })
-	public void verifyPauseEventForContentFromUpnextRail(String userType, String keyword4) throws Exception {
+	@Parameters({ "userType" })
+	public void verifyPauseEventForContentFromUpnextRail(String userType) throws Exception {
 		System.out.println("Verify Pause Event for content autoplayed from Upnext rail");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForContentFromUpnextRail(userType, keyword4);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForContentFromUpnextRail(userType, "Shows");
 	}
 
 	@Test(priority = 11)
@@ -106,7 +108,7 @@ public class PauseEvent {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForContentFromSharedLink(freeContentURL);
 	}
 
-	@Test(priority = 12)
+//	@Test(priority = 12)
 	public void verifyPauseEventForContentInMegamenu() throws Exception {
 		System.out.println("Verify Pause Event For Content played from Megamenu");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();

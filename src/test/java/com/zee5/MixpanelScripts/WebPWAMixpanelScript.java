@@ -305,17 +305,17 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForTrailer(userType,keyword1);
 	}
 	
-	@Test(priority = 43)
-	public void verifyResumeEventForCarouselContent() throws Exception {
-		System.out.println("Verify Resume Event For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForCarouselContent();
-	}
-	
-	@Test(priority = 44)
-	public void verifyResumeEventForContentInTray() throws Exception {
-		System.out.println("Verify Resume Event For Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForContentInTray();
-	}
+//	@Test(priority = 43)
+//	public void verifyResumeEventForCarouselContent() throws Exception {
+//		System.out.println("Verify Resume Event For Carousel Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForCarouselContent();
+//	}
+//	
+//	@Test(priority = 44)
+//	public void verifyResumeEventForContentInTray() throws Exception {
+//		System.out.println("Verify Resume Event For Content played from Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForContentInTray();
+//	}
 	
 	@Test(priority = 45)
 	@Parameters({"keyword1"})
@@ -429,18 +429,18 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForTrailerAbrupt(userType,keyword1);
 	}
 	
-	@Test(priority = 61)
-	public void verifyVideoWatchDurationEventForCarouselContentAbrupt() throws Exception {
-		System.out.println("Verify Video Watch Duration Event when video is closed abruptly For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForCarouselContentAbrupt();
-	}
-	
-	@Test(priority = 62)
-	public void verifyVideoWatchDurationEventForContentInTrayAbrupt() throws Exception {
-		System.out.println("Verify Video Watch Duration Event when video is closed abruptly For Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentInTrayAbrupt();
-	}
-	
+//	@Test(priority = 61)
+//	public void verifyVideoWatchDurationEventForCarouselContentAbrupt() throws Exception {
+//		System.out.println("Verify Video Watch Duration Event when video is closed abruptly For Carousel Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForCarouselContentAbrupt();
+//	}
+//	
+//	@Test(priority = 62)
+//	public void verifyVideoWatchDurationEventForContentInTrayAbrupt() throws Exception {
+//		System.out.println("Verify Video Watch Duration Event when video is closed abruptly For Content played from Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentInTrayAbrupt();
+//	}
+//	
 	@Test(priority = 63)
 	@Parameters({"keyword1"})
 	public void verifyVideoWatchDurationEventForContentFromSearchPageAbrupt(String keyword1) throws Exception {
@@ -587,17 +587,17 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForTrailer(userType,keyword1);
 	}
 	
-	@Test(priority = 84)
-	public void verifyPauseEventForCarouselContent() throws Exception {
-		System.out.println("Verify Pause Event For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForCarouselContent();
-	}
-	
-	@Test(priority = 85)
-	public void verifyPauseEventForContentInTray() throws Exception {
-		System.out.println("Verify Pause Event For Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForContentInTray();
-	}
+//	@Test(priority = 84)
+//	public void verifyPauseEventForCarouselContent() throws Exception {
+//		System.out.println("Verify Pause Event For Carousel Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForCarouselContent();
+//	}
+//	
+//	@Test(priority = 85)
+//	public void verifyPauseEventForContentInTray() throws Exception {
+//		System.out.println("Verify Pause Event For Content played from Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForContentInTray();
+//	}
 	
 	@Test(priority = 86)
 	@Parameters({"keyword1"})
@@ -791,17 +791,17 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForTrailerComplete(userType,keyword1);
 	}
 	
-	@Test(priority = 114)
-	public void verifyVideoWatchDurationEventForCarouselContentComplete() throws Exception {
-		System.out.println("Verify Video Watch Duration Event when user completely watches Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForCarouselContentComplete();
-	}
-	
-	@Test(priority = 115)
-	public void verifyVideoWatchDurationEventForContentInTrayComplete() throws Exception {
-		System.out.println("Verify Video Watch Duration Event when user completely watches Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentInTrayComplete();
-	}
+//	@Test(priority = 114)
+//	public void verifyVideoWatchDurationEventForCarouselContentComplete() throws Exception {
+//		System.out.println("Verify Video Watch Duration Event when user completely watches Carousel Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForCarouselContentComplete();
+//	}
+//	
+//	@Test(priority = 115)
+//	public void verifyVideoWatchDurationEventForContentInTrayComplete() throws Exception {
+//		System.out.println("Verify Video Watch Duration Event when user completely watches Content played from Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentInTrayComplete();
+//	}
 	
 	@Test(priority = 116)
 	@Parameters({"keyword1"})
@@ -1688,19 +1688,19 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForTrailer(userType,keyword1);
 	}
 	
-	@Test(priority = 243)
-	@Parameters({ "userType"})
-	public void verifyAdViewEventForCarouselContent(String userType) throws Exception {
-		System.out.println("Verify Ad View Event For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForCarouselContent(userType);
-	}
-	
-	@Test(priority = 244)
-	@Parameters({ "userType"})
-	public void verifyAdViewEventForContentInTray(String userType) throws Exception {
-		System.out.println("Verify Ad View Event For Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForContentInTray(userType);
-	}
+//	@Test(priority = 243)
+//	@Parameters({ "userType"})
+//	public void verifyAdViewEventForCarouselContent(String userType) throws Exception {
+//		System.out.println("Verify Ad View Event For Carousel Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForCarouselContent(userType);
+//	}
+//	
+//	@Test(priority = 244)
+//	@Parameters({ "userType"})
+//	public void verifyAdViewEventForContentInTray(String userType) throws Exception {
+//		System.out.println("Verify Ad View Event For Content played from Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForContentInTray(userType);
+//	}
 	
 	@Test(priority = 245)
 	@Parameters({"userType","subtitleTrackContent"})
@@ -2150,19 +2150,19 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAdInitializedEventForTrailer(userType,keyword1);
 	}
 	
-	@Test(priority = 309)
-	@Parameters({ "userType"})
-	public void verifyAdInitializedEventForCarouselContent(String userType) throws Exception {
-		System.out.println("Verify Ad Initialized Event For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAdInitializedEventForCarouselContent(userType);
-	}
-	
-	@Test(priority = 310)
-	@Parameters({ "userType"})
-	public void verifyAdInitializedEventForContentInTray(String userType) throws Exception {
-		System.out.println("Verify Ad Initialized Event For Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAdInitializedEventForContentInTray(userType);
-	}
+//	@Test(priority = 309)
+//	@Parameters({ "userType"})
+//	public void verifyAdInitializedEventForCarouselContent(String userType) throws Exception {
+//		System.out.println("Verify Ad Initialized Event For Carousel Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyAdInitializedEventForCarouselContent(userType);
+//	}
+//	
+//	@Test(priority = 310)
+//	@Parameters({ "userType"})
+//	public void verifyAdInitializedEventForContentInTray(String userType) throws Exception {
+//		System.out.println("Verify Ad Initialized Event For Content played from Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyAdInitializedEventForContentInTray(userType);
+//	}
 	
 	@Test(priority = 311)
 	@Parameters({"userType","subtitleTrackContent"})
@@ -2239,11 +2239,11 @@ public class WebPWAMixpanelScript {
 //		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForCarouselContent();
 //	}
 	
-	@Test(priority = 322)
-	public void verifyVideoViewEventForContentInTray() throws Exception {
-		System.out.println("Verify Video View Event For Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentInTray();
-	}
+//	@Test(priority = 322)
+//	public void verifyVideoViewEventForContentInTray() throws Exception {
+//		System.out.println("Verify Video View Event For Content played from Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentInTray();
+//	}
 	
 	@Test(priority = 323)
 	@Parameters({"keyword1"})
@@ -2300,17 +2300,17 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForTrailer(keyword1);
 	}
 	
-	@Test(priority = 331)
-	public void verifyVideoExitEventForCarouselContent() throws Exception {
-		System.out.println("Verify Video Exit Event For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForCarouselContent();
-	}
-	
-	@Test(priority = 332)
-	public void verifyVideoExitEventForContentInTray() throws Exception {
-		System.out.println("Verify Video Exit Event For Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForContentInTray();
-	}
+//	@Test(priority = 331)
+//	public void verifyVideoExitEventForCarouselContent() throws Exception {
+//		System.out.println("Verify Video Exit Event For Carousel Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForCarouselContent();
+//	}
+//	
+//	@Test(priority = 332)
+//	public void verifyVideoExitEventForContentInTray() throws Exception {
+//		System.out.println("Verify Video Exit Event For Content played from Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForContentInTray();
+//	}
 	
 	@Test(priority = 333)
 	@Parameters({"keyword1"})

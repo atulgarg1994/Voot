@@ -23,50 +23,51 @@ public class VideoWatchDurationEvent {
 	}
 	
 	@Test(priority = 1)
-	@Parameters({ "userType", "keyword4" })
-	public void verifyVideoWatchDurationEventForFreeContentAbrupt(String userType, String keyword4) throws Exception {
+	@Parameters({ "userType", "Tab" })
+	public void verifyVideoWatchDurationEventForFreeContentAbrupt(String userType, String tab) throws Exception {
 		System.out.println("Verify Video Watch Duration Event when video is closed abruptly For Free Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForFreeContentAbrupt(userType, keyword4);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForFreeContentAbrupt(userType, tab);
 	}
 
 	@Test(priority = 2)
-	@Parameters({ "userType" })
-	public void verifyVideoWatchDurationEventForPremiumContentAbrupt(String userType) throws Exception {
+	@Parameters({ "userType", "Tab" })
+	public void verifyVideoWatchDurationEventForPremiumContentAbrupt(String userType,String tab) throws Exception {
 		System.out.println("Verify Video Watch Duration when video is closed abruptly Event For Premium Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForPremiumContentAbrupt(userType, "Home");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForPremiumContentAbrupt(userType, tab);
 	}
 
 	@Test(priority = 3)
-	@Parameters({ "userType", "keyword1" })
-	public void verifyVideoWatchDurationEventForTrailerAbrupt(String userType, String keyword1) throws Exception {
+	@Parameters({ "userType", "Tab" })
+	public void verifyVideoWatchDurationEventForTrailerAbrupt(String userType, String Tab) throws Exception {
 		System.out.println("Verify Video Watch Duration Event when video is closed abruptly For Trailer Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForTrailerAbrupt(userType, keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForTrailerAbrupt(userType, Tab);
 	}
 
 	@Test(priority = 4)
 	public void verifyVideoWatchDurationEventForCarouselContentAbrupt() throws Exception {
 		System.out.println("Verify Video Watch Duration Event when video is closed abruptly For Carousel Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForCarouselContentAbrupt();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForCarouselContentAbrupt("Shows");
 	}
 
 	@Test(priority = 5)
-	public void verifyVideoWatchDurationEventForContentInTrayAbrupt() throws Exception {
+	@Parameters({"Tab" })
+	public void verifyVideoWatchDurationEventForContentInTrayAbrupt(String tabName) throws Exception {
 		System.out.println(
 				"Verify Video Watch Duration Event when video is closed abruptly For Content played from Tray");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentInTrayAbrupt();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentInTrayAbrupt(tabName);
 	}
 
 	@Test(priority = 6)
-	@Parameters({ "keyword1" })
-	public void verifyVideoWatchDurationEventForContentFromSearchPageAbrupt(String keyword1) throws Exception {
+	@Parameters({ "keyword4" })
+	public void verifyVideoWatchDurationEventForContentFromSearchPageAbrupt(String keyword4) throws Exception {
 		System.out.println(
 				"Verify Video Watch Duration Event when video is closed abruptly For Content From Search Page");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentFromSearchPageAbrupt(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentFromSearchPageAbrupt(keyword4);
 	}
 
 	@Test(priority = 7)
@@ -89,59 +90,60 @@ public class VideoWatchDurationEvent {
 	}
 
 	@Test(priority = 9)
-	@Parameters({ "userType", "keyword" })
-	public void verifyVideoWatchDurationEventForContentInPlaylistAbrupt(String userType, String keyword)
+	@Parameters({ "userType" })
+	public void verifyVideoWatchDurationEventForContentInPlaylistAbrupt(String userType)
 			throws Exception {
 		System.out.println(
 				"Verify Video Watch Duration Event when video is closed abruptly For Content played from Playlist");
-		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentInPlaylistAbrupt(userType, keyword);
+	//	Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentInPlaylistAbrupt(userType, "Shows");
 	}
 
 	@Test(priority = 10)
-	@Parameters({ "userType", "keyword4" })
-	public void verifyVideoWatchDurationEventForFreeContentComplete(String userType, String keyword4) throws Exception {
+	@Parameters({ "userType", "Tab" })
+	public void verifyVideoWatchDurationEventForFreeContentComplete(String userType, String tab) throws Exception {
 		System.out.println("Verify Video Watch Duration Event when user completely watches For Free Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForFreeContentComplete(userType, keyword4);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForFreeContentComplete(userType, tab);
 	}
 
 	@Test(priority = 11)
-	@Parameters({ "userType" })
-	public void verifyVideoWatchDurationEventForPremiumContentComplete(String userType) throws Exception {
+	@Parameters({ "userType","Tab" })
+	public void verifyVideoWatchDurationEventForPremiumContentComplete(String userType, String tab) throws Exception {
 		System.out.println("Verify Video Watch Duration Event when user completely watches Premium Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForPremiumContentComplete(userType, "Home");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForPremiumContentComplete(userType, tab);
 	}
 
 	@Test(priority = 12)
-	@Parameters({ "userType", "keyword1" })
-	public void verifyVideoWatchDurationEventForTrailerComplete(String userType, String keyword1) throws Exception {
+	@Parameters({ "userType", "Tab" })
+	public void verifyVideoWatchDurationEventForTrailerComplete(String userType, String tab) throws Exception {
 		System.out.println("Verify Video Watch Duration Event  when user completely watches Trailer Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForTrailerComplete(userType, keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForTrailerComplete(userType, tab);
 	}
 
 	@Test(priority = 13)
 	public void verifyVideoWatchDurationEventForCarouselContentComplete() throws Exception {
 		System.out.println("Verify Video Watch Duration Event when user completely watches Carousel Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForCarouselContentComplete();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForCarouselContentComplete("Shows");
 	}
 
 	@Test(priority = 14)
-	public void verifyVideoWatchDurationEventForContentInTrayComplete() throws Exception {
+	@Parameters({ "Tab" })
+	public void verifyVideoWatchDurationEventForContentInTrayComplete(String tabName) throws Exception {
 		System.out.println("Verify Video Watch Duration Event when user completely watches Content played from Tray");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentInTrayComplete();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentInTrayComplete(tabName);
 	}
 
 	@Test(priority = 15)
-	@Parameters({ "keyword1" })
-	public void verifyVideoWatchDurationEventForContentFromSearchPageComplete(String keyword1) throws Exception {
+	@Parameters({ "keyword4" })
+	public void verifyVideoWatchDurationEventForContentFromSearchPageComplete(String keyword4) throws Exception {
 		System.out.println("Verify Video Watch Duration Event when user completely watches Content From Search Page");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentFromSearchPageComplete(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentFromSearchPageComplete(keyword4);
 	}
 
 	@Test(priority = 16)
@@ -155,7 +157,7 @@ public class VideoWatchDurationEvent {
 				keyword);
 	}
 
-	@Test(priority = 17)
+//	@Test(priority = 17)
 	public void verifyVideoWatchDurationEventForContentInMegamenuComplete() throws Exception {
 		System.out
 				.println("Verify Video Watch Duration Event when user completely watches Content played from Megamenu");
@@ -170,18 +172,18 @@ public class VideoWatchDurationEvent {
 		System.out
 				.println("Verify Video Watch Duration Event when user completely watches Content played from Playlist");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentInPlaylistComplete(userType, keyword);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentInPlaylistComplete(userType, "Shows");
 	}
 
 	@Test(priority = 19)
-	@Parameters({ "userType", "keyword4" })
-	public void verifyVideoWatchDurationEventForContentFromUpnextRailComplete(String userType, String keyword4)
+	@Parameters({ "userType" })
+	public void verifyVideoWatchDurationEventForContentFromUpnextRailComplete(String userType)
 			throws Exception {
 		System.out.println(
 				"Verify Video Watch Duration Event When user completely watches the  auto-played content from Upnext rail");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentFromUpnextRailComplete(userType,
-				keyword4);
+				"Shows");
 	}
 
 	@Test(priority = 20)
@@ -194,13 +196,13 @@ public class VideoWatchDurationEvent {
 	}
 
 	@Test(priority = 21)
-	@Parameters({ "userType", "keyword4" })
-	public void verifyVideoWatchDurationEventForContentFromUpnextRailAbrupt(String userType, String keyword4)
+	@Parameters({ "userType" })
+	public void verifyVideoWatchDurationEventForContentFromUpnextRailAbrupt(String userType)
 			throws Exception {
 		System.out.println(
 				"Verify Video Watch Duration Event when video is closed abruptly on auto-played content from Upnext rail");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentFromUpnextRailAbrupt(userType, keyword4);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoWatchDurationEventForContentFromUpnextRailAbrupt(userType, "Shows");
 	}
 
 	@Test(priority = 22)

@@ -2,7 +2,6 @@ package com.zee5.WebMixpanelScripts;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.business.zee.Zee5PWAWEBMixPanelBusinessLogic;
 

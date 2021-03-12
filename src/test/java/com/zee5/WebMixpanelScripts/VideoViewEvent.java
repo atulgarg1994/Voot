@@ -56,10 +56,10 @@ public class VideoViewEvent {
 	
 	@Test(priority = 5)
 	@Parameters({ "keyword1","Tab"})
-	public void verifyVideoViewEventForTrailer(String keyword1,String tabName) throws Exception {
+	public void verifyVideoViewEventForTrailer(String tabName) throws Exception {
 		System.out.println("Verify Video View Event For Trailer Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForTrailer(keyword1,tabName);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForTrailer(tabName);
 	}
 	
 	@Test(priority = 6)
@@ -71,10 +71,10 @@ public class VideoViewEvent {
 	}
 	
 	@Test(priority = 7)
-	public void verifyVideoViewEventForContentInTray() throws Exception {
+	public void verifyVideoViewEventForContentInTray(String tabName) throws Exception {
 		System.out.println("Verify Video View Event For Content played from Tray");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentInTray();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentInTray(tabName);
 	}
 	
 	@Test(priority = 8)

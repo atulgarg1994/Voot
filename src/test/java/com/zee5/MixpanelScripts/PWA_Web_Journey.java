@@ -1,7 +1,5 @@
 package com.zee5.MixpanelScripts;
 
-import java.io.File;
-
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;

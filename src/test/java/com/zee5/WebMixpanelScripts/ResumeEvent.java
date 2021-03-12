@@ -4,7 +4,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.business.zee.Zee5PWAWEBMixPanelBusinessLogic;
 
 public class ResumeEvent {
@@ -24,40 +23,42 @@ public class ResumeEvent {
 	}
 
 	@Test(priority = 1)
-	@Parameters({ "userType" })
-	public void verifyResumeEventForPremiumContent(String userType) throws Exception {
+	@Parameters({ "userType","Tab" })
+	public void verifyResumeEventForPremiumContent(String userType,String Tab) throws Exception {
 		System.out.println("Verify Resume Event For Premium Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForPremiumContent(userType, "Home");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForPremiumContent(userType, Tab);
 	}
 
 	@Test(priority = 2)
-	@Parameters({ "userType", "keyword1" })
-	public void verifyResumeEventForTrailer(String userType, String keyword1) throws Exception {
-		System.out.println("Verify Resume Event For Trailer Content");
+	@Parameters({ "userType", "Tab"})
+	public void verifyResumeEventForFreeContent(String userType,String tab) throws Exception {
+		System.out.println("Verify Resume Event For Free Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForTrailer(userType, keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForFreeContent(userType,tab);
 	}
-
+	
 	@Test(priority = 3)
-	public void verifyResumeEventForCarouselContent() throws Exception {
+	@Parameters({ "Tab" })
+	public void verifyResumeEventForCarouselContent(String tabName) throws Exception {
 		System.out.println("Verify Resume Event For Carousel Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForCarouselContent();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForCarouselContent(tabName);
 	}
 
 	@Test(priority = 4)
-	public void verifyResumeEventForContentInTray() throws Exception {
+	@Parameters({ "Tab" })
+	public void verifyResumeEventForContentInTray(String tabName) throws Exception {
 		System.out.println("Verify Resume Event For Content played from Tray");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForContentInTray();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForContentInTray(tabName);
 	}
 
 	@Test(priority = 5)
-	@Parameters({ "keyword1" })
-	public void verifyResumeEventForContentFromSearchPage(String keyword1) throws Exception {
+	@Parameters({ "keyword4" })
+	public void verifyResumeEventForContentFromSearchPage(String keyword4) throws Exception {
 		System.out.println("Verify Resume Event For Content From Search Page");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForContentFromSearchPage(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForContentFromSearchPage(keyword4);
 	}
 
 	@Test(priority = 6)
@@ -69,26 +70,27 @@ public class ResumeEvent {
 	}
 
 	@Test(priority = 7)
-	@Parameters({ "userType", "keyword" })
-	public void verifyResumeEventForContentInPlaylist(String userType, String keyword) throws Exception {
+	@Parameters({ "userType" })
+	public void verifyResumeEventForContentInPlaylist(String userType) throws Exception {
 		System.out.println("Verify Resume Event For Content played from Playlist");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForContentInPlaylist(userType, keyword);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForContentInPlaylist(userType, "Shows");
 	}
 
 	@Test(priority = 8)
-	@Parameters({ "userType", "keyword" })
-	public void verifyRemoveFromWatchlistEventFromMyWatchlistPage(String userType, String keyword) throws Exception {
-		System.out.println("Verify Remove From Watchlist Event for Content from My Watchlist page");
+	@Parameters({ "freeContentURL" })
+	public void verifyResumeEventForContentFromSharedLink(String freeContentURL) throws Exception {
+		System.out.println("Verify Resume Event For content played from Shared Link");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyRemoveFromWatchlistEventFromMyWatchlistPage(userType, keyword);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForContentFromSharedLink(freeContentURL);
 	}
 
 	@Test(priority = 9)
-	public void verifyResumeEventForContentInMegamenu() throws Exception {
-		System.out.println("Verify Resume Event For Content played from Megamenu");
+	@Parameters({ "userType", "Tab" })
+	public void verifyResumeEventForTrailer(String userType, String tabName) throws Exception {
+		System.out.println("Verify Resume Event For Trailer Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForContentInMegamenu();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForTrailer(userType, tabName);
 	}
 
 	@Test(priority = 10)
@@ -99,19 +101,18 @@ public class ResumeEvent {
 	}
 
 	@Test(priority = 11)
-	@Parameters({ "userType", "keyword4" })
-	public void verifyResumeEventForContentFromUpnextRail(String userType, String keyword4) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyResumeEventForContentFromUpnextRail(String userType) throws Exception {
 		System.out.println("Verify Resume Event for content autoplayed from Upnext rail");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForContentFromUpnextRail(userType, keyword4);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForContentFromUpnextRail(userType, "Shows");
 	}
 
-	@Test(priority = 12)
-	@Parameters({ "freeContentURL" })
-	public void verifyResumeEventForContentFromSharedLink(String freeContentURL) throws Exception {
-		System.out.println("Verify Resume Event For content played from Shared Link");
+//	@Test(priority = 12)
+	public void verifyResumeEventForContentInMegamenu() throws Exception {
+		System.out.println("Verify Resume Event For Content played from Megamenu");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForContentFromSharedLink(freeContentURL);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyResumeEventForContentInMegamenu();
 	}
 
 	@AfterClass

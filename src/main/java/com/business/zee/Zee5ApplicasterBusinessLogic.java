@@ -8303,8 +8303,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 */
 
 	public void ListingCollectionValidationFromLandingScreen(String userType) throws Exception {
-		extent.HeaderChildNode("Listing Collection validation from Landing Screen");
-		System.out.println("\nListing Collection validation from Landing Screen");
+		extent.HeaderChildNode("Listing Collection screen validation from All Landing Screen");
+		System.out.println("\nListing Collection screen validation from All Landing Screen");
 
 		click(AMDHomePage.objHome, "Home button");
 
@@ -8356,15 +8356,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					waitTime(2000);
 					int noOfTrays = getCount(AMDGenericObjects.objNoOfTrays);
 					if (noOfTrays > 0) {
-						if (tabName.contains("Live TV") | tabName.contains("News")) {
+						if (tabName.contains("Live TV")) {
 							getTrayName = getText(AMDGenericObjects.objFirstTrayTitle);
-							click(AMDGenericObjects.objFirstTrayTitle, getText(AMDGenericObjects.objFirstTrayTitle));
+//							click(AMDGenericObjects.objFirstTrayTitle, getText(AMDGenericObjects.objFirstTrayTitle));
+							click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
 						} else {
 							if (tabName.contains("Music")) {
 								PartialSwipe("UP", 2);
 								waitTime(2000);
 							}
-							getTrayName = getText(AMDGenericObjects.objTrayTitleByIndx(noOfTrays));
+//							getTrayName = getText(AMDGenericObjects.objTrayTitleByIndx(noOfTrays));
+							getTrayName = getText(AMDGenericObjects.objFirstTrayTitle);
 							click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
 						}
 
@@ -8406,8 +8408,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	@SuppressWarnings("unused")
 	public void ListingCollectionValidationFromConsumptionScreen(String userType) throws Exception {
-		extent.HeaderChildNode("Listing Collection Screen validation from ConsumptionScreen");
-		System.out.println("\nListing Collection Screen validation from ConsumptionScreen");
+		extent.HeaderChildNode("Listing Collection Screen validation from Consumption Screen");
+		System.out.println("\nListing Collection Screen validation from Consumption Screen");
 
 		click(AMDHomePage.objHome, "Home button");
 
@@ -8425,13 +8427,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				if (!liveTV) {
 					i = noOfTabs - 1;
 				}
-				WebElement eleTab = getDriver()
-						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
+//				WebElement eleTab = getDriver().findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
+				WebElement eleTab = getDriver().findElement(By.xpath("(//*[@id='homeTabLayout']/*/child::*)[" + i + "]"));
 				eleTab.click();
 				tabName = getText(AMDHomePage.objSelectedTab);
 			} else {
-				WebElement eleTab = getDriver()
-						.findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
+//				WebElement eleTab = getDriver().findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
+				WebElement eleTab = getDriver().findElement(By.xpath("(//*[@id='homeTabLayout']/*/child::*)[" + i + "]"));
 				eleTab.click();
 				tabName = getText(AMDHomePage.objSelectedTab);
 			}
@@ -8471,15 +8473,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				break;
 
 			case "Club":
-				pageNameAPI = null;
+				pageNameAPI = "5851";
 				break;
 
 			case "News":
-				pageNameAPI = "626";
+				pageNameAPI = "5857";
 				break;
 
 			case "Kids":
 				pageNameAPI = "3673";
+				break;
+				
+			case "Eduauraa":
+				pageNameAPI = "6184";
 				break;
 
 			case "Music":
@@ -8487,7 +8493,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				break;
 
 			case "Live TV":
-				pageNameAPI = null;
+				String Url = "https://catalogapi.zee5.com/v1/channel/bygenre?sort_by_field=channel_number&sort_order=ASC&page=1&page_size=100&genres=FREE%20Channels%2CNews%2CHindi%20Entertainment%2CKids%2CMusic%2CElectro%20Dance%20Music%2CHindi%20Movies%2CEnglish%20Entertainment%2CHindi%20News%2CEnglish%20News%2CMarathi%2CTamil%2CTelugu%2CKannada%2CMalayalam%2CBengali%2CPunjabi%2CGujarati%2COdiya%2CEntertainment%2CMovie%2CLifestyle%2CDevotional%2CComedy%2CDrama%2CSports%2CInfotainment%2CMythology%2CEducation%2CTrap%2CCrime%20%26%20Mystery%2CFREE%20News%20Channels%2CSunburn%2CIndie%2CFitness%2CLive%20Event%2CMusical%2CSpiritual&languages=en,kn&translation=en&country=IN";
 				break;
 
 			case "ZEE5 Originals":
@@ -8520,8 +8526,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					waitTime(2000);
 					waitForElementDisplayed(AMDGenericObjects.objNoOfTrays, 3000);
 					click(AMDHomePage.objFirstChannelCard, "First available channel");
-				} else if (tabName.equalsIgnoreCase("Kids")) {
-					click(AMDHomePage.objKidsContentCard, "Kids Content card");
 				} else {
 					click(AMDHomePage.objCarouselTitle, getText(AMDHomePage.objCarouselTitle));
 					waitForElementDisplayed(AMDGenericObjects.objFirstTrayTitle, 3000);
@@ -8537,26 +8541,30 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					registerPopUpClose();
 					completeProfilePopUpClose(pUserType);
 				}
-				if (tabName.contains("News") | tabName.contains("Live TV")) {
-					extent.extentLoggerPass("Listing Trays",
-							"Listing Trays are unavailable in NEWS Consumption screen");
-					logger.info("Listing Trays are unavailable in NEWS Consumption screen");
+				if (tabName.equalsIgnoreCase("Eduauraa")) {
+					PartialSwipeInConsumptionScreen("UP", 2);
+				} 
+				if (tabName.contains("Live TV") && (verifyIsElementDisplayed(AMDGenericObjects.objPageLoadingIcon))) {
+					extent.extentLoggerPass("Listing Trays","Rails are unavailable in Live TV: NEWS Consumption screen");
+					logger.info("Rails are unavailable in Live TV: NEWS Consumption screen");
 					navigationFlag = true;
 				} else {
 
 					if (userType.equalsIgnoreCase("Guest")) {
-						getTrayName = getText(AMDGenericObjects.objFirstTrayTitle);
+						getTrayName = getText(AMDGenericObjects.objConsumptionScreenFirstRail);
 						click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
 					} else {
-						PartialSwipe("UP", 1);
 						waitTime(2000);
 						int noOfTrays = getCount(AMDGenericObjects.objNoOfTrays);
 						if (noOfTrays > 0) {
-							if (tabName.contains("Live TV")) {
-								getTrayName = getText(AMDGenericObjects.objFirstTrayTitle);
-							} else {
-								getTrayName = getText(AMDGenericObjects.objTrayTitleByIndx(noOfTrays));
-							}
+//							if (tabName.contains("Live TV")) {
+//								getTrayName = getText(AMDGenericObjects.objFirstTrayTitle);
+//							} else {
+//								getTrayName = getText(AMDGenericObjects.objTrayTitleByIndx(noOfTrays));
+//							}
+							PartialSwipeInConsumptionScreen("UP", 1);
+							waitTime(1000);
+							getTrayName = getText(AMDGenericObjects.objConsumptionScreenFirstRail);
 							click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
 						}
 					}
@@ -8578,15 +8586,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				waitTime(2000);
 				// Navigates back to landing screen
 				if (navigationFlag) {
-					Back(1);
+					Back(2);
+					BackToLandingScreen();
 				}
 			} else {
 				extent.extentLoggerFail("Listing Collection", tabName + ": Failed to load the Page");
 				logger.error(tabName + ": FAILED to Load the page");
 			}
 
-			// Following code is to break the loop after last tab validation in the
-			// landingscreen
+			// Following code is to break the loop after last tab validation in the landing screen
 			if (liveTV) {
 				break;
 			}
@@ -9476,14 +9484,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		} else {
 			if (verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray)
 					| verifyIsElementDisplayed(AMDHomePage.objBannerAd)) {
-				Swipe("UP", 1);
+				PartialSwipe("UP", 1);
 				waitTime(2000);
 			}
-			PartialSwipe("UP", 1);
 			waitTime(2000);
 			int noOfTrays = getCount(AMDGenericObjects.objNoOfTrays);
 			if (noOfTrays > 0) {
-				getTrayName = getText(AMDGenericObjects.objTrayTitleByIndx(noOfTrays));
+				//getTrayName = getText(AMDGenericObjects.objTrayTitleByIndx(noOfTrays));
+				getTrayName = getText(AMDGenericObjects.objFirstTrayTitle);
 				click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
 			}
 		}
@@ -18725,6 +18733,17 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 			waitTime(2000);
 			Back(1);
 			
+		}
+	}
+	
+	public void BackToLandingScreen() throws Exception {
+		for(int i=1;i<10;i++) {
+			Back(1);
+			waitTime(2000);
+			if(verifyElementDisplayed(AMDOnboardingScreen.objExitNo)) {
+				click(AMDOnboardingScreen.objExitNo, "Dismiss");
+				break;
+			}
 		}
 	}
 }

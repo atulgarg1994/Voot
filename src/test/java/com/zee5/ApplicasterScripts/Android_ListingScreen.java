@@ -31,8 +31,10 @@ public class Android_ListingScreen {
 	public void ListingCollection_EntryPoints(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.ListingCollectionValidationFromLandingScreen(userType);
 		ZEE5ApplicasterBusinessLogic.relaunch(false);
-		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
-		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		if(userType.equalsIgnoreCase("Guest")) {
+			ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+			ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		}
 		ZEE5ApplicasterBusinessLogic.ListingCollectionValidationFromConsumptionScreen(userType);
 	}
 

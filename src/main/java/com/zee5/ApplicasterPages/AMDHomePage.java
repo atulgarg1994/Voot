@@ -27,7 +27,6 @@ public class AMDHomePage {
 	public static By objPremiumTag = By.xpath("(//*[@id='special_image_1'])[1]");
 
 	public static By objContentCard = By.xpath("//*[@id='item_image']");
-	public static By objBackIcon = By.xpath("//*[@id='action_icon']");
 
 	// Play Button On carousel
 	public static By objPlayBtn = By.xpath("//*[@id='playImage']");
@@ -70,7 +69,6 @@ public class AMDHomePage {
 	// Carousel dots
 	public static By objCarouselDots = By.xpath("//*[@resource-id='com.graymatrix.did:id/indicator']/child::*");
 
-	public static By objCarouselConetentCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/hero_1_cell_parent']");
 	public static By objCarouselPlayIconContentCard = By.xpath(
 			"//*[@resource-id='com.graymatrix.did:id/playImage']/preceding-sibling::*[@resource-id='com.graymatrix.did:id/item_primary_text']");
 
@@ -78,9 +76,6 @@ public class AMDHomePage {
 	public static By objConsumptionScreenTitle = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/item_primary_text']");
 
-	// Continue watching tray
-	public static By objContinueWatchingTray = By
-			.xpath("//*[@resource-id='com.graymatrix.did:id/header_primary_text' and @text='Continue Watching']");
 	public static By objCloseIconOfFirstContentOfCWTray = By
 			.xpath("(//*[@resource-id='com.graymatrix.did:id/item_remove'])[1]");
 	public static By objLeftTimeOfFirstContentOfCWTray = By
@@ -92,8 +87,6 @@ public class AMDHomePage {
 
 	public static By objTrendingNowTray = By.xpath("//*[@text='Trending Now']");
 	public static By objTrendingOnZee5Tray = By.xpath("//*[@text='Trending on Zee5']");
-
-	public static By objCarouselTitle = By.xpath("//*[@id='item_primary_text']");
 
 	public static By objCarouselUnitwithmastHeadAdbanner = By.xpath(
 			"(//*[@resource-id='com.graymatrix.did:id/tabLayout']/following-sibling::*/child::*/child::*/child::*/child::*)[2]");
@@ -126,7 +119,6 @@ public class AMDHomePage {
 			.xpath("//*[@resource-id='com.graymatrix.did:id/ad_image']//following::*[@id='indicator']");
 	public static By objMaximizeIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_fullscreen']");
 
-	public static By objFirstChannelCard = By.xpath("(//*[@id='item_primary_text'])[1]");
 	public static By objKidsContentCard = By.xpath("//*[@id='header_primary_text']//following::*[6]");
 
 	public static By BeforeTVTrayTitle = By
@@ -232,4 +224,16 @@ public class AMDHomePage {
 				+ "')]//following::*[@id='header_arrow'][1] | (//*[@id='cell_top_container']//parent::*[@text='"
 				+ trayName + "']//following::*[@text='a'])[1]");
 	}
+	public static By objLandingScreen = By.xpath("//*[@id='home_toolbar_title']");
+
+	public static By objBackIcon = By.xpath("//*[@id='action_icon'] | //*[@id='collectionToolBarBackButton']");
+
+	public static By objFirstChannelCard = By.xpath("(//*[@id='item_primary_text'])[1] | (//*[@id='cell_center_container']//*[@class='android.widget.ImageView'])[1]");
+
+	public static By objContinueWatchingTray = By
+				.xpath("//*[@resource-id='com.graymatrix.did:id/header_primary_text' and @text='Continue Watching'] | //*[@text='Continue Watching']");
+
+	public static By objCarouselConetentCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/hero_1_cell_parent'] | (//*[@id='outlinedButton']//parent::*//parent::*//parent::*)[1]");
+
+	public static By objCarouselTitle = By.xpath("//*[@id='item_primary_text'] | (//*[@id='cell_top_container'])[1]/following-sibling::*[@resource-id='com.graymatrix.did:id/cell_center_container']/child::*[@index='0']");
 }

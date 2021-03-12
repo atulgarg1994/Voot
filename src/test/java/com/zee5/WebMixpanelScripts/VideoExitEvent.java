@@ -24,26 +24,26 @@ public class VideoExitEvent {
 	}
 	
 	@Test(priority = 1)
-	@Parameters({ "userType", "keyword"})
-	public void verifyVideoExitEventForContentInPlaylist(String userType,String keyword) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyVideoExitEventForContentInPlaylist(String userType) throws Exception {
 		System.out.println("Verify Video Exit Event For Content played from Playlist");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForContentInPlaylist(userType,keyword);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForContentInPlaylist(userType,"Shows");
 	}
 	
 	@Test(priority = 2)
-	@Parameters({"keyword1"})
-	public void verifyVideoExitEventAfterRefreshingPage(String keyword1) throws Exception {
+	@Parameters({"Tab"})
+	public void verifyVideoExitEventAfterRefreshingPage(String Tab) throws Exception {
 		System.out.println("Verify Video Exit Event after refreshing a page");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventAfterRefreshingPage(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventAfterRefreshingPage(Tab);
 	}
 	
 	@Test(priority = 3)
-	@Parameters({ "userType", "keyword4"})
-	public void verifyVideoExitEventForContentFromUpnextRail(String userType,String keyword4) throws Exception {
+	@Parameters({ "userType"})
+	public void verifyVideoExitEventForContentFromUpnextRail(String userType) throws Exception {
 		System.out.println("Verify Video Exit Event for content autoplayed from Upnext rail");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForContentFromUpnextRail(userType,keyword4);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForContentFromUpnextRail(userType,"Shows");
 	}
 	
 	@Test(priority = 4)
@@ -55,49 +55,51 @@ public class VideoExitEvent {
 	}
 	
 	@Test(priority = 5)
-	@Parameters({ "userType", "keyword4"})
-	public void verifyVideoExitEventForFreeContent(String userType,String keyword4) throws Exception {
+	@Parameters({ "userType", "Tab"})
+	public void verifyVideoExitEventForFreeContent(String userType,String Tab) throws Exception {
 		System.out.println("Verify Video Exit Event For Free Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForFreeContent(userType,keyword4);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForFreeContent(userType,Tab);
 	}
 	
 	@Test(priority = 6)
-	@Parameters({ "userType"})
-	public void verifyVideoExitEventForPremiumContent(String userType) throws Exception {
+	@Parameters({ "userType" , "Tab"})
+	public void verifyVideoExitEventForPremiumContent(String userType,String Tab) throws Exception {
 		System.out.println("Verify Video Exit Event For Premium Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForPremiumContent(userType,"Home");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForPremiumContent(userType,Tab);
 	}
 	
 	@Test(priority = 7)
-	@Parameters({ "keyword1"})
-	public void verifyVideoExitEventForTrailer(String keyword1) throws Exception {
+	@Parameters({ "Tab"})
+	public void verifyVideoExitEventForTrailer(String tabName) throws Exception {
 		System.out.println("Verify Video Exit Event For Trailer Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForTrailer(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForTrailer(tabName);
 	}
 	
 	@Test(priority = 8)
-	public void verifyVideoExitEventForCarouselContent() throws Exception {
+	@Parameters({"Tab"})
+	public void verifyVideoExitEventForCarouselContent(String tabName) throws Exception {
 		System.out.println("Verify Video Exit Event For Carousel Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForCarouselContent();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForCarouselContent(tabName);
 	}
 	
 	@Test(priority = 9)
-	public void verifyVideoExitEventForContentInTray() throws Exception {
+	@Parameters({"Tab"})
+	public void verifyVideoExitEventForContentInTray(String tabName) throws Exception {
 		System.out.println("Verify Video Exit Event For Content played from Tray");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForContentInTray();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForContentInTray(tabName);
 	}
 	
 	@Test(priority = 10)
-	@Parameters({"keyword1"})
-	public void verifyVideoExitEventForContentFromSearchPage(String keyword1) throws Exception {
+	@Parameters({"keyword4"})
+	public void verifyVideoExitEventForContentFromSearchPage(String keyword4) throws Exception {
 		System.out.println("Verify Video Exit Event For Content From Search Page");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForContentFromSearchPage(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForContentFromSearchPage(keyword4);
 	}
 	
 	@Test(priority = 11)
@@ -108,7 +110,7 @@ public class VideoExitEvent {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoExitEventForContentFromMyWatchlistPage(userType,keyword);
 	}
 	
-	@Test(priority = 12)
+//	@Test(priority = 12)
 	public void verifyVideoExitEventForContentInMegamenu() throws Exception {
 		System.out.println("Verify Video Exit Event For Content played from Megamenu");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
