@@ -102,5 +102,6 @@ public class AMDPlayerScreen {
 	public static By obj3dotMenu = By.xpath("//*[@id='optionsLinearLayout']");
 	public static By objPlaybackrate = By.xpath("//*[@text='Playback Rate']");
 	public static By objOptionInPlaybackrate = By.xpath("//*[@id='optionsLinearLayout']");
+	public static By objplayer = By.xpath("//*[@id='playerTouchToHideShowController']");
 
 }

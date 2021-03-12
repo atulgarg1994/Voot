@@ -88,7 +88,7 @@ public class AMDNewsPage {
 
 	public static By objMetadataofthecard = By.xpath("(//*[@class='android.widget.LinearLayout' and ./*[@id='cell_top_container']]//*[@id='cell_bottom_container'])[1]//child::*");
 	
-	public static By objNewsConsumptionSrnDescription = By.xpath("//*[@id='contentDescriptionTextView']");
 	public static By objConsumptionScrnMetaDataOfLiveTv = By.xpath("//*[@id='content_title']");
 	public static By objContentTitle = By.xpath("//*[@id='content_title']");
+	public static By objNewsConsumptionSrnDescription = By.xpath("//*[@id='contentDescriptionTextView']");
 }

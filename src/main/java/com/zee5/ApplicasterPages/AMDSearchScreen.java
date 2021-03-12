@@ -174,9 +174,6 @@ public class AMDSearchScreen {
 			.xpath("//*[@id='bb_bottom_bar_icon' and (./preceding-sibling::* | ./following-sibling::*)[@text='Home']] | //*[@id='navigationTitleTextView']");
 
 	public static By objSearchIcon = By.xpath("//*[@id='home_toolbar_search_icon']");
-	public static By objFirstContentInSearchResult(String searchcontent) {
-			return By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@id='cell_start_container'] and ./*[./*[@text='" + searchcontent + "']]]");
-				}
 	
 	public static By objSearchEditBox = By.xpath("//*[@id='searchBarText'] | //*[@id='searchToolbarTitle']");
 	public static By objSearchBoxBar = By.xpath("//*[@id='searchBarText'] | //*[@id='searchToolbarTitle']");
@@ -215,5 +212,10 @@ public class AMDSearchScreen {
 			return By.xpath("(//*[@id='cell_center_container']//*[@class='android.widget.TextView' and @text='"+ title +"'])[2]");
 		}
 	
+	
 	public static By objFirstResult = By.xpath("(//*[@id='cell_start_container'])[1]");
+	
+	public static By objFirstContentInSearchResult(String searchcontent) {
+		return By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@id='cell_start_container'] and ./*[./*[@text='" + searchcontent + "']]]");
+			}
 }
