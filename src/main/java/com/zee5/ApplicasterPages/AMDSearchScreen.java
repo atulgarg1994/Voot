@@ -148,7 +148,6 @@ public class AMDSearchScreen {
 	public static By objMicroPhone = By.xpath("//*[@id='searchRecordingPermissionText']");
 	public static By objsearchBox = By.xpath("//*[@id='searchBarText']");
 	public static By objSearchBar = By.xpath("//*[@id='searchBarText']");
-	public static By objFirstContentInSearchResult = By.xpath("(//*[@id='Zee5SearchResultItem'])[1]");
 	public static By objClearSearch = By.xpath("//*[@id='searchBarClearText']");
 	public static By objMicrophoneIcon = By.xpath("//*[@id='searchBarVoiceRecord']");
 	public static By objVoiceSearchPermission = By.xpath("//*[@id='searchRecordingPermissionText']");
@@ -218,4 +217,11 @@ public class AMDSearchScreen {
 	public static By objFirstContentInSearchResult(String searchcontent) {
 		return By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@id='cell_start_container'] and ./*[./*[@text='" + searchcontent + "']]]");
 			}
+	
+	public static By objSearchResultContainsText (String title) {
+		return By.xpath("//*[@class='android.widget.TextView' and contains(@text,\""+title+"\")]");
+	}
+	
+	public static By objFirstContentInSearchResult = By.xpath("(//*[@id='Zee5SearchResultItem'])[1] | //*[@class='android.widget.LinearLayout' and ./*[@id='cell_start_container'] and ./*[./*[@text='Ammana Mane']]]");
+	
 }

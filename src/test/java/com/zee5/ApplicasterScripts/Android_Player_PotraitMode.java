@@ -31,12 +31,13 @@ public class Android_Player_PotraitMode {
 	@Parameters({ "userType", "searchKeyword1", "searchKeyword4", "searchKeyword5", "searchKeyword3", "searchKeyword6"})
 	public void Player_Potrait(String userType, String searchKeyword1, String searchKeyword4, String searchKeyword5,
 			String searchKeyword3, String searchKeyword6) throws Exception {
-		ZEE5ApplicasterBusinessLogic.PlayerPotrait(searchKeyword1, userType);
+		ZEE5ApplicasterBusinessLogic.PlayerPotrait(searchKeyword1, userType);//made changes
 		ZEE5ApplicasterBusinessLogic.premiumContentwithTrailer(userType, searchKeyword4);
 		ZEE5ApplicasterBusinessLogic.premiumContentWithoutTrailer(userType, searchKeyword5);
 		ZEE5ApplicasterBusinessLogic.skipIntroValidationInPotraitMode(searchKeyword3, userType);
-		ZEE5ApplicasterBusinessLogic.validationOfWatchCreditsAndUpNextCard(searchKeyword6, userType);
-		ZEE5ApplicasterBusinessLogic.ValidationOfReplayIconOnPlayer(searchKeyword6);
+		ZEE5ApplicasterBusinessLogic.ValidationOfReplayIconOnPlayer(searchKeyword3);
+		//ZEE5ApplicasterBusinessLogic.validationOfWatchCreditsAndUpNextCard(searchKeyword6, userType); 
+		
 	}
 
 

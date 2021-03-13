@@ -7,8 +7,6 @@ public class AMDLiveTVScreen {
 	
 	public static By onjLiveTvToggle = By.xpath("(//*[@text='Live TV'])[2]");
 	
-	public static By objSubscribeIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribeiconlayout']");
-	
 	public static By objTimeFrame = By.xpath("//*[@id='tvsubTitle']");
 	
 	public static By objChannelLogo = By.xpath("//*[@resource-id='com.graymatrix.did:id/img_channel']");
@@ -27,4 +25,7 @@ public class AMDLiveTVScreen {
 	public static By objTray(String trayName) {
 			return By.xpath("//*[@id='cell_top_container']//*[@text='"+ trayName +"']");
 		} 
+	
+	public static By objSubscribeIcon = By.xpath("//*[@id='home_subscribe_text_view']");
+	
 }

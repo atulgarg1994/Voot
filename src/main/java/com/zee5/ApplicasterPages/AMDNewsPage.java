@@ -4,8 +4,6 @@ import org.openqa.selenium.By;
 
 public class AMDNewsPage {
 	
-	public static By objListingScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/title']");
-	
 	public static By objThumbNailImg = By.xpath("(//*[@id='item_image' and @resource-id='com.graymatrix.did:id/item_image' and @index=1])[1]");
 	
 	public static By objConsumptionScreenTitle = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_primary_text']");
@@ -30,13 +28,9 @@ public class AMDNewsPage {
 	
 	public static By objEntertainmentNewsTray = By.xpath("//*[@text=' Entertainment News']");
 	
-	public static By objRightArrowBtn = By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_arrow'])[2]");
-	
 	public static By objTrayHeader = By.xpath("//*[@id='item_primary_text']");
 	
 	public static By objThumbnailImg1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[10]");
-	
-	public static By objNextContentImg = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_image']");
 	
 	public static By objChannelName = By.xpath("(//*[@class='android.widget.TextView'])[2]");
 	public static By objContentGenere = By.xpath("(//*[@class='android.widget.TextView'])[3]");
@@ -91,4 +85,10 @@ public class AMDNewsPage {
 	public static By objConsumptionScrnMetaDataOfLiveTv = By.xpath("//*[@id='content_title']");
 	public static By objContentTitle = By.xpath("//*[@id='content_title']");
 	public static By objNewsConsumptionSrnDescription = By.xpath("//*[@id='contentDescriptionTextView']");
+	
+	public static By objRightArrowBtn = By.xpath("(//*[@resource-id='com.graymatrix.did:id/cell_top_container']/child::*[@text='a'])[1]");
+	public static By objListingScreen = By.xpath("//*[@id='collectionToolBar']");
+	public static By objNextContentImg = By.xpath("(//*[@resource-id='com.graymatrix.did:id/cell_bottom_container']/preceding-sibling::*/child::*)[3]");
+	
+	public static By objBackIconOnListingScreen = By.xpath("//*[@id='collectionToolBarBackButton']");
 }

@@ -59,7 +59,7 @@ public class AMDShowsScreen {
 
 	 public static By objLeftWatchTime = By.xpath("(//*[@resource-id='com.graymatrix.did:id/time_progress'])[1]");
 	 
-	 public static By objSubscribeNowlink = By.xpath("//*[@text='Subscribe to Premium']");
-	 
 	 public static By objBeforeTVContent1 = By.xpath("(//*[@id='horizontal_list_18_parent'])[1]");
+	 
+	 public static By objSubscribeNowlink = By.xpath("//*[@resource-id='com.graymatrix.did:id/errorViewButton' and @text='Subscribe']");
 }

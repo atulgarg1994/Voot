@@ -5,8 +5,6 @@ import org.openqa.selenium.By;
 public class AMDPlayerScreen {
 
 	public static By objPlayer = By.xpath("//*[@id='controller']");
-	public static By objNextIcon = By.xpath("//*[@id='icon_next']");
-	public static By objChromeCastIcon = By.xpath("//*[@id='icon_cast']");
 	public static By objShareIcon = By.xpath("//*[@id='native_share_button']");
 	public static By objWatchlistIcon = By.xpath("//*[@id='watch_list_image']");
 	public static By objDownloadIcon = By.xpath("//*[@id='downlowd_image']");
@@ -38,16 +36,12 @@ public class AMDPlayerScreen {
 	public static By objCopyToClipboard = By.xpath("//*[@text='Copy to clipboard']");
 	public static By objRetryBtn = By.xpath("//*[@id='zretry']");
 	public static By objSubtitleOption = By.xpath("//*[@id='icon_subtitle_text']");
-	public static By objSkipIntro = By.xpath("//*[@id='skipintro']");
 	public static By objReplay = By.xpath("//*[@id='icon_replay']");
 	public static By objSubtitlePopUp = By.xpath("//*[@id='popup_title']");
 	public static By objEnglishSubtitle = By.xpath("//*[@text='English']");
 	public static By objSubtitleDefaultSelected = By.xpath("(//*[@id='icon_selected']//parent::*//child::*)[2]");
 	public static By objPlaybackRate2 = By.xpath("//*[@text='2.0X']");
 	public static By objLoginCTA = By.xpath("//*[@id='get_premium_login']");
-	public static By objSubscribeNowButtonOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribe_now_action']");
-	public static By objSubtitleOptionInPotraitMode = By.xpath("//*[@resource-id='com.graymatrix.did:id/subtitlesTv']");
-	public static By objSubtitleValueInPotraitMode = By.xpath("//*[@resource-id='com.graymatrix.did:id/subtitlesValueTv']");
 	public static By objReplayIconOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_replay']");
 	public static By objRegisterPopUp = By.xpath("//*[@id='registrationContainer']");
 	public static By objUpnextContentCard = By.xpath("(//*[@resource-id='com.graymatrix.did:id/card'])[3]");
@@ -70,8 +64,6 @@ public class AMDPlayerScreen {
 	public static By objfbLoginPage = By.xpath("//*[@content-desc='Create New Facebook Account'] | //*[@content-desc='Log In'] | //*[@text='Log In'] | //*[@text='Create New Facebook Account']");
 
 	public static By objAd = By.xpath("(//*[contains(text(),'Ad :')]) | (//*[contains(text(),'Ad 1 of 2 :')]) | (//*[contains(text(),'Ad 2 of 2 :')])");
-	
-	public static By objPreviousIcon = By.xpath("//*[@id='icon_previous']");
 	
 	public static By objAd2 = By.xpath("(//*[contains(text(),'Ad 1')]) | //*[contains(text(),'Ad 2')] | //*[contains(text(),'Ad :')]");
 	
@@ -103,5 +95,14 @@ public class AMDPlayerScreen {
 	public static By objPlaybackrate = By.xpath("//*[@text='Playback Rate']");
 	public static By objOptionInPlaybackrate = By.xpath("//*[@id='optionsLinearLayout']");
 	public static By objplayer = By.xpath("//*[@id='playerTouchToHideShowController']");
+	
+	public static By objNextIcon = By.xpath("//*[@id='icon_next'] | //*[@id='playerSkipNextButton']");
+	public static By objPreviousIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerSkipPreviousButton'] | //*[@resource-id='com.graymatrix.did:id/playerSkipPreviousButton']");
+	public static By objChromeCastIcon = By.xpath("//*[@id='icon_cast'] | //*[@resource-id='com.graymatrix.did:id/playerCastButton']");
+	public static By objSubtitleOptionInPotraitMode = By.xpath("//*[@resource-id='com.graymatrix.did:id/subtitlesTv'] | //*[@resource-id='com.graymatrix.did:id/subtitle_language_textView']");
+	public static By objSubtitleValueInPotraitMode = By.xpath("//*[@resource-id='com.graymatrix.did:id/subtitlesValueTv'] | //*[@resource-id='com.graymatrix.did:id/actual_subtitle_language_textView']");
+	public static By objSubscribeNowButtonOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribe_now_action'] | //*[@resource-id='com.graymatrix.did:id/errorViewButton']");
+	public static By objSubscribeScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and @text='Subscribe']");
+	public static By objSkipIntro = By.xpath("//*[@id='skipintro'] | //*[@resource-id='com.graymatrix.did:id/playerSkipIntroButton']");
 
 }
