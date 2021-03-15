@@ -1999,6 +1999,51 @@ public class Utilities extends ExtentReporter {
 	public String getParameterFromXML(String param) {
 		return Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter(param);
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public void SwipeInLandscapeMode(String direction, int count) {
+		touchAction = new TouchAction(getDriver());
+		String dire = direction;
+		try {
+			if (dire.equalsIgnoreCase("DOWN") | dire.equalsIgnoreCase("LEFT")) {
+
+				for (int i = 0; i < count; i++) {
+					Dimension size = getDriver().manage().window().getSize();
+					int xCor = (int) (size.height/2);
+					int startY = (int) (size.width * 0.20);
+					int endY = (int) (size.width * 0.85);
+					System.out.println(startY +" X "+endY);
+					touchAction.press(PointOption.point(xCor, startY ))
+						.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+						.moveTo(PointOption.point(xCor,endY)).release().perform();
+					logger.info("Swiping screen in " +dire + " direction" + (i + 1) + " times");
+					extent.extentLogger("SwipeLeft",
+							"Swiping screen in " +  dire + " direction" + (i + 1) + " times");
+				}
+			} else if (dire.equalsIgnoreCase("UP")|dire.equalsIgnoreCase("RIGHT")) {
+
+				for (int j = 0; j < count; j++) {
+					Dimension size = getDriver().manage().window().getSize();
+					int xCor = (int) (size.height/2);
+					int startY = (int) (size.width * 0.85);
+					int endY = (int) (size.width * 0.20);
+					System.out.println(startY +" X "+endY);
+					System.out.println(xCor);
+						touchAction.press(PointOption.point(xCor, startY ))
+								.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+								.moveTo(PointOption.point(xCor,endY)).release().perform();
+
+					logger.info("Swiping screen in " +  dire + " direction " + (j + 1) + " times");
+					extent.extentLogger("SwipeRight",
+							"Swiping screen in " + dire + " direction " + (j + 1) + " times");
+				}
+			}
+
+		} catch (Exception e) {
+			logger.error(e);
+
+		}
+	}
 
 //	====================================================TV=================================================
 	public boolean verifyElementExistTv(By byLocator, String str) throws Exception {

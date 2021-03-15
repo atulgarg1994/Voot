@@ -541,9 +541,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //*******Display Language screen is removed in the new app hence commenting the below line of code
 //		verifyElementPresentAndClick(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue");
 		
-		//verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn, "Continue");
 		// verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Loginbutton");
 		
+		verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn, "Continue");
 		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 		click(AMDLoginScreen.objEmailIdField, "Email field");
 		verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
@@ -1757,13 +1757,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("\nValidating " + userType + "user navigates to Search landing screen");
 		waitTime(10000);
 		verifyElementPresent(AMDHomePage.objTopNav_HomeTab, "Home Tab");
-		boolean ZEE5Originals = false;
+		boolean liveTV = false;
 
 		int noOfTabs = getCount(AMDHomePage.objTitle);
 		for (int i = 1; i <= 10; i++) {
 			String tabName = null;
 			if (i == noOfTabs) {
-				if (!ZEE5Originals) {
+				if (!liveTV) {
 					i = noOfTabs - 1;
 				}
 				WebElement eleTab = getDriver()
@@ -1799,11 +1799,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDLoginScreen.objSearchBackBtn, "Back Button");
 			waitTime(2000);
 
-			if (ZEE5Originals) {
+			if (liveTV) {
 				break;
 			}
-			if (tabName.equalsIgnoreCase("ZEE5 Originals")) {
-				ZEE5Originals = true;
+			if (tabName.equalsIgnoreCase("live TV")) {
+				liveTV = true;
 			}
 		}
 		click(AMDHomePage.HomeIcon, "Bottom bar Home Option");
@@ -1815,7 +1815,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDHomePage.HomeIcon, "Home");
 		waitTime(10000);
 		verifyElementPresent(AMDHomePage.objTopNav_HomeTab, "Home Tab");
-		boolean ZEE5Originals = false;
+		boolean liveTV = false;
 
 		int noOfTabs = getCount(AMDHomePage.objTitle);
 		System.out.println("HOME PAGE HEADERS: " + noOfTabs);
@@ -1823,7 +1823,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			String tabName = null;
 			if (i == noOfTabs) {
-				if (!ZEE5Originals) {
+				if (!liveTV) {
 					i = noOfTabs - 1;
 				}
 				WebElement eleTab = getDriver()
@@ -1862,11 +1862,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Search icon",
 						"Search icon is not displayed at top right of the " + tabName + " tab ");
 			}
-			if (ZEE5Originals) {
+			if (liveTV) {
 				break;
 			}
-			if (tabName.equalsIgnoreCase("ZEE5 Originals")) {
-				ZEE5Originals = true;
+			if (tabName.equalsIgnoreCase("live TV")) {
+				liveTV = true;
 			}
 			waitTime(3000);
 
@@ -1888,7 +1888,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //       }
 //		
 		click(AMDHomePage.HomeIcon, "Bottom bar Home Option");
-
 	}
 
 	/*
@@ -7570,6 +7569,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		System.out.println("Verifying About Us screen as " + userType);
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
 		Swipe("UP", 1);
+		SwipeUntilFindElement(AMDMoreMenu.objAboutUs, "UP");
 		verifyElementPresentAndClick(AMDMoreMenu.objAboutUs, "About Us option in More menu");
 		verifyElementExist(AMDMoreMenu.objAboutUsHeader, "About Us Header");
 		if (checkElementExist(AMDMoreMenu.objAboutUsHeader, "About Us Header")) {
@@ -10883,12 +10883,13 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 
 	@SuppressWarnings("deprecation")
 	public void parentalPinValidationInLandscapeMode(String userType, String searchKeyword1) throws Exception {
-
+		extent.HeaderChildNode("Parental Pin Validation In Landscape Mode");
 		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Parental Pin Validation In Landscape Mode");
-
+			
+			boolean popUpFlag = false;
 			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
 			waitTime(1000);
+			PartialSwipe("UP", 1);
 			click(AMDMoreMenu.objSettings, "Settings option");
 			waitTime(1000);
 			SwipeUntilFindElement(AMDMoreMenu.objParentalControl, "UP");
@@ -10911,26 +10912,35 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			waitTime(2000);
 			click(AMDMoreMenu.objRestrictAllContent, "Restrict All Content option");
 			click(AMDMoreMenu.objContinueBtn, "Continue Button");
-			waitTime(2000);
+			waitTime(4000);
 
 			verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin");
-			type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
-			hideKeyboard();
-			type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
-			hideKeyboard();
-			type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
-			hideKeyboard();
-			type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
-			hideKeyboard();
-			waitTime(4000);
-			click(AMDMoreMenu.objSetPinContinueBtn, "Continue Button");
-			waitTime(2000);
+			if(verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin")) {
+				popUpFlag=true;
+				logger.info("Setting Parental Pin for "+pUserType);
+				extentLoggerPass("Setting Parental Pin", "Setting Parental Pin for "+pUserType);
+				
+				type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
+				hideKeyboard();
+				waitTime(4000);
+				click(AMDMoreMenu.objSetPinContinueBtn, "Continue Button");
+				waitTime(2000);
 
-			click(AMDMoreMenu.objParentalLockDone, "Done Button");
-			Back(1);
-			waitTime(3000);
-			Back(1);
-
+				click(AMDMoreMenu.objParentalLockDone, "Done Button");
+				Back(1);
+				waitTime(3000);
+				Back(1);
+			}else {
+				logger.info("Parental Pin Popup not displayed");
+				extentLoggerFail("Parental Pin", "Parental Pin Popup not displayed");
+			}
+			
 			waitTime(5000);
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -10943,23 +10953,30 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			waitTime(2000);
 			switchtoLandscapeMode();
 			waitTime(2000);
-			boolean checkParentalPopUp = verifyElementPresent(AMDPlayerScreen.objParentalPinPopUp,
-					"Parental Pin Popup");
-			if (checkParentalPopUp) {
-				logger.info("Parental Pin Popup is displayed");
-				extentLoggerPass("Parental Pin Popup", "Parental Pin Popup is displayed");
-				Back(2);
-			} else {
-				logger.info("Parental Pin Popup is NOT displayed");
-				extentLoggerFail("Parental Pin Popup", "Parental Pin Popup is NOT displayed");
+			if(popUpFlag) {
+				boolean checkParentalPopUp = verifyElementPresent(AMDPlayerScreen.objParentalPinPopUp,
+						"Parental Pin Popup");
+				if (checkParentalPopUp) {
+					logger.info("Parental Pin Popup is displayed");
+					extentLoggerPass("Parental Pin Popup", "Parental Pin Popup is displayed in Landscape mode");
+					Back(2);
+				} else {
+					logger.info("Parental Pin Popup is NOT displayed");
+					extentLoggerFail("Parental Pin Popup", "Parental Pin Popup is NOT displayed in Landscape mode");
+				}
+			}else {
+				logger.info("Parental Pin failed to set hence Popup is NOT displayed");
+				extentLoggerFail("Parental Pin Popup", "Parental Pin failed to set hence Popup is NOT displayed in Landscape mode");
 			}
-
+			
 			switchtoPortraitMode();
-			Back(2);
+			Back(1);
+			BackToLandingScreen();
 			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
 			waitTime(1000);
+			PartialSwipe("UP", 1);
 			click(AMDMoreMenu.objSettings, "Settings option");
-			waitTime(5000);
+			waitTime(2000);
 			SwipeUntilFindElement(AMDMoreMenu.objParentalControl, "UP");
 			verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
 			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
@@ -10983,7 +11000,11 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			waitTime(2000);
 			click(AMDMoreMenu.objParentalLockDone, "Done Button");
 			Back(1);
+		}else {
+			extent.extentLoggerPass("Parental Pin Validation", "Parental Pin Validation is NOT applicable for - " + userType);
+			logger.info("Parental Pin Validation is NOT applicable for " + userType);
 		}
+		
 	}
 
 	public void LoadingInProgress() throws Exception {
@@ -12533,10 +12554,9 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 	}
 
 	public void premiumContentWithoutTrailerInLandscapeMode(String userType, String searchKeyword5) throws Exception {
-
+		extent.HeaderChildNode("Verifying Premium content without Trailer in Landscape mode");
+		System.out.println("\nVerifying Premium content without Trailer in Landscape mode");
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verifying Premium content without Trailer in Landscape mode");
-			System.out.println("\nVerifying Premium content without Trailer in Landscape mode");
 			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar, searchKeyword5 + "\n", "Search bar");
@@ -12548,10 +12568,16 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			waitTime(2000);
 			verifyElementPresent(AMDPlayerScreen.objSubscribeButtonBelowThePlayer, "Subscribe CTA");
 			switchtoLandscapeMode();
-
 			waitTime(3000);
 
-			verifyElementPresent(AMDPlayerScreen.objPremiumTextOnPlayer, "Subscription required text");
+			if(verifyElementPresent(AMDPlayerScreen.objPremiumTextOnPlayer, "Subscription required text")) {
+				logger.info(getText(AMDPlayerScreen.objPremiumTextOnPlayer)+" is displayed on the playerin Landscape Mode");
+				extentLoggerPass("GetPremium popUp", getText(AMDPlayerScreen.objPremiumTextOnPlayer)+" is displayed on the playerin Landscape Mode");
+			}else {
+				logger.error("Subscription required text is not displayed on the player");
+				extentLoggerFail("GetPremium popUp","Subscription required text is not displayed on the player");
+			}
+			
 			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowLinkOnPlayer, "Subscribe Now Link");
 			if (verifyElementExist(AMDPlayerScreen.objGetPremiumPopUp, "Get Premium popUp")) {
 				logger.info("User is navigated to Get premium popup post tapping on Subscribe Now Link");
@@ -12563,6 +12589,9 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 						"User is not navigated to Get premium popup post tapping on Subscribe Now Link");
 			}
 			Back(1);
+			
+			//-----> The below code is commented due to the Login CTA is not available on the player [AMA2-6266]
+			/*
 			if (userType.equals("Guest")) {
 				verifyElementExist(AMDPlayerScreen.objLoginTextOnPlayer, "Login required text");
 				verifyElementPresentAndClick(AMDPlayerScreen.objLoginLinkOnPlayer, "Login link");
@@ -12577,17 +12606,22 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 				}
 				click(AMDLoginScreen.objLoginLnk, "Skip link");
 			}
+			*/
 			switchtoPortraitMode();
 			waitTime(2000);
 			Back(3);
+		}else {
+			extent.extentLoggerPass("Premium Content without Trailer", "Premium Content without Trailer in Landscape mode is NOT applicable for - " + userType);
+			logger.info("Premium Content without Trailer in Landscape mode is NOT applicable for - " + userType);
 		}
 	}
 
 	public void subtitleAndPlaybackRateValidation(String searchKeyword4, String userType) throws Exception {
-		extent.HeaderChildNode("Validation of Subtitle option and Playback Rate");
-		System.out.println("\nValidation of Subtitle option and Playback Rate");
+		extent.HeaderChildNode("Validation of Subtitle option and Playback Rate in Landscape");
+		System.out.println("\nValidation of Subtitle option and Playback Rate in Landscape");
 		waitTime(5000);
 
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
 		type(AMDSearchScreen.objSearchBoxBar, searchKeyword4 + "\n", "Search bar");
 		waitTime(2000);
@@ -12598,6 +12632,9 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		waitTime(2000);
 		if (!userType.contains("SubscribedUser")) {
 			waitTime(5000);
+			if(checkElementExist(AMDPlayerScreen.objDialogBox)) {
+				click(AMDPlayerScreen.objDialogBox, "Dismiss Popup");
+			}
 			registerPopUpClose();
 			completeProfilePopUpClose(userType);
 			LoadingInProgress();
@@ -12605,10 +12642,13 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			waitTime(5000);
 			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		}
+
 		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
-		waitTime(1000);
+		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 		verifyElementPresent(AMDPlayerScreen.objNextIcon, "Next icon");
+		waitTime(1000);
+		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 		click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
 		verifyElementPresentAndClick(AMDPlayerScreen.objSubtitleOption, "Subtitle option");
 		String defaultSelected = getText(AMDPlayerScreen.objSubtitleDefaultSelected);
@@ -12623,31 +12663,36 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 
 		verifyElementPresentAndClick(AMDPlayerScreen.objEnglishSubtitle, "English subtitle language");
 		waitTime(2000);
+		
 		extent.HeaderChildNode("Playback Rate Validation");
-
-		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+//		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 		String time1 = getText(AMDPlayerScreen.objTimer);
 		int startTime = timeToSec(time1);
 
-		logger.info("Time before increasing the Playback rate : " + startTime + " sec");
-		extentLogger("Time", "Time before increasing the Playback rate : " + startTime + " sec");
+		logger.info("Time captured before increasing the Playback rate : " + startTime + " sec");
+		extentLoggerPass("Time", "Time captured before increasing the Playback rate : " + startTime + " sec");
 
-		// The following wait methods will is used to capture the elapsed Time after
-		// waiting for 10 Sec playback
+		//-----> The following wait methods will is used to capture the elapsed Time after waiting for 10Sec playback
 		waitTime(5000);
-		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+//		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
 		click(AMDPlayerScreen.objPlaybackRate, "Playback Rate option");
+		waitTime(2000);
+
+		SwipeInLandscapeMode("UP", 1);
 		click(AMDPlayerScreen.objPlaybackRate2, "Playback Rate 2.0X option");
 		waitTime(5000);
 		int playbackTimeinSec = startTime + 10;
 
-		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+//		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		String time2 = getText(AMDPlayerScreen.objTimer);
 		int elapsedTime = timeToSec(time2);
 
-		logger.info("Time after increasing the Playback rate : " + elapsedTime + " sec");
-		extentLogger("Time", "Time after increasing the Playback rate : " + elapsedTime + " sec");
+		logger.info("Time captured after increasing the Playback rate : " + elapsedTime + " sec");
+		extentLogger("Time", "Time captured after increasing the Playback rate : " + elapsedTime + " sec");
 
 		if (elapsedTime != playbackTimeinSec) {
 			logger.info("Content playback Rate is fast forwarded based on the speed set");
@@ -12656,8 +12701,11 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			logger.info("Content playback Rate is NOT fast forwarded based on the speed set");
 			extentLoggerFail("Elapsed time", "Content playback Rate is NOT fast forwarded based on the speed set");
 		}
-
+		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		
+		//#######--- Below code cannot be executed due to the identifier missing for scrubbing the progress bar
+		/*
 		seekVideoTillLast(AMDPlayerScreen.objProgressBar);
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			waitForElementDisplayed(AMDPlayerScreen.objGetPremiumPopUp, 30);
@@ -12665,6 +12713,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 					"Get Premium popup along with Login CTA at the end of the non premium trailer content playback");
 			Back(1);
 		}
+		*/
 		Back(3);
 	}
 
@@ -12745,7 +12794,8 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 	 * @param searchKeyword3
 	 * @throws Exception
 	 */
-	public void skipIntroValidationInLandscapeMode(String searchKeyword3, String userType) throws Exception {
+
+public void skipIntroValidationInLandscapeMode(String searchKeyword3, String userType) throws Exception {
 		extent.HeaderChildNode("Validation of Skip Intro CTA In Landscape Mode");
 		System.out.println("Validation of Skip Intro CTA In Landscape Mode");
 		waitTime(5000);
@@ -12759,17 +12809,20 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		click(AMDMoreMenu.objSearchResult(searchKeyword3), "Search result");
 		waitTime(5000);
 		if (!userType.contains("SubscribedUser")) {
+			waitTime(3000);
 			registerPopUpClose();
 			completeProfilePopUpClose(userType);
 			LoadingInProgress();
 			adPlay();
 			waitTime(5000);
 			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		}else {
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		}
 		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		waitTime(2000);
 		click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
-
+		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 		String time1 = getText(AMDPlayerScreen.objTimer);
 		int startTime = timeToSec(time1);
 
@@ -12791,14 +12844,14 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 
 			if (elapsedTime > startTime) {
 				logger.info("Introduction playback of the content is skipped");
-				extentLoggerPass("Elapsed time", "Introduction playback of the content is skipped");
+				extentLoggerPass("Elapsed time", "Introduction playback of the content is skipped in Landscape");
 			} else {
 				logger.error("Introduction playback of the content is not skipped");
-				extentLoggerFail("Elapsed time", "Introduction playback of the content is not skipped");
+				extentLoggerFail("Elapsed time", "Introduction playback of the content is not skipped in Landscape");
 			}
 		} else {
-			logger.info("Introduction playback of the content is already skipped");
-			extentLogger("Elapsed time", "Introduction playback of the content is already skipped");
+			logger.info("Introduction playback of the content is already skipped in Landscape");
+			extentLogger("Elapsed time", "Introduction playback of the content is already skipped in Landscape");
 		}
 
 		Back(2);
@@ -17001,8 +17054,8 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 	 * Author : Manasa
 	 */
 	public void nextAndPreviousIconValidation(String searchKeyword8) throws Exception {
-		extent.HeaderChildNode("Validation of Next and Prevoius icons");
-		System.out.println("\n Validation of Next and Prevoius icons");
+		extent.HeaderChildNode("Validation of Next and Prevoius icons in Landscape Mode");
+		System.out.println("\n Validation of Next and Prevoius icons in Landscape Mode");
 		waitTime(5000);
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -17012,16 +17065,29 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 
 		click(AMDMoreMenu.objSearchResult(searchKeyword8), "Search result");
+		if(pUserType.equalsIgnoreCase("Guest")) {
+			waitTime(3000);
+			if(checkElementExist(AMDPlayerScreen.objDialogBox)) {
+				click(AMDPlayerScreen.objDialogBox, "Dismiss Popup");
+			}
+		}
+		if (!(pUserType.equalsIgnoreCase("SubscribedUser"))) {
+			
+			waitForAdToFinishInAmd();
+			// click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		}
 		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 10);
 		waitTime(5000);
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
-		verifyElementPresentAndClick(AMDPlayerScreen.objNextIcon, "Next Icon");
-		verifyElementPresent(AMDPlayerScreen.objPreviousIcon, "Previous Icon");
-
-		waitTime(1000);
-		Back(4);
+		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objNextIcon, "Next Icon in Landscape");
+		waitTime(2000);
+		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+		verifyElementPresent(AMDPlayerScreen.objPreviousIcon, "Previous Icon in Landscape");
+		Back(3);
+		BackToLandingScreen();
 	}
 
 	/**

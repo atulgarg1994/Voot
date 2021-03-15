@@ -18,13 +18,8 @@ public class AMDPlayerScreen {
 		return By.xpath("(//*[@id='textView2'])["+i+"]");
 	}
 	public static By objAddToWatchlist = By.xpath("//*[@id='icon_add_to_watch_list_text']");
-	public static By objPlaybackRate = By.xpath("//*[@id='icon_playback_rate_text']");
-	
-	public static By objPremiumTextOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/static_premium_text']");
-	public static By objSubscribeNowLinkOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribe_now_action']");
 	public static By objLoginTextOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/static_login_text']");
 	public static By objLoginLinkOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/login_button']");
-	public static By objGetPremiumPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title' and @text='Subscribe']");
 	
 	public static By objPlaybackRateSelected = By.xpath("(//*[@id='icon_selected']//parent::*//child::*)[2]");
 	public static By objPlayerLoader = By.xpath("//*[@id='player_loading_progress']");
@@ -35,12 +30,9 @@ public class AMDPlayerScreen {
 	public static By objFacebookPost = By.xpath("//*[@text='POST' or @text='Post' or @text='Share' or @text='SHARE']");
 	public static By objCopyToClipboard = By.xpath("//*[@text='Copy to clipboard']");
 	public static By objRetryBtn = By.xpath("//*[@id='zretry']");
-	public static By objSubtitleOption = By.xpath("//*[@id='icon_subtitle_text']");
 	public static By objReplay = By.xpath("//*[@id='icon_replay']");
 	public static By objSubtitlePopUp = By.xpath("//*[@id='popup_title']");
 	public static By objEnglishSubtitle = By.xpath("//*[@text='English']");
-	public static By objSubtitleDefaultSelected = By.xpath("(//*[@id='icon_selected']//parent::*//child::*)[2]");
-	public static By objPlaybackRate2 = By.xpath("//*[@text='2.0X']");
 	public static By objLoginCTA = By.xpath("//*[@id='get_premium_login']");
 	public static By objReplayIconOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_replay']");
 	public static By objRegisterPopUp = By.xpath("//*[@id='registrationContainer']");
@@ -56,7 +48,6 @@ public class AMDPlayerScreen {
 	public static By objTitleInLandscape(String title) {
 		return By.xpath("//*[@id='title_main' and contains(text(), '"+title+"')]");
 	}
-	public static By objParentalPinPopUp = By.xpath("//*[@id='otpEditText1']");
 	public static By objUpNextCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/upnext']");
 	public static By objFirstContentCardTitleInUpnextTray = By.xpath("((//*[@resource-id='com.graymatrix.did:id/header_primary_text' and @text='Up Next']/parent::*/parent::*/following-sibling::*)[1]/child::*/child::*/child::*[@resource-id='com.graymatrix.did:id/item_primary_text'])[1]");
 	public static By objCountDownTimerInUpNextCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/counddownwatchcredit']");
@@ -103,6 +94,26 @@ public class AMDPlayerScreen {
 	public static By objSubtitleValueInPotraitMode = By.xpath("//*[@resource-id='com.graymatrix.did:id/subtitlesValueTv'] | //*[@resource-id='com.graymatrix.did:id/actual_subtitle_language_textView']");
 	public static By objSubscribeNowButtonOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribe_now_action'] | //*[@resource-id='com.graymatrix.did:id/errorViewButton']");
 	public static By objSubscribeScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and @text='Subscribe']");
-	public static By objSkipIntro = By.xpath("//*[@id='skipintro'] | //*[@resource-id='com.graymatrix.did:id/playerSkipIntroButton']");
+	public static By objParentalPinPopUp = By.xpath("//*[@id='otpEditText1'] | //*[@id='parentalPinView'] | //*[@id='parentalFragmentTitleTextView']");
 
+	public static By objSubtitleOption = By.xpath("//*[@id='icon_subtitle_text'] | //*[@id='playerOptionTitle' and contains(text(),'Subtitles')]");
+
+	public static By objPlaybackRate = By.xpath("//*[@id='icon_subtitle_text'] | //*[@id='playerOptionTitle' and contains(text(),'Playback Rate')]");
+
+	public static By objSubtitleDefaultSelected = By.xpath("(//*[@id='icon_selected']//parent::*//child::*)[2] | //*[@id='playerOptionIcon' and @text='t']//following-sibling::*");
+
+	public static By objLandscapePlayerScreen = By.xpath("//*[@id='searchResultPageRecyclerView']");
+
+	public static By objDialogBox = By.xpath("//*[@id='dialog_divider']"); 
+
+	public static By objPlaybackRate2 = By.xpath("//*[@text='2.0X'] | //*[@text='Playback Rate']//following::*[@text='2.0']");
+
+	public static By objPremiumTextOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/static_premium_text'] | //*[@id='errorViewText' and (contains(text(),'You need subscription'))]");
+
+	public static By objSubscribeNowLinkOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribe_now_action'] | //*[@id='errorViewButton' and @text='Subscribe']");
+
+	public static By objGetPremiumPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title' and @text='Subscribe'] | //*[@id='screen_title' and @text='Subscribe']");
+
+	public static By objSkipIntro = By.xpath("//*[@id='skipintro'] | //*[@resource-id='com.graymatrix.did:id/playerSkipIntroButton']");
+	
 }
