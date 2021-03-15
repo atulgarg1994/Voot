@@ -653,17 +653,17 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyQualityChangeEventForTrailer(keyword1);
 	}
 	
-	@Test(priority = 94)
-	public void verifyQualityChangeEventForCarouselContent() throws Exception {
-		System.out.println("Verify Quality Change Event For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyQualityChangeEventForCarouselContent();
-	}
-	
-	@Test(priority = 95)
-	public void verifyQualityChangeEventForContentInTray() throws Exception {
-		System.out.println("Verify Quality Change Event For Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyQualityChangeEventForContentInTray();
-	}
+//	@Test(priority = 94)
+//	public void verifyQualityChangeEventForCarouselContent() throws Exception {
+//		System.out.println("Verify Quality Change Event For Carousel Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyQualityChangeEventForCarouselContent();
+//	}
+//	
+//	@Test(priority = 95)
+//	public void verifyQualityChangeEventForContentInTray() throws Exception {
+//		System.out.println("Verify Quality Change Event For Content played from Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyQualityChangeEventForContentInTray();
+//	}
 	
 	@Test(priority = 96)
 	@Parameters({"keyword1"})
@@ -1183,17 +1183,17 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForTrailer(keyword1);
 	}
 	
-	@Test(priority = 169)
-	public void verifyAutoSeekForwardEventForCarouselContent() throws Exception {
-		System.out.println("Verify Auto Seek Forward Event For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForCarouselContent();
-	}
-	
-	@Test(priority = 170)
-	public void verifyAutoSeekForwardEventForContentInTray() throws Exception {
-		System.out.println("Verify Auto Seek Forward Event For Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForContentInTray();
-	}
+//	@Test(priority = 169)
+//	public void verifyAutoSeekForwardEventForCarouselContent() throws Exception {
+//		System.out.println("Verify Auto Seek Forward Event For Carousel Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForCarouselContent();
+//	}
+//	
+//	@Test(priority = 170)
+//	public void verifyAutoSeekForwardEventForContentInTray() throws Exception {
+//		System.out.println("Verify Auto Seek Forward Event For Content played from Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekForwardEventForContentInTray();
+//	}
 	
 	@Test(priority = 171)
 	@Parameters({"keyword1"})
@@ -1257,17 +1257,17 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForTrailer(keyword1);
 	}
 	
-	@Test(priority = 180)
-	public void verifyAutoSeekRewindEventForCarouselContent() throws Exception {
-		System.out.println("Verify Auto Seek Rewind Event For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForCarouselContent();
-	}
-	
-	@Test(priority = 181)
-	public void verifyAutoSeekRewindEventForContentInTray() throws Exception {
-		System.out.println("Verify Auto Seek Rewind Event For Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForContentInTray();
-	}
+//	@Test(priority = 180)
+//	public void verifyAutoSeekRewindEventForCarouselContent() throws Exception {
+//		System.out.println("Verify Auto Seek Rewind Event For Carousel Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForCarouselContent();
+//	}
+//	
+//	@Test(priority = 181)
+//	public void verifyAutoSeekRewindEventForContentInTray() throws Exception {
+//		System.out.println("Verify Auto Seek Rewind Event For Content played from Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyAutoSeekRewindEventForContentInTray();
+//	}
 	
 	@Test(priority = 182)
 	@Parameters({"keyword1"})
@@ -1758,19 +1758,19 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAdForcedExitEventForTrailer(userType,keyword1);
 	}
 	
-	@Test(priority = 253)
-	@Parameters({ "userType"})
-	public void verifyAdForcedExitEventForCarouselContent(String userType) throws Exception {
-		System.out.println("Verify Ad Forced Exit Event For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAdForcedExitEventForCarouselContent(userType);
-	}
-	
-	@Test(priority = 254)
-	@Parameters({ "userType"})
-	public void verifyAdForcedExitEventForContentInTray(String userType) throws Exception {
-		System.out.println("Verify Ad Forced Exit Event For Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAdForcedExitEventForContentInTray(userType);
-	}
+//	@Test(priority = 253)
+//	@Parameters({ "userType"})
+//	public void verifyAdForcedExitEventForCarouselContent(String userType) throws Exception {
+//		System.out.println("Verify Ad Forced Exit Event For Carousel Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyAdForcedExitEventForCarouselContent(userType);
+//	}
+//	
+//	@Test(priority = 254)
+//	@Parameters({ "userType"})
+//	public void verifyAdForcedExitEventForContentInTray(String userType) throws Exception {
+//		System.out.println("Verify Ad Forced Exit Event For Content played from Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyAdForcedExitEventForContentInTray(userType);
+//	}
 	
 	@Test(priority = 255)
 	@Parameters({"userType","subtitleTrackContent"})
@@ -1828,19 +1828,19 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyAdClickEventForTrailer(userType,keyword1);
 	}
 	
-	@Test(priority = 263)
-	@Parameters({ "userType"})
-	public void verifyAdClickEventForCarouselContent(String userType) throws Exception {
-		System.out.println("Verify Ad Click Event For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAdClickEventForCarouselContent(userType);
-	}
-	
-	@Test(priority = 264)
-	@Parameters({ "userType"})
-	public void verifyAdClickEventForContentInTray(String userType) throws Exception {
-		System.out.println("Verify Ad Click Event For Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAdClickEventForContentInTray(userType);
-	}
+//	@Test(priority = 263)
+//	@Parameters({ "userType"})
+//	public void verifyAdClickEventForCarouselContent(String userType) throws Exception {
+//		System.out.println("Verify Ad Click Event For Carousel Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyAdClickEventForCarouselContent(userType);
+//	}
+//	
+//	@Test(priority = 264)
+//	@Parameters({ "userType"})
+//	public void verifyAdClickEventForContentInTray(String userType) throws Exception {
+//		System.out.println("Verify Ad Click Event For Content played from Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyAdClickEventForContentInTray(userType);
+//	}
 	
 	@Test(priority = 265)
 	@Parameters({"userType","subtitleTrackContent"})

@@ -63,14 +63,15 @@ public class VideoViewEvent {
 	}
 	
 	@Test(priority = 6)
-	@Parameters({"Tab"})
-	public void verifyVideoViewEventForCarouselContent(String tabName) throws Exception {
+	
+	public void verifyVideoViewEventForCarouselContent() throws Exception {
 		System.out.println("Verify Video View Event For Carousel Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForCarouselContent(tabName);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForCarouselContent("Shows");
 	}
 	
 	@Test(priority = 7)
+	@Parameters({"Tab"})
 	public void verifyVideoViewEventForContentInTray(String tabName) throws Exception {
 		System.out.println("Verify Video View Event For Content played from Tray");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();

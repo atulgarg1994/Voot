@@ -1,6 +1,8 @@
 package com.zee5.WebMixpanelScripts;
 
 import org.testng.annotations.AfterClass;
+
+
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -69,7 +71,7 @@ public class PauseEvent {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyPauseEventForContentFromSearchPage(keyword4);
 	}
 
-//	@Test(priority = 7)
+	@Test(priority = 7)
 	@Parameters({ "userType", "keyword" })
 	public void verifyPauseEventForContentFromMyWatchlistPage(String userType, String keyword) throws Exception {
 		System.out.println("Verify Pause Event For Content From My Watchlist Page");

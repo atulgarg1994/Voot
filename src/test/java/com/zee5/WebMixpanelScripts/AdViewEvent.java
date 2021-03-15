@@ -30,10 +30,10 @@ public class AdViewEvent {
 
 	@Test(priority = 2)
 	@Parameters({ "userType", "Tab" })
-	public void verifyAdViewEventForTrailer(String userType, String keyword1) throws Exception {
+	public void verifyAdViewEventForTrailer(String userType, String tab) throws Exception {
 		System.out.println("Verify Ad View Event For Trailer Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForTrailer(userType, keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAdViewEventForTrailer(userType, tab);
 	}
 
 	@Test(priority = 3)
@@ -45,7 +45,7 @@ public class AdViewEvent {
 	}
 
 	@Test(priority = 4)
-	@Parameters({ "userType" })
+	@Parameters({ "userType","Tab" })
 	public void verifyAdViewEventForContentInTray(String userType,String tabName) throws Exception {
 		System.out.println("Verify Ad View Event For Content played from Tray");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
