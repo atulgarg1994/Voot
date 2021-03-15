@@ -133,4 +133,8 @@ public class Zee5TvHomePage {
 	public static By objClubContent(String contentName) {
 		return By.xpath("//*[@id='home_title' and @text='"+ contentName +"']");
 	}
+	
+	public static By objCarouselBannerTitle(String title) {
+		return By.xpath("//*[@id='banner_title' and @text='" + title + "']");
+	}
 }

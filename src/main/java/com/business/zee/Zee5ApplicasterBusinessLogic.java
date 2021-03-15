@@ -2807,30 +2807,32 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void deepLinks(String tabName) {
 		try {
-			getDriver().close();
+			//getDriver().close();
 			waitTime(5000);
 			String cmd3 = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/" + tabName
 					+ "\" com.graymatrix.did";
 			Process process = Runtime.getRuntime().exec(cmd3);
 			new BufferedReader(new InputStreamReader(process.getInputStream()));
 			waitTime(12000);
-			HeaderChildNode("DeepLink");
+			HeaderChildNode("DeepLink verification for "+tabName);		
+			logger.info("Executed the deeplink for "+tabName);
+			extent.extentLogger("", "Executed the deeplink for "+tabName);
+		}catch(Exception e) {
+			logger.error("Failed to execute the deeplink for "+tabName);
+			extent.extentLoggerFail("", "Failed to execute the deeplink for "+tabName);
+		}
+		try {
 			if (tabName.contains("Home")) {
-				verifyElementExist(AMDHomePage.objHomeTab, "Home screen");
-				if (!verifyElementExist(AMDLoginScreen.objPageTitle, "Display language")) {
-					if (!verifyElementExist(AMDOnboardingScreen.objContentLanguagePageTitle, "Content language")) {
-						logger.info("Display Language and Content Language not displayed for deeplink");
-						extent.extentLogger("Language popup",
-								"Display Language and Content Language not displayed for deeplink");
-					}
-				}
-
-			} else {
-				if (checkElementExist(AMDLoginScreen.objLoginLnk, "Login/Register Screen")) {
-					logger.info("Login/Register Screen is displayed for deeplink");
-					extent.extentLoggerPass("Language popup", "Login/Register Screen is displayed for deeplink");
-				}
-			}
+				verifyElementExist(AMDHomePage.objHighlightedTab("Home"), "Highlighted Home tab");
+				Back(1);
+				click(AMDOnboardingScreen.objExitYes, "Yes CTA in Exit Popup");
+			} else if (tabName.contains("signin")) {
+				verifyElementExist(AMDLoginScreen.objLoginLnk, "Login/Register Screen");
+				Back(1);
+				Back(1);
+				Back(1);
+				click(AMDOnboardingScreen.objExitYes, "Yes CTA in Exit Popup");
+			} 			
 			waitTime(3000);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -7504,7 +7506,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		String pos1 = getAttributValue("bounds", AMDLoginScreen.objSelectedDisplayLanguage);
 		String pos2 = null;
 		PartialSwipe("UP", 1);
-		PartialSwipe("DOWN", 2);
+		Swipe("DOWN", 1);
 //		pos2 = getAttributValue("bounds", AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1));
 		pos2 = getAttributValue("bounds", AMDLoginScreen.objSelectedDisplayLanguage);
 		if (pos1 != pos2) {
@@ -15910,7 +15912,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 			verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBar, searchContent, "Search bar");
 			waitTime(2000);
-			click(AMDSearchScreen.objFirstContentInSearchResult, "Searched result");
+			click(AMDSearchScreen.objFirstContentInSearchResult(searchContent), "Searched result");
 			waitTime(5000);
 //			scrubVideoToLast(AMDPlayerScreen.objProgressBar);
 			scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);

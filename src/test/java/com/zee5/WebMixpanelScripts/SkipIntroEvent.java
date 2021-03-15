@@ -23,26 +23,26 @@ public class SkipIntroEvent {
 	}
 	
 	@Test(priority = 1)
-	@Parameters({ "userType", "freeMovie2" })
-	public void verifySkipIntroEventForFreeContent(String userType, String freeMovie2) throws Exception {
+	@Parameters({ "userType", "Tab" })
+	public void verifySkipIntroEventForFreeContent(String userType, String tab) throws Exception {
 		System.out.println("Verify Skip Intro Event For Free Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForFreeContent(userType, freeMovie2);
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForFreeContent(userType, tab);
 	}
 
 	@Test(priority = 2)
 	@Parameters({ "userType" })
-	public void verifySkipIntroEventForPremiumContent(String userType) throws Exception {
+	public void verifySkipIntroEventForPremiumContent(String userType, String tab) throws Exception {
 		System.out.println("Verify Skip Intro Event For Premium Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForPremiumContent(userType, "Home");
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForPremiumContent(userType, tab);
 	}
 
 	@Test(priority = 3)
 	@Parameters({ "keyword5" })
-	public void verifySkipIntroEventForTrailer(String keyword5) throws Exception {
+	public void verifySkipIntroEventForTrailer(String tab) throws Exception {
 		System.out.println("Verify Skip Intro Event For Trailer Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForTrailer(keyword5);
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForTrailer(tab);
 	}
 
 	@Test(priority = 4)
@@ -75,7 +75,7 @@ public class SkipIntroEvent {
 		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForContentFromMyWatchlistPage(userType, freeMovie2);
 	}
 
-	@Test(priority = 8)
+//	@Test(priority = 8)
 	public void verifySkipIntroEventForContentInMegamenu() throws Exception {
 		System.out.println("Verify Skip Intro Event For Content played from Megamenu");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();

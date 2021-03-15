@@ -2294,7 +2294,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 				.getParameter("freeMovie4");
 		type(PWASearchPage.objSearchEditBox, keyword, "Search edit");
-		waitTime(3000);
+		waitTime(5000);
 		click(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		click(PWASearchPage.objspecificSearch, "Searched content");
 		Thread.sleep(6000);

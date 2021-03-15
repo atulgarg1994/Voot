@@ -185,4 +185,6 @@ public class Zee5TvWelcomePage {
 	public static By objContentfromApi(String contentName) {
 		return By.xpath("//*[@id='home_title' and @text='"+ contentName+"']//parent::*//child::*//child::*//following-sibling::*");
 	}
+	
+	public static By objBannerTitle = By.xpath("//*[@id='banner_title']");
 }

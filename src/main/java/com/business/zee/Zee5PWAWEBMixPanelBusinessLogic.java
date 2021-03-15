@@ -5278,24 +5278,21 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		}
 	}
 
-	public void verifyScrubSeekEventForFreeContent(String userType, String keyword4) throws Exception {
+	public void verifyScrubSeekEventForFreeContent(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Scrub/Seek Event For Free Content");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
 		mandatoryRegistrationPopUp(userType);
-		click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
+		clickOnTrayContent(tabName,"Free");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		mixpanel.FEProp.setProperty("Source", "Content Language");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitTime(5000);
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
-		mixpanel.FEProp.setProperty("Direction", "forward");
+			mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
 		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
@@ -5323,15 +5320,23 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 	public void verifyScrubSeekEventForPremiumContent(String userType, String tab) throws Exception {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Scrub/Seek Event For Premium Content");
+			mandatoryRegistrationPopUp(userType);
 			navigateToAnyScreenOnWeb(tab);
-			click(PWAPremiumPage.objPremiumTag, "Premium Content");
-			waitTime(6000);
+			waitTime(5000);
+			scrollDownByY(500);
+			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
+			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+				mixpanel.FEProp.setProperty("Source", "show_detail");
+			}else {
+				mixpanel.FEProp.setProperty("Source", "home");
+			}
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillLastWeb();
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 			waitTime(5000);
-			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			mixpanel.FEProp.setProperty("Direction", "forward");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
@@ -5352,23 +5357,25 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		}
 	}
 
-	public void verifyScrubSeekEventForTrailer(String keyword1) throws Exception {
+	public void verifyScrubSeekEventForTrailer(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Scrub/Seek Event For Trailer Content");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
-		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
 		mandatoryRegistrationPopUp(userType);
-		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		clickOnTrayContent(tabName,"trailer");
 		waitForPlayerAdToComplete("Video Player");
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+			JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+		}else {
+			mixpanel.FEProp.setProperty("Source", "home");
+		}
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitTime(5000);
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
@@ -5388,13 +5395,15 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		}
 	}
 
-	public void verifyScrubSeekEventForCarouselContent() throws Exception {
+	public void verifyScrubSeekEventForCarouselContent(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Scrub/Seek Event For Carousel Content");
 		waitTime(5000);
+		navigateToAnyScreenOnWeb(tabName);
 		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
 		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 
-		waitTime(5000);
+	
 		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
 			logger.info("Content playback is not free for the selected content");
 			extent.extentLogger("Content", "Content playback is not free for the selected content");
@@ -5407,7 +5416,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 			waitTime(5000);
 			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Direction", "forward");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
@@ -5428,13 +5437,13 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		}
 	}
 
-	public void verifyScrubSeekEventForContentInTray() throws Exception {
+	public void verifyScrubSeekEventForContentInTray(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Scrub/Seek Event For Content played from Tray");
+		navigateToAnyScreenOnWeb(tabName);
 		mandatoryRegistrationPopUp(userType);
-		navigateToAnyScreenOnWeb("Movies");
-		waitTime(3000);
-		click(PWAPremiumPage.objThumbnail, "Content From a tray");
-
+	//	click(PWAPremiumPage.objThumbnail, "Content From a tray");
+		clickOnTrayContent(tabName,"Free");
+		
 		waitTime(5000);
 		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
 			logger.info("Content playback is not free for the selected content");
@@ -5446,8 +5455,9 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			playerScrubTillLastWeb();
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 			waitTime(5000);
-			mixpanel.FEProp.setProperty("Source", "movie_landing");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Source", "Content Language");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
+			
 			mixpanel.FEProp.setProperty("Direction", "forward");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
@@ -5483,8 +5493,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitTime(5000);
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
@@ -5537,7 +5547,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 			waitTime(5000);
 			mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
-			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Direction", "forward");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
@@ -5602,20 +5612,17 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		}
 	}
 
-	public void verifyScrubSeekEventForContentInPlaylist(String userType, String keyword4) throws Exception {
+	public void verifyScrubSeekEventForContentInPlaylist(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Scrub/Seek Event For Content played from Playlist");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitTime(4000);
+		navigateToAnyScreenOnWeb(tabName);
 		mandatoryRegistrationPopUp(userType);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
-		waitTime(2000);
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		mandatoryRegistrationPopUp(userType);
-		click(PWAPremiumPage.objPlayBtn, "Episode");
-		waitTime(4000);
-		mandatoryRegistrationPopUp(userType);
-
-		click(PWAPremiumPage.objContentInPlaylist, "Content card in Playlist");
+		waitTime(5000);
+		click(PWAPremiumPage.objContentInPlaylistbtn, "Content in playlist");
+		waitTime(5000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -5643,14 +5650,14 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		}
 	}
 
-	public void verifyScrubSeekEventForContentFromUpnextRail(String userType, String keyword4) throws Exception {
+	public void verifyScrubSeekEventForContentFromUpnextRail(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Scrub/Seek Event For Content played from Upnext rail");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-		waitTime(4000);
+		navigateToAnyScreenOnWeb(tabName);
 		mandatoryRegistrationPopUp(userType);
-		verifyElementPresentAndClick(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
-		mandatoryRegistrationPopUp(userType);
+		waitTime(5000);
+		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
+		waitTime(5000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -5690,17 +5697,23 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 	public void verifyScrubSeekEventForContentFromSharedLink(String freeContentURL) throws Exception {
 		extent.HeaderChildNode("Verify Scrub/Seek Event For content played from Shared Link");
 		mandatoryRegistrationPopUp(userType);
+		String site = getParameterFromXML("url");
+		freeContentURL = site + freeContentURL;
+		System.out.println(freeContentURL);
 		getWebDriver().get(freeContentURL);
+		logger.info("Opened link : " + freeContentURL);
+		extent.extentLogger("", "Opened link : " + freeContentURL);
+		mandatoryRegistrationPopUp(userType);
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
+		mixpanel.FEProp.setProperty("Source", "N/A");
 
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitTime(5000);
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
@@ -8352,23 +8365,23 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 
 	}
 
-	public void verifySkipIntroEventForFreeContent(String userType, String freeMovie2) throws Exception {
+	public void verifySkipIntroEventForFreeContent(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Skip Intro Event For Free Content");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, freeMovie2 + "\n", "Search Edit box: " + freeMovie2);
-		waitForElement(PWASearchPage.objSearchResultTxt(freeMovie2), 20, "Search Result");
-		click(PWASearchPage.objSearchResultTxt(freeMovie2), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		clickOnTrayContent(tabName,"Free");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
+		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		if (checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button")) {
 			click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
 			waitTime(5000);
-			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Source", "Content Language");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
+			
 			mixpanel.FEProp.setProperty("Element", "Skip Intro");
-			mixpanel.FEProp.setProperty("Page Name", "kids_movie_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 			String id = getWebDriver().getCurrentUrl();
@@ -8390,17 +8403,27 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 	public void verifySkipIntroEventForPremiumContent(String userType, String tab) throws Exception {
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
 			extent.HeaderChildNode("Verify Skip Intro Event For Premium Content");
-			navigateToAnyScreenOnWeb(tab);
-			JSClick(PWAPremiumPage.objPremiumTag, "Premium Content");
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
-			waitTime(6000);
+
 			mandatoryRegistrationPopUp(userType);
+			navigateToAnyScreenOnWeb(tab);
+			waitTime(5000);
+			scrollDownByY(500);
+			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
+			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+				mixpanel.FEProp.setProperty("Source", "show_detail");
+			}else {
+				mixpanel.FEProp.setProperty("Source", "home");
+			}
+			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			mixpanel.FEProp.setProperty("Page Name", pageName());
+			
 			waitForPlayerAdToComplete("Video Player");
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			if (checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button")) {
 				click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
 				waitTime(5000);
-				mixpanel.FEProp.setProperty("Source", "home");
+			
 				mixpanel.FEProp.setProperty("Element", "Skip Intro");
 				mixpanel.FEProp.setProperty("Page Name", "kids_movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
@@ -8423,24 +8446,26 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		}
 	}
 
-	public void verifySkipIntroEventForTrailer(String keyword5) throws Exception {
+	public void verifySkipIntroEventForTrailer(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Skip Intro Event For Trailer Content");
-		click(PWAHomePage.objSearchBtn, "Search Icon");
-		type(PWASearchPage.objSearchEditBox, keyword5 + "\n", "Search Edit box: " + keyword5);
-		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchResultTxt(keyword5), 10, "Search Result");
-		click(PWASearchPage.objSearchResultTxt(keyword5), "Search Result");
+		mandatoryRegistrationPopUp(userType);
+		clickOnTrayContent(tabName,"trailer");
+		waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
-		mandatoryRegistrationPopUp(userType);
-		waitForPlayerAdToComplete("Video Player");
+		if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
+			JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+		}else {
+			mixpanel.FEProp.setProperty("Source", "home");
+		}
+		
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		if (checkElementDisplayed(PWAPlayerPage.skipIntroBtn, "Skip Intro Button") == true) {
 			click(PWAPlayerPage.skipIntroBtn, "Skip Intro Button");
 			waitTime(5000);
-			mixpanel.FEProp.setProperty("Source", "search");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Element", "Skip Intro");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 			String id = getWebDriver().getCurrentUrl();

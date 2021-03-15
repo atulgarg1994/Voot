@@ -879,17 +879,17 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForTrailer(keyword1);
 	}
 	
-	@Test(priority = 127)
-	public void verifyScrubSeekEventForCarouselContent() throws Exception {
-		System.out.println("Verify Scrub/Seek Event For Carousel Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForCarouselContent();
-	}
-	
-	@Test(priority = 128)
-	public void verifyScrubSeekEventForContentInTray() throws Exception {
-		System.out.println("Verify Scrub/Seek Event For Content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForContentInTray();
-	}
+//	@Test(priority = 127)
+//	public void verifyScrubSeekEventForCarouselContent() throws Exception {
+//		System.out.println("Verify Scrub/Seek Event For Carousel Content");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForCarouselContent();
+//	}
+//	
+//	@Test(priority = 128)
+//	public void verifyScrubSeekEventForContentInTray() throws Exception {
+//		System.out.println("Verify Scrub/Seek Event For Content played from Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForContentInTray();
+//	}
 	
 	@Test(priority = 129)
 	@Parameters({"keyword1"})

@@ -221,4 +221,9 @@ public class AMDHomePage {
 	public static By objProgressBarOfFirstContentOfCWTray(int i) {
 		  return By.xpath("(//*[@text='Continue Watching']/parent::*/following-sibling::*/child::*/child::*/child::*/child::*/child::*/child::*[@index='3'])["+i+"]");
 		}
+	
+	public static By objNoThanksPlayStore = By.xpath("//*[@text='No Thanks' or @text='NO THANKS' or @text='no thanks']");
+	public static By objHighlightedTab (String tab) {
+		return By.xpath("//*[@resource-id='com.graymatrix.did:id/homeTabLayout']//*[@text='"+tab+"' and @selected='true']");
+	}
 	}

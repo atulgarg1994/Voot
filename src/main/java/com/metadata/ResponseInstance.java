@@ -23,6 +23,7 @@ public class ResponseInstance {
 	protected static Response resp = null;
 	public static String assetSubType = "Empty"; 
 	static LoggingUtils logger = new LoggingUtils();
+	public static String searchContentID = null;
 	
 	public static Response getResponse() {
 		resp = given().urlEncodingEnabled(false).when().get(
@@ -2321,68 +2322,215 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 	}
 	
 
-public static Response getResponseForPagesTv(String page, String contLang, int q, String userType) {
-	Response respCarousel = null;
-	String Uri = "";
-	if (page.equalsIgnoreCase("news")) {
-		page = "626";
-	} else if (page.equalsIgnoreCase("music")) {
-		page = "2707";
-	} else if (page.equalsIgnoreCase("home")) {
-		page = "homepage";
-	} else if (page.equalsIgnoreCase("kids")) {
-		page = "3673";
-	} else if (page.equalsIgnoreCase("movies")) {
-		page = "movies";
-	} else if (page.equalsIgnoreCase("play")) {
-		page = "4603";
-	} else if (page.equalsIgnoreCase("shows")) {
-		page = "tvshows";
-	} else if (page.equalsIgnoreCase("club")) {
-		page = "5851";
-	} else if (page.equalsIgnoreCase("premium")) {
-		page = "premiumcontents";
-	} else if (page.equalsIgnoreCase("play")) {
-		page = "4603";
-	} else if (page.equalsIgnoreCase("videos")) {
-		page = "videos";
-	} else if (page.equalsIgnoreCase("zeeoriginals")) {
-		page = "zeeoriginals";
+	public static Response getResponseForPagesTv(String tabName, String contLang, int q, String userType) {
+		Response respCarousel = null;
+		String Uri = "";
+
+		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
+		String page = handler.getproperty(("tv_" + tabName).toLowerCase());
+
+		if (page.equals("stories")) {
+			Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
+		} else {
+			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page + "?page=" + q
+					+ "&limit=5&item_limit=20&country=IN&translation=en&languages=" + contLang + "&version=8";
+		}
+
+		String xAccessToken = getXAccessToken();
+		if (userType.equalsIgnoreCase("Guest")) {
+			respCarousel = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when()
+					.get(Uri);
+		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedPassword");
+			String bearerToken = getBearerToken(email, password);
+			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+					.get(Uri);
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedPassword");
+
+			String bearerToken = getBearerToken(email, password);
+			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+					.get(Uri);
+		} else {
+			System.out.println("Incorrect user type passed to method");
+		}
+		return respCarousel;
 	}
 
-	if (page.equals("stories")) {
-		Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
-	} else {
-		Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page + "?page=" + q
-				+ "&limit=5&item_limit=20&country=IN&translation=en&languages=" + contLang + "&version=8";
+	public static ArrayList<String> getTrayResponseTv(String tabName, String typeOfContent) {
+		ArrayList<String> contentAndTrayTitle = new ArrayList<>();
+		String Uri;
+		Response respCarousel = null;
+		String userType = "Guest";
+		String q = null;
+		String contLang = getLanguage(userType);
+
+		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
+		String page = handler.getproperty(("tv_" + tabName).toLowerCase());
+
+		title: for (int i = 1; i < 5; i++) {
+			if (page.equals("stories")) {
+				Uri = "https://zeetv.zee5.com/wp-json/api/v1/featured-stories";
+			} else {
+				Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page + "?page=" + i
+						+ "&limit=5&item_limit=20&country=IN&translation=en&languages=" + contLang + "&version=10";
+			}
+			String xAccessToken = getXAccessTokenWithApiKey();
+			if (userType.equalsIgnoreCase("Guest")) {
+				respCarousel = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345")
+						.when().get(Uri);
+			} else if (userType.equalsIgnoreCase("SubscribedUser")) {
+				String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SubscribedUserName");
+				String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SubscribedPassword");
+				String bearerToken = getBearerToken(email, password);
+				respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken)
+						.when().get(Uri);
+			} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+
+				String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonsubscribedUserName");
+				String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonsubscribedPassword");
+//			String email="tvautomation@gmail.com";
+//			 String password ="123456";
+				String bearerToken = getBearerToken(email, password);
+				respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken)
+						.when().get(Uri);
+			} else {
+				System.out.println("Incorrect user type passed to method");
+			}
+
+			if (typeOfContent.equalsIgnoreCase("Free")) {
+
+				int bucketSize = respCarousel.jsonPath().getList("buckets").size();
+				// System.out.println(bucketSize);
+				for (int j = 1; j < bucketSize; j++) {
+					int itemsSize = respCarousel.jsonPath().getList("buckets[" + j + "].items").size();
+					for (int k = 0; k < itemsSize; k++) {
+						// System.out.println(respCarousel.jsonPath().getString("buckets["+j+"].title"));
+						if (respCarousel.jsonPath().getString("buckets[" + j + "].items[" + k + "].business_type")
+								.contains("free")) {
+							// System.out.println("title :
+							// "+respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].title"));
+							contentAndTrayTitle.add(respCarousel.jsonPath().getString("buckets[" + j + "].title"));
+							contentAndTrayTitle.add(
+									respCarousel.jsonPath().getString("buckets[" + j + "].items[" + k + "].title"));
+							contentAndTrayTitle
+									.add(respCarousel.jsonPath().getString("buckets[" + j + "].items[" + k + "].id"));
+							return contentAndTrayTitle;
+						}
+					}
+				}
+			} else if (typeOfContent.equalsIgnoreCase("premium")) {
+				int bucketSize = respCarousel.jsonPath().getList("buckets").size();
+				for (int j = 1; j < bucketSize; j++) {
+					int itemsSize = respCarousel.jsonPath().getList("buckets[" + j + "].items").size();
+					for (int k = 0; k < itemsSize; k++) {
+						// System.out.println(respCarousel.jsonPath().getString("buckets["+j+"].title"));
+						if (respCarousel.jsonPath().getString("buckets[" + j + "].items[" + k + "].asset_subtype")
+								.equals("movie")) {
+							if (respCarousel.jsonPath().getString("buckets[" + j + "].items[" + k + "].business_type")
+									.contains("premium_downloadable")) {
+								// System.out.println("title :
+								// "+respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].title"));
+								contentAndTrayTitle.add(respCarousel.jsonPath().getString("buckets[" + j + "].title"));
+								contentAndTrayTitle.add(
+										respCarousel.jsonPath().getString("buckets[" + j + "].items[" + k + "].title"));
+								contentAndTrayTitle.add(
+										respCarousel.jsonPath().getString("buckets[" + j + "].items[" + k + "].id"));
+								return contentAndTrayTitle;
+							}
+						}
+					}
+				}
+
+			} else if (typeOfContent.equals("carousel")) {
+				int bucketSize = respCarousel.jsonPath().getList("buckets").size();
+				// System.out.println(bucketSize);
+				for (int j = 0; j < bucketSize; j++) {
+					int itemsSize = respCarousel.jsonPath().getList("buckets[" + j + "].items").size();
+					for (int k = 0; k < itemsSize; k++) {
+						// System.out.println(respCarousel.jsonPath().getString("buckets["+j+"].title"));
+						if (respCarousel.jsonPath().getString("buckets[" + j + "].items[" + k + "].business_type")
+								.contains("premium_downloadable")) {
+							// System.out.println("title :
+							// "+respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].title"));
+							contentAndTrayTitle.add(respCarousel.jsonPath().getString("buckets[" + j + "].title"));
+							contentAndTrayTitle.add(
+									respCarousel.jsonPath().getString("buckets[" + j + "].items[" + k + "].title"));
+							contentAndTrayTitle
+									.add(respCarousel.jsonPath().getString("buckets[" + j + "].items[" + k + "].id"));
+							return contentAndTrayTitle;
+						}
+					}
+				}
+			} else if (typeOfContent.equalsIgnoreCase("trailer")) {
+				int bucketSize = respCarousel.jsonPath().getList("buckets").size();
+				for (int j = 1; j < bucketSize; j++) {
+					int itemsSize = respCarousel.jsonPath().getList("buckets[" + j + "].items").size();
+					for (int k = 0; k < itemsSize; k++) {
+						if (respCarousel.jsonPath().getList("buckets[" + j + "].items[" + k + "].related") != null) {
+							if (respCarousel.jsonPath().getString("buckets[" + j + "].items[" + k + "].asset_subtype")
+									.equals("movie")) {
+								String relatedID = respCarousel.jsonPath()
+										.getString("buckets[" + j + "].items[" + k + "].id");
+								System.out.println("Related id :" + relatedID);
+								String contentName = respCarousel.jsonPath()
+										.getString("buckets[" + j + "].items[" + k + "].title");
+								contentAndTrayTitle.add(respCarousel.jsonPath().getString("buckets[" + j + "].title"));
+								contentAndTrayTitle.add(
+										respCarousel.jsonPath().getString("buckets[" + j + "].items[" + k + "].title"));
+								System.out.println("Related contentName :" + contentName);
+								Response relatedtrailerID = given()
+										.headers("x-access-token", getXAccessTokenWithApiKey()).when()
+										.get("https://gwapi.zee5.com/content/details/" + relatedID
+												+ "?translation=en&country=IN&version=2");
+								for (int l = 0; l <= 10; l++) {
+									String trailercontentName = relatedtrailerID.jsonPath()
+											.getString("related[" + l + "].title");
+									System.out.println("Trailer contentName : " + trailercontentName);
+									if (trailercontentName.contains("Trailer")) {
+										String trailerID = relatedtrailerID.jsonPath()
+												.getString("related[" + l + "].id");
+
+										System.out.println("Trailer ID : " + trailerID);
+										given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+												.get("https://gwapi.zee5.com/content/details/" + trailerID
+														+ "?translation=en&country=IN&version=2");
+										getContentDetails(trailerID);
+										return contentAndTrayTitle;
+									}
+									break;
+								}
+
+							}
+						}
+					}
+				}
+			}
+		}
+		return contentAndTrayTitle;
 	}
 
-	String xAccessToken = getXAccessToken();
-	if (userType.equalsIgnoreCase("Guest")) {
-		respCarousel = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when()
-				.get(Uri);
-	} else if (userType.equalsIgnoreCase("SubscribedUser")) {
-		String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter("SubscribedUserName");
-		String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter("SubscribedPassword");
-		String bearerToken = getBearerToken(email, password);
-		respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
-				.get(Uri);
-	} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-		String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter("NonsubscribedUserName");
-		String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter("NonsubscribedPassword");
+	public static String getSearchresponseTv(String searchText) {
+		Response resp = given().urlEncodingEnabled(false).when().get("https://gwapi.zee5.com/content/search_all?q="
+				+ searchText
+				+ "&limit=10&asset_type=0,6,1&country=IN&languages=hi,en,mr,te,kn,ta,ml,bn,gu,pa,hr,or&translation=en&version=3&");
 
-		String bearerToken = getBearerToken(email, password);
-		respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
-				.get(Uri);
-	} else {
-		System.out.println("Incorrect user type passed to method");
+		String title = resp.jsonPath().getString("results[0].items[0].title");
+		System.out.println(title);
+		searchContentID = resp.jsonPath().getString("results[0].items[0].id");
+		System.out.println(searchContentID);
+		return searchContentID;
 	}
-	return respCarousel;
-}
 	
 }
 

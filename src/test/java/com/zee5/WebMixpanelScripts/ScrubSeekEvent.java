@@ -24,48 +24,49 @@ public class ScrubSeekEvent {
 	}
 	
 	@Test(priority = 1)
-	@Parameters({ "userType", "keyword4" })
-	public void verifyScrubSeekEventForFreeContent(String userType, String keyword4) throws Exception {
+	@Parameters({ "userType", "Tab" })
+	public void verifyScrubSeekEventForFreeContent(String userType, String tab) throws Exception {
 		System.out.println("Verify Scrub/Seek Event For Free Content");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForFreeContent(userType, keyword4);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForFreeContent(userType, tab);
 	}
 
 	@Test(priority = 2)
 	@Parameters({ "userType" })
-	public void verifyScrubSeekEventForPremiumContent(String userType) throws Exception {
+	public void verifyScrubSeekEventForPremiumContent(String userType, String tab) throws Exception {
 		System.out.println("Verify Scrub/Seek Event For Premium Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForPremiumContent(userType, "Home");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForPremiumContent(userType, tab);
 	}
 
 	@Test(priority = 3)
-	@Parameters({ "keyword1" })
-	public void verifyScrubSeekEventForTrailer(String keyword1) throws Exception {
+	@Parameters({ "Tab" })
+	public void verifyScrubSeekEventForTrailer(String tab) throws Exception {
 		System.out.println("Verify Scrub/Seek Event For Trailer Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForTrailer(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForTrailer(tab);
 	}
 
 	@Test(priority = 4)
+	@Parameters({ "Tab" })
 	public void verifyScrubSeekEventForCarouselContent() throws Exception {
 		System.out.println("Verify Scrub/Seek Event For Carousel Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForCarouselContent();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForCarouselContent("Shows");
 	}
 
 	@Test(priority = 5)
-	public void verifyScrubSeekEventForContentInTray() throws Exception {
+	public void verifyScrubSeekEventForContentInTray(String tab) throws Exception {
 		System.out.println("Verify Scrub/Seek Event For Content played from Tray");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForContentInTray();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForContentInTray(tab);
 	}
 
 	@Test(priority = 6)
-	@Parameters({ "keyword1" })
-	public void verifyScrubSeekEventForContentFromSearchPage(String keyword1) throws Exception {
+	@Parameters({ "keyword4" })
+	public void verifyScrubSeekEventForContentFromSearchPage(String keyword4) throws Exception {
 		System.out.println("Verify Scrub/Seek Event For Content From Search Page");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForContentFromSearchPage(keyword1);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForContentFromSearchPage(keyword4);
 	}
 
 	@Test(priority = 7)
@@ -76,7 +77,7 @@ public class ScrubSeekEvent {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForContentFromMyWatchlistPage(userType, keyword);
 	}
 
-	@Test(priority = 8)
+//	@Test(priority = 8)
 	public void verifyScrubSeekEventForContentInMegamenu() throws Exception {
 		System.out.println("Verify Scrub/Seek Event For Content played from Megamenu");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
@@ -84,19 +85,19 @@ public class ScrubSeekEvent {
 	}
 
 	@Test(priority = 9)
-	@Parameters({ "userType", "keyword" })
-	public void verifyScrubSeekEventForContentInPlaylist(String userType, String keyword) throws Exception {
+	@Parameters({ "userType" })
+	public void verifyScrubSeekEventForContentInPlaylist(String userType) throws Exception {
 		System.out.println("Verify Scrub/Seek Event For Content played from Playlist");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForContentInPlaylist(userType, keyword);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForContentInPlaylist(userType, "Shows");
 	}
 
 	@Test(priority = 10)
-	@Parameters({ "userType", "keyword4" })
-	public void verifyScrubSeekEventForContentFromUpnextRail(String userType, String keyword4) throws Exception {
+	@Parameters({ "userType" })
+	public void verifyScrubSeekEventForContentFromUpnextRail(String userType) throws Exception {
 		System.out.println("Verify Scrub/Seek Event For Content played from Upnext rail");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForContentFromUpnextRail(userType, keyword4);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForContentFromUpnextRail(userType, "Shows");
 	}
 
 	@Test(priority = 11)
