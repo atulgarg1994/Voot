@@ -7791,14 +7791,20 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 
 		String state = getText(AMDMoreMenu.objDownloads_WifiOnly);
 		System.out.println(state);
-		if (state.equalsIgnoreCase("OFF")) {
-			logger.info("Download over WiFi only option is in  " + state + " state by default");
-			extent.extentLoggerPass("On/Off", "Download over WiFi only option is in  " + state + " state by default");
+		if(pUserType.equalsIgnoreCase("Guest")) {
+			if (state.equalsIgnoreCase("OFF")) {
+				logger.info("Download over WiFi only option is in  " + state + " state by default");
+				extent.extentLoggerPass("On/Off", "Download over WiFi only option is in  " + state + " state by default");
 
-		} else {
-			logger.error("Download over WiFi only option is not in OFF state by default ");
-			extent.extentLoggerFail("On/Off", "Download over WiFi only option is not in OFF state by default ");
+			} else {
+				logger.error("Download over WiFi only option is not in OFF state by default ");
+				extent.extentLoggerFail("On/Off", "Download over WiFi only option is not in OFF state by default ");
+			}
+		}else {
+			logger.info("Download over WiFi only option is in " + state + " state for "+pUserType);
+			extent.extentLoggerPass("On/Off", "Download over WiFi only option is in " + state + " state for "+pUserType);
 		}
+		
 
 		WebElement onOffToggle = findElement(AMDMoreMenu.objDownloads_WifiOnly);
 		int toggleRightX = onOffToggle.getLocation().getX();
@@ -8483,22 +8489,37 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 					click(AMDHomePage.objFirstChannelCard, "First available channel");
 				} else {
 					click(AMDHomePage.objCarouselTitle, getText(AMDHomePage.objCarouselTitle));
-					waitForElementDisplayed(AMDGenericObjects.objFirstTrayTitle, 3000);
+					if(userType.equalsIgnoreCase("SubscribedUser")) {
+						waitForElementDisplayed(AMDGenericObjects.objFirstTrayTitle, 3000);
+					}
 				}
+				
 				if (userType.contains("Guest") | userType.contains("NonSubscribedUser")) {
-					waitTime(3000);
-					if (verifyIsElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
+					waitTime(5000);
+					DismissInterruptionScreen();
+					if (verifyElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
 						click(AMDGenericObjects.objPopUpDivider, "Subcription Pop Up");
 						extent.extentLoggerPass("Subscription PopUp", userType
 								+ "Subcription PopUp is displayed in the comsumption screen and popup is closed");
 						logger.info("Subcription PopUp is displayed in the comsumption screen and popup is closed");
+					}else if(verifyElementDisplayed(AMDGenericObjects.objCheckTitle("Subscribe"))) {
+						
+						extent.extentLogger("Interruption Screen", userType
+								+ "Subscribe screen is displayed in the comsumption screen hence dismissing the screen");
+						logger.info("Subscribe screen is displayed in the comsumption screen hence dismissing the screen");
+						Back(1);
+						click(AMDHomePage.objCarouselTitle, getText(AMDHomePage.objCarouselTitle));
+					}else {
+						registerPopUpClose();
+						completeProfilePopUpClose(pUserType);
+						waitForElementDisplayed(AMDGenericObjects.objFirstTrayTitle, 3000);
 					}
-					registerPopUpClose();
-					completeProfilePopUpClose(pUserType);
 				}
+				
 				if (tabName.equalsIgnoreCase("Eduauraa")) {
 					PartialSwipeInConsumptionScreen("UP", 2);
-				} 
+				}
+				
 				if (tabName.contains("Live TV") && (verifyIsElementDisplayed(AMDGenericObjects.objPageLoadingIcon))) {
 					extent.extentLoggerPass("Listing Trays","Rails are unavailable in Live TV: NEWS Consumption screen");
 					logger.info("Rails are unavailable in Live TV: NEWS Consumption screen");
@@ -8506,11 +8527,24 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 				} else {
 
 					if (userType.equalsIgnoreCase("Guest")) {
+						if (verifyElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
+							click(AMDGenericObjects.objPopUpDivider, "Subcription Pop Up");
+							extent.extentLoggerPass("Subscription PopUp", userType
+									+ "Subcription PopUp is displayed in the comsumption screen and popup is closed");
+							logger.info("Subcription PopUp is displayed in the comsumption screen and popup is closed");
+						}
+						
 						getTrayName = getText(AMDGenericObjects.objConsumptionScreenFirstRail);
 						click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
 					} else {
 						waitTime(2000);
 						int noOfTrays = getCount(AMDGenericObjects.objNoOfTrays);
+						if (noOfTrays==0) {
+							DismissInterruptionScreen();
+							waitTime(2000);
+							PartialSwipeInConsumptionScreen("UP", 1);
+							noOfTrays = getCount(AMDGenericObjects.objNoOfTrays);
+						}
 						if (noOfTrays > 0) {
 //							if (tabName.contains("Live TV")) {
 //								getTrayName = getText(AMDGenericObjects.objFirstTrayTitle);
@@ -8521,6 +8555,9 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 							waitTime(1000);
 							getTrayName = getText(AMDGenericObjects.objConsumptionScreenFirstRail);
 							click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
+						}else {
+							extent.extentLoggerWarning("Consumption Screen", "Interruption screen is displayed in the comsumption screen and No Rails available");
+							logger.info("Interruption PopUp is displayed in the comsumption screen and No Rails available");
 						}
 					}
 
@@ -8556,6 +8593,19 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			if (tabName.equalsIgnoreCase("Live TV")) {
 				liveTV = true;
 			}
+		}
+	}
+	
+	public void DismissInterruptionScreen() throws Exception {
+		if (verifyElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
+			click(AMDGenericObjects.objPopUpDivider, "Subcription Pop Up");
+			extent.extentLoggerPass("Subscription PopUp", userType+ "Subcription PopUp is displayed in the comsumption screen and popup is closed");
+			logger.info("Subcription PopUp is displayed in the comsumption screen and popup is closed");
+		}else if(verifyElementDisplayed(AMDGenericObjects.objCheckTitle("Subscribe"))) {
+			extent.extentLogger("Interruption Screen", userType+ "Subscribe screen is displayed in the comsumption screen hence navigates back to previous screen");
+			logger.info("Subscribe screen is displayed in the comsumption screen hence navigates back to previous screen");
+			Back(1);
+			click(AMDHomePage.objCarouselTitle, getText(AMDHomePage.objCarouselTitle));
 		}
 	}
 
@@ -18695,17 +18745,18 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 		getRuntimeValue = value;
 	}
 	
-	public void Settings_DefaultVideoStreamingQualityInPlayer(String userType, String searchKeyword1) throws Exception {
+	public void Settings_DefaultVideoStreamingQualityInPlayer(String userType, String searchKeyword11) throws Exception {
 		extent.HeaderChildNode("Validation of Settings - Default Video Streaming quality In Player as " + userType);
 		System.out.println("\n Validation of Settings for Video Streaming and Autoplay In Player as " + userType);
 		
 		click(AMDHomePage.objSearchBtn, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, searchKeyword1 + "\n", "Search bar");
+		type(AMDSearchScreen.objSearchBoxBar, searchKeyword11 + "\n", "Search bar");
 		waitTime(2000);
 		hideKeyboard();
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-		click(AMDMoreMenu.objSearchResult(searchKeyword1), "Search result");
+		click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+		
 		if (!userType.contains("SubscribedUser")) {
 			waitTime(4000);
 			registerPopUpClose();
@@ -18722,7 +18773,7 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 		click(AMDPlayerScreen.objPlayerScreen, "Player Screen");
 		click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
 		String getQualityValue = findElement(AMDSettingsScreen.objQualityOptionOnPlayer).getText();
-		verifyElementExist(AMDSettingsScreen.objQualityOptionOnPlayer, "Video quality on player settings " + getQualityValue);
+		verifyElementExist(AMDSettingsScreen.objQualityOptionOnPlayer, "Video quality on player settings " + getQualityValue.toUpperCase());
 		if (getQualityValue.contains(getRuntimeValue)) {
 			logger.info(
 					"Default video quality on player settings is as per the selection in Select video quality settings : "
@@ -18738,7 +18789,6 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 					"Default video quality on player settings is NOT as per the selection in Select video quality settings : "
 							+ getQualityValue);
 		}
-		
 		click(AMDSettingsScreen.objQualityOptionOnPlayer, "Video Quality");
 		String videoOption = findElement(AMDSettingsScreen.objoptionsInVideoQuality).getText();
 		System.out.println(videoOption);
@@ -18748,7 +18798,6 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 		click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
 	
 		String DefaultOption = findElement(AMDSettingsScreen.objQualityOptionOnPlayer).getText();
-		System.out.println(DefaultOption);
 		if (DefaultOption.contains(videoOption)) {
 			logger.info("Video Quality is Functional in the player");
 			extent.extentLoggerPass("Settings", "Video Quality is Functional in the player");

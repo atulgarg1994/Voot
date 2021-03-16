@@ -13617,5 +13617,9 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		jse.executeScript("window.scrollBy(0,500)", "");
 	}
 	
-	
+	public String languageShortform(String lang) {
+		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
+		String lng = handler.getproperty(lang.toLowerCase());
+		return lng;
+	}
 }

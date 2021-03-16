@@ -126,9 +126,6 @@ public class AMDSearchScreen {
 	public static By objContentCardTitleOfTopSearchesTray = By.xpath(
 			"//*[@text='Top Searches']/parent::*/parent::*/following-sibling::*/child::*/child::*[@resource-id='com.graymatrix.did:id/item_primary_text']");
 
-	
-	public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[4]");
-	
 	public static By objSelectFirstEpisodeResult = By.xpath("//*[@id='item_secondary_text'][1]");
 	
 	public static By objEpisodeSearch = By.xpath("//*[@id='item_secondary_text']");
@@ -224,4 +221,5 @@ public class AMDSearchScreen {
 	
 	public static By objFirstContentInSearchResult = By.xpath("(//*[@id='Zee5SearchResultItem'])[1] | //*[@class='android.widget.LinearLayout' and ./*[@id='cell_start_container'] and ./*[./*[@text='Ammana Mane']]]");
 	
+	public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[4] | (//*[@id='searchResultViewPager']//following-sibling::*//child::*)[1]");
 }

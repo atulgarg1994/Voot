@@ -34,9 +34,9 @@ public class Android_Settings {
 	}
 	
 	@Test(priority = 2)
-	@Parameters({ "userType","searchKeyword1" })
-	public void SettingsScreen_VideoQualityCheckInPlayer(String userType, String searchKeyword1) throws Exception {
-		ZEE5ApplicasterBusinessLogic.Settings_DefaultVideoStreamingQualityInPlayer(userType, searchKeyword1);
+	@Parameters({ "userType","searchKeyword11" })
+	public void SettingsScreen_VideoQualityCheckInPlayer(String userType, String searchKeyword11) throws Exception {
+		ZEE5ApplicasterBusinessLogic.Settings_DefaultVideoStreamingQualityInPlayer(userType, searchKeyword11);
 	}
 	
 	@Test(priority = 3)

@@ -2281,52 +2281,24 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 * Function to validate the Player icons
 	 */
 	public void PlayerIconVaidationsWeb() throws Exception {
+		String userType = getParameterFromXML("userType");
 		System.out.println("PlayerIconVaidationsWeb");
 		extent.HeaderChildNode("Validating Player icons on Player");
-		// Click on Movies tab
-		if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup") == true) {
-			click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
-		}
-//		click(PWAHomePage.objTabName("Movies"), "Movies tab");
-//		// Click on Free content
-//		click(PWAMoviesPage.objContentCard(2), "Content card");
-		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
-		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter("freeMovie4");
-		type(PWASearchPage.objSearchEditBox, keyword, "Search edit");
-		waitTime(5000);
+		String movie = "Robin Hood Forever Enemies";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, movie, "Search Field");
 		click(PWASearchPage.objSearchMoviesTab, "Movies tab");
-		click(PWASearchPage.objspecificSearch, "Searched content");
-		Thread.sleep(6000);
-		// Verify the Pop up behavior
-		// verifyElementNotPresent(PWAPlayerPage.objSpinner, 60);
-		if (checkElementDisplayed(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Popup") == true) {
-			click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Pop up close button");
+		mandatoryRegistrationPopUp(userType);
+		click(PWASearchPage.objSpecificSearch(movie), "Searched content");
+		waitTime(7000);
+		if (userType.equals("Guest")) {
+			if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Why Register Popup") == true) {
+				click(PWAPlayerPage.objCloseBtn, "Close Register Popup");
+			}
 		}
-
-//		if(getWebDriver().findElement(PWAPlayerPage.objWEBCloseBtnLoginPopup).isDisplayed()) {
-//			click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Pop up close button");
-//		}
-		Thread.sleep(1000);
-		if (getParameterFromXML("browserType").equalsIgnoreCase("Firefox")) {
-			click(PWAPlayerPage.objContentTitle, "Content Title");
+		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			waitForPlayerAdToComplete1("Video Player");
 		}
-		// Verify Ad
-		// LoadingInProgress(PWAPlayerPage.objPlayerLoader);
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
-			verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
-		}
-
-		waitForPlayerLoaderToComplete();
-//		waitForPlayerAdToComplete1("Video Player");
-//		waitForPlayerAdToComplete1("Video Player");
-
-//		waitTime(3000);
-//		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
-//			verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
-//		}
-		// click(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
-
 		if (checkElementDisplayed(PWAPlayerPage.audioBtn, "Audio Button")) {
 			Actions actions = new Actions(getWebDriver());
 			WebElement player = getWebDriver().findElement(PWAPlayerPage.audioBtn);
@@ -2339,7 +2311,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		// clickOnPlayer(PWAPlayerPage.pauseBtn);
 		// Click on Video player
-		// click(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresent(PWAPlayerPage.pauseBtn, "Pause button");
 		verifyElementPresent(PWAPlayerPage.rewind10SecBtn, "Rewind 10 Seconds icon");
 		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
@@ -2391,17 +2363,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresent(PWAPlayerPage.totalDurationTime, "Total time");
 		verifyElementPresentAndClick(PWAPlayerPage.minimizeBtn, "Minimize button");
 		audioTrackSelection();
-		// waitForElementAbsence(PWAPlayerPage.forward10SecBtn, 10, "Waiting for element
-		// to be not present");
-		// Verify after some times the Player icons are not visible
-//		verifyElementNotPresent(PWAPlayerPage.playBtn,10);
-//		verifyElementNotPresent(PWAPlayerPage.pauseBtn, 10);
-//		verifyElementNotPresent(PWAPlayerPage.forward10SecBtn, 10);
-//		verifyElementNotPresent(PWAPlayerPage.rewind10SecBtn, 10);
-//		verifyElementNotPresent(PWAPlayerPage.progressBar, 10);
-//		verifyElementNotPresent(PWAPlayerPage.settingsBtn, 10);
-//		verifyElementNotPresent(PWAPlayerPage.audioBtn, 10);
-//		verifyElementNotPresent(PWAPlayerPage.maximizeBtn, 10);
 	}
 
 	/*
