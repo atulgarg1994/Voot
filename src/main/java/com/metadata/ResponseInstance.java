@@ -2526,9 +2526,9 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 				+ "&limit=10&asset_type=0,6,1&country=IN&languages=hi,en,mr,te,kn,ta,ml,bn,gu,pa,hr,or&translation=en&version=3&");
 
 		String title = resp.jsonPath().getString("results[0].items[0].title");
-		System.out.println(title);
 		searchContentID = resp.jsonPath().getString("results[0].items[0].id");
-		System.out.println(searchContentID);
+		assetSubType = resp.jsonPath().getString("results[0].items[0].asset_subtype");
+		getContentDetails(searchContentID);
 		return searchContentID;
 	}
 	

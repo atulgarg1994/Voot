@@ -3025,6 +3025,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWALiveTVPage.objFacebookShare, "Facebook Share button");
 			waitTime(5000);
 			verifyElementPresentAndClick(PWALiveTVPage.objPostToFB, "Post to Facebook");
+			Back(1);
 			Thread.sleep(5000);
 		}
 	}

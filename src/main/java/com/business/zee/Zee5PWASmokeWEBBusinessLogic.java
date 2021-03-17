@@ -128,7 +128,9 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			dismissDisplayContentLanguagePopUp();
+			//dismissDisplayContentLanguagePopUp();
+			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			waitTime(3000);
 			break;
 
@@ -136,6 +138,8 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as NonSubscribed User");
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
+			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -152,6 +156,8 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User");
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -163,6 +169,36 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			click(PWALoginPage.objWebLoginButton, "Login Button");
 			waitTime(3000);
 			break;
+		}
+
+		selectLanguages();
+	}
+	
+	public void selectLanguages() throws Exception {
+		extent.extentLogger("", "Language selection");
+		waitTime(5000);
+		click(PWAHamburgerMenuPage.objLanguageBtnWeb, "Language Button");
+		waitTime(2000);
+		waitForElementAndClick(PWAHamburgerMenuPage.objContentLanguageBtn, 2, "Content Languages");
+		waitTime(2000);
+		unselectAllContentLanguages();
+		clickElementWithWebLocator(PWAHamburgerMenuPage.objUnselectedKannadaContentLanguage);
+		logger.info("Selected content language Kannada");
+		extent.extentLogger("", "Selected content language Kannada");
+		clickElementWithWebLocator(PWAHamburgerMenuPage.objUnselectedHindiContentLanguage);
+		logger.info("Selected content language Hindi");
+		extent.extentLogger("", "Selected content language Hindi");
+		clickElementWithWebLocator(PWAHamburgerMenuPage.objUnselectedEnglishContentLanguage);
+		logger.info("Selected content language English");
+		extent.extentLogger("", "Selected content language English");
+		click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
+		waitTime(3000);
+	}
+	
+	public void unselectAllContentLanguages() throws Exception {
+		List<WebElement> selectedLanguages = getWebDriver().findElements(PWAHamburgerMenuPage.objSelectedLanguages);
+		for (int i = 0; i < selectedLanguages.size(); i++) {
+			clickElementWithWebElement(selectedLanguages.get(i));
 		}
 	}
 

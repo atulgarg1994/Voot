@@ -543,7 +543,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		
 		// verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Loginbutton");
 		
-		verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn, "Continue");
+		//verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn, "Continue");
 		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 		click(AMDLoginScreen.objEmailIdField, "Email field");
 		verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
@@ -3339,7 +3339,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDHomePage.objHome, "Home Tab");
 		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
 		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
-		getDriver().getKeyboard().sendKeys(partlySpeltSearchKeyword);
+		//getDriver().getKeyboard().sendKeys(partlySpeltSearchKeyword);
 		type(AMDSearchScreen.objSearchBoxBar, partlySpeltSearchKeyword + "\n", "Search bar");
 		hideKeyboard();
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);
@@ -8496,28 +8496,26 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 				
 				if (userType.contains("Guest") | userType.contains("NonSubscribedUser")) {
 					waitTime(5000);
-					DismissInterruptionScreen();
-					if (verifyElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
-						click(AMDGenericObjects.objPopUpDivider, "Subcription Pop Up");
-						extent.extentLoggerPass("Subscription PopUp", userType
-								+ "Subcription PopUp is displayed in the comsumption screen and popup is closed");
-						logger.info("Subcription PopUp is displayed in the comsumption screen and popup is closed");
-					}else if(verifyElementDisplayed(AMDGenericObjects.objCheckTitle("Subscribe"))) {
-						
-						extent.extentLogger("Interruption Screen", userType
-								+ "Subscribe screen is displayed in the comsumption screen hence dismissing the screen");
-						logger.info("Subscribe screen is displayed in the comsumption screen hence dismissing the screen");
-						Back(1);
-						click(AMDHomePage.objCarouselTitle, getText(AMDHomePage.objCarouselTitle));
-					}else {
-						registerPopUpClose();
-						completeProfilePopUpClose(pUserType);
-						waitForElementDisplayed(AMDGenericObjects.objFirstTrayTitle, 3000);
+					if(!verifyElementDisplayed(AMDGenericObjects.objConsumptionScreenFirstRail)) {
+						DismissInterruptionScreen();
+						if (verifyElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
+							click(AMDGenericObjects.objPopUpDivider, "Subcription Pop Up");
+							extent.extentLoggerPass("Subscription PopUp", userType
+									+ "Subcription PopUp is displayed in the comsumption screen and popup is closed");
+							logger.info("Subcription PopUp is displayed in the comsumption screen and popup is closed");
+						}else if(verifyElementDisplayed(AMDGenericObjects.objCheckTitle("Subscribe"))) {
+							
+							extent.extentLogger("Interruption Screen", userType
+									+ "Subscribe screen is displayed in the comsumption screen hence dismissing the screen");
+							logger.info("Subscribe screen is displayed in the comsumption screen hence dismissing the screen");
+							Back(1);
+							click(AMDHomePage.objCarouselTitle, getText(AMDHomePage.objCarouselTitle));
+						}else {
+							registerPopUpClose();
+							completeProfilePopUpClose(pUserType);
+							waitForElementDisplayed(AMDGenericObjects.objFirstTrayTitle, 3000);
+						}
 					}
-				}
-				
-				if (tabName.equalsIgnoreCase("Eduauraa")) {
-					PartialSwipeInConsumptionScreen("UP", 2);
 				}
 				
 				if (tabName.contains("Live TV") && (verifyIsElementDisplayed(AMDGenericObjects.objPageLoadingIcon))) {
@@ -8551,6 +8549,9 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 //							} else {
 //								getTrayName = getText(AMDGenericObjects.objTrayTitleByIndx(noOfTrays));
 //							}
+							if (tabName.equalsIgnoreCase("Eduauraa")) {
+								PartialSwipeInConsumptionScreen("UP", 2);
+							}
 							PartialSwipeInConsumptionScreen("UP", 1);
 							waitTime(1000);
 							getTrayName = getText(AMDGenericObjects.objConsumptionScreenFirstRail);
@@ -9011,7 +9012,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			}
 		} else {
 			logger.info("Reminder is empty");
-			extent.extentLoggerWarning("My Remainders", "Reminder is empty");
+			extent.extentLoggerWarning("My Remainders", "Reminder is empty: "+getText(AMDMyReminderPage.objNoReminderTxt));
 			verifyElementPresent(AMDMyReminderPage.objNoReminderIcon, "No Reminder icon");
 			verifyElementPresent(AMDMyReminderPage.objNoReminderTxt, "No Reminder text");
 		}
@@ -13179,6 +13180,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 					click(AMDConsumptionScreen.objOkBtn, "Ok button in add this device to yoour list pop up");
 				}
 //				verifyElementExist(AMDConsumptionScreen.objDownloadbtn, "Download icon");
+				registerPopUpClose();
 				if(verifyElementExist(AMDConsumptionScreen.objDownloadbtn, "Download icon")) {
 					logger.info("Download CTA is displayed in Consumption screen");
 					extent.extentLoggerPass("Download CTA", "Download CTA is displayed in Consumption screen");
@@ -15781,9 +15783,9 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 			}
 			verifyElementExist(AMDClubPack.objSubscribetoClubCTAOnPlayer,
 					"Subscribe to Club CTA on player for club content");
-			if (userType.equals("Guest")) {
-				verifyElementExist(AMDClubPack.objLoginCTAOnPlayer, "Login CTA on player for club content");
-			}
+//			if (userType.equals("Guest")) {
+//				verifyElementExist(AMDClubPack.objLoginCTAOnPlayer, "Login CTA on player for club content");
+//			}
 			verifyElementExist(AMDClubPack.objGetClubCTABelowPlayer, "Get Club CTA below the player");
 			boolean objsubToClub = verifyIsElementDisplayed(AMDClubPack.objSubscribetoClubCTAOnPlayer);
 			if (objsubToClub) {
@@ -15827,6 +15829,8 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 			logger.info("Plan 2 " + Plan2 + " is displayed");
 			extent.extentLogger("Subscribe to Club popup", "Plan 2 " + Plan2 + " is displayed");
 
+			Swipe("UP",1);
+			
 			String Plan3 = getText(AMDClubPack.objPack3InSubscribePopup);
 			System.out.println(Plan3);
 			logger.info("Plan 3 " + Plan3 + " is displayed");
@@ -15877,7 +15881,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 							"User is unable to navigate to Payment options screen on selecting club plan");
 				}
 			}
-			Back(4);
+			Back(5);
 			
 			//Login CTA has been removed
 			

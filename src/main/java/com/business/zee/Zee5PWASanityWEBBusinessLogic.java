@@ -208,8 +208,25 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			click(PWALoginPage.objWebLoginButton, "Login Button");
 			waitTime(3000);
 			break;
-		}
 
+		case "ClubUser":
+			extent.HeaderChildNode("Login as Subscribed User");
+			String clubUserName = getParameterFromXML("ClubUserName");
+			String clubPassword = getParameterFromXML("ClubPassword");
+			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
+			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			type(PWALoginPage.objEmailField, clubUserName, "Email Field");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			type(PWALoginPage.objPasswordField, clubPassword, "Password field");
+			waitTime(5000);
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(3000);
+			break;
+		}
 		selectLanguages();
 	}
 

@@ -126,8 +126,6 @@ public class PWALiveTVPage {
 
 	public static By objSortByAZ = By.xpath("(//div[@class='sortleft'])[2]");
 
-	public static By objPostToFB = By.xpath("//*[@class='android.widget.Button' and @text='POST']");
-
 	public static By objUpcomingLiveProgramCloseBtn = By
 			.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 
@@ -372,5 +370,8 @@ public class PWALiveTVPage {
 	public static By objPlayerInlineSubscriptionLink = By.xpath("//div[@class='main-container-1']//span[contains(@class,'subscribe-link')]");
 	
 	public static By objChannelsEPGOuter = By.xpath("//*[@class='epgOuter']");
+	
+	public static By objPostToFB = By.xpath("//*[@contentDescription='POST']"); 
+
 
 }

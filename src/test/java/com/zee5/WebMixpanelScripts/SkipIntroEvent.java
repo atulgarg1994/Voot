@@ -46,17 +46,19 @@ public class SkipIntroEvent {
 	}
 
 	@Test(priority = 4)
-	public void verifySkipIntroEventForCarouselContent() throws Exception {
+	@Parameters({ "Tab" })
+	public void verifySkipIntroEventForCarouselContent(String tab) throws Exception {
 		System.out.println("Verify Skip Intro Event For Carousel Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForCarouselContent();
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForCarouselContent(tab);
 	}
 
 	@Test(priority = 5)
-	public void verifySkipIntroEventForContentInTray() throws Exception {
+	@Parameters({ "Tab" })
+	public void verifySkipIntroEventForContentInTray(String tab) throws Exception {
 		System.out.println("Verify Skip Intro Event For Content played from Tray");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForContentInTray();
+		Zee5PWAWEBMixPanelBusinessLogic.verifySkipIntroEventForContentInTray(tab);
 	}
 
 	@Test(priority = 6)
