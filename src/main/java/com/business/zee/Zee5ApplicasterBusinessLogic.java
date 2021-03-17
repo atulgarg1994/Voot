@@ -5060,6 +5060,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 		}
 		waitTime(3000);
+		SwipeUntilFindElement(AMDDownloadPage.objStartDownloadCTA, "UP");
 		click(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
 	}
 
@@ -5775,6 +5776,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDMoreMenu.objBuildVersion, "Build Version");
 	}
 
+	@SuppressWarnings("deprecation")
 	public void parentalPinValidation(String userType, String searchKeyword) throws Exception {
 		extent.HeaderChildNode("Parental Pin Validation");
 		System.out.println("\nParental Pin Validation");
@@ -8496,26 +8498,28 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 				
 				if (userType.contains("Guest") | userType.contains("NonSubscribedUser")) {
 					waitTime(5000);
-					if(!verifyElementDisplayed(AMDGenericObjects.objConsumptionScreenFirstRail)) {
-						DismissInterruptionScreen();
-						if (verifyElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
-							click(AMDGenericObjects.objPopUpDivider, "Subcription Pop Up");
-							extent.extentLoggerPass("Subscription PopUp", userType
-									+ "Subcription PopUp is displayed in the comsumption screen and popup is closed");
-							logger.info("Subcription PopUp is displayed in the comsumption screen and popup is closed");
-						}else if(verifyElementDisplayed(AMDGenericObjects.objCheckTitle("Subscribe"))) {
-							
-							extent.extentLogger("Interruption Screen", userType
-									+ "Subscribe screen is displayed in the comsumption screen hence dismissing the screen");
-							logger.info("Subscribe screen is displayed in the comsumption screen hence dismissing the screen");
-							Back(1);
-							click(AMDHomePage.objCarouselTitle, getText(AMDHomePage.objCarouselTitle));
-						}else {
-							registerPopUpClose();
-							completeProfilePopUpClose(pUserType);
-							waitForElementDisplayed(AMDGenericObjects.objFirstTrayTitle, 3000);
-						}
+					DismissInterruptionScreen();
+					if (verifyElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
+						click(AMDGenericObjects.objPopUpDivider, "Subcription Pop Up");
+						extent.extentLoggerPass("Subscription PopUp", userType
+								+ "Subcription PopUp is displayed in the comsumption screen and popup is closed");
+						logger.info("Subcription PopUp is displayed in the comsumption screen and popup is closed");
+					}else if(verifyElementDisplayed(AMDGenericObjects.objCheckTitle("Subscribe"))) {
+						
+						extent.extentLogger("Interruption Screen", userType
+								+ "Subscribe screen is displayed in the comsumption screen hence dismissing the screen");
+						logger.info("Subscribe screen is displayed in the comsumption screen hence dismissing the screen");
+						Back(1);
+						click(AMDHomePage.objCarouselTitle, getText(AMDHomePage.objCarouselTitle));
+					}else {
+						registerPopUpClose();
+						completeProfilePopUpClose(pUserType);
+						waitForElementDisplayed(AMDGenericObjects.objFirstTrayTitle, 3000);
 					}
+				}
+				
+				if (tabName.equalsIgnoreCase("Eduauraa")) {
+					PartialSwipeInConsumptionScreen("UP", 2);
 				}
 				
 				if (tabName.contains("Live TV") && (verifyIsElementDisplayed(AMDGenericObjects.objPageLoadingIcon))) {
@@ -8531,7 +8535,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 									+ "Subcription PopUp is displayed in the comsumption screen and popup is closed");
 							logger.info("Subcription PopUp is displayed in the comsumption screen and popup is closed");
 						}
-						
+						PartialSwipe("UP", 1);
 						getTrayName = getText(AMDGenericObjects.objConsumptionScreenFirstRail);
 						click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
 					} else {
@@ -8549,9 +8553,6 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 //							} else {
 //								getTrayName = getText(AMDGenericObjects.objTrayTitleByIndx(noOfTrays));
 //							}
-							if (tabName.equalsIgnoreCase("Eduauraa")) {
-								PartialSwipeInConsumptionScreen("UP", 2);
-							}
 							PartialSwipeInConsumptionScreen("UP", 1);
 							waitTime(1000);
 							getTrayName = getText(AMDGenericObjects.objConsumptionScreenFirstRail);
@@ -13505,7 +13506,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 				logger.info("Failed to navigate into respective screen after clicking Download Option");
 			}
 		}
-		Back(2);
+		Back(3);
 	}
 
 	public void verifyClubIconOnAllSeaerchScreenTabs(String ClubContent, String SearchVODContent) throws Exception {
@@ -15681,6 +15682,8 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		logger.info("Plan 2 " + Plan2 + " is displayed");
 		extent.extentLogger("Subscribe to Premium popup", "Plan 2 " + Plan2 + " is displayed");
 
+		Swipe("UP", 1);
+		
 		String Plan3 = getText(AMDClubPack.objPack3InSubscribePopup);
 		System.out.println(Plan3);
 		logger.info("Plan 3 " + Plan3 + " is displayed");
@@ -15692,7 +15695,6 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 //		extent.extentLogger("Subscribe to Premium popup", "Plan 4 " + Plan4 + " is displayed");
 		Back(2);
 		click(AMDHomePage.HomeIcon, "Home Icon");
-
 }
 
 	/**
@@ -17094,6 +17096,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
 		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
 		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
+		click(AMDPlayerScreen.objPlayerScreen, "player screen");
 		click(AMDPlayerScreen.objPauseIcon, "Pause");
 		WebElement element = getDriver().findElement(byLocator1);
 		String xDuration = getAttributValue("x", AMDPlayerScreen.objTotalDuration);

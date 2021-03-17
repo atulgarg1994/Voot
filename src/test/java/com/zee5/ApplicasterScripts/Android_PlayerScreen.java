@@ -39,7 +39,7 @@ public class Android_PlayerScreen {
 	}
 	
 	@Test(priority = 2)
-	@Parameters({ "userType", "searchKeyword1", "searchKeyword3", "searchKeyword4", "searchKeyword5" }) // Manasa
+	@Parameters({ "userType", "searchKeyword1", "searchKeyword3", "searchKeyword4", "searchKeyword5","searchKeyword8" }) // Manasa
 	public void verifyPlayerScreenInLandscapeMode(String userType, String searchKeyword1,String searchKeyword3,String searchKeyword4,String searchKeyword5,String searchKeyword8) throws Exception {
 		System.out.println("\nVerify Player Functionality in Landscape Mode");
 		ZEE5ApplicasterBusinessLogic.relaunch(true);

@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 
 public class AMDPlayerScreen {
 
-	public static By objPlayer = By.xpath("//*[@id='controller']");
 	public static By objShareIcon = By.xpath("//*[@id='native_share_button']");
 	public static By objWatchlistIcon = By.xpath("//*[@id='watch_list_image']");
 	public static By objDownloadIcon = By.xpath("//*[@id='downlowd_image']");
@@ -115,5 +114,7 @@ public class AMDPlayerScreen {
 	public static By objGetPremiumPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title' and @text='Subscribe'] | //*[@id='screen_title' and @text='Subscribe']");
 
 	public static By objSkipIntro = By.xpath("//*[@id='skipintro'] | //*[@resource-id='com.graymatrix.did:id/playerSkipIntroButton']");
+	
+	public static By objPlayer = By.xpath("//*[@id='controller'] | //*[@id='playerTouchToHideShowController'] | (//*[@class='android.widget.FrameLayout'])[9]");
 	
 }

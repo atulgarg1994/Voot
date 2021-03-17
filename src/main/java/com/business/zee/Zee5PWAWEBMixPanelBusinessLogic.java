@@ -969,13 +969,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		waitTime(4000);
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
-//		System.out.println("Current URL : " + id);
 //		ResponseInstance.getContentDetails(fetchContentID(id));
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name","movie_landing");
@@ -8836,7 +8829,10 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
 			waitTime(2000);
 			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
-
+			
+			if(getText(PWAHamburgerMenuPage.objSelectedParentControl).equals("Restrict All Content")) {
+				click(PWAHamburgerMenuPage.objNoRestrictionSelected,"No Restriction Selected");
+			}
 			click(PWAHamburgerMenuPage.objRestrictAll, "Restrict All");
 			click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
 			type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
@@ -13542,18 +13538,14 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 	public String pageName() throws Exception {
 		waitTime(2000);
 		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
-		System.out.println("JS : "+js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))));
 		String pageNameTxt = js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))).toString();
-//				findElement(By.xpath(".//*[@class='noSelect active ']")).getText();
-		System.out.println("Page : "+pageNameTxt);
-		System.out.println("JS : "+js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))));
-		System.out.println(findElement(By.xpath(".//*[@class='noSelect active ']")).getAttribute("href"));
-		System.out.println(pageNameTxt.replaceAll(" ","").toLowerCase());
 		if (pageNameTxt.equals("Shows")) {
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 1) {
+				ResponseInstance.pageName = "episode";
 				return handler.getproperty("episode_details".toLowerCase());
 			}
 		}
+		ResponseInstance.pageName = pageNameTxt;
 		return handler.getproperty((pageNameTxt.replaceAll(" ","") + "_details").toLowerCase());
 	}
 

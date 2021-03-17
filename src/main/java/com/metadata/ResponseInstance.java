@@ -24,7 +24,7 @@ public class ResponseInstance {
 	public static String assetSubType = "Empty"; 
 	static LoggingUtils logger = new LoggingUtils();
 	public static String searchContentID = null;
-	
+	public static String pageName;
 	public static Response getResponse() {
 		resp = given().urlEncodingEnabled(false).when().get(
 				"https://gwapi.zee5.com/content/collection/0-8-homepage?limit=20&page=1&item_limit=20&desc=no&version=6&translation=en&languages=en,kn&country=IN");
@@ -930,9 +930,14 @@ public class ResponseInstance {
 				resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
 				}
 			}
-		}else {
-			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
-					.get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
+		} else {
+			if (pageName.equals("episode") || pageName.equals("shows")) {
+				resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+						.get("https://gwapi.zee5.com/content/tvshow/" + ID + "?translation=en&country=IN");
+			} else if (pageName.equals("movies")) {
+				resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+						.get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
+			}
 		}
 		
 		Mixpanel.FEProp.setProperty("Content Duration", resp.jsonPath().getString("duration"));
@@ -2216,7 +2221,7 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 		ArrayList<String> contentAndTrayTitle = new ArrayList<>();
 		String Uri;
 		Response respCarousel = null;
-		String userType = "Guest";
+		String userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
 		String q= null;
 		String contLang = getLanguage(userType);
 		
