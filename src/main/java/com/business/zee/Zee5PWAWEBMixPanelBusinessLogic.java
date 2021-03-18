@@ -969,6 +969,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		waitTime(4000);
 		String id = getWebDriver().getCurrentUrl();
+		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
+		// Matcher m = p.matcher(id);
+		// String value = null;
+		// while (m.find()) {
+		// value = m.group(0);
+		// }
+//		System.out.println("Current URL : " + id);
 //		ResponseInstance.getContentDetails(fetchContentID(id));
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name","movie_landing");
@@ -7471,6 +7478,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		extent.HeaderChildNode("Verify Audio Language Change Event For Free Content");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
+		mandatoryRegistrationPopUp(userType);
 		waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 20, "Search Result");
 		click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 		mandatoryRegistrationPopUp(userType);
@@ -7481,22 +7489,28 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
 		String contentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
-		System.out.println("contentLang : "+contentLang);
-		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
-		waitTime(5000);
-		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", pageName());
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		String oldLang = mixpanel.languageShortform(contentLang);
 		
+		System.out.println("contentLang : "+contentLang);
+		System.out.println("old Lang : "+oldLang);
+		click(PWAPlayerPage.objSelectAudioLanguage, "Audio Track");
+		waitTime(5000);
+		ResponseInstance.getContentDetails(fetchContentID(getWebDriver().getCurrentUrl()));
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
 		String NewcontentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
 		System.out.println("contentLang : "+NewcontentLang);
+		String newLang = mixpanel.languageShortform(NewcontentLang);
+		System.out.println("new Lang : "+newLang);
+		Mixpanel.FEProp.setProperty("Content Original Language",oldLang);
 		mixpanel.FEProp.setProperty("New Audio Language", NewcontentLang);
-
-		String id = getWebDriver().getCurrentUrl();
-		ResponseInstance.getContentDetails(fetchContentID(id));
-		Mixpanel.FEProp.setProperty("Content Original Language",contentLang);
+		Mixpanel.FEProp.setProperty("Content Original Language",oldLang);
+		mixpanel.FEProp.setProperty("New Audio Language", NewcontentLang);
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
+		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+		
+		
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (UserType.equals("Guest")) {
@@ -7512,22 +7526,34 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			navigateToAnyScreenOnWeb(tab);
 			click(PWAPremiumPage.objPremiumTag, "Premium Content");
 			waitTime(6000);
-			mandatoryRegistrationPopUp(userType);
 			waitForPlayerAdToComplete("Video Player");
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 			if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
 				click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
-				click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+				String contentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+				String oldLang = mixpanel.languageShortform(contentLang);
+				
+				System.out.println("contentLang : "+contentLang);
+				System.out.println("old Lang : "+oldLang);
+				click(PWAPlayerPage.objSelectAudioLanguage, "Audio Track");
 				waitTime(5000);
+				ResponseInstance.getContentDetails(fetchContentID(getWebDriver().getCurrentUrl()));
+				click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+				click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+				String NewcontentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+				System.out.println("contentLang : "+NewcontentLang);
+				String newLang = mixpanel.languageShortform(NewcontentLang);
+				System.out.println("new Lang : "+newLang);
+				Mixpanel.FEProp.setProperty("Content Original Language",oldLang);
+				mixpanel.FEProp.setProperty("New Audio Language", NewcontentLang);
+				Mixpanel.FEProp.setProperty("Content Original Language",oldLang);
+				mixpanel.FEProp.setProperty("New Audio Language", NewcontentLang);;
 
 				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+				mixpanel.FEProp.setProperty("Page Name", pageName());
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-				mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
 
-				String id = getWebDriver().getCurrentUrl();
-				ResponseInstance.getContentDetails(fetchContentID(id));
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -7551,25 +7577,42 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		type(PWASearchPage.objSearchEditBox, audioTrackTrailerContent + "\n",
 				"Search Edit box: " + audioTrackTrailerContent);
 		waitTime(4000);
+		mandatoryRegistrationPopUp(userType);
 		waitForElement(PWASearchPage.objSearchResultTxt(audioTrackTrailerContent), 10, "Search Result");
 		click(PWASearchPage.objSearchResultTxt(audioTrackTrailerContent), "Search Result");
-		mandatoryRegistrationPopUp(userType);
-		waitForPlayerAdToComplete("Video Player");
+		
+	//	waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
-		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		String contentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+		String oldLang = mixpanel.languageShortform(contentLang);
+		
+		System.out.println("contentLang : "+contentLang);
+		System.out.println("old Lang : "+oldLang);
+		click(PWAPlayerPage.objSelectAudioLanguage, "Audio Track");
 		waitTime(5000);
-
+		ResponseInstance.getContentDetails(fetchContentID(getWebDriver().getCurrentUrl()));
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		String NewcontentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+		System.out.println("contentLang : "+NewcontentLang);
+		String newLang = mixpanel.languageShortform(NewcontentLang);
+		System.out.println("new Lang : "+newLang);
+		Mixpanel.FEProp.setProperty("Content Original Language",oldLang);
+		mixpanel.FEProp.setProperty("New Audio Language", NewcontentLang);
+		Mixpanel.FEProp.setProperty("Content Original Language",oldLang);
+		mixpanel.FEProp.setProperty("New Audio Language", NewcontentLang);
+		
 		mixpanel.FEProp.setProperty("Source", "search");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", "video_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
-
-		String id = getWebDriver().getCurrentUrl();
-		ResponseInstance.getContentDetails(fetchContentID(id));
+	
+		
+		
+		
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -7582,6 +7625,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 	public void verifyAudioLanguageChangeEventForCarouselContent() throws Exception {
 		extent.HeaderChildNode("Verify Audio Language Change Event For Carousel Content");
 		waitTime(5000);
+		mandatoryRegistrationPopUp(userType);
 		click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
@@ -7591,22 +7635,29 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
 			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
-			click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+			String contentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+			String oldLang = mixpanel.languageShortform(contentLang);
+			
+			System.out.println("contentLang : "+contentLang);
+			System.out.println("old Lang : "+oldLang);
+			click(PWAPlayerPage.objSelectAudioLanguage, "Audio Track");
 			waitTime(5000);
-
+			ResponseInstance.getContentDetails(fetchContentID(getWebDriver().getCurrentUrl()));
+			click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+			String NewcontentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+			System.out.println("contentLang : "+NewcontentLang);
+			String newLang = mixpanel.languageShortform(NewcontentLang);
+			System.out.println("new Lang : "+newLang);
+			Mixpanel.FEProp.setProperty("Content Original Language",oldLang);
+			mixpanel.FEProp.setProperty("New Audio Language", NewcontentLang);
+			Mixpanel.FEProp.setProperty("Content Original Language",oldLang);
+			mixpanel.FEProp.setProperty("New Audio Language", NewcontentLang);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-			mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
-
-			String id = getWebDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			if (userType.equals("Guest")) {
@@ -7620,31 +7671,11 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			extent.extentLogger("Audio Track", "Audio Track is not available for the content");
 		}
 
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
-
-		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
-		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		fetchUserType(local);
-		if (userType.equals("Guest")) {
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
-		} else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Audio Language Change");
-		}
-
 	}
 
 	public void verifyAudioLanguageChangeEventForContentInTray() throws Exception {
 		extent.HeaderChildNode("Verify Audio Language Change Event For Content played from Tray");
+		mandatoryRegistrationPopUp(userType);
 		click(PWAPremiumPage.objThumbnail, "Content From a tray");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
@@ -7655,17 +7686,33 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
 			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
 			click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+			
+			click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+			String contentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+			String oldLang = mixpanel.languageShortform(contentLang);
+			
+			System.out.println("contentLang : "+contentLang);
+			System.out.println("old Lang : "+oldLang);
+			click(PWAPlayerPage.objSelectAudioLanguage, "Audio Track");
 			waitTime(5000);
-
-			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
-			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-			mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
-
-			String id = getWebDriver().getCurrentUrl();
-			ResponseInstance.getContentDetails(fetchContentID(id));
+			ResponseInstance.getContentDetails(fetchContentID(getWebDriver().getCurrentUrl()));
+			click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+			String NewcontentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+			System.out.println("contentLang : "+NewcontentLang);
+			String newLang = mixpanel.languageShortform(NewcontentLang);
+			System.out.println("new Lang : "+newLang);
+			Mixpanel.FEProp.setProperty("Content Original Language",oldLang);
+			mixpanel.FEProp.setProperty("New Audio Language", NewcontentLang);
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
+			
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
+			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+			
+			
 			if (userType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Audio Language Change");
 			} else {
@@ -7684,6 +7731,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 10, "Search Result");
+		mandatoryRegistrationPopUp(userType);
 		click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
@@ -7692,16 +7740,27 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
-		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		String contentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+		String oldLang = mixpanel.languageShortform(contentLang);
+		
+		System.out.println("contentLang : "+contentLang);
+		System.out.println("old Lang : "+oldLang);
+		click(PWAPlayerPage.objSelectAudioLanguage, "Audio Track");
 		waitTime(5000);
-
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		ResponseInstance.getContentDetails(fetchContentID(getWebDriver().getCurrentUrl()));
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		String NewcontentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+		System.out.println("contentLang : "+NewcontentLang);
+		String newLang = mixpanel.languageShortform(NewcontentLang);
+		System.out.println("new Lang : "+newLang);
+		Mixpanel.FEProp.setProperty("Content Original Language",oldLang);
+		mixpanel.FEProp.setProperty("New Audio Language", NewcontentLang);
+		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
 
-		String id = getWebDriver().getCurrentUrl();
-		ResponseInstance.getContentDetails(fetchContentID(id));
+		
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -7718,6 +7777,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, audioTrackContent + "\n", "Search Edit box: " + audioTrackContent);
 			waitTime(4000);
+			mandatoryRegistrationPopUp(userType);
 			waitForElement(PWASearchPage.objSearchResultTxt(audioTrackContent), 10, "Search Result");
 			click(PWASearchPage.objSearchResultTxt(audioTrackContent), "Search Result");
 			waitTime(4000);
@@ -7732,7 +7792,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
 
 			click(PWAAddToWatchListPage.objWatchlistedItem, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -7740,15 +7799,26 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
 				click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
 				click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+				String contentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+				String oldLang = mixpanel.languageShortform(contentLang);
+				
+				System.out.println("contentLang : "+contentLang);
+				System.out.println("old Lang : "+oldLang);
+				click(PWAPlayerPage.objSelectAudioLanguage, "Audio Track");
 				waitTime(5000);
-
+				ResponseInstance.getContentDetails(fetchContentID(getWebDriver().getCurrentUrl()));
+				click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+				click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+				String NewcontentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+				System.out.println("contentLang : "+NewcontentLang);
+				String newLang = mixpanel.languageShortform(NewcontentLang);
+				System.out.println("new Lang : "+newLang);
+				Mixpanel.FEProp.setProperty("Content Original Language",oldLang);
+				mixpanel.FEProp.setProperty("New Audio Language", NewcontentLang);
 				mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-				mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
-
-				String id = getWebDriver().getCurrentUrl();
-				ResponseInstance.getContentDetails(fetchContentID(id));
+				
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				if (userType.equals("Guest")) {
@@ -7771,7 +7841,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		Actions actions = new Actions(getWebDriver());
 		WebElement contentCard = getWebDriver().findElement(PWAHomePage.objHomeBarText("Movies"));
 		actions.moveToElement(contentCard).build().perform();
-
+		mandatoryRegistrationPopUp(userType);
 		click(PWAPlayerPage.megaMenuContentCard, "Content Card in Megamenu");
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete("Video Player");
@@ -7781,16 +7851,26 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		if (checkElementDisplayed(PWAPlayerPage.objPlayerAudioTrack, "Audio Track") == true) {
 			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
-			click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+			String contentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+			String oldLang = mixpanel.languageShortform(contentLang);
+			
+			System.out.println("contentLang : "+contentLang);
+			System.out.println("old Lang : "+oldLang);
+			click(PWAPlayerPage.objSelectAudioLanguage, "Audio Track");
 			waitTime(5000);
-
+			ResponseInstance.getContentDetails(fetchContentID(getWebDriver().getCurrentUrl()));
+			click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+			click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+			String NewcontentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+			System.out.println("contentLang : "+NewcontentLang);
+			String newLang = mixpanel.languageShortform(NewcontentLang);
+			System.out.println("new Lang : "+newLang);
+			Mixpanel.FEProp.setProperty("Content Original Language",oldLang);
+			mixpanel.FEProp.setProperty("New Audio Language", NewcontentLang);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-			mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
-
-			String id = getWebDriver().getCurrentUrl();
-			ResponseInstance.getContentDetails(fetchContentID(id));
+			
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			if (userType.equals("Guest")) {
@@ -7822,16 +7902,27 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
-		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		String contentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+		String oldLang = mixpanel.languageShortform(contentLang);
+		
+		System.out.println("contentLang : "+contentLang);
+		System.out.println("old Lang : "+oldLang);
+		click(PWAPlayerPage.objSelectAudioLanguage, "Audio Track");
 		waitTime(5000);
+		ResponseInstance.getContentDetails(fetchContentID(getWebDriver().getCurrentUrl()));
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		String NewcontentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+		System.out.println("contentLang : "+NewcontentLang);
+		String newLang = mixpanel.languageShortform(NewcontentLang);
+		System.out.println("new Lang : "+newLang);
+		Mixpanel.FEProp.setProperty("Content Original Language",oldLang);
+		mixpanel.FEProp.setProperty("New Audio Language", NewcontentLang);
 
 		mixpanel.FEProp.setProperty("Source", "episode_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
-
-		String id = getWebDriver().getCurrentUrl();
-		ResponseInstance.getContentDetails(fetchContentID(id));
+	
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -7862,16 +7953,26 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
-		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		String contentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+		String oldLang = mixpanel.languageShortform(contentLang);
+		
+		System.out.println("contentLang : "+contentLang);
+		System.out.println("old Lang : "+oldLang);
+		click(PWAPlayerPage.objSelectAudioLanguage, "Audio Track");
 		waitTime(5000);
-
+		ResponseInstance.getContentDetails(fetchContentID(getWebDriver().getCurrentUrl()));
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		String NewcontentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+		System.out.println("contentLang : "+NewcontentLang);
+		String newLang = mixpanel.languageShortform(NewcontentLang);
+		System.out.println("new Lang : "+newLang);
+		Mixpanel.FEProp.setProperty("Content Original Language",oldLang);
+		mixpanel.FEProp.setProperty("New Audio Language", NewcontentLang);
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
-
-		String id = getWebDriver().getCurrentUrl();
-		ResponseInstance.getContentDetails(fetchContentID(id));
+	
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -7890,16 +7991,26 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
 		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
-		click(PWAPlayerPage.objHindiAudioTrack, "Hindi Audio Track");
+		String contentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+		String oldLang = mixpanel.languageShortform(contentLang);
+		
+		System.out.println("contentLang : "+contentLang);
+		System.out.println("old Lang : "+oldLang);
+		click(PWAPlayerPage.objSelectAudioLanguage, "Audio Track");
 		waitTime(5000);
-
+		ResponseInstance.getContentDetails(fetchContentID(getWebDriver().getCurrentUrl()));
+		click(PWAPlayerPage.objPlayerSettings, "Settings icon");
+		click(PWAPlayerPage.objPlayerAudioTrack, "Audio Track");
+		String NewcontentLang = getText(By.xpath(".//*[@class='subMenuWrapper tickMark']/div"));
+		System.out.println("contentLang : "+NewcontentLang);
+		String newLang = mixpanel.languageShortform(NewcontentLang);
+		System.out.println("new Lang : "+newLang);
+		Mixpanel.FEProp.setProperty("Content Original Language",oldLang);
+		mixpanel.FEProp.setProperty("New Audio Language", NewcontentLang);
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
-
-		String id = getWebDriver().getCurrentUrl();
-		ResponseInstance.getContentDetails(fetchContentID(id));
+		
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -8816,32 +8927,29 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Parental Overlay Impression Event For Free Content");
 			waitTime(4000);
-			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
-			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
-			String password = "";
-			if (userType.equals("NonSubscribedUser")) {
-				password = getParameterFromXML("SettingsNonSubscribedPassword");
-			} else if (userType.equals("SubscribedUser")) {
-				password = getParameterFromXML("SettingsSubscribedPassword");
-			}
-			type(PWALoginPage.objPasswordField, password, "Password field");
-			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
-			waitTime(2000);
-			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
-			
-			if(getText(PWAHamburgerMenuPage.objSelectedParentControl).equals("Restrict All Content")) {
-				click(PWAHamburgerMenuPage.objNoRestrictionSelected,"No Restriction Selected");
-			}
-			click(PWAHamburgerMenuPage.objRestrictAll, "Restrict All");
-			click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
-			type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
-			type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
-			type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
-			type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
-			waitTime(4000);
-			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
-			waitTime(3000);
+//			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+//			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+//			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+//			String password = "";
+//			if (userType.equals("NonSubscribedUser")) {
+//				password = getParameterFromXML("SettingsNonSubscribedPassword");
+//			} else if (userType.equals("SubscribedUser")) {
+//				password = getParameterFromXML("SettingsSubscribedPassword");
+//			}
+//			type(PWALoginPage.objPasswordField, password, "Password field");
+//			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+//			waitTime(2000);
+//			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+//
+//			click(PWAHamburgerMenuPage.objRestrictAll, "Restrict All");
+//			click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
+//			type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
+//			type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
+//			type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
+//			type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
+//			waitTime(4000);
+//			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+//			waitTime(3000);
 			navigateToAnyScreenOnWeb(tabName);
 			clickOnTrayContent(tabName,"Free");
 			
@@ -9252,19 +9360,19 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		}
 	}
 
-	public void verifyParentalOverlayResultEventForFreeContent(String userType, String keyword4) throws Exception {
+	public void verifyParentalOverlayResultEventForFreeContent(String userType, String tabName) throws Exception {
 
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Parental Overlay Result Event For Free Content");
 
-			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, keyword4 + "\n", "Search Edit box: " + keyword4);
-			waitForElement(PWASearchPage.objSearchResultTxt(keyword4), 20, "Search Result");
-			click(PWASearchPage.objSearchResultTxt(keyword4), "Search Result");
+			navigateToAnyScreenOnWeb(tabName);
+			clickOnTrayContent(tabName,"Free");
+			
 			mandatoryRegistrationPopUp(userType);
 			waitForPlayerAdToComplete("Video Player");
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
+			waitTime(5000);
 
 			click(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
 			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
@@ -9273,8 +9381,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			type(PWAHamburgerMenuPage.objParentalLockPin4player, "4", "ParentalLockPin");
 			waitTime(5000);
 
-			mixpanel.FEProp.setProperty("Source", "search");
-			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Source", "Content Language");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
 			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
@@ -13538,14 +13646,18 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 	public String pageName() throws Exception {
 		waitTime(2000);
 		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
+		System.out.println("JS : "+js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))));
 		String pageNameTxt = js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))).toString();
+//				findElement(By.xpath(".//*[@class='noSelect active ']")).getText();
+		System.out.println("Page : "+pageNameTxt);
+		System.out.println("JS : "+js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))));
+		System.out.println(findElement(By.xpath(".//*[@class='noSelect active ']")).getAttribute("href"));
+		System.out.println(pageNameTxt.replaceAll(" ","").toLowerCase());
 		if (pageNameTxt.equals("Shows")) {
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 1) {
-				ResponseInstance.pageName = "episode";
 				return handler.getproperty("episode_details".toLowerCase());
 			}
 		}
-		ResponseInstance.pageName = pageNameTxt;
 		return handler.getproperty((pageNameTxt.replaceAll(" ","") + "_details").toLowerCase());
 	}
 

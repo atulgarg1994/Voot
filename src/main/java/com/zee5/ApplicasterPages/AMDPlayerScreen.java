@@ -117,4 +117,6 @@ public class AMDPlayerScreen {
 	
 	public static By objPlayer = By.xpath("//*[@id='controller'] | //*[@id='playerTouchToHideShowController'] | (//*[@class='android.widget.FrameLayout'])[9]");
 	
+	public static By objPause = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerPlayPauseButton' and @text='P']");
+	public static By objPlay = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerPlayPauseButton' and @text='p']");
 }

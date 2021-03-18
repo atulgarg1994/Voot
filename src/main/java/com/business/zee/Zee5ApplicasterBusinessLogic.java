@@ -10100,7 +10100,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 	 * Author : Sushma Module : Player
 	 */
 	public void PlayerPotrait(String searchKeyword, String usertype) throws Exception {
-		extent.HeaderChildNode("Potrait mode validation");
+		extent.HeaderChildNode("Potrait mode validation : Player controls Auto Hiding");
 		System.out.println("\nPotrait mode validation");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -10108,127 +10108,133 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		hideKeyboard();
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 		click(AMDSearchScreen.objSearchResultContainsText(searchKeyword), "Search result");
-
+		waitTime(5000);
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			waitForAdToFinishInAmd();
 		}
-		registerPopUpClose(); 
-		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-		if (verifyElementExist(AMDPlayerScreen.objPlayerScreen, "Player screen")) {
-			waitTime(6000);
-			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-			waitTime(1000);
-			verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Pause icon");
-			waitTime(7000);
-			logger.info("Waited for some time");
-			extent.extentLogger("", "Waited for some time");
-			if (verifyIsElementDisplayed(AMDPlayerScreen.objFullscreenIcon)) {
-				logger.error("Player controls are not auto hidden after keeping the player ideal for few secs");
-				extentLoggerFail("","Player controls are not auto hide after keeping the player ideal for few secs");
-			} else {
-				logger.info("Player controls are auto hidden after keeping the player ideal for few secs");
-				extentLogger("","Player controls are auto hidden after keeping the player ideal for few secs");
-			}
-			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
-			waitTime(1000);
-			verifyElementPresent(AMDPlayerScreen.objPlayIcon, "Play icon");
-			verifyElementPresent(AMDPlayerScreen.objNextIcon, "Next icon");
-			click(AMDPlayerScreen.objNextIcon, "Next icon");
-			if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-				waitForAdToFinishInAmd();
-			}
+		if(userType.equals("Guest"))
 			registerPopUpClose(); 
-			completeProfilePopUpClose(usertype); 
-			waitTime(3000);
-			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
-			waitTime(1000);
-			verifyElementPresent(AMDPlayerScreen.objPreviousIcon, "Previous icon");
-			waitTime(1000);
-			verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
-			waitTime(5000);
-			GetAndVerifyOrientation("Landscape");
-			click(AMDPlayerScreen.objPlayerScreen, "Player screen");//added to display player controls
-			verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Minimize icon");
-			waitTime(5000);
-			click(AMDPlayerScreen.objPlayerScreen, "Player screen");//added to display player controls
-			// -----------verifying Elapsed timer--------//
-			String time1 = getText(AMDPlayerScreen.objTimer);			
-			logger.info("Elapsed time displayed : "+time1);
-			extentLogger("", "Elapsed time displayed : "+time1);
-			int elapsedTime = timeToSec(time1);
-			String time2 = getText(AMDPlayerScreen.objTotalDuration);
-			logger.info("Total time displayed : "+time2);
-			extentLogger("", "Total time displayed : "+time2);
-			int totalTime = timeToSec(time2);
-			if (elapsedTime < totalTime) {
-				logger.info("Elapsed time is lesser than Total time, expected behavior");
-				extentLoggerPass("", "Elapsed time is lesser than Total time, expected behavior");
-			} else {
-				logger.info("Elapsed time is not lesser than Total time");
-				extentLoggerFail("", "Elapsed time is not lesser than Total time");
-			}
-			
-			WebElement elementElapsedBtn = findElement(AMDPlayerScreen.objTimer);
-			int etimeBtnleftX = elementElapsedBtn.getLocation().getX();
-			int etimeBtnrightX = etimeBtnleftX + elementElapsedBtn.getSize().getWidth();
-			int etimemiddleX = (etimeBtnrightX + etimeBtnleftX) / 2;
-			Dimension sizee = getDriver().manage().window().getSize();
-			int screenmid=sizee.getWidth()/2;
-			if (etimemiddleX < screenmid) {
-				logger.info("Elapsed timer is displayed on left corner as expected");
-				extent.extentLoggerPass("Elapsed time", "Elapsed timer is displayed on left corner as expected");
-			} else {
-				logger.error("Elapsed timer is not displayed on left corner");
-				extent.extentLoggerFail("Elapsed timer", "Elapsed timer is not displayed on left corner");
-			}
-
-			// -----------verifying Total Content Duration---------//
-			WebElement elementTotDur = findElement(AMDPlayerScreen.objTotalDuration);
-			int eleTotDurRightX = elementTotDur.getLocation().getX();		
-			int sizeee = sizee.getWidth() - 500;
-			if (eleTotDurRightX >= sizeee) {
-				logger.info("Content duration is displayed on right corner as expected");
-				extent.extentLoggerPass("Content duration", "Content duration is displayed on right corner as expected");
-			} else {
-				logger.error("Content duration is not displayed on right corner");
-				extent.extentLoggerFail("Content duration", "Content duration is not displayed on right corner");
-			}
-
-			if (findElement(AMDPlayerScreen.objChromeCastIcon).isEnabled() == false) {
-				logger.info("Chrome cast icon is displayed in disabled state");
-				extent.extentLoggerPass("Chrome cast", "Chrome cast icon is displayed in disabled state");
-			} else {
-				logger.error("Chrome cast icon is not displayed in disabled state");
-				extent.extentLoggerFail("Chrome cast", "Chrome cast icon is not displayed in disabled state");
-			}
-			click(AMDPlayerScreen.objPlayIcon, "Play icon");
-			verifyPlaybackAfterLockAndUnlock();
-			waitTime(5000);
-			verifyPlaybackAfterMinimzeAndMaximizeAppFromBackground();
-			ForwardAndRewindThePlayerByDoubleTapping(1);
-			seekVideoFunctionality(AMDPlayerScreen.objProgressBar, usertype);
-			verifyPlaybackAfterNetworkInterruption();
-			Back(1);
-			}	
+		waitTime(6000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		waitTime(1000);
+		verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		waitTime(7000);
+		logger.info("Waited for some time");
+		extent.extentLogger("", "Waited for some time");
+		if (verifyIsElementDisplayed(AMDPlayerScreen.objFullscreenIcon)) {
+			logger.error("Player controls are not auto hidden after keeping the player ideal for few secs");
+			extentLoggerFail("","Player controls are not auto hide after keeping the player ideal for few secs");
+		} else {
+			logger.info("Player controls are auto hidden after keeping the player ideal for few secs");
+			extentLogger("","Player controls are auto hidden after keeping the player ideal for few secs");
+		}
+		extent.HeaderChildNode("Potrait icons validation");
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		click(AMDPlayerScreen.objPause, "Pause icon");
+		verifyElementPresent(AMDPlayerScreen.objPlay, "Play icon");
+		verifyElementPresent(AMDPlayerScreen.objNextIcon, "Next icon");
+		click(AMDPlayerScreen.objNextIcon, "Next icon");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		if(userType.equals("Guest"))
+			registerPopUpClose(); 
+		waitTime(3000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		click(AMDPlayerScreen.objPause, "Pause icon");
+		verifyElementPresent(AMDPlayerScreen.objPreviousIcon, "Previous icon");
+		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+		waitTime(5000);
+		GetAndVerifyOrientation("Landscape");
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Minimize icon");
+		waitTime(5000);
+		extent.HeaderChildNode("Elapsed and Total Duration");
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		// -----------verifying Elapsed timer--------//
+		String time1 = getText(AMDPlayerScreen.objTimer);			
+		logger.info("Elapsed time displayed : "+time1);
+		extentLogger("", "Elapsed time displayed : "+time1);
+		int elapsedTime = timeToSec(time1);
+		tapPlayerToGetControls("portrait");
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		String time2 = getText(AMDPlayerScreen.objTotalDuration);
+		logger.info("Total time displayed : "+time2);
+		extentLogger("", "Total time displayed : "+time2);
+		int totalTime = timeToSec(time2);
+		if (elapsedTime < totalTime) {
+			logger.info("Elapsed time is lesser than Total time, expected behavior");
+			extentLoggerPass("", "Elapsed time is lesser than Total time, expected behavior");
+		} else {
+			logger.info("Elapsed time is not lesser than Total time");
+			extentLoggerFail("", "Elapsed time is not lesser than Total time");
+		}
+		waitTime(5000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		WebElement elementElapsedBtn = findElement(AMDPlayerScreen.objTimer);
+		int etimeBtnleftX = elementElapsedBtn.getLocation().getX();
+		int etimeBtnrightX = etimeBtnleftX + elementElapsedBtn.getSize().getWidth();
+		int etimemiddleX = (etimeBtnrightX + etimeBtnleftX) / 2;
+		Dimension sizee = getDriver().manage().window().getSize();
+		int screenmid=sizee.getWidth()/2;
+		if (etimemiddleX < screenmid) {
+			logger.info("Elapsed timer is displayed on left corner as expected");
+			extent.extentLoggerPass("Elapsed time", "Elapsed timer is displayed on left corner as expected");
+		} else {
+			logger.error("Elapsed timer is not displayed on left corner");
+			extent.extentLoggerFail("Elapsed timer", "Elapsed timer is not displayed on left corner");
+		}
+		
+		// -----------verifying Total Content Duration---------//
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		WebElement elementTotDur = findElement(AMDPlayerScreen.objTotalDuration);
+		int eleTotDurRightX = elementTotDur.getLocation().getX();		
+		int sizeee = sizee.getWidth() - 500;
+		if (eleTotDurRightX >= sizeee) {
+			logger.info("Content duration is displayed on right corner as expected");
+			extent.extentLoggerPass("Content duration", "Content duration is displayed on right corner as expected");
+		} else {
+			logger.error("Content duration is not displayed on right corner");
+			extent.extentLoggerFail("Content duration", "Content duration is not displayed on right corner");
+		}
+		extent.HeaderChildNode("Chromecast icon presence");
+		waitTime(4000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		if (findElement(AMDPlayerScreen.objChromeCastIcon).isEnabled() == false) {
+			logger.info("Chrome cast icon is displayed in disabled state");
+			extent.extentLoggerPass("Chrome cast", "Chrome cast icon is displayed in disabled state");
+		} else {
+			logger.error("Chrome cast icon is not displayed in disabled state");
+			extent.extentLoggerFail("Chrome cast", "Chrome cast icon is not displayed in disabled state");
+		}
+		verifyPlaybackAfterLockAndUnlock();
+		waitTime(5000);
+		verifyPlaybackAfterMinimzeAndMaximizeAppFromBackground();
+		ForwardAndRewindThePlayerByDoubleTapping(1);
+		seekVideoFunctionality(AMDPlayerScreen.objProgressBar, usertype);
+		verifyPlaybackAfterNetworkInterruption();
+		Back(1);	
 	}
 	
 	public void seekVideoFunctionality(By byLocator, String usertype) throws Exception {
-		click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
+		extent.HeaderChildNode("Seek Functionality");
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
 		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
 		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
+		waitTime(5000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		WebElement element = getDriver().findElement(byLocator);
 		Dimension size = element.getSize();
-		int startx = (int) (size.width);
-		click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
-		SwipeAnElement(element, startx-100, 0);
+		int x = (int) (size.width);
+		SwipeAnElement(element,x-100,0);
 		logger.info("Scrolled the seek bar");
 		extent.extentLogger("Seek", "Scrolled the seek bar");
+		waitTime(10000);
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			waitForAdToFinishInAmd();			
 		}
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
 		logger.info("Current time after seeking in seconds : " + timeToSec(afterSeek));
 		extent.extentLogger("Seek", "Current time after seeking in seconds : " + timeToSec(afterSeek));
@@ -10244,6 +10250,8 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 	public void verifyPlaybackAfterNetworkInterruption() throws Exception {
 		extent.HeaderChildNode("Validation of content playback after Network Interruption");
 		System.out.println("\nValidation of content playback after Network Interruption");
+		waitTime(5000);
+		tapPlayerToGetControls("portrait");
 		String time1 = getText(AMDPlayerScreen.objTimer);
 		int startTime = timeToSec(time1);
 		System.out.println(startTime);
@@ -10254,7 +10262,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		verifyElementPresent(AMDPlayerScreen.objRetryBtn, "Retry CTA");
 		TurnONWifi();
 		waitTime(5000);
-		click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
+		tapPlayerToGetControls("portrait");
 		String time2 = getText(AMDPlayerScreen.objTimer);
 		int elapsedTime = timeToSec(time2);
 		logger.info("Time captured after network is connected : " + elapsedTime);
@@ -10341,6 +10349,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 
 	@SuppressWarnings("rawtypes")
 	public void ForwardAndRewindThePlayerByDoubleTapping(int n) throws Exception {
+		extent.HeaderChildNode("Verification of Forward and Rewind of a playback");
 		System.out.println("\nVerification of Forward and Rewind of a playback");
 		int playerX = Integer.valueOf(getAttributValue("x", AMDPlayerScreen.objPlayerScreen));
 		System.out.println(playerX);
@@ -10357,17 +10366,18 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		int xValueForward = (int) (playerX+(playerWidth*(0.75)));
 		System.out.println(xValueForward);
 		int yValueForward = yValueRewind;
-		System.out.println(yValueForward);
-		touchAction = new TouchAction(getDriver());	
+		System.out.println(yValueForward);	
+		tapPlayerToGetControls("portrait");
 		String timeBeforeForward = getText(AMDPlayerScreen.objTimer);
 		int timebeforeforward = timeToSec(timeBeforeForward);
 		logger.info("Time captured before forward: " + timeBeforeForward);
 		extentLogger("Forward", "Time captured before forward: " + timeBeforeForward);
 		waitTime(3000);
+		touchAction = new TouchAction(getDriver());	
 		for (int i = 0; i < n; i++) {
 			touchAction.press(PointOption.point(xValueForward, yValueForward)).release().perform().press(PointOption.point(xValueForward, yValueForward)).release().perform();
 		}
-		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		tapPlayerToGetControls("portrait");
 		String timeAfterForward = getText(AMDPlayerScreen.objTimer);
 		int timeafterforward = timeToSec(timeAfterForward);
 		logger.info("Time captured after forward: " + timeAfterForward);
@@ -10383,6 +10393,8 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			extentLoggerFail("Forward the playback", "User is NOT able to fast forward the playback on double tapping "
 					+ n + " time in the player screen for " + ((n) * 10) + "secs");
 		}
+		waitTime(2000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		String timeBeforeRewind = getText(AMDPlayerScreen.objTimer);
 		int timebeforerewind = timeToSec(timeBeforeRewind);
 		logger.info("Time captured before rewind: " + timeBeforeRewind);
@@ -10406,7 +10418,6 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			extentLoggerFail("Rewind the playback", "User is NOT able to fast rewind the playback on double tapping "
 					+ n + " time in the player screen for " + (n * 10) + "secs");
 		}
-		
 	}
 
 
@@ -10556,6 +10567,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 	 * Author : Sushma Module : Player
 	 */
 
+
 	public void ValidationOfReplayIconOnPlayer(String searchKeyword) throws Exception {
 		extent.HeaderChildNode("Validation of Replay icon on Player");
 		System.out.println("\nValidation of Replay icon on Player");
@@ -10583,15 +10595,16 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 		click(AMDSearchScreen.objSearchResultContainsText(searchKeyword), "Search result");
 		waitTime(10000);	
-		registerPopUpClose();
+		if(userType.equals("Guest"))
+			registerPopUpClose();
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			waitForAdToFinishInAmd();
 		}
-		registerPopUpClose();
+		if(userType.equals("Guest"))
+			registerPopUpClose();
 		String contentTitle1 = getText(AMDPlayerScreen.objcontentTitleInconsumptionPage);
 		waitTime(5000);
-		//click(AMDPlayerScreen.objPlayerScreen, "Player screen");		
-		tapPlayerToGetControls("portrait");
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");		
 		WebElement element = getDriver().findElement(AMDPlayerScreen.objProgressBar);
 		Dimension size = element.getSize();
 		int startx = (int) (size.width);
@@ -12378,11 +12391,16 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 	public void verifyPlaybackAfterMinimzeAndMaximizeAppFromBackground() throws Exception {
 		extent.HeaderChildNode("Validation of content playback after minimize and maximize app from background");
 		System.out.println("\nValidation of content playback after minimize and maximize app from background");
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		String time1 = getText(AMDPlayerScreen.objTimer);
 		int startTime = timeToSec(time1);
 		logger.info("Time before minimizing app from background : " + startTime);
 		extentLogger("Time", "Time before minimizing app from background : " + startTime);
 		getDriver().runAppInBackground(Duration.ofSeconds(10));
+		logger.info("App is put to background");
+		extentLogger("Time", "App is put to background");
+		waitTime(1000);
+		tapPlayerToGetControls("portrait");
 		String time2 = getText(AMDPlayerScreen.objTimer);
 		int elapsedTime = timeToSec(time2);
 		logger.info("Time after maximizing app from background : " + elapsedTime);
@@ -12399,10 +12417,10 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 	public void verifyPlaybackAfterLockAndUnlock() throws Exception {
 		extent.HeaderChildNode("Validation of content playback after lock and unlocking the device screen");
 		System.out.println("\nValidation of content playback after lock and unlocking the device screen");
-
+		waitTime(4000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		String time1 = getText(AMDPlayerScreen.objTimer);
 		int startTime = timeToSec(time1);
-
 		logger.info("Time before locking the device screen : " + startTime);
 		extentLogger("Time", "Time before locking the device screen : " + startTime);
 		adbKeyevents(26);
@@ -12410,9 +12428,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		adbKeyevents(26);
 		waitTime(3000);
 		Swipe("Up", 1);
-		//waitTime(5000);
-		//click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-		//click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		String time2 = getText(AMDPlayerScreen.objTimer);
 		int elapsedTime = timeToSec(time2);
 
@@ -12448,7 +12464,9 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 
 	public void premiumContentwithTrailer(String userType, String searchKeyword) throws Exception {
 		extent.HeaderChildNode("Select Subtitle during trailer playback");
-		System.out.println("\nSelect Subtitle during trailer playback");
+		System.out.println("\nSelect Subtitle during trailer playback");		
+		//click(AMDSearchScreen.objSearchIcon, "Search icon");
+		//click(AMDSearchScreen.objSearchEditBox, "Search Box");
 		click(AMDSearchScreen.objSearchBoxBar, "Search Box");
 		clearField(AMDSearchScreen.objSearchBoxBar, "Search box");
 		type(AMDSearchScreen.objSearchBoxBar, searchKeyword + "\n", "Search bar");
@@ -12457,8 +12475,9 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			waitForAdToFinishInAmd();
 		}
-		registerPopUpClose(); 
-		tapPlayerToGetControls("portrait");
+		if(userType.equals("Guest"))
+			registerPopUpClose(); 
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		waitTime(1000);
 		if (checkElementExist(AMDPlayerScreen.objPlayerScreen, "Player screen")) {
@@ -12555,9 +12574,9 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 	}
 
 
-	public void premiumContentWithoutTrailer(String userType, String searchKeyword) throws Exception {
-		System.out.println("\nPremium content without Trailer");
+	public void premiumContentWithoutTrailer(String userType, String searchKeyword) throws Exception {	
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			System.out.println("\nPremium content without Trailer");
 			extent.HeaderChildNode("Verifing Premium content without Trailer");
 			waitTime(2000);
 			click(AMDSearchScreen.objSearchBoxBar, "Search Box");
@@ -12822,9 +12841,8 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		}
 		registerPopUpClose();
 		completeProfilePopUpClose(usertype);
-		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 10);
-		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		waitTime(2000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");	
 		String time1 = getText(AMDPlayerScreen.objTimer);
 		int startTime = timeToSec(time1);
 		logger.info("Time before clicking on Skip Intro CTA : " + startTime);

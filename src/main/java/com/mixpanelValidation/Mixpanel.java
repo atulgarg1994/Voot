@@ -645,5 +645,11 @@ public class Mixpanel extends ExtentReporter {
 			}
 		}
 	}
+	
+	public String languageShortform(String lang) {
+		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
+		String lng = handler.getproperty(lang.toLowerCase());
+		return lng;
+	}
 
 }
