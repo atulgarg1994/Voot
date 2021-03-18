@@ -7570,7 +7570,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 
 	public void AboutUsScreenValidation(String userType) throws Exception {
 		extent.HeaderChildNode("Verifying About Us screen as " + userType);
-		System.out.println("Verifying About Us screen as " + userType);
+		System.out.println("\nVerifying About Us screen as " + userType);
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
 		Swipe("UP", 1);
 		SwipeUntilFindElement(AMDMoreMenu.objAboutUs, "UP");
@@ -7578,7 +7578,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		verifyElementExist(AMDMoreMenu.objAboutUsHeader, "About Us Header");
 		if (checkElementExist(AMDMoreMenu.objAboutUsHeader, "About Us Header")) {
 			logger.info("User is navigated to About Us screen");
-			extent.extentLogger("About Us", "User is navigated to About Us screen");
+			extent.extentLoggerPass("About Us", "User is navigated to About Us screen");
 		} else {
 			logger.error("User is unable to navigate to About Us screen");
 			extent.extentLoggerFail("About Us", "User is unable to navigate to About Us screen");
@@ -7588,20 +7588,22 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 				"Breif Description about the Application in About Use Screen");
 
 		PartialSwipe("UP", 2);
+		SwipeUntilFindElement(AMDMoreMenu.objHyperLinkInAboutUsScreen, "UP");
 		verifyElementExist(AMDMoreMenu.objHyperLinkInAboutUsScreen, "Hyper link in About Us screen");
 //		String str = getElementPropertyToString("content-desc",AMDMoreMenu.objHyperLinkInAboutUsScreen,"Hyper Link");
 //		System.out.println("Hyper link in About us Sceen is " + str);
 		click(AMDMoreMenu.objHyperLinkInAboutUsScreen, "Hyper link");
 		if (verifyIsElementDisplayed(AMDMoreMenu.objPageNotFoundMsg)) {
 			logger.error(
-					"On clicking the Hyper link, user is unable to navigate to the respective page of Hyper link [Jira-Id: ZNA-2528]");
+					"On clicking the Hyper link, user is unable to navigate to the respective page of Hyper link [Jira-Id: ZNA-2528|AMA2-5704]");
 			extent.extentLoggerFail("Hyper Link",
-					"On clicking the Hyper link, User is unable to navigate to the respective page of Hyper link [Jira-Id: ZNA-2528]");
+					"[Jira-Id: ZNA-2528|AMA2-5704]- On clicking the Hyper link, User is unable to navigate to the respective page of Hyper link");
+			click(AMDMoreMenu.objcloseButton, "Close button");
 		} else {
 			logger.info("User is navigated to the respective page of the Hyper link");
 			extent.extentLoggerPass("Hyper link", "User is navigated to the respective page of the Hyper link");
 		}
-		Back(2);
+		Back(1);
 	}
 
 	@SuppressWarnings("unused")
@@ -7666,7 +7668,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		verifyElementPresent(AMDMoreMenu.objTermsOfUseHeader, "Terms Of Use Header");
 		if (verifyIsElementDisplayed(AMDMoreMenu.objTermsOfUseHeader)) {
 			logger.info("User is navigated to Terms of Use screen");
-			extent.extentLogger("Terms of Use", "User is navigated to Terms of Use screen");
+			extent.extentLoggerPass("Terms of Use", "User is navigated to Terms of Use screen");
 		} else {
 			logger.error("User is unable to navigate to Terms of Use screen");
 			extent.extentLoggerFail("Terms of Use", "User is unable to navigate to Terms of Use screen");
@@ -7685,12 +7687,12 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		waitTime(2000);
 		if (verifyIsElementDisplayed(AMDMoreMenu.objInternetErrormsg)) {
 			logger.error("On clicking the Hyperlink " + str1
-					+ " User is unable to navigate to the respective page of Hyperlink [ZNA-2533]");
-			extent.extentLoggerFail("HyperLink", "On clicking the Hyperlink " + str1
-					+ " User is unable to navigate to the respective page of Hyperlink [ZNA-2533]");
+					+ " User is unable to navigate to the respective page of Hyperlink [AMA2-5711]");
+			extent.extentLoggerFail("HyperLink", "[AMA2-5711] - On clicking the Hyperlink " + str1
+					+ " User is unable to navigate to the respective page of Hyperlink");
 		} else {
 			logger.info("User is navigated to the respective page of the Hyperlink " + str1);
-			extent.extentLogger("Hyperlink", "User is navigated to the respective page of the Hyperlink " + str1);
+			extent.extentLoggerPass("Hyperlink", "User is navigated to the respective page of the Hyperlink " + str1);
 		}
 		Back(1);
 		/*
@@ -8113,14 +8115,13 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		extent.HeaderChildNode("Validation of Privacy Policy Screen as " + userType);
 		System.out.println("Validation of Privacy Policy Screen as " + userType);
 		click(AMDHomePage.objMoreMenu, "More menu");
-		Swipe("UP", 2);
-		Swipe("UP", 2);
+		Swipe("UP", 4);
 		verifyElementPresentAndClick(AMDMoreMenu.objPrivacyPolicy, "Privacy Policy option in More menu");
 		waitTime(4000);
 		verifyElementPresent(AMDMoreMenu.objPrivacyPolicyHeader, "Privacy Policy Header");
 		if (verifyIsElementDisplayed(AMDMoreMenu.objPrivacyPolicyHeader)) {
 			logger.info("User is navigated to Privacy Policy screen");
-			extent.extentLogger("Privacy Policy", "User is navigated to Privacy Policy screen");
+			extent.extentLoggerPass("Privacy Policy", "User is navigated to Privacy Policy screen");
 		} else {
 			logger.error("User is unable to navigate to Privacy Policy screen");
 			extent.extentLoggerFail("Privacy Policy", "User is unable to navigate to Privacy Policy screen");
@@ -8135,12 +8136,12 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		click(AMDMoreMenu.objHyperlinkInPrivacyPolicy, "Hyperlink " + str1);
 		if (verifyIsElementDisplayed(AMDMoreMenu.objPrivacyPolicyPageWithinbrowser)) {
 			logger.info("On clicking the Hyperlink " + str1 + " , User is able to navigate to the respective page");
-			extent.extentLogger("HyperLink",
+			extent.extentLoggerPass("HyperLink",
 					"On clicking the Hyperlink " + str1 + " , User is able to navigate to the respective page");
 		} else {
-			logger.error("User is unable to navigate to the respective page of the Hyperlink [ZNA-2533] " + str1);
+			logger.error("User is unable to navigate to the respective page of the Hyperlink [AMA2-5711] " + str1);
 			extent.extentLoggerFail("Hyperlink",
-					"User is unable to navigate to the respective page of the Hyperlink [ZNA-2533] " + str1);
+					"[AMA2-5711] - User is unable to navigate to the respective page of the Hyperlink" + str1);
 		}
 		waitTime(2000);
 		Back(1);
@@ -8180,6 +8181,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		click(AMDHomePage.objMoreMenu, "More menu");
 		waitTime(1000);
 		Swipe("UP", 2);
+		waitTime(2000);
 		// About Us
 		boolean aboutUsInKannada = verifyElementPresentAndClick(AMDMoreMenu.objAboutUsInKannada,
 				"About Us option in Kannada");
@@ -8733,24 +8735,23 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		switch (userType) {
 		case "Guest":
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+			waitTime(1000);
 			click(AMDMoreMenu.objWatchlist, "My Watchlist");
 			if (verifyElementDisplayed(AMDLoginScreen.objLoginOrRegisterPageTitle)) {
 				logger.info("User navigated to login or register screen post taping on my watchlist");
-				extent.extentLogger("watchlist",
-						"User navigated to login or register screen post taping on my watchlist");
+				extent.extentLoggerPass("Watchlist", "User navigated to Login/Register screen post taping on my watchlist");
 			} else {
-				logger.error("User is not navigated to login or register screen post taping on my watchlist");
-				extent.extentLoggerFail("watchlist",
-						"User is not navigated to login or register screen post taping on my watchlist");
+				logger.error("User is not navigated to Login/Register screen post taping on my watchlist");
+				extent.extentLoggerFail("Watchlist", "User is not navigated to login or register screen post taping on my watchlist");
 			}
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objBackBtn, "Back button");
 			if (verifyElementDisplayed(AMDMoreMenu.objWatchlist)) {
 				logger.info("User is navigate back to more menu");
-				extent.extentLogger("watchlist", "User is navigate back to more menu");
+				extent.extentLoggerPass("Watchlist", "User is navigate back to more menu");
 			} else {
 				logger.error("User is not navigate back to more menu");
-				extent.extentLoggerFail("watchlist", "User is not navigate back to more menu");
+				extent.extentLoggerFail("Watchlist", "User is not navigate back to more menu");
 			}
 			break;
 		case "NonSubscribedUser":
@@ -8925,6 +8926,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			HeaderChildNode("Validate My Reminder");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
 			click(AMDMoreMenu.objMyRemainders, "My Remainders");
+			waitTime(2000);
 			if (verifyIsElementDisplayed(AMDLoginScreen.objLoginOrRegisterPageTitle)) {
 				logger.info("User navigated to login or register screen post taping on My Remainders");
 				extent.extentLogger("My Remainders",
@@ -8960,7 +8962,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		click(AMDMoreMenu.objMyRemainders, "My Remainders");
 		if (verifyElementDisplayed(AMDMyReminderPage.objReminberHeaderTitle)) {
 			logger.info("User navigated to  My Reminder  screen post taping on My Remainders");
-			extent.extentLogger("My Remainders", "User navigated to  My Reminder  screen post taping on My Remainders");
+			extent.extentLoggerPass("My Remainders", "User navigated to  My Reminder  screen post taping on My Remainders");
 		} else {
 			logger.error("User is not navigated to  My Reminder  screen post taping on My Remainders");
 			extent.extentLoggerFail("My Remainders",
@@ -8972,7 +8974,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			for (int i = 1; i < findElements(AMDMyReminderPage.objTitleOfContentTxt).size(); i++) {
 				if (findElements(AMDMyReminderPage.objTitleOfContentTxt).get(i).isDisplayed()) {
 					logger.info("Title of the content in reminder screen is displayed");
-					extent.extentLogger("My Remainders", "Title of the content in reminder screen is displayed");
+					extent.extentLoggerPass("My Remainders", "Title of the content in reminder screen is displayed");
 				} else {
 					logger.error("Title of the content in reminder screen is not displayed");
 					extent.extentLoggerFail("My Remainders",
@@ -8980,7 +8982,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 				}
 				if (findElements(AMDMyReminderPage.objEpisodeDatetxt).get(i).isDisplayed()) {
 					logger.info("Date of the content in reminder screen is displayed");
-					extent.extentLogger("My Remainders", "Date of the content in reminder screen is displayed");
+					extent.extentLoggerPass("My Remainders", "Date of the content in reminder screen is displayed");
 				} else {
 					logger.error("Date of the content in reminder screen is not displayed");
 					extent.extentLoggerFail("My Remainders", "Date of the content in reminder screen is not displayed");
@@ -9006,7 +9008,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			click(AMDMyReminderPage.objCloseIcon, "Close icon");
 			if (verifyElementDisplayed(AMDMyReminderPage.objEditBtn)) {
 				logger.info("User navigated to edit screen");
-				extent.extentLogger("My Remainders", "User navigated to edit screen");
+				extent.extentLoggerPass("My Remainders", "User navigated to edit screen");
 			} else {
 				logger.error("User not navigated to edit screen ");
 				extent.extentLoggerFail("My Remainders", "User not navigated to edit screen ");
@@ -9081,38 +9083,42 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		GettingStartedValidation();
 		PartialSwipe("UP", 1);
 		MyAccountValidation();
+		PartialSwipe("UP", 1);
 		WatchingZEE5Validation();
 		PartialSwipe("UP", 1);
 		MyZEE5AppValidation();
+		PartialSwipe("UP", 1);
 		QuickLinksValidation();
 		click(AMDMoreMenu.objcloseButton, "Close button");
 //		click(AMDHomePage.HomeIcon, "Home icon");
 	}
 
 	public void GettingStartedValidation() throws Exception {
-
+		System.out.println("\nValidating links under Getting Started rail");
 		verifyElementExist(AMDMoreMenu.objGettingStartedHeader, "'Getting Started' Header");
 		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("What is ZEE5"), "'What is ZEE5?'");
 		waitTime(5000);
 		if (checkElementExist(AMDMoreMenu.objArticleTitle("What is ZEE5"), "Article title 'What is ZEE5?'")) {
 			logger.info("User is navigated to 'What is ZEE5?' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'What is ZEE5?' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			extent.extentLoggerFail("Verify navigation", "Unable to navigate to page What is ZEE5?");
 			logger.info("Unable to navigate to page What is ZEE5?");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(3000);
 		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Registering with ZEE5"), "'Registering with ZEE5'");
 		waitTime(5000);
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("Registering with ZEE5"))) {
 			logger.info("User is navigated to 'Registering with ZEE5' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'Registering with ZEE5' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'Registering with ZEE5' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'Registering with ZEE5' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(3000);
 		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Purchasing a subscription"),
 				"'Purchasing a subscription'");
@@ -9120,11 +9126,12 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("Purchasing a subscription"))) {
 			logger.info("User is navigated to 'Purchasing a subscription' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'Purchasing a subscription' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'Purchasing a subscription' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'Purchasing a subscription' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(3000);
 		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("How do I watch ZEE5"),
 				"'How do I watch ZEE5 on my television'");
@@ -9132,28 +9139,31 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("How do I watch ZEE5 on my television"))) {
 			logger.info("User is navigated to 'How do I watch ZEE5 on my television?' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'How do I watch ZEE5 on my television?' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'How do I watch ZEE5 on my television?' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'How do I watch ZEE5 on my television?' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(3000);
+		SwipeUntilFindElement(AMDMoreMenu.objMyAccountHeader, "UP");
 		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Renting movies on ZEEPLEX"),
 				"'Renting movies on ZEEPLEX'");
 		waitTime(5000);
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("Renting movies on ZEEPLEX"))) {
 			logger.info("User is navigated to 'Renting movies on ZEEPLEX' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'Renting movies on ZEEPLEX' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'Renting movies on ZEEPLEX' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'Renting movies on ZEEPLEX' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(3000);
 	}
 
 	public void MyAccountValidation() throws Exception {
-
+		System.out.println("\nValidating links under My Account rail");
 		SwipeUntilFindElement(AMDMoreMenu.objMyAccountHeader, "UP");
 
 		verifyElementPresent(AMDMoreMenu.objMyAccountHeader, "'My Account' Header");
@@ -9164,11 +9174,12 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("Managing your Subscription"))) {
 			logger.info("User is navigated to 'Managing your Subscription' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'Managing your Subscription' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");			
 		} else {
 			logger.info("User is not navigated to 'Managing your Subscription' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'Managing your Subscription' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(3000);
 
 		PartialSwipe("Up", 1);
@@ -9179,13 +9190,13 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("sign in to ZEE5"))) {
 			logger.info("User is navigated to 'I can't sign in to ZEE5' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'I can't sign in to ZEE5' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not  navigated to 'I can't sign in to ZEE5' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'I can't sign in to ZEE5' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(3000);
-//		Swipe("Up", 1);
 
 		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("I made a payment but"), "UP");
 		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I made a payment but"),
@@ -9196,36 +9207,36 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 					"User is navigated to 'I made a payment but my subscription isn't active / My subscription is missing' page");
 			extent.extentLoggerPass("Article",
 					"User is navigated to 'I made a payment but my subscription isn't active / My subscription is missing' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info(
 					"User is not navigated to 'I made a payment but my subscription isn't active / My subscription is missing' page");
 			extent.extentLoggerFail("Article",
 					"User is not navigated to 'I made a payment but my subscription isn't active / My subscription is missing' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(3000);
-//		Swipe("Up", 1);
 		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("I want to update my"), "UP");
 
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I want to update my"),
-				"I want to update my profile information");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I want to update my"),"I want to update my profile information");
 		waitTime(5000);
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("I want to update my profile information"))) {
 			logger.info("User is navigated to 'I want to update my profile information' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'I want to update my profile information' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'I want to update my profile information' page");
 			extent.extentLoggerFail("Article",
 					"User is not navigated to 'I want to update my profile information' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(3000);
 	}
 
 	public void QuickLinksValidation() throws Exception {
-		Swipe("Up", 4);
-
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("Quick Links"), "UP");
+		System.out.println("\nValidating links under Quick Links rail");
+		Swipe("Up", 3);
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("How Can I"), "UP");
 
 		verifyElementPresent(AMDMoreMenu.objQueriesHeader("Quick Links"), " 'Quick Links' tab");
 		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("How Can I"), "'How Can I'");
@@ -9233,15 +9244,17 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("How Can I"))) {
 			logger.info("User is navigated to 'How Can I?' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'How Can I?' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
+			
 		} else {
 			logger.info("User is not navigated to 'How Can I?' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'How Can I?' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(2000);
 		Swipe("Up", 4);
 
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("I am unable to watch the ZEEPLEX movie"), "UP");
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("How Can I"), "UP");
 		waitTime(2000);
 		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I am unable to watch the ZEEPLEX movie"),
 				"'I am unable to watch the ZEEPLEX movie'");
@@ -9249,12 +9262,13 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("I am unable to watch the ZEEPLEX movie"))) {
 			logger.info("User is navigated to 'I am unable to watch the ZEEPLEX movie' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'I am unable to watch the ZEEPLEX movie' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'I am unable to watch the ZEEPLEX movie' page");
 			extent.extentLoggerFail("Article",
 					"User is not navigated to 'I am unable to watch the ZEEPLEX movie' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(2000);
 		Swipe("Up", 4);
 
@@ -9265,11 +9279,12 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("ZEE5 Offers"))) {
 			logger.info("User is navigated to 'ZEE5 Offers' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'ZEE5 Offers' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'ZEE5 Offers' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'ZEE5 Offers' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(2000);
 		Swipe("Up", 4);
 
@@ -9280,11 +9295,12 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("ZEE5 Partnerships"))) {
 			logger.info("User is navigated to 'ZEE5 Partnerships' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'ZEE5 Partnerships' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'ZEE5 Partnerships' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'ZEE5 Partnerships' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(2000);
 		Swipe("Up", 4);
 
@@ -9294,19 +9310,20 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("How do I cancel my ZEE5 Subscription"))) {
 			logger.info("User is navigated to 'How do I cancel my ZEE5 Subscription?' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'How do I cancel my ZEE5 Subscription?' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'How do I cancel my ZEE5 Subscription?' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'How do I cancel my ZEE5 Subscription?' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(2000);
 	}
 
 	public void WatchingZEE5Validation() throws Exception {
+		System.out.println("\nValidating links under Watching ZEE5 rail");
 		Swipe("Up", 1);
-
 		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("Watching ZEE5"), "UP");
-
+		PartialSwipe("Up", 1);
 		verifyElementPresent(AMDMoreMenu.objQueriesHeader("Watching ZEE5"), " 'Watching ZEE5' tab");
 		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I need help with playing a video"),
 				"'I need help with playing a video'");
@@ -9314,14 +9331,14 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("I need help with playing a video"))) {
 			logger.info("User is navigated to 'I need help with playing a video' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'I need help with playing a video' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'I need help with playing a video' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'I need help with playing a video' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(2000);
-		// Swipe("Up", 3);
-
+	
 		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("I need help with audio"), "UP");
 		waitTime(2000);
 		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I need help with audio"),
@@ -9330,11 +9347,12 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("I need help with audio"))) {
 			logger.info("User is navigated to 'I need help with audio' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'I need help with audio' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'I need help with audio' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'I need help with audio' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(2000);
 		Swipe("Up", 2);
 
@@ -9345,45 +9363,48 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("I need help with casting ZEE5 on my TV"))) {
 			logger.info("User is navigated to 'I need help with casting ZEE5 on my TV' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'I need help with casting ZEE5 on my TV' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'I need help with casting ZEE5 on my TV' page");
 			extent.extentLoggerFail("Article",
 					"User is not navigated to 'I need help with casting ZEE5 on my TV' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(2000);
 		Swipe("Up", 2);
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("All about downloads"), "UP");
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("My ZEE5 App"), "UP");
 		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("All about downloads"), "'All about downloads'");
 		waitTime(5000);
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("All about downloads"))) {
 			logger.info("User is navigated to 'All about downloads' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'All about downloads' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'All about downloads' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'All about downloads' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(2000);
 		Swipe("Up", 2);
 
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("All about subtitles"), "UP");
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("My ZEE5 App"), "UP");
 		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("All about subtitles"), "'All about subtitles'");
 		waitTime(5000);
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("All about subtitles"))) {
 			logger.info("User is navigated to 'All about subtitles' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'All about subtitles' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'All about subtitles' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'All about subtitles' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(2000);
 	}
 
 	public void MyZEE5AppValidation() throws Exception {
+		System.out.println("\nValidating links under My ZEE5 App rail");
 		Swipe("Up", 3);
-
 		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("My ZEE5 App"), "UP");
 
 		verifyElementPresent(AMDMoreMenu.objQueriesHeader("My ZEE5 App"), " 'My ZEE5 App' tab");
@@ -9392,11 +9413,12 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("App Performance"))) {
 			logger.info("User is navigated to 'App Performance' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'How Can I?' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'App Performance' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'App Performance' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(2000);
 		Swipe("Up", 3);
 
@@ -9408,11 +9430,12 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("authenticate my TV"))) {
 			logger.info("User is navigated to 'I am unable to authenticate my TV' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'I am unable to authenticate my TV' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'I am unable to authenticate my TV' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'I am unable to authenticate my TV' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(2000);
 		Swipe("Up", 3);
 
@@ -9425,12 +9448,13 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			logger.info("User is navigated to 'How can I enable automatic updates for the ZEE5 app?' page");
 			extent.extentLoggerPass("Article",
 					"User is navigated to 'How can I enable automatic updates for the ZEE5 app?' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'How can I enable automatic updates for the ZEE5 app?' page");
 			extent.extentLoggerFail("Article",
 					"User is not navigated to 'How can I enable automatic updates for the ZEE5 app?' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(2000);
 		Swipe("Up", 3);
 
@@ -9440,11 +9464,12 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("How do I see my current ZEE5 app version?"))) {
 			logger.info("User is navigated to 'My ZEE5 App Version' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'My ZEE5 App Version' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'My ZEE5 App Version' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'My ZEE5 App Version' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(2000);
 
 		Swipe("Up", 3);
@@ -9455,11 +9480,12 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("Parental Control"))) {
 			logger.info("User is navigated to 'Parental Control' page");
 			extent.extentLoggerPass("Article", "User is navigated to 'Parental Control' page");
+			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
 			logger.info("User is not navigated to 'Parental Control' page");
 			extent.extentLoggerFail("Article", "User is not navigated to 'Parental Control' page");
 		}
-		Back(1);
+//		Back(1);
 		waitTime(2000);
 	}
 
@@ -9778,7 +9804,8 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 					"Download invoice CTA is not displayed under My Transactions Screen");
 		}
 		click(AMDMoreMenu.objDownloadInvoice1, "Download invoice");
-		Back(3);
+		Back(2);
+		BackToLandingScreen();
 		verifyElementPresentAndClick(AMDSearchScreen.objHomeOption, "Bottom bar Home Option");
 
 		ZNALogoutMethod();

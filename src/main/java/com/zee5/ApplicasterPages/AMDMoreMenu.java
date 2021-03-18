@@ -116,7 +116,6 @@ public class AMDMoreMenu {
 	public static By objLogoutButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/logoutButton']");
 	public static By objProfileHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
 
-	public static By objcloseButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_exit']");
 	public static By objAboutUsDescription = By
 			.xpath("//*[contains(@content-desc,'At Zee5')] | //*[contains(@text,'At Zee5')]");
 	// Terms of Use Screen
@@ -207,8 +206,6 @@ public class AMDMoreMenu {
 
 	public static By objHyperLinkInAboutUsScreen = By.xpath(
 			"//*[@class='android.view.View']//*[@contentDescription='www.zee5.com'] | //*[@text='www.zee5.com']");
-	public static By objPageNotFoundMsg = By
-			.xpath("//*[contains(@text,'404! Not Found')] | //*[contains(@content-desc,'404! Not Found')]");
 	public static By objNetworkerrormsg = By.xpath("//*[@resource-id='android:id/message']");
 	public static By objTermsOfUseHeader = By.xpath("//*[@text='Terms of Use'] | //*[@content-desc='Terms of Use']");
 	public static By objTermsDescription = By
@@ -278,4 +275,11 @@ public class AMDMoreMenu {
 	public static By objTransactionPackPaymentMode = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_paymentmode'])[1]");
 	public static By objTransactionPackAutoRenewal = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_renewl_type'])[1]");
 	public static By objDownloadInvoice = By.xpath("(//*[@resource-id='com.graymatrix.did:id/btn_dialog_done'])[1]");
+	
+	public static By objPageNotFoundMsg = By
+			.xpath("//*[contains(@text,'404! Not Found')] | //*[contains(@content-desc,'404! Not Found')] | //*[@text='Oops!'] | //*[@text='Retry'] | //*[@text='You are not connected to internet']");
+
+	public static By objcloseButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_exit'] | //*[@id='icon_exit']");
+	
+	public static By objBackToHome = By.xpath("//*[@text='Back to Home']");
 }
