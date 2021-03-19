@@ -12,7 +12,7 @@
 	
 	 <parameter name="url" value="https://newpwa.zee5.com/" />
 	
-	<parameter name="SubscribedUserWith15daysExpiryUsername" value="8123324529" />
+	<parameter name="SubscribedUserWith15daysExpiryUsername" value="zee.igs0187@gmail.com" />
 	<parameter name="SubscribedUserWith15daysExpiryPassword" value="123456" />
 
 	<parameter name="NonsubscribedUserName" value="zee5latest@gmail.com" />
@@ -268,6 +268,11 @@
 		</classes>
 	</test>
 	
+	<test name="Android_DownloadsNew">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_DownloadsNew" />
+		</classes>
+	</test>
 	
 
 </suite>

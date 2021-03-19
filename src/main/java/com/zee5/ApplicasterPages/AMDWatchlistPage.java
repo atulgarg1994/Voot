@@ -60,4 +60,6 @@ public class AMDWatchlistPage {
 	public static By objNoContentsMessage = By.xpath("//*[@id='txt_no_reminder']");
 	
     public static By objPlayerScreen = By.xpath("//*[@id='player_root'] | //*[@id='content_title']");
+    
+    public static By objSelectedTabInWatchlist = By.xpath("//*[@id='screen_title']//following::*[@class='android.widget.TextView' and @selected='true']");
 }

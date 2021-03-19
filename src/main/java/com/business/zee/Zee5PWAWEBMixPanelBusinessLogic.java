@@ -9119,6 +9119,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Parental Overlay Impression For Content From Search Page");
+			waitTime(3000);
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);

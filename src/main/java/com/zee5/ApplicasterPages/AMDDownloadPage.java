@@ -161,4 +161,6 @@ public class AMDDownloadPage {
 	
 	public static By objBackinPlayer = By.xpath("//*[@id='playerBackButton']");
 	public static By objvideostab= By.xpath("//*[@text='Videos' or @text='VIDEOS']");
+	public static By objDownloadCompleteIcon = By.xpath("//*[@id='img_state']/parent::*/parent::*[@id='rl_end']");
+	
 }

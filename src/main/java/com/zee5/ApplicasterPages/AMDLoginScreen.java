@@ -182,4 +182,7 @@ public class AMDLoginScreen {
 	public static By objFbPage = By.xpath("//*[@text='CREATE NEW FACEBOOK ACCOUNT']");
 
 	public static By objGmailAccount = By.xpath("(//*[@id='account_name'])[1] | (//*[@id='account_display_name'])[1]");
+	
+	public static By objFirstGmailAccount = By.xpath("(//*[@id='account_display_name'])[1]");
+	
 }

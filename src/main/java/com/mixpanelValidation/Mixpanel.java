@@ -458,6 +458,7 @@ public class Mixpanel extends ExtentReporter {
 			FEProp.setProperty("os", System.getProperty("os.name").split(" ")[0]);
 		}
 		Mixpanel.FEProp.setProperty("Landing Page Name", "home");
+		
 	}
 
 	@SuppressWarnings("static-access")

@@ -24,7 +24,7 @@ public class ResponseInstance {
 	public static String assetSubType = "Empty"; 
 	static LoggingUtils logger = new LoggingUtils();
 	public static String searchContentID = null;
-	public static String pageName;
+	public static String pageName = "shows";
 	public static Response getResponse() {
 		resp = given().urlEncodingEnabled(false).when().get(
 				"https://gwapi.zee5.com/content/collection/0-8-homepage?limit=20&page=1&item_limit=20&desc=no&version=6&translation=en&languages=en,kn&country=IN");
@@ -757,7 +757,7 @@ public class ResponseInstance {
 //		System.out.println(getPageResponse("home","free"));
 //		System.out.println(getTrayResponse("Shows","premium"));
 //		assetSubType = "video"; //0-1-manual_2g3a9k82241g
-//		getContentDetails("0-0-343385");
+//		getContentDetails("0-6-972");
 //		getTrayResponse("home","trailer");
 	}
 
@@ -934,6 +934,7 @@ public class ResponseInstance {
 			if (pageName.equals("episode") || pageName.equals("shows")) {
 				resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
 						.get("https://gwapi.zee5.com/content/tvshow/" + ID + "?translation=en&country=IN");
+				resp.print();
 			} else if (pageName.equals("movies")) {
 				resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
 						.get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");

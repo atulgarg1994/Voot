@@ -11,7 +11,6 @@ public class AMDPlayerScreen {
 		return By.xpath("(//*[@text="+trayTitle+"]/parent::*/parent::*/following-sibling::*/child::*/child::*/child::*/child::*)[1]");
 	}
 	public static By objTitleOnPlayer = By.xpath("//*[@id='title_main']");
-	public static By objQuality = By.xpath("//*[@id='icon_quality_text']");
 	public static By objQualityOptions = By.xpath("//*[@id='textView2']");
 	public static By objQualityOptions(int i) {
 		return By.xpath("(//*[@id='textView2'])["+i+"]");
@@ -60,8 +59,6 @@ public class AMDPlayerScreen {
 	public static By objLoginButtonInRegisterPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/tvLogin']");
 	
 	public static By objLearnMoreTextOnAdPlayBack = By.xpath("//*[contains(text(),'Learn More')]");
-	
-	public static By objSelectedQualityOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_selected']/following-sibling::*");
 
 	public static By objAudioTrackOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_audioTrack_text']");
 	public static By objPauseIcon = By.xpath("//*[@id='playerPlayPauseButton'] | //*[@id='icon_pause']");
@@ -119,4 +116,8 @@ public class AMDPlayerScreen {
 	
 	public static By objPause = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerPlayPauseButton' and @text='P']");
 	public static By objPlay = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerPlayPauseButton' and @text='p']");
+	
+	
+	public static By objQuality = By.xpath("//*[@id='icon_quality_text'] | //*[@id='playerOptionTitle' and @text='Quality 144p']");
+	public static By objSelectedQualityOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_selected']/following-sibling::* | //*[@id='playerOptionsTitleTextView' and @text='Select Video Quality']");
 }
