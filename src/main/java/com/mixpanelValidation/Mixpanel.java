@@ -73,7 +73,7 @@ public class Mixpanel extends ExtentReporter {
 		integerParameters = Prop.getproperty("Integer");
 		fileName = ReportName;
 		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
-		StaticValues();
+		StaticValues(distinctID);
 		getParameterValue();
 		fetchEvent(distinctID, eventName);
 	}
@@ -197,6 +197,8 @@ public class Mixpanel extends ExtentReporter {
 				.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
 				.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
 				.post("https://data.mixpanel.com/api/2.0/export/");
+		
+		
 		System.out.println("Response : "+request.asString());
 		sheet = eventName.trim().replace(" ", "").replace("/", "");
 		if (request.toString() != null) {
@@ -445,7 +447,7 @@ public class Mixpanel extends ExtentReporter {
 		}
 	}
 
-	public static void StaticValues() {
+	public static void StaticValues(String UniqueID) {
 		platform = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite().getName();
 		if (platform.equals("Mpwa")) {
 			FEProp.setProperty("Platform Name", "Web");
@@ -458,7 +460,7 @@ public class Mixpanel extends ExtentReporter {
 			FEProp.setProperty("os", System.getProperty("os.name").split(" ")[0]);
 		}
 		Mixpanel.FEProp.setProperty("Landing Page Name", "home");
-		
+		Mixpanel.FEProp.setProperty("Unique ID", UniqueID);
 	}
 
 	@SuppressWarnings("static-access")
@@ -629,7 +631,7 @@ public class Mixpanel extends ExtentReporter {
 		integerParameters = Prop.getproperty("Integer");
 		fileName = ReportName;
 		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
-		StaticValues();
+		StaticValues(distinctID);
 		getParentalParameterValue();
 		fetchEvent(distinctID, eventName);
 	}

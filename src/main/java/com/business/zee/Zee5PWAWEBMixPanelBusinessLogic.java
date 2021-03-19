@@ -969,16 +969,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
 		waitTime(4000);
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
-//		System.out.println("Current URL : " + id);
-//		ResponseInstance.getContentDetails(fetchContentID(id));
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name","movie_landing");
+		mixpanel.FEProp.setProperty("Page Name",pageName());
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 
@@ -999,13 +992,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 		waitTime(2000);
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", tabName);
@@ -1027,13 +1014,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAPremiumPage.objShowThumbnail, "Thumbnail from View More Page");
 		waitTime(4000);
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "tv_shows_view_all");
@@ -1056,13 +1037,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAPremiumPage.obj1stContentInShowDetailPage, "Thumbnail from Show detail page");
 		waitTime(4000);
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "search");
@@ -1087,13 +1062,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAPremiumPage.obj1stContentInShowDetailPage, "Thumbnail from playback page");
 		waitTime(5000);
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		mixpanel.FEProp.setProperty("Source", "show_detail");
@@ -1560,10 +1529,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Series", "Jodi Hakki");
 		
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetailsForNews(fetchContentID(id));
 		
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -2182,10 +2147,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Video Autoplay", "true");
 			mixpanel.FEProp.setProperty("Tab Name", "news_landing");
 			String id = findElement(PWANewsPage.objAutoPlayContent).getAttribute("href");
-//			String value = null;
-//			String[] splits=id.split("/");
-//			value=splits[splits.length-1];
-//			System.out.println(value);
 			ResponseInstance.getContentDetailsForNews(fetchContentID(id));
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "Banner Autoplay");
@@ -2260,7 +2221,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mandatoryRegistrationPopUp(userType);
 			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
-			scrollDownByY(500);
+			scrollDownByY(300);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
 				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
@@ -2642,7 +2603,7 @@ public void verifyVideoViewEventForFreeContent(String userType, String tabName) 
 			mandatoryRegistrationPopUp(userType);
 			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
-			scrollDownByY(500);
+			scrollDownByY(300);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
 				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
@@ -2952,7 +2913,7 @@ public void verifyVideoViewEventForContentInPlaylist(String userType, String tab
 			mandatoryRegistrationPopUp(userType);
 			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
-			scrollDownByY(500);
+			scrollDownByY(300);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
 				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
@@ -3047,10 +3008,6 @@ public void verifyVideoViewEventForContentInPlaylist(String userType, String tab
 		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3077,10 +3034,6 @@ public void verifyVideoViewEventForContentInPlaylist(String userType, String tab
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3122,11 +3075,6 @@ public void verifyVideoViewEventForContentInPlaylist(String userType, String tab
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 			String id = getWebDriver().getCurrentUrl();
-//			String value = null;
-//			String[] splits=id.split("/");
-//			value=splits[splits.length-1];
-//			System.out.println(value);
-
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			Back(1);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3154,10 +3102,6 @@ public void verifyVideoViewEventForContentInPlaylist(String userType, String tab
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3200,8 +3144,6 @@ public void verifyVideoViewEventForContentInPlaylist(String userType, String tab
 
 public void verifyVideoExitEventAfterRefreshingPage(String tab) throws Exception {
 		extent.HeaderChildNode("Verify Video Exit Event after refreshing a page");
-
-		
 		mandatoryRegistrationPopUp(userType);
 		navigateToAnyScreenOnWeb(tab);
 		clickOnTrayContent(tab,"Free");
@@ -3220,11 +3162,6 @@ public void verifyVideoExitEventAfterRefreshingPage(String tab) throws Exception
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
-
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3264,11 +3201,6 @@ public void verifyVideoExitEventForContentFromUpnextRail(String userType, String
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(id);
-
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		navigateToHome();
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3297,11 +3229,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
-
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		navigateToHome();
 		logger.info("Video exited by navigating Home");
@@ -3334,10 +3261,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 	
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3357,7 +3280,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mandatoryRegistrationPopUp(userType);
 			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
-			scrollDownByY(500);
+			scrollDownByY(300);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
 				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
@@ -3369,10 +3292,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
-//			String value = null;
-//			String[] splits = id.split("/");
-//			value = splits[splits.length - 1];
-//			System.out.println(value);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			Back(1);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3401,10 +3320,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3429,10 +3344,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3460,10 +3371,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3490,10 +3397,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3536,10 +3439,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
-//			String value = null;
-//			String[] splits=id.split("/");
-//			value=splits[splits.length-1];
-//			System.out.println(value);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			Back(1);
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3566,10 +3465,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3601,10 +3496,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3631,13 +3522,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			String id = getWebDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			if (userType.equals("Guest")) {
@@ -3666,13 +3551,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
-		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
@@ -3687,7 +3565,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			extent.HeaderChildNode("Verify Pause Event For Premium Content");
 			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
-			scrollDownByY(500);
+			scrollDownByY(300);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
 				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
@@ -3705,13 +3583,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Button Type", "Player");
 
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
-			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
@@ -3744,12 +3615,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
 		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -3782,13 +3647,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Element", "Pause");
 			mixpanel.FEProp.setProperty("Button Type", "Player");
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
-			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
@@ -3819,13 +3677,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Element", "Pause");
 			mixpanel.FEProp.setProperty("Button Type", "Player");
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
-			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
@@ -3856,13 +3707,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
-		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
@@ -3910,13 +3754,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Button Type", "Player");
 
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
-			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
@@ -3952,13 +3789,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Button Type", "Player");
 
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
-			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
@@ -3991,13 +3821,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
-		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
@@ -4023,13 +3846,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
-		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
@@ -4057,13 +3873,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
-		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
@@ -4094,13 +3903,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
-		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
@@ -4133,13 +3935,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Old Quality", "Auto");
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
-		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
@@ -4155,7 +3950,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mandatoryRegistrationPopUp(userType);
 			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
-			scrollDownByY(500);
+			scrollDownByY(300);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
 				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
@@ -4178,13 +3973,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Old Quality", "Auto");
 			mixpanel.FEProp.setProperty("New Quality", "Good");
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
-			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
@@ -4221,13 +4009,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Old Quality", "Auto");
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
-		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
@@ -4265,13 +4046,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Old Quality", "Auto");
 			mixpanel.FEProp.setProperty("New Quality", "Good");
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
-			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
@@ -4307,13 +4081,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Old Quality", "Auto");
 			mixpanel.FEProp.setProperty("New Quality", "Good");
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
-			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
@@ -4347,13 +4114,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Old Quality", "Auto");
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
-		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
@@ -4404,13 +4164,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Old Quality", "Auto");
 			mixpanel.FEProp.setProperty("New Quality", "Good");
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
-			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			if (userType.equals("Guest")) {
@@ -4887,7 +4640,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mandatoryRegistrationPopUp(userType);
 			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
-			scrollDownByY(500);
+			scrollDownByY(300);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
 				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
@@ -5337,7 +5090,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mandatoryRegistrationPopUp(userType);
 			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
-			scrollDownByY(500);
+			scrollDownByY(300);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
 				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
@@ -6770,7 +6523,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mandatoryRegistrationPopUp(userType);
 			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
-			scrollDownByY(500);
+			scrollDownByY(300);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
 				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
@@ -8530,7 +8283,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mandatoryRegistrationPopUp(userType);
 			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
-			scrollDownByY(500);
+			scrollDownByY(300);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
 				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
@@ -9004,7 +8757,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mandatoryRegistrationPopUp(userType);
 			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
-			scrollDownByY(500);
+			scrollDownByY(300);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
 				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
@@ -9042,7 +8795,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mandatoryRegistrationPopUp(userType);
 			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
-			scrollDownByY(500);
+			scrollDownByY(300);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
 				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
@@ -9339,26 +9092,26 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		}
 	}
 
-	public void verifyParentalOverlayImpressionEventAfterPageRefresh(String keyword1, String userType)
+	public void verifyParentalOverlayImpressionEventAfterPageRefresh(String tabName, String userType)
 			throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Parental Overlay Impression Event after refreshing the page");
-			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
-			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
-			click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
+			
+			
+			navigateToAnyScreenOnWeb(tabName);
+			clickOnTrayContent(tabName,"Free");
+			
+			
 			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 			waitTime(5000);
 			getWebDriver().navigate().refresh();
 
 			verifyElementPresent(PWAPlayerPage.objParentalLockOnPlayer, "Parental Lock Overlay");
 
-			mixpanel.FEProp.setProperty("Source", "search");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+		 	mixpanel.FEProp.setProperty("Source", "N/A");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
-			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
-
+			
 			String id = getWebDriver().getCurrentUrl();
 			ResponseInstance.getContentDetails(fetchContentID(id));
 
@@ -9418,7 +9171,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mandatoryRegistrationPopUp(userType);
 			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
-			scrollDownByY(500);
+			scrollDownByY(300);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
 				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");
@@ -9461,7 +9214,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mandatoryRegistrationPopUp(userType);
 			navigateToAnyScreenOnWeb(tab);
 			waitTime(5000);
-			scrollDownByY(500);
+			scrollDownByY(300);
 			click(PWAMoviesPage.objPremiumContentCardFromTray, "Premium Content from Tray");
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
 				JSClick(By.xpath(".//*[@class='iconsWrap getPremiumBtn']//child::*[@class='playBtn']"),"Play Icon");

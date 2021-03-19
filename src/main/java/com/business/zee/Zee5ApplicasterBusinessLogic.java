@@ -7644,7 +7644,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		extent.HeaderChildNode("Validation of Logout option as " + userType);
 		System.out.println("\nValidation of Logout option as " + userType);
 		click(AMDHomePage.objMoreMenu, "More menu");
-		Swipe("UP", 2);
+		waitTime(1000);
 		if (userType.contentEquals("Guest")) {
 			if (verifyElementIsNotDisplayed(AMDMoreMenu.objLogout)) {
 				logger.info("Logout option is NOT displayed for " + userType + "user");
@@ -7655,6 +7655,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			}
 		}
 		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
+			SwipeUntilFindElement(AMDMoreMenu.objLogout, "UP");
 			verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout option in More menu");
 			verifyElementPresent(AMDMoreMenu.objLogoutPopup, "Logout Confirmation Popup");
 			verifyElementPresent(AMDMoreMenu.objCancelButton, "Cancel button");
@@ -8212,6 +8213,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		SwipeUntilFindElement(AMDMoreMenu.objSettings, "UP");
 		click(AMDMoreMenu.objSettings, "Settings");
 		Swipe("UP", 2);
+		SwipeUntilFindElement(AMDMoreMenu.objDisplayLang, "UP");
 		click(AMDMoreMenu.objDisplayLang, "Display Language");
 		click(AMDOnboardingScreen.objSelectDisplayLang(pDisplayLanguage), "Kannada language");
 		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "[Display Language] Continue Button");
@@ -8234,7 +8236,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (checkElementExist(AMDMoreMenu.objTextInAboutUsScreen)) {
 			logger.error("Content of the About Us Page is not according to the display language set by user");
 			extent.extentLoggerFail("About Us",
-					"Content of the About Us Page is not according to the display language set by user");
+					"[ZNA-8890] - Content of the About Us Page is not according to the display language set by user");
 		} else {
 			logger.info("Content of the About Us page is according to display language set by user");
 			extent.extentLoggerPass("About Us",
@@ -8249,9 +8251,9 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (title.contains("Help Center")) {
 			logger.info("Title of the page displayed: " + title);
 			extent.extentLogger("pagetitle", "Title of the page displayed: " + title);
-			logger.error("Content of Help Center page is not according to the display language set by user");
+			logger.error("[ZNA-8890] - Content of Help Center page is not according to the display language set by user");
 			extent.extentLoggerFail("Help Center",
-					"Content of Help Center page is not according to the display language set by user");
+					"[ZNA-8890] - Content of Help Center page is not according to the display language set by user");
 		} else {
 			logger.info("Content of the Help Center page is according to display language set by user");
 			extent.extentLoggerPass("About Us",
@@ -8266,9 +8268,9 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (title2.contains("Terms of Use")) {
 			logger.info("Title of the page displayed: " + title2);
 			extent.extentLogger("pagetitle", "Title of the page displayed: " + title2);
-			logger.error("Content of the Terms of Use page is not according to the display language set by user");
+			logger.error("[ZNA-8890] - Content of the Terms of Use page is not according to the display language set by user");
 			extent.extentLoggerFail("Terms of Use",
-					"Content of the Terms of Use page is not according to the display language set by user");
+					"[ZNA-8890] - Content of the Terms of Use page is not according to the display language set by user");
 		} else {
 			logger.info("Content of the Terms of Use page is according to display language set by user");
 			extent.extentLoggerPass("About Us",
@@ -8281,18 +8283,19 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		if (title3.contains("Privacy Policy")) {
 			logger.info("Title of the page displayed: " + title3);
 			extent.extentLogger("pagetitle", "Title of the page displayed: " + title3);
-			logger.info("Content of the Privacy Policy page is according to display language set by user");
-			extent.extentLoggerPass("About Us",
-					"Content of the Privacy Policy page is according to display language set by user");
-		} else {
-			logger.error("Content of the Privacy Policy page is not according to the display language set by user");
+			logger.error("[ZNA-8890] - Content of the Privacy Policy page is according to display language set by user");
 			extent.extentLoggerFail("Privacy Policy",
+					"[ZNA-8890] - Content of the Privacy Policy page is according to display language set by user");
+		} else {
+			logger.info("Content of the Privacy Policy page is not according to the display language set by user");
+			extent.extentLoggerPass("Privacy Policy",
 					"Content of the Privacy Policy page is not according to the display language set by user");
 		}
 		click(AMDMoreMenu.objcloseButton, "Close button");
 		// Changing to English
 		click(AMDMoreMenu.objSettingsInKannada, "Settings");
 		Swipe("UP", 1);
+		SwipeUntilFindElement(AMDMoreMenu.objDisplayLang, "UP");
 		click(AMDMoreMenu.objDisplayLang, "Display Language");
 		click(AMDOnboardingScreen.objSelectDisplayLang("English"), "English language");
 		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "[Display Language] Continue Button");
@@ -9045,20 +9048,21 @@ public void validateMyReminder() throws Exception {
 			}
 		}
 		
-		click(AMDMoreMenu.objMyRemainders, "My Remainders");
+		click(AMDMoreMenu.objMyRemainders, "My Reminders");
+		waitForElementDisplayed(AMDMyReminderPage.objReminberHeaderTitle, 30);
 		if (verifyElementDisplayed(AMDMyReminderPage.objReminberHeaderTitle)) {
 			logger.info("User navigated to My Reminder screen post taping on My Reminders");
 			extent.extentLoggerPass("My Reminders", "User navigated to My Reminder screen post taping on My Reminders");
 		} else {
-			logger.error("User is not navigated to  My Reminder  screen post taping on My Reminders");
+			logger.error("User is not navigated to My Reminder screen post taping on My Reminders");
 			extent.extentLoggerFail("My Reminders",
 					"User is not navigated to My Reminder screen post taping on My Reminders");
 		}
 
 		waitTime(10000);
-		if(verifyElementDisplayed(AMDMyReminderPage.objNoReminderIcon)) {
+		if(verifyIsElementDisplayed(AMDMyReminderPage.objNoReminderIcon)) {
 			logger.info("Reminder is empty");
-			extent.extentLoggerPass("My Remainders", "Reminder screen is empty: "+getText(AMDMyReminderPage.objNoReminderTxt));
+			extent.extentLoggerPass("My Reminders", "Reminder screen is empty: "+getText(AMDMyReminderPage.objNoReminderTxt));
 			verifyElementPresent(AMDMyReminderPage.objNoReminderIcon, "No Reminder icon");
 			verifyElementPresent(AMDMyReminderPage.objNoReminderTxt, "No Reminder text");
 		}else if(verifyElementDisplayed(AMDMyReminderPage.objEditBtn)){
@@ -9108,7 +9112,7 @@ public void validateMyReminder() throws Exception {
 				extent.extentLoggerFail("My Reminders", "User not navigated to edit screen ");
 			}
 		}else {
-			logger.info("Reminder is empty");
+			logger.info("Reminder screen is empty");
 			extent.extentLoggerWarning("My Reminders", "Reminder screen is empty: "+getText(AMDMyReminderPage.objNoReminderTxt));
 		}
 		
@@ -9771,15 +9775,15 @@ public void Haveaprepaidcode(String userType) throws Exception {
 		System.out.println("\nVerify My transactions Screen");
 		
 		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			//Logout the existing user to login with another account
 			ZNALogoutMethod();
+			
+			String NonsubscribedUserWithInactivePackUserName = getParameterFromXML("NonsubscribedUserWithInActivePackUsername");
+			String NonsubscribedUserWithInActivePackPassword = getParameterFromXML("NonsubscribedUserWithInActivePackPassword");
+			
 			click(AMDHomePage.objMoreMenu, "More Menu");
 			click(AMDMoreMenu.objProfile, "Profile");
 			waitTime(2000);
-
-			String NonsubscribedUserWithInactivePackUserName = Reporter.getCurrentTestResult().getTestContext()
-					.getCurrentXmlTest().getParameter("NonsubscribedUserWithInActivePackUsername");
-			String NonsubscribedUserWithInActivePackPassword = Reporter.getCurrentTestResult().getTestContext()
-					.getCurrentXmlTest().getParameter("NonsubscribedUserWithInActivePackPassword");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 
 			LoginWithEmailID(NonsubscribedUserWithInactivePackUserName, NonsubscribedUserWithInActivePackPassword);
@@ -10065,19 +10069,18 @@ public void Haveaprepaidcode(String userType) throws Exception {
 	}
 
 	public void ValidateMyTransactionScreenWithSubscribeNowCTA() throws Exception {
-		extent.HeaderChildNode("Verrify Subscribe Now CTA in My Transactions Screen");
+		extent.HeaderChildNode("Verify Subscribe Now CTA in My Transactions Screen");
+		System.out.println("\nVerify Subscribe Now CTA in My Transactions Screen");
+		
+		String NonsubscribedUserWithNoTransactionUsername = getParameterFromXML("NonsubscribedUserWithNoTransactionUsername");
+		String NonsubscribedUserWithNoTransactionPassword = getParameterFromXML("NonsubscribedUserWithNoTransactionPassword");
+		
 		click(AMDHomePage.objMoreMenu, "More Menu");
 		click(AMDMoreMenu.objProfile, "Profile");
 		waitTime(2000);
-
-		String NonsubscribedUserWithNoTransactionUsername = Reporter.getCurrentTestResult().getTestContext()
-				.getCurrentXmlTest().getParameter("NonsubscribedUserWithNoTransactionUsername");
-		String NonsubscribedUserWithNoTransactionPassword = Reporter.getCurrentTestResult().getTestContext()
-				.getCurrentXmlTest().getParameter("NonsubscribedUserWithNoTransactionPassword");
 		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-
 		LoginWithEmailID(NonsubscribedUserWithNoTransactionUsername, NonsubscribedUserWithNoTransactionPassword);
-		waitTime(30000);
+		waitTime(8000);
 		click(AMDHomePage.MoreMenuIcon, "More Menu");
 		waitTime(2000);
 		click(AMDMoreMenu.objMyTransactions, "My TransactionsOption");
@@ -10085,16 +10088,16 @@ public void Haveaprepaidcode(String userType) throws Exception {
 
 		if (verifyElementExist(AMDMoreMenu.objSubNowCTA, "Subscribe Now CTA")) {
 			logger.info(
-					"Subscribe Now CTA is displayed under My Transactions Screen for no transaction done by the registered user");
+					"Subscribe Now CTA is displayed under My Transactions Screen for No transaction done by the registered user: "+NonsubscribedUserWithNoTransactionUsername);
 			extent.extentLoggerPass("MyTransactions Screen",
-					"Subscribe Now CTA is displayed under My Transactions Screen for no transaction done by the registered user");
+					"Subscribe Now CTA is displayed under My Transactions Screen for No transaction done by the registered user: "+NonsubscribedUserWithNoTransactionUsername);
+			click(AMDGenericObjects.objBackBtn, "Back Button");
 		} else {
 			logger.error(
-					"Subscribe Now CTA is not displayed under My Transactions Screen for no transaction done by the registered user");
+					"Subscribe Now CTA is not displayed under My Transactions Screen for "+pUserType);
 			extent.extentLoggerFail("MyTransactions Screen",
-					"Subscribe Now CTA is not displayed under My Transactions Screen for no transaction done by the registered user");
+					"Subscribe Now CTA is not displayed under My Transactions Screen for "+pUserType);
 		}
-		Back(2);
 	}
 
 	public void ValidateDiscountPack(String userType) throws Exception {
@@ -10136,7 +10139,6 @@ public void Haveaprepaidcode(String userType) throws Exception {
 					"Discount rental pack details is not applicable for the " + userType);
 		}
 
-		Swipe("Up", 1);
 		relaunch(true);
 		accessDeviceLocationPopUp("Allow", userType);
 		navigateToIntroScreen_DisplaylangScreen();
@@ -11405,16 +11407,15 @@ public void Haveaprepaidcode(String userType) throws Exception {
 		}
 	}
 
-	public void AccountDetailsGuestUser(String userType) throws Exception {
-		/*
-		 * Account Details section
-		 */
+public void AccountDetailsGuestUser(String userType) throws Exception {
+		
 		extent.HeaderChildNode("Account Details Validation for User type : " + userType);
+		System.out.println("\nAccount Details Validation for User type : " + userType);
+		
 		click(AMDHomePage.MoreMenuIcon, "More icon");
 		// Verify Login/Register for better experience is displayed in Profile screen
 		verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
-		// Verify user is navigated to Login/Register screen post tapping Login/Register
-		// link
+		// Verify user is navigated to Login/Register screen post tapping Login/Register link
 		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
 		String header = getText(AMDGenericObjects.objgetScreenTitle);
 		if (header.equals("Login/Register")) {
@@ -11784,6 +11785,7 @@ public void Haveaprepaidcode(String userType) throws Exception {
 		extent.HeaderChildNode("My Profile Screen validations");
 		// Verify that profile detail screen is displayed post tapping Profile
 		// click on profile
+		SwipeUntilFindElement(AMDMoreMenu.objLoginRegisterText, "DOWN");
 		click(AMDMoreMenu.objLoginRegisterText, "Profile");
 		// Verify user is navigated to My Profile screen
 		String headerTitle = getText(AMDGenericObjects.objgetScreenTitle);
@@ -11867,116 +11869,103 @@ public void Haveaprepaidcode(String userType) throws Exception {
 		click(AMDEditProfileScreen.objClosedropDownBtn, "Close button");
 		hideKeyboard();
 		// Verify user can edit the Mobile number field
-		String OldNUmber = getText(AMDEditProfileScreen.objMobileNumberField);
+		String OldNUmber = getText(AMDEditProfileScreen.objMobNumberField);
 		click(AMDEditProfileScreen.objMobileNumberField, "Mobile number field");
 		clearField(AMDEditProfileScreen.objMobileNumberField, "Mobile number field");
 		type(AMDEditProfileScreen.objMobileNumberField, "9591340917", "Mobile Number Field");
 		hideKeyboard();
 		String NewNumber = getText(AMDEditProfileScreen.objMobileNumberField);
-		if (!OldNUmber.equals(NewNumber)) {
-			extent.extentLoggerPass("Verify Mobile Number field", "User can edit Mobile number field");
-			extent.extentLoggerPass("Verify Mobile Number field",
-					"Old Mobile number is : " + OldNUmber + " is updated to new number :" + NewNumber);
-			logger.info("Old Mobile number is : " + OldNUmber + " is updated to new number :" + NewNumber);
-		} else {
-			extentLoggerFail("Verify Mobile Number field", "User can not edit the mobile number field");
-			logger.info("User can not edit the mobile number field");
+		if(OldNUmber.length() < 3) {
+			extent.extentLoggerPass("Verify Mobile Number", "Mobile number is not available for this User");
+			logger.info("Mobile number is not available for this User");
+		}else {
+			if (!OldNUmber.equals(NewNumber)) {
+				extent.extentLoggerPass("Verify Mobile Number field", "User can edit Mobile number field");
+				extent.extentLoggerPass("Verify Mobile Number field",
+						"Old Mobile number is : " + OldNUmber + " is updated to new number :" + NewNumber);
+				logger.info("Old Mobile number is : " + OldNUmber + " is updated to new number :" + NewNumber);
+			} else {
+				extentLoggerFail("Verify Mobile Number field", "User cannot edit the mobile number field");
+				logger.info("User cannot edit the mobile number field");
+			}
 		}
+		
 		// Set Text
+		
 		clearField(AMDEditProfileScreen.objFirstNameField, "FirstName");
 		verifyElementPresentAndClick(AMDEditProfileScreen.objFirstNameField, "FirstName");
-		type(AMDEditProfileScreen.objFirstNameField, "FirstName", "First Name");
+		type(AMDEditProfileScreen.objFirstNameField, generateRandomChars("Zeename", 5), "First Name");
 		hideKeyboard();
 		// Verify Save Changes is highlighted
+		boolean otpFlag = false;
 		String saveChanges = getElementPropertyToString("enabled", AMDEditProfileScreen.objSaveChanges,
 				"Save Changes CTA");
 		if (saveChanges.equals("true")) {
 			extent.extentLoggerPass("Verify Save Changes CTA", "Save Changes CTA is Highlighted");
 			logger.info("Save Changes CTA is Highlighted");
+			click(AMDEditProfileScreen.objSaveChanges, "Save Changes CTA");
+			otpFlag=true;
 		} else {
 			extent.extentLoggerFail("Verify Save Changes CTA", "Save Changes CTA is not Highlighted");
 			logger.info("Save Changes CTA is not Highlighted");
+			otpFlag=false;
 		}
-		click(AMDEditProfileScreen.objSaveChanges, "Save Changes CTA");
+		
 		// Verify user is navigated to Verify Mobile screen
 		String header = getText(AMDGenericObjects.objgetScreenTitle);
 		if(header.equalsIgnoreCase("Verify Mobile")) {
 			extent.extentLoggerPass("Verify user navigation", "User is navigated to " + header);
 			logger.info("User is navigated to " + header);
 		}else {
-			extent.extentLoggerFail("Verify user navigation", "User failed to navigate to Verify Mobile");
+			extent.extentLoggerFail("Verify Mobile screen", "User failed to navigate to Verify Mobile screen");
 			logger.error("User failed to navigate to Verify Mobile");
 		}
 	
 		// Verify the OTP Validations
-
-		if(verifyElementExist(AMDRegistrationScreen.objOTPTimer, "OTP timer")) {
-			logger.info("The OTP timer is present in Verify mobile screen");
-			extentLoggerPass("OtpTimer", "The OTP timer is present in Verify mobile screen");
-			
-			String OTPTimer= getText(AMDRegistrationScreen.objOTPTimer);
-			logger.info(OTPTimer);
-			
-			hideKeyboard();
-			click(AMDRegistrationScreen.objVerifyOtpButton, "Verify button");
-			waitTime(10000);
-			String OTPTimer2 = getText(AMDRegistrationScreen.objOTPTimer);
-			logger.info(OTPTimer2);
-			boolean Time = OTPTimer.equals(OTPTimer2);
-			if (Time == false) {
-				logger.info("OTP timer is running & displayed in Verify mobile screen");
-				extentLoggerPass("OtpTimer", "OTP timer is running & displayed in Verify mobile screen");
+		if(otpFlag) {
+			if(verifyElementExist(AMDRegistrationScreen.objOTPTimer, "OTP timer")) {
+				logger.info("The OTP timer is present in Verify mobile screen");
+				extentLoggerPass("OtpTimer", "The OTP timer is present in Verify mobile screen");
+				
+				String OTPTimer= getText(AMDRegistrationScreen.objOTPTimer);
+				logger.info(OTPTimer);
+				
+				hideKeyboard();
+				click(AMDRegistrationScreen.objVerifyOtpButton, "Verify button");
+				waitTime(10000);
+				String OTPTimer2 = getText(AMDRegistrationScreen.objOTPTimer);
+				logger.info(OTPTimer2);
+				boolean Time = OTPTimer.equals(OTPTimer2);
+				if (Time == false) {
+					logger.info("OTP timer is running & displayed in Verify mobile screen");
+					extentLoggerPass("OtpTimer", "OTP timer is running & displayed in Verify mobile screen");
+				} else {
+					logger.info("OTP timer is NOT running in Verify mobile screen");
+					extentLoggerFail("OtpTimer", "OTP timer is NOT running in Verify mobile screen");
+				}
+				type(AMDRegistrationScreen.objOTPField1, "1", "OTP box1");
+				type(AMDRegistrationScreen.objOTPField2, "1", "OTP box2");
+				type(AMDRegistrationScreen.objOTPField3, "1", "OTP box3");
+				type(AMDRegistrationScreen.objOTPField4, "1", "OTP box4");
+				hideKeyboard();
+				waitTime(2000);
+				if (findElement(AMDRegistrationScreen.objVerifyOtpButton).isEnabled() == true) {
+					logger.info("Verify Button is highlighted");
+					extent.extentLoggerPass("Verify", "Verify Button is highlighted");
+				}else {
+					logger.error("Verify Button failed to highlight");
+					extent.extentLoggerFail("Verify Button", "Verify Button failed to highlight");
+				}
+				//Navigate back
+				Back(1);
+				
 			} else {
-				logger.info("OTP timer is NOT running in Verify mobile screen");
-				extentLoggerFail("OtpTimer", "OTP timer is NOT running in Verify mobile screen");
+				logger.error("Verify Mobile screen with OTP timer is Not displayed");
+				extentLoggerFail("OtpTimer", "Verify Mobile screen with OTP timer is Not displayed");
 			}
-			type(AMDRegistrationScreen.objOTPField1, "1", "OTP box1");
-			type(AMDRegistrationScreen.objOTPField2, "1", "OTP box2");
-			type(AMDRegistrationScreen.objOTPField3, "1", "OTP box3");
-			type(AMDRegistrationScreen.objOTPField4, "1", "OTP box4");
-			hideKeyboard();
-			waitTime(2000);
-			if (findElement(AMDRegistrationScreen.objVerifyOtpButton).isEnabled() == true) {
-				logger.info("Verify Button is highlighted");
-				extent.extentLoggerPass("Verify", "Verify Button is highlighted");
-			}else {
-				logger.error("Verify Button failed to highlight");
-				extent.extentLoggerFail("Verify Button", "Verify Button failed to highlight");
-			}
-			//Navigate back
-			Back(1);
-			
-		} else {
-			logger.error("The OTP timer is NOT present in Verify mobile scree");
-			extentLoggerFail("OtpTimer", "TThe OTP timer is NOT present in Verify mobile scree");
+		}else {
+			verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back Button");
 		}
-		
-//		String OTPTimer1 = getText(AMDRegistrationScreen.objOTPTimer);
-//		logger.info(OTPTimer1);
-//		hideKeyboard();
-//		click(AMDRegistrationScreen.objVerifyOtpButton, "Verify button");
-//		waitTime(10000);
-//		String OTPTimer2 = getText(AMDRegistrationScreen.objOTPTimer);
-//		logger.info(OTPTimer2);
-//		boolean Time = OTPTimer1.equals(OTPTimer2);
-//		if (Time == false) {
-//			logger.info("The Otp timer is displayed in Verify mobile screen");
-//			extentLoggerPass("OtpTimer", "The Otp timer is displayed in Verify mobile screen");
-//		} else {
-//			logger.info("The Otp timer is not displayed in Verify mobile screen");
-//			extentLoggerFail("OtpTimer", "The Otp timer is not displayed in Verify mobile screen");
-//		}
-//		type(AMDRegistrationScreen.objOTPField1, "1", "OTP box1");
-//		type(AMDRegistrationScreen.objOTPField2, "1", "OTP box2");
-//		type(AMDRegistrationScreen.objOTPField3, "1", "OTP box3");
-//		type(AMDRegistrationScreen.objOTPField4, "1", "OTP box4");
-//		hideKeyboard();
-//		waitTime(2000);
-//		if (findElement(AMDRegistrationScreen.objVerifyOtpButton).isEnabled() == true) {
-//			logger.info("Verify Button is highlighted");
-//			extent.extentLoggerPass("Verify", "Verify Button is highlighted");
-//		}
-//		Back(1);
 	}
 
 	public void VerifySpecialCharactersInString(By by, String pwd, String field) {
@@ -12079,7 +12068,8 @@ public void Haveaprepaidcode(String userType) throws Exception {
 		SwipeUntilFindElement(AMDHomePage.objLogout,"UP");
 		verifyElementPresentAndClick(AMDHomePage.objLogout, "Logout");
 		verifyElementPresentAndClick(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
-		Swipe("DOWN", 3);
+		Swipe("DOWN", 1);
+		SwipeUntilFindElement(AMDMoreMenu.objLoginRegisterText,"DOWN");
 		click(AMDMoreMenu.objLoginRegisterText, "Login/Register link");
 		LoginMethod("SocialLogin");
 		click(AMDMoreMenu.objMoreMenuIcon, "More tab screen");
@@ -12537,64 +12527,69 @@ public void Haveaprepaidcode(String userType) throws Exception {
 		String header = getText(AMDGenericObjects.objgetScreenTitle);
 		if (header.equals("My Subscriptions")) {
 			extent.extentLoggerPass("Verify navigation",
-					"User is navigated to " + header + " screen post tapping My Subscription from more menu screen ");
+					"User is navigated to " + header + " screen post tapping My Subscription from More menu screen ");
 			logger.info(
-					"User is navigated to " + header + " screen post tapping My Subscription from more menu screen");
+					"User is navigated to " + header + " screen post tapping My Subscription from More menu screen");
 		} else {
 			extent.extentLoggerFail("Verify navigation",
-					"User is not navigated to My Subscriptions screen post tapping My Subscription from more menu screen ");
+					"User is not navigated to My Subscriptions screen post tapping My Subscription from More menu screen ");
 			logger.info(
-					"User is not navigated to My Subscriptions screen post tapping My Subscription from more menu screen");
+					"User is not navigated to My Subscriptions screen post tapping My Subscription from More menu screen");
 		}
+		
 		// Verify Subscribe now and No Active subscription is displayed
 		if (verifyIsElementDisplayed(AMDMoreMenu.objNoActivePlans)) {
 			String NoactivePlans = getText(AMDMoreMenu.objNoActivePlans);
-			extent.extentLoggerPass("Verify No active Subscription",
-					"The message : " + NoactivePlans + " is displayed in My Subscription screen");
-			logger.info("The message : " + NoactivePlans + " is displayed in My Subscription screen");
+			extent.extentLoggerPass("Verify No active Subscription", NoactivePlans + " message is displayed in My Subscription screen");
+			logger.info(NoactivePlans + " message is displayed in My Subscription screen");
 		} else {
 			extent.extentLoggerFail("Verify No active Subscription",
-					"The message No Active Subscription is not displayed in My Subscription screen");
-			logger.info("The message No Active Subscription is not displayed in My Subscription screen");
+					"No Active Subscription message is NOT displayed in My Subscription screen");
+			logger.info("No Active Subscription message is NOT displayed in My Subscription screen");
 		}
 		if (verifyIsElementDisplayed(AMDMoreMenu.objSubscribeNowCTA)) {
-			extent.extentLoggerPass("Verify No active Subscription",
-					"Subscribe Now CTA is displayed in My Subscription screen");
-			logger.info("Subscribe Now CTA is displayed in My Subscription screen");
+			extent.extentLoggerPass("Subscribe Now",
+					"Subscribe Now CTA is displayed in My Subscriptions screen");
+			logger.info("Subscribe Now CTA is displayed in My Subscriptions screen");
+			
+			// Verify User is navigated to subscribe screen post tapping Subscribe Now CTA
+			verifyElementPresentAndClick(AMDMoreMenu.objSubscribeNowCTA, "Subscribe Now CTA");
+			waitTime(1000);
+			String screenTitle = getText(AMDGenericObjects.objgetScreenTitle);
+			if (screenTitle.equalsIgnoreCase("Subscribe")) {
+				extent.extentLoggerPass("Subscribe Now CTA Navigation",
+						"User is navigated to Subscribe screen post tapping Subscribe Now CTA from My Subscriptions screen");
+				logger.info(
+						"User is navigated to Subscribe screen post tapping Subscribe Now CTA from My Subscriptions screen");
+				verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
+			} else {
+				extent.extentLoggerFail("Subscribe Now CTA Navigation",
+						"User failed to navigate to Subscribe screen post tapping Subscribe Now CTA from My Subscriptions screen");
+				logger.info(
+						"User is not navigated to Subscribe screen post tapping Subscribe Now CTA from My Subscriptions screen");
+			}
+			verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
 		} else {
-			extent.extentLoggerFail("Verify No active Subscription",
-					"Subscribe Now CTA is not displayed in My Subscription screen");
-			logger.info("Subscribe Now CTA is not displayed in My Subscription screen");
+			extent.extentLoggerFail("Subscribe Now",
+					"Subscribe Now CTA is not displayed in My Subscriptions screen");
+			logger.info("Subscribe Now CTA is not displayed in My Subscriptions screen");
 		}
-		// Verify User is navigated to subscribe screen post tapping Subscribe Now CTA
-		verifyElementPresentAndClick(AMDMoreMenu.objSubscribeNowCTA, "Subscribe Now CTA");
-		String screenTitle = getText(AMDGenericObjects.objgetScreenTitle);
-		if (screenTitle.equals("Subscribe")) {
-			extent.extentLoggerPass("Verify Navigation",
-					"User is navigated to Subscribe screen post tapping Subscribe Now CTA from My Subscription screen");
-			logger.info(
-					"User is navigated to Subscribe screen post tapping Subscribe Now CTA from My Subscription screen");
-		} else {
-			extent.extentLoggerFail("Verify Navigation",
-					"User is not navigated to Subscribe screen post tapping Subscribe Now CTA from My Subscription screen");
-			logger.info(
-					"User is not navigated to Subscribe screen post tapping Subscribe Now CTA from My Subscription screen");
-		}
-		Back(1);
+		
+		waitTime(2000);
+		Swipe("DOWN", 2);
 		// Verify user is navigated back to More menu screen on clicking back button
-		verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
 		if (checkElementExist(AMDMoreMenu.objProfile, "Profile icon")) {
-			extent.extentLoggerPass("Verify navigation",
-					"User is navigate back to the More menu screen post tapping back button from My Subscription screen");
+			extent.extentLoggerPass("Back Button Navigation",
+					"User is able to navigate back to More menu screen post tapping back button from My Subscriptions screen");
 			logger.info(
-					"User is navigate back to the More menu screen post tapping back button from Login/Register screen");
+					"User is able to navigate back to More menu screen post tapping back button from My Subscriptions screen");
+			Back(1);
 		} else {
-			extent.extentLoggerFail("Verify navigation",
-					"User is not navigated back to the More menu screen post tapping back button from My Subscription screen");
+			extent.extentLoggerFail("Back Button Navigation",
+					"User failed to navigate back to More menu screen post tapping back button from My Subscriptions screen");
 			logger.info(
-					"User is not navigated back to the More menu screen post tapping back button from My Subscription screen");
+					"User failed to navigate back to More menu screen post tapping back button from My Subscriptions screen");
 		}
-		Back(1);
 	}
 
 	/**
@@ -19212,10 +19207,11 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 	}
 	
 	public void BackToLandingScreen() throws Exception {
+		System.out.println("Navigating back to landing screen");
 		for(int i=1;i<10;i++) {
 			Back(1);
 			waitTime(2000);
-			if(verifyElementDisplayed(AMDOnboardingScreen.objExitNo)) {
+			if(verifyIsElementDisplayed(AMDOnboardingScreen.objExitNo)) {
 				click(AMDOnboardingScreen.objExitNo, "Dismiss");
 				break;
 			}

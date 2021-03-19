@@ -759,6 +759,7 @@ public class ResponseInstance {
 //		assetSubType = "video"; //0-1-manual_2g3a9k82241g
 //		getContentDetails("0-6-972");
 //		getTrayResponse("home","trailer");
+		subscriptionDetails();
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -2110,12 +2111,16 @@ public static String getCarouselContentFromAPI(String usertype, String tabName) 
 	public static void subscriptionDetails() {
 		String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";
 		
-		String UserType = getParameterFromXML("userType");
-		String pUsername = getParameterFromXML(UserType + "Name");
-		String pPassword = getParameterFromXML(UserType + "Password");
+//		String UserType = getParameterFromXML("userType");
+//		String pUsername = getParameterFromXML(UserType + "Name");
+//		String pPassword = getParameterFromXML(UserType + "Password");
+		
+		String pUsername = "zeetest10@test.com";
+		String pPassword = "123456";
+		
 		String bearerToken = getBearerToken(pUsername, pPassword);
 		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
-		resp.print();
+		resp.prettyPrint();
 		System.out.println("\n Subscrition related");
 		Mixpanel.FEProp.setProperty("Pack Duration",resp.jsonPath().getString("[0].subscription_plan.billing_frequency")); 
 		String uri = "[0].subscription_plan.";

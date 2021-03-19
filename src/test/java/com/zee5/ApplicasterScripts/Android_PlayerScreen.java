@@ -28,8 +28,7 @@ public class Android_PlayerScreen {
 
 	@Test(priority = 1)
 	@Parameters({ "userType", "searchKeyword1", "searchKeyword4", "searchKeyword5", "searchKeyword3", "searchKeyword6"})
-	public void Player_Potrait(String userType, String searchKeyword1, String searchKeyword4, String searchKeyword5,
-			String searchKeyword3, String searchKeyword6) throws Exception {
+	public void Player_Potrait(String userType, String searchKeyword1, String searchKeyword3, String searchKeyword4, String searchKeyword5, String searchKeyword6) throws Exception {
 		ZEE5ApplicasterBusinessLogic.PlayerPotrait(searchKeyword1, userType);
 		ZEE5ApplicasterBusinessLogic.premiumContentwithTrailer(userType, searchKeyword4);
 		ZEE5ApplicasterBusinessLogic.premiumContentWithoutTrailer(userType, searchKeyword5);
@@ -39,21 +38,31 @@ public class Android_PlayerScreen {
 	}
 	
 	@Test(priority = 2)
-	@Parameters({ "userType", "searchKeyword1", "searchKeyword3", "searchKeyword4", "searchKeyword5","searchKeyword8" }) // Manasa
-	public void verifyPlayerScreenInLandscapeMode(String userType, String searchKeyword1,String searchKeyword3,String searchKeyword4,String searchKeyword5,String searchKeyword8) throws Exception {
-		System.out.println("\nVerify Player Functionality in Landscape Mode");
+	@Parameters({ "userType", "searchKeyword3","searchKeyword8" }) // Manasa,Kushal
+	public void verifyPlayer_NextAndSkipIntroInLandscapeMode(String userType,String searchKeyword3,String searchKeyword8) throws Exception {
+		System.out.println("\nVerify Player Next&PreviousIcon and SkipIntro Functionality in Landscape Mode");
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.nextAndPreviousIconValidation(searchKeyword8);
 		ZEE5ApplicasterBusinessLogic.skipIntroValidationInLandscapeMode(searchKeyword3,userType);
+	}
+	
+	@Test(priority = 3)
+	@Parameters({ "userType", "searchKeyword4", "searchKeyword5" }) // Manasa,Kushal
+	public void verifyPlayer_PlaybackRateAndPremiumContentInLandscapeMode(String userType,String searchKeyword4,String searchKeyword5) throws Exception {
+		System.out.println("\nVerify Player PlaybackRate&PremiumContent Functionality in Landscape Mode");
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.subtitleAndPlaybackRateValidation(searchKeyword4,userType);
 		ZEE5ApplicasterBusinessLogic.premiumContentWithoutTrailerInLandscapeMode(userType,searchKeyword5);
 	}
 
 	
-	@Test(priority = 3)
+	@Test(priority = 4)
 	@Parameters({ "userType", "searchKeyword1" })
 	public void ParentalPinPopUpValidationInLandscapeMode(String userType,String searchKeyword1) throws Exception {
 		System.out.println("\nParental Pin PopUp Validation in Landscape Mode");
@@ -64,7 +73,7 @@ public class Android_PlayerScreen {
 		ZEE5ApplicasterBusinessLogic.parentalPinValidationInLandscapeMode(userType, searchKeyword1);
 	}
 	
-//	@Test(priority = 4)		//-------- Upnext & Watch Credit is not appearing on the player due to Defect #AMA2-6266. Hence commenting this block & maintenance pending.
+//	@Test(priority = 5)		//-------- Upnext & Watch Credit is not appearing on the player due to Defect #AMA2-6266. Hence commenting this block & maintenance pending.
 	@Parameters({ "userType", "searchKeyword1","searchKeyword8", "searchKeyword9"})
 	public void UpnextAndWatchCreditValidationInLandscapeMode(String userType, String searchKeyword1,String searchKeyword8,String searchKeyword9) throws Exception {
 		System.out.println("\nParental Pin PopUp Validation in Landscape Mode");

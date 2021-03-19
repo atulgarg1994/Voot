@@ -34,6 +34,8 @@ public class Android_MoreScreen {
 	@Test(priority = 2) // Vinay
 	@Parameters({ "userType" })
 	public void BuySubscription(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToLandingScreen();
 		ZEE5ApplicasterBusinessLogic.BuySubscription(userType);
 	}
 
@@ -88,6 +90,8 @@ public class Android_MoreScreen {
 	@Test(priority = 11)
 	@Parameters({ "userType" }) //Bhavana
 	public void HelpCenterValidation(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToLandingScreen();
 		ZEE5ApplicasterBusinessLogic.HelpCenterScreen(userType);
 	}
 
@@ -96,7 +100,6 @@ public class Android_MoreScreen {
 	public void LogoutValidation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.LogoutValidation(userType);
 		ZEE5ApplicasterBusinessLogic.LoginAfterLogout(userType);
-		ZEE5ApplicasterBusinessLogic.logoutOfflineValidation(userType);
 	}
 
 	@Test(priority = 13)
@@ -105,7 +108,7 @@ public class Android_MoreScreen {
 		ZEE5ApplicasterBusinessLogic.PrivacyPolicyScreen(userType);
 	}
 
-//	@Test(priority = 14)
+	@Test(priority = 14)
 	@Parameters({ "userType" })  //Bhavana
 	public void StaticPagesInDisplayLanguage(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.staticPagesInDisplayLanguage();
@@ -116,7 +119,6 @@ public class Android_MoreScreen {
 	public void TermsOfUseValidation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.TermsOfUseScreen(userType);
 	}
-	
 
 	@AfterTest
 	public void tearDownApp() {
