@@ -4616,6 +4616,20 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			extent.extentLogger("", "Swipe till end failed");
 		}
 	}
+	
+	
+	public void playerScrub() {
+		try {
+			WebElement scrubber = getWebDriver().findElement(PWAPlayerPage.objPlayerScrubber);
+			WebElement progressBar = getWebDriver().findElement(PWAPlayerPage.objPlayerProgressBar);
+			Actions action = new Actions(getWebDriver());
+			action.clickAndHold(scrubber).moveToElement(progressBar, 150, 0).release().perform();
+			logger.info("Scrub/Seek");
+		} catch (Exception e) {
+			logger.info("Swipe failed");
+			extent.extentLogger("", "Swipe failed");
+		}
+	}
 
 	public void verifyResumeEventForContentFromUpnextRail(String userType, String tab) throws Exception {
 		extent.HeaderChildNode("Verify Resume Event for content autoplayed from Upnext rail");
@@ -5361,7 +5375,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		extent.HeaderChildNode("Verify Scrub/Seek Event For Trailer Content");
 		mandatoryRegistrationPopUp(userType);
 		clickOnTrayContent(tabName,"trailer");
-		waitForPlayerAdToComplete("Video Player");
+	//	waitForPlayerAdToComplete("Video Player");
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 0) {
@@ -5372,7 +5386,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		}
 		mixpanel.FEProp.setProperty("Page Name", pageName());
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		playerScrubTillLastWeb();
+		playerScrub();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
 		waitTime(5000);
 		
@@ -5524,6 +5538,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mandatoryRegistrationPopUp(userType);
 			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
 			waitTime(4000);
+			scrollDownWEB();
 			scrollDownWEB();
 			waitTime(4000);
 			Actions actions = new Actions(getWebDriver());
@@ -6889,7 +6904,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
 		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
-		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		click(PWAPlayerPage.forward10SecBtn, "Forward 10 sec button");
@@ -6925,18 +6940,15 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			verifyElementPresentAndClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist icon");
-
+		
 			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
 				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
 			}
 
 			click(PWALandingPages.objWebProfileIcon, "Profile icon");
 			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
-
 			click(PWAAddToWatchListPage.objWatchlistedItem, "Content Card in Watchlist page");
-			mandatoryRegistrationPopUp(userType);
-			waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
+			waitForPlayerAdToComplete("Video Player");
 			waitTime(6000);
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			click(PWAPlayerPage.forward10SecBtn, "Forward 10 sec button");
@@ -9119,7 +9131,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Parental Overlay Impression For Content From Search Page");
-			waitTime(3000);
 			click(PWAHomePage.objSearchBtn, "Search Icon");
 			type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
 			waitTime(4000);

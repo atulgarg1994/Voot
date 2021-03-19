@@ -31,7 +31,7 @@ public class ScrubSeekEvent {
 	}
 
 	@Test(priority = 2)
-	@Parameters({ "userType" })
+	@Parameters({ "userType","Tab" })
 	public void verifyScrubSeekEventForPremiumContent(String userType, String tab) throws Exception {
 		System.out.println("Verify Scrub/Seek Event For Premium Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
@@ -43,7 +43,7 @@ public class ScrubSeekEvent {
 	public void verifyScrubSeekEventForTrailer(String tab) throws Exception {
 		System.out.println("Verify Scrub/Seek Event For Trailer Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForTrailer(tab);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyScrubSeekEventForTrailer("Movies");
 	}
 
 	@Test(priority = 4)
