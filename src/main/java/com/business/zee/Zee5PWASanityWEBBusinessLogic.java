@@ -3135,6 +3135,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 //	====================For Autorotating=======================
 	public void verifyAutoroatingOnCarousel(String screen) throws Exception {
+		extent.HeaderChildNode("Verify Autorotating On Carousel");
 		boolean autoplayingItemsPresent = false;
 		// String languageSmallText = allSelectedLanguages();
 		Response tabResponse = ResponseInstance.getResponseForPages(screen.toLowerCase(), "en,hi,kn");
@@ -3155,26 +3156,25 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 		}
 		if (autoplayingItemsPresent == false) {
-			if (navigateToAnyScreen(screen)) {
+			if (navigateToAnyScreenOnWeb(screen)) {
 				String firstCarouselTitle = "", secondCarouselTitle = "", thirdCarouselTitle = "";
-				(new WebDriverWait(getDriver(), 30))
-						.until(ExpectedConditions.presenceOfElementLocated(PWAHomePage.objContTitleOnCarousel));
+				//(new WebDriverWait(getDriver(), 30)).until(ExpectedConditions.presenceOfElementLocated(PWAHomePage.objContTitleOnCarousel));
 				firstCarouselTitle = getElementPropertyToString("innerText", PWAHomePage.objContTitleOnCarousel,
 						"Carousel Content Title").toString();
 				logger.info("Carousel content title fetched first time: " + firstCarouselTitle);
 				extent.extentLogger("Autorotating", "Carousel content title fetched first time: " + firstCarouselTitle);
-				Thread.sleep(4000);
+				Thread.sleep(6000);
 				secondCarouselTitle = getElementPropertyToString("innerText", PWAHomePage.objContTitleOnCarousel,
 						"Carousel Content Title").toString();
 				logger.info("Carousel content title fetched second time: " + secondCarouselTitle);
 				extent.extentLogger("Autorotating",
 						"Carousel content title fetched second time: " + secondCarouselTitle);
-				Thread.sleep(4000);
+				Thread.sleep(6000);
 				thirdCarouselTitle = getElementPropertyToString("innerText", PWAHomePage.objContTitleOnCarousel,
 						"Carousel Content Title").toString();
 				logger.info("Carousel content title fetched third time: " + thirdCarouselTitle);
 				extent.extentLogger("Autorotating", "Carousel content title fetched third time: " + thirdCarouselTitle);
-				Thread.sleep(4000);
+				Thread.sleep(6000);
 				if (firstCarouselTitle.equals(secondCarouselTitle) || secondCarouselTitle.equals(thirdCarouselTitle)) {
 					logger.error("Autorotation failed");
 					extent.extentLoggerFail("Autorotating", "Autorotation failed");
@@ -11205,35 +11205,30 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 */
 
 	public void ValidatingWebPwaCarousalinalltabs(String UserType) throws Exception {
-
 		switch (UserType) {
 		case "Guest":
 			extent.HeaderChildNode("User Type Guest");
 			System.out.println("User Type Guest");
-//		enterURLInBrowser("chrome", "https://newpwa.zee5.com");
+			//enterURLInBrowser("chrome", "https://newpwa.zee5.com");
 			carouseldots("carouselDots", "home");
-//		carouseldots("carouselDots","kids");
-
+			//carouseldots("carouselDots","kids");
 			break;
 
-		case "NonSubcribedUser":
+		case "NonSubscribedUser":
 			extent.HeaderChildNode("User Type Loggedin User");
 			System.out.println("User Type Loggedin User");
-//		ZeePWALogin("Mobile", "Nonsubscribed");
+			//ZeePWALogin("Mobile", "Nonsubscribed");
 			carouseldots("carouselDots", "home");
 			carouseldots("carouselDots", "kids");
-
 			break;
 
-		case "SubcribedUser":
+		case "SubscribedUser":
 			extent.HeaderChildNode("User Type Subcribed User");
 			System.out.println("User Type Subcribed User");
-//		ZeePWALogin("E-mail", "Subscribed");
+			//ZeePWALogin("E-mail", "Subscribed");
 			carouseldots("carouselDots", "home");
 			carouseldots("carouselDots", "kids");
-
 		}
-
 	}
 
 	public void carouseldots(String carouselDots, String page) throws Exception {

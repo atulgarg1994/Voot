@@ -2977,8 +2977,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDHomePage.HomeIcon, "Home tab");
 		verifyElementPresentAndClick(AMDHomePage.objUpcoming, "Upcoming tab");
 
-		waitForElementDisplayed(AMDUpcomingPage.objContentCardTitle, 10);
-		if (verifyElementExist(AMDUpcomingPage.objContentCardTitle, "Upcoming Page Content Card")) {
+		waitForElementDisplayed(AMDUpcomingPage.objContentCard1, 10);
+		if (verifyElementExist(AMDUpcomingPage.objContentCard1, "Upcoming Page Content Card")) {
 			logger.info("Appropriate page is loaded");
 			extent.extentLogger("Page", "Appropriate page is loaded");
 		} else {
@@ -4636,7 +4636,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 
-public void pauseAllAndCancelDownload(String userType) throws Exception {
+	public void pauseAllAndCancelDownload(String userType) throws Exception {
 		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
 		extent.HeaderChildNode("Validating Call-Out options with Pause All and Cancel Download CTA");
 		System.out.println("\nValidating Call-Out options with Pause All and Cancel Download CTA");
@@ -4659,9 +4659,11 @@ public void pauseAllAndCancelDownload(String userType) throws Exception {
 		waitTime(5000);
 		click(AMDDownloadPage.objCancelDownloadOption, "Cancel Download CTA");
 		waitTime(5000);
-		int totalEpisodesList2 = getDriver().findElements(AMDDownloadPage.objNoOfEpisodeList).size();
-		logger.info(totalEpisodesList2);
-		if (totalEpisodesList != totalEpisodesList2) {
+		Back(1);
+//		int totalEpisodesList2 = getDriver().findElements(AMDDownloadPage.objNoOfEpisodeList).size();
+//		logger.info(totalEpisodesList2);
+		 Boolean value = verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn);
+		if (value == true) {
 			extent.extentLoggerPass("Cancel Download", "Downloading content is deleted");
 			logger.info("Downloading content is deleted");
 		} else {
@@ -4672,7 +4674,7 @@ public void pauseAllAndCancelDownload(String userType) throws Exception {
 		//		click(AMDDownloadPage.objPausedBar, "Paused icon");
 //		click(AMDDownloadPage.objRetryCTA, "Continue option");
 //		waitTime(2000);
-		Back(2);
+		Back(1);
 		}
 	}
 
@@ -5146,6 +5148,7 @@ public void pauseAllAndCancelDownload(String userType) throws Exception {
 		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
 		extent.HeaderChildNode("Validating the downloading content in Movies tab");
 		System.out.println("\nValidating the downloading content in Movies tab");
+		Back(1);
        	DownloadContent(MovieName, Quality, true);
 		String getPropertyValue = getAttributValue("enabled", AMDDownloadPage.objmoviestab);
 		if (getPropertyValue.equalsIgnoreCase("true")) {
@@ -5256,9 +5259,9 @@ public void pauseAllAndCancelDownload(String userType) throws Exception {
 			logger.info("User is navigated to Videos landing page");
 		} else {
 			extent.extentLoggerFail("Movies tab",
-					"User fails to navigate to Videos landing page and instead displayed : " + getSelectedTabName
+					"[ZNA-8426] User fails to navigate to Videos landing page and instead displayed : " + getSelectedTabName
 							+ " landing screen");
-			logger.error("User fails to navigate to Videos landing page and instead displayed : " + getSelectedTabName
+			logger.error("[ZNA-8426] User fails to navigate to Videos landing page and instead displayed : " + getSelectedTabName
 					+ " landing screen");
 		}
 	}
@@ -19229,9 +19232,11 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 			waitTime(3000);
 			click(AMDDownloadPage.objCancelDownloadOption, "Cancel Download CTA");
             waitTime(10000);
-			int totalEpisodesList2 = getDriver().findElements(AMDDownloadPage.objNoOfEpisodeList).size();
-			logger.info("Content Cards: " + totalEpisodesList2);
-			if (totalEpisodesList != totalEpisodesList2) {
+            Back(1);
+            Boolean value = verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn);
+//			int totalEpisodesList2 = getDriver().findElements(AMDDownloadPage.objNoOfEpisodeList).size();
+//			logger.info("Content Cards: " + totalEpisodesList2);
+			if (value == true) {
 				extent.extentLoggerPass("Cancel Download", "Downloading content is deleted");
 				logger.info("Downloading content is deleted");
 			} else {
@@ -19239,7 +19244,7 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 				logger.error("Downloading content is NOT deleted");
 			}
 			waitTime(2000);
-			Back(1);
+			//Back(1);
 			String getProperty1 = getAttributValue("enabled", AMDHomePage.objDownloadBtn);
 			if (getProperty1.equalsIgnoreCase("true")) {
 				extent.extentLoggerPass("Downloads Tab",

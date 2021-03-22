@@ -25,13 +25,13 @@ public class Android_DownloadsNew {
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 	}
 	
-	@Test(priority = 1)
+	//@Test(priority = 1)
 	@Parameters({ "userType"})
 	public void ContentPlayBackDownloads(String userType) throws Exception {
 			ZEE5ApplicasterBusinessLogic.DownloadsContentPlayBackValidation(userType,"Better",true);
 	}
 	
-	@Test(priority = 2)
+	//@Test(priority = 2)
 	@Parameters({ "userType"})
 	public void DonwloadsLandingScreen(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.DownloadScreenUIUXValidation(userType);
@@ -39,13 +39,13 @@ public class Android_DownloadsNew {
 		//ZEE5ApplicasterBusinessLogic.DownloadScreenValidation(userType);
 	}
 	
-	@Test(priority = 3)
+	//@Test(priority = 3)
 	@Parameters({ "userType"})
 	public void Downloads_EmptystateScreenValidation(String userType) throws Exception {
 			ZEE5ApplicasterBusinessLogic.EmptystateScreenValidation(userType);
 	}
 	
-	@Test(priority = 4)
+	//@Test(priority = 4)
 	@Parameters({ "userType"})
 	public void Downloads_verifyDownloadsWithSingleTire(String userType) throws Exception {
 			ZEE5ApplicasterBusinessLogic.verifyDownloadsWithSingleTire(userType);
@@ -60,10 +60,12 @@ public class Android_DownloadsNew {
 	@Test(priority = 6)
 	@Parameters({ "userType"})
 	public void Downloads_validationofDownloadingContent(String userType) throws Exception {
+		    ZEE5ApplicasterBusinessLogic.relaunch(true);
+		    ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
 			ZEE5ApplicasterBusinessLogic.validationofDownloadingContent(userType);
 	}
 	
-	@Test(priority = 7)
+	//@Test(priority = 7)
 	@Parameters({ "userType"})
 	public void Downloads_DownloadingOffline(String userType) throws Exception {
 			ZEE5ApplicasterBusinessLogic.DownloadingOffline(userType);
@@ -85,7 +87,9 @@ public class Android_DownloadsNew {
 	@Test(priority = 10)
 	@Parameters({ "userType"})
 	public void Downloads_validationofDownloadsSectionAndLatestEpisode(String userType) throws Exception {
-			ZEE5ApplicasterBusinessLogic.DownloadsSectionAndLatestEpisode(userType);
+		     ZEE5ApplicasterBusinessLogic.relaunch(true);
+		     ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+			 ZEE5ApplicasterBusinessLogic.DownloadsSectionAndLatestEpisode(userType);
 	}
 	
 	@Test(priority = 11)

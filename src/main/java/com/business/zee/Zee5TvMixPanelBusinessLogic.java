@@ -1,9 +1,7 @@
 package com.business.zee;
 
-import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import org.openqa.selenium.By;
@@ -24,7 +22,6 @@ import com.zee5.TVPages.Zee5TvHomePage;
 import com.zee5.TVPages.Zee5TvPlayerPage;
 import com.zee5.TVPages.Zee5TvSearchPage;
 import com.zee5.TVPages.Zee5TvWelcomePage;
-import ch.qos.logback.core.net.LoginAuthenticator;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
@@ -1598,7 +1595,7 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 	}
 
 	@SuppressWarnings("static-access")
-	public void videoViewEvent(String entryPoint, String tabName) throws Exception {
+	public void videoViewEvent(String entryPoint, String tabName, String searchContent) throws Exception {
 
 		if (entryPoint.equals("Free")) {
 			if (userType.equals("Guest")) {
@@ -1648,6 +1645,2890 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 
 			}
 			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			waitTime(5000);
+			AdVerify();
+
+			waitTime(10000);
+			if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+				TVRemoteEvent(20);
+				waitTime(2000);
+				TVRemoteEvent(23);
+				logger.info("clicked on skip intro");
+				extent.extentLoggerPass("Intro", "clicked on skip intro");
+			} else {
+				logger.info("Skip intro is not displayed");
+				extent.extentLoggerPass("Intro", "Skip intro is not displayed");
+			}
+
+			Runtime.getRuntime().exec("adb shell input keyevent 23");
+			waitTime(2000);
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+			mixpanel.ValidateParameter("", "Video View");
+
+			getDriver().navigate().back();
+			waitTime(3000);
+			getDriver().navigate().back();
+			waitTime(3000);
+			getDriver().navigate().back();
+			waitTime(3000);
+			for (int i = 0; i <= 10; i++) {
+				Runtime.getRuntime().exec("adb shell input keyevent 19");
+				waitTime(2000);
+			}
+			for (int i = 0; i <= 10; i++) {
+				Runtime.getRuntime().exec("adb shell input keyevent 21");
+				waitTime(2000);
+			}
+			TVTabSelect("Home");
+
+		} else if (entryPoint.equals("premium")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "premium");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"premium content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "premium content tray");
+					logger.info("premium content tray");
+					extent.extentLoggerPass("Trending", "premium content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"premium content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			waitTime(5000);
+			if (userType.equals("Guest")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+					logger.info("Login popup is displayed when user play premium content as guest user");
+					extent.extentLoggerPass("Popup",
+							"Login popup is displayed when user play premium content as guest user");
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+					mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+					mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+					logger.info(
+							"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				} else {
+					logger.info("Functioanlity failed");
+					extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+				}
+			}
+			if (userType.equals("NonSubscribedUser")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+					logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					extent.extentLoggerPass("Popup",
+							"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					waitTime(5000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Subscription Page");
+					mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+					mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				}
+			}
+			if (userType.equals("SubscribedUser")) {
+				waitTime(10000);
+				if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+					TVRemoteEvent(20);
+					waitTime(2000);
+					TVRemoteEvent(23);
+					logger.info("clicked on skip intro");
+					extent.extentLoggerPass("Intro", "clicked on skip intro");
+				} else {
+					logger.info("Skip intro is not displayed");
+					extent.extentLoggerPass("Intro", "Skip intro is not displayed");
+				}
+
+				Runtime.getRuntime().exec("adb shell input keyevent 23");
+				waitTime(2000);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+				
+				getDriver().navigate().back();
+				waitTime(3000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				for (int i = 0; i <= 10; i++) {
+					Runtime.getRuntime().exec("adb shell input keyevent 19");
+					waitTime(2000);
+				}
+				for (int i = 0; i <= 10; i++) {
+					Runtime.getRuntime().exec("adb shell input keyevent 21");
+					waitTime(2000);
+				}
+				TVTabSelect("Home");
+				
+			}
+
+		} else if (entryPoint.equals("trailer")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "trailer");
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"trailer content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "trailer content tray");
+					logger.info("trailer content tray");
+					extent.extentLoggerPass("trailer", "trailer content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"trailer content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "trailer content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "trailer content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			waitTime(5000);
+			if (verifyIsElementDisplayed(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button")) {
+				waitTime(5000);
+				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
+				waitTime(2000);
+			}
+			waitTime(10000);
+			Runtime.getRuntime().exec("adb shell input keyevent 23");
+			waitTime(2000);
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			mixpanel.ValidateParameter("", "Video View");
+			getDriver().navigate().back();
+			waitTime(3000);
+			getDriver().navigate().back();
+			waitTime(3000);
+			getDriver().navigate().back();
+			waitTime(3000);
+			for (int i = 0; i <= 10; i++) {
+				Runtime.getRuntime().exec("adb shell input keyevent 19");
+				waitTime(2000);
+			}
+			for (int i = 0; i <= 10; i++) {
+				Runtime.getRuntime().exec("adb shell input keyevent 21");
+				waitTime(2000);
+			}
+			TVTabSelect("Home");
+			
+
+		} else if (entryPoint.equals("carousel")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "carousel");
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			for (int i = 0; i <= 10; i++) {
+				if (verifyIsElementDisplayed(Zee5TvHomePage.objCarouselBannerTitle(contentTitle.get(0)),
+						"Carousel content")) {
+
+					TVclick(Zee5TVCarousel.objCarouselPlayButton, "Play button");
+					waitTime(5000);
+					ResponseInstance.getContentDetails(contentTitle.get(2));
+					waitTime(4000);
+					TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+					waitTime(5000);
+					if (userType.equals("Guest")) {
+						if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+							logger.info("Login popup is displayed when user play premium content as guest user");
+							extent.extentLoggerPass("Popup",
+									"Login popup is displayed when user play premium content as guest user");
+							mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+							mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+							mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+							logger.info(
+									"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+						} else {
+							logger.info("Functioanlity failed");
+							extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+						}
+
+					}
+					if (userType.equals("NonSubscribedUser")) {
+						if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+							logger.info(
+									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+							extent.extentLoggerPass("Popup",
+									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+							waitTime(5000);
+							Runtime.getRuntime().exec("adb shell input keyevent 22");
+							waitTime(2000);
+							Runtime.getRuntime().exec("adb shell input keyevent 22");
+							waitTime(2000);
+							Runtime.getRuntime().exec("adb shell input keyevent 23");
+							waitTime(5000);
+
+							mixpanel.FEProp.setProperty("Source", "Subscription Page");
+							mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+							mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+						}
+					}
+					if (userType.equals("SubscribedUser")) {
+
+						waitTime(10000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(2000);
+						mixpanel.FEProp.setProperty("Source", "Player");
+						mixpanel.FEProp.setProperty("Page Name", "Player");
+						mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+						mixpanel.ValidateParameter("", "Video View");
+						getDriver().navigate().back();
+						waitTime(3000);
+						getDriver().navigate().back();
+						waitTime(3000);
+						getDriver().navigate().back();
+						waitTime(3000);
+						for (int l = 0; l <= 10; l++) {
+							Runtime.getRuntime().exec("adb shell input keyevent 19");
+							waitTime(2000);
+						}
+						for (int m = 0; m <= 10; m++) {
+							Runtime.getRuntime().exec("adb shell input keyevent 21");
+							waitTime(2000);
+						}
+						TVTabSelect("Home");
+					}
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+			}
+
+		} else if (entryPoint.equals("ContentTray"))
+
+		{
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "premium");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"premium content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "premium content tray");
+					logger.info("premium content tray");
+					extent.extentLoggerPass("Trending", "premium content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"premium content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+			if (userType.equals("Guest")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+					logger.info("Login popup is displayed when user play premium content as guest user");
+					extent.extentLoggerPass("Popup",
+							"Login popup is displayed when user play premium content as guest user");
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+					mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+					mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+					logger.info(
+							"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				} else {
+					logger.info("Functioanlity failed");
+					extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+				}
+			}
+			if (userType.equals("NonSubscribedUser")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+					logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					extent.extentLoggerPass("Popup",
+							"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					waitTime(5000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Subscription Page");
+					mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+					mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				}
+			}
+			if (userType.equals("SubscribedUser")) {
+				waitTime(10000);
+				if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+					TVRemoteEvent(20);
+					waitTime(2000);
+					TVRemoteEvent(23);
+					logger.info("clicked on skip intro");
+					extent.extentLoggerPass("Intro", "clicked on skip intro");
+				} else {
+					logger.info("Skip intro is not displayed");
+					extent.extentLoggerPass("Intro", "Skip intro is not displayed");
+				}
+
+				Runtime.getRuntime().exec("adb shell input keyevent 23");
+				waitTime(2000);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+				
+				getDriver().navigate().back();
+				waitTime(3000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				for (int i = 0; i <= 10; i++) {
+					Runtime.getRuntime().exec("adb shell input keyevent 19");
+					waitTime(2000);
+				}
+				for (int i = 0; i <= 10; i++) {
+					Runtime.getRuntime().exec("adb shell input keyevent 21");
+					waitTime(2000);
+				}
+				TVTabSelect("Home");
+			}
+
+		} else if (entryPoint.equals("Search")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			waitTime(2000);
+			if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			} else {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			}
+			waitTime(5000);
+
+			if (searchContent.equals("premium")) {
+				String searchdata1[] = { "p", "a", "n", "c", "h", "a", "t", "a", "n", "t", "r", "a" };
+				type(searchdata1);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					String title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Premium movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "Premium movie");
+						break;
+					} else {
+						logger.info("No match");
+					}
+
+				}
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				String content = "Panchatantra";
+				ResponseInstance.getSearchresponseTv(content);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+				waitTime(5000);
+				if (userType.equals("Guest")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+						logger.info("Login popup is displayed when user play premium content as guest user");
+						extent.extentLoggerPass("Popup",
+								"Login popup is displayed when user play premium content as guest user");
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+						mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+						mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+						logger.info(
+								"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+
+				}
+				if (userType.equals("NonSubscribedUser")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+						logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+						extent.extentLoggerPass("Popup",
+								"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Subscription Page");
+						mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+						mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+				}
+				if (userType.equals("SubscribedUser")) {
+					waitTime(10000);
+					if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+						TVRemoteEvent(20);
+						waitTime(2000);
+						TVRemoteEvent(23);
+						logger.info("clicked on skip intro");
+						extent.extentLoggerPass("Intro", "clicked on skip intro");
+					} else {
+						logger.info("Skip intro is not displayed");
+						extent.extentLoggerPass("Intro", "Skip intro is not displayed");
+					}
+
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(2000);
+					mixpanel.FEProp.setProperty("Source", "Player");
+					mixpanel.FEProp.setProperty("Page Name", "Player");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+					mixpanel.ValidateParameter("", "Video View");
+					
+					getDriver().navigate().back();
+					waitTime(3000);
+					getDriver().navigate().back();
+					waitTime(3000);
+					getDriver().navigate().back();
+					waitTime(3000);
+					getDriver().navigate().back();
+					waitTime(3000);
+					for (int i = 0; i <= 10; i++) {
+						Runtime.getRuntime().exec("adb shell input keyevent 19");
+						waitTime(2000);
+					}
+					for (int i = 0; i <= 10; i++) {
+						Runtime.getRuntime().exec("adb shell input keyevent 21");
+						waitTime(2000);
+					}
+					TVTabSelect("Home");
+				}
+
+			}
+
+			if (searchContent.equals("Free")) {
+				String searchdata2[] = { "b", "a", "b", "l", "u", };
+				String searchdata3[] = { "d", "a", "b", "l", "u" };
+				String searchdata4[] = { "r", "o", "b", "o" };
+				String searchdata5[] = { "r", "u", "m", "b", "l", "e" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+
+				String content = "BabluDabluRoboRumble";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+				waitTime(10000);
+				waitTime(25000);
+				waitTime(10000);
+
+				if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+					TVRemoteEvent(20);
+					waitTime(2000);
+					TVRemoteEvent(23);
+					logger.info("clicked on skip intro");
+					extent.extentLoggerPass("Intro", "clicked on skip intro");
+				} else {
+					logger.info("Skip intro is not displayed");
+					extent.extentLogger("Intro", "Skip intro is not displayed");
+				}
+				waitTime(12000);
+
+				
+				Runtime.getRuntime().exec("adb shell input keyevent 23");
+				waitTime(2000);
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+				
+				getDriver().navigate().back();
+				waitTime(3000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				for (int i = 0; i <= 10; i++) {
+					Runtime.getRuntime().exec("adb shell input keyevent 19");
+					waitTime(2000);
+				}
+				for (int i = 0; i <= 10; i++) {
+					Runtime.getRuntime().exec("adb shell input keyevent 21");
+					waitTime(2000);
+				}
+				TVTabSelect("Home");
+			}
+			if (searchContent.equals("trailer")) {
+
+				String searchdata2[] = { "n", "a", "a", "n", "u", };
+				String searchdata3[] = { "m", "a", "t", "t", "h", "u" };
+				String searchdata4[] = { "g", "u", "n", "d", "a" };
+				String searchdata5[] = { "t", "r", "a", "i", "l", "e", "r" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+				String content = "NaanuMatthuGundaTrailer";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"), "serached Trailer");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+
+				Runtime.getRuntime().exec("adb shell input keyevent 23");
+				waitTime(2000);
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+				
+				getDriver().navigate().back();
+				waitTime(3000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				for (int i = 0; i <= 10; i++) {
+					Runtime.getRuntime().exec("adb shell input keyevent 19");
+					waitTime(2000);
+				}
+				for (int i = 0; i <= 10; i++) {
+					Runtime.getRuntime().exec("adb shell input keyevent 21");
+					waitTime(2000);
+				}
+				TVTabSelect("Home");
+			}
+			if (searchContent.equals("episode")) {
+				String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+				String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+				String searchpromo2[] = { "t", "o" };
+				String searchpromo3[] = { "p", "a", "a", "r", "u" };
+
+				type(searchpromo);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo1);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo3);
+				waitTime(10000);
+				String content = "adityaapologisestopaaru";
+
+				List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele3.size(); i++) {
+					String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+							"Searched Episodes"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+								"serached Episodes");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(10000);
+				AdVerify();
+				Runtime.getRuntime().exec("adb shell input keyevent 23");
+				waitTime(2000);
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+				getDriver().navigate().back();
+				waitTime(3000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				for (int i = 0; i <= 10; i++) {
+					Runtime.getRuntime().exec("adb shell input keyevent 19");
+					waitTime(2000);
+				}
+				for (int i = 0; i <= 10; i++) {
+					Runtime.getRuntime().exec("adb shell input keyevent 21");
+					waitTime(2000);
+				}
+				TVTabSelect("Home");
+				
+			}
+
+		} else {
+			logger.info("Invalid Entry Point");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void videoExitEvent(String entryPoint, String tabName, String searchContent) throws Exception {
+		if (entryPoint.equals("Free")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "Free");
+			TVTabSelect("Home");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"Free content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "Free content tray");
+					logger.info("Free content tray");
+					extent.extentLoggerPass("Trending", "Free content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"Free content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "Free content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "Free content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			waitTime(5000);
+			AdVerify();
+			waitTime(5000);
+
+			getDriver().navigate().back();
+			waitTime(3000);
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+			mixpanel.ValidateParameter("", "Video Exit");
+
+		} else if (entryPoint.equals("premium")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "premium");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"premium content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "premium content tray");
+					logger.info("premium content tray");
+					extent.extentLoggerPass("Trending", "premium content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"premium content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			waitTime(5000);
+			if (userType.equals("Guest")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+					logger.info("Login popup is displayed when user play premium content as guest user");
+					extent.extentLoggerPass("Popup",
+							"Login popup is displayed when user play premium content as guest user");
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+					mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+					mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+					logger.info(
+							"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				} else {
+					logger.info("Functioanlity failed");
+					extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+				}
+			}
+			if (userType.equals("NonSubscribedUser")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+					logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					extent.extentLoggerPass("Popup",
+							"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					waitTime(5000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Subscription Page");
+					mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+					mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				}
+			}
+			if (userType.equals("SubscribedUser")) {
+				waitTime(5000);
+
+				getDriver().navigate().back();
+				waitTime(3000);
+
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video Exit");
+			}
+
+		} else if (entryPoint.equals("trailer")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "trailer");
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"trailer content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "trailer content tray");
+					logger.info("trailer content tray");
+					extent.extentLoggerPass("trailer", "trailer content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"trailer content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "trailer content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "trailer content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			waitTime(5000);
+			if (verifyIsElementDisplayed(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button")) {
+				waitTime(5000);
+				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
+				waitTime(2000);
+			}
+			waitTime(10000);
+
+			getDriver().navigate().back();
+			waitTime(3000);
+
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			mixpanel.ValidateParameter("", "Video Exit");
+
+		} else if (entryPoint.equals("carousel")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "carousel");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			for (int i = 0; i <= 10; i++) {
+				if (verifyIsElementDisplayed(Zee5TvHomePage.objCarouselBannerTitle(contentTitle.get(0)),
+						"Carousel content")) {
+
+					TVclick(Zee5TVCarousel.objCarouselPlayButton, "Play button");
+					waitTime(5000);
+					ResponseInstance.getContentDetails(contentTitle.get(2));
+					waitTime(4000);
+					TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+					waitTime(5000);
+					if (userType.equals("Guest")) {
+						if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+							logger.info("Login popup is displayed when user play premium content as guest user");
+							extent.extentLoggerPass("Popup",
+									"Login popup is displayed when user play premium content as guest user");
+							mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+							mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+							mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+							logger.info(
+									"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+						} else {
+							logger.info("Functioanlity failed");
+							extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+						}
+
+					}
+					if (userType.equals("NonSubscribedUser")) {
+						if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+							logger.info(
+									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+							extent.extentLoggerPass("Popup",
+									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+							waitTime(5000);
+							Runtime.getRuntime().exec("adb shell input keyevent 22");
+							waitTime(2000);
+							Runtime.getRuntime().exec("adb shell input keyevent 22");
+							waitTime(2000);
+							Runtime.getRuntime().exec("adb shell input keyevent 23");
+							waitTime(5000);
+
+							mixpanel.FEProp.setProperty("Source", "Subscription Page");
+							mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+							mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+						}
+					}
+					if (userType.equals("SubscribedUser")) {
+
+						waitTime(10000);
+						getDriver().navigate().back();
+						waitTime(3000);
+						mixpanel.FEProp.setProperty("Source", "Player");
+						mixpanel.FEProp.setProperty("Page Name", "Player");
+						mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+						mixpanel.ValidateParameter("", "Video Exit");
+					}
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+			}
+
+		} else if (entryPoint.equals("ContentTray"))
+
+		{
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "premium");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"premium content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "premium content tray");
+					logger.info("premium content tray");
+					extent.extentLoggerPass("Trending", "premium content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"premium content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+			if (userType.equals("Guest")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+					logger.info("Login popup is displayed when user play premium content as guest user");
+					extent.extentLoggerPass("Popup",
+							"Login popup is displayed when user play premium content as guest user");
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+					mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+					mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+					logger.info(
+							"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				} else {
+					logger.info("Functioanlity failed");
+					extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+				}
+			}
+			if (userType.equals("NonSubscribedUser")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+					logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					extent.extentLoggerPass("Popup",
+							"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					waitTime(5000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Subscription Page");
+					mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+					mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				}
+			}
+			if (userType.equals("SubscribedUser")) {
+				waitTime(5000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video Exit");
+			}
+
+		} else if (entryPoint.equals("Search")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			waitTime(2000);
+			if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			} else {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			}
+			waitTime(5000);
+
+			if (searchContent.equals("premium")) {
+				String searchdata1[] = { "p", "a", "n", "c", "h", "a", "t", "a", "n", "t", "r", "a" };
+				type(searchdata1);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					String title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Premium movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "Premium movie");
+						break;
+					} else {
+						logger.info("No match");
+					}
+
+				}
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				String content = "Panchatantra";
+				ResponseInstance.getSearchresponseTv(content);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+				waitTime(5000);
+				if (userType.equals("Guest")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+						logger.info("Login popup is displayed when user play premium content as guest user");
+						extent.extentLoggerPass("Popup",
+								"Login popup is displayed when user play premium content as guest user");
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+						mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+						mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+						logger.info(
+								"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+
+				}
+				if (userType.equals("NonSubscribedUser")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+						logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+						extent.extentLoggerPass("Popup",
+								"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Subscription Page");
+						mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+						mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+				}
+				if (userType.equals("SubscribedUser")) {
+					waitTime(5000);
+
+					getDriver().navigate().back();
+					waitTime(3000);
+
+					mixpanel.FEProp.setProperty("Source", "Player");
+					mixpanel.FEProp.setProperty("Page Name", "Player");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+					mixpanel.ValidateParameter("", "Video Exit");
+				}
+
+			}
+
+			if (searchContent.equals("Free")) {
+				String searchdata2[] = { "b", "a", "b", "l", "u", };
+				String searchdata3[] = { "d", "a", "b", "l", "u" };
+				String searchdata4[] = { "r", "o", "b", "o" };
+				String searchdata5[] = { "r", "u", "m", "b", "l", "e" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+
+				String content = "BabluDabluRoboRumble";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+				waitTime(10000);
+				waitTime(25000);
+				waitTime(10000);
+
+				if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+					TVRemoteEvent(20);
+					waitTime(2000);
+					TVRemoteEvent(23);
+					logger.info("clicked on skip intro");
+					extent.extentLoggerPass("Intro", "clicked on skip intro");
+				} else {
+					logger.info("Skip intro is not displayed");
+					extent.extentLogger("Intro", "Skip intro is not displayed");
+				}
+				waitTime(12000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video Exit");
+			}
+			if (searchContent.equals("trailer")) {
+
+				String searchdata2[] = { "n", "a", "a", "n", "u", };
+				String searchdata3[] = { "m", "a", "t", "t", "h", "u" };
+				String searchdata4[] = { "g", "u", "n", "d", "a" };
+				String searchdata5[] = { "t", "r", "a", "i", "l", "e", "r" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+				String content = "NaanuMatthuGundaTrailer";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"), "serached Trailer");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video Exit");
+			}
+			if (searchContent.equals("episode")) {
+				String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+				String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+				String searchpromo2[] = { "t", "o" };
+				String searchpromo3[] = { "p", "a", "a", "r", "u" };
+
+				type(searchpromo);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo1);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo3);
+				waitTime(10000);
+				String content = "adityaapologisestopaaru";
+
+				List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele3.size(); i++) {
+					String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+							"Searched Episodes"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+								"serached Episodes");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(20000);
+				getDriver().navigate().back();
+				waitTime(3000);
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video Exit");
+			}
+
+		} else {
+			logger.info("Invalid Entry Point");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void videoWatchedDuration(String entryPoint, String tabName, String searchContent) throws Exception {
+		if (entryPoint.equals("Free")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "Free");
+			TVTabSelect("Home");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"Free content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "Free content tray");
+					logger.info("Free content tray");
+					extent.extentLoggerPass("Trending", "Free content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"Free content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "Free content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "Free content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+			mixpanel.ValidateParameter("", "Video Watch Duration");
+
+		} else if (entryPoint.equals("premium")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "premium");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"premium content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "premium content tray");
+					logger.info("premium content tray");
+					extent.extentLoggerPass("Trending", "premium content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"premium content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			waitTime(5000);
+			if (userType.equals("Guest")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+					logger.info("Login popup is displayed when user play premium content as guest user");
+					extent.extentLoggerPass("Popup",
+							"Login popup is displayed when user play premium content as guest user");
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+					mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+					mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+					logger.info(
+							"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				} else {
+					logger.info("Functioanlity failed");
+					extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+				}
+			}
+			if (userType.equals("NonSubscribedUser")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+					logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					extent.extentLoggerPass("Popup",
+							"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					waitTime(5000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Subscription Page");
+					mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+					mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				}
+			}
+			if (userType.equals("SubscribedUser")) {
+				waitTime(5000);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video Watch Duration");
+			}
+
+		} else if (entryPoint.equals("trailer")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "trailer");
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"trailer content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "trailer content tray");
+					logger.info("trailer content tray");
+					extent.extentLoggerPass("trailer", "trailer content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"trailer content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "trailer content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "trailer content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			waitTime(5000);
+			if (verifyIsElementDisplayed(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button")) {
+				waitTime(5000);
+				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
+				waitTime(2000);
+			}
+			waitTime(10000);
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			mixpanel.ValidateParameter("", "Video Watch Duration");
+
+		} else if (entryPoint.equals("carousel")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "carousel");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			for (int i = 0; i <= 10; i++) {
+				if (verifyIsElementDisplayed(Zee5TvHomePage.objCarouselBannerTitle(contentTitle.get(0)),
+						"Carousel content")) {
+
+					TVclick(Zee5TVCarousel.objCarouselPlayButton, "Play button");
+					waitTime(5000);
+					ResponseInstance.getContentDetails(contentTitle.get(2));
+					waitTime(4000);
+					TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+					waitTime(5000);
+					if (userType.equals("Guest")) {
+						if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+							logger.info("Login popup is displayed when user play premium content as guest user");
+							extent.extentLoggerPass("Popup",
+									"Login popup is displayed when user play premium content as guest user");
+							mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+							mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+							mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+							logger.info(
+									"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+						} else {
+							logger.info("Functioanlity failed");
+							extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+						}
+
+					}
+					if (userType.equals("NonSubscribedUser")) {
+						if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+							logger.info(
+									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+							extent.extentLoggerPass("Popup",
+									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+							waitTime(5000);
+							Runtime.getRuntime().exec("adb shell input keyevent 22");
+							waitTime(2000);
+							Runtime.getRuntime().exec("adb shell input keyevent 22");
+							waitTime(2000);
+							Runtime.getRuntime().exec("adb shell input keyevent 23");
+							waitTime(5000);
+
+							mixpanel.FEProp.setProperty("Source", "Subscription Page");
+							mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+							mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+						}
+					}
+					if (userType.equals("SubscribedUser")) {
+
+						waitTime(10000);
+						waitTime(5000);
+						mixpanel.FEProp.setProperty("Source", "Player");
+						mixpanel.FEProp.setProperty("Page Name", "Player");
+						mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+						mixpanel.ValidateParameter("", "Video Watch Duration");
+					}
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+			}
+
+		} else if (entryPoint.equals("ContentTray"))
+
+		{
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "premium");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"premium content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "premium content tray");
+					logger.info("premium content tray");
+					extent.extentLoggerPass("Trending", "premium content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"premium content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+			if (userType.equals("Guest")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+					logger.info("Login popup is displayed when user play premium content as guest user");
+					extent.extentLoggerPass("Popup",
+							"Login popup is displayed when user play premium content as guest user");
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+					mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+					mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+					logger.info(
+							"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				} else {
+					logger.info("Functioanlity failed");
+					extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+				}
+			}
+			if (userType.equals("NonSubscribedUser")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+					logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					extent.extentLoggerPass("Popup",
+							"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					waitTime(5000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Subscription Page");
+					mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+					mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				}
+			}
+			if (userType.equals("SubscribedUser")) {
+				waitTime(5000);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video Watch Duration");
+			}
+
+		} else if (entryPoint.equals("Search")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			waitTime(2000);
+			if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			} else {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			}
+			waitTime(5000);
+
+			if (searchContent.equals("premium")) {
+				String searchdata1[] = { "p", "a", "n", "c", "h", "a", "t", "a", "n", "t", "r", "a" };
+				type(searchdata1);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					String title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Premium movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "Premium movie");
+						break;
+					} else {
+						logger.info("No match");
+					}
+
+				}
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				String content = "Panchatantra";
+				ResponseInstance.getSearchresponseTv(content);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+				waitTime(5000);
+				if (userType.equals("Guest")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+						logger.info("Login popup is displayed when user play premium content as guest user");
+						extent.extentLoggerPass("Popup",
+								"Login popup is displayed when user play premium content as guest user");
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+						mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+						mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+						logger.info(
+								"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+
+				}
+				if (userType.equals("NonSubscribedUser")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+						logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+						extent.extentLoggerPass("Popup",
+								"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Subscription Page");
+						mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+						mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+				}
+				if (userType.equals("SubscribedUser")) {
+					waitTime(5000);
+					mixpanel.FEProp.setProperty("Source", "Player");
+					mixpanel.FEProp.setProperty("Page Name", "Player");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+					mixpanel.ValidateParameter("", "Video Watch Duration");
+				}
+
+			}
+
+			if (searchContent.equals("Free")) {
+				String searchdata2[] = { "b", "a", "b", "l", "u", };
+				String searchdata3[] = { "d", "a", "b", "l", "u" };
+				String searchdata4[] = { "r", "o", "b", "o" };
+				String searchdata5[] = { "r", "u", "m", "b", "l", "e" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+
+				String content = "BabluDabluRoboRumble";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+				waitTime(10000);
+				waitTime(25000);
+				waitTime(10000);
+
+				if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+					TVRemoteEvent(20);
+					waitTime(2000);
+					TVRemoteEvent(23);
+					logger.info("clicked on skip intro");
+					extent.extentLoggerPass("Intro", "clicked on skip intro");
+				} else {
+					logger.info("Skip intro is not displayed");
+					extent.extentLogger("Intro", "Skip intro is not displayed");
+				}
+				waitTime(12000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video Watch Duration");
+			}
+			if (searchContent.equals("trailer")) {
+
+				String searchdata2[] = { "n", "a", "a", "n", "u", };
+				String searchdata3[] = { "m", "a", "t", "t", "h", "u" };
+				String searchdata4[] = { "g", "u", "n", "d", "a" };
+				String searchdata5[] = { "t", "r", "a", "i", "l", "e", "r" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+				String content = "NaanuMatthuGundaTrailer";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"), "serached Trailer");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video Watch Duration");
+			}
+			if (searchContent.equals("episode")) {
+				String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+				String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+				String searchpromo2[] = { "t", "o" };
+				String searchpromo3[] = { "p", "a", "a", "r", "u" };
+
+				type(searchpromo);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo1);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo3);
+				waitTime(10000);
+				String content = "adityaapologisestopaaru";
+
+				List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele3.size(); i++) {
+					String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+							"Searched Episodes"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+								"serached Episodes");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(20000);
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video Watch Duration");
+			}
+
+		} else {
+			logger.info("Invalid Entry Point");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void adInitializedEvent(String entryPoint, String tabName, String searchContent) throws Exception {
+
+		if (userType.equals("Guest")) {
+			verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+			TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+			extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+		} else {
+			logger.info("User is logged in");
+			extent.extentLoggerPass("Button", "User is logged in");
+		}
+		TVTabSelect("Home");
+		waitTime(2000);
+		if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		} else {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		}
+		waitTime(5000);
+
+		if (entryPoint.equals("Movie")) {
+			String searchdata2[] = { "b", "a", "b", "l", "u", };
+			String searchdata3[] = { "d", "a", "b", "l", "u" };
+			String searchdata4[] = { "r", "o", "b", "o" };
+			String searchdata5[] = { "r", "u", "m", "b", "l", "e" };
+			type(searchdata2);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata3);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata4);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata5);
+
+			String content = "BabluDabluRoboRumble";
+
+			List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+			for (int i = 1; i <= ele.size(); i++) {
+
+				title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+				logger.info(title);
+				extent.extentLogger("Title", "Serach result content title : " + title);
+				if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+						"Searched Movie"))) {
+					TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+					break;
+				} else {
+					System.out.println("No match");
+				}
+
+			}
+
+			waitTime(8000);
+			String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+			if (title.equals(title)) {
+				logger.info("user is navigated to respective content detail page");
+				extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+			}
+			waitTime(2000);
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+			waitTime(10000);
+			waitTime(25000);
+			waitTime(10000);
+
+			if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+				TVRemoteEvent(20);
+				waitTime(2000);
+				TVRemoteEvent(23);
+				logger.info("clicked on skip intro");
+				extent.extentLoggerPass("Intro", "clicked on skip intro");
+			} else {
+				logger.info("Skip intro is not displayed");
+				extent.extentLogger("Intro", "Skip intro is not displayed");
+			}
+			waitTime(12000);
+
+			ResponseInstance.getSearchresponseTv(content);
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+			mixpanel.ValidateParameter("", "Ad Initialized");
+		}
+
+		if (entryPoint.equals("episode")) {
+			String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+			String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+			String searchpromo2[] = { "t", "o" };
+			String searchpromo3[] = { "p", "a", "a", "r", "u" };
+
+			type(searchpromo);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+			type(searchpromo1);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+			type(searchpromo2);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+			type(searchpromo3);
+			waitTime(10000);
+			String content = "adityaapologisestopaaru";
+
+			List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+			for (int i = 1; i <= ele3.size(); i++) {
+				String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+				if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+						"Searched Episodes"))) {
+					TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"), "serached Episodes");
+					break;
+				} else {
+					System.out.println("No match");
+				}
+
+			}
+
+			waitTime(20000);
+			ResponseInstance.getSearchresponseTv(content);
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+			mixpanel.ValidateParameter("", "Ad Initialized");
+		}
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void adIViewEvent(String entryPoint, String tabName, String searchContent) throws Exception {
+
+		if (userType.equals("Guest")) {
+			verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+			TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+			extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+		} else {
+			logger.info("User is logged in");
+			extent.extentLoggerPass("Button", "User is logged in");
+		}
+		TVTabSelect("Home");
+		waitTime(2000);
+		if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		} else {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		}
+		waitTime(5000);
+
+		if (entryPoint.equals("Movie")) {
+			String searchdata2[] = { "b", "a", "b", "l", "u", };
+			String searchdata3[] = { "d", "a", "b", "l", "u" };
+			String searchdata4[] = { "r", "o", "b", "o" };
+			String searchdata5[] = { "r", "u", "m", "b", "l", "e" };
+			type(searchdata2);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata3);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata4);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata5);
+
+			String content = "BabluDabluRoboRumble";
+
+			List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+			for (int i = 1; i <= ele.size(); i++) {
+
+				title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+				logger.info(title);
+				extent.extentLogger("Title", "Serach result content title : " + title);
+				if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+						"Searched Movie"))) {
+					TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+					break;
+				} else {
+					System.out.println("No match");
+				}
+
+			}
+
+			waitTime(8000);
+			String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+			if (title.equals(title)) {
+				logger.info("user is navigated to respective content detail page");
+				extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+			}
+			waitTime(2000);
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+			waitTime(10000);
+			waitTime(25000);
+			waitTime(10000);
+
+			if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+				TVRemoteEvent(20);
+				waitTime(2000);
+				TVRemoteEvent(23);
+				logger.info("clicked on skip intro");
+				extent.extentLoggerPass("Intro", "clicked on skip intro");
+			} else {
+				logger.info("Skip intro is not displayed");
+				extent.extentLogger("Intro", "Skip intro is not displayed");
+			}
+			waitTime(12000);
+
+			ResponseInstance.getSearchresponseTv(content);
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+			mixpanel.ValidateParameter("", "Ad View");
+		}
+
+		if (entryPoint.equals("episode")) {
+			String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+			String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+			String searchpromo2[] = { "t", "o" };
+			String searchpromo3[] = { "p", "a", "a", "r", "u" };
+
+			type(searchpromo);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+			type(searchpromo1);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+			type(searchpromo2);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+			type(searchpromo3);
+			waitTime(10000);
+			String content = "adityaapologisestopaaru";
+
+			List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+			for (int i = 1; i <= ele3.size(); i++) {
+				String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+				if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+						"Searched Episodes"))) {
+					TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"), "serached Episodes");
+					break;
+				} else {
+					System.out.println("No match");
+				}
+
+			}
+
+			waitTime(20000);
+			ResponseInstance.getSearchresponseTv(content);
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+			mixpanel.ValidateParameter("", "Ad View");
+		}
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void adWatchDurationEvent(String entryPoint, String tabName, String searchContent) throws Exception {
+
+		if (userType.equals("Guest")) {
+			verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+			TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+			extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+		} else {
+			logger.info("User is logged in");
+			extent.extentLoggerPass("Button", "User is logged in");
+		}
+		TVTabSelect("Home");
+		waitTime(2000);
+		if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		} else {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		}
+		waitTime(5000);
+
+		if (entryPoint.equals("Movie")) {
+			String searchdata2[] = { "b", "a", "b", "l", "u", };
+			String searchdata3[] = { "d", "a", "b", "l", "u" };
+			String searchdata4[] = { "r", "o", "b", "o" };
+			String searchdata5[] = { "r", "u", "m", "b", "l", "e" };
+			type(searchdata2);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata3);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata4);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata5);
+
+			String content = "BabluDabluRoboRumble";
+
+			List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+			for (int i = 1; i <= ele.size(); i++) {
+
+				title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+				logger.info(title);
+				extent.extentLogger("Title", "Serach result content title : " + title);
+				if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+						"Searched Movie"))) {
+					TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+					break;
+				} else {
+					System.out.println("No match");
+				}
+
+			}
+
+			waitTime(8000);
+			String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+			if (title.equals(title)) {
+				logger.info("user is navigated to respective content detail page");
+				extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+			}
+			waitTime(2000);
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+			waitTime(10000);
+			waitTime(25000);
+			waitTime(10000);
+
+			if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+				TVRemoteEvent(20);
+				waitTime(2000);
+				TVRemoteEvent(23);
+				logger.info("clicked on skip intro");
+				extent.extentLoggerPass("Intro", "clicked on skip intro");
+			} else {
+				logger.info("Skip intro is not displayed");
+				extent.extentLogger("Intro", "Skip intro is not displayed");
+			}
+			waitTime(12000);
+
+			ResponseInstance.getSearchresponseTv(content);
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+			mixpanel.ValidateParameter("", "Ad Watch Duration");
+		}
+
+		if (entryPoint.equals("episode")) {
+			String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+			String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+			String searchpromo2[] = { "t", "o" };
+			String searchpromo3[] = { "p", "a", "a", "r", "u" };
+
+			type(searchpromo);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+			type(searchpromo1);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+			type(searchpromo2);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+			type(searchpromo3);
+			waitTime(10000);
+			String content = "adityaapologisestopaaru";
+
+			List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+			for (int i = 1; i <= ele3.size(); i++) {
+				String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+				if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+						"Searched Episodes"))) {
+					TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"), "serached Episodes");
+					break;
+				} else {
+					System.out.println("No match");
+				}
+
+			}
+
+			waitTime(20000);
+			ResponseInstance.getSearchresponseTv(content);
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+			mixpanel.ValidateParameter("", "Ad Watch Duration");
+		}
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void adForcedExitEvent(String entryPoint, String tabName, String searchContent) throws Exception {
+
+		if (userType.equals("Guest")) {
+			verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+			TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+			extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+		} else {
+			logger.info("User is logged in");
+			extent.extentLoggerPass("Button", "User is logged in");
+		}
+		TVTabSelect("Home");
+		waitTime(2000);
+		if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		} else {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		}
+		waitTime(5000);
+
+		if (entryPoint.equals("Movie")) {
+			String searchdata2[] = { "b", "a", "b", "l", "u", };
+			String searchdata3[] = { "d", "a", "b", "l", "u" };
+			String searchdata4[] = { "r", "o", "b", "o" };
+			String searchdata5[] = { "r", "u", "m", "b", "l", "e" };
+			type(searchdata2);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata3);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata4);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata5);
+
+			String content = "BabluDabluRoboRumble";
+
+			List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+			for (int i = 1; i <= ele.size(); i++) {
+
+				title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+				logger.info(title);
+				extent.extentLogger("Title", "Serach result content title : " + title);
+				if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+						"Searched Movie"))) {
+					TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+					break;
+				} else {
+					System.out.println("No match");
+				}
+
+			}
+
+			waitTime(8000);
+			String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+			if (title.equals(title)) {
+				logger.info("user is navigated to respective content detail page");
+				extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+			}
+			waitTime(2000);
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+			waitTime(10000);
+			waitTime(25000);
+			waitTime(10000);
+
+			if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+				TVRemoteEvent(20);
+				waitTime(2000);
+				TVRemoteEvent(23);
+				logger.info("clicked on skip intro");
+				extent.extentLoggerPass("Intro", "clicked on skip intro");
+			} else {
+				logger.info("Skip intro is not displayed");
+				extent.extentLogger("Intro", "Skip intro is not displayed");
+			}
+			waitTime(12000);
+
+			ResponseInstance.getSearchresponseTv(content);
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+			mixpanel.ValidateParameter("", "Ad Forced Exit");
+		}
+
+		if (entryPoint.equals("episode")) {
+			String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+			String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+			String searchpromo2[] = { "t", "o" };
+			String searchpromo3[] = { "p", "a", "a", "r", "u" };
+
+			type(searchpromo);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+			type(searchpromo1);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+			type(searchpromo2);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+			type(searchpromo3);
+			waitTime(10000);
+			String content = "adityaapologisestopaaru";
+
+			List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+			for (int i = 1; i <= ele3.size(); i++) {
+				String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+				if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+						"Searched Episodes"))) {
+					TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"), "serached Episodes");
+					break;
+				} else {
+					System.out.println("No match");
+				}
+
+			}
+
+			waitTime(20000);
+			ResponseInstance.getSearchresponseTv(content);
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+			mixpanel.ValidateParameter("", "Ad Forced Exit");
+		}
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void resumeEvent(String entryPoint, String tabName, String searchContent) throws Exception {
+		if (entryPoint.equals("Free")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "Free");
+			TVTabSelect("Home");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"Free content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "Free content tray");
+					logger.info("Free content tray");
+					extent.extentLoggerPass("Trending", "Free content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"Free content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "Free content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "Free content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
 
 			mixpanel.FEProp.setProperty("Source", "Player");
 			mixpanel.FEProp.setProperty("Page Name", "Player");
@@ -1704,7 +4585,7 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 
 			}
 			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
-
+			waitTime(5000);
 			if (userType.equals("Guest")) {
 				if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
 					logger.info("Login popup is displayed when user play premium content as guest user");
@@ -1815,7 +4696,7 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 				}
 
 			}
-			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			waitTime(5000);
 			if (verifyIsElementDisplayed(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button")) {
 				waitTime(5000);
 				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
@@ -1827,8 +4708,9 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "Player");
 			mixpanel.FEProp.setProperty("Page Name", "Player");
 			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
-
+			ResponseInstance.getContentDetails(contentTitle.get(2));
 			mixpanel.ValidateParameter("", "Video View");
+
 		} else if (entryPoint.equals("carousel")) {
 			if (userType.equals("Guest")) {
 				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
@@ -1878,7 +4760,8 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 					}
 					if (userType.equals("NonSubscribedUser")) {
 						if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
-							logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+							logger.info(
+									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
 							extent.extentLoggerPass("Popup",
 									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
 							waitTime(5000);
@@ -1902,7 +4785,7 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 						}
 					}
 					if (userType.equals("SubscribedUser")) {
-		
+
 						waitTime(10000);
 						waitTime(5000);
 						mixpanel.FEProp.setProperty("Source", "Player");
@@ -2044,6 +4927,3925 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 				logger.info("User is logged in");
 				extent.extentLoggerPass("Button", "User is logged in");
 			}
+			TVTabSelect(tabName);
+			waitTime(2000);
+			if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			} else {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			}
+			waitTime(5000);
+
+			if (searchContent.equals("premium")) {
+				String searchdata1[] = { "p", "a", "n", "c", "h", "a", "t", "a", "n", "t", "r", "a" };
+				type(searchdata1);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					String title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Premium movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "Premium movie");
+						break;
+					} else {
+						logger.info("No match");
+					}
+
+				}
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				String content = "Panchatantra";
+				ResponseInstance.getSearchresponseTv(content);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+				waitTime(5000);
+				if (userType.equals("Guest")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+						logger.info("Login popup is displayed when user play premium content as guest user");
+						extent.extentLoggerPass("Popup",
+								"Login popup is displayed when user play premium content as guest user");
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+						mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+						mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+						logger.info(
+								"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+
+				}
+				if (userType.equals("NonSubscribedUser")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+						logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+						extent.extentLoggerPass("Popup",
+								"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Subscription Page");
+						mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+						mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+				}
+				if (userType.equals("SubscribedUser")) {
+					waitTime(5000);
+					mixpanel.FEProp.setProperty("Source", "Player");
+					mixpanel.FEProp.setProperty("Page Name", "Player");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+					mixpanel.ValidateParameter("", "Video View");
+				}
+
+			}
+
+			if (searchContent.equals("Free")) {
+				String searchdata2[] = { "b", "a", "b", "l", "u", };
+				String searchdata3[] = { "d", "a", "b", "l", "u" };
+				String searchdata4[] = { "r", "o", "b", "o" };
+				String searchdata5[] = { "r", "u", "m", "b", "l", "e" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+
+				String content = "BabluDabluRoboRumble";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+				waitTime(10000);
+				waitTime(25000);
+				waitTime(10000);
+
+				if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+					TVRemoteEvent(20);
+					waitTime(2000);
+					TVRemoteEvent(23);
+					logger.info("clicked on skip intro");
+					extent.extentLoggerPass("Intro", "clicked on skip intro");
+				} else {
+					logger.info("Skip intro is not displayed");
+					extent.extentLogger("Intro", "Skip intro is not displayed");
+				}
+				waitTime(12000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("trailer")) {
+
+				String searchdata2[] = { "n", "a", "a", "n", "u", };
+				String searchdata3[] = { "m", "a", "t", "t", "h", "u" };
+				String searchdata4[] = { "g", "u", "n", "d", "a" };
+				String searchdata5[] = { "t", "r", "a", "i", "l", "e", "r" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+				String content = "NaanuMatthuGundaTrailer";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"), "serached Trailer");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("episode")) {
+				String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+				String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+				String searchpromo2[] = { "t", "o" };
+				String searchpromo3[] = { "p", "a", "a", "r", "u" };
+
+				type(searchpromo);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo1);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo3);
+				waitTime(10000);
+				String content = "adityaapologisestopaaru";
+
+				List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele3.size(); i++) {
+					String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+							"Searched Episodes"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+								"serached Episodes");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(20000);
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+
+		} else {
+			logger.info("Invalid Entry Point");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void pauseEvent(String entryPoint, String tabName, String searchContent) throws Exception {
+		if (entryPoint.equals("Free")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "Free");
+			TVTabSelect("Home");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"Free content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "Free content tray");
+					logger.info("Free content tray");
+					extent.extentLoggerPass("Trending", "Free content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"Free content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "Free content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "Free content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+			mixpanel.ValidateParameter("", "Video View");
+
+		} else if (entryPoint.equals("premium")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "premium");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"premium content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "premium content tray");
+					logger.info("premium content tray");
+					extent.extentLoggerPass("Trending", "premium content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"premium content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			waitTime(5000);
+			if (userType.equals("Guest")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+					logger.info("Login popup is displayed when user play premium content as guest user");
+					extent.extentLoggerPass("Popup",
+							"Login popup is displayed when user play premium content as guest user");
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+					mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+					mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+					logger.info(
+							"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				} else {
+					logger.info("Functioanlity failed");
+					extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+				}
+			}
+			if (userType.equals("NonSubscribedUser")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+					logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					extent.extentLoggerPass("Popup",
+							"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					waitTime(5000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Subscription Page");
+					mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+					mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				}
+			}
+			if (userType.equals("SubscribedUser")) {
+				waitTime(5000);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+
+		} else if (entryPoint.equals("trailer")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "trailer");
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"trailer content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "trailer content tray");
+					logger.info("trailer content tray");
+					extent.extentLoggerPass("trailer", "trailer content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"trailer content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "trailer content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "trailer content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			waitTime(5000);
+			if (verifyIsElementDisplayed(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button")) {
+				waitTime(5000);
+				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
+				waitTime(2000);
+			}
+			waitTime(10000);
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			mixpanel.ValidateParameter("", "Video View");
+
+		} else if (entryPoint.equals("carousel")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "carousel");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			for (int i = 0; i <= 10; i++) {
+				if (verifyIsElementDisplayed(Zee5TvHomePage.objCarouselBannerTitle(contentTitle.get(0)),
+						"Carousel content")) {
+
+					TVclick(Zee5TVCarousel.objCarouselPlayButton, "Play button");
+					waitTime(5000);
+					ResponseInstance.getContentDetails(contentTitle.get(2));
+					waitTime(4000);
+					TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+					waitTime(5000);
+					if (userType.equals("Guest")) {
+						if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+							logger.info("Login popup is displayed when user play premium content as guest user");
+							extent.extentLoggerPass("Popup",
+									"Login popup is displayed when user play premium content as guest user");
+							mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+							mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+							mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+							logger.info(
+									"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+						} else {
+							logger.info("Functioanlity failed");
+							extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+						}
+
+					}
+					if (userType.equals("NonSubscribedUser")) {
+						if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+							logger.info(
+									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+							extent.extentLoggerPass("Popup",
+									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+							waitTime(5000);
+							Runtime.getRuntime().exec("adb shell input keyevent 22");
+							waitTime(2000);
+							Runtime.getRuntime().exec("adb shell input keyevent 22");
+							waitTime(2000);
+							Runtime.getRuntime().exec("adb shell input keyevent 23");
+							waitTime(5000);
+
+							mixpanel.FEProp.setProperty("Source", "Subscription Page");
+							mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+							mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+						}
+					}
+					if (userType.equals("SubscribedUser")) {
+
+						waitTime(10000);
+						waitTime(5000);
+						mixpanel.FEProp.setProperty("Source", "Player");
+						mixpanel.FEProp.setProperty("Page Name", "Player");
+						mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+						mixpanel.ValidateParameter("", "Video View");
+					}
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+			}
+
+		} else if (entryPoint.equals("ContentTray"))
+
+		{
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "premium");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"premium content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "premium content tray");
+					logger.info("premium content tray");
+					extent.extentLoggerPass("Trending", "premium content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"premium content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+			if (userType.equals("Guest")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+					logger.info("Login popup is displayed when user play premium content as guest user");
+					extent.extentLoggerPass("Popup",
+							"Login popup is displayed when user play premium content as guest user");
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+					mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+					mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+					logger.info(
+							"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				} else {
+					logger.info("Functioanlity failed");
+					extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+				}
+			}
+			if (userType.equals("NonSubscribedUser")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+					logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					extent.extentLoggerPass("Popup",
+							"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					waitTime(5000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Subscription Page");
+					mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+					mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				}
+			}
+			if (userType.equals("SubscribedUser")) {
+				waitTime(5000);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+
+		} else if (entryPoint.equals("Search")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			waitTime(2000);
+			if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			} else {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			}
+			waitTime(5000);
+
+			if (searchContent.equals("premium")) {
+				String searchdata1[] = { "p", "a", "n", "c", "h", "a", "t", "a", "n", "t", "r", "a" };
+				type(searchdata1);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					String title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Premium movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "Premium movie");
+						break;
+					} else {
+						logger.info("No match");
+					}
+
+				}
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				String content = "Panchatantra";
+				ResponseInstance.getSearchresponseTv(content);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+				waitTime(5000);
+				if (userType.equals("Guest")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+						logger.info("Login popup is displayed when user play premium content as guest user");
+						extent.extentLoggerPass("Popup",
+								"Login popup is displayed when user play premium content as guest user");
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+						mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+						mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+						logger.info(
+								"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+
+				}
+				if (userType.equals("NonSubscribedUser")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+						logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+						extent.extentLoggerPass("Popup",
+								"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Subscription Page");
+						mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+						mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+				}
+				if (userType.equals("SubscribedUser")) {
+					waitTime(5000);
+					mixpanel.FEProp.setProperty("Source", "Player");
+					mixpanel.FEProp.setProperty("Page Name", "Player");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+					mixpanel.ValidateParameter("", "Video View");
+				}
+
+			}
+
+			if (searchContent.equals("Free")) {
+				String searchdata2[] = { "b", "a", "b", "l", "u", };
+				String searchdata3[] = { "d", "a", "b", "l", "u" };
+				String searchdata4[] = { "r", "o", "b", "o" };
+				String searchdata5[] = { "r", "u", "m", "b", "l", "e" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+
+				String content = "BabluDabluRoboRumble";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+				waitTime(10000);
+				waitTime(25000);
+				waitTime(10000);
+
+				if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+					TVRemoteEvent(20);
+					waitTime(2000);
+					TVRemoteEvent(23);
+					logger.info("clicked on skip intro");
+					extent.extentLoggerPass("Intro", "clicked on skip intro");
+				} else {
+					logger.info("Skip intro is not displayed");
+					extent.extentLogger("Intro", "Skip intro is not displayed");
+				}
+				waitTime(12000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("trailer")) {
+
+				String searchdata2[] = { "n", "a", "a", "n", "u", };
+				String searchdata3[] = { "m", "a", "t", "t", "h", "u" };
+				String searchdata4[] = { "g", "u", "n", "d", "a" };
+				String searchdata5[] = { "t", "r", "a", "i", "l", "e", "r" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+				String content = "NaanuMatthuGundaTrailer";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"), "serached Trailer");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("episode")) {
+				String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+				String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+				String searchpromo2[] = { "t", "o" };
+				String searchpromo3[] = { "p", "a", "a", "r", "u" };
+
+				type(searchpromo);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo1);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo3);
+				waitTime(10000);
+				String content = "adityaapologisestopaaru";
+
+				List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele3.size(); i++) {
+					String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+							"Searched Episodes"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+								"serached Episodes");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(20000);
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+
+		} else {
+			logger.info("Invalid Entry Point");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void qualityChnageEvent(String entryPoint, String tabName, String searchContent) throws Exception {
+		if (entryPoint.equals("Free")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "Free");
+			TVTabSelect("Home");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"Free content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "Free content tray");
+					logger.info("Free content tray");
+					extent.extentLoggerPass("Trending", "Free content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"Free content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "Free content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "Free content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+			mixpanel.ValidateParameter("", "Video View");
+
+		} else if (entryPoint.equals("premium")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "premium");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"premium content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "premium content tray");
+					logger.info("premium content tray");
+					extent.extentLoggerPass("Trending", "premium content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"premium content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			waitTime(5000);
+			if (userType.equals("Guest")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+					logger.info("Login popup is displayed when user play premium content as guest user");
+					extent.extentLoggerPass("Popup",
+							"Login popup is displayed when user play premium content as guest user");
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+					mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+					mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+					logger.info(
+							"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				} else {
+					logger.info("Functioanlity failed");
+					extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+				}
+			}
+			if (userType.equals("NonSubscribedUser")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+					logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					extent.extentLoggerPass("Popup",
+							"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					waitTime(5000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Subscription Page");
+					mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+					mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				}
+			}
+			if (userType.equals("SubscribedUser")) {
+				waitTime(5000);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+
+		} else if (entryPoint.equals("trailer")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "trailer");
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"trailer content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "trailer content tray");
+					logger.info("trailer content tray");
+					extent.extentLoggerPass("trailer", "trailer content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"trailer content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "trailer content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "trailer content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			waitTime(5000);
+			if (verifyIsElementDisplayed(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button")) {
+				waitTime(5000);
+				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
+				waitTime(2000);
+			}
+			waitTime(10000);
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			mixpanel.ValidateParameter("", "Video View");
+
+		} else if (entryPoint.equals("carousel")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "carousel");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			for (int i = 0; i <= 10; i++) {
+				if (verifyIsElementDisplayed(Zee5TvHomePage.objCarouselBannerTitle(contentTitle.get(0)),
+						"Carousel content")) {
+
+					TVclick(Zee5TVCarousel.objCarouselPlayButton, "Play button");
+					waitTime(5000);
+					ResponseInstance.getContentDetails(contentTitle.get(2));
+					waitTime(4000);
+					TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+					waitTime(5000);
+					if (userType.equals("Guest")) {
+						if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+							logger.info("Login popup is displayed when user play premium content as guest user");
+							extent.extentLoggerPass("Popup",
+									"Login popup is displayed when user play premium content as guest user");
+							mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+							mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+							mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+							logger.info(
+									"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+						} else {
+							logger.info("Functioanlity failed");
+							extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+						}
+
+					}
+					if (userType.equals("NonSubscribedUser")) {
+						if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+							logger.info(
+									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+							extent.extentLoggerPass("Popup",
+									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+							waitTime(5000);
+							Runtime.getRuntime().exec("adb shell input keyevent 22");
+							waitTime(2000);
+							Runtime.getRuntime().exec("adb shell input keyevent 22");
+							waitTime(2000);
+							Runtime.getRuntime().exec("adb shell input keyevent 23");
+							waitTime(5000);
+
+							mixpanel.FEProp.setProperty("Source", "Subscription Page");
+							mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+							mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+						}
+					}
+					if (userType.equals("SubscribedUser")) {
+
+						waitTime(10000);
+						waitTime(5000);
+						mixpanel.FEProp.setProperty("Source", "Player");
+						mixpanel.FEProp.setProperty("Page Name", "Player");
+						mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+						mixpanel.ValidateParameter("", "Video View");
+					}
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+			}
+
+		} else if (entryPoint.equals("ContentTray"))
+
+		{
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "premium");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"premium content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "premium content tray");
+					logger.info("premium content tray");
+					extent.extentLoggerPass("Trending", "premium content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"premium content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+			if (userType.equals("Guest")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+					logger.info("Login popup is displayed when user play premium content as guest user");
+					extent.extentLoggerPass("Popup",
+							"Login popup is displayed when user play premium content as guest user");
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+					mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+					mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+					logger.info(
+							"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				} else {
+					logger.info("Functioanlity failed");
+					extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+				}
+			}
+			if (userType.equals("NonSubscribedUser")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+					logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					extent.extentLoggerPass("Popup",
+							"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					waitTime(5000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Subscription Page");
+					mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+					mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				}
+			}
+			if (userType.equals("SubscribedUser")) {
+				waitTime(5000);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+
+		} else if (entryPoint.equals("Search")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			waitTime(2000);
+			if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			} else {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			}
+			waitTime(5000);
+
+			if (searchContent.equals("premium")) {
+				String searchdata1[] = { "p", "a", "n", "c", "h", "a", "t", "a", "n", "t", "r", "a" };
+				type(searchdata1);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					String title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Premium movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "Premium movie");
+						break;
+					} else {
+						logger.info("No match");
+					}
+
+				}
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				String content = "Panchatantra";
+				ResponseInstance.getSearchresponseTv(content);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+				waitTime(5000);
+				if (userType.equals("Guest")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+						logger.info("Login popup is displayed when user play premium content as guest user");
+						extent.extentLoggerPass("Popup",
+								"Login popup is displayed when user play premium content as guest user");
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+						mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+						mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+						logger.info(
+								"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+
+				}
+				if (userType.equals("NonSubscribedUser")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+						logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+						extent.extentLoggerPass("Popup",
+								"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Subscription Page");
+						mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+						mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+				}
+				if (userType.equals("SubscribedUser")) {
+					waitTime(5000);
+					mixpanel.FEProp.setProperty("Source", "Player");
+					mixpanel.FEProp.setProperty("Page Name", "Player");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+					mixpanel.ValidateParameter("", "Video View");
+				}
+
+			}
+
+			if (searchContent.equals("Free")) {
+				String searchdata2[] = { "b", "a", "b", "l", "u", };
+				String searchdata3[] = { "d", "a", "b", "l", "u" };
+				String searchdata4[] = { "r", "o", "b", "o" };
+				String searchdata5[] = { "r", "u", "m", "b", "l", "e" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+
+				String content = "BabluDabluRoboRumble";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+				waitTime(10000);
+				waitTime(25000);
+				waitTime(10000);
+
+				if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+					TVRemoteEvent(20);
+					waitTime(2000);
+					TVRemoteEvent(23);
+					logger.info("clicked on skip intro");
+					extent.extentLoggerPass("Intro", "clicked on skip intro");
+				} else {
+					logger.info("Skip intro is not displayed");
+					extent.extentLogger("Intro", "Skip intro is not displayed");
+				}
+				waitTime(12000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("trailer")) {
+
+				String searchdata2[] = { "n", "a", "a", "n", "u", };
+				String searchdata3[] = { "m", "a", "t", "t", "h", "u" };
+				String searchdata4[] = { "g", "u", "n", "d", "a" };
+				String searchdata5[] = { "t", "r", "a", "i", "l", "e", "r" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+				String content = "NaanuMatthuGundaTrailer";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"), "serached Trailer");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("episode")) {
+				String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+				String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+				String searchpromo2[] = { "t", "o" };
+				String searchpromo3[] = { "p", "a", "a", "r", "u" };
+
+				type(searchpromo);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo1);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo3);
+				waitTime(10000);
+				String content = "adityaapologisestopaaru";
+
+				List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele3.size(); i++) {
+					String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+							"Searched Episodes"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+								"serached Episodes");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(20000);
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+
+		} else {
+			logger.info("Invalid Entry Point");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void audioLanguageChnageEvent(String entryPoint, String tabName, String searchContent) throws Exception {
+		if (entryPoint.equals("Search")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			waitTime(2000);
+			if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			} else {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			}
+			waitTime(5000);
+
+			if (searchContent.equals("premium")) {
+				String searchdata1[] = { "p", "a", "n", "c", "h", "a", "t", "a", "n", "t", "r", "a" };
+				type(searchdata1);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					String title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Premium movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "Premium movie");
+						break;
+					} else {
+						logger.info("No match");
+					}
+
+				}
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				String content = "Panchatantra";
+				ResponseInstance.getSearchresponseTv(content);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+				waitTime(5000);
+				if (userType.equals("Guest")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+						logger.info("Login popup is displayed when user play premium content as guest user");
+						extent.extentLoggerPass("Popup",
+								"Login popup is displayed when user play premium content as guest user");
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+						mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+						mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+						logger.info(
+								"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+
+				}
+				if (userType.equals("NonSubscribedUser")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+						logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+						extent.extentLoggerPass("Popup",
+								"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Subscription Page");
+						mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+						mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+				}
+				if (userType.equals("SubscribedUser")) {
+					waitTime(5000);
+					mixpanel.FEProp.setProperty("Source", "Player");
+					mixpanel.FEProp.setProperty("Page Name", "Player");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+					mixpanel.ValidateParameter("", "Video View");
+				}
+
+			}
+
+			if (searchContent.equals("Free")) {
+				String searchdata2[] = { "b", "a", "b", "l", "u", };
+				String searchdata3[] = { "d", "a", "b", "l", "u" };
+				String searchdata4[] = { "r", "o", "b", "o" };
+				String searchdata5[] = { "r", "u", "m", "b", "l", "e" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+
+				String content = "BabluDabluRoboRumble";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+				waitTime(10000);
+				waitTime(25000);
+				waitTime(10000);
+
+				if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+					TVRemoteEvent(20);
+					waitTime(2000);
+					TVRemoteEvent(23);
+					logger.info("clicked on skip intro");
+					extent.extentLoggerPass("Intro", "clicked on skip intro");
+				} else {
+					logger.info("Skip intro is not displayed");
+					extent.extentLogger("Intro", "Skip intro is not displayed");
+				}
+				waitTime(12000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("trailer")) {
+
+				String searchdata2[] = { "n", "a", "a", "n", "u", };
+				String searchdata3[] = { "m", "a", "t", "t", "h", "u" };
+				String searchdata4[] = { "g", "u", "n", "d", "a" };
+				String searchdata5[] = { "t", "r", "a", "i", "l", "e", "r" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+				String content = "NaanuMatthuGundaTrailer";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"), "serached Trailer");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("episode")) {
+				String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+				String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+				String searchpromo2[] = { "t", "o" };
+				String searchpromo3[] = { "p", "a", "a", "r", "u" };
+
+				type(searchpromo);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo1);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo3);
+				waitTime(10000);
+				String content = "adityaapologisestopaaru";
+
+				List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele3.size(); i++) {
+					String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+							"Searched Episodes"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+								"serached Episodes");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(20000);
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+
+		} else {
+			logger.info("Invalid Entry Point");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void subtitleLanguageChnageEvent(String entryPoint, String tabName, String searchContent) throws Exception {
+		if (entryPoint.equals("Search")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			waitTime(2000);
+			if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			} else {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			}
+			waitTime(5000);
+
+			if (searchContent.equals("premium")) {
+				String searchdata1[] = { "p", "a", "n", "c", "h", "a", "t", "a", "n", "t", "r", "a" };
+				type(searchdata1);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					String title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Premium movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "Premium movie");
+						break;
+					} else {
+						logger.info("No match");
+					}
+
+				}
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				String content = "Panchatantra";
+				ResponseInstance.getSearchresponseTv(content);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+				waitTime(5000);
+				if (userType.equals("Guest")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+						logger.info("Login popup is displayed when user play premium content as guest user");
+						extent.extentLoggerPass("Popup",
+								"Login popup is displayed when user play premium content as guest user");
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+						mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+						mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+						logger.info(
+								"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+
+				}
+				if (userType.equals("NonSubscribedUser")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+						logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+						extent.extentLoggerPass("Popup",
+								"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Subscription Page");
+						mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+						mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+				}
+				if (userType.equals("SubscribedUser")) {
+					waitTime(5000);
+					mixpanel.FEProp.setProperty("Source", "Player");
+					mixpanel.FEProp.setProperty("Page Name", "Player");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+					mixpanel.ValidateParameter("", "Video View");
+				}
+
+			}
+
+			if (searchContent.equals("Free")) {
+				String searchdata2[] = { "b", "a", "b", "l", "u", };
+				String searchdata3[] = { "d", "a", "b", "l", "u" };
+				String searchdata4[] = { "r", "o", "b", "o" };
+				String searchdata5[] = { "r", "u", "m", "b", "l", "e" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+
+				String content = "BabluDabluRoboRumble";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+				waitTime(10000);
+				waitTime(25000);
+				waitTime(10000);
+
+				if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+					TVRemoteEvent(20);
+					waitTime(2000);
+					TVRemoteEvent(23);
+					logger.info("clicked on skip intro");
+					extent.extentLoggerPass("Intro", "clicked on skip intro");
+				} else {
+					logger.info("Skip intro is not displayed");
+					extent.extentLogger("Intro", "Skip intro is not displayed");
+				}
+				waitTime(12000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("trailer")) {
+
+				String searchdata2[] = { "n", "a", "a", "n", "u", };
+				String searchdata3[] = { "m", "a", "t", "t", "h", "u" };
+				String searchdata4[] = { "g", "u", "n", "d", "a" };
+				String searchdata5[] = { "t", "r", "a", "i", "l", "e", "r" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+				String content = "NaanuMatthuGundaTrailer";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"), "serached Trailer");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("episode")) {
+				String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+				String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+				String searchpromo2[] = { "t", "o" };
+				String searchpromo3[] = { "p", "a", "a", "r", "u" };
+
+				type(searchpromo);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo1);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo3);
+				waitTime(10000);
+				String content = "adityaapologisestopaaru";
+
+				List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele3.size(); i++) {
+					String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+							"Searched Episodes"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+								"serached Episodes");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(20000);
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+
+		} else {
+			logger.info("Invalid Entry Point");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void skipIntroEvent(String entryPoint, String tabName, String searchContent) throws Exception {
+		if (entryPoint.equals("Search")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			waitTime(2000);
+			if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			} else {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			}
+			waitTime(5000);
+
+			if (searchContent.equals("premium")) {
+				String searchdata1[] = { "p", "a", "n", "c", "h", "a", "t", "a", "n", "t", "r", "a" };
+				type(searchdata1);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					String title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Premium movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "Premium movie");
+						break;
+					} else {
+						logger.info("No match");
+					}
+
+				}
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				String content = "Panchatantra";
+				ResponseInstance.getSearchresponseTv(content);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+				waitTime(5000);
+				if (userType.equals("Guest")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+						logger.info("Login popup is displayed when user play premium content as guest user");
+						extent.extentLoggerPass("Popup",
+								"Login popup is displayed when user play premium content as guest user");
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+						mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+						mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+						logger.info(
+								"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+
+				}
+				if (userType.equals("NonSubscribedUser")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+						logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+						extent.extentLoggerPass("Popup",
+								"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Subscription Page");
+						mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+						mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+				}
+				if (userType.equals("SubscribedUser")) {
+					waitTime(5000);
+					mixpanel.FEProp.setProperty("Source", "Player");
+					mixpanel.FEProp.setProperty("Page Name", "Player");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+					mixpanel.ValidateParameter("", "Video View");
+				}
+
+			}
+
+			if (searchContent.equals("Free")) {
+				String searchdata2[] = { "b", "a", "b", "l", "u", };
+				String searchdata3[] = { "d", "a", "b", "l", "u" };
+				String searchdata4[] = { "r", "o", "b", "o" };
+				String searchdata5[] = { "r", "u", "m", "b", "l", "e" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+
+				String content = "BabluDabluRoboRumble";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+				waitTime(10000);
+				waitTime(25000);
+				waitTime(10000);
+
+				if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+					TVRemoteEvent(20);
+					waitTime(2000);
+					TVRemoteEvent(23);
+					logger.info("clicked on skip intro");
+					extent.extentLoggerPass("Intro", "clicked on skip intro");
+				} else {
+					logger.info("Skip intro is not displayed");
+					extent.extentLogger("Intro", "Skip intro is not displayed");
+				}
+				waitTime(12000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("trailer")) {
+
+				String searchdata2[] = { "n", "a", "a", "n", "u", };
+				String searchdata3[] = { "m", "a", "t", "t", "h", "u" };
+				String searchdata4[] = { "g", "u", "n", "d", "a" };
+				String searchdata5[] = { "t", "r", "a", "i", "l", "e", "r" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+				String content = "NaanuMatthuGundaTrailer";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"), "serached Trailer");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("episode")) {
+				String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+				String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+				String searchpromo2[] = { "t", "o" };
+				String searchpromo3[] = { "p", "a", "a", "r", "u" };
+
+				type(searchpromo);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo1);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo3);
+				waitTime(10000);
+				String content = "adityaapologisestopaaru";
+
+				List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele3.size(); i++) {
+					String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+							"Searched Episodes"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+								"serached Episodes");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(20000);
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+
+		} else {
+			logger.info("Invalid Entry Point");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void autoseekEvent(String entryPoint, String tabName, String searchContent) throws Exception {
+		if (entryPoint.equals("Free")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "Free");
+			TVTabSelect("Home");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"Free content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "Free content tray");
+					logger.info("Free content tray");
+					extent.extentLoggerPass("Trending", "Free content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"Free content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "Free content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "Free content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+			mixpanel.ValidateParameter("", "Video View");
+
+		} else if (entryPoint.equals("premium")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "premium");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"premium content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "premium content tray");
+					logger.info("premium content tray");
+					extent.extentLoggerPass("Trending", "premium content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"premium content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			waitTime(5000);
+			if (userType.equals("Guest")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+					logger.info("Login popup is displayed when user play premium content as guest user");
+					extent.extentLoggerPass("Popup",
+							"Login popup is displayed when user play premium content as guest user");
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+					mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+					mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+					logger.info(
+							"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				} else {
+					logger.info("Functioanlity failed");
+					extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+				}
+			}
+			if (userType.equals("NonSubscribedUser")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+					logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					extent.extentLoggerPass("Popup",
+							"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					waitTime(5000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Subscription Page");
+					mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+					mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				}
+			}
+			if (userType.equals("SubscribedUser")) {
+				waitTime(5000);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+
+		} else if (entryPoint.equals("trailer")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "trailer");
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"trailer content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "trailer content tray");
+					logger.info("trailer content tray");
+					extent.extentLoggerPass("trailer", "trailer content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"trailer content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "trailer content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "trailer content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			waitTime(5000);
+			if (verifyIsElementDisplayed(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button")) {
+				waitTime(5000);
+				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
+				waitTime(2000);
+			}
+			waitTime(10000);
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			mixpanel.ValidateParameter("", "Video View");
+
+		} else if (entryPoint.equals("carousel")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "carousel");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			for (int i = 0; i <= 10; i++) {
+				if (verifyIsElementDisplayed(Zee5TvHomePage.objCarouselBannerTitle(contentTitle.get(0)),
+						"Carousel content")) {
+
+					TVclick(Zee5TVCarousel.objCarouselPlayButton, "Play button");
+					waitTime(5000);
+					ResponseInstance.getContentDetails(contentTitle.get(2));
+					waitTime(4000);
+					TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+					waitTime(5000);
+					if (userType.equals("Guest")) {
+						if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+							logger.info("Login popup is displayed when user play premium content as guest user");
+							extent.extentLoggerPass("Popup",
+									"Login popup is displayed when user play premium content as guest user");
+							mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+							mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+							mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+							logger.info(
+									"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+						} else {
+							logger.info("Functioanlity failed");
+							extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+						}
+
+					}
+					if (userType.equals("NonSubscribedUser")) {
+						if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+							logger.info(
+									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+							extent.extentLoggerPass("Popup",
+									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+							waitTime(5000);
+							Runtime.getRuntime().exec("adb shell input keyevent 22");
+							waitTime(2000);
+							Runtime.getRuntime().exec("adb shell input keyevent 22");
+							waitTime(2000);
+							Runtime.getRuntime().exec("adb shell input keyevent 23");
+							waitTime(5000);
+
+							mixpanel.FEProp.setProperty("Source", "Subscription Page");
+							mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+							mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+						}
+					}
+					if (userType.equals("SubscribedUser")) {
+
+						waitTime(10000);
+						waitTime(5000);
+						mixpanel.FEProp.setProperty("Source", "Player");
+						mixpanel.FEProp.setProperty("Page Name", "Player");
+						mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+						mixpanel.ValidateParameter("", "Video View");
+					}
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+			}
+
+		} else if (entryPoint.equals("ContentTray"))
+
+		{
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "premium");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"premium content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "premium content tray");
+					logger.info("premium content tray");
+					extent.extentLoggerPass("Trending", "premium content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"premium content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+			if (userType.equals("Guest")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+					logger.info("Login popup is displayed when user play premium content as guest user");
+					extent.extentLoggerPass("Popup",
+							"Login popup is displayed when user play premium content as guest user");
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+					mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+					mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+					logger.info(
+							"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				} else {
+					logger.info("Functioanlity failed");
+					extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+				}
+			}
+			if (userType.equals("NonSubscribedUser")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+					logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					extent.extentLoggerPass("Popup",
+							"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					waitTime(5000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Subscription Page");
+					mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+					mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				}
+			}
+			if (userType.equals("SubscribedUser")) {
+				waitTime(5000);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+
+		} else if (entryPoint.equals("Search")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			waitTime(2000);
+			if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			} else {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			}
+			waitTime(5000);
+
+			if (searchContent.equals("premium")) {
+				String searchdata1[] = { "p", "a", "n", "c", "h", "a", "t", "a", "n", "t", "r", "a" };
+				type(searchdata1);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					String title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Premium movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "Premium movie");
+						break;
+					} else {
+						logger.info("No match");
+					}
+
+				}
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				String content = "Panchatantra";
+				ResponseInstance.getSearchresponseTv(content);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+				waitTime(5000);
+				if (userType.equals("Guest")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+						logger.info("Login popup is displayed when user play premium content as guest user");
+						extent.extentLoggerPass("Popup",
+								"Login popup is displayed when user play premium content as guest user");
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+						mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+						mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+						logger.info(
+								"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+
+				}
+				if (userType.equals("NonSubscribedUser")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+						logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+						extent.extentLoggerPass("Popup",
+								"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Subscription Page");
+						mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+						mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+				}
+				if (userType.equals("SubscribedUser")) {
+					waitTime(5000);
+					mixpanel.FEProp.setProperty("Source", "Player");
+					mixpanel.FEProp.setProperty("Page Name", "Player");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+					mixpanel.ValidateParameter("", "Video View");
+				}
+
+			}
+
+			if (searchContent.equals("Free")) {
+				String searchdata2[] = { "b", "a", "b", "l", "u", };
+				String searchdata3[] = { "d", "a", "b", "l", "u" };
+				String searchdata4[] = { "r", "o", "b", "o" };
+				String searchdata5[] = { "r", "u", "m", "b", "l", "e" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+
+				String content = "BabluDabluRoboRumble";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+				waitTime(10000);
+				waitTime(25000);
+				waitTime(10000);
+
+				if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+					TVRemoteEvent(20);
+					waitTime(2000);
+					TVRemoteEvent(23);
+					logger.info("clicked on skip intro");
+					extent.extentLoggerPass("Intro", "clicked on skip intro");
+				} else {
+					logger.info("Skip intro is not displayed");
+					extent.extentLogger("Intro", "Skip intro is not displayed");
+				}
+				waitTime(12000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("trailer")) {
+
+				String searchdata2[] = { "n", "a", "a", "n", "u", };
+				String searchdata3[] = { "m", "a", "t", "t", "h", "u" };
+				String searchdata4[] = { "g", "u", "n", "d", "a" };
+				String searchdata5[] = { "t", "r", "a", "i", "l", "e", "r" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+				String content = "NaanuMatthuGundaTrailer";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"), "serached Trailer");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("episode")) {
+				String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+				String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+				String searchpromo2[] = { "t", "o" };
+				String searchpromo3[] = { "p", "a", "a", "r", "u" };
+
+				type(searchpromo);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo1);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo3);
+				waitTime(10000);
+				String content = "adityaapologisestopaaru";
+
+				List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele3.size(); i++) {
+					String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+							"Searched Episodes"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+								"serached Episodes");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(20000);
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+
+		} else {
+			logger.info("Invalid Entry Point");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void playerCTAEvent(String entryPoint, String tabName, String searchContent) throws Exception {
+		if (entryPoint.equals("Free")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "Free");
+			TVTabSelect("Home");
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"Free content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "Free content tray");
+					logger.info("Free content tray");
+					extent.extentLoggerPass("Trending", "Free content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"Free content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "Free content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "Free content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+			mixpanel.ValidateParameter("", "Video View");
+
+		} else if (entryPoint.equals("premium")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "premium");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"premium content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "premium content tray");
+					logger.info("premium content tray");
+					extent.extentLoggerPass("Trending", "premium content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"premium content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+			waitTime(5000);
+			if (userType.equals("Guest")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+					logger.info("Login popup is displayed when user play premium content as guest user");
+					extent.extentLoggerPass("Popup",
+							"Login popup is displayed when user play premium content as guest user");
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+					mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+					mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+					logger.info(
+							"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				} else {
+					logger.info("Functioanlity failed");
+					extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+				}
+			}
+			if (userType.equals("NonSubscribedUser")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+					logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					extent.extentLoggerPass("Popup",
+							"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					waitTime(5000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Subscription Page");
+					mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+					mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				}
+			}
+			if (userType.equals("SubscribedUser")) {
+				waitTime(5000);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+
+		} else if (entryPoint.equals("trailer")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "trailer");
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"trailer content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "trailer content tray");
+					logger.info("trailer content tray");
+					extent.extentLoggerPass("trailer", "trailer content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"trailer content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "trailer content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "trailer content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			waitTime(5000);
+			if (verifyIsElementDisplayed(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button")) {
+				waitTime(5000);
+				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objwatchTrailerIcon, "watch trailer button");
+				waitTime(2000);
+			}
+			waitTime(10000);
+			mixpanel.FEProp.setProperty("Source", "Player");
+			mixpanel.FEProp.setProperty("Page Name", "Player");
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			mixpanel.ValidateParameter("", "Video View");
+
+		} else if (entryPoint.equals("carousel")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "carousel");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			for (int i = 0; i <= 10; i++) {
+				if (verifyIsElementDisplayed(Zee5TvHomePage.objCarouselBannerTitle(contentTitle.get(0)),
+						"Carousel content")) {
+
+					TVclick(Zee5TVCarousel.objCarouselPlayButton, "Play button");
+					waitTime(5000);
+					ResponseInstance.getContentDetails(contentTitle.get(2));
+					waitTime(4000);
+					TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+					waitTime(5000);
+					if (userType.equals("Guest")) {
+						if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+							logger.info("Login popup is displayed when user play premium content as guest user");
+							extent.extentLoggerPass("Popup",
+									"Login popup is displayed when user play premium content as guest user");
+							mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+							mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+							mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+							logger.info(
+									"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+						} else {
+							logger.info("Functioanlity failed");
+							extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+						}
+
+					}
+					if (userType.equals("NonSubscribedUser")) {
+						if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+							logger.info(
+									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+							extent.extentLoggerPass("Popup",
+									"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+							waitTime(5000);
+							Runtime.getRuntime().exec("adb shell input keyevent 22");
+							waitTime(2000);
+							Runtime.getRuntime().exec("adb shell input keyevent 22");
+							waitTime(2000);
+							Runtime.getRuntime().exec("adb shell input keyevent 23");
+							waitTime(5000);
+
+							mixpanel.FEProp.setProperty("Source", "Subscription Page");
+							mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+							mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+							getDriver().navigate().back();
+							waitTime(2000);
+						}
+					}
+					if (userType.equals("SubscribedUser")) {
+
+						waitTime(10000);
+						waitTime(5000);
+						mixpanel.FEProp.setProperty("Source", "Player");
+						mixpanel.FEProp.setProperty("Page Name", "Player");
+						mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+						mixpanel.ValidateParameter("", "Video View");
+					}
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+			}
+
+		} else if (entryPoint.equals("ContentTray"))
+
+		{
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv(tabName, "premium");
+			ResponseInstance.getContentDetails(contentTitle.get(2));
+			TVTabSelect(tabName);
+			waitTime(3000);
+			Runtime.getRuntime().exec("adb shell input keyevent 20");
+			waitTime(2000);
+			for (int i = 0; i <= 15; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)),
+						"premium content tray")) {
+					TVclick(Zee5TvWelcomePage.objApiContent(contentTitle.get(0)), "premium content tray");
+					logger.info("premium content tray");
+					extent.extentLoggerPass("Trending", "premium content tray");
+					waitTime(2000);
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 20");
+				}
+			}
+			for (int i = 0; i <= 22; i++) {
+				waitTime(3000);
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)),
+						"premium content")) {
+					TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					waitTime(5000);
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Play Icon")) {
+						logger.info("User is navigated to content detail page");
+						extent.extentLoggerPass("Page", "User is navigated to content detail page");
+					} else {
+						TVclick(Zee5TvWelcomePage.objContentfromApi(contentTitle.get(1)), "premium content");
+					}
+					waitTime(7000);
+
+					break;
+				} else {
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+				}
+
+			}
+			TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+			if (userType.equals("Guest")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+					logger.info("Login popup is displayed when user play premium content as guest user");
+					extent.extentLoggerPass("Popup",
+							"Login popup is displayed when user play premium content as guest user");
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+					mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+					mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+					logger.info(
+							"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				} else {
+					logger.info("Functioanlity failed");
+					extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+				}
+			}
+			if (userType.equals("NonSubscribedUser")) {
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+					logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					extent.extentLoggerPass("Popup",
+							"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+					waitTime(5000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 22");
+					waitTime(2000);
+					Runtime.getRuntime().exec("adb shell input keyevent 23");
+					waitTime(5000);
+
+					mixpanel.FEProp.setProperty("Source", "Subscription Page");
+					mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+					mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+					getDriver().navigate().back();
+					waitTime(2000);
+				}
+			}
+			if (userType.equals("SubscribedUser")) {
+				waitTime(5000);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+
+		} else if (entryPoint.equals("Search")) {
+			if (userType.equals("Guest")) {
+				verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link");
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+			TVTabSelect(tabName);
+			waitTime(2000);
+			if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			} else {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			}
+			waitTime(5000);
+
+			if (searchContent.equals("premium")) {
+				String searchdata1[] = { "p", "a", "n", "c", "h", "a", "t", "a", "n", "t", "r", "a" };
+				type(searchdata1);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objSearchedText, "Searched suggestion");
+				waitTime(2000);
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					String title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Premium movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "Premium movie");
+						break;
+					} else {
+						logger.info("No match");
+					}
+
+				}
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				String content = "Panchatantra";
+				ResponseInstance.getSearchresponseTv(content);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+				waitTime(5000);
+				if (userType.equals("Guest")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+						logger.info("Login popup is displayed when user play premium content as guest user");
+						extent.extentLoggerPass("Popup",
+								"Login popup is displayed when user play premium content as guest user");
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+						mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+						mixpanel.ValidateParameter("", "TV Authentication Screen Display");
+						logger.info(
+								"Guest user is navigated to login screen post tapping on login butoon in login popup for premium content");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+
+				}
+				if (userType.equals("NonSubscribedUser")) {
+					if (verifyIsElementDisplayed(Zee5TvSearchPage.objSubscribePopup, "Subscribe now popup")) {
+						logger.info("Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+						extent.extentLoggerPass("Popup",
+								"Subscribe popup is displayed when user play premium content as Nonsubscribe user");
+
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 22");
+						waitTime(2000);
+						Runtime.getRuntime().exec("adb shell input keyevent 23");
+						waitTime(5000);
+
+						mixpanel.FEProp.setProperty("Source", "Subscription Page");
+						mixpanel.FEProp.setProperty("Page Name", "Subscription Page");
+						mixpanel.ValidateParameter("", "Subscription Page Viewed");
+
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+						getDriver().navigate().back();
+						waitTime(2000);
+					} else {
+						logger.info("Functioanlity failed");
+						extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+					}
+				}
+				if (userType.equals("SubscribedUser")) {
+					waitTime(5000);
+					mixpanel.FEProp.setProperty("Source", "Player");
+					mixpanel.FEProp.setProperty("Page Name", "Player");
+					mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+					mixpanel.ValidateParameter("", "Video View");
+				}
+
+			}
+
+			if (searchContent.equals("Free")) {
+				String searchdata2[] = { "b", "a", "b", "l", "u", };
+				String searchdata3[] = { "d", "a", "b", "l", "u" };
+				String searchdata4[] = { "r", "o", "b", "o" };
+				String searchdata5[] = { "r", "u", "m", "b", "l", "e" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+
+				String content = "BabluDabluRoboRumble";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+				String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+				if (title.equals(title)) {
+					logger.info("user is navigated to respective content detail page");
+					extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+				}
+				waitTime(2000);
+				TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+				waitTime(10000);
+				waitTime(25000);
+				waitTime(10000);
+
+				if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+					TVRemoteEvent(20);
+					waitTime(2000);
+					TVRemoteEvent(23);
+					logger.info("clicked on skip intro");
+					extent.extentLoggerPass("Intro", "clicked on skip intro");
+				} else {
+					logger.info("Skip intro is not displayed");
+					extent.extentLogger("Intro", "Skip intro is not displayed");
+				}
+				waitTime(12000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("trailer")) {
+
+				String searchdata2[] = { "n", "a", "a", "n", "u", };
+				String searchdata3[] = { "m", "a", "t", "t", "h", "u" };
+				String searchdata4[] = { "g", "u", "n", "d", "a" };
+				String searchdata5[] = { "t", "r", "a", "i", "l", "e", "r" };
+				type(searchdata2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata3);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata4);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+				type(searchdata5);
+				String content = "NaanuMatthuGundaTrailer";
+
+				List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele.size(); i++) {
+
+					title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					logger.info(title);
+					extent.extentLogger("Title", "Serach result content title : " + title);
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"),
+							"Searched Movie"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Trailer"), "serached Trailer");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(8000);
+
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
+			if (searchContent.equals("episode")) {
+				String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+				String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+				String searchpromo2[] = { "t", "o" };
+				String searchpromo3[] = { "p", "a", "a", "r", "u" };
+
+				type(searchpromo);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo1);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo2);
+				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+				type(searchpromo3);
+				waitTime(10000);
+				String content = "adityaapologisestopaaru";
+
+				List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+				for (int i = 1; i <= ele3.size(); i++) {
+					String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+							"Searched Episodes"))) {
+						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Episodes"),
+								"serached Episodes");
+						break;
+					} else {
+						System.out.println("No match");
+					}
+
+				}
+
+				waitTime(20000);
+				ResponseInstance.getSearchresponseTv(content);
+				mixpanel.FEProp.setProperty("Source", "Player");
+				mixpanel.FEProp.setProperty("Page Name", "Player");
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura");
+
+				mixpanel.ValidateParameter("", "Video View");
+			}
 
 		} else {
 			logger.info("Invalid Entry Point");
@@ -2051,13 +8853,18 @@ public class Zee5TvMixPanelBusinessLogic extends Utilities {
 	}
 
 	public static void main(String[] args) {
-//		ResponseInstance.getSearchresponseTv("NaanuMatthuGundatrailer");
-		ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv("Home", "premium");
-		System.out.println(contentTitle.get(0));
-		System.out.println(contentTitle.get(1));
-		System.out.println(contentTitle.get(2));
-		String id = contentTitle.get(2);
-		ResponseInstance.getContentDetails(id);
+		String title = "Naanu Matthu Gunda";
+		String str = title.replaceAll("\\s", "");
+		System.out.println(str);
+		ResponseInstance.getSearchresponseTv(str);
+
+//		ArrayList<String> contentTitle = ResponseInstance.getTrayResponseTv("Shows", "carousel");
+//		System.out.println(contentTitle.get(0));
+//		System.out.println(contentTitle.get(1));
+//		System.out.println(contentTitle.get(2));
+//		String id = contentTitle.get(2);
+//		ResponseInstance.getContentDetails(id);
+//		ResponseInstance.getWatchList("autotv@mailnesia.com", "123456");
 
 	}
 }

@@ -117,7 +117,7 @@ public class AMDPlayerScreen {
 	public static By objPause = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerPlayPauseButton' and @text='P']");
 	public static By objPlay = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerPlayPauseButton' and @text='p']");
 	
-	
-	public static By objQuality = By.xpath("//*[@id='icon_quality_text'] | //*[@id='playerOptionTitle' and @text='Quality 144p']");
 	public static By objSelectedQualityOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_selected']/following-sibling::* | //*[@id='playerOptionsTitleTextView' and @text='Select Video Quality']");
+	
+	public static By objQuality = By.xpath("//*[@id='icon_quality_text'] | //*[@id='playerOptionTitle' and @text='Quality 480p']");
 }

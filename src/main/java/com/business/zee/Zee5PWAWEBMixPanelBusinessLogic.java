@@ -4203,12 +4203,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Old Quality", "Auto");
 			mixpanel.FEProp.setProperty("New Quality", "Good");
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
 			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -4247,12 +4241,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Old Quality", "Auto");
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
 		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -4298,12 +4286,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Old Quality", "Auto");
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
 		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -4340,12 +4322,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Old Quality", "Auto");
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
 		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -4448,12 +4424,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
 		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -4517,12 +4487,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
 		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -4584,10 +4548,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {
@@ -4614,10 +4574,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		playerScrubTillLastWeb();
@@ -4652,10 +4608,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
-//			String value = null;
-//			String[] splits=id.split("/");
-//			value=splits[splits.length-1];
-//			System.out.println(value);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			playerScrubTillLastWeb();
@@ -4687,10 +4639,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -4722,10 +4670,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Page Name", pageName());
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 		playerScrubTillLastWeb();
@@ -4757,10 +4701,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -4796,10 +4736,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -4848,11 +4784,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 			String id = getWebDriver().getCurrentUrl();
-//			String value = null;
-//			String[] splits=id.split("/");
-//			value=splits[splits.length-1];
-//			System.out.println(value);
-
 			ResponseInstance.getContentDetails(fetchContentID(id));
 
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -4888,10 +4819,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -4929,10 +4856,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -4984,10 +4907,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
@@ -5062,12 +4981,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
 		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -5107,12 +5020,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Direction", "forward");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
 			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -5146,12 +5053,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
 		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -5187,12 +5088,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Direction", "forward");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
 			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -5228,12 +5123,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Direction", "forward");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
 			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -5265,12 +5154,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
 		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -5319,12 +5202,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Direction", "forward");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
 			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -5363,12 +5240,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Direction", "forward");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
 			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -5402,12 +5273,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
 		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -5446,12 +5311,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
 		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -5485,12 +5344,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getWebDriver().getCurrentUrl();
-		// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		// Matcher m = p.matcher(id);
-		// String value = null;
-		// while (m.find()) {
-		// value = m.group(0);
-		// }
 		System.out.println("Current URL : " + id);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -5523,13 +5376,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 
 		String id = getWebDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (UserType.equals("Guest")) {
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Mute Changed");
 		} else {
@@ -6207,13 +6054,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Source", "show_detail");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			String id = getWebDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Popup launch");
@@ -6249,12 +6090,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
 			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -6284,13 +6119,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			String id = getWebDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Popup launch");
@@ -6315,10 +6144,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Element", "Cross");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			String id = getWebDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			m.find();
-			ResponseInstance.getContentDetails(m.group(0));
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			if (UserType.equals("Guest")) {
@@ -6910,13 +6736,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 			String id = getWebDriver().getCurrentUrl();
-//			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-//			Matcher m = p.matcher(id);
-//			String value = null;
-//			while (m.find()) {
-//				value = m.group(0);
-//			}
-
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
@@ -10934,12 +10753,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", pageName());
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
@@ -10978,12 +10791,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
@@ -11019,12 +10826,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", pageName());
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
@@ -11059,12 +10860,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", pageName());
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
@@ -11104,13 +10899,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
@@ -11167,12 +10955,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
@@ -11209,12 +10991,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
@@ -11253,12 +11029,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
@@ -11307,12 +11077,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
@@ -11350,12 +11114,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
@@ -11393,12 +11151,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", pageName());
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
@@ -11435,12 +11187,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", pageName());
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -11475,12 +11221,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", pageName());
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -11513,12 +11253,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", pageName());
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -11556,12 +11290,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -11617,12 +11345,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -11658,12 +11380,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -11702,12 +11418,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 
@@ -11754,12 +11464,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 
@@ -11797,12 +11501,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getWebDriver().getCurrentUrl();
-				// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-				// Matcher m = p.matcher(id);
-				// String value = null;
-				// while (m.find()) {
-				// value = m.group(0);
-				// }
 				System.out.println("Current URL : " + id);
 				ResponseInstance.getContentDetails(fetchContentID(id));
 
@@ -11845,12 +11543,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				waitTime(4000);
 			}
 			String id = getWebDriver().getCurrentUrl();
-			// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-			// Matcher m = p.matcher(id);
-			// String value = null;
-			// while (m.find()) {
-			// value = m.group(0);
-			// }
 			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			
@@ -11884,12 +11576,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 					mixpanel.FEProp.setProperty("Page Name", pageName());
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getWebDriver().getCurrentUrl();
-					// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-					// Matcher m = p.matcher(id);
-					// String value = null;
-					// while (m.find()) {
-					// value = m.group(0);
-					// }
 					System.out.println("Current URL : " + id);
 					ResponseInstance.getContentDetails(fetchContentID(id));
 					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -11932,12 +11618,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 					mixpanel.FEProp.setProperty("Page Name", pageName());
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getWebDriver().getCurrentUrl();
-					// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-					// Matcher m = p.matcher(id);
-					// String value = null;
-					// while (m.find()) {
-					// value = m.group(0);
-					// }
 					System.out.println("Current URL : " + id);
 					ResponseInstance.getContentDetails(fetchContentID(id));
 					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -11978,12 +11658,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 					mixpanel.FEProp.setProperty("Page Name", pageName());
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getWebDriver().getCurrentUrl();
-					// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-					// Matcher m = p.matcher(id);
-					// String value = null;
-					// while (m.find()) {
-					// value = m.group(0);
-					// }
 					System.out.println("Current URL : " + id);
 					ResponseInstance.getContentDetails(fetchContentID(id));
 					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -12023,12 +11697,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 					mixpanel.FEProp.setProperty("Page Name", pageName());
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getWebDriver().getCurrentUrl();
-					// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-					// Matcher m = p.matcher(id);
-					// String value = null;
-					// while (m.find()) {
-					// value = m.group(0);
-					// }
 					System.out.println("Current URL : " + id);
 					ResponseInstance.getContentDetails(fetchContentID(id));
 					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -12070,12 +11738,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 					mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getWebDriver().getCurrentUrl();
-					// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-					// Matcher m = p.matcher(id);
-					// String value = null;
-					// while (m.find()) {
-					// value = m.group(0);
-					// }
 					System.out.println("Current URL : " + id);
 					ResponseInstance.getContentDetails(fetchContentID(id));
 					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -12133,12 +11795,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 					mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getWebDriver().getCurrentUrl();
-					// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-					// Matcher m = p.matcher(id);
-					// String value = null;
-					// while (m.find()) {
-					// value = m.group(0);
-					// }
 					System.out.println("Current URL : " + id);
 					ResponseInstance.getContentDetails(fetchContentID(id));
 					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -12178,12 +11834,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 					mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getWebDriver().getCurrentUrl();
-					// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-					// Matcher m = p.matcher(id);
-					// String value = null;
-					// while (m.find()) {
-					// value = m.group(0);
-					// }
 					System.out.println("Current URL : " + id);
 					ResponseInstance.getContentDetails(fetchContentID(id));
 					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -12225,12 +11875,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 					mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getWebDriver().getCurrentUrl();
-					// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-					// Matcher m = p.matcher(id);
-					// String value = null;
-					// while (m.find()) {
-					// value = m.group(0);
-					// }
 					System.out.println("Current URL : " + id);
 					ResponseInstance.getContentDetails(fetchContentID(id));
 					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -12281,12 +11925,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 					mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getWebDriver().getCurrentUrl();
-					// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-					// Matcher m = p.matcher(id);
-					// String value = null;
-					// while (m.find()) {
-					// value = m.group(0);
-					// }
 					System.out.println("Current URL : " + id);
 					ResponseInstance.getContentDetails(fetchContentID(id));
 					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -12330,12 +11968,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 					mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getWebDriver().getCurrentUrl();
-					// Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-					// Matcher m = p.matcher(id);
-					// String value = null;
-					// while (m.find()) {
-					// value = m.group(0);
-					// }
 					System.out.println("Current URL : " + id);
 					ResponseInstance.getContentDetails(fetchContentID(id));
 					LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();

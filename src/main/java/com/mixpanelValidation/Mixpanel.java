@@ -180,7 +180,7 @@ public class Mixpanel extends ExtentReporter {
 			APIKey = "b2514b42878a7e7769945befa7857ef1";
 			UserID = "$model";
 			distinct_id = modelName();
-		} else {
+		} else if (platform.equalsIgnoreCase("Web") || platform.equalsIgnoreCase("MPWA")){
 			APIKey = "58baafb02e6e8ce03d9e8adb9d3534a6";
 			if (distinct_id.contains("-")) {
 				UserID = "Unique ID";
@@ -189,6 +189,10 @@ public class Mixpanel extends ExtentReporter {
 			}else {
 //				FEProp.setProperty("distinct_id", distinct_id);
 			}
+		}else if(platform.equals("TV")) {
+			APIKey = "e45c2466330383c493ba355fd0819bf4";
+			UserID = "$model";
+			distinct_id = modelName();
 		}
 	
 		Response request = RestAssured.given().auth().preemptive().basic(APIKey, "")
