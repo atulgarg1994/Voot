@@ -8,6 +8,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -240,9 +241,10 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.extentLogger("Non-Subscribed", "Accessing the application as Non-Subscribed user");
 			Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("NonsubscribedUserName");
+					.getParameter("NonSubscribedUserName");
 			Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("NonsubscribedPassword");
+					.getParameter("NonSubscribedUserPassword");
+			System.out.println(Username);
 		}
 		if (userType.equalsIgnoreCase("SubscribedUser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
 			if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
@@ -488,15 +490,15 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				getDriver().context("CHROMIUM");
 				directClickReturnBoolean(PWAHomePage.objAppInstallPopUpClose, "Close in App Install Pop Up");
 				directClickReturnBoolean(PWAHomePage.objStayTunedPopUpClose, "Close in Stay Tuned Pop Up");
-				WebElement displayContentLang = (new WebDriverWait(getDriver(), 60))
-						.until(ExpectedConditions.elementToBeClickable(PWAHomePage.objContinueDisplayContentLangPopup));
+				if(directClickReturnBoolean(PWAHomePage.objApplyContentLangPopup,"Apply on Content Language Pop Up")) {
+					break;					
+				}
+				WebElement displayContentLang = (new WebDriverWait(getDriver(), 60)).until(ExpectedConditions.elementToBeClickable(PWAHomePage.objContinueDisplayContentLangPopup));
 				if (displayContentLang.isDisplayed() == true) {
-					if (directClickReturnBoolean(PWAHomePage.objContinueDisplayContentLangPopup,
-							"Continue on Display Language Pop Up")) {
+					if (directClickReturnBoolean(PWAHomePage.objContinueDisplayContentLangPopup,"Continue on Display Language Pop Up")) {
 						dismissSystemPopUp();
 						waitTime(3000);
-						directClickReturnBoolean(PWAHomePage.objContinueDisplayContentLangPopup,
-								"Continue on Content Language Pop Up");
+						directClickReturnBoolean(PWAHomePage.objContinueDisplayContentLangPopup,"Continue on Content Language Pop Up");
 						break;
 					}
 				}
@@ -581,16 +583,20 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode(
 					"Verify Login Screen Display Event By Clicking On Login Button In Registartion Screen");
-			click(PWALoginPage.objSignUpBtnWEB, "Sign Up For Free");
+			waitTime(5000);
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
+			waitTime(3000);
+			click(PWALoginPage.objSignUpBtn, "Sign Up For Free");
+			waitTime(2000);
 			JSClick(PWALoginPage.objLoginLink, "Login link");
-			Back(1);
+			
 			waitTime(2000);
 
 			JavascriptExecutor js = (JavascriptExecutor) getDriver();
 			String token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			System.out.println(token);
 
-			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Source", "register");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
 			mixpanel.ValidateParameter(token, "Login Screen Display");
 		}
@@ -611,7 +617,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 
 			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
 				verifyElementPresentAndClick(PWALoginPage.objLoginCTAInPremiumPopup, "Login link");
-				Back(1);
+				
 			}
 			waitTime(2000);
 
@@ -705,6 +711,59 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
+	
+	public void verifyLoginInitiatedEvent(String userType, String loginMethod) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Initiated Event");
+
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			waitTime(2000);
+			click(PWALoginPage.objLoginBtn, "Login button");
+			waitTime(3000);
+			click(PWALoginPage.objEmailField, "Email field");
+			switch (loginMethod) {
+
+			case "mobileNumberLogin":
+				
+				type(PWALoginPage.objEmailField, "7892215214", "Phone Number Field");
+
+				hideKeyboard();
+				waitTime(5000);
+				directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
+				waitTime(8000);
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "sign_in");
+				
+				
+				break;
+
+			case "emailLogin":
+				
+				type(PWALoginPage.objEmailField, "zeetest@gmail.com", "Email Field");
+
+				hideKeyboard();
+				waitTime(5000);
+				dismissSystemPopUp();
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+				type(PWALoginPage.objPasswordField, "dv15cs" + "\n", "Password field");
+				hideKeyboard();
+				waitTime(5000);
+				directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
+				waitTime(8000);
+				
+
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "sign_in");
+				
+				break;
+			}
+			
+			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
+			mixpanel.ValidateParameter(gToken, "Login Initiated");
+			
+		}
+	}
+
 	public void login(String LoginMethod, String userType) throws Exception {
 		String url = getParameterFromXML("url");
 		extent.HeaderChildNode("User-Type : " + userType + ", Environment: " + url);
@@ -731,9 +790,9 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.extentLogger("Non-Subscribed", "Accessing the application as Non-Subscribed user");
 			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("NonsubscribedUserName");
+					.getParameter("NonSubscribedUserName");
 			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("NonsubscribedPassword");
+					.getParameter("NonSubscribedUserPassword");
 		}
 		if (userType.equalsIgnoreCase("SubscribedUser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
 			if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
@@ -1072,7 +1131,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("NonSubscribedUserName");
 			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("NonSubscribedPassword");
+					.getParameter("NonSubscribedUserPassword");
 		}
 		if (userType.equalsIgnoreCase("SubscribedUser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
 			if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
@@ -1473,10 +1532,10 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			System.out.println("Accessing the application as Non-Subscribed user");
 
 			Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SettingsNonsubscribedUserName");
+					.getParameter("SettingsNonSubscribedUserName");
 			System.out.println("U : " + Username);
 			Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SettingsNonsubscribedPassword");
+					.getParameter("SettingsNonSubscribedPassword");
 			System.out.println("P : " + Password);
 		}
 
@@ -4999,8 +5058,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
-			Username = getParameterFromXML("NonsubscribedUserName");
-			Password = getParameterFromXML("NonsubscribedUserPassword");
+			Username = getParameterFromXML("NonSubscribedUserName");
+			Password = getParameterFromXML("NonSubscribedUserPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresent(PWALoginPage.objWebLoginPageText, "Login page");
@@ -12822,5 +12881,16 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			Mixpanel.ValidateParameter(TokenORID, "Rental Purchase Call Returned");
 
 		}
+	}
+	
+	public String fetchContentID(String url) {
+		String contentID = null;
+		String[] id = url.split("/");
+		for (int i = 0; i < id.length; i++) {
+			if (id[i].contains("0-")) {
+				contentID = id[i];
+			}
+		}
+		return contentID;
 	}
 }

@@ -25,13 +25,13 @@ public class Android_DownloadsNew {
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 	}
 	
-	//@Test(priority = 1)
+	@Test(priority = 1)
 	@Parameters({ "userType"})
 	public void ContentPlayBackDownloads(String userType) throws Exception {
 			ZEE5ApplicasterBusinessLogic.DownloadsContentPlayBackValidation(userType,"Better",true);
 	}
 	
-	//@Test(priority = 2)
+	@Test(priority = 2)
 	@Parameters({ "userType"})
 	public void DonwloadsLandingScreen(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.DownloadScreenUIUXValidation(userType);
@@ -39,13 +39,13 @@ public class Android_DownloadsNew {
 		//ZEE5ApplicasterBusinessLogic.DownloadScreenValidation(userType);
 	}
 	
-	//@Test(priority = 3)
+	@Test(priority = 3)
 	@Parameters({ "userType"})
 	public void Downloads_EmptystateScreenValidation(String userType) throws Exception {
 			ZEE5ApplicasterBusinessLogic.EmptystateScreenValidation(userType);
 	}
 	
-	//@Test(priority = 4)
+	@Test(priority = 4)
 	@Parameters({ "userType"})
 	public void Downloads_verifyDownloadsWithSingleTire(String userType) throws Exception {
 			ZEE5ApplicasterBusinessLogic.verifyDownloadsWithSingleTire(userType);

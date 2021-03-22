@@ -3210,6 +3210,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					executor.executeScript("arguments[0].click();", tab);
 					logger.info("Clicked on " + screen + " Tab");
 					extent.extentLogger("tabClicked", "Clicked on " + screen + " Tab");
+					return true;
 				} catch (Exception e) {
 				}
 			}

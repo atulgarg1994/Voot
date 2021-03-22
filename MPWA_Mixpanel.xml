@@ -12,11 +12,11 @@
 	<parameter name="url" value="${env}"/> -->
 
 
-	<parameter name="url" value="newpwa" />
+	<parameter name="url" value="https://newpwa.zee5.com/" />
 
 	<parameter name="browserType" value="chrome" />
 
-	<parameter name="userType" value="NonSubscribedUser" />
+	<parameter name="userType" value="Guest" />
 
 	<!-- Guest/NonSubscribedUser/SubscribedUser -->
 
@@ -27,9 +27,9 @@
 
 	<!-- NONSubscribed User -->
 
-	<parameter name="NonsubscribedUserName"
+	<parameter name="NonSubscribedUserName"
 		value="basavaraj.pn5@gmail.com" />
-	<parameter name="NonsubscribedPassword" value="igsindia123" />
+	<parameter name="NonSubscribedUserPassword" value="igsindia123" />
 	<!-- Subscribed User -->
 
 	<!-- Subscribed User -->
@@ -47,8 +47,8 @@
 	<parameter name="keyword4" value="Paaru gets tipsy" />
 	<parameter name="keyword5" value="Bhinna" />
 
-	<parameter name="SettingsNonsubscribedUserName" value="zeetest@gmail.com" />
-	<parameter name="SettingsNonsubscribedPassword" value="zee123" />
+	<parameter name="SettingsNonSubscribedUserName" value="zeetest@gmail.com" />
+	<parameter name="SettingsNonSubscribedPassword" value="zee123" />
 	
 	<parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com" />
 	<parameter name="SettingsSubscribedPassword" value="123456" />
@@ -72,15 +72,15 @@
 	<parameter name="NonsubscribedInvalidPassword" value="igsindia"/>
 
 	<listeners>
-		<listener class-name="com.extent.ParameterInjector" /> 
+		<!-- <listener class-name="com.extent.ParameterInjector" />  -->
 		<listener class-name="com.extent.ExtentReporter" />
 		<!--  <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 	
-  <test name="testZee">
+  <test name="LoginInitiatedEvent">
     <classes>
-      <class name="com.zee5.MixpanelScripts.testZee"/>
+      <class name="com.zee5.MPWAMixpanelScripts.LoginInitiatedEvent"/>
     </classes>
   </test>
 </suite>
