@@ -2910,23 +2910,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void offlineScreenValidation() throws Exception {
-
-		//wait(2000);
 		extent.HeaderChildNode("Offline Screen Validation");
 		System.out.println("\nOffline Screen Validation");
-		waitTime(60000);
+		
+		waitTime(8000);
 		TurnOFFWifi();
 		if (getOEMName.equalsIgnoreCase("Sony")) {
 			Wifi_TurnOFFnON();
 		}
 
-		if (pUserType.contains("Guest")) {
-			verifyElementPresentAndClick(AMDHomePage.objMoviesTab, "Movies tab");
-		}
-		else{
-			waitTime(2000);
-			verifyElementPresentAndClick(AMDHomePage.objMoviesTab, "Movies tab");
-		}
+		waitTime(2000);
+		verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+		verifyElementPresentAndClick(AMDHomePage.objMoviesTab, "Movies tab");
+		
 		verifyElementExist(AMDOfflineScreen.objYouAreOffline, "You are Offline");
 		verifyElementExist(AMDOfflineScreen.objTryAgain, "Try Again");
 		verifyElementExist(AMDOfflineScreen.objGoToDownloads, "Go to Downloads");
@@ -2977,13 +2973,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDHomePage.HomeIcon, "Home tab");
 		verifyElementPresentAndClick(AMDHomePage.objUpcoming, "Upcoming tab");
 
-		waitForElementDisplayed(AMDUpcomingPage.objContentCard1, 10);
-		if (verifyElementExist(AMDUpcomingPage.objContentCard1, "Upcoming Page Content Card")) {
-			logger.info("Appropriate page is loaded");
-			extent.extentLogger("Page", "Appropriate page is loaded");
+		waitForElementDisplayed(AMDUpcomingPage.objContentCardInfo, 10);
+		int cardInfo = findElements(AMDUpcomingPage.objContentCardInfo).size();
+		if(cardInfo==4) {
+			logger.info("Appropriate page is loaded with Upcoming Page Content card info");
+			extent.extentLoggerPass("Page", "Appropriate page is loaded with Upcoming Page Content card info");
 		} else {
-			logger.info("Appropriate page is not loaded");
-			extent.extentLogger("Page", "Appropriate page is not loaded");
+			logger.info("Upcoming Page with Content card and info is Not loaded");
+			extent.extentLogger("Page", "Upcoming Page with Content card and info is Not loaded");
 		}
 	}
 	
@@ -14630,6 +14627,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 
 		extent.HeaderChildNode("Verifying SVOD contents on Consumption screen for tab \"" + tabName
 				+ "\" and Playing the content : " + contentName);
+		System.out.println("Verifying SVOD contents on Consumption screen for tab \"" + tabName + "\" and Playing the content : " + contentName);
 		waitTime(5000);
 
 		String cotentName1 = "";
@@ -14666,15 +14664,16 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		boolean isContentNameDisplayed = verifyIsElementDisplayed(AMDConsumptionScreen.objContentName);
 		if (isContentNameDisplayed) {
 			String contentNameInConsumptionScreen = getText(AMDConsumptionScreen.objContentName);
-			extent.extentLogger("Verify content name", "Content name is available in consumption screen");
+			String contentInfoInConsumptionScreen = getText(AMDConsumptionScreen.objContentInfo);
+			extent.extentLoggerPass("Verify Consumption name", "Content name is available in consumption screen");
 			logger.info("Content name is available in consumption screen");
 			if (tabName.equals("Shows")) {
 				extent.extentLogger("Verify navigation",
 						"User is playing SVOD content \"" + contentName + "\" for tab \"" + tabName + "\"");
 				logger.info("User is playing SVOD content \"" + contentName + "\" for tab \"" + tabName + "\"");
-				if (contentName.contains(contentNameInConsumptionScreen)) {
-					extent.extentLoggerPass("Verify Content name",
-							"User is navigated to respective consumption screen for  SVOD content '" + contentName
+				if (contentNameInConsumptionScreen.contains(contentName) | contentInfoInConsumptionScreen.contains(contentName)) {
+					extent.extentLoggerPass("Verify Content Name",
+							"User is navigated to respective consumption screen for SVOD content '" + contentName
 									+ "' for tab " + tabName);
 					logger.info("User is navigated to respective consumption screen for  SVOD content '" + contentName
 							+ "' for tab " + tabName);
@@ -14689,17 +14688,17 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 				extent.extentLogger("Verify navigation",
 						"User is playing SVOD content \"" + contentName + "\" for tab \"" + tabName + "\"");
 				logger.info("User is playing SVOD content \"" + contentName + "\" for tab \"" + tabName + "\"");
-				if (contentName.contains(contentNameInConsumptionScreen)) {
+				if (contentNameInConsumptionScreen.contains(contentName) | contentInfoInConsumptionScreen.contains(contentName)) {
 					extent.extentLoggerPass("Verify Content name",
-							"User is navigated to respective consumption screen for  SVOD content '" + contentName
+							"User is navigated to respective consumption screen for SVOD content '" + contentName
 									+ "' for tab " + tabName);
-					logger.info("User is navigated to respective consumption screen for  SVOD content " + contentName
+					logger.info("User is navigated to respective consumption screen for SVOD content " + contentName
 							+ " for tab " + tabName);
 				} else {
 					extent.extentLoggerFail("Verify content name",
-							"Failed to navigate into respective consumtption screen for  SVOD content '" + contentName
+							"Failed to navigate to respective consumtption screen for SVOD content '" + contentName
 									+ "' for tab " + tabName);
-					logger.info("Failed to navigate into respective consumtption screen for  SVOD content '"
+					logger.info("Failed to navigate to respective consumtption screen for  SVOD content '"
 							+ contentName + "' for tab " + tabName);
 				}
 
@@ -14707,17 +14706,17 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 				extent.extentLogger("Verify navigation",
 						"User is playing SVOD content \"" + contentName + "\" for tab \"" + tabName + "\"");
 				logger.info("User is playing SVOD content \"" + contentName + "\" for tab \"" + tabName + "\"");
-				if (contentName.equals(contentNameInConsumptionScreen)) {
+				if (contentNameInConsumptionScreen.contains(contentName) | contentInfoInConsumptionScreen.contains(contentName)) {
 					extent.extentLoggerPass("Verify Content name",
-							"User is navigated to respective consumption screen for  SVOD content " + contentName
+							"User is navigated to respective consumption screen for SVOD content " + contentName
 									+ " for tab " + tabName);
-					logger.info("User is navigated to respective consumption screen for  SVOD content " + contentName
+					logger.info("User is navigated to respective consumption screen for SVOD content " + contentName
 							+ " for tab " + tabName);
 				} else {
 					extent.extentLoggerFail("Verify content name",
-							"Failed to navigate into respective consumption screen for  SVOD content '" + contentName
+							"Failed to navigate to respective consumption screen for SVOD content '" + contentName
 									+ "' for tab " + tabName);
-					logger.info("Failed to navigate into respective consumption screen for  SVOD content '"
+					logger.info("Failed to navigate to respective consumption screen for SVOD content '"
 							+ contentName + "' for tab " + tabName);
 				}
 			} else if (tabName.equals("Episode")) {
@@ -14725,7 +14724,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 						"User is playing SVOD content \"" + contentName + "\" for tab \"" + tabName + "\"");
 				logger.info("User is playing SVOD content \"" + contentName + "\" for tab \"" + tabName + "\"");
 				if (userType.equals("SubscribedUser")) {
-					if (contentName.equals(contentNameInConsumptionScreen)) {
+					if (contentNameInConsumptionScreen.contains(contentName) | contentInfoInConsumptionScreen.contains(contentName)) {
 						extent.extentLoggerPass("Verify Content name",
 								"User is navigated to respective consumption screen for  SVOD content '" + contentName
 										+ "' for tab " + tabName);
@@ -14768,10 +14767,12 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		ValidateConfiguredRails(userType, tabName);
 		AvailableTraysInTabs(tabName, userType);
 		if (tabName.equals("Episode")) {
-			Back(2);
+//			Back(2);
+			BackToLandingScreen();
 			click(AMDHomePage.objHomeBtn, "Home icon");
 		} else {
-			Back(3);
+//			Back(3);
+			BackToLandingScreen();
 		}
 		// click(AMDHomePage.objHome,"Home Icon");
 		waitTime(3000);
@@ -14779,7 +14780,10 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 	
 	public void MetadataInfo(String tabName, String contentName, String userType) throws Exception {
 		extent.HeaderChildNode("Verifying Metadata in consumption screen for the tab : \"" + tabName + "\"");
+		System.out.println("Verifying Metadata in consumption screen for the tab : \"" + tabName + "\"");
+		
 		verifyElementExist(AMDConsumptionScreen.objContentInfo, "Content Info");
+		waitTime(4000);
 		String value = findElement(AMDConsumptionScreen.objContentInfo).getText();
 		     String[] arrSplit = value.split(" . ");
 		    for (int i=0; i < arrSplit.length; i++)
@@ -14831,7 +14835,6 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 				extent.extentLogger("Verify content name", "Genre is not displayed in consumption screen");
 				logger.info("Genre is not displayed in consumption screen");
 			}
-
 		   }
 		   
 	  
@@ -14876,15 +14879,12 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 					extent.extentLoggerPass("Verify Content Name",
 					"Genre \"" + Genre + "\" is displayed in consumption screen");
 			logger.info("Genre \"" + Genre + "\" is displayed in consumption screen");
-		} else {
+		}else{
 			extent.extentLogger("Verify content name", "Genre is not displayed in consumption screen");
 			logger.info("Genre is not displayed in consumption screen");
-		}
-
+			}
 	   }
 		   
-	   
-
 	   if(tabName.equalsIgnoreCase("Movies")) {
 		 //content name
 	    String ContentName = arrSplit[0];
@@ -15043,12 +15043,13 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 				logger.info("Content Description  is not displayed");
 
 			}	
-		   	
 	}
 
 	public void VerifyCTAsInConsumptionScreen(String userType, String tabName, String contentName) throws Exception {
 
 		HeaderChildNode("Verify the availability of CTA's in Consumption screen for the tab :\"" + tabName + "\"");
+		System.out.println("\nVerify the availability of CTA's in Consumption screen for the tab :\"" + tabName + "\"");
+		
 		boolean shareCTA = verifyIsElementDisplayed(AMDConsumptionScreen.objShareBtn);
 		if (shareCTA) {
 			extent.extentLoggerPass("Share CTA", "Share CTA is available for the content : " + contentName);
@@ -15251,6 +15252,8 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 
 	public void ShareValidationConsumptionScreen(String tabName, String userType) throws Exception {
 		extent.HeaderChildNode("Verify Share CTA functionality");
+		System.out.println("\nVerify Share CTA functionality");
+		
 		click(AMDConsumptionScreen.objShareBtn, "Share button");
 		boolean isShareOption = verifyIsElementDisplayed(AMDMoreMenu.objshareOptions);
 		if (isShareOption) {
@@ -15278,6 +15281,8 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 
 	public void WatchList(String userType, String tabName, String contentName) throws Exception {
 		extent.HeaderChildNode("Verify Watchlist CTA Functionality");
+		System.out.println("\nVerify Watchlist CTA Functionality");
+		
 		if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
 			if (tabName.equals("Episode") | tabName.equals("Movies")) {
 				click(AMDPlayerScreen.objPauseIcon, "Pause icon");
@@ -15403,6 +15408,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 
 	public void DownloadFunctionality(String userType, String tabName, String contentName) throws Exception {
 		extent.HeaderChildNode("Verify Download CTA Functionality");
+		System.out.println("\nVerify Download CTA Functionality");
 
 		if (userType.equals("Guest")) {
 			boolean isDwnld = verifyIsElementDisplayed(AMDConsumptionScreen.objDownloadBtn);
@@ -15557,13 +15563,20 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 
 	public void WatchTrailer(String userType, String tabName, String contentName) throws Exception {
 		HeaderChildNode("Verify Watch Trailer Functionality");
+		System.out.println("\nVerify Watch Trailer Functionality");
 		// Verify watch trailer
 		boolean isWatchTrailer = verifyIsElementDisplayed(AMDConsumptionScreen.objWatchTrialer);
 		if (isWatchTrailer) {
 			click(AMDConsumptionScreen.objWatchTrialer, "Watch Trialer");
-			waitTime(2000);
+			waitTime(1000);
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			int xCordinate = Integer.parseInt(getAttributValue("x", AMDPlayerScreen.objTimer));
+			int yCordinate = Integer.parseInt(getAttributValue("y", AMDPlayerScreen.objTimer));
+			System.out.println(xCordinate+" X "+yCordinate);
+//			TapOnCordinates(xCordinate, yCordinate);
 			String contentTitle = getText(AMDConsumptionScreen.objContentName);
-			if (contentTitle.contains("Trailer")) {
+			String contentInfo = getText(AMDConsumptionScreen.objContentInfo);
+			if (contentTitle.contains("Trailer")|contentInfo.contains("Trailer")) {
 				extent.extentLoggerPass("Watch Trailer",
 						"User is navigated to Trailer consumption screen from the tab " + tabName);
 				logger.info("User is navigated to Trailer consumption screen from the tab " + tabName);
@@ -15574,21 +15587,21 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 
 			// Verify download CTA is not available in Trialer consumption screen
 			boolean isDownload = verifyIsElementDisplayed(AMDConsumptionScreen.objDownloadBtn);
-			if (!isDownload) {
+			if (isDownload) {
 				extent.extentLoggerPass("Download",
-						"Download option is not available in Trailer/Promo consumption screen for content : '"
+						"Download option is displayed in Trailer/Promo consumption screen for content : '"
 								+ contentName + "'");
-				logger.info("Download option is not available in Trailer/Promo consumption screen for content : '"
+				logger.info("Download option is displayed in Trailer/Promo consumption screen for content : '"
 						+ contentName + "'");
 			} else {
 				extent.extentLoggerFail("Download",
-						"Download option is available in Trailer/Promo consumption screen for content : '" + contentName
+						"Download option is not available in Trailer/Promo consumption screen for content : '" + contentName
 								+ "'");
-				logger.info("Download option is available in Trailer/Promo consumption screen for content : '"
+				logger.info("Download option is not available in Trailer/Promo consumption screen for content : '"
 						+ contentName + "'");
 			}
 
-			Back(1);
+
 			if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
 				if (tabName.equals("Episode") | tabName.equals("Movies")) {
 					click(AMDPlayerScreen.objPauseIcon, "Pause icon");
@@ -15603,6 +15616,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 
 	public void AudioLanguage(String userType, String contentName, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Audio Language functionality");
+		System.out.println("\nVerify Audio Language functionality");
 		waitTime(2000);
 		boolean isCurrentLang = verifyIsElementDisplayed(AMDConsumptionScreen.objCurrentAudioLanguage);
 		if (isCurrentLang) {
@@ -15615,6 +15629,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 
 			// Verify the Audio language
 			click(AMDConsumptionScreen.objCurrentAudioLanguage, "Audio Language");
+			waitTime(1000);
 			boolean isPopUp = verifyIsElementDisplayed(AMDConsumptionScreen.objAudioLanguagepopup);
 			if (isPopUp) {
 				extent.extentLoggerPass("Verify Audio Language", "Audio Language Pop up is displayed");
@@ -15630,8 +15645,10 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 						logger.info("Audio Language :" + AudioLanguageName);
 					}
 					Back(1);
+					waitTime(500); //---Wait to close the popup
 					boolean pauseIcon = verifyIsElementDisplayed(AMDPlayerScreen.objPauseIcon);
 					if (pauseIcon) {
+						click(AMDPlayerScreen.objPauseIcon, "Pause");
 						extent.extentLoggerPass("Verify Playback",
 								"Playback is Auto played after closing the Audio Language Popup");
 						logger.info("Playback is Auto played after closing the Audio Language Popup");
@@ -15651,11 +15668,12 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 					"No default audio language is available for the content :" + contentName);
 			logger.info("No default audio language is available for the content :" + contentName);
 		}
-
 	}
 
 	public void SubTitles(String userType, String contentName, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Subtitles functionality for the tab : \"" + tabName + "\"");
+		System.out.println("\nVerify Subtitles functionality for the tab : \"" + tabName + "\"");
+		
 		if (tabName.equals("Music")) {
 			boolean isCurrentLang = verifyIsElementDisplayed(AMDConsumptionScreen.objCurrentSubTitle);
 			if (isCurrentLang) {
@@ -15680,6 +15698,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 				}
 				// Verify Subtitle
 				click(AMDConsumptionScreen.objCurrentSubTitle, "Subtitle");
+				waitTime(1000);
 				boolean isPopUp = verifyIsElementDisplayed(AMDConsumptionScreen.objAudioLanguagepopup);
 				if (isPopUp) {
 					extent.extentLoggerPass("Verify Sutitle PopUp", "Subtitles Pop up is displayed");
@@ -15695,8 +15714,10 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 							logger.info("Subtitle :" + SubtitleName);
 						}
 						Back(1);
+						waitTime(500);	//Wait to close popup
 						boolean pauseIcon = verifyIsElementDisplayed(AMDPlayerScreen.objPauseIcon);
 						if (pauseIcon) {
+							click(AMDPlayerScreen.objPauseIcon, "Pause");
 							extent.extentLoggerPass("Verify Playback",
 									"Playback is Auto played after closing the Subtitle Popup");
 							logger.info("Playback is Auto played after closing the Subtitle Popup");
@@ -15719,6 +15740,8 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 
 	public void ValidateConfiguredRails(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Configured trays for the tab : \"" + tabName + "\"");
+		System.out.println("\nVerify Configured trays for the tab : \"" + tabName + "\"");
+		
 		if (userType.equals("Guest") | userType.equals("NonSubscribedUser")) {
 			if (tabName.equals("Episode") | tabName.equals("Movies")) {
 				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
@@ -15730,10 +15753,12 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 
 			boolean upnextRail = verifyIsElementDisplayed(AMDGenericObjects.objCarouselTitle("Up Next"));
 			if (upnextRail) {
+				PartialSwipeInConsumptionScreen("UP", 1);
+				waitTime(3000);
 				int size = getDriver().findElements(AMDGenericObjects.objContentNameInTray).size();
 				ArrayList<String> contentName = new ArrayList<>();
 				for (int i = 1; i <= size; i++) {
-					contentName.add(getText(AMDGenericObjects.objcontentnameinTray(i)));
+					contentName.add(getText(AMDGenericObjects.objContentNameInTray(i)));
 				}
 				for (int j = 0; j < contentName.size(); j++) {
 					extent.extentLoggerPass("Content name",
@@ -15741,9 +15766,9 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 					logger.info("The content Name at index " + (j + 1) + " is " + contentName.get(j));
 				}
 
-				String firstContentName = getText(AMDGenericObjects.objcontentnameinTray(1));
+				String firstContentName = getText(AMDGenericObjects.objContentNameInTray(1));
 				SwipeRailContentCards(AMDGenericObjects.objCarouselTitle("Up Next"));
-				String secondContentName = getText(AMDGenericObjects.objcontentnameinTray(3));
+				String secondContentName = getText(AMDGenericObjects.objContentNameInTray(3));
 				if (!firstContentName.equals(secondContentName)) {
 					extent.extentLoggerPass("Swipe", "User can Swipe the content cards from 'Up Next Rail'");
 					logger.info("User can Swipe the content cards from 'Up Next Rail'");
@@ -17300,8 +17325,10 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		return WaiverAmount;
 	}
 
-	public void AvailableTraysInTabs(String tabName, String userType) throws Exception {
+
+public void AvailableTraysInTabs(String tabName, String userType) throws Exception {
 		extent.HeaderChildNode("Verify the available Trays in Consumption screen for tab \"" + tabName + "\"");
+		System.out.println("\nVerify the available Trays in Consumption screen for tab \"" + tabName + "\"");
 
 		ArrayList<String> TrayName = new ArrayList<>();
 		int count = 0;
@@ -17309,13 +17336,12 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		System.out.println(VisibleTraySize);
 		for (int i = 1; i <= VisibleTraySize; i++) {
 			TrayName.add(getText(AMDGenericObjects.objTrayTitleByIndex(i)));
-			Swipe("Up", 1);
+			PartialSwipeInConsumptionScreen("UP", 1);
 			waitTime(2000);
 			VisibleTraySize = getDriver().findElements(AMDGenericObjects.objTrayTitle).size();
 			System.out.println(TrayName);
 			for (int j = 1; j <= VisibleTraySize; j++) {
 				TrayName.add(getText(AMDGenericObjects.objTrayTitleByIndex(j)));
-
 			}
 			count++;
 			if (count == 5) {
@@ -17324,7 +17350,6 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 			}
 		}
 
-//	   Swipe("Down", count);
 		Set<String> set = new HashSet<>(TrayName);
 		TrayName.clear();
 		TrayName.addAll(set);
@@ -17333,7 +17358,6 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 			extent.extentLoggerPass("Verify TrayNames", TrayName.get(i) + "\n");
 			logger.info(TrayName.get(i));
 		}
-
 	}
 
 	/**
@@ -19381,5 +19405,11 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 		accessDeviceLocationPopUp("Allow", userType);
 		navigateToIntroScreen_DisplaylangScreen();
 		ZeeApplicasterLogin(userType);
+	}
+	
+	public void TapOnCordinates(int xCordinate, int yCordinate) {
+		AndroidTouchAction touch = new AndroidTouchAction(getDriver());	
+		touchAction.tap(PointOption.point(xCordinate, yCordinate))
+        .perform();
 	}
 }

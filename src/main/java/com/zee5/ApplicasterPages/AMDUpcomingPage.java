@@ -62,8 +62,9 @@ public class AMDUpcomingPage {
 	public static By objDownloadIcon = By.xpath("//*[@text='Download']");
 	
 
-public static By objGenre(String title) {
-		return By.xpath(""+title+"//following-sibling::*//following-sibling::*");
-	}
+	public static By objGenre(String title) {
+			return By.xpath(""+title+"//following-sibling::*//following-sibling::*");
+		}
 
+public static By objContentCardInfo = By.xpath("(//*[@id='upcoming_toolbar_title']//following::*//*[@id='imageContainer']//following-sibling::*//child::*)");
 }

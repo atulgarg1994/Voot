@@ -50,12 +50,6 @@ public class AMDGenericObjects {
 		return By.xpath("//*[contains(text(),'" + text + "']");
 	}
 
-	public static By objTrayTitle = By.xpath("//*[@id='header_primary_text']");
-
-	public static By objTrayTitleByIndex(int index) {
-		return By.xpath("(//*[@id='header_primary_text'])[" + index + "]");
-	}
-
 	public static By objBottomNavigation(String tabName) {
 		return By.xpath("//*[@id='bb_bottom_bar_title' and @text='" + tabName + "']");
 	}
@@ -81,12 +75,6 @@ public class AMDGenericObjects {
 		return By.xpath("//*[@id='cell_top_container']//*[@text='" + title + "']");
 	}
 
-	public static By objContentNameInTray(int index) {
-		return By.xpath("(//*[@id='cell_top_container'])[" + index + "]");
-	}
-
-	public static By objContentNameInTray = By.xpath("//*[@id='cell_top_container']");
-
 	public static By objPageTitle(String title) {
 		return By.xpath(
 				"//*[@class='android.widget.LinearLayout']//*[@id='homeTabLayout']//*[@class='android.widget.LinearLayout']//*[@text='"
@@ -103,12 +91,25 @@ public class AMDGenericObjects {
 		return By.xpath("(//*[@id='cell_top_container']//*[@class='android.widget.TextView'])["+index+"]");
 	}
 	
+	
+	public static By objPageLoadingIcon = By.xpath("//*[@id='compoiste_progress_bar'] | //*[@id='homeTabPageProgressBar']");
+	
+	public static By objPremiumTags = By.xpath("//*[@id='special_image_1'] | //*[@id='cell_center_container']//following::*[@text='P']");
+	
+	public static By objConsumptionScreenFirstRail = By.xpath("(//*[@id='cell_top_container']//following::*[@text='a'])[1]//preceding-sibling::*");
+	
+	public static By objConsumptionScreenFirstRailViewAllBtn = By.xpath("(//*[@id='cell_top_container']//following::*[@text='a'])[1]//preceding-sibling::*//following-sibling::*");
 
-public static By objPageLoadingIcon = By.xpath("//*[@id='compoiste_progress_bar'] | //*[@id='homeTabPageProgressBar']");
+	public static By objTrayTitle = By.xpath("//*[@id='header_primary_text'] | (//*[@text='a']//parent::*//child::*[1])");
 
-public static By objPremiumTags = By.xpath("//*[@id='special_image_1'] | //*[@id='cell_center_container']//following::*[@text='P']");
+	public static By objContentNameInTray = By.xpath("(//*[@text='a']//parent::*//child::*[1]//following::*//*[@id='cell_bottom_container']//child::*[1])");
 
-public static By objConsumptionScreenFirstRail = By.xpath("(//*[@id='cell_top_container']//following::*[@text='a'])[1]//preceding-sibling::*");
-
-public static By objConsumptionScreenFirstRailViewAllBtn = By.xpath("(//*[@id='cell_top_container']//following::*[@text='a'])[1]//preceding-sibling::*//following-sibling::*");
+	public static By objContentNameInTray(int index) {
+			return By.xpath("(//*[@text='a']//parent::*//child::*[1]//following::*//*[@id='cell_bottom_container']//child::*[1])[" + index + "]");
+		}
+		
+	public static By objTrayTitleByIndex(int index) {
+			return By.xpath("(//*[@id='header_primary_text'])[" + index + "] | (//*[@text='a']//parent::*//child::*[1])["+ index + "]");
+		}
+	
 }

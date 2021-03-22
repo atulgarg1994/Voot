@@ -128,4 +128,7 @@ public class AMDConsumptionScreen {
 	
 	public static By objContentInfo = By.xpath("//*[@id='content_info']");
 	
+	public static By objAudeioLangPopUpClose = By.xpath("//*[@id='player_option_top_pill']");
+	
+	
 	}
