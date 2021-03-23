@@ -421,10 +421,6 @@ public class PWAHomePage {
 	public static By objHomeInHambugerMenu = By
 			.xpath("//*[contains(@class,'menuGroup')]//a[contains(@class,'active')]//div[contains(text(),'Home')]");
 
-	// Content Title on carousel
-	public static By objContTitleOnCarousel = By
-			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
-
 	// Get premium btn
 	public static By objGetPremium = By.xpath("//*[text()='Get premium' or text()='Get Club']");
 	
@@ -599,4 +595,9 @@ public class PWAHomePage {
 	
 	public static By objMastheadCarouselCurrentContentWeb = By.xpath(
 			"(//div[contains(@class,'heroBannerCarousel')]//div[@class='slick-slide slick-center slick-cloned']//*[contains(@class,'content')]//img)[2]");
+	
+	public static By objContTitleOnCarousel = By
+			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
+
+
 }

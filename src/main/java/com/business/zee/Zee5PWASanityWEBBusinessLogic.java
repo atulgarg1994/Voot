@@ -11982,7 +11982,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if (checkElementDisplayed(PWAHomePage.objAboutUs, "About Us screen")) {
 			logger.info("User is navigated to About Us Screen");
 		}
-		Back(1);
+		//Back(1);
 		waitTime(5000);
 		verifyElementPresent(PWAHomePage.objHelp, "Help Center in footer section");
 		JSClick(PWAHomePage.objHelp, "Help Center in footer section");
@@ -11994,12 +11994,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		getWebDriver().close();
 		switchToParentWindow();
+		waitTime(5000);
 		verifyElementPresent(PWAHomePage.objPrivacyPolicyInFooterSection, "Privacy Policy in footer section");
+		waitTime(5000);
 		JSClick(PWAHomePage.objPrivacyPolicyInFooterSection, "Privacy Policy in footer section");
 		if (checkElementDisplayed(PWAHomePage.objPrivacyPolicy, "Privacy Policy screen")) {
 			logger.info("User is navigated to Privacy Policy Screen");
 		}
 		Back(1);
+		waitTime(5000);
 		verifyElementPresentAndClick(PWAHomePage.objTermsOfUseInfooterSection, "Terms of Use in footer section");
 		if (checkElementDisplayed(PWAHomePage.objTerms, "Terms of Use screen")) {
 			logger.info("User is navigated to Terms of Use Screen");

@@ -111,5 +111,7 @@ public class AMDGenericObjects {
 	public static By objTrayTitleByIndex(int index) {
 			return By.xpath("(//*[@id='header_primary_text'])[" + index + "] | (//*[@text='a']//parent::*//child::*[1])["+ index + "]");
 		}
-	
+	public static By objSelectFirstCardFromRailName(String RailName) {
+		return By.xpath("(//*[contains(text(),'"+RailName+"')]//following::*[@text='a']//parent::*//child::*[1])[@text='"+RailName+"']//following::*[@class='android.widget.ImageView'][1]");
+	}
 }

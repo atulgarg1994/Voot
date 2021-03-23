@@ -226,4 +226,8 @@ public class AMDHomePage {
 	public static By objHighlightedTab (String tab) {
 		return By.xpath("//*[@resource-id='com.graymatrix.did:id/homeTabLayout']//*[@text='"+tab+"' and @selected='true']");
 	}
+	
+	public static By objRailName(String railName) {
+		return By.xpath("(//*[contains(text(),'"+ railName +"')]//following::*[@text='a']//parent::*//child::*[1])[@text='"+ railName +"']");
+	}
 	}

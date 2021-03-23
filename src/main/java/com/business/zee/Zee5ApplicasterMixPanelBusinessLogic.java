@@ -197,7 +197,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if(verifyIsElementDisplayed(AMDOnboardingScreen.objContinueBtnInCountryPopUp)) {
 			click(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "Continuebutton(Country_Screen)");
 		}
-		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button (Display-LanguageScreen)");
 		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
 		verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 	}
@@ -8914,7 +8913,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		System.out.println(contentLang);
 		
 		String trayName = ResponseInstance.getTrayNameFromPage(tabName, usertype);
-		
+	
 //		boolean flagBox = verifyIsElementDisplayed(AMDHomePage.objSboxIcon);
 //		String pSugarBox = String.valueOf(flagBox);
 	
@@ -8923,9 +8922,12 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			waitForElementDisplayed(AMDGenericObjects.objTrayTitle, 30);
 		}
 		
-		SwipeUntilFindElement(AMDHomePage.objTrayTitle(trayName), "UP");
+		SwipeUntilFindElement(AMDHomePage.objRailName(trayName), "UP");
 		waitTime(5000);
-		click(AMDGenericObjects.objSelectFirstCardFromTrayTitle(trayName), "Content Card");
+		click(AMDGenericObjects.objSelectFirstCardFromRailName(trayName), "Content Card");
+		if(usertype.equalsIgnoreCase("Guest")) {
+			registerPopUpClose();
+		}
 		waitForAdToFinishInAmd();
 		waitTime(5000);
 		Back(1);
@@ -8945,7 +8947,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 		mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
 		mixpanel.FEProp.setProperty("Brand", pManufacturer);
-		mixpanel.FEProp.setProperty("Sugar Box Value","false" );
 
 		mixpanel.ValidateParameter("", "Video View");
 	}
@@ -8979,7 +8980,8 @@ public void SearchContentFromSearchPage(String userType,String contentType,Strin
 		verifyElementPresentAndClick(AMDHomePage.objSearchBtn,"Search icon");
 		click(AMDSearchScreen.objSearchEditBox,"Search edit box");
 		type(AMDSearchScreen.objSearchEditBox, contentName,"Search edit box");
-		click(AMDSearchScreen.objSearchItemBySearchTitle(contentName),"Searched content");
+//		click(AMDSearchScreen.objSearchItemBySearchTitle(contentName),"Searched content");
+		click(AMDSearchScreen.objFirstSearchResult(contentName),"Searched content");
 		
 		if(! userType.equalsIgnoreCase("SubscribedUser")) {
 			waitForAdToFinishInAmd();
