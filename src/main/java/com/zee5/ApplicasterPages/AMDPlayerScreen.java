@@ -74,8 +74,6 @@ public class AMDPlayerScreen {
 	public static By objTimer = By.xpath("//*[@id='playerDurationCurrent']");
 	public static By objTotalDuration = By.xpath("//*[@id='playerDurationTotal']");
 	public static By objProgressBar = By.xpath("//*[@id='playerSeekBar']");
-	
-	public static By objPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerElevationParent'] | //*[@id='playerTouchToHideShowController'] | (//*[@class='android.widget.FrameLayout'])[9]");
 	public static By objThreeDotsOnPlayer = By.xpath("//*[@id='playerMoreOptionButton']");
 
 	public static By obj3dotMenu = By.xpath("//*[@id='optionsLinearLayout']");
@@ -120,4 +118,6 @@ public class AMDPlayerScreen {
 	public static By objSelectedQualityOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_selected']/following-sibling::* | //*[@id='playerOptionsTitleTextView' and @text='Select Video Quality']");
 	
 	public static By objQuality = By.xpath("//*[@id='icon_quality_text'] | //*[@id='playerOptionTitle' and @text='Quality 480p']");
+
+	public static By objPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerElevationParent'] | //*[@id='playerTouchToHideShowController']");
 }

@@ -1263,6 +1263,7 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 	
 	String newContentId = null;
 	String pCharacters = null;
+	String setBusinessType = "free_downloadable";
 
 	boolean relatedFlag = true;
 	Response contentResp = null, subContentResp = null;
@@ -1277,7 +1278,7 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 	int relatedNodelength = contentResp.jsonPath().getList("related").size();
 	System.out.println("Related Node: " + relatedNodelength);
 	
-	if (!pUserType.equalsIgnoreCase("SubscribedUser") && (relatedNodelength >= 1) && (relatedFlag)) {
+	if (!pUserType.equalsIgnoreCase("SubscribedUser") || !pUserType.equalsIgnoreCase("NonSubscribedUser") && (relatedNodelength >= 1) && (relatedFlag)) {
 		
 		String assetSubType = contentResp.jsonPath().get("asset_subtype").toString();
 		System.out.println(assetSubType);
@@ -1285,7 +1286,7 @@ public static void setContentFEProperty(String pUserType,String pContentID,Strin
 			for(int rCount=0;rCount < relatedNodelength;rCount++) {
 				String getBusinessType = contentResp.jsonPath().get("related["+rCount+"].business_type").toString();
 				System.out.println(getBusinessType);
-				if(getBusinessType.equalsIgnoreCase("free_downloadable")) {
+				if(getBusinessType.equalsIgnoreCase(setBusinessType)) {
 					newContentId = contentResp.jsonPath().get("related["+rCount+"].id").toString();
 					System.out.println(newContentId);
 					break;

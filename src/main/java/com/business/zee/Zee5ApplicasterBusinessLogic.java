@@ -1157,7 +1157,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
 		Swipe("DOWN", 1);
 		verifyElementExist(AMDSubscibeScreen.objPremiumTab, "Premium  pack tab");
-		verifyElementExist(AMDSubscibeScreen.objClubTab, "Club pack tab");
+//		verifyElementExist(AMDSubscibeScreen.objClubTab, "Club pack tab");
 		Swipe("UP", 3);
 		waitTime(3000);
 		int size = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
@@ -1812,7 +1812,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void verifySearchOption(String userType) throws Exception {
 		extent.HeaderChildNode("Verify Search Icon on Landing pages as : " + userType);
 		System.out.println("\nVerify Search Icon on Landing pages as " + userType);
-		click(AMDHomePage.HomeIcon, "Home");
+		click(AMDHomePage.objHomeBtn, "Home");
 		waitTime(10000);
 		verifyElementPresent(AMDHomePage.objTopNav_HomeTab, "Home Tab");
 		boolean liveTV = false;
@@ -1887,7 +1887,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //			   extent.extentLoggerFail("Search icon", "Search icon is not displayed at top right of the More Screen");
 //       }
 //		
-		click(AMDHomePage.HomeIcon, "Bottom bar Home Option");
+		click(AMDHomePage.objHomeBtn, "Bottom bar Home Option");
 	}
 
 	/*
@@ -18372,7 +18372,7 @@ public void AvailableTraysInTabs(String tabName, String userType) throws Excepti
 		verifyElementPresent(AMDHomePage.objCarouselConetentCard, "Carousel unit");
 
 		if (userType.equalsIgnoreCase("Guest")) {
-			verifyElementExist(AMDHomePage.objGetPremiumButtonOnPremiumContent, "Get premium button");
+			verifyElementExist(AMDHomePage.objGetPremiumCTAOnCarousel, "Get premium button");
 		}
 
 		waitTime(3000);
@@ -18385,40 +18385,47 @@ public void AvailableTraysInTabs(String tabName, String userType) throws Excepti
 		carouselCardsSwipe("LEFT", 1, width, height);
 		String courselContentTitle = getText(AMDHomePage.objCarouselTitle1);
 		System.out.println(courselContentTitle);
-		click(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDHomePage.objSubscribePopup)) {
-			Back(1);
-			// click(AMDGenericObjects.objPopUpDivider, "Pop Up divider");
-		}
-		verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
-		String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
-		if (consumptionScreenTitle.contains(courselContentTitle)) {
-			logger.info("Respective content screen on tap of any carousel banner is displayed");
-			extent.extentLoggerPass("Consumption screen",
-					"Respective content screen on tap of any carousel banner is displayed");
-		} else {
-			logger.error("Respective content screen on tap of any carousel banner is not displayed");
-			extent.extentLoggerFail("Consumption screen",
-					"Respective content screen on tap of any carousel banner is not displayed");
-		}
-
-		if (userType.equalsIgnoreCase("Guest")) {
+		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(courselContentTitle), 60, "Carousel content");
+		if(verifyIsElementDisplayed(AMDHomePage.objListingScreen)) {
+			logger.info("Listing screen is displayed on tapping carousal banner");	
+			extentLogger("Listing screen", "Listing screen is displayed on tapping carousal banner");
+		}else {
 			waitTime(5000);
-			boolean flag = verifyIsElementDisplayed(AMDHomePage.objLoginButtonOnPlayerscreen);
-			if (flag == true) {
-				logger.info(
-						"user is navigated to consumption screen with Login button on player post tapping any premium content from the banner section");
-				extentLoggerPass("Login button",
-						"user is navigated to consumption screen with Login button on player post tapping any premium content from the banner section");
+			if (verifyIsElementDisplayed(AMDHomePage.objSubscribePopup)) {
+				Back(1);
+				// click(AMDGenericObjects.objPopUpDivider, "Pop Up divider");
+			}
+			verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
+			String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
+			if (consumptionScreenTitle.contains(courselContentTitle)) {
+				logger.info("Respective content screen on tap of any carousel banner is displayed");
+				extent.extentLoggerPass("Consumption screen",
+						"Respective content screen on tap of any carousel banner is displayed");
 			} else {
-				logger.info(
-						"user is navigated to consumption screen with Trailer on player post tapping any premium content from the banner section");
-				extentLogger("Login button",
-						"user is navigated to consumption screen with Trailer on player post tapping any premium content from the banner section");
+				logger.error("Respective content screen on tap of any carousel banner is not displayed");
+				extent.extentLoggerFail("Consumption screen",
+						"Respective content screen on tap of any carousel banner is not displayed");
+			}
+
+			if (userType.equalsIgnoreCase("Guest")) {
+				waitTime(5000);
+				boolean flag = verifyIsElementDisplayed(AMDHomePage.objLoginButtonOnPlayerscreen);
+				if (flag == true) {
+					logger.info(
+							"user is navigated to consumption screen with Login button on player post tapping any premium content from the banner section");
+					extentLoggerPass("Login button",
+							"user is navigated to consumption screen with Login button on player post tapping any premium content from the banner section");
+				} else {
+					logger.info(
+							"user is navigated to consumption screen with Trailer on player post tapping any premium content from the banner section");
+					extentLogger("Login button",
+							"user is navigated to consumption screen with Trailer on player post tapping any premium content from the banner section");
+				}
 			}
 		}
+		
 		Back(1);
+		navigateBackToHomeLandingScreen();
 	}
 
 	@SuppressWarnings("unused")
@@ -18455,15 +18462,15 @@ public void AvailableTraysInTabs(String tabName, String userType) throws Excepti
 			extent.extentLoggerFail("Proper search results", "Proper search results are not displayed");
 		}
 
-		String searchResultTitle = getText(AMDSearchScreen.objFirstContentInSearchResult);
-		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		String searchResultTitle = getText(AMDSearchScreen.objSearchResultFirstContent);
+		click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
 		if (verifyIsElementDisplayed(AMDHomePage.objSubscribePopup)) {
 			Back(1);
 			// click(AMDGenericObjects.objPopUpDivider, "Pop Up divider");
 		}
 		verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
 		String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
-		if (searchResults.equalsIgnoreCase(consumptionScreenTitle)) {
+		if (consumptionScreenTitle.contains(searchResults)) {
 			logger.info("User taken to respective consumption screen on tapping any search result.");
 			extent.extentLoggerPass("Consumption screen",
 					"User taken to respective consumption screen on tapping any search result.");
@@ -18472,27 +18479,39 @@ public void AvailableTraysInTabs(String tabName, String userType) throws Excepti
 			extent.extentLoggerFail("Consumption screen",
 					"User not taken to respective consumption screen on tapping any search result.");
 		}
-		Back(3);
+		waitTime(5000);
+        Back(1);
+		navigateBackToHomeLandingScreen();
 	}
 
 	public void playBack(String userType, String keyword1, String keyword2) throws Exception {
 		extent.HeaderChildNode("Verify Playback Page");
 
-		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDHomePage.objShowsTab, "Shows Tab");
 		waitTime(5000);
-		click(AMDSearchScreen.objSearchEditBox, "Search box");
-		type(AMDSearchScreen.objSearchBoxBar, keyword1 + "\n", "Search bar");
-		hideKeyboard();
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);
-		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-
+//		closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000); // INTERSTITIAL AD - HANDLED HERE
+		Swipe("UP", 2);
+		waitTime(5000);
+		boolean beforTV = verifyIsElementDisplayed(AMDHomePage.objBeforeTVTray);
+		if (beforTV) {
+			waitTime(5000);
+			String beforeTVtrayName = findElement(AMDHomePage.objBeforeTVTray).getText();
+			click(AMDGenericObjects.objViewAllBtn(beforeTVtrayName), "View All_Before TV Show");
+			waitTime(4000);
+			click(AMDHomePage.objBeforeTVContent, "BeforeTV content");
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			waitForAdToFinishInAmd();
 			// click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		}
-		registerPopUpClose();
+		if (userType.equalsIgnoreCase("Guest")) {
+		    registerPopUpClose();
+		}
 		completeProfilePopUpClose(userType);
 		waitTime(5000);
+		if (verifyIsElementDisplayed(AMDHomePage.objSubscribePopup)) {
+			Back(1);
+			// click(AMDGenericObjects.objPopUpDivider, "Pop Up divider");
+		}
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		boolean flag = verifyIsElementDisplayed(AMDPlayerScreen.objPlayer);
 		if (flag == true) {
@@ -18500,15 +18519,21 @@ public void AvailableTraysInTabs(String tabName, String userType) throws Excepti
 			extentLoggerPass("PlayBack", "the playback of free TV Show episode is displayed");
 		} else {
 			logger.info("the playback of free TV Show episode is not displayed");
-			extentLoggerPass("PlayBack", "the playback of free TV Show episode is not displayed");
+			extentLoggerFail("PlayBack", "the playback of free TV Show episode is not displayed");
 		}
-		Back(2);
+		Back(1);
+		navigateBackToHomeLandingScreen();
+	   }else{
+		   logger.info("Before Tv Tray is not displayed");
+		   extentLoggerWarning("Before Tv", "Before Tv Tray is not displayed");
+	   }
 
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search box");
 		type(AMDSearchScreen.objSearchBoxBar, keyword2 + "\n", "Search bar");
 		hideKeyboard();
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);
-		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			verifyElementPresent(AMDPlayerScreen.objSubscribeButtonBelowThePlayer, "GetPremium Banner");
 		}
@@ -18573,7 +18598,7 @@ public void AvailableTraysInTabs(String tabName, String userType) throws Excepti
 				Back(1);
 				waitTime(2000);
 				click(AMDHomePage.objMoreMenu, "More Menu");
-				Swipe("UP", 2);
+				Swipe("UP", 3);
 				click(AMDHomePage.objLogout, "Logout");
 				click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
 				waitTime(2000);
@@ -18592,7 +18617,7 @@ public void AvailableTraysInTabs(String tabName, String userType) throws Excepti
 			extentLoggerPass("Default Selected Pack", "Default Selected Pack : " + defaultSelectedPack);
 
 			verifyElementPresent(AMDSubscibeScreen.objPremiumTab, "Premium pack tab");
-			verifyElementPresent(AMDSubscibeScreen.objClubTab, "Club pack tab");
+			//verifyElementPresent(AMDSubscibeScreen.objClubTab, "Club pack tab");
 			Swipe("UP", 1);
 			int size = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
 			for (int i = 0; i < size; i++) {
@@ -18623,9 +18648,9 @@ public void AvailableTraysInTabs(String tabName, String userType) throws Excepti
 			waitTime(6000);
 			click(AMDSearchScreen.objContentNameInPlayer(contentWithoutTrailer), "Search result");
 			waitTime(5000);
-			verifyIsElementDisplayed(AMDSearchScreen.objContentNameInPlayer(contentWithoutTrailer));
+			verifyIsElementDisplayed(AMDConsumptionScreen.objContentName);
 			waitTime(3000);
-			click(AMDSubscibeScreen.objGetPremiumBtn, "Get Premium Button");
+			click(AMDPlayerScreen.objSubscribeButtonBelowThePlayer, "Get Premium Button");
 			verifyElementPresent(AMDHomePage.objGetPremiumPopUP, "Get Premium PopUp");
 
 			click(AMDSubscibeScreen.objHaveAPromocode, "Prepaid code");
@@ -18660,16 +18685,16 @@ public void AvailableTraysInTabs(String tabName, String userType) throws Excepti
 				verifyElementPresentAndClick(AMDSubscibeScreen.objDoneBtn, "Done Button");
 			}
 			if (userType.equals("Guest")) {
-				Back(3);
+				navigateBackToHomeLandingScreen();
 			} else {
-				Back(4);
+				navigateBackToHomeLandingScreen();
 			}
 
 		}
 
 		if (userType.equals("Guest")) {
 			click(AMDHomePage.objMoreMenu, "More Menu");
-			Swipe("UP", 2);
+			Swipe("UP", 3);
 			click(AMDHomePage.objLogout, "Logout");
 			click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
 			waitTime(2000);
@@ -18778,7 +18803,6 @@ public void AvailableTraysInTabs(String tabName, String userType) throws Excepti
 			logger.info("This is NOT applicable for " + userType);
 			extentLoggerWarning("Login", "This is NOT applicable for " + userType);
 		}
-
 	}
 
 	public void ScreenNavigation(String tabName) throws Exception {
@@ -19023,7 +19047,7 @@ public void AvailableTraysInTabs(String tabName, String userType) throws Excepti
 	public void navigateBackToHomeLandingScreen() throws Exception {
 		boolean flag;
 		for(int i=1;i<10;i++) {
-			flag = verifyElementDisplayed(AMDHomePage.objHomeBtn);
+			flag = verifyElementDisplayed(AMDHomePage.objTopNav_HomeTab);
 			if(flag) {
 				break;
 			}else {
