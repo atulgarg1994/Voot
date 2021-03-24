@@ -8,7 +8,6 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -763,6 +762,58 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			
 		}
 	}
+	
+	public void verifyLoginResultEvent(String userType, String loginMethod) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Result Event");
+
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			waitTime(2000);
+			click(PWALoginPage.objLoginBtn, "Login button");
+			waitTime(3000);
+			click(PWALoginPage.objEmailField, "Email field");
+			switch (loginMethod) {
+
+			case "mobileNumberLogin":
+				
+				type(PWALoginPage.objEmailField, "7892215214", "Phone Number Field");
+
+				hideKeyboard();
+				waitTime(5000);
+				directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
+				
+				type(PWASignupPage.objOTP1, "1", "OTP box1");
+				type(PWASignupPage.objOTP2, "2", "OTP box2");
+				type(PWASignupPage.objOTP3, "3", "OTP box3");
+				type(PWASignupPage.objOTP4, "4", "OTP box4");
+				hideKeyboard();
+				waitTime(3000);
+				directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
+				
+				
+				break;
+
+			case "emailLogin":
+				
+				type(PWALoginPage.objEmailField, "zeetest@gmail.com", "Email Field");
+
+				hideKeyboard();
+				waitTime(5000);
+				dismissSystemPopUp();
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+				type(PWALoginPage.objPasswordField, "zee123", "Password field");
+				hideKeyboard();
+				waitTime(5000);
+				directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
+				waitTime(8000);
+
+				break;
+			}
+			
+			
+			
+		}
+	}
 
 	public void login(String LoginMethod, String userType) throws Exception {
 		String url = getParameterFromXML("url");
@@ -963,8 +1014,10 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 	public void verifyLoginResultEventForValidCredentials(String userType, String loginMethod) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Result Event for Valid Credentials");
-			login(userType, loginMethod);
+			
+			verifyLoginResultEvent(userType, loginMethod);
 
+			waitTime(3000);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
 
@@ -1038,9 +1091,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Result Event post entering invalid credentials");
 
-			String url = getParameterFromXML("url");
-			extent.HeaderChildNode("User-Type : " + userType + ", Environment: " + url);
-			dismissAllPopUps();
 			verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 
 			waitTime(3000);
@@ -1059,7 +1109,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				waitTime(3000);
 				dismissSystemPopUp();
 				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-				type(PWALoginPage.objPasswordField, "vhgvgv" + "\n", "Password field");
+				type(PWALoginPage.objPasswordField, "vhgvgv", "Password field");
 				hideKeyboard();
 				waitTime(5000);
 				directClickReturnBoolean(PWALoginPage.objLoginBtnLoginPage, "Login Button");
@@ -2016,14 +2066,14 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					"Verify Register Screen Display Event By Clicking On Login Button In Registartion Screen");
 			click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 			waitTime(3000);
-			click(PWALoginPage.objSignUpBtnWEB, "Sign Up For Free");
+			click(PWALoginPage.objSignUpBtn, "Sign Up For Free");
 			waitTime(5000);
 
 			String token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			System.out.println(token);
 
 			mixpanel.FEProp.setProperty("Source", "home");
-			mixpanel.FEProp.setProperty("Page Name", "sign_in");
+			mixpanel.FEProp.setProperty("Page Name", "register");
 			mixpanel.ValidateParameter(token, "Register Screen Display");
 		}
 	}
@@ -2033,7 +2083,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Registration Initiated Event post entering invalid credentials");
 			click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 			waitTime(3000);
-			click(PWALoginPage.objSignUpBtnWEB, "Sign up button");
+			click(PWALoginPage.objSignUpBtn, "Sign up button");
 			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
 			click(PWALoginPage.objEmailField, "Email/PhoneNo Field");
 			type(PWALoginPage.objEmailField, "9073258519", "PhoneNumber Field");
@@ -2060,7 +2110,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Registration Result Event post entering invalid credentials");
 			click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 			waitTime(3000);
-			click(PWALoginPage.objSignUpBtnWEB, "Sign up button");
+			click(PWALoginPage.objSignUpBtn, "Sign up button");
 			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
 			click(PWALoginPage.objEmailField, "Email/PhoneNo Field");
 			type(PWALoginPage.objEmailField, "9073258519", "PhoneNumber Field");
