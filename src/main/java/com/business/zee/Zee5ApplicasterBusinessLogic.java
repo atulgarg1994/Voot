@@ -5047,7 +5047,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		if (userType.contentEquals("SubscribedUser")) {
 			ZNALogoutMethod();
-//			ValidateSubscriptionExpireBanner();
+			validateSubscriptionExpireBanner(userType);
 		}
 	}
 
@@ -5291,32 +5291,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 
-	public void ValidateSubscriptionExpireBanner(String LoginMethod) throws Exception {
-		extent.HeaderChildNode("Verify the download screen");
-		System.out.println("\nVerify the download screen");
-		ZeeApplicasterLogin(LoginMethod);
-		verifyElementExist(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
-		click(AMDHomePage.objDownloadBtn, "Downloads tab");
-		waitTime(2000);
-		String SubscriptionExpiersText = getDriver().findElement(AMDDownloadPage.objPackExpiredText).getText();
-		System.out.println(SubscriptionExpiersText);
-		if (SubscriptionExpiersText.contains("Your Subscription expires in")) {
-			logger.info(SubscriptionExpiersText + "text message is displayed");
-			extent.extentLogger("Download Screen", SubscriptionExpiersText + "text message is displayed");
-		} else {
-			logger.error(SubscriptionExpiersText + "text message is displayed");
-			extent.extentLoggerFail("Download Screen", SubscriptionExpiersText + "text message is not displayed");
-		}
-		waitTime(2000);
-		verifyElementExist(AMDDownloadPage.objRemaindMeLater, "Remind Me Later");
-		click(AMDDownloadPage.objRemaindMeLater, "Remind Me Later");
-		if (verifyElementNotPresent(AMDDownloadPage.objPackExpiredText, 2)) {
-			logger.info("Premium pack expires text is not displayed by tapping on Remaind Me Later");
-			extent.extentLogger("Download Screen",
-					"Premium pack expires text is not displayed by tapping on Remaind Me Later");
-		}
-	}
-
 	public void verifyDownloadsWithSingleTire(String userType) throws Exception {
 		extent.HeaderChildNode(
 				"Validating Video DownloadScreen and Content playback of downloaded Video with Single tier content");
@@ -5389,7 +5363,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 				
 	}
-
+	
 	public void validateSubscriptionExpireBanner(String userType) throws Exception {
 		extent.HeaderChildNode("Validating Subscription Expiry banner in Donwloads Screen");
 		if (userType.contentEquals("SubscribedUser")) {
