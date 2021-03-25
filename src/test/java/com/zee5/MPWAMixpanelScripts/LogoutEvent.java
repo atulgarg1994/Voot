@@ -19,7 +19,7 @@ public class LogoutEvent {
 	
 	@Test(priority = 0)
 	@Parameters({ "userType" })
-	public void PWAWEBMixPanelLogin(String userType) throws Exception {
+	public void PWAMixPanelLogin(String userType) throws Exception {
 		System.out.println("Login");
 		Zee5PWAMixPanelAndroidBusinessLogic.ZeePWALogin("E-mail", userType);
 	}

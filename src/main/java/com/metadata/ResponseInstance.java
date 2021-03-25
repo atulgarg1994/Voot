@@ -33,6 +33,7 @@ public class ResponseInstance {
 
 	public static Response getResponse(String URL) {
 		resp = given().urlEncodingEnabled(false).when().get(URL);
+		System.out.println(resp.statusCode());
 		return resp;
 	}
 
@@ -759,7 +760,8 @@ public class ResponseInstance {
 //		assetSubType = "video"; //0-1-manual_2g3a9k82241g
 //		getContentDetails("0-6-972");
 //		getTrayResponse("home","trailer");
-		subscriptionDetails();
+//		subscriptionDetails();
+		getResponse("http://igs-machine4.ngrok.io/login");
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {

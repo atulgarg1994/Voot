@@ -18,7 +18,7 @@ public class LoginInitiatedEvent {
 	
 	@Test(priority = 0)
 	@Parameters({ "userType" })
-	public void PWAWEBMixPanelLogin(String userType) throws Exception {
+	public void PWAMixPanelLogin(String userType) throws Exception {
 		System.out.println("Login");
 		Zee5MPWAMixPanelBusinessLogic.ZeePWALogin("E-mail", userType);
 	}

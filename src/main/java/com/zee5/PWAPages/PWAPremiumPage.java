@@ -137,9 +137,7 @@ public class PWAPremiumPage {
 	public static By objEmbedPopUp = By.xpath("//*[@class='iconInitialLoad-ic_embed']");
 	
 	public static By objEmbedCopy = By.xpath("//*[@class='copyBtn']//*[contains(text(),'Copy')]");
-	
-	public static By objGetPremiumCTAOnCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//span[contains(text(),'Get premium')]");
-
+ 
 	public static By objContentCardAddToWatchlistBtn = By
 			.xpath("(//*[@class='noSelect btnIcon iconInitialLoad-ic_add_Watchlist'])[1]");
 	
@@ -164,4 +162,5 @@ public class PWAPremiumPage {
 	public static By objShowThumbnail = By.xpath(
 			"(//*[@class='showCard   zoomCardHover minutelyUrl card marginRight positionRelative' or @class='movieCard card marginRight minutelyUrl noZoomOverlay'])[1]");
 
+	public static By objGetPremiumCTAOnCarousel = By.xpath("(//div[@class='slick-slide slick-active slick-current']//span[contains(text(),'Get premium')])");
 }

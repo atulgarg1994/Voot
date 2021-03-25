@@ -589,14 +589,15 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitTime(2000);
 			JSClick(PWALoginPage.objLoginLink, "Login link");
 			
-			waitTime(2000);
+			waitTime(10000);
 
+			mixpanel.FEProp.setProperty("Source", "register");
+			mixpanel.FEProp.setProperty("Page Name", "sign_in");
 			JavascriptExecutor js = (JavascriptExecutor) getDriver();
 			String token = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			System.out.println(token);
 
-			mixpanel.FEProp.setProperty("Source", "register");
-			mixpanel.FEProp.setProperty("Page Name", "sign_in");
+		
 			mixpanel.ValidateParameter(token, "Login Screen Display");
 		}
 	}
@@ -1018,10 +1019,11 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			verifyLoginResultEvent(userType, loginMethod);
 
 			waitTime(3000);
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
 
-			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			
 			mixpanel.ValidateParameter(ID, "Login Result");
 
 		}
@@ -2138,8 +2140,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			waitTime(3000);
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
-			waitTime(3000);
-
+			waitTime(8000);
+			
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
 
@@ -2159,7 +2161,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Guest")) {
 			click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 			click(PWAHamburgerMenuPage.objBuySubscription, "Buy Subscription option");
-
+			waitTime(8000);
+			
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
 
@@ -2179,7 +2182,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Guest")) {
 			click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 			click(PWAHamburgerMenuPage.objHaveAPrepaidCode, "Have a Prepaid Code? option");
-
+			waitTime(8000);
+			
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
 
@@ -2198,9 +2202,11 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Subscription Page Viewed Event By Clicking on Get Premium CTA On Carousel");
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			waitTime(3000);
-			navigateToAnyScreen("Premium");
+			navigateToAnyScreen("Movies");
+			waitTime(2000);
 			JSClick(PWAPremiumPage.objGetPremiumCTAOnCarousel, "Get Premium CTA on carousel");
-			waitTime(5000);
+			waitTime(8000);
+			
 
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
@@ -2219,7 +2225,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verify Subscription Selected Event");
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
-
+			Swipe("UP", 1);
+			Swipe("UP", 1);
 			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
 			mixpanel.FEProp.setProperty("Element", "Continue");
 			mixpanel.FEProp.setProperty("Source", "home");
@@ -2277,59 +2284,65 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			click(PWASubscriptionPages.objApplyBtn, "Apply Button");
 
 			if (userType.equals("Guest")) {
+				mixpanel.FEProp.setProperty("Source", "pack_selection");
+				mixpanel.FEProp.setProperty("Page Name", "account_info");
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
 					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+					waitTime(5000);
 					// Password Popup
 					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
 					click(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
 					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
 				}
+			} else {
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "pack_selection");
 			}
-			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
-			mixpanel.FEProp.setProperty("Source", "home");
+			
 			mixpanel.FEProp.setProperty("Element", "APPLY");
 			mixpanel.FEProp.setProperty("Success", "false");
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
 			mixpanel.FEProp.setProperty("cost", cost[1]);
-			mixpanel.FEProp.setProperty("Promo Code Type", "Product");
+			mixpanel.FEProp.setProperty("Promo Code Type", "Prepaid");
 			mixpanel.FEProp.setProperty("Promo Code", promocode);
 
-			if (userType.equals("Guest")) {
-				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
-				mixpanel.ValidateParameter(gToken, "Prepaid Code Result");
-			} else {
-				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
-				mixpanel.ValidateParameter(ID, "Prepaid Code Result");
-			}
+			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
+			mixpanel.ValidateParameter(ID, "Prepaid Code Result");
+			
 		}
 	}
 
 	public void verifyPromoCodeResultEventForValid(String userType) throws Exception {
 		extent.HeaderChildNode("Verify Promo Code Result Event For Valid code");
-		String promoCode = "PNB20";
+		String promoCode = "ZEE5SBI20";
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
 
 			click(PWASubscriptionPages.objHaveACode, "Have A Code section");
 			type(PWASubscriptionPages.objHaveACode, promoCode, "Prepaid Code");
 			click(PWASubscriptionPages.objApplyBtn, "Apply Button");
-			waitTime(2000);
-			if (userType.equals("Guest")) {
-				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
-					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
-					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
-					// Password Popup
-					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
-					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
-				}
-			}
+			waitTime(10000);
+//			if (userType.equals("Guest")) {
+//			
+//				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
+//					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
+//					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
+//					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+//					// Password Popup
+//					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
+//					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
+//					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
+//					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+//				}
+//			} else {
+//				mixpanel.FEProp.setProperty("Source", "home");
+//				mixpanel.FEProp.setProperty("Page Name", "pack_selection");
+//			}
+			
 			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Element", "APPLY");
@@ -2347,7 +2360,9 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 				mixpanel.ValidateParameter(ID, "Promo Code Result");
 			}
+		
 		}
+		
 	}
 
 	public void verifyPromoCodeResultEventForInvalid(String userType) throws Exception {
@@ -2357,21 +2372,21 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
 
 			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "Have A Code section");
-			type(PWASubscriptionPages.objHaveACode, promocode, "Prepaid Code");
+			type(PWASubscriptionPages.objHaveACode, promocode, "Promo Code");
 			click(PWASubscriptionPages.objApplyBtn, "Apply Button");
-
-			if (userType.equals("Guest")) {
-				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
-					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
-					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
-					// Password Popup
-					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
-					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
-				}
-			}
+			waitTime(10000);
+//			if (userType.equals("Guest")) {
+//				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
+//					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
+//					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
+//					verifyElementPresentAndClick(PWASubscriptionPages.objPaymentPageProceedBtn, "Proceed Button");
+//					// Password Popup
+//					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
+//					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
+//					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
+//					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+//				}
+//			}
 			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Element", "APPLY");
@@ -2389,6 +2404,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 				mixpanel.ValidateParameter(ID, "Promo Code Result");
 			}
+		
+			
 		}
 	}
 
@@ -2424,6 +2441,9 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					// type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password
 					// Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+					
+					waitTime(10000);
+					
 					TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
 					System.out.println(TokenORID);	
 					waitTime(10000);
@@ -2552,7 +2572,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 
 		if (!(userType.equals("SubscribedUser"))) {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
-
+			Swipe("UP",1);
+			Swipe("UP",1);
 			mixpanel.FEProp.setProperty("Page Name", "payment_failure");
 			mixpanel.FEProp.setProperty("Source", "N/A");
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
@@ -2579,12 +2600,13 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					// type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password
 					// Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
-					
+					waitTime(10000);
+
 					TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
 					System.out.println(TokenORID);	
 					waitTime(10000);
 				}
-			}else {
+			}else if (userType.equals("NonSubscribedUser")) {
 				waitTime(15000);
 				TokenORID = (String) js.executeScript("return window.localStorage.getItem('ID')");
 				System.out.println(TokenORID);	
@@ -5699,7 +5721,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Toast Message Impression Event after adding card to watchlist");
 			navigateToAnyScreen("Movies");
 			waitTime(3000);
-			scrollByWEB();
+			Swipe("UP", 1);
+			Swipe("UP", 1);
 			waitTime(3000);
 			Actions actions = new Actions(getDriver());
 			WebElement contentCard = getDriver().findElement(PWAPremiumPage.obj1stContentInViewAllPage);

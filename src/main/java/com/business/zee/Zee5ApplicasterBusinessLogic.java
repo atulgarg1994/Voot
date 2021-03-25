@@ -4513,8 +4513,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 */
 
 	public void EmptystateScreenValidation(String userType) throws Exception {
-		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
 		extent.HeaderChildNode("Downloads screen Empty-state validation as " + userType);
+		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
+		
 		System.out.println("\nDownloads screen Empty-state validation as: " + userType);
 		click(AMDHomePage.objDownloadBtn, "Downloads tab");
 		waitTime(3000);
@@ -4554,14 +4555,18 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.error("User fails to tap the 'Browse to Download' button");
 		}
 		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		}else {
+			logger.info("Empty state screen is not applicable for " + userType);
+			extent.extentLogger("Downloads", "Empty state screen is not applicable for " + userType);
 		}
 	}
 
 	public void validationofDownloadingContent(String userType) throws Exception {
-		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
 		extent.HeaderChildNode("Validating funtionality of Pause and Continue Download CTA call-Out option");
+		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
+		
 		System.out.println("\nValidating funtionality of Pause and Continue Download CTA call-Out option");
-        Back(2);
+        Back(1);
 		DownloadContent(content2, pVideoQuality, true);
 		if (checkElementExist(AMDDownloadPage.objDownloadingText)) {
 			extent.extentLoggerPass("Donwloading Content", "Downloading content is displayed in Downloads screen");
@@ -4610,6 +4615,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		int totalEpisodesList = getDriver().findElements(AMDDownloadPage.objNoOfEpisodeList).size();
 		logger.info("Content Cards: " + totalEpisodesList);
+	}else {
+		logger.info("Validation of downloading content is not applicable for " + userType);
+		extent.extentLogger("Downloads", "Validation of downloading content is not applicable for " + userType);
 	}
 	}
 
@@ -4634,8 +4642,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 
 	public void pauseAllAndCancelDownload(String userType) throws Exception {
-		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
 		extent.HeaderChildNode("Validating Call-Out options with Pause All and Cancel Download CTA");
+		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
+		
 		System.out.println("\nValidating Call-Out options with Pause All and Cancel Download CTA");
 
 		verifyElementPresentAndClick(AMDDownloadPage.objDownloadingCircularBar, "Downloading Icon");
@@ -4656,11 +4665,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(5000);
 		click(AMDDownloadPage.objCancelDownloadOption, "Cancel Download CTA");
 		waitTime(5000);
-		Back(1);
-//		int totalEpisodesList2 = getDriver().findElements(AMDDownloadPage.objNoOfEpisodeList).size();
-//		logger.info(totalEpisodesList2);
-		 Boolean value = verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn);
-		if (value == true) {
+		//Back(1);
+		int totalEpisodesList2 = getDriver().findElements(AMDDownloadPage.objNoOfEpisodeList).size();
+		logger.info(totalEpisodesList2);
+		if (totalEpisodesList2 < totalEpisodesList ) {
 			extent.extentLoggerPass("Cancel Download", "Downloading content is deleted");
 			logger.info("Downloading content is deleted");
 		} else {
@@ -4668,10 +4676,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"Downloading content is not deleted on tapping Cancel Download CTA");
 			logger.error("Downloading content is not deleted on tapping Cancel Download CTA");
 		}
-		//		click(AMDDownloadPage.objPausedBar, "Paused icon");
-//		click(AMDDownloadPage.objRetryCTA, "Continue option");
-//		waitTime(2000);
 		Back(1);
+		}else {
+			logger.info("Pause All and Cancel Downlaod is not applicable for " + userType);
+			extent.extentLogger("Downloads", "Pause All and Cancel Downlaod is not applicable for " + userType);
 		}
 	}
 
@@ -4813,8 +4821,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void DownloadingOffline(String userType) throws Exception {
-		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
 		extent.HeaderChildNode("Validation Downloads in Offline mode");
+		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
+		
 		System.out.println("\nValidation Downloads in Offline mode");
 
 		// *** Verifying download in offline Mode
@@ -4848,6 +4857,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"User fails to tap the Retry CTA and fail to resume downloading the content");
 			logger.error("User fails to tap the Retry CTA and fail to resume downloading the content");
 		}
+		}else {
+			logger.info("Download offline validation is not applicable for " + userType);
+			extent.extentLogger("Downloads", "Download offline validation is not applicable for " + userType);
 		}
 	}
 
@@ -5035,7 +5047,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		if (userType.contentEquals("SubscribedUser")) {
 			ZNALogoutMethod();
-			ValidateSubscriptionExpireBanner();
+//			ValidateSubscriptionExpireBanner();
 		}
 	}
 
@@ -5142,8 +5154,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void verifyMovieContentInDownloadsScreen(String userType , String MovieName, String Quality) throws Exception {
-		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
 		extent.HeaderChildNode("Validating the downloading content in Movies tab");
+		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
+		
 		System.out.println("\nValidating the downloading content in Movies tab");
 		Back(1);
        	DownloadContent(MovieName, Quality, true);
@@ -5170,7 +5183,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"Downloading " + MovieName + " is NOT displayed in the Downloads screen");
 			logger.error("Downloading " + MovieName + " is NOT displayed in Downloads screen");
 		}
+		}else {
+			logger.info("Movie content Downloads validation is not applicable for " + userType);
+			extent.extentLogger("Downloads", "Movie content Downloads validation is not applicable for " + userType);
 		}
+
 	}
 
 	/**
@@ -5301,9 +5318,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void verifyDownloadsWithSingleTire(String userType) throws Exception {
-		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
 		extent.HeaderChildNode(
 				"Validating Video DownloadScreen and Content playback of downloaded Video with Single tier content");
+		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
+		
 		System.out.println(
 				"\nValidating Video DownloadScreen and Content playback of downloaded Video with Single tier content");
 
@@ -5365,13 +5383,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("Shows Tab not having any downloaded content");
 		}
 		
-		}	
+		}	else {
+			logger.info("Downloads with single tier is not applicable for " + userType);
+			extent.extentLogger("Downloads", "Downloads with single tier is not applicable for " + userType);
+		}
 				
 	}
 
-	public void ValidateSubscriptionExpireBanner() throws Exception {
+	public void validateSubscriptionExpireBanner(String userType) throws Exception {
 		extent.HeaderChildNode("Validating Subscription Expiry banner in Donwloads Screen");
+		if (userType.contentEquals("SubscribedUser")) {
+			
 		System.out.println("\nValidating Subscription Expiry banner in Donwloads Screen");
+		ZNALogoutMethod();
 		click(AMDHomePage.objMoreMenu, "More Menu");
 		click(AMDMoreMenu.objProfile, "Profile");
 
@@ -5412,6 +5436,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"Premium pack expires text is not displayed on tapping - Remaind Me Later");
 		}
 		click(AMDHomePage.HomeIcon, "Home Icon");
+		}else {
+			logger.info("Validation of Subscription expire banner is not applicable for " + userType);
+			extent.extentLogger("Downloads", "Validation of Subscription expire banner is not applicable for " + userType);
+			
+		}
 	}
 
 	/**
@@ -8315,7 +8344,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		click(AMDHomePage.objHome, "Home button");
 
 		waitTime(5000); // To Load the landing page completely
-		boolean liveTV = false, loadingIcon = false, navigationFlag = false;
+		boolean lastTab = false, loadingIcon = false, navigationFlag = false;
 		int noOfTabs = getCount(AMDHomePage.objTitle);
 		String getTrayName = null, getPageTitle;
 
@@ -8323,7 +8352,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		for (int i = 1; i <= 10; i++) {
 			String tabName = null;
 			if (i == noOfTabs) {
-				if (!liveTV) {
+				if (!lastTab) {
 					i = noOfTabs - 1;
 				}
 //				WebElement eleTab = getDriver().findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
@@ -8403,11 +8432,11 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			}
 
 			// Following code is to break the loop after last tab validation in the landing screen
-			if (liveTV) {
+			if (lastTab) {
 				break;
 			}
-			if (tabName.equalsIgnoreCase("Live TV")) {
-				liveTV = true;
+			if (tabName.equalsIgnoreCase("Eduauraa")) {
+				lastTab = true;
 			}
 		}
 	}
@@ -8420,7 +8449,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		click(AMDHomePage.objHome, "Home button");
 
 		waitTime(5000); // To Load the landing page completely
-		boolean liveTV = false, loadingIcon = false;
+		boolean lastTab = false, loadingIcon = false;
 		int noOfTabs = getCount(AMDHomePage.objTitle);
 		String getTrayName = null, getPageTitle;
 		String width = null, height = null, bounds, getboundvalue;
@@ -8430,7 +8459,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			String tabName = null, pageNameAPI = null;
 			boolean navigationFlag = false;
 			if (i == noOfTabs) {
-				if (!liveTV) {
+				if (!lastTab) {
 					i = noOfTabs - 1;
 				}
 //				WebElement eleTab = getDriver().findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/title'])[" + i + "]"));
@@ -8632,11 +8661,11 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			}
 
 			// Following code is to break the loop after last tab validation in the landing screen
-			if (liveTV) {
+			if (lastTab) {
 				break;
 			}
-			if (tabName.equalsIgnoreCase("Live TV")) {
-				liveTV = true;
+			if (tabName.equalsIgnoreCase("Eduauraa")) {
+				lastTab = true;
 			}
 		}
 	}
@@ -19201,9 +19230,11 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 		}
 	}
 	
-	public void DownloadsContentPlayBackValidation(String userType,String Quality, boolean checkAlwaysAskOption) throws Exception {
+public void DownloadsContentPlayBackValidation(String userType,String Quality, boolean checkAlwaysAskOption) throws Exception {
+		
+		extent.HeaderChildNode("Content Play back of Downloaded content Validation");
 		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Content Play back of Downloaded content Validation");
+			
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar, "Yennenu Soda - Hebbuli" + "\n", "Search bar");
@@ -19233,7 +19264,7 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 			Swipe("DOWN",1);
 			verifyElementExist(AMDPlayerScreen.objTimer,"Start Time");
 			verifyElementExist(AMDPlayerScreen.objTotalDuration,"Total time duration of video");
-			verifyElementExist(AMDPlayerScreen.obj3dotMenu,"Three dot Menu");
+			verifyElementPresentAndClick(AMDPlayerScreen.obj3dotMenu,"Three dot Menu");
 			verifyElementPresentAndClick(AMDPlayerScreen.objPlaybackrate, "Play back rate");
 			verifyElementExist(AMDPlayerScreen.objOptionInPlaybackrate,"Play back rate options");
 			Back(1);
@@ -19254,6 +19285,9 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 			waitTime(2000);
 			Back(1);
 			
+		}else {
+			logger.info("Downloads Content Playback is not applicable for " + userType);
+			extent.extentLogger("Downloads", "Downloads Content Playback is not applicable for " + userType);
 		}
 	}
 	
@@ -19270,8 +19304,9 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 	}
 	
 	public void DeletedContentAndMultipleDownloadContent(String userType)throws Exception {
+		extent.HeaderChildNode("Verify Deleted Content from Downloads screen");
 		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
-			extent.HeaderChildNode("Verify Deleted Content from Downloads screen");
+			
 			System.out.println("\nVerify Deleted Content from Downloads screen");
 			int totalEpisodesList = getDriver().findElements(AMDDownloadPage.objNoOfEpisodeList).size();
 			logger.info("Content Cards: " + totalEpisodesList);
@@ -19352,12 +19387,16 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 				extent.extentLoggerFail("Queued", "Contents are NOT Queued up in a line ");
 				logger.error("Contents are NOT Queued up in a line ");
 			}
+		}else {
+			logger.info("Validation of Download and multiple content is not applicable for " + userType);
+			extent.extentLogger("Downloads", "Validation of Download and multiple content is not applicable for " + userType);
 		}
 	}
 	
 	public void DownloadsSectionAndLatestEpisode(String userType) throws Exception {
-		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
 		extent.HeaderChildNode("Validating Downloads Page section");
+		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
+		
 		System.out.println("\nValidating Downloads Page section");
 
 		DownloadContent(content5, pVideoQuality, true);
@@ -19422,6 +19461,9 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 		}
 		LatestEpisodeOnTheTop();
 		click(AMDHomePage.HomeIcon, "Home Icon");
+		}else {
+			logger.info("Download section and latest episode is not applicable for " + userType);
+			extent.extentLogger("Downloads", "Download section and latest episode is not applicable for " + userType);
 		}
 	}
 	

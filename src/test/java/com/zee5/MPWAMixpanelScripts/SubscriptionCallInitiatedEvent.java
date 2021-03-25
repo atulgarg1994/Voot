@@ -6,7 +6,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.business.zee.Zee5MPWAMixPanelBusinessLogic;
 
-public class TVAuthenticationScreenDisplayEvent {
+public class SubscriptionCallInitiatedEvent {
 
 	private Zee5MPWAMixPanelBusinessLogic Zee5MPWAMixPanelBusinessLogic;
 
@@ -24,9 +24,17 @@ public class TVAuthenticationScreenDisplayEvent {
 
 	@Test(priority = 1)
 	@Parameters({ "userType" })
-	public void verifyTVAuthenticationScreenDisplayEvent(String userType) throws Exception {
-		System.out.println("Verify TV Authentication Screen Display Event");
-		Zee5MPWAMixPanelBusinessLogic.verifyTVAuthenticationScreenDisplayEvent(userType);
+	public void verifySubscriptionCallInitiatedEvent(String userType) throws Exception {
+		System.out.println("Verify Subscription Call Initiated Event for All access pack");
+		Zee5MPWAMixPanelBusinessLogic.verifySubscriptionCallInitiatedEvent(userType);
+	}
+
+//	@Test(priority = 2)
+	@Parameters({ "userType" })
+	public void verifySubscriptionCallInitiatedEventClubPack(String userType) throws Exception {
+		System.out.println("Verify Subscription Call Initiated Event for Club pack");
+		Zee5MPWAMixPanelBusinessLogic.relaunch();
+		Zee5MPWAMixPanelBusinessLogic.verifySubscriptionCallInitiatedEventClubPack(userType);
 	}
 
 	@AfterClass
