@@ -533,7 +533,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				click(AMDGenericObjects.objPageTitle(pTabname), pTabname);
 				break;
 			} else {
-				List<WebElement> element = getDriver().findElements(By.xpath("//*[@id='title']"));
+				List<WebElement> element = getDriver().findElements(By.xpath("(//*[@id='homeTabLayout']/*/child::*)"));
 				element.get(noOfTabs - 1).click();
 				waitTime(1000);
 			}
@@ -8906,8 +8906,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	public void videoViewEventFromTopNavigationPage(String pUsertype, String pTabName) throws Exception {
 
-		String pUsername,pPassword;
-		setFEProperty(pUsertype);
 		waitForElementDisplayed(AMDHomePage.objTitle, 20);
 		SelectTopNavigationTab(pTabName);
 		String contentLang = ResponseInstance.getContentLanguageForAppMixpanel(pUsertype);
@@ -8924,29 +8922,25 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		SwipeUntilFindElement(AMDHomePage.objRailName(trayName), "UP");
 		waitTime(3000);
 		click(AMDGenericObjects.objSelectFirstCardFromRailName(trayName), "Content Card");
-		if(pUsertype.equalsIgnoreCase("Guest")) {
+		if(pUsertype.equalsIgnoreCase("Guest") || pUsertype.equalsIgnoreCase("NonSubscribedUser")) {
 			registerPopUpClose();
-		}
-		waitForAdToFinishInAmd();
-		waitTime(5000);
-		Back(1);
-		
-		if(!pUsertype.equalsIgnoreCase("Guest")) {
-			if(pUsertype.equalsIgnoreCase("SubscribedUser")) {
-				pUsername = getParameterFromXML("SubscribedUserName");
-				pPassword = getParameterFromXML("SubscribedUserPassword");
-				
-				ResponseInstance.setSubscriptionDetails();
-			}else {
-				pUsername = getParameterFromXML("NonSubscribedUserName");
-				pPassword = getParameterFromXML("NonSubscribedUserPassword");
-			}
-			ResponseInstance.getUserData(pUsername, pPassword);
+			waitForAdToFinishInAmd();
+			waitTime(2000);
+			Back(1);
+		}else {
+			waitTime(2000);
+			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player Screen");
+			verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
 		}
 		
+		setFEProperty(pUsertype);
+		setUserType_SubscriptionProperties(pUsertype);
 		
-		String pPage = getPageName(pTabName);
-		String pSource = getSource(pTabName);
+//		String pPage = getPageName(pTabName);
+//		String pSource = getSource(pTabName);
+		String pPage = "ConsumptionPage";
+		String pSource = "Homepage";
+		
 		String pManufacturer = DeviceDetails.OEM;
 		String pAdId = getAdId();
 
@@ -8955,8 +8949,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Source", pSource);
 		mixpanel.FEProp.setProperty("Page Name", pPage);
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
-		mixpanel.FEProp.setProperty("Brand", pManufacturer);
+		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+		mixpanel.FEProp.setProperty("brand", pManufacturer);
 
 		mixpanel.ValidateParameter("", "Video View");
 	}
@@ -9157,4 +9151,23 @@ public void SearchContentFromSearchPage(String userType,String contentType,Strin
 		mixpanel.ValidateParameter("", "Video View");
 	}
 	
+	public void setUserType_SubscriptionProperties(String pUsertype){
+		String pUsername,pPassword;
+		if(!pUsertype.equalsIgnoreCase("Guest")) {
+			if(pUsertype.equalsIgnoreCase("SubscribedUser")) {
+				pUsername = getParameterFromXML("SubscribedUserName");
+				pPassword = getParameterFromXML("SubscribedUserPassword");
+				
+				ResponseInstance.setSubscriptionDetails();
+				mixpanel.FEProp.setProperty("User Type", "Premium");
+			}else {
+				pUsername = getParameterFromXML("NonSubscribedUserName");
+				pPassword = getParameterFromXML("NonSubscribedUserPassword");
+				mixpanel.FEProp.setProperty("User Type", "registered");
+			}
+			mixpanel.FEProp.setProperty("Email", pUsername);
+		}else {
+			mixpanel.FEProp.setProperty("User Type", "Free");
+		}
+	}
 }

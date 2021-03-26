@@ -80,7 +80,7 @@ public class Mixpanel extends ExtentReporter {
 
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
 
-		System.out.println(System.getProperty("os.name"));
+//		System.out.println(System.getProperty("os.name"));
 //		String distinct_id = "distinct_id";
 //		System.out.println("properties[\"$" + distinct_id + "\"]==\"" + args + "\"");
 
@@ -146,6 +146,7 @@ public class Mixpanel extends ExtentReporter {
 //		System.out.println(1612873997 <= 1612873637);
 //		String empty[] = null;
 //		System.out.println(empty == null);
+		
 	}
 
 	@SuppressWarnings("unused")
@@ -358,6 +359,9 @@ public class Mixpanel extends ExtentReporter {
 	public static void validateParameterValue(String key, String value) {
 		try {
 			propValue = FEProp.getProperty(key);
+			if(key.equalsIgnoreCase("Publishing date")) {
+				propValue = propValue.split("T")[0];
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -469,7 +473,22 @@ public class Mixpanel extends ExtentReporter {
 		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
 		
 		if(userType.equals("Guest")) {
-			
+			Mixpanel.FEProp.setProperty("Gender", "N/A");
+			Mixpanel.FEProp.setProperty("Age", "N/A");
+			Mixpanel.FEProp.setProperty("Free Trial Expiry Date", "N/A");
+			Mixpanel.FEProp.setProperty("Free Trial Package", "N/A");
+			Mixpanel.FEProp.setProperty("Latest Subscription Pack", "N/A");
+			Mixpanel.FEProp.setProperty("Latest Subscription Pack Expiry", "N/A");
+			Mixpanel.FEProp.setProperty("Next Expiring Pack", "N/A");
+			Mixpanel.FEProp.setProperty("Next Pack Expiry Date", "N/A");
+			Mixpanel.FEProp.setProperty("Pack Duration", "N/A");
+			Mixpanel.FEProp.setProperty("Parent Control Setting", "N/A");
+			Mixpanel.FEProp.setProperty("User Type", "guest");
+			Mixpanel.FEProp.setProperty("Partner Name", "N/A");
+			Mixpanel.FEProp.setProperty("HasRental", "N/A");
+			Mixpanel.FEProp.setProperty("hasEduauraa", "N/A");
+			Mixpanel.FEProp.setProperty("New App Language", "en");
+			Mixpanel.FEProp.setProperty("New Content Language", "[en-kn]");
 		}
 	}
 
@@ -528,7 +547,7 @@ public class Mixpanel extends ExtentReporter {
 							.getParameter("SubscribedUserPassword");
 				}
 				ResponseInstance.getUserData(pUsername, pPassword);
-				ResponseInstance.getUserSettingsDetails(pUsername, pPassword);
+				ResponseInstance.getUserSettingsValues(pUsername, pPassword);
 			}
 		}
 	}

@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Android" parallel="false" thread-count="1">  <!-- name="Android" -->
 
-    <parameter name="userType" value="Guest" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
+    <parameter name="userType" value="SubscribedUser" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" /> 
 	
@@ -23,7 +23,8 @@
 	
 	<parameter name="tabName" value="Movies" />
 	<parameter name="displayLanguage" value="Marathi" />
-	<parameter name="pTabName" value="Shows" />		<!-- Home|Shows|Movies|Music|Premium|News|Club|Live TV|Eduauraa|Zee5 Originals| -->
+	
+	<parameter name="pTabName" value="Home" />		<!-- Home|Shows|Movies|ZEE5 Originals|News|Premium|Live TV|Music|Eduauraa -->
 	
 	<parameter name="keyword1" value="Jodi Hakki" />
 	<parameter name="keyword2" value="Chemistry of Kariyappa" />

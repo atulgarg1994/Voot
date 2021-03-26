@@ -17003,7 +17003,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void PlayValidation(String tabName, String userType) throws Exception {
 		extent.HeaderChildNode("HLS_098: Verify user navigation " + tabName + "page");
-		navigateToAnyScreenOnWeb(tabName);
+		PWAPagesNavigationAndTabHighlight(tabName);  
 		waitTime(3000);
 		if (checkElementDisplayed(PWAHomePage.objActiveTab, "Active tab")) {
 			String tab = getText(PWAHomePage.objActiveTab);

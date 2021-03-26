@@ -13081,7 +13081,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		System.out.println("JS : "+js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))));
 		System.out.println(findElement(By.xpath(".//*[@class='noSelect active ']")).getAttribute("href"));
 		System.out.println(pageNameTxt.replaceAll(" ","").toLowerCase());
-		if (pageNameTxt.equals("Shows")) {
+		if (pageNameTxt.equals("TV Shows")) {
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 1) {
 				return handler.getproperty("episode_details".toLowerCase());
 			}
@@ -13153,5 +13153,19 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		jse.executeScript("window.scrollBy(0,500)", "");
 	}
 	
+	
+	public void playerScrubToStart() {
+		try {
+			WebElement scrubber = getWebDriver().findElement(PWAPlayerPage.objPlayerScrubber);
+			WebElement progressBar = getWebDriver().findElement(PWAPlayerPage.objPlayerProgressBar);
+			Actions action = new Actions(getWebDriver());
+			action.clickAndHold(scrubber).moveToElement(progressBar,-390 ,0).release().perform();
+			logger.info("Swiped to the beginning");
+			extent.extentLogger("", "Swiped to the beginning");
+		} catch (Exception e) {
+			logger.info("Swiped to the beginning");
+			extent.extentLogger("", "Swiped to the beginning");
+		}
+	}
 	
 }

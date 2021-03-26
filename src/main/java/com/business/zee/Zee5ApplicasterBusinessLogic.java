@@ -1757,13 +1757,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("\nValidating " + userType + "user navigates to Search landing screen");
 		waitTime(10000);
 		verifyElementPresent(AMDHomePage.objTopNav_HomeTab, "Home Tab");
-		boolean liveTV = false;
+		boolean lastSecTab = false;
 
 		int noOfTabs = getCount(AMDHomePage.objTitle);
 		for (int i = 1; i <= 10; i++) {
 			String tabName = null;
 			if (i == noOfTabs) {
-				if (!liveTV) {
+				if (!lastSecTab) {
 					i = noOfTabs - 1;
 				}
 				WebElement eleTab = getDriver()
@@ -1799,11 +1799,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDLoginScreen.objSearchBackBtn, "Back Button");
 			waitTime(2000);
 
-			if (liveTV) {
+			if (lastSecTab) {
 				break;
 			}
-			if (tabName.equalsIgnoreCase("live TV")) {
-				liveTV = true;
+			if (tabName.equalsIgnoreCase("Music")) {
+				lastSecTab = true;
 			}
 		}
 		click(AMDHomePage.HomeIcon, "Bottom bar Home Option");
@@ -1815,7 +1815,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDHomePage.objHomeBtn, "Home");
 		waitTime(10000);
 		verifyElementPresent(AMDHomePage.objTopNav_HomeTab, "Home Tab");
-		boolean liveTV = false;
+		boolean lastSecTab = false;
 
 		int noOfTabs = getCount(AMDHomePage.objTitle);
 		System.out.println("HOME PAGE HEADERS: " + noOfTabs);
@@ -1823,7 +1823,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			String tabName = null;
 			if (i == noOfTabs) {
-				if (!liveTV) {
+				if (!lastSecTab) {
 					i = noOfTabs - 1;
 				}
 				WebElement eleTab = getDriver()
@@ -1862,11 +1862,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Search icon",
 						"Search icon is not displayed at top right of the " + tabName + " tab ");
 			}
-			if (liveTV) {
+			if (lastSecTab) {
 				break;
 			}
-			if (tabName.equalsIgnoreCase("live TV")) {
-				liveTV = true;
+			if (tabName.equalsIgnoreCase("Music")) {
+				lastSecTab = true;
 			}
 			waitTime(3000);
 
@@ -3325,13 +3325,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Search Result Screen Validation");
 		waitTime(7000);
 		if (verifyIsElementDisplayed(AMDSearchScreen.objRecentSearch)) {
-			extent.extentLoggerPass("Recent Search Overlay",
-					"Recent Search Overlay is not available in search results screen");
-			logger.info("Recent Search Overlay is not available in search results screen");
-		} else {
-			extent.extentLogger("Recent Search Overlay",
-					"Recent Search Overlay is available in search results screen");
+			extent.extentLoggerPass("Recent Search Overlay", "Recent Search Overlay is available in search results screen");
 			logger.info("Recent Search Overlay is available in search results screen");
+		} else {
+			extent.extentLogger("Recent Search Overlay", "Recent Search Overlay is not available in search results screen");
+			logger.info("Recent Search Overlay is not available in search results screen");
 		}
 		verifyElementPresentAndClick(AMDHomePage.objHome, "Home Tab");
 		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
@@ -3942,7 +3940,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verifing the availability of trays in the screen");
 		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Continue Watching"), AMDHomePage.objCarouselDots ,
 				"Continue watching tray", "MastheadCarousel", userType, tabName);
-		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Trending on"), AMDHomePage.objCarouselDots ,
+		findingTrayInscreen(10, AMDHomePage.objTrayTitle("Trending on"), AMDHomePage.objCarouselDots ,
 				"Trending on Zee5 tray", "MastheadCarousel", userType, tabName);
 		findingTrayInscreen(25, AMDHomePage.objTrayTitle("Trending Trailers"), AMDHomePage.objCarouselDots ,
 				"Trending Trailers and Teasers tray", "Mastheadcarousel", userType, tabName);
@@ -6040,7 +6038,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String carouselContent = getText(AMDHomePage.objCarouselTitle1);
 		carouselValidation(UserType, "Premium", carouselContent);
 		findingTrayInscreen(2, AMDHomePage.objTrayTitle("Trending Now"), AMDHomePage.objCarouselDots ,
-				"Trending Movies tray", "MastheadCarousel", userType, "Premium");
+				"Trending Now tray", "MastheadCarousel", userType, "Premium");
 	}
 
 	/** ========Eduauraa tab validations======== */

@@ -34,9 +34,6 @@ public class AMDGenericObjects {
 				"//*[@id='screen_title' and @text='" + title + "'] | //*[@id='title' and @text='" + title + "']");
 	}
 
-	// Back button
-	public static By objBackBtn = By.xpath("//*[@id='icon_back'] | //*[@id='action_icon']");
-
 	public static By objTrayTitleByIndx(int index) {
 		return By.xpath("(//*[@id='header_primary_text'])[" + index + "]");
 	}
@@ -74,12 +71,6 @@ public class AMDGenericObjects {
 	public static By objCarouselTitle(String title) {
 		return By.xpath("//*[@id='cell_top_container']//*[@text='" + title + "']");
 	}
-
-	public static By objPageTitle(String title) {
-		return By.xpath(
-				"//*[@class='android.widget.LinearLayout']//*[@id='homeTabLayout']//*[@class='android.widget.LinearLayout']//*[@text='"
-						+ title + "']");
-	}
 	
 	public static By objFirstTrayTitle = By.xpath("(//*[@id='header_primary_text'])[1] | (//*[@id='cell_top_container']/following::*[@text='a']//preceding-sibling::*)");
 	
@@ -114,4 +105,10 @@ public class AMDGenericObjects {
 	public static By objSelectFirstCardFromRailName(String RailName) {
 		return By.xpath("(//*[contains(text(),'"+RailName+"')]//following::*[@text='a']//parent::*//child::*[1])[@text='"+RailName+"']//following::*[@class='android.widget.ImageView'][1]");
 	}
+	
+	public static By objBackBtn = By.xpath("//*[@id='icon_back'] | //*[@id='action_icon'] | //*[@id='playerBackButton']");
+
+	public static By objPageTitle(String title) {
+			return By.xpath("//*[@class='android.widget.LinearLayout']//*[@id='homeTabLayout']//*[@class='android.widget.LinearLayout']//*[@text='"+title+"']");
+		}
 }
