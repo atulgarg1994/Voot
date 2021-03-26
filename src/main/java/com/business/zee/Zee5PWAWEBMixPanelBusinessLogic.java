@@ -426,7 +426,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Element", "Cross");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
-			System.out.println(local.getItem("guestToken"));
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Login");
 		}
 	}
@@ -574,8 +573,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "home");
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
-			mixpanel.FEProp.setProperty("cost", cost[1]);
+			mixpanel.FEProp.setProperty("Cost", cost[1]);
 			mixpanel.FEProp.setProperty("Current Subscription", "false");
+			mixpanel.FEProp.setProperty("isUpgrade", "false");
+			
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 			if (userType.equals("Guest")) {
@@ -587,7 +588,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 				fetchUserType(local);
 				mixpanel.ValidateParameter(local.getItem("ID"), "Subscription Selected");
 			}
-
 		}
 	}
 
@@ -602,7 +602,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Element", "Continue");
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
-			mixpanel.FEProp.setProperty("cost", cost[1]);
+			mixpanel.FEProp.setProperty("Cost", cost[1]);
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
 			if (userType.equals("Guest")) {
@@ -650,9 +650,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			}
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
-			mixpanel.FEProp.setProperty("cost", cost[1]);
+			mixpanel.FEProp.setProperty("Cost", cost[1]);
 			mixpanel.FEProp.setProperty("Promo Code Type", "Product");
 			mixpanel.FEProp.setProperty("Promo Code", promoCode);
+			mixpanel.FEProp.setProperty("Current Subscription", "false");
+			
 
 			if (userType.equals("Guest")) {
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -695,9 +697,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Success", "false");
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
-			mixpanel.FEProp.setProperty("cost", cost[1]);
+			mixpanel.FEProp.setProperty("Cost", cost[1]);
 			mixpanel.FEProp.setProperty("Promo Code Type", "Product");
 			mixpanel.FEProp.setProperty("Promo Code", promocode);
+			mixpanel.FEProp.setProperty("Failure Reason", "Subscription plan couldn't be found");
+			
 
 			if (userType.equals("Guest")) {
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -724,7 +728,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			System.out.println(local.getItem("ID"));
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "device_authentication");
-			mixpanel.FEProp.setProperty("element", "Authenticate Device");
+			mixpanel.FEProp.setProperty("Element", "Authenticate Device");
 			mixpanel.ValidateParameter(local.getItem("ID"), "TV Authentication Screen Display");
 		}
 	}
@@ -839,6 +843,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(5000);
 			click(PWALoginPage.objWebLoginButton, "Login Button");
 			waitTime(3000);
+			ResponseInstance.getUserData(Username, Password);
+			ResponseInstance.getUserSettingsDetails(Username, Password);
 			break;
 
 		}
@@ -864,8 +870,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "home");
 			mixpanel.FEProp.setProperty("Page Name", "sign_in");
-
-			System.out.println(local.getItem("ID"));
+			mixpanel.FEProp.setProperty("Success", "true");
+			mixpanel.FEProp.setProperty("Element", "Login");
+			mixpanel.FEProp.setProperty("Method", "Email");
+			
 			mixpanel.ValidateParameter(local.getItem("ID"), "Login Result");
 		}
 	}
@@ -5405,6 +5413,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				click(PWASignupPage.objVerifyBtnWeb, "Verified Button");
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Page Name", "sign_in");
+				mixpanel.FEProp.setProperty("Element", "Login");
+				mixpanel.FEProp.setProperty("Method", "Mobile");
 
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -5428,7 +5438,9 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 
 				mixpanel.FEProp.setProperty("Source", "home");
 				mixpanel.FEProp.setProperty("Page Name", "sign_in");
-
+				mixpanel.FEProp.setProperty("Element", "Login");
+				mixpanel.FEProp.setProperty("Method", "Mobile");
+				
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				fetchUserType(local);
@@ -5461,6 +5473,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", "otp_page");
 				mixpanel.FEProp.setProperty("Failure Reason", "Either OTP is not valid or has expired");
 				mixpanel.FEProp.setProperty("Success", "false");
+				mixpanel.FEProp.setProperty("Method", "Mobile");
 
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
@@ -5481,6 +5494,11 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				waitTime(5000);
 				click(PWALoginPage.objWebLoginButton, "Login Button");
 				waitTime(3000);
+				mixpanel.FEProp.setProperty("Source", "home");
+				mixpanel.FEProp.setProperty("Page Name", "sign_in");
+				mixpanel.FEProp.setProperty("Success", "false");
+				mixpanel.FEProp.setProperty("Element", "Login");
+				mixpanel.FEProp.setProperty("Method", "Email");
 				break;
 			}
 
@@ -5548,6 +5566,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 
 			mixpanel.FEProp.setProperty("Source", "register");
 			mixpanel.FEProp.setProperty("Page Name", "otp_page");
+			
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Registration Initiated");
@@ -5573,6 +5592,9 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Source", "register");
 			mixpanel.FEProp.setProperty("Page Name", "otp_page");
 			mixpanel.FEProp.setProperty("Failure Reason", "Either OTP is not valid or has expired");
+			mixpanel.FEProp.setProperty("Success", "false");
+			
+			
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Registration Result");
@@ -5691,7 +5713,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
-			mixpanel.FEProp.setProperty("cost", cost[1]);
+			mixpanel.FEProp.setProperty("Cost", cost[1]);
 			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
@@ -5769,7 +5791,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Page Name", "payment_page");
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
-			mixpanel.FEProp.setProperty("cost", cost[1]);
+			mixpanel.FEProp.setProperty("Cost", cost[1]);
 			mixpanel.FEProp.setProperty("Payment Method", "mastercard");
 			click(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			waitTime(2000);
@@ -5843,8 +5865,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 
 	public void verifySkipLoginThroughBeforeTVContent() throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
-			extent.HeaderChildNode(
-					"Verify Skip Login Event gets triggered when user click on close button in login popup "
+			extent.HeaderChildNode("Verify Skip Login Event gets triggered when user click on close button in login popup "
 							+ "on clicking login in Get premium popup on accessing before tv content");
 			navigateToAnyScreenOnWeb("Shows");
 			if (checkElementDisplayed(PWAHomePage.objFirstContentCardOfTray("Before"),
@@ -5862,6 +5883,9 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				waitTime(5000);
 				click(PWALoginPage.objSkip, "Skip Login");
 				waitTime(2000);
+				mixpanel.FEProp.setProperty("Source", "episode_detail");
+				mixpanel.FEProp.setProperty("Page Name", "sign_in");
+				mixpanel.FEProp.setProperty("Element", "Cross");				
 				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				fetchUserType(local);
 				Mixpanel.ValidateParameter(local.getItem("guestToken"), "Skip Login");
@@ -9575,6 +9599,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 					click(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
 					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+					
+					ResponseInstance.getUserData("igszee5test123g@gmail.com","igs@12345");
 				}
 			} else {
 				mixpanel.FEProp.setProperty("Source", "home");
@@ -9585,9 +9611,14 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Success", "false");
 			String[] cost = getText(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).split(" ");
 			mixpanel.FEProp.setProperty("Transaction Currency", cost[0]);
-			mixpanel.FEProp.setProperty("cost", cost[1]);
+			mixpanel.FEProp.setProperty("Cost", cost[1]);
 			mixpanel.FEProp.setProperty("Promo Code Type", "Prepaid");
 			mixpanel.FEProp.setProperty("Promo Code", promocode);
+			mixpanel.FEProp.setProperty("Current Subscription", "false");
+			mixpanel.FEProp.setProperty("Failure Reason", "The coupon code entered has expired");
+			
+			
+			
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Prepaid Code Result");

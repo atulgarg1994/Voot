@@ -1,8 +1,6 @@
 package com.business.zee;
 
 import java.time.Duration;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -1401,15 +1399,9 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				logger.info("Navigated to consumption screen");
 				extent.extentLogger("Play btn validation", "Navigated to consumption screen");
 				mixpanel.FEProp.setProperty("Source", "Home");
-				mixpanel.FEProp.setProperty("Element", "");
+				mixpanel.FEProp.setProperty("Page Name",pageName());
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Carousal Banner Click");
@@ -2665,14 +2657,9 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				.findElement(
 						By.xpath("//*[@class='playkit-icon playkit-icon-volume-waves']//ancestor::*[@id='anchorTag']"))
 				.getAttribute("href");
-		Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
+		
 		System.out.println(id);
-		ResponseInstance.getContentDetails(value);
+		ResponseInstance.getContentDetails(fetchContentID(id));
 
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -2703,13 +2690,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		String id = getDriver().getCurrentUrl();
 		System.out.println(id);
 
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -2736,13 +2718,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Video View", "1");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+		
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Video View");
@@ -2769,13 +2746,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Video View", "1");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -2799,13 +2771,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Video View", "1");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Video View");
@@ -2827,13 +2794,9 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Video View", "1");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Video View");
@@ -2859,13 +2822,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Video View", "1");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -2904,13 +2862,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			mixpanel.FEProp.setProperty("Video View", "1");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+		
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Video View");
@@ -2941,13 +2894,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Video View", "1");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Video View");
@@ -2974,13 +2922,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Video View", "1");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Video View");
@@ -3009,13 +2952,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Video View", "1");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Video View");
@@ -3038,13 +2976,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Video View", "1");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Video View");
@@ -3165,13 +3098,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -3193,13 +3121,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			Back(1);
 
 			if (userType.equals("Guest")) {
@@ -3225,13 +3148,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -3253,13 +3171,9 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 
 		if (userType.equals("Guest")) {
@@ -3280,13 +3194,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -3310,13 +3219,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -3353,13 +3257,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			Back(1);
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -3385,13 +3284,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, 20);
 		waitTime(6000);
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		mixpanel.FEProp.setProperty("Source", "episode_detail");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
@@ -3423,13 +3317,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 
 		if (userType.equals("Guest")) {
@@ -3463,13 +3352,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -3491,13 +3375,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -3618,13 +3497,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Pause");
@@ -3649,13 +3523,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Button Type", "Player");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Pause");
@@ -3684,13 +3553,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Pause");
@@ -3714,13 +3578,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Pause");
@@ -3743,13 +3602,9 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Pause");
@@ -3777,13 +3632,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Pause");
@@ -3823,13 +3673,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Button Type", "Player");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Pause");
@@ -3860,13 +3705,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Pause");
@@ -3891,13 +3731,9 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Pause");
@@ -3935,13 +3771,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Pause");
@@ -3965,13 +3796,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Pause");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Pause");
@@ -3996,13 +3822,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 
 		if (userType.equals("Guest")) {
@@ -4027,13 +3848,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			Back(1);
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -4058,13 +3874,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -4085,13 +3896,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -4112,13 +3918,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -4144,13 +3945,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -4188,13 +3984,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			Back(1);
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -4224,13 +4015,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -4253,13 +4039,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		Back(1);
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -4294,13 +4075,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Video Watch Duration");
@@ -4324,13 +4100,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		pausePlayer();
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
@@ -4357,13 +4128,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			pausePlayer();
 			playerScrubTillLastWeb();
 			click(PWAPlayerPage.objPlayerPlay, "Play Icon");
@@ -4395,13 +4161,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		
 		pausePlayer();
 		playerScrubTillLastWeb();
@@ -4429,13 +4190,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		pausePlayer();
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
@@ -4462,13 +4218,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		
 		pausePlayer();
 		playerScrubTillLastWeb();
@@ -4500,13 +4251,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		pausePlayer();
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
@@ -4552,13 +4298,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			
 			pausePlayer();
 			playerScrubTillLastWeb();
@@ -4596,13 +4337,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		pausePlayer();
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
@@ -4643,13 +4379,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		
 		pausePlayer();
 		playerScrubTillLastWeb();
@@ -4679,13 +4410,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		pausePlayer();
 		playerScrubTillLastWeb();
 		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
@@ -5102,10 +4828,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Element", "Cross");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			m.find();
-			ResponseInstance.getContentDetails(m.group(0));
+		
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Pop Up CTAs");
@@ -5263,13 +4987,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		String TrayTitle = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getText();
 		String link = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]"))
 				.getAttribute("href");
-		Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		Matcher m = p.matcher(link);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		mixpanel.FEProp.setProperty("Carousal ID", value);
+		
+	//	mixpanel.FEProp.setProperty("Carousal ID", value);
 		mixpanel.FEProp.setProperty("Carousal Name", TrayTitle);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
@@ -5317,13 +5036,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		String TrayTitle = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getText();
 		String link = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]"))
 				.getAttribute("href");
-		Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		Matcher m = p.matcher(link);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		mixpanel.FEProp.setProperty("Carousal ID", value);
+		
+	//	mixpanel.FEProp.setProperty("Carousal ID", value);
 		mixpanel.FEProp.setProperty("Carousal Name", TrayTitle);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
@@ -5362,13 +5076,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Popup launch");
@@ -5395,13 +5104,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Popup launch");
@@ -5441,13 +5145,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Popup launch");
@@ -5478,13 +5177,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Popup launch");
@@ -6054,13 +5748,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Resume");
@@ -6087,13 +5776,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Element", "Resume");
 			mixpanel.FEProp.setProperty("Button Type", "Player");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Resume");
@@ -6124,13 +5808,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Resume");
@@ -6156,13 +5835,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Resume");
@@ -6187,13 +5861,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Resume");
@@ -6222,13 +5891,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Resume");
@@ -6270,13 +5934,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Element", "Resume");
 			mixpanel.FEProp.setProperty("Button Type", "Player");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Resume");
@@ -6309,13 +5968,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Resume");
@@ -6342,13 +5996,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Resume");
@@ -6386,13 +6035,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Resume");
@@ -6418,13 +6062,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "Resume");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Resume");
@@ -6455,13 +6094,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Initialized");
@@ -6498,13 +6132,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Initialized");
@@ -6537,13 +6166,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Initialized");
@@ -6573,13 +6197,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Initialized");
@@ -6616,13 +6235,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Initialized");
@@ -6670,13 +6284,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Initialized");
@@ -6714,13 +6322,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Initialized");
@@ -6764,13 +6367,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Initialized");
@@ -6803,13 +6401,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Initialized");
@@ -6847,13 +6440,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad View");
@@ -6886,13 +6474,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad View");
@@ -6922,13 +6505,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad View");
@@ -6956,13 +6534,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad View");
@@ -6998,13 +6571,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad View");
@@ -7051,13 +6619,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad View");
@@ -7093,13 +6656,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad View");
@@ -7142,13 +6700,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad View");
@@ -7177,13 +6730,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad View");
@@ -7218,13 +6766,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				waitTime(3000);
 				if (userType.equals("Guest")) {
@@ -7259,13 +6802,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -7296,13 +6834,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -7332,13 +6865,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -7377,13 +6905,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -7430,13 +6953,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -7472,13 +6990,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -7521,13 +7034,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -7558,13 +7066,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				JSClick(PWAPlayerPage.objAdPlayerOverlay, "Ad");
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -7614,13 +7117,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Clicks");
@@ -7653,13 +7151,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 
 				if (userType.equals("Guest")) {
@@ -7698,13 +7191,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -7735,13 +7223,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -7770,13 +7253,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -7813,13 +7291,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -7866,13 +7339,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -7909,13 +7377,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -7959,13 +7422,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -7996,13 +7454,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -8040,13 +7493,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -8082,13 +7530,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -8119,13 +7562,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -8155,13 +7593,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -8198,13 +7631,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -8251,13 +7679,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -8294,13 +7717,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -8348,13 +7766,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -8386,13 +7799,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -8429,13 +7837,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				Back(1);
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -8470,13 +7873,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
@@ -8506,13 +7904,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
@@ -8541,13 +7934,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
@@ -8583,13 +7971,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
@@ -8634,13 +8017,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
@@ -8676,13 +8054,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
@@ -8724,13 +8097,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
@@ -8760,13 +8128,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Ad Watch Duration");
@@ -8803,13 +8166,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getDriver().getCurrentUrl();
-					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-					Matcher m = p.matcher(id);
-					String value = null;
-					while (m.find()) {
-						value = m.group(0);
-					}
-					ResponseInstance.getContentDetails(value);
+					
+					ResponseInstance.getContentDetails(fetchContentID(id));
 					if (userType.equals("Guest")) {
 						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
 								.toString();
@@ -8850,13 +8208,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getDriver().getCurrentUrl();
-					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-					Matcher m = p.matcher(id);
-					String value = null;
-					while (m.find()) {
-						value = m.group(0);
-					}
-					ResponseInstance.getContentDetails(value);
+					
+					ResponseInstance.getContentDetails(fetchContentID(id));
 					if (userType.equals("Guest")) {
 						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
 								.toString();
@@ -8892,13 +8245,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getDriver().getCurrentUrl();
-					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-					Matcher m = p.matcher(id);
-					String value = null;
-					while (m.find()) {
-						value = m.group(0);
-					}
-					ResponseInstance.getContentDetails(value);
+					
+					ResponseInstance.getContentDetails(fetchContentID(id));
 					if (userType.equals("Guest")) {
 						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
 								.toString();
@@ -8933,13 +8281,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getDriver().getCurrentUrl();
-					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-					Matcher m = p.matcher(id);
-					String value = null;
-					while (m.find()) {
-						value = m.group(0);
-					}
-					ResponseInstance.getContentDetails(value);
+					
+					ResponseInstance.getContentDetails(fetchContentID(id));
 					if (userType.equals("Guest")) {
 						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
 								.toString();
@@ -8980,13 +8323,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getDriver().getCurrentUrl();
-					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-					Matcher m = p.matcher(id);
-					String value = null;
-					while (m.find()) {
-						value = m.group(0);
-					}
-					ResponseInstance.getContentDetails(value);
+					
+					ResponseInstance.getContentDetails(fetchContentID(id));
 					if (userType.equals("Guest")) {
 						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
 								.toString();
@@ -9037,13 +8375,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getDriver().getCurrentUrl();
-					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-					Matcher m = p.matcher(id);
-					String value = null;
-					while (m.find()) {
-						value = m.group(0);
-					}
-					ResponseInstance.getContentDetails(value);
+					
+					ResponseInstance.getContentDetails(fetchContentID(id));
 					if (userType.equals("Guest")) {
 						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
 								.toString();
@@ -9084,13 +8417,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getDriver().getCurrentUrl();
-					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-					Matcher m = p.matcher(id);
-					String value = null;
-					while (m.find()) {
-						value = m.group(0);
-					}
-					ResponseInstance.getContentDetails(value);
+					
+					ResponseInstance.getContentDetails(fetchContentID(id));
 					if (userType.equals("Guest")) {
 						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
 								.toString();
@@ -9139,13 +8467,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getDriver().getCurrentUrl();
-					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-					Matcher m = p.matcher(id);
-					String value = null;
-					while (m.find()) {
-						value = m.group(0);
-					}
-					ResponseInstance.getContentDetails(value);
+					
+					ResponseInstance.getContentDetails(fetchContentID(id));
 					if (userType.equals("Guest")) {
 						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
 								.toString();
@@ -9183,13 +8506,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 					mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 					mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 					String id = getDriver().getCurrentUrl();
-					Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-					Matcher m = p.matcher(id);
-					String value = null;
-					while (m.find()) {
-						value = m.group(0);
-					}
-					ResponseInstance.getContentDetails(value);
+					
+					ResponseInstance.getContentDetails(fetchContentID(id));
 					if (userType.equals("Guest")) {
 						String gToken = js.executeScript("return window.localStorage.getItem('guestToken');")
 								.toString();
@@ -9233,13 +8551,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -9265,13 +8578,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Direction", "forward");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Scrub/Seek");
@@ -9299,13 +8607,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Scrub/Seek");
@@ -9329,13 +8632,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Scrub/Seek");
@@ -9358,13 +8656,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Scrub/Seek");
@@ -9391,13 +8684,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Scrub/Seek");
@@ -9435,13 +8723,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Direction", "forward");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Scrub/Seek");
@@ -9473,13 +8756,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Scrub/Seek");
@@ -9515,13 +8793,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Scrub/Seek");
@@ -9547,13 +8820,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Direction", "forward");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Scrub/Seek");
@@ -9583,13 +8851,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Old Quality", "Auto");
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Quality Change");
@@ -9616,13 +8879,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Old Quality", "Auto");
 			mixpanel.FEProp.setProperty("New Quality", "Good");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Quality Change");
@@ -9653,13 +8911,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Old Quality", "Auto");
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Quality Change");
@@ -9686,13 +8939,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Old Quality", "Auto");
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Quality Change");
@@ -9718,13 +8966,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Old Quality", "Auto");
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Quality Change");
@@ -9754,13 +8997,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Old Quality", "Auto");
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Quality Change");
@@ -9802,13 +9040,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Old Quality", "Auto");
 			mixpanel.FEProp.setProperty("New Quality", "Good");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Quality Change");
@@ -9843,13 +9076,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Old Quality", "Auto");
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+	
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Quality Change");
@@ -9889,13 +9117,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Old Quality", "Auto");
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Quality Change");
@@ -9924,13 +9147,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Old Quality", "Auto");
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Quality Change");
@@ -9959,13 +9177,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("New Quality", "Good");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Quality Change");
@@ -9997,13 +9210,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -10034,13 +9242,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
 
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Audio Language Change");
@@ -10079,13 +9282,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Audio Language Change");
@@ -10114,13 +9312,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Audio Language Change");
@@ -10140,13 +9333,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Audio Language Change");
@@ -10175,13 +9363,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Audio Language Change");
@@ -10217,13 +9400,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Audio Language Change");
@@ -10267,13 +9445,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
 
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Audio Language Change");
@@ -10315,13 +9488,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Audio Language Change");
@@ -10363,13 +9531,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Audio Language Change");
@@ -10399,13 +9562,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("New Audio Language", "Hindi");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Audio Language Change");
@@ -10436,13 +9594,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("New Subtitle Language", "English");
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
@@ -10471,13 +9624,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("New Subtitle Language", "English");
 
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -10515,13 +9663,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("New Subtitle Language", "English");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
@@ -10550,13 +9693,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("New Subtitle Language", "English");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
@@ -10588,13 +9726,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("New Subtitle Language", "English");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
@@ -10630,13 +9763,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("New Subtitle Language", "English");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
@@ -10683,13 +9811,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("New Subtitle Language", "English");
 
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 				mixpanel.ValidateParameter(ID, "Subtitle Language Change");
 
@@ -10726,13 +9849,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("New Subtitle Language", "English");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
@@ -10773,13 +9891,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("New Subtitle Language", "English");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+	
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
@@ -10811,13 +9924,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("New Subtitle Language", "English");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Subtitle Language Change");
@@ -10847,13 +9955,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Skip Intro");
@@ -10881,13 +9984,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -10924,13 +10022,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -10962,13 +10055,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Skip Intro");
@@ -10998,13 +10086,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Skip Intro");
@@ -11037,13 +10120,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Skip Intro");
@@ -11086,13 +10164,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 				String id = getDriver().getCurrentUrl();
-				Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-				Matcher m = p.matcher(id);
-				String value = null;
-				while (m.find()) {
-					value = m.group(0);
-				}
-				ResponseInstance.getContentDetails(value);
+				
+				ResponseInstance.getContentDetails(fetchContentID(id));
 				if (userType.equals("Guest")) {
 					String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 					mixpanel.ValidateParameter(gToken, "Skip Intro");
@@ -11131,13 +10204,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
@@ -11181,13 +10249,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Page Name", "kids_movie_detail");
 			mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Skip Intro");
@@ -11220,13 +10283,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Skip Intro");
@@ -11256,14 +10314,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		System.out.println(value);
-		ResponseInstance.getContentDetails(value);
+	
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11289,13 +10341,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11326,13 +10373,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11358,13 +10400,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11389,13 +10426,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11424,13 +10456,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11472,13 +10499,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11512,13 +10534,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11555,13 +10572,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11589,13 +10601,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11625,13 +10632,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11657,13 +10659,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11693,13 +10690,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+	
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11725,13 +10717,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11756,13 +10743,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11791,13 +10773,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11838,13 +10815,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			if (userType.equals("Guest")) {
 				String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 				mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11878,13 +10850,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11921,13 +10888,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+		
+		ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -11954,13 +10916,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Seek-Scrub Duration", "10");
 
 		String id = getDriver().getCurrentUrl();
-		Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-		Matcher m = p.matcher(id);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		ResponseInstance.getContentDetails(value);
+				ResponseInstance.getContentDetails(fetchContentID(id));
 		if (userType.equals("Guest")) {
 			String gToken = js.executeScript("return window.localStorage.getItem('guestToken');").toString();
 			mixpanel.ValidateParameter(gToken, "Auto-seek");
@@ -12013,13 +10969,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
 		}
@@ -12040,13 +10991,9 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
 		}
@@ -12070,13 +11017,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
 		}
@@ -12097,13 +11039,9 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
 		}
@@ -12123,13 +11061,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
 		}
@@ -12154,13 +11087,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
 		}
@@ -12196,13 +11124,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
 		}
@@ -12229,13 +11152,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
 		}
@@ -12263,13 +11181,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
 		}
@@ -12290,13 +11203,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
 		}
@@ -12323,13 +11231,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Parent Control Setting", "U");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Impression");
 		}
@@ -12386,13 +11289,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
 		}
@@ -12419,13 +11317,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
 
@@ -12456,13 +11349,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
 		}
@@ -12489,13 +11377,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
 		}
@@ -12521,13 +11404,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
 		}
@@ -12558,13 +11436,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
 		}
@@ -12606,13 +11479,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
 
@@ -12648,13 +11516,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
 		}
@@ -12688,13 +11551,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
 		}
@@ -12721,13 +11579,8 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Failure Reason", "N/A");
 
 			String id = getDriver().getCurrentUrl();
-			Pattern p = Pattern.compile("[0-9]-[0-9]-[0-9]+");
-			Matcher m = p.matcher(id);
-			String value = null;
-			while (m.find()) {
-				value = m.group(0);
-			}
-			ResponseInstance.getContentDetails(value);
+			
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Parental Overlay Result");
 		}
@@ -12965,5 +11818,23 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			}
 		}
 		return contentID;
+	}
+	
+	public String pageName() throws Exception {
+		waitTime(2000);
+		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
+		System.out.println("JS : "+js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))));
+		String pageNameTxt = js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))).toString();
+//				findElement(By.xpath(".//*[@class='noSelect active ']")).getText();
+		System.out.println("Page : "+pageNameTxt);
+		System.out.println("JS : "+js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))));
+		System.out.println(findElement(By.xpath(".//*[@class='noSelect active ']")).getAttribute("href"));
+		System.out.println(pageNameTxt.replaceAll(" ","").toLowerCase());
+		if (pageNameTxt.equals("Shows")) {
+			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 1) {
+				return handler.getproperty("episode_details".toLowerCase());
+			}
+		}
+		return handler.getproperty((pageNameTxt.replaceAll(" ","") + "_details").toLowerCase());
 	}
 }

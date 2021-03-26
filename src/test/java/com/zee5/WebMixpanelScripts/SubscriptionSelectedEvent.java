@@ -30,7 +30,7 @@ public class SubscriptionSelectedEvent {
 		Zee5PWAWEBMixPanelBusinessLogic.verifySubscriptionSelectedEvent(userType);
 	}
 
-	@Test(priority = 2)
+//	@Test(priority = 2)
 	@Parameters({ "userType" })
 	public void verifySubscriptionSelectedEventByClubPack(String userType) throws Exception {
 		System.out.println("Verify Subscription Selected Event By selecting Club Pack");

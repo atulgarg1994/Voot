@@ -33,32 +33,8 @@ public class ZNAMixpanel_VideoView {
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, pTabName);
 	}
 	
-//	@Test(priority = 7)
-	@Parameters({ "userType" })
-	public void VideoViewEvent_NewsPage(String userType) throws Exception {
-		System.out.println("\nVideo View validation from News tab");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, "News");
-	}
-
-//	@Test(priority = 9)
-	@Parameters({ "userType" })
-	public void VideoViewEvent_LiveTVPage(String userType) throws Exception {
-		System.out.println("\nVideo View validation from Live TV tab");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, "Live TV");
-	}
 	
-//	@Test(priority = 10)
-	@Parameters({ "userType" })
-	public void VideoViewEvent_EduauraaPage(String userType) throws Exception {
-		System.out.println("\nVideo View validation from Eduauraa tab");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, "Eduauraa");
-	}
-	
-	
-	//###############  VIDEO VIEW EVENT FROM SEARCH TAB  ###############
+//###############  VIDEO VIEW EVENT FROM SEARCH TAB  ###############
 	
 	@Test(priority = 12)
 	@Parameters({ "userType","freeContentID","freeContent"})
@@ -68,7 +44,7 @@ public class ZNAMixpanel_VideoView {
 		Zee5ApplicasterMixPanelBusinessLogic.VideoViewEvent(userType,"Free",freeContentID,freeContent);
 	}
 	
-//	@Test(priority = 13)
+	@Test(priority = 13)
 	@Parameters({ "userType","trailerContentID","trailerContent"})
 	public void VideoViewEventForTrailerContentFromSearchPage(String userType,String trailerContentID,String trailerContent) throws Exception {
 		System.out.println("\nVideo View event of trailer content");
@@ -76,7 +52,7 @@ public class ZNAMixpanel_VideoView {
 		Zee5ApplicasterMixPanelBusinessLogic.VideoViewEvent(userType,"Trailer",trailerContentID,trailerContent);
 	}
 	
-//	@Test(priority = 14)
+	@Test(priority = 14)
 	@Parameters({ "userType","premiumContentID","premiumContent"})
 	public void VideoViewEventForPremiumContentFromSearchPage(String userType,String premiumContentID,String premiumContent) throws Exception {
 		System.out.println("\nVideo View event of premium content");

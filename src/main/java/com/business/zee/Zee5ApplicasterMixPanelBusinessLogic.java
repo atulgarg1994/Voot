@@ -8904,39 +8904,49 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		return pPageName;
 	}
 
-	public void videoViewEventFromTopNavigationPage(String usertype, String tabName) throws Exception {
+	public void videoViewEventFromTopNavigationPage(String pUsertype, String pTabName) throws Exception {
 
-		setFEProperty(usertype);
+		String pUsername,pPassword;
+		setFEProperty(pUsertype);
 		waitForElementDisplayed(AMDHomePage.objTitle, 20);
-		SelectTopNavigationTab(tabName);
-		String contentLang = ResponseInstance.getContentLanguageForAppMixpanel(usertype);
+		SelectTopNavigationTab(pTabName);
+		String contentLang = ResponseInstance.getContentLanguageForAppMixpanel(pUsertype);
 		System.out.println(contentLang);
 		
-		String trayName = ResponseInstance.getTrayNameFromPage(tabName, usertype);
+//		String trayName = ResponseInstance.getTrayNameFromPage(pTabName, pUsertype);
+		String trayName = ResponseInstance.getRailNameFromPage(pTabName, pUsertype);
 	
-//		boolean flagBox = verifyIsElementDisplayed(AMDHomePage.objSboxIcon);
-//		String pSugarBox = String.valueOf(flagBox);
-	
-		if(tabName.equalsIgnoreCase("Live TV") || tabName.equalsIgnoreCase("News")) {
+		if(pTabName.equalsIgnoreCase("Live TV") || pTabName.equalsIgnoreCase("News")) {
 			waitTime(5000);
 			waitForElementDisplayed(AMDGenericObjects.objTrayTitle, 30);
 		}
 		
 		SwipeUntilFindElement(AMDHomePage.objRailName(trayName), "UP");
-		waitTime(5000);
+		waitTime(3000);
 		click(AMDGenericObjects.objSelectFirstCardFromRailName(trayName), "Content Card");
-		if(usertype.equalsIgnoreCase("Guest")) {
+		if(pUsertype.equalsIgnoreCase("Guest")) {
 			registerPopUpClose();
 		}
 		waitForAdToFinishInAmd();
 		waitTime(5000);
 		Back(1);
 		
-		if (usertype.equalsIgnoreCase("SubscribedUser")) {
-			ResponseInstance.subscriptionDetails();
+		if(!pUsertype.equalsIgnoreCase("Guest")) {
+			if(pUsertype.equalsIgnoreCase("SubscribedUser")) {
+				pUsername = getParameterFromXML("SubscribedUserName");
+				pPassword = getParameterFromXML("SubscribedUserPassword");
+				
+				ResponseInstance.setSubscriptionDetails();
+			}else {
+				pUsername = getParameterFromXML("NonSubscribedUserName");
+				pPassword = getParameterFromXML("NonSubscribedUserPassword");
+			}
+			ResponseInstance.getUserData(pUsername, pPassword);
 		}
-		String pPage = getPageName(tabName);
-		String pSource = getSource(tabName);
+		
+		
+		String pPage = getPageName(pTabName);
+		String pSource = getSource(pTabName);
 		String pManufacturer = DeviceDetails.OEM;
 		String pAdId = getAdId();
 

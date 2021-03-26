@@ -465,6 +465,12 @@ public class Mixpanel extends ExtentReporter {
 		}
 		Mixpanel.FEProp.setProperty("Landing Page Name", "home");
 		Mixpanel.FEProp.setProperty("Unique ID", UniqueID);
+		
+		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		
+		if(userType.equals("Guest")) {
+			
+		}
 	}
 
 	@SuppressWarnings("static-access")
@@ -522,6 +528,7 @@ public class Mixpanel extends ExtentReporter {
 							.getParameter("SubscribedUserPassword");
 				}
 				ResponseInstance.getUserData(pUsername, pPassword);
+				ResponseInstance.getUserSettingsDetails(pUsername, pPassword);
 			}
 		}
 	}
