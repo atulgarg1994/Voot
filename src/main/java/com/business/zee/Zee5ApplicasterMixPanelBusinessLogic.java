@@ -9170,4 +9170,62 @@ public void SearchContentFromSearchPage(String userType,String contentType,Strin
 			mixpanel.FEProp.setProperty("User Type", "Free");
 		}
 	}
+	
+	public void VideoViewEventThroughSearch(String userType, String pTypeOfContent, String pTabName) throws Exception {
+		HeaderChildNode("Verify Video View Event through Search navigation");
+		System.out.println("\nVerify Video View Event through Search navigation");
+
+		String pPage = "ConsumptionPage";
+		String pSource = "SearchPage";
+		String pManufacturer = DeviceDetails.OEM;
+		String pAdId = getAdId();
+
+		ArrayList<String> arrContentDetails = ResponseInstance.getTrayNameAndContentID("Home", pTypeOfContent);
+		String getTrayName, getContentName = null, getContentID = null;
+		if (arrContentDetails.size() != 0) {
+			getTrayName = arrContentDetails.get(0);
+			getContentName = arrContentDetails.get(1);
+			getContentID = arrContentDetails.get(2);
+
+			System.out.println("Tray Name: " + getTrayName);
+			System.out.println("Content Name: " + getContentName);
+			System.out.println("Content ID: " + getContentID);
+		}
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search edit box");
+		type(AMDSearchScreen.objSearchEditBox, getContentName, "Search edit box");
+		click(AMDSearchScreen.objFirstSearchResult(getContentName), "Select Searched content");
+		waitTime(2000);
+		if (!userType.equalsIgnoreCase("SubscribedUser")) {
+			registerPopUpClose();
+			waitForAdToFinishInAmd();
+			waitTime(2000);
+			Back(1);
+		} else {
+			waitTime(4000);
+			Back(1);
+		}
+
+		if (getContentID != null) {
+			ResponseInstance.setPropertyForContentDetailsFromSearchPage(getContentID);
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+
+			mixpanel.FEProp.setProperty("Ad ID", pAdId);
+			mixpanel.FEProp.setProperty("Advertisement ID", pAdId);
+			mixpanel.FEProp.setProperty("Source", pSource);
+			mixpanel.FEProp.setProperty("Page Name", pPage);
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+
+			mixpanel.ValidateParameter("", "Video View");
+		} else {
+			logger.error("Failed to fetch the ContentID from API to validate against Mixpanel Dashboard");
+			extent.extentLoggerWarning("Validation",
+					"Failed to fetch the ContentID from API to validate against Mixpanel Dashboard");
+		}
+
+	}
 }

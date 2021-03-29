@@ -510,9 +510,6 @@ public class PWAHomePage {
 	public static By objRestrictContentNotnowBtn = By.xpath("//div[@class='btwrap']//div[@class='closeBtn']//div");
 	public static By objPersonalizedNotificationPopup = By.xpath("//p[contains(text(),'Click Allow on the next prompt to subscribe to our push notifications')]");
 	public static By objPersonalizedNotificationPopupNotNowBtn = By.xpath("((//p[contains(text(),'Click Allow on the next prompt to subscribe to our push notifications')]//parent::*//parent::*//parent::*)//div[2]//button)[1]");
-	public static By objHighlightedTab(String tabname) {
-		return By.xpath("//a[contains(@class,'noSelect') and contains(@class,'active') and text()=\""+tabname+"\"]");
-	}
 	
 	public static By objFacebookIcon = By.xpath("//a[contains(@class, 'noSelect facebookIcon')]");
 	
@@ -595,9 +592,13 @@ public class PWAHomePage {
 	
 	public static By objMastheadCarouselCurrentContentWeb = By.xpath(
 			"(//div[contains(@class,'heroBannerCarousel')]//div[@class='slick-slide slick-center slick-cloned']//*[contains(@class,'content')]//img)[2]");
-	
-	public static By objContTitleOnCarousel = By
-			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
 
+
+	public static By objHighlightedTab(String tabname) {
+		return By.xpath("//a[contains(@class,'noSelect') and text()=\""+tabname+"\"]");
+	}
+
+	public static By objContTitleOnCarousel = By
+			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
 
 }

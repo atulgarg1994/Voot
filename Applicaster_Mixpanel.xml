@@ -44,6 +44,10 @@
 	<parameter name="premiumContent" value="Shivaji Surathkal" />
 	<parameter name="premiumContentID" value="0-0-197297" />
 	
+	
+	<parameter name="pTabName" value="Home" />		<!-- Home|Shows|Movies|ZEE5 Originals|News|Premium|Live TV|Music|Eduauraa -->
+	<parameter name="pTypeOfContent" value="Free" />		<!-- Free|premium|trailer -->
+	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
 		<!--  <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->

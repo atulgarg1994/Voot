@@ -56,10 +56,10 @@ public class AndroidPWAHLSScript {
 
 	@Test(priority = 5)
 	@Parameters({ "userType" })
-	public void PWAShowsPageHLS(String userType) throws Exception
+	public void PWATVShowsPageHLS(String userType) throws Exception
 	{
 		Zee5PWASanityBusinessLogic.reloadHome();
-		Zee5PWASanityBusinessLogic.PWAShowsPageHLS(userType, "Shows");
+		Zee5PWASanityBusinessLogic.PWATVShowsPageHLS(userType, "TV Shows");
 	}
 
 	@Test(priority = 6)
@@ -136,10 +136,10 @@ public class AndroidPWAHLSScript {
 	
 	@Test(priority = 15)
 	@Parameters({ "userType" })
-	public void PWAZEE5OriginalsPageHLS(String userType) throws Exception
+	public void PWAWebSeriesPageHLS(String userType) throws Exception
 	{
 		Zee5PWASanityBusinessLogic.reloadHome();
-		Zee5PWASanityBusinessLogic.PWAZEE5OriginalsPageHLS(userType, "ZEE5 Originals");
+		Zee5PWASanityBusinessLogic.PWAWebSeriesPageHLS(userType, "Web Series");
 	}
 
 	

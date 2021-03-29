@@ -13590,7 +13590,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 	}
 
-	public void PWAShowsPageHLS(String usertype, String Tabname) throws Exception {
+	public void PWATVShowsPageHLS(String usertype, String Tabname) throws Exception {
 		extent.HeaderChildNode("HLS_041 : Verify user navigation to Show landing page");
 		System.out.println("HLS_041 : Verify user navigation to Show landing page");
 		PWAPagesNavigationAndTabHighlight(Tabname);
@@ -13624,15 +13624,15 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("HLS_049 : Verify user can play Free content from the show page");
 		System.out.println("HLS_049 : Verify user can play Free content from the show page");
 		selectLanguages();
-		navigatetoAnyScreen("Shows");
+		navigatetoAnyScreen("TV Shows");
 		swipeTillTrayAndClickContentCard("Latest Hindi Episodes");
 		extent.HeaderChildNode("HLS_050 : Verify user can play Premium content from the show page");
 		System.out.println("HLS_050 : Verify user can play Premium content from the show page");
 		reloadHome();
-		navigatetoAnyScreen("Shows");
+		navigatetoAnyScreen("TV Shows");
 		swipeTillTrayAndClickContentCard("Premiere Episodes");
 		reloadHome();
-		navigatetoAnyScreen("Shows");
+		navigatetoAnyScreen("TV Shows");
 		extent.HeaderChildNode(
 				"HLS_052 : Verify at right side bottom arrow is given to navigate top of screen without scrolling");
 		verificationOfBackToTop(Tabname);
@@ -14431,7 +14431,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		swipeTillTrayAndClickContentCard("Recommended Videos");
 	}
 
-	public void PWAZEE5OriginalsPageHLS(String usertype, String Tabname) throws Exception {
+	public void PWAWebSeriesPageHLS(String usertype, String Tabname) throws Exception {
 		extent.HeaderChildNode("HLS_157 : Verify whether user is able to navigate Zee originals landing page");
 		System.out.println("HLS_157 : Verify whether user is able to navigate Zee originals landing page");
 		PWAPagesNavigationAndTabHighlight(Tabname);

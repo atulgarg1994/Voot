@@ -33,6 +33,11 @@ public class ZNAMixpanel_VideoView {
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, pTabName);
 	}
 	
+	@Test(priority = 3)
+	@Parameters({ "userType","pTypeOfContent","pTabName"})
+	public void VideoViewEventFromSearch(String userType,String pTypeOfContent, String pTabName) throws Exception {
+		Zee5ApplicasterMixPanelBusinessLogic.VideoViewEventThroughSearch(userType, pTypeOfContent, pTabName);
+	}
 	
 //###############  VIDEO VIEW EVENT FROM SEARCH TAB  ###############
 	
