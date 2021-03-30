@@ -49,7 +49,7 @@ public class LoginScreenDisplayEvent {
 				.verifyLoginScreenDisplayEventByClickingOnLoginButtonInRegistartionScreen(userType);
 	}
 
-	@Test(priority = 4)
+//	@Test(priority = 4)
 	@Parameters({ "userType", "keyword2" })
 	public void verifyLoginScreenDisplayEventByClickingOnLoginButtonInGetPremiumPopUp(String userType, String keyword2)
 			throws Exception {

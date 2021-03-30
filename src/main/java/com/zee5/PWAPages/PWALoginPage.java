@@ -114,8 +114,6 @@ public class PWALoginPage {
 	
 	public static By objLoginPageLoginBtnWEB = By.xpath("//div[@class='gradientBtnContainer']//span[contains(text(),'Login')]");
 
-    public static By objLoginBtnWEB = By.xpath("//*[@class='loginBtn noSelect' and text()='Login']");
-
 	public static By objFacebookLoginEmailWEB = By.xpath("//*[@id='email']");
 	
 	public static By objFacebookLoginpasswordWEB = By.xpath("//*[@id='pass']");
@@ -200,4 +198,7 @@ public class PWALoginPage {
 	 public static By objForgotPasswordLinkButtonWEB = By.xpath("//button[contains(@class,'noSelect buttonGradient')]");
 	 
 	 public static By objWebLoginPageText = By.xpath("//div[@class='formHeader loginHeaderIn']");
+	 
+	 public static By objLoginBtnWEB = By.xpath("//*[@class='loginBtn noSelect ' and text()='Login']");
+
 }

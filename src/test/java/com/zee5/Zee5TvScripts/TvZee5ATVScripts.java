@@ -15,13 +15,13 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness = new com.business.zee.Zee5TvBusinessLogic("zeeTV");
 	}
 
-	@Test(priority = 1)
+//	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void chooseLanguage(String userType) throws Exception {
 		Zee5TvBusiness.chooseLanguagePopup(userType);
 	}
 
-	@Test(priority = 2)
+//	@Test(priority = 2)
 	@Parameters({ "userType" })
 	public void club(String userType) throws Exception {
 		Zee5TvBusiness.clubScenarios();
@@ -120,7 +120,7 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.beforeTV();
 	}
 
-	@Test(priority = 17)
+//	@Test(priority = 17)
 	public void upNext() throws Exception {
 		Zee5TvBusiness.upnext();
 	}

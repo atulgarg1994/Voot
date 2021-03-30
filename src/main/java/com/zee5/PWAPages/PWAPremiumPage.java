@@ -162,5 +162,6 @@ public class PWAPremiumPage {
 	public static By objShowThumbnail = By.xpath(
 			"(//*[@class='showCard   zoomCardHover minutelyUrl card marginRight positionRelative' or @class='movieCard card marginRight minutelyUrl noZoomOverlay'])[1]");
 
-	public static By objGetPremiumCTAOnCarousel = By.xpath("(//div[@class='slick-slide slick-active slick-current']//span[contains(text(),'Get premium')])");
+	public static By objGetPremiumCTAOnCarousel = By.xpath("(//div[@class='slick-slide slick-active slick-center slick-current']//span[contains(text(),'Get premium')])");
+	
 }

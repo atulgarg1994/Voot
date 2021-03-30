@@ -151,7 +151,7 @@ public class WebPWASanityScript {
 	// -------------------------TEJAS ShowsPage--------------------------
 	@Test(priority = 13)
 	@Parameters({ "userType" })
-	public void showsPage(String userType) throws Exception {
+	public void tvShowsPage(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.ShowsValidationWeb(userType);
 	}
@@ -170,9 +170,9 @@ public class WebPWASanityScript {
 	// -------------------------BINDU Zee5Originals--------------------------
 	@Test(priority = 15)
 	@Parameters({ "userType" })
-	public void Zee5Originals(String userType) throws Exception {
+	public void webSeriesValidation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-		Zee5WEBPWASanityBusinessLogic.Zee5OriginalsScreen(userType, "ZEE5 Originals");
+		Zee5WEBPWASanityBusinessLogic.Zee5OriginalsScreen(userType, "Web Series");
 
 	}
 
@@ -305,18 +305,18 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Home");
 		Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Movies");
 		// Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Free Movies");
-		Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Shows");
+		Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("TV Shows");
 		Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Premium");
 		Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Play");
 		Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Kids");
 		// Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("Stories");
 		// Zee5WEBPWASanityBusinessLogic.verifyAutoroatingOnCarousel("ZEE5 Originals");
 		// play icon functionality
-		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("ZEE5 Originals");
+		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Web Series");
 		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Kids");
 		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Premium");
 		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Home");
-		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Shows");
+		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("TV Shows");
 		// Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Free Movies");
 
 		Zee5WEBPWASanityBusinessLogic.verifyPlayIconFunctionality("Movies");
@@ -325,33 +325,33 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.verifyPremiumIconFunctionality("Home", userType);
 		Zee5WEBPWASanityBusinessLogic.verifyPremiumIconFunctionality("Premium", userType);
 		Zee5WEBPWASanityBusinessLogic.verifyPremiumIconFunctionality("Movies", userType);
-		Zee5WEBPWASanityBusinessLogic.verifyPremiumIconFunctionality("ZEE5 Originals", userType);
+		Zee5WEBPWASanityBusinessLogic.verifyPremiumIconFunctionality("Web Series", userType);
 		// left right functionality
 		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Home");
 		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Movies");
 		// Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Free Movies");
-		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Shows");
+		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("TV Shows");
 		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Premium");
 		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Play");
 		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Kids");
 		// Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Stories");
-		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("ZEE5 Originals");
+		Zee5WEBPWASanityBusinessLogic.verifyLeftRightFunctionality("Web Series");
 		// zee5WebBusinessLogic.verifyLeftRightFunctionality("News");
 		// metadata
 		String languageSmallText = Zee5WEBPWASanityBusinessLogic.allSelectedLanguagesWEB();
-		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("ZEE5 Originals", "zeeoriginals", languageSmallText);
+		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Web Series", "zeeoriginals", languageSmallText);
 		// Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Stories", "stories", "");
 		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Kids", "kids", languageSmallText);
 		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Play", "play", languageSmallText);
 		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Premium", "premiumcontents", languageSmallText);
-		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Shows", "tvshows", languageSmallText);
+		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("TV Shows", "tvshows", languageSmallText);
 		// Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Free Movies", "freemovies", languageSmallText);
 		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Movies", "movies", languageSmallText);
 		Zee5WEBPWASanityBusinessLogic.verifyMetadataOnCarousel("Home", "home", languageSmallText);
 		// zee5WebBusinessLogic.verifyMetadataOnNews("News", "news", languageSmallText);
 	}
 
-	@Test(priority = 26)
+	//@Test(priority = 26)
 	@Parameters({ "userType" })
 	public void club(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -360,7 +360,7 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.landingPagesTrailerAndPopUpValidationClub(userType, "Club");
 	}
 
-	@Test(priority = 27)
+	//@Test(priority = 27)
 	@Parameters({ "userType" })
 	public void CTAPageValidation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -371,8 +371,8 @@ public class WebPWASanityScript {
 	@Parameters({ "userType" })
 	public void eduauraa (String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-		Zee5WEBPWASanityBusinessLogic.validatingEduaraa(userType ,"Club");
-		Zee5WEBPWASanityBusinessLogic.validatingclaimCTA(userType ,"Premium");
+		Zee5WEBPWASanityBusinessLogic.validatingEduaraa(userType ,"Kids");
+		Zee5WEBPWASanityBusinessLogic.validatingclaimCTA(userType ,"Kids");
 	}
 
 	@Test(priority = 29)
@@ -382,14 +382,14 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.zeeplex(userType ,"ZEEPLEX");
 	}
 
-	@Test(priority = 30)
+	//@Test(priority = 30)
 	@Parameters({ "userType" })
 	public void ConvivaVerification(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.ConvivaVerification(userType);
 	}
 	
-	@Test(priority = 31)
+	//@Test(priority = 31)
 	@Parameters({ "userType" })
 	public void TasksImplementation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();

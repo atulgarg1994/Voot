@@ -762,7 +762,8 @@ public class ResponseInstance {
 //		getTrayResponse("home","trailer");
 //		subscriptionDetails();
 //		getResponse("http://igs-machine4.ngrok.io/login");
-		getUserSettingsValues("zeetest10@test.com","123456");
+//		getUserSettingsValues("zeetest10@test.com","123456");
+		getUserSettingsValues("zeeprime@mailnesia.com","123456");
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -832,7 +833,7 @@ public class ResponseInstance {
 		if (DriverInstance.getPlatform().equalsIgnoreCase("Android")) {
 			Mixpanel.FEProp.setProperty("Age", String.valueOf((Period.between(dob, curDate).getYears())));
 		} else {
-			Mixpanel.FEProp.setProperty("Age", String.valueOf((Period.between(dob, curDate).getYears()) + 1));
+			Mixpanel.FEProp.setProperty("Age", String.valueOf((Period.between(dob, curDate).getYears())));
 		}
 
 	}
@@ -3066,7 +3067,7 @@ public static void getUserSettingsValues(String pUsername, String pPassword) {
 				value = value.replace("\\", "").split(":")[1].replace(", pin", "");
 			}
 			if(key.equalsIgnoreCase("content_language")) {
-				Mixpanel.FEProp.setProperty("New Content Language", value);
+				Mixpanel.FEProp.setProperty("New Content Language", "["+value.replaceAll(",", "-")+"]");
 			}else if(key.equalsIgnoreCase("display_language")) {
 				Mixpanel.FEProp.setProperty("New App Language", value);
 			}else if(key.equalsIgnoreCase("eduauraaClaimed")) {

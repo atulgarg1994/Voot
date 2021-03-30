@@ -104,4 +104,6 @@ public class AMDSubscibeScreen {
 	public static By objPaymentText = By.xpath("//*[@text='Payment Methods']");
 	
 	public static By objTermsandPrivacyLink = By.xpath("//*[@text='By proceeding you agree to our Terms of Use and Privacy Policy']");
+	
+	public static By objZEE5SubscriptionPage = By.xpath("//div[@class='subPackFlowContent']");
 }

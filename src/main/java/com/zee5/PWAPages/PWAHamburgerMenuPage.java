@@ -650,7 +650,6 @@ public class PWAHamburgerMenuPage {
 	
 	public static By objGetpremium = By.xpath("//*[text()='Get premium']");
 	public static By objClub = By.xpath("//*[text()='Get Club']");
-	public static By objfooter = By.xpath("//div[@class='megaMenuFooter']");
 	//div[@class='page-container']
 	public static By objrail = By.xpath("//div[@class='page-container']");
 	
@@ -741,5 +740,6 @@ public class PWAHamburgerMenuPage {
 	public static By objgetclubinKannada=By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//a[1]//span[contains(text(), 'ಕ್ಲಬ್ಗೆ ಹೋಗಿ')]");
 	
 	public static By objUnselectedEnglishContentLanguage = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='English']");
-
+	
+	public static By objfooter = By.xpath("//footer[@class='footerContainer']");
 }

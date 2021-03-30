@@ -64,11 +64,13 @@ public class Mixpanel extends ExtentReporter {
 	static String propValue = "Empty";
 	public static boolean fetchUserdata = false;
 	public static String DistinctId;
+	static PropertyFileReader Prop;
+	public static boolean SubcribedDetails = false;
 
 	public static void ValidateParameter(String distinctID, String eventName)
 			throws JsonParseException, JsonMappingException, IOException, InterruptedException {
 		System.out.println("Parameter Validation " + distinctID);
-		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
 		booleanParameters = Prop.getproperty("Boolean");
 		integerParameters = Prop.getproperty("Integer");
 		fileName = ReportName;
@@ -76,6 +78,7 @@ public class Mixpanel extends ExtentReporter {
 		StaticValues(distinctID);
 		getParameterValue();
 		fetchEvent(distinctID, eventName);
+		SubcribedDetails = false;
 	}
 
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
@@ -473,6 +476,7 @@ public class Mixpanel extends ExtentReporter {
 		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
 		
 		if(userType.equals("Guest")) {
+			if(SubcribedDetails == false) {
 			Mixpanel.FEProp.setProperty("Gender", "N/A");
 			Mixpanel.FEProp.setProperty("Age", "N/A");
 			Mixpanel.FEProp.setProperty("Free Trial Expiry Date", "N/A");
@@ -485,11 +489,45 @@ public class Mixpanel extends ExtentReporter {
 			Mixpanel.FEProp.setProperty("Parent Control Setting", "N/A");
 			Mixpanel.FEProp.setProperty("User Type", "guest");
 			Mixpanel.FEProp.setProperty("Partner Name", "N/A");
-			Mixpanel.FEProp.setProperty("HasRental", "N/A");
-			Mixpanel.FEProp.setProperty("hasEduauraa", "N/A");
+			Mixpanel.FEProp.setProperty("HasRental", "false");
+			Mixpanel.FEProp.setProperty("hasEduauraa", "false");
 			Mixpanel.FEProp.setProperty("New App Language", "en");
 			Mixpanel.FEProp.setProperty("New Content Language", "[en-kn]");
+			}
+		}else if(userType.equals("NonSubscribedUser"))
+		{
+			NonSubcribedDetails();
+		}else if(userType.equals("SubscribedUser")) {
+			SubcribedDetails();
 		}
+	}
+	
+	public static void NonSubcribedDetails() {
+		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		Mixpanel.FEProp.setProperty("Free Trial Expiry Date", Prop.getproperty("NonSub_Free_Trial_Expiry_Date"));
+		Mixpanel.FEProp.setProperty("Free Trial Package", Prop.getproperty("NonSub_Free_Trial_Package"));
+		Mixpanel.FEProp.setProperty("Latest Subscription Pack", Prop.getproperty("NonSub_Latest_Subscription_Pack"));
+		Mixpanel.FEProp.setProperty("Latest Subscription Pack Expiry", Prop.getproperty("NonSub_Latest_Subscription_Pack_Expiry"));
+		Mixpanel.FEProp.setProperty("Next Expiring Pack", Prop.getproperty("NonSub_Next_Expiring_Pack"));
+		Mixpanel.FEProp.setProperty("Next Pack Expiry Date", Prop.getproperty("NonSub_Next_Pack_Expiry_Date"));
+		Mixpanel.FEProp.setProperty("Pack Duration", Prop.getproperty("NonSub_Pack_Duration"));
+		Mixpanel.FEProp.setProperty("HasRental", Prop.getproperty("NonSub_HasRental"));
+		Mixpanel.FEProp.setProperty("hasEduauraa", Prop.getproperty("NonSub_hasEduauraa"));
+		SubcribedDetails = true;
+	}
+	
+	public static void SubcribedDetails() {
+		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		Mixpanel.FEProp.setProperty("Free Trial Expiry Date", Prop.getproperty("Sub_Free_Trial_Expiry_Date"));
+		Mixpanel.FEProp.setProperty("Free Trial Package", Prop.getproperty("Sub_Free_Trial_Package"));
+		Mixpanel.FEProp.setProperty("Latest Subscription Pack", Prop.getproperty("Sub_Latest_Subscription_Pack"));
+		Mixpanel.FEProp.setProperty("Latest Subscription Pack Expiry", Prop.getproperty("Sub_Latest_Subscription_Pack_Expiry"));
+		Mixpanel.FEProp.setProperty("Next Expiring Pack", Prop.getproperty("Sub_Next_Expiring_Pack"));
+		Mixpanel.FEProp.setProperty("Next Pack Expiry Date", Prop.getproperty("Sub_Next_Pack_Expiry_Date"));
+		Mixpanel.FEProp.setProperty("Pack Duration", Prop.getproperty("Sub_Pack_Duration"));
+		Mixpanel.FEProp.setProperty("HasRental", Prop.getproperty("Sub_HasRental"));
+		Mixpanel.FEProp.setProperty("hasEduauraa", Prop.getproperty("Sub_hasEduauraa"));
+		SubcribedDetails = true;
 	}
 
 	@SuppressWarnings("static-access")

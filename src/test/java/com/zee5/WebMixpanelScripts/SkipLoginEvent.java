@@ -38,7 +38,7 @@ public class SkipLoginEvent {
 		Zee5PWAWEBMixPanelBusinessLogic.verifySkipLoginByClickingOnLoginInRegistrationPopUp(userType, keyword);
 	}
 
-	@Test(priority = 3)
+//	@Test(priority = 3)
 	@Parameters({ "userType", "keyword2" })
 	public void verifySkipLoginByClickingOnLoginInGetPremiumPopUp(String userType, String keyword2) throws Exception {
 		System.out.println(
@@ -47,7 +47,7 @@ public class SkipLoginEvent {
 		Zee5PWAWEBMixPanelBusinessLogic.verifySkipLoginByClickingOnLoginInGetPremiumPopUp(userType, keyword2);
 	}
 
-	@Test(priority = 4)
+//	@Test(priority = 4)
 	public void verifySkipLoginThroughBeforeTVContent() throws Exception {
 		System.out.println("Verify Skip Login Event gets triggered when user click on close button in login popup "
 				+ "on clicking login in Get premium popup on accessing before tv content");

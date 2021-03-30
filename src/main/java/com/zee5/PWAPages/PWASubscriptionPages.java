@@ -192,7 +192,7 @@ public class PWASubscriptionPages {
 	public static By objPackDescription = By.xpath("//*[@class='featureDesc']");
 
 	public static By objSelectedSubscriptionPlanAmount = By
-			.xpath("//*[contains(@class, 'noSelect subscriptionPlanCard active')]//*/*[contains(@class, 'currency')]");
+			.xpath(".//div[contains(@class,'packDetails active')]//child::*[@class='price']");
 
 	public static By objSelectedSubscriptionPlanDuration = By
 			.xpath("//*[contains(@class, 'noSelect subscriptionPlanCard active')]/*/*[contains(@class, 'duration')]");

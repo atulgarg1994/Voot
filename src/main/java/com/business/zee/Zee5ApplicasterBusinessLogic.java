@@ -7260,12 +7260,12 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		System.out.println(courselContentTitle);
 		if (courselContentTitle != null) {
 			waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(courselContentTitle), 10, "Carousel content");
-			for (int i = 0; i < 2; i++) {
-				if (verifyElementPresent(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content")) {
-					break;
-				}
-
-			}
+//			for (int i = 0; i < 2; i++) {
+//				if (verifyElementPresent(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content")) {
+//					break;
+//				}
+//
+//			}
 //			click(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content");
 		} else {
 			click(AMDGenericObjects.objCarouselTitle("Shivaji Surathkal"), "Carousel content");
@@ -8321,7 +8321,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		String getTrayName = null, getPageTitle;
 
 		System.out.println("\nTop Nagivation Tabs: " + noOfTabs);
-		for (int i = 1; i <= 10; i++) {
+		for (int i = 1; i < 10; i++) {
 			String tabName = null;
 			if (i == noOfTabs) {
 				if (!lastTab) {
@@ -8407,7 +8407,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			if (lastTab) {
 				break;
 			}
-			if (tabName.equalsIgnoreCase("Eduauraa")) {
+			if (tabName.equalsIgnoreCase("Music")) {
 				lastTab = true;
 			}
 		}
@@ -8427,7 +8427,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 		String width = null, height = null, bounds, getboundvalue;
 
 		System.out.println("\nTop Nagivation Tabs: " + noOfTabs);
-		for (int i = 1; i <= 10; i++) {
+		for (int i = 1; i < 10; i++) {
 			String tabName = null, pageNameAPI = null;
 			boolean navigationFlag = false;
 			if (i == noOfTabs) {
@@ -8503,7 +8503,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 				String Url = "https://catalogapi.zee5.com/v1/channel/bygenre?sort_by_field=channel_number&sort_order=ASC&page=1&page_size=100&genres=FREE%20Channels%2CNews%2CHindi%20Entertainment%2CKids%2CMusic%2CElectro%20Dance%20Music%2CHindi%20Movies%2CEnglish%20Entertainment%2CHindi%20News%2CEnglish%20News%2CMarathi%2CTamil%2CTelugu%2CKannada%2CMalayalam%2CBengali%2CPunjabi%2CGujarati%2COdiya%2CEntertainment%2CMovie%2CLifestyle%2CDevotional%2CComedy%2CDrama%2CSports%2CInfotainment%2CMythology%2CEducation%2CTrap%2CCrime%20%26%20Mystery%2CFREE%20News%20Channels%2CSunburn%2CIndie%2CFitness%2CLive%20Event%2CMusical%2CSpiritual&languages=en,kn&translation=en&country=IN";
 				break;
 
-			case "ZEE5 Originals":
+			case "Web Series":
 				pageNameAPI = "zeeoriginals";
 				break;
 
@@ -8542,24 +8542,27 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 				
 				if (userType.contains("Guest") | userType.contains("NonSubscribedUser")) {
 					waitTime(5000);
-					DismissInterruptionScreen();
-					if (verifyElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
-						click(AMDGenericObjects.objPopUpDivider, "Subcription Pop Up");
-						extent.extentLoggerPass("Subscription PopUp", userType
-								+ "Subcription PopUp is displayed in the comsumption screen and popup is closed");
-						logger.info("Subcription PopUp is displayed in the comsumption screen and popup is closed");
-					}else if(verifyElementDisplayed(AMDGenericObjects.objCheckTitle("Subscribe"))) {
-						
-						extent.extentLogger("Interruption Screen", userType
-								+ "Subscribe screen is displayed in the comsumption screen hence dismissing the screen");
-						logger.info("Subscribe screen is displayed in the comsumption screen hence dismissing the screen");
-						Back(1);
-						click(AMDHomePage.objCarouselTitle, getText(AMDHomePage.objCarouselTitle));
-					}else {
-						registerPopUpClose();
-						completeProfilePopUpClose(pUserType);
-						waitForElementDisplayed(AMDGenericObjects.objFirstTrayTitle, 3000);
-					}
+					if(verifyIsElementDisplayed(AMDGenericObjects.objPopUpDivider) || verifyIsElementDisplayed(AMDGenericObjects.objCheckTitle("Subscribe"))) {
+						DismissInterruptionScreen();
+						if (verifyElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
+							click(AMDGenericObjects.objPopUpDivider, "Subcription Pop Up");
+							extent.extentLoggerPass("Subscription PopUp", userType
+									+ "Subcription PopUp is displayed in the comsumption screen and popup is closed");
+							logger.info("Subcription PopUp is displayed in the comsumption screen and popup is closed");
+						}else if(verifyElementDisplayed(AMDGenericObjects.objCheckTitle("Subscribe"))) {
+							
+							extent.extentLogger("Interruption Screen", userType
+									+ "Subscribe screen is displayed in the comsumption screen hence dismissing the screen");
+							logger.info("Subscribe screen is displayed in the comsumption screen hence dismissing the screen");
+							Back(1);
+							click(AMDHomePage.objCarouselTitle, getText(AMDHomePage.objCarouselTitle));
+						}else {
+							registerPopUpClose();
+							completeProfilePopUpClose(pUserType);
+							PartialSwipeInConsumptionScreen("UP", 1);
+							waitForElementDisplayed(AMDGenericObjects.objFirstTrayTitle, 3000);
+						}
+					}	
 				}
 				
 				if (tabName.equalsIgnoreCase("Eduauraa")) {
@@ -8571,40 +8574,56 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 					logger.info("Rails are unavailable in Live TV: NEWS Consumption screen");
 					navigationFlag = true;
 				} else {
-
-					if (userType.equalsIgnoreCase("Guest")) {
-						if (verifyElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
-							click(AMDGenericObjects.objPopUpDivider, "Subcription Pop Up");
-							extent.extentLoggerPass("Subscription PopUp", userType
-									+ "Subcription PopUp is displayed in the comsumption screen and popup is closed");
-							logger.info("Subcription PopUp is displayed in the comsumption screen and popup is closed");
-						}
-						PartialSwipe("UP", 1);
-						getTrayName = getText(AMDGenericObjects.objConsumptionScreenFirstRail);
-						click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
-					} else {
-						waitTime(2000);
+					
+					if(verifyIsElementDisplayed(AMDConsumptionScreen.objContentInfo)) {
+						PartialSwipeInConsumptionScreen("UP", 1);
 						int noOfTrays = getCount(AMDGenericObjects.objNoOfTrays);
-						if (noOfTrays==0) {
-							DismissInterruptionScreen();
-							waitTime(2000);
-							PartialSwipeInConsumptionScreen("UP", 1);
-							noOfTrays = getCount(AMDGenericObjects.objNoOfTrays);
-						}
 						if (noOfTrays > 0) {
-//							if (tabName.contains("Live TV")) {
-//								getTrayName = getText(AMDGenericObjects.objFirstTrayTitle);
-//							} else {
-//								getTrayName = getText(AMDGenericObjects.objTrayTitleByIndx(noOfTrays));
-//							}
-							PartialSwipeInConsumptionScreen("UP", 1);
 							waitTime(1000);
 							getTrayName = getText(AMDGenericObjects.objConsumptionScreenFirstRail);
 							click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
-						}else {
-							extent.extentLoggerWarning("Consumption Screen", "Interruption screen is displayed in the comsumption screen and No Rails available");
-							logger.info("Interruption PopUp is displayed in the comsumption screen and No Rails available");
+						} else {
+							extent.extentLoggerWarning("Consumption Screen",
+									"Interruption screen is displayed in the comsumption screen and No Rails available");
+							logger.info(
+									"Interruption PopUp is displayed in the comsumption screen and No Rails available");
+						}			
+					}else {
+						if(verifyIsElementDisplayed(AMDGenericObjects.objPopUpDivider) || verifyIsElementDisplayed(AMDGenericObjects.objCheckTitle("Subscribe"))) {
+							if (userType.equalsIgnoreCase("Guest")) {
+								if (verifyElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
+									click(AMDGenericObjects.objPopUpDivider, "Subcription Pop Up");
+									extent.extentLoggerPass("Subscription PopUp", userType
+											+ "Subcription PopUp is displayed in the comsumption screen and popup is closed");
+									logger.info(
+											"Subcription PopUp is displayed in the comsumption screen and popup is closed");
+								}
+								PartialSwipe("UP", 1);
+								getTrayName = getText(AMDGenericObjects.objConsumptionScreenFirstRail);
+								click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
+							} else {
+								waitTime(2000);
+								int noOfTrays = getCount(AMDGenericObjects.objNoOfTrays);
+								if (noOfTrays == 0) {
+									DismissInterruptionScreen();
+									waitTime(2000);
+									PartialSwipeInConsumptionScreen("UP", 1);
+									noOfTrays = getCount(AMDGenericObjects.objNoOfTrays);
+								}
+								if (noOfTrays > 0) {
+									PartialSwipeInConsumptionScreen("UP", 1);
+									waitTime(1000);
+									getTrayName = getText(AMDGenericObjects.objConsumptionScreenFirstRail);
+									click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
+								} else {
+									extent.extentLoggerWarning("Consumption Screen",
+											"Interruption screen is displayed in the comsumption screen and No Rails available");
+									logger.info(
+											"Interruption PopUp is displayed in the comsumption screen and No Rails available");
+								}
+							}
 						}
+						
 					}
 
 					getPageTitle = getText(AMDHomePage.objTitle);
@@ -8636,7 +8655,7 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 			if (lastTab) {
 				break;
 			}
-			if (tabName.equalsIgnoreCase("Eduauraa")) {
+			if (tabName.equalsIgnoreCase("Music")) {
 				lastTab = true;
 			}
 		}
@@ -9346,18 +9365,18 @@ public void Haveaprepaidcode(String userType) throws Exception {
 		}
 //		Back(1);
 		waitTime(3000);
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("I want to update my"), "UP");
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("What happened to my"), "UP");
 
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I want to update my"),"I want to update my profile information");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("What happened to my"),"What happened to my Club subscription?");
 		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("I want to update my profile information"))) {
-			logger.info("User is navigated to 'I want to update my profile information' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'I want to update my profile information' page");
+		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("What happened to my Club subscription?"))) {
+			logger.info("User is navigated to 'What happened to my Club subscription?' page");
+			extent.extentLoggerPass("Article", "User is navigated to 'What happened to my Club subscription?' page");
 			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
-			logger.info("User is not navigated to 'I want to update my profile information' page");
+			logger.info("User is not navigated to 'What happened to my Club subscription?' page");
 			extent.extentLoggerFail("Article",
-					"User is not navigated to 'I want to update my profile information' page");
+					"User is not navigated to 'What happened to my Club subscription?' page");
 		}
 //		Back(1);
 		waitTime(3000);
@@ -9434,16 +9453,16 @@ public void Haveaprepaidcode(String userType) throws Exception {
 		waitTime(2000);
 		Swipe("Up", 4);
 
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("Cancel Subscription"), "UP");
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Cancel Subscription"), "'Cancel Subscription'");
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("Cancel Auto-renewal"), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Cancel Auto-renewal"), "'Cancel Auto-renewal'");
 		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("How do I cancel my ZEE5 Subscription"))) {
-			logger.info("User is navigated to 'How do I cancel my ZEE5 Subscription?' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'How do I cancel my ZEE5 Subscription?' page");
+		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("How do I cancel auto-renewal of my subscription?"))) {
+			logger.info("User is navigated to 'How do I cancel auto-renewal of my subscription?");
+			extent.extentLoggerPass("Article", "User is navigated to 'How do I cancel auto-renewal of my subscription?' page");
 			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
-			logger.info("User is not navigated to 'How do I cancel my ZEE5 Subscription?' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'How do I cancel my ZEE5 Subscription?' page");
+			logger.info("User is not navigated to 'How do I cancel auto-renewal of my subscription?' page");
+			extent.extentLoggerFail("Article", "User is not navigated to 'How do I cancel auto-renewal of my subscription?' page");
 		}
 //		Back(1);
 		waitTime(2000);
@@ -9451,9 +9470,9 @@ public void Haveaprepaidcode(String userType) throws Exception {
 
 	public void WatchingZEE5Validation() throws Exception {
 		System.out.println("\nValidating links under Watching ZEE5 rail");
-		Swipe("Up", 1);
+		//Swipe("Up", 1);
 		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("Watching ZEE5"), "UP");
-		PartialSwipe("Up", 1);
+		//PartialSwipe("Up", 1);
 		verifyElementPresent(AMDMoreMenu.objQueriesHeader("Watching ZEE5"), " 'Watching ZEE5' tab");
 		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I need help with playing a video"),
 				"'I need help with playing a video'");
@@ -12449,60 +12468,63 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 
 		waitTime(2000);
 		Swipe("UP", 1);
-		verifyElementExist(AMDMoreMenu.objsubscriptionPackDotBelowTheCard, "Dot below the Subscription Pack Card");
-
-		String getPropertyValue = getAttributValue("enabled", AMDMoreMenu.objsubscriptionPackDotBelowTheCard);
-		if (getPropertyValue.equalsIgnoreCase("true")) {
-			logger.info(userType
-					+ " User can able to swipe the card, dot below the card is moved as per the position of the card");
-			extent.extentLoggerPass("MySubscription Screen", userType
-					+ " User can able to swipe the card, dot below the card is moved as per the position of the card");
-		} else {
-			logger.info(userType
-					+ " User cannot able to swipe the card, dot below the card is not moved as per the position of the card");
-			extent.extentLoggerFail("MySubscription Screen", userType
-					+ " User cannot able to swipe the card, dot below the card is not moved as per the position of the card");
-		}
-
-		Swipe("RIGHT", 1);
-		// carouselCardsSwipe("Right", 1, width, height);
-		// carouselSwipe("Left", 1, width, height);
-		Swipe("UP", 1);
-		String getPropertyValue1 = getAttributValue("enabled", AMDMoreMenu.objsubscriptionPackDotBelowTheSecondCard);
-		if (getPropertyValue1.equalsIgnoreCase("true")) {
-			logger.info(userType
-					+ " User can able to swipe the card in reverse direction, dot below the card is moved as per the position of the card");
-			extent.extentLoggerPass("MySubscription Screen", userType
-					+ " User can able to swipe the card in reverse direction, dot below the card is moved as per the position of the card");
-		} else {
-			logger.info(userType
-					+ " User cannot able to swipe the card in reverse direction, dot below the card is not moved as per the position of the card");
-			extent.extentLoggerFail("MySubscription Screen", userType
-					+ " User cannot able to swipe the card in reverse direction, dot below the card is not moved as per the position of the card");
-		}
-		Swipe("LEFT", 1);
-		Swipe("UP", 1);
-
-		extent.HeaderChildNode("Verify Cancel Renewal CTA is available");
-		if (checkElementExist(AMDMoreMenu.objSubscriptionPackCancelRenewal, "Cancel Renewal CTA")) {
-			logger.info("Cancel Renewal CTA is available based on the pack Selection");
-			extent.extentLoggerPass("MySubscription Screen", "Cancel Renewal CTA is available based on the pack Selection");
-		} else {
-
-			logger.info("Cancel Renewal CTA is not available based on the pack Selection");
-			extent.extentLoggerWarning("MySubscription Screen",
-					"Cancel Renewal CTA is not available based on the pack Selection");
-		}
-
-		extent.HeaderChildNode("Verify Browse All Packs CTA is displayed on the Screen");
-		if (checkElementExist(AMDMoreMenu.objBrowseAllPacks, "Browse All Packs CTA")) {
-			logger.info("Browse All Packs CTA is present in the bottom of the Screen");
-			extent.extentLoggerPass("MySubscription Screen", "Browse All Packs CTA is present in the bottom of the Screen");
-		} else {
-
-			logger.info("Browse All Packs CTA is present in the bottom of the Screen");
-			extent.extentLoggerWarning("MySubscription Screen", "Browse All Packs CTA is present in the bottom of the Screen");
-		}
+		
+		//Dots and cancel renewal CTA below the subscription pack card is removed in the latest build
+		
+//		verifyElementExist(AMDMoreMenu.objsubscriptionPackDotBelowTheCard, "Dot below the Subscription Pack Card");
+//
+//		String getPropertyValue = getAttributValue("enabled", AMDMoreMenu.objsubscriptionPackDotBelowTheCard);
+//		if (getPropertyValue.equalsIgnoreCase("true")) {
+//			logger.info(userType
+//					+ " User can able to swipe the card, dot below the card is moved as per the position of the card");
+//			extent.extentLoggerPass("MySubscription Screen", userType
+//					+ " User can able to swipe the card, dot below the card is moved as per the position of the card");
+//		} else {
+//			logger.info(userType
+//					+ " User cannot able to swipe the card, dot below the card is not moved as per the position of the card");
+//			extent.extentLoggerFail("MySubscription Screen", userType
+//					+ " User cannot able to swipe the card, dot below the card is not moved as per the position of the card");
+//		}
+//
+//		Swipe("RIGHT", 1);
+//		// carouselCardsSwipe("Right", 1, width, height);
+//		// carouselSwipe("Left", 1, width, height);
+//		Swipe("UP", 1);
+//		String getPropertyValue1 = getAttributValue("enabled", AMDMoreMenu.objsubscriptionPackDotBelowTheSecondCard);
+//		if (getPropertyValue1.equalsIgnoreCase("true")) {
+//			logger.info(userType
+//					+ " User can able to swipe the card in reverse direction, dot below the card is moved as per the position of the card");
+//			extent.extentLoggerPass("MySubscription Screen", userType
+//					+ " User can able to swipe the card in reverse direction, dot below the card is moved as per the position of the card");
+//		} else {
+//			logger.info(userType
+//					+ " User cannot able to swipe the card in reverse direction, dot below the card is not moved as per the position of the card");
+//			extent.extentLoggerFail("MySubscription Screen", userType
+//					+ " User cannot able to swipe the card in reverse direction, dot below the card is not moved as per the position of the card");
+//		}
+//		Swipe("LEFT", 1);
+//		Swipe("UP", 1);
+//
+//		extent.HeaderChildNode("Verify Cancel Renewal CTA is available");
+//		if (checkElementExist(AMDMoreMenu.objSubscriptionPackCancelRenewal, "Cancel Renewal CTA")) {
+//			logger.info("Cancel Renewal CTA is available based on the pack Selection");
+//			extent.extentLoggerPass("MySubscription Screen", "Cancel Renewal CTA is available based on the pack Selection");
+//		} else {
+//
+//			logger.info("Cancel Renewal CTA is not available based on the pack Selection");
+//			extent.extentLoggerWarning("MySubscription Screen",
+//					"Cancel Renewal CTA is not available based on the pack Selection");
+//		}
+//
+//		extent.HeaderChildNode("Verify Browse All Packs CTA is displayed on the Screen");
+//		if (checkElementExist(AMDMoreMenu.objBrowseAllPacks, "Browse All Packs CTA")) {
+//			logger.info("Browse All Packs CTA is present in the bottom of the Screen");
+//			extent.extentLoggerPass("MySubscription Screen", "Browse All Packs CTA is present in the bottom of the Screen");
+//		} else {
+//
+//			logger.info("Browse All Packs CTA is present in the bottom of the Screen");
+//			extent.extentLoggerWarning("MySubscription Screen", "Browse All Packs CTA is present in the bottom of the Screen");
+//		}
 		Back(2);
 	}
 
@@ -16692,7 +16714,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 
 	public void webDisplayLanguage() throws Exception {
 		extent.HeaderChildNode("Display Language in Web");
-
+		click(PWAHomePage.objZeeLogo, "zee logo");
 		click(PWAHamburgerMenuPage.objLanguageBtnWEB, "language button");
 		waitTime(3000);
 		checkElementExist(PWAHamburgerMenuPage.objDisplayLang, "Display Language header");
@@ -19048,7 +19070,8 @@ public void AvailableTraysInTabs(String tabName, String userType) throws Excepti
 	public void navigateBackToHomeLandingScreen() throws Exception {
 		boolean flag;
 		for(int i=1;i<10;i++) {
-			flag = verifyElementDisplayed(AMDHomePage.objTopNav_HomeTab);
+			flag = verifyElementDisplayed(AMDHomePage.objBottomBarSelectedHomeTab);
+			System.out.println(flag);
 			if(flag) {
 				break;
 			}else {
@@ -19123,15 +19146,16 @@ public void SelectDisplayLanguage(String Language) throws Exception {
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 		click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
 		
-		if (!userType.contains("SubscribedUser")) {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			waitTime(4000);
 			registerPopUpClose();
 			completeProfilePopUpClose(userType);
 //			LoadingInProgress();
 			waitForAdToFinishInAmd();
 			registerPopUpClose();
-			waitTime(2000);
+			
 		}
+		waitTime(6000);
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");

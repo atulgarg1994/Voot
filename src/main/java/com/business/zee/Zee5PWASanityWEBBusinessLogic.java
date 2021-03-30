@@ -9858,7 +9858,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			landingPagesValidationZeeoriginals(Tabname);
 			zee5originalstrayvalidation(Tabname);
 			mandatoryRegistrationPopUp(UserType);
-			extent.HeaderChildNode("ZEE5 Originals page tray asset validation");
+			extent.HeaderChildNode("Web Series page tray asset validation");
 			trayTitleAndContentValidationWithApiDataZeeoriginals(Tabname, "zeeoriginals");
 			ValidatingPremiumTag(Tabname);
 			mandatoryRegistrationPopUp(UserType);
@@ -9869,7 +9869,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		case "NonSubscribedUser":
 			landingPagesValidationZeeoriginals(Tabname);
 			zee5originalstrayvalidation(Tabname);
-			extent.HeaderChildNode("ZEE5 Originals page tray asset validation");
+			extent.HeaderChildNode("Web Series page tray asset validation");
 			trayTitleAndContentValidationWithApiDataZeeoriginals(Tabname, "zeeoriginals");
 			ValidatingPremiumTag(Tabname);
 			mandatoryRegistrationPopUp(UserType);
@@ -9880,7 +9880,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		case "SubscribedUser":
 			landingPagesValidationZeeoriginals(Tabname);
 			zee5originalstrayvalidation(Tabname);
-			extent.HeaderChildNode("ZEE5 Originals page tray asset validation");
+			extent.HeaderChildNode("Web Series page tray asset validation");
 			trayTitleAndContentValidationWithApiDataZeeoriginals(Tabname, "zeeoriginals");
 			ValidatingPremiumTag(Tabname);
 			mandatoryRegistrationPopUp(UserType);
@@ -12975,47 +12975,47 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 */
 
 	public void ShowsValidationWeb(String userType) throws Exception {
-		HeaderChildNode("Shows page");
+		HeaderChildNode("TV Shows page");
 		if (userType.contentEquals("Guest")) {
 			extent.HeaderChildNode("Guest user scenarios");
 			logger.info("Accessing as Guest User");
 			mandatoryRegistrationPopUp(userType);
-			landingPagesValidationWeb("Shows");
-			landingPagesTrailerAndPopUpValidationWeb("Guest", "Shows");
+			landingPagesValidationWeb("TV Shows");
+			landingPagesTrailerAndPopUpValidationWeb("Guest", "TV Shows");
 			verifyLandscapeforFreeContentWeb();
 			navigateToHome();
-			navigateToAnyScreen("Shows");
+			navigateToAnyScreen("TV Shows");
 			verifyLandscapeforPremiumContentWeb();
 			navigateToHome();
-			navigateToAnyScreen("Shows");
+			navigateToAnyScreen("TV Shows");
 			waitTime(5000);
 			RotateTrayValidation();
 			mandatoryRegistrationPopUp(userType);
 		} else if (userType.contentEquals("NonSubscribedUser")) {
 			extent.HeaderChildNode("Non subscribed scenarios");
 			logger.info("Accessing as Non subscribed User");
-			landingPagesValidationWeb("Shows");
-			landingPagesTrailerAndPopUpValidationWeb("NonSubscribedUser", "Shows");
+			landingPagesValidationWeb("TV Shows");
+			landingPagesTrailerAndPopUpValidationWeb("NonSubscribedUser", "TV Shows");
 			verifyLandscapeforFreeContentWeb();
 			navigateToHome();
-			navigateToAnyScreen("Shows");
+			navigateToAnyScreen("TV Shows");
 			verifyLandscapeforPremiumContentWeb();
 			navigateToHome();
-			navigateToAnyScreen("Shows");
+			navigateToAnyScreen("TV Shows");
 			RotateTrayValidation();
 			VerifyExternalLinkInShowsLandingPageWeb();
 			mandatoryRegistrationPopUp(userType);
 		} else if (userType.contentEquals("SubscribedUser")) {
 			extent.HeaderChildNode("Subscribed scenarios");
 			logger.info("Accessing as Subscribed User");
-			landingPagesValidationWeb("Shows");
-			landingPagesTrailerAndPopUpValidationWeb("SubscribedUser", "Shows");
+			landingPagesValidationWeb("TV Shows");
+			landingPagesTrailerAndPopUpValidationWeb("SubscribedUser", "TV Shows");
 			verifyLandscapeforFreeContentWeb();
 			navigateToHome();
-			navigateToAnyScreen("Shows");
+			navigateToAnyScreen("TV Shows");
 			verifyLandscapeforPremiumContentWeb();
 			navigateToHome();
-			navigateToAnyScreen("Shows");
+			navigateToAnyScreen("TV Shows");
 			RotateTrayValidation();
 			VerifyExternalLinkInShowsLandingPageWeb();
 			mandatoryRegistrationPopUp(userType);
@@ -14900,7 +14900,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		extent.HeaderChildNode("HLS_015 : Verify View All button functionality");
 		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
-			click(PWAPremiumPage.objViewAllBtn, "View All Button");
+			JSClick(PWAPremiumPage.objViewAllBtn, "View All Button");
 			waitTime(5000);
 			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "View All Page")) {
 				logger.info("Navigated to View All Page");
@@ -15594,60 +15594,60 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode(" HLS_057 : Verify the trays displayed in the News page.");
 		PWAPagesNavigationAndTabHighlight(tabName);
 
-		extent.HeaderChildNode(
-				" HLS_058 : Verify the content which have Autoplay tag in news Carousel should Autoplay .");
-		boolean autoPlayed = verifyAutoPlay(tabName);
-		extent.HeaderChildNode("HLS_059 : Verify the player control Autoplay carousel content");
-
-		if (autoPlayed == true) {
-			verifyElementPresent(PWANewsPage.objLive, "LIVE badge on Autoplaying carousel");
-			verifyElementPresent(PWANewsPage.objVolume, "Volume Control on Autoplaying carousel");
-			if (verifyElementDisplayed(PWAPlayerPage.pauseBtn)) {
-				logger.error("Pause button on Autoplaying carousel should not be displayed");
-				extent.extentLoggerFail("Autoplay", "Pause button on Autoplaying carousel should not be displayed");
-			} else {
-				logger.info("Pause button on Autoplaying carousel is not be displayed, expected behavior");
-				extent.extentLogger("Autoplay",
-						"Pause button on Autoplaying carousel is not displayed, expected behavior");
-			}
-			if (verifyElementDisplayed(PWAPlayerPage.playBtn)) {
-				logger.error("Play button on Autoplaying carousel should not be displayed");
-				extent.extentLoggerFail("Autoplay", "Play button on Autoplaying carousel should not be displayed");
-			} else {
-				logger.info("Play button on Autoplaying carousel is not be displayed, expected behavior");
-				extent.extentLogger("Autoplay",
-						"Play button on Autoplaying carousel is not displayed, expected behavior");
-			}
-			if (verifyElementDisplayed(PWAPlayerPage.forward10SecBtn)) {
-				logger.error("Forward button on Autoplaying carousel should not be displayed");
-				extent.extentLoggerFail("Autoplay", "Forward button on Autoplaying carousel should not be displayed");
-			} else {
-				logger.info("Forward button on Autoplaying carousel is not be displayed, expected behavior");
-				extent.extentLogger("Autoplay",
-						"Forward button on Autoplaying carousel is not displayed, expected behavior");
-			}
-			if (verifyElementDisplayed(PWAPlayerPage.rewind10SecBtn)) {
-				logger.error("Rewind button on Autoplaying carousel should not be displayed");
-				extent.extentLoggerFail("Autoplay", "Rewind button on Autoplaying carousel should not be displayed");
-			} else {
-				logger.info("Rewind button on Autoplaying carousel is not be displayed, expected behavior");
-				extent.extentLogger("Autoplay",
-						"Rewind button on Autoplaying carousel is not displayed, expected behavior");
-			}
-			if (verifyElementDisplayed(PWAPlayerPage.minimizeBtn)) {
-				logger.error("Autoplaying carousel should not be in full screen mode");
-				extent.extentLoggerFail("Autoplay", "Autoplaying carousel should not be in full screen mode");
-			} else {
-				logger.info("Autoplaying carousel is not in full screen mode, expected behavior");
-				extent.extentLogger("Autoplay", "Autoplaying carousel is not in full screen mode, expected behavior");
-			}
-		} else {
-			logger.info("Carousel card did not autoplay");
-			extent.extentLogger("Autoplay", "Carousel card did not autoplay");
-			logger.info("Player controls on Autoplaying carousel content could not be verified");
-			extent.extentLoggerWarning("Autoplay",
-					"Player controls on Autoplaying carousel content could not be verified");
-		}
+//		extent.HeaderChildNode(
+//				" HLS_058 : Verify the content which have Autoplay tag in news Carousel should Autoplay .");
+//		boolean autoPlayed = verifyAutoPlay(tabName);
+//		extent.HeaderChildNode("HLS_059 : Verify the player control Autoplay carousel content");
+//
+//		if (autoPlayed == true) {
+//			verifyElementPresent(PWANewsPage.objLive, "LIVE badge on Autoplaying carousel");
+//			verifyElementPresent(PWANewsPage.objVolume, "Volume Control on Autoplaying carousel");
+//			if (verifyElementDisplayed(PWAPlayerPage.pauseBtn)) {
+//				logger.error("Pause button on Autoplaying carousel should not be displayed");
+//				extent.extentLoggerFail("Autoplay", "Pause button on Autoplaying carousel should not be displayed");
+//			} else {
+//				logger.info("Pause button on Autoplaying carousel is not be displayed, expected behavior");
+//				extent.extentLogger("Autoplay",
+//						"Pause button on Autoplaying carousel is not displayed, expected behavior");
+//			}
+//			if (verifyElementDisplayed(PWAPlayerPage.playBtn)) {
+//				logger.error("Play button on Autoplaying carousel should not be displayed");
+//				extent.extentLoggerFail("Autoplay", "Play button on Autoplaying carousel should not be displayed");
+//			} else {
+//				logger.info("Play button on Autoplaying carousel is not be displayed, expected behavior");
+//				extent.extentLogger("Autoplay",
+//						"Play button on Autoplaying carousel is not displayed, expected behavior");
+//			}
+//			if (verifyElementDisplayed(PWAPlayerPage.forward10SecBtn)) {
+//				logger.error("Forward button on Autoplaying carousel should not be displayed");
+//				extent.extentLoggerFail("Autoplay", "Forward button on Autoplaying carousel should not be displayed");
+//			} else {
+//				logger.info("Forward button on Autoplaying carousel is not be displayed, expected behavior");
+//				extent.extentLogger("Autoplay",
+//						"Forward button on Autoplaying carousel is not displayed, expected behavior");
+//			}
+//			if (verifyElementDisplayed(PWAPlayerPage.rewind10SecBtn)) {
+//				logger.error("Rewind button on Autoplaying carousel should not be displayed");
+//				extent.extentLoggerFail("Autoplay", "Rewind button on Autoplaying carousel should not be displayed");
+//			} else {
+//				logger.info("Rewind button on Autoplaying carousel is not be displayed, expected behavior");
+//				extent.extentLogger("Autoplay",
+//						"Rewind button on Autoplaying carousel is not displayed, expected behavior");
+//			}
+//			if (verifyElementDisplayed(PWAPlayerPage.minimizeBtn)) {
+//				logger.error("Autoplaying carousel should not be in full screen mode");
+//				extent.extentLoggerFail("Autoplay", "Autoplaying carousel should not be in full screen mode");
+//			} else {
+//				logger.info("Autoplaying carousel is not in full screen mode, expected behavior");
+//				extent.extentLogger("Autoplay", "Autoplaying carousel is not in full screen mode, expected behavior");
+//			}
+//		} else {
+//			logger.info("Carousel card did not autoplay");
+//			extent.extentLogger("Autoplay", "Carousel card did not autoplay");
+//			logger.info("Player controls on Autoplaying carousel content could not be verified");
+//			extent.extentLoggerWarning("Autoplay",
+//					"Player controls on Autoplaying carousel content could not be verified");
+//		}
 		extent.HeaderChildNode(" HLS_060 : Verify On click View All/> ");
 
 		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
@@ -16212,7 +16212,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("HLS_130 : Verify that Recommended Videos are displayed right side of the player");
 		mandatoryRegistrationPopUp(userType);
 		if (checkElementDisplayed(PWAPremiumPage.objWEBMastheadCarousel, "Carousel card")) {
-			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel card");
+			waitForElementAndClick(PWAPremiumPage.objHerocarouselPlayBtn("Queen -Title Track - Queen | Varhsa | Jayjeet | Human Sagar"), 20 ,"Play button on carousel");
+//			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel card");
 		} else if (checkElementDisplayed(PWAMusicPage.objBannerPlusTrayCard, "Banner Tray Card")) {
 			click(PWAMusicPage.objBannerPlusTrayCard, "Banner Tray card");
 		}
@@ -16345,7 +16346,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			navigateToAnyScreenOnWeb("Live TV");
 			waitTime(5000);
 		}
-
+		navigateToAnyScreenOnWeb("Live TV");
+		waitTime(5000);
 		extent.HeaderChildNode(
 				"HLS_136 :verifying that multiple languages are given to select with apply and reset button");
 		verifyElementPresentAndClick(PWALiveTVPage.objLiveTvFilterOption, "Filter option");
@@ -16849,7 +16851,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWASearchPage.objSearchNavigationTab("All"), 5);
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("All"), "All Tab");
 		verifyElementExist(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
-		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("Shows"), "Shows Tab");
+		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("TV Shows"), "Shows Tab");
 		verifyElementExist(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("Episodes"), "Episodes Tab");
 		verifyElementExist(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
@@ -17004,16 +17006,16 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	public void PlayValidation(String tabName, String userType) throws Exception {
 		extent.HeaderChildNode("HLS_098: Verify user navigation " + tabName + "page");
 		PWAPagesNavigationAndTabHighlight(tabName);  
-		waitTime(3000);
-		if (checkElementDisplayed(PWAHomePage.objActiveTab, "Active tab")) {
-			String tab = getText(PWAHomePage.objActiveTab);
-			System.out.println(tab);
-			logger.info(tab + " tab is highlighted");
-			extent.extentLogger("Tab", tab + " tab is highlighted");
-		} else {
-			logger.error(tabName + " tab is not highlighted");
-			extent.extentLoggerFail("Tab", tabName + " tab is highlighted");
-		}
+//		waitTime(3000);
+//		if (checkElementDisplayed(PWAHomePage.objActiveTab, "Active tab")) {
+//			String tab = getText(PWAHomePage.objActiveTab);
+//			System.out.println(tab);
+//			logger.info(tab + " tab is highlighted");
+//			extent.extentLogger("Tab", tab + " tab is highlighted");
+//		} else {
+//			logger.error(tabName + " tab is not highlighted");
+//			extent.extentLoggerFail("Tab", tabName + " tab is highlighted");
+//		}
 
 		extent.HeaderChildNode(" HLS_099 : Verify The carousels are Auto scrolled in landing pages.");
 		waitTime(5000);
@@ -22244,7 +22246,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		Back(1);
 
 		extent.HeaderChildNode("HLS_161 :Verify that Play, share, watchlist CTA");
-		trayTitleAndContentValidationWithApiDataZeeoriginals(tabName, "zeeoriginals");
+		trayTitleAndContentValidationWithApiDataZeeoriginals(tabName, "webseries");
 
 		extent.HeaderChildNode("HLS_162 :Verify the right side bottom arrow ");
 		waitTime(2000);
@@ -22385,4 +22387,5 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			Back(1);
 		}
 	} 
+	
 }

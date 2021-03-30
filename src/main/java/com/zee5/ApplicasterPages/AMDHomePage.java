@@ -234,6 +234,8 @@ public class AMDHomePage {
 
 	
 	public static By objListingScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/zee5_collection_framelayout']");
+	
+	public static By objBottomBarSelectedHomeTab = By.xpath("//*[@resource-id='com.graymatrix.did:id/bottom_navigation_view']/child::*/child::*/child::*[@text='Home' and @selected='true']");
 
 	
 	}
