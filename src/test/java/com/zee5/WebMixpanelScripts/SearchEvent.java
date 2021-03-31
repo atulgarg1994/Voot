@@ -46,6 +46,7 @@ public class SearchEvent {
 	@Test(priority = 4)
 	public void verifySearchCancelledEvent() throws Exception {
 		System.out.println("Verify Search Cancelled Event");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifySearchCancelledEvent();
 	}
 	

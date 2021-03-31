@@ -654,7 +654,6 @@ public class PWAHamburgerMenuPage {
 	public static By objrail = By.xpath("//div[@class='page-container']");
 	
 	public static By objpremiumcard = By.xpath("//div[@class='cardPremiumContent']");
-	public static By objFirstCard = By.xpath("//div[@class='viewAllGrid']");
 	//div[@class='viewAllGrid']
 	
 	public static By objSubscribeWithClub = By.xpath("//button[@class='subscribe-teaser-button player-club-icon']");
@@ -854,4 +853,6 @@ public class PWAHamburgerMenuPage {
 	
 	//Edit profile LastName
 		public static By objEditProfilLastName = By.xpath("//*[@name='lastName']");
+		
+		public static By objFirstCard = By.xpath("//div[@class='viewAllGrid']//div//a//img");
 }

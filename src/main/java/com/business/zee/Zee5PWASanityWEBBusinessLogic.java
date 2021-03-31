@@ -2306,7 +2306,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		type(PWASearchPage.objSearchEditBox, movie, "Search Field");
 		click(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		mandatoryRegistrationPopUp(userType);
-		click(PWASearchPage.objSpecificSearch(movie), "Searched content");
+		click(PWASearchPage.objSpecificSearch(movie)
+, "Searched content");
 		waitTime(7000);
 		if (userType.equals("Guest")) {
 			if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Why Register Popup") == true) {
@@ -2345,9 +2346,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresent(PWAPlayerPage.settingsBtn, "Settings icon");
 		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresent(PWAPlayerPage.maximizeBtn, "Maximize window icon");
+		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresent(PWAPlayerPage.totalDurationTime, "Total time");
-		Thread.sleep(10000);
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
+		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
 		verifyElementPresentAndClick(PWAPlayerPage.objPlayerQualityButton, "Quality Button");
 		click(PWAPlayerPage.objBestQualityOption, "Best quality");
@@ -15502,73 +15503,31 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	}
 
 	public void Carouselcontent(String userType) throws Exception {
-		// extent.HeaderChildNode("HLS_008 : Verify play content from the carouser");
-		if (userType.equalsIgnoreCase("Guest")) {
-			extent.HeaderChildNode("HLS_008 : Verify play content from the carouser");
-			navigateToAnyScreenOnWeb("Home");
-			verifyElementPresent(PWAHamburgerMenuPage.objplay, "Play button ");
-			JSClick(PWAHamburgerMenuPage.objplay, "Play button ");
-			waitTime(3000);
-			if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
-				logger.info("Navigated to Consumption Page");
-				extent.extentLogger("Consumption Page", "Navigated to Consumption Page");
-			} else {
-				logger.info("Not navigated to Consumption Page");
-				extent.extentLogger("Consumption Page", "Not navigated to Consumption Page");
-			}
-		}
-
-		if (userType.equalsIgnoreCase("Subscribeduser")) {
-			extent.HeaderChildNode("HLS_0011 : Verify play content from the collection page");
-			if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
-				click(PWAPremiumPage.objViewAllBtn, "View All Button");
-				waitTime(5000);
-				JSClick(PWAHamburgerMenuPage.objFirstCard, "clicked on 1st card");
-				if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
-					logger.info("Navigated to Consumption Page");
-					extent.extentLogger("Consumption Page", "Navigated to Consumption Page");
-				} else {
-					logger.info("Not navigated to Consumption Page");
-					extent.extentLogger("Consumption Page", "Not navigated to Consumption Page");
-				}
-			}
-		}
-		if (userType.equalsIgnoreCase("Clubuser")) {
-			navigateToAnyScreenOnWeb("Club");
-			extent.HeaderChildNode("HLS_009 : Verify Club user is able to play the content from the carouse");
-			verifyElementPresent(PWAHamburgerMenuPage.objplay, "Play button ");
-			JSClick(PWAHamburgerMenuPage.objplay, "Play button ");
-			waitTime(3000);
-			if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
-				logger.info("Navigated to Consumption Page");
-				extent.extentLogger("Consumption Page", "Navigated to Consumption Page");
-			} else {
-				logger.info("Not navigated to Consumption Page");
-				extent.extentLogger("Consumption Page", "Not navigated to Consumption Page");
-			}
+		extent.HeaderChildNode("HLS_008 : Verify play content from the carousel");
+		navigateToAnyScreenOnWeb("Home");
+		verifyElementPresent(PWAHamburgerMenuPage.objplay, "Play button");
+		JSClick(PWAHamburgerMenuPage.objplaybtncarousel, "Play button");
+		waitTime(5000);
+		if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
+			logger.info("Navigated to Consumption Page");
+			extent.extentLogger("Consumption Page", "Navigated to Consumption Page");
 			Back(1);
-			navigateToAnyScreenOnWeb("Home");
-			extent.HeaderChildNode("HLS_010 : Verify Club user is able to play the content from the  rails");
-			for (int i = 1; i <= 2; i++) {
-				if (checkElementDisplayed(PWAPremiumPage.objTrayTitle(i), "Tray")) {
-					System.out.println("Tray is loaded for " + i + " scroll");
-					logger.info("Tray is loaded for " + i + " scroll");
-					extent.extentLogger("Tray load", "Tray is loaded for " + i + " scroll");
-				} else {
-					ScrollToTheElement(PWAPremiumPage.objTrayTitle(i));
-					checkElementDisplayed(PWAPremiumPage.objTrayTitle(i), "Tray");
-				}
-
-			}
-			checkElementDisplayed(PWAHamburgerMenuPage.objFirstcontentCard, " 1st Content card");
-			JSClick(PWAHamburgerMenuPage.objFirstcontentCard, " 1st Content card");
-			if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
-				logger.info("Navigated to Consumption Page");
-				extent.extentLogger("Consumption Page", "Navigated to Consumption Page");
-			} else {
-				logger.info("Not navigated to Consumption Page");
-				extent.extentLogger("Consumption Page", "Not navigated to Consumption Page");
-			}
+		} else {
+			logger.error("Not navigated to Consumption Page");
+			extent.extentLoggerFail("Consumption Page", "Not navigated to Consumption Page");
+		}
+		extent.HeaderChildNode("HLS_0011 : Verify play content from the collection page");
+		String trayTitleUI=swipeTillTray(5, "Top Movies", "Top Movies tray");
+		click(PWALandingPages.objViewAllOfTray(trayTitleUI), "View all button for tray " + trayTitleUI);
+		waitTime(5000);
+		click(PWAHamburgerMenuPage.objFirstCard,"First card in View All page");
+		waitTime(5000);
+		if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
+			logger.info("Navigated to Consumption Page");
+			extent.extentLogger("Consumption Page", "Navigated to Consumption Page");
+		} else {
+			logger.error("Not navigated to Consumption Page");
+			extent.extentLoggerFail("Consumption Page", "Not navigated to Consumption Page");
 		}
 	}
 

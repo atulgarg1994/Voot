@@ -66,6 +66,7 @@ public class Mixpanel extends ExtentReporter {
 	public static String DistinctId;
 	static PropertyFileReader Prop;
 	public static boolean SubcribedDetails = false;
+	public static boolean Language = true;
 
 	public static void ValidateParameter(String distinctID, String eventName)
 			throws JsonParseException, JsonMappingException, IOException, InterruptedException {
@@ -491,8 +492,10 @@ public class Mixpanel extends ExtentReporter {
 			Mixpanel.FEProp.setProperty("Partner Name", "N/A");
 			Mixpanel.FEProp.setProperty("HasRental", "false");
 			Mixpanel.FEProp.setProperty("hasEduauraa", "false");
+			if(Language != false) {
 			Mixpanel.FEProp.setProperty("New App Language", "en");
 			Mixpanel.FEProp.setProperty("New Content Language", "[en-kn]");
+			}
 			}
 		}else if(userType.equals("NonSubscribedUser"))
 		{

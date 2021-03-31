@@ -29,7 +29,7 @@ public class SubscriptionCallInitiatedEvent {
 		Zee5PWAWEBMixPanelBusinessLogic.verifySubscriptionCallInitiatedEvent(userType);
 	}
 
-	@Test(priority = 2)
+//	@Test(priority = 2)
 	@Parameters({ "userType" })
 	public void verifySubscriptionCallInitiatedEventClubPack(String userType) throws Exception {
 		System.out.println("Verify Subscription Call Initiated Event for Club pack");

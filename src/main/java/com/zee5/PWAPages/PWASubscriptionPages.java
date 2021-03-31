@@ -197,13 +197,6 @@ public class PWASubscriptionPages {
 	public static By objSelectedSubscriptionPlanDuration = By
 			.xpath("//*[contains(@class, 'noSelect subscriptionPlanCard active')]/*/*[contains(@class, 'duration')]");
 
-	public static By objHaveACode = By.xpath("//*[contains(@placeholder,'Have a Code?')]");
-
-	public static By objApplyBtn = By
-			.xpath("//*[contains(@class, 'noSelect applyPromo') and contains(text(), 'APPLY')]");
-
-	public static By objAppliedCodeFailureMessage = By.xpath("//*[@class='applyPromo applyFailure']");
-
 	public static By objEmailIDTextField = By.xpath("//*[@id='textField' and @name='userName']");
 
 	public static By objProceedBtnHighlighted = By
@@ -327,4 +320,17 @@ public class PWASubscriptionPages {
 	public static By objcardDetails = By.xpath(".//*[@placeholder='Enter card number here']//following-sibling::*[@class='imageView']");
 	
 	public static By objMobileProceedToPayButton = By.xpath("(//article[contains(text(),'Proceed to pay')])[2]");
+	
+	public static By objHaveACode = By.xpath("//*[@class='haveCodeText']");
+
+	public static By objEnterCode = By.xpath("//*[@placeholder='Enter code']");
+			
+	public static By objApplyBtn = By
+			.xpath("//*[@class='promoCodePopupApply' and contains(text(), 'Apply')]");
+
+	public static By objAppliedCodeFailureMessage = By.xpath("//*[@class='applyPromo applyPromoFailure']");
+	
+	public static By objEmailContinueButton = By.xpath("//div[@class='buttonContainer ']//span[contains(text(), 'Continue')]");
+
+	public static By objPasswordContinueButton = By.xpath("//div[@class='buttonContainer']//span[contains(text(), 'Continue')]");
 }
