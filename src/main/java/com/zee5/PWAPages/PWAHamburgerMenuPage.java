@@ -742,4 +742,116 @@ public class PWAHamburgerMenuPage {
 	public static By objUnselectedEnglishContentLanguage = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='English']");
 	
 	public static By objfooter = By.xpath("//footer[@class='footerContainer']");
+	
+	
+	public static By objnetbanking = By.xpath(
+			"//*[@class='linearLayout sidebarItem_object']//following-sibling::*//article[contains(text(),'Netbanking')]");
+	
+	public static By objPaymentoption=By.xpath("//*[@class='linearLayout sidebarItem_object']//following-sibling::*//article[contains(text(),'Airtel Payments Bank')]");
+	public static By objproceedtopay=By.xpath("//*[@class='linearLayout sidebarItem_object']//following-sibling::*//article[text()='Proceed to pay']");
+	
+	public static By objQwikcilver=By.xpath("//p[@class='iconNavi-ic_expand_less']");
+	
+	public static By objPay=By.xpath("//*[text()='PAY']");
+	public static By objcontinueinkannada=By.xpath("//span[contains(text(),'ಮುಂದುವರಿಸಿ')]");
+	public static By objhometab=By.xpath("//a[contains(@class,'noSelect')][contains(text(),'Home')]");
+	public static By objtotalamount=By.xpath("//div[@class='totalAmount']");
+	
+	public static By objtotalamount2=By.xpath("(//h2[@class='ng-binding'])[2]");
+	
+	public static By objbrwserallpack=By.xpath("//div[@class='btnContnet']");
+	public static By objsubscriptioninHindi=By.xpath("//*[.='मेरी सदस्यता']");
+	
+	public static By objPackAmount4 = By.xpath("(//p[@class='currency'])[4]");
+	
+	public static By objupi=By.xpath("//*[@class='linearLayout sidebarItem_object ']//following-sibling::*//article[contains(text(),'UPI')]");
+	public static By objupieditbox=By.xpath("//input[@class='editText']");
+	public static By objupiidtext=By.xpath("//*[@class='textView ']//following-sibling::*//article[contains(text(),'UPI ID / VPA')]");
+	public static By objplaybtncarousel=By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//div[@class='playIcon']");
+	public static By objtermsofuse=By.xpath("//a[@class='terms' and text()='Terms of use']");
+	public static By objprivacypolicy=By.xpath("//a[@class='terms' and text()='Terms of use']");
+	public static By objhowitworks=By.xpath("//*[@class='buttonContainer ']//span[text()='How it Works ?']");
+	public static By objhowitworksexpand=By.xpath("//h3[@class='Collapsible__trigger is-closed']");
+	public static By objclosepopup=By.xpath("//div[@class='PlexLearnNowCloseIcon']");
+	
+	public static By objrentalsubscribelink=By.xpath("//span[@class='subscribe-link subscribemsg_en']");
+	public static By objtvodtitle=By.xpath("//h5[@class='tvodTitle']");
+	
+	public static By objcardmouseovercontent=By.xpath("(//div[@class='showCard   zoomCardHover minutelyUrl card marginRight positionRelative'])[1]");
+	public static By objcontentname=By.xpath("//div[@class='plexExpiryTitle']");
+	
+	public static By objreleasedby=By.xpath("//div[@class='productionhouse']");
+	public static By objRentForINRbutton=By.xpath("//div[@class='buttonContainer ']");
+	public static By objtransationcard=By.xpath("//div[@class='transactionCard']");
+	public static By objallacesshighestpack=By.xpath("//div[@class='noSelect subscriptionPlanCard active discountCard']//p[text()='1 Year']");
+	public static By objhaveacode=By.xpath("//input[@placeholder='Have a Code?']");
+	public static By objapply=By.xpath("//div[text()='APPLY']");
+	
+	public static By objtermsandconditionlink=By.xpath("//a[text()='Terms & Conditions']");
+	public static By objpriyacypolicy=By.xpath("(//a[text()='Privacy Policy'])[1]");
+	
+	public static By objzeeplexplayerbanner=By.xpath("//div[@class='tvodBanner']");
+	public static By objsubscriptionpageimg=By.xpath("//*[@title='Subscription Page - Image 2']");
+	
+	public static By objrecocard=By.xpath("//div[@class='movieCard card marginRight minutelyUrl zoomCardHover']");
+	public static By objcontentdate=By.xpath("//div[@class='showDuration']//span[3]");
+	public static By objlogintext=By.xpath("//div[@class='adult-content-error-text']//span");
+	
+	public static By objprofileusername=By.xpath("(//div[@class='userName '])[1]");
+	
+	public static By objeduauraadropdown=By.xpath("//a[@class='dropdown-toggle']");
+	public static By objeduauraalogout=By.xpath("(//span[text()='Logout'])[1]");
+	public static By objconfirmpopupYes=By.xpath("//span[@class='mat-button-wrapper' and  text()='Yes']");
+	
+	public static By objtv9marathi=By.xpath("//div[@class='slick-slide']//*[text()='TV9 Marathi']");
+	public static By objeduauraaprofileicon=By.xpath("//div[@class='inset']");
+	
+	public static By objeduauraaprofiledetails=By.xpath("(//div[@class='user-detail'])[1]");
+	public static By objreleasingdate=By.xpath("//div[@class='expire']//h5[@class='yellowText']");
+	
+	public static By objupcomingmovietray=By.xpath("//h2[text()='Upcoming Movies']");
+	
+	public static By objcontentcardinmywatchlist=By.xpath("(//h3[contains(@class,'cardTitle overflowEllipsis')]//a)");
+	public static By objerrormessage=By.xpath("//p[@class='errorMessage']");
+	
+	public static By objtop5watchednewa=By.xpath("(//*[contains(@class,'trayHeader')]//*[contains(text(),'Top 5 Most Watched News Videos')]//parent::*//parent::*//following-sibling::*//*[contains(@class, 'view-all')])[1]");
+	
+	public static By objmetadataofcontenttype=By.xpath("//div[@class='metaInfo']//a");
+	public static By objmetadataoncard=By.xpath("//div[@class='metaInfo hidden']//a");
+	public static By objvisaimg=By.xpath("(//img[contains(@class,'imageView')])[6]");
+	
+	public static By objreleatednews=By.xpath("//div[@class='relatedNewsCol']//h2");
+	public static By objthirdcardsearchresult=By.xpath("(//h3[contains(@class,'cardTitle')]//parent::div//preceding-sibling::figure)[3]");
+	public static By objshowtitle=By.xpath("//div[@class='bannerTitle hidden']");
+	
+	public static By objhighestpackcard=By.xpath("//div[@class='noSelect subscriptionPlanCard  ']//p[text()='1 Year']");
+	
+	
+	public static By objchannelname(String text) {
+		return By.xpath("//img[@title='"+text+"']");
+	}
+	public static By objchanneltitle(String text) {
+		return By.xpath("//h1[text()='"+text+"']");
+	}
+			
+	public static By objPaymentoption(String text) {
+			return By.xpath("//*[@class='linearLayout sidebarItem_object ']//following-sibling::*//article[contains(text(),'"+text+"')]");
+	}	
+			
+	public static By objpayupage=By.xpath("//div[@id='payu_logo']");
+			
+	public static By objcluborpremiumcontentcard=By.xpath("(//div[contains(@class,'clubPackContent') or contains(@class,'cardPremiumContent')])");
+	public static By objclubcard=By.xpath("//div[contains(@class,'clubPackContent')]");
+			
+	public static By objthreebreadcrumb=By.xpath("(//ul[contains(@class,'breadcrumbContainer ')]//li[@class='item '])[3]");
+			
+	public static By objmetadatainconsumption=By.xpath("(//div[@class='metaInfo']//a)[3]");
+	public static By objcontentcardthroughtext(String text) {
+		return By.xpath("(//div[@class='showCard   zoomCardHover minutelyUrl card marginRight positionRelative'])//img[@title='"+text+"']");
+	}
+			
+	public static By objchannelcard=By.xpath("//div[@class='viewAllWrap']//img");
+	
+	//Edit profile LastName
+		public static By objEditProfilLastName = By.xpath("//*[@name='lastName']");
 }

@@ -157,8 +157,6 @@ public class AMDLoginScreen {
 	public static By objTwitterLoginBtn = By.xpath("//*[@class='android.widget.Button' and @text='Authorize app']");
 	
 	public static By objTickmarkforSelectedDisplayLanguage = By.xpath("//*[@resource-id='com.graymatrix.did:id/selectionImage']");
-	
-	public static By objTwitterAutorizeAllowBtn = By.xpath("//*[@resource-id='com.twitter.android:id/ok_button']");
 
 	public static By objEmailFieldInTwitterPage = By.xpath("//*[@resource-id='com.twitter.android:id/login_identifier']");
 	public static By objPasswordFieldInTwitterPage = By.xpath("//*[@resource-id='com.twitter.android:id/login_password']");
@@ -185,4 +183,5 @@ public class AMDLoginScreen {
 	
 	public static By objFirstGmailAccount = By.xpath("(//*[@id='account_display_name'])[1]");
 	
+	public static By objTwitterAutorizeAllowBtn = By.xpath("//*[@resource-id='com.twitter.android:id/ok_button'] | //*[@id='allow']"); 
 }

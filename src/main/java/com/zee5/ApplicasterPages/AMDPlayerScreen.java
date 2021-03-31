@@ -27,12 +27,10 @@ public class AMDPlayerScreen {
 	public static By objFacebook = By.xpath("//*[@text='News Feed' or @text='Facebook']");
 	public static By objFacebookPost = By.xpath("//*[@text='POST' or @text='Post' or @text='Share' or @text='SHARE']");
 	public static By objCopyToClipboard = By.xpath("//*[@text='Copy to clipboard']");
-	public static By objRetryBtn = By.xpath("//*[@id='zretry']");
 	public static By objReplay = By.xpath("//*[@id='icon_replay']");
 	public static By objSubtitlePopUp = By.xpath("//*[@id='popup_title']");
 	public static By objEnglishSubtitle = By.xpath("//*[@text='English']");
 	public static By objLoginCTA = By.xpath("//*[@id='get_premium_login']");
-	public static By objReplayIconOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_replay']");
 	public static By objRegisterPopUp = By.xpath("//*[@id='registrationContainer']");
 	public static By objUpnextContentCard = By.xpath("(//*[@resource-id='com.graymatrix.did:id/card'])[3]");
 	public static By objUpnextContentCardTitle = By.xpath("(//*[@id='title_similar'])[3]");
@@ -120,4 +118,8 @@ public class AMDPlayerScreen {
 	public static By objQuality = By.xpath("//*[@id='icon_quality_text'] | //*[@id='playerOptionTitle' and @text='Quality 480p']");
 
 	public static By objPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerElevationParent'] | //*[@id='playerTouchToHideShowController']");
+
+	public static By objRetryBtn = By.xpath("//*[@id='errorViewButton']");
+	public static By objReplayIconOnPlayer = By.xpath("//*[@id='playerPlayPauseButton']");
+	
 }

@@ -60,7 +60,6 @@ public class AMDDownloadPage {
 	public static By objGoToDownloadsOption = By.xpath("//*[@id='tvNavigateDownload']");
 	public static By objRightArrow = By.xpath("//*[@id='img_right_arrow']");
 	public static By objDownloadingText = By.xpath("//*[@id='tv_downloading_out_of']");
-	public static By objDownloadingCircularBar = By.xpath("//*[@class='android.widget.ImageView' and ./parent::*[@id='rl_circular']]");
 	public static By objPausedText = By.xpath("//*[@text='Paused']");
 	public static By objPausedBar = By.xpath("//*[@id='img_state']");
 	public static By objContinueOption = By.xpath("//*[@id='tvRetryDownload']");
@@ -162,5 +161,6 @@ public class AMDDownloadPage {
 	public static By objBackinPlayer = By.xpath("//*[@id='playerBackButton']");
 	public static By objvideostab= By.xpath("//*[@text='Videos' or @text='VIDEOS']");
 	public static By objDownloadCompleteIcon = By.xpath("//*[@id='img_state']/parent::*/parent::*[@id='rl_end']");
-	
+	public static By objDownloadingCircularBar = By.xpath("//*[@class='android.widget.ImageView' and ./parent::*[@id='rl_circular']] | //*[@id='content_download_progress']");
+	public static By objDownloadedIcon = By.xpath("//*[@id='content_downloaded_image']");
 }

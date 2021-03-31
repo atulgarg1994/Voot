@@ -343,4 +343,6 @@ public class PWASearchPage {
 	// First asset name of Trending Searches tray
 		public static By objFirstAssetTitleTrendingSearch = By.xpath(
 				"//div[@class='trayHeader']//h2[text()='Trending Searches']//parent::*//following-sibling::div[@class='latestEpisodeTrayWrapper']//div[@data-index='1']//h3[@class='cardTitle']");
+
+		public static By objseconddata = By.xpath("(//div[@class='listingGrid']//h3)[2]");
 }

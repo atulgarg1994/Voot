@@ -27,9 +27,6 @@ public class WebPWAHLSScript {
 	public void homePageValidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.Homepagevalidation(userType, "Home");
-		//Zee5WEBPWASanityBusinessLogic.trayTitleAndContentValidationWithApiDataHome("Home", "home");
-		//Zee5WEBPWASanityBusinessLogic.MetadataOnCarousel("Premium", userType);
-		// Zee5WEBPWASanityBusinessLogic.MetadataOnCarousel("Premium", userType);
 	}
 
 	@Test(priority = 3)

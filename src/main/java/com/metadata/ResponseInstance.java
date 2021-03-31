@@ -172,9 +172,9 @@ public class ResponseInstance {
 	 */
 	public static Response getRecoDataFromTab(String userType, String tab, String contLang) {
 		Response respReco = null;
-		if (tab.equalsIgnoreCase("shows")) {
+		if (tab.equals("tvshows") || tab.equals("tv shows")) {
 			tab = "tvshows";
-		} else if (tab.equalsIgnoreCase("premium")) {
+		}else if (tab.equalsIgnoreCase("premium")) {
 			tab = "premiumcontents";
 		} else if (tab.equalsIgnoreCase("home")) {
 			tab = "homepage";

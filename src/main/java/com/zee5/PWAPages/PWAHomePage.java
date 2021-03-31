@@ -598,7 +598,10 @@ public class PWAHomePage {
 		return By.xpath("//a[contains(@class,'noSelect') and text()=\""+tabname+"\"]");
 	}
 
-	public static By objContTitleOnCarousel = By
-			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
+	public static By objHindiWEB=By.xpath("//span[contains(@class,'commonName')][contains(text(),'Hindi')]");
 
+	public static By objContTitleOnCarousel = By
+			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
+
+	
 }

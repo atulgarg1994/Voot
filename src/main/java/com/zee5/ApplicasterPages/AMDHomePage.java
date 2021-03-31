@@ -128,7 +128,6 @@ public class AMDHomePage {
 
 	// Top Menu Navigation tabs
 	public static By objMoviesTab = By.xpath("//*[@id='title' and @text='Movies'] | //*[@text='Movies']");
-	public static By objShowsTab = By.xpath("//*[@id='title' and @text='Shows'] | //*[@text='Shows']");
 	public static By objNewsTab = By.xpath("//*[@id='title' and @text='News'] | //*[@text='News']");
 	public static By objFreeMoviesTab = By.xpath("//*[@id='title' and @text='Free Movies'] | //*[@text='Club']");
 	public static By objPremiumTab = By.xpath("//*[@id='title' and @text='Premium'] | //*[@text='Premium']");
@@ -237,5 +236,5 @@ public class AMDHomePage {
 	
 	public static By objBottomBarSelectedHomeTab = By.xpath("//*[@resource-id='com.graymatrix.did:id/bottom_navigation_view']/child::*/child::*/child::*[@text='Home' and @selected='true']");
 
-	
+	public static By objShowsTab = By.xpath("//*[@id='title' and @text='Shows'] | //*[@text='Shows'] | //*[@text='TV Shows']");
 	}
