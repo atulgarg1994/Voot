@@ -10,18 +10,10 @@ public class AMDPlayerScreen {
 	public static By objfirstContentcardOfParticularTray(String trayTitle) {
 		return By.xpath("(//*[@text="+trayTitle+"]/parent::*/parent::*/following-sibling::*/child::*/child::*/child::*/child::*)[1]");
 	}
-	public static By objTitleOnPlayer = By.xpath("//*[@id='title_main']");
-	public static By objQualityOptions = By.xpath("//*[@id='textView2']");
-	public static By objQualityOptions(int i) {
-		return By.xpath("(//*[@id='textView2'])["+i+"]");
-	}
 	public static By objAddToWatchlist = By.xpath("//*[@id='icon_add_to_watch_list_text']");
 	public static By objLoginTextOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/static_login_text']");
 	public static By objLoginLinkOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/login_button']");
-	
-	public static By objPlaybackRateSelected = By.xpath("(//*[@id='icon_selected']//parent::*//child::*)[2]");
 	public static By objPlayerLoader = By.xpath("//*[@id='player_loading_progress']");
-	public static By objSharePopUp = By.xpath("//*[@text='Share using']");
 	public static By objTwitter = By.xpath("//*[@text='Tweet']");
 	public static By objTweetButton = By.xpath("//*[@id='button_tweet']");
 	public static By objFacebook = By.xpath("//*[@text='News Feed' or @text='Facebook']");
@@ -36,14 +28,10 @@ public class AMDPlayerScreen {
 	public static By objUpnextContentCardTitle = By.xpath("(//*[@id='title_similar'])[3]");
 	public static By objUpnextRail = By.xpath("//*[@id='similarcontentlistView']");
 	public static By objContentTitle = By.xpath("//*[@id='title_main']");
-	public static By objShareIconOnPlayer = By.xpath("//*[@id='icon_share']"); 
 	public static By objCompleteProfilePopUp = By.xpath("//*[@id='tellUsMoreContainer']");
 	public static By objShareNowFb = By.xpath("//*[@contentDescription='SHARE NOW']");
 	public static By objWatchCreditsCTA = By.xpath("//*[@text='Watch Credits']");
 	public static By objUpNext = By.xpath("//*[@text='Up Next']");
-	public static By objTitleInLandscape(String title) {
-		return By.xpath("//*[@id='title_main' and contains(text(), '"+title+"')]");
-	}
 	public static By objUpNextCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/upnext']");
 	public static By objFirstContentCardTitleInUpnextTray = By.xpath("((//*[@resource-id='com.graymatrix.did:id/header_primary_text' and @text='Up Next']/parent::*/parent::*/following-sibling::*)[1]/child::*/child::*/child::*[@resource-id='com.graymatrix.did:id/item_primary_text'])[1]");
 	public static By objCountDownTimerInUpNextCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/counddownwatchcredit']");
@@ -114,12 +102,23 @@ public class AMDPlayerScreen {
 	public static By objPlay = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerPlayPauseButton' and @text='p']");
 	
 	public static By objSelectedQualityOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_selected']/following-sibling::* | //*[@id='playerOptionsTitleTextView' and @text='Select Video Quality']");
-	
-	public static By objQuality = By.xpath("//*[@id='icon_quality_text'] | //*[@id='playerOptionTitle' and @text='Quality 480p']");
 
 	public static By objPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/playerElevationParent'] | //*[@id='playerTouchToHideShowController']");
 
 	public static By objRetryBtn = By.xpath("//*[@id='errorViewButton']");
 	public static By objReplayIconOnPlayer = By.xpath("//*[@id='playerPlayPauseButton']");
+	
+	public static By objTitleOnPlayer = By.xpath("//*[@id='playerContentTitle']");
+	public static By objQualityOptions = By.xpath("//*[@id='playerOptionTitle']");
+	public static By objQuality = By.xpath("//*[@id='icon_quality_text'] | //*[@id='playerOptionTitle' and contains(text(),'Quality')]");
+	public static By objShareIconOnPlayer = By.xpath("(//*[@id='icon_share']) | (//*[@id='playerShareContent'])"); 
+	public static By objPlaybackRateSelected = By.xpath("((//*[@id='icon_selected']//parent::*//child::*)[2]) | (//*[@text='t']/following-sibling::*)");
+	public static By objSharePopUp = By.xpath("(//*[@text='Share using']) | ( //*[@text='Share via'])");
+	public static By objQualityOptions(int i) {
+			return By.xpath("(//*[@id='playerOptionTitle'])["+i+"]");
+		}
+	public static By objTitleInLandscape(String title) {
+			return By.xpath("//*[@id='playerContentTitle' and contains(text(), '"+title+"')]");
+		}
 	
 }

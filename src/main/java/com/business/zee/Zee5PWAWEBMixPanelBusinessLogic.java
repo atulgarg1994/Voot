@@ -3579,6 +3579,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			waitTime(6000);
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			
 			String id = getWebDriver().getCurrentUrl();
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -6154,6 +6155,9 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			waitTime(6000);
 			mixpanel.FEProp.setProperty("Source", "show_detail");
 			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			mixpanel.FEProp.setProperty("Pop Up Group", "Skippable");
+			mixpanel.FEProp.setProperty("Pop Up Name", "Registration");
+			mixpanel.FEProp.setProperty("Pop Up Type", "Mandatory Registration");
 			String id = getWebDriver().getCurrentUrl();
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -6190,6 +6194,10 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			waitTime(6000);
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Pop Up Group", "Skippable");
+			mixpanel.FEProp.setProperty("Pop Up Name", "Registration");
+			mixpanel.FEProp.setProperty("Pop Up Type", "Mandatory Registration");
+			
 			String id = getWebDriver().getCurrentUrl();
 			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));

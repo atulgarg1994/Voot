@@ -44,7 +44,7 @@ public class Android_Player_LandscapeMode {
 		ZEE5ApplicasterBusinessLogic.subtitleAndPlaybackRateValidation(searchKeyword4, userType);
 		ZEE5ApplicasterBusinessLogic.premiumContentWithoutTrailerInLandscapeMode(userType, searchKeyword5);
 		ZEE5ApplicasterBusinessLogic.upnextRailValidationInLandscapeMode(searchKeyword8);
-		ZEE5ApplicasterBusinessLogic.playerValidationInFullScreenMode(userType, searchKeyword1);
+//		ZEE5ApplicasterBusinessLogic.playerValidationInFullScreenMode(userType, searchKeyword1);
 		ZEE5ApplicasterBusinessLogic.watchCreditsValidationInLandscapeMode(searchKeyword9, userType);
 	}
 

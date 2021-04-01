@@ -10289,7 +10289,10 @@ public void Haveaprepaidcode(String userType) throws Exception {
 		waitTime(6000);
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		waitTime(1000);
-		verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		scrubVideoToBegining(AMDPlayerScreen.objProgressBar);
+		waitTime(2000);
+	    click(AMDPlayerScreen.objPlay, "Play icon");
 		waitTime(7000);
 		logger.info("Waited for some time");
 		extent.extentLogger("", "Waited for some time");
@@ -10411,7 +10414,7 @@ public void Haveaprepaidcode(String userType) throws Exception {
 		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
 		logger.info("Current time after seeking in seconds : " + timeToSec(afterSeek));
 		extent.extentLogger("Seek", "Current time after seeking in seconds : " + timeToSec(afterSeek));
-		if (timeToSec(afterSeek) > timeToSec(beforeSeek)+100) {
+		if (timeToSec(afterSeek) > timeToSec(beforeSeek)) {
 			logger.info("Seek bar is functional");
 			extent.extentLoggerPass("Seek", "Seek bar is functional");
 		} else {
@@ -10792,6 +10795,10 @@ public void Haveaprepaidcode(String userType) throws Exception {
 		screencapture();
 		click(AMDPlayerScreen.objReplayIconOnPlayer, "Replay icon");
 		waitTime(3000);
+		if(verifyIsElementDisplayed(AMDPlayerScreen.objGetPremiumPopUp, "Get premium popUp")) {
+			Back(1);
+		}
+		
 		Swipe("DOWN", 1);
 		String contentTitle2 = getText(AMDPlayerScreen.objcontentTitleInconsumptionPage);
 		if (contentTitle1.equalsIgnoreCase(contentTitle2)) {
@@ -10814,9 +10821,9 @@ public void Haveaprepaidcode(String userType) throws Exception {
 	/**
 	 * Author : Manasa Module : Player
 	 */
-	public void playerValidationInFullScreenMode(String userType, String searchKeyword2) throws Exception {
-		extent.HeaderChildNode("Player Validation in Fullscreen Mode");
-		System.out.println("\nPlayer Validation in Fullscreen Mode");
+	public void playerValidationInFullScreenMode(String userType, String searchKeyword11, String searchKeyword6) throws Exception {
+		extent.HeaderChildNode("Player screen Validation in Fullscreen Mode");
+		System.out.println("\nPlayer screen Validation in Fullscreen Mode");
 		waitTime(3000);
 		click(AMDHomePage.objMoreMenu, "More Menu");
 		waitTime(1000);
@@ -10833,29 +10840,41 @@ public void Haveaprepaidcode(String userType) throws Exception {
 		Back(2);
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, searchKeyword2 + "\n", "Search bar");
+		type(AMDSearchScreen.objSearchBoxBar, searchKeyword11 + "\n", "Search bar");
 		waitTime(2000);
 		hideKeyboard();
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 
-		click(AMDMoreMenu.objSearchResult(searchKeyword2), "Search result");
-		if (!userType.contains("SubscribedUser")) {
+		click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			waitTime(5000);
 			registerPopUpClose();
 			completeProfilePopUpClose(userType);
 			LoadingInProgress();
 			adPlay();
-			waitTime(5000);
+			registerPopUpClose();
+			completeProfilePopUpClose(userType);
+		}
+		if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
 			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		}
-
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		scrubVideoToBegining(AMDPlayerScreen.objProgressBar);
+		waitTime(2000);
+	    click(AMDPlayerScreen.objPlay, "Play icon");
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		
 		if (verifyElementExist(AMDPlayerScreen.objPlayer, "Player screen")) {
-			waitTime(3000);
-			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-			verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
+			waitTime(2000);
+			GetAndVerifyOrientation("Landscape");
+			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+				click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+			}
+			click(AMDPlayerScreen.objPlayIcon, "Play icon");
 			// Hard wait to check if player controls disappear
 			waitTime(7000);
-			if (verifyIsElementDisplayed(AMDPlayerScreen.objPlayer)) {
+			if (verifyIsElementDisplayed(AMDPlayerScreen.objNextIcon)) {
 				logger.info("Player controls does not auto hide after keeping the player idle for few sec's");
 				extentLoggerFail("Player controls Auto hide",
 						"Player controls does not auto hide after keeping the player idle for few sec's");
@@ -10864,21 +10883,16 @@ public void Haveaprepaidcode(String userType) throws Exception {
 				extentLoggerPass("Player controls Auto hide",
 						"Player controls auto hide after keeping the player idle for few sec's");
 			}
-			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-
-			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
-
-			verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
-			waitTime(2000);
-			GetAndVerifyOrientation("Landscape");
-			verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Minimize Icon");
-			waitTime(2000);
-			GetAndVerifyOrientation("Portrait");
-			click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
+			
 			ForwardAndRewindThePlayerByDoubleTapping(1);
 			waitTime(5000);
 			ForwardAndRewindThePlayerByDoubleTapping(2);
-
+			
+			extent.HeaderChildNode("Player screen controls Validation in Fullscreen Mode");
+			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+				click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+			}
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			verifyElementPresent(AMDPlayerScreen.objProgressBar, "Progress/Seek Bar");
 			verifyElementPresent(AMDPlayerScreen.objNextIcon, "Next Icon");
 			verifyElementPresent(AMDPlayerScreen.objChromeCastIcon, "Chromecast Icon");
@@ -10939,24 +10953,32 @@ public void Haveaprepaidcode(String userType) throws Exception {
 				extent.extentLoggerPass("Video Quality", "Quality option : " + options);
 			}
 			Back(1);
-			click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
+			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+				click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+			}
 			click(AMDPlayerScreen.objThreeDotsOnPlayer, "Player option with 3 dots");
-			verifyElementPresentAndClick(AMDPlayerScreen.objAddToWatchlist, "Add to Watchlist option");
-
-			if (userType.equalsIgnoreCase("Guest")) {
-				if (verifyElementExist(AMDOnboardingScreen.objScreenTitle, "Login/Register Page")) {
-					logger.info("Navigated to Login/Registration screen");
-					extent.extentLoggerPass("Login page", "Navigated to Login/Registration screen");
-					waitTime(2000);
-					click(AMDLoginScreen.objLoginLnk, "Skip link");
-					// Back(1);
-				} else {
-					logger.error("Not Navigated to Login/Registration screen");
-					extent.extentLoggerFail("Login page", "Not navigated to Login/Registration screen");
+			if(verifyElementExist(AMDPlayerScreen.objAddToWatchlist, "Add to Watchlist option")) {
+				click(AMDPlayerScreen.objAddToWatchlist, "Add to Watchlist option");
+				if (userType.equalsIgnoreCase("Guest")) {
+					if (verifyElementExist(AMDOnboardingScreen.objScreenTitle, "Login/Register Page")) {
+						logger.info("Navigated to Login/Registration screen");
+						extent.extentLoggerPass("Login page", "Navigated to Login/Registration screen");
+						waitTime(2000);
+						click(AMDLoginScreen.objLoginLnk, "Skip link");
+						// Back(1);
+					} else {
+						logger.error("Not Navigated to Login/Registration screen");
+						extent.extentLoggerFail("Login page", "Not navigated to Login/Registration screen");
+						Back(1);
+					}
 				}
+			}else {
+				Back(1);
 			}
 			waitTime(5000);
-			click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
+			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+				click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+			}
 			click(AMDPlayerScreen.objThreeDotsOnPlayer, "Player option with 3 dots");
 			verifyElementPresentAndClick(AMDPlayerScreen.objPlaybackRate, "Playback Rate option");
 
@@ -10969,26 +10991,41 @@ public void Haveaprepaidcode(String userType) throws Exception {
 			}
 			String rate = getText(AMDPlayerScreen.objPlaybackRateSelected);
 			System.out.println(rate);
-			if (rate.equalsIgnoreCase("1.0X")) {
+			if (rate.equalsIgnoreCase("1.0")) {
 				logger.info("Playback rate is set to " + rate + " by default");
 				extent.extentLoggerPass("Playback Rate", "Playback rate is set to " + rate + " by default");
 			} else {
-				logger.error("Playback rate is not set to 1.0X by default");
-				extent.extentLoggerFail("Playback rate", "Playback rate is not set to 1.0X by default");
+				logger.error("Playback rate is not set to 1.0 by default");
+				extent.extentLoggerFail("Playback rate", "Playback rate is not set to 1.0 by default");
 			}
 
 			Back(1);
-			click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
-
+			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+				click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+				waitTime(2000);
+				click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+			}else {
+				click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+			}
 			verifyPlaybackAfterMinimzeAndMaximizeAppFromBackground();
 			waitTime(5000);
-			click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
+			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+				click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+				waitTime(2000);
+				click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+			}else {
+				click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+			}
 			verifyPlaybackAfterLockAndUnlock();
 			waitTime(5000);
 			// click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
 			// verifyPlaybackAfterNetworkInterruption();
 			// waitTime(5000);
-			click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
+			
+			extent.HeaderChildNode("Share option Validation in Fullscreen Mode");
+			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+				click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+			}
 			click(AMDPlayerScreen.objShareIconOnPlayer, "Share Icon");
 			verifyElementPresent(AMDPlayerScreen.objSharePopUp, "Share Pop Up/Share Overlay");
 			checkElementExist(AMDPlayerScreen.objCopyToClipboard, "Copy to clipboard");
@@ -10998,27 +11035,28 @@ public void Haveaprepaidcode(String userType) throws Exception {
 				click(AMDPlayerScreen.objFacebook, "Facebook Icon");
 				logger.info("Selected Facebook icon from Share screen");
 				extent.extentLoggerPass("Facebook Icon", "Selected Facebook icon from Share screen");
+				
+				waitTime(5000);
+				boolean fbLoginPage = verifyElementDisplayed(AMDPlayerScreen.objfbLoginPage);
+				if (fbLoginPage) {
+					logger.error("Facebook account is not logged into this device");
+					extent.extentLoggerWarning("Facebook Account", "Facebook account is not logged into this device");
+					Back(1);
+				} else {
+					boolean fbPost = verifyElementDisplayed(AMDPlayerScreen.objFacebookPost);
+					if (fbPost) {
+						click(AMDPlayerScreen.objFacebookPost, "Post Icon");
+						logger.info("Selected Post icon from Facebook page");
+						extent.extentLoggerPass("Post Icon", "Selected Post icon from Facebook page");
+					} else {
+						logger.error("Post Icon is not displayed");
+						extent.extentLoggerWarning("Post Icon", "Post Icon is not displayed");
+						Back(2);
+					}
+				}
 			} else {
 				logger.error("Facebook icon is NOT available in the Share screen");
 				extent.extentLoggerWarning("Facebook Icon", "Facebook icon is NOT available to Share");
-			}
-
-			waitTime(5000);
-			boolean fbLoginPage = verifyElementDisplayed(AMDPlayerScreen.objfbLoginPage);
-			if (fbLoginPage) {
-				logger.error("Facebook account is not logged into this device");
-				extent.extentLoggerWarning("Facebook Account", "Facebook account is not logged into this device");
-				Back(1);
-			} else {
-				boolean fbPost = verifyElementDisplayed(AMDPlayerScreen.objFacebookPost);
-				if (fbPost) {
-					click(AMDPlayerScreen.objFacebookPost, "Post Icon");
-					logger.info("Selected Post icon from Facebook page");
-					extent.extentLoggerPass("Post Icon", "Selected Post icon from Facebook page");
-				} else {
-					logger.error("Post Icon is not displayed");
-					extent.extentLoggerWarning("Post Icon", "Post Icon is not displayed");
-				}
 			}
 
 			waitTime(5000);
@@ -11037,37 +11075,59 @@ public void Haveaprepaidcode(String userType) throws Exception {
 					click(AMDPlayerScreen.objTweetButton, "Tweet button");
 					logger.info("Selected twitter button to post from twitter page");
 					extent.extentLoggerPass("Twitter button", "Selected twitter button to post from twitter page");
+					Back(2);
 				} else {
 					logger.info("Twitter account is NOT logged into this device");
 					extent.extentLoggerWarning("Twitter button", "Twitter account is NOT logged into this device");
+					Back(1);
 				}
 
 			} else {
 				logger.info("Twitter icon is NOT available in the Share screen");
 				extent.extentLoggerWarning("Twitter icon", "Twitter icon is NOT available in the Share screen");
+				Back(1);
 			}
-			waitTime(5000);
-			Back(1);
-			click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
+			navigateBackToHomeLandingScreen();
+			
+			extent.HeaderChildNode("Replay functionality Validation in Fullscreen Mode");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, searchKeyword6 + "\n", "Search bar");
+			waitTime(2000);
+			hideKeyboard();
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
+			waitTime(2000);
+			GetAndVerifyOrientation("Landscape");
+			click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+			String title = getText(AMDPlayerScreen.objTitleOnPlayer);
 			seekVideoTillLast(AMDPlayerScreen.objProgressBar);
-			// click(AMDPlayerScreen.objPlayIcon, "Play Icon");
-			waitForElementDisplayed(AMDPlayerScreen.objReplay, 5);
-			verifyElementPresentAndClick(AMDPlayerScreen.objReplay, "Replay Icon");
-			if (!userType.contains("SubscribedUser")) {
-				waitTime(2000);
-				adPlay();
-				waitTime(5000);
+			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+				click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 			}
-			click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
-			if (verifyIsElementDisplayed(AMDPlayerScreen.objTitleInLandscape(searchKeyword2))) {
-				logger.info("Same content playback started again post tapping on Replay icon");
-				extent.extentLoggerPass("Replay", "Same content playback started again post tapping on Replay icon");
-			} else {
-				logger.error("Same content playback did not start post tapping on Replay icon");
-				extent.extentLoggerFail("Replay", "Same content playback did not start post tapping on Replay icon");
+			click(AMDPlayerScreen.objPlayIcon, "Play icon");
+			if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+				verifyElementExist(AMDPlayerScreen.objGetPremiumPopUp,"Get Premium popup at the end of the non premium trailer content playback");
+			}else {
+				if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+					click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+				}
+				waitForElementDisplayed(AMDPlayerScreen.objReplayIconOnPlayer, 10);
+				verifyElementPresentAndClick(AMDPlayerScreen.objReplayIconOnPlayer, "Replay Icon");
+				waitTime(8000);
+				click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
+				if (verifyIsElementDisplayed(AMDPlayerScreen.objTitleInLandscape(title))) {
+					logger.info("Same content playback started again post tapping on Replay icon");
+					extent.extentLoggerPass("Replay", "Same content playback started again post tapping on Replay icon");
+				} else {
+					logger.error("Same content playback did not start post tapping on Replay icon");
+					extent.extentLoggerFail("Replay", "Same content playback did not start post tapping on Replay icon");
+				}
 			}
 		}
-		Back(2);
+		Back(3);
 		click(AMDHomePage.objMoreMenu, "More Menu");
 		waitTime(1000);
 		click(AMDMoreMenu.objSettings, "Settings option");
@@ -11217,9 +11277,9 @@ public void Haveaprepaidcode(String userType) throws Exception {
 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 
 			click(AMDMoreMenu.objSearchResult(searchKeyword1), "Search result");
-			waitTime(2000);
+			waitTime(5000);
 			switchtoLandscapeMode();
-			waitTime(2000);
+			waitTime(5000);
 			if(popUpFlag) {
 				boolean checkParentalPopUp = verifyElementPresent(AMDPlayerScreen.objParentalPinPopUp,
 						"Parental Pin Popup");
@@ -12969,14 +13029,14 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 			}
 			
 			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowLinkOnPlayer, "Subscribe Now Link");
-			if (verifyElementExist(AMDPlayerScreen.objGetPremiumPopUp, "Get Premium popUp")) {
-				logger.info("User is navigated to Get premium popup post tapping on Subscribe Now Link");
+			if (verifyElementExist(AMDPlayerScreen.objSubscribeScreen, "subscribe screen")) {
+				logger.info("User is navigated to Subscribe screen post tapping on Subscribe Now Link");
 				extentLoggerPass("GetPremium popUp",
-						"User is navigated to Get premium popup post tapping on Subscribe Now Link");
+						"User is navigated to Subscribe screen post tapping on Subscribe Now Link");
 			} else {
-				logger.error("User is not navigated to Get premium popup post tapping on Subscribe Now Link");
+				logger.error("User is not navigated to Subscribe screen post tapping on Subscribe Now Link");
 				extentLoggerFail("GetPremium popUp",
-						"User is not navigated to Get premium popup post tapping on Subscribe Now Link");
+						"User is not navigated to Subscribe screen post tapping on Subscribe Now Link");
 			}
 			Back(1);
 			
@@ -12997,9 +13057,9 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 				click(AMDLoginScreen.objLoginLnk, "Skip link");
 			}
 			*/
-			switchtoPortraitMode();
+		//	switchtoPortraitMode();
 			waitTime(2000);
-			Back(3);
+			Back(2);
 		}else {
 			extent.extentLoggerPass("Premium Content without Trailer", "Premium Content without Trailer in Landscape mode is NOT applicable for - " + userType);
 			logger.info("Premium Content without Trailer in Landscape mode is NOT applicable for - " + userType);
@@ -13020,25 +13080,29 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 
 		click(AMDMoreMenu.objSearchResult(searchKeyword4), "Search result");
 		waitTime(2000);
-		if (!userType.contains("SubscribedUser")) {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			waitTime(5000);
-			if(checkElementExist(AMDPlayerScreen.objDialogBox)) {
-				click(AMDPlayerScreen.objDialogBox, "Dismiss Popup");
-			}
 			registerPopUpClose();
 			completeProfilePopUpClose(userType);
 			LoadingInProgress();
 			adPlay();
-			waitTime(5000);
+			registerPopUpClose();
+			completeProfilePopUpClose(userType);
+			
+		}
+		if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
 			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		}
-
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		scrubVideoToBegining(AMDPlayerScreen.objProgressBar);
+		waitTime(2000);
+	    click(AMDPlayerScreen.objPlay, "Play icon");
 		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
 		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 		verifyElementPresent(AMDPlayerScreen.objNextIcon, "Next icon");
 		waitTime(1000);
-		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+		//click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 		click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
 		verifyElementPresentAndClick(AMDPlayerScreen.objSubtitleOption, "Subtitle option");
 		String defaultSelected = getText(AMDPlayerScreen.objSubtitleDefaultSelected);
@@ -13055,8 +13119,8 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 		waitTime(2000);
 		
 		extent.HeaderChildNode("Playback Rate Validation");
-//		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+		//click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		//click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 		String time1 = getText(AMDPlayerScreen.objTimer);
 		int startTime = timeToSec(time1);
 
@@ -13064,9 +13128,9 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 		extentLoggerPass("Time", "Time captured before increasing the Playback rate : " + startTime + " sec");
 
 		//-----> The following wait methods will is used to capture the elapsed Time after waiting for 10Sec playback
-		waitTime(5000);
-		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
-//		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		//waitTime(5000);
+	  //click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+      //click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
 		click(AMDPlayerScreen.objPlaybackRate, "Playback Rate option");
 		waitTime(2000);
@@ -13076,8 +13140,8 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 		waitTime(5000);
 		int playbackTimeinSec = startTime + 10;
 
-		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
-//		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		//click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+		//click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		String time2 = getText(AMDPlayerScreen.objTimer);
 		int elapsedTime = timeToSec(time2);
 
@@ -13091,7 +13155,7 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 			logger.info("Content playback Rate is NOT fast forwarded based on the speed set");
 			extentLoggerFail("Elapsed time", "Content playback Rate is NOT fast forwarded based on the speed set");
 		}
-		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+	    //click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		
 		//#######--- Below code cannot be executed due to the identifier missing for scrubbing the progress bar
@@ -13131,8 +13195,14 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 		}
 		registerPopUpClose();
 		completeProfilePopUpClose(usertype);
-		waitTime(7000);
+		waitTime(6000);
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		waitTime(1000);
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		scrubVideoToBegining(AMDPlayerScreen.objProgressBar);
+		waitTime(2000);
+	    click(AMDPlayerScreen.objPlay, "Play icon");
+	    waitTime(1000);
 		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		String time1 = getText(AMDPlayerScreen.objTimer);
 		int startTime = timeToSec(time1);
@@ -13199,19 +13269,21 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 
 	click(AMDMoreMenu.objSearchResult(searchKeyword3), "Search result");
 	waitTime(2000);
-	if (!userType.contains("SubscribedUser")) {
+	if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 		waitTime(5000);
 		registerPopUpClose();
 		completeProfilePopUpClose(userType);
 		LoadingInProgress();
 		adPlay();
-//		waitTime(5000);
-		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-	}else {
+	}
+	if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 	}
 	click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+	scrubVideoToBegining(AMDPlayerScreen.objProgressBar);
 	waitTime(2000);
+    click(AMDPlayerScreen.objPlay, "Play icon");
+    click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 	click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
 	click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 	String time1 = getText(AMDPlayerScreen.objTimer);
@@ -13224,7 +13296,9 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 	if (var == true) {
 		click(AMDPlayerScreen.objSkipIntro, "Skip Intro CTA");
 		waitTime(3000);
-		click(AMDPlayerScreen.objPlayerScreen, "Play screen");
+		if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+			click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+		}
 		click(AMDPlayerScreen.objPlayIcon, "Play icon");
 
 		String time2 = getText(AMDPlayerScreen.objTimer);
@@ -13245,7 +13319,14 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		extentLogger("Elapsed time", "Introduction playback of the content is already skipped in Landscape");
 	}
 
-	Back(2);
+	Back(1);
+	waitTime(5000);
+	
+	if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+	}
+	verifyElementPresentAndClick(AMDPlayerScreen.objBackButton, "Back button");
+	
 	if (verifyIsElementDisplayed(AMDMoreMenu.objSearchResult(searchKeyword3))) {
 		logger.info(
 				"User is navigated back to the previous screen from where the content is accessed post tapping on Back button in Player screen");
@@ -17556,28 +17637,25 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		waitTime(2000);
 		hideKeyboard();
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-
 		click(AMDMoreMenu.objSearchResult(searchKeyword8), "Search result");
-		if(pUserType.equalsIgnoreCase("Guest")) {
-			waitTime(3000);
-			if(checkElementExist(AMDPlayerScreen.objDialogBox)) {
-				click(AMDPlayerScreen.objDialogBox, "Dismiss Popup");
-			}
-		}
 		if (!(pUserType.equalsIgnoreCase("SubscribedUser"))) {
-			
 			waitForAdToFinishInAmd();
-			// click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			registerPopUpClose();
+			completeProfilePopUpClose(pUserType);
 		}
 		waitForElementDisplayed(AMDPlayerScreen.objPlayer, 10);
 		waitTime(5000);
-		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		}
 		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
 		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 		verifyElementPresentAndClick(AMDPlayerScreen.objNextIcon, "Next Icon in Landscape");
-		waitTime(2000);
-		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+		waitTime(7000);
+		if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+			click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+		}
 		verifyElementPresent(AMDPlayerScreen.objPreviousIcon, "Previous Icon in Landscape");
 		Back(3);
 		BackToLandingScreen();

@@ -28,13 +28,13 @@ public class Android_PlayerScreen {
 
 	@Test(priority = 1)
 	@Parameters({ "userType", "searchKeyword1", "searchKeyword4", "searchKeyword5", "searchKeyword3", "searchKeyword6"})
-	public void Player_Potrait(String userType, String searchKeyword1, String searchKeyword3, String searchKeyword4, String searchKeyword5, String searchKeyword6) throws Exception {
+	public void Player_Potrait(String userType, String searchKeyword1, String searchKeyword4, String searchKeyword5, String searchKeyword3, String searchKeyword6) throws Exception {
 		ZEE5ApplicasterBusinessLogic.PlayerPotrait(searchKeyword1, userType);
 		ZEE5ApplicasterBusinessLogic.premiumContentwithTrailer(userType, searchKeyword4);
 		ZEE5ApplicasterBusinessLogic.premiumContentWithoutTrailer(userType, searchKeyword5);
 		ZEE5ApplicasterBusinessLogic.skipIntroValidationInPotraitMode(searchKeyword3, userType);
-		ZEE5ApplicasterBusinessLogic.validationOfWatchCreditsAndUpNextCard(searchKeyword6, userType);
 		ZEE5ApplicasterBusinessLogic.ValidationOfReplayIconOnPlayer(searchKeyword6);
+		ZEE5ApplicasterBusinessLogic.validationOfWatchCreditsAndUpNextCard(searchKeyword6, userType);
 	}
 	
 	@Test(priority = 2)
@@ -73,7 +73,19 @@ public class Android_PlayerScreen {
 		ZEE5ApplicasterBusinessLogic.parentalPinValidationInLandscapeMode(userType, searchKeyword1);
 	}
 	
-//	@Test(priority = 5)		//-------- Upnext & Watch Credit is not appearing on the player due to Defect #AMA2-6266. Hence commenting this block & maintenance pending.
+	@Test(priority = 5)
+	@Parameters({ "userType", "searchKeyword11", "searchKeyword6" })
+	public void PlayerScreenValidationInLandscapeMode(String userType,String searchKeyword11, String searchKeyword6) throws Exception {
+		System.out.println("\nPlayer screen Validation in Landscape Mode");
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.playerValidationInFullScreenMode(userType, searchKeyword11, searchKeyword6);
+		
+	}
+	
+//	@Test(priority = 6)		//-------- Upnext & Watch Credit is not appearing on the player due to Defect #AMA2-6266. Hence commenting this block & maintenance pending.
 	@Parameters({ "userType", "searchKeyword1","searchKeyword8", "searchKeyword9"})
 	public void UpnextAndWatchCreditValidationInLandscapeMode(String userType, String searchKeyword1,String searchKeyword8,String searchKeyword9) throws Exception {
 		System.out.println("\nParental Pin PopUp Validation in Landscape Mode");
@@ -82,7 +94,6 @@ public class Android_PlayerScreen {
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLoginForSettings(userType);
 		ZEE5ApplicasterBusinessLogic.upnextRailValidationInLandscapeMode(searchKeyword8);
-		ZEE5ApplicasterBusinessLogic.playerValidationInFullScreenMode(userType, searchKeyword1);
 		ZEE5ApplicasterBusinessLogic.watchCreditsValidationInLandscapeMode(searchKeyword9,userType);
 	}
 	
