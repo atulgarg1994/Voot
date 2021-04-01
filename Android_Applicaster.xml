@@ -6,7 +6,7 @@
 		<parameter name="runMode" value="${runMode}"/> <parameter name="runModule" 
 		value="${runModule}"/> <parameter name="browserType" value="${browserType}"/> -->
 
-	<parameter name="userType" value="Guest" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
+	<parameter name="userType" value="NonSubscribedUser" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" /> 
 	
@@ -20,7 +20,7 @@
 
 	<parameter name="SubscribedUserName" value="zeegpay@gmail.com" />
 	<parameter name="SubscribedPassword" value="123456" />
-
+	
 	<parameter name="RegisteredEmail" value="zee5latest@gmail.com" />
 	<parameter name="RegisteredEmailPassword" value="User@123" />
 
@@ -36,9 +36,12 @@
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsUsername" value="zeetest08@gmail.com" />
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsPassword" value="123456"/>
 	
-	
 	<parameter name="PackWithDiscountUsername" value="dmgowthu@mailinator.com" />
 	<parameter name="PackWithDiscountPassword" value="12345678" />
+	
+	<parameter name="NonSubsWithoutPhNum" value="testma@gmail.com" />
+	<parameter name="NonSubsWithoutPhNumPwd" value="123456" />
+	
 	
 	<!-- ======Test Data====== -->
 	<parameter name="displayLanguageSelection1" value="English" />
@@ -59,8 +62,6 @@
 	<parameter name="invalidSearchKeyword" value="@$_-(;_+" />
 	<parameter name="partlySpeltSearchKeyword" value="Kam" />
 	<parameter name="searchModuleKeyword" value="Paaru" />
-	
-	
 	
 	<parameter name="searchKeyword" value="Aditya praises Paaru" />
 	<parameter name="searchKeyword1" value="Paaru gets tipsy" />
@@ -112,17 +113,16 @@
     <parameter name="ClubPassword" value="000000" />
 
 	<parameter name="SVODShow" value="Nisha" />
-	<parameter name="SVODEpisode" value="Anu arrives at the old warehouse - Jothe jotheyali " />
+	<parameter name="SVODEpisode" value="Anu arrives at the old warehouse - Jothe jotheyali" />
 	<parameter name="SVODMovie" value="47 days" />
-	<parameter name="SVODMusic" value="Kalede Hode Naanu - Chambal | Sathish Ninasam | Sonu Gowda" />
+	<parameter name="SVODMusic" value="Rekkeyaa Duet - Kavacha | Shivaraj Kumar | Baby Anunaya" />
 	
 	<parameter name="SearchVODContent"  value="Ammana Mane" />
     <parameter name="SearchVODContent2"  value="Prema Baraha" />
     <parameter name="keyword3" value="Kam" />
     <parameter name="SVODShow" value="Code M" />
 	<parameter name="SVODEpisode" value="Aditya apologises to Paarvathi - Paaru" />
-	<parameter name="SVODMovie" value="47 Days"/>
-	<parameter name="SVODMusic" value="Kalede Hode Naanu - Chambal | Sathish Ninasam | Sonu Gowda" />
+	
  	<parameter name="SearchVODContent3"  value="Hebbuli" />
 	<parameter name="browserType" value="Chrome"/>  <!--  Chrome/Firefox -->
 	<parameter name="RSVODContent" value="LockUp" />
@@ -148,12 +148,13 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
-	<test name="Android_AppLaunch">
+	<test name="Android_Consumption_Screen">
 		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_AppLaunch" />
+			<class name="com.zee5.ApplicasterScripts.Android_Consumption_Screen" />
 		</classes>
 	</test>
 
+<!-- 
 	<test name="Android_Onboarding_Suite1">
 		<classes>
 			<class
@@ -274,5 +275,6 @@
 		</classes>
 	</test>
 	
+	 -->
 
 </suite>

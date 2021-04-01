@@ -228,6 +228,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			break;
 		}
 		selectLanguages();
+
+//		String version = js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='versionText']"))).toString();
+//		System.out.println(version);
 	}
 
 	/**

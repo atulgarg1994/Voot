@@ -41,4 +41,5 @@ public class Zee5TvPlayerPage {
 	
 	public static By objPaymentPage = By.xpath("//*[@id='plan_selected']");
 	
+	public static By objreloadButton = By.xpath("//*[@id='reload_btn']");
 }
