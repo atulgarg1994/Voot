@@ -77,8 +77,6 @@ public class AMDConsumptionScreen {
 //	public static By objRegisterPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/tvtitle']");
 	public static By objRegisterTxtOnPlayer = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/player_error_message']");
-	public static By objRegisterBtnOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/btnAction']");
-	public static By objFirstUpNextContent = By.xpath("(//*[@id='horizontal_list_10_parent'])[1]");
 
 	public static By objLoginBtnOnPopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/tvLogin']");
 	public static By objContentCardOfTrayInConsumptionPage = By
@@ -123,12 +121,20 @@ public class AMDConsumptionScreen {
 		}
 	public static By objAudioLanguagepopup = By.xpath("//*[@id='playerOptionsTitleTextView']");
 	
-	public static By objBeforeTVContentName = By.xpath("	(//*[@id='cell_center_container']//*[@class='android.widget.TextView'])[1]");
 	public static By objDuratation = By.xpath("//*[@id='playerDurationTotal']");
 	
 	public static By objContentInfo = By.xpath("//*[@id='content_info']");
 	
 	public static By objAudeioLangPopUpClose = By.xpath("//*[@id='player_option_top_pill']");
 	
-	
+
+	public static By objCompleteProfilePopup = By.xpath("//*[@id='tv_title' and @text='Complete Profile']");
+	public static By objProfilePopupTextMsg = By.xpath("//*[@id='tvSubtitle']");
+	public static By objSendOTPBtn = By.xpath("//*[@id='btnupdate' and @text='Send OTP']");
+	public static By objMobNumField = By.xpath("//*[@id='edit_email' and @text='Mobile Number']");
+	public static By objErrTextOnPlayer = By.xpath("//*[@id='errorViewText']");
+
+	public static By objFirstUpNextContent = By.xpath("(//*[@id='horizontal_list_10_parent'])[1]|(//*[@id='belowPlayerContentRecyclerView']//child::*[@text='Up Next']//parent::*//following-sibling::*//*[@class='android.widget.ImageView'])[1]");
+	public static By objRegisterBtnOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/btnAction']|//*[@id='errorViewButton']");
+	public static By objBeforeTVContentName = By.xpath("(//*[@id='collectionPageRecyclerView']//*[@id='cell_bottom_container']//*[@class='android.widget.TextView'])[1]");
 	}

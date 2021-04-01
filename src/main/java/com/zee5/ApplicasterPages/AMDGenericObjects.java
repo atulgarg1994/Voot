@@ -111,4 +111,6 @@ public class AMDGenericObjects {
 	public static By objPageTitle(String title) {
 			return By.xpath("//*[@class='android.widget.LinearLayout']//*[@id='homeTabLayout']//*[@class='android.widget.LinearLayout']//*[@text='"+title+"']");
 		}
+	
+	public static By objFirstCardFromTray = By.xpath("(//*[@text='a']//parent::*//following-sibling::*//*[@class='android.widget.ImageView'])[1]");
 }

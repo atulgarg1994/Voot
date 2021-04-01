@@ -21,11 +21,9 @@ public class Android_Consumption_Screen {
 	@Test(priority = 0)
 	@Parameters({ "userType" })
 	public void ApplicasterLogin(String userType) throws Exception {
-
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
-
 	}
 
 	@Test(priority = 1)
@@ -56,16 +54,16 @@ public class Android_Consumption_Screen {
 	@Parameters({ "userType" })
 	public void NSVODConsumptionScreen(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.verifyNonSVODConsumptionScreen(userType);
-		//ZEE5ApplicasterBusinessLogic.verifySimilarChannels();
+//		ZEE5ApplicasterBusinessLogic.verifySimilarChannels();
 	}
 	
 	@Test(priority = 6)
-	@Parameters({ "userType" })
-	public void MandatoryRegistrationPopUp(String userType) throws Exception {
+	@Parameters({ "userType","NonSubsWithoutPhNum","NonSubsWithoutPhNumPwd" })
+	public void MandatoryRegistrationOrCompleteProfilePopUp(String userType,String pUserName, String pPassword) throws Exception {
 			ZEE5ApplicasterBusinessLogic.relaunch(true);
 			ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 			ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
-			ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+			ZEE5ApplicasterBusinessLogic.ZeeAppLoginWithCredentials(userType, pUserName, pPassword);
 			ZEE5ApplicasterBusinessLogic.MandatoryPopUpScenarios(userType);
 	}
 	
