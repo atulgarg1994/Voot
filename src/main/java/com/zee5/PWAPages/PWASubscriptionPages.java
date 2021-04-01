@@ -333,4 +333,6 @@ public class PWASubscriptionPages {
 	public static By objEmailContinueButton = By.xpath("//div[@class='buttonContainer ']//span[contains(text(), 'Continue')]");
 
 	public static By objPasswordContinueButton = By.xpath("//div[@class='buttonContainer']//span[contains(text(), 'Continue')]");
+	
+	public static By objZEE5SubscriptionPage = By.xpath("//div[@class='subPackFlowContent']");
 }

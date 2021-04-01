@@ -10647,8 +10647,8 @@ public void Haveaprepaidcode(String userType) throws Exception {
 		extent.HeaderChildNode("Validation of Watch Credits CTA and UpNext Card");
 		System.out.println("\nValidation of Watch Credits CTA and UpNext Card");
 
-		click(AMDSearchScreen.objSearchBoxBar, "Search Box");
-		clearField(AMDSearchScreen.objSearchBoxBar, "Search box");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
 		type(AMDSearchScreen.objSearchBoxBar, searchKeyword + "\n", "Search bar");
 		waitTime(2000);
 		hideKeyboard();
@@ -16740,10 +16740,11 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 			logger.info(WebPWASubscription);
 		}
 
-		verifyElementExist(PWASubscriptionPages.objZEE5Subscription, "Subscription page");
+		verifyElementExist(PWASubscriptionPages.objZEE5SubscriptionPage, "Subscription page");
 		waitTime(2000);
 		Back(1);
 	}
+
 
 	public void webTransaction() throws Exception {
 		extent.HeaderChildNode("My Transaction in Web");
