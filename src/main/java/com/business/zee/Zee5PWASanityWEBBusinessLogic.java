@@ -4595,7 +4595,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				// waitForElementAndClickIfPresent(PWALiveTVPage.objFacebookEmailField, 5,
 				// "Facebook Email field");
 				click(PWALiveTVPage.objFacebookEmailField, "Facebook Email field");
-				getWebDriver().findElement(PWALiveTVPage.objFacebookEmailField).sendKeys("");// igszeetest@gmail.com
+				getWebDriver().findElement(PWALiveTVPage.objFacebookEmailField).sendKeys("igszeetest@gmail.com");
 				verifyElementPresentAndClick(PWALiveTVPage.objFacebookPasswordField, "Facebook Password field");
 				getWebDriver().findElement(PWALiveTVPage.objFacebookPasswordField).sendKeys("igs@12345");
 				waitForElementAndClickIfPresent(PWALiveTVPage.objFacebookLoginBtn, 5, "Facebook Login button");
@@ -4620,8 +4620,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					"Content Title in Details Page").toString();
 			String detailsEpisode = getElementPropertyToString("innerText", PWAShowsPage.objFirstAssetEpisodeFirstRail,
 					"Content Episode number in Details Page").toString();
-			String detailsDate = getElementPropertyToString("innerText", PWAShowsPage.objFirstAssetDurationFirstRail,
-					"Content total Duration in Details Page").toString();
+			String detailsDate = getElementPropertyToString("innerText",
+					PWAShowsPage.objFirstAssetDurationFirstRail, "Content total Duration in Details Page").toString();
 			System.out.println("Data fetched from Show details: Title: " + detailsTitle + ", Episode: " + detailsEpisode
 					+ ", Date: " + detailsDate);
 			extent.extentLogger("dataFetched", "Data fetched from Show details: Title: " + detailsTitle + ", Episode: "
@@ -4670,7 +4670,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			} else {
 				extent.extentLoggerFail("durationMismatch",
 						"Details page and Consumption page content date mismatched: " + consumptionDate);
-				logger.error("Details page and Consumption page content date mismatched: " + consumptionDate);
+				logger.error(
+						"Details page and Consumption page content date duration mismatched: " + consumptionDate);
 			}
 		} else {
 			extent.extentLoggerFail("incorrectNavigation",

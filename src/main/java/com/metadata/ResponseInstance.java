@@ -763,7 +763,21 @@ public class ResponseInstance {
 //		subscriptionDetails();
 //		getResponse("http://igs-machine4.ngrok.io/login");
 //		getUserSettingsValues("zeetest10@test.com","123456");
-		getUserSettingsValues("zeeprime@mailnesia.com","123456");
+//		getUserSettingsValues("zeeprime@mailnesia.com","123456");
+//		 String jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiaXNzIjoibXlzZWxmIiwiZXhwIjoxNDcxMDg2MzgxfQ.1EI2haSz9aMsHjFUXNVz2Z4mtC0nMdZo6bo3-x-aRpw";
+		 String jwtToken = getBearerToken("zeeprime@mailnesia.com","123456");
+		 System.out.println(jwtToken);
+		 java.util.Base64.Decoder decoder = java.util.Base64.getUrlDecoder();
+         String[] parts = jwtToken.split("\\."); // split out the "parts" (header, payload and signature)
+
+//         String headerJson = new String(decoder.decode(parts[0]));
+         String payloadJson = new String(decoder.decode(parts[1]));
+         //String signatureJson = new String(decoder.decode(parts[2]));
+         System.out.println(payloadJson);
+             JSONObject jsonObject = new JSONObject(payloadJson);
+         System.out.println(jsonObject.get("subscriptions").toString());
+         JSONObject jsonObject1 = new JSONObject(jsonObject.get("subscriptions").toString());
+         System.out.println(jsonObject1);
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
