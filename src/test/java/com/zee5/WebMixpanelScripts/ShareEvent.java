@@ -23,12 +23,13 @@ public class ShareEvent {
 	}
 	
 	@Test(priority = 1)
-	public void verifyShareEventByMouseHover() throws Exception {
+	@Parameters({ "Tab" })
+	public void verifyShareEventByMouseHover(String tab) throws Exception {
 		System.out.println("Verify Share Event By Mouse Hovering on a Content Card");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyShareEventByMouseHover();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyShareEventByMouseHover(tab);
 	}
 
-	@Test(priority = 2)
+//	@Test(priority = 2)
 	@Parameters({ "keyword1" })
 	public void verifyShareEventFromPlaybackPage(String keyword1) throws Exception {
 		System.out.println("Verify Share Event From Playback Page");
@@ -36,14 +37,14 @@ public class ShareEvent {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyShareEventFromPlaybackPage(keyword1);
 	}
 
-	@Test(priority = 3)
+//	@Test(priority = 3)
 	public void verifyShareEventForUpcomingProgram() throws Exception {
 		System.out.println("Verify Share Event for Upcoming Program");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyShareEventForUpcomingProgram();
 	}
 
-	@Test(priority = 4)
+//	@Test(priority = 4)
 	@Parameters({ "keyword" })
 	public void verifyShareEventFromShowDetailPage(String keyword) throws Exception {
 		System.out.println("Verify Share Event From Show Detail Page");

@@ -31,7 +31,7 @@
 	<parameter name="RegisteredMobilePassword" value="User@123" />
 	
 	<parameter name="UnRegisteredMobile" value="8073661163" />
-	<parameter name="PromoCode" value="zee5sbi20" />
+	<parameter name="PromoCode" value="prein50" />
 	
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsUsername" value="zeetest08@gmail.com" />
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsPassword" value="123456"/>
@@ -153,8 +153,13 @@
 			<class name="com.zee5.ApplicasterScripts.Android_Consumption_Screen" />
 		</classes>
 	</test>
+	
+	<test name="Android_AppLaunch">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_AppLaunch" />
+		</classes>
+	</test>
 
-<!-- 
 	<test name="Android_Onboarding_Suite1">
 		<classes>
 			<class
@@ -269,12 +274,5 @@
 		</classes>
 	</test>
 	
-	<test name="Android_DownloadsNew">
-		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_DownloadsNew" />
-		</classes>
-	</test>
-	
-	 -->
 
 </suite>

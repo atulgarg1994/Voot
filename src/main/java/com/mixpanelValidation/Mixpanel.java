@@ -546,10 +546,10 @@ public class Mixpanel extends ExtentReporter {
 		String Next_Pack_Expiry_Date=Latest_Subscription_Pack_Expiry;
 		String billing_frequency=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].billing_frequency").toString();	
 		Response tvodResp=ResponseInstance.getTVODDetails(username, password);
+		int tvodItems=tvodResp.jsonPath().get("playback_state.size()");
 		String HasRental="";
-		try {
-			System.out.println("tvod tvod tvod "+tvodResp.jsonPath().get("subscription_plan[0].subscription_plan_type").toString());
-			if(tvodResp.jsonPath().get("subscription_plan[0].subscription_plan_type").toString().equals("TVOD")) HasRental="true";
+		try {			
+			if(tvodResp.jsonPath().get("playback_state["+(tvodItems-1)+"]").toString().equalsIgnoreCase("purchased")) HasRental="true";
 			else HasRental="false";
 		}catch(Exception e) {HasRental="false";}
 		

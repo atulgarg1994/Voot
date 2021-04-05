@@ -4844,18 +4844,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (getOEMName.equalsIgnoreCase("Sony")) {
 			Wifi_TurnOFFnON();
 			waitTime(7000);
-			waitForElementDisplayed(AMDDownloadPage.objRetryCTA, 2000);
+			//waitForElementDisplayed(AMDDownloadPage.objRetryCTA, 2000);
 		}
-		click(AMDDownloadPage.objRetryCTA, "Call out with Retry CTA");
-		waitTime(5000);
+		//Commenting these line as Downloads should continue after connecting to the Internet
+		//click(AMDDownloadPage.objRetryCTA, "Call out with Retry CTA");
+		//waitTime(5000);
 		if (checkElementExist(AMDDownloadPage.objDownloadingCircularBar, "Downloading circular bar")) {
 			extent.extentLoggerPass("Re-start",
-					"User is able to tap the Retry CTA and resumed downloading the content");
-			logger.info("User is able to tap the Retry CTA and resumed downloading the content");
+					"Downloading content resumed post reconnecting back to Network");
+			logger.info("Downloading content resumed post reconnecting back to Network");
 		} else {
 			extent.extentLoggerFail("Re-start",
-					"User fails to tap the Retry CTA and fail to resume downloading the content");
-			logger.error("User fails to tap the Retry CTA and fail to resume downloading the content");
+					"[Jira-Id: AMA2-9690] : Download fails to resume from paused state post reconnecting back to Network");
+			logger.error("[Jira-Id: AMA2-9690] : Download fails to resume from paused state post reconnecting back to Network");
 		}
 		}else {
 			logger.info("Download offline validation is not applicable for " + userType);

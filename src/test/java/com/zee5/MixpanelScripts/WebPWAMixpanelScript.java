@@ -211,11 +211,11 @@ public class WebPWAMixpanelScript {
 		Zee5PWAWEBMixPanelBusinessLogic.verifyRemoveFomWatchlistEventByMouseHoverInShowDetailPage(userType,keyword);
 	}
 	
-	@Test(priority = 28)
-	public void verifyShareEventByMouseHover() throws Exception {
-		System.out.println("Verify Share Event By Mouse Hovering on a Content Card");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyShareEventByMouseHover();
-	}
+//	@Test(priority = 28)
+//	public void verifyShareEventByMouseHover() throws Exception {
+//		System.out.println("Verify Share Event By Mouse Hovering on a Content Card");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyShareEventByMouseHover();
+//	}
 	
 	
 	@Test(priority = 29)

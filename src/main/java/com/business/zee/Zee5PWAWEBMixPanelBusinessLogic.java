@@ -1443,11 +1443,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void verifyShareEventByMouseHover() throws Exception {
+	public void verifyShareEventByMouseHover(String tabName) throws Exception {
 
 		extent.HeaderChildNode("Verify Share Event By Mouse Hovering on a Content Card");
 		waitTime(5000);
-		navigateToAnyScreenOnWeb("Movies");
+		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
 		String link = findElement(By.xpath("(//div[@class='movieCard card marginRight minutelyUrl zoomCardHover'])[1]"))
 				.getAttribute("data-minutelyurl");

@@ -3277,34 +3277,33 @@ public static String getTabNameForAPI(String pageName) {
 	return pageName;
 }
 
-
 public static Response getSubscriptionDetails(String username, String password) {
-	String url="https://subscriptionapi.zee5.com/v1/subscription?translation=en&country=IN&include_all=true";
+	String url = "https://subscriptionapi.zee5.com/v1/subscription?translation=en&country=IN&include_all=true";
 	Response response = null;
-	String b=getBearerToken(username, password);
-	//System.out.println("\nbearer token :"+b+"\n");
-	response = given().headers("Authorization", b).when().get(url);	
-	//System.out.println("\nresponse body: "+response.getBody().asString());
+	String b = getBearerToken(username, password);
+	// System.out.println("\nbearer token :"+b+"\n");
+	response = given().headers("Authorization", b).when().get(url);
+	// System.out.println("\nresponse body: "+response.getBody().asString());
 	return response;
 }
 
 public static Response getSettingsDetails(String username, String password) {
-	String url="https://userapi.zee5.com/v1/settings";
+	String url = "https://userapi.zee5.com/v1/settings";
 	Response response = null;
-	String b=getBearerToken(username, password);
-	//System.out.println("\nbearer token :"+b+"\n");
-	response = given().headers("Authorization", b).when().get(url);	
-	//System.out.println("\nresponse body: "+response.getBody().asString());
+	String b = getBearerToken(username, password);
+	// System.out.println("\nbearer token :"+b+"\n");
+	response = given().headers("Authorization", b).when().get(url);
+	// System.out.println("\nresponse body: "+response.getBody().asString());
 	return response;
 }
 
 public static Response getTVODDetails(String username, String password) {
-	String url="https://subscriptionapi.zee5.com/v1/purchase";
+	String url = "https://subscriptionapi.zee5.com/v1/purchase";
 	Response response = null;
-	String b=getBearerToken(username, password);
-	//System.out.println("\nbearer token :"+b+"\n");
-	response = given().headers("Authorization", b).when().get(url);	
-	//System.out.println("\nresponse body: "+response.getBody().asString());
+	String b = getBearerToken(username, password);
+	// System.out.println("\nbearer token :"+b+"\n");
+	response = given().headers("Authorization", b).when().get(url);
+	// System.out.println("\nresponse body: "+response.getBody().asString());
 	return response;
 }
 
