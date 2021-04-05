@@ -2093,10 +2093,13 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	public void verifyChangePasswordStartedEvent(String userType) throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Verify Change Password Started Event");
+			extent.HeaderChildNode("Verify Change Password Started Event");waitTime(2000);
 			click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+			waitTime(2000);
 			click(PWAHamburgerMenuPage.objProfileIconInProfilePage, "profile icon");
+			waitTime(2000);
 			click(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
+			waitTime(2000);
 			click(PWAHamburgerMenuPage.objChangeOldPassword, "password field");
 			type(PWAHamburgerMenuPage.objChangeOldPassword, "igsindia123", "Current password field");
 			click(PWAHamburgerMenuPage.objNewPassword, "new password field");
@@ -2122,7 +2125,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(3000);
 			click(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted, "Update password button");
 			waitTime(8000);
-		
+			
 		}
 	}
 

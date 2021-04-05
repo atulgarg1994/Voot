@@ -41,6 +41,10 @@ public class Android_Consumption_Screen {
 	@Test(priority = 3)
 	@Parameters({ "userType", "SVODMovie" })
 	public void SVODConsumptionScreenForMoviesTab(String userType, String SVODMovie) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.SVODConsumptionScreen(userType, "Movies", SVODMovie);
 	}
 
@@ -69,7 +73,7 @@ public class Android_Consumption_Screen {
 	
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println("\nQuit the App\n");
+		System.out.println("\nExecution Complete - Closing the App");
 		ZEE5ApplicasterBusinessLogic.tearDown();
 	}
 

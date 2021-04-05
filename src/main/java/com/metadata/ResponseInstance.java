@@ -1,11 +1,16 @@
 package com.metadata;
 
 import static com.jayway.restassured.RestAssured.given;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Reporter;
 import com.driverInstance.DriverInstance;
@@ -16,6 +21,8 @@ import com.mixpanelValidation.Mixpanel;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.LoggingUtils;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class ResponseInstance {
@@ -765,19 +772,29 @@ public class ResponseInstance {
 //		getUserSettingsValues("zeetest10@test.com","123456");
 //		getUserSettingsValues("zeeprime@mailnesia.com","123456");
 //		 String jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiaXNzIjoibXlzZWxmIiwiZXhwIjoxNDcxMDg2MzgxfQ.1EI2haSz9aMsHjFUXNVz2Z4mtC0nMdZo6bo3-x-aRpw";
+		
+		fetchSubscriptionDetailsFromToken();
+	}
+	
+	public static void fetchSubscriptionDetailsFromToken() {
 		 String jwtToken = getBearerToken("zeeprime@mailnesia.com","123456");
 		 System.out.println(jwtToken);
 		 java.util.Base64.Decoder decoder = java.util.Base64.getUrlDecoder();
-         String[] parts = jwtToken.split("\\."); // split out the "parts" (header, payload and signature)
-
-//         String headerJson = new String(decoder.decode(parts[0]));
+         String[] parts = jwtToken.split("\\.");
          String payloadJson = new String(decoder.decode(parts[1]));
-         //String signatureJson = new String(decoder.decode(parts[2]));
-         System.out.println(payloadJson);
-             JSONObject jsonObject = new JSONObject(payloadJson);
-         System.out.println(jsonObject.get("subscriptions").toString());
-         JSONObject jsonObject1 = new JSONObject(jsonObject.get("subscriptions").toString());
-         System.out.println(jsonObject1);
+         JSONObject jsonObject = new JSONObject(payloadJson);
+         String payload = jsonObject.get("subscriptions").toString();
+         Pattern p = Pattern.compile("\\[(.*)\\]");
+         Matcher m = p.matcher(payload);
+         String value = null;
+         while (m.find()) {
+			value = m.group(1);
+         }
+         System.out.println(value);
+         JSONObject jsonObject2 = new JSONObject(value);
+         System.out.println(jsonObject2.get("subscription_plan"));
+         JSONObject jsonObject3 = new JSONObject(jsonObject2.get("subscription_plan").toString());
+         System.out.println(jsonObject3.get("subscription_plan_type"));
 	}
 
 	public static Properties getUserSettingsDetails(String pUsername, String pPassword) {
@@ -817,7 +834,6 @@ public class ResponseInstance {
 		String bearerToken = getBearerToken(pUsername, pPassword);
 		String url = "https://userapi.zee5.com/v1/user";
 		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
-//		resp.prettyPrint();
 		String commaSplit[] = resp.asString().replace("{", "").replace("}", "").replaceAll("[.,](?=[^\\[]*\\])", "-")
 				.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 		for (int i = 0; i < commaSplit.length; i++) {
@@ -839,17 +855,15 @@ public class ResponseInstance {
 	}
 	
 	private static void getDOB() {
-
-		System.out.println(Mixpanel.FEProp.getProperty("birthday").split("T")[0]);
-		LocalDate dob = LocalDate.parse(Mixpanel.FEProp.getProperty("birthday").split("T")[0]);
+		String birthday=resp.jsonPath().get("birthday").toString();
+		LocalDate dob = LocalDate.parse(birthday.split("T")[0]);
 		LocalDate curDate = LocalDate.now();
-
-		if (DriverInstance.getPlatform().equalsIgnoreCase("Android")) {
-			Mixpanel.FEProp.setProperty("Age", String.valueOf((Period.between(dob, curDate).getYears())));
-		} else {
-			Mixpanel.FEProp.setProperty("Age", String.valueOf((Period.between(dob, curDate).getYears())));
+		int ageYears=Period.between(dob, curDate).getYears();
+		int ageMonths=Period.between(dob, curDate).getMonths();
+		if(ageMonths>=6) {
+			++ageYears;
 		}
-
+		Mixpanel.FEProp.setProperty("Age", String.valueOf(ageYears));
 	}
 
 	public static String getRegion() {
@@ -3262,6 +3276,38 @@ public static String getTabNameForAPI(String pageName) {
 	
 	return pageName;
 }
+
+
+public static Response getSubscriptionDetails(String username, String password) {
+	String url="https://subscriptionapi.zee5.com/v1/subscription?translation=en&country=IN&include_all=true";
+	Response response = null;
+	String b=getBearerToken(username, password);
+	//System.out.println("\nbearer token :"+b+"\n");
+	response = given().headers("Authorization", b).when().get(url);	
+	//System.out.println("\nresponse body: "+response.getBody().asString());
+	return response;
+}
+
+public static Response getSettingsDetails(String username, String password) {
+	String url="https://userapi.zee5.com/v1/settings";
+	Response response = null;
+	String b=getBearerToken(username, password);
+	//System.out.println("\nbearer token :"+b+"\n");
+	response = given().headers("Authorization", b).when().get(url);	
+	//System.out.println("\nresponse body: "+response.getBody().asString());
+	return response;
+}
+
+public static Response getTVODDetails(String username, String password) {
+	String url="https://subscriptionapi.zee5.com/v1/purchase";
+	Response response = null;
+	String b=getBearerToken(username, password);
+	//System.out.println("\nbearer token :"+b+"\n");
+	response = given().headers("Authorization", b).when().get(url);	
+	//System.out.println("\nresponse body: "+response.getBody().asString());
+	return response;
+}
+
 
 
 }

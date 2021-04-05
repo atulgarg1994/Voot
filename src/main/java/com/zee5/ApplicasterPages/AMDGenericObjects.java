@@ -113,4 +113,7 @@ public class AMDGenericObjects {
 		}
 	
 	public static By objFirstCardFromTray = By.xpath("(//*[@text='a']//parent::*//following-sibling::*//*[@class='android.widget.ImageView'])[1]");
+	
+	public static By objAddToWatchlistCTA = By.xpath("//*[@id='metaInfoActionButtonIconView' and @text='a']");
+	public static By objAdded_WatchlistCTA = By.xpath("//*[@id='metaInfoActionButtonIconView' and @text='A']");
 }

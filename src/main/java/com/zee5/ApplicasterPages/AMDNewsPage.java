@@ -31,9 +31,6 @@ public class AMDNewsPage {
 	public static By objTrayHeader = By.xpath("//*[@id='item_primary_text']");
 	
 	public static By objThumbnailImg1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[10]");
-	
-	public static By objChannelName = By.xpath("(//*[@class='android.widget.TextView'])[2]");
-	public static By objContentGenere = By.xpath("(//*[@class='android.widget.TextView'])[3]");
 	public static By objContentDuration = By.xpath("(//*[@class='android.widget.TextView'])[5]");
 	public static By objShareButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/native_share_button']");
 //	public static By objWatchlistIcon = By.xpath("//*[@resource-id='com.graymatrix.did:id/watch_list_image' and (./preceding-sibling::* | ./following-sibling::*)[@text='Watchlist']]");
@@ -61,10 +58,6 @@ public class AMDNewsPage {
 
     public static By objChannelNameBelowTheCard = By.xpath("((//*[@id='recyclerView']/*/*[@id='recyclerView'])[2]/*/*[@id='item_primary_text'])") ;
 	
-//	public static By objLiveChannelName = By.xpath("((//*[@id='recyclerView']/*/*[@id='recyclerView'])[2]/*[@id='horizontal_list_10_parent'])[1]");
-	
-	public static By objSwipeTray = By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[1]");
-	
 	public static By objTraycard = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[1]");
 	
 	public static By objBroadcastedDate = By.xpath("(//*[@class='android.widget.TextView'])[4]");
@@ -91,4 +84,12 @@ public class AMDNewsPage {
 	public static By objNextContentImg = By.xpath("(//*[@resource-id='com.graymatrix.did:id/cell_bottom_container']/preceding-sibling::*/child::*)[3]");
 	
 	public static By objBackIconOnListingScreen = By.xpath("//*[@id='collectionToolBarBackButton']");
+	
+	public static By objSwipeTray = By.xpath("(//*[@resource-id='com.graymatrix.did:id/header_primary_text'])[1]|(//*[@text='a']//parent::*//child::*[1])[1]");
+	public static By objChannelName = By.xpath("//*[@id='content_title']");
+	public static By objContentGenere = By.xpath("//*[@id='content_info']");
+
+	public static By objWatchListContentList(int index) {
+	    return By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])["+index+"]");
+	}
 }

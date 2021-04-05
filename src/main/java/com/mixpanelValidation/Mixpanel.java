@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -69,7 +71,7 @@ public class Mixpanel extends ExtentReporter {
 	public static boolean Language = true;
 
 	public static void ValidateParameter(String distinctID, String eventName)
-			throws JsonParseException, JsonMappingException, IOException, InterruptedException {
+			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
 		System.out.println("Parameter Validation " + distinctID);
 		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
 		booleanParameters = Prop.getproperty("Boolean");
@@ -172,7 +174,7 @@ public class Mixpanel extends ExtentReporter {
 	public static void fetchEvent(String distinct_id, String eventName)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
-			Thread.sleep(18000);
+			Thread.sleep(180000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -190,9 +192,6 @@ public class Mixpanel extends ExtentReporter {
 			if (distinct_id.contains("-")) {
 				UserID = "Unique ID";
 				UserType = "Login";
-//				FEProp.setProperty("Unique ID", distinct_id);
-			}else {
-//				FEProp.setProperty("distinct_id", distinct_id);
 			}
 		}else if(platform.equals("TV")) {
 			APIKey = "e45c2466330383c493ba355fd0819bf4";
@@ -200,13 +199,17 @@ public class Mixpanel extends ExtentReporter {
 			distinct_id = modelName();
 		}
 	
-		Response request = RestAssured.given().auth().preemptive().basic(APIKey, "")
-				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
-				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
-				.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
-				.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
-				.post("https://data.mixpanel.com/api/2.0/export/");
-		
+		Response request=null;
+		for(int trial=0;trial<5;trial++) {
+			request = RestAssured.given().auth().preemptive().basic(APIKey, "")
+					.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
+					.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
+					.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
+					.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
+					.post("https://data.mixpanel.com/api/2.0/export/");
+			if(request.equals(null) || request.equals("")) extent.extentLogger("", "Failed to fetch MP Response");
+			else break;
+		}
 		
 		System.out.println("Response : "+request.asString());
 		sheet = eventName.trim().replace(" ", "").replace("/", "");
@@ -459,7 +462,7 @@ public class Mixpanel extends ExtentReporter {
 		}
 	}
 
-	public static void StaticValues(String UniqueID) {
+	public static void StaticValues(String UniqueID) throws ParseException {
 		platform = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite().getName();
 		if (platform.equals("Mpwa")) {
 			FEProp.setProperty("Platform Name", "Web");
@@ -519,18 +522,57 @@ public class Mixpanel extends ExtentReporter {
 		SubcribedDetails = true;
 	}
 	
-	public static void SubcribedDetails() {
-		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
-		Mixpanel.FEProp.setProperty("Free Trial Expiry Date", Prop.getproperty("Sub_Free_Trial_Expiry_Date"));
-		Mixpanel.FEProp.setProperty("Free Trial Package", Prop.getproperty("Sub_Free_Trial_Package"));
-		Mixpanel.FEProp.setProperty("Latest Subscription Pack", Prop.getproperty("Sub_Latest_Subscription_Pack"));
-		Mixpanel.FEProp.setProperty("Latest Subscription Pack Expiry", Prop.getproperty("Sub_Latest_Subscription_Pack_Expiry"));
-		Mixpanel.FEProp.setProperty("Next Expiring Pack", Prop.getproperty("Sub_Next_Expiring_Pack"));
-		Mixpanel.FEProp.setProperty("Next Pack Expiry Date", Prop.getproperty("Sub_Next_Pack_Expiry_Date"));
-		Mixpanel.FEProp.setProperty("Pack Duration", Prop.getproperty("Sub_Pack_Duration"));
-		Mixpanel.FEProp.setProperty("HasRental", Prop.getproperty("Sub_HasRental"));
-		Mixpanel.FEProp.setProperty("hasEduauraa", Prop.getproperty("Sub_hasEduauraa"));
-		SubcribedDetails = true;
+	public static void SubcribedDetails() throws ParseException {	
+		String UserType;
+		UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String username = null,password = null;
+		if(UserType.equals("SubscribedUser")) {
+			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserPassword");
+		}
+		Response subscriptionResp=ResponseInstance.getSubscriptionDetails(username, password);
+		int subscriptionItems=subscriptionResp.jsonPath().get("subscription_plan.size()");		
+		String id=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].id").toString();
+		String subscription_plan_type=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].subscription_plan_type").toString();
+		String title=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].title").toString();
+		String Latest_Subscription_Pack=id+"_"+title+"_"+subscription_plan_type;
+		String packExpiry=subscriptionResp.jsonPath().get("subscription_end["+(subscriptionItems-1)+"]").toString();
+		SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		java.text.DateFormat actualFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		actualFormat.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
+		java.util.Date packExpiryDate = actualFormat.parse(packExpiry);
+		String Latest_Subscription_Pack_Expiry=requiredFormat.format(packExpiryDate).toString();
+		String Next_Expiring_Pack="["+Latest_Subscription_Pack+"]";
+		String Next_Pack_Expiry_Date=Latest_Subscription_Pack_Expiry;
+		String billing_frequency=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].billing_frequency").toString();	
+		Response tvodResp=ResponseInstance.getTVODDetails(username, password);
+		String HasRental="";
+		try {
+			System.out.println("tvod tvod tvod "+tvodResp.jsonPath().get("subscription_plan[0].subscription_plan_type").toString());
+			if(tvodResp.jsonPath().get("subscription_plan[0].subscription_plan_type").toString().equals("TVOD")) HasRental="true";
+			else HasRental="false";
+		}catch(Exception e) {HasRental="false";}
+		
+		Response settingsResp=ResponseInstance.getSettingsDetails(username, password);
+		String hasEduauraa="false",key="";
+		int pairs=settingsResp.jsonPath().get("key.size()");
+		for (int i=0;i<pairs;i++) {
+			key=settingsResp.jsonPath().get("key["+i+"]").toString();
+			if(key.equals("eduauraaClaimed")) { 			
+				hasEduauraa=settingsResp.jsonPath().get("value["+i+"]").toString();
+				if(hasEduauraa.equals("")) hasEduauraa="false";
+				break;
+			}
+		}
+		Mixpanel.FEProp.setProperty("Free Trial Expiry Date", "N/A");
+		Mixpanel.FEProp.setProperty("Free Trial Package", "N/A");		
+		Mixpanel.FEProp.setProperty("Latest Subscription Pack", Latest_Subscription_Pack);
+		Mixpanel.FEProp.setProperty("Latest Subscription Pack Expiry", Latest_Subscription_Pack_Expiry);
+		Mixpanel.FEProp.setProperty("Next Expiring Pack", Next_Expiring_Pack);
+		Mixpanel.FEProp.setProperty("Next Pack Expiry Date", Next_Pack_Expiry_Date);
+		Mixpanel.FEProp.setProperty("Pack Duration", billing_frequency);
+		Mixpanel.FEProp.setProperty("HasRental", HasRental);
+		Mixpanel.FEProp.setProperty("hasEduauraa", hasEduauraa);
 	}
 
 	@SuppressWarnings("static-access")
@@ -695,7 +737,7 @@ public class Mixpanel extends ExtentReporter {
 	}
 
 	public static void parentalValidateParameter(String distinctID, String eventName)
-			throws JsonParseException, JsonMappingException, IOException, InterruptedException {
+			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
 		System.out.println("Parameter Validation " + distinctID);
 		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
 		booleanParameters = Prop.getproperty("Boolean");

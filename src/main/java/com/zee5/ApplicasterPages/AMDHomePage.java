@@ -238,5 +238,5 @@ public class AMDHomePage {
 	
 	public static By objShowsTab = By.xpath("//*[@id='title' and @text='Shows'] | //*[@text='Shows'] | //*[@text='TV Shows']");
 	
-	
+	public static By objHomeBottomBtn = By.xpath("//*[@id='navigationTitleTextView' and @text='Home']");
 	}
