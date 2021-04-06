@@ -52,6 +52,7 @@ public class ExtentReporter implements ITestListener {
 	private static ArrayList<String> moduleFail = new ArrayList<String>();
 	private static int moduleFailCount = 0;
 	private static int logfail = 0;
+	public static String version;
 	
 
 	/** The Constant logger. */

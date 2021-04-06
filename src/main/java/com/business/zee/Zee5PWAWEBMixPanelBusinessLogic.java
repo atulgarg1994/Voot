@@ -1183,14 +1183,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			String password = "";
 			if (userType.equals("NonSubscribedUser")) {
 				password = getParameterFromXML("SettingsNonSubscribedPassword");
+				
 			} else if (userType.equals("SubscribedUser")) {
 				password = getParameterFromXML("SettingsSubscribedPassword");
+				
 			}
 			type(PWALoginPage.objPasswordField, password, "Password field");
 			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
 			waitTime(2000);
 			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
-
+			click(PWAHamburgerMenuPage.objNoRestrictionSelected, "No Restriction option");
 			switch (restriction) {
 
 			case "Age13+":
@@ -1244,6 +1246,18 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 
+			if (userType.equals("NonSubscribedUser")) {
+				
+				ResponseInstance.getUserData("zeetest@gmail.com","zee123");
+				ResponseInstance.getUserSettingsValues("zeetest@gmail.com","zee123");
+			
+			} else if (userType.equals("SubscribedUser")) {
+				
+				ResponseInstance.getUserData("zeein7@mailnesia.com","123456");
+				ResponseInstance.getUserSettingsValues("zeein7@mailnesia.com","123456");
+			}
+			
+			
 			mixpanel.parentalValidateParameter(local.getItem("ID"), "Parental_Restriction");
 			
 			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
@@ -1915,19 +1929,19 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreenOnWeb(tabName);
 		waitTime(5000);
 		click(PWAPremiumPage.objNextArrowBtn, "Right Arrow Button");
-		String TrayTitle = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getText();
-		String link = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]"))
-				.getAttribute("href");
-		Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
-		Matcher m = p.matcher(link);
-		String value = null;
-		while (m.find()) {
-			value = m.group(0);
-		}
-		mixpanel.FEProp.setProperty("Carousal ID", value.replace("/", ""));
-		mixpanel.FEProp.setProperty("Carousal Name", TrayTitle);
+//		String TrayTitle = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getText();
+//		String link = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]"))
+//				.getAttribute("href");
+//		Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
+//		Matcher m = p.matcher(link);
+//		String value = null;
+//		while (m.find()) {
+//			value = m.group(0);
+//		}
+//		mixpanel.FEProp.setProperty("Carousal ID", value.replace("/", ""));
+//		mixpanel.FEProp.setProperty("Carousal Name", TrayTitle);
 		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "tv_shows_view_all");
+		mixpanel.FEProp.setProperty("Page Name", landingPageName());
 		mixpanel.FEProp.setProperty("Element", "right-arrow");
 		mixpanel.FEProp.setProperty("Direction", "Right");
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
@@ -1938,6 +1952,39 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Content Bucket Swipe");
 		}
 	}
+	
+	public void verifyContentBucketSwipeEventLeft(String tabName) throws Exception {
+		extent.HeaderChildNode("Verify Content Bucket Swipe Event Across tabs");
+		navigateToAnyScreenOnWeb(tabName);
+		waitTime(5000);
+		click(PWAPremiumPage.objNextArrowBtn, "Right Arrow Button");
+		
+		click(PWAPremiumPage.objPreviousArrowBtn, "Left Arrow Button");
+		
+//		String TrayTitle = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]")).getText();
+//		String link = findElement(By.xpath("(.//*[@class='trayHeader']//*[@class='titleLink'])[1]"))
+//				.getAttribute("href");
+//		Pattern p = Pattern.compile("\\/([^\\/]+)\\/?$");
+//		Matcher m = p.matcher(link);
+//		String value = null;
+//		while (m.find()) {
+//			value = m.group(0);
+//		}
+//		mixpanel.FEProp.setProperty("Carousal ID", value.replace("/", ""));
+//		mixpanel.FEProp.setProperty("Carousal Name", TrayTitle);
+		mixpanel.FEProp.setProperty("Source", "home");
+		mixpanel.FEProp.setProperty("Page Name",landingPageName());
+		mixpanel.FEProp.setProperty("Element", "left-arrow");
+		mixpanel.FEProp.setProperty("Direction", "Left");
+		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		fetchUserType(local);
+		if (userType.equals("Guest")) {
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Content Bucket Swipe");
+		} else {
+			mixpanel.ValidateParameter(local.getItem("ID"), "Content Bucket Swipe");
+		}
+	}
+
 
 	public void verifyCarouselBannerSwipeEvent(String tabName) throws Exception {
 		extent.HeaderChildNode("Verify Carousel Banner Swipe Event Across tabs");
@@ -2132,8 +2179,11 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	public void verifyChangePasswordResultEvent(String userType) throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 			extent.HeaderChildNode("Verify Change Password Result Event");
+			waitTime(2000);
 			click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+			waitTime(2000);
 			click(PWAHamburgerMenuPage.objProfileIconInProfilePage, "profile icon");
+			waitTime(2000);
 			JSClick(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
 			click(PWAHamburgerMenuPage.objChangeOldPassword, "password field");
 			type(PWAHamburgerMenuPage.objChangeOldPassword, "igsindia123", "Current password field");
@@ -11672,8 +11722,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				waitTime(4000);
 			}
 			
-			
-			
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			mixpanel.FEProp.setProperty("Source", "search");
 			mixpanel.FEProp.setProperty("Page Name", "show_detail");
@@ -12944,11 +12992,12 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		type(PWAPlayerPage.objHavePromoCodeEditTxt, "PNB20", "Have a Promo Code ?");
 		verifyElementPresentAndClick(PWAPlayerPage.objProceedBtn, "Proceed Button");
 
-		mixpanel.FEProp.setProperty("Pop Up Group", "Pop up group");
-		mixpanel.FEProp.setProperty("Pop Up Name", "Pop Up Name");
-		mixpanel.FEProp.setProperty("Pop Up Type", "Pop Up Type");
+		mixpanel.FEProp.setProperty("Pop Up Group", "Skippable");
+		mixpanel.FEProp.setProperty("Pop Up Name", "Registration");
+		mixpanel.FEProp.setProperty("Pop Up Type", "Mandatory Registration");
 		mixpanel.FEProp.setProperty("Promo Code", "PNB20");
 		mixpanel.FEProp.setProperty("Success", "true");
+		
 
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
@@ -13009,6 +13058,9 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			if (id[i].contains("0-")) {
 				contentID = id[i];
 			}
+		}
+		if(findElements(By.xpath(".//*[@class='trailerInfoContainer']")).size() > 0) {
+			ResponseInstance.trailer = true;
 		}
 		return contentID;
 	}
@@ -13171,19 +13223,25 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 	public String pageName() throws Exception {
 		waitTime(2000);
 		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
-		System.out.println("JS : "+js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))));
 		String pageNameTxt = js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))).toString();
-//				findElement(By.xpath(".//*[@class='noSelect active ']")).getText();
-		System.out.println("Page : "+pageNameTxt);
-		System.out.println("JS : "+js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))));
-		System.out.println(findElement(By.xpath(".//*[@class='noSelect active ']")).getAttribute("href"));
-		System.out.println(pageNameTxt.replaceAll(" ","").toLowerCase());
 		if (pageNameTxt.equals("TV Shows")) {
 			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 1) {
 				return handler.getproperty("episode_details".toLowerCase());
 			}
 		}
 		return handler.getproperty((pageNameTxt.replaceAll(" ","") + "_details").toLowerCase());
+	}
+	
+	public String landingPageName() throws Exception {
+		waitTime(2000);
+		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
+		String pageNameTxt = js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='noSelect active ']"))).toString();
+		if (pageNameTxt.equals("TV Shows")) {
+			if (findElements(By.xpath(".//*[@class='episodeDetailContainer']")).size() == 1) {
+				return handler.getproperty("episode_details".toLowerCase());
+			}
+		}
+		return handler.getproperty((pageNameTxt.replaceAll(" ","") + "_View").toLowerCase());
 	}
 
 	public void clickOnCarousel(String tabName, String typeOfContent) throws Exception {

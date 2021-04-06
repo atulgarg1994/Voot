@@ -222,4 +222,9 @@ public class AMDSearchScreen {
 	public static By objFirstContentInSearchResult = By.xpath("(//*[@id='Zee5SearchResultItem'])[1] | //*[@class='android.widget.LinearLayout' and ./*[@id='cell_start_container'] and ./*[./*[@text='Ammana Mane']]]");
 	
 	public static By objSearchResultFirstContent = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_primary_text'])[4] | (//*[@id='searchResultViewPager']//following-sibling::*//child::*)[1]");
+
+	public static By objPremiumSearchResult(String title) {
+		return By.xpath("//*[@text='"+title+"']/parent::*/preceding-sibling::*/child::*[@text='P']");
+	}
+	
 }

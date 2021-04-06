@@ -27,13 +27,21 @@ public class ContentBucketSwipeEvent {
 	public void verifyContentBucketSwipeEvent() throws Exception {
 		System.out.println("Verify Content Bucket Swipe Event");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyContentBucketSwipeEvent("Shows");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyContentBucketSwipeEvent("TV Shows");
+	}
+	
+
+	@Test(priority = 2)
+	public void verifyContentBucketSwipeEventLeft() throws Exception {
+		System.out.println("Verify Content Bucket Swipe Event");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyContentBucketSwipeEventLeft("TV Shows");
 	}
 
 	@Test(priority = 3)
 	@Parameters({ "userType", "keyword1" })
 	public void verifyContentBucketSwipeEventInPlaybackPage(String userType, String keyword1) throws Exception {
-		System.out.println("Verify Quality Change Event");
+		System.out.println("Verify Content Bucket Swipe Event");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyContentBucketSwipeEventInPlaybackPage(keyword1);
 	}

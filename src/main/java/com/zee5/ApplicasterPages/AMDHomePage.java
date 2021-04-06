@@ -236,7 +236,13 @@ public class AMDHomePage {
 	
 	public static By objBottomBarSelectedHomeTab = By.xpath("//*[@resource-id='com.graymatrix.did:id/bottom_navigation_view']/child::*/child::*/child::*[@text='Home' and @selected='true']");
 	
-	public static By objShowsTab = By.xpath("//*[@id='title' and @text='Shows'] | //*[@text='Shows'] | //*[@text='TV Shows']");
-	
 	public static By objHomeBottomBtn = By.xpath("//*[@id='navigationTitleTextView' and @text='Home']");
+	
+	public static By objShowsTab = By.xpath("//*[@id='title' and @text='Shows']|(//*[@id='homeTabLayout']//child::*[@text='TV Shows'])");
+	
+	public static By objFirstContentCardOfTray(String title) {
+		return By.xpath("(//*[contains(text(), '"+title+"')]/parent::*/following-sibling::*/child::*/child::*/child::*)[1]");
+	}
+	public static By objselectedTopNavTab = By.xpath("//*[@class='android.widget.HorizontalScrollView']/child::*/child::*/child::*[ @selected='true']");
+	
 	}

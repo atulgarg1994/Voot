@@ -6,7 +6,7 @@
 	<parameter name="url" value="https://newpwa.zee5.com/" />
 	<parameter name="browserType" value="Chrome" />  <!-- Chrome/Firefox -->
 
-	<parameter name="userType" value="SubscribedUser" /> <!-- Guest/NonSubscribedUser/SubscribedUser/ClubUser -->
+	<parameter name="userType" value="NonSubscribedUser" /> <!-- Guest/NonSubscribedUser/SubscribedUser/ClubUser -->
 	
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" />
@@ -18,12 +18,12 @@
 	<parameter name="keyword2" value="Chemistry of Kariyappa" />
 
 	<!-- NONSubscribed User -->
-	<parameter name="NonSubscribedUserName"	value="basavaraj.pn5@gmail.com" />
-	<parameter name="NonSubscribedUserPassword" value="igsindia123" />
+	<parameter name="NonSubscribedUserName"	value="zeesub@mailnesia.com" /> <!-- basavaraj.pn5@gmail.com -->
+	<parameter name="NonSubscribedUserPassword" value="123456" /> <!-- igsindia123 -->
 	
 	<!-- Subscribed User -->
-	<parameter name="SubscribedUserName" value="zeetest10@test.com" />
-	<parameter name="SubscribedUserPassword" value="123456" />
+	<parameter name="SubscribedUserName" value="zeeprime@mailnesia.com" /> <!-- zeetest10@test.com -->
+	<parameter name="SubscribedUserPassword" value="123456" /> <!-- 123456 -->
 	
 	<parameter name="keyword4" value="Paaru gets tipsy" />
 	<parameter name="keyword5" value="Bhinna" />
@@ -62,7 +62,7 @@
 
 	<test name="WebPWAMixpanelScript">
 		<classes>
-			<class name="com.zee5.WebMixpanelScripts.VideoViewEvent" />
+			<class name="com.zee5.WebMixpanelScripts.ShareEvent" />
 		</classes>
 	</test>
 	<!-- <test name="WebPWAMixpanelScript">

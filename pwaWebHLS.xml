@@ -10,7 +10,7 @@
 	 
 	 <parameter name="url" value="prod" />
 	<parameter name="browserType" value="chrome" />
-	<parameter name="userType" value="SubscribedUser" /> <!-- Guest | NonSubscribedUser | SubscribedUser -->
+	<parameter name="userType" value="Guest" /> <!-- Guest | NonSubscribedUser | SubscribedUser -->
 
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" />

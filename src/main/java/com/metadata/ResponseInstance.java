@@ -32,6 +32,8 @@ public class ResponseInstance {
 	static LoggingUtils logger = new LoggingUtils();
 	public static String searchContentID = null;
 	public static String pageName = "shows";
+	public static boolean trailer = false;
+	
 	public static Response getResponse() {
 		resp = given().urlEncodingEnabled(false).when().get(
 				"https://gwapi.zee5.com/content/collection/0-8-homepage?limit=20&page=1&item_limit=20&desc=no&version=6&translation=en&languages=en,kn&country=IN");
@@ -967,10 +969,13 @@ public class ResponseInstance {
 			if (pageName.equals("episode") || pageName.equals("shows")) {
 				resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
 						.get("https://gwapi.zee5.com/content/tvshow/" + ID + "?translation=en&country=IN");
-				resp.print();
 			} else if (pageName.equals("movies")) {
 				resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
 						.get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
+				if(trailer) {
+					ID = resp.jsonPath().getString("related[0].id");
+					resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
+				}
 			}
 		}
 		
@@ -991,6 +996,7 @@ public class ResponseInstance {
 		}
 		resp.print();
 		Mixpanel.FEProp.forEach((key, value) -> System.out.println(key + " : " + value));
+		trailer = false;
 	}
 	
 	

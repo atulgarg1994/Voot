@@ -22,10 +22,10 @@ public class CarouselBannerClickEvent {
 	}
 	
 	@Test(priority = 1)
-	@Parameters({ "userType" })
-	public void verifyCarouselBannerClickEvent(String userType) throws Exception {
+	@Parameters({"Tab" })
+	public void verifyCarouselBannerClickEvent(String tab) throws Exception {
 		System.out.println("Verify Carousel Banner Click Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEvent("Shows");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEvent(tab);
 	}
 
 	@AfterClass

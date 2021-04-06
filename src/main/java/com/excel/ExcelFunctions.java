@@ -1,15 +1,23 @@
 package com.excel;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 
 
 public class ExcelFunctions {
@@ -66,36 +74,36 @@ public class ExcelFunctions {
 			return colNum;
 		}
 
-		
-//		public static int getRowCountWithDefinetCol(int col) throws FileNotFoundException, Exception{
-//			
-//			int count=0;
-//			String celval = null;
-//			int r = 1;
-//			int c = ExcelFunctions.columncount(xlPath,"ValidateStatus",0);
-//			
-//			for(int i=0;i<=c;i++) 
-//			{
-//				if(i == col) 
-//				{
-//					
-//					do {
-//						celval= getCellValue(xlPath,"ValidateStatus",r,i);
-//						r++;
-////						 System.out.println(celval= getCellValue(xlPath,"ValidateStatus",r,i));
-//						 if(!celval.isEmpty()) 
-//						 {
-//							 GlobalRepo.columnValue.add(celval);
-//							 count++; 
-//						 }
-//						
-//					}while(!celval.isEmpty());
-//					
-//				
-//			}
-//			}
-//			
-//			return GlobalRepo.columnValue.size();
-//		}		
 
+//	    public static Map<String,String> getMapData(){
+//	    	
+//	    	Map<String,String> testData = new HashMap<String,String>();
+//	    	try {
+//	    		FileInputStream fis = new FileInputStream("C:\\Users\\IGS0026\\Documents\\HashMap.xlsx");
+//				Workbook wb = WorkbookFactory.create(fis);
+//				Sheet s = wb.getSheetAt(0);
+//				int lastRowNumber =  s.getLastRowNum();
+//				
+//				for(int i=0;i<=lastRowNumber;i++) {
+//					Row row = s.getRow(i);
+//					Cell keyCell = row.getCell(0);
+//					String key = keyCell.getStringCellValue().trim();
+//					
+//					Cell valueCell = row.getCell(1);
+//					String value = valueCell.getStringCellValue().trim();
+//					testData.put(key, value);
+////					System.out.println(key+"   "+value);
+//				}
+//	    	}catch(Exception e) {
+//	    		
+//	    	}
+//			return testData;
+//	    }
+//
+//	    public static void main(String [] args) {
+//	    	Map<String,String> testData = getMapData();
+//	    	for(Entry<String,String> map : testData.entrySet()) {
+//	    		System.out.println(map.getKey()+"   "+map.getValue());
+//	    	}
+//	    }
 }

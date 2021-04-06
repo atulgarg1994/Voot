@@ -228,9 +228,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			break;
 		}
 		selectLanguages();
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn,"Hamburger menu");
+		extent.version = getText(By.xpath(".//*[@class='versionText']"));
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu");
 
-//		String version = js.executeScript("return arguments[0].text", findElement(By.xpath(".//*[@class='versionText']"))).toString();
-//		System.out.println(version);
 	}
 
 	/**

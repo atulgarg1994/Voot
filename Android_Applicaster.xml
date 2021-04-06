@@ -6,7 +6,7 @@
 		<parameter name="runMode" value="${runMode}"/> <parameter name="runModule" 
 		value="${runModule}"/> <parameter name="browserType" value="${browserType}"/> -->
 
-	<parameter name="userType" value="NonSubscribedUser" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
+	<parameter name="userType" value="Guest" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" /> 
 	
@@ -31,7 +31,7 @@
 	<parameter name="RegisteredMobilePassword" value="User@123" />
 	
 	<parameter name="UnRegisteredMobile" value="8073661163" />
-	<parameter name="PromoCode" value="prein50" />
+	<parameter name="PromoCode" value="zee5sbi20" />
 	
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsUsername" value="zeetest08@gmail.com" />
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsPassword" value="123456"/>
@@ -113,15 +113,14 @@
     <parameter name="ClubPassword" value="000000" />
 
 	<parameter name="SVODShow" value="Nisha" />
-	<parameter name="SVODEpisode" value="Anu arrives at the old warehouse - Jothe jotheyali" />
-	<parameter name="SVODMovie" value="47 days" />
+	<parameter name="SVODEpisode" value="Aditya apologises to Paarvathi - Paaru" />
+	<parameter name="SVODMovie" value="47 Days" />
 	<parameter name="SVODMusic" value="Rekkeyaa Duet - Kavacha | Shivaraj Kumar | Baby Anunaya" />
 	
 	<parameter name="SearchVODContent"  value="Ammana Mane" />
     <parameter name="SearchVODContent2"  value="Prema Baraha" />
     <parameter name="keyword3" value="Kam" />
-    <parameter name="SVODShow" value="Code M" />
-	<parameter name="SVODEpisode" value="Aditya apologises to Paarvathi - Paaru" />
+<!--   <parameter name="SVODShow" value="Code M" />	 -->
 	
  	<parameter name="SearchVODContent3"  value="Hebbuli" />
 	<parameter name="browserType" value="Chrome"/>  <!--  Chrome/Firefox -->
@@ -148,17 +147,12 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
-	<test name="Android_Consumption_Screen">
-		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_Consumption_Screen" />
-		</classes>
-	</test>
-	
 	<test name="Android_AppLaunch">
 		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_AppLaunch" />
+			<class
+				name="com.zee5.ApplicasterScripts.Android_AppLaunch" />
 		</classes>
-	</test>
+	</test> 
 
 	<test name="Android_Onboarding_Suite1">
 		<classes>
@@ -231,13 +225,6 @@
 		</classes>
 	</test>
 
-
-	<test name="DeepLinkValidation">
-		<classes>
-			<class name="com.zee5.ApplicasterScripts.DeepLinkValidation" />
-		</classes>
-	</test>
-
 	<test name="Android_MoreScreen">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_MoreScreen" />
@@ -273,6 +260,12 @@
 			<class name="com.zee5.ApplicasterScripts.Android_Consumption_Screen" />
 		</classes>
 	</test>
+	
+<!--  <test name="DeepLinkValidation">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.DeepLinkValidation" />
+		</classes>
+	</test>		 -->
 	
 
 </suite>

@@ -14743,21 +14743,28 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 	public void verifyShareOption() throws Exception {
 		extent.HeaderChildNode("Verify the functionality of share option displayed below the player");
 		verifyElementPresentAndClick(AMDConsumptionScreen.objShareBtn, "Share button in consumption screen");
-		waitTime(4000);
+		waitTime(3000);
+		PartialSwipeInConsumptionScreen("Up", 1);
 		verifyElementPresentAndClick(AMDNewsPage.objShareGmail, "GMail Share option");
-		waitTime(4000);
+		waitTime(5000);
 		hideKeyboard();
 		String SharedLink = getText(AMDNewsPage.objSharedLink);
 		logger.info(SharedLink);
-		if (SharedLink.contains("https://www.zee5.com")) {
-			logger.info("User can able to share content link across GMail sharing options");
-			extent.extentLoggerPass("Share Content",
-					"User can able to share content link across GMail sharing options");
+		if (SharedLink.contains("www.zee5.com")) {
+			logger.info("User is able to share content link across available sharing options");
+			extent.extentLoggerPass("Share Content Link","User is able to share content link across available sharing options");
 		} else {
-			logger.info("User not shared the content link across GMail sharing options");
-			extent.extentLoggerFail("Share Content", "User not shared the content link across GMail sharing options");
+			logger.info("User is unable to share content link across available sharing options");
+			extent.extentLoggerFail("Share Content Link", "User is unable to share content link across available sharing options");
 		}
-		Back(1);
+		
+		while(true) {
+			Back(1);
+			if(verifyIsElementDisplayed(AMDConsumptionScreen.objContentName)) {
+				break;
+			}
+		}
+		
 	}
 
 	/**
@@ -14795,14 +14802,15 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 			click(AMDSearchScreen.objFirstSearchResult(contentName), "Search result");
 		}
 		
-//		if (tabName.equals("Music")) {
-//			click(AMDSearchScreen.objSecondSearchResult(contentName), "Search result");
-//		} else {
-//			click(AMDSearchScreen.objFirstSearchResult(contentName), "Search result");
-//		}
 
 		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
-			if (tabName.equals("Episode") || tabName.equals("Movies") || tabName.equals("Music")) {
+			if (tabName.equalsIgnoreCase("Music")) {
+				waitForAdToFinishInAmd();
+				if(verifyIsElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
+					click(AMDGenericObjects.objPopUpDivider, "PopUp Divider");
+				}
+			}
+			if (tabName.equals("Episode") || tabName.equals("Movies")) {
 				click(AMDPlayerScreen.objPause, "Pause button");
 			}
 		}else {
@@ -14902,8 +14910,9 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 				}
 			}
 		}
+		
+//***** Verifying the Consumption screen for all options ****		
 		MetadataInfo(tabName, contentName, userType);
-//		MetadataSVODContentConsumptionScreen(tabName, contentName, userType);
 		VerifyCTAsInConsumptionScreen(userType, tabName, contentName);
 		ShareValidationConsumptionScreen(tabName, userType);
 		WatchList(userType, tabName, contentName);
@@ -14914,7 +14923,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		ValidateConfiguredRails(userType, tabName);
 		AvailableTraysInTabs(tabName, userType);
 
-//		Back to Landing screen
+//***** Back to Landing screen	*******
 		BackToLandingScreen();
 		click(AMDHomePage.objHomeBtn, "Home icon");
 		waitTime(3000);
@@ -14932,7 +14941,11 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		for (int i = 0; i < arrSplit.length; i++) {
 			System.out.println("Value at " + i + ": "+arrSplit[i]);
 		}
-		if (tabName.contains("Shows") || tabName.equalsIgnoreCase("TV Shows")) {
+		
+		
+		switch (tabName.toUpperCase()) {
+		
+		case "SHOWS":
 			// content name
 			String ContentName = arrSplit[1];
 			if (ContentName.isEmpty() == false) {
@@ -14976,150 +14989,154 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 				extent.extentLogger("Verify content name", "Genre is not displayed in consumption screen");
 				logger.info("Genre is not displayed in consumption screen");
 			}
-		}
-		   
-	  
-		if (tabName.equalsIgnoreCase("Episode")) {
+			break;
+
+		case "EPISODE":
 			// content name
-			String ContentName = arrSplit[1];
-			if (ContentName.isEmpty() == false) {
+			String eContentName = arrSplit[1];
+			if (eContentName.isEmpty() == false) {
 				extent.extentLoggerPass("Verify Content Name",
-						"Content Name \"" + ContentName.trim() + "\" is displayed in consumption screen");
-				logger.info("Content Name \"" + ContentName.trim() + "\" is displayed in consumption screen");
+						"Content Name \"" + eContentName.trim() + "\" is displayed in consumption screen");
+				logger.info("Content Name \"" + eContentName.trim() + "\" is displayed in consumption screen");
 			} else {
 				extent.extentLogger("Verify content name", "Content name is not displayed in consumption screen");
 				logger.info("Content name is not displayed in consumption screen");
 			}
 
 			// content Type
-			String ContentType = arrSplit[0];
-			if (ContentType.isEmpty() == false) {
+			String eContentType = arrSplit[0];
+			if (eContentType.isEmpty() == false) {
 				extent.extentLoggerPass("Verify Content Name",
-						"Content Type \"" + ContentType.trim() + "\" is displayed in consumption screen");
-				logger.info("Content Type \"" + ContentType.trim() + "\" is displayed in consumption screen");
+						"Content Type \"" + eContentType.trim() + "\" is displayed in consumption screen");
+				logger.info("Content Type \"" + eContentType.trim() + "\" is displayed in consumption screen");
 			} else {
 				extent.extentLogger("Verify content name", "Content Type is not displayed in consumption screen");
 				logger.info("Content Type is not displayed in consumption screen");
 			}
 
 			// Release year
-			String Releaseyear = arrSplit[3];
-			if (Releaseyear.isEmpty() == false) {
+			String eReleaseyear = arrSplit[3];
+			if (eReleaseyear.isEmpty() == false) {
 				extent.extentLoggerPass("Verify Content Name",
-						"Release Year \"" + Releaseyear.trim() + "\" is displayed in consumption screen");
-				logger.info("Release Year \"" + Releaseyear.trim() + "\" is displayed in consumption screen");
+						"Release Year \"" + eReleaseyear.trim() + "\" is displayed in consumption screen");
+				logger.info("Release Year \"" + eReleaseyear.trim() + "\" is displayed in consumption screen");
 			} else {
 				extent.extentLogger("Verify content name", "Release Year is not displayed in consumption screen");
 				logger.info("Release Year is not displayed in consumption screen");
 			}
 
 			// Genre
-			String Genre = arrSplit[5];
-			if (Genre.isEmpty() == false) {
+			String eGenre = arrSplit[5];
+			if (eGenre.isEmpty() == false) {
 				extent.extentLoggerPass("Verify Content Name",
-						"Genre \"" + Genre.trim() + "\" is displayed in consumption screen");
-				logger.info("Genre \"" + Genre.trim() + "\" is displayed in consumption screen");
+						"Genre \"" + eGenre.trim() + "\" is displayed in consumption screen");
+				logger.info("Genre \"" + eGenre.trim() + "\" is displayed in consumption screen");
 			} else {
 				extent.extentLogger("Verify content name", "Genre is not displayed in consumption screen");
 				logger.info("Genre is not displayed in consumption screen");
 			}
-		}
-		   
-		if (tabName.equalsIgnoreCase("Movies")) {
+			break;
+			
+		case "MOVIES":
 			// content name
-			String ContentName = arrSplit[0];
-			if (ContentName.isEmpty() == false) {
+			String mContentName = getText(AMDConsumptionScreen.objContentName);
+			if (mContentName.isEmpty() == false) {
 				extent.extentLoggerPass("Verify Content Name",
-						"Content Name \"" + ContentName.trim() + "\" is displayed in consumption screen");
-				logger.info("Content Name \"" + ContentName.trim() + "\" is displayed in consumption screen");
+						"Content Name \"" + mContentName.trim() + "\" is displayed in consumption screen");
+				logger.info("Content Name \"" + mContentName.trim() + "\" is displayed in consumption screen");
 			} else {
 				extent.extentLogger("Verify content name", "Content name is not displayed in consumption screen");
 				logger.info("Content name is not displayed in consumption screen");
 			}
 
 			// content Type
-			String ContentType = arrSplit[0];
-			if (ContentType.isEmpty() == false) {
-				extent.extentLoggerPass("Verify Content Name",
-						"Content Type \"" + ContentType.trim() + "\" is displayed in consumption screen");
-				logger.info("Content Type \"" + ContentType.trim() + "\" is displayed in consumption screen");
+			String mContentType = arrSplit[0];
+			if (mContentType.isEmpty() == false) {
+				extent.extentLoggerPass("Verify Content Type",
+						"Content Type \"" + mContentType.trim() + "\" is displayed in consumption screen");
+				logger.info("Content Type \"" + mContentType.trim() + "\" is displayed in consumption screen");
 			} else {
 				extent.extentLogger("Verify content name", "Content Type is not displayed in consumption screen");
 				logger.info("Content Type is not displayed in consumption screen");
 			}
 
 			// Release year
-			String Releaseyear = arrSplit[1];
-			if (Releaseyear.isEmpty() == false) {
+			String mReleaseyear = arrSplit[1];
+			if (mReleaseyear.isEmpty() == false) {
 				extent.extentLoggerPass("Verify Content Name",
-						"Release Year \"" + Releaseyear.trim() + "\" is displayed in consumption screen");
-				logger.info("Release Year \"" + Releaseyear.trim() + "\" is displayed in consumption screen");
+						"Release Year \"" + mReleaseyear.trim() + "\" is displayed in consumption screen");
+				logger.info("Release Year \"" + mReleaseyear.trim() + "\" is displayed in consumption screen");
 			} else {
 				extent.extentLogger("Verify content name", "Release Year is not displayed in consumption screen");
 				logger.info("Release Year is not displayed in consumption screen");
 			}
 
 			// Genre
-			String Genre = arrSplit[3];
-			if (Genre.isEmpty() == false) {
+			String mGenre = arrSplit[3];
+			if (mGenre.isEmpty() == false) {
 				extent.extentLoggerPass("Verify Content Name",
-						"Genre \"" + Genre.trim() + "\" is displayed in consumption screen");
-				logger.info("Genre \"" + Genre.trim() + "\" is displayed in consumption screen");
+						"Genre \"" + mGenre.trim() + "\" is displayed in consumption screen");
+				logger.info("Genre \"" + mGenre.trim() + "\" is displayed in consumption screen");
 			} else {
 				extent.extentLogger("Verify content name", "Genre is not displayed in consumption screen");
 				logger.info("Genre is not displayed in consumption screen");
 			}
-
-		}
-
-		if (tabName.equalsIgnoreCase("Music")) {
-
-			// content name
-			String ContentName = arrSplit[0];
-			if (ContentName.isEmpty() == false) {
-				extent.extentLoggerPass("Verify Content Name",
-						"Content Name \"" + ContentName + "\" is displayed in consumption screen");
-				logger.info("Content Name \"" + ContentName + "\" is displayed in consumption screen");
-			} else {
-				extent.extentLogger("Verify content name", "Content name is not displayed in consumption screen");
-				logger.info("Content name is not displayed in consumption screen");
-			}
-
-			// content Type
-			String ContentType = arrSplit[0];
-			if (ContentType.isEmpty() == false) {
-				extent.extentLoggerPass("Verify Content Name",
-						"Content Type \"" + ContentType + "\" is displayed in consumption screen");
-				logger.info("Content Type \"" + ContentType + "\" is displayed in consumption screen");
-			} else {
-				extent.extentLogger("Verify content name", "Content Type is not displayed in consumption screen");
-				logger.info("Content Type is not displayed in consumption screen");
-			}
-
-			// Release year
-			String Releaseyear = arrSplit[1];
-			if (Releaseyear.isEmpty() == false) {
-				extent.extentLoggerPass("Verify Content Name",
-						"Release Year \"" + Releaseyear + "\" is displayed in consumption screen");
-				logger.info("Release Year \"" + Releaseyear + "\" is displayed in consumption screen");
-			} else {
-				extent.extentLogger("Verify content name", "Release Year is not displayed in consumption screen");
-				logger.info("Release Year is not displayed in consumption screen");
-			}
-
-			// Genre
-			String Genre = arrSplit[3];
-			if (Genre.isEmpty() == false) {
-				extent.extentLoggerPass("Verify Content Name",
-						"Genre \"" + Genre + "\" is displayed in consumption screen");
-				logger.info("Genre \"" + Genre + "\" is displayed in consumption screen");
-			} else {
-				extent.extentLogger("Verify content name", "Genre is not displayed in consumption screen");
-				logger.info("Genre is not displayed in consumption screen");
-			}
-
-		}
 		
+			break;
+			
+		case "MUSIC":
+			// content name
+			String vContentName = getText(AMDConsumptionScreen.objContentName);
+			if (vContentName.isEmpty() == false) {
+				extent.extentLoggerPass("Verify Content Name",
+						"Content Name \"" + vContentName + "\" is displayed in consumption screen");
+				logger.info("Content Name \"" + vContentName + "\" is displayed in consumption screen");
+			} else {
+				extent.extentLogger("Verify content name", "Content name is not displayed in consumption screen");
+				logger.info("Content name is not displayed in consumption screen");
+			}
+
+			// content Type
+			String vContentType = arrSplit[0];
+			if (vContentType.isEmpty() == false) {
+				extent.extentLoggerPass("Verify Content Name",
+						"Content Type \"" + vContentType + "\" is displayed in consumption screen");
+				logger.info("Content Type \"" + vContentType + "\" is displayed in consumption screen");
+			} else {
+				extent.extentLogger("Verify content name", "Content Type is not displayed in consumption screen");
+				logger.info("Content Type is not displayed in consumption screen");
+			}
+
+			// Release year
+			String vReleaseyear = arrSplit[1];
+			if (vReleaseyear.isEmpty() == false) {
+				extent.extentLoggerPass("Verify Content Name",
+						"Release Year \"" + vReleaseyear + "\" is displayed in consumption screen");
+				logger.info("Release Year \"" + vReleaseyear + "\" is displayed in consumption screen");
+			} else {
+				extent.extentLogger("Verify content name", "Release Year is not displayed in consumption screen");
+				logger.info("Release Year is not displayed in consumption screen");
+			}
+
+			// Genre
+			String vGenre = arrSplit[3];
+			if (vGenre.isEmpty() == false) {
+				extent.extentLoggerPass("Verify Content Name",
+						"Genre \"" + vGenre + "\" is displayed in consumption screen");
+				logger.info("Genre \"" + vGenre + "\" is displayed in consumption screen");
+			} else {
+				extent.extentLogger("Verify content name", "Genre is not displayed in consumption screen");
+				logger.info("Genre is not displayed in consumption screen");
+			}
+			
+			break;
+			
+		default:
+			logger.info(tabName+" - Invalid argument passed!!!");
+			extent.extentLoggerWarning("Invalid Argument", tabName+" - Invalid argument passed!!!");
+			break;
+		}
+			
 		if(verifyIsElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
 			click(AMDGenericObjects.objPopUpDivider, "PopUp Divider");
 		}
@@ -15842,6 +15859,11 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		extent.HeaderChildNode("Verify Audio Language functionality for \"" + tabName + "\" content");
 		System.out.println("\nVerify Audio Language functionalityfor \"" + tabName + "\" content");
 		waitTime(2000);
+		
+		if(tabName.equalsIgnoreCase("Music") && verifyIsElementDisplayed(AMDPlayerScreen.objPlay) ) {
+			click(AMDPlayerScreen.objPlay, "Play button");
+		}
+		
 		boolean isCurrentLang = verifyIsElementDisplayed(AMDConsumptionScreen.objCurrentAudioLanguage);
 		if (isCurrentLang) {
 			extent.extentLogger("Tab name", "Verifying audio language for the content :" + contentName);
@@ -15872,12 +15894,15 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 					waitTime(500); //---Wait to close the popup
 					boolean playBtn = verifyIsElementDisplayed(AMDPlayerScreen.objPlay);
 //					boolean pauseIcon = verifyIsElementDisplayed(AMDPlayerScreen.objPause);
-					if (!playBtn) {
-//						click(AMDPlayerScreen.objPause, "Pause");
-//						scrubVideoToBegining(AMDPlayerScreen.objProgressBar);
+					if (!playBtn) {				
 						extent.extentLoggerPass("Verify Playback",
 								"Playback is Auto played after closing the Audio Language Popup");
 						logger.info("Playback is Auto played after closing the Audio Language Popup");
+						
+						if(verifyIsElementDisplayed(AMDPlayerScreen.objPause)) {
+							click(AMDPlayerScreen.objPause, "Pause");
+							scrubVideoToBegining(AMDPlayerScreen.objProgressBar);
+						}
 					} else {
 						extent.extentLoggerFail("Verify Playback",
 								"Failed to Resume the playback after closing Audio Language Popup");
@@ -15953,7 +15978,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 						Back(1);
 						waitTime(500);	//Wait to close popup
 						boolean playBtn = verifyIsElementDisplayed(AMDPlayerScreen.objPlay);
-						boolean pauseIcon = verifyIsElementDisplayed(AMDPlayerScreen.objPause);
+//						boolean pauseIcon = verifyIsElementDisplayed(AMDPlayerScreen.objPause);
 						if (!playBtn) {
 							extent.extentLoggerPass("Verify Playback",
 									"Playback is Auto played after closing the Subtitle Popup");
@@ -18378,8 +18403,9 @@ public void MandatoryPopUpScenarios(String userType) throws Exception {
 
 	public String SVODConsumptionScreenForEpisode(String userType) throws Exception {
 		String episodeName = "";
-
+		
 		click(AMDHomePage.objShowsTab, "Shows tab");
+		waitTime(2000);
 		SwipeUntilFindElement(AMDGenericObjects.objTrayTitle("Before"), "Up");
 		String beforeTVtrayName = findElement(AMDGenericObjects.objTrayTitle("Before")).getText();
 		click(AMDGenericObjects.objViewAllBtn(beforeTVtrayName), "View All_Before TV Show");
@@ -19634,17 +19660,17 @@ public void DownloadsContentPlayBackValidation(String userType,String Quality, b
 		}
 	}
 	
-	public void BackToLandingScreen() throws Exception {
-		System.out.println("Navigating back to landing screen");
-		for(int i=1;i<10;i++) {
-			Back(1);
-			waitTime(2000);
-			if(verifyIsElementDisplayed(AMDOnboardingScreen.objExitNo)) {
-				click(AMDOnboardingScreen.objExitNo, "Dismiss");
-				break;
-			}
+public void BackToLandingScreen() throws Exception {
+	System.out.println("\n<<< Navigating back to landing screen <<<");
+	for(int i=1;i<10;i++) {
+		Back(1);
+		waitTime(2000);
+		if(verifyIsElementDisplayed(AMDOnboardingScreen.objExitNo)) {
+			click(AMDOnboardingScreen.objExitNo, "Dismiss");
+			break;
 		}
 	}
+}
 	
 	public void DeletedContentAndMultipleDownloadContent(String userType)throws Exception {
 		extent.HeaderChildNode("Verify Deleted Content from Downloads screen");
@@ -19875,6 +19901,79 @@ public void DownloadsContentPlayBackValidation(String userType,String Quality, b
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
 			waitTime(3000);
 			break;
+		}
+	}
+//======================Defect Task=========================
+	public void movieDownloadFunctonality(String usertype, String searchKeyword4) throws Exception {
+		if(usertype.equalsIgnoreCase("SubscribedUser")) {
+			extent.HeaderChildNode("Downloading a Movie content in Downloads tab - AMA2-1299");
+			DownloadContent(searchKeyword4, pVideoQuality, true);
+			click(AMDDownloadPage.objmoviestab, "Movies tab");
+			boolean var = verifyElementPresent(AMDDownloadPage.objDownloadingConents(searchKeyword4), "Downloading content");
+			if(var==true) {
+				logger.info("Downloading Movie content is displayed in Downloads tab");
+				extentLoggerPass("Download", "Downloading Movie content is displayed in Downloads tab");
+			}else {
+				logger.info("Downloading Movie content is not displayed in Downloads tab");
+				extentLoggerFail("Download", "Downloading Movie content is not displayed in Downloads tab");
+			}
+		    click(AMDDownloadPage.objDownloadingConents(searchKeyword4), "Downloading content");
+		    click(AMDDownloadPage.objCancelDownloadOption, "Cancel download option");
+		    Back(1);
+		}else {
+			logger.info("This is not applicable for "+usertype+" user");
+			extentLogger("", "This is not applicable for "+usertype+" user");
+		}
+	}
+	
+	public void premiumTagOnSearchResultScreen(String usertype) throws Exception {
+		extent.HeaderChildNode("Premium tag/icon on the content thumbnail in search results screen - AMA2-1296");
+		
+		String pContentLang = ResponseInstance.getLanguage(usertype);
+		System.out.println("CONTENT LANG: "+pContentLang);
+		Response pageResp=ResponseInstance.getResponseForAppPages("Home",pContentLang,usertype);	
+		String contentName = null;
+		contentName = pageResp.jsonPath().get("buckets[0].items[0].title");	
+		System.out.println(contentName);
+		
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search Icon");
+		waitTime(3000);
+		click(AMDSearchScreen.objSearchEditBox, "Search edit");
+		type(AMDSearchScreen.objSearchBoxBar, contentName, "Search Field");
+		waitTime(3000);
+		hideKeyboard();
+		boolean var = verifyElementPresent(AMDSearchScreen.objPremiumSearchResult(contentName), "Premium icon on premium content");
+		if(var==true) {
+			logger.info("Premium tag/icon is displayed on the content thumbnail in search results screen");
+			extentLoggerPass("Preium icon", "Premium tag/icon is displayed on the content thumbnail in search results screen");
+		}else {
+			logger.info("Premium tag/icon is not displayed on the content thumbnail in search results screen");
+			extentLoggerPass("Premium icon", "Premium tag/icon is not displayed on the content thumbnail in search results screen");
+		}
+		Back(1);
+	}
+	
+	public void swipeFunctionalityOnContentCardsOfTray() throws Exception {
+		extent.HeaderChildNode("Scroll functionality - AMA2-330");
+		for(int i=0; i<6; i++) {
+			boolean var=false;
+			var = verifyIsElementDisplayed(AMDHomePage.objFirstContentCardOfTray("Top"), "content");
+			if(var==true) {
+				SwipeRailContentCards(AMDHomePage.objFirstContentCardOfTray("Top"));
+				break;
+			}else {
+				PartialSwipe("UP", 1);
+			}
+		}
+		waitTime(3000);
+		 
+		String tabname = getText(AMDHomePage.objselectedTopNavTab);	
+		if(tabname.equalsIgnoreCase("Home")) {
+			logger.info("User is scrolled only the current section");
+			extentLoggerPass("scroll", "User is scrolled only the current section");
+		}else {
+			logger.info("User is moved to next tab");
+			extentLoggerFail("Swipe", "User is moved to next tab");
 		}
 	}
 }
