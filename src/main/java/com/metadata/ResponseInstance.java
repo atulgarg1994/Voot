@@ -819,7 +819,7 @@ public class ResponseInstance {
 				}
 				if (value.contains("age_rating")) {
 					key = "Parent Control Setting";
-					value = value.replace("\\", "").split(":")[1].replace(", pin", "");
+					value = value.replace("\\", "").split(":")[1].replaceAll(" ", "").replace(",pin", "");
 				}
 				pro.setProperty(key, value);
 				i = i + 2;
@@ -3098,7 +3098,7 @@ public static void getUserSettingsValues(String pUsername, String pPassword) {
 			}
 			if (value.contains("age_rating")) {
 				key = "Parent Control Setting";
-				value = value.replace("\\", "").split(":")[1].replace(", pin", "");
+				value = value.replace("\\", "").split(":")[1].replaceAll(" ", "").replace(",pin", "");
 			}
 			if(key.equalsIgnoreCase("content_language")) {
 				Mixpanel.FEProp.setProperty("New Content Language", "["+value.replaceAll(",", "-")+"]");
