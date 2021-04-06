@@ -638,6 +638,7 @@ public class Mixpanel extends ExtentReporter {
 				ResponseInstance.getUserSettingsValues(pUsername, pPassword);
 			}
 		}
+		fetchUserdata = false;
 	}
 
 	public static void getAdID() {
