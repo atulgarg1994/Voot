@@ -33,8 +33,7 @@ public class RemoveFomWatchlistEvent {
 	@Parameters({ "userType", "keyword" })
 	public void verifyRemoveFomWatchlistEventByMouseHoverInShowDetailPage(String userType, String keyword)
 			throws Exception {
-		System.out
-				.println("Verify Remove from Watchlist Event by mouse hovering on a Content Card In show detail page");
+		System.out.println("Verify Remove from Watchlist Event by mouse hovering on a Content Card In show detail page");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyRemoveFomWatchlistEventByMouseHoverInShowDetailPage(userType, keyword);
 	}

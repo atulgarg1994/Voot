@@ -178,7 +178,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 		case "SubscribedUser":
 			extent.HeaderChildNode("Login as Subscribed User");
-			dismissDisplayContentLanguagePopUp();
+//			dismissDisplayContentLanguagePopUp();
+			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			String SettingsSubscribedUsername = getParameterFromXML("SettingsSubscribedUserName");
 			String SettingsSubscribedPassword = getParameterFromXML("SettingsSubscribedPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
@@ -1177,15 +1178,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 
 			extent.HeaderChildNode("Verify Parental Restriction Event");
-			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			waitTime(2000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
 			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
 			String password = "";
 			if (userType.equals("NonSubscribedUser")) {
-				password = getParameterFromXML("SettingsNonSubscribedPassword");
+				password = getParameterFromXML("NonSubscribedUserPassword");
 				
 			} else if (userType.equals("SubscribedUser")) {
-				password = getParameterFromXML("SettingsSubscribedPassword");
+				password = getParameterFromXML("SubscribedUserPassword");
 				
 			}
 			type(PWALoginPage.objPasswordField, password, "Password field");
@@ -1246,20 +1248,19 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 
-			if (userType.equals("NonSubscribedUser")) {
-				
-				ResponseInstance.getUserData("zeetest@gmail.com","zee123");
-				ResponseInstance.getUserSettingsValues("zeetest@gmail.com","zee123");
-			
-			} else if (userType.equals("SubscribedUser")) {
-				
-				ResponseInstance.getUserData("zeein7@mailnesia.com","123456");
-				ResponseInstance.getUserSettingsValues("zeein7@mailnesia.com","123456");
-			}
-			
-			
+//			if (userType.equals("NonSubscribedUser")) {
+//				
+//				ResponseInstance.getUserData("zeetest@gmail.com","zee123");
+//				ResponseInstance.getUserSettingsValues("zeetest@gmail.com","zee123");
+//			
+//			} else if (userType.equals("SubscribedUser")) {
+//				
+//				ResponseInstance.getUserData("zeein7@mailnesia.com","123456");
+//				ResponseInstance.getUserSettingsValues("zeein7@mailnesia.com","123456");
+//			}
+//			mixpanel.parentControl = true;
 			mixpanel.parentalValidateParameter(local.getItem("ID"), "Parental_Restriction");
-			
+			HeaderChildNode("Remove Parent control");
 			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
 			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
@@ -1274,7 +1275,6 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
 			click(PWAHamburgerMenuPage.objNoRestrictionSelected, "No Restriction option");
 			click(PWAHamburgerMenuPage.objContinueButton, "Continue Button");
-
 		}
 	}
 

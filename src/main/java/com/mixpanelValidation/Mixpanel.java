@@ -71,6 +71,7 @@ public class Mixpanel extends ExtentReporter {
 	static PropertyFileReader Prop;
 	public static boolean SubcribedDetails = false;
 	public static boolean Language = true;
+	public static boolean parentControl = false;
 
 	public static void ValidateParameter(String distinctID, String eventName)
 			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
@@ -154,10 +155,12 @@ public class Mixpanel extends ExtentReporter {
 //		System.out.println(1612873997 <= 1612873637);
 //		String empty[] = null;
 //		System.out.println(empty == null);
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = new Date();
-		String currentDate = dateFormat.format(date).toString().replaceFirst(" ", "_").replaceAll("/", "_").replaceAll(":","_");
-		System.out.println(currentDate);
+		try {
+			SubcribedDetails();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@SuppressWarnings("unused")
@@ -371,9 +374,9 @@ public class Mixpanel extends ExtentReporter {
 	public static void validateParameterValue(String key, String value) {
 		try {
 			propValue = FEProp.getProperty(key);
-			if(key.equalsIgnoreCase("Publishing date")) {
-				propValue = propValue.split("T")[0];
-			}
+//			if(key.equalsIgnoreCase("Publishing date")) {
+//				propValue = propValue.split("T")[0];
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -525,7 +528,7 @@ public class Mixpanel extends ExtentReporter {
 		Mixpanel.FEProp.setProperty("Next Pack Expiry Date", Prop.getproperty("NonSub_Next_Pack_Expiry_Date"));
 		Mixpanel.FEProp.setProperty("Pack Duration", Prop.getproperty("NonSub_Pack_Duration"));
 		Mixpanel.FEProp.setProperty("HasRental", Prop.getproperty("NonSub_HasRental"));
-		Mixpanel.FEProp.setProperty("hasEduauraa", Prop.getproperty("NonSub_hasEduauraa"));
+		Mixpanel.FEProp.setProperty("hasEduauraa", "false");
 		SubcribedDetails = true;
 	}
 	
@@ -537,7 +540,10 @@ public class Mixpanel extends ExtentReporter {
 			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
 			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserPassword");
 		}
+//		username = "zeein7@mailnesia.com";
+//		password = "123456";
 		Response subscriptionResp=ResponseInstance.getSubscriptionDetails(username, password);
+		subscriptionResp.print();
 		int subscriptionItems=subscriptionResp.jsonPath().get("subscription_plan.size()");		
 		String id=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].id").toString();
 		String subscription_plan_type=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].subscription_plan_type").toString();

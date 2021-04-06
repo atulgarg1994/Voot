@@ -779,7 +779,7 @@ public class ResponseInstance {
 	}
 	
 	public static void fetchSubscriptionDetailsFromToken() {
-		 String jwtToken = getBearerToken("zeeprime@mailnesia.com","123456");
+		 String jwtToken = getBearerToken("zeein7@mailnesia.com","123456");
 		 System.out.println(jwtToken);
 		 java.util.Base64.Decoder decoder = java.util.Base64.getUrlDecoder();
          String[] parts = jwtToken.split("\\.");
@@ -828,7 +828,7 @@ public class ResponseInstance {
 		return pro;
 	}
 
-	public static Properties getUserData(String pUsername,String pPassword) {
+	public static Properties getUserData(String pUsername,String pPassword) { 
 		String[] userData = { "email", "first_name", "last_name", "birthday", "gender", "registration_country",
 				"recurring_enabled" };
 		Properties pro = new Properties();
