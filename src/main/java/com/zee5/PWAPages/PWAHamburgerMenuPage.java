@@ -483,8 +483,6 @@ public class PWAHamburgerMenuPage {
 
 	public static By objMySubscriptionPackName = By.xpath("//*[@class='packNameWrap']");
 
-	public static By objHamburgerBtn = By.xpath(".//*[@class='bm-burger-button']//*[contains(text(),'Open Menu')]");
-
 	public static By objMyTransactionPackName = By.xpath("//*[@class='packInline']");
 
 	public static By objGetPremiumCTAbelowPlayer = By
@@ -852,7 +850,10 @@ public class PWAHamburgerMenuPage {
 	public static By objchannelcard=By.xpath("//div[@class='viewAllWrap']//img");
 	
 	//Edit profile LastName
-		public static By objEditProfilLastName = By.xpath("//*[@name='lastName']");
+	public static By objEditProfilLastName = By.xpath("//*[@name='lastName']");
 		
-		public static By objFirstCard = By.xpath("//div[@class='viewAllGrid']//div//a//img");
+	public static By objFirstCard = By.xpath("//div[@class='viewAllGrid']//div//a//img");
+		
+	public static By objHamburgerBtn = By.xpath("//*[contains(@class,'hamburgerMenuBtn')]//following-sibling::*[contains(text(),'Open Menu')]");
+	public static By objUnslectedNoRestrictions = By.xpath("//div[contains(text(),'No Restrictions')]//child::*[contains(@class,'_unchecked')]");
 }

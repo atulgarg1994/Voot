@@ -2,6 +2,7 @@ package com.zee5.WebMixpanelScripts;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.business.zee.Zee5PWAWEBMixPanelBusinessLogic;
 
@@ -15,10 +16,11 @@ public class AdBannerImpressionEvent {
 	}
 
 	@Test(priority = 0)
-	public void verifyAdBannerImpressionEvent() throws Exception {
+	@Parameters({ "Tab"})
+	public void verifyAdBannerImpressionEvent(String tab) throws Exception {
 		System.out.println("Verify Ad Banner Impression Event");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyAdBannerImpressionEvent("Shows");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyAdBannerImpressionEvent(tab);
 	}
 
 	@AfterClass

@@ -345,7 +345,7 @@ public class ResponseInstance {
 			Uri = "https://gwapi.zee5.com/content/details/" + contentID + "?translation=en&country=IN&version=2";
 		}
 		respContentDetails = given().headers("X-ACCESS-TOKEN", getXAccessTokenWithApiKey()).when().get(Uri);
-		System.out.println("Content Details API Response: "+respContentDetails.getBody().asString());
+//		System.out.println("Content Details API Response: "+respContentDetails.getBody().asString());
 		return respContentDetails;
 	}
 

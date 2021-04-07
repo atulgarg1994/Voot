@@ -491,11 +491,11 @@ public class WebPWAMixpanelScript {
 	}
 	
 	
-	@Test(priority = 70)
-	public void verifyViewMoreSelectedEventFromTray() throws Exception {
-		System.out.println("Verify View More Selected Event For content played from Tray");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyViewMoreSelectedEventFromTray();
-	}
+//	@Test(priority = 70)
+//	public void verifyViewMoreSelectedEventFromTray() throws Exception {
+//		System.out.println("Verify View More Selected Event For content played from Tray");
+//		Zee5PWAWEBMixPanelBusinessLogic.verifyViewMoreSelectedEventFromTray();
+//	}
 	
 	@Test(priority = 71)
 	@Parameters({ "userType" })

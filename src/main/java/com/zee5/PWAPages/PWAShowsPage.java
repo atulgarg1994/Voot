@@ -119,10 +119,6 @@ public class PWAShowsPage {
 	
 	public static By objTwitterApp = By.xpath("//*[@text='Tweet' or @text='Twitter']");
 	
-	public static By objTrayTitle1(String str) {
-		return By.xpath("//div[@class='tray-container portraitSmall-tray-wrap   ']//div[@class='trayHeader']//h2[contains(text(),'"+str+"')]");
-	}
-	
 	public static By objEduraacard=By.xpath("//div[@class='viewAllGrid']");
 
 	public static By objEduraalabel=By.xpath("//div[@class='clickWrapper']");
@@ -156,4 +152,9 @@ public class PWAShowsPage {
 		return By.xpath("//h2[contains(text(),'"+str+"')]");
 	}
 
+	public static By objEpisodeDD = By.xpath(".//*[contains(@class,'react-dropdown-select-content react-dropdown-select-type-single css-jznujr-ContentComponent')]/span");
+	
+	public static By objTrayTitle1(String str) {
+		return By.xpath("//div[@class='trayHeader']//h2[contains(text(),'"+str+"')]");
+	}
 }

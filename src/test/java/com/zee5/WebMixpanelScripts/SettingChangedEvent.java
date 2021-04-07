@@ -20,7 +20,7 @@ public class SettingChangedEvent {
 	public void verifySettingChangedEventAfterAgeIsSet(String userType) throws Exception {
 		System.out.println("Verify Setting Changed Event when Parental Control Age is Set");
 		Zee5PWAWEBMixPanelBusinessLogic.ZeeWEBPWAMixPanelLoginForParentalControl(userType);
-		Zee5PWAWEBMixPanelBusinessLogic.verifySettingChangedEventAfterAgeIsSet(userType);
+		Zee5PWAWEBMixPanelBusinessLogic.verifySettingChangedEventAfterPinIsSet(userType);
 	}
 	
 	@AfterClass

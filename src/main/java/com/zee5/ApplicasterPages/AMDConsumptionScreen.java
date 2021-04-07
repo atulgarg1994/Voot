@@ -137,4 +137,11 @@ public class AMDConsumptionScreen {
 	public static By objFirstUpNextContent = By.xpath("(//*[@id='horizontal_list_10_parent'])[1]|(//*[@id='belowPlayerContentRecyclerView']//child::*[@text='Up Next']//parent::*//following-sibling::*//*[@class='android.widget.ImageView'])[1]");
 	public static By objRegisterBtnOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/btnAction']|//*[@id='errorViewButton']");
 	public static By objBeforeTVContentName = By.xpath("(//*[@id='collectionPageRecyclerView']//*[@id='cell_bottom_container']//*[@class='android.widget.TextView'])[1]");
-	}
+	
+	public static By objBackFrmCollectionscreen = By.xpath("//*[@id='railDialogBackButton']");
+	
+	public static By objRightArrow(String railName) {
+		return By.xpath("//*[contains(text(),'" + railName + "')]//following-sibling::*[@text='a']");
+		}
+
+}

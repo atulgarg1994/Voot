@@ -16,11 +16,19 @@ public class PopUpCTAsEvent {
 	}
 	
 	@Test(priority = 1)
-	@Parameters({ "userType", "keyword6" })
-	public void verifyPopUpCTAsEvent(String userType, String keyword6) throws Exception {
+	@Parameters({ "userType", "keyword" })
+	public void verifyPopUpCTAsEvent(String userType, String keyword) throws Exception {
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		System.out.println("Verify Pop Up CTA's Event when user clicks on CTA button displayed on the popup");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyPopUpCTAsEvent(userType, keyword6);
+		System.out.println("Verify Pop Up CTA's Event when user clicks on CTA button displayed on Registration popup");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyPopUpCTAsEvent(userType, keyword);
+	}
+	
+	@Test(priority = 2)
+	@Parameters({ "userType"})
+	public void verifyPopUpCTAsEventForCompleteProfilePopUp(String userType) throws Exception {
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		System.out.println("Verify Pop Up CTAs Event for Complete Profile popup");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyPopUpCTAsEventForCompleteProfilePopUp(userType);
 	}
 	
 	@AfterClass

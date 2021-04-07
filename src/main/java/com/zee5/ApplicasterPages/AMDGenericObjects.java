@@ -28,12 +28,6 @@ public class AMDGenericObjects {
 
 	public static By objWifiToggle = By.xpath("//*[@id='switch_widget']");
 
-	// Check Screen Title displayed
-	public static By objCheckTitle(String title) {
-		return By.xpath(
-				"//*[@id='screen_title' and @text='" + title + "'] | //*[@id='title' and @text='" + title + "']");
-	}
-
 	public static By objTrayTitleByIndx(int index) {
 		return By.xpath("(//*[@id='header_primary_text'])[" + index + "]");
 	}
@@ -116,4 +110,11 @@ public class AMDGenericObjects {
 	
 	public static By objAddToWatchlistCTA = By.xpath("//*[@id='metaInfoActionButtonIconView' and @text='a']");
 	public static By objAdded_WatchlistCTA = By.xpath("//*[@id='metaInfoActionButtonIconView' and @text='A']");
+
+	public static By objFirstContentInListingCollectionPage = By.xpath("(//*[@id='collectionPageRecyclerView']/child::*/child::*/child::*/child::*/child::*)[1]");
+	
+	public static By objCheckTitle(String title) {
+		return By.xpath("//*[@id='screen_title' and @text='" + title + "'] | //*[@id='title' and @text='" + title + "']|//*[@id='railDialogToolBar']");
+	}
+	
 }

@@ -39,10 +39,11 @@ public class ViewMoreSelectedEvent {
 	}
 
 	@Test(priority = 3)
-	public void verifyViewMoreSelectedEventFromTray() throws Exception {
+	@Parameters({ "Tab"})
+	public void verifyViewMoreSelectedEventFromTray(String tab) throws Exception {
 		System.out.println("Verify View More Selected Event For content played from Tray");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyViewMoreSelectedEventFromTray();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyViewMoreSelectedEventFromTray(tab);
 	}
 
 	@AfterClass

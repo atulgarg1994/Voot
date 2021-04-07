@@ -22,9 +22,10 @@ public class ScreenViewEvent {
 	}
 
 	@Test(priority = 1)
-	public void verifyScreenViewEvent() throws Exception {
+	@Parameters({ "Tab"})
+	public void verifyScreenViewEvent(String tab) throws Exception {
 		System.out.println("Verify Screen View Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyScreenViewEvent("Shows");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyScreenViewEvent(tab);
 	}
 
 	@AfterClass

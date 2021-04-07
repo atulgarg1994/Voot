@@ -15,7 +15,7 @@ public class PopUpLaunchEvent {
 		Zee5PWAWEBMixPanelBusinessLogic = new Zee5PWAWEBMixPanelBusinessLogic("Chrome");
 	}
 
-	@Test(priority = 1)
+//	@Test(priority = 1)
 	@Parameters({ "userType", "keyword2" })
 	public void verifyPopUpLaunchEventForGetPremiumPopUp(String userType, String keyword2) throws Exception {
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();

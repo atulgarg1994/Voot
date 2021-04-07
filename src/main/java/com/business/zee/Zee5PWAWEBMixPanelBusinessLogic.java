@@ -152,18 +152,15 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-	//		dismissDisplayContentLanguagePopUp();
 			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			waitTime(3000);
 			break;
 
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
-		//	dismissDisplayContentLanguagePopUp();
 			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
-
-			String SUsername = getParameterFromXML("SettingsNonSubscribedUserName");
-			String SPassword = getParameterFromXML("SettingsNonSubscribedPassword");
+			String SUsername = getParameterFromXML("NonSubscribedUserName");
+			String SPassword = getParameterFromXML("NonSubscribedUserPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -178,10 +175,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 		case "SubscribedUser":
 			extent.HeaderChildNode("Login as Subscribed User");
-//			dismissDisplayContentLanguagePopUp();
 			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
-			String SettingsSubscribedUsername = getParameterFromXML("SettingsSubscribedUserName");
-			String SettingsSubscribedPassword = getParameterFromXML("SettingsSubscribedPassword");
+			String SettingsSubscribedUsername = getParameterFromXML("SubscribedUserName");
+			String SettingsSubscribedPassword = getParameterFromXML("SubscribedUserPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -1125,11 +1121,32 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyScreenViewEvent(String screen) throws Exception {
+	public void verifyScreenViewEvent(String tab) throws Exception {
 		extent.HeaderChildNode("Verify Screen View Event");
-		navigateToAnyScreenOnWeb(screen);
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name", "tv_shows_view_all");
+		waitTime(5000);
+		navigateToAnyScreenOnWeb(tab);
+		waitTime(5000);
+		
+		if (userType.equals("Guest")) {
+			if (tab.equalsIgnoreCase("Home")) {
+				mixpanel.FEProp.setProperty("Page Name", "Content Language");
+				mixpanel.FEProp.setProperty("Source", "N/A");
+			}else {
+				mixpanel.FEProp.setProperty("Page Name", landingPageName());
+				mixpanel.FEProp.setProperty("Source", "home");
+			}
+		}else {
+			if (tab.equalsIgnoreCase("Home")) {
+				mixpanel.FEProp.setProperty("Page Name", landingPageName());
+				mixpanel.FEProp.setProperty("Source", "N/A");
+			}else {
+				mixpanel.FEProp.setProperty("Page Name", landingPageName());
+				mixpanel.FEProp.setProperty("Source", "home");
+			}
+		}
+		
+//		mixpanel.FEProp.setProperty("Source", "home");
+//		mixpanel.FEProp.setProperty("Page Name", "tv_shows_view_all");
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
 		if (userType.equals("Guest")) {
@@ -1581,6 +1598,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		click(PWAShowsPage.objShowDetailEpisodeDropdownValues(2), "Episodes 11-20");
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "search");
+		mixpanel.FEProp.setProperty("Element", "Episodes 11 - 20");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
 		mixpanel.FEProp.setProperty("Series", "Jodi Hakki");
 		
@@ -1651,6 +1669,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "View All");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
 
+		String id = getWebDriver().getCurrentUrl();
+		ResponseInstance.getContentDetails(fetchContentID(id));
+		
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "View More Selected");
@@ -1676,6 +1697,10 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Element", "View All");
 		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
 
+		String id = getWebDriver().getCurrentUrl();
+		ResponseInstance.getContentDetails(fetchContentID(id));
+		
+		
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "View More Selected");
@@ -1684,17 +1709,32 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyViewMoreSelectedEventFromTray() throws Exception {
+	public void verifyViewMoreSelectedEventFromTray(String tab) throws Exception {
 		extent.HeaderChildNode("Verify View More Selected Event For content played from Tray");
 		waitTime(5000);
+		navigateToAnyScreenOnWeb(tab);
+		waitTime(5000);
+		
+		if (userType.equals("Guest")) {
+			if (tab.equalsIgnoreCase("Home")) {
+				mixpanel.FEProp.setProperty("Page Name", "Content Language");
+				mixpanel.FEProp.setProperty("Source", "N/A");
+			}else {
+				mixpanel.FEProp.setProperty("Page Name", landingPageName());
+				mixpanel.FEProp.setProperty("Source", "Content Language");
+			}
+		}else {
+			mixpanel.FEProp.setProperty("Page Name", landingPageName());	
+			mixpanel.FEProp.setProperty("Source", "home");
+		}
+
 		verifyElementPresentAndClick(PWAPremiumPage.objViewAllBtn, "View All Button");
 
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
-		mixpanel.FEProp.setProperty("Source", "N/A");
+		
 		mixpanel.FEProp.setProperty("Element", "View All");
-		mixpanel.FEProp.setProperty("Page Name", "home");
-
+		
 		if (userType.equals("Guest")) {
 			System.out.println(local.getItem("guestToken"));
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "View More Selected");
@@ -2009,10 +2049,29 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	}
 
-	public void verifyAdBannerImpressionEvent(String tabName) throws Exception {
+	public void verifyAdBannerImpressionEvent(String tab) throws Exception {
 		extent.HeaderChildNode("Verify Ad Banner Impression Event Across tabs");
-		navigateToAnyScreenOnWeb(tabName);
+		navigateToAnyScreenOnWeb(tab);
 		waitTime(5000);
+		
+		if (userType.equals("Guest")) {
+			if (tab.equalsIgnoreCase("Home")) {
+				mixpanel.FEProp.setProperty("Page Name", "Content Language");
+				mixpanel.FEProp.setProperty("Source", "N/A");
+			}else {
+				mixpanel.FEProp.setProperty("Page Name", landingPageName());
+				mixpanel.FEProp.setProperty("Source", "home");
+			}
+		}else {
+			if (tab.equalsIgnoreCase("Home")) {
+				mixpanel.FEProp.setProperty("Page Name", landingPageName());
+				mixpanel.FEProp.setProperty("Source", "N/A");
+			}else {
+				mixpanel.FEProp.setProperty("Page Name", landingPageName());
+				mixpanel.FEProp.setProperty("Source", "home");
+			}
+		}
+		
 		checkElementDisplayed(PWAHomePage.objAdBanner, "Ad Banner");
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
@@ -2028,6 +2087,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		waitTime(5000);
 		click(PWAHomePage.objHamburgerMenu, "Hamburger menu");
 		click(PWAHamburgerMenuPage.objMoreSettingInHamburger, "More settings");
+		waitTime(5000);
 		click(PWAHamburgerMenuPage.objResetSettingsToDefault, "Reset Settings to Default");
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "home");
@@ -5613,7 +5673,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 	public void verifyToastMessageImpressionEventInSignInScreen(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Toast Message Impression Event In Sign In Screen");
-			click(PWALoginPage.objLoginBtnWEB, "Login button");
+			click(PWALoginPage.objWebLoginBtn, "Login button");
 			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
 			click(PWALoginPage.objEmailField, "Email/PhoneNo Field");
 			type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
@@ -5625,13 +5685,15 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Page Name", "otp_page");
 			mixpanel.FEProp.setProperty("Toast Message", "OTP has been sent to your registered Mobile Number!");
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Toast Message Impression");
+		}else {
+			extent.extentLoggerPass("Info", "Scenario is not applicable for LoggedIn User");
 		}
 	}
 
 	public void verifyToastMessageImpressionEventInOTPScreen(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Toast Message Impression Event In OTP Screen");
-			click(PWALoginPage.objLoginBtnWEB, "Login button");
+			click(PWALoginPage.objWebLoginBtn, "Login button");
 			waitForElementDisplayed(PWALoginPage.objEmailField, 5);
 			click(PWALoginPage.objEmailField, "Email/PhoneNo Field");
 			type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
@@ -5649,6 +5711,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Page Name", "otp_page");
 			mixpanel.FEProp.setProperty("Toast Message", "Either OTP is not valid or has expired");
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Toast Message Impression");
+		}else {
+			extent.extentLoggerPass("Info", "Scenario is not applicable for LoggedIn User");
 		}
 	}
 
@@ -5723,6 +5787,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Page Name", "otp_page");
 			mixpanel.FEProp.setProperty("Toast Message", "OTP has been sent to your registered Mobile Number!");
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Toast Message Impression");
+		}else {
+			extent.extentLoggerPass("Info", "Scenario is not applicable for LoggedIn User");
 		}
 	}
 
@@ -6288,32 +6354,37 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		}
 	}
 
-	public void verifyPopUpCTAsEvent(String userType, String keyword6) throws Exception {
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Pop Up CTA's Event when user clicks on CTA button displayed on the popup");
+	public void verifyPopUpCTAsEvent(String userType, String keyword) throws Exception {
+		if ((userType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Verify Pop Up CTA's Event when user clicks on CTA button displayed on Registration popup");
 
 			click(PWAHomePage.objSearchBtn, "Search Icon");
-			type(PWASearchPage.objSearchEditBox, keyword6 + "\n", "Search Edit box: " + keyword6);
+			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
-			waitForElement(PWASearchPage.objSearchResultTxt(keyword6), 10, "Search Result");
-			click(PWASearchPage.objSearchResultTxt(keyword6), "Search Result");
-
-			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
-			}
-			waitTime(5000);
-			mixpanel.FEProp.setProperty("Source", "movie_detail");
-			mixpanel.FEProp.setProperty("Element", "Cross");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			waitForElement(PWASearchPage.objSearchResultTxt(keyword), 10, "Search Result");
+			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
+			waitTime(3000);
+			click(PWAPremiumPage.objPlayBtn, "Play Button");
 			String id = getWebDriver().getCurrentUrl();
+			System.out.println("Current URL : " + id);
 			ResponseInstance.getContentDetails(fetchContentID(id));
+			waitForElement(PWALoginPage.objLoginLink, 20, "Login Button");
+			click(PWALoginPage.objLoginLink, "Login Button");
+			waitTime(5000);
+			waitTime(5000);
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Element", "Login");
+			mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+			
+			mixpanel.FEProp.setProperty("Pop Up Group", "Skippable");
+			mixpanel.FEProp.setProperty("Pop Up Name", "Registration");
+			mixpanel.FEProp.setProperty("Pop Up Type", "Mandatory Registration");
+			
+			
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
-			if (UserType.equals("Guest")) {
-				mixpanel.ValidateParameter(local.getItem("guestToken"), "Pop Up CTAs");
-			} else {
-				mixpanel.ValidateParameter(local.getItem("ID"), "Pop Up CTAs");
-			}
+			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pop Up CTAs");
+			
 		}
 	}
 
@@ -6349,7 +6420,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Page Name", "parental_control");
 			mixpanel.FEProp.setProperty("Toast Message", "Changes Saved Successfully");
 			Mixpanel.parentalValidateParameter(local.getItem("ID"), "Toast Message Impression");
-			
+		}else {
+			extent.extentLoggerPass("Info", "Scenario is not applicable for Guest User");
 		}
 	}
 
@@ -6378,9 +6450,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 	}
 
 	public void verifyToastMessageImpressionEventInAuthenticateScreen(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Toast Message Impression Event In Authenticate Screen");
 		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Verify Toast Message Impression Event In Authenticate Screen");
-
 			click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objAuthenticationOption, "Authenticate Device");
@@ -6392,6 +6463,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Page Name", "device_authentication");
 			mixpanel.FEProp.setProperty("Toast Message", "Device code ABCDEF has expired");
 			mixpanel.ValidateParameter(local.getItem("ID"), "Toast Message Impression");
+		}else {
+			extent.extentLoggerPass("Info", "Scenario is not applicable for Guest User");
 		}
 	}
 
@@ -6420,6 +6493,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Page Name", "movie_landing");
 			mixpanel.FEProp.setProperty("Toast Message", "Added to Watchlist");
 			mixpanel.ValidateParameter(local.getItem("ID"), "Toast Message Impression");
+		}else {
+			extent.extentLoggerPass("Info", "Scenario is not applicable for Guest User");
 		}
 
 	}
@@ -6453,6 +6528,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Toast Message Impression");
+		}else {
+			extent.extentLoggerPass("Info", "Scenario is not applicable for Guest User");
 		}
 
 	}
@@ -7783,13 +7860,13 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				if (checkElementDisplayed(PWASubscriptionPages.objEmailIDTextField, "Email ID field")) {
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
 					type(PWASubscriptionPages.objEmailIDTextField, "igszee5test123g@gmail.com", "Email Id");
-					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnInSubscriptionPage,
-							"Proceed Button");
+					verifyElementPresentAndClick(PWASubscriptionPages.objEmailContinueButton,
+							"Continue Button");
 					// Password Popup
 					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
 					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
 					type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
-					verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Proceed Button");
+					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordContinueButton, "Continue Button");
 				}
 			} else {
 				mixpanel.FEProp.setProperty("Source", "pack_selection");
@@ -7820,6 +7897,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				mixpanel.FEProp.setProperty("Page Name", "payment_page");
 				mixpanel.FEProp.setProperty("Toast Message", "Could not find card. Please enter valid card number");
 		//	}
+		}else {
+			extent.extentLoggerPass("Info", "Scenario is not applicable for Subscribed User");
 		}
 	}
 
@@ -9584,7 +9663,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 
 	public void verifyToastMessageImpressionEventAfterChangingPassword(String userType) throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
-
 			extent.HeaderChildNode("Verify Toast Message Impression event when user changes the password");
 			click(PWALandingPages.objWebProfileIcon, "Profile Icon");
 			click(PWAHamburgerMenuPage.objProfileIconInProfilePage, "profile icon");
@@ -9616,7 +9694,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			waitTime(3000);
 			click(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted, "Update password button");
 			waitTime(2000);
-
+		}else {
+			extent.extentLoggerPass("Info", "Scenario is not applicable for Guest User");
 		}
 	}
 
@@ -9631,13 +9710,16 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 //	}
 
 	public void verifyRecommendedRailImpressionEventByScrollingPage(String tabname, String trayTitle) throws Exception {
-		extent.HeaderChildNode(
-				"Verify Recommended Rail Impression event when user is able to see the recommended tray by scrolling down the page");
-
+		extent.HeaderChildNode("Verify Recommended Rail Impression event when user is able to see the recommended tray by scrolling down the page");
 		navigateToAnyScreenOnWeb(tabname);
 		WebElement element = getWebDriver().findElement(PWAShowsPage.objTrayTitle1(trayTitle));
 		((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
 		checkElementDisplayed(PWAHomePage.objRecoTray, "Recommended Rail");
+		try{
+			String title=getElementPropertyToString("innerText",PWAShowsPage.objTrayTitle1(trayTitle),"Title");
+			logger.info("Tray title displayed : "+title);
+			extent.extentLogger("", "Tray title displayed : "+title);
+		}catch(Exception e) {}	
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "N/A");
 		mixpanel.FEProp.setProperty("Page Name", "home");
@@ -9648,21 +9730,31 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Recommended Rail Impression");
 		}
-
 	}
 
 	public void verifyRecommendedRailImpressionEventInShowDetailPage(String keyword, String trayTitle)
 			throws Exception {
 		extent.HeaderChildNode("Verify Recommended Rail Impression Event In Show Detail Page");
-
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 		waitForElement(PWASearchPage.objSearchResultTxt(keyword), 20, "Search Result");
-		click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
+		click(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows Tab");
 		waitTime(4000);
+		click(PWASearchPage.objSearchedResult(keyword), "Search Result");
+		waitTime(4000);
+		try{
+			String title=getElementPropertyToString("innerText",PWAShowsPage.objShowsTitle,"Title");
+			logger.info("Show Details page displayed with title: " + title);
+			extent.extentLogger("showDetails", "Show Details page displayed with title: " + title);
+		}catch(Exception e) {}	
 		WebElement element = getWebDriver().findElement(PWAShowsPage.objRecoTrayTitle(trayTitle));
 		((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
 		checkElementDisplayed(PWAShowsPage.objRecoTrayTitle(trayTitle), "Recommended Rail");
+		try{
+			String title=getElementPropertyToString("innerText",PWAShowsPage.objTrayTitle1(trayTitle),"Title");
+			logger.info("Tray title displayed : "+title);
+			extent.extentLogger("", "Tray title displayed : "+title);
+		}catch(Exception e) {}	
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "show_detail");
@@ -9673,11 +9765,9 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Recommended Rail Impression");
 		}
-
 	}
 
-	public void verifyRecommendedRailImpressionEventInConsumptionScreen(String keyword1, String trayTitle)
-			throws Exception {
+	public void verifyRecommendedRailImpressionEventInConsumptionScreen(String keyword1, String trayTitle)throws Exception {
 		extent.HeaderChildNode("Verify Recommended Rail Impression Event In Consumption Screen");
 		click(PWAHomePage.objSearchBtn, "Search Icon");
 		type(PWASearchPage.objSearchEditBox, keyword1 + "\n", "Search Edit box: " + keyword1);
@@ -9685,9 +9775,19 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		waitForElement(PWASearchPage.objSearchResultTxt(keyword1), 10, "Search Result");
 		click(PWASearchPage.objSearchResultTxt(keyword1), "Search Result");
 		waitTime(4000);
+		try{
+			String title=getElementPropertyToString("innerText",PWAPlayerPage.objContentTitleInConsumptionPage,"Title");
+			logger.info("Consumptions page displayed with title: " + title);
+			extent.extentLogger("showDetails", "Consumptions page displayed with title: " + title);
+		}catch(Exception e) {}	
 		WebElement element = getWebDriver().findElement(PWAShowsPage.objRecoTrayTitle(trayTitle));
 		((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
 		checkElementDisplayed(PWAShowsPage.objRecoTrayTitle(trayTitle), "Recommended Rail");
+		try{
+			String title=getElementPropertyToString("innerText",PWAShowsPage.objTrayTitle1(trayTitle),"Title");
+			logger.info("Tray title displayed : "+title);
+			extent.extentLogger("", "Tray title displayed : "+title);
+		}catch(Exception e) {}	
 		waitTime(5000);
 		mixpanel.FEProp.setProperty("Source", "search");
 		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
@@ -9698,7 +9798,6 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "Recommended Rail Impression");
 		}
-
 	}
 
 	public void verifyToastMessageImpressionEventInPackSelectionPage(String userType) throws Exception {
@@ -9716,6 +9815,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Page Name", "home");
 			mixpanel.FEProp.setProperty("Toast Message", "You are already subscribed to ZEE5 Club Pack");
 			mixpanel.ValidateParameter(local.getItem("ID"), "Toast Message Impression");
+		}else {
+			extent.extentLoggerPass("Info", "Scenario is not applicable for Guest/NonSubscribed User");
 		}
 	}
 
@@ -13323,4 +13424,111 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		}
 	}
 	
+	public void verifySettingChangedEventAfterPinIsSet(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("Guest"))) {		
+			extent.HeaderChildNode("Verify Setting Changed Event when Parental Control Age is Set");
+			waitTime(2000);
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			waitTime(2000);
+			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			waitTime(2000);
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			String password = "";			
+			if (userType.equals("NonSubscribedUser")) {
+				password=getParameterFromXML("NonSubscribedUserPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password=getParameterFromXML("SubscribedUserPassword");
+			}			
+			type(PWALoginPage.objPasswordField, password, "Password field");
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			try {
+				findElement(PWAHamburgerMenuPage.objUnslectedNoRestrictions);
+				click(PWAHamburgerMenuPage.objUnslectedNoRestrictions,"No Restrictions");
+				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+			}catch(Exception e) {}
+			click(PWAHamburgerMenuPage.objRestrict13PlusContent, "Restrict 13+ Content");
+			click(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
+			click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "parental_control");
+			mixpanel.FEProp.setProperty("Setting Changed", "Parental Control PIN Set");
+			mixpanel.FEProp.setProperty("Element", "Set parental lock");
+			mixpanel.FEProp.setProperty("Parent Control Setting", "U/A");
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			fetchUserType(local);
+			
+			mixpanel.ValidateParameter(local.getItem("ID"), "Setting Changed");
+			
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			if (userType.equals("NonSubscribedUser")) {
+				password=getParameterFromXML("NonSubscribedUserPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password=getParameterFromXML("SubscribedUserPassword");
+			}
+			type(PWALoginPage.objPasswordField, password, "Password field");
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			try {
+				findElement(PWAHamburgerMenuPage.objUnslectedNoRestrictions);
+				click(PWAHamburgerMenuPage.objUnslectedNoRestrictions,"No Restrictions");
+				click(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+				waitTime(2000);
+			}catch(Exception e) {}
+		}
+	}
+	
+	public void verifyPopUpCTAsEventForCompleteProfilePopUp(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			extent.HeaderChildNode("Verify Pop Up CTAs Event for Complete Profile popup");
+		//	relaunch();
+			logout();
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			waitTime(3000);
+			extent.HeaderChildNode("Login through incomplete profile account");
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			type(PWALoginPage.objEmailField, "indaus24@gmail.com", "Email Field");
+			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			type(PWALoginPage.objPasswordField, "123456", "Password field");
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(5000);
+			verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
+			checkElementDisplayed(PWAHomePage.objSearchField, "Search field");
+			String keyword = getParameterFromXML("keyword");
+			type(PWAHomePage.objSearchField, keyword, "Search");
+			waitTime(5000);
+			verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
+			waitTime(3000);
+			click(PWAPremiumPage.objPlayBtn, "Play Button");
+			waitTime(4000);
+			checkElementDisplayed(CompleteYourProfilePopUp.objCompleteYourProfileTxt, "Complete Your Profile");
+			waitTime(6000);
+			
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Page Name","episode_detail");
+			mixpanel.FEProp.setProperty("Element", "Cross");
+			mixpanel.FEProp.setProperty("Pop Up Group", "Skippable");
+			mixpanel.FEProp.setProperty("Pop Up Name", "Profile Update");
+			mixpanel.FEProp.setProperty("Pop Up Type", "Mandatory Registration");
+			
+			String id = getWebDriver().getCurrentUrl();
+			System.out.println("Current URL : " + id);
+			ResponseInstance.getContentDetails(fetchContentID(id));
+			
+			click(PWAHomePage.objCreateNewAccountPopUpClose, "Close icon");
+			waitTime(6000);
+			
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			fetchUserType(local);
+			ResponseInstance.getUserData("indaus24@gmail.com","123456");
+			mixpanel.ValidateParameter(local.getItem("ID"), "Pop Up CTAs");
+		}
+	}
 }
