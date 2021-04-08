@@ -14780,9 +14780,11 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 			//---Get the content name from TV Show tab
 				contentName = SVODConsumptionScreenForEpisode(userType);
 				System.out.println("\nContentName: "+contentName);
-				waitForAdToFinishInAmd();
-				if(verifyIsElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
-					click(AMDGenericObjects.objPopUpDivider, "PopUp Divider");
+				if(!verifyIsElementDisplayed(AMDPlayerScreen.objPause)) {
+					click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+					click(AMDPlayerScreen.objPause, "Pause icon");
+				}else {
+					click(AMDPlayerScreen.objPause, "Pause icon");
 				}
 			} else {
 				verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search button");
@@ -14808,6 +14810,12 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 				}
 			}
 			if (tabName.equals("Episode") || tabName.equals("Movies")) {
+				if (verifyIsElementDisplayed(AMDPlayerScreen.objAd2)) {
+					waitForAdToFinishInAmd();
+				}
+				if(verifyIsElementDisplayed(AMDGenericObjects.objPopUpDivider)) {
+					click(AMDGenericObjects.objPopUpDivider, "PopUp Divider");
+				}
 				click(AMDPlayerScreen.objPause, "Pause button");
 			}
 		}else {
@@ -14929,7 +14937,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		BackToLandingScreen();
 		click(AMDHomePage.objHomeBtn, "Home icon");
 		waitTime(3000);
-	}	
+	}
 	
 	public void MetadataInfo(String tabName, String contentName, String userType) throws Exception {
 		extent.HeaderChildNode("Verifying Metadata in consumption screen for \"" + tabName + "\" content");
@@ -15490,7 +15498,24 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 			break;
 			
 		case "NONSUBSCRIBEDUSER":
-			verifyElementPresentAndClick(AMDConsumptionScreen.objWatchlistBtn, "Watchlist button");
+			
+			if(!verifyIsElementDisplayed(AMDPlayerScreen.objPause)) {
+					click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+					click(AMDPlayerScreen.objPause, "Pause icon");
+			}else {
+				click(AMDPlayerScreen.objPause, "Pause icon");
+			}
+			
+			//Check if the content is already added tio watchlist
+			if(verifyIsElementDisplayed(AMDGenericObjects.objAddToWatchlistCTA)) {
+				verifyElementPresentAndClick(AMDGenericObjects.objAddToWatchlistCTA, "AddToWatchlist button");
+			}else if(verifyIsElementDisplayed(AMDGenericObjects.objAdded_WatchlistCTA)) {
+				extent.extentLogger("Watchlist","Content is already added to Watchlist");
+				logger.info("Content is already added to Watchlist");
+			}else {
+				extent.extentLoggerFail("Watchlist","Watchlist button is not displayed");
+				logger.info("Watchlist button is not displayed");
+			}
 			Back(1);
 			watchListScreen(contentName, tabName);
 			waitTime(3000);
@@ -15523,12 +15548,12 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		if (tabName.equalsIgnoreCase("Episode")) {
 			
 			boolean isContentPresent=false;
-			ArrayList<String> contentsInWatchList = new ArrayList<>();
+			ArrayList<String> showNamesInWatchList = new ArrayList<>();
 			ArrayList<String> contentNamesInWatchList = new ArrayList<>();
 			int showSize = getDriver().findElements(AMDWatchlistPage.objContentNames).size();
 			for (int i = 1; i <= showSize; i++) {
 				String showName = getText(AMDWatchlistPage.objContentName(i));
-				contentsInWatchList.add(showName);
+				showNamesInWatchList.add(showName);
 				
 				click(AMDWatchlistPage.objContentName(i), showName);
 				int itemSize = getDriver().findElements(AMDWatchlistPage.objContentNames).size();
@@ -15538,7 +15563,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 				}
 				Back(1);
 				
-				if(contentNamesInWatchList.contains(contentName)) {
+				if(contentNamesInWatchList.contains(contentName) || showNamesInWatchList.contains(contentName)) {
 					isContentPresent=true;
 					break;
 				}
@@ -15806,11 +15831,22 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		if (isWatchTrailer) {
 			click(AMDConsumptionScreen.objWatchTrialer, "Watch Trialer");
 			waitTime(2000);
-			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-			scrubVideoToBegining(AMDPlayerScreen.objProgressBar);
-			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
-			
-			
+			if(userType.equalsIgnoreCase("Guest")||userType.equalsIgnoreCase("NonSubscribedUser")) {
+				if (verifyIsElementDisplayed(AMDPlayerScreen.objAd2)) {
+					waitForAdToFinishInAmd();
+				}else if(!verifyIsElementDisplayed(AMDPlayerScreen.objPause)) {
+						click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+						click(AMDPlayerScreen.objPause, "Pause icon");
+						scrubVideoToBegining(AMDPlayerScreen.objProgressBar);
+				}else {
+					click(AMDPlayerScreen.objPause, "Pause icon");
+				}
+				
+			}else {
+				click(AMDPlayerScreen.objPause, "Pause icon");
+				scrubVideoToBegining(AMDPlayerScreen.objProgressBar);
+			}
+				
 			String contentTitle = getText(AMDConsumptionScreen.objContentName);
 			String contentInfo = getText(AMDConsumptionScreen.objContentInfo);
 			if (contentTitle.contains("Trailer")|contentInfo.contains("Trailer")) {

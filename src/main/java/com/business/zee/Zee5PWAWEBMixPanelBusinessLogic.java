@@ -12296,11 +12296,9 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 		} else {
 			mixpanel.ValidateParameter(local.getItem("ID"), "CTAs");
 		}
-
 	}
 
 	public void verifyCTAsEventForSubscribeBtn(String userType) throws Exception {
-
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify CTAs Event when user clicks on subscription option");
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
@@ -12309,7 +12307,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "N/A");
 			mixpanel.FEProp.setProperty("Page Name", "home");
-			mixpanel.FEProp.setProperty("Element", "Subscribe");
+			mixpanel.FEProp.setProperty("Element", "Get premium");
 
 			if (UserType.equals("Guest")) {
 				mixpanel.ValidateParameter(local.getItem("guestToken"), "CTAs");

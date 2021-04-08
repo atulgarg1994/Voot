@@ -13181,11 +13181,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		String userType = getParameterFromXML("userType");
 		mandatoryRegistrationPopUp(userType);
 		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-				.getParameter("consumptionsShow");
+		.getParameter("consumptionsShow");
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("Shows"), "Shows Tab");
+		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows Tab");
 		waitTime(4000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
 		waitTime(4000);
@@ -13203,7 +13203,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		mouseHover();
 		click(PWAPlayerPage.minimizeBtn, "Minimize button");
 		click(PWAHomePage.objZeelogo1, "Zee Logo");
-	}
+		}
 
 	public void verifyLandscapeforPremiumContentWeb() throws Exception {
 		String userType = getParameterFromXML("userType");

@@ -199,6 +199,11 @@ public class PWALoginPage {
 	 
 	 public static By objWebLoginPageText = By.xpath("//div[@class='formHeader loginHeaderIn']");
 	 
-	 public static By objLoginBtnWEB = By.xpath("//*[@class='loginBtn noSelect' and text()='Login']");
+	 public static By objLoginBtnWEB = By.xpath("//*[contains(@class,'loginBtn noSelect') and text()='Login']");
+
+
+
+
+
 
 }

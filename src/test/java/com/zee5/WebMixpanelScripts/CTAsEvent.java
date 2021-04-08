@@ -50,7 +50,7 @@ public class CTAsEvent {
 	public void verifyCTAsEventHeader(String userType) throws Exception {
 		System.out.println("Verify CTAs Event");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyCTAsEventHeader(userType,"Shows");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyCTAsEventHeader(userType,"TV Shows");
 	}
 	
 	@AfterClass
