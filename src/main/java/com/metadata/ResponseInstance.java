@@ -3313,7 +3313,132 @@ public static Response getTVODDetails(String username, String password) {
 	return response;
 }
 
+public static void getContentDetailsForCarouselClick(String tab, int carousalDot, String contentLanguages) {
+	String userType = "", username = "", password = "";
+	userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+	if (!userType.equalsIgnoreCase("Guest")) {
+		if (userType.equals("NonSubscribedUser")) {
+			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonSubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonSubscribedUserPassword");
+		}
+		if (userType.equals("SubscribedUser")) {
+			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserPassword");
+		}
+		Response userDetails = getUserSettingDetails(username, password);
+		int keyCount = userDetails.jsonPath().get("key.size()");
+		for (int i = 0; i < keyCount; i++) {
+			if (userDetails.jsonPath().get("key[" + i + "]").toString().equals("content_language")) {
+				contentLanguages = userDetails.jsonPath().get("value[" + i + "]").toString();
+				break;
+			}
+		}
+	}
+	Response respContent = ResponseInstance.getResponseForPages(tab.toLowerCase(), contentLanguages);
+	String id = "", name = "", type = "", genre = "", duration = "", specification = "";
+	String subtitleLang = "", originalLang = "", characters = "", drm = "";
+	try {
+		id = respContent.jsonPath().get("buckets[0].items[" + carousalDot + "].id").toString();
+	} catch (Exception e) {
+		id = null;
+	}
+	if (id == null)
+		id = "N/A";
+	try {
+		name = respContent.jsonPath().get("buckets[0].items[" + carousalDot + "].title").toString();
+	} catch (Exception e) {
+		name = null;
+	}
+	if (name == null)
+		name = "N/A";
+	try {
+		type = respContent.jsonPath().get("buckets[0].items[" + carousalDot + "].business_type").toString();
+	} catch (Exception e) {
+		type = null;
+	}
+	if (type == null)
+		type = "N/A";
+	try {
+		genre = respContent.jsonPath().get("buckets[0].items[" + carousalDot + "].genre.value").toString().replace(",",
+				"-");
+	} catch (Exception e) {
+		genre = null;
+	}
+	if (genre == null)
+		genre = "N/A";
+	try {
+		duration = respContent.jsonPath().get("buckets[0].items[" + carousalDot + "].duration").toString();
+	} catch (Exception e) {
+		duration = null;
+	}
+	if (duration == null)
+		duration = "N/A";
+	try {
+		specification = respContent.jsonPath().get("buckets[0].items[" + carousalDot + "].asset_subtype").toString();
+	} catch (Exception e) {
+		specification = null;
+	}
+	if (specification == null || id.contains("external"))
+		specification = "N/A";
+	try {
+		subtitleLang = respContent.jsonPath().get("buckets[0].items[" + carousalDot + "].subtitle_languages")
+				.toString();
+	} catch (Exception e) {
+		subtitleLang = null;
+	}
+	if (subtitleLang == null)
+		subtitleLang = "N/A";
+	try {
+		originalLang = respContent.jsonPath().get("buckets[0].items[" + carousalDot + "].languages[0]").toString();
+	} catch (Exception e) {
+		originalLang = null;
+	}
+	if (originalLang == null)
+		originalLang = "N/A";
+	try {
+		characters = respContent.jsonPath().get("buckets[0].items[" + carousalDot + "].characters").toString();
+	} catch (Exception e) {
+		characters = null;
+	}
+	if (characters == null)
+		characters = "N/A";
+	try {
+		drm = respContent.jsonPath().get("buckets[0].items[" + carousalDot + "].is_drm").toString();
+	} catch (Exception e) {
+		drm = null;
+	}
+	if (drm == null)
+		drm = "N/A";
+	System.out.println(id + " --- " + name + " --- " + type + " --- " + genre + " --- " + duration + " --- "
+			+ specification + " --- " + subtitleLang + " --- " + originalLang + " --- " + characters + " --- " + drm);
+	Mixpanel.FEProp.setProperty("Content ID", id);
+	Mixpanel.FEProp.setProperty("Content Name", name);
+	Mixpanel.FEProp.setProperty("Content Type", type);
+	Mixpanel.FEProp.setProperty("Genre", genre);
+	Mixpanel.FEProp.setProperty("Content Duration", duration);
+	Mixpanel.FEProp.setProperty("Content Specification", specification);
+	Mixpanel.FEProp.setProperty("Subtitle Language", subtitleLang);
+	Mixpanel.FEProp.setProperty("Content Original Language", originalLang);
+	Mixpanel.FEProp.setProperty("Characters", characters);
+	if (drm.equals("1"))
+		Mixpanel.FEProp.setProperty("DRM Video", "true");
+	else
+		Mixpanel.FEProp.setProperty("DRM Video", "false");
+}
 
+public static Response getUserSettingDetails(String pUsername, String pPassword) {
+	Response response = null;
+	String xAccessToken = getXAccessTokenWithApiKey();
+	String bearerToken = getBearerToken(pUsername, pPassword);
+	String url = "https://userapi.zee5.com/v1/settings";
+	response = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+	System.out.println("\nresponse body: " + response.getBody().asString());
+	return response;
+}
 
 }
 

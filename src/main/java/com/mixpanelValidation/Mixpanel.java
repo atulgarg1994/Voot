@@ -782,4 +782,25 @@ public class Mixpanel extends ExtentReporter {
 		return lng;
 	}
 
+	
+	public static void ValidateParameterForCarouselClick(String distinctID, String eventName, String contentLang) throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
+		System.out.println("Parameter Validation " + distinctID);
+		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		booleanParameters = Prop.getproperty("Boolean");
+		integerParameters = Prop.getproperty("Integer");
+		fileName = ReportName;
+		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
+		StaticValues(distinctID);
+		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");		
+		if(userType.equals("Guest")) {
+			Mixpanel.FEProp.setProperty("New App Language", "en");
+			Mixpanel.FEProp.setProperty("New Content Language", "["+contentLang.replace(",", "-")+"]");
+		}
+		getParameterValue();
+		fetchEvent(distinctID, eventName);
+		SubcribedDetails = false;
+	}
+	
 }
+
+

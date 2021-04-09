@@ -602,6 +602,12 @@ public class PWAHomePage {
 
 	public static By objContTitleOnCarousel = By
 			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
-
+	public static By objCarouselCardForDataContentID (int carouselDot) {
+		return By.xpath("//div[contains(@class,'BannerCarousel')]//div[@data-index='"+carouselDot+"']//div[@class='carouselMain']");
+	}
+	
+	public static By objCarouselCardForClick (int carouselDot) {
+		return By.xpath("//div[contains(@class,'BannerCarousel')]//div[@data-index='"+carouselDot+"']//div[@class='carouselMain']//figure//img");
+	}
 	
 }

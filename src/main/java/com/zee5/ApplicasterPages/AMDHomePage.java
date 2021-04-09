@@ -183,14 +183,7 @@ public class AMDHomePage {
 	public static By objTitle = By.xpath(
 			"(//*[@id='homeTabLayout']/*/child::*) | //*[@id='collectionToolBar'] | //*[@id='railDialogToolBar']");
 
-	public static By objViewAllBtn(String trayName) {
-		return By.xpath("//*[contains(text(),'" + trayName
-				+ "')]//following::*[@id='header_arrow'][1] | (//*[@id='cell_top_container']//parent::*[@text='"
-				+ trayName + "']//following::*[@text='a'])[1]");
-	}
 	public static By objLandingScreen = By.xpath("//*[@id='home_toolbar_title']");
-
-	public static By objBackIcon = By.xpath("//*[@id='action_icon'] | //*[@id='collectionToolBarBackButton']");
 
 	public static By objFirstChannelCard = By.xpath("(//*[@id='item_primary_text'])[1] | (//*[@id='cell_center_container']//*[@class='android.widget.ImageView'])[1]");
 
@@ -244,5 +237,12 @@ public class AMDHomePage {
 		return By.xpath("(//*[contains(text(), '"+title+"')]/parent::*/following-sibling::*/child::*/child::*/child::*)[1]");
 	}
 	public static By objselectedTopNavTab = By.xpath("//*[@class='android.widget.HorizontalScrollView']/child::*/child::*/child::*[ @selected='true']");
+	
+	public static By objBackIcon = By.xpath("//*[@id='action_icon'] | //*[@id='collectionToolBarBackButton'] | //*[@id='railDialogBackButton']");
+	public static By objViewAllBtn(String trayName) {
+			return By.xpath("//*[contains(text(),'" + trayName+ "')]//following::*[@id='header_arrow'][1] | //*[contains(text(),'"+trayName+"')]/following-sibling::*[@text='a']");
+		}
+	
+	public static By objHipiMenuBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[3] | (//*[@id='navigationTitleTextView'])[3]");
 	
 	}

@@ -19941,6 +19941,7 @@ public void BackToLandingScreen() throws Exception {
 		    click(AMDDownloadPage.objDownloadingConents(searchKeyword4), "Downloading content");
 		    click(AMDDownloadPage.objCancelDownloadOption, "Cancel download option");
 		    Back(1);
+		    click(AMDHomePage.objHomeBottomBtn, "Bottom bar Home Button");
 		}else {
 			logger.info("This is not applicable for "+usertype+" user");
 			extentLogger("", "This is not applicable for "+usertype+" user");
@@ -20115,5 +20116,225 @@ public void BackToLandingScreen() throws Exception {
 			logger.info("App is not maximized");
 			extentLoggerFail("App crash", "App is not maximized");
 		}
+		TurnONWifi();
+		Back(1);
+		click(AMDHomePage.objHomeBottomBtn, "Bottom bar Home Button");
 	}
+	
+	public void ListingScreenBackArrowAndHeaderName(String tabName) throws Exception {
+		extent.HeaderChildNode("Header name and back arrow validation in all the listing screen - AMA2-289");
+		SelectTopNavigationTab(tabName);
+		waitTime(3000);
+		    for(int j=0;j<3;j++) {
+		    	int  noOfViewAllBtns = getDriver().findElements(By.xpath("//*[@text='a']")).size();
+			    System.out.println(noOfViewAllBtns);
+		    	if(noOfViewAllBtns>1) {
+					for(int i=1;i<=noOfViewAllBtns;i++) {
+						getDriver().findElement(By.xpath("(//*[@text='a'])["+i+"]")).click();
+						if (verifyElementDisplayed(AMDHomePage.objBackIcon)) {
+							logger.info("Back button is displayed in listing Collection screen");
+							extent.extentLoggerPass("Listing Collection Screen",
+									"Back button is displayed in listing Collection screen");
+						} else {
+							logger.error("Back button is not displayed in the listing Collection screen");
+							extent.extentLoggerFail("Listing Collection Screen",
+									"Back button is not displayed in the listing Collection screen");
+						}
+						if (verifyElementDisplayed(AMDHomePage.objTitle)) {
+							logger.info("Header Name is displayed in listing Collection screen");
+							extent.extentLoggerPass("Listing Collection Screen",
+									"Header Name is displayed in listing Collection screen");
+						} else {
+							logger.error("Header Name is not displayed in listing Collection screen");
+							extent.extentLoggerFail("Listing Collection Screen",
+									"Header Name is not displayed in listing Collection screen");
+						}
+						Back(1);
+	                }
+					break;
+				}else {
+					Swipe("UP", 1);
+				}
+		    }
+			
+			click(AMDHomePage.objHomeBottomBtn, "Bottom bar Home Button");
+			
+	}
+	
+	public void MandatoryRegistration_NewsContent(String usertype) throws Exception {
+		if(usertype.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Removal of mandatory registration for News browsing - ZNA-9356");
+			SelectTopNavigationTab("News");
+			SwipeUntilFindElement(AMDHomePage.objTrayTitle("Live"), "UP");
+			click(AMDHomePage.objFirstContentCardOfTray("Live"), "First content of Live News Tray");
+			waitForAdToFinishInAmd();
+			boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objPauseIcon);
+			if(var==false) {
+				click(AMDPlayerScreen.objPlayerScreen, "PlayerScreen");
+			}
+			if(verifyElementExist(AMDPlayerScreen.objPauseIcon, "Pause icon")) {
+				logger.info("Mandatory Registration popUp is not displayed for Live  content");
+				extentLoggerPass("Mandatory Registration popUp", "Mandatory Registration popUp is not displayed for Live content");
+			}else {
+				logger.info("Mandatory Registration popUp is displayed for Live content");
+				extentLoggerFail("Mandatory Registration popUp", "Mandatory Registration popUp is displayed for Live content");
+			}
+			Back(1);
+			
+			SwipeUntilFindElement(AMDHomePage.objCarouselDots, "DOWN");
+			
+			SwipeUntilFindElement(AMDHomePage.objTrayTitle("Trending"), "UP");
+			click(AMDHomePage.objViewAllBtn("Trending"), "Trending News tray view All button");
+			int noOfContents = getDriver().findElements(By.xpath("//*[@resource-id='com.graymatrix.did:id/cell_center_container']/child::*[@class='android.widget.ImageView']")).size();
+			for(int i=1; i<7; i++) {
+				getDriver().findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/cell_center_container']/child::*[@class='android.widget.ImageView'])["+i+"]")).click();
+				waitForAdToFinishInAmd();
+			    var = verifyIsElementDisplayed(AMDPlayerScreen.objPauseIcon);
+				if(var==false) {
+					click(AMDPlayerScreen.objPlayerScreen, "PlayerScreen");
+				}
+				if(verifyElementExist(AMDPlayerScreen.objPauseIcon, "Pause icon")) {
+					logger.info("Mandatory Registration popUp is not displayed for content"+i);
+					extentLoggerPass("Mandatory Registration popUp", "Mandatory Registration popUp is not displayed for content"+i);
+				}else {
+					logger.info("Mandatory Registration popUp is displayed for content"+i);
+					extentLoggerFail("Mandatory Registration popUp", "Mandatory Registration popUp is displayed for content"+i);
+				}
+				Back(1);
+				click(AMDHomePage.objViewAllBtn("Trending"), "Trending News tray view All button");
+			}
+			Back(1);
+			click(AMDHomePage.objHomeBottomBtn, "Bottom bar Home Button");
+		}
+		
+	}
+	
+	public void UpcomingScreen_OfflineMode() throws Exception {
+		extent.HeaderChildNode("Blank screen validation in the Upcoming screen post tapping 'TRY AGAIN' in offline mode - ZNA-10691");
+		TurnOFFWifi();
+		waitTime(5000);
+		click(AMDHomePage.objUpcomingBtn, "Upcoming tab");
+		verifyElementPresentAndClick(AMDOfflineScreen.objTryAgain, "Retry icon");
+		boolean var = verifyIsElementDisplayed(AMDOfflineScreen.objTryAgain);
+		if(var==true) {
+			logger.info("Same offline screen is displayed");
+			extentLoggerPass("Blank screen", "Same offline screen is displayed");
+		}else {
+			logger.info("Same offline screen is not displayed");
+			extentLoggerFail("Blank screen", "Same offline screen is not displayed");
+		}
+		TurnONWifi();
+		waitTime(3000);
+		click(AMDHomePage.objHomeBottomBtn, "Bottom bar Home Button");
+	}
+	
+	public void CrashIssue_OptionBelowPlayer(String searchKeyword) throws Exception {
+		extent.HeaderChildNode("App crash issue on clicking any option below player post playing 'Expiry date', 'Naxalbari' content in consumption screen - ZNA-10271");
+		click(AMDHomePage.objSearchBtn, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, searchKeyword + "\n", "Search bar");
+		waitTime(2000);
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objSearchResult(searchKeyword), "Search result");
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDConsumptionScreen.objShareBtn, "Share icon");
+		waitTime(3000);
+		boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objSharePopUp,"Share popUp");
+		if(var==true) {
+			logger.info("App is not crashed on clicking any option below player post playing "+searchKeyword+" content in consumption screen");
+			extentLoggerPass("App crash", "App is not crashed on clicking any option below player post playing "+searchKeyword+" content in consumption screen");
+		}else {
+			logger.info("App is crashed on clicking any option below player post playing "+searchKeyword+" content in consumption screen");
+			extentLoggerFail("App crash", "App is crashed on clicking any option below player post playing "+searchKeyword+" content in consumption screen");
+		}
+		Back(2);
+		click(AMDHomePage.objHomeBottomBtn, "Bottom bar Home Button");
+		
+	}
+	
+	
+	public void crashIssue_AppLaunch_OfflineModeAndValidatingHipiBottomBarMenu() throws Exception {
+		extent.HeaderChildNode("App crash issue on launching the app in offline mode - ZNA-10528");
+		relaunch(false);
+		click(AMDHomePage.objHomeBottomBtn, "Bottom bar Home Button");
+
+		boolean lastSecTab = false;
+
+		int noOfTabs = getCount(AMDHomePage.objTitle);
+		System.out.println("HOME PAGE HEADERS: " + noOfTabs);
+		for (int i = 1; i <= 10; i++) {
+
+			String tabName = null;
+			if (i == noOfTabs) {
+				if (!lastSecTab) {
+					i = noOfTabs - 1;
+				}
+				WebElement eleTab = getDriver()
+						.findElement(By.xpath("(//*[@class='android.widget.HorizontalScrollView']/child::*/child::*/child::*)[" + i + "]"));
+				tabName = eleTab.getText();
+				System.out.println(tabName);
+				eleTab.click();
+
+			} else {
+				WebElement eleTab = getDriver()
+						.findElement(By.xpath("(//*[@class='android.widget.HorizontalScrollView']/child::*/child::*/child::*)[" + i + "]"));
+				tabName = eleTab.getText();
+				System.out.println(tabName);
+				eleTab.click();
+			}
+
+			waitTime(2000);
+
+			logger.info(tabName + " tab is displayed and clicked on " + tabName + " tab");
+			extent.extentLoggerPass(" ", tabName + " tab is displayed and clicked on " + tabName + " tab");
+
+			boolean var = verifyIsElementDisplayed(AMDOfflineScreen.objYouAreOffline);
+			if (var==true) {
+				logger.info("You aren't connected to the internet screen is displayed on launching the app in offline mode");
+				extent.extentLoggerPass("Offline screen", "You aren't connected to the internet screen is displayed on launching the app in offline mode");
+			    break;
+			} 
+			if (lastSecTab) {
+				break;
+			}
+			if (tabName.equalsIgnoreCase("Music")) {
+				lastSecTab = true;
+			}
+			waitTime(3000);
+
+		 }
+		click(AMDHomePage.objHomeBtn, "Bottom bar Home Option");	
+		TurnONWifi();
+		
+		extent.HeaderChildNode("HiPi Logo on bottom navigation bar - ZNA-9337");
+		verifyElementPresent(AMDHomePage.objHipiMenuBtn, "Hipi bottom ba menu");
+	  }
+	
+	 public void IndiaTodayLiveChannel() throws Exception {
+		  extent.HeaderChildNode("India Today Live Channel - ZNA-11065");
+		  SelectTopNavigationTab("News");
+		boolean content =  waitForElementAndClickIfPresent(AMDHomePage.objContentTitle("India Today"), 60, "India Today Live Channel");
+		if(content==true) {
+			waitForAdToFinishInAmd();
+			 boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objPauseIcon);
+			 if(var==false) {
+				 click(AMDPlayerScreen.objPlayerScreen, "Player screen"); 
+			 }
+			boolean flag = verifyIsElementDisplayed(AMDPlayerScreen.objFullscreenIcon);
+			if(flag==true) {
+				logger.info("Able to play India Today Live Channel");
+				extentLoggerPass("Play", "Able to play India Today Live Channel");
+			}else {
+				logger.info("Not able to play India Today Live Channel");
+				extentLoggerFail("Play", "Not able to play India Today Live Channel");
+			}
+			Back(1);  
+		}else {
+			logger.info("India Today Live Channel is not present in Carousal");
+			extentLoggerWarning("Carousal", "India Today Live Channel is not present in Carousal");
+		}
+		  
+		click(AMDHomePage.objHomeBtn, "Bottom bar Home Option");	 
+	  }
 }

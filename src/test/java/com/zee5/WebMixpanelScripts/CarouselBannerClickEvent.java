@@ -25,7 +25,15 @@ public class CarouselBannerClickEvent {
 	@Parameters({"Tab" })
 	public void verifyCarouselBannerClickEvent(String tab) throws Exception {
 		System.out.println("Verify Carousel Banner Click Event");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEvent(tab);
+		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEvent("Home");//tab and carousel item as parameters
+		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEvent("TV Shows");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEvent("Movies");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEvent("Web Series");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEvent("News");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEvent("Premium");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEvent("Play");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEvent("Kids");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyCarouselBannerClickEvent("Videos");
 	}
 
 	@AfterClass

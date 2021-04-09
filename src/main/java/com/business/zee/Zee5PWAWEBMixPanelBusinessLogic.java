@@ -978,29 +978,72 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 
 	public void verifyCarouselBannerClickEvent(String tabName) throws Exception {
-		extent.HeaderChildNode("Verify Carousel Banner Click Event For content played from Carousel");
-		navigateToAnyScreenOnWeb(tabName);
+		extent.HeaderChildNode("Verify Carousel Banner Click Event in Tab : "+tabName);
+		int carouselDot=0;
+		navigateToHome();
+		selectLanguages();
+		navigateToAnyScreenOnWeb(tabName);	
 		waitTime(5000);
-		mandatoryRegistrationPopUp(UserType);
-		verifyElementPresentAndClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel Content");
-		waitTime(4000);
-		
-		
-		String id = getWebDriver().getCurrentUrl();
-		ResponseInstance.getContentDetails(fetchContentID(id));
-		mixpanel.FEProp.setProperty("Source", "home");
-		mixpanel.FEProp.setProperty("Page Name",pageName());
-		
-		
+		mandatoryRegistrationPopUp(UserType);		
 		local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		fetchUserType(local);
-
+		String contentLang=fetchContentLanguage(local);		
+		String zeeTab = getWebDriver().getWindowHandle();
+		Set<String> handlesBeforeClick = getWebDriver().getWindowHandles();
+		click(PWAHomePage.objPromotionalBannerCarouselDots(carouselDot + 1), "Carousel Dot");
+		JSClick(PWAHomePage.objCarouselCardForClick(carouselDot),"Carousel Card");
+		waitTime(4000);						
+		String page=pageNameForCarousel(tabName);		
+		String source=getElementPropertyToString("innerText",PWAHomePage.objBreadCrumb(1),"");
+		if(page.equalsIgnoreCase(source)) source="N/A";		
+		mixpanel.FEProp.setProperty("Page Name",page);
+		mixpanel.FEProp.setProperty("Source", source);		
+		ResponseInstance.getContentDetailsForCarouselClick(tabName,carouselDot,contentLang);		
 		if (userType.equals("Guest")) {
-			System.out.println(local.getItem("guestToken"));
-			mixpanel.ValidateParameter(local.getItem("guestToken"), "Carousal Banner Click");
+			mixpanel.ValidateParameterForCarouselClick(local.getItem("guestToken"), "Carousal Banner Click",contentLang);
 		} else {
-			mixpanel.ValidateParameter(local.getItem("ID"), "Carousal Banner Click");
+			mixpanel.ValidateParameterForCarouselClick(local.getItem("ID"), "Carousal Banner Click",contentLang);
 		}
+		Set<String> handlesAfterClick = getWebDriver().getWindowHandles();
+		if (handlesAfterClick.size() > handlesBeforeClick.size()) {
+			String externalTab = "";
+			for (String winHandle : getWebDriver().getWindowHandles()) {
+				if (!winHandle.equals(zeeTab)) getWebDriver().switchTo().window(winHandle).close();
+			}
+			getWebDriver().switchTo().window(zeeTab);
+		}
+	}
+	
+	public String pageNameForCarousel(String tab) throws Exception {
+		if(tab.equalsIgnoreCase("Home")) return "home";
+		else if(tab.equalsIgnoreCase("TV Shows")) return "tv_shows_view_all";
+		else if(tab.equalsIgnoreCase("Movies")) return "movie_landing";
+		else if(tab.equalsIgnoreCase("Web Series")) return "zee_originals_view all";
+		else if(tab.equalsIgnoreCase("News")) return "news_landing";
+		else if(tab.equalsIgnoreCase("Premium")) return "premium";
+		else if(tab.equalsIgnoreCase("Play")) return "play_landing";
+		else if(tab.equalsIgnoreCase("Kids")) return "kids_landing";
+		else if(tab.equalsIgnoreCase("Videos")) return "video_landing";
+		else return "N/A";
+	}
+	
+	public String fetchContentLanguage(LocalStorage local) {
+		String contentLangFromSetting="";
+		try {
+			Properties KEYVALUE = new Properties();
+			for (String key : local.keySet()) {
+				KEYVALUE.setProperty(key, local.getItem(key));
+			}
+			Set<String> keys = KEYVALUE.stringPropertyNames();
+			for (String key : keys) {
+				if (key.equals("settings")) {
+					JSONObject jsonObj = new JSONObject(KEYVALUE.getProperty(key));
+					contentLangFromSetting=jsonObj.get("content_language").toString();
+					break;
+				}
+			}
+		} catch (Exception e) {}
+		return contentLangFromSetting;
 	}
 
 	public void verifyThumbnailClickEventFromTray(String tabName) throws Exception {
