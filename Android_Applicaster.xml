@@ -42,6 +42,9 @@
 	<parameter name="NonSubsWithoutPhNum" value="testma@gmail.com" />
 	<parameter name="NonSubsWithoutPhNumPwd" value="123456" />
 	
+	<parameter name="EduauraaClaimedUserName" value="vasilucky1997@gmail.com" />
+	<parameter name="EduauraaClaimedPassword" value="vasilucky@123" />
+	
 	
 	<!-- ======Test Data====== -->
 	<parameter name="displayLanguageSelection1" value="English" />

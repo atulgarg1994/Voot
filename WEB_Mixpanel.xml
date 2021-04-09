@@ -51,7 +51,7 @@
 	<parameter name="skipIntroPremium"	value="The Rum Diary" />
 	<parameter name="skipIntroURL"	value="https://newpwa.zee5.com/movies/details/bablu-dablu-robo-rumble/0-0-54219" />
 	<parameter name="NonsubscribedInvalidPassword" value="igsindia"/>
-
+	
 	<parameter name="freeContentURL" value="tvshows/details/paaru/0-6-1179/paaru-gets-tipsy-paaru-highlights/0-1-249189" />
 	
 	<listeners>
@@ -59,12 +59,13 @@
 		<!-- <listener class-name="com.extent.ParameterInjector" /> -->
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
-
+	
 	<test name="WebPWAMixpanelScript">
 		<classes>
 			<class name="com.zee5.WebMixpanelScripts.RemoveFomWatchlistEvent" />
 		</classes>
 	</test>
+	
 	<!-- <test name="WebPWAMixpanelScript">
 		<classes>
 			<class name="com.zee5.WebMixpanelScripts.PrepaidCodeResultEvent" />

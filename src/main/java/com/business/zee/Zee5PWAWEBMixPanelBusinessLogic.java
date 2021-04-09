@@ -1234,7 +1234,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 	}
 
 
-	public void verifyParentalRestrictionEvent(String userType, String restriction) throws Exception {
+
+public void verifyParentalRestrictionEvent(String userType, String restriction) throws Exception {
 		if (!(userType.equalsIgnoreCase("Guest"))) {
 
 			extent.HeaderChildNode("Verify Parental Restriction Event");
@@ -1319,18 +1320,20 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 //				ResponseInstance.getUserSettingsValues("zeein7@mailnesia.com","123456");
 //			}
 //			mixpanel.parentControl = true;
-			mixpanel.parentalValidateParameter(local.getItem("ID"), "Parental_Restriction");
+			mixpanel.ValidateParameter(local.getItem("ID"), "Parental_Restriction");
 			HeaderChildNode("Remove Parent control");
 			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 			click(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
 			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
 			if (userType.equals("NonSubscribedUser")) {
-				password = getParameterFromXML("SettingsNonSubscribedPassword");
+				password = getParameterFromXML("NonSubscribedUserPassword");
 			} else if (userType.equals("SubscribedUser")) {
-				password = getParameterFromXML("SettingsSubscribedPassword");
+				password = getParameterFromXML("SubscribedUserPassword");
+				
 			}
 			type(PWALoginPage.objPasswordField, password, "Password field");
 			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
 			waitTime(2000);
 			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
 			click(PWAHamburgerMenuPage.objNoRestrictionSelected, "No Restriction option");
@@ -1433,12 +1436,12 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(4000);
 			
 			String id = getWebDriver().getCurrentUrl();
-			ResponseInstance.getContentDetailsForNews(fetchContentID(id));
+			ResponseInstance.getContentDetails(fetchContentID(id));
 			
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			mixpanel.FEProp.setProperty("Source", "search");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Element", "Watchlist");
 			mixpanel.ValidateParameter(local.getItem("ID"), "Add To Watchlist");
 		}
@@ -1451,23 +1454,25 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(5000);
 			navigateToAnyScreenOnWeb("Movies");
 			waitTime(5000);
+	
 			scrollDownWEB();
-			scrollDownWEB();
+			String link = findElement(PWAPremiumPage.obj1stContentInViewAllPage).getAttribute("data-minutelyurl");
 			waitTime(2000);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInViewAllPage);
 			actions.moveToElement(contentCard).build().perform();
 
 			if (checkElementDisplayed(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon")) {
-				click(PWAPlayerPage.objAddToWatchlist, "Watchlist icon");
+				verifyElementPresentAndClick(PWAPlayerPage.objAddToWatchlist, "Watchlist icon");
 			} else {
 				click(PWAPlayerPage.objRemoveFromWatchlist, "Remove From Watchlist icon");
 				waitTime(3000);
 				actions.moveToElement(contentCard).build().perform();
-				click(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon");
+				verifyElementPresentAndClick(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon");
 				waitTime(4000);
 			}
 			waitTime(4000);
+			ResponseInstance.getContentDetails(fetchContentID(link));
 			
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
@@ -2287,9 +2292,16 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			waitTime(2000);
 			click(PWAHamburgerMenuPage.objProfileIconInProfilePage, "profile icon");
 			waitTime(2000);
+			String password ;
+			if(userType.equals("NonSubscribedUser")) {
+					password = getParameterFromXML("NonSubscribedUserPassword");
+			}else {
+				password = getParameterFromXML("SubscribedUserPassword");
+			}
+			
 			JSClick(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
 			click(PWAHamburgerMenuPage.objChangeOldPassword, "password field");
-			type(PWAHamburgerMenuPage.objChangeOldPassword, "igsindia123", "Current password field");
+			type(PWAHamburgerMenuPage.objChangeOldPassword, password, "Current password field");
 			click(PWAHamburgerMenuPage.objNewPassword, "new password field");
 			type(PWAHamburgerMenuPage.objNewPassword, "igszee5", "new password field");
 			click(PWAHamburgerMenuPage.objNewPassword, "confirm password field");
@@ -2311,9 +2323,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			click(PWAHamburgerMenuPage.objChangeOldPassword, "password field");
 			type(PWAHamburgerMenuPage.objChangeOldPassword, "igszee5", "Current password field");
 			click(PWAHamburgerMenuPage.objNewPassword, "new password field");
-			type(PWAHamburgerMenuPage.objNewPassword, "igsindia123", "new password field");
+			type(PWAHamburgerMenuPage.objNewPassword, password, "new password field");
 			click(PWAHamburgerMenuPage.objNewPassword, "confirm password field");
-			type(PWAHamburgerMenuPage.objConfirmNewPassword, "igsindia123", "Current confirm field");
+			type(PWAHamburgerMenuPage.objConfirmNewPassword, password, "Current confirm field");
 			waitTime(3000);
 			click(PWAHamburgerMenuPage.objUpdatePasswordBtnHighlighted, "Update password button");
 			waitTime(8000);
@@ -11848,6 +11860,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 			waitTime(4000);
 			click(PWASearchPage.objSearchResultTxt(keyword), "Search Result");
+			String link = findElement(PWAPremiumPage.obj1stContentInShowDetailPage).getAttribute("data-minutelyurl");
 			waitTime(5000);
 			scrollDownWEB();
 			scrollDownWEB();
@@ -11856,15 +11869,17 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			WebElement contentCard = getWebDriver().findElement(PWAPremiumPage.obj1stContentInShowDetailPage);
 			actions.moveToElement(contentCard).build().perform();
 
-			if (checkElementDisplayed(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon")) {
-				click(PWAPlayerPage.objAddToWatchlist, "Watchlist icon");
-			} else {
-				click(PWAPlayerPage.objRemoveFromWatchlist, "Remove From Watchlist icon");
+			if (checkElementDisplayed(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon")) {
+				click(PWAPremiumPage.objContentCardAddToWatchlistBtn, "Add To Watchlist icon");
+			}else {
+				click(PWAPremiumPage.objContentCardRemoveFromWatchlistBtn, "Remove From Watchlist icon");
 				waitTime(3000);
 				actions.moveToElement(contentCard).build().perform();
 				click(PWAPlayerPage.objAddToWatchlist, "Add To Watchlist icon");
 				waitTime(4000);
 			}
+			
+			ResponseInstance.getContentDetails(fetchContentID(link));
 			
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			mixpanel.FEProp.setProperty("Source", "search");
@@ -11873,6 +11888,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.ValidateParameter(local.getItem("ID"), "Add To Watchlist");
 		}
 	}
+
 
 	public void verifyAdWatchDurationEventForFreeContentSkipAd(String userType, String tabName)
 			throws Exception {

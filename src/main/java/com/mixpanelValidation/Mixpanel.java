@@ -374,9 +374,11 @@ public class Mixpanel extends ExtentReporter {
 	public static void validateParameterValue(String key, String value) {
 		try {
 			propValue = FEProp.getProperty(key);
-//			if(key.equalsIgnoreCase("Publishing date")) {
-//				propValue = propValue.split("T")[0];
-//			}
+			if (platform.equals("Android")) {
+				if (key.equalsIgnoreCase("Publishing date")) {
+					propValue = propValue.split("T")[0];
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -485,7 +487,9 @@ public class Mixpanel extends ExtentReporter {
 			FEProp.setProperty("os", System.getProperty("os.name").split(" ")[0]);
 		}
 		Mixpanel.FEProp.setProperty("Landing Page Name", "home");
+		if(!platform.equals("Android")) {
 		Mixpanel.FEProp.setProperty("Unique ID", UniqueID);
+		}
 		
 		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
 		
@@ -507,7 +511,10 @@ public class Mixpanel extends ExtentReporter {
 			Mixpanel.FEProp.setProperty("hasEduauraa", "false");
 			if(Language != false) {
 			Mixpanel.FEProp.setProperty("New App Language", "en");
-			Mixpanel.FEProp.setProperty("New Content Language", "[en-kn]");
+			if(platform.equals("Android")) {
+				Mixpanel.FEProp.setProperty("New Content Language", "en,kn");
+			}else {
+			Mixpanel.FEProp.setProperty("New Content Language", "[en-kn]");}
 			}
 			}
 		}else if(userType.equals("NonSubscribedUser"))

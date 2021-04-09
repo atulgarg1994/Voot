@@ -2304,6 +2304,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	public void PlayerIconVaidationsWeb() throws Exception {
 		String userType = getParameterFromXML("userType");
 		System.out.println("PlayerIconVaidationsWeb");
+		navigateToAnyScreenOnWeb("Home");
 		extent.HeaderChildNode("Validating Player icons on Player");
 		String movie = "Robin Hood Forever Enemies";
 		click(PWAHomePage.objSearchBtn, "Search icon");
@@ -16065,7 +16066,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if (checkElementDisplayed(PWAPremiumPage.objWEBMastheadCarousel, "Carousel card")) {
 			click(PWAHomePage.objContTitleOnCarousel, "Carousel card");
 		} else if (checkElementDisplayed(PWAMusicPage.objBannerPlusTrayCard, "Banner Tray Card")) {
-			click(PWAMusicPage.objBannerPlusTrayCard, "Banner Tray card");
+//			click(PWAMusicPage.objBannerPlusTrayCard, "Banner Tray card");
+			JSClick(PWAMusicPage.objBannerPlusTrayCard, "Banner Tray card");
 		}
 		if (checkElementDisplayed(PWASubscriptionPages.objGetPremiumPopupTitle, "Subscribe Pop Up")) {
 			verifyElementPresentAndClick(PWAPremiumPage.objClosePremiumPopup, "Premium PopUp Close icon");

@@ -143,5 +143,17 @@ public class AMDConsumptionScreen {
 	public static By objRightArrow(String railName) {
 		return By.xpath("//*[contains(text(),'" + railName + "')]//following-sibling::*[@text='a']");
 		}
-
+	
+	public static By objClaimOfferCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribeButton' and @text='Claim Offer']");
+	public static By objAboutEduauraaSection = By.xpath("//*[@resource-id='com.graymatrix.did:id/aboutEduaraa']");
+	public static By objEduauraaBenefitsSection = By.xpath("//*[@resource-id='com.graymatrix.did:id/eduaraaBenefits']");
+	public static By objEduauraaOfferDetailsSection = By.xpath("//*[@resource-id='com.graymatrix.did:id/eduaraaOfferDetails']");
+	public static By objExpandIcon(String section) {
+		return By.xpath("//*[@id='eduaraaExpandImage']/preceding-sibling::*[@text='"+section+"']");
+				}
+	public static By objEduauraaDescriptionForAboutEduauraaSection = By.xpath("//*[@id='aboutEduaraa']/child::*[@id='eduaraaDescriptionText']");
+	public static By objEduauraaDescriptionForEduauraaBenefitsSection = By.xpath("//*[@id='eduaraaBenefits']/child::*[@id='eduaraaDescriptionText']");
+	public static By objEduauraaDescriptionForEduauraaOfferDetailsSection = By.xpath("//*[@id='eduaraaOfferDetails']/child::*[@id='eduaraaDescriptionText']");
+    public static By objGoToEduauraaCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribeButton' and @text='Go To Eduauraa']");
+    
 }
