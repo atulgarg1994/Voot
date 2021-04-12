@@ -619,7 +619,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	public void verifyPromoCodeResultEventForValid(String userType) throws Exception {
 		extent.HeaderChildNode("Verify Promo Code Result Event For Valid code");
-		String promoCode = "ZEE5SBI20";
+		String promoCode = "prein50";
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
 			waitTime(2000);
@@ -5957,8 +5957,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 					click(PWASubscriptionPages.objEmailIDTextField, "Email ID field");
 					type(PWASubscriptionPages.objEmailIDTextField, "zeesub@mailnesia.com", "Email Id");
 					Thread.sleep(5000);
-					verifyElementPresentAndClick(PWASubscriptionPages.objEmailContinueButton,
-							"Continue Button");
+					verifyElementPresentAndClick(PWASubscriptionPages.objEmailContinueButton,"Continue Button");
 					// Password Popup
 					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
 					click(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
@@ -5969,11 +5968,9 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 					fetchUserType(local);
 					localToken = local.getItem("ID");
 					System.out.println(local.getItem("ID"));
-					
 					ResponseInstance.getUserData("zeesub@mailnesia.com","123456");
 					ResponseInstance.getUserSettingsValues("zeesub@mailnesia.com","123456");
 				}
-
 			} else if (userType.equals("NonSubscribedUser")) {
 				mixpanel.FEProp.setProperty("Source", "pack_selection");
 				Thread.sleep(20000);
@@ -9902,6 +9899,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 					mixpanel.FEProp.setProperty("Cost", "N/A");
 					ResponseInstance.getUserData("zeesub@mailnesia.com","123456");
 					ResponseInstance.getUserSettingsValues("zeesub@mailnesia.com","123456");
+					mixpanel.NonSubcribedDetails();
 				}
 			} else {
 				mixpanel.FEProp.setProperty("Source", "home");

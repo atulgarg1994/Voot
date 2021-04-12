@@ -10,14 +10,6 @@ public class PWASubscriptionPages {
 	public static By objSelectedSubscriptionPlanType = By.xpath(
 			"//*[contains(@class, 'planDescription') and (./preceding-sibling::* | ./following-sibling::*)[contains(@class, 'noSelect subscriptionPlanCard active')]]");
 
-	// Continue Btn
-	public static By objContinueBtn = By.xpath("//span[contains(text(), 'Continue')]");
-
-	// Account Info Page
-
-	// Account Info tab Highlighted
-	public static By objAccountInfoHighlighted = By.xpath("//div[contains(text(),'Account Info')]");
-
 	// Selected Pack Text
 	public static By objSelectedPackText = By
 			.xpath("//div[contains(@class, 'selectPackDetails')]/p[contains(text(), 'Selected Pack')]");
@@ -67,9 +59,6 @@ public class PWASubscriptionPages {
 
 	// Payment Page
 
-	// Payment tab Highlighted
-	public static By objPaymentHighlighted = By.xpath("//li[@class='active']/div[contains(text(),'Payment')]");
-
 	// Account Info Text
 	public static By objAccountInfoText = By
 			.xpath("//div[contains(@class,'accountInfoPlanCard')]//p[@class='autoPopulatedDetail']");
@@ -107,10 +96,6 @@ public class PWASubscriptionPages {
 	// PayTm Wallet Radio Btn
 	public static By objPaytmWalletOption = By.xpath("//img[contains(@alt, 'Paytm')]");
 
-	// Default Selected Pack
-	public static By objDefaultSelectedPack = By
-			.xpath("//div[contains(@class, 'upgradeCard active')]//span[contains(@class, 'price')]");
-
 	// Enter Password Popup
 	public static By objGetPremiumCTAInPlater = By.xpath("//div[contains(@class,'teaser-grid2')]//button");
 
@@ -141,9 +126,6 @@ public class PWASubscriptionPages {
 // Popup Close Button
 	public static By objPopupCloseButton = By.xpath("//div[contains(@class,'noSelect closePupup')]");
 
-//Code Applied Successfully message
-	public static By objAppliedSuccessfullyMessage = By.xpath("//div[contains(text(),'Applied Successfully')]");
-
 	public static By objSearchResultPremiumContent = By.xpath("//div[@class='cardPremiumContent']/parent::*");
 
 	public static By objPopup99Plan = By
@@ -170,37 +152,16 @@ public class PWASubscriptionPages {
 
 	public static By objPackAmount = By.xpath("(//p[@class='currency'])");
 
-	public static By objPackAmount1 = By.xpath("(//p[@class='currency'])[1]");
-
 //	MANASA
 	public static By objPackType(int i) {
 		return By.xpath("(//div[@class='categoryContainer']//child::*[@class='noSelect'])[" + i + "]");
 	}
 
-	// ZEE5 Subscription Text
-	public static By objZEE5Subscription = By
-			.xpath("//*[contains(text(),'ZEE5 Subscription') and contains(@class,'pageTitleSmall')]");
-
 	public static By objSubscribeBtnTopHeader = By
 			.xpath("//*[contains(@class,'subscribeBtn noSelect')]//span[contains(text(), 'Subscribe')]");
 
-	public static By objSelectPackHighlighted = By.xpath("//*[@class='active']/div[contains(text(),'Select Pack')]");
-
 	public static By objPackCategoryTabSelected = By
 			.xpath("//*[contains(@class,'active')]/*[contains(@class, 'noSelect')]");
-
-	public static By objPackDescription = By.xpath("//*[@class='featureDesc']");
-
-	public static By objSelectedSubscriptionPlanAmount = By
-			.xpath(".//div[contains(@class,'packDetails active')]//child::*[@class='price']");
-
-	public static By objSelectedSubscriptionPlanDuration = By
-			.xpath("//*[contains(@class, 'noSelect subscriptionPlanCard active')]/*/*[contains(@class, 'duration')]");
-
-	public static By objEmailIDTextField = By.xpath("//*[@id='textField' and @name='userName']");
-
-	public static By objProceedBtnHighlighted = By
-			.xpath("//*[contains(@class, 'noSelect buttonGradient')]/span[contains(text(),'PROCEED')]");
 
 	public static By objEnterPasswordPopupTitle = By.xpath("//*[contains(@class, 'popupDesc bigTitle')]");
 
@@ -215,8 +176,7 @@ public class PWASubscriptionPages {
 
 	public static By objCreditAndDebitCardBtn = By.xpath(
 			"//*[contains(@class,'linearLayout sidebarItem_object')]//following-sibling::*//article[contains(text(),'Credit / Debit Card')]");
-	public static By objWallets = By
-			.xpath("//*[contains(@class, 'linearLayout PaymentOptionViewNotList ')]//*[contains(text(), 'Wallets')]");
+
 	public static By objPaytmWallet = By.xpath(
 			"//*[@class='linearLayout sidebarItem_object ']//following-sibling::*//article[contains(text(),'Paytm')]");
 //	public static By objPaymentPageProceedBtn = By
@@ -246,7 +206,7 @@ public class PWASubscriptionPages {
 	public static By objAccountDetailInSubscription = By.xpath("//*[@class='autoPopulatedDetail']");
 
 	public static By objPaytmProceedToPay = By.xpath("(//article[contains(text(), 'Proceed to pay')])[2]");
-	
+
 	public static By objCreditDebitProceedToPay = By.xpath("//article[contains(text(),'Proceed to pay')]");
 
 	public static By objarrowbtn = By.xpath("//div[@class='linearLayout sidebarItem_object ']");
@@ -274,9 +234,6 @@ public class PWASubscriptionPages {
 	public static By objGetPremiumPopupTitle = By
 			.xpath("//h2[contains(@class,'popupTitle bigTitle')]//p[text()='Subscribe']");
 
-	// Popup Proceed Btn
-	public static By objPopupProceedBtn = By.xpath("//div[contains(text(),'PROCEED') and contains(@class,'popupBtn')]");
-
 	// Get Subscribe Pop Up Title
 	public static By objSubscribePopupTitle = By.xpath("//div[contains(@class,'popup')]//*[text()='Subscribe']");
 
@@ -294,7 +251,7 @@ public class PWASubscriptionPages {
 	public static By objEnterCVV = By.xpath("(//input[@placeholder='CVV'])");
 
 	public static By objCancelTransaction = By.xpath("//*[@class='Btn cancel']");
-	
+
 	public static By objExpandLess = By.xpath("//*[@class='iconOther-ic_expand_less']");
 
 	public static By objGiftCardNumber = By.xpath("//*[@name='giftCardNumber']");
@@ -302,37 +259,90 @@ public class PWASubscriptionPages {
 	public static By objPin = By.xpath("//*[@name='pinNumber']");
 
 	public static By objPay = By.xpath("//span[contains(text(),'PAY')]");
-	
+
 	public static By objZeeLink = By.xpath("(//a[contains(text(),'www.zee5.com')])[1]");
-	
+
 	public static By objCreditDebitClose = By.xpath("(//*[contains(@src,'ic_search_cancel')])[2]");
-	
+
 	public static By objProceedBtnInSubscriptionPage = By.xpath("//*[text()='PROCEED']");
-	
+
 	public static By objPremiumPack = By.xpath("//span[contains(text(),'Premium')]");
-	public static By objActiveStatusTransaction = By.xpath("//*[text()='Status']//following-sibling::*[text()='Active']");
-	
+	public static By objActiveStatusTransaction = By
+			.xpath("//*[text()='Status']//following-sibling::*[text()='Active']");
+
 	public static By objUpgradePopupTitle = By.xpath("//div[contains(@class,'popupContent upgradePopupContent')]");
 	public static By objMobileCreditDebitCardOption = By.xpath("//*[text()='Credit / Debit Card']");
 	public static By objMobileWalletsOption = By.xpath("//*[text()='Wallets']");
 	public static By objPaymentPageProceedBtn = By.xpath("//button[contains(@class,'noSelect buttonGradient')]");
-	
-	public static By objcardDetails = By.xpath(".//*[@placeholder='Enter card number here']//following-sibling::*[@class='imageView']");
-	
+
+	public static By objcardDetails = By
+			.xpath(".//*[@placeholder='Enter card number here']//following-sibling::*[@class='imageView']");
+
 	public static By objMobileProceedToPayButton = By.xpath("(//article[contains(text(),'Proceed to pay')])[2]");
-	
-	public static By objHaveACode = By.xpath("//*[@class='haveCodeText']");
 
 	public static By objEnterCode = By.xpath("//*[@placeholder='Enter code']");
-			
+
+	public static By objEmailContinueButton = By
+			.xpath("//div[@class='buttonContainer ']//span[contains(text(), 'Continue')]");
+
+	public static By objPasswordContinueButton = By
+			.xpath("//div[@class='buttonContainer']//span[contains(text(), 'Continue')]");
+
+	public static By objZEE5SubscriptionPage = By.xpath("//div[@class='subPackFlowContent']");
+
+	public static By objsubscribebtnonplayer = By.xpath("//div[@class ='subscribe-button subscribemsg_en']");
+
+	public static By objZEE5Subscription = By
+			.xpath("//*[contains(text(),'Unlock ZEE5') and contains(@class,'pageTitleSmall')] ");
+
+	public static By objSelectPackHighlighted = By
+			.xpath("//*[@class='subscriPack ']//div[contains(@class, 'packDetails active')]");
+
+	public static By objAccountInfoHighlighted = By.xpath("//div[contains(text(),'Account Info')]");
+
+	public static By objPaymentHighlighted = By
+			.xpath("//h1[@class='pageTitleSmall' and contains(text(),'Make Payment')]");
+
+	public static By objDefaultSelectedPack = By
+			.xpath("//div[contains(@class, 'packDetails active')]//*[contains(@class, 'planPrice')]");
+
+	public static By objPopup299Plan = By
+			.xpath("//div[contains(@class, 'packDetails')]//div[contains(@class, 'planPrice')]//span[text()='299']");
+
+	public static By objHaveACode = By.xpath("//*[contains(@class,'haveCodeText')]");
+
+	public static By objHaveACodetoenter = By.xpath("//*[contains(@placeholder,'Enter code')]");
+
+	public static By objAppliedSuccessfullyMessage = By
+			.xpath("//div[contains(@class,'applyPromo applyPromoSuccess successIcon')]");
+
+	public static By objPopupProceedBtn = By.xpath("//div[@class='buttonContainer']");
+
+	public static By objEmailIDTextField = By.xpath("//*[@id='textField' and @name='userName']");
+
+	public static By objProceedBtnHighlighted = By
+			.xpath("//*[contains(@class, 'noSelect buttonGradient')]/span[contains(text(),'Continue')]");
+
+	public static By objWallets = By
+			.xpath("//*[contains(@class, 'linearLayout PaymentOptionViewNotList')]//*[contains(text(), 'Wallets')]");
+
+	public static By objPackDescription = By.xpath("//*[@class='subscriTopContWrapper']");
+
+	public static By objSelectedSubscriptionPlanAmount = By
+			.xpath("//*[contains(@class, 'packDetails active')]//*/*[contains(@class, 'price')]");
+
+	public static By objSelectedSubscriptionPlanDuration = By.xpath(
+			"//*[contains(@class, 'packDetails active')]/*[contains(@class, 'planDuration')]/*[contains(@class,'heading')]");
+
 	public static By objApplyBtn = By
-			.xpath("//*[@class='promoCodePopupApply' and contains(text(), 'Apply')]");
+			.xpath("//*[contains(@class, 'promoCodePopupApply') and contains(text(), 'Apply')]");
 
 	public static By objAppliedCodeFailureMessage = By.xpath("//*[@class='applyPromo applyPromoFailure']");
-	
-	public static By objEmailContinueButton = By.xpath("//div[@class='buttonContainer ']//span[contains(text(), 'Continue')]");
 
-	public static By objPasswordContinueButton = By.xpath("//div[@class='buttonContainer']//span[contains(text(), 'Continue')]");
-	
-	public static By objZEE5SubscriptionPage = By.xpath("//div[@class='subPackFlowContent']");
+	public static By objremovebtn = By
+			.xpath("//*[contains(@class, 'promoCodePopupApply') and contains(text(), 'Remove')]");
+
+	public static By objPackAmount1 = By.xpath("(//p[@class='planPrice'])[1]");
+
+	public static By objContinueBtn = By.xpath("//span[contains(text(), 'Continue')]");
 }

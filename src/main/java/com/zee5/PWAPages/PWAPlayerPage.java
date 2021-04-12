@@ -347,13 +347,6 @@ public class PWAPlayerPage {
 	public static By watchListBtnNotAdded = By
 			.xpath("//div[contains(@class,'add_Watchlist')]//p[contains(text(),'Watchlist')]");
 
-	// Subscribe Now Link on player
-	public static By objSubscribeNowLink = By.xpath("//span[@class = 'subscribe-link subscribemsg_en']");
-
-	// Get Premium CTA Below the Player Screen
-	public static By objGetPremiumCTABelowPlayerScreen = By
-			.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Subscribe')]");
-
 	public static By objWatchingATrailerMessage = By
 			.xpath("//div[@class='trailerInfoContainer' and contains(text(),'watching a trailer')]");
 
@@ -444,5 +437,10 @@ public class PWAPlayerPage {
 	public static By objFirstCardFigureFromTray = By.xpath("//div[@data-index='0']//figure");
 	
 	public static By objSelectAudioLanguage = By.xpath("");
+	
+	public static By objSubscribeNowLink = By.xpath("//div[@class ='subscribe-button subscribemsg_en']");
+
+	public static By objGetPremiumCTABelowPlayerScreen = By
+				.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Get Premium')]");
 
 }

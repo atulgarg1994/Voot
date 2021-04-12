@@ -856,6 +856,8 @@ public class ResponseInstance {
 		return pro;
 	}
 	
+	
+	
 	private static void getDOB() {
 		String birthday=resp.jsonPath().get("birthday").toString();
 		LocalDate dob = LocalDate.parse(birthday.split("T")[0]);

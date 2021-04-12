@@ -70,10 +70,6 @@ public class PWAHomePage {
 
 	public static By objSearchField = By.xpath("//input[@type='text']");
 
-	// Subscribe Btn in Top Header
-	public static By objSubscribeBtnTopHeader = By
-			.xpath("//*[contains(@class,'subscribeBtn noSelect')]//span[contains(text(), 'Subscribe')]");
-
 	// Continue in Display/Content language popup
 	public static By objContinueDisplayContentLangPopup = By
 			.xpath("//div[contains(@class,'popupBtn noSelect') and text()='Continue']");
@@ -446,8 +442,6 @@ public class PWAHomePage {
 	
 	//Check for the club tag
 	public static By objClubTag = By.xpath("//*[contains(@class,'clubPackContent')]");
-
-	public static By objGetPremiumWeb = By.xpath("//*[text()='Get premium' or text()='Get Club']");
 	
 	public static By objStayTunedPopUpClose = By.xpath("//*[@class='aiq-1xYiw8']");
 	
@@ -570,9 +564,7 @@ public class PWAHomePage {
 	public static By objClubIcon = By.xpath("//*[contains(@class,'cardPremiumContent')]//div[@class[contains(.,'cardPremiunIconContainer') and contains(.,'clubPackContent')]]");
 	// Continue in Display/Content language popup
 	public static By objApplyContentLangPopup = By.xpath("//div[contains(@class,'popupBtn noSelect') and text()='APPLY']");
-// Masthead carousel current content
-	public static By objMastheadCarouselCurrentContent = By.xpath(
-			"//div[contains(@class,'heroBannerCarousel')]//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'content')]//img");
+	
 	public static By objInnerMegaMenuFirstCardAnchor(String tab) {
 		return By.xpath("(//a[contains(@class,'noSelect') and text()='" + tab + "']//following-sibling::div[contains(@class,'megaMenuCards')]//a)[1]");
 	}
@@ -609,5 +601,13 @@ public class PWAHomePage {
 	public static By objCarouselCardForClick (int carouselDot) {
 		return By.xpath("//div[contains(@class,'BannerCarousel')]//div[@data-index='"+carouselDot+"']//div[@class='carouselMain']//figure//img");
 	}
+	
+	public static By objMastheadCarouselCurrentContent = By.xpath(
+			"//div[contains(@class,'heroBannerCarousel')]//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'content')]//img");
+
+	public static By objGetPremiumWeb = By.xpath("//*[text()='Get premium' or text()='Get Club']");
+
+	public static By objSubscribeBtnTopHeader = By
+			.xpath("//*[contains(@class,'subscribeBtn noSelect')]");
 	
 }

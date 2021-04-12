@@ -8583,6 +8583,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	public void setFEProperty(String pUserType) {
 		if (!(pUserType.equalsIgnoreCase("Guest"))) {
+			
+			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+				Username = getParameterFromXML("SubscribedUserName");
+				Password = getParameterFromXML("SubscribedUserPassword");
+			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+				Username = getParameterFromXML("NonSubscribedUserName");
+				Password = getParameterFromXML("NonSubscribedUserPassword");
+			}
+			
 			Properties pro = new Properties();
 			pro = ResponseInstance.getUserSettingsDetails(Username,Password);
 			String value = pro.getProperty("eduauraaClaimed");
@@ -8926,13 +8935,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			registerPopUpClose();
 			waitForAdToFinishInAmd();
 			waitTime(2000);
+			registerPopUpClose();
 			Back(1);
 		}else {
-			waitTime(2000);
+			waitTime(3000);
 			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player Screen");
 			verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
 		}
 		
+//		####### Set All Parameters values ####### 
 		setFEProperty(pUsertype);
 		setUserType_SubscriptionProperties(pUsertype);
 		
@@ -8940,18 +8951,18 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 //		String pSource = getSource(pTabName);
 		String pPage = "ConsumptionPage";
 		String pSource = "Homepage";
-		
 		String pManufacturer = DeviceDetails.OEM;
-		String pAdId = getAdId();
-
-		mixpanel.FEProp.setProperty("Ad ID", pAdId);
-		mixpanel.FEProp.setProperty("Advertisement ID", pAdId);
+		
+//		String pAdId = getAdId();
+//		mixpanel.FEProp.setProperty("Ad ID", pAdId);
+//		mixpanel.FEProp.setProperty("Advertisement ID", pAdId);
+		
 		mixpanel.FEProp.setProperty("Source", pSource);
 		mixpanel.FEProp.setProperty("Page Name", pPage);
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
 		mixpanel.FEProp.setProperty("brand", pManufacturer);
-
+		
 		mixpanel.ValidateParameter("", "Video View");
 	}
 
