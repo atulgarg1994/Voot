@@ -6334,6 +6334,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Popup launch");
+		}else {
+			extentLogger("", "Scenario is valid for only guest userType");
 		}
 	}
 
@@ -6375,6 +6377,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("ID"), "Popup launch");
+		}else {
+			extentLogger("", "Scenario is valid for nonsubscribed usertype");
 		}
 	}
 
@@ -6432,11 +6436,11 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			mixpanel.FEProp.setProperty("Pop Up Name", "Registration");
 			mixpanel.FEProp.setProperty("Pop Up Type", "Mandatory Registration");
 			
-			
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			mixpanel.ValidateParameter(local.getItem("guestToken"), "Pop Up CTAs");
-			
+		}else {
+			extentLogger("", "Scenario is valid only for Guest userType");
 		}
 	}
 
