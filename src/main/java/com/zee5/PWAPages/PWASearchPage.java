@@ -345,4 +345,7 @@ public class PWASearchPage {
 				"//div[@class='trayHeader']//h2[text()='Trending Searches']//parent::*//following-sibling::div[@class='latestEpisodeTrayWrapper']//div[@data-index='1']//h3[@class='cardTitle']");
 
 		public static By objseconddata = By.xpath("(//div[@class='listingGrid']//h3)[2]");
+		
+		public static By objClearAll = By.xpath("//*[@class='noSelect recentSearchClear']");
+
 }

@@ -20210,7 +20210,7 @@ public void BackToLandingScreen() throws Exception {
 	}
 	
 	public void UpcomingScreen_OfflineMode() throws Exception {
-		extent.HeaderChildNode("Blank screen validation in the Upcoming screen post tapping 'TRY AGAIN' in offline mode - ZNA-10691");
+		extent.HeaderChildNode("ZNA-10691 - Blank screen validation in the Upcoming screen post tapping 'TRY AGAIN' in offline mode");
 		TurnOFFWifi();
 		waitTime(5000);
 		click(AMDHomePage.objUpcomingBtn, "Upcoming tab");
@@ -20223,7 +20223,6 @@ public void BackToLandingScreen() throws Exception {
 			logger.info("Same offline screen is not displayed");
 			extentLoggerFail("Blank screen", "Same offline screen is not displayed");
 		}
-		TurnONWifi();
 		waitTime(3000);
 		click(AMDHomePage.objHomeBottomBtn, "Bottom bar Home Button");
 	}
@@ -20361,106 +20360,164 @@ public void BackToLandingScreen() throws Exception {
 		}
 	
 	 public void eduauraa(String usertype) throws Exception {
-			 SelectTopNavigationTab("Eduauraa");
-			 click(AMDHomePage.objCarouselTitle1, "Carousal card");
-			 
-			 if(!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-				 verifyElementExist(AMDConsumptionScreen.objClaimOfferCTA, "Claim offer CTA");
-			 }else {
-				 verifyElementExist(AMDConsumptionScreen.objGoToEduauraaCTA, "Go to Eduauraa");
-			 }
-			 
-			 if(!(verifyIsElementDisplayed(AMDConsumptionScreen.objAboutEduauraaSection))) {
-				 PartialSwipeInConsumptionScreen("UP", 1);
-			 }
-			 verifyElementPresent(AMDConsumptionScreen.objAboutEduauraaSection, "About Eduauraa section");
-			 PartialSwipeInConsumptionScreen("UP", 1);
-
-			 boolean desc =  verifyIsElementDisplayed(AMDConsumptionScreen.objEduauraaDescriptionForAboutEduauraaSection, "Eduaruaa description for About Eduauraa section");
-			 if(desc==true) {
-				 logger.info("By default About Eduauraa section is open");
-				 extentLoggerPass("About Eduauraa section", "By default About Eduauraa section is open");
-			 }else {
-				 logger.info("By default About Eduauraa section is not open");
-				 extentLoggerFail("About Eduauraa section", "By default About Eduauraa section is not open - AMA2-4996");
-			 }
-			 click(AMDConsumptionScreen.objExpandIcon("About Eduauraa"), "Expand Icon for 'About Eduauraa' section");
-			 boolean var1 = verifyIsElementDisplayed(AMDConsumptionScreen.objEduauraaDescriptionForAboutEduauraaSection, "Eduaruaa description for About Eduauraa section");
-			 if(var1==true) {
-				 logger.info("About Eduauraa section is expanded");
-				 extentLoggerPass("Expand", "About Eduauraa section is expanded");
-			 }else {
-				 logger.info("About Eduauraa section is collapsed");
-				 extentLoggerPass("Expand", "About Eduauraa section is collapsed");
-			 }
-				 
-				
-			 if(!(verifyIsElementDisplayed(AMDConsumptionScreen.objEduauraaBenefitsSection))) {
-				 PartialSwipeInConsumptionScreen("UP", 1);
-			  }
-			 verifyElementPresent(AMDConsumptionScreen.objEduauraaBenefitsSection, "Benefits section");
-			 PartialSwipeInConsumptionScreen("UP", 1);
-
-			 click(AMDConsumptionScreen.objExpandIcon("Benefits"), "Expand Icon for 'Benefits' section");
-			 boolean var2 = verifyIsElementDisplayed(AMDConsumptionScreen.objEduauraaDescriptionForEduauraaBenefitsSection, "Eduaruaa description for Benefits section");
-			 if(var2==true) {
-				 logger.info("Eduauraa benefits section is expanded");
-				 extentLoggerPass("Expand", "Eduauraa benefits section is expanded");
-			 }else {
-				 logger.info("Eduauraa benefits section is collapsed");
-				 extentLoggerPass("Expand", "Eduauraa benefits section is collapsed");
-			 }
-			 
-			 if(!(verifyIsElementDisplayed(AMDConsumptionScreen.objEduauraaOfferDetailsSection))) {
-				 PartialSwipeInConsumptionScreen("UP", 1);
-			}
-			 verifyElementPresent(AMDConsumptionScreen.objEduauraaOfferDetailsSection, "Eduauraa offer details section");
-			 PartialSwipeInConsumptionScreen("UP", 1);
-
-			 click(AMDConsumptionScreen.objExpandIcon("Eduauraa offer details"), "Expand Icon for 'Eduauraa offer details' section");
-			 boolean var3 = verifyIsElementDisplayed(AMDConsumptionScreen.objEduauraaDescriptionForEduauraaOfferDetailsSection, "Eduaruaa description for Eduauraa offer details section");
-			 if(var3==true) {
-				 logger.info("Eduauraa offer details section is expanded");
-				 extentLoggerPass("Expand", "Eduauraa offer details section is expanded");
-			 }else {
-				 logger.info("Eduauraa offer details section is collapsed");
-				 extentLoggerPass("Expand", "Eduauraa offer details section is collapsed");
-			 }
-			 
-			 if(!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-				 click(AMDConsumptionScreen.objClaimOfferCTA, "Claim offer CTA");
-				 verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page");
-				 Swipe("UP", 1);
-				 click(AMDSubscibeScreen.objContinueBtn, "Continue button");
-				 if(usertype.equalsIgnoreCase("Guest")) {
-					 verifyElementExist(AMDSubscibeScreen.objAccountInfoHeader, "Account info screen");
-					 hideKeyboard();
-					 click(AMDSubscibeScreen.objEmailID, "Email");
-					 type(AMDSubscibeScreen.objEmailID, NonsubscribedUserName, "Email field");
-					 hideKeyboard();
-					 click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
-					 verifyElementExist(AMDSubscibeScreen.objEnterPassword, "Enter Password PopUp");	
-					 click(AMDSubscibeScreen.objPasswordTextField, "Password");
-					 type(AMDSubscibeScreen.objPasswordTextField, NonsubscribedPassword, "Password field");
-					 hideKeyboard();
-					 verifyElementPresentAndClick(AMDSubscibeScreen.objProceedPWDScreen, "Proceed button in password popup");
-				 }
-				 waitTime(10000);
-				 Swipe("DOWN", 3);
-				 verifyElementExist(AMDSubscibeScreen.objPaymentText, "Payment page");
-				 Back(3);
-				 if(usertype.equalsIgnoreCase("Guest")) {
-					 click(AMDHomePage.objMoreMenu, "More Menu");
-					 Swipe("UP", 3);
-					 click(AMDHomePage.objLogout, "Logout");
-					 click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
-					 click(AMDHomePage.objHome, "Home tab");
+	     relaunch(true);
+	     accessDeviceLocationPopUp("Allow", userType);
+		 navigateToIntroScreen_DisplaylangScreen();
+	     ZeeApplicasterLoginForEduauraa(userType);
+	     extent.HeaderChildNode("ZNA-8873 - Eduauraa Native Integration flow");
+		 SelectTopNavigationTab("Eduauraa");
+		 click(AMDHomePage.objCarouselTitle1, "Carousal card");
+		 
+		 if(!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			 verifyElementExist(AMDConsumptionScreen.objClaimOfferCTA, "Claim offer CTA");
+		 }else {
+			 verifyElementExist(AMDConsumptionScreen.objGoToEduauraaCTA, "Go to Eduauraa");
+			 click(AMDConsumptionScreen.objGoToEduauraaCTA, "Go to Eduauraa CTA");
+			 verifyElementPresent(AMDOnboardingScreen.objExitPopUpTitle, "Exit ZEE5 pop up post tapping on Go to Eduauraa button");
+			 verifyElementPresent(AMDOnboardingScreen.objExitPopUpTitle, " Exit ZEE5 title");
+			 verifyElementPresent(AMDOnboardingScreen.objExitPopUpDesc, "Content message on Exit popUp");
+			 verifyElementPresent(AMDOnboardingScreen.objExitPopUp_ConfirmCTA, "Confirm CTA on Exit popUp");
+			 verifyElementPresentAndClick(AMDOnboardingScreen.objExitPopUp_CancelCTA, "Cancel CTA on Exit popUp");
+			 boolean flag = verifyElementExist(AMDOnboardingScreen.objExitPopUpTitle, "Exit popUp");
+			 if(flag==false) {
+				 logger.info("Exit pop up is closed post tapping on Cancel CTA");
+				 extentLoggerPass("Exit popUp", "Exit pop up is closed post tapping on Cancel CTA");
+				 click(AMDConsumptionScreen.objGoToEduauraaCTA, "Go to Eduauraa CTA");
+				 SwipeDownOnExitpopUp("DOWN");
+				 boolean flag2 = verifyElementExist(AMDOnboardingScreen.objExitPopUpTitle,"Exit popUp");
+				 if(flag2==false) {
+					 logger.info("Exit Pop up is closed when user swipe down on Exit ZEE5 pop up.");
+					 extentLoggerPass("Exit popUp", "Exit Pop up is closed when user swipe down on Exit ZEE5 pop up.");
 				 }else {
-					 click(AMDHomePage.objHomeBtn, "Bottom bar Home Option");	
+					 logger.info("Exit Pop up is not closed when user swipe down on Exit ZEE5 pop up.");
+					 extentLoggerFail("Exit popUp", "Exit Pop up is not closed when user swipe down on Exit ZEE5 pop up.");
 				 }
+			 }else {
+				 logger.info("Exit pop up is not closed post tapping on Cancel CTA");
+				 extentLoggerFail("Exit popUp", "Exit pop up is not closed post tapping on Cancel CTA");
 			 }
 			 
 		 }
+		 
+		 if(!(verifyIsElementDisplayed(AMDConsumptionScreen.objAboutEduauraaSection))) {
+			 PartialSwipeInConsumptionScreen("UP", 1);
+		 }
+		 verifyElementPresent(AMDConsumptionScreen.objAboutEduauraaSection, "About Eduauraa section");
+		 PartialSwipeInConsumptionScreen("UP", 1);
+
+		 boolean desc =  verifyIsElementDisplayed(AMDConsumptionScreen.objEduauraaDescriptionForAboutEduauraaSection, "Eduaruaa description for About Eduauraa section");
+		 if(desc==true) {
+			 logger.info("By default About Eduauraa section is open");
+			 extentLoggerPass("About Eduauraa section", "By default About Eduauraa section is open");
+		 }else {
+			 logger.info("By default About Eduauraa section is not open");
+			 extentLoggerFail("About Eduauraa section", "By default About Eduauraa section is not open - AMA2-4996");
+		 }
+		 click(AMDConsumptionScreen.objExpandIcon("About Eduauraa"), "Expand Icon for 'About Eduauraa' section");
+		 boolean var1 = verifyIsElementDisplayed(AMDConsumptionScreen.objEduauraaDescriptionForAboutEduauraaSection, "Eduaruaa description for About Eduauraa section");
+		 if(var1==true) {
+			 logger.info("About Eduauraa section is expanded");
+			 extentLoggerPass("Expand", "About Eduauraa section is expanded");
+		 }else {
+			 logger.info("About Eduauraa section is collapsed");
+			 extentLoggerPass("Expand", "About Eduauraa section is collapsed");
+		 }
+			 
+			
+		 if(!(verifyIsElementDisplayed(AMDConsumptionScreen.objEduauraaBenefitsSection))) {
+			 PartialSwipeInConsumptionScreen("UP", 1);
+		  }
+		 verifyElementPresent(AMDConsumptionScreen.objEduauraaBenefitsSection, "Benefits section");
+		 PartialSwipeInConsumptionScreen("UP", 1);
+
+		 click(AMDConsumptionScreen.objExpandIcon("Benefits"), "Expand Icon for 'Benefits' section");
+		 boolean var2 = verifyIsElementDisplayed(AMDConsumptionScreen.objEduauraaDescriptionForEduauraaBenefitsSection, "Eduaruaa description for Benefits section");
+		 if(var2==true) {
+			 logger.info("Eduauraa benefits section is expanded");
+			 extentLoggerPass("Expand", "Eduauraa benefits section is expanded");
+		 }else {
+			 logger.info("Eduauraa benefits section is collapsed");
+			 extentLoggerPass("Expand", "Eduauraa benefits section is collapsed");
+		 }
+		 
+		 if(!(verifyIsElementDisplayed(AMDConsumptionScreen.objEduauraaOfferDetailsSection))) {
+			 PartialSwipeInConsumptionScreen("UP", 1);
+		}
+		 verifyElementPresent(AMDConsumptionScreen.objEduauraaOfferDetailsSection, "Eduauraa offer details section");
+		 PartialSwipeInConsumptionScreen("UP", 1);
+
+		 click(AMDConsumptionScreen.objExpandIcon("Eduauraa offer details"), "Expand Icon for 'Eduauraa offer details' section");
+		 boolean var3 = verifyIsElementDisplayed(AMDConsumptionScreen.objEduauraaDescriptionForEduauraaOfferDetailsSection, "Eduaruaa description for Eduauraa offer details section");
+		 if(var3==true) {
+			 logger.info("Eduauraa offer details section is expanded");
+			 extentLoggerPass("Expand", "Eduauraa offer details section is expanded");
+		 }else {
+			 logger.info("Eduauraa offer details section is collapsed");
+			 extentLoggerPass("Expand", "Eduauraa offer details section is collapsed");
+		 }
+		 
+		 if(!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			 click(AMDConsumptionScreen.objClaimOfferCTA, "Claim offer CTA");
+			 verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page");
+			 Swipe("UP", 1);
+			 int noOfPacks =  getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
+			 if(noOfPacks==1) {
+				 logger.info("Only one plan '"+getText(AMDSubscibeScreen.objRSVODPack2)+"' is displayed on BUY Subscription");
+				 extentLoggerPass("Plan", "Only one plan '"+getText(AMDSubscibeScreen.objRSVODPack2)+"' is displayed on BUY Subscription");
+			 }else {
+				 logger.info("More than one plan is displayed on BUY Subscription");
+				 extentLoggerFail("Plan", "More than one plan is displayed on BUY Subscription");
+			 }
+			 click(AMDSubscibeScreen.objContinueBtn, "Continue button");
+			 if(usertype.equalsIgnoreCase("Guest")) {
+				 verifyElementExist(AMDSubscibeScreen.objAccountInfoHeader, "Account info screen");
+				 hideKeyboard();
+				 click(AMDSubscibeScreen.objEmailID, "Email");
+				 type(AMDSubscibeScreen.objEmailID, NonsubscribedUserName, "Email field");
+				 hideKeyboard();
+				 click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
+				 verifyElementExist(AMDSubscibeScreen.objEnterPassword, "Enter Password PopUp");	
+				 click(AMDSubscibeScreen.objPasswordTextField, "Password");
+				 type(AMDSubscibeScreen.objPasswordTextField, NonsubscribedPassword, "Password field");
+				 hideKeyboard();
+				 verifyElementPresentAndClick(AMDSubscibeScreen.objProceedPWDScreen, "Proceed button in password popup");
+			 }
+			 waitTime(10000);
+			 Swipe("DOWN", 3);
+			 verifyElementExist(AMDSubscibeScreen.objPaymentText, "Payment page");
+			 Back(3);
+			 if(usertype.equalsIgnoreCase("Guest")) {
+				 click(AMDHomePage.objMoreMenu, "More Menu");
+				 Swipe("UP", 3);
+				 click(AMDHomePage.objLogout, "Logout");
+				 click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
+				 click(AMDHomePage.objHome, "Home tab");
+			 }else {
+				 click(AMDHomePage.objHomeBtn, "Bottom bar Home Option");	
+			 }
+		 }
+		 
+	 }
+	 
+	 public void SwipeDownOnExitpopUp(String direction) {
+			touchAction = new TouchAction(getDriver());
+			String dire = direction;
+			try {
+				Dimension size = getDriver().manage().window().getSize();
+				int starty = (int) (size.height * 0.5);
+				int endy = (int) (size.height * 0.2);
+				int startx = size.width / 2;
+				touchAction.press(PointOption.point(startx, endy))
+						.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+						.moveTo(PointOption.point(startx, starty)).release().perform();
+				logger.info("Swiping screen in " + " " + dire + " direction" + " " + (1) + " times");
+				extent.extentLogger("SwipeDown",
+						"Swiping screen in " + " " + dire + " direction" + " " + (1) + " times");
+				}
+	          catch (Exception e) {
+				logger.error(e);
+			}
+		}
 	
 	public void ZeeApplicasterLoginForEduauraa(String LoginMethod) throws Exception {
 			extent.HeaderChildNode("Login Functionality");
@@ -20514,20 +20571,20 @@ public void BackToLandingScreen() throws Exception {
 		}
 	
 	 public void tasksAndDefectsValidation(String usertype, String searchKeyword4) throws Exception{
-			    movieDownloadFunctonality(userType, searchKeyword4);
-				premiumTagOnSearchResultScreen(userType);
-				swipeFunctionalityOnContentCardsOfTray();
-				watchTrailer(userType);
-				Eduauraa_TopNavBar();
-				CrashIssue_LiveTvContents();
-				ListingScreenBackArrowAndHeaderName("Home");
-				MandatoryRegistration_NewsContent(userType);
-				CrashIssue_OptionBelowPlayer("Expiry Date");
-				UpcomingScreen_OfflineMode();
-				CrashIssue_Share_OfflineMode();
-				crashIssue_AppLaunch_OfflineModeAndValidatingHipiBottomBarMenu();
-				IndiaTodayLiveChannel();
-				eduauraa(userType);
-		 }
+		    movieDownloadFunctonality(userType, searchKeyword4);
+			premiumTagOnSearchResultScreen(userType);
+			swipeFunctionalityOnContentCardsOfTray();
+			watchTrailer(userType);
+			Eduauraa_TopNavBar();
+			CrashIssue_LiveTvContents();
+			ListingScreenBackArrowAndHeaderName("Home");
+			MandatoryRegistration_NewsContent(userType);
+			CrashIssue_OptionBelowPlayer("Expiry Date");
+			UpcomingScreen_OfflineMode();
+			CrashIssue_Share_OfflineMode();
+			crashIssue_AppLaunch_OfflineModeAndValidatingHipiBottomBarMenu();
+			IndiaTodayLiveChannel();
+			eduauraa(userType);
+	 }
 
 }

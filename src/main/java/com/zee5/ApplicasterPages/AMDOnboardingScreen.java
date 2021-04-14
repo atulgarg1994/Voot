@@ -159,4 +159,10 @@ public class AMDOnboardingScreen {
 	public static By objSelectDisplayLanguage(int index) {
 		return By.xpath("(//*[@id='display_language_content'])[" + index + "]");
 	}
+	
+	public static By objExitPopUpTitle = By.xpath("//*[@id='tv_title']");
+	public static By objExitPopUpDesc = By.xpath("//*[@id='tv_desc']");
+	public static By objExitPopUp_CancelCTA = By.xpath("//*[@id='btn_cancel']");
+	public static By objExitPopUp_ConfirmCTA = By.xpath("//*[@id='btn_cancel']");
+
 }

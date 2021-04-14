@@ -358,7 +358,7 @@ public class Mixpanel extends ExtentReporter {
 						validateFloat(value);
 					}
 					validateParameterValue(key, value);
-//					extentInfo();
+					extentInfo();
 				}
 			} catch (Exception e) {
 				System.out.println(e);

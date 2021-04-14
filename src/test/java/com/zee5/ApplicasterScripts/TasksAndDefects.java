@@ -30,9 +30,8 @@ public class TasksAndDefects {
 	@Test(priority = 1)
 	@Parameters({ "userType", "searchKeyword4" })
 	public void TasksAndDefects(String userType, String searchKeyword4) throws Exception {
-		ZEE5ApplicasterBusinessLogic.movieDownloadFunctonality(userType, searchKeyword4);
-		ZEE5ApplicasterBusinessLogic.premiumTagOnSearchResultScreen(userType);
-		ZEE5ApplicasterBusinessLogic.swipeFunctionalityOnContentCardsOfTray();
+		ZEE5ApplicasterBusinessLogic.tasksAndDefectsValidation(userType, searchKeyword4);
+		
 	}
 	
 	@AfterTest

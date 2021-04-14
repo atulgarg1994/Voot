@@ -1211,9 +1211,9 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		navigateToAnyScreenOnWeb("Home");
 		waitTime(3000);
 		click(PWAHomePage.objSearchBtn, "Search Icon");
-		
-		if (verifyIsElementDisplayed(PWASearchPage.objClearAllTextofRecentSearches, "Clear Search Icon")) {
-			click(PWASearchPage.objClearAllTextofRecentSearches, "Clear Search Icon");
+		waitTime(5000);
+		if (verifyIsElementDisplayed(PWASearchPage.objClearAll, "Clear Search Icon")) {
+			click(PWASearchPage.objClearAll, "Clear Search Icon");
 			waitTime(8000);
 
 			mixpanel.FEProp.setProperty("Source", "home");
@@ -1772,8 +1772,13 @@ public void verifyParentalRestrictionEvent(String userType, String restriction) 
 				mixpanel.FEProp.setProperty("Source", "Content Language");
 			}
 		}else {
-			mixpanel.FEProp.setProperty("Page Name", landingPageName());	
-			mixpanel.FEProp.setProperty("Source", "home");
+			if (tab.equalsIgnoreCase("Home")) {
+				mixpanel.FEProp.setProperty("Page Name", landingPageName());
+				mixpanel.FEProp.setProperty("Source", "N/A");
+			}else {
+				mixpanel.FEProp.setProperty("Page Name", landingPageName());
+				mixpanel.FEProp.setProperty("Source", "home");
+			}
 		}
 
 		verifyElementPresentAndClick(PWAPremiumPage.objViewAllBtn, "View All Button");
@@ -6356,19 +6361,19 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			waitTime(5000);
 			verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 			checkElementDisplayed(PWAHomePage.objSearchField, "Search field");
-			String keyword = getParameterFromXML("freeMovie2");
+			String keyword = getParameterFromXML("keyword");
 			type(PWAHomePage.objSearchField, keyword, "Search");
 			waitTime(5000);
 			verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
 			waitTime(3000);
-			click(PWAPremiumPage.obj1stContentInViewAllPage, "Content From a tray");
+			click(PWAPremiumPage.objPlayBtn, "Play Button");
 			waitTime(4000);
 			checkElementDisplayed(CompleteYourProfilePopUp.objCompleteYourProfileTxt, "Complete Your Profile");
 			waitTime(6000);
-			mixpanel.FEProp.setProperty("Source", "search");
-			mixpanel.FEProp.setProperty("Page Name", "movie_detail");
+			mixpanel.FEProp.setProperty("Source", "show_detail");
+			mixpanel.FEProp.setProperty("Page Name", pageName());
 			mixpanel.FEProp.setProperty("Pop Up Group", "Skippable");
-			mixpanel.FEProp.setProperty("Pop Up Name", "Registration");
+			mixpanel.FEProp.setProperty("Pop Up Name", "Profile Update");
 			mixpanel.FEProp.setProperty("Pop Up Type", "Mandatory Registration");
 			
 			String id = getWebDriver().getCurrentUrl();
@@ -6376,9 +6381,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			ResponseInstance.getContentDetails(fetchContentID(id));
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
+			ResponseInstance.getUserData("indaus24@gmail.com","123456");
 			mixpanel.ValidateParameter(local.getItem("ID"), "Popup launch");
-		}else {
-			extentLogger("", "Scenario is valid for nonsubscribed usertype");
 		}
 	}
 
