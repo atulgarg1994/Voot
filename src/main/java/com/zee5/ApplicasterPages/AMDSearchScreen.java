@@ -89,8 +89,6 @@ public class AMDSearchScreen {
 
 	public static By objAllTab = By.xpath("(//*[@text='All'])");
 
-	public static By objEpsiodesTab = By.xpath("(//*[@id='title'and @text='Episodes'])");
-
 	public static By objMoviesTabIndx = By.xpath("(//*[@id='title'and @text='Movies'])[2]");
 	public static By objNewsTabIndx = By.xpath("(//*[@id='title'and @text='News'])[2]");
 	
@@ -226,5 +224,7 @@ public class AMDSearchScreen {
 	public static By objPremiumSearchResult(String title) {
 		return By.xpath("//*[@text='"+title+"']/parent::*/preceding-sibling::*/child::*[@text='P']");
 	}
+	
+	public static By objEpsiodesTab = By.xpath("(//*[@id='title'or @text='Episodes'])");
 	
 }

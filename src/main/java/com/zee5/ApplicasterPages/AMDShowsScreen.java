@@ -17,8 +17,6 @@ public class AMDShowsScreen {
 	 
 	 public static By objPaginationDots = By.xpath("(//*[@id='indicator']/*[@class='android.widget.ImageView'])[1]");
 	 
-	 public static By objcontentCard = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[4]");
-	 
 	 public static By objPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/controller']");
 	 
 	 public static By objCarouselContentCard = By.xpath("//*[@resource-id='com.graymatrix.did:id/item_image']");
@@ -62,4 +60,6 @@ public class AMDShowsScreen {
 	 public static By objBeforeTVContent1 = By.xpath("(//*[@id='horizontal_list_18_parent'])[1]");
 	 
 	 public static By objSubscribeNowlink = By.xpath("//*[@resource-id='com.graymatrix.did:id/errorViewButton' and @text='Subscribe']");
-}
+
+	 public static By objcontentCard = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[4] |  (//*[@id='cell_center_container'])[4]");
+	 }

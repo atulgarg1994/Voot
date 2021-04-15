@@ -33,7 +33,32 @@ public class ZNAMixpanel_VideoView {
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, pTabName);
 	}
 	
+//-----  VIDEO VIEW EVENT FROM SEARCH TAB  ------
 	@Test(priority = 3)
+	@Parameters({ "userType","freeContentID","freeContent"})
+	public void VideoViewEventForFreeContentFromSearchPage(String userType,String freeContentID,String freeContent) throws Exception {
+		System.out.println("\nVideo View event for Free content");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.VideoViewEventFromSearchTab(userType,"Free",freeContentID,freeContent);
+	}
+	
+	@Test(priority = 4)
+	@Parameters({ "userType","trailerContentID","trailerContent"})
+	public void VideoViewEventForTrailerContentFromSearchPage(String userType,String trailerContentID,String trailerContent) throws Exception {
+		System.out.println("\nVideo View event for Trailer content");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.VideoViewEventFromSearchTab(userType,"Trailer",trailerContentID,trailerContent);
+	}
+	
+	@Test(priority = 5)
+	@Parameters({ "userType","premiumContentID","premiumContent"})
+	public void VideoViewEventForPremiumContentFromSearchPage(String userType,String premiumContentID,String premiumContent) throws Exception {
+		System.out.println("\n Video View event for Premium content");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.VideoViewEventFromSearchTab(userType,"Premium",premiumContentID,premiumContent);
+	}
+	
+//	@Test(priority = 6)
 	@Parameters({ "userType","pTypeOfContent","pTabName"})
 	public void VideoViewEventFromSearch(String userType,String pTypeOfContent, String pTabName) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.VideoViewEventThroughSearch(userType, pTypeOfContent, pTabName);
@@ -41,32 +66,30 @@ public class ZNAMixpanel_VideoView {
 	
 //###############  VIDEO VIEW EVENT FROM SEARCH TAB  ###############
 	
-	@Test(priority = 12)
+//	@Test(priority = 12)
 	@Parameters({ "userType","freeContentID","freeContent"})
-	public void VideoViewEventForFreeContentFromSearchPage(String userType,String freeContentID,String freeContent) throws Exception {
+	public void VideoViewEventForFreeContentFromSearchPage_OLD(String userType,String freeContentID,String freeContent) throws Exception {
 		System.out.println("\n Video View  event of free content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.VideoViewEvent(userType,"Free",freeContentID,freeContent);
 	}
 	
-	@Test(priority = 13)
+//	@Test(priority = 13)
 	@Parameters({ "userType","trailerContentID","trailerContent"})
-	public void VideoViewEventForTrailerContentFromSearchPage(String userType,String trailerContentID,String trailerContent) throws Exception {
+	public void VideoViewEventForTrailerContentFromSearchPage_OLD(String userType,String trailerContentID,String trailerContent) throws Exception {
 		System.out.println("\nVideo View event of trailer content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.VideoViewEvent(userType,"Trailer",trailerContentID,trailerContent);
 	}
 	
-	@Test(priority = 14)
+//	@Test(priority = 14)
 	@Parameters({ "userType","premiumContentID","premiumContent"})
-	public void VideoViewEventForPremiumContentFromSearchPage(String userType,String premiumContentID,String premiumContent) throws Exception {
+	public void VideoViewEventForPremiumContentFromSearchPage_OLD(String userType,String premiumContentID,String premiumContent) throws Exception {
 		System.out.println("\nVideo View event of premium content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.VideoViewEvent(userType,"Premium",premiumContentID,premiumContent);
 	}
 	
-//###############-------END OF TEST-------###############
-
 //###############  CAROUSEl TEST TO ADD  ###############	
 	
 //	@Test(priority = 4)
@@ -92,18 +115,9 @@ public class ZNAMixpanel_VideoView {
 		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventOfContentFromMyWatchListPage(userType);
 	}
 
-//	@Test(priority = 7)
-	@Parameters({ "userType", "keyword4" })
-	public void VideoViewEventFromUpNextRail(String userType, String keyword4) throws Exception {
-		System.out.println("\nVideo view event of Content from Upnext Rail");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventOfContentFromUpNextRail(userType, keyword4);
-	}
-
-
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println("\nQuit the App");
+		System.out.println("\nExecution Complete");
 		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
 }

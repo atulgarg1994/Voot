@@ -245,4 +245,15 @@ public class AMDHomePage {
 	
 	public static By objHipiMenuBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[3] | (//*[@id='navigationTitleTextView'])[3]");
 	
+	public static By objSlectedTabInDownloadsScreen = By.xpath("//*[@id='tab_layout']//*[@class='android.widget.TextView' and @selected='true']");
+	
+	public static By errortitle = By.xpath("//*[@id='txt_error_title']");
+	public static By objRetryCTA = By.xpath("//*[@id='txt_error_retry']");
+	
+	public static By objCarouselContentTitleCard(String title) {
+		return By.xpath("//*[@id='cell_center_container' and @class='android.widget.LinearLayout']//*[@text='"+title+"']");
+	}
+	
+	public static By objTrendingNewsTray = By.xpath("//*[@text='Trending News ']");
+	
 	}

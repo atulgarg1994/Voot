@@ -2746,8 +2746,8 @@ public void verifyParentalRestrictionEvent(String userType, String restriction) 
 		waitForPlayerAdToComplete("Video Player");
 		waitTime(6000);
 
-		mixpanel.FEProp.setProperty("Source", "episode_detail");
-		mixpanel.FEProp.setProperty("Page Name", "episode_detail");
+		mixpanel.FEProp.setProperty("Source", "movie_detail");
+		mixpanel.FEProp.setProperty("Page Name", "movie_detail");
 		mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
 		mixpanel.FEProp.setProperty("Video View", "1");
 
@@ -13441,7 +13441,8 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 	public void clickOnTrayContent(String tabName, String typeOfContent) throws Exception {
 		navigateToAnyScreenOnWeb(tabName);
 		ArrayList<String> contentTitle = ResponseInstance.getTrayResponse(tabName, typeOfContent);
-		scrollToElement(PWAHomePage.objtrayname(contentTitle.get(0)));
+//		scrollToElement(PWAHomePage.objtrayname(contentTitle.get(0)));
+		swipeTillTray(100,contentTitle.get(1)," ");
 		ScrollToTheElementWEB(PWAHomePage.objtrayname(contentTitle.get(0)));
 		partialScroll();
 		waitTime(8000);
@@ -13592,6 +13593,270 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			fetchUserType(local);
 			ResponseInstance.getUserData("indaus24@gmail.com","123456");
 			mixpanel.ValidateParameter(local.getItem("ID"), "Pop Up CTAs");
+		}
+	}
+	
+	public void videoViewExit(String userType,String tab,int assetType,String assetSubtype,String event,int scenario,String requiredBusiness) throws Exception {
+		String source="",page="";
+		try {
+			navigateToHome();
+			selectLanguages();
+			navigateToAnyScreenOnWeb(tab);	
+			waitTime(5000);
+			mandatoryRegistrationPopUp(UserType);		
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			fetchUserType(local);
+			String contentLang=fetchContentLanguage(local);	
+			ArrayList<String> trayValues = ResponseInstance.getTrayValues(userType,tab,assetType,assetSubtype,requiredBusiness,contentLang);
+			String contentID=trayValues.get(3);
+			extent.extentLogger("", "Content ID fetched from API : "+contentID);	
+			logger.info("Content ID fetched from API : "+contentID);			
+			if(contentID.equals("")) {
+				extent.extentLoggerWarning("", "Content not available in API");	
+				logger.info("Content not available in API");
+			}
+			else {
+				String trayTitle=trayValues.get(0);
+				extent.extentLogger("", "Tray title fetched from API : "+trayTitle);
+				logger.info("Tray title fetched from API : "+trayTitle);
+				String contentTitle=trayValues.get(1);
+				extent.extentLogger("", "Content title fetched from API : "+contentTitle);
+				logger.info("Content title fetched from API : "+contentTitle);
+				String dataContentID=trayValues.get(2);
+				extent.extentLogger("", "Data Content ID fetched from API : "+dataContentID);
+				logger.info("Data Content ID fetched from API : "+dataContentID);			
+				if(scenario==1 || scenario==2 || scenario==3 || scenario==5 || scenario==12) {
+					String title=swipeTillTray(100, trayTitle, "\"" + trayTitle + "\" tray");
+					WebElement element = getWebDriver().findElement(PWALandingPages.objTrayWithTitle(title));
+					((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+					JSClick(PWALandingPages.objAssetInTray(title,dataContentID),"Content card under tray "+title);
+					try{ 
+						String uiContentTitle=getElementPropertyToString("innerText",PWAPlayerPage.objContentTitleInPlayerPage,"");
+						extent.extentLogger("", "Content title from UI: " + uiContentTitle);
+						logger.info("Content title from UI: " + uiContentTitle);
+					}
+					catch(Exception e) {}
+					source=getElementPropertyToString("innerText",PWAHomePage.objBreadCrumb(1),"");
+				}
+				if(scenario==6) {
+					click(PWAHomePage.objSearchBtn, "Search icon");
+					type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);
+					if(assetType==6)
+						click(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows tab");
+					if(assetSubtype.equals("episode"))
+						click(PWASearchPage.objSearchNavigationTab("Episodes"), "Episodes tab");
+					if(assetSubtype.equals("movie"))
+						click(PWASearchPage.objSearchNavigationTab("Movies"), "Movies tab");					
+					waitForElement(PWASearchPage.objSearchedResult(contentTitle), 30, "Search Result");
+					verifyElementPresentAndClick(PWASearchPage.objSearchedResult(contentTitle), "Search Result");
+					source="search";
+				}
+				if(!userType.equals("SubscribedUser")) waitForPlayerAdToComplete("Video");	
+				page=pageNameForPlayer(assetSubtype);		
+				
+				waitTime(10000);
+				navigateToHome();	
+				mixpanel.FEProp.setProperty("Page Name",page);
+				mixpanel.FEProp.setProperty("Source", source);
+				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				mixpanel.FEProp.setProperty("Video View", "1");
+				ResponseInstance.getContentDetailsForPlayer(contentID,assetSubtype);
+				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				if (userType.equals("Guest")) {
+					mixpanel.ValidateParameterForPlayer(local.getItem("guestToken"), event,contentLang);
+				} else {
+					mixpanel.ValidateParameterForPlayer(local.getItem("ID"), event,contentLang);
+				}
+				mandatoryRegistrationPopUp(userType);
+			}		
+		}
+		catch(Exception e) {
+			extent.extentLoggerFail("", "Failed : "+userType+"-"+tab+"-"+assetType+"-"+assetSubtype+"-"+event);
+			logger.error("Failed : "+userType+" - "+tab+" - "+assetType+" - "+assetSubtype+" - "+event);
+		}
+	}
+	
+	public static ArrayList<String> getTrayValues (String userType,String tab,int assetType,String assetSubtype, String requiredType,String contentLanguages) {
+		ArrayList<String> trayDetails=new ArrayList<String>();
+		String trayTitle="",contentTitle="",contentDataID="",contentID="";
+		boolean foundContent=false;
+		main : for(int i=1;i<20;i++) {//Considering each tab may have upto 20 pages
+			Response respContent = ResponseInstance.getResponseForPages(tab.toLowerCase(), i, contentLanguages);
+			int bucketsSize=0;
+			try{ bucketsSize=respContent.jsonPath().get("buckets.size()"); }
+			catch(Exception e) {break;}
+			if(bucketsSize==0) break;
+			else {
+				int iter=0,j=0;
+				if(i==1) j=1;//In first page skip carousel
+				else j=0; 
+				for(iter=j;iter<bucketsSize;iter++) {//iterate through trays
+					for(int k=0;k<4;k++) {//iterate through 4 cards of the tray
+						try {
+							int assetypeAPI=Integer.valueOf(respContent.jsonPath().get("buckets["+iter+"].items["+k+"].asset_type").toString());													
+							if(assetypeAPI==assetType) {
+								String assetSubtypeAPI=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].asset_subtype").toString();
+								String businesssType=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].business_type").toString();
+								String ageRating=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].age_rating").toString();
+								if(assetSubtypeAPI.equals(assetSubtype)) {
+									trayTitle=respContent.jsonPath().get("buckets["+iter+"].title").toString();
+									System.out.println("trayTitle : "+trayTitle);
+									contentTitle=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].title").toString();			
+									contentDataID=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].id").toString();
+									if(userType.equals("Guest")) {
+										//Guest user - free content - not A content
+										if(requiredType.equalsIgnoreCase("free") && !businesssType.equals("premium_downloadable") && !ageRating.equals("A")) {
+											contentID=contentDataID;
+											foundContent=true;
+										}
+									}
+									else {
+										//Non Sub user and sub user - free content 
+										if(requiredType.equalsIgnoreCase("free") && !businesssType.equals("premium_downloadable")) {
+											contentID=contentDataID;
+											foundContent=true;
+										}
+									}					
+									if(requiredType.equalsIgnoreCase("premium")) {
+										if(userType.equals("SubscribedUser") && businesssType.equals("premium_downloadable")) {
+											contentID=contentDataID;
+											foundContent=true;
+										}
+										else if(businesssType.equals("premium_downloadable")){		
+											int relatedsize=0,trailerSize= 0,seasonSize=0,orderID=0,previewSize=0;
+											Response contentDetails=ResponseInstance.getContentDetails(contentDataID, "content");
+											orderID = contentDetails.jsonPath().get("orderid");
+											relatedsize = contentDetails.jsonPath().get("related.size()");
+											for(int z=0;z<relatedsize;z++) {
+												try {
+													if(contentDetails.jsonPath().get("related["+z+"].asset_subtype").equals("trailer")) {
+														contentID=contentDetails.jsonPath().get("related["+z+"].id").toString();													
+														foundContent=true;
+													}
+												}catch(Exception e) {}
+											}
+											if(relatedsize==0) {
+												try {
+													trailerSize=contentDetails.jsonPath().get("tvshow_details.trailers.size()");
+													contentID=contentDetails.jsonPath().get("tvshow_details.trailers["+(trailerSize-1)+"]id").toString();	
+													foundContent=true;
+												}catch(Exception e) {}
+											}
+											if(trailerSize==0) {
+												try {
+													String tvshowid=contentDetails.jsonPath().get("tvshow.id");
+													Response showDetails=ResponseInstance.getContentDetails(tvshowid, "original");
+													seasonSize=showDetails.jsonPath().get("seasons.size()");
+													previewSize=showDetails.jsonPath().get("seasons["+(seasonSize-1)+"].previews.size()");
+													for(int l=0;l<previewSize;l++) {
+														int temporderid=Integer.valueOf(showDetails.jsonPath().get("seasons["+(seasonSize-1)+"].previews["+l+"].orderid").toString());
+														if(temporderid==orderID) {
+															contentID=showDetails.jsonPath().get("seasons["+(seasonSize-1)+"].previews["+l+"].id").toString();
+															foundContent=true;
+															break;
+														}
+													}
+												}
+												catch(Exception e) {}
+											}
+										}	
+									}
+								}
+							}
+						}catch(Exception e) {
+							System.out.println("Tab "+tab+", page number : "+i+", bucket : "+iter+", card "+k+" caused exception");
+						}
+						if(foundContent==true) break;
+					}
+					if(foundContent==true) break;
+				}
+				if(foundContent==true) break;
+			}
+		}
+		trayDetails.add(trayTitle);//tray title					
+		trayDetails.add(contentTitle);//content title
+		trayDetails.add(contentDataID);//data content id
+		trayDetails.add(contentID);//content id
+		return trayDetails;
+	}
+	
+	public String pageNameForPlayer(String assetType) throws Exception {
+		if(assetType.equalsIgnoreCase("episode")) return "episode_detail";
+		else if(assetType.equalsIgnoreCase("movie")) return "movie_detail";
+		else if(assetType.equalsIgnoreCase("trailer")) return "video_detail";
+		else return "N/A";
+	}
+	
+	public String swipeTillTray(int noOfSwipes, String trayTitle, String message) throws Exception {
+		boolean foundTray = false;
+		int i = 0, j = 0;
+		String trayTitleInUI = "";
+		main: for (i = 0; i <= noOfSwipes; i++) {
+			ArrayList<WebElement> trays = new ArrayList<WebElement>();
+			trays = (ArrayList<WebElement>) getWebDriver().findElements(PWALandingPages.objTrayTitle);
+			for (int traycount = 0; traycount < trays.size(); traycount++) {
+				if (trays.get(traycount).getAttribute("innerText").equalsIgnoreCase(trayTitle)) {
+					trayTitleInUI = trays.get(traycount).getText();
+					foundTray = true;
+					break main;
+				}
+			}
+			scrollDownByY(200);
+			waitTime(2000);
+			if(Math.floorMod(i, 10)==0) {
+				logger.info("Scrolled down");
+				extent.extentLogger("scrolled", "Scrolled down");
+			}
+			if (i == noOfSwipes) {
+				logger.error(message + " is not displayed");
+				extent.extentLoggerFail("failedToLocate", message + " is not displayed");
+			}
+		}
+		if (foundTray == true) {
+			for (j = i; j <= noOfSwipes; j++) {
+				if (waitForElementPresence(PWALandingPages.objTrayTitleInUI(trayTitleInUI), 1,
+						trayTitleInUI + " tray")) {
+					break;
+				} else {
+					scrollDownByY(150);
+					waitTime(2000);
+					logger.info("Scrolled down");
+					extent.extentLogger("scrolled", "Scrolled down");
+					if (j == noOfSwipes) {
+						logger.error(message + " is not displayed");
+						extent.extentLoggerFail("failedToLocate", message + " is not displayed");
+					}
+				}
+			}
+		}
+		if (!trayTitleInUI.equals("")) {// Scroll till first card of the tray
+			for (int k = j; k <= noOfSwipes; k++) {
+				try {
+					getWebDriver().findElement(PWALandingPages.objFirstAssetInTrayIndex(trayTitleInUI));
+					logger.info("Located first asset under " + trayTitleInUI);
+					extent.extentLogger("firstAsset", "Located first asset under " + trayTitleInUI);
+					scrollDownByY(150);
+					return trayTitleInUI;
+				} catch (Exception e) {
+					scrollDownByY(150);
+					waitTime(2000);
+					logger.info("Scrolled down");
+					extent.extentLogger("scrolled", "Scrolled down");
+				}
+			}
+		}
+		return "";
+	}
+	
+	public boolean waitForElementPresence(By locator, int seconds, String message) throws Exception {
+		try {
+			WebDriverWait w = new WebDriverWait(getWebDriver(), seconds);
+			w.until(ExpectedConditions.visibilityOfElementLocated(locator));
+			logger.info(message + " is displayed");
+			extent.extentLogger("element is displayed", message + " is displayed");
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
 	}
 }

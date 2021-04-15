@@ -38,6 +38,8 @@ import com.aventstack.extentreports.Status;
 import com.extent.ExtentReporter;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.response.Response;
@@ -376,7 +378,7 @@ public class Mixpanel extends ExtentReporter {
 			propValue = FEProp.getProperty(key);
 			if (platform.equals("Android")) {
 				if (key.equalsIgnoreCase("Publishing date")) {
-					propValue = propValue.split("T")[0];
+					value = value.split("T")[0];
 				}
 			}
 		} catch (Exception e) {
@@ -508,7 +510,7 @@ public class Mixpanel extends ExtentReporter {
 			Mixpanel.FEProp.setProperty("User Type", "guest");
 			Mixpanel.FEProp.setProperty("Partner Name", "N/A");
 			Mixpanel.FEProp.setProperty("HasRental", "false");
-			Mixpanel.FEProp.setProperty("hasEduauraa", "false");
+			Mixpanel.FEProp.setProperty("hasEduauraa", "true");
 			if(Language != false) {
 			Mixpanel.FEProp.setProperty("New App Language", "en");
 			if(platform.equals("Android")) {
@@ -562,7 +564,7 @@ public class Mixpanel extends ExtentReporter {
 		actualFormat.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
 		java.util.Date packExpiryDate = actualFormat.parse(packExpiry);
 		String Latest_Subscription_Pack_Expiry=requiredFormat.format(packExpiryDate).toString();
-		String Next_Expiring_Pack="["+Latest_Subscription_Pack+"]";
+		String Next_Expiring_Pack=Latest_Subscription_Pack;
 		String Next_Pack_Expiry_Date=Latest_Subscription_Pack_Expiry;
 		String billing_frequency=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].billing_frequency").toString();	
 		Response tvodResp=ResponseInstance.getTVODDetails(username, password);
@@ -806,6 +808,85 @@ public class Mixpanel extends ExtentReporter {
 		getParameterValue();
 		fetchEvent(distinctID, eventName);
 		SubcribedDetails = false;
+	}
+	
+	
+//===============================================================================================
+	public static void ValidateParameterForPlayer(String distinctID, String eventName, String contentLang) throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
+		System.out.println("Parameter Validation " + distinctID);
+		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		booleanParameters = Prop.getproperty("Boolean");
+		integerParameters = Prop.getproperty("Integer");
+		fileName = ReportName;
+		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
+		StaticValues(distinctID);
+		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");		
+		if(userType.equals("Guest")) {
+			Mixpanel.FEProp.setProperty("New App Language", "en");
+			Mixpanel.FEProp.setProperty("New Content Language", "["+contentLang.replace(",", "-")+"]");
+		}
+		getParameterValue();
+		try {//Wait before fetching MP
+			Thread.sleep(18000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		fetchEventWithNoWait(distinctID, eventName);//Idea for calling multiple events with just 1 wait time
+		//SubcribedDetails = false;
+	}
+
+
+	public static void fetchEventWithNoWait(String distinct_id, String eventName) throws JsonParseException, JsonMappingException, IOException {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime now = LocalDateTime.now();
+		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
+		System.out.println("Current Date : " + currentDate);		
+		if (platform.equalsIgnoreCase("Web") || platform.equalsIgnoreCase("MPWA")){
+			APIKey = "58baafb02e6e8ce03d9e8adb9d3534a6";
+			if (distinct_id.contains("-")) {
+				UserID = "Unique ID";
+				UserType = "Login";
+			}
+		}	
+		Response mpresponse=null;
+		for(int trial=0;trial<5;trial++) {
+			mpresponse = RestAssured.given().auth().preemptive().basic(APIKey, "")
+					.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
+					.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
+					.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
+					.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
+					.post("https://data.mixpanel.com/api/2.0/export/");
+			if(mpresponse.equals(null) || mpresponse.equals("")) extent.extentLogger("", "Failed to fetch MP Response");
+			else break;
+		}		
+		mpresponse.prettyPrint();
+		sheet = eventName.trim().replace(" ", "").replace("/", "");
+		if (mpresponse.toString() != null) {
+				String response = mpresponse.asString();
+				String s[] = response.split("\n");
+				String str =s[s.length-1];
+				JsonObject obj = new JsonParser().parse(str).getAsJsonObject();
+				String properties=obj.get("properties").toString();
+				JsonObject objprop = new JsonParser().parse(properties).getAsJsonObject();			
+				ArrayList<String> mpparameters=new ArrayList<String>();
+				objprop.keySet().forEach(keyStr ->{
+			        Object keyvalue = objprop.get(keyStr);
+			        System.out.println("key: "+ keyStr + " value: " + keyvalue);
+			        mpparameters.add(keyStr.replace("\"", "").replace("$", "")+"keyvalue"+keyvalue.toString().replace("\"", "").replace("$", "").replace(",", "-"));	        
+			    });
+				parseResponse(mpparameters);
+				validation();
+		}else {
+			System.out.println("Event not triggered");
+			extentReportFail("Event not triggered", "Event not triggered");
+		}
+	}
+	
+	public static void parseResponse(ArrayList<String> response) {
+		creatExcel(); // Create an excel file
+		for (int i = 1; i < response.size(); i++) {
+			write(i, response.get(i).split("keyvalue")[0], response.get(i).split("keyvalue")[1]);
+		}
 	}
 	
 }

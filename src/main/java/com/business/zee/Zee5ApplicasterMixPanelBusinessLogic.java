@@ -8942,7 +8942,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player Screen");
 			verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
 		}
-		
+	
 //		####### Set All Parameters values ####### 
 		setFEProperty(pUsertype);
 		setUserType_SubscriptionProperties(pUsertype);
@@ -8997,11 +8997,11 @@ public void SearchContentFromSearchPage(String userType,String contentType,Strin
 		type(AMDSearchScreen.objSearchEditBox, contentName,"Search edit box");
 //		click(AMDSearchScreen.objSearchItemBySearchTitle(contentName),"Searched content");
 		click(AMDSearchScreen.objFirstSearchResult(contentName),"Searched content");
-		
+	
 		if(! userType.equalsIgnoreCase("SubscribedUser")) {
 			waitForAdToFinishInAmd();
 		}
-		
+		waitTime(2000);
 		if(contentType.equalsIgnoreCase("Trailer")) {
 			ResponseInstance.setPropertyForContentDetailsFromSearchPage(contentId);
 		}
@@ -9238,5 +9238,29 @@ public void SearchContentFromSearchPage(String userType,String contentType,Strin
 					"Failed to fetch the ContentID from API to validate against Mixpanel Dashboard");
 		}
 
+	}
+	
+	public void VideoViewEventFromSearchTab(String userType,String contentType,String contentID,String contentName) throws Exception {
+		HeaderChildNode("Verify Video View Event from Search tab navigation");
+		System.out.println("\nVerify Video View Event from Search tab navigation");
+		
+		String pSource = "SearchPage";
+		String pPage = "ConsumptionPage";
+		String pManufacturer = DeviceDetails.OEM;
+		
+		SearchContentFromSearchPage(userType, contentType,contentID,contentName);
+		waitTime(3000);
+		verifyElementPresent(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		waitTime(2000);
+		Back(1);
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+		
+		mixpanel.FEProp.setProperty("Source", pSource);
+		mixpanel.FEProp.setProperty("Page Name", pPage);
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+		mixpanel.FEProp.setProperty("brand", pManufacturer);
+		mixpanel.ValidateParameter("", "Video View");
 	}
 }

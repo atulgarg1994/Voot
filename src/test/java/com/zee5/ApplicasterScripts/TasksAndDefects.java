@@ -34,6 +34,29 @@ public class TasksAndDefects {
 		
 	}
 	
+	@Test(priority = 2)
+	@Parameters({ "userType"})
+	public void TasksAndDefectsMethod2(String userType) throws Exception {
+		   ZEE5ApplicasterBusinessLogic.DownloadUpNextContent(userType);
+		   ZEE5ApplicasterBusinessLogic.PostLogoutValidation(userType);
+		   ZEE5ApplicasterBusinessLogic.LoginFromMoreScreen(userType);
+		   ZEE5ApplicasterBusinessLogic.RecommendRailInMovies(userType);
+		   ZEE5ApplicasterBusinessLogic.PlayEduauraaAndValidateExpandCollapseofBenefitsSection(userType);
+		   ZEE5ApplicasterBusinessLogic.RecommendRailListingScreenInNews(userType);
+		   ZEE5ApplicasterBusinessLogic.ContinueWatchingTrayDefectValidation(userType);
+		   ZEE5ApplicasterBusinessLogic.TrendingNews(userType);
+		   ZEE5ApplicasterBusinessLogic.SearchedContent(userType);
+		   ZEE5ApplicasterBusinessLogic.ValidationOfDownloadedContentInDownlodsScreen(userType);
+		   ZEE5ApplicasterBusinessLogic.prepaidCodeValidation(userType);
+		   ZEE5ApplicasterBusinessLogic.EduaraaCarousel(userType);
+		   ZEE5ApplicasterBusinessLogic.contentPlayBackValidation(userType);
+		   ZEE5ApplicasterBusinessLogic.DownloadBeforeTvContent(userType);
+		   ZEE5ApplicasterBusinessLogic.AllEpisodeTrayListingScreen(userType);
+		   ZEE5ApplicasterBusinessLogic.relaunch(true);
+		   ZEE5ApplicasterBusinessLogic.LaunchAppinOffline(userType);
+		   ZEE5ApplicasterBusinessLogic.ValidatingQualityOptionDefect(userType);
+	}
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("Quit the App");

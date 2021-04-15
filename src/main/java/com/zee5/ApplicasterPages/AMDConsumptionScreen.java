@@ -65,7 +65,6 @@ public class AMDConsumptionScreen {
 		return By.xpath("//*[@id='txt_reminder_item_title' and @text='" + title + "']");
 	}
 
-	public static By objRecommendedRail = By.xpath("//*[@id='header_primary_text' and @text='Recommended']");
 	public static By objFeaturedMoviesRail = By.xpath("//*[@id='header_primary_text' and @text='Featured Movies']");
 	public static By objReleatedVideosRail = By.xpath("//*[@id='header_primary_text' and @text='Related Videos']");
 
@@ -156,4 +155,7 @@ public class AMDConsumptionScreen {
 	public static By objEduauraaDescriptionForEduauraaOfferDetailsSection = By.xpath("//*[@id='eduaraaOfferDetails']/child::*[@id='eduaraaDescriptionText']");
     public static By objGoToEduauraaCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribeButton' and @text='Go To Eduauraa']");
     
+    public static By objRecommendedRail = By.xpath("//*[contains(text(),'Recommended')]");
+    
+    public static By objAllEpisodetray = By.xpath("//*[@text='All Episodes']");
 }

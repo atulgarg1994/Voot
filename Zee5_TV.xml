@@ -16,8 +16,9 @@
 	<parameter name="NonsubscribedUserName" value="tvautomation@gmail.com"/>
 	<parameter name="NonsubscribedPassword" value="123456"/>
 	<!--  Subscribed User --> 
-	<parameter name="SubscribedUserName" value="gpay@gmail.com"/>
+	<parameter name="SubscribedUserName" value="autotv@mailnesia.com"/>
 	<parameter name="SubscribedPassword" value="123456"/>
+	
 	<parameter name="MobileLogin" value="7892215214"/>
 	<parameter name="MobilePassword" value="User@123"/>
 	<parameter name="ClubUserName" value="upiprime@mailnesia.com"/>

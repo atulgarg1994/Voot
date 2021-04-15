@@ -138,4 +138,12 @@ public class PWALandingPages {
 	}
 	
 	public static By obj_Pwa_Back_to_Top_Arrow_btn = By.xpath("//div[contains(@class, 'ic_arrow_back')]");
+	
+	public static By objAssetInTray(String apiTrayTitle, String dataContentID) {
+		return By.xpath("//*[contains(text(),\""+apiTrayTitle+"\")]//ancestor::div[@class='trayHeader']//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-contentid=\""+dataContentID+"\"]//img");
+	}
+	
+	public static By objTrayWithTitle(String title) {
+		return By.xpath("//*[@class='trayHeader']//h2[contains(text(),\""+title+"\")] | //*[@class='trayHeader']//a[contains(text(),\""+title+"\")]");
+	}
 }

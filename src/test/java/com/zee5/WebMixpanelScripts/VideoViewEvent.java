@@ -105,7 +105,7 @@ public class VideoViewEvent {
 	public void verifyVideoViewEventForContentInPlaylist(String userType) throws Exception {
 		System.out.println("Verify Video View Event For Content played from Playlist");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentInPlaylist(userType,"Shows");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentInPlaylist(userType,"TV Shows");
 	}
 	
 //	@Test(priority = 12)

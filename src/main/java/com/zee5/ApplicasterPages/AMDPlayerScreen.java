@@ -120,5 +120,10 @@ public class AMDPlayerScreen {
 	public static By objTitleInLandscape(String title) {
 			return By.xpath("//*[@id='playerContentTitle' and contains(text(), '"+title+"')]");
 		}
+	public static By ObjUpNextFirstContent= By.xpath("(//*[@class='androidx.recyclerview.widget.RecyclerView' and ./parent::*[@id='cell_center_container' and (./preceding-sibling::* | ./following-sibling::*)[./*[@text='Up Next']]]]/*/*/*/*[@class='android.widget.ImageView' and ./parent::*[@id='cell_center_container']])[1]");
+	public static By objBenefitsofEduauraa = By.xpath("//*[@id='eduaraaTitleText' and @text='Benefits']");
+	public static By objExpandArrowOfBenefitsSection = By.xpath("//*[@id='eduaraaTitleText' and @text='Benefits']//following-sibling::*[1]");
+	public static By objeduauraaDescriptionText = By.xpath("//*[@id='eduaraaDescriptionText']");
 	
+	public static By objTrendingNewsTray = By.xpath("//*[@text='Trending News ']");
 }

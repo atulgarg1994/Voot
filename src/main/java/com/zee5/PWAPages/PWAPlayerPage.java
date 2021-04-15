@@ -443,4 +443,6 @@ public class PWAPlayerPage {
 	public static By objGetPremiumCTABelowPlayerScreen = By
 				.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Get Premium')]");
 
+	public static By objContentTitleInPlayerPage = By.xpath("(//div[@class='consumptionMetaDiv']//div//h2) | (//div[@class='channelConsumptionMetaDiv']//h1)");
+	
 }

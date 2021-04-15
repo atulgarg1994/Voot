@@ -282,4 +282,7 @@ public class AMDMoreMenu {
 	public static By objcloseButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_exit'] | //*[@id='icon_exit']");
 	
 	public static By objBackToHome = By.xpath("//*[@text='Back to Home']");
+	
+	public static By objWatchlistFirstContent = By.xpath("(//*[@id='txt_reminder_item_title'])[1]");
+	public static By objWatchlistContentcard = By.xpath("//*[@id='img_reminder_item']");
 }
