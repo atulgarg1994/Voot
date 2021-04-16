@@ -6,7 +6,7 @@
 	<parameter name="url" value="https://newpwa.zee5.com/" />
 	<parameter name="browserType" value="Chrome" />  <!-- Chrome/Firefox -->
 
-	<parameter name="userType" value="SubscribedUser" /> <!-- Guest/NonSubscribedUser/SubscribedUser/ClubUser -->
+	<parameter name="userType" value="Guest" /> <!-- Guest/NonSubscribedUser/SubscribedUser/ClubUser -->
 	
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" />
@@ -60,16 +60,23 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 	
+	<!--
 	<test name="WebPWAMixpanelScript">
 		<classes>
 			<class name="com.zee5.WebMixpanelScripts.RemoveFomWatchlistEvent" />
 		</classes>
 	</test>
 	
-	<!-- <test name="WebPWAMixpanelScript">
+	 <test name="WebPWAMixpanelScript">
 		<classes>
 			<class name="com.zee5.WebMixpanelScripts.PrepaidCodeResultEvent" />
 		</classes>
 	</test> -->
+	
+	<test name="SkipLoginEvent"> 
+		<classes>
+			<class name="com.zee5.WebMixpanelScripts.SkipLoginEvent" />
+		</classes>
+	</test>
 
 </suite>

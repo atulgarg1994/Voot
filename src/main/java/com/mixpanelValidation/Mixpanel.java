@@ -508,7 +508,7 @@ public class Mixpanel extends ExtentReporter {
 			Mixpanel.FEProp.setProperty("User Type", "guest");
 			Mixpanel.FEProp.setProperty("Partner Name", "N/A");
 			Mixpanel.FEProp.setProperty("HasRental", "false");
-			Mixpanel.FEProp.setProperty("hasEduauraa", "true");
+			Mixpanel.FEProp.setProperty("hasEduauraa", "false");
 			if(Language != false) {
 			Mixpanel.FEProp.setProperty("New App Language", "en");
 			if(platform.equals("Android")) {

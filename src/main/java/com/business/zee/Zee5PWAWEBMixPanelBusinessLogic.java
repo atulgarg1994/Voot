@@ -2754,10 +2754,6 @@ public void verifyParentalRestrictionEvent(String userType, String restriction) 
 		mixpanel.FEProp.setProperty("Video View", "1");
 
 		String id = getWebDriver().getCurrentUrl();
-//		String value = null;
-//		String[] splits=id.split("/");
-//		value=splits[splits.length-1];
-//		System.out.println(value);
 		ResponseInstance.getContentDetails(fetchContentID(id));
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		if (userType.equals("Guest")) {

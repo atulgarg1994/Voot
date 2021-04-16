@@ -27,7 +27,7 @@ public class VideoViewEvent {
 	@Parameters({ "userType"})
 	public void verifyVideoViewEventForContentFromUpnextRail(String userType) throws Exception {
 		System.out.println("Verify Video View Event for content autoplayed from Upnext rail");
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentFromUpnextRail(userType,"Shows");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForContentFromUpnextRail(userType,"TV Shows");
 	}
 	
 //	@Test(priority = 2)
@@ -66,7 +66,7 @@ public class VideoViewEvent {
 	public void verifyVideoViewEventForCarouselContent() throws Exception {
 		System.out.println("Verify Video View Event For Carousel Content");
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
-		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForCarouselContent("Shows");
+		Zee5PWAWEBMixPanelBusinessLogic.verifyVideoViewEventForCarouselContent("TV Shows");
 	}
 	
 //	@Test(priority = 7)

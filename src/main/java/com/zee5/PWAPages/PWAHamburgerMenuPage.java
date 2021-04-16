@@ -738,9 +738,6 @@ public class PWAHamburgerMenuPage {
 	
 	public static By objUnselectedEnglishContentLanguage = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='English']");
 	
-	public static By objfooter = By.xpath("//footer[@class='footerContainer']");
-	
-	
 	public static By objnetbanking = By.xpath(
 			"//*[@class='linearLayout sidebarItem_object']//following-sibling::*//article[contains(text(),'Netbanking')]");
 	
@@ -856,4 +853,6 @@ public class PWAHamburgerMenuPage {
 		
 	public static By objHamburgerBtn = By.xpath("//*[contains(@class,'hamburgerMenuBtn')]//following-sibling::*[contains(text(),'Open Menu')]");
 	public static By objUnslectedNoRestrictions = By.xpath("//div[contains(text(),'No Restrictions')]//child::*[contains(@class,'_unchecked')]");
-}
+
+	public static By objfooter = By.xpath("//footer[@class='footerContainer ']");
+	}
