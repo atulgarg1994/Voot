@@ -8811,23 +8811,23 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String pSource = "N/A";
 		switch (tabName.toLowerCase()) {
 		case "home":
-			pSource = "N/A";
+			pSource = "Homepage";
 			break;
 
-		case "shows":
-			pSource = "home";
+		case "tv shows":
+			pSource = "Homepage";
 			break;
 
 		case "movies":
-			pSource = "home";
+			pSource = "Homepage";
 			break;
 
 		case "premium":
-			pSource = "home";
+			pSource = "Homepage";
 			break;
 
 		case "news":
-			pSource = "home";
+			pSource = "Homepage";
 			break;
 
 		case "club":
@@ -8835,11 +8835,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			break;
 
 		case "eduauraa":
-			pSource = "premium";
+			pSource = "Homepage";
 			break;
 
 		case "music":
-			pSource = "kids";
+			pSource = "Homepage";
 			break;
 
 		case "live tv":
@@ -8850,8 +8850,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			pSource = "livetv";
 			break;
 
-		case "zee5 originals":
-			pSource = "livetv";
+		case "web series":
+			pSource = "Homepage";
 			break;
 
 		}
@@ -9039,13 +9039,8 @@ public void SearchContentFromSearchPage(String userType,String contentType,Strin
 		String contentName = ResponseInstance.getCarouselContentFromAPI(usertype, tabName);
 		System.out.println(contentName);
 		
-		for(int i=0;i<3;i++) {
-			if(verifyElementDisplayed(AMDHomePage.objCarouselContentTitle(contentName))) {
-				click(AMDHomePage.objCarouselContentTitle(contentName), "carousal content");
-				break;
-			}			
-		}
-		
+		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 60, "carousal content");
+
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			waitForAdToFinishInAmd();
 		}
@@ -9056,44 +9051,51 @@ public void SearchContentFromSearchPage(String userType,String contentType,Strin
 		
 		
 		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+		boolean adulterrormsg = verifyIsElementDisplayed(AMDPlayerScreen.objAdultErrorMessage);
 		if (inlineLink == true) {
 			logger.info("Player inline subscription link is displayed");
 			extentLogger("Player screen", "Player inline subscription link is displayed");
-		} else {
+		}else if(adulterrormsg == true){
+			logger.info("error message saying 'This content is for Adult view only' is displayed");
+			extentLogger("Player screen", "error message saying 'This content is for Adult view only' is displayed");
+		}else {
 			waitTime(5000);
-			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			if(!(verifyIsElementDisplayed(AMDPlayerScreen.objFullscreenIcon))) {
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+                                                         click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			}
 			boolean eventFlag = false;
-			eventFlag = verifyElementPresent(AMDPlayerScreen.objPlayer, "Player screen");
+			eventFlag = verifyElementPresent(AMDPlayerScreen.objFullscreenIcon, "Player screen");
 			waitTime(2000);
 			
 			if (eventFlag) {
-				if (usertype.equalsIgnoreCase("SubscribedUser")) {
-					ResponseInstance.subscriptionDetails();
-				}
-				String pPage = getPageName(tabName);
+//				if (usertype.equalsIgnoreCase("SubscribedUser")) {
+//					ResponseInstance.subscriptionDetails();
+//				}
+				String pPage = "ConsumptionPage";
 				String pSource = getSource(tabName);
 				String pManufacturer = DeviceDetails.OEM;
 				//String pAdId = getAdId();
 				
 				setFEProperty(usertype);
+				setUserType_SubscriptionProperties(usertype);
 				
-//				mixpanel.FEProp.setProperty("Ad ID", pAdId);
-//				mixpanel.FEProp.setProperty("Advertisement ID", pAdId);
+				mixpanel.FEProp.setProperty("Ad ID", getParameterFromXML("AdID"));
+				mixpanel.FEProp.setProperty("Advertisement ID", getParameterFromXML("AdID"));
 				mixpanel.FEProp.setProperty("Source", pSource);
 				mixpanel.FEProp.setProperty("Page Name", pPage);
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 				mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
 				mixpanel.FEProp.setProperty("Brand", pManufacturer);
-				mixpanel.FEProp.setProperty("Sugar Box Value",pSugarBox );
+				//mixpanel.FEProp.setProperty("Sugar Box Value",pSugarBox );
 
 				mixpanel.ValidateParameter("", "Video View");
 			} else {
 				logger.info("Failed to display player screen");
 				extentLoggerWarning("Event", "Failed to display player screen");
 			}
-		}
-		
-	}	
+		}		
+	}
 	
 	public void PlayerViewChangedEvent(String userType,String contentType,String contentID,String contentName) throws Exception {
 		HeaderChildNode("Verify Resume Event from search navigation");

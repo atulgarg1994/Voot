@@ -505,7 +505,7 @@ public class Mixpanel extends ExtentReporter {
 			Mixpanel.FEProp.setProperty("Next Pack Expiry Date", "N/A");
 			Mixpanel.FEProp.setProperty("Pack Duration", "N/A");
 			Mixpanel.FEProp.setProperty("Parent Control Setting", "N/A");
-			Mixpanel.FEProp.setProperty("User Type", "guest");
+		    Mixpanel.FEProp.setProperty("User Type", "Free");
 			Mixpanel.FEProp.setProperty("Partner Name", "N/A");
 			Mixpanel.FEProp.setProperty("HasRental", "false");
 			Mixpanel.FEProp.setProperty("hasEduauraa", "false");
@@ -524,6 +524,7 @@ public class Mixpanel extends ExtentReporter {
 			SubcribedDetails();
 		}
 	}
+
 	
 	public static void NonSubcribedDetails() {
 		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");

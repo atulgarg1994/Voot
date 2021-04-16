@@ -88,8 +88,6 @@ public class AMDPlayerScreen {
 
 	public static By objPlaybackRate2 = By.xpath("//*[@text='2.0X'] | //*[@text='Playback Rate']//following::*[@text='2.0']");
 
-	public static By objPremiumTextOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/static_premium_text'] | //*[@id='errorViewText' and (contains(text(),'You need subscription'))]");
-
 	public static By objSubscribeNowLinkOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribe_now_action'] | //*[@id='errorViewButton' and @text='Subscribe']");
 
 	public static By objGetPremiumPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title' and @text='Subscribe'] | //*[@id='screen_title' and @text='Subscribe']");
@@ -126,4 +124,9 @@ public class AMDPlayerScreen {
 	public static By objeduauraaDescriptionText = By.xpath("//*[@id='eduaraaDescriptionText']");
 	
 	public static By objTrendingNewsTray = By.xpath("//*[@text='Trending News ']");
+	
+	public static By objPremiumTextOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/static_premium_text'] | //*[@id='errorViewText' and (contains(text(),'You need subscription'))] | //*[@id='infoTextView' and contains(text(), 'To watch this premium content')]");
+
+	public static By objAdultErrorMessage = By.xpath("//*[@resource-id='com.graymatrix.did:id/errorViewText' and contains(text(),'Adult')]");
+	
 }
