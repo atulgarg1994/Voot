@@ -445,4 +445,5 @@ public class PWAPlayerPage {
 
 	public static By objContentTitleInPlayerPage = By.xpath("(//div[@class='consumptionMetaDiv']//div//h2) | (//div[@class='channelConsumptionMetaDiv']//h1)");
 	
+	public static By objGetPremiumInline = By.xpath("//div[@class=\"subscribe-button subscribemsg_en\"]");
 }

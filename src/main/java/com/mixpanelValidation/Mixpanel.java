@@ -391,8 +391,6 @@ public class Mixpanel extends ExtentReporter {
 			if (!propValue.replaceAll("\\s", "").equalsIgnoreCase(value.replaceAll("\\s", ""))) {
 				fillCellColor();
 				extentReportFail("Parameter", "Parameter : <b>Key : " + key + " <br/> value : " + value + "<br/>Expected Value : "+propValue+"</b>");
-			}else {
-				extentReportInfo("Parameter", "Parameter : <b>Key : " + key + " <br/> value : " + value + "<br/>Expected Value : "+propValue+"</b>");
 			}
 		}
 	}

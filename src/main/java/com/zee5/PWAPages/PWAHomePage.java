@@ -592,8 +592,8 @@ public class PWAHomePage {
 
 	public static By objHindiWEB=By.xpath("//span[contains(@class,'commonName')][contains(text(),'Hindi')]");
 
-	public static By objContTitleOnCarousel = By
-			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
+//	public static By objContTitleOnCarousel = By
+//			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
 	public static By objCarouselCardForDataContentID (int carouselDot) {
 		return By.xpath("//div[contains(@class,'BannerCarousel')]//div[@data-index='"+carouselDot+"']//div[@class='carouselMain']");
 	}
@@ -607,7 +607,16 @@ public class PWAHomePage {
 
 	public static By objGetPremiumWeb = By.xpath("//*[text()='Get premium' or text()='Get Club']");
 
+//	public static By objSubscribeBtnTopHeader = By
+//			.xpath("//*[contains(@class,'subscribeBtn noSelect')]");
+	
 	public static By objSubscribeBtnTopHeader = By
-			.xpath("//*[contains(@class,'subscribeBtn noSelect')]");
+			.xpath("//div[contains(@class,'iconInitialLoad-ic_premium')]");
+	
+	public static By objContTitleOnCarousel = By
+			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
+	
+	public static By objPopUpClose = By.xpath("//div[contains(@class, 'drowerCloseIcon iconInitialLoad-ic_close')]"); 
+	
 	
 }

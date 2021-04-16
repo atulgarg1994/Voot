@@ -950,7 +950,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	public void navigationToMyPlanFromHome(String UserType) throws Exception {
 		extent.HeaderChildNode(
 				"Validating user navigated to signin screen from my plans screen through logged in and NewRegister email id");
-		verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscription button");
+		verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Get Premium button");
 		waitTime(3000);
 		if (verifyElementPresent(PWASubscriptionPages.objZEE5Subscription, "Subscription page")) {
 			logger.info("User is navigated to Subscription page");
@@ -1312,12 +1312,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			waitTime(3000);
 			verifyElementPresent(PWALoginPage.objEmailField, "Sign in page");
 			if (Usertype == "Logged in") {
-				type(PWALoginPage.objEmailField, "Zee5latest@gmail.com", "Email");
-				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
+				type(PWALoginPage.objEmailField, "zee5latest@gmail.com", "Email");
+				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Continue button");
 				waitTime(3000);
 				checkElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
 				type(PWASubscriptionPages.objPasswordField, "User@123", "Password");
-				click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
+				click(PWASubscriptionPages.objProceedButtonInPassword, "Continue button");
 				waitTime(3000);
 				if (checkElementDisplayed(PWASubscriptionPages.objAccountDetailInSubscription, "Account details")) {
 					logger.info("Verified subscribe flow for logged in user");
@@ -1326,11 +1326,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 			if (Usertype == "NewRegister") {
 				type(PWALoginPage.objEmailField, RandomStringGenerator(5) + "@gmail.com", "Email");
-				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
+				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Continue button");
 				waitTime(3000);
 				checkElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
 				type(PWASubscriptionPages.objPasswordField, "User@123", "Password");
-				click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
+				click(PWASubscriptionPages.objProceedButtonInPassword, "Continue button");
 				waitTime(10000);
 				if (checkElementDisplayed(PWASubscriptionPages.objAccountDetailInSubscription, "Account details")) {
 					logger.info("Verified subscribe flow for logged in user");
@@ -1350,12 +1350,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			waitTime(3000);
 			verifyElementPresent(PWALoginPage.objEmailField, "Sign in page");
 			if (Usertype == "Logged in") {
-				type(PWALoginPage.objEmailField, "Zee5latest@gmail.com", "Email");
-				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
+				type(PWALoginPage.objEmailField, "zee5latest@gmail.com", "Email");
+				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Continue button");
 				waitTime(3000);
 				checkElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
 				type(PWASubscriptionPages.objPasswordField, "User@123", "Password");
-				click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
+				click(PWASubscriptionPages.objProceedButtonInPassword, "Continue button");
 				waitTime(4000);
 				if (checkElementDisplayed(PWASubscriptionPages.objAccountDetailInSubscription, "Account details")) {
 					logger.info("Verified subscribe flow for logged in user");
@@ -1364,11 +1364,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 			if (Usertype == "NewRegister") {
 				type(PWALoginPage.objEmailField, RandomStringGenerator(5) + "@gmail.com", "Email");
-				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
+				click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Continue button");
 				waitTime(3000);
 				checkElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
 				type(PWASubscriptionPages.objPasswordField, "User@123", "Password");
-				click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
+				click(PWASubscriptionPages.objProceedButtonInPassword, "Continue button");
 				waitTime(10000);
 				if (checkElementDisplayed(PWASubscriptionPages.objAccountDetailInSubscription, "Account details")) {
 					logger.info("Verified subscribe flow for New Register user");
@@ -1399,7 +1399,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 * of SubscribePopUP.
 	 */
 	public void navigationToCTAInPlayerFromSearch(String userType) throws Exception {
-		extent.HeaderChildNode("Validating user navigated to signin from Subscribe CTA in player");
+		extent.HeaderChildNode("Validating user navigated to signin from Get Premium CTA in player");
 		if (checkElementDisplayed(PWAHomePage.objLanguageChangeContentPopup(), "Language change content PopUp")) {
 			click(PWAHomePage.objLanguageChangeContentPopupCloseicon(), "Language change content PopUp close icon");
 		}
@@ -1415,20 +1415,21 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 		click(PWASearchPage.objSearchResultPremiumContent, "Premium content");
 		waitTime(10000);
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
-		}
-		waitTime(3000);
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
-		}
-		verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumCTAInPlater, "Subscribe CTA in player");
+//		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
+//			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
+//		}
+//		waitTime(3000);
+//		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
+//			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
+//		}
+		verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumCTAInPlater, "Get Premium CTA in player");
 		waitTime(5000);
 //		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
 //			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
 //		}
 		waitTime(3000);
 		navigationToSignInFromCTAInPlayer();
+//		verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "zee logo");
 	}
 
 	/**
@@ -1436,11 +1437,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 * of SubscribePopUP.
 	 */
 	public void navigationToSignInFromCTAInPlayer() throws Exception {
-		extent.HeaderChildNode("Validating Subscribe popup post tapping Subscribe CTA in player");
-		verifyElementPresent(PWASubscriptionPages.objSubscribepopup, "Subscribe popup");
-		verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupPlan, "Subscribe popup plan");
-		verifyElementPresent(PWASubscriptionPages.objGetPremiumPopipProceed, "Proceed button in Subscribe popup");
-		click(PWASubscriptionPages.objGetPremiumPopipProceed, "Proceed button in Subscribe popup");
+		extent.HeaderChildNode("Validating Subscription page post tapping Get Premium CTA in player");
+//		verifyElementPresent(PWASubscriptionPages.objSubscribepopup, "Subscribe popup");
+//		verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupPlan, "Subscribe plan");
+//		verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupPlan, "Subscribe popup plan");
+//		verifyElementPresent(PWASubscriptionPages.objGetPremiumPopipProceed, "Proceed button in Subscribe popup");
+//		click(PWASubscriptionPages.objGetPremiumPopipProceed, "Proceed button in Subscribe popup");
+		verifyElementPresentAndClick(PWASubscriptionPages.objSelectedSubscriptionPlanAmount, "Subscription plan");
+		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue button");
 		waitTime(4000);
 		verifyElementPresent(PWALoginPage.objEmailField, "Sign in page");
 		verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "zee logo");
@@ -2192,13 +2196,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 	}
 
-	public void scrollToElement(By element) throws Exception {
+	public boolean scrollToElement(By element) throws Exception {
 		for (int i = 1; i <= 10; i++) {
 			partialScroll2();
 			if (verifyElementDisplayed(element)) {
 				break;
 			}
 		}
+		return false;
 	}
 
 	public static void partialScroll2() {
@@ -14999,22 +15004,26 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 		}
 
-		extent.HeaderChildNode(" HLS_021 : Verify the availability of the Footer section at bottom");
-		boolean found=false;
-		for(int i=0;i<30;i++) {			
-			if(checkElementDisplayed(PWAHamburgerMenuPage.objfooter,"Footer")) {
-				found=true;
-				break;
-			}				
-			else {
-				scrollDownByY(300);
-				scrollDownByY(300);	
-				scrollDownByY(300);	
-			}
-		}
-		verifyElementPresent(PWAHamburgerMenuPage.objfooter, "Footer section in Home Tab");
+//		extent.HeaderChildNode(" HLS_021 : Verify the availability of the Footer section at bottom");
+//		boolean found=false;
+//		for(int i=0;i<30;i++) {			
+//			if(checkElementDisplayed(PWAHamburgerMenuPage.objfooter,"Footer")) {
+//				found=true;
+//				break;
+//			}				
+//			else {
+//				scrollDownByY(300);
+//				scrollDownByY(300);	
+//				scrollDownByY(300);	
+//			}
+//		}
+//		verifyElementPresent(PWAHamburgerMenuPage.objfooter, "Footer section in Home Tab");
 
-
+		extent.HeaderChildNode(" HLS_021 : Verify the availability of the Footer section at bottom ");
+		waitTime(3000);
+		scrollToBottomOfPageWEB();
+		//scrollDownWEB();
+		verifyElementPresent(PWAHamburgerMenuPage.objfooter, "Footer section");
 
 	}
 
@@ -15375,12 +15384,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		navigateToAnyScreenOnWeb("Shows");
 
 		extent.HeaderChildNode(" HLS_051 : Verify the Play, share and add to watch list CTA buttons ");
-		trayTitleAndContentValidationWithApiDataMovie(tabName, "shows");
+		trayTitleAndContentValidationWithApiDataMovie(tabName, "tvshows");
 
 		extent.HeaderChildNode("HLS_052 :Verify the right side bottom arrow ");
 		scrollToBottomOfPageWEB();
 		logger.info("Scrolled Up the page");
-		if (verifyElementPresent(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon")) {
+		if (scrollToElement(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn)) {
 			click(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon");
 		} else {
 			logger.error("Back to Top Arrow icon is not displayed");
@@ -15471,6 +15480,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void Carouselcontent(String userType) throws Exception {
 		extent.HeaderChildNode("HLS_008 : Verify play content from the carousel");
+		navigateToAnyScreenOnWeb("Movies");
+		verifyElementPresent(PWAHamburgerMenuPage.objplay, "Play button");
+		JSClick(PWAHamburgerMenuPage.objplaybtncarousel, "Play button");
 		navigateToAnyScreenOnWeb("Home");
 		verifyElementPresent(PWAHamburgerMenuPage.objplay, "Play button");
 		JSClick(PWAHamburgerMenuPage.objplaybtncarousel, "Play button");
@@ -16576,7 +16588,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("HLS_164 : Verify the Premium user is able to watch all the zee originals shows");
 		if (userType.equalsIgnoreCase("Subscribeduser")) {
 			navigateToAnyScreenOnWeb(tabName);
-			swipeTillTrayAndClickFirstAsset(userType, 15, "Best of ZEE5 Originals in Hindi",
+			swipeTillTrayAndClickFirstAsset(userType, 15, "Best of ZEE5 Originals in Kannada",
 					"Best of ZEE5 Originals in Hindi tray", tabName);
 //			scrollToTheElementWEB(PWAHomePage.objtrayname("Best of ZEE5 Originals in Hindi"));
 //			checkElementDisplayed(PWAHamburgerMenuPage.objFirstcontentCard, "1st content card");
@@ -16584,11 +16596,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 			// click(PWAShowsPage.objFirstAssetTitleFirstRail, "Content Title in Details
 			// Page");
-			waitTime(3000);
-
+			waitForElementPresence(PWAPlayerPage.objPlaybackVideoOverlay, 20,"Player");
 			checkElementDisplayed(PWAHamburgerMenuPage.objFirstAssetImageFirstRail, "1 st card");
 			click(PWAHamburgerMenuPage.objFirstAssetImageFirstRail, "1 st card");
-			waitTime(5000);
+			waitTime(10000);
 			if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
 				logger.info("user is able to watch the zee originals shows");
 				extent.extentLogger("zee originals shows", "user is able to watch the zee originals shows");
@@ -16626,7 +16637,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWAHamburgerMenuPage.objFirstAssetImageFirstRail, "1 st card");
 
 		waitTime(3000);
-
+		waitForElementPresence(PWAPlayerPage.objPlaybackVideoOverlay, 20,"Player");
 		if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
 			logger.info("user is able to watch the First Episode");
 			extent.extentLogger("zee originals shows", "user is able to watch the First Episode");

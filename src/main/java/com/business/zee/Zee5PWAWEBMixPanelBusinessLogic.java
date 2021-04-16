@@ -1,6 +1,8 @@
 package com.business.zee;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -13597,7 +13599,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 	}
 	
 	public void videoViewExit(String userType,String tab,int assetType,String assetSubtype,String event,int scenario,String requiredBusiness) throws Exception {
-		String source="",page="";
+		String source="",page="",verticalIndex="1",sessionID="",convivaID="";
 		try {
 			navigateToHome();
 			selectLanguages();
@@ -13607,7 +13609,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 			fetchUserType(local);
 			String contentLang=fetchContentLanguage(local);	
-			ArrayList<String> trayValues = ResponseInstance.getTrayValues(userType,tab,assetType,assetSubtype,requiredBusiness,contentLang);
+			ArrayList<String> trayValues=ResponseInstance.getTrayValues(userType,tab,assetType,assetSubtype,requiredBusiness,contentLang,scenario);
 			String contentID=trayValues.get(3);
 			extent.extentLogger("", "Content ID fetched from API : "+contentID);	
 			logger.info("Content ID fetched from API : "+contentID);			
@@ -13624,9 +13626,12 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 				logger.info("Content title fetched from API : "+contentTitle);
 				String dataContentID=trayValues.get(2);
 				extent.extentLogger("", "Data Content ID fetched from API : "+dataContentID);
-				logger.info("Data Content ID fetched from API : "+dataContentID);			
+				logger.info("Data Content ID fetched from API : "+dataContentID);		
 				if(scenario==1 || scenario==2 || scenario==3 || scenario==5 || scenario==12) {
 					String title=swipeTillTray(100, trayTitle, "\"" + trayTitle + "\" tray");
+					HashMap<String,Integer> alltrays=ResponseInstance.findVerticalIndex(tab,trayTitle,contentLang);
+					verticalIndex=String.valueOf(alltrays.get(trayTitle)+1);
+					System.out.println("verticalIndex: "+verticalIndex);
 					WebElement element = getWebDriver().findElement(PWALandingPages.objTrayWithTitle(title));
 					((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
 					JSClick(PWALandingPages.objAssetInTray(title,dataContentID),"Content card under tray "+title);
@@ -13637,29 +13642,49 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 					}
 					catch(Exception e) {}
 					source=getElementPropertyToString("innerText",PWAHomePage.objBreadCrumb(1),"");
+					mixpanel.FEProp.setProperty("Tab Name", tab.toLowerCase());
 				}
 				if(scenario==6) {
 					click(PWAHomePage.objSearchBtn, "Search icon");
 					type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);
-					if(assetType==6)
+					if(assetType==6) {
 						click(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows tab");
-					if(assetSubtype.equals("episode"))
+						mixpanel.FEProp.setProperty("Tab Name", "tv shows");
+					}
+					if(assetSubtype.equals("episode")) {
 						click(PWASearchPage.objSearchNavigationTab("Episodes"), "Episodes tab");
-					if(assetSubtype.equals("movie"))
-						click(PWASearchPage.objSearchNavigationTab("Movies"), "Movies tab");					
+						mixpanel.FEProp.setProperty("Tab Name", "episodes");
+					}
+					if(assetSubtype.equals("movie")) {
+						click(PWASearchPage.objSearchNavigationTab("Movies"), "Movies tab");	
+						mixpanel.FEProp.setProperty("Tab Name", "movies");
+					}
 					waitForElement(PWASearchPage.objSearchedResult(contentTitle), 30, "Search Result");
 					verifyElementPresentAndClick(PWASearchPage.objSearchedResult(contentTitle), "Search Result");
 					source="search";
 				}
 				if(!userType.equals("SubscribedUser")) waitForPlayerAdToComplete("Video");	
-				page=pageNameForPlayer(assetSubtype);		
-				
+				page=pageNameForPlayer(assetSubtype);	
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				sessionID=fetchSessionID(local);
+				BigDecimal sessionId = new BigDecimal(sessionID);
+				convivaID=fetchConvivaID(local);
 				waitTime(10000);
 				navigateToHome();	
 				mixpanel.FEProp.setProperty("Page Name",page);
 				mixpanel.FEProp.setProperty("Source", source);
 				mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+				mixpanel.FEProp.setProperty("Player Version", "1.3.0");
 				mixpanel.FEProp.setProperty("Video View", "1");
+				mixpanel.FEProp.setProperty("Vertical Index", verticalIndex);
+				mixpanel.FEProp.setProperty("New Quality", "Auto");
+				mixpanel.FEProp.setProperty("Talamoos clickID", "N/A");
+				mixpanel.FEProp.setProperty("Talamoos modelName", "N/A");
+				mixpanel.FEProp.setProperty("Talamoos origin", "N/A");
+				mixpanel.FEProp.setProperty("Preview status", "N/A");
+				mixpanel.FEProp.setProperty("Video Autoplay", "true");
+				mixpanel.FEProp.setProperty("Session ID", String.valueOf(sessionId));
+				
 				ResponseInstance.getContentDetailsForPlayer(contentID,assetSubtype);
 				LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 				if (userType.equals("Guest")) {
@@ -13674,6 +13699,45 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			extent.extentLoggerFail("", "Failed : "+userType+"-"+tab+"-"+assetType+"-"+assetSubtype+"-"+event);
 			logger.error("Failed : "+userType+" - "+tab+" - "+assetType+" - "+assetSubtype+" - "+event);
 		}
+	}
+	
+	public String fetchConvivaID(LocalStorage local) {
+		String convivaIDFromSetting="";
+		try {
+			Properties KEYVALUE = new Properties();
+			for (String key : local.keySet()) {
+				KEYVALUE.setProperty(key, local.getItem(key));
+			}
+			Set<String> keys = KEYVALUE.stringPropertyNames();
+			for (String key : keys) {
+				if (key.contains("Conviva")) {
+					JSONObject jsonObj = new JSONObject(KEYVALUE.getProperty(key));
+					convivaIDFromSetting=jsonObj.get("clId").toString();
+					System.out.println("convivaIDFromSetting:"+convivaIDFromSetting);
+					break;
+				}
+			}
+		} catch (Exception e) {}
+		return convivaIDFromSetting;
+	}
+	
+	public String fetchSessionID(LocalStorage local) {
+		String sesionIDFromSetting="";
+		try {
+			Properties KEYVALUE = new Properties();
+			for (String key : local.keySet()) {
+				KEYVALUE.setProperty(key, local.getItem(key));
+			}
+			Set<String> keys = KEYVALUE.stringPropertyNames();
+			for (String key : keys) {
+				if (key.contains("_mixpanel")) {
+					JSONObject jsonObj = new JSONObject(KEYVALUE.getProperty(key));
+					sesionIDFromSetting=jsonObj.get("Session ID").toString();
+					break;
+				}
+			}
+		} catch (Exception e) {}
+		return sesionIDFromSetting;
 	}
 	
 	public static ArrayList<String> getTrayValues (String userType,String tab,int assetType,String assetSubtype, String requiredType,String contentLanguages) {

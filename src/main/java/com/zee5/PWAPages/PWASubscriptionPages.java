@@ -202,7 +202,6 @@ public class PWASubscriptionPages {
 
 	public static By objPasswordPopupInSubscriptionPage = By.xpath("//*[@class='popupContent parentalControlPopup']");
 	public static By objPasswordField = By.xpath("//*[@type='password']");
-	public static By objProceedButtonInPassword = By.xpath("//*[@class='popupBtn']");
 	public static By objAccountDetailInSubscription = By.xpath("//*[@class='autoPopulatedDetail']");
 
 	public static By objPaytmProceedToPay = By.xpath("(//article[contains(text(), 'Proceed to pay')])[2]");
@@ -263,8 +262,6 @@ public class PWASubscriptionPages {
 	public static By objZeeLink = By.xpath("(//a[contains(text(),'www.zee5.com')])[1]");
 
 	public static By objCreditDebitClose = By.xpath("(//*[contains(@src,'ic_search_cancel')])[2]");
-
-	public static By objProceedBtnInSubscriptionPage = By.xpath("//*[text()='PROCEED']");
 
 	public static By objPremiumPack = By.xpath("//span[contains(text(),'Premium')]");
 	public static By objActiveStatusTransaction = By
@@ -345,4 +342,16 @@ public class PWASubscriptionPages {
 	public static By objPackAmount1 = By.xpath("(//p[@class='planPrice'])[1]");
 
 	public static By objContinueBtn = By.xpath("//span[contains(text(), 'Continue')]");
+	
+	public static By objProceedButtonInPassword = By.xpath("//*[text()='Continue']");
+	public static By objProceedBtnInSubscriptionPage = By.xpath("//*[text()='Continue']");
+	
+	public static By objContinueBtnn = By.xpath("//*[@type='button']//span[text()='Continue']");
+	
+	public static By objDiscountAppliedMessage = By.xpath("//div[contains(text(),'DISCOUNT APPLIED')]");
+	
+	public static By objHaveACodePlaceHolder = By.xpath("//*[contains(@placeholder,'Enter code')]");
+	
+	public static By objHaveACodeChangeBtn = By
+			.xpath("//div[contains(@class,'applyPromoMobile')]//following-sibling::div[contains(@class,'changeMobileButton')]");
 }

@@ -35,6 +35,7 @@ public class LoginInitiatedEvent {
 	@Parameters({ "userType"})
 	public void verifyLoginInitiatedEventForInvalidCredentials(String userType) throws Exception {
 		System.out.println("Verify Login Initiated Event post entering invalid credentials");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyLoginInitiatedEvent(userType,"emailLogin");
 	}
 	

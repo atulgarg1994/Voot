@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -3535,9 +3536,9 @@ public static Response getResponseForPages(String tab, int pageNumber,String con
 	return respPages;
 }
 
-public static ArrayList<String> getTrayValues (String userType,String tab,int assetType,String assetSubtype, String requiredType,String contentLanguages) {
+public static ArrayList<String> getTrayValues (String userType,String tab,int assetType,String assetSubtype, String requiredType,String contentLanguages,int scenario) {
 	ArrayList<String> trayDetails=new ArrayList<String>();
-	String trayTitle="",contentTitle="",contentDataID="",contentID="";
+	String trayTitle="",contentTitle="",contentDataID="",contentID="",itemID="",channel="N/A",epNo="N/A",series="N/A",channels="N/A",horizontalIndex="N/A",imageUrl="N/A",trayId="";
 	boolean foundContent=false;
 	main : for(int i=1;i<20;i++) {//Considering each tab may have upto 20 pages
 		Response respContent = ResponseInstance.getResponseForPages(tab.toLowerCase(), i, contentLanguages);
@@ -3560,12 +3561,17 @@ public static ArrayList<String> getTrayValues (String userType,String tab,int as
 							if(assetSubtypeAPI.equals(assetSubtype)) {
 								trayTitle=respContent.jsonPath().get("buckets["+iter+"].title").toString();
 								System.out.println("trayTitle : "+trayTitle);
-								contentTitle=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].title").toString();			
+								trayId=respContent.jsonPath().get("buckets["+iter+"].id").toString();
+								itemID=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].id").toString();
+								contentTitle=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].title").toString();		
+								series=contentTitle;
 								contentDataID=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].id").toString();
+								imageUrl=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].image_url.list").toString();
 								if(userType.equals("Guest")) {
 									//Guest user - free content - not A content
 									if(requiredType.equalsIgnoreCase("free") && !businesssType.equals("premium_downloadable") && !ageRating.equals("A")) {
 										contentID=contentDataID;
+										horizontalIndex=String.valueOf(k+1);
 										foundContent=true;
 									}
 								}
@@ -3573,12 +3579,14 @@ public static ArrayList<String> getTrayValues (String userType,String tab,int as
 									//Non Sub user and sub user - free content 
 									if(requiredType.equalsIgnoreCase("free") && !businesssType.equals("premium_downloadable")) {
 										contentID=contentDataID;
+										horizontalIndex=String.valueOf(k+1);
 										foundContent=true;
 									}
 								}					
 								if(requiredType.equalsIgnoreCase("premium")) {
 									if(userType.equals("SubscribedUser") && businesssType.equals("premium_downloadable")) {
 										contentID=contentDataID;
+										horizontalIndex=String.valueOf(k+1);
 										foundContent=true;
 									}
 									else if(businesssType.equals("premium_downloadable")){		
@@ -3591,6 +3599,8 @@ public static ArrayList<String> getTrayValues (String userType,String tab,int as
 												if(contentDetails.jsonPath().get("related["+z+"].asset_subtype").equals("trailer")) {
 													contentID=contentDetails.jsonPath().get("related["+z+"].id").toString();													
 													foundContent=true;
+													horizontalIndex=String.valueOf(k+1);
+													break;
 												}
 											}catch(Exception e) {}
 										}
@@ -3599,19 +3609,29 @@ public static ArrayList<String> getTrayValues (String userType,String tab,int as
 												trailerSize=contentDetails.jsonPath().get("tvshow_details.trailers.size()");
 												contentID=contentDetails.jsonPath().get("tvshow_details.trailers["+(trailerSize-1)+"]id").toString();	
 												foundContent=true;
+												horizontalIndex=String.valueOf(k+1);
+												break;
 											}catch(Exception e) {}
 										}
 										if(trailerSize==0) {
 											try {
-												String tvshowid=contentDetails.jsonPath().get("tvshow.id");
+												String tvshowid=contentDetails.jsonPath().get("tvshow.id");															
 												Response showDetails=ResponseInstance.getContentDetails(tvshowid, "original");
+												series = showDetails.jsonPath().getString("title");
+												epNo=showDetails.jsonPath().getString("episode_number").toString();
+												if(epNo.equals("0")) epNo="N/A";
+												channels=showDetails.jsonPath().getString("channels[0].title").toString();
+												channels="["+channels+"]";	
 												seasonSize=showDetails.jsonPath().get("seasons.size()");
 												previewSize=showDetails.jsonPath().get("seasons["+(seasonSize-1)+"].previews.size()");
 												for(int l=0;l<previewSize;l++) {
 													int temporderid=Integer.valueOf(showDetails.jsonPath().get("seasons["+(seasonSize-1)+"].previews["+l+"].orderid").toString());
 													if(temporderid==orderID) {
 														contentID=showDetails.jsonPath().get("seasons["+(seasonSize-1)+"].previews["+l+"].id").toString();
+														channel=showDetails.jsonPath().get("seasons["+(seasonSize-1)+"].previews["+l+"].channels[0].original_title").toString();
+														imageUrl=showDetails.jsonPath().get("seasons["+(seasonSize-1)+"].previews["+l+"].image_url").toString();
 														foundContent=true;
+														horizontalIndex=String.valueOf(k+1);
 														break;
 													}
 												}
@@ -3636,8 +3656,81 @@ public static ArrayList<String> getTrayValues (String userType,String tab,int as
 	trayDetails.add(contentTitle);//content title
 	trayDetails.add(contentDataID);//data content id
 	trayDetails.add(contentID);//content id
+	if(scenario==6) {
+		Mixpanel.FEProp.setProperty("Carousal Name", "N/A");
+		Mixpanel.FEProp.setProperty("Carousal ID", itemID);
+	}
+	else {
+		Mixpanel.FEProp.setProperty("Carousal Name", trayTitle);
+		Mixpanel.FEProp.setProperty("Carousal ID", trayId);
+	}		
+	Mixpanel.FEProp.setProperty("Channel Name", channel);
+	Mixpanel.FEProp.setProperty("Series", series);
+	Mixpanel.FEProp.setProperty("Episode No", epNo);
+	Mixpanel.FEProp.setProperty("Channel Name", channels);
+	Mixpanel.FEProp.setProperty("Horizontal Index", horizontalIndex);
+	Mixpanel.FEProp.setProperty("Image URL", imageUrl);
 	return trayDetails;
 }
 
+
+public static HashMap findVerticalIndex(String tab, String trayTitle, String contentLanguages) {
+	ArrayList<String> trays=new ArrayList<String>();
+	ArrayList<String> recotrays=new ArrayList<String>();
+	int bucketsSize=0;
+	main : for(int i=1;i<20;i++) {//Considering each tab may have upto 20 pages
+		Response respContent = ResponseInstance.getResponseForPages(tab.toLowerCase(), i, contentLanguages);			
+		try{ bucketsSize=respContent.jsonPath().get("buckets.size()"); }
+		catch(Exception e) {break;}
+		if(bucketsSize==0) break;
+		else {
+			for(int iter=0;iter<bucketsSize;iter++) {//iterate through trays
+				String tray=respContent.jsonPath().get("buckets["+iter+"].title");
+				trays.add(tray);
+				if(tray.equals(trayTitle)) break main;
+			}
+		}
+	}
+	int nonRecoTraySize=trays.size();
+	System.out.println(trays);
+	//Response recoresp=getRecoResponseForPages(tab, contentLanguages);
+	String userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+	Response recoresp=getRecoDataFromTab(userType,tab.toLowerCase(),contentLanguages);
+	int recoStart=recoresp.jsonPath().getInt("rails_position");
+	System.out.println("recoStart"+recoStart);
+	int rbucketsSize=0;
+	try{ rbucketsSize=recoresp.jsonPath().get("buckets.size()"); }
+	catch(Exception e) {}
+	if(rbucketsSize!=0) {
+		for(int iter=0;iter<rbucketsSize;iter++) {//iterate through trays
+			String tray=recoresp.jsonPath().get("buckets["+iter+"].title");
+			recotrays.add(tray);
+		}
+	}
+	System.out.println(recotrays);
+	HashMap<String,Integer> allTrays=new HashMap<String,Integer>();
+	int contTrayIndex=0;
+	for(int i=0;i<recoStart;i++) {
+		allTrays.put(trays.get(i),i);
+		contTrayIndex=i+1;
+	}
+	System.out.println("allTray: "+allTrays);
+	int recoindex=0;
+	for(int i=recoStart;i<(rbucketsSize+recoStart);i++) {
+		allTrays.put(recotrays.get(recoindex),i);
+		recoindex++;
+	}
+	System.out.println("allTray: "+allTrays);
+	int currentsize=allTrays.size();
+	System.out.println("currentsize"+currentsize);
+	System.out.println("nonRecoTraySize+rbucketsSize"+(nonRecoTraySize+rbucketsSize));
+
+	for(int i=currentsize;i<(nonRecoTraySize+rbucketsSize);i++) {
+		allTrays.put(trays.get(contTrayIndex),i);
+		contTrayIndex++;
+	}
+	System.out.println("allTray: "+allTrays);
+	return allTrays;
+}
 }
 
