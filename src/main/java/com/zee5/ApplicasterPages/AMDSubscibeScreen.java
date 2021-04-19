@@ -106,4 +106,9 @@ public class AMDSubscibeScreen {
 	public static By objTermsandPrivacyLink = By.xpath("//*[@text='By proceeding you agree to our Terms of Use and Privacy Policy']");
 	
 	public static By objZEE5SubscriptionPage = By.xpath("//div[@class='subPackFlowContent']");
+	
+	public static By objNewSubscribePopup = By.xpath("//*[@id='plansHeader']");
+	public static By objContinueOnSubscribePopup = By.xpath("//*[@id='continueButton']");
+	public static By objMakePaymentScreen = By.xpath("//*[@class='android.widget.TextView' and @text='Make Payment']");
+	
 }

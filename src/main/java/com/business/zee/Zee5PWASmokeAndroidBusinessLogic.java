@@ -907,7 +907,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("All"), "All Tab");
 		checkElementExist(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
 
-		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("Shows"), "Shows Tab");
+		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows Tab");
 		checkElementExist(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
 
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("Episodes"), "Episodes Tab");
@@ -935,10 +935,10 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		// autorotating
 		verifyAutoroatingOnCarousel("Home");
 		verifyAutoroatingOnCarousel("Movies");
-		verifyAutoroatingOnCarousel("Shows");
+		verifyAutoroatingOnCarousel("TV Shows");
 		verifyAutoroatingOnCarousel("Premium");
 		verifyAutoroatingOnCarousel("Play");
-		verifyAutoroatingOnCarousel("ZEE5 Originals");
+		verifyAutoroatingOnCarousel("Web Series");
 	}
 
 	public void verifyCarouselPlayIconFunctionality() throws Exception {
@@ -946,7 +946,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		verifyPlayIconFunctionality("ZEE5 Originals");
 		verifyPlayIconFunctionality("Kids");
 		verifyPlayIconFunctionality("Premium");
-		verifyPlayIconFunctionality("Shows");
+		verifyPlayIconFunctionality("TV Shows");
 		verifyPlayIconFunctionality("Movies");
 		verifyPlayIconFunctionality("Home");
 	}
@@ -957,16 +957,16 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		verifyPremiumIconFunctionality("Home", userType);
 		verifyPremiumIconFunctionality("Premium", userType);
 		verifyPremiumIconFunctionality("Movies", userType);
-		verifyPremiumIconFunctionality("ZEE5 Originals", userType);
+		verifyPremiumIconFunctionality("Web Series", userType);
 	}
 
 	public void verifyCarouselMetaData() throws Exception {
 		// metadata
 		String languageSmallText = allSelectedLanguages();
-		verifyMetadataOnCarousel("ZEE5 Originals", "zeeoriginals", languageSmallText);
+		verifyMetadataOnCarousel("Web Series", "webseries", languageSmallText);
 		verifyMetadataOnCarousel("Play", "play", languageSmallText);
 		verifyMetadataOnCarousel("Premium", "premiumcontents", languageSmallText);
-		verifyMetadataOnCarousel("Shows", "tvshows", languageSmallText);
+		verifyMetadataOnCarousel("TV Shows", "tvshows", languageSmallText);
 		verifyMetadataOnCarousel("Movies", "movies", languageSmallText);
 		verifyMetadataOnCarousel("Home", "home", languageSmallText);
 	}
@@ -1851,8 +1851,8 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(user);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);
-		waitForElement(PWASearchPage.objSearchNavigationTab("Shows"), 30, "Shows tab");
-		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("Shows"), "Shows tab");
+		waitForElement(PWASearchPage.objSearchNavigationTab("TV Shows"), 30, "TV Shows tab");
+		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows tab");
 		waitForElement(PWASearchPage.objSearchedResult(contentTitle), 30, "Search Result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(contentTitle), "Search Result");
 		verifyElementPresent(PWAShowsPage.objShowsTitle, "Show title");
@@ -4077,9 +4077,12 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	public void zeePWAPromoCodeValidationInSelectPackPage() throws Exception {
 		HeaderChildNode("Promo code Validation in Select Pack Page");
 		waitTime(3000);
+		Swipe("UP", 1);
 		verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "'Have A Code?' field");
 		waitTime(3000);
-		type(PWASubscriptionPages.objHaveACode, "pnb20", "'Have A Code?' field");
+		verifyElementPresentAndClick(PWASubscriptionPages.objHaveACodePlaceHolder, "'Enter Code?' field");
+		waitTime(3000);
+		type(PWASubscriptionPages.objHaveACode, "testz40", "'Have A Code?' field");
 		hideKeyboard();
 		waitTime(5000);
 		click(PWASubscriptionPages.objApplyBtn, "Apply Button");
@@ -4089,7 +4092,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		} catch (Exception e) {
 		} // Added for Vivo phone
 		waitTime(5000);
-		verifyElementPresent(PWASubscriptionPages.objAppliedSuccessfullyMessage, "Applied Successfully Message");
+		verifyElementPresent(PWASubscriptionPages.objDiscountAppliedMessage, "Discount Applied Successfully Message");
 
 	}
 

@@ -266,6 +266,13 @@
 		</classes>
 	</test>
 	
+	<test name="TasksAndDefects">
+		<classes>
+			<class
+				name="com.zee5.ApplicasterScripts.TasksAndDefects" />
+		</classes>
+	</test>
+	
 <!--  <test name="DeepLinkValidation">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.DeepLinkValidation" />

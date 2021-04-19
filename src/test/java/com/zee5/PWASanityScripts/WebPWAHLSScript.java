@@ -40,7 +40,7 @@ public class WebPWAHLSScript {
 	@Parameters({ "userType" })
 	public void tvShowsPageValidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-		Zee5WEBPWASanityBusinessLogic.tvShowsValidation("TV Showss", userType);
+		Zee5WEBPWASanityBusinessLogic.tvShowsValidation("TV Shows", userType);
 	}
 
 	@Test(priority = 5)
@@ -84,7 +84,7 @@ public class WebPWAHLSScript {
 	@Parameters({ "userType" })
 	public void livePageValidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-		Zee5WEBPWASanityBusinessLogic.LiveTVValidation(userType, "Music");
+		Zee5WEBPWASanityBusinessLogic.LiveTVValidation(userType, "Live TV");
 	}
 
 	@Test(priority = 11)
@@ -164,6 +164,8 @@ public class WebPWAHLSScript {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.kidsvalidation(userType, "Kids");
 	}
+	
+	
 
 	@AfterClass
 	public void tearDown() {

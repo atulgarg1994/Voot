@@ -256,4 +256,6 @@ public class AMDHomePage {
 	
 	public static By objTrendingNewsTray = By.xpath("//*[@text='Trending News ']");
 	
+	public static By objRegisterPopup = By.xpath("//*[@id='tvtitle' and @text='Register']");
+	
 	}

@@ -853,6 +853,7 @@ public class PWAHamburgerMenuPage {
 		
 	public static By objHamburgerBtn = By.xpath("//*[contains(@class,'hamburgerMenuBtn')]//following-sibling::*[contains(text(),'Open Menu')]");
 	public static By objUnslectedNoRestrictions = By.xpath("//div[contains(text(),'No Restrictions')]//child::*[contains(@class,'_unchecked')]");
-
-	public static By objfooter = By.xpath("//footer[@class='footerContainer ']");
+	
+	public static By objfooter = By.xpath("//*[@class='megaMenuFooter']");
+	
 	}

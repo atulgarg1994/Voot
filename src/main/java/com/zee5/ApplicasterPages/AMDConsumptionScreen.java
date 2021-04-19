@@ -80,7 +80,6 @@ public class AMDConsumptionScreen {
 	public static By objLoginBtnOnPopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/tvLogin']");
 	public static By objContentCardOfTrayInConsumptionPage = By
 			.xpath("(//*[@resource-id='com.graymatrix.did:id/horizontal_list_10_parent'])[1]");
-	public static By objGetPremiumCTA = By.xpath("//*[@id='get_premium_button' and @text='Get Premium']");
 
 	public static By objAudioLanguageValue = By.xpath("//*[@resource-id='com.graymatrix.did:id/languageValueTV']");
 	public static By objAvailableAudioLanguages = By
@@ -158,4 +157,9 @@ public class AMDConsumptionScreen {
     public static By objRecommendedRail = By.xpath("//*[contains(text(),'Recommended')]");
     
     public static By objAllEpisodetray = By.xpath("//*[@text='All Episodes']");
+    
+    public static By objGetPremiumCTA = By.xpath("//*[@id='subscribeButton' and @text='Get Premium']");
+    
+    public static By objSkipctaOnPlayer = By.xpath("//*[@id='primaryActionButton']");
+    public static By objRentNowCTABelowthePlayer = By.xpath("//*[@id='subscribeButton' and @text='Rent Now']");
 }

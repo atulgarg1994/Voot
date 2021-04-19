@@ -148,8 +148,6 @@ public class PWASubscriptionPages {
 
 	public static By objPackTitle = By.xpath("(//div[@class='planDescription'])");
 
-	public static By objPackAmount2 = By.xpath("(//p[@class='currency'])[2]");
-
 	public static By objPackAmount = By.xpath("(//p[@class='currency'])");
 
 //	MANASA
@@ -199,8 +197,6 @@ public class PWASubscriptionPages {
 	public static By objProceedToPay = By.xpath("(//article[contains(text(), 'Proceed to pay')])[6]");
 
 	public static By objLoginLinkInPlayer = By.xpath("//*[@class='login-link']");
-
-	public static By objPasswordPopupInSubscriptionPage = By.xpath("//*[@class='popupContent parentalControlPopup']");
 	public static By objPasswordField = By.xpath("//*[@type='password']");
 	public static By objAccountDetailInSubscription = By.xpath("//*[@class='autoPopulatedDetail']");
 
@@ -289,9 +285,6 @@ public class PWASubscriptionPages {
 
 	public static By objsubscribebtnonplayer = By.xpath("//div[@class ='subscribe-button subscribemsg_en']");
 
-	public static By objZEE5Subscription = By
-			.xpath("//*[contains(text(),'Unlock ZEE5') and contains(@class,'pageTitleSmall')] ");
-
 	public static By objSelectPackHighlighted = By
 			.xpath("//*[@class='subscriPack ']//div[contains(@class, 'packDetails active')]");
 
@@ -325,9 +318,6 @@ public class PWASubscriptionPages {
 
 	public static By objPackDescription = By.xpath("//*[@class='subscriTopContWrapper']");
 
-	public static By objSelectedSubscriptionPlanAmount = By
-			.xpath("//*[contains(@class, 'packDetails active')]//*/*[contains(@class, 'price')]");
-
 	public static By objSelectedSubscriptionPlanDuration = By.xpath(
 			"//*[contains(@class, 'packDetails active')]/*[contains(@class, 'planDuration')]/*[contains(@class,'heading')]");
 
@@ -354,4 +344,27 @@ public class PWASubscriptionPages {
 	
 	public static By objHaveACodeChangeBtn = By
 			.xpath("//div[contains(@class,'applyPromoMobile')]//following-sibling::div[contains(@class,'changeMobileButton')]");
+	
+	public static By objSelectedSubscriptionPlanAmount = By
+			.xpath("//*[contains(@class, 'packDetails active')]//*[contains(@class, 'planDuration')]");
+	
+	public static By objPasswordPopupInSubscriptionPage = By.xpath("//div[contains(@class, 'drowerPopupContent')]");
+	
+	public static By objPremiumText = By.xpath("//span[contains(text(), 'To Watch this Premium Content')]");
+	
+	public static By objGetPremiumButton = By.xpath("//*[contains(@class, 'subscribe-button subscribemsg_en')]");
+	
+	public static By objSkipLink = By.xpath("//*[contains(@class, 'skip-button subscribe-link subscribemsg_en')]");
+	
+	public static By objExistUserText = By.xpath("//*[contains(text(), 'Are you a Zee5 Subscriber?')]");
+	
+	public static By objLoginLink = By.xpath("//*[contains(@class, 'login-link')]");
+	
+	public static By objTrailerTextAtConsumptionPage = By.xpath("//*[contains(@class, 'trailerInfoContainer')]");
+	
+	public static By objLoginPage = By.xpath("//*[contains(@class, 'formHeader loginHeaderIn')]");
+	
+	public static By objZEE5Subscription = By.xpath("//*[contains(text(),'Unlock ZEE5') and contains(@class, 'stepTitle')]");
+
+	public static By objPackAmount2 = By.xpath("(//*[@class='price'])[1]");
 }

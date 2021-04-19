@@ -20601,7 +20601,7 @@ public void BackToLandingScreen() throws Exception {
 					waitTime(3000);
 					Back(1);
 					click(AMDHomePage.objDownloadBtn, "Downloads tab");
-					click(AMDDownloadPage.objDownloadingText,"Downloading content");
+					click(AMDDownloadPage.objRightArrow,"Right arrow ");
 					verifyElementExist(AMDDownloadPage.objDownloadMoreEpisodesButton, "Download More CTA");
 					click(AMDDownloadPage.objDownloadMoreEpisodesButton, "Download More CTA");
 					waitTime(3000);
@@ -20752,38 +20752,38 @@ public void BackToLandingScreen() throws Exception {
 		}
 
 	public void RecommendRailListingScreenInNews (String userType) throws Exception {
-			//ZNA-9902
-			extent.HeaderChildNode("ZNA-9902");
-			logger.info("ZNA-9902");
-			if (!userType.contentEquals("Guest")) {
-			click(AMDHomePage.objHomeBtn,"Home");
-			SelectTopNavigationTab("News");		
-			findParticularTray(AMDPlayerScreen.objTrendingNewsTray,"Trending News");
-			String trayName=getText(AMDPlayerScreen.objTrendingNewsTray);
-			verifyElementExist(AMDHomePage.objViewAllBtn("Trending News "),"View All icon of Trending News tray");
-			click(AMDHomePage.objViewAllBtn("Trending News "),"View All icon of Trending News tray");
-		   String 	pageTitle = getText(AMDHomePage.objTitle);
-			if (trayName.contains(pageTitle)) {
-				extent.extentLoggerPass("Listing Collection",  userType
+		//ZNA-9902
+		extent.HeaderChildNode("ZNA-9902");
+		logger.info("ZNA-9902");
+		if (!userType.contentEquals("Guest")) {
+		click(AMDHomePage.objHomeBtn,"Home");
+		SelectTopNavigationTab("News");		
+		findParticularTray(AMDPlayerScreen.objTrendingNewsTray,"Trending News");
+		String trayName=getText(AMDPlayerScreen.objTrendingNewsTray);
+		verifyElementExist(AMDHomePage.objViewAllBtn("Trending News "),"View All icon of Trending News tray");
+		click(AMDHomePage.objViewAllBtn("Trending News "),"View All icon of Trending News tray");
+	   String 	pageTitle = getText(AMDHomePage.objTitle);
+		if (trayName.contains(pageTitle)) {
+			extent.extentLoggerPass("Listing Collection",  userType
+					+ " is able to navigate to listing collection: " + trayName + " Screen");
+			logger.info(
+					 userType
 						+ " is able to navigate to listing collection: " + trayName + " Screen");
-				logger.info(
-						 userType
-							+ " is able to navigate to listing collection: " + trayName + " Screen");
-			} else {
-				extent.extentLoggerFail("Listing Collection", userType
+		} else {
+			extent.extentLoggerFail("Listing Collection", userType
+					+ " is failed to navigate to listing collection: " + trayName + " Screen");
+			logger.error(
+					 userType
 						+ " is failed to navigate to listing collection: " + trayName + " Screen");
-				logger.error(
-						 userType
-							+ " is failed to navigate to listing collection: " + trayName + " Screen");
-			}
-			Back(1);
-			click(AMDHomePage.objHomeBtn,"Home");
-			}else {
-				logger.info("ZNA-9902 : Not applicable for "+ userType);
-				extent.extentLogger("More screen", "ZNA-9902 : Not applicable for " + userType);
-			}
-			
 		}
+		Back(1);
+		click(AMDHomePage.objHomeBtn,"Home");
+		}else {
+			logger.info("ZNA-9902 : Not applicable for "+ userType);
+			extent.extentLogger("More screen", "ZNA-9902 : Not applicable for " + userType);
+		}
+		
+	}
 
 
 	public void ContinueWatchingTrayDefectValidation(String userType) throws Exception {
@@ -20923,7 +20923,7 @@ public void BackToLandingScreen() throws Exception {
 			} 
 		}
 		
-	public void prepaidCodeValidation(String userType) throws Exception{
+		public void prepaidCodeValidation(String userType) throws Exception{
 			// ZNA-8785
 			 extent.HeaderChildNode("ZNA-8785");
 	  		logger.info("ZNA-8785"); 
@@ -20950,6 +20950,7 @@ public void BackToLandingScreen() throws Exception {
 				extent.extentLogger("Continue watching tray", "ZNA-8785 : Not applicable for " + userType);
 	  		} 
 		}
+		
 	public void EduaraaCarousel(String userType) throws Exception {
 			//ZNA-9688
 	  		 extent.HeaderChildNode("ZNA-9688");
@@ -20972,71 +20973,71 @@ public void BackToLandingScreen() throws Exception {
 	      		}       	
 		}
 		
-		public void DownloadBeforeTvContent(String userType) throws Exception {
-			//ZNA-8236
-			 extent.HeaderChildNode("ZNA-8236");
-		     logger.info("ZNA-8236"); 
-		     if (userType.contentEquals("SubscribedUser")) {
-		        verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
-				verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
-				type(AMDSearchScreen.objSearchBoxBar, "Gattimela", "Search bar");
-				hideKeyboard();
-				click(AMDDownloadPage.objsearchresultFirst , "Searched Show");
-				click(AMDPlayerScreen.ObjUpNextFirstContent,"Up Next content card");
-				waitTime(3000);
-				verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download Icon");
-	    		waitTime(2000);
-	    		DownloadVideoQualityPopUp(pVideoQuality, true);
-	    		waitTime(5000);
-	    		Back(1);
-	    		click(AMDHomePage.objDownloadBtn, "Downloads tab");
-	    		click(AMDDownloadPage.objDownloadingText, "Downloading text");
-	    		click(AMDDownloadPage.objThumbnailOfShows,"Before TV content");
-	    		waitTime(2000);
-	    		DownloadVideoQualityPopUp(pVideoQuality, true);
-	    		if(verifyElementExist(AMDDownloadPage.objDownloadingCircularBar, "Downloading circular bar")) {
-	    			logger.info("User is able to download the Before Tv content from Downloads tab");
-					extent.extentLoggerPass("Downloads","User is able to download the Before Tv content from Downloads tab");
+	public void DownloadBeforeTvContent(String userType) throws Exception {
+		//ZNA-8236
+		 extent.HeaderChildNode("ZNA-8236");
+	     logger.info("ZNA-8236"); 
+	     if (userType.contentEquals("SubscribedUser")) {
+	        verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+			verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, "Gattimela", "Search bar");
+			hideKeyboard();
+			click(AMDDownloadPage.objsearchresultFirst , "Searched Show");
+			click(AMDPlayerScreen.ObjUpNextFirstContent,"Up Next content card");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download Icon");
+    		waitTime(2000);
+    		DownloadVideoQualityPopUp(pVideoQuality, true);
+    		waitTime(5000);
+    		Back(1);
+    		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+    		click(AMDDownloadPage.objRightArrow, "Right arrow");
+    		click(AMDDownloadPage.objThumbnailOfShows,"Before TV content");
+    		waitTime(2000);
+    		DownloadVideoQualityPopUp(pVideoQuality, true);
+    		if(verifyElementExist(AMDDownloadPage.objDownloadingCircularBar, "Downloading circular bar")) {
+    			logger.info("User is able to download the Before Tv content from Downloads tab");
+				extent.extentLoggerPass("Downloads","User is able to download the Before Tv content from Downloads tab");
+    		}else {
+    			logger.error("User is Unable to download the Before Tv content from Downloads tab");
+				extent.extentLoggerFail("Downloads","User is Unable to download the Before Tv content from Downloads tab");
+    		}
+    		Back(1);
+	     }else {
+	    	 logger.info("ZNA-8236 : Not applicable for "+ userType);
+ 			extent.extentLogger("Downloads", "ZNA-8236 : Not applicable for " + userType);
+	     }
+		
+	}
+			
+	public void AllEpisodeTrayListingScreen(String userTyepe) throws Exception {
+		//AMA2-9692
+		 extent.HeaderChildNode("AMA2-9692");
+	     logger.info("AMA2-9692"); 
+	     if (!userType.contentEquals("Guest")) {
+	    	 click(AMDHomePage.objMoreMenuBtn,"More menu");
+	    	 click(AMDMoreMenu.objWatchlist,"Watchlist");
+	    	 click(AMDMoreMenu.objWatchlistFirstContent,"Watch list content");
+	    	 click(AMDMoreMenu.objWatchlistContentcard,"Watch list content card");
+	    	 waitTime(5000);
+	    	 findParticularTray(AMDConsumptionScreen.objAllEpisodetray, "All Episodes");
+	    	 String getTrayName = findElement(AMDConsumptionScreen.objAllEpisodetray).getText();
+	    	 click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
+	    	 verifyElementExist(AMDHomePage.objTitle, "Listing screen");
+	    	 Back(1);
+	    	 if(verifyElementDisplayed(AMDPlayerScreen.objPlayerScreen)) {
+	    		 logger.info("User is navigated back to consumption screen from Listing screen");
+				extent.extentLoggerPass("Watchlist","User is navigated back to consumption screen from Listing screen");
 	    		}else {
-	    			logger.error("User is Unable to download the Before Tv content from Downloads tab");
-					extent.extentLoggerFail("Downloads","User is Unable to download the Before Tv content from Downloads tab");
+	    			logger.error("[AMA2-9692] User Fails to navigate back to consumption screen from Listing screen");
+					extent.extentLoggerFail("Watchlist","[AMA2-9692]  User Fails to navigate back to consumption screen from Listing screen");
 	    		}
-	    		Back(1);
-		     }else {
-		    	 logger.error("ZNA-8236 : Not applicable for "+ userType);
-	 			extent.extentLoggerFail("Downloads", "ZNA-8236 : Not applicable for " + userType);
-		     }
-			
-		}
-			
-		public void AllEpisodeTrayListingScreen(String userTyepe) throws Exception {
-			//AMA2-9692
-			 extent.HeaderChildNode("AMA2-9692");
-		     logger.info("AMA2-9692"); 
-		     if (!userType.contentEquals("Guest")) {
-		    	 click(AMDHomePage.objMoreMenuBtn,"More menu");
-		    	 click(AMDMoreMenu.objWatchlist,"Watchlist");
-		    	 click(AMDMoreMenu.objWatchlistFirstContent,"Watch list content");
-		    	 click(AMDMoreMenu.objWatchlistContentcard,"Watch list content card");
-		    	 waitTime(5000);
-		    	 findParticularTray(AMDConsumptionScreen.objAllEpisodetray, "All Episodes");
-		    	 String getTrayName = findElement(AMDConsumptionScreen.objAllEpisodetray).getText();
-		    	 click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
-		    	 verifyElementExist(AMDHomePage.objTitle, "Listing screen");
-		    	 Back(1);
-		    	 if(verifyElementDisplayed(AMDPlayerScreen.objPlayerScreen)) {
-		    		 logger.info("User is navigated back to consumption screen from Listing screen");
-					extent.extentLoggerPass("Watchlist","User is navigated back to consumption screen from Listing screen");
-		    		}else {
-		    			logger.error("[AMA2-9692] User Fails to navigate back to consumption screen from Listing screen");
-						extent.extentLoggerFail("Watchlist","[AMA2-9692]  User Fails to navigate back to consumption screen from Listing screen");
-		    		}
-		     }
-		     else {
-		    	 logger.error("AMA2-9692 : Not applicable for "+ userType);
-		 			extent.extentLoggerFail("Watchlist", "AMA2-9692 : Not applicable for " + userType);
-		     }
-		}
+	     }
+	     else {
+	    	 logger.info("AMA2-9692 : Not applicable for "+ userType);
+	 			extent.extentLogger("Watchlist", "AMA2-9692 : Not applicable for " + userType);
+	     }
+	}
 		
 		//relaunch
 		
@@ -21142,5 +21143,300 @@ public void BackToLandingScreen() throws Exception {
 				break;
 			}
 		}
+	}
+	
+	public void FirstEpisodeContentPlayback(String userType)  throws Exception {
+		//AMA2-9448
+		 extent.HeaderChildNode("AMA2-9448");
+	     logger.info("AMA2-9448");
+		 if (userType.contentEquals("Guest")) {
+				 click(AMDHomePage.objHomeBtn,"Home");
+				 click(AMDSearchScreen.objSearchIcon, "Search icon");
+					click(AMDSearchScreen.objSearchEditBox, "Search Box");
+					type(AMDSearchScreen.objSearchBoxBar, "Rangbaaz" + "\n", "Search bar");
+					waitTime(2000);
+					hideKeyboard();
+					click(AMDDownloadPage.objsearchresultFirst , "Searched Show");
+					waitTime(3000);
+					click(AMDPlayerScreen.objPlayerScreen,"Player screen");
+					click(AMDPlayerScreen.objPauseIcon,"Pause icon");
+					click(AMDPlayerScreen.ObjUpNextFirstContent,"Up Next content card");
+					waitTime(3000);
+					click(AMDPlayerScreen.objPlayerScreen,"Player screen");
+					click(AMDPlayerScreen.objPauseIcon,"Pause icon");
+					verifyElementExist(AMDConsumptionScreen.objContentName, "Content name");
+					String text = findElement(AMDConsumptionScreen.objContentName).getText();
+					System.out.println(text);
+					verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
+					verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Loging CTA in subscribe popup");
+					LoginAfterLogout("SubscribedUser");
+					waitTime(5000);
+					String text1 = findElement(AMDConsumptionScreen.objContentName).getText();
+					System.out.println(text1);
+					if(text.equalsIgnoreCase(text1)) {
+						logger.info("Appropriate episode playback is initiated when user login with registered/paid user from subscription popup");
+		 				extent.extentLoggerPass("consumption","Appropriate episode playback is initiated when user login with registered/paid user from subscription popup");
+					}else {
+						 logger.error("[AMA2-9448] First episode content playback is getting initiated instead of the actual episode playback, Post login from subscription popup");
+			 			extent.extentLoggerFail("consumption"," [AMA2-9448]  First episode content playback is getting initiated instead of the actual episode playback, Post login from subscription popup");
+					}
+					Back(1);
+					click(AMDHomePage.objMoreMenuBtn,"More menu");
+					Swipe("UP",2);
+					click(AMDMoreMenu.objLogout,"Logout");
+					click(AMDMoreMenu.objLogoutBtn,"Logout Button");
+					Back(1);
+					
+				 }else {
+					 logger.info("AMA2-9448 : Not applicable for "+ userType);
+			 		extent.extentLogger("consumption", "AMA2-9448 : Not applicable for " + userType); 
+				 }	
+	}
+	
+	public void LoginThroughAnyentryPointDefect(String userType) throws Exception{
+		//AMA2-7899
+		 extent.HeaderChildNode("AMA2-7899");
+	     logger.info("AMA2-7899");
+	     if (userType.contentEquals("Guest")) {
+	    	 selectContentLang_MoreMenu2("Marathi");
+	    	 click(AMDHomePage.objMoreMenuBtn,"More menu");
+	    	 click(AMDMoreMenu.objSettings,"Settings");
+	    	 Swipe("UP",1);
+	    	 click(AMDMoreMenu.objDisplayLang,"Display language option");
+	    	 SelectDisplayLanguage("Kannada");
+	    	 click(AMDOnboardingScreen.objDiplay_ContinueBtn,"Continue button");
+	    	 Back(1);
+	    	 Swipe("DOWN",1);
+	    	 click(AMDMoreMenu.objProfile,"Profile");
+	    	 LoginAfterLogout("SubscribedUser");
+	    	 waitTime(3000);
+	    	 if(verifyElementIsNotDisplayed(AMDHomePage.objHomeTab)) {
+	    		 verifyElementExist(AMDHomePage.errortitle, "Error message");
+	    		 String text= findElement(AMDHomePage.errortitle).getText();
+	    		 System.out.println(text+ " message is displayed");
+	    		 logger.info(text+ " message is displayed");
+	    		 logger.error("AMA2-7899 :User Fails to login through all entry points, post selecting any display language (except English) and content languages");
+			 	 extent.extentLoggerFail("Login", "AMA2-7899 : User Fails to login through all entry points, post selecting any display language (except English) and content languages");
+	     }else {
+			 logger.info("User is logged-in from any entry point for all display languages.");
+		 	 extent.extentLogger("Login", "User is logged-in from any entry point for all display languages.");  
+    		   	 click(AMDHomePage.objMoreMenuBtn,"More menu");
+		    	 Swipe("UP",2);
+		    	 click(AMDMoreMenu.objLogout,"Logout");
+				 click(AMDMoreMenu.objLogoutBtn,"Logout Button");
+				 Back(1);    		 
+		 }
+	     }else {
+	    	 logger.info("AMA2-7899 : Not applicable for "+ userType);
+		 		extent.extentLogger("Login", "AMA2-7899 : Not applicable for " + userType); 
+	     }
+		}
+	
+	public void PlayerControlDefect(String userType) throws Exception{
+		//AMA2-9143
+		 extent.HeaderChildNode("AMA2-9143");
+	     logger.info("AMA2-9143");
+	     click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar,"Kurukshetra" + "\n", "Search bar");
+			waitTime(2000);
+			hideKeyboard();
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDMoreMenu.objSearchResult("Kurukshetra"), "Search result");
+			if (!userType.contains("SubscribedUser")) {
+				waitTime(5000);
+				registerPopUpClose();
+				completeProfilePopUpClose(userType);
+				LoadingInProgress();
+				adPlay();
+				waitTime(5000);
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			}
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			verifyElementPresentAndClick(AMDPlayerScreen.objShareIconOnPlayer, "Share icon");
+			verifyElementExist(AMDMoreMenu.objShareOptions, "Share options");
+			Back(1);
+			if (verifyIsElementDisplayed(AMDPlayerScreen.objPlayer)) {
+				logger.error("[AMA2-9143] Player controls fails to auto hide");
+				extentLoggerFail("Player controls Auto hide",
+						"[AMA2-9143] Player controls fails to auto hide");
+			} else {
+				logger.info("Player controls auto hide");
+				extentLoggerPass("Player controls Auto hide",
+						"Player controls auto hide");
+				click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+			}
+			//click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+			verifyElementPresentAndClick(AMDPlayerScreen.objNextIcon, "Next Icon in Landscape");
+			waitTime(3000);
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			if (verifyIsElementDisplayed(AMDPlayerScreen.objPauseIcon)) {
+				logger.info(" player is initiated properly without any blank screen post sharing the content in landscape mode");
+				extentLoggerPass("Player controls Auto hide",
+						"player should is initiated properly without any blank screen post sharing the content in landscape mode");
+			} else {
+				logger.error("[AMA2-9143] Blank screen is displayed on the player upon tapping next button on the player post sharing the content in landscape mode");
+				extentLoggerFail("Player controls Auto hide",
+						"[AMA2-9143] Blank screen is displayed on the player upon tapping next button on the player post sharing the content in landscape mode");
+							}
+			BackToLandingScreen();
+	}
+	
+	public void SomethingWentWrongDefectValidation(String userType) throws Exception{
+		//AMA2-11275
+		 extent.HeaderChildNode("AMA2-11275");
+	     logger.info("AMA2-11275");
+	     click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar,"Jeet Gayi Toh Piyaa Morre - Episode 57" + "\n", "Search bar");
+			waitTime(2000);
+			hideKeyboard();
+			click(AMDDownloadPage.objsearchresultFirst, "Search result");
+			if(!userType.contains("Guest")) {
+			if (!userType.contains("SubscribedUser")) {
+				waitTime(5000);
+				registerPopUpClose();
+				completeProfilePopUpClose(userType);
+				LoadingInProgress();
+				adPlay();
+				waitTime(5000);
+			}
+			
+			click(AMDPlayerScreen.objPlayerScreen,"Player screen");
+			if (verifyIsElementDisplayed(AMDPlayerScreen.objPauseIcon)) {
+				logger.info("Content playback is initiated for searched content");
+				extentLoggerPass("Player",
+						"Content playback is initiated for searched content");
+			}else {
+				logger.error("[AMA2-11275] Failed to play the searched content");
+				extentLoggerFail("Player",
+						"[AMA2-11275] Failed to play the searched content");
+			}
+			}
+			else {
+				if(waitForElementDisplayed(AMDHomePage.objRegisterPopup, 10 )) {
+					logger.info("Guest user needs to register to play the content");
+					extentLoggerWarning("Player",
+							"Guest user needs to register to play the content");
+				}
+			}
+	}
+	
+	public void PreviousIconForPremiumContent(String userTyep) throws Exception {
+		//AMA2-11542
+		 extent.HeaderChildNode("AMA2-11542");
+	     logger.info("AMA2-11542");
+	     if (!userType.contains("SubscribedUser")) {
+	    	 click(AMDSearchScreen.objSearchIcon, "Search icon");
+	 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+	 			type(AMDSearchScreen.objSearchBoxBar,"Zee Kannada" + "\n", "Search bar");
+	 			waitTime(2000);
+	 			hideKeyboard();
+	 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+				click(AMDMoreMenu.objSearchResult("Zee Kannada"), "Search result");
+				if(verifyElementExist(AMDConsumptionScreen.objSkipctaOnPlayer, "Skip CTA")) {
+					click(AMDConsumptionScreen.objSkipctaOnPlayer, "Skip CTA");
+					waitTime(4000);
+					click(AMDPlayerScreen.objPlayerScreen,"Player screen");
+					click(AMDPlayerScreen.objPauseIcon,"Pause icon");
+					verifyElementExist(AMDLiveTVScreen.objLiveTV, "Live icon on player");
+					boolean value = verifyElementExist(AMDPlayerScreen.objNextIcon, "Previous icon");
+					if(value == true) {
+						logger.error("[AMA2-11542] Previous icon is displayed on player for Premium Live TV contents");
+						extentLoggerFail("Player",
+								"[AMA2-11542] Previous icon is displayed on player for Premium Live TV contents");
+					}else {
+						logger.info("Previous icon is not displayed on player for Live TV contents");
+						extentLoggerPass("Player",
+								"Previous icon is not displayed on player for Live TV contents");
+					}
+					
+				}else {
+					logger.info("Skip CTA is not displayed on player");
+					extentLogger("Player",
+							"Skip CTA is not displayed on player");
+				}
+				BackToLandingScreen();
+	     }else {
+	    	 logger.info("AMA2-11542 : Not applicable for "+ userType);
+		 		extent.extentLogger("Login", "AMA2-11542 : Not applicable for " + userType); 
+	     }
+	     
+	}
+	
+	public void SubscriptionRevamp(String userType) throws Exception {
+		//AMA2-11279
+		 extent.HeaderChildNode("AMA2-11279");
+	     logger.info("AMA2-11279");
+	     if(userType.contains("Guest")) {
+	    	 relaunch(true);
+	    	 accessDeviceLocationPopUp("Allow", userType);
+	 		 navigateToIntroScreen_DisplaylangScreen();
+	 		 verifyElementExist(AMDOnboardingScreen.objSubscribeNowBtn, "Subscribe Now CTA");
+	 		 click(AMDOnboardingScreen.objSubscribeNowBtn, "Subscribe Now CTA");
+	 		verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup,"Subscribe popup");
+	 		click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
+	 		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+	 		hideKeyboard();
+	 		type(AMDLoginScreen.objEmailIdField, "7892215214", "Email Field");
+	 		click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Password field");
+			hideKeyboard();
+			type(AMDLoginScreen.objPasswordField, "User@123", "Password field");
+			click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
+			verifyElementExist(AMDSubscibeScreen.objMakePaymentScreen, "Make payment screen");
+			Back(1);
+			verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup,"Pack selection screen");
+			Back(1);
+			boolean value = verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			if(value == true) {
+				logger.error("[AMA2-11279] On tapping device back button once user navigate back to pack selection screen & tapping device back again its navigating back to Intro screen");
+				extentLoggerFail("Subscribe",
+						"[AMA2-11279] On tapping device back button once user navigate back to pack selection screen & tapping device back again its navigating back to Intro screen");
+			}else {
+				logger.info("User is navigated to Home landing screen as a logged in user");
+				extentLoggerPass("Player",
+						"User is navigated to Home landing screen as a logged in user");
+			}
+			ZeeApplicasterLoginForSettings(userType);
+			
+	     }else {
+	    	 logger.info("AMA2-11279 : Not applicable for "+ userType);
+		 	extent.extentLogger("Subscribe", "AMA2-11279 : Not applicable for " + userType); 
+	     }	     
+	}
+	
+
+	public void RentNowCTAforTVODcontent(String userType) throws Exception {
+		//AMA2-11447
+		 extent.HeaderChildNode("AMA2-11447");
+	     logger.info("AMA2-11447");
+	     if(userType.contains("Guest")) {
+	    	 click(AMDHomePage.objHomeBtn,"Home");
+			 click(AMDSearchScreen.objSearchIcon, "Search icon");
+				click(AMDSearchScreen.objSearchEditBox, "Search Box");
+				type(AMDSearchScreen.objSearchBoxBar, "Retaliation" + "\n", "Search bar");
+				waitTime(2000);
+				hideKeyboard();
+				click(AMDDownloadPage.objsearchresultFirst , "Searched Show");
+			  boolean value = verifyElementExist(AMDConsumptionScreen.objRentNowCTABelowthePlayer, "Rent Now CTA");
+			  if(value == false) {
+				  logger.error("[AMA2-11447] 'Rent Now' cta fails to display below the player on playing TVOD content");
+				extentLoggerFail("Subscribe",
+							"[AMA2-11447] 'Rent Now' cta fails to display below the player on playing TVOD content");
+			  }else {
+				  logger.info("'Rent Now' cta is display below the player on playing TVOD content");
+					extentLoggerPass("Player",
+							"'Rent Now' cta should is display below the player on playing TVOD content"); 
+			  }
+				
+	     }else {
+	    	 logger.info("AMA2-11447 : Not applicable for "+ userType);
+			 extent.extentLogger("Subscribe", "AMA2-11447 : Not applicable for " + userType);  
+	     }
+	     
 	}
 }
