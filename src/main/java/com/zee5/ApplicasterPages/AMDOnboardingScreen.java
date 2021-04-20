@@ -164,5 +164,6 @@ public class AMDOnboardingScreen {
 	public static By objExitPopUpDesc = By.xpath("//*[@id='tv_desc']");
 	public static By objExitPopUp_CancelCTA = By.xpath("//*[@id='btn_cancel']");
 	public static By objExitPopUp_ConfirmCTA = By.xpath("//*[@id='btn_cancel']");
-
+	public static By objCancelZEE5Update = By.xpath("//*[@id='0_resource_name_obfuscated' and @text='NO THANKS']");
+	public static By objUpdateZEE5UpdateApp= By.xpath("//*[@id='0_resource_name_obfuscated' and @text='UPDATE']");
 }

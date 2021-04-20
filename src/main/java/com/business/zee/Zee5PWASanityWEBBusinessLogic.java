@@ -2326,9 +2326,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		type(PWASearchPage.objSearchEditBox, movie, "Search Field");
 		click(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		mandatoryRegistrationPopUp(userType);
-		click(PWASearchPage.objSpecificSearch(movie)
-, "Searched content");
-		waitTime(7000);
+		click(PWASearchPage.objSpecificSearch(movie), "Searched content");
+		waitTime(10000);
 		if (userType.equals("Guest")) {
 			if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Why Register Popup") == true) {
 				click(PWAPlayerPage.objCloseBtn, "Close Register Popup");
@@ -16017,8 +16016,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
-			navigateToAnyScreenOnWeb("Premium");
 			extent.HeaderChildNode(" HLS_090 : Verify Premium pack user can play any Premium content");
+			navigateToAnyScreenOnWeb("Premium");
+			Actions actions = new Actions(getWebDriver());
+			WebElement element = getWebDriver().findElement(PWAHamburgerMenuPage.objZeeLogo1);
+			actions.moveToElement(element).perform();
 			verifyElementPresentAndClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel");
 			waitTime(3000);
 			if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
@@ -16031,7 +16033,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		click(PWASubscriptionPages.objZEE5Logo, "Zee5 Logo");
 		if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
-			extent.HeaderChildNode("HLS_032 : Verify player Inline subscription link availability at the end of the play back");
+			extent.HeaderChildNode("HLS_094 : Verify player Inline subscription link availability at the end of the play back");
 		click(PWASubscriptionPages.objZEE5Logo, "Zee5 Logo");
 		if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
 			zeeSearchForContentAndClickOnFirstResult("Ondh Kathe Hella");
@@ -16403,15 +16405,16 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				extent.extentLoggerFail("", "NonSubscribed user should not play premium live content");
 			}
 		}
-		extent.HeaderChildNode("Verifing that premium content videos in landscape mode");
-		if (waitForElement(PWASubscriptionPages.objGetPremiumButton, 20,
-				"Player inline Subscribtion link")) {
-			logger.info(
-					"Maximize icon is not displayed since user is getting Player inline Subscription link on Player screen");
-			extent.extentLogger("Maximize icon",
-					"Maximize icon is not displayed since user is getting Player inline Subscription link on Player screen");
+		if(userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+			extent.HeaderChildNode("Verifing that premium content videos in landscape mode");
+			if (waitForElement(PWASubscriptionPages.objGetPremiumButton, 20,
+					"Player inline Subscribtion link")) {
+				logger.info(
+						"Maximize icon is not displayed since user is getting Player inline Subscription link on Player screen");
+				extent.extentLogger("Maximize icon",
+						"Maximize icon is not displayed since user is getting Player inline Subscription link on Player screen");
+			}
 		}
-		
 //		if (checkElementDisplayed(PWAPremiumPage.objPremiumPopUp, "Premium PopUp")) {
 //			verifyElementPresentAndClick(PWAPremiumPage.objClosePremiumPopup, "Premium PopUp Close icon");
 //			extent.HeaderChildNode("Verifing that premium content videos in landscape mode");
@@ -17433,11 +17436,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.HeaderChildNode(
-					"HLS_219 : Navigate to Subscription Flow From Adoric Popup/Get Premium popup On Playing Premium Content");
+					"HLS_219 : Navigate to Subscription flow from by clicking on Get Premium CTA below the player");
 			String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("premiumMovieNoTrailer2");
 			zeeSearchForContentAndClickOnFirstResult(keyword);
 			waitTime(2000);
+			verifyElementPresentAndClick(PWASubscriptionPages.objTeaserGetPremiumButton, "Get Premium Teaser CTA");
 			zeeVerifyGetPremiumPopup();
 			waitTime(2000);
 			zeePaymentPageValidationAndNavigateToHomePage();
@@ -17447,10 +17451,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			String keyword1 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("premiumMovieNoTrailer2");
 			zeeSearchForContentAndClickOnFirstResult(keyword1);
-			waitTime(2000);
-			checkElementDisplayed(PWASubscriptionPages.objGetPremiumPopupTitle, "Get Premium Popup Title");
-			waitTime(2000);
-			verifyElementPresentAndClick(PWASubscriptionPages.objPopupCloseButton, "Popup Close Button");
+//			waitTime(2000);
+//			checkElementDisplayed(PWASubscriptionPages.objGetPremiumPopupTitle, "Get Premium Popup Title");
+//			waitTime(2000);
+//			verifyElementPresentAndClick(PWASubscriptionPages.objPopupCloseButton, "Popup Close Button");
 			waitTime(2000);
 			verifyElementPresentAndClick(PWAPlayerPage.objSubscribeNowLink, "In-Line Subscribe Link on Player");
 			zeeVerifyGetPremiumPopup();
@@ -17548,14 +17552,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			verifyElementPresent(PWASubscriptionPages.objZEE5Subscription, "Zee5 Subscription Page Title");
 			waitTime(3000);
 			verifyElementPresent(PWASubscriptionPages.objSelectPackHighlighted, "Select Pack Section");
-			waitTime(3000);
-			String selectedPackCategory = findElement(PWASubscriptionPages.objPackCategoryTabSelected).getText();
-			System.out.println("Selected Pack Category is: " + selectedPackCategory);
+//			waitTime(3000);
+//			String selectedPackCategory = findElement(PWASubscriptionPages.objPackCategoryTabSelected).getText();
+//			System.out.println("Selected Pack Category is: " + selectedPackCategory);
 			waitTime(3000);
 			String defaultSelectedPlan = findElement(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).getText();
 			System.out.println("Plan Selected By Default is: " + defaultSelectedPlan);
 			waitTime(3000);
-			verifyElementPresentAndClick(PWASubscriptionPages.objPackAmount2, "299 pack is selected");
+			verifyElementPresentAndClick(PWASubscriptionPages.objPackAmount2, "499 pack is selected");
 			ScrollToElement(PWASubscriptionPages.objContinueBtn, "Continue");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
@@ -17581,13 +17585,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				getWebDriver().switchTo().frame(iframeElement);
 			}
 
-			verifyElementPresentAndClick(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
+			verifyElementPresent(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
+			JSClick(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
 			waitTime(5000);
-			checkElementDisplayed(PWASubscriptionPages.objEnterCreditAndDebitCardDetails,
+			verifyElementPresent(PWASubscriptionPages.objEnterCreditAndDebitCardDetails,
 					"Enter Credit/Debit Card Details");
-			checkElementDisplayed(PWASubscriptionPages.objCardNumber, "Enter Card Number Field");
-			checkElementDisplayed(PWASubscriptionPages.objExpiry, "Expiry Field");
-			checkElementDisplayed(PWASubscriptionPages.objCVV, "CVV Field");
+			verifyElementPresent(PWASubscriptionPages.objCardNumber, "Enter Card Number Field");
+			verifyElementPresent(PWASubscriptionPages.objExpiry, "Expiry Field");
+			verifyElementPresent(PWASubscriptionPages.objCVV, "CVV Field");
 			//Back(1);
 			waitTime(5000);
 			if (getPlatform().equals("Android")) {
@@ -17597,10 +17602,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				getWebDriver().switchTo().defaultContent();
 			} else if (getPlatform().equalsIgnoreCase("Web")) {
 				extent.HeaderChildNode("Validating the payment gateway using Wallet");
-				verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+				verifyElementPresent(PWASubscriptionPages.objWallets, "Wallets");
+				click(PWASubscriptionPages.objWallets, "Wallets");
 				getWebDriver().switchTo().defaultContent();
 			}
-
 			waitTime(5000);
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 		}
@@ -22053,18 +22058,18 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 		}
 		Back(1);
-		extent.HeaderChildNode(" HLS_045 : Verify the premium/Club tag  for all premium / Club content card");
+		extent.HeaderChildNode(" HLS_045 : Verify the premium tag for all premium content card");
 		waitTime(3000);
 		for (int i = 0; i < 10; i++) {
 			if (getWebDriver().findElements(PWAHomePage.objClubTag).size() > 0) {
-				logger.info("Club tag is displayed");
-				extent.extentLogger("Premium Tag", "Club Tag is isplayed");
+				logger.info("Premium tag is displayed");
+				extent.extentLogger("Premium Tag", "Premium Tag is isplayed");
 				break;
 			} else {
 				scrollDownByY(300);
 				if (i == 4) {
-					logger.info("Club tag is not displayed");
-					extent.extentLogger("Premium Tag", "Club Tag is not displayed");
+					logger.info("Premium tag is not displayed");
+					extent.extentLogger("Premium Tag", "Premium Tag is not displayed");
 				}
 			}
 		}
@@ -22226,7 +22231,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 
 		waitTime(2000);
-		extent.HeaderChildNode("HLS_163 : Verify the Club & Premium icons are displayed ");
+		extent.HeaderChildNode("HLS_163 : Verify the Premium icons are displayed ");
 		for (int i = 0; i < 5; i++) {
 			if (findElements(PWAMusicPage.objPremiumTag).size() > 0) {
 				logger.info("Premium tag is displayed");
@@ -22240,25 +22245,25 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 
 		}
-		for (int i = 0; i < 5; i++) {
-			if (findElements(PWAMusicPage.objPremiumTag).size() > 0) {
-				logger.info("club tag is displayed");
-				extent.extentLogger("club Tag", "club Tag is displayed");
-				break;
-
-			} else {
-				logger.info("club tag is not displayed");
-				extent.extentLogger("club Tag", "club Tag is not displayed");
-				partialScrollDown();
-			}
-
-		}
+//		for (int i = 0; i < 5; i++) {
+//			if (findElements(PWAMusicPage.objPremiumTag).size() > 0) {
+//				logger.info("club tag is displayed");
+//				extent.extentLogger("club Tag", "club Tag is displayed");
+//				break;
+//
+//			} else {
+//				logger.info("club tag is not displayed");
+//				extent.extentLogger("club Tag", "club Tag is not displayed");
+//				partialScrollDown();
+//			}
+//
+//		}
 
 		extent.HeaderChildNode("HLS_164 : Verify the Premium user is able to watch all the zee originals shows");
 		if (userType.equalsIgnoreCase("Subscribeduser")) {
 			navigateToAnyScreenOnWeb(tabName);
-			swipeTillTrayAndClickFirstAsset(userType, 15, "Best of ZEE5 Originals in Hindi",
-					"Best of ZEE5 Originals in Hindi tray", tabName);
+			swipeTillTrayAndClickFirstAsset(userType, 15, "Best of ZEE5 Originals in Kannada",
+					"Best of ZEE5 Originals in Kannada tray", tabName);
 //			scrollToTheElementWEB(PWAHomePage.objtrayname("Best of ZEE5 Originals in Hindi"));
 //			checkElementDisplayed(PWAHamburgerMenuPage.objFirstcontentCard, "1st content card");
 //			click(PWAHamburgerMenuPage.objFirstcontentCard, "1st content card");
@@ -22334,17 +22339,17 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLoggerFail("zee originals shows", "user is not navigated to the zee 5riginals shows");// update
 		}
 		if (userType.equalsIgnoreCase("Guest")) {
-			extent.HeaderChildNode(
-					"HLS_168 : Verify the GET CLUB CTA is displayed on the  Club originals detail screen");
-			navigateToAnyScreenOnWeb("ZEE5 Originals");
-			checkElementDisplayed(PWAHamburgerMenuPage.objClubcontentcard, " club content card");
-			click(PWAHamburgerMenuPage.objClubcontentcard, "club content card");
-			waitTime(3000);
-			click(PWAHamburgerMenuPage.objClub, "GET CLUB");
-			Back(1);
+//			extent.HeaderChildNode(
+//					"HLS_168 : Verify the GET CLUB CTA is displayed on the  Club originals detail screen");
+//			navigateToAnyScreenOnWeb("ZEE5 Originals");
+//			checkElementDisplayed(PWAHamburgerMenuPage.objClubcontentcard, " club content card");
+//			click(PWAHamburgerMenuPage.objClubcontentcard, "club content card");
+//			waitTime(3000);
+//			click(PWAHamburgerMenuPage.objClub, "GET CLUB");
+//			Back(1);
 
 			extent.HeaderChildNode(
-					"HLS_169 : Verify the GET Premium CTA is displayed on the  Club originals detail screen");
+					"HLS_169 : Verify the GET Premium CTA is displayed on the  zee5 originals detail screen");
 
 			String keyword = "Rangbaaz";
 			click(PWAHomePage.objSearchBtn, "Search icon");
@@ -22354,7 +22359,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			checkElementDisplayed(PWAShowsPage.objShowdeatilPlayIcon, "Play icon in originals details");
 			Back(1);
 		}
-	} 
+	}
 	
 
 	public void defects(String userType, String tabName) throws Exception
@@ -24228,15 +24233,16 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	}
 	
 	public void zeeVerifyGetPremiumPopup() throws Exception {
-		HeaderChildNode("Verify Get Premium Popup");
+		HeaderChildNode("Verify Subscription Page");
 
 		waitTime(2000);
 		//checkElementDisplayed(PWASubscriptionPages.objGetPremiumPopupTitle, "Get Premium Popup Title");
 		waitTime(2000);
 		verifyElementPresent(PWASubscriptionPages.objDefaultSelectedPack, "Default Selected Package");
 		waitTime(2000);
-		verifyElementPresent(PWASubscriptionPages.objPopup299Plan, "299 Plan in Popup");
+		verifyElementPresent(PWASubscriptionPages.objPackAmount2, "499 Plan in Popup");
 		waitTime(2000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "continue Button");
 	}
+	
 }

@@ -13273,8 +13273,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			extent.HeaderChildNode("HLS_008 : Verify user is able to play the content from the carousel");
 			playContentFromCarousel("Movies");
 			break;
+	/*		
 		case "ClubUser":
-			// loginWithUserEmail("edpwa4@mailnesia.com","1234567");
+			// loginwithuseremail("edpwa4@mailnesia.com","1234567");
 			extent.HeaderChildNode("HLS_009 : Verify Club user is able to play the content from the carousel");
 			playContentFromCarousel("Club");
 			click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
@@ -13291,13 +13292,13 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 			click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 			break;
-
+*/
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("HLS_008 : Verify user is able to play the content from the carousel");
 			playContentFromCarousel("Movies");
 			click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 			extent.HeaderChildNode("HLS_010 : Verify user is able to play the content from the rails");
-			navigateToAnyScreen("Club");
+			navigateToAnyScreen("Premium");
 			verifyElementPresentAndClick(PWALandingPages.trayCard, "Card from Tray");
 			if (verifyElementPresent(PWAPlayerPage.objPlayerControlScreen, "Player control containing screen")) {
 				pausePlayer();
@@ -13309,7 +13310,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 			click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 			extent.HeaderChildNode("HLS_011 : Verify user is able to play the content from the collection page");
-			playCardFromCollections(userType, "Club");
+			playCardFromCollections(userType, "Premium");
 			reloadHome();
 			break;
 
@@ -13318,7 +13319,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			playContentFromCarousel("Movies");
 			click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 			extent.HeaderChildNode("HLS_010 : Verify user is able to play the content from the rails");
-			navigateToAnyScreen("Club");
+			navigateToAnyScreen("Premium");
 			verifyElementPresentAndClick(PWALandingPages.trayCard, "Card from Tray");
 			if (verifyElementPresent(PWAPlayerPage.objPlayerControlScreen, "Player control containing screen")) {
 				pausePlayer();
@@ -13330,50 +13331,57 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 			click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 			extent.HeaderChildNode("HLS_011 : Verify user is able to play the content from the collection page");
-			playCardFromCollections(userType, "Club");
+			playCardFromCollections(userType, "Premium");
 			reloadHome();
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 		}
 	}
 
-	 public void silentRegistrationViaEmail() throws Exception {
-			extent.HeaderChildNode("HLS_003 : Silent registration via email");
-			verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscribe Button");
-			Swipe("UP", 1);
-			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue button");
-			String generatedEmail = RandomStringGenerator(5) + "@g.com";
+	public void silentRegistrationViaEmail() throws Exception {
+		extent.HeaderChildNode("HLS_003 : Silent registration via email");
+		verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscribe Button");
+		Swipe("UP", 1);
+		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue button");
+		String generatedEmail = RandomStringGenerator(5) + "@g.com";
+		
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email");
+		waitTime(2000);
+		
+		type(PWALoginPage.objEmailField, generatedEmail, "Email");
+		hideKeyboard();
+		waitTime(3000);
+		
+	//	click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
+		
+	     verifyElementPresent(PWASubscriptionPages.objContinueBtnn, "Continue button");
+	     waitTime(3000);
+            click(PWASubscriptionPages.objContinueBtnn, "Continue button"); 
+		waitTime(3000);
+//		verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+		
+		verifyElementPresent(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
+		
+		verifyElementPresentAndClick(PWASubscriptionPages.objPasswordField, "Password filed");
+		waitTime(2000);
 			
-			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email");
-			waitTime(2000);
-			
-			type(PWALoginPage.objEmailField, generatedEmail, "Email");
-			hideKeyboard();
-			waitTime(3000);
-			click(PWASubscriptionPages.objProceedBtnInSubscriptionPage, "Proceed button");
-			waitTime(3000);
-//			verifyIsElementDisplayed(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
-			
-			verifyElementPresentAndClick(PWASubscriptionPages.objPasswordPopupInSubscriptionPage, "Password field");
-			waitTime(2000);
-				
-			type(PWASubscriptionPages.objPasswordField, "123456\n", "Password");
-			hideKeyboard();
-			// click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
-			waitTime(10000);
-			if (verifyIsElementDisplayed(PWASubscriptionPages.objAccountDetailInSubscription, "Account details")) {
-				String email = getElementPropertyToString("innerText", PWASubscriptionPages.objAccountDetailInSubscription,
-						"Registered Email");
-				logger.info("Registered user email is : " + email);
-				extent.extentLogger("Verification", "Registered user email is : " + email);
-				if (generatedEmail.equals(email)) {
-					logger.info("HLS_003 : Silent registration via email has passed");
-					extent.extentLoggerPass("Verification", "HLS_003 : Silent registration via email has passed");
-				}
-			} else {
-				logger.error("HLS_003 : Silent registration via email has failed");
-				extent.extentLoggerFail("Verification", "HLS_003 : Silent registration via email has failed");
+		type(PWASubscriptionPages.objPasswordField, "123456\n", "Password");
+		hideKeyboard();
+		// click(PWASubscriptionPages.objProceedButtonInPassword, "Proceed");
+		waitTime(10000);
+		if (verifyIsElementDisplayed(PWASubscriptionPages.objAccountDetailInSubscription, "Account details")) {
+			String email = getElementPropertyToString("innerText", PWASubscriptionPages.objAccountDetailInSubscription,
+					"Registered Email");
+			logger.info("Registered user email is : " + email);
+			extent.extentLogger("Verification", "Registered user email is : " + email);
+			if (generatedEmail.equals(email)) {
+				logger.info("HLS_003 : Silent registration via email has passed");
+				extent.extentLoggerPass("Verification", "HLS_003 : Silent registration via email has passed");
 			}
+		} else {
+			logger.error("HLS_003 : Silent registration via email has failed");
+			extent.extentLoggerFail("Verification", "HLS_003 : Silent registration via email has failed");
 		}
+	}
 
 	public void playContentFromCarousel(String screen) throws Exception {
 		// handle mandatory pop up

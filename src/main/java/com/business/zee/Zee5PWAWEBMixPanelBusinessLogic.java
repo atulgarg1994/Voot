@@ -13919,4 +13919,33 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			return false;
 		}
 	}
+	
+	public void verifyContentBucketSwipeEventForPremiumBenefitDrawer(String userType) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Content Bucket Swipe Event For Premium Benefit Drawer");
+			waitTime(3000);
+			click(PWAHomePage.objSubscribeBtn, "Subscribe button");
+			waitTime(5000);
+
+			click(PWASubscriptionPages.objMovieLink, "Movies Link");
+			waitTime(8000);
+
+			Actions act = new Actions(getWebDriver());
+			act.dragAndDrop(findElement(PWASubscriptionPages.objMovieTray2),
+					findElement(PWASubscriptionPages.objMovieTray1)).build().perform();
+
+			waitTime(10000);
+			mixpanel.FEProp.setProperty("Source", "home");
+			mixpanel.FEProp.setProperty("Page Name", "pack_selection");
+			mixpanel.FEProp.setProperty("Direction", "Right");
+
+			local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+			fetchUserType(local);
+			if (userType.equals("Guest")) {
+				mixpanel.ValidateParameter(local.getItem("guestToken"), "Content Bucket Swipe");
+			} else {
+				mixpanel.ValidateParameter(local.getItem("ID"), "Content Bucket Swipe");
+			}
+		}
+	}
 }

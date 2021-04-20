@@ -171,6 +171,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		extent.extentLogger("User Type", "UserType : " + userType);
 		logger.info("UserType : " + userType);
 		System.out.println("Access Device Location PopUp");
+		
+		waitTime(5000);
+		if(verifyIsElementDisplayed(AMDOnboardingScreen.objCancelZEE5Update)) {
+			click(AMDOnboardingScreen.objCancelZEE5Update, "No Thanks");
+		}
 
 		Swipe("Up", 1);
 		if(verifyIsElementDisplayed(AMDOnboardingScreen.objContinueBtnInDebugBuild)) {
@@ -9054,17 +9059,17 @@ public void SearchContentFromSearchPage(String userType,String contentType,Strin
 		boolean adulterrormsg = verifyIsElementDisplayed(AMDPlayerScreen.objAdultErrorMessage);
 		if (inlineLink == true) {
 			logger.info("Player inline subscription link is displayed");
-			extentLogger("Player screen", "Player inline subscription link is displayed");
+			extentLoggerWarning("Player screen", "Player inline subscription link is displayed");
 		}else if(adulterrormsg == true){
 			logger.info("error message saying 'This content is for Adult view only' is displayed");
-			extentLogger("Player screen", "error message saying 'This content is for Adult view only' is displayed");
+			extentLoggerWarning("Player screen", "error message saying 'This content is for Adult view only' is displayed");
 		}else {
 			waitTime(5000);
 			if(!(verifyIsElementDisplayed(AMDPlayerScreen.objFullscreenIcon))) {
 				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-                                                         click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			}
 			boolean eventFlag = false;
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			eventFlag = verifyElementPresent(AMDPlayerScreen.objFullscreenIcon, "Player screen");
 			waitTime(2000);
 			
@@ -9080,8 +9085,8 @@ public void SearchContentFromSearchPage(String userType,String contentType,Strin
 				setFEProperty(usertype);
 				setUserType_SubscriptionProperties(usertype);
 				
-				mixpanel.FEProp.setProperty("Ad ID", getParameterFromXML("AdID"));
-				mixpanel.FEProp.setProperty("Advertisement ID", getParameterFromXML("AdID"));
+				//mixpanel.FEProp.setProperty("Ad ID", getParameterFromXML("AdID"));
+				//mixpanel.FEProp.setProperty("Advertisement ID", getParameterFromXML("AdID"));
 				mixpanel.FEProp.setProperty("Source", pSource);
 				mixpanel.FEProp.setProperty("Page Name", pPage);
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");

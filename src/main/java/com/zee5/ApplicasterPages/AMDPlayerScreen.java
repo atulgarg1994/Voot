@@ -125,8 +125,7 @@ public class AMDPlayerScreen {
 	
 	public static By objTrendingNewsTray = By.xpath("//*[@text='Trending News ']");
 	
-	public static By objPremiumTextOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/static_premium_text'] | //*[@id='errorViewText' and (contains(text(),'You need subscription'))] | //*[@id='infoTextView' and contains(text(), 'To watch this premium content')]");
-
 	public static By objAdultErrorMessage = By.xpath("//*[@resource-id='com.graymatrix.did:id/errorViewText' and contains(text(),'Adult')]");
 	
+	public static By objPremiumTextOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/static_premium_text'] | //*[@id='errorViewText' and (contains(text(),'You need subscription'))] | //*[contains(text(), 'To watch this premium content')]");
 }

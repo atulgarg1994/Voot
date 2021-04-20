@@ -45,6 +45,14 @@ public class ContentBucketSwipeEvent {
 		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
 		Zee5PWAWEBMixPanelBusinessLogic.verifyContentBucketSwipeEventInPlaybackPage(keyword1);
 	}
+	
+	@Test(priority = 4)
+	@Parameters({ "userType" })
+	public void verifyContentBucketSwipeEventForPremiumBenefitDrawer(String userType) throws Exception {
+		System.out.println("Verify Content Bucket Swipe Event For Premium Benefit Drawer");
+		Zee5PWAWEBMixPanelBusinessLogic.relaunch();
+		Zee5PWAWEBMixPanelBusinessLogic.verifyContentBucketSwipeEventForPremiumBenefitDrawer(userType);
+	}
 
 	@AfterClass
 	public void tearDown() {

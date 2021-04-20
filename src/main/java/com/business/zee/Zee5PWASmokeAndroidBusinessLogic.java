@@ -722,6 +722,10 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue button");
 			waitTime(3000);
 			verifyElementPresent(PWALoginPage.objEmailField, "Sign in page");
+			
+			verifyElementPresentAndClick(PWAHomePage.objPopUpClose, "Close icon");
+			waitTime(2000);
+			
 			verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "Zee logo");
 			if (verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Home page")) {
 				logger.info("User is navigated to Home page");
@@ -754,12 +758,22 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	 */
 	public void navigationToSignInFromCTAInPlayer() throws Exception {
 		extent.HeaderChildNode("CTA In Player");
-		verifyElementPresent(PWASubscriptionPages.objSubscribepopup, "Subscribe popup");
-		verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupPlan, "Subscribe popup plan");
-		verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopipProceed,
-				"Proceed button in Subscribe popup");
+	//	verifyElementPresent(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe popup");
+		
+		verifyElementPresent(PWASubscriptionPages.objZEE5Subscription, "Subscription page");
+		verifyElementPresentAndClick(PWASubscriptionPages.objSelectedSubscriptionPlanAmount, "Subscription plan");
+		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue button");
+		
+	//	verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupPlan, "Subscribe popup plan");
+	//	verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopipProceed,
+	//			"Proceed button in Subscribe popup");
 		waitTime(4000);
 		verifyElementPresent(PWALoginPage.objEmailField, "Sign in page");
+		waitTime(1000);
+		
+		verifyElementPresentAndClick(PWAHomePage.objPopUpClose, "Close icon");
+		waitTime(2000);
+		
 		verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "Zee logo");
 		if (verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Home page")) {
 			logger.info("User is navigated to Home page");
@@ -943,7 +957,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 
 	public void verifyCarouselPlayIconFunctionality() throws Exception {
 		// play icon functionality
-		verifyPlayIconFunctionality("ZEE5 Originals");
+		verifyPlayIconFunctionality("Web Series");
 		verifyPlayIconFunctionality("Kids");
 		verifyPlayIconFunctionality("Premium");
 		verifyPlayIconFunctionality("TV Shows");
@@ -1802,39 +1816,54 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	 * @param devicePin
 	 * @throws Exception
 	 */
-	public void verifySubscriptionPopupForPremiumContent(String userType, String contentTitle) throws Exception {
-		extent.HeaderChildNode("Verify Subscription Popup For Premium Content");
-		// handle mandatory pop up
-		mandatoryRegistrationPopUp(userType);
-		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
-		typeAndGetSearchResult(PWASearchPage.objSearchEditBox, contentTitle, "Search Edit box");
-		waitTime(2000);
-		waitForElement(PWASearchPage.objSearchedResult(contentTitle), 45, "Search Result");
-		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(contentTitle), "Search Result");
-		waitTime(7000);
-		if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
-			if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up")) {
-				click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
-				extent.extentLogger("", "Subscription Pop Up is displayed for Premium Content as expected");
-				logger.info("Subscription Pop Up is displayed for Premium Content as expected");
+	 public void verifySubscriptionPopupForPremiumContent(String userType, String contentTitle) throws Exception {
+			extent.HeaderChildNode("Verify Subscription Popup For Premium Content");
+			// handle mandatory pop up
+			mandatoryRegistrationPopUp(userType);
+			verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
+			typeAndGetSearchResult(PWASearchPage.objSearchEditBox, contentTitle, "Search Edit box");
+			waitTime(2000);
+			waitForElement(PWASearchPage.objSearchedResult(contentTitle), 45, "Search Result");
+			verifyElementPresentAndClick(PWASearchPage.objSearchedResult(contentTitle), "Search Result");
+			waitTime(7000);
+			if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+			//	if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up"))
+				
+			    if (verifyIsElementDisplayed(PWAPlayerPage.objGetPremiumInline, "Get Premium IN Line")) {  
+			    	click(PWAPlayerPage.objGetPremiumInline, "Get Premium IN Line");
+				//	click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
+			    	
+					extent.extentLogger("", "Subscription Page  is displayed for Premium Content as expected");
+					logger.info("Subscription Page is displayed for Premium Content as expected");
+				} else {
+					extent.extentLoggerFail("", "Subscription Page failed to display for Premium Content");
+					logger.error("Subscription Page failed to display for Premium Content");
+				}
+			    
+			    click(PWASubscriptionPages.objZEE5Logo, "Zee5 Logo");
+			    
 			} else {
-				extent.extentLoggerFail("", "Subscription Pop Up failed to display for Premium Content");
-				logger.error("Subscription Pop Up failed to display for Premium Content");
+			//	if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up"))
+				
+				    if (verifyIsElementDisplayed(PWAPlayerPage.objGetPremiumInline, "Get Premium IN Line")) {  
+				    	click(PWAPlayerPage.objGetPremiumInline, "Get Premium IN Line");
+				    	
+				//	click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
+				    	
+					extent.extentLoggerFail("", "Subscription Page is displayed for Premium Content for Subscribed User");
+					logger.error("Subscription Page is displayed for Premium Content for Subscribed User");
+				} else {
+					extent.extentLogger("",
+							"Subscription Page is not displayed for Premium Content for Subscribed user, expected behavior");
+					logger.info(
+							"Subscription Page is not displayed for Premium Content for Subscribed user, expected behavior");
+				}
+				    
+				    click(PWASubscriptionPages.objZEE5Logo, "Zee5 Logo");
 			}
-		} else {
-			if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up")) {
-				click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
-				extent.extentLoggerFail("", "Subscription Pop Up is displayed for Premium Content for Subscribed User");
-				logger.error("Subscription Pop Up is displayed for Premium Content for Subscribed User");
-			} else {
-				extent.extentLogger("",
-						"Subscription Pop Up is not displayed for Premium Content for Subscribed user, expected behavior");
-				logger.info(
-						"Subscription Pop Up is not displayed for Premium Content for Subscribed user, expected behavior");
-			}
-		}
+			
 
-	}
+		}
 
 	/**
 	 * Method to verify share functionality and metadata comparison between Show
@@ -3866,8 +3895,9 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		waitTime(5000);
 		verifyElementPresent(PWASubscriptionPages.objAccountInfoHighlighted, "Account Info Section");
 		waitTime(5000);
+		verifyElementPresentAndClick(PWAHomePage.objPopUpClose, "Close icon");
+		waitTime(2000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objZEE5Logo, "Zee5 Logo");
-
 	}
 
 	/**
@@ -3879,7 +3909,6 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		verifyElementPresent(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
 		waitTime(5000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objZEE5Logo, "Zee5 Logo");
-
 	}
 
 	/**
@@ -3887,11 +3916,16 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	 */
 	public void zeeVerifyGetPremiumPopup() throws Exception {
 		waitTime(10000);
-		verifyElementPresent(PWASubscriptionPages.objGetPremiumPopupTitle, "Get Premium Popup Title");
+	//	verifyElementPresent(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop up Title");
+		
+		verifyElementPresentAndClick(PWAPlayerPage.objGetPremiumInline, "Get Premium IN Line");
+		
 		waitTime(5000);
 		verifyElementPresent(PWASubscriptionPages.objDefaultSelectedPack, "Default Selected Package");
 		waitTime(5000);
-		verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Popup Proceed Btn");
+	//	verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Popup Proceed Btn");
+		
+		 verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue button");
 	}
 
 	/**
@@ -4077,12 +4111,16 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 	public void zeePWAPromoCodeValidationInSelectPackPage() throws Exception {
 		HeaderChildNode("Promo code Validation in Select Pack Page");
 		waitTime(3000);
+		
 		Swipe("UP", 1);
+		
 		verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "'Have A Code?' field");
 		waitTime(3000);
+		
 		verifyElementPresentAndClick(PWASubscriptionPages.objHaveACodePlaceHolder, "'Enter Code?' field");
 		waitTime(3000);
-		type(PWASubscriptionPages.objHaveACode, "testz40", "'Have A Code?' field");
+		
+		type(PWASubscriptionPages.objHaveACode, "prein50", "'Have A Code?' field");
 		hideKeyboard();
 		waitTime(5000);
 		click(PWASubscriptionPages.objApplyBtn, "Apply Button");
@@ -4092,6 +4130,9 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		} catch (Exception e) {
 		} // Added for Vivo phone
 		waitTime(5000);
+		
+	//	verifyElementPresent(PWASubscriptionPages.objAppliedSuccessfullyMessage, "Applied Successfully Message");
+		
 		verifyElementPresent(PWASubscriptionPages.objDiscountAppliedMessage, "Discount Applied Successfully Message");
 
 	}
@@ -4105,12 +4146,14 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresent(PWASubscriptionPages.objSelectPackHighlighted, "Select Pack Section");
 		waitTime(3000);
-		String selectedPackCategory = findElement(PWASubscriptionPages.objPackCategoryTabSelected).getText();
+		
+/*		String selectedPackCategory = findElement(PWASubscriptionPages.objPackCategoryTabSelected).getText();
 		System.out.println("Selected Pack Category is: " + selectedPackCategory);
 		waitTime(3000);
 		String defaultSelectedPlan = findElement(PWASubscriptionPages.objSelectedSubscriptionPlanAmount).getText();
 		System.out.println("Plan Selected By Default is: " + defaultSelectedPlan);
 		waitTime(3000);
+*/		
 		ScrollToElement(PWASubscriptionPages.objContinueBtn, "Continue");
 		waitTime(3000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Btn");
@@ -4128,33 +4171,60 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		verifyElementPresent(PWASubscriptionPages.objAccountInfoHighlighted, "Account Info Section");
 		waitTime(3000);
 		// Scenario no. 103
+		
+		verifyElementPresentAndClick(PWAHomePage.objPopUpClose, "Close icon");
+		waitTime(2000);
+		
 		zeePWASelectedPackDisplayValidation();
-		verifyElementPresent(PWASubscriptionPages.objProceedBtnNotHighlighted,
-				"Proceed Btn in Account Info Page Not Highlighted");
+		
+//		verifyElementPresent(PWASubscriptionPages.objProceedBtnNotHighlighted,
+	//			"Proceed Btn in Account Info Page Not Highlighted");
 		// Scenario no. 104
 		waitTime(3000);
+		
+		verifyElementPresent(PWASubscriptionPages.objContinueBtn, "Continue button");
+	     waitTime(3000);
+       click(PWASubscriptionPages.objContinueBtn, "Continue button");  
+	     waitTime(3000);
+	     
 		verifyElementPresentAndClick(PWASubscriptionPages.objEmailIDTextField, "Email ID Text Field");
 		waitTime(3000);
 		String email = RandomStringGenerator(6) + "@c.com";
 		type(PWASubscriptionPages.objEmailIDTextField, email, "Email Id");
 		hideKeyboard();
-		waitTime(3000);
-		verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted,
-				"Proceed Btn in Account Info Page Highlighted");
-		waitTime(3000);
+	//	waitTime(3000);
+	//	verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted,
+	//			"Proceed Btn in Account Info Page Highlighted");
+		
+	     waitTime(3000);
+	       click(PWASubscriptionPages.objContinueBtnn, "Continue button"); 
+			waitTime(3000);
+			
+	//	waitTime(3000);
 		// Password Popup
 		verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
 		waitTime(3000);
-		verifyElementPresent(PWASubscriptionPages.objProceedBtnDisabled, "Disabled Proceed Btn");
-		waitTime(3000);
+	//	verifyElementPresent(PWASubscriptionPages.objProceedBtnDisabled, "Disabled Proceed Btn");
+	//	waitTime(3000);
+		
+		verifyElementPresent(PWASubscriptionPages.objContinueBtnn, "Disabled Continue button");
+	     waitTime(3000);
+	     
 		verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
 		waitTime(3000);
 		type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
 		hideKeyboard();
 		waitTime(9000);
-		verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtn, "Enabled Proceed Btn");
+	//	verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtn, "Enabled Proceed Btn");
+		
+		verifyElementPresent(PWASubscriptionPages.objContinueBtnn, "Continue button");
+	     waitTime(3000);
+     click(PWASubscriptionPages.objContinueBtnn, "Continue button"); 
+		waitTime(3000);
+		
 		try {
-			getDriver().findElement(PWASubscriptionPages.objProceedBtn).click();
+	//		getDriver().findElement(PWASubscriptionPages.objProceedBtn).click();
+			getDriver().findElement(PWASubscriptionPages.objContinueBtnn).click();
 		} catch (Exception e) {
 		} // Required for Vivo phone because keyboard shows up
 		waitTime(3000);
@@ -4225,13 +4295,17 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 //		waitTime(5000);
 		verifyElementPresent(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
 //		waitTime(3000);
-		zeePWASelectedPackDisplayValidation();
+//		zeePWASelectedPackDisplayValidation();
 //		verifyElementPresent(PWASubscriptionPages.objAccountInfoText, "Account Info Text in Payments Section");
 //		waitTime(3000);
 		verifyElementPresent(PWASubscriptionPages.objAccountInfoDetails, "Account Info Details in Payments Section");
 ////		waitTime(3000);
-//		verifyElementPresent(PWASubscriptionPages.objCreditCardRadioBtn, "Credit Card Radio Button");
-////		waitTime(3000);
+	//	verifyElementPresent(PWASubscriptionPages.objCreditCardRadioBtn, "Credit Card Radio Button");
+	//	waitTime(3000);
+		
+		verifyElementPresentAndClick(PWASubscriptionPages.objMobileCreditDebitCardOption, "'Credit / Debit Card' option");
+		Swipe("UP", 1);
+		waitTime(2000);
 //		verifyElementPresent(PWASubscriptionPages.objDebitCardRadioBtn, "Debit Card Radio Button");
 ////		waitTime(3000);
 //		verifyElementPresent(PWASubscriptionPages.objPayTMRadioBtn, "PayTm Radio Button");
@@ -4261,7 +4335,10 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			getWebDriver().switchTo().frame(iframeElement);
 		}
 
-		verifyElementPresentAndClick(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
+	///	verifyElementPresentAndClick(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
+		
+		verifyElementPresent(PWASubscriptionPages.objMobileCreditDebitCardOption, "'Credit / Debit Card' option");
+		
 		waitTime(5000);
 		verifyElementPresent(PWASubscriptionPages.objEnterCreditAndDebitCardDetails, "Enter Credit/Debit Card Details");
 		verifyElementPresent(PWASubscriptionPages.objCardNumber, "Enter Card Number Field");
@@ -4431,13 +4508,13 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		HeaderChildNode("Scenario: Navigate to Subscription Flow From Player In-line Subscribe link on Player");
 		zeeSearchForContentAndClickOnFirstResult(keyword);
 		waitTime(10000);
+	/*	
 		verifyElementPresent(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop up Title");
 		waitTime(5000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objPopupCloseButton, "Popup Close Button");
 		waitTime(5000);
-		verifyElementPresent(PWAPlayerPage.objSubscribeNowLink, "In-Line Subscribe Link on Player");
-		waitTime(1000);
-		JSClick(PWAPlayerPage.objSubscribeNowLink, "In-Line Subscribe Link on Player");
+		verifyElementPresentAndClick(PWAPlayerPage.objSubscribeNowLink, "In-Line Subscribe Link on Player");
+	*/	
 		zeeVerifyGetPremiumPopup();
 		waitTime(5000);
 		if (userType.equalsIgnoreCase("Guest")) {
@@ -4453,8 +4530,8 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 				.getParameter("premiumMovieWithTrailer");
 		zeeSearchForContentAndClickOnFirstResult(keyword1);
 		waitTime(5000);
-		waitForElementAndClick(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen, 30,
-				"Subscribe button below the Player");
+//		waitForElementAndClick(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen, 30,
+//				"Subscribe button below the Player");
 		waitTime(5000);
 		zeeVerifyGetPremiumPopup();
 		waitTime(5000);

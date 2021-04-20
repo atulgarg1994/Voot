@@ -25,9 +25,6 @@ public class PWAMusicPage {
 	public static By objCarouselTitle = By
 			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
 
-//	Consumption Page Title
-	public static By objConsumptionPageTitle = By.xpath(".//div[@class='consumptionMetaDiv']/h1");
-
 //	Close Button getPremium
 	public static By objGetPremiumCloseBtn = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 
@@ -134,5 +131,7 @@ public class PWAMusicPage {
 	public static By objArrowToNavigateTop = By.xpath("//div[contains(@class, 'ic_arrow_back')]");
 	
 	public static By objBannerPlusTrayCard = By.xpath("//div[contains(@class,'bannerPlusTray')]//div[@data-minutelytitle]//img");
+	
+	public static By objConsumptionPageTitle = By.xpath(".//div[@class='metaInfo lineHeightClass']/h2");
 
 }

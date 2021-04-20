@@ -14,16 +14,6 @@ public class PWASubscriptionPages {
 	public static By objSelectedPackText = By
 			.xpath("//div[contains(@class, 'selectPackDetails')]/p[contains(text(), 'Selected Pack')]");
 
-	// Selected Pack Name
-	public static By objSelectedPackName = By.xpath("//div[contains(@class, 'packName')]/p");
-
-	// Selected Pack Description
-	public static By objSelectedPackDescription = By
-			.xpath("//div[contains(@class, 'packName')]/span[contains(@class, 'description')]");
-
-	// Selected Pack Duration
-	public static By objSelectedPackDuration = By.xpath("//div[contains(@class, 'packDetails')]//*[@class='period']");
-
 	// Proceed Btn Disabled
 	public static By objProceedBtnNotHighlighted = By.xpath(
 			"//button[contains(@class, 'noSelect buttonGradient') and @disabled]/span[contains(text(),'PROCEED')]");
@@ -290,16 +280,11 @@ public class PWASubscriptionPages {
 
 	public static By objAccountInfoHighlighted = By.xpath("//div[contains(text(),'Account Info')]");
 
-	public static By objPaymentHighlighted = By
-			.xpath("//h1[@class='pageTitleSmall' and contains(text(),'Make Payment')]");
-
 	public static By objDefaultSelectedPack = By
 			.xpath("//div[contains(@class, 'packDetails active')]//*[contains(@class, 'planPrice')]");
 
 	public static By objPopup299Plan = By
 			.xpath("//div[contains(@class, 'packDetails')]//div[contains(@class, 'planPrice')]//span[text()='299']");
-
-	public static By objHaveACode = By.xpath("//*[contains(@class,'haveCodeText')]");
 
 	public static By objHaveACodetoenter = By.xpath("//*[contains(@placeholder,'Enter code')]");
 
@@ -367,4 +352,25 @@ public class PWASubscriptionPages {
 	public static By objZEE5Subscription = By.xpath("//*[contains(text(),'Unlock ZEE5') and contains(@class, 'stepTitle')]");
 
 	public static By objPackAmount2 = By.xpath("(//*[@class='price'])[1]");
+	
+	public static By objHaveACode = By.xpath("//*[contains(@class,'haveCodeTextMobile')]//*[contains(text(),'Have a Code?')]");
+	
+	public static By objSelectedPackName = By.xpath("//div[contains(@class, 'packGrid')]");
+
+	public static By objMovieLink = By.xpath("//*[text()='Blockbuster Movies']");
+	
+	public static By objMovieTrayName = By.xpath("//*[@class='trayHeader']//h2");
+	
+	public static By objMovieTray1 = By.xpath("(//*[@class='slick-slider movieTray slick-initialized']//*[@class='slick-slide slick-active'])[1]");
+	
+	public static By objMovieTray2 = By.xpath("(//*[@class='slick-slider movieTray slick-initialized']//*[@class='slick-slide slick-active'])[4]");
+	
+	public static By objSelectedPackDuration = By.xpath("//div[contains(@class, 'heading')]");
+	
+	public static By objSelectedPackDescription = By.xpath("//div[contains(@class, 'subHeading')]");
+	
+	public static By objPaymentHighlighted = By.xpath("//h2[@class='stepTitle' and contains(text(),'Make Payment')]");
+	
+	public static By objTeaserGetPremiumButton = By.xpath("//button[contains(@class, 'subscribe-teaser-button ')]");
+
 }

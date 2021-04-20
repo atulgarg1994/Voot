@@ -617,6 +617,6 @@ public class PWAHomePage {
 			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
 	
 	public static By objPopUpClose = By.xpath("//div[contains(@class, 'drowerCloseIcon iconInitialLoad-ic_close')]"); 
-	
+
 	
 }
