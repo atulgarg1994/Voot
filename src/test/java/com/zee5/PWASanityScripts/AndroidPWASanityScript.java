@@ -127,9 +127,9 @@ public class AndroidPWASanityScript {
 
 	@Test(priority = 13)
 	@Parameters({ "userType" }) // BHAVANA
-	public void PWAShowsPageValidation(String userType) throws Exception {
+	public void PWATVShowsPageValidation(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.reloadHome();
-		Zee5PWASanityBusinessLogic.ShowsValidation(userType);
+		Zee5PWASanityBusinessLogic.TVShowsValidation(userType);
 	}
 
 	@Test(priority = 14)
@@ -149,9 +149,9 @@ public class AndroidPWASanityScript {
 
 	@Test(priority = 16) // BINDU
 	@Parameters({ "userType" })
-	public void PWAZeeOriginalsPageValidation(String UserType) throws Exception {
+	public void PWAWebSeriesPageValidation(String UserType) throws Exception {
 		Zee5PWASanityBusinessLogic.reloadHome();
-		Zee5PWASanityBusinessLogic.Zee5OriginalsScreen(UserType, "ZEE5 Originals");
+		Zee5PWASanityBusinessLogic.WebSeriesScreen(UserType, "Web Series");
 	}
 
 	@Test(priority = 17) // BINDU

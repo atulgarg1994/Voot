@@ -138,8 +138,6 @@ public class PWASubscriptionPages {
 
 	public static By objPackTitle = By.xpath("(//div[@class='planDescription'])");
 
-	public static By objPackAmount = By.xpath("(//p[@class='currency'])");
-
 //	MANASA
 	public static By objPackType(int i) {
 		return By.xpath("(//div[@class='categoryContainer']//child::*[@class='noSelect'])[" + i + "]");
@@ -314,8 +312,6 @@ public class PWASubscriptionPages {
 	public static By objremovebtn = By
 			.xpath("//*[contains(@class, 'promoCodePopupApply') and contains(text(), 'Remove')]");
 
-	public static By objPackAmount1 = By.xpath("(//p[@class='planPrice'])[1]");
-
 	public static By objContinueBtn = By.xpath("//span[contains(text(), 'Continue')]");
 	
 	public static By objProceedButtonInPassword = By.xpath("//*[text()='Continue']");
@@ -350,8 +346,6 @@ public class PWASubscriptionPages {
 	public static By objLoginPage = By.xpath("//*[contains(@class, 'formHeader loginHeaderIn')]");
 	
 	public static By objZEE5Subscription = By.xpath("//*[contains(text(),'Unlock ZEE5') and contains(@class, 'stepTitle')]");
-
-	public static By objPackAmount2 = By.xpath("(//*[@class='price'])[1]");
 	
 	public static By objHaveACode = By.xpath("//*[contains(@class,'haveCodeTextMobile')]//*[contains(text(),'Have a Code?')]");
 	
@@ -372,5 +366,10 @@ public class PWASubscriptionPages {
 	public static By objPaymentHighlighted = By.xpath("//h2[@class='stepTitle' and contains(text(),'Make Payment')]");
 	
 	public static By objTeaserGetPremiumButton = By.xpath("//button[contains(@class, 'subscribe-teaser-button ')]");
-
+	
+	public static By objPackAmount1 = By.xpath("(//span[@class='price'])[1]");
+	
+	public static By objPackAmount = By.xpath("(//span[@class='price'])");
+	
+	public static By objPackAmount2 = By.xpath("(//span[@class='price'])[2]");
 }

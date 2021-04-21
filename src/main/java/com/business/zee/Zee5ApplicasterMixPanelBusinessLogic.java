@@ -4365,33 +4365,80 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Quality Change Event for carousel content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
-		verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
-		waitTime(3000);
+		
+		boolean flagBox = verifyIsElementDisplayed(AMDHomePage.objSboxIcon);
+		String pSugarBox = String.valueOf(flagBox);
+		
+		String contentName = ResponseInstance.getCarouselContentFromAPI(usertype, tabName);
+		System.out.println(contentName);
+		
+		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 60, "carousal content");
+
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		if(usertype.equalsIgnoreCase("Guest")) {
+			registerPopUpClose();
+		}
+		completeProfilePopUpClose(usertype);
+		
+		
 		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+		boolean adulterrormsg = verifyIsElementDisplayed(AMDPlayerScreen.objAdultErrorMessage);
 		if (inlineLink == true) {
 			logger.info("Player inline subscription link is displayed");
 			extentLogger("Player screen", "Player inline subscription link is displayed");
-		} else {
-			waitTime(8000);
-			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player screen");
-			verifyElementPresentAndClick(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		}else if(adulterrormsg == true){
+			logger.info("error message saying 'This content is for Adult view only' is displayed");
+			extentLogger("Player screen", "error message saying 'This content is for Adult view only' is displayed");
+		}else {
+			waitTime(5000);
+			if(!(verifyIsElementDisplayed(AMDPlayerScreen.objFullscreenIcon))) {
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			}
+			boolean eventFlag = false;
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			verifyElementPresentAndClick(AMDPlayerScreen.objThreeDotsOnPlayer, "Three Dots");
-			verifyElementPresentAndClick(AMDPlayerScreen.objQuality, "Quality");
-			String selectedQualityOption = getText(AMDPlayerScreen.objSelectedQualityOption);
-			if (selectedQualityOption.equalsIgnoreCase("Auto")) {
-				verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
-				waitTime(2000);
-				setFEProperty(usertype);
-				mixpanel.ValidateParameter("", "Qualitiy Change");
+			String quality = getText(AMDPlayerScreen.objQuality);
+			click(AMDPlayerScreen.objQuality, "Quality");
+			if (quality.contains("Auto")) {
+				eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(2), "Quality option");
 			} else {
-				verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
-				waitTime(2000);
+				eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objQualityOptions(1), "Quality option");
+			}
+			waitTime(7000);
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			
+			if (eventFlag) {
+				String pPage = "ConsumptionPage";
+				String pSource = getSource(tabName);
+				String pManufacturer = DeviceDetails.OEM;
+				//String pAdId = getAdId();
+				
 				setFEProperty(usertype);
-				mixpanel.ValidateParameter("", "Qualitiy Change");
+				setUserType_SubscriptionProperties(usertype);
+				
+				//mixpanel.FEProp.setProperty("Ad ID", getParameterFromXML("AdID"));
+				mixpanel.FEProp.setProperty("Advertisement ID", getParameterFromXML("AdID"));
+				mixpanel.FEProp.setProperty("Source", pSource);
+				mixpanel.FEProp.setProperty("Page Name", pPage);
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
+				mixpanel.FEProp.setProperty("Brand", pManufacturer);
+//				mixpanel.FEProp.setProperty("New View Position", ScreenOrientation2);
+//				mixpanel.FEProp.setProperty("Old View Position", ScreenOrientation1);
+				mixpanel.FEProp.setProperty("Carousal Name", "N/A");
+				//mixpanel.FEProp.setProperty("Sugar Box Value",pSugarBox );
+
+				mixpanel.ValidateParameter("", "Video Streaming Quality Changed");
+			} else {
+				logger.info("Failed to change the quality option");
+				extentLoggerWarning("Event", "Failed to change the quality option");
 			}
 		}
-		waitTime(3000);
 	}
 
 	public void QualityChangeEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
@@ -8599,11 +8646,15 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			
 			Properties pro = new Properties();
 			pro = ResponseInstance.getUserSettingsDetails(Username,Password);
+			
 			String value = pro.getProperty("eduauraaClaimed");
 			if(value.equalsIgnoreCase("Empty")) {
 				value="false";
 			}
-			
+			String value2 = pro.getProperty("parental_control");
+			if(value2.equalsIgnoreCase("Empty")) {
+				value2="N/A";
+			}
 			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", pro.getProperty("streaming_quality"));
 			mixpanel.FEProp.setProperty("New Autoplay Setting", pro.getProperty("auto_play"));
 			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", pro.getProperty("stream_over_wifi"));
@@ -8613,7 +8664,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("New Content Language", pro.getProperty("content_language"));
 			mixpanel.FEProp.setProperty("hasEduauraa", value);
 			mixpanel.FEProp.setProperty("isEduauraa", value);
-			mixpanel.FEProp.setProperty("Gender", ResponseInstance.getUserData(Username,Password).getProperty("gender"));
+			mixpanel.FEProp.setProperty("Parent Control Setting", value2);
+			mixpanel.FEProp.setProperty("Partner Name", "Zee5");
+			mixpanel.FEProp.setProperty("Gender", ResponseInstance.getUserData(Username,Password).getProperty("gender"));			
 		} else {
 			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
@@ -9093,6 +9146,7 @@ public void SearchContentFromSearchPage(String userType,String contentType,Strin
 				mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
 				mixpanel.FEProp.setProperty("Brand", pManufacturer);
 				//mixpanel.FEProp.setProperty("Sugar Box Value",pSugarBox );
+				mixpanel.FEProp.setProperty("Carousal Name", "N/A");
 
 				mixpanel.ValidateParameter("", "Video View");
 			} else {
@@ -9270,4 +9324,156 @@ public void SearchContentFromSearchPage(String userType,String contentType,Strin
 		mixpanel.FEProp.setProperty("brand", pManufacturer);
 		mixpanel.ValidateParameter("", "Video View");
 	}
+	
+	public void CarousalBannerImpressionEvent(String pUsertype,String pTabName) throws Exception {
+		HeaderChildNode("Verify Carousek banner impression Event from top navigation");
+		
+		String pPage = "Homepage";
+		String pSource = "SplashPage";
+		String pManufacturer = DeviceDetails.OEM;
+		
+		waitForElementDisplayed(AMDHomePage.objTitle, 20);
+		SelectTopNavigationTab(pTabName);
+		waitTime(3000);
+		String contentLang = ResponseInstance.getContentLanguageForAppMixpanel(pUsertype);
+		System.out.println(contentLang);
+		
+		setFEProperty(pUsertype);
+		setUserType_SubscriptionProperties(pUsertype);
+	
+		mixpanel.FEProp.setProperty("Source", pSource);
+		mixpanel.FEProp.setProperty("Page Name", pPage);
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+		mixpanel.FEProp.setProperty("brand", pManufacturer);
+		
+		mixpanel.ValidateParameter("", "Carousal Banner Impression");
+		
+	}
+	
+	public void ScreenViewEventFromTopNavigationPage(String pUsertype, String pTabName) throws Exception {
+
+		waitForElementDisplayed(AMDHomePage.objTitle, 20);
+		SelectTopNavigationTab(pTabName);
+		String contentLang = ResponseInstance.getContentLanguageForAppMixpanel(pUsertype);
+		System.out.println(contentLang);
+		
+		String trayName = ResponseInstance.getRailNameFromPage(pTabName, pUsertype);
+	
+		if(pTabName.equalsIgnoreCase("Live TV") || pTabName.equalsIgnoreCase("News")) {
+			waitTime(5000);
+			waitForElementDisplayed(AMDGenericObjects.objTrayTitle, 30);
+		}
+		
+		SwipeUntilFindElement(AMDHomePage.objRailName(trayName), "UP");
+		waitTime(3000);
+		click(AMDGenericObjects.objSelectFirstCardFromRailName(trayName), "Content Card");
+		if(pUsertype.equalsIgnoreCase("Guest") || pUsertype.equalsIgnoreCase("NonSubscribedUser")) {
+			registerPopUpClose();
+			waitForAdToFinishInAmd();
+			waitTime(2000);
+			registerPopUpClose();
+			Back(1);
+		}else {
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player Screen");
+			verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
+		}
+	
+//		####### Set All Parameters values ####### 
+		setFEProperty(pUsertype);
+		setUserType_SubscriptionProperties(pUsertype);
+		
+//		String pPage = getPageName(pTabName);
+//		String pSource = getSource(pTabName);
+		String pPage = "ConsumptionPage";
+		String pSource = "Homepage";
+		String pManufacturer = DeviceDetails.OEM;
+		
+		mixpanel.FEProp.setProperty("Source", pSource);
+		mixpanel.FEProp.setProperty("Page Name", pPage);
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+		mixpanel.FEProp.setProperty("brand", pManufacturer);
+		
+		mixpanel.ValidateParameter("", "Screen View");
+	}
+	
+	public void  PlayerViewChangedEventForCarouselContent(String usertype,String tabName) throws Exception{
+		extent.HeaderChildNode("Player view changed Event for carousel content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		
+		boolean flagBox = verifyIsElementDisplayed(AMDHomePage.objSboxIcon);
+		String pSugarBox = String.valueOf(flagBox);
+		
+		String contentName = ResponseInstance.getCarouselContentFromAPI(usertype, tabName);
+		System.out.println(contentName);
+		
+		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 60, "carousal content");
+
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		if(usertype.equalsIgnoreCase("Guest")) {
+			registerPopUpClose();
+		}
+		completeProfilePopUpClose(usertype);
+		
+		
+		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+		boolean adulterrormsg = verifyIsElementDisplayed(AMDPlayerScreen.objAdultErrorMessage);
+		if (inlineLink == true) {
+			logger.info("Player inline subscription link is displayed");
+			extentLogger("Player screen", "Player inline subscription link is displayed");
+		}else if(adulterrormsg == true){
+			logger.info("error message saying 'This content is for Adult view only' is displayed");
+			extentLogger("Player screen", "error message saying 'This content is for Adult view only' is displayed");
+		}else {
+			waitTime(5000);
+			if(!(verifyIsElementDisplayed(AMDPlayerScreen.objFullscreenIcon))) {
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			}
+			boolean eventFlag = true;
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			
+			ScreenOrientation orientation1 = getDriver().getOrientation();
+			String ScreenOrientation1 = orientation1.toString();
+			
+			eventFlag = verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Full screen icon");
+			waitTime(2000);
+			
+			ScreenOrientation orientation2 = getDriver().getOrientation();
+			String ScreenOrientation2 = orientation2.toString();
+			
+			if (eventFlag) {
+				String pPage = "ConsumptionPage";
+				String pSource = getSource(tabName);
+				String pManufacturer = DeviceDetails.OEM;
+				//String pAdId = getAdId();
+				
+				setFEProperty(usertype);
+				setUserType_SubscriptionProperties(usertype);
+				
+				//mixpanel.FEProp.setProperty("Ad ID", getParameterFromXML("AdID"));
+				mixpanel.FEProp.setProperty("Advertisement ID", getParameterFromXML("AdID"));
+				mixpanel.FEProp.setProperty("Source", pSource);
+				mixpanel.FEProp.setProperty("Page Name", pPage);
+				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
+				mixpanel.FEProp.setProperty("Brand", pManufacturer);
+				mixpanel.FEProp.setProperty("New View Position", ScreenOrientation2);
+				mixpanel.FEProp.setProperty("Old View Position", ScreenOrientation1);
+				mixpanel.FEProp.setProperty("Carousal Name", "N/A");
+				//mixpanel.FEProp.setProperty("Sugar Box Value",pSugarBox );
+
+				mixpanel.ValidateParameter("", "Player View Changed");
+			} else {
+				logger.info("Failed to change the player view");
+				extentLoggerWarning("Event", "Failed to change the player view");
+			}
+		}		
+	}
+	
+	
 }

@@ -24245,4 +24245,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "continue Button");
 	}
 	
+	public void Datepicker() throws Exception {
+		 waitTime(30000);
+		 findElement(By.xpath(".//*[@class='ng-tns-c20-37']")).click();
+		 ((JavascriptExecutor)getWebDriver()).executeScript("arguments[0].removeAttribute('readonly')", findElement(By.xpath(".//*[@class='ng-tns-c20-37']")));
+		 ((JavascriptExecutor)getWebDriver()).executeScript("arguments[0].value='20 Apr 2021';", findElement(By.xpath(".//*[@class='ng-tns-c20-37']")));
+		 waitTime(5000);
+		 WebElement element1 = getWebDriver().findElement(By.xpath(".//*[@class='ng-tns-c20-37 grey']"));
+		 ((JavascriptExecutor)getWebDriver()).executeScript("arguments[0].removeAttribute('readonly')", element1);
+		 ((JavascriptExecutor)getWebDriver()).executeScript("arguments[0].value='22 Apr 2021';", element1);
+		 ((JavascriptExecutor)getWebDriver()).executeScript("arguments[0].setAttribute('class', 'ng-tns-c20-37')",element1);
+	}
 }

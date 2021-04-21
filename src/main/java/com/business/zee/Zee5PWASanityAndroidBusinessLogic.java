@@ -3849,7 +3849,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 * Function to verify Shows Landing page
 	 */
 	public void showsLandingPage() throws Exception {
-		verifyElementPresentAndClick(PWAShowsPage.objShows, "Shows tab");
+		verifyElementPresentAndClick(PWAShowsPage.objShows, "TV Shows tab");
 		waitTime(3000);
 		if (verifyElementPresent(PWAHomePage.objHighlightedTab("Shows"), "Shows Tab Highlighted")) {
 			logger.info("User is navigated to Shows landing page");
@@ -10439,7 +10439,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	 */
 	public void verifyLandscapeforFreeContent() throws Exception {
 		HeaderChildNode("Verify Landscape mode for Free content");
-		navigateToAnyScreen("Shows");
+		navigateToAnyScreen("TV Shows");
 		swipeTillElement(7, PWALandingPages.objTrayTitleInUI("Trending Shows"), "Trending Shows tray");
 		click(PWALandingPages.objFirstAssetInTrayIndex("Trending Shows"), "First card under Trending Shows tray");
 		// handle mandatory pop up
@@ -10471,7 +10471,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 	public void verifyLandscapeforPremiumContent() throws Exception {
 		HeaderChildNode("Verify Landscape mode for Premium content");
-		navigateToAnyScreen("Shows");
+		navigateToAnyScreen("TV Shows");
 		chkPremiumORFreeFromVideosTabAndSelect("Trending Shows", "FREE");// Select free show and then play premium
 																			// content Watch latest Episode
 		// handle mandatory pop up
@@ -10753,7 +10753,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		Back(2);
 	}
 
-	public void Zee5OriginalsScreen(String UserType, String Tabname) throws Exception {
+	public void WebSeriesScreen(String UserType, String Tabname) throws Exception {
 		landingPagesValidation(UserType, Tabname);
 		pagesTrayValidation(Tabname);
 		Subscriptionpopup(Tabname);
@@ -11465,21 +11465,21 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verifying autorotating of carousel pages Movies screen ");
 		verifyAutoroatingOnCarousel("Movies");
 		extent.HeaderChildNode("Verifying autorotating of carousel pages Shows screen ");
-		verifyAutoroatingOnCarousel("Shows");
+		verifyAutoroatingOnCarousel("TV Shows");
 		extent.HeaderChildNode("Verifying autorotating of carousel pages Premium screen ");
 		verifyAutoroatingOnCarousel("Premium");
 		extent.HeaderChildNode("Verifying autorotating of carousel pages Play screen ");
 		verifyAutoroatingOnCarousel("Play");
 		extent.HeaderChildNode("Verifying autorotating of carousel pages ZEE5 Originals screen ");
-		verifyAutoroatingOnCarousel("ZEE5 Originals");
+		verifyAutoroatingOnCarousel("Web Series");
 	}
 
 	public void verifyCarouselPlayIconFunctionality() throws Exception {
 		// play icon functionality
-		verifyPlayIconFunctionality("ZEE5 Originals");
+		verifyPlayIconFunctionality("Web Series");
 		verifyPlayIconFunctionality("Kids");
 		verifyPlayIconFunctionality("Premium");
-		verifyPlayIconFunctionality("Shows");
+		verifyPlayIconFunctionality("TV Shows");
 		verifyPlayIconFunctionality("Movies");
 		verifyPlayIconFunctionality("Home");
 	}
@@ -11490,20 +11490,20 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyPremiumIconFunctionality("Home", userType);
 		verifyPremiumIconFunctionality("Premium", userType);
 		verifyPremiumIconFunctionality("Movies", userType);
-		verifyPremiumIconFunctionality("ZEE5 Originals", userType);
+		verifyPremiumIconFunctionality("Web Series", userType);
 	}
 
 	public void verifyCarouselMetaData() throws Exception {
 		// metadata
 		String languageSmallText = allSelectedLanguages();
-		extent.HeaderChildNode("Verifying metadata of carousel pages on ZEE5 Originals screen");
-		verifyMetadataOnCarousel("ZEE5 Originals", "zeeoriginals", languageSmallText);
+		extent.HeaderChildNode("Verifying metadata of carousel pages on Web Series screen");
+		verifyMetadataOnCarousel("Web Series", "webseries", languageSmallText);
 		extent.HeaderChildNode("Verifying metadata of carousel pages on Play screen");
 		verifyMetadataOnCarousel("Play", "play", languageSmallText);
 		extent.HeaderChildNode("Verifying metadata of carousel pages on Premium screen");
 		verifyMetadataOnCarousel("Premium", "premiumcontents", languageSmallText);
 		extent.HeaderChildNode("Verifying metadata of carousel pages on Shows screen");
-		verifyMetadataOnCarousel("Shows", "tvshows", languageSmallText);
+		verifyMetadataOnCarousel("TV Shows", "tvshows", languageSmallText);
 		extent.HeaderChildNode("Verifying metadata of carousel pages on Movies screen");
 		verifyMetadataOnCarousel("Movies", "movies", languageSmallText);
 		extent.HeaderChildNode("Verifying metadata of carousel pages on Home screen");
@@ -16621,7 +16621,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		{
 			//TV Shows Mega Menu Bar
 			extent.extentLogger("","---------- TV Shows Mega Menu Bar verification -----------");
-			navigateToAnyScreen("Shows");
+			navigateToAnyScreen("TV Shows");
 			String anchorTitleForShowsExp="Watch TV Serials & Shows Online";
 			logger.info("Expected Anchor tag title attribute value: "+anchorTitleForShowsExp);
 			extent.extentLogger("","Expected Anchor tag title attribute value: "+anchorTitleForShowsExp);
@@ -18110,5 +18110,25 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error("SVG image is not used in place of PNG for ZEE5 Logo");	
 		}
 		mandatoryRegistrationPopUp(userType);
+	}
+	
+	public void TVShowsValidation(String userType) throws Exception {
+		if (userType.contentEquals("Guest")) {
+			landingPagesValidation(userType, "TV Shows");
+			verifyLandscapeforFreeContent();
+			// verifyLandscapeforPremiumContent(); premium content cannot be viewed by guest
+			// and non subscribed user
+		} else if (userType.contentEquals("NonSubscribedUser")) {
+			landingPagesValidation(userType, "TV Shows");
+			verifyLandscapeforFreeContent();
+			// verifyLandscapeforPremiumContent(); premium content cannot be viewed by guest
+			// and non subscribed user
+			VerifyExternalLinkInShowsLandingPage();
+		} else if (userType.contentEquals("SubscribedUser")) {
+			landingPagesValidation(userType, "TV Shows");
+			verifyLandscapeforFreeContent();
+			verifyLandscapeforPremiumContent();
+			VerifyExternalLinkInShowsLandingPage();
+		}
 	}
 }
