@@ -6,10 +6,6 @@ import org.openqa.selenium.By;
 
 public class AMDSubscibeScreen {
 	
-	//Select pack 
-	public static By objSubscribeHeader = By.xpath("//*[@text='Subscribe']");
-	
-	public static By objSubscribePageBackButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_back']");
 	public static By objSelectPackText  = By.xpath("//*[@text='Select Pack']");
 	public static By objAdbanner = By.xpath("//*[@id='packSelectionCrousalImageView']");
 	public static By objApplyPromoCodeTextbox = By.xpath("//*[@id='txtET_promocode_input']");
@@ -110,5 +106,10 @@ public class AMDSubscibeScreen {
 	public static By objNewSubscribePopup = By.xpath("//*[@id='plansHeader']");
 	public static By objContinueOnSubscribePopup = By.xpath("//*[@id='continueButton']");
 	public static By objMakePaymentScreen = By.xpath("//*[@class='android.widget.TextView' and @text='Make Payment']");
+	
+	//Select pack 
+	public static By objSubscribeHeader = By.xpath("//*[@text='Subscribe'] | //*[@id='plansHeader']");
+	
+	public static By objSubscribePageBackButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_back'] | //*[@id='planSelectionBackButton']");
 	
 }

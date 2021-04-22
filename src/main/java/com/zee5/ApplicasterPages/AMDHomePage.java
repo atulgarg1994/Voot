@@ -9,9 +9,6 @@ public class AMDHomePage {
 	// ZEE5 Logo
 	public static By objZee5Logo = By.xpath("//*[@contentDescription='LOGO']");
 
-	// Subscribe Teaser
-	public static By objSubscribeTeaser = By.xpath("//*[@text='SUBSCRIBE']");
-
 	public static By objGetPremium = By.xpath("//*[@id='get_premium_hero_component']");
 
 	public static By objLogout = By.xpath("//*[@resource-id='com.graymatrix.did:id/list_item' and @text='Logout']");
@@ -257,5 +254,7 @@ public class AMDHomePage {
 	public static By objTrendingNewsTray = By.xpath("//*[@text='Trending News ']");
 	
 	public static By objRegisterPopup = By.xpath("//*[@id='tvtitle' and @text='Register']");
+	
+	public static By objSubscribeTeaser = By.xpath("//*[@text='SUBSCRIBE'] | //*[@id='home_subscribe_text_view']");
 	
 	}

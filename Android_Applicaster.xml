@@ -12,17 +12,17 @@
 	
 	 <parameter name="url" value="https://newpwa.zee5.com/" />
 	
-	<parameter name="SubscribedUserWith15daysExpiryUsername" value="zee.igs0187@gmail.com" />
+	<parameter name="SubscribedUserWith15daysExpiryUsername" value="crssri@g.co.in" />
 	<parameter name="SubscribedUserWith15daysExpiryPassword" value="123456" />
 
-	<parameter name="NonsubscribedUserName" value="zee5latest@gmail.com" />
-	<parameter name="NonsubscribedPassword" value="User@123" />
+	<parameter name="NonsubscribedUserName" value="ramkt@gmail.com" />
+	<parameter name="NonsubscribedPassword" value="123456" />
 
-	<parameter name="SubscribedUserName" value="zeegpay@gmail.com" />
+	<parameter name="SubscribedUserName" value="newsub12@gmail.com" />
 	<parameter name="SubscribedPassword" value="123456" />
 	
-	<parameter name="RegisteredEmail" value="zee5latest@gmail.com" />
-	<parameter name="RegisteredEmailPassword" value="User@123" />
+	<parameter name="RegisteredEmail" value="ramkt@gmail.com" />
+	<parameter name="RegisteredEmailPassword" value="123456" />
 
 	<parameter name="regUserName" value="igszeefive3@gmail.com" />
 	<parameter name="regPassword" value="123456" />
@@ -86,11 +86,10 @@
 	<parameter name="tabName5" value="Shows" />
 
 	<parameter name="VideoQuality" value="Data saver" />	<!-- Data saver/Good/Better/Best -->
-	<parameter name="MovieName" value="Jogi" />
+	<parameter name="MovieName" value="Gooli"  />
 
 	<parameter name="searchcontent1" value="Sanchari Hrudaya - Chambal" />	
-	<parameter name="searchcontent2"
-		value="Comedy Kiladigalu Championship - Episode 8" />
+	<parameter name="searchcontent2" value="Gooli" />
 	<parameter name="searchcontent3"
 		value="Comedy Kiladigalu Championship - Episode 24" />
 	<parameter name="searchcontent4"
@@ -129,8 +128,8 @@
 	<parameter name="browserType" value="Chrome"/>  <!--  Chrome/Firefox -->
 	<parameter name="RSVODContent" value="LockUp" />
 
- 	<parameter name="USMNonsubscribedUserName" value="gdm@mailnesia.com" />
-	<parameter name="USMNonsubscribedPassword" value="654321" />
+ 	<parameter name="USMNonsubscribedUserName" value="ususer122@gmail.com" />
+	<parameter name="USMNonsubscribedPassword" value="123456" />
 	
 	<parameter name="ClubContent" value="Paani Jaisa Pyaar" />
 	<parameter name="SearchVODContent4"  value="Kurukshetra" />

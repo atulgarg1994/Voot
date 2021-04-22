@@ -9475,5 +9475,52 @@ public void SearchContentFromSearchPage(String userType,String contentType,Strin
 		}		
 	}
 	
+	public void AdInitializedEvent(String pUsertype, String pTabName) throws Exception {
+
+//		String pPage = getPageName(pTabName);
+//		String pSource = getSource(pTabName);
+		String pPage = "ConsumptionPage";
+		String pSource = "Homepage";
+		String pManufacturer = DeviceDetails.OEM;
+		
+		waitForElementDisplayed(AMDHomePage.objTitle, 20);
+		SelectTopNavigationTab(pTabName);
+		String contentLang = ResponseInstance.getContentLanguageForAppMixpanel(pUsertype);
+		System.out.println(contentLang);
+		
+		String trayName = ResponseInstance.getRailNameFromPage(pTabName, pUsertype);
+	
+		if(pTabName.equalsIgnoreCase("Live TV") || pTabName.equalsIgnoreCase("News")) {
+			waitTime(5000);
+			waitForElementDisplayed(AMDGenericObjects.objTrayTitle, 30);
+		}
+		
+		SwipeUntilFindElement(AMDHomePage.objRailName(trayName), "UP");
+		waitTime(3000);
+		click(AMDGenericObjects.objSelectFirstCardFromRailName(trayName), "Content Card");
+		if(pUsertype.equalsIgnoreCase("Guest") || pUsertype.equalsIgnoreCase("NonSubscribedUser")) {
+			registerPopUpClose();
+			waitForAdToFinishInAmd();
+			waitTime(2000);
+			registerPopUpClose();
+			Back(1);
+		}else {
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDPlayerScreen.objPlayerScreen, "Player Screen");
+			verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
+		}
+	
+//		####### Set All Parameters values ####### 
+		setFEProperty(pUsertype);
+		setUserType_SubscriptionProperties(pUsertype);
+		
+		mixpanel.FEProp.setProperty("Source", pSource);
+		mixpanel.FEProp.setProperty("Page Name", pPage);
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+		mixpanel.FEProp.setProperty("brand", pManufacturer);
+		
+		mixpanel.ValidateParameter("", "Ad Initialized");
+	}
 	
 }

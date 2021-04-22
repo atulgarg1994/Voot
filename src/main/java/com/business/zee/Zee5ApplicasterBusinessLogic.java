@@ -20787,67 +20787,73 @@ public void BackToLandingScreen() throws Exception {
 
 
 	public void ContinueWatchingTrayDefectValidation(String userType) throws Exception {
-			//ZNA-9685
-			extent.HeaderChildNode("ZNA-9685");
-			logger.info("ZNA-9685");
-			click(AMDHomePage.objHomeBtn,"Home");
-			SelectTopNavigationTab("Movies");	
-			if (userType.contentEquals("Guest")) {
-				if (verifyElementIsNotDisplayed(AMDHomePage.objContinueWatchingTray)) {
-					logger.info("Continue watching is NOT displayed for " + userType + "user");
-					extent.extentLoggerPass("Continue watching", "Continue watching NOT displayed for " + userType + "user");
-				} else {
-					logger.error("Continue watching is displayed for " + userType + "user");
-					extent.extentLoggerFail("Continue watching", "Continue watching is displayed for " + userType + "user");
-				}
+		//ZNA-9685
+		extent.HeaderChildNode("ZNA-9685");
+		logger.info("ZNA-9685");
+		click(AMDHomePage.objHomeBtn,"Home");
+		SelectTopNavigationTab("Movies");	
+		if (userType.contentEquals("Guest")) {
+			if (verifyElementIsNotDisplayed(AMDHomePage.objContinueWatchingTray)) {
+				logger.info("Continue watching is NOT displayed for " + userType + "user");
+				extent.extentLoggerPass("Continue watching", "Continue watching NOT displayed for " + userType + "user");
+			} else {
+				logger.error("Continue watching is displayed for " + userType + "user");
+				extent.extentLoggerFail("Continue watching", "Continue watching is displayed for " + userType + "user");
 			}
-	       if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
-	    	   if (verifyElementDisplayed(AMDHomePage.objContinueWatchingTray)) {
-					logger.info("Continue watching tray is displayed in Movies Landing screen");
-					extent.extentLoggerPass("Continue watching", "Continue watching tray is displayed in Movies Landing screen");
-				} else {
-					logger.error("Continue watching tray is NOT displayed in Movies Landing screen");
-					extent.extentLoggerFail("Continue watching", "Continue watching tray is NOT displayed in Movies Landing screen");
-				}
-			}
-	       click(AMDHomePage.objHomeBtn,"Home");
-	       
-	            //ZNA-9679
-	     		extent.HeaderChildNode("ZNA-9679");
-	     		logger.info("ZNA-9679");
-	     		if (userType.contentEquals("Guest")) {
-	     		click(AMDHomePage.objMoreMenuBtn,"More Menu");
-	     		click(AMDMoreMenu.objProfile,"Profile");
-	     		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-				type(AMDLoginScreen.objEmailIdField, "igs111@gmail.com", "Email Field");
-				verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
-				verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
-				type(AMDLoginScreen.objPasswordField,"IGS@1111", "Password field");
-				hideKeyboard();
-				verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
-				waitTime(3000);
-				click(AMDHomePage.objHomeBtn,"Home");
-				if (verifyElementIsNotDisplayed(AMDHomePage.objContinueWatchingTray)) {
-					logger.info("Continue watching is NOT displayed in Home landing screen for newly registered " + userType + "user");
-					extent.extentLoggerPass("Continue watching", "Continue watching NOT displayed in Home landing screen  for newly registered " + userType + "user");
-				} else {
-					logger.error("Continue watching is displayed in Home landing screen  for newly registered " + userType + "user");
-					extent.extentLoggerFail("Continue watching", "Continue watching is displayed  in Home landing screen  for newly registered " + userType + "user");
-				}
-				SelectTopNavigationTab("Movies");	
-				if (verifyElementIsNotDisplayed(AMDHomePage.objContinueWatchingTray)) {
-					logger.info("Continue watching is NOT displayed in Movies landing screen for newly registered " + userType + "user");
-					extent.extentLoggerPass("Continue watching", "Continue watching NOT displayed in Movies landing screen for newly registered " + userType + "user");
-				} else {
-					logger.error("Continue watching is displayed in Movies landing screen for " + userType + "user");
-					extent.extentLoggerFail("Continue watching", "Continue watching is displayed  in Movies landing screen for newly registered  " + userType + "user");
-				}
-				click(AMDHomePage.objHomeBtn,"Home");
-	     		}else {
-	     			logger.info("ZNA-9679 : Not applicable for "+ userType);
-	    			extent.extentLogger("Continue watching tray", "ZNA-9679 : Not applicable for " + userType);
-	     		}
 		}
+       if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
+    	   if (verifyElementDisplayed(AMDHomePage.objContinueWatchingTray)) {
+				logger.info("Continue watching tray is displayed in Movies Landing screen");
+				extent.extentLoggerPass("Continue watching", "Continue watching tray is displayed in Movies Landing screen");
+			} else {
+				logger.error("Continue watching tray is NOT displayed in Movies Landing screen");
+				extent.extentLoggerFail("Continue watching", "Continue watching tray is NOT displayed in Movies Landing screen");
+			}
+		}
+       click(AMDHomePage.objHomeBtn,"Home");
+       
+            //ZNA-9679
+     		extent.HeaderChildNode("ZNA-9679");
+     		logger.info("ZNA-9679");
+     		if (userType.contentEquals("Guest")) {
+     		click(AMDHomePage.objMoreMenuBtn,"More Menu");
+     		click(AMDMoreMenu.objProfile,"Profile");
+     		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, "igs111@gmail.com", "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField,"IGS@1111", "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			click(AMDHomePage.objHomeBtn,"Home");
+			if (verifyElementIsNotDisplayed(AMDHomePage.objContinueWatchingTray)) {
+				logger.info("Continue watching is NOT displayed in Home landing screen for newly registered " + userType + "user");
+				extent.extentLoggerPass("Continue watching", "Continue watching NOT displayed in Home landing screen  for newly registered " + userType + "user");
+			} else {
+				logger.error("Continue watching is displayed in Home landing screen  for newly registered " + userType + "user");
+				extent.extentLoggerFail("Continue watching", "Continue watching is displayed  in Home landing screen  for newly registered " + userType + "user");
+			}
+			SelectTopNavigationTab("Movies");	
+			if (verifyElementIsNotDisplayed(AMDHomePage.objContinueWatchingTray)) {
+				logger.info("Continue watching is NOT displayed in Movies landing screen for newly registered " + userType + "user");
+				extent.extentLoggerPass("Continue watching", "Continue watching NOT displayed in Movies landing screen for newly registered " + userType + "user");
+			} else {
+				logger.error("Continue watching is displayed in Movies landing screen for " + userType + "user");
+				extent.extentLoggerFail("Continue watching", "Continue watching is displayed  in Movies landing screen for newly registered  " + userType + "user");
+			}
+			click(AMDHomePage.objHomeBtn,"Home");
+			 click(AMDHomePage.objMoreMenuBtn,"More menu");
+	    	 Swipe("UP",2);
+	    	 click(AMDMoreMenu.objLogout,"Logout");
+			 click(AMDMoreMenu.objLogoutBtn,"Logout Button");
+			 Back(2);
+     		}else {
+     			logger.info("ZNA-9679 : Not applicable for "+ userType);
+    			extent.extentLogger("Continue watching tray", "ZNA-9679 : Not applicable for " + userType);
+     		}	     		
+	}
+
 		
 
 	public void TrendingNews(String userType) throws Exception {
@@ -20951,15 +20957,15 @@ public void BackToLandingScreen() throws Exception {
 	  		} 
 		}
 		
-	public void EduaraaCarousel(String userType) throws Exception {
+		public void EduaraaCarousel(String userType) throws Exception {
 			//ZNA-9688
 	  		 extent.HeaderChildNode("ZNA-9688");
 	     	logger.info("ZNA-9688"); 
 	     	click(AMDHomePage.objHomeBtn,"Home");
 			SelectTopNavigationTab("Eduauraa");
-			if(waitForElementDisplayed(AMDHomePage.objCarouselContentTitleCard("Learn About The Green House Effect"),10)) {
+			if(verifyElementDisplayed(AMDHomePage.objCarouselContentTitleCard("Learn About The Green House Effect"))) {
 				click(AMDHomePage.objCarouselContentTitleCard("Learn About The Green House Effect"),"Content card");
-				if(verifyElementExist(AMDPlayerScreen.objPlayerScreen, "Player")) {
+				if(verifyElementExist(AMDPlayerScreen.objPause, "Pause icon")) {
 					logger.info("User is navigated to Consumption screen and is able to play the content");
 					extent.extentLoggerPass("Eduauraa","User is navigated to Consumption screen and is able to play the content");
 				}else {
@@ -20967,7 +20973,8 @@ public void BackToLandingScreen() throws Exception {
 					extent.extentLoggerFail("Eduauraa", "User is navigated to Consumption screen and is able to play the content");
 				}
 				Back(2);
-			}else{
+			}
+			else{
 					logger.info("'Learn About The Green House Effect' content is not displayed in carousel of Eduauraa landing screen");
 	   			extent.extentLoggerWarning("Eduauraa", "'Learn About The Green House Effect' content is not displayed in carousel of Eduauraa landing screen");
 	      		}       	
@@ -20983,6 +20990,7 @@ public void BackToLandingScreen() throws Exception {
 			type(AMDSearchScreen.objSearchBoxBar, "Gattimela", "Search bar");
 			hideKeyboard();
 			click(AMDDownloadPage.objsearchresultFirst , "Searched Show");
+			waitTime(4000);
 			click(AMDPlayerScreen.ObjUpNextFirstContent,"Up Next content card");
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download Icon");
@@ -20992,10 +21000,13 @@ public void BackToLandingScreen() throws Exception {
     		Back(1);
     		click(AMDHomePage.objDownloadBtn, "Downloads tab");
     		click(AMDDownloadPage.objRightArrow, "Right arrow");
-    		click(AMDDownloadPage.objThumbnailOfShows,"Before TV content");
+    		if(verifyElementDisplayed(AMDDownloadPage.objThumbnailOfShows)) {
+    		click(AMDDownloadPage.objThumbnailOfShows,"Before TV content(Latest episode)");
     		waitTime(2000);
     		DownloadVideoQualityPopUp(pVideoQuality, true);
-    		if(verifyElementExist(AMDDownloadPage.objDownloadingCircularBar, "Downloading circular bar")) {
+    		boolean value1 = verifyElementDisplayed(AMDDownloadPage.objDownloadedContent);
+    		boolean value2 = verifyElementDisplayed(AMDDownloadPage.objDownloadingCircularBar);    		
+    		if((value1 == true) | (value2 == true)) {
     			logger.info("User is able to download the Before Tv content from Downloads tab");
 				extent.extentLoggerPass("Downloads","User is able to download the Before Tv content from Downloads tab");
     		}else {
@@ -21003,6 +21014,10 @@ public void BackToLandingScreen() throws Exception {
 				extent.extentLoggerFail("Downloads","User is Unable to download the Before Tv content from Downloads tab");
     		}
     		Back(1);
+	     }else {
+	    	 logger.info("Before Tv content is not displayed in Downloads screen");
+	 		extent.extentLoggerWarning("Downloads", "Before Tv content is not displayed in Downloads screen");
+	     }
 	     }else {
 	    	 logger.info("ZNA-8236 : Not applicable for "+ userType);
  			extent.extentLogger("Downloads", "ZNA-8236 : Not applicable for " + userType);
@@ -21110,7 +21125,7 @@ public void BackToLandingScreen() throws Exception {
 			 }	 
 		}	
 
-	public void contentPlayBackValidation(String userType) throws Exception{
+		public void contentPlayBackValidation(String userType) throws Exception{
 			//AMA2-9343
 			 extent.HeaderChildNode("AMA2-9343");
 		     logger.info("AMA2-9343"); 
@@ -21120,7 +21135,10 @@ public void BackToLandingScreen() throws Exception {
 			hideKeyboard();
 			click(AMDSearchScreen.objEpsiodesTab,"Episodes");
 			click(AMDDownloadPage.objsearchresultFirst , "Searched Show");
+			waitTime(5000);
+			click(AMDPlayerScreen.objPlayerScreen,"Player screen");
 			waitForElementDisplayed(AMDPlayerScreen.objPause, 15);
+			//click(AMDPlayerScreen.objPlayerScreen,"Player screen");
 			if(verifyElementExist(AMDPlayerScreen.objPause, "Pause icon")) {
 				logger.info("Content playback is initiated");
 				extent.extentLoggerPass("Search","Content playback is initiated");
@@ -21157,18 +21175,18 @@ public void BackToLandingScreen() throws Exception {
 					waitTime(2000);
 					hideKeyboard();
 					click(AMDDownloadPage.objsearchresultFirst , "Searched Show");
-					waitTime(3000);
+					waitTime(5000);
 					click(AMDPlayerScreen.objPlayerScreen,"Player screen");
 					click(AMDPlayerScreen.objPauseIcon,"Pause icon");
 					click(AMDPlayerScreen.ObjUpNextFirstContent,"Up Next content card");
-					waitTime(3000);
+					waitTime(5000);
 					click(AMDPlayerScreen.objPlayerScreen,"Player screen");
 					click(AMDPlayerScreen.objPauseIcon,"Pause icon");
 					verifyElementExist(AMDConsumptionScreen.objContentName, "Content name");
 					String text = findElement(AMDConsumptionScreen.objContentName).getText();
 					System.out.println(text);
 					verifyElementPresentAndClick(AMDConsumptionScreen.objGetPremiumCTA, "Get Premium CTA");
-					verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Loging CTA in subscribe popup");
+					verifyElementPresentAndClick(AMDConsumptionScreen.objLoginCTA, "Login CTA in subscribe popup");
 					LoginAfterLogout("SubscribedUser");
 					waitTime(5000);
 					String text1 = findElement(AMDConsumptionScreen.objContentName).getText();
@@ -21207,14 +21225,14 @@ public void BackToLandingScreen() throws Exception {
 	    	 click(AMDOnboardingScreen.objDiplay_ContinueBtn,"Continue button");
 	    	 Back(1);
 	    	 Swipe("DOWN",1);
-	    	 click(AMDMoreMenu.objProfile,"Profile");
+	    	 //click(AMDMoreMenu.objProfile,"Profile");
 	    	 LoginAfterLogout("SubscribedUser");
 	    	 waitTime(3000);
 	    	 if(verifyElementIsNotDisplayed(AMDHomePage.objHomeTab)) {
-	    		 verifyElementExist(AMDHomePage.errortitle, "Error message");
-	    		 String text= findElement(AMDHomePage.errortitle).getText();
-	    		 System.out.println(text+ " message is displayed");
-	    		 logger.info(text+ " message is displayed");
+//	    		 verifyElementExist(AMDHomePage.errortitle, "Error message");
+//	    		 String text= findElement(AMDHomePage.errortitle).getText();
+//	    		 System.out.println(text+ " message is displayed");
+//	    		 logger.info(text+ " message is displayed");
 	    		 logger.error("AMA2-7899 :User Fails to login through all entry points, post selecting any display language (except English) and content languages");
 			 	 extent.extentLoggerFail("Login", "AMA2-7899 : User Fails to login through all entry points, post selecting any display language (except English) and content languages");
 	     }else {
@@ -21236,7 +21254,7 @@ public void BackToLandingScreen() throws Exception {
 		//AMA2-9143
 		 extent.HeaderChildNode("AMA2-9143");
 	     logger.info("AMA2-9143");
-	     click(AMDSearchScreen.objSearchIcon, "Search icon");
+	        click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar,"Kurukshetra" + "\n", "Search bar");
 			waitTime(2000);
@@ -21249,13 +21267,14 @@ public void BackToLandingScreen() throws Exception {
 				completeProfilePopUpClose(userType);
 				LoadingInProgress();
 				adPlay();
+				registerPopUpClose();
 				waitTime(5000);
 				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			}
 			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
-			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			//click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			verifyElementPresentAndClick(AMDPlayerScreen.objShareIconOnPlayer, "Share icon");
 			verifyElementExist(AMDMoreMenu.objShareOptions, "Share options");
 			Back(1);
@@ -21295,16 +21314,15 @@ public void BackToLandingScreen() throws Exception {
 			waitTime(2000);
 			hideKeyboard();
 			click(AMDDownloadPage.objsearchresultFirst, "Search result");
-			if(!userType.contains("Guest")) {
 			if (!userType.contains("SubscribedUser")) {
 				waitTime(5000);
 				registerPopUpClose();
 				completeProfilePopUpClose(userType);
 				LoadingInProgress();
 				adPlay();
+				registerPopUpClose();
 				waitTime(5000);
-			}
-			
+			}			
 			click(AMDPlayerScreen.objPlayerScreen,"Player screen");
 			if (verifyIsElementDisplayed(AMDPlayerScreen.objPauseIcon)) {
 				logger.info("Content playback is initiated for searched content");
@@ -21315,15 +21333,8 @@ public void BackToLandingScreen() throws Exception {
 				extentLoggerFail("Player",
 						"[AMA2-11275] Failed to play the searched content");
 			}
+			BackToLandingScreen();
 			}
-			else {
-				if(waitForElementDisplayed(AMDHomePage.objRegisterPopup, 10 )) {
-					logger.info("Guest user needs to register to play the content");
-					extentLoggerWarning("Player",
-							"Guest user needs to register to play the content");
-				}
-			}
-	}
 	
 	public void PreviousIconForPremiumContent(String userTyep) throws Exception {
 		//AMA2-11542
@@ -21332,11 +21343,11 @@ public void BackToLandingScreen() throws Exception {
 	     if (!userType.contains("SubscribedUser")) {
 	    	 click(AMDSearchScreen.objSearchIcon, "Search icon");
 	 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
-	 			type(AMDSearchScreen.objSearchBoxBar,"Zee Kannada" + "\n", "Search bar");
+	 			type(AMDSearchScreen.objSearchBoxBar,"Zee Bangla Cinema" + "\n", "Search bar");
 	 			waitTime(2000);
 	 			hideKeyboard();
-	 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-				click(AMDMoreMenu.objSearchResult("Zee Kannada"), "Search result");
+//	 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+				click(AMDDownloadPage.objsearchresultFirst, "Search result");
 				if(verifyElementExist(AMDConsumptionScreen.objSkipctaOnPlayer, "Skip CTA")) {
 					click(AMDConsumptionScreen.objSkipctaOnPlayer, "Skip CTA");
 					waitTime(4000);
@@ -21381,7 +21392,7 @@ public void BackToLandingScreen() throws Exception {
 	 		click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
 	 		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 	 		hideKeyboard();
-	 		type(AMDLoginScreen.objEmailIdField, "7892215214", "Email Field");
+	 		type(AMDLoginScreen.objEmailIdField, "zee5latest@gmail.com", "Email Field");
 	 		click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Password field");
 			hideKeyboard();
@@ -21391,17 +21402,23 @@ public void BackToLandingScreen() throws Exception {
 			Back(1);
 			verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup,"Pack selection screen");
 			Back(1);
-			boolean value = verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			boolean value = verifyElementIsNotDisplayed(AMDOnboardingScreen.objBrowseForFreeBtn);
+			System.out.println(value);
 			if(value == true) {
-				logger.error("[AMA2-11279] On tapping device back button once user navigate back to pack selection screen & tapping device back again its navigating back to Intro screen");
-				extentLoggerFail("Subscribe",
-						"[AMA2-11279] On tapping device back button once user navigate back to pack selection screen & tapping device back again its navigating back to Intro screen");
-			}else {
 				logger.info("User is navigated to Home landing screen as a logged in user");
 				extentLoggerPass("Player",
 						"User is navigated to Home landing screen as a logged in user");
+				 click(AMDHomePage.objMoreMenuBtn,"More menu");
+		    	 Swipe("UP",2);
+		    	 click(AMDMoreMenu.objLogout,"Logout");
+				 click(AMDMoreMenu.objLogoutBtn,"Logout Button");
+				 Back(1);
+			}else {
+				logger.error("[AMA2-11279] On tapping device back button once user navigate back to pack selection screen & tapping device back again its navigating back to Intro screen");
+				extentLoggerFail("Subscribe",
+						"[AMA2-11279] On tapping device back button once user navigate back to pack selection screen & tapping device back again its navigating back to Intro screen");
+				ZeeApplicasterLoginForSettings(userType);
 			}
-			ZeeApplicasterLoginForSettings(userType);
 			
 	     }else {
 	    	 logger.info("AMA2-11279 : Not applicable for "+ userType);
@@ -21415,22 +21432,22 @@ public void BackToLandingScreen() throws Exception {
 		 extent.HeaderChildNode("AMA2-11447");
 	     logger.info("AMA2-11447");
 	     if(userType.contains("Guest")) {
-	    	 click(AMDHomePage.objHomeBtn,"Home");
-			 click(AMDSearchScreen.objSearchIcon, "Search icon");
+		    	 click(AMDHomePage.objHomeBtn,"Home");
+				 click(AMDSearchScreen.objSearchIcon, "Search icon");
 				click(AMDSearchScreen.objSearchEditBox, "Search Box");
 				type(AMDSearchScreen.objSearchBoxBar, "Retaliation" + "\n", "Search bar");
 				waitTime(2000);
 				hideKeyboard();
 				click(AMDDownloadPage.objsearchresultFirst , "Searched Show");
-			  boolean value = verifyElementExist(AMDConsumptionScreen.objRentNowCTABelowthePlayer, "Rent Now CTA");
-			  if(value == false) {
-				  logger.error("[AMA2-11447] 'Rent Now' cta fails to display below the player on playing TVOD content");
-				extentLoggerFail("Subscribe",
-							"[AMA2-11447] 'Rent Now' cta fails to display below the player on playing TVOD content");
-			  }else {
+			  boolean value = verifyElementIsNotDisplayed(AMDConsumptionScreen.objRentNowCTABelowthePlayer);
+			  if(value == true) {
 				  logger.info("'Rent Now' cta is display below the player on playing TVOD content");
 					extentLoggerPass("Player",
 							"'Rent Now' cta should is display below the player on playing TVOD content"); 
+			  }else {
+				  	 logger.error("[AMA2-11447] 'Rent Now' cta fails to display below the player on playing TVOD content");
+					extentLoggerFail("Subscribe",
+									"[AMA2-11447] 'Rent Now' cta fails to display below the player on playing TVOD content");
 			  }
 				
 	     }else {
@@ -21439,4 +21456,5 @@ public void BackToLandingScreen() throws Exception {
 	     }
 	     
 	}
+	
 }

@@ -91,7 +91,7 @@ public class Mixpanel extends ExtentReporter {
 
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
 
-//		System.out.println(System.getProperty("os.name"));
+		System.out.println(System.getProperty("os.name"));
 //		String distinct_id = "distinct_id";
 //		System.out.println("properties[\"$" + distinct_id + "\"]==\"" + args + "\"");
 
@@ -157,12 +157,12 @@ public class Mixpanel extends ExtentReporter {
 //		System.out.println(1612873997 <= 1612873637);
 //		String empty[] = null;
 //		System.out.println(empty == null);
-		try {
-			SubcribedDetails();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			SubcribedDetails();
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	@SuppressWarnings("unused")
