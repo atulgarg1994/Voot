@@ -15,7 +15,7 @@ public class Zee5TvPlayerPage {
 	public static By objTotalTime = By.xpath("//*[@id='total_time_tv']");
 	public static By objPlayerSettings = By.xpath("//*[@id='player_settings']");
 	public static By objPlayerSettingsHighlighted = By.xpath("//*[@id='player_settings' and @focused='true']");
-	public static By objPlayerSkipIntro = By.xpath("//*[@id='skip_button_layout']");
+	public static By objPlayerSkipIntro = By.xpath("//*[@id='skip_button_text']");
 	public static By objPlayerSkipIntro1 = By.xpath("//*[@id='skip_button_text']");
 	public static By objPlayerScreenMetadata = By.xpath("//*[@id='player_genre_duration']");
 	public static By objPlayerScreenTitle = By.xpath("//*[@id='player_title_text']");
@@ -30,10 +30,10 @@ public class Zee5TvPlayerPage {
 	}
 				
 	public static By objPlayerAudioLanguageOption = By
-			.xpath("(//*[@class='android.widget.RelativeLayout']//child::*[@text='AUDIO LANGUAGE']//parent::*)[1]");
+			.xpath("//*[@text='AUDIO LANGUAGES']");
 	public static By objUpNextContent = By.xpath("(//*[@id='up_next_item_main_image'])[1]");
 	public static By objUpnextrail = By.xpath("//*[@id='related_videos_frag_head']");
-	public static By objPlayerScreenVideoSettingoptions = By.xpath("(//*[@class='android.widget.RelativeLayout']//child::*[@text='VIDEO QUALITY']//parent::*)[1]");
+	public static By objPlayerScreenVideoSettingoptions = By.xpath("//*[@text='SETTINGS']");
 	public static By objPlayerScreenVideoSetting = By.xpath("//*[@id='player_expandable']");
 	public static By objPlayerScreenUpNext = By.xpath("//*[@id='player_next_show']");
 	public static By objPlayerContainer = By.xpath("	//*[@id='container_list']");
@@ -42,6 +42,5 @@ public class Zee5TvPlayerPage {
 	public static By objPaymentPage = By.xpath("//*[@id='plan_selected']");
 	
 	public static By objreloadButton = By.xpath("//*[@id='reload_btn']");
-	
-	public static By objplayerzelogo = By.xpath("");
+	public static By objplayerzelogo = By.xpath("//*[@id='gif_animation_view']");
 }

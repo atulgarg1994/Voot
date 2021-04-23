@@ -613,10 +613,9 @@ public class PWAHomePage {
 	public static By objSubscribeBtnTopHeader = By
 			.xpath("//div[contains(@class,'iconInitialLoad-ic_premium')]");
 	
-	public static By objContTitleOnCarousel = By
-			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
-	
 	public static By objPopUpClose = By.xpath("//div[contains(@class, 'drowerCloseIcon iconInitialLoad-ic_close')]"); 
 
-	
+	public static By objContTitleOnCarousel = By
+			.xpath("//div[contains(@class, 'slick-slide slick-active slick-center slick-current')]");
+
 }

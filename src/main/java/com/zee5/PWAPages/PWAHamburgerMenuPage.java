@@ -262,8 +262,6 @@ public class PWAHamburgerMenuPage {
 
 	public static By objSubscriptionTeaserBanner = By.xpath("//div[@class='subscriptionBanner ']");
 
-	public static By objEmptyStateScreen = By.xpath("//div[@class='iconAlerts-ic_no_transaction']");
-
 	public static By objBrowseAllPacks = By.xpath("//div[contains(text(),'Browse All Packs')]");
 
 	public static By objPackTitle = By.xpath("(//p[@class='packTitle'])");
@@ -855,5 +853,7 @@ public class PWAHamburgerMenuPage {
 	public static By objUnslectedNoRestrictions = By.xpath("//div[contains(text(),'No Restrictions')]//child::*[contains(@class,'_unchecked')]");
 	
 	public static By objfooter = By.xpath("//*[@class='megaMenuFooter']");
+	
+	public static By objEmptyStateScreen = By.xpath("//div[@class='textArea']");
 	
 	}

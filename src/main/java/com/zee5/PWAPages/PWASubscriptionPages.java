@@ -53,10 +53,6 @@ public class PWASubscriptionPages {
 	public static By objAccountInfoText = By
 			.xpath("//div[contains(@class,'accountInfoPlanCard')]//p[@class='autoPopulatedDetail']");
 
-	// Selected Pack Name
-	public static By objAccountInfoDetails = By.xpath(
-			"//div[contains(@class, 'accountInfoPlanCard')]/div[contains(@class, 'details')]/p[contains(@class, 'autoPopulatedDetail')]");
-
 	// Credit Card radio Btn
 	public static By objCreditCardRadioBtn = By.xpath(
 			"//label[contains(@for, 'Credit')]/span[contains(text(),'Credit Card') and (./preceding-sibling::* | ./following-sibling::*)[contains(@class,'radioStyle')]]");
@@ -163,8 +159,6 @@ public class PWASubscriptionPages {
 	public static By objCreditAndDebitCardBtn = By.xpath(
 			"//*[contains(@class,'linearLayout sidebarItem_object')]//following-sibling::*//article[contains(text(),'Credit / Debit Card')]");
 
-	public static By objPaytmWallet = By.xpath(
-			"//*[@class='linearLayout sidebarItem_object ']//following-sibling::*//article[contains(text(),'Paytm')]");
 //	public static By objPaymentPageProceedBtn = By
 //			.xpath("//button[contains(@class, 'noSelect buttonGradient ')]/span[contains(text(),'PROCEED')]");
 	public static By objEnterCreditAndDebitCardDetails = By
@@ -346,10 +340,6 @@ public class PWASubscriptionPages {
 	public static By objLoginPage = By.xpath("//*[contains(@class, 'formHeader loginHeaderIn')]");
 	
 	public static By objZEE5Subscription = By.xpath("//*[contains(text(),'Unlock ZEE5') and contains(@class, 'stepTitle')]");
-	
-	public static By objHaveACode = By.xpath("//*[contains(@class,'haveCodeTextMobile')]//*[contains(text(),'Have a Code?')]");
-	
-	public static By objSelectedPackName = By.xpath("//div[contains(@class, 'packGrid')]");
 
 	public static By objMovieLink = By.xpath("//*[text()='Blockbuster Movies']");
 	
@@ -358,10 +348,6 @@ public class PWASubscriptionPages {
 	public static By objMovieTray1 = By.xpath("(//*[@class='slick-slider movieTray slick-initialized']//*[@class='slick-slide slick-active'])[1]");
 	
 	public static By objMovieTray2 = By.xpath("(//*[@class='slick-slider movieTray slick-initialized']//*[@class='slick-slide slick-active'])[4]");
-	
-	public static By objSelectedPackDuration = By.xpath("//div[contains(@class, 'heading')]");
-	
-	public static By objSelectedPackDescription = By.xpath("//div[contains(@class, 'subHeading')]");
 	
 	public static By objPaymentHighlighted = By.xpath("//h2[@class='stepTitle' and contains(text(),'Make Payment')]");
 	
@@ -372,4 +358,21 @@ public class PWASubscriptionPages {
 	public static By objPackAmount = By.xpath("(//span[@class='price'])");
 	
 	public static By objPackAmount2 = By.xpath("(//span[@class='price'])[2]");
+	
+	public static By objHaveACode = By.xpath("//*[contains(@class,'haveCodeText') and contains(text(),'Have a Code?')]");
+
+	public static By objAccountInfoDetails = By.xpath("//div[contains(@class, 'userDetails')]");
+	
+	public static By objSelectedPackDescription = By.xpath("//div[contains(@class, 'packDetails pack')]");
+
+	public static By objSelectedPackDuration = By.xpath("//div[contains(@class, 'yearDetails')]");
+
+	public static By objSelectedPackName = By.xpath("//div[contains(@class, 'packName')]");
+	
+	public static By objCancelBtn = By.xpath("//span[contains(@class, 'promoCodePopupApply')]");
+	
+	public static By objPaytmWallet = By.xpath(
+			"//div[contains(@class,'linearLayout sidebarItem_object')]//*[contains(text(), 'Paytm')]");
+
+
 }

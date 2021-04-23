@@ -30,7 +30,7 @@ public class ZNAMixpanel_VideoQualityChange {
 	@Parameters({ "userType",  "pTabName"})
 	public void VideoQualityChangeEventofCarouselContent(String userType, String tabName) throws Exception {
 		System.out.println("Video quality Change event of Carousel content");
-		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.QualityChangeEventForCarouselContent(userType, tabName);
 	}
 

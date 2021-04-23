@@ -1782,20 +1782,18 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	/**
 	 * Verify Get Premium Popup
 	 */
+
 	public void zeeVerifyGetPremiumPopup(String userType) throws Exception {
-		HeaderChildNode("Verify Get Premium Popup");
-
-		waitTime(2000);
-		//checkElementDisplayed(PWASubscriptionPages.objGetPremiumPopupTitle, "Get Premium Popup Title");
-		waitTime(2000);
-		verifyElementPresent(PWASubscriptionPages.objDefaultSelectedPack, "Default Selected Package");
-		waitTime(2000);
-		verifyElementPresent(PWASubscriptionPages.objPopup99Plan, "99 Plan in Popup");
-		waitTime(2000);
-		verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "continue Button");
-		
-
-	}
+			HeaderChildNode("Verify Subscription Page");
+			//waitTime(2000);
+			//checkElementDisplayed(PWASubscriptionPages.objGetPremiumPopupTitle, "Get Premium Popup Title");
+			waitTime(2000);
+			verifyElementPresent(PWASubscriptionPages.objDefaultSelectedPack, "Default Selected Package");
+			waitTime(2000);
+			verifyElementPresentAndClick(PWASubscriptionPages.objPackAmount1, "499 Plan");
+			waitTime(2000);
+			verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "Continue Button");
+		}
 
 	/**
 	 * Subscription Flow From Home Page Header Subscribe Button Line No 89
@@ -1984,9 +1982,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "'Have A Code?' field");
 		waitTime(3000);
 		if (platform.equalsIgnoreCase("Android")) {
-			type(PWASubscriptionPages.objHaveACode, "ZEE5SBI20" + "\n", "'Have A Code?' field");
+			type(PWASubscriptionPages.objHaveACode, "GET10" + "\n", "'Have A Code?' field");
 		} else if (platform.equalsIgnoreCase("Web")) {
-			type(PWASubscriptionPages.objHaveACodetoenter, "ZEE5SBI20", "'Have A Code?' field");
+			type(PWASubscriptionPages.objHaveACodetoenter, "Get10", "'Have A Code?' field");
 		}
 
 		// driver.findElement(PWASubscriptionPages.objHaveACode).sendKeys("ZEE5PTM20");
@@ -1995,7 +1993,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWASubscriptionPages.objApplyBtn, "Apply Button");
 		waitTime(5000);
 		verifyElementPresent(PWASubscriptionPages.objAppliedSuccessfullyMessage, "Applied Successfully Message");
-
+		String successMessage = getText(PWASubscriptionPages.objAppliedSuccessfullyMessage);
+		logger.info(successMessage);
+		extent.extentLogger("Success Message", successMessage + " is displayed");
 	}
 
 	/**
@@ -2003,7 +2003,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 */
 	public void zeePWASelectPackPageValidation() throws Exception {
 		HeaderChildNode("Select Pack Page Validation");
-
 		verifyElementPresent(PWASubscriptionPages.objZEE5Subscription, "Zee5 Subscription Page Title");
 		waitTime(3000);
 		verifyElementPresent(PWASubscriptionPages.objSelectPackHighlighted, "Select Pack Section");
@@ -2021,10 +2020,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 //		waitTime(5000);
 		waitTime(2000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "continue Button");
-		
 	//	verifyElementPresentAndClick(PWASubscriptionPages.objcontinuebtn2, "continue Button");
-
-		
 	}
 
 	/**
@@ -2033,46 +2029,23 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 * sign in/sign up from account info screen - Line No. 104
 	 */
 	public void zeePWAAccountInfoPageValidation() throws Exception {
-
 		verifyElementPresent(PWASubscriptionPages.objAccountInfoHighlighted, "Account Info Section");
 		waitTime(3000);
-
-		// Scenario no. 103
-		//zeePWASelectedPackDisplayValidation();
-
-		//verifyElementPresent(PWASubscriptionPages.objProceedBtnNotHighlighted,
-			//	"Proceed Button in Account Info Page Not Highlighted");
-
 		HeaderChildNode("Validate that guest user is able to sign in/sign up from account info screen");
-		// Scenario no. 104
-		waitTime(3000);
-		//verifyElementPresentAndClick(PWASubscriptionPages.objEmailIDTextField, "Email ID Text Field");
 		waitTime(3000);
 		type(PWASubscriptionPages.objEmailIDTextField, "igszee5testing@gmail.com", "Email Id");
-//		type(PWASubscriptionPages.objEmailIDTextField, "basavaraj.pn5@gmail.com", "Email Id");
-//		type(PWASubscriptionPages.objEmailIDTextField, "igstesting001@gmail.com", "Email Id");
-
-		hideKeyboard();
 		waitTime(3000);
-		verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted,
-				"Proceed Button in Account Info Page Highlighted");
+		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
 		waitTime(3000);
-		// Password Popup
-		verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
+		verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password");
 		waitTime(3000);
-		verifyElementPresent(PWASubscriptionPages.objProceedBtnDisabled, "Disabled Proceed Button");
 		waitTime(3000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
 		waitTime(3000);
 		type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
-//		type(PWASubscriptionPages.objPasswordFieldHidden, "igsindia123", "Password Field");
-//		type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
-
-		hideKeyboard();
 		waitTime(3000);
-		verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnEnabled, "Enabled Proceed Button");
+		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
 		waitTime(3000);
-
 	}
 
 	/**
@@ -2080,11 +2053,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 * displayed on left side. - Line No. 103
 	 */
 	public void zeePWASelectedPackDisplayValidation() throws Exception {
-		HeaderChildNode("Validate that selected pack information is displayed on left side.");
+		HeaderChildNode("Validate that selected pack information is displayed on top.");
 
 		// Scenario no. 103
-		// verifyElementPresent(PWASubscriptionPages.objSelectedPackText, "Selected Pack
-		// Text");
+		// verifyElementPresent(PWASubscriptionPages.objSelectedPackText, "Selected Pack Text");
 		waitTime(3000);
 		verifyElementPresent(PWASubscriptionPages.objSelectedPackName, "Selected Pack Name");
 		waitTime(3000);
@@ -2092,7 +2064,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresent(PWASubscriptionPages.objSelectedPackDescription, "Selected Pack Description");
 		waitTime(3000);
-
 	}
 
 	/**
@@ -2104,28 +2075,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		HeaderChildNode("Validate that user is navigated to Payment options screen post successful sign in/sign up");
 
 		// Scenario no. 103
-//		waitTime(5000);
 		checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
-//		waitTime(3000);
 		zeePWASelectedPackDisplayValidation();
-//		verifyElementPresent(PWASubscriptionPages.objAccountInfoText, "Account Info Text in Payments Section");
-//		waitTime(3000);
 		checkElementDisplayed(PWASubscriptionPages.objAccountInfoDetails, "Account Info Details in Payments Section");
-////		waitTime(3000);
-//		verifyElementPresent(PWASubscriptionPages.objCreditCardRadioBtn, "Credit Card Radio Button");
-////		waitTime(3000);
-//		verifyElementPresent(PWASubscriptionPages.objDebitCardRadioBtn, "Debit Card Radio Button");
-////		waitTime(3000);
-//		verifyElementPresent(PWASubscriptionPages.objPayTMRadioBtn, "PayTm Radio Button");
-////		waitTime(3000);
-//		ScrollToElement(PWASubscriptionPages.objContinueBtnDisabled, "Continue Button Disabled");
-////		waitTime(3000);
-//		verifyElementPresent(PWASubscriptionPages.objRecurrenceMessage, "Recurrence Message");
-////		waitTime(3000);
-//		click(PWASubscriptionPages.objPayTMRadioBtn, "PayTm Radio Button");
-//		waitTime(3000);
-//		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtnEnabled, "Continue Button Enabled");
-////		verifyElementPresent(PWASubscriptionPages.objContinueBtnEnabled, "Continue Button Enabled");
 
 		waitTime(5000);
 		WebElement iframeElement = null;
@@ -2143,14 +2095,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			getWebDriver().switchTo().frame(iframeElement);
 		}
 
-		verifyElementPresentAndClick(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
+		verifyElementPresent(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
+		JSClick(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
 		waitTime(5000);
-		checkElementDisplayed(PWASubscriptionPages.objEnterCreditAndDebitCardDetails,
+		verifyElementPresent(PWASubscriptionPages.objEnterCreditAndDebitCardDetails,
 				"Enter Credit/Debit Card Details");
-		checkElementDisplayed(PWASubscriptionPages.objCardNumber, "Enter Card Number Field");
-		checkElementDisplayed(PWASubscriptionPages.objExpiry, "Expiry Field");
-		checkElementDisplayed(PWASubscriptionPages.objCVV, "CVV Field");
-//		Back(1);
+		verifyElementPresent(PWASubscriptionPages.objCardNumber, "Enter Card Number Field");
+		verifyElementPresent(PWASubscriptionPages.objExpiry, "Expiry Field");
+		verifyElementPresent(PWASubscriptionPages.objCVV, "CVV Field");
 		waitTime(5000);
 		if (getPlatform().equals("Android")) {
 			extent.HeaderChildNode("Validating the payment gateway using Paytm");
@@ -2159,15 +2111,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			getWebDriver().switchTo().defaultContent();
 		} else if (getPlatform().equalsIgnoreCase("Web")) {
 			extent.HeaderChildNode("Validating the payment gateway using Wallet");
-			verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+			verifyElementPresent(PWASubscriptionPages.objWallets, "Wallets");
+			JSClick(PWASubscriptionPages.objWallets, "Wallets");
 			getWebDriver().switchTo().defaultContent();
 		}
 
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
-//		waitTime(5000);
-//		// PayTM Page
-//		verifyElementPresent(PWASubscriptionPages.objPaytmWalletOption, "PayTM Wallet option");
 	}
 
 	public void navigateBackFromPayTmWalletAndLogout(String platform, String userType) throws Exception {
@@ -7069,12 +7019,19 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Validating the UI of My Subscription Page");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objProfileIconWEB, "Profile Icon");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objMySubscription, "My Subscription");
-			checkElementDisplayed(PWAHamburgerMenuPage.objBrowseAllPacks, "Browse All Packs");
+			if(userType.equalsIgnoreCase("NonSubscribedUser")) {
+				checkElementDisplayed(PWAHamburgerMenuPage.objBrowseAllPacks, "Browse All Packs");
+				logger.info("Browse All Packs is not displayed as expected for NonSubscribed User");
+				extent.extentLogger("", "Browse All Packs is not displayed as expected for NonSubscribed User");
+			} else {
+				verifyElementPresent(PWAHamburgerMenuPage.objBrowseAllPacks, "Browse All Packs");
+			}
 		}
 		if (userType.contains("NonSubscribedUser")) {
 			extent.HeaderChildNode(
 					"Validating if Empty state screen is displayed when user has No Active Subscriptions");
 			checkElementDisplayed(PWAHamburgerMenuPage.objEmptyStateScreen, "Empty State Screen");
+			scrollDownWEB();
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objSubscriptionTeaserBanner,
 					"Subscription Teaser Banner");
 			waitTime(10000);
@@ -7208,18 +7165,18 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		Thread.sleep(5000);
 		getWebDriver().switchTo().frame(iframeElement);
 //		checkElementDisplayed(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
-		checkElementDisplayed(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
-		verifyElementPresentAndClick(PWASubscriptionPages.objarrowbtn, "arrow button");
-		checkElementDisplayed(PWASubscriptionPages.objEnterCreditAndDebitCardDetails,
+		verifyElementPresent(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
+//		verifyElementPresentAndClick(PWASubscriptionPages.objarrowbtn, "arrow button");
+		verifyElementPresent(PWASubscriptionPages.objEnterCreditAndDebitCardDetails,
 				"Enter Credit/Debit Card Details");
-		checkElementDisplayed(PWASubscriptionPages.objCardNumber, "Enter Card Number Field");
-		checkElementDisplayed(PWASubscriptionPages.objExpiry, "Expiry Field");
-		checkElementDisplayed(PWASubscriptionPages.objCVV, "CVV Field");
-		checkElementDisplayed(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
+		verifyElementPresent(PWASubscriptionPages.objCardNumber, "Enter Card Number Field");
+		verifyElementPresent(PWASubscriptionPages.objExpiry, "Expiry Field");
+		verifyElementPresent(PWASubscriptionPages.objCVV, "CVV Field");
+		verifyElementPresent(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
 		verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
 		extent.HeaderChildNode("Validating the payment gateway using Paytm");
 		verifyElementPresentAndClick(PWASubscriptionPages.objPaytmWallet, "Paytm");
-		checkElementDisplayed(PWASubscriptionPages.objPaytmProceedToPay, "Proceed To Pay Button");
+		verifyElementPresent(PWASubscriptionPages.objPaytmProceedToPay, "Proceed To Pay Button");
 		getWebDriver().switchTo().defaultContent();
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");

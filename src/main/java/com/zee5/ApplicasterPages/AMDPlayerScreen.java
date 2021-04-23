@@ -128,4 +128,8 @@ public class AMDPlayerScreen {
 	public static By objAdultErrorMessage = By.xpath("//*[@resource-id='com.graymatrix.did:id/errorViewText' and contains(text(),'Adult')]");
 	
 	public static By objPremiumTextOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/static_premium_text'] | //*[@id='errorViewText' and (contains(text(),'You need subscription'))] | //*[contains(text(), 'To watch this premium content')]");
-}
+
+	public static By objQualityOpt(int i) {
+		return By.xpath("(//*[@id='playerOptionTitle'])["+i+"]/preceding-sibling::*[@text='t']");
+	}
+	}
