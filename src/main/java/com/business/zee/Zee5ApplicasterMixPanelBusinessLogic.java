@@ -859,18 +859,56 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	public void verifyDisplayLanguageChangeEvent(String displayLanguage) throws Exception {
+	public void verifyDisplayLanguageChangeEvent(String usertype) throws Exception {
 		extent.HeaderChildNode("Verify display language change Event");
 		click(AMDHomePage.MoreMenuIcon, "More menu icon");
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
 		waitTime(1000);
 		SwipeUntilFindElement(AMDMoreMenu.objDisplayLang, "Up");
 		click(AMDMoreMenu.objDisplayLang, "Display language");
-		click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguage), "language");
-		Back(1);
-		setFEProperty(userType);
-		mixpanel.FEProp.setProperty("Page Name", "DisplayLanguage");
-		mixpanel.ValidateParameter("", "Display Language Changed");
+		
+		boolean flag = false;
+		flag = verifyElementPresentAndClick(AMDOnboardingScreen.objSelectDisplayLang("Marathi"), "language");
+		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
+		
+		if(flag){
+			
+			setFEProperty(usertype);
+			setUserType_SubscriptionProperties(usertype);
+			
+			
+			mixpanel.FEProp.setProperty("Source", "user_setting");
+			mixpanel.FEProp.setProperty("Page Name", "DisplayLanguage");
+			mixpanel.FEProp.setProperty("Manufacturer", DeviceDetails.OEM);
+			mixpanel.FEProp.setProperty("Brand", DeviceDetails.OEM);
+			
+			if (!(pUserType.equalsIgnoreCase("Guest"))) {
+				if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+					Username = getParameterFromXML("SubscribedUserName");
+					Password = getParameterFromXML("SubscribedUserPassword");
+				}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+					Username = getParameterFromXML("NonSubscribedUserName");
+					Password = getParameterFromXML("NonSubscribedUserPassword");
+				}
+		      	mixpanel.FEProp.setProperty("Old App Language", ResponseInstance.getUserSettingsDetails(Username,Password).getProperty("display_language"));
+			}else {
+				mixpanel.FEProp.setProperty("User Type", "guest");
+				mixpanel.FEProp.setProperty("Old App Language", "en");
+			}
+			
+			mixpanel.FEProp.setProperty("New App Language", "mr");
+			
+			mixpanel.ValidateParameter("", "Display Language Changed");
+			
+			SwipeUntilFindElement(AMDMoreMenu.objDisplayLang, "Up");
+			click(AMDMoreMenu.objDisplayLang, "Display language");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objSelectDisplayLang("English"), "language");
+			click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
+			
+		} else {
+			logger.info("Failed to change display language");
+			extentLoggerWarning("Event", "Failed to change display language");
+		}
 
 	}
 
@@ -8714,14 +8752,18 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void VerifyFirstAppLaunchEvent(String usertype) throws Exception {
 		if (usertype.equalsIgnoreCase("Guest")) {
 			HeaderChildNode("Verify First App Launch event");
-
+			logger.info("Relaunching the application");
+			extent.extentLogger("Relaunch", "Relaunching the application");
+			waitTime(10000);
+			getDriver().quit();
+			relaunch = true;
 			new Zee5ApplicasterBusinessLogic("zee");
-			waitTime(5000);
-			Swipe("Up", 1);
-			if (verifyIsElementDisplayed(AMDOnboardingScreen.objContinueBtnInDebugBuild)) {
-				click(AMDOnboardingScreen.objContinueBtnInDebugBuild, "Continue button");
-			}
 			setFEProperty(userType);
+			mixpanel.FEProp.setProperty("User Type", "guest");
+			mixpanel.FEProp.setProperty("Source", "N/A");
+			mixpanel.FEProp.setProperty("Page Name", "N/A");
+			mixpanel.FEProp.setProperty("Manufacturer", DeviceDetails.OEM);
+			mixpanel.FEProp.setProperty("Brand", DeviceDetails.OEM);
 			mixpanel.ValidateParameter("", "First Launch");
 		}
 	}
@@ -9646,4 +9688,316 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
+	public void verifyVideoQualityChangeEvent(String qualityOption) throws Exception {
+		extent.HeaderChildNode("Verify video quality change Event");
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		getDriver().findElement(By.xpath("//*[@id='qualityPixels']")).click();
+		boolean var = verifyIsElementDisplayed(AMDMoreMenu.objSelectedVideoQualityOption("Auto"));
+		
+		if (!(pUserType.equalsIgnoreCase("Guest"))) {
+			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+				Username = getParameterFromXML("SubscribedUserName");
+				Password = getParameterFromXML("SubscribedUserPassword");
+			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+				Username = getParameterFromXML("NonSubscribedUserName");
+				Password = getParameterFromXML("NonSubscribedUserPassword");
+			}
+	      	mixpanel.FEProp.setProperty("Old Video Streaming Quality Setting", ResponseInstance.getUserSettingsDetails(Username,Password).getProperty("streaming_quality"));
+		}else {
+			mixpanel.FEProp.setProperty("Old Video Streaming Quality Setting", "Auto");
+		}
+		if (var == true) {
+			click(AMDMoreMenu.objVideoQualityOption(qualityOption), "Video quality option");
+		} else {
+			click(AMDMoreMenu.objAutoOption, "option Auto");
+		}
+		
+		setFEProperty(pUserType);
+		setUserType_SubscriptionProperties(pUserType);
+		
+		
+		mixpanel.FEProp.setProperty("Source", "More");
+		mixpanel.FEProp.setProperty("Page Name", "selector");
+		mixpanel.FEProp.setProperty("Manufacturer", DeviceDetails.OEM);
+		mixpanel.FEProp.setProperty("Brand", DeviceDetails.OEM);
+	
+		if(pUserType.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "guest");
+		}
+		if(var==true) {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", qualityOption);
+		}else {
+			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
+		}
+		
+		mixpanel.ValidateParameter("", "Video Streaming Quality Changed");
+		
+		if(var==true) {
+			click(AMDMoreMenu.objVideo_Quality(qualityOption), "Video quality option");
+			click(AMDMoreMenu.objAutoOption, "option Auto");
+		}
+	}
+	
+	public void navigateToRegisterScreen() throws Exception {
+		HeaderChildNode("Navigate to Login/Registration screen");
+		verifyElementExist(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free button");
+		logger.info("Browse for Free button is displayed in language : "
+				+ getText(AMDOnboardingScreen.objBrowseForFreeBtn));
+		extent.extentLoggerPass("Browse for Free button", "Browse for Free button is displayed in language : "
+				+ getText(AMDOnboardingScreen.objBrowseForFreeBtn));
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+
+		if (verifyIsElementDisplayed(AMDLoginScreen.objLoginLnk)) {
+			logger.info("Login/Register Screen is displayed on selecting Browse for Free");
+			extent.extentLoggerPass("Login/Register Screen", "Login/Register Screen is displayed on selecting Browse for Free");
+		} else {
+			logger.error("Login/Register Screen is not displayed on selecting Browse for Free");
+			extent.extentLoggerFail("Login/Register Screen", "Login/Register Screen is not displayed on selecting Browse for Free");
+		}
+}
+	
+	public void newRegistrationThroughEmail() throws Exception {
+		extent.HeaderChildNode("Register New User");
+		System.out.println("\nRegister New User");
+		
+		String pDOB = "01/01/1990", pNewPassword = "123456";
+		String regEmailID = generateRandomString(5) + "@zee.com";
+		
+		if(checkElementExist(AMDOnboardingScreen.objBrowseForFreeBtn)) {
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+		}
+		
+		type(AMDRegistrationScreen.objEmailIDTextField, regEmailID, "Email field");
+		click(AMDRegistrationScreen.objProceedBtn, "Proceed button");
+		
+		verifyElementExist(AMDRegistrationScreen.objScreenTitle, "Register new user");
+		type(AMDRegistrationScreen.objFirstNameTxtField, FirstName, "First Name");
+		click(AMDRegistrationScreen.objEmailIDHeaderTxt, "HideKeyboard");
+		
+		click(AMDRegistrationScreen.objLastNameTxtField, "Last Name field");
+		type(AMDRegistrationScreen.objLastNameTxtField, LastName, "Last Name");
+		click(AMDRegistrationScreen.objEmailIDHeaderTxt, "HideKeyboard");
+		
+		click(AMDRegistrationScreen.objDOBTxtField, "DOB field");
+		type(AMDRegistrationScreen.objDOBTxtField, pDOB, "DOB");
+		click(AMDRegistrationScreen.objEmailIDHeaderTxt, "HideKeyboard");
+		
+		verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
+		verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
+		click(AMDRegistrationScreen.objPasswordTxtField, "Passowrd");
+		type(AMDRegistrationScreen.objPasswordTxtField, pNewPassword, "Password field");
+		click(AMDRegistrationScreen.objEmailIDHeaderTxt, "HideKeyboard");
+		
+		verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		waitTime(4000);
+		boolean verifyHomePage = verifyElementExist(AMDHomePage.objHomeTab, "Home Screen");
+		if (verifyHomePage) {
+			logger.info("New User Registerd to ZEE5 App successfully with following Email Id: "+regEmailID);
+			extent.extentLoggerPass("Registration", "New User Registerd to ZEE5 App successfully with following Email Id: "+regEmailID);
+		} else {
+			logger.error("New User failed to Register to ZEE5 App with EmailId: "+regEmailID);
+			extent.extentLoggerFail("Registration", "New User failed to Register to ZEE5 App with EmailId: "+regEmailID);
+		}
+	}
+	
+	public void event_LoginRegistrationScreenDisplayValiation(String pUsertype) throws Exception {
+		System.out.println("\nLogin Registration Screen Display Event Validation");
+		
+		String pPage = "LoginRegister";
+		String pSource = "Intro";
+		String pManufacturer = DeviceDetails.OEM;
+		String pMethod = "email";
+		if(pUsertype.equalsIgnoreCase("Guest")) {
+			verifyElementPresentAndClick(AMDHomePage.objDownloadBtn, "Download tab");
+			waitTime(30000);
+			setFEProperty(pUsertype);
+			
+			mixpanel.FEProp.setProperty("Source", pSource);
+			mixpanel.FEProp.setProperty("Page Name", pPage);
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			
+			mixpanel.ValidateParameter("", "Login Registration Screen Display");	
+		}else {
+			logger.info("Login Registration Screen Display Event is Not applicable for "+pUsertype);
+			extentLogger("Login Registration Screen Display", "Login Registration Screen Display Event is Not applicable for "+pUsertype);
+		}	
+	}
+	
+	public void event_RegisterScreenDisplayValiation(String pUsertype) throws Exception {
+		System.out.println("\nRegister Screen Display Event Validation");
+	
+		String pPage = "LoginRegister";
+		String pSource = "LoginRegister";
+		String pManufacturer = DeviceDetails.OEM;
+		String pMethod = "email";
+		if(pUsertype.equalsIgnoreCase("Guest")) {
+			waitTime(5000);
+			setFEProperty(pUsertype);
+			
+			mixpanel.FEProp.setProperty("Source", pSource);
+			mixpanel.FEProp.setProperty("Page Name", pPage);
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			
+			mixpanel.ValidateParameter("", "Register Screen Display");
+			
+		}else {
+			logger.info("Register Screen Display Event is Not applicable for "+pUsertype);
+			extentLogger("Register Screen Display", "Register Screen Display Event is Not applicable for "+pUsertype);
+		}	
+	}
+	
+	public void event_RegistrationInitiatedValiation(String pUsertype) throws Exception {
+		System.out.println("\nRegistration Initiated Event Validation");
+		
+		String pPage = "Registration";
+		String pSource = "LoginRegister";
+		String pManufacturer = DeviceDetails.OEM;
+		String pMethod = "email";
+		if(pUsertype.equalsIgnoreCase("Guest")) {
+			waitTime(5000);
+			setFEProperty(pUsertype);
+			
+			mixpanel.FEProp.setProperty("Source", pSource);
+			mixpanel.FEProp.setProperty("Page Name", pPage);
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+					
+			mixpanel.ValidateParameter("", "Registration Initiated");	
+		}else {
+			logger.info("Registration Initiated Event is Not applicable for "+pUsertype);
+			extentLogger("Registration Initiated Event", "Registration Initiated Event is Not applicable for "+pUsertype);
+		}	
+	}
+	
+	public void event_RegistrationFirstNameEnteredValiation(String pUsertype) throws Exception {
+		System.out.println("\nRegistration First Name Entered Event Validation");
+		
+		String pPage = "Registration";
+		String pSource = "LoginRegister";
+		String pManufacturer = DeviceDetails.OEM;
+		String pMethod = "email";
+		if(pUsertype.equalsIgnoreCase("Guest")) {
+			waitTime(5000);
+			setFEProperty(pUsertype);
+			
+			mixpanel.FEProp.setProperty("Source", pSource);
+			mixpanel.FEProp.setProperty("Page Name", pPage);
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+					
+			mixpanel.ValidateParameter("", "Registration First Name Entered");		
+		}else {
+			logger.info("Registration First Name Entered is Not applicable for "+pUsertype);
+			extentLogger("Registration First Name Entered", "Registration First Name Entered is Not applicable for "+pUsertype);
+		}	
+	}
+	
+	public void event_RegistrationLastNameEnteredValiation(String pUsertype) throws Exception {
+		System.out.println("\nRegistration Last Name Entered Event Validation");
+		
+		String pPage = "Registration";
+		String pSource = "LoginRegister";
+		String pManufacturer = DeviceDetails.OEM;
+		String pMethod = "email";
+		if(pUsertype.equalsIgnoreCase("Guest")) {
+			waitTime(5000);
+			setFEProperty(pUsertype);
+			
+			mixpanel.FEProp.setProperty("Source", pSource);
+			mixpanel.FEProp.setProperty("Page Name", pPage);
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			
+			mixpanel.ValidateParameter("", "Registration Last Name Entered");	
+		}else {
+			logger.info("Registration Last Name Entered is Not applicable for "+pUsertype);
+			extentLogger("Registration Last Name Entered", "Registration Last Name Entered is Not applicable for "+pUsertype);
+		}	
+	}
+	
+	public void event_RegistrationDoBEnteredValiation(String pUsertype) throws Exception {
+		System.out.println("Registration DoB Entered Event Validation");
+		
+		String pPage = "Registration";
+		String pSource = "LoginRegister";
+		String pManufacturer = DeviceDetails.OEM;
+		String pMethod = "email";
+		if(pUsertype.equalsIgnoreCase("Guest")) {
+			waitTime(5000);
+			setFEProperty(pUsertype);
+			
+			mixpanel.FEProp.setProperty("Source", pSource);
+			mixpanel.FEProp.setProperty("Page Name", pPage);
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+					
+			mixpanel.ValidateParameter("", "Registration DoB Entered");
+					
+		}else {
+			logger.info("Registration DoB Entered is Not applicable for "+pUsertype);
+			extentLogger("Registration DoB Entered", "Registration DoB Entered is Not applicable for "+pUsertype);
+		}	
+	}
+	
+	public void event_RegistrationGenderEnteredValiation(String pUsertype) throws Exception {
+		System.out.println("Registration Gender Entered Event Validation");
+		
+		String pPage = "Registration";
+		String pSource = "LoginRegister";
+		String pManufacturer = DeviceDetails.OEM;
+		String pMethod = "email";
+		if(pUsertype.equalsIgnoreCase("Guest")) {
+			waitTime(5000);
+			setFEProperty(pUsertype);
+			
+			mixpanel.FEProp.setProperty("Source", pSource);
+			mixpanel.FEProp.setProperty("Page Name", pPage);
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+				
+			mixpanel.ValidateParameter("", "Registration Gender Entered");		
+		}else {
+			logger.info("Registration Gender Entered is Not applicable for "+pUsertype);
+			extentLogger("Registration Gender Entered", "Registration Gender Entered is Not applicable for "+pUsertype);
+		}	
+	}
+	
+	public void event_RegistrationPasswordEnteredValiation(String pUsertype) throws Exception {
+		System.out.println("Registration Password Entered Event Validation");
+		
+		String pPage = "Registration";
+		String pSource = "LoginRegister";
+		String pManufacturer = DeviceDetails.OEM;
+		String pMethod = "email";
+		if(pUsertype.equalsIgnoreCase("Guest")) {
+			waitTime(5000);
+			setFEProperty(pUsertype);
+			
+			mixpanel.FEProp.setProperty("Source", pSource);
+			mixpanel.FEProp.setProperty("Page Name", pPage);
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			
+			mixpanel.ValidateParameter("", "Registration Password Entered");	
+		}else {
+			logger.info("Registration Password Entered is Not applicable for "+pUsertype);
+			extentLogger("Registration Gender Entered", "Registration Password Entered is Not applicable for "+pUsertype);
+		}	
+	}
+	
+	
+	
+	
 }
