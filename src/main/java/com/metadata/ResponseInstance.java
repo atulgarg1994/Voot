@@ -19,6 +19,7 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
 import com.mixpanelValidation.Mixpanel;
+import com.mixpanelValidation.MixpanelAndroid;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.LoggingUtils;
 import java.util.Properties;
@@ -2868,7 +2869,6 @@ public static void setFEPropertyOfContentCardDetails(String pTrayName, String pC
 			pCharacters = getCharacters.toString();
 			pCharacters = pCharacters.replace("[", "").replace("]", "");
 		} else {
-//			pCharacters = getCharacters.toString();
 			pCharacters = "N/A";
 		}
 		
@@ -2900,22 +2900,22 @@ public static void setFEPropertyOfContentCardDetails(String pTrayName, String pC
 		System.out.println("AssetType: "+assetType);
 		
 		// ----- Mix Panel Content Parameters Validation ------
-		Mixpanel.FEProp.setProperty("Audio Language", pAudioLangguage);
-		Mixpanel.FEProp.setProperty("Carousal Name", "N/A");
-		Mixpanel.FEProp.setProperty("Content ID", pContentID);
-		Mixpanel.FEProp.setProperty("Content Name", pOriginalTitle);
-		Mixpanel.FEProp.setProperty("Content Duration", pDuration);
-		Mixpanel.FEProp.setProperty("Content Type", pBussinessType);
-		Mixpanel.FEProp.setProperty("Content Specification", pContentSpecification);
-		Mixpanel.FEProp.setProperty("Content Original Language", pLanguages);
-		Mixpanel.FEProp.setProperty("Characters", pCharacters);
-		Mixpanel.FEProp.setProperty("Content Billing Type", pContentBillingType);
-		Mixpanel.FEProp.setProperty("DRM Video", pDRM_Video);
-		Mixpanel.FEProp.setProperty("Episode No", pEpisodeNum);
-		Mixpanel.FEProp.setProperty("Genre", pGenre);
-		Mixpanel.FEProp.setProperty("Image URL", pImgURL);
-		Mixpanel.FEProp.setProperty("Publishing Date", pPublishedDate);
-		Mixpanel.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);	
+		MixpanelAndroid.FEProp.setProperty("Audio Language", pAudioLangguage);
+		MixpanelAndroid.FEProp.setProperty("Carousal Name", "N/A");
+		MixpanelAndroid.FEProp.setProperty("Content ID", pContentID);
+		MixpanelAndroid.FEProp.setProperty("Content Name", pOriginalTitle);
+		MixpanelAndroid.FEProp.setProperty("Content Duration", pDuration);
+		MixpanelAndroid.FEProp.setProperty("Content Type", pBussinessType);
+		MixpanelAndroid.FEProp.setProperty("Content Specification", pContentSpecification);
+		MixpanelAndroid.FEProp.setProperty("Content Original Language", pLanguages);
+		MixpanelAndroid.FEProp.setProperty("Characters", pCharacters);
+		MixpanelAndroid.FEProp.setProperty("Content Billing Type", pContentBillingType);
+		MixpanelAndroid.FEProp.setProperty("DRM Video", pDRM_Video);
+		MixpanelAndroid.FEProp.setProperty("Episode No", pEpisodeNum);
+		MixpanelAndroid.FEProp.setProperty("Genre", pGenre);
+		MixpanelAndroid.FEProp.setProperty("Image URL", pImgURL);
+		MixpanelAndroid.FEProp.setProperty("Publishing Date", pPublishedDate);
+		MixpanelAndroid.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);
 	}
 	
 public static void setFEPropertyOfLIVETVCardDetails(String pTrayName, String pContentID) {
@@ -3031,21 +3031,21 @@ public static void setFEPropertyOfLIVETVCardDetails(String pTrayName, String pCo
 	System.out.println("AssetType: " + assetType);
 	
 	// ----- Mix Panel Content Parameters Validation ------
-	Mixpanel.FEProp.setProperty("Audio Language", pAudioLangguage);
-	Mixpanel.FEProp.setProperty("Carousal Name", "N/A");
-	Mixpanel.FEProp.setProperty("Content ID", pContentID);
-	Mixpanel.FEProp.setProperty("Content Name", pTitle);
-	Mixpanel.FEProp.setProperty("Content Duration", pDuration);
-	Mixpanel.FEProp.setProperty("Content Type", pBusinessType);
-	Mixpanel.FEProp.setProperty("Content Original Language", pLanguages);
-	Mixpanel.FEProp.setProperty("Characters", pCharacters);
-	Mixpanel.FEProp.setProperty("Content Billing Type", pContentBillingType);
-	Mixpanel.FEProp.setProperty("DRM Video", pDRM_Video);
-	Mixpanel.FEProp.setProperty("Episode No", pEpisodeNumber);
-	Mixpanel.FEProp.setProperty("Genre", pGenre);
-	Mixpanel.FEProp.setProperty("Image URL", pImgURL);
-	Mixpanel.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);
-	Mixpanel.FEProp.setProperty("Publishing Date", pPublishedDate);	
+	MixpanelAndroid.FEProp.setProperty("Audio Language", pAudioLangguage);
+	MixpanelAndroid.FEProp.setProperty("Carousal Name", "N/A");
+	MixpanelAndroid.FEProp.setProperty("Content ID", pContentID);
+	MixpanelAndroid.FEProp.setProperty("Content Name", pTitle);
+	MixpanelAndroid.FEProp.setProperty("Content Duration", pDuration);
+	MixpanelAndroid.FEProp.setProperty("Content Type", pBusinessType);
+	MixpanelAndroid.FEProp.setProperty("Content Original Language", pLanguages);
+	MixpanelAndroid.FEProp.setProperty("Characters", pCharacters);
+	MixpanelAndroid.FEProp.setProperty("Content Billing Type", pContentBillingType);
+	MixpanelAndroid.FEProp.setProperty("DRM Video", pDRM_Video);
+	MixpanelAndroid.FEProp.setProperty("Episode No", pEpisodeNumber);
+	MixpanelAndroid.FEProp.setProperty("Genre", pGenre);
+	MixpanelAndroid.FEProp.setProperty("Image URL", pImgURL);
+	MixpanelAndroid.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);
+	MixpanelAndroid.FEProp.setProperty("Publishing Date", pPublishedDate);
 }
 	
 public static void setSubscriptionDetails() {
@@ -3739,5 +3739,83 @@ public static HashMap findVerticalIndex(String tab, String trayTitle, String con
 	System.out.println("allTray: "+allTrays);
 	return allTrays;
 }
+
+public static Properties getUserData_NativeAndroid(String pUsername,String pPassword) { 
+	String[] userData = { "email", "first_name", "last_name", "birthday", "gender", "registration_country",
+			"recurring_enabled" };
+	Properties pro = new Properties();
+	String xAccessToken = getXAccessTokenWithApiKey();
+	String bearerToken = getBearerToken(pUsername, pPassword);
+	String url = "https://userapi.zee5.com/v1/user";
+	resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+	String commaSplit[] = resp.asString().replace("{", "").replace("}", "").replaceAll("[.,](?=[^\\[]*\\])", "-")
+			.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+	for (int i = 0; i < commaSplit.length; i++) {
+		if (Stream.of(userData).anyMatch(commaSplit[i]::contains)) {
+			String com[] = commaSplit[i].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+			String key = com[0].replace("\"", "");
+			MixpanelAndroid.FEProp.setProperty(key, com[1].replace("\"", ""));
+			pro.setProperty(key, com[1].replace("\"", ""));
+		}
+	}
+	pro.forEach((key, value) -> System.out.println(key + " : " + value));
+	getDOB_NativeAndroid();
+	MixpanelAndroid.fetchUserdata = true;
+	
+	return pro;
+}
+
+private static void getDOB_NativeAndroid() {
+	String birthday=resp.jsonPath().get("birthday").toString();
+	LocalDate dob = LocalDate.parse(birthday.split("T")[0]);
+	LocalDate curDate = LocalDate.now();
+	int ageYears=Period.between(dob, curDate).getYears();
+	int ageMonths=Period.between(dob, curDate).getMonths();
+	if(ageMonths>=6) {
+		++ageYears;
+	}
+	MixpanelAndroid.FEProp.setProperty("Age", String.valueOf(ageYears));
+}
+
+public static void setSubscriptionDetails_NativeAndroid() {
+	
+	String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";		
+	String pUsername = getParameterFromXML("SubscribedUserName");
+	String pPassword = getParameterFromXML("SubscribedUserPassword");
+//	String pUsername = "clubRK@g.com";
+//	String pPassword = "123456";
+	
+	String bearerToken = getBearerToken(pUsername, pPassword);
+	resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
+	
+	System.out.println("\nSubscrition related");
+	MixpanelAndroid.FEProp.setProperty("Pack Duration",resp.jsonPath().getString("[0].subscription_plan.billing_frequency")); 
+	String uri = "[0].subscription_plan.";
+	String id = resp.jsonPath().getString(uri+"id");
+	String original_title = resp.jsonPath().getString(uri+"original_title");
+	String subscription_plan_Type = resp.jsonPath().getString(uri+"subscription_plan_type");
+	
+	MixpanelAndroid.FEProp.setProperty("Pack Selected",id+"_"+original_title+"_"+subscription_plan_Type); 
+	MixpanelAndroid.FEProp.setProperty("Cost",resp.jsonPath().getString("[0].subscription_plan.price"));
+	MixpanelAndroid.FEProp.setProperty("region",resp.jsonPath().getString("[0].region"));
+	MixpanelAndroid.FEProp.setProperty("user_id",resp.jsonPath().getString("[0].user_id"));
+	MixpanelAndroid.FEProp.setProperty("Unique ID",resp.jsonPath().getString("[0].user_id"));
+	MixpanelAndroid.FEProp.setProperty("Active Plan Name",resp.jsonPath().getString(uri+"original_title"));
+	MixpanelAndroid.FEProp.setProperty("Subscription Status",resp.jsonPath().getString("[0].state"));
+	
+	String getUserCountry = resp.jsonPath().getString(uri+"country");
+	MixpanelAndroid.FEProp.setProperty("Country ID",getUserCountry);
+	MixpanelAndroid.FEProp.setProperty("Registring Country",getUserCountry);
+	
+	String pCountry = "NA";
+	if(getUserCountry.equalsIgnoreCase("IN")) {
+		pCountry = "INDIA";
+	}
+	MixpanelAndroid.FEProp.setProperty("Country",pCountry);
+	MixpanelAndroid.FEProp.setProperty("State",resp.jsonPath().getString("[0].region").toUpperCase());
+	
+}
+
+
 }
 

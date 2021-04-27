@@ -43,6 +43,7 @@
 	<parameter name="freeContentID" value="0-0-54219" />
 	<parameter name="premiumContent" value="Shivaji Surathkal" />
 	<parameter name="premiumContentID" value="0-0-197297" />
+	<parameter name="videoQualityOption" value="Best" />
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

@@ -374,5 +374,7 @@ public class PWASubscriptionPages {
 	public static By objPaytmWallet = By.xpath(
 			"//div[contains(@class,'linearLayout sidebarItem_object')]//*[contains(text(), 'Paytm')]");
 
-
+	public static By objLoginButtonFromSubscriptionPage = By.xpath("//*[contains(@class, 'loginBtn noSelect subscriptionLoginType')]");
+	
+	
 }

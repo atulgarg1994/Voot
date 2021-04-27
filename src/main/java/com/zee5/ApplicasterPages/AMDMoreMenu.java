@@ -287,6 +287,6 @@ public class AMDMoreMenu {
 	public static By objWatchlistContentcard = By.xpath("//*[@id='img_reminder_item']");
 	
 	public static By objVideoQualityOption(String qualityOption) {
-		return By.xpath("[//*[@id='selector_content' and @text='"+qualityOption+"']");
+		return By.xpath("//*[@id='selector_content' and @text='"+qualityOption+"']");
 	}
 }

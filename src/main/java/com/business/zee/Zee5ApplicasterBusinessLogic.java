@@ -395,21 +395,22 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void subscribeFLowMobileNumber() throws Exception {
 		extent.HeaderChildNode("SubscribeNow Functionality for UnRegistered Mobile number");
 		System.out.println("\nSubscribeNow Functionality for UnRegistered Mobile number");
-		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in subscription page");
+	//	verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in subscription page");
 		verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in subscribe page");
-		verifyElementExist(AMDSubscibeScreen.objAdbanner, "Carosual in subscription page");
-		verifyElementExist(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo code in subscribe page");
-		verifyElementPresent(AMDSubscibeScreen.objApply, "Apply button is subscribe page");
-		PartialSwipe("UP", 4);
-	    packDetails = getText(AMDSubscibeScreen.objRSVODselectedPackDesc);
-		click(AMDSubscibeScreen.objContinueBtn, "Continue button");
-		verifyElementExist(AMDSubscibeScreen.objAccountInfoHeader, "Account info screen");
+	//	verifyElementExist(AMDSubscibeScreen.objAdbanner, "Carosual in subscription page");
+		Swipe("UP",1);
+		verifyElementExist(AMDSubscibeScreen.objHaveACodeCTA, "Have a code in subscribe page");
+//		verifyElementPresent(AMDSubscibeScreen.objApply, "Apply button is subscribe page");
+//		PartialSwipe("UP", 4);
+//	    packDetails = getText(AMDSubscibeScreen.objRSVODselectedPackDesc);
+		click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button");
+		verifyElementExist(AMDSubscibeScreen.objAccountInfoScreen, "Account info screen");
 		hideKeyboard();
-		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header");
+	//	verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header");
 		click(AMDSubscibeScreen.objEmailID, "Email id");
 		type(AMDSubscibeScreen.objEmailID, UnRegisteredMobile, "Email");
 		hideKeyboard();
-		click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
+		click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button");
 		verifyElementExist(AMDSubscibeScreen.objVerifyOTPScreen, "OTP screen");
 		type(AMDRegistrationScreen.objOTPField1, "1", "OTP box1");
 		type(AMDRegistrationScreen.objOTPField2, "1", "OTP box2");
@@ -439,14 +440,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //		for (int i = 0; i < lenText; i++) {
 //			getDriver().findElement(AMDLoginScreen.objEmailIdField).sendKeys(Keys.BACK_SPACE);
 //		}
-		clearField(AMDLoginScreen.objEmailIdField, UnRegisteredMobile);
+		click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button");
+	//	clearField(AMDLoginScreen.objEmailIdField, UnRegisteredMobile);
 		click(AMDSubscibeScreen.objEmailID, "Email");
 		type(AMDSubscibeScreen.objEmailID, RegisteredMobile, "Email");
 
 		hideKeyboard();
-		click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
+		click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button");
 		verifyElementExist(AMDSubscibeScreen.objEnterPassword, "Enter Password PopUp");
-		verifyElementExist(AMDSubscibeScreen.objPasswordTextField, "Password field");
+		verifyElementExist(AMDSubscibeScreen.objEnterPassword, "Password field");
 		verifyElementPresentAndClick(AMDSubscibeScreen.objGetOTP, "Get OTP");
 		verifyElementExist(AMDSubscibeScreen.objVerifyOTPScreen, "OTP screen");
 
@@ -472,7 +474,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerPass("Verify", "Verify Button is not highlighted");
 		}
 		Back(1);
-		click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
+		click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button");
+		click(AMDSubscibeScreen.objEmailID, "Email");
+		type(AMDSubscibeScreen.objEmailID, RegisteredMobile, "Email");
+		hideKeyboard();
+		click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button");
 		passwordScenario("Registered");
 		Wait(5000);
 		Back(1);
@@ -675,12 +681,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				waitTime(4000);
 				click(AMDHomePage.objBeforeTVContent, "BeforeTV content");
 				waitTime(5000);
-				verifyElementPresentAndClick(AMDHomePage.objGetClubInConsumptionScreen, "Get Club icon");
-				verifyElementExist(AMDHomePage.objGetPremiumPopUP, "PremiumPopUp");
+				verifyElementPresentAndClick(AMDSubscibeScreen.objGetPremiumCTA, "Get Premium icon");
+				verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup, "Subscribe screen");
 				Swipe("UP", 1);
-				click(AMDHomePage.objGetPremiumPopUPProceedButton, "Proceed button");
-				verifyElementExist(AMDSubscibeScreen.objAccountInfoHeader, "Account info screen");
-				Back(2);
+				click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button");
+				verifyElementExist(AMDSubscibeScreen.objAccountInfoScreen, "Account info screen");
+				Back(3);
 
 			} else {
 				logger.info("Before TV tray is not displayed");
@@ -692,12 +698,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDHomePage.HomeIcon, "Home Tab");
 			click(AMDHomePage.MoreMenuIcon, "More Menu");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenuOptions("Buy Subscription"), "Buy Subscription");
-			verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page");
+			verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup, "Subscribe page");
 			subscribePageValidation();
 			passwordScenario("Registered");
 			unRegisteredEmailSubscribe();
 			subscribeFLowMobileNumber();
 			waitTime(10000);
+			Back(1);
 			HeaderChildNode("Entry points");
 			click(AMDHomePage.objSearchBtn, "Search button");
 			waitTime(5000);
@@ -1126,23 +1133,25 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void subscribePageValidation() throws Exception {
 		System.out.println("\nVerifying Subscribe Page");
 		
-		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in subscription page");
+	//	verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in subscription page");
 		verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in subscribe page");
-		verifyElementExist(AMDSubscibeScreen.objAdbanner, "Carosual in subscription page");
-		verifyElementExist(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo code in subscribe page");
-		verifyElementPresent(AMDSubscibeScreen.objApply, "Apply button is subscribe page");
-		if (verifyIsElementDisplayed(AMDSubscibeScreen.objApplybuttonNotHighlighted)) {
+	//	verifyElementExist(AMDSubscibeScreen.objAdbanner, "Carosual in subscription page");
+		Swipe("UP",1);
+		verifyElementExist(AMDSubscibeScreen.objHaveACodeCTA, "Have a code in subscribe page");
+		click(AMDSubscibeScreen.objHaveACodeCTA, "Have a code in subscribe page");
+	//	verifyElementPresent(AMDSubscibeScreen.objApply, "Apply button is subscribe page");
+		if (verifyElementIsNotDisplayed(AMDSubscibeScreen.objApplyOnHaveACodescreen)) {
 			logger.info("Apply button is not highlighted by default");
 			extent.extentLoggerPass("Highlighted", "Apply button is not highlighted by default");
 		} else {
 			logger.error("Apply button is highlighted by default");
 			extent.extentLoggerFail("Highlighted", "Apply button is highlighted by default");
 		}
-		click(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo");
-		type(AMDSubscibeScreen.objApplyPromoCodeTextbox, PromoCode, "Promo code");
+		click(AMDSubscibeScreen.objEnterACodeEditFiled, "Promo");
+		type(AMDSubscibeScreen.objEnterACodeEditFiled, PromoCode, "Promo code");
 		hideKeyboard();
-		click(AMDSubscibeScreen.objApply, "Apply button");
-		verifyElementExist(AMDSubscibeScreen.objApplyPromoCodeappliedText, "Promo code applied successfully text");
+		click(AMDSubscibeScreen.objApplyOnHaveACodescreen, "Apply button");
+		verifyElementExist(AMDSubscibeScreen.objApplyPromoCodeappliedText, "Promo code applied text");
 		if (verifyIsElementDisplayed(AMDSubscibeScreen.objApplyPromoCodeappliedText)) {
 			logger.info("Discounted price is displayed after promo code is applied");
 			extent.extentLoggerPass("Promo", "Discounted price is displayed after promo code is applied");
@@ -1150,73 +1159,74 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.error("Discounted price is not displayed after promo code is applied");
 			extent.extentLoggerFail("Promo", "Discounted price is not displayed after promo code is applied");
 		}
-		click(AMDSubscibeScreen.objCancelPromoCode, "Cancel promo");
-		click(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo");
-		type(AMDSubscibeScreen.objApplyPromoCodeTextbox, "zee5flat5000", "Promo code");
+		click(AMDSubscibeScreen.objChangeCodebutton, "Change promo");
+		click(AMDSubscibeScreen.objEnterACodeEditFiled, "Promo");
+		type(AMDSubscibeScreen.objEnterACodeEditFiled, "zee5flat5000", "Promo code");
 		hideKeyboard();
-		click(AMDSubscibeScreen.objApply, "Apply button");
+		click(AMDSubscibeScreen.objApplyOnHaveACodescreen, "Apply button");
 		verifyElementExist(AMDSubscibeScreen.objInvalidPromoCodeText, "Invalid promo code error message");
-		Swipe("UP", 1);
-		verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
-		Swipe("DOWN", 1);
-		verifyElementExist(AMDSubscibeScreen.objPremiumTab, "Premium  pack tab");
+	//	Swipe("UP", 1);
+		Back(1);
+		verifyElementExist(AMDSubscibeScreen.objPlanName, "Available plan in Subscribe screen");
+//		Swipe("DOWN", 1);
+//		verifyElementExist(AMDSubscibeScreen.objPremiumTab, "Premium  pack tab");
 //		verifyElementExist(AMDSubscibeScreen.objClubTab, "Club pack tab");
-		Swipe("UP", 3);
-		waitTime(3000);
-		int size = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
-		for (int i = 0; i < size; i++) {
-			boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).isDisplayed();
-			if (isDisplayed) {
-				String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
-				extent.extentLoggerPass("Packs", "Available Pack " + i + " : " + pack);
-				logger.info("Available Pack " + i + " : " + pack);
-			} else {
-				extent.extentLoggerFail("Packs", "No Packs are available");
-				logger.info("No Packs are available");
-			}
-		}
-//		PartialSwipe("UP", 2);
-		packDetails = getText(AMDSubscibeScreen.objRSVODselectedPackDesc);
+//		Swipe("UP", 3);
+//		waitTime(3000);
+//		int size = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
+//		for (int i = 0; i < size; i++) {
+//			boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).isDisplayed();
+//			if (isDisplayed) {
+//				String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
+//				extent.extentLoggerPass("Packs", "Available Pack " + i + " : " + pack);
+//				logger.info("Available Pack " + i + " : " + pack);
+//			} else {
+//				extent.extentLoggerFail("Packs", "No Packs are available");
+//				logger.info("No Packs are available");
+//			}
+//		}
+////		PartialSwipe("UP", 2);
+//		packDetails = getText(AMDSubscibeScreen.objRSVODselectedPackDesc);
 		verifyElementPresent(AMDSubscibeScreen.objContinueBtn, "Continue button in subscribe page");
 		if (getDriver().findElement(AMDSubscibeScreen.objContinueBtn).isEnabled()) {
 			logger.info("Continue button is highlighted");
 			extent.extentLoggerPass("Highlighted", "Continue button is highlighted");
 		}
-		Swipe("DOWN", 1);
-		click(AMDSubscibeScreen.objClubTab, "Club Pack tab");
-		PartialSwipe("UP", 1);
-		waitTime(3000);
-		int size1 = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
-		for (int i = 0; i < size1; i++) {
-			boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).isDisplayed();
-			if (isDisplayed) {
-				String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
-				extent.extentLoggerPass("Packs", "Available Pack " + i + " : " + pack);
-				logger.info("Available Pack " + i + " : " + pack);
-			} else {
-				extent.extentLoggerFail("Packs", "No Packs are available");
-				logger.info("No Packs are available");
-			}
-		}
-		verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
-		Swipe("UP", 1);
-		if (getDriver().findElement(AMDSubscibeScreen.objContinueBtn).isEnabled()) {
-			logger.info("Continue button is highlighted");
-			extent.extentLoggerPass("Highlighted", "Continue button is highlighted");
-		}
+//		Swipe("DOWN", 1);
+//		click(AMDSubscibeScreen.objClubTab, "Club Pack tab");
+//		PartialSwipe("UP", 1);
+//		waitTime(3000);
+//		int size1 = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
+//		for (int i = 0; i < size1; i++) {
+//			boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).isDisplayed();
+//			if (isDisplayed) {
+//				String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
+//				extent.extentLoggerPass("Packs", "Available Pack " + i + " : " + pack);
+//				logger.info("Available Pack " + i + " : " + pack);
+//			} else {
+//				extent.extentLoggerFail("Packs", "No Packs are available");
+//				logger.info("No Packs are available");
+//			}
+//		}
+//		verifyElementExist(AMDSubscibeScreen.objDescriptionText, "Premium Description in subscribe page");
+//		Swipe("UP", 1);
+//		if (getDriver().findElement(AMDSubscibeScreen.objContinueBtn).isEnabled()) {
+//			logger.info("Continue button is highlighted");
+//			extent.extentLoggerPass("Highlighted", "Continue button is highlighted");
+//		}
 		click(AMDSubscibeScreen.objContinueBtn, "Continue button");
-		verifyElementExist(AMDSubscibeScreen.objAccountInfoHeader, "Account info screen");
+		verifyElementExist(AMDSubscibeScreen.objAccountInfoScreen, "Account info screen");
 		hideKeyboard();// ADDED By Kushal
-		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header");
+	//	verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header");
 		verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in Account info screen");
-		verifyElementExist(AMDSubscibeScreen.objSelectedPackDesc, "Selected pack description in account info screen");
+	//	verifyElementExist(AMDSubscibeScreen.objSelectedPackDesc, "Selected pack description in account info screen");
 		verifyElementExist(AMDSubscibeScreen.objEmailID, "Email id field in Account info screen");
 		Swipe("UP", 1);
 		verifyElementExist(AMDSubscibeScreen.objORSeperator, "OR seperator in Account info screen");
 		verifyElementExist(AMDSubscibeScreen.objFacebookIcon, "FB icon in Account info screen");
 		verifyElementExist(AMDSubscibeScreen.objGoogleIcon, "Google icon in Account info screen");
 		verifyElementExist(AMDSubscibeScreen.objTwitterIcon, "Twitter icon in Account info screen");
-		verifyElementExist(AMDSubscibeScreen.objProceedButtonNothighlighted, "Proceed button dehighlighted by default");
+		verifyElementExist(AMDSubscibeScreen.objContinueBtn, "Continue button dehighlighted by default");
 		click(AMDSubscibeScreen.objEmailID, "Email");
 		type(AMDSubscibeScreen.objEmailID, RegisteredEmail, "Email field");
 		hideKeyboard();
@@ -1229,7 +1239,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Email", "User can not enter email/mobile number in email id field");
 		}
 //		verifyElementExist(AMDSubscibeScreen.objProceedBtn, "Proceed button");
-		click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
+		click(AMDSubscibeScreen.objContinueBtn, "Continue button");
 		verifyElementExist(AMDSubscibeScreen.objEnterPassword, "Enter Password PopUp");
 	}
 
@@ -1238,17 +1248,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		System.out.println("\nPassword Scenario");
 		String InvalidPwd="USe";
-		verifyElementExist(AMDSubscibeScreen.objPasswordTextField, "Password field");
-		click(AMDSubscibeScreen.objPasswordTextField, "Password");
-		type(AMDSubscibeScreen.objPasswordTextField, InvalidPwd, "Password field");
+		verifyElementExist(AMDSubscibeScreen.objEnterPassword, "Password field");
+		click(AMDSubscibeScreen.objEnterPassword, "Password");
+		type(AMDSubscibeScreen.objEnterPassword, InvalidPwd, "Password field");
 		hideKeyboard();
 		boolean var = verifyIsElementDisplayed(AMDSubscibeScreen.objPasswordErrorMessage);
 		if (var == true) {
 			logger.info("“Password must be a minimum of 6 characters” error message is displayed");
 			extentLoggerPass("Password", "“Password must be a minimum of 6 characters” error message is displayed");
 		}
-		clearField(AMDSubscibeScreen.objPasswordTextField, "Password field");
-		type(AMDSubscibeScreen.objPasswordTextField, "r", "Password field");
+		clearField(AMDSubscibeScreen.objEnterPassword, "Password field");
+		type(AMDSubscibeScreen.objEnterPassword, "r", "Password field");
 		waitTime(2000);
 		hideKeyboard();
 		System.out.println("DEVICE NAME : " + getOEMName);
@@ -1277,29 +1287,32 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Wait(1000);
 			click(AMDSubscibeScreen.objForgotPassword, "forgot password");
 			verifyElementExist(AMDSubscibeScreen.objForgotPasswordPageHeader, "Forgot password page");
-			Back(1);
+			waitTime(5000);
 			click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
 		}
 		if (UserType == "UnRegistered") {
 			logger.info("Forgot password is not displayed for unregistered user");
 			verifyElementExist(AMDSubscibeScreen.objTermsandPrivacyLink, "Terms and privacy links");
 		}
-		verifyElementExist(AMDSubscibeScreen.objPasswordTextField, "Password field");
-		click(AMDSubscibeScreen.objPasswordTextField, "Password");
-		type(AMDSubscibeScreen.objPasswordTextField, RegisteredMobilePassword, "Password field");
+		
+		verifyElementExist(AMDSubscibeScreen.objEnterPassword, "Password field");
+		waitTime(5000);
+		clearField(AMDSubscibeScreen.objEnterPassword, "Password field");
+		click(AMDSubscibeScreen.objEnterPassword, "Password");
+		waitTime(5000);	
+		type(AMDSubscibeScreen.objEnterPassword, RegisteredEmailPassword, "Password field");
 		hideKeyboard();
 		System.out.println("DEVICE NAME : " + getOEMName);
 		if (getOEMName.contains("vivo")) {
 			hidePwdKeyboard();
 		}
-		verifyElementPresentAndClick(AMDSubscibeScreen.objProceedPWDScreen, "Proceed button in password popup");
-		waitTime(10000);
-		Swipe("DOWN", 3);
-		verifyElementExist(AMDSubscibeScreen.objPaymentText, "Payment page");
+		verifyElementPresentAndClick(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button in password popup");
+		waitTime(5000);
+		verifyElementExist(AMDSubscibeScreen.objMakePaymentScreen, "Payment page");
 		
 		//verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in Payment page");
 		//verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in Payment page");
-		verifyElementExist(AMDSubscibeScreen.packdetailsinPaymentPage(packDetails), "Selected Pack details");
+		verifyElementExist(AMDSubscibeScreen.objAvaliablePack, "Selected Pack details");
 		Back(2);
 		click(AMDHomePage.objMoreMenu, "More Menu");
 		Swipe("UP", 3);
@@ -1312,23 +1325,26 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void unRegisteredEmailSubscribe() throws Exception {
 		extent.HeaderChildNode("SubscribeNow Functionality for UnRegistered email-id");
 		System.out.println("\nSubscribeNow Functionality for UnRegistered email-id");
-		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in subscription page");
+	//	verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in subscription page");
 		verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in subscribe page");
-		verifyElementExist(AMDSubscibeScreen.objAdbanner, "Carosual in subscription page");
-		verifyElementExist(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo code in subscribe page");
-		verifyElementPresent(AMDSubscibeScreen.objApply, "Apply button is subscribe page");
-		Swipe("UP", 3);
-		packDetails = getText(AMDSubscibeScreen.objRSVODselectedPackDesc);
-		click(AMDSubscibeScreen.objContinueBtn, "Continue button");
-		verifyElementExist(AMDSubscibeScreen.objAccountInfoHeader, "Account info screen");
+	//	verifyElementExist(AMDSubscibeScreen.objAdbanner, "Carosual in subscription page");
+		Swipe("UP",1);
+		verifyElementExist(AMDSubscibeScreen.objHaveACodeCTA, "Have a code in subscribe page");
+		click(AMDSubscibeScreen.objHaveACodeCTA, "Have a code in subscribe page");
+//		verifyElementExist(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Promo code in subscribe page");
+//		verifyElementPresent(AMDSubscibeScreen.objApply, "Apply button is subscribe page");
+//		Swipe("UP", 3);
+//		packDetails = getText(AMDSubscibeScreen.objRSVODselectedPackDesc);
+		Back(1);
+		click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button");
+		verifyElementExist(AMDSubscibeScreen.objAccountInfoScreen, "Account info screen");
 		hideKeyboard(); // Added by Kushal
-		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header");
+//		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header");
 		click(AMDSubscibeScreen.objEmailID, "Email id");
 		type(AMDSubscibeScreen.objEmailID, RandomStringGenerator(5) + "@gmail.com", "Email");
 		hideKeyboard();
-		click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
+		click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Proceed button");
 		passwordScenario("UnRegistered");
-
 	}
 
 	/*

@@ -486,35 +486,35 @@ public class MixpanelAndroid extends ExtentReporter {
 			FEProp.setProperty("Platform Name", platform);
 			FEProp.setProperty("os", System.getProperty("os.name").split(" ")[0]);
 		}
-		Mixpanel.FEProp.setProperty("Landing Page Name", "home");
+		MixpanelAndroid.FEProp.setProperty("Landing Page Name", "home");
 		if(!platform.equals("Android")) {
-		Mixpanel.FEProp.setProperty("Unique ID", UniqueID);
+		MixpanelAndroid.FEProp.setProperty("Unique ID", UniqueID);
 		}
 		
 		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
 		
 		if(userType.equals("Guest")) {
 			if(SubcribedDetails == false) {
-			Mixpanel.FEProp.setProperty("Gender", "N/A");
-			Mixpanel.FEProp.setProperty("Age", "N/A");
-			Mixpanel.FEProp.setProperty("Free Trial Expiry Date", "N/A");
-			Mixpanel.FEProp.setProperty("Free Trial Package", "N/A");
-			Mixpanel.FEProp.setProperty("Latest Subscription Pack", "N/A");
-			Mixpanel.FEProp.setProperty("Latest Subscription Pack Expiry", "N/A");
-			Mixpanel.FEProp.setProperty("Next Expiring Pack", "N/A");
-			Mixpanel.FEProp.setProperty("Next Pack Expiry Date", "N/A");
-			Mixpanel.FEProp.setProperty("Pack Duration", "N/A");
-			Mixpanel.FEProp.setProperty("Parent Control Setting", "N/A");
-		   // Mixpanel.FEProp.setProperty("User Type", "Free");
-			Mixpanel.FEProp.setProperty("Partner Name", "N/A");
-			Mixpanel.FEProp.setProperty("HasRental", "false");
-			Mixpanel.FEProp.setProperty("hasEduauraa", "false");
+				MixpanelAndroid.FEProp.setProperty("Gender", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Age", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Free Trial Expiry Date", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Free Trial Package", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack Expiry", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Next Expiring Pack", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Next Pack Expiry Date", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Pack Duration", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Parent Control Setting", "N/A");
+		     // MixpanelAndroid.FEProp.setProperty("User Type", "Free");
+				MixpanelAndroid.FEProp.setProperty("Partner Name", "N/A");
+				MixpanelAndroid.FEProp.setProperty("HasRental", "false");
+				MixpanelAndroid.FEProp.setProperty("hasEduauraa", "false");
 			if(Language != false) {
-			Mixpanel.FEProp.setProperty("New App Language", "en");
+			//	MixpanelAndroid.FEProp.setProperty("New App Language", "en");
 			if(platform.equals("Android")) {
-				//Mixpanel.FEProp.setProperty("New Content Language", "en,kn");
+				//MixpanelAndroid.FEProp.setProperty("New Content Language", "en,kn");
 			}else {
-			Mixpanel.FEProp.setProperty("New Content Language", "[en-kn]");}
+				MixpanelAndroid.FEProp.setProperty("New Content Language", "[en-kn]");}
 			}
 			}
 		}else if(userType.equals("NonSubscribedUser"))

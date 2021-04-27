@@ -4775,17 +4775,22 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	}
 
 	public void logout() throws Exception {
-		extent.HeaderChildNode("Logout from the App");
-		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
-		waitTime(3000);
-		Swipe("Up", 2);
-		verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
-		verifyElementPresentAndClick(AMDMoreMenu.objLogoutPopup, "Logout popUp");
-		verifyElementPresentAndClick(AMDMoreMenu.objLogoutButton, "Logout button");
-		waitTime(3000);
-		Swipe("Down", 2);
-		verifyElementPresent(AMDMoreMenu.objGuestUserAccount, "Guest user Header");
-		verifyElementPresentAndClick(AMDHomePage.objHome, "Home tab");
+		if (!(pUserType.equalsIgnoreCase("Guest"))) {
+			extent.HeaderChildNode("Logout from the App");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+			waitTime(3000);
+			Swipe("Up", 2);
+			verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
+			verifyElementPresentAndClick(AMDMoreMenu.objLogoutPopup, "Logout popUp");
+			verifyElementPresentAndClick(AMDMoreMenu.objLogoutButton, "Logout button");
+			waitTime(3000);
+			Swipe("Down", 2);
+			verifyElementPresent(AMDMoreMenu.objGuestUserAccount, "Guest user Header");
+			verifyElementPresentAndClick(AMDHomePage.objHome, "Home tab");
+		}else {
+			logger.info("Logout option is Not applicable for Guest user");
+			extentLogger("Logout option", "Logout option Event is Not applicable for Guest user");
+		}
 	}
 
 	/**
@@ -8737,7 +8742,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Parent Control Setting", value2);
 			mixpanel.FEProp.setProperty("Partner Name", "Zee5");
 			mixpanel.FEProp.setProperty("Gender",
-					ResponseInstance.getUserData(Username, Password).getProperty("gender"));
+					ResponseInstance.getUserData_NativeAndroid(Username, Password).getProperty("gender"));
 		} else {
 			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
@@ -9315,7 +9320,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				pUsername = getParameterFromXML("SubscribedUserName");
 				pPassword = getParameterFromXML("SubscribedUserPassword");
 
-				ResponseInstance.setSubscriptionDetails();
+				ResponseInstance.setSubscriptionDetails_NativeAndroid();
 				mixpanel.FEProp.setProperty("User Type", "Premium");
 			} else {
 				pUsername = getParameterFromXML("NonSubscribedUserName");
@@ -9998,6 +10003,118 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	}
 	
 	
+	public void verifyVideoStreamOverWifiChangedEvent() throws Exception {
+		extent.HeaderChildNode("Verify video Stream over wifi changed Event");
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		
+		if (!(pUserType.equalsIgnoreCase("Guest"))) {
+			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+				Username = getParameterFromXML("SubscribedUserName");
+				Password = getParameterFromXML("SubscribedUserPassword");
+			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+				Username = getParameterFromXML("NonSubscribedUserName");
+				Password = getParameterFromXML("NonSubscribedUserPassword");
+			}
+	      	mixpanel.FEProp.setProperty("Old Stream Over Wifi Setting", ResponseInstance.getUserSettingsDetails(Username,Password).getProperty("stream_over_wifi"));
+		}else {
+			mixpanel.FEProp.setProperty("Old Stream Over Wifi Setting", "false");
+		}
+		
+		boolean var = verifyElementPresentAndClick(AMDMoreMenu.objVideo_WifiOnly, "Wifi only Switch");
+		waitTime(3000);
+		setFEProperty(pUserType);
+		setUserType_SubscriptionProperties(pUserType);
+		mixpanel.FEProp.setProperty("Source", "More");
+		mixpanel.FEProp.setProperty("Page Name", "user_setting");
+		mixpanel.FEProp.setProperty("Manufacturer", DeviceDetails.OEM);
+		mixpanel.FEProp.setProperty("Brand", DeviceDetails.OEM);
 	
+		if(pUserType.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "guest");
+			mixpanel.FEProp.setProperty("New Stream Over Wifi Setting", "true");
+		}
+		
+		mixpanel.ValidateParameter("", "Video Stream Over Wifi Changed");
+		
+	    verifyElementPresentAndClick(AMDMoreMenu.objVideo_WifiOnly, "Wifi only Switch");
+
+	}
+	
+	public void verifyVideoAutoPlayChangedEvent() throws Exception {
+		extent.HeaderChildNode("Verify video AutoPlay change Event");
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		
+		if (!(pUserType.equalsIgnoreCase("Guest"))) {
+			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+				Username = getParameterFromXML("SubscribedUserName");
+				Password = getParameterFromXML("SubscribedUserPassword");
+			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+				Username = getParameterFromXML("NonSubscribedUserName");
+				Password = getParameterFromXML("NonSubscribedUserPassword");
+			}
+	      	mixpanel.FEProp.setProperty("Old Autoplay Setting", ResponseInstance.getUserSettingsDetails(Username,Password).getProperty("auto_play"));
+		}else {
+			mixpanel.FEProp.setProperty("Old Autoplay Setting", "true");
+		}
+		
+		boolean var = verifyElementPresentAndClick(AMDMoreMenu.objVideo_Autoply, "Video Autoplay toggle");
+		waitTime(3000);
+	
+		
+		setFEProperty(pUserType);
+		setUserType_SubscriptionProperties(pUserType);
+		mixpanel.FEProp.setProperty("Source", "More");
+		mixpanel.FEProp.setProperty("Page Name", "user_setting");
+		mixpanel.FEProp.setProperty("Manufacturer", DeviceDetails.OEM);
+		mixpanel.FEProp.setProperty("Brand", DeviceDetails.OEM);
+	
+		if(pUserType.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "guest");
+			mixpanel.FEProp.setProperty("New Autoplay Setting", "false");
+		}
+		
+		mixpanel.ValidateParameter("", "Video Streaming Autoplay Changed");
+		
+	    verifyElementPresentAndClick(AMDMoreMenu.objVideo_Autoply, "Video Autoplay toggle");
+
+	}
+	
+	public void verifyDownloadOverWifiChangedEvent() throws Exception {
+		extent.HeaderChildNode("Verify Download Over wifi change Event");
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		
+		if (!(pUserType.equalsIgnoreCase("Guest"))) {
+			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+				Username = getParameterFromXML("SubscribedUserName");
+				Password = getParameterFromXML("SubscribedUserPassword");
+			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+				Username = getParameterFromXML("NonSubscribedUserName");
+				Password = getParameterFromXML("NonSubscribedUserPassword");
+			}
+	      	mixpanel.FEProp.setProperty("Old Download Over Wifi Setting", ResponseInstance.getUserSettingsDetails(Username,Password).getProperty("download_over_wifi"));
+		}else {
+			mixpanel.FEProp.setProperty("Old Download Over Wifi Setting", "false");
+		}
+		
+		boolean var = verifyElementPresentAndClick(AMDMoreMenu.objDownloads_WifiOnly, "Download over wifi only switch");
+		waitTime(3000);
+		setFEProperty(pUserType);
+		setUserType_SubscriptionProperties(pUserType);
+		mixpanel.FEProp.setProperty("Source", "More");
+		mixpanel.FEProp.setProperty("Page Name", "user_setting");
+		mixpanel.FEProp.setProperty("Manufacturer", DeviceDetails.OEM);
+		mixpanel.FEProp.setProperty("Brand", DeviceDetails.OEM);
+	
+		if(pUserType.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "guest");
+			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "true");
+		}
+		mixpanel.ValidateParameter("", "Download Over Wifi Changed");
+	    verifyElementPresentAndClick(AMDMoreMenu.objDownloads_WifiOnly, "Download over wifi only switch");
+	
+	}
 	
 }

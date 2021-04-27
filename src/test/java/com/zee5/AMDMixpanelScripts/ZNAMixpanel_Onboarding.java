@@ -27,22 +27,21 @@ public class ZNAMixpanel_Onboarding {
 	}
 	
 	@Test(priority = 1)
-	@Parameters({ "userType"})
+	@Parameters({ "userType"}) //For Registered user only
 	public void LoginInitiatedEvent(String userType) throws Exception {
 		System.out.println("\nVerify Login Initiated Event on successfull login");
 		Zee5ApplicasterMixPanelBusinessLogic.event_LoginInitiated(userType);
 	}
 	
 	@Test(priority = 2)
-	@Parameters({ "userType"})
+	@Parameters({ "userType"}) //For Registered user only
 	public void LoginResultEvent(String userType) throws Exception {
 		System.out.println("\nVerify Login Result Event on successfull login");
 		Zee5ApplicasterMixPanelBusinessLogic.event_LoginResult(userType);
 	}
 	
-	
 	@Test(priority = 3)
-	@Parameters({ "userType"})
+	@Parameters({ "userType"}) //For Registered user only
 	public void LogOutEvent(String userType) throws Exception {
 		System.out.println("\nVerify Logout Event");
 		Zee5ApplicasterMixPanelBusinessLogic.logout();
@@ -52,9 +51,7 @@ public class ZNAMixpanel_Onboarding {
 	@Test(priority = 4)
 	@Parameters({ "userType"})
 	public void LoginRegistrationScreenDisplayEventValidation(String pUsertype) throws Exception {
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
-		Zee5ApplicasterMixPanelBusinessLogic.navigateToRegisterScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
 		Zee5ApplicasterMixPanelBusinessLogic.newRegistrationThroughEmail();
 		Zee5ApplicasterMixPanelBusinessLogic.event_LoginRegistrationScreenDisplayValiation(pUsertype);
 	}
@@ -99,6 +96,37 @@ public class ZNAMixpanel_Onboarding {
 	@Parameters({ "userType"})
 	public void RegistrationPasswordEnteredValiation(String pUsertype) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.event_RegistrationPasswordEnteredValiation(pUsertype);
+	}
+	
+	@Test(priority = 12)
+	@Parameters({ "userType" })//Guest user only
+	public void verifyLoginScreenDisplayEventThroughBrowseForFreeInWelcomeScreen(String userType) throws Exception {
+		System.out.println("Verify Login Screen Display Event By Clicking On Browse for free button in welcome screen");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunchToIntroScreen(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginScreenDisplayEventThroughBrowseForScreen(userType);
+	}
+	
+	@Test(priority = 13)//Guest user only
+	@Parameters({ "userType"})
+	public void verifyContentLanguageChangeFromWelcomPage(String userType) throws Exception {
+		System.out.println("Verify Content Language change from Welcome page");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunchTillDisplayLanguageScreen(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyContinueLanguageFromWelcomePage(userType);
+	}
+	
+	@Test(priority = 14)
+	@Parameters({"userType"})
+	public void verifyDisplayLanguageChangeEvent(String userType) throws Exception {
+		System.out.println("Display language Change");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyDisplayLanguageChangeEvent(userType);
+	}
+	
+	@Test(priority = 15)//Guest user only
+	@Parameters({ "userType" })
+	public void verifyFirstLaunchEvent(String userType) throws Exception {
+		System.out.println("Verify First launch Event");
+		Zee5ApplicasterMixPanelBusinessLogic.VerifyFirstAppLaunchEvent(userType);
 	}
 	
 	@AfterTest

@@ -38,10 +38,6 @@ public class AMDRegistrationScreen {
 	public static By objOTPTimer= By.xpath("//*[@resource-id='com.graymatrix.did:id/countDownTimerTextViewId']");
 	public static By objVerifyOtpButton= By.xpath("//*[@resource-id='com.graymatrix.did:id/verifyButton']");
 	public static By objResendOTP= By.xpath("//*[@resource-id='com.graymatrix.did:id/didntGetTheOTPId']");
-	public static By objOTPField1= By.xpath("//*[@resource-id='com.graymatrix.did:id/otpEditText1']");
-	public static By objOTPField2= By.xpath("//*[@resource-id='com.graymatrix.did:id/otpEditText2']");
-	public static By objOTPField3= By.xpath("//*[@resource-id='com.graymatrix.did:id/otpEditText3']");
-	public static By objOTPField4= By.xpath("//*[@resource-id='com.graymatrix.did:id/otpEditText4']");
 	public static By objNumericKeyBoard= By.xpath("//*[@id='keyb']");
 	public static By objAlphaKeyBoard= By.xpath("//*[@contentDescription='a']");
 	public static By objNumericKeypad = By.xpath("//*[contains(@id, 'keyb')]//following::*");
@@ -58,4 +54,9 @@ public class AMDRegistrationScreen {
 	public static By objDOBTxtField = By.xpath("//*[@id='dobTextView'] | //*[@id='dobEditText']");
 	public static By objEyeIcon = By.xpath("//*[@id='text_input_end_icon']");
 	public static By objTermsOfUseAndPrivacyPolicy = By.xpath("//*[@text='By creating this account you agree to our Terms of Use and Privacy Policy.'] | //*[@text='By proceeding you agree to our Terms of Use and Privacy Policy']");
+
+	public static By objOTPField1= By.xpath("//*[@id='pin_1'] | //*[@resource-id='com.graymatrix.did:id/otpEditText1']");
+	public static By objOTPField2= By.xpath("//*[@id='pin_2'] | //*[@resource-id='com.graymatrix.did:id/otpEditText2']");
+	public static By objOTPField3= By.xpath("//*[@id='pin_3'] | //*[@resource-id='com.graymatrix.did:id/otpEditText3']");
+	public static By objOTPField4= By.xpath("//*[@id='pin_4'] | //*[@resource-id='com.graymatrix.did:id/otpEditText4']");
 }

@@ -198,12 +198,11 @@ public class PWALoginPage {
 	 public static By objForgotPasswordLinkButtonWEB = By.xpath("//button[contains(@class,'noSelect buttonGradient')]");
 	 
 	 public static By objWebLoginPageText = By.xpath("//div[@class='formHeader loginHeaderIn']");
-	 
+
+	 public static By objSignInPage = By.xpath("//*[contains(@class, 'formHeader loginHeaderIn')]");
+
+	 public static By objLoginCloseButton = By.xpath("//*[contains(@class, 'iconInitialLoad-ic_close')]");
+
 	 public static By objLoginBtnWEB = By.xpath("//*[contains(@class,'loginBtn noSelect') and text()='Login']");
-
-
-
-
-
 
 }
