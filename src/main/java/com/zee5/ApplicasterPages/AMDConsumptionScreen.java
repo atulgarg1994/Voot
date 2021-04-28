@@ -162,4 +162,8 @@ public class AMDConsumptionScreen {
     
     public static By objSkipctaOnPlayer = By.xpath("//*[@id='primaryActionButton']");
     public static By objRentNowCTABelowthePlayer = By.xpath("//*[@id='subscribeButton' and @text='Rent Now']");
+    
+    public static By objGetPremiumOnPlayer = By.xpath("(//*[@id='subscribeButton' and @text='Get Premium'])[1]");
+    public static By objGetpremiumBelowThePlayer = By.xpath("(//*[@id='subscribeButton' and @text='Get Premium'])[2]");
+    
 }

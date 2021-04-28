@@ -14,11 +14,9 @@ public class AMDPlayerScreen {
 	public static By objLoginTextOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/static_login_text']");
 	public static By objLoginLinkOnPlayer = By.xpath("//*[@resource-id='com.graymatrix.did:id/login_button']");
 	public static By objPlayerLoader = By.xpath("//*[@id='player_loading_progress']");
-	public static By objTwitter = By.xpath("//*[@text='Tweet']");
 	public static By objTweetButton = By.xpath("//*[@id='button_tweet']");
 	public static By objFacebook = By.xpath("//*[@text='News Feed' or @text='Facebook']");
 	public static By objFacebookPost = By.xpath("//*[@text='POST' or @text='Post' or @text='Share' or @text='SHARE']");
-	public static By objCopyToClipboard = By.xpath("//*[@text='Copy to clipboard']");
 	public static By objReplay = By.xpath("//*[@id='icon_replay']");
 	public static By objSubtitlePopUp = By.xpath("//*[@id='popup_title']");
 	public static By objEnglishSubtitle = By.xpath("//*[@text='English']");
@@ -111,7 +109,6 @@ public class AMDPlayerScreen {
 	public static By objQuality = By.xpath("//*[@id='icon_quality_text'] | //*[@id='playerOptionTitle' and contains(text(),'Quality')]");
 	public static By objShareIconOnPlayer = By.xpath("(//*[@id='icon_share']) | (//*[@id='playerShareContent'])"); 
 	public static By objPlaybackRateSelected = By.xpath("((//*[@id='icon_selected']//parent::*//child::*)[2]) | (//*[@text='t']/following-sibling::*)");
-	public static By objSharePopUp = By.xpath("(//*[@text='Share using']) | ( //*[@text='Share via'])");
 	public static By objQualityOptions(int i) {
 			return By.xpath("(//*[@id='playerOptionTitle'])["+i+"]");
 		}
@@ -132,4 +129,12 @@ public class AMDPlayerScreen {
 	public static By objQualityOpt(int i) {
 		return By.xpath("(//*[@id='playerOptionTitle'])["+i+"]/preceding-sibling::*[@text='t']");
 	}
+	
+	public static By objSharePopUp = By.xpath("(//*[@text='Share using']) | ( //*[@text='Share via']) | //*[@text='Copy']");
+
+	public static By objCopyToClipboard = By.xpath("//*[@text='Copy to clipboard'] | //*[@text='Copy']");
+
+	public static By objTwitter = By.xpath("//*[@text='Tweet'] | //*[@text='Twitter Lite']");
+	
+	
 	}

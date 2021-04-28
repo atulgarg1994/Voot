@@ -965,10 +965,19 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDSettingsScreen.objDefaultSetting, "Default Setting Link");
 		verifyElementPresentAndClick(AMDSettingsScreen.objYesCTA, "Yes CTA");
 
+		setFEProperty(pUserType);
+		setUserType_SubscriptionProperties(pUserType);
+		
+		if(pUserType.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "guest");
+		}
 		mixpanel.FEProp.setProperty("Element", "Restore settings to default");
 		mixpanel.FEProp.setProperty("Page Name", "user_setting");
 		mixpanel.FEProp.setProperty("Source", "More");
+		mixpanel.FEProp.setProperty("Manufacturer", DeviceDetails.OEM);
+		mixpanel.FEProp.setProperty("Brand", DeviceDetails.OEM);
 		mixpanel.ValidateParameter("", "Default Settings Restored");
+
 	}
 
 	public void ZeeApplicasterMixPanelLoginForParentalControl(String LoginMethod) throws Exception {
@@ -1984,19 +1993,54 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	}
 
 	@SuppressWarnings("static-access")
-	public void verifyDownloadQualityChangeEvent() throws Exception {
+	public void verifyDownloadQualityChangeEvent(String option) throws Exception {
 		extent.HeaderChildNode("Verify Download quality change Event");
 		click(AMDHomePage.MoreMenuIcon, "More menu icon");
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
-		verifyElementPresentAndClick(AMDMoreMenu.objDownloads_Quality, "Download quality option");
-		verifyElementPresentAndClick(AMDSettingsScreen.objVideoQualityBest, "Best option");
-		waitTime(5000);
-		verifyElementPresentAndClick(AMDMoreMenu.objDownloads_Quality, "Download quality option");
-		verifyElementPresentAndClick(AMDSettingsScreen.objVideoQualityGood, "Good option");
-
+		
+		if (!(pUserType.equalsIgnoreCase("Guest"))) {
+			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+				Username = getParameterFromXML("SubscribedUserName");
+				Password = getParameterFromXML("SubscribedUserPassword");
+			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+				Username = getParameterFromXML("NonSubscribedUserName");
+				Password = getParameterFromXML("NonSubscribedUserPassword");
+			}
+	      	mixpanel.FEProp.setProperty("Old Download Quality Setting", ResponseInstance.getUserSettingsDetails(Username,Password).getProperty("download_quality"));
+		}else {
+			mixpanel.FEProp.setProperty("Old Download Quality Setting", "Ask each time");
+		}
+		
+		String downloadQuality = getText(AMDMoreMenu.objDownloads_Quality);
+		getDriver().findElement(By.xpath("//*[@id='downloadLabel']")).click();
+		if(downloadQuality.equalsIgnoreCase("Ask each time")) {
+			verifyElementPresentAndClick(AMDSettingsScreen.objDownloadVideoQualityOptions(option), "download quality option");
+		}else {
+			verifyElementPresentAndClick(AMDSettingsScreen.objVideoQualityAskEachTime, "Ask each time option");
+		}
+		
+		setFEProperty(pUserType);
+		setUserType_SubscriptionProperties(pUserType);
+		
+		
 		mixpanel.FEProp.setProperty("Source", "More");
 		mixpanel.FEProp.setProperty("Page Name", "selector");
+		mixpanel.FEProp.setProperty("Manufacturer", DeviceDetails.OEM);
+		mixpanel.FEProp.setProperty("Brand", DeviceDetails.OEM);
+	
+		if(pUserType.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "guest");
+			mixpanel.FEProp.setProperty("New Download Quality Setting", option);
+		}
+		
 		mixpanel.ValidateParameter("", "Download Quality Changed");
+
+		click(AMDMoreMenu.objDownloads_Quality, "Download quality option");
+		if(downloadQuality.equalsIgnoreCase("Ask each time")) {
+			verifyElementPresentAndClick(AMDSettingsScreen.objDownloadVideoQualityOptions(option), "download quality option");
+		}else {
+			verifyElementPresentAndClick(AMDSettingsScreen.objVideoQualityAskEachTime, "Ask each time option");
+		}	
 
 	}
 

@@ -5962,7 +5962,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 						extent.extentLogger("trayfound", trayTitleInUI + " is present in " + tab + " page");
 						titleDisplayed = true;
 					}
-					if (trayTitle.equals("Shows")) {
+					if (trayTitle.equals("TV Shows")) {
 						try {
 							// handle mandatory pop up
 							mandatoryRegistrationPopUp(userType);
@@ -6009,6 +6009,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		}
 		return false;
 	}
+	
 	public String allSelectedLanguages() throws Exception {
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objLanguageBtnWEB, "language btn");

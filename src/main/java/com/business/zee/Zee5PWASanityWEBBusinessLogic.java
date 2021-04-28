@@ -24212,15 +24212,276 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWASubscriptionPages.objPopupProceedBtn, "continue Button");
 	}
 	
-	public void Datepicker() throws Exception {
-		 waitTime(30000);
-		 findElement(By.xpath(".//*[@class='ng-tns-c20-37']")).click();
-		 ((JavascriptExecutor)getWebDriver()).executeScript("arguments[0].removeAttribute('readonly')", findElement(By.xpath(".//*[@class='ng-tns-c20-37']")));
-		 ((JavascriptExecutor)getWebDriver()).executeScript("arguments[0].value='20 Apr 2021';", findElement(By.xpath(".//*[@class='ng-tns-c20-37']")));
-		 waitTime(5000);
-		 WebElement element1 = getWebDriver().findElement(By.xpath(".//*[@class='ng-tns-c20-37 grey']"));
-		 ((JavascriptExecutor)getWebDriver()).executeScript("arguments[0].removeAttribute('readonly')", element1);
-		 ((JavascriptExecutor)getWebDriver()).executeScript("arguments[0].value='22 Apr 2021';", element1);
-		 ((JavascriptExecutor)getWebDriver()).executeScript("arguments[0].setAttribute('class', 'ng-tns-c20-37')",element1);
+	public void pwaverifychannelheadertext(String userType) throws Exception
+
+	{
+		extent.HeaderChildNode("Channels Details page Header <H1> tag text validation (PWA2-7391)");
+		navigateToAnyScreenOnWeb("Channels");
+		scrollToElement(PWAHamburgerMenuPage.objchannelname("Zee TV"));
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objchannelname("Zee TV"), "Channel name");
+		waitTime(3000);
+		verifyElementPresent(PWAHamburgerMenuPage.objchanneltitle("Zee TV Shows"), "Channel title");
+		String channeltitle = getText(PWAHamburgerMenuPage.objchanneltitle("Zee TV Shows"));
+		logger.info("The channel title : "+channeltitle);
+		extent.extentLogger("", "The channel title : "+channeltitle);
+		if(channeltitle.equals("Zee TV Shows"))
+		{
+			logger.info("H1 tag should be displayed as \"Zee TV Shows\". , Expected behaviour");
+			extent.extentLogger(" ", "H1 tag should be displayed as \"Zee TV Shows\". , Expected behaviour");
+		} else {
+			logger.error("Channels Details page Header displayed as \"Zee TV shows\" instead of \"Zee TV Shows\" ");
+			extent.extentLoggerFail(" ", "Channels Details page Header displayed as \"Zee TV shows\" instead of \"Zee TV Shows\"");
+		}
+		
+	}
+	
+	public void pwaverifyprocedtopayforvijayabank(String userType) throws Exception
+	{
+		if(userType.equals("NonSubscribeduser"))
+		{
+			extent.HeaderChildNode("\"vijaya\" Net banking, screen navigates to PayU page instead of Net-Banking page (PWA2-7458)");
+			verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscribed button");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objContinueButton,"Continue button");
+			checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
+			checkElementDisplayed(PWASubscriptionPages.objAccountInfoDetails, "Account Info Details in Payments Section");
+			//checkElementDisplayed(PWAHamburgerMenuPage.objTotalPayable,"Total amount");
+			String a = getText(PWAHamburgerMenuPage.objTotalPayable);
+			System.out.println(a);
+			waitTime(5000);
+			waitTime(5000);
+			WebElement iframeElement = null;
+			if (getPlatform().equalsIgnoreCase("Android")) {
+				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+				Thread.sleep(5000);
+				Thread.sleep(5000);
+				Thread.sleep(5000);
+				getWebDriver().switchTo().frame(iframeElement);
+			} else if (getPlatform().equalsIgnoreCase("Web")) {
+				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+				Thread.sleep(5000);
+				Thread.sleep(5000);
+				Thread.sleep(5000);
+				getWebDriver().switchTo().frame(iframeElement);
+			}
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objnetbanking,"Net banking");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaymentoption("Vijaya Bank"),"Payment option");
+			waitTime(3000);
+			verifyElementPresent(PWAHamburgerMenuPage.objproceedtopay,"Procced to pay");
+			click(PWAHamburgerMenuPage.objproceedtopay,"Procced to pay");
+			waitTime(3000);
+			
+			if(checkElementDisplayed(PWAHamburgerMenuPage.objpayupage, "Pay U page"))
+			{
+				logger.info("\"Vijaya Bank\" Net banking navigates to PayU page instead of respective net-Banking page.");
+				extent.extentLoggerFail("", "\"Vijaya Bank\" Net banking navigates to PayU page instead of respective net-Banking page.");
+			}
+			else 
+			{
+				logger.info("User should be navigated to the \"Vijaya Bank\" Net banking page or \"vijaya bank\" option should be removed from net-banking section payments page.,expected behaviour");
+				extent.extentLoggerPass("", "User should be navigated to the \"Vijaya Bank\" Net banking page or \"vijaya bank\" option should be removed from net-banking section payments page.,expected behaviour");
+			}
+			Back(1);
+			verifyElementPresent(PWAHomePage.objZeeLogo, "Zee logo");
+			click(PWAHomePage.objZeeLogo, "Zee logo");
+		}
+	}
+	
+	public void pwaverifyzeezestHDchanneldetailpage(String userType) throws Exception
+	{
+		extent.HeaderChildNode("when user click on \"Zee Zest HD\" from Channel landing page (PWA2-7422)");
+		navigateToAnyScreenOnWeb("Channels");
+		scrollToElement(PWAHamburgerMenuPage.objchannelname("Zee Zest HD"));
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objchannelname("Zee Zest HD"), "Channel name");
+		waitTime(3000);
+		verifyElementPresent(PWAHamburgerMenuPage.objchanneltitle("Zee Zest HD Shows"), "Channel title");
+		if(verifyElementPresent(PWAHamburgerMenuPage.objchanneltitle("Zee Zest HD Shows"), "Channel title"))
+		{
+			logger.info("\"Zee Zest HD \" channel details page should be displayed properly, expected behaviour");
+			extent.extentLoggerPass("", "\"Zee Zest HD \" channel details page should be displayed properly, expected behaviour");
+		}
+		else 
+		{
+			logger.info("\"Oops! No information Available\" error page displayed when user click on  \"Zee Zest HD\" from Channel landing page");
+			extent.extentLoggerPass("","\"Oops! No information Available\" error page displayed when user click on  \"Zee Zest HD\" from Channel landing page");
+		}
+		
+	}
+	
+	public void pwaverifycontentfrommywatchlist(String userType, String tabName) throws Exception
+	{
+		if(userType.equals("Guest"))
+		{
+			extent.HeaderChildNode("content playing from \"my watchlist\" validation (PWA2-7421)");
+			click(PWAHomePage.objZeelogo1, "zee logo");
+			navigateToAnyScreenOnWeb("Club");
+			verifyElementPresent(PWAHamburgerMenuPage.objClubcontentcard, "Club content card");
+			waitTime(3000);
+			click(PWAHamburgerMenuPage.objClubcontentcard, "Club content card");
+			
+			if (checkElementDisplayed(PWASearchPage.objSubscribepopup, "Subscribepopup")) {
+				click(PWASearchPage.objSubscribepopupCLoseButton, "close button");
+			}
+			partialScroll();
+			if (checkElementDisplayed(PWAPlayerPage.watchListBtn, "Watchlist")) {
+				logger.info("Watchlist button is displayed in movie consumption page");
+				extent.extentLogger("Watchlist", "Watchlist button is displayed in movie consumption page");
+				click(PWAPlayerPage.watchListBtn, "Watchlist");
+				checkElementDisplayed(PWAPlayerPage.watchListLoginPopup,
+						"When guest user tries to click on watchlist login popup");
+				click(PWAPlayerPage.watchListLoginButton, "Login button");
+				
+					verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+					type(PWALoginPage.objEmailField, NonSubUsername, "Email Field");
+					waitTime(3000);
+					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+					type(PWALoginPage.objPasswordField, NonSubPassword, "Password field");
+
+					waitTime(5000);
+					click(PWALoginPage.objWebLoginButton, "Login Button");
+					waitTime(5000);
+					if (checkElementDisplayed(PWASearchPage.objSubscribepopup, "Subscribepopup")) {
+						click(PWASearchPage.objSubscribepopupCLoseButton, "close button");
+					}
+					click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
+					if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup") == true) {
+						click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
+					}
+					waitTime(3000);
+					click(PWAAddToWatchListPage.objEpisodeTab, "Episode tab");	
+					verifyElementPresent(PWAHamburgerMenuPage.objcontentcardinmywatchlist, "content card in my watchlist");
+					click(PWAHamburgerMenuPage.objcontentcardinmywatchlist, "content card in my watchlist");
+					waitTime(3000);
+					if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
+						logger.info("Screen should redirect to particular contents consumption screen, expected behaviour");
+						extent.extentLogger("Consumption Page", "Screen should redirect to particular contents consumption screen, expected behaviour");
+					} else {
+						logger.info("Screen is redirected to page not found and\"404! not found\"info message is displayed on the screen.");
+						extent.extentLoggerFail("Consumption Page", "Screen is redirected to page not found and\"404! not found\"info message is displayed on the screen.");
+					}
+			}
+		}
+		
+	}
+	
+	public void pwamandatoryregpopupforzeeoriginalcontent(String userType) throws Exception
+	{
+		if(userType.equals("Guest"))
+		{
+			extent.HeaderChildNode("Mandatory Registration popup displayed for the Specific Non-Elligible Zee5Original Content \"Dev DD2\" (PWA2-7419)");
+			verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
+			waitTime(2000);
+			type(PWASearchPage.objSearchEditBox, "Dev DD2", "Search Field");
+			waitTime(3000);
+			click(PWASearchPage.objfirstdata, "searched content");
+			waitTime(3000);
+			mandatoryRegistrationPopUp(userType);
+			verifyElementPresent(PWAHamburgerMenuPage.objPlayBtn, "play button ");
+			click(PWAHamburgerMenuPage.objPlayBtn, "play button ");
+			waitTime(3000);
+			if (checkElementDisplayed(PWAAddToWatchListPage.objCompleteProfilePopUp, "Complete profile Popup") == true) 
+			{
+				
+				logger.info("Mandatory Registration popup displayed for the Specific Non-Eligible Zee5Original Content \"Dev DD2\".");
+				extent.extentLoggerFail("Consumption Page", "Mandatory Registration popup displayed for the Specific Non-Eligible Zee5Original Content \"Dev DD2\".");
+			} else {
+				logger.info("Mandatory Registration popup should not be displayed for Non eligible Zee5Originals show Episode, expected behaviour.");
+				extent.extentLoggerPass("Consumption Page", "Mandatory Registration popup should not be displayed for Non eligible Zee5Originals show Episode , expected behaviour");
+			}
+		}
+	}
+	
+	public void pwaverifyallchannelsscreen(String userType) throws Exception
+	{
+		extent.HeaderChildNode("Screen redirected to 'live-news ' landing page validation  (PWA2-7386)");
+		navigateToAnyScreenOnWeb("News");
+		//scrollToBottomOfPageWEB();
+		ScrollToTheElement(PWAHomePage.objtrayname("All Channels"));
+		waitTime(3000);
+		click(PWAPremiumPage.objViewAllBtn, "View All Button");
+		waitTime(5000);
+	if (checkElementDisplayed(PWAHamburgerMenuPage.objchanneltitle("TV Channels"), "Channel title")) {
+			logger.info("Screen should redirect to 'live-news 'collection page , expected behaviour");
+			extent.extentLoggerPass("View All", "Screen should redirect to 'live-news 'collection page, expected behaviour");
+		} else {
+			logger.error("Screen is redirected to Tv-channel landing page. ");
+			extent.extentLoggerFail("", "Screen is redirected to Tv-channel landing page.");
+		}
+		
+	}
+	
+	public void pwaverifythecontentplaybackinvedioscarousel(String userType) throws Exception
+	{
+		if(userType.equals("SubscribedUser"))
+		{
+			extent.HeaderChildNode("\" Tazaa-Shakeela\" from the carousel on  Videos Landing page  validation  (PWA2-7385)");
+			navigateToAnyScreenOnWeb("Videos");
+			waitForElement(PWAPremiumPage.objHerocarouselPlayBtn("Taaza - Shakeela | Prakriti Kakar | Veer Samarth | Saheb Khan | Richa Chadha"), 20,"Play button on carousel");
+			JSClick(PWAPremiumPage.objHerocarouselPlayBtn("Taaza - Shakeela | Prakriti Kakar | Veer Samarth | Saheb Khan | Richa Chadha"), "Play button on carousel");
+			waitTime(5000);
+			JSClick(PWAPlayerPage.settingsBtn, "Setting icon");
+			// Click on Quality
+			
+			if (checkElementDisplayed(PWAPlayerPage.qualityBtn, "Quality option")) {
+				logger.info("content should able to play , expected behaviour");
+				extent.extentLogger("Consumption Page", "content should able to play, expected behaviour");
+			} else {
+				logger.info(" Infinite Loader is observed on the consumption page ");
+				extent.extentLoggerFail("Consumption Page", " Infinite Loader is observed on the consumption page ");
+			}
+		}
+	}
+	
+	public void pwaverifyzeeoriginalscontentshouldnotdisplayintvshows(String userType) throws Exception
+	{
+		extent.HeaderChildNode("Zee-original contents is displayed in Tv-shows collection page.(PWA2-7383)");
+		navigateToAnyScreenOnWeb("Channels");
+		scrollToElement(PWAHamburgerMenuPage.objchannelname("Zee TV"));
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objchannelname("Zee TV"), "Channel name");
+		waitTime(3000);
+		//scrollToTheElementWEB(PWAHamburgerMenuPage.objcluborpremiumcontentcard);
+		if(verifyElementPresent(PWAHamburgerMenuPage.objclubcard, "Club card"))
+		{
+			logger.info("Zee-original contents is displayed in between off-air shows.");
+			extent.extentLoggerFail("Consumption Page", "Zee-original contents is displayed in between off-air shows.");
+		} else {
+			logger.info("  Zee original contents should not be displayed in Tv-shows collection page , expected behaviour");
+			extent.extentLoggerPass("Consumption Page", " Zee original contents should not be displayed in Tv-shows collection page , expected behaviour ");
+		}
+		
+		
+	}
+	public void pwaverifyzeeTVshowstextvalidation(String userType) throws Exception
+	{
+		extent.HeaderChildNode("\"Zee Tv-shows \"text validation based on the display language (PWA2-7372)");
+		navigateToAnyScreenOnWeb("Channels");
+		scrollToElement(PWAHamburgerMenuPage.objchannelname("Zee TV"));
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objchannelname("Zee TV"), "Channel name");
+		waitTime(3000);
+		Kannadalanguageselection();
+		verifyElementPresent(PWAHamburgerMenuPage.objchanneltitle("Zee TV Shows"), "Channel title");
+		String channeltitle = getText(PWAHamburgerMenuPage.objchanneltitle("Zee TV Shows"));
+		if(channeltitle.equals("Zee TV Shows"))
+		{
+			logger.info("Header text \"zee tv shows\" is not translated based on the selected display language." +channeltitle);
+			extent.extentLoggerFail("Consumption Page", "Header text \"zee tv shows\" is not translated based on the selected display language." +channeltitle);
+		} else {
+			logger.info("Header text \"zee tv shows \"should be translated based on the selected display language. , expected behaviour" +channeltitle);
+			extent.extentLoggerPass("Consumption Page", " Header text \"zee tv shows \"should be translated based on the selected display language. , expected behaviour " +channeltitle);
+		}
+		
+		//verifyElementPresent(PWAHamburgerMenuPage.objchanneltitle("Zee TV Shows"), "Channel title");
+		String breadcrumb = getText(PWAHamburgerMenuPage.objthreebreadcrumb);
+		if(breadcrumb.equals("Zee TV"))
+		{
+			logger.info("Header text \"zee tv \" is not translated based on the selected display language." +breadcrumb);
+			extent.extentLoggerFail("Consumption Page", "Header text \"zee tv shows\" is not translated based on the selected display language." +breadcrumb);
+		} else {
+			logger.info("Header text \"zee tv  \"should be translated based on the selected display language. , expected behaviour" +breadcrumb);
+			extent.extentLoggerPass("Consumption Page", " Header text \"zee tv shows \"should be translated based on the selected display language. , expected behaviour " +breadcrumb);
+		}
+		
+		EnglishLanguageselection();
+		
 	}
 }

@@ -274,12 +274,12 @@ public class ZNAMixpanel_Journey {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyVideoStreamOverWifiChangeEventForDisable();
 	}
 	
-	@Test(priority = 34)
-	public void verifyDownloadQualityChangeEvent() throws Exception {
-		System.out.println("Verify Download Quality change event");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyDownloadQualityChangeEvent();
-	}
+//	@Test(priority = 34)
+//	public void verifyDownloadQualityChangeEvent() throws Exception {
+//		System.out.println("Verify Download Quality change event");
+//		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+//		Zee5ApplicasterMixPanelBusinessLogic.verifyDownloadQualityChangeEvent();
+//	}
 	
 	@Test(priority = 35)
 	public void verifyDownloadOverWfiEventForEnable() throws Exception {

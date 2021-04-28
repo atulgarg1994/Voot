@@ -60,8 +60,6 @@
 	<parameter name="LastName" value="UserZee" />
 	<parameter name="loginThrough" value="BrowseForFree" />
 	<parameter name="PrepaidCode" value="Z5PWATI9WlD" />
-	<parameter name="RSVODUser" value="testzee5@gmail.com" />
-	<parameter name="RSVODPassword" value="123456" />
 	<parameter name="invalidSearchKeyword" value="@$_-(;_+" />
 	<parameter name="partlySpeltSearchKeyword" value="Kam" />
 	<parameter name="searchModuleKeyword" value="Paaru" />
@@ -144,6 +142,10 @@
 	
 	<parameter name="AdID" value="f0b99e2c-85b1-4446-8da1-ed18b3656962" />
 	<parameter name="videoQualityOption" value="Best" />
+	<parameter name="SettingsNonsubscribedUserName" value="rancho@gmail.com" />
+	<parameter name="SettingsNonsubscribedPassword" value="123456" />
+	<parameter name="RSVODUser" value="rsvodtamil1@gmail.com" />
+	<parameter name="RSVODPassword" value="123456" />
 	
 	
 	<listeners>

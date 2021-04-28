@@ -38,4 +38,8 @@ public class AMDSettingsScreen {
 	public static By objSelectVideoQualityInLandscapeMode = By.xpath("(//*[@id='playerOptionsTitleTextView' and @text='Select Video Quality']//following::*[@id='playerOptionTitle'])[2]");
 
 	public static By objoptionsInVideoQuality = By.xpath("(//*[@id='textView2'])[3] | (//*[@id='playerOptionTitle'])[2]");
+	
+	public static By objDownloadVideoQualityOptions(String option) {
+		return By.xpath("//*[@id='selector_content' and @text='"+option+"']");
+	}
 }
