@@ -114,11 +114,16 @@ public class AMDSubscibeScreen {
 	public static By objShowIcon = By.xpath("//*[@id='passwordIcon'] | //*[@id='text_input_end_icon']");
 	public static By objForgotPassword = By.xpath("//*[@id='forgotPassword'] | //*[@id='option_forgot_password']");
 	public static By objProceedBtn = By.xpath("//*[@id='btnFPSendResetLink'] | //*[@id='btnContinue_useraccountdetails']");
-	public static By objVerifyOTPScreenProceed = By.xpath("//*[@id='continueButton'] | //*[@resource-id='com.graymatrix.did:id/btn_verify_proceed']");
 	public static By objGetOTP = By.xpath("//*[@id='getOTPButton'] | //*[@resource-id='com.graymatrix.did:id/btn_get_otp']");
 	
 	public static By objAccountInfoScreen = By.xpath("//*[@id='heading' and @text='Account Info']");
 	public static By objPlanName = By.xpath("//*[@id='planName']");
 	public static By objChangeCodebutton = By.xpath("//*[@id='codeChangeLabel']");
 	public static By objGetPremiumCTA = By.xpath("//*[@id='subscribeButton']");
+	public static By objVerifyOTPScreenProceed = By.xpath("//*[@id='continueButton'] | //*[@resource-id='com.graymatrix.did:id/btn_verify_proceed']");
+	
+	public static By objRoundOffValue = By.xpath("//*[@text='Round Off' and @class='android.widget.TextView']//following-sibling::*//following-sibling::*");
+	public static By objPriceValueOnPaymentScreen = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='50% Off on 999']]//*[@class='android.widget.TextView'][3]");
+	public static By objexplorePremiumCTA = By.xpath("//*[@id='continueButton']");
+	
 }

@@ -100,7 +100,6 @@ public class AMDLoginScreen {
 	public static By objOtpEditBox2 = By.xpath("//*[@resource-id='com.graymatrix.did:id/otpEditText2']");
 	public static By objOtpEditBox3 = By.xpath("//*[@resource-id='com.graymatrix.did:id/otpEditText3']");
 	public static By objOtpEditBox4 = By.xpath("//*[@resource-id='com.graymatrix.did:id/otpEditText4']");
-	public static By objResendOtpLink = By.xpath("//*[@resource-id='com.graymatrix.did:id/didntGetTheOTPId']");
 	public static By objVerifyBtn = By.xpath("//*[@resource-id='com.graymatrix.did:id/verifyButton']");
 	public static By objOtp = By.xpath("//*[@resource-id='com.graymatrix.did:id/otpSentAndChangeNumberTextViewId']");
 	public static By objCountDownTimer = By.xpath("//*[@resource-id='com.graymatrix.did:id/countDownTimerTextViewId']");
@@ -184,4 +183,5 @@ public class AMDLoginScreen {
 	public static By objFirstGmailAccount = By.xpath("(//*[@id='account_display_name'])[1]");
 	
 	public static By objTwitterAutorizeAllowBtn = By.xpath("//*[@resource-id='com.twitter.android:id/ok_button'] | //*[@id='allow']"); 
+	public static By objResendOtpLink = By.xpath("//*[@id='resendOTP'] | //*[@resource-id='com.graymatrix.did:id/didntGetTheOTPId']");
 }

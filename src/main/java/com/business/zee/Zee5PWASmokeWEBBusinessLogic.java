@@ -1574,7 +1574,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			zeeSubscriptionPageValidationAndNavigateToHomePage();
 		}
 
-		// Scenario no. 91,92,94
+		// Scenario no. 91,92,94d
 		HeaderChildNode("Navigate to Subscription Flow From Adoric Popup/Get Premium CTA On Playing Premium Content");
 		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 				.getParameter("premiumMovieNoTrailer2");
@@ -2016,7 +2016,6 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 
 	public void navigateBackFromPayTmWalletAndLogout(String platform, String userType) throws Exception {
 //		HeaderChildNode("Navigate Back from PayTm Wallet and Logout");
-
 		waitTime(5000);
 		// Back(1);
 		waitTime(5000);
@@ -2024,7 +2023,6 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Guest")) {
 			logout();
 		}
-
 	}
 
 	public void ScrollToElement(By Locator, String validationText) throws Exception {

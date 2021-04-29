@@ -132,6 +132,6 @@ public class PWAMusicPage {
 	
 	public static By objBannerPlusTrayCard = By.xpath("//div[contains(@class,'bannerPlusTray')]//div[@data-minutelytitle]//img");
 	
-	public static By objConsumptionPageTitle = By.xpath(".//div[@class='metaInfo lineHeightClass']/h2");
+	public static By objConsumptionPageTitle = By.xpath("//*[@class='consumptionMetaDiv']//h1");
 
 }

@@ -36,8 +36,6 @@ public class PWALandingPages {
 	}
 
 	public static By objViewAllPageTitle = By.xpath("//h1");
-
-	public static By objWebProfileIcon = By.xpath("(//button[.='Open Menu'])[2]");
 	public static By obj_WEBPwa_HamburgerMenu1 = By.xpath("//button[.='Open Menu']");
 
 	public static By objTrayTitleArrowBtn(String str) {
@@ -146,4 +144,6 @@ public class PWALandingPages {
 	public static By objTrayWithTitle(String title) {
 		return By.xpath("//*[@class='trayHeader']//h2[contains(text(),\""+title+"\")] | //*[@class='trayHeader']//a[contains(text(),\""+title+"\")]");
 	}
+	
+	public static By objWebProfileIcon = By.xpath("//*[contains(@class, 'bm-icon profileMenuBtn iconInitialLoad-ic_profile')]");
 }

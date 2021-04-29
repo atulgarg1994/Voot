@@ -606,9 +606,6 @@ public class PWAHomePage {
 			"//div[contains(@class,'heroBannerCarousel')]//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'content')]//img");
 
 	public static By objGetPremiumWeb = By.xpath("//*[text()='Get premium' or text()='Get Club']");
-
-//	public static By objSubscribeBtnTopHeader = By
-//			.xpath("//*[contains(@class,'subscribeBtn noSelect')]");
 	
 	public static By objSubscribeBtnTopHeader = By
 			.xpath("//div[contains(@class,'iconInitialLoad-ic_premium')]");
@@ -618,4 +615,5 @@ public class PWAHomePage {
 	public static By objContTitleOnCarousel = By
 			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
 
+	public static By objTamilWEB = By.xpath("//span[contains(text(),'Tamil')]");
 }

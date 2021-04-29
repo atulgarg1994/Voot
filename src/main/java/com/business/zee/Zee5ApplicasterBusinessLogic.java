@@ -11690,8 +11690,8 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 		
 		// Verify User is navigated to subscribe screen post tapping Buy Subscription
 		verifyElementPresentAndClick(AMDMoreMenu.objBuySubscription, "Buy Subscription");
-		String screenTitle = getText(AMDGenericObjects.objgetScreenTitle);
-		if (screenTitle.equals("Subscribe")) {
+	//	String screenTitle = getText(AMDGenericObjects.objgetScreenTitle);
+		if (verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup, "Subscribe screen")) {
 			extent.extentLoggerPass("Verify Navigation",
 					"User is navigated to Subscribe screen post tapping Buy subscription from more menu");
 			logger.info("User is navigated to Subscribe screen post tapping Buy subscription from more menu");
@@ -11702,7 +11702,7 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 		}
 		// Verify the back button functionality
 
-		verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
+		verifyElementPresentAndClick(AMDSubscibeScreen.objSubscribePageBackButton, "Back button");
 		Swipe("Down", 1);
 		SwipeUntilFindElement(AMDMoreMenu.objProfile, "DOWN");
 		if (verifyElementExist(AMDMoreMenu.objProfile, "Profile icon")) {
@@ -12635,18 +12635,18 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 		
 		// Verify User is navigated to Login/Register screen post tapping My Subscription
 		verifyElementPresentAndClick(AMDMoreMenu.objMySubscription, "My Subscription");
-		String header = getText(AMDGenericObjects.objgetScreenTitle);
-		if (header.equals("My Subscriptions")) {
-			extent.extentLoggerPass("Verify navigation",
-					"User is navigated to " + header + " screen post tapping My Subscription from More menu screen ");
-			logger.info(
-					"User is navigated to " + header + " screen post tapping My Subscription from More menu screen");
-		} else {
-			extent.extentLoggerFail("Verify navigation",
-					"User is not navigated to My Subscriptions screen post tapping My Subscription from More menu screen ");
-			logger.info(
-					"User is not navigated to My Subscriptions screen post tapping My Subscription from More menu screen");
-		}
+//		String screenTitle = getText(AMDGenericObjects.objgetScreenTitle);
+//		if (screenTitle.equalsIgnoreCase("Subscribe")) {
+//			extent.extentLoggerPass("Verify navigation",
+//					"User is navigated to Subscribe screen post tapping My Subscription from More menu screen ");
+//			logger.info(
+//					"User is navigated to Subscribe screen post tapping My Subscription from More menu screen");
+//		} else {
+//			extent.extentLoggerFail("Verify navigation",
+//					"User is not navigated to My Subscriptions screen post tapping My Subscription from More menu screen ");
+//			logger.info(
+//					"User is not navigated to My Subscriptions screen post tapping My Subscription from More menu screen");
+//		}
 		
 		// Verify Subscribe now and No Active subscription is displayed
 		if (verifyIsElementDisplayed(AMDMoreMenu.objNoActivePlans)) {
@@ -12666,20 +12666,21 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 			// Verify User is navigated to subscribe screen post tapping Subscribe Now CTA
 			verifyElementPresentAndClick(AMDMoreMenu.objSubscribeNowCTA, "Subscribe Now CTA");
 			waitTime(1000);
-			String screenTitle = getText(AMDGenericObjects.objgetScreenTitle);
-			if (screenTitle.equalsIgnoreCase("Subscribe")) {
+	//		String screenTitle = getText(AMDGenericObjects.objgetScreenTitle);
+			if (verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup, "Subscribe screen")) {
 				extent.extentLoggerPass("Subscribe Now CTA Navigation",
 						"User is navigated to Subscribe screen post tapping Subscribe Now CTA from My Subscriptions screen");
 				logger.info(
 						"User is navigated to Subscribe screen post tapping Subscribe Now CTA from My Subscriptions screen");
-				verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
+			//	verifyElementPresentAndClick(AMDSubscibeScreen.objSubscribePageBackButton, "Back button");
 			} else {
 				extent.extentLoggerFail("Subscribe Now CTA Navigation",
 						"User failed to navigate to Subscribe screen post tapping Subscribe Now CTA from My Subscriptions screen");
 				logger.info(
 						"User is not navigated to Subscribe screen post tapping Subscribe Now CTA from My Subscriptions screen");
 			}
-			verifyElementPresentAndClick(AMDGenericObjects.objBackBtn, "Back button");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objSubscribePageBackButton, "Back button");
 		} else {
 			extent.extentLoggerFail("Subscribe Now",
 					"Subscribe Now CTA is not displayed in My Subscriptions screen");
@@ -21412,16 +21413,7 @@ public void BackToLandingScreen() throws Exception {
 	 		 navigateToIntroScreen_DisplaylangScreen();
 	 		 verifyElementExist(AMDOnboardingScreen.objSubscribeNowBtn, "Subscribe Now CTA");
 	 		 click(AMDOnboardingScreen.objSubscribeNowBtn, "Subscribe Now CTA");
-	 		verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup,"Subscribe popup");
-	 		click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
-	 		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-	 		hideKeyboard();
-	 		type(AMDLoginScreen.objEmailIdField, "zee5latest@gmail.com", "Email Field");
-	 		click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
-			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Password field");
-			hideKeyboard();
-			type(AMDLoginScreen.objPasswordField, "User@123", "Password field");
-			click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
+	 		 LoginInSusbscribeScreen("NonSubscribedUser");
 			verifyElementExist(AMDSubscibeScreen.objMakePaymentScreen, "Make payment screen");
 			Back(1);
 			verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup,"Pack selection screen");
@@ -21436,7 +21428,7 @@ public void BackToLandingScreen() throws Exception {
 		    	 Swipe("UP",2);
 		    	 click(AMDMoreMenu.objLogout,"Logout");
 				 click(AMDMoreMenu.objLogoutBtn,"Logout Button");
-				 Back(1);
+				 BackToLandingScreen();
 			}else {
 				logger.error("[AMA2-11279] On tapping device back button once user navigate back to pack selection screen & tapping device back again its navigating back to Intro screen");
 				extentLoggerFail("Subscribe",
@@ -21447,8 +21439,182 @@ public void BackToLandingScreen() throws Exception {
 	     }else {
 	    	 logger.info("AMA2-11279 : Not applicable for "+ userType);
 		 	extent.extentLogger("Subscribe", "AMA2-11279 : Not applicable for " + userType); 
-	     }	     
-	}
+	     }	  
+	     
+	   //AMA2-11311
+		 extent.HeaderChildNode("AMA2-11311 : Subscribe icon on header fails to hide on all landing screen post logging in with the subscribed account ");
+	     logger.info("AMA2-11311 : Subscribe icon on header fails to hide on all landing screen post logging in with the subscribed account ");
+	     if(userType.contains("Guest")) {
+	    	 verifyElementPresentAndClick(AMDHomePage.objGetPremium, "Get Premium Header");
+	    	 LoginInSusbscribeScreen("SubscribedUser");
+	    	 verifyElementPresentAndClick(AMDSubscibeScreen.objexplorePremiumCTA,"Explore Premium CTA");
+	    	 boolean booleanvalue = verifyElementIsNotDisplayed(AMDHomePage.objGetPremium);
+	    	 if(booleanvalue == true) {
+	    		 logger.info("Subscribe icon is not displayed on the header post login as subscribed user");
+					extentLoggerPass("Subscribe",
+							"Subscribe icon is not displayed on the header post login as subscribed user");
+	    	 }else {
+	    		 logger.error("[AMA2-11311] Subscribe icon on the header is not getting hide post logging into the subscribed account");
+					extentLoggerFail("Subscribe",
+							"[AMA2-11311] Subscribe icon on the header is not getting hide post logging into the subscribed account"); 
+	    	 }	    	 
+	    	 click(AMDHomePage.objMoreMenuBtn,"More menu");
+	    	 Swipe("UP",2);
+	    	 click(AMDMoreMenu.objLogout,"Logout");
+			 click(AMDMoreMenu.objLogoutBtn,"Logout Button");
+			 BackToLandingScreen();
+	     }else {
+	    	 logger.info("AMA2-11311 : Not applicable for "+ userType);
+			 extent.extentLogger("Subscribe", "AMA2-11311 : Not applicable for " + userType); 
+	     }
+	     
+	   //AMA2-11572
+		 extent.HeaderChildNode("AMA2-11572 : Only Explore Premium Text is displayed in Plan selection if user reaches Plan selection Screen without internet");
+	     logger.info("AMA2-11572 : Only Explore Premium Text is displayed in Plan selection if user reaches Plan selection Screen without internet");
+	    if(!userType.contains("SubscribedUser")) {
+	     verifyElementPresentAndClick(AMDHomePage.objGetPremium, "Get Premium Header");
+	     verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup,"Subscription screen");
+	     //Turning wifi off
+	     TurnOFFWifi();
+			if (getOEMName.equalsIgnoreCase("Sony")) {
+				Wifi_TurnOFFnON();
+			}
+			waitTime(3000);
+			Back(1);
+			click(AMDHomePage.objGetPremium, "Get Premium Header");
+			boolean value3 = verifyElementIsNotDisplayed(AMDOfflineScreen.objTryAgain);
+			boolean value4 = verifyElementIsNotDisplayed(AMDOfflineScreen.objYouAreOffline);
+			if(value3 | value4)
+			{
+				logger.error("[AMA2-11572] User is Unable to see the message “Your aren’t connected to the internet” along with functional “Retry” button");
+				extentLoggerFail("offline",
+						"[AMA2-11572] User is Unable to see the message “Your aren’t connected to the internet” along with functional “Retry” button");
+			}else {
+				 logger.info("User is able to see the message “Your aren’t connected to the internet” along with functional “Retry” button");
+				 extent.extentLoggerPass("offline", "User is able to see the message “Your aren’t connected to the internet” along with functional “Retry” button"); 
+			}
+			//Turning wifi ON
+			TurnONWifi();
+			if (getOEMName.equalsIgnoreCase("Sony")) {
+				Wifi_TurnOFFnON();
+			}
+			waitTime(3000);
+			Back(1);
+	    }
+	    else {
+	    	logger.info("AMA2-11572 : Not applicable for "+ userType);
+			extent.extentLogger("Subscribe", "AMA2-11572 : Not applicable for " + userType); 
+	    }	
+	    
+	    //AMA2-11278
+		 extent.HeaderChildNode("AMA2-11278 :In differential amount negative round off value is being displayed after INR while upgrading to 499");
+	     logger.info("AMA2-11278 :In differential amount negative round off value is being displayed after INR while upgrading to 499");
+	     relaunch(true);
+	     accessDeviceLocationPopUp("Allow", userType);
+		 navigateToIntroScreen_DisplaylangScreen();
+		    click(AMDOnboardingScreen.objSubscribeNowBtn, "Subscribe Now CTA");
+		    verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup,"Subscription screen");
+	 		click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
+	 		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+	 		hideKeyboard();
+	 		type(AMDLoginScreen.objEmailIdField, "9404252795", "Email Field");
+	 		click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Password field");
+			hideKeyboard();
+			type(AMDLoginScreen.objPasswordField, "111222" , "Password field");
+			click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
+			waitTime(3000);
+			click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Upgrade CTA");
+			if(verifyElementDisplayed(AMDSubscibeScreen.objRoundOffValue)) {
+			verifyElementExist(AMDSubscibeScreen.objRoundOffValue, "Round off value");
+			String textValue = findElement(AMDSubscibeScreen.objRoundOffValue).getText();
+			if(textValue.contains("-")) {
+				logger.error("[AMA2-11278] In differential amount negative round off value is being displayed after INR while upgrading to 499");
+				extent.extentLoggerFail("Subscribe", "[AMA2-11278] In differential amount negative round off value is being displayed after INR while upgrading to 499"); 
+			}else {
+				logger.info("In Differential amount section minus round off value is not displayed while upgrading to 499");
+				extent.extentLoggerPass("Subscribe", "In Differential amount section minus round off value is not displayed while upgrading to 499"); 
+			}
+			}else {
+				logger.info("Round Off value is not displayed");
+				}
+			     Back(2);
+		       	 click(AMDHomePage.objMoreMenuBtn,"More menu");
+		    	 Swipe("UP",2);
+		    	 click(AMDMoreMenu.objLogout,"Logout");
+				 click(AMDMoreMenu.objLogoutBtn,"Logout Button");
+		         Swipe("DOWN",2);
+		         click(AMDMoreMenu.objProfile,"Profile");
+		         ZeeApplicasterLoginForSettings(userType);
+		         
+		         //AMA2-11873
+				 extent.HeaderChildNode("AMA2-11873 :On Playing eduauraa content user is getting Get Premium CTA on Player post content finishes");
+			     logger.info("AMA2-11873 :On Playing eduauraa content user is getting Get Premium CTA on Player post content finishes");
+			     if(!userType.contains("SubscribedUser")) {
+			    	 SelectTopNavigationTab("Eduauraa");
+			    	 waitForElementAndClickIfPresent(AMDHomePage.objPlayBtn, 10, "Eduauraa content");
+					 waitTime(3000);
+					 verifyElementExist(AMDConsumptionScreen.objClaimOfferCTA, "Claim Offer CTA");
+					 scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
+					 boolean value4 = verifyElementExist(AMDConsumptionScreen.objGetPremiumCTA,"Get Premium CTA on player"); 
+					 boolean value5 = verifyElementExist(AMDConsumptionScreen.objSkipctaOnPlayer,"Skip CTA on player");
+					 if((value4 == true) & (value5 == true)) {
+						 logger.error("[AMA2-11873] User is getting 'To watch this Premium content “Get Premium CTA“ and Skip' for Eduauraa content");
+						 extent.extentLoggerFail("Subscribe", "[AMA2-11873] User is getting 'To watch this Premium content “Get Premium CTA“ and Skip' for Eduauraa content");  
+					 }else {
+						 logger.info("User is Not getting 'To watch this Premium content “Get Premium CTA“ and Skip' for Eduauraa content");
+						 extent.extentLoggerPass("Subscribe", "User is Not getting 'To watch this Premium content “Get Premium CTA“ and Skip' for Eduauraa content");  
+					 }
+					Back(1);
+					click(AMDHomePage.objHomeBottomBtn,"Home button");
+			     }else {
+			    	 logger.info("AMA2-11873 : Not applicable for "+ userType);
+					extent.extentLogger("Subscribe", "AMA2-11873 : Not applicable for " + userType);  
+			     }
+			     
+			   //AMA2-11883
+				 extent.HeaderChildNode("AMA2-11883 :Actual amount' is displayed instead of 'Discounted amount' on the make payment screen, Post applying the Promo codes");
+			     logger.info("AMA2-11883 :Actual amount' is displayed instead of 'Discounted amount' on the make payment screen, Post applying the Promo codes");
+			     if(!userType.contains("SubscribedUser")) {
+			    	 verifyElementPresentAndClick(AMDHomePage.objGetPremium, "Get Premium Header");
+				     verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup,"Subscription screen");
+				     verifyElementExist(AMDSubscibeScreen.objPlanPriceValue, "Plan Price value");
+				     Swipe("UP",1);
+				     verifyElementPresentAndClick(AMDSubscibeScreen.objHaveACodeCTA,"Have a code");
+				     verifyElementPresentAndClick(AMDSubscibeScreen.objEnterACodeEditFiled, "Enter a code field");
+				     hideKeyboard();
+				 	 type(AMDSubscibeScreen.objEnterACodeEditFiled, "Testz40" , "Enter a code field");
+				 	 verifyElementPresentAndClick(AMDSubscibeScreen.objApplyOnHaveACodescreen,"Apply CTA");
+				 	 verifyElementExist(AMDSubscibeScreen.objPlanPriceValue, "Discounted Plan Price value");
+				 	 String pricevalue1 = findElement(AMDSubscibeScreen.objPlanPriceValue).getText();
+				 	 click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
+				 	 if(userType.equals("Guest")) {
+				 	  LoginInSusbscribeScreen("NonSubscribedUser");	
+				 	 }
+				 	 waitTime(3000);
+				 	 verifyElementExist(AMDSubscibeScreen.objMakePaymentScreen, "Payment Screen");
+				 	 verifyElementExist(AMDSubscibeScreen.objPriceValueOnPaymentScreen, "Plan price om payment screen");
+				 	 String pricevalue2 = findElement(AMDSubscibeScreen.objPriceValueOnPaymentScreen).getText();
+				 	 if(pricevalue1.equals(pricevalue2)) {
+				 		 logger.info("The discounted amount is displayed on the make a payment screen, Post applying the Promo code");
+						 extent.extentLoggerPass("Subscribe", "The discounted amount is displayed on the make a payment screen, Post applying the Promo code");  
+				 	 }else {
+				 		 logger.error("[AMA2-11883]'Actual amount' is displayed instead of 'Discounted amount' on the make payment screen");
+						 extent.extentLoggerFail("Subscribe", "[AMA2-11883] 'Actual amount' is displayed instead of 'Discounted amount' on the make payment screen");  
+					 }
+				 	 Back(2);
+				 	 if(userType.equals("Guest")) {
+				 		 click(AMDHomePage.objMoreMenuBtn,"More menu");
+				    	 Swipe("UP",2);
+				    	 click(AMDMoreMenu.objLogout,"Logout");
+						 click(AMDMoreMenu.objLogoutBtn,"Logout Button");
+						 Back(1);
+				 	 }
+			     }else {
+			    	 logger.info("AMA2-11883 : Not applicable for "+ userType);
+					 extent.extentLogger("Subscribe", "AMA2-11883 : Not applicable for " + userType);  
+			     }
+			     	}
 	
 
 	public void RentNowCTAforTVODcontent(String userType) throws Exception {
@@ -21481,4 +21647,41 @@ public void BackToLandingScreen() throws Exception {
 	     
 	}
 	
+	public void LoginInSusbscribeScreen(String userType) throws Exception {		
+		extent.HeaderChildNode("LogIn as " + userType);
+		System.out.println("\nLogIn as " + userType);		
+		if(userType.contentEquals("NonSubscribedUser")) {			
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
+			
+		verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup,"Subscription screen");
+ 		click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
+ 		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+ 		hideKeyboard();
+ 		type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+ 		click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Password field");
+		hideKeyboard();
+		type(AMDLoginScreen.objPasswordField, Password , "Password field");
+		click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
+		waitTime(4000);
+		}
+		if (userType.contentEquals("SubscribedUser")) {
+			
+			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
+			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+			
+			verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup,"Subscription screen");
+	 		click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
+	 		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+	 		hideKeyboard();
+	 		type(AMDLoginScreen.objEmailIdField, SubscribedUsername , "Email Field");
+	 		click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Password field");
+			hideKeyboard();
+			type(AMDLoginScreen.objPasswordField, SubscribedPassword , "Password field");
+			click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
+			waitTime(4000);
+		}
+	}
 }

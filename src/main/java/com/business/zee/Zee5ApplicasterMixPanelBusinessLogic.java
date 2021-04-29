@@ -80,6 +80,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	String FirstName = getParameterFromXML("FirstName");
 	String LastName = getParameterFromXML("LastName");
+	String generatedEmailId = null;
 
 	public void init() {
 
@@ -1417,44 +1418,52 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	@SuppressWarnings("static-access")
 	public void verifyChangePasswordStartedEvent(String userType) throws Exception {
+		extent.HeaderChildNode("Change Password started event");
 		if (!(userType.equalsIgnoreCase("Guest"))) {
-			extent.HeaderChildNode("Change Password started event");
+			String oldPassword = "123456";
+			String NewPassword = "654321";
+			
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
 			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
 			waitTime(5000);
 			verifyElementPresentAndClick(AMDMyProfileScreen.objChangePassword, "Change Password");
 			verifyElementPresentAndClick(AMDChangePasswordScreen.objCurrentPwdField, "Current Password field");
-			type(AMDChangePasswordScreen.objCurrentPwdField, "123456", "Current Password field");
+			type(AMDChangePasswordScreen.objCurrentPwdField, oldPassword, "Current Password field");
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDChangePasswordScreen.objNewPwdField, "New Password field");
-			type(AMDChangePasswordScreen.objNewPwdField, "1234567", "New Password field");
+			type(AMDChangePasswordScreen.objNewPwdField, NewPassword, "New Password field");
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDChangePasswordScreen.objConfirmPwdField, "Confirm Password field");
-			type(AMDChangePasswordScreen.objConfirmPwdField, "1234567", "Confirm Password field");
+			type(AMDChangePasswordScreen.objConfirmPwdField, NewPassword, "Confirm Password field");
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDChangePasswordScreen.objUpdateBtn, "Update button");
 			waitTime(5000);
 
 			verifyElementPresentAndClick(AMDMyProfileScreen.objChangePassword, "Change Password");
 			verifyElementPresentAndClick(AMDChangePasswordScreen.objCurrentPwdField, "Current Password field");
-			type(AMDChangePasswordScreen.objCurrentPwdField, "1234567", "Current Password field");
+			type(AMDChangePasswordScreen.objCurrentPwdField, NewPassword, "Current Password field");
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDChangePasswordScreen.objNewPwdField, "New Password field");
-			type(AMDChangePasswordScreen.objNewPwdField, "123456", "New Password field");
+			type(AMDChangePasswordScreen.objNewPwdField, oldPassword, "New Password field");
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDChangePasswordScreen.objConfirmPwdField, "Confirm Password field");
-			type(AMDChangePasswordScreen.objConfirmPwdField, "123456", "Confirm Password field");
+			type(AMDChangePasswordScreen.objConfirmPwdField, oldPassword, "Confirm Password field");
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDChangePasswordScreen.objUpdateBtn, "Update button");
 			waitTime(3000);
 
-			setFEProperty(userType);
-			mixpanel.FEProp.setProperty("Page Name", "ChangePassword");
-			mixpanel.FEProp.setProperty("Source", "MyProfile");
-			mixpanel.FEProp.setProperty("Element", "Update");
+			setFEProperty(generatedEmailId, oldPassword);
+			
+			MixpanelAndroid.FEProp.setProperty("Page Name", "ChangePassword");
+			MixpanelAndroid.FEProp.setProperty("Source", "MyProfile");
+			MixpanelAndroid.FEProp.setProperty("Element", "Update");
+			MixpanelAndroid.FEProp.setProperty("Partner Name", "N/A");
 
-			mixpanel.ValidateParameter("", "Change Password Started");
+			MixpanelAndroid.ValidateParameter("", "Change Password Started");
 
+		}else {
+			logger.info("Change Password Event is Not applicable for Guest user");
+			extentLogger("Change Password", "Change Password Event is Not applicable for Guest user");
 		}
 	}
 
@@ -4823,12 +4832,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Logout from the App");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
 			waitTime(3000);
-			Swipe("Up", 2);
+			Swipe("Up", 1);
+			SwipeUntilFindElement(AMDMoreMenu.objLogout, "UP");
 			verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
 			verifyElementPresentAndClick(AMDMoreMenu.objLogoutPopup, "Logout popUp");
 			verifyElementPresentAndClick(AMDMoreMenu.objLogoutButton, "Logout button");
 			waitTime(3000);
-			Swipe("Down", 2);
+			Swipe("Down", 1);
+			SwipeUntilFindElement(AMDMoreMenu.objGuestUserAccount, "Down");
 			verifyElementPresent(AMDMoreMenu.objGuestUserAccount, "Guest user Header");
 			verifyElementPresentAndClick(AMDHomePage.objHome, "Home tab");
 		}else {
@@ -9670,17 +9681,22 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 		waitTime(20000);
 		if (!(userType.equalsIgnoreCase("Guest"))) {
+			click(AMDHomePage.objDownloadBtn, "Download button");
 			setFEProperty(pUsertype);
 			setUserType_SubscriptionProperties(pUsertype);
 
-			mixpanel.FEProp.setProperty("Source", pSource);
-			mixpanel.FEProp.setProperty("Page Name", pPage);
-			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
-			mixpanel.FEProp.setProperty("brand", pManufacturer);
-			mixpanel.FEProp.setProperty("Method", pMethod);
+			MixpanelAndroid.FEProp.setProperty("Source", pSource);
+			MixpanelAndroid.FEProp.setProperty("Page Name", pPage);
+			MixpanelAndroid.FEProp.setProperty("Player Name", "Kaltura Android");
+			MixpanelAndroid.FEProp.setProperty("manufacturer", pManufacturer);
+			MixpanelAndroid.FEProp.setProperty("brand", pManufacturer);
+			MixpanelAndroid.FEProp.setProperty("Method", pMethod);
+			MixpanelAndroid.FEProp.setProperty("User Type", "guest");
+			MixpanelAndroid.FEProp.setProperty("Gender", "N/A");
+			MixpanelAndroid.FEProp.setProperty("Age", "N/A");
+			MixpanelAndroid.FEProp.setProperty("Partner Name", "N/A");
 
-			mixpanel.ValidateParameter("", "Login Initatied");
+			MixpanelAndroid.ValidateParameter("", "Login Initatied");
 		} else {
 			logger.info("Login Initiated Event is Not applicable for Guest user");
 			extentLogger("Login Initiated", "Login Initiated Event is Not applicable for Guest user");
@@ -9699,14 +9715,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			setFEProperty(pUsertype);
 			setUserType_SubscriptionProperties(pUsertype);
 
-			mixpanel.FEProp.setProperty("Source", pSource);
-			mixpanel.FEProp.setProperty("Page Name", pPage);
-			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
-			mixpanel.FEProp.setProperty("brand", pManufacturer);
-			mixpanel.FEProp.setProperty("Method", pMethod);
+			MixpanelAndroid.FEProp.setProperty("Source", pSource);
+			MixpanelAndroid.FEProp.setProperty("Page Name", pPage);
+			MixpanelAndroid.FEProp.setProperty("Player Name", "Kaltura Android");
+			MixpanelAndroid.FEProp.setProperty("manufacturer", pManufacturer);
+			MixpanelAndroid.FEProp.setProperty("brand", pManufacturer);
+			MixpanelAndroid.FEProp.setProperty("Method", pMethod);
 
-			mixpanel.ValidateParameter("", "Login Result");
+			MixpanelAndroid.ValidateParameter("", "Login Result");
 		} else {
 			logger.info("Login Result Event is Not applicable for Guest user");
 			extentLogger("Login Result", "Login Result Event is Not applicable for Guest user");
@@ -9724,13 +9740,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			setFEProperty(pUsertype);
 			setUserType_SubscriptionProperties(pUsertype);
 
-			mixpanel.FEProp.setProperty("Source", pSource);
-			mixpanel.FEProp.setProperty("Page Name", pPage);
-			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
-			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			MixpanelAndroid.FEProp.setProperty("Source", pSource);
+			MixpanelAndroid.FEProp.setProperty("Page Name", pPage);
+			MixpanelAndroid.FEProp.setProperty("Player Name", "Kaltura Android");
+			MixpanelAndroid.FEProp.setProperty("manufacturer", pManufacturer);
+			MixpanelAndroid.FEProp.setProperty("brand", pManufacturer);
+			MixpanelAndroid.FEProp.setProperty("User Type", "guest");
 
-			mixpanel.ValidateParameter("", "Logout");
+			MixpanelAndroid.ValidateParameter("", "Logout");
 		} else {
 			logger.info("Logout Event is Not applicable for Guest user");
 			extentLogger("Logout", "Logout Event is Not applicable for Guest user");
@@ -9808,8 +9825,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 }
 	
 	public void newRegistrationThroughEmail() throws Exception {
-		extent.HeaderChildNode("Register New User");
-		System.out.println("\nRegister New User");
+		extent.HeaderChildNode("Register a New User");
+		System.out.println("\nRegister a New User");
 		
 		String pDOB = "01/01/1990", pNewPassword = "123456";
 		String regEmailID = generateRandomString(5) + "@zee.com";
@@ -9845,10 +9862,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (verifyHomePage) {
 			logger.info("New User Registerd to ZEE5 App successfully with following Email Id: "+regEmailID);
 			extent.extentLoggerPass("Registration", "New User Registerd to ZEE5 App successfully with following Email Id: "+regEmailID);
+			click(AMDHomePage.objDownloadBtn, "Download button");
 		} else {
 			logger.error("New User failed to Register to ZEE5 App with EmailId: "+regEmailID);
 			extent.extentLoggerFail("Registration", "New User failed to Register to ZEE5 App with EmailId: "+regEmailID);
 		}
+		
+		//Assigning email Id to Global variable
+		generatedEmailId = regEmailID;
 	}
 	
 	public void event_LoginRegistrationScreenDisplayValiation(String pUsertype) throws Exception {
@@ -9863,13 +9884,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			waitTime(30000);
 			setFEProperty(pUsertype);
 			
-			mixpanel.FEProp.setProperty("Source", pSource);
-			mixpanel.FEProp.setProperty("Page Name", pPage);
-			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
-			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			MixpanelAndroid.FEProp.setProperty("Source", pSource);
+			MixpanelAndroid.FEProp.setProperty("Page Name", pPage);
+			MixpanelAndroid.FEProp.setProperty("Player Name", "Kaltura Android");
+			MixpanelAndroid.FEProp.setProperty("manufacturer", pManufacturer);
+			MixpanelAndroid.FEProp.setProperty("brand", pManufacturer);
 			
-			mixpanel.ValidateParameter("", "Login Registration Screen Display");	
+			MixpanelAndroid.ValidateParameter("", "Login Registration Screen Display");	
 		}else {
 			logger.info("Login Registration Screen Display Event is Not applicable for "+pUsertype);
 			extentLogger("Login Registration Screen Display", "Login Registration Screen Display Event is Not applicable for "+pUsertype);
@@ -10159,6 +10180,115 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.ValidateParameter("", "Download Over Wifi Changed");
 	    verifyElementPresentAndClick(AMDMoreMenu.objDownloads_WifiOnly, "Download over wifi only switch");
 	
+	}
+	
+	public void verifyCarouselBannerClickEvent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Carousel Banner Click");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+
+		boolean flagBox = verifyIsElementDisplayed(AMDHomePage.objSboxIcon);
+		String pSugarBox = String.valueOf(flagBox);
+
+		String contentName = ResponseInstance.getCarouselContentFromAPI2(usertype, tabName);
+		System.out.println(contentName);
+
+		boolean flag = waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 60, "carousal content");
+
+		if (flag==true) {
+
+			String pPage = "Homepage";
+			String pSource = getSource(tabName);
+			String pManufacturer = DeviceDetails.OEM;
+			// String pAdId = getAdId();
+
+			setFEProperty(usertype);
+			setUserType_SubscriptionProperties(usertype);
+
+			// mixpanel.FEProp.setProperty("Ad ID", getParameterFromXML("AdID"));
+			// mixpanel.FEProp.setProperty("Advertisement ID", getParameterFromXML("AdID"));
+			mixpanel.FEProp.setProperty("Source", pSource);
+			mixpanel.FEProp.setProperty("Page Name", pPage);
+			mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+			mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("Brand", pManufacturer);
+			// mixpanel.FEProp.setProperty("Sugar Box Value",pSugarBox );
+			//mixpanel.FEProp.setProperty("Carousal Name", "N/A");
+
+			mixpanel.ValidateParameter("", "Carousal Banner Click");
+		} else {
+			logger.info("Failed to click on Carousal banner");
+			extentLoggerWarning("Event", "Failed to click on Carousal banner");
+		}
+	}
+	
+	public void setFEProperty(String pUserId, String pPassword) {
+
+		Properties pro = new Properties();
+		pro = ResponseInstance.getUserSettingsDetails(pUserId, pPassword);
+
+		System.out.println(pro);
+		String value = pro.getProperty("eduauraaClaimed");
+		if (value.equalsIgnoreCase("Empty")) {
+			value = "false";
+		}
+		String value2 = pro.getProperty("parental_control");
+		if (value2.equalsIgnoreCase("Empty")) {
+			value2 = "N/A";
+		}
+
+		MixpanelAndroid.FEProp.setProperty("New Video Streaming Quality Setting", pro.getProperty("streaming_quality"));
+		MixpanelAndroid.FEProp.setProperty("New Autoplay Setting", pro.getProperty("auto_play"));
+		MixpanelAndroid.FEProp.setProperty("New Stream Over Wifi Setting", pro.getProperty("stream_over_wifi"));
+		MixpanelAndroid.FEProp.setProperty("New Download Quality Setting", pro.getProperty("download_quality"));
+		MixpanelAndroid.FEProp.setProperty("New Download Over Wifi Setting", pro.getProperty("download_over_wifi"));
+		MixpanelAndroid.FEProp.setProperty("New App Language", pro.getProperty("display_language"));
+		MixpanelAndroid.FEProp.setProperty("New Content Language", pro.getProperty("content_language"));
+		MixpanelAndroid.FEProp.setProperty("hasEduauraa", value);
+		MixpanelAndroid.FEProp.setProperty("isEduauraa", value);
+		MixpanelAndroid.FEProp.setProperty("Parent Control Setting", value2);
+		MixpanelAndroid.FEProp.setProperty("Partner Name", "Zee5");
+		MixpanelAndroid.FEProp.setProperty("Gender",ResponseInstance.getUserData_NativeAndroid(pUserId, pPassword).getProperty("gender"));
+	}
+	
+	public void event_HomePageVisitedValiation(String pUsertype) throws Exception {
+		System.out.println("\nHomepage Visited Event Validation");
+		
+		String pPage = "Homepage";
+		String pSource = "Intro";
+		String pManufacturer = DeviceDetails.OEM;
+		String pMethod = "email";
+		if(pUsertype.equalsIgnoreCase("Guest")) {
+			verifyElementPresentAndClick(AMDHomePage.objDownloadBtn, "Download tab");
+			waitTime(30000);
+			setFEProperty(pUsertype);
+			
+//			mixpanel.FEProp.setProperty("Source", pSource);
+//			mixpanel.FEProp.setProperty("Page Name", pPage);
+			MixpanelAndroid.FEProp.setProperty("Player Name", "Kaltura Android");
+			MixpanelAndroid.FEProp.setProperty("manufacturer", pManufacturer);
+			MixpanelAndroid.FEProp.setProperty("brand", pManufacturer);
+			
+			MixpanelAndroid.ValidateParameter("", "Homepage_visited");	
+		}else {
+			logger.info("Homepage_visited Event is Not applicable for "+pUsertype);
+			extentLogger("Homepage_visited", "Homepage_visited Event is Not applicable for "+pUsertype);
+		}	
+	}
+	
+	public void event_ChangePasswordResultEvent(String userType) throws Exception {
+		extent.HeaderChildNode("Change Password Result event");
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			MixpanelAndroid.FEProp.setProperty("Page Name", "ChangePassword");
+			MixpanelAndroid.FEProp.setProperty("Source", "MyProfile");
+			MixpanelAndroid.FEProp.setProperty("Element", "ChangePassword");
+			MixpanelAndroid.FEProp.setProperty("Partner Name", "N/A");
+
+			MixpanelAndroid.ValidateParameter("", "Change Password Result");
+		}else {
+			logger.info("Change Password Result Event is Not applicable for Guest user");
+			extentLogger("Change Password Result", "Change Password Result Event is Not applicable for Guest user");
+		}
 	}
 	
 }

@@ -157,4 +157,6 @@ public class PWAShowsPage {
 	public static By objTrayTitle1(String str) {
 		return By.xpath("//div[@class='trayHeader']//h2[contains(text(),'"+str+"')]");
 	}
+	
+	public static By objShowDetailsEpisodeDropdownText = By.xpath("(//div[@class='AllEpisodesListDiv']//div[@class='allEpisodeSelect']//div)[4]//span");
 }

@@ -186,8 +186,6 @@ public class PWAHamburgerMenuPage {
 	// Buy Subscription Option
 	public static By objBuySubscriptionOption = By
 			.xpath("//*[contains(@class,'menuItem') and contains(text(),'Buy Subscription')]");
-
-	public static By objProfileIconWEB = By.xpath("(//button[.='Open Menu'])[2]");
 	public static By objMyAccountOption = By.xpath("//div[contains(@class,'menuForMyAccount')]");
 
 	public static By objContTitleTextCarousel(String text) {
@@ -463,8 +461,6 @@ public class PWAHamburgerMenuPage {
 
 	public static By objPlans = By.xpath("//*[text()='Plans']");
 
-	public static By objBuySubscription = By.xpath("//*[.='Buy Subscription']");
-
 	public static By objHaveAPrepaidCode = By.xpath("//a[.='Have a prepaid code ?']");
 
 	public static By objMyAccount = By.xpath("//*[text()='My Account'] ");
@@ -736,12 +732,8 @@ public class PWAHamburgerMenuPage {
 	
 	public static By objUnselectedEnglishContentLanguage = By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='English']");
 	
-	public static By objnetbanking = By.xpath(
-			"//*[@class='linearLayout sidebarItem_object']//following-sibling::*//article[contains(text(),'Netbanking')]");
-	
 	public static By objPaymentoption=By.xpath("//*[@class='linearLayout sidebarItem_object']//following-sibling::*//article[contains(text(),'Airtel Payments Bank')]");
-	public static By objproceedtopay=By.xpath("//*[@class='linearLayout sidebarItem_object']//following-sibling::*//article[text()='Proceed to pay']");
-	
+
 	public static By objQwikcilver=By.xpath("//p[@class='iconNavi-ic_expand_less']");
 	
 	public static By objPay=By.xpath("//*[text()='PAY']");
@@ -802,14 +794,11 @@ public class PWAHamburgerMenuPage {
 	public static By objreleasingdate=By.xpath("//div[@class='expire']//h5[@class='yellowText']");
 	
 	public static By objupcomingmovietray=By.xpath("//h2[text()='Upcoming Movies']");
-	
-	public static By objcontentcardinmywatchlist=By.xpath("(//h3[contains(@class,'cardTitle overflowEllipsis')]//a)");
 	public static By objerrormessage=By.xpath("//p[@class='errorMessage']");
 	
 	public static By objtop5watchednewa=By.xpath("(//*[contains(@class,'trayHeader')]//*[contains(text(),'Top 5 Most Watched News Videos')]//parent::*//parent::*//following-sibling::*//*[contains(@class, 'view-all')])[1]");
 	
 	public static By objmetadataofcontenttype=By.xpath("//div[@class='metaInfo']//a");
-	public static By objmetadataoncard=By.xpath("//div[@class='metaInfo hidden']//a");
 	public static By objvisaimg=By.xpath("(//img[contains(@class,'imageView')])[6]");
 	
 	public static By objreleatednews=By.xpath("//div[@class='relatedNewsCol']//h2");
@@ -841,8 +830,6 @@ public class PWAHamburgerMenuPage {
 	public static By objcontentcardthroughtext(String text) {
 		return By.xpath("(//div[@class='showCard   zoomCardHover minutelyUrl card marginRight positionRelative'])//img[@title='"+text+"']");
 	}
-			
-	public static By objchannelcard=By.xpath("//div[@class='viewAllWrap']//img");
 	
 	//Edit profile LastName
 	public static By objEditProfilLastName = By.xpath("//*[@name='lastName']");
@@ -856,4 +843,54 @@ public class PWAHamburgerMenuPage {
 	
 	public static By objEmptyStateScreen = By.xpath("//div[@class='textArea']");
 	
+	public static By objperklsidestext(String text)
+	{
+		return By.xpath("//div[@class='item']//span[text()='"+text+"']");
+	}
+
+	public static By objperksidetitle(String text)
+	{
+		return By.xpath("//div[@class='title' and text()='"+text+"']");
+	}
+	public static By objepisodenumberbelowthecard=By.xpath("//div[@class='showDuration']//span");
+	public static By objmoviecontentinsubscriptionpage=By.xpath("//a[@data-minutelytitle='New Subs Page - Movies 1']");
+	public static By objclosebtn=By.xpath("//div[@class='drowerCloseIcon iconInitialLoad-ic_close']");
+	public static By objmetadataoncard=By.xpath("//div[@class='metaInfo hidden']//a");	
+	public static By objchannelcard=By.xpath("//div[@class='viewAllWrap']//img");
+	public static By objproceedtopay=By.xpath("//*[@class='linearLayout sidebarItem_object']//following-sibling::*//article[text()='Proceed to pay']");
+	public static By objnetbanking = By.xpath(
+			"//*[@class='linearLayout sidebarItem_object']//following-sibling::*//article[contains(text(),'Netbanking')]");
+	public static By objdrmmessageonplayer=By.xpath("//p[@class='launch-text' and text()='There was a problem while playing this content. Please try again later.']");
+	public static By objenterupiid=By.xpath("//*[contains(@class,'editText') and contains(@placeholder,'e.g rakesh@upi ')]");
+	public static By objupiproceedtopay=By.xpath("//*[@class='linearLayout sidebarItem_content sidebarItem_content_addupi']//following-sibling::*//article[text()='Proceed to pay']");
+	public static By objsomethingmess=By.xpath("//article[text()='Something went wrong. Please retry the payment.']");
+	public static By objcontentcardinmywatchlist=By.xpath("(//h3[contains(@class,'cardTitle overflowEllipsis')]//a)");
+
+	public static By objsubscriptionlinkmessage=By.xpath("//div[@class ='subscribe-msg-premium subscribemsg_en']//span");
+	public static By objpackdiscountamtinmysubscriptionpage=By.xpath("//div[contains(@class,'packPrice')]//*[@class='price']");
+
+	public static By objverifybtninaccountinfopage=By.xpath("//*[contains(@class, 'noSelect pinkBtn')]/span");
+
+	public static By objloginbtninsubscriptionpage=By .xpath("//*[@class='loginBtn noSelect subscriptionLoginType']");
+
+	public static By objExplorePremium=By.xpath("//h2[text()='Explore Premium']");
+
+	public static By objstep2and3=By.xpath("//div[@class='parentalControlPopup']//span");
+
+	public static By objamtinpaymentpage=By.xpath("//div[@class='totalAmount']//span");
+
+	public static By objchangebtn = By
+	.xpath("//*[contains(@class, 'promoCodePopupApply') and contains(text(), 'Change')]");
+
+	public static By objhaveagiftcard=By.xpath("//span[@class='labelText' and text()='Have a Gift Card?']");
+
+	public static By objentercarddetailstohaveagiftcard=By.xpath("//span[@class='inputLabel ' and text()='Enter Card Number Here']");
+
+	public static By objgiftcardnumber=By.xpath("//input[@type='text' and @name='giftCardNumber']");
+	
+	public static By objcrownicon=By.xpath("//div[contains(@class,'slick-active')]//*[@class='premiumContainer']//div");
+	
+	public static By objProfileIconWEB = By.xpath("//*[contains(@class, 'bm-icon profileMenuBtn iconInitialLoad-ic_profile')]");
+	
+	public static By objBuySubscription = By.xpath("//div[contains(@class, 'menuTitle noSelect menuForPlans')]");
 	}

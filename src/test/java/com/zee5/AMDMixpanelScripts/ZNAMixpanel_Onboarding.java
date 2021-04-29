@@ -58,47 +58,65 @@ public class ZNAMixpanel_Onboarding {
 	
 	@Test(priority = 5)
 	@Parameters({ "userType"})
+	public void HomepageVisitedEventValidation(String pUsertype) throws Exception {
+		Zee5ApplicasterMixPanelBusinessLogic.event_HomePageVisitedValiation(pUsertype);
+	}
+	
+	@Test(priority = 6)
+	@Parameters({ "userType"})
+	public void ChangePasswordEventValidation(String pUsertype) throws Exception {
+		Zee5ApplicasterMixPanelBusinessLogic.verifyChangePasswordStartedEvent(pUsertype);
+	}
+	
+	@Test(priority = 7)
+	@Parameters({ "userType"})
+	public void ChangePasswordResultEventValidation(String pUsertype) throws Exception {
+		Zee5ApplicasterMixPanelBusinessLogic.event_ChangePasswordResultEvent(pUsertype);
+	}
+	
+	@Test(priority = 8)
+	@Parameters({ "userType"})
 	public void RegisterScreenDisplayValiation(String pUsertype) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.event_RegisterScreenDisplayValiation(pUsertype);
 	}
 	
-	@Test(priority = 6)
+	@Test(priority = 9)
 	@Parameters({ "userType"})
 	public void RegistrationInitiatedValiation(String pUsertype) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.event_RegistrationInitiatedValiation(pUsertype);
 	}
 	
-	@Test(priority = 7)
+	@Test(priority = 10)
 	@Parameters({ "userType"})
 	public void RegistrationFirstNameEnteredValiation(String pUsertype) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.event_RegistrationFirstNameEnteredValiation(pUsertype);
 	}
 	
-	@Test(priority = 8)
+	@Test(priority = 11)
 	@Parameters({ "userType"})
 	public void RegistrationLastNameEnteredValiation(String pUsertype) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.event_RegistrationLastNameEnteredValiation(pUsertype);
 	}
 	
-	@Test(priority = 9)
+	@Test(priority = 12)
 	@Parameters({ "userType"})
 	public void RegistrationDoBEnteredValiation(String pUsertype) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.event_RegistrationDoBEnteredValiation(pUsertype);
 	}
 	
-	@Test(priority = 10)
+	@Test(priority = 13)
 	@Parameters({ "userType"})
 	public void RegistrationGenderEnteredValiation(String pUsertype) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.event_RegistrationGenderEnteredValiation(pUsertype);
 	}
 	
-	@Test(priority = 11)
+	@Test(priority = 14)
 	@Parameters({ "userType"})
 	public void RegistrationPasswordEnteredValiation(String pUsertype) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.event_RegistrationPasswordEnteredValiation(pUsertype);
 	}
 	
-	@Test(priority = 12)
+	@Test(priority = 15)
 	@Parameters({ "userType" })//Guest user only
 	public void verifyLoginScreenDisplayEventThroughBrowseForFreeInWelcomeScreen(String userType) throws Exception {
 		System.out.println("Verify Login Screen Display Event By Clicking On Browse for free button in welcome screen");
@@ -106,7 +124,7 @@ public class ZNAMixpanel_Onboarding {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginScreenDisplayEventThroughBrowseForScreen(userType);
 	}
 	
-	@Test(priority = 13)//Guest user only
+	@Test(priority = 16)//Guest user only
 	@Parameters({ "userType"})
 	public void verifyContentLanguageChangeFromWelcomPage(String userType) throws Exception {
 		System.out.println("Verify Content Language change from Welcome page");
@@ -114,7 +132,7 @@ public class ZNAMixpanel_Onboarding {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyContinueLanguageFromWelcomePage(userType);
 	}
 	
-	@Test(priority = 14)
+	@Test(priority = 17)
 	@Parameters({"userType"})
 	public void verifyDisplayLanguageChangeEvent(String userType) throws Exception {
 		System.out.println("Display language Change");
@@ -122,7 +140,7 @@ public class ZNAMixpanel_Onboarding {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyDisplayLanguageChangeEvent(userType);
 	}
 	
-	@Test(priority = 15)//Guest user only
+	@Test(priority = 18)//Guest user only
 	@Parameters({ "userType" })
 	public void verifyFirstLaunchEvent(String userType) throws Exception {
 		System.out.println("Verify First launch Event");
