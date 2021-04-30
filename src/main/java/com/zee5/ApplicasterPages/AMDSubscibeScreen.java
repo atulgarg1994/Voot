@@ -126,4 +126,19 @@ public class AMDSubscibeScreen {
 	public static By objPriceValueOnPaymentScreen = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='50% Off on 999']]//*[@class='android.widget.TextView'][3]");
 	public static By objexplorePremiumCTA = By.xpath("//*[@id='continueButton']");
 	
+	public static By objPremiumBadge = By.xpath("//*[@id='premiumBadge' and @text='P']");
+	public static By objStepperLabel = By.xpath("//*[@id='stepperLabel']");
+	public static By objComboOfferLabel = By.xpath("//*[@id='unlockLabel']");
+	
+	public static By objPlanHeader(String label) {
+		return By.xpath("//*[@id='plansHeader' and @text='"+label+"']");
+	}
+	
+	public static By objLinkedlabel(String label) {
+		return By.xpath("//*[@id='linkedLabel' and @text='"+label+"']");
+	}
+	
+	public static By objHelpIcons = By.id("helpIcon");
+	public static By objPlanSelectionBadge = By.id("planSelectionBadge");
+	
 }

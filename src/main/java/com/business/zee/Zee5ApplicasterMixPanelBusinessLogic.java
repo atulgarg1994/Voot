@@ -10291,4 +10291,30 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 	
+	public void SubscriptionPageEvent(String pUsertype) throws Exception {
+		HeaderChildNode("Verify Subscription Page Event");
+		
+		if (!(pUsertype.equalsIgnoreCase("SubscribedUser"))) {
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objBuySubscription, "Buy Subscription");
+			waitTime(2000);
+			verifyElementPresent(AMDSubscibeScreen.objPremiumBadge, "Subscription screen");
+
+			setFEProperty(pUsertype);
+			setUserType_SubscriptionProperties(pUsertype);
+
+			MixpanelAndroid.FEProp.setProperty("Player Name", "Kaltura Android");
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Subscription");
+			MixpanelAndroid.FEProp.setProperty("Source", "N/A");
+			MixpanelAndroid.FEProp.setProperty("Partner Name", "N/A");
+			MixpanelAndroid.FEProp.setProperty("Transaction Currency", "N/A");
+			MixpanelAndroid.FEProp.setProperty("Current Subscription", "N/A");
+			
+			MixpanelAndroid.ValidateParameter("", "Subscription Page Viewed");
+		}else {
+			logger.info("Subscription Page Viewed Event is Not applicable for "+pUsertype);
+			extentLogger("Subscription Page Viewed", "Subscription Page Viewed Event is Not applicable for "+pUsertype);
+		}
+	}
+	
 }

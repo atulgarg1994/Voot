@@ -22,8 +22,6 @@ public class AMDConsumptionScreen {
 
 	public static By objPopUpSubscribed = By.xpath("//*[@id='popup_title']");
 
-	public static By objLoginCTA = By.xpath("//*[@id='get_premium_login']");
-
 	public static By objSubscribePopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/popup_title']");
 	public static By objMainGenre = By.xpath("//*[@resource-id='com.graymatrix.did:id/main_genre_tv']");
 	public static By objReleasYear = By.xpath("//*[@resource-id='com.graymatrix.did:id/release_year_tv']");
@@ -166,4 +164,5 @@ public class AMDConsumptionScreen {
     public static By objGetPremiumOnPlayer = By.xpath("(//*[@id='subscribeButton' and @text='Get Premium'])[1]");
     public static By objGetpremiumBelowThePlayer = By.xpath("(//*[@id='subscribeButton' and @text='Get Premium'])[2]");
     
+    public static By objLoginCTA = By.xpath("//*[@id='secondaryActionButton'] | //*[@id='get_premium_login']");
 }

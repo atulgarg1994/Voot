@@ -376,11 +376,6 @@ public class Mixpanel extends ExtentReporter {
 	public static void validateParameterValue(String key, String value) {
 		try {
 			propValue = FEProp.getProperty(key);
-			if (platform.equals("Android")) {
-				if (key.equalsIgnoreCase("Publishing date")) {
-					value = value.split("T")[0];
-				}
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -863,7 +858,7 @@ public class Mixpanel extends ExtentReporter {
 		if (mpresponse.toString() != null) {
 				String response = mpresponse.asString();
 				String s[] = response.split("\n");
-				String str =s[s.length-1];
+				String str = s[s.length-1];
 				JsonObject obj = new JsonParser().parse(str).getAsJsonObject();
 				String properties=obj.get("properties").toString();
 				JsonObject objprop = new JsonParser().parse(properties).getAsJsonObject();			
