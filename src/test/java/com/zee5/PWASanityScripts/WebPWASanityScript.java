@@ -389,7 +389,7 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.ConvivaVerification(userType);
 	}
 	
-	//@Test(priority = 31)
+	@Test(priority = 31)
 	@Parameters({ "userType" })
 	public void TasksImplementation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();

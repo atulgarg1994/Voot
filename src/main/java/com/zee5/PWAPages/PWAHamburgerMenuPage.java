@@ -892,5 +892,6 @@ public class PWAHamburgerMenuPage {
 	
 	public static By objProfileIconWEB = By.xpath("//*[contains(@class, 'bm-icon profileMenuBtn iconInitialLoad-ic_profile')]");
 	
-	public static By objBuySubscription = By.xpath("//div[contains(@class, 'menuTitle noSelect menuForPlans')]");
+	public static By objBuySubscription = By.xpath("//a[contains(text(),'Buy Plan') or contains(text(), 'Buy Subscription')]");
+
 	}

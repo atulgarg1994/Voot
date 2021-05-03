@@ -20,7 +20,6 @@ public class AMDPlayerScreen {
 	public static By objReplay = By.xpath("//*[@id='icon_replay']");
 	public static By objSubtitlePopUp = By.xpath("//*[@id='popup_title']");
 	public static By objEnglishSubtitle = By.xpath("//*[@text='English']");
-	public static By objLoginCTA = By.xpath("//*[@id='get_premium_login']");
 	public static By objRegisterPopUp = By.xpath("//*[@id='registrationContainer']");
 	public static By objUpnextContentCard = By.xpath("(//*[@resource-id='com.graymatrix.did:id/card'])[3]");
 	public static By objUpnextContentCardTitle = By.xpath("(//*[@id='title_similar'])[3]");
@@ -136,5 +135,6 @@ public class AMDPlayerScreen {
 
 	public static By objTwitter = By.xpath("//*[@text='Tweet'] | //*[@text='Twitter Lite']");
 	
+	public static By objLoginCTA = By.xpath("//*[@id='secondaryActionButton'] | //*[@id='get_premium_login']");
 	
 	}

@@ -605,8 +605,6 @@ public class PWAHomePage {
 	public static By objMastheadCarouselCurrentContent = By.xpath(
 			"//div[contains(@class,'heroBannerCarousel')]//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'content')]//img");
 
-	public static By objGetPremiumWeb = By.xpath("//*[text()='Get premium' or text()='Get Club']");
-	
 	public static By objSubscribeBtnTopHeader = By
 			.xpath("//div[contains(@class,'iconInitialLoad-ic_premium')]");
 	
@@ -616,4 +614,6 @@ public class PWAHomePage {
 			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
 
 	public static By objTamilWEB = By.xpath("//span[contains(text(),'Tamil')]");
+	
+	public static By objGetPremiumWeb = By.xpath("//div[contains(@class,'slick-slide slick-active slick-center slick-current')]//div//span[contains(text(),'Get premium') or contains(text(), 'Buy Plan')]");
 }

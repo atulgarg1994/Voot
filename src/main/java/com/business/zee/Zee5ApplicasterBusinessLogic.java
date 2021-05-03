@@ -13096,7 +13096,6 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 		extent.HeaderChildNode("Validation of Subtitle option and Playback Rate in Landscape");
 		System.out.println("\nValidation of Subtitle option and Playback Rate in Landscape");
 		waitTime(5000);
-
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
 		click(AMDSearchScreen.objSearchEditBox, "Search Box");
 		type(AMDSearchScreen.objSearchBoxBar, searchKeyword4 + "\n", "Search bar");
