@@ -494,9 +494,6 @@ public class PWAHamburgerMenuPage {
 
 	public static By objLanguageBtn = By.xpath("//*[@class='noSelect menuItem  languageMenu ']");
 
-	public static By objContentLanguageBtn = By
-			.xpath("//*[@class='noSelect contentlangugaeHeader ' and contains(text(),'Content Language')]");
-
 	public static By objSelectedLanguages = By
 			.xpath("//*[@class='checkboxWrap checkedHighlight']//*[@class='innnerContentWrap']");
 
@@ -692,9 +689,6 @@ public class PWAHamburgerMenuPage {
 	public static By objzeeplextab=By.xpath("(//a[contains(@class,'noSelect')][contains(text(),'ZEEPLEX')])[2]");
 	public static By objrentforINR=By.xpath("//*[contains(text(),'Rent for INR ')]");
 	public static By objrentforINRpopup=By.xpath("//div[@class='popupContent']//span[contains(text(),'Rent for INR ')]");
-	public static By objUnselectedContentLanguage (String language) {
-		return By.xpath("//div[@class='checkboxWrap ']//span[@class='commonName' and .='"+language+"']");
-	}
 	public static By objPlayBtn = By.xpath("//a[@class='playIcon']");
 	public static By objLanguageBtnWeb = By.xpath("//*[@id='languageBtn']");
 	public static By objWouldYouLikeWatchMorePopup = By.xpath("//div[contains(text(),'Would you like to watch more')]");
@@ -893,5 +887,22 @@ public class PWAHamburgerMenuPage {
 	public static By objProfileIconWEB = By.xpath("//*[contains(@class, 'bm-icon profileMenuBtn iconInitialLoad-ic_profile')]");
 	
 	public static By objBuySubscription = By.xpath("//a[contains(text(),'Buy Plan') or contains(text(), 'Buy Subscription')]");
-
+	
+	public static By objContentLanguageBtn = By.xpath("//*[@class='noSelect contentlangugaeHeader ']");
+	public static By objMySubscriptionOption = By.xpath("//*[contains(@href,'/myprofile/plans')]");
+	//My Subscription Page Title
+	public static By objMySubscriptionPageTitle = By.xpath("//*[@class='subscriptionPageWrap']//h1[@class='pageTitle']");
+	//My Transactions Page Title
+	public static By objMyTransactionsPageTitle = By.xpath("//*[@class='transactionPage']//h1[@class='pageTitle']");
+	//Browse All Packs Page Description Text
+	public static By objBrowseAllPacksPageDescriptionText = By.xpath("//*[@class='subscriptionAndPaymentWrapper']//*[@class='stepDesc']");
+	                         
+	public static By objUnselectedContentLanguage(String Language) {
+		return By.xpath("//div[@class='checkboxWrap ']//span[contains(@class,'Name') and .='"+Language+"']");
+	}
+	//My Transactions Option
+	public static By objMyTransactionsOption = By.xpath("//*[contains(@href,'/myprofile/payments')]");
+	
+	//Browse All Packs Page Description Text
+	public static By objBrowseAllPacksPageTitleText = By.xpath("//*[@class='subscriptionAndPaymentWrapper']//*[@class='stepTitle']");
 	}

@@ -1,10 +1,19 @@
 package com.business.zee;
 
 import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,7 +25,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -50,6 +58,7 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import java.net.URL;
 
 public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
@@ -164,6 +173,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				"Loaded the following properties" + " TimeOut :" + getTimeout() + " RetryCount :" + getRetryCount());
 	}
 
+	@SuppressWarnings("static-access")
 	public void ZeeWEBPWALogin(String LoginMethod) throws Exception {
 		String userType = getParameterFromXML("userType");
 		switch (userType) {
@@ -19727,6 +19737,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	}
 
+	@SuppressWarnings("unused")
 	public void PWAVerifyTitleInAnchorTags(String userType) throws Exception {
 		extent.HeaderChildNode("Task PWA2-6003 : SEO - Anchor Text and Link for Top Navigation, Mega Menu & Footer");
 		logger.info("Task PWA2-6003 : SEO - Anchor Text and Link for Top Navigation, Mega Menu & Footer");
@@ -24136,6 +24147,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objApplybutton, "Apply button on content language screen");
 	}
 	
+	@SuppressWarnings("unused")
 	public void upnextrail(String userType) throws Exception
 	{
 		String totalDuration = "", currentDuration = "", currentUrl = "", contentURL = "", midRollUrl = "",postRollUrl = "";
@@ -25745,5 +25757,717 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objApplybutton, "Apply button on content language screen");
 		waitTime(3000);
 	}
+	
+	
+//========================Sprint 58========================
+	public void PWAVerifyPlanTitleInSubscriptionPlanPage(String userType) throws Exception {
+		if (userType.equals("SubscribedUser")) {
+			extent.HeaderChildNode("PWA2-7920 : 'Premium' plan title should be displayed in 'Your Premium ₹99 for 1 Month plan is active' text post changing display language to Telugu/Marathi");
+			logger.info("PWA2-7920 : 'Premium' plan title should be displayed in 'Your Premium ₹99 for 1 Month plan is active' text post changing display language to Telugu/Marathi");
+			navigateToHome();
+			mandatoryRegistrationPopUp(userType);
+			logout();
+			loginWithUserEmail("gdmplex@mailnesia.com", "123456");
+			selectDisplayLanguage("Telugu");
+			waitTime(3000);
+			click(PWAHamburgerMenuPage.objProfileIconWEB, "Profile Icon");
+			waitTime(1000);
+			click(PWAHamburgerMenuPage.objMySubscriptionOption, "My Subscription Option");
+			waitTime(1000);
+			if(verifyElementExist(PWAHamburgerMenuPage.objMySubscriptionPageTitle, "My Subscription Page Title")) {
+				logger.info("Navigated to My Subscription page");
+				extent.extentLoggerPass("", "Navigated to My Subscription page");
+				ScrollToTheElementWEB(PWAHamburgerMenuPage.objBrowseAllPacks);
+				click(PWAHamburgerMenuPage.objBrowseAllPacks, "Browse All Packs");
+				if(verifyElementExist(PWAHamburgerMenuPage.objBrowseAllPacksPageDescriptionText, "Browse All Packs Page Description Text")) {
+					logger.info("Navigated to plan selection page");
+					extent.extentLoggerPass("", "Navigated to plan selection page");
+					String descriptionText = getText(PWAHamburgerMenuPage.objBrowseAllPacksPageDescriptionText);
+					if(descriptionText.contains("{{plan_title}}")) {
+						logger.error("{{plan_title}} is displayed in the Desctiption text on plan selection page post changing the display language to Telugu/Marathi");
+						extent.extentLoggerFail("", "{{plan_title}} is displayed in the Desctiption text on plan selection page post changing the display language to Telugu/Marathi");
+					}else {
+						logger.info("{{plan_title}} is not displayed in the Desctiption text on plan selection page post changing the display language to Telugu/Marathi");
+						extent.extentLoggerPass("", "{{plan_title}} is not displayed in the Desctiption text on plan selection page post changing the display language to Telugu/Marathi");
+					}
+					if(descriptionText.contains("Premium")) {
+						logger.info("Premium is displayed in the Desctiption text on plan selection page post changing the display language to Telugu/Marathi");
+						extent.extentLoggerPass("", "Premium is displayed in the Desctiption text on plan selection page post changing the display language to Telugu/Marathi");
+					}else {
+						logger.error("Premium is not displayed in the Desctiption text on plan selection page post changing the display language to Telugu/Marathi");
+						extent.extentLoggerFail("", "Premium is not displayed in the Desctiption text on plan selection page post changing the display language to Telugu/Marathi");
+					}
+				}else {
+					logger.error("Not navigated to plan selection page");
+					extent.extentLoggerFail("", "Not navigated to plan selection page");
+				}
+			}else {
+				logger.error("Not navigated to My Subscription page");
+				extent.extentLoggerFail("", "Not navigated to My Subscription page");
+			}
+			waitTime(2000);
+			Back(1);
+			waitTime(2000);
+			click(PWAHomePage.objRegLangHomeTab, "Home tab");
+			selectDisplayLanguage("English");
+		}
+	}
+	
+	public void selectDisplayLanguage(String displayLanguage) throws Exception {
+		extent.extentLogger("", "Changing Display Language to "+displayLanguage);
+		waitTime(5000);
+		click(PWAHamburgerMenuPage.objLanguageBtnWeb, "Language Button");
+		waitTime(2000);
+		waitForElementAndClick(PWAHamburgerMenuPage.objDisplayLang, 2, "Content Languages");
+		waitTime(2000);
+		click(PWAHamburgerMenuPage.objUnselectedContentLanguage(displayLanguage), displayLanguage+" Language");
+		logger.info("Selected Display language "+displayLanguage);
+		extent.extentLogger("", "Selected Display language "+displayLanguage);
+		click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
+		waitTime(3000);
+		click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
+		waitTime(8000);
+	}
+	
+	public void PWAVerifyUpgradeToAnnualPlanInSubscriptionPlanPage(String userType) throws Exception {
+		if (userType.equals("SubscribedUser")) {
+			extent.HeaderChildNode("PWA2-7954 : \"upgrade to annual plan\" incorrect title is displayed on subscription screen for active 99 pack user");
+			logger.info("PWA2-7954 : \"upgrade to annual plan\" incorrect title is displayed on subscription screen for active 99 pack user");
+			navigateToHome();
+			mandatoryRegistrationPopUp(userType);
+//			logout();
+//			loginWithUserEmail("gdmplex@mailnesia.com", "123456");
+			waitTime(3000);
+			click(PWAHamburgerMenuPage.objProfileIconWEB, "Profile Icon");
+			waitTime(1000);
+			click(PWAHamburgerMenuPage.objMySubscriptionOption, "My Subscription Option");
+			waitTime(1000);
+			if(verifyElementExist(PWAHamburgerMenuPage.objMySubscriptionPageTitle, "My Subscription Page Title")) {
+				logger.info("Navigated to My Subscription page");
+				extent.extentLoggerPass("", "Navigated to My Subscription page");
+				ScrollToTheElementWEB(PWAHamburgerMenuPage.objBrowseAllPacks);
+				click(PWAHamburgerMenuPage.objBrowseAllPacks, "Browse All Packs");
+				if(verifyElementExist(PWAHamburgerMenuPage.objBrowseAllPacksPageTitleText, "Browse All Packs Page Title Text")) {
+					logger.info("Navigated to plan selection page");
+					extent.extentLoggerPass("", "Navigated to plan selection page");
+					String descriptionText = getText(PWAHamburgerMenuPage.objBrowseAllPacksPageTitleText);
+					if(descriptionText.contains("upgrade to annual plan")) {
+						logger.error("\"upgrade to annual plan\" is displayed as the Title text on plan selection page");
+						extent.extentLoggerFail("", "\"upgrade to annual plan\" is displayed as the Title text on plan selection page");
+					}else {
+						logger.info("\"upgrade to annual plan\" is not displayed as the Title text on plan selection page");
+						extent.extentLoggerPass("", "\"upgrade to annual plan\" is not displayed as the Title text on plan selection page");
+					}
+					if(descriptionText.contains("Upgrade now")) {
+						logger.info("\"Upgrade now\" is displayed as the Title text on plan selection page");
+						extent.extentLoggerPass("", "\"Upgrade now\" is displayed as the Title text on plan selection page");
+					}else {
+						logger.error("\"Upgrade now\" now is not displayed as the Title text on plan selection page");
+						extent.extentLoggerFail("", "\"Upgrade now\" is not displayed as the Title text on plan selection page");
+					}
+				}else {
+					logger.error("Not navigated to plan selection page");
+					extent.extentLoggerFail("", "Not navigated to plan selection page");
+				}
+			}else {
+				logger.error("Not navigated to My Subscription page");
+				extent.extentLoggerFail("", "Not navigated to My Subscription page");
+			}
+			waitTime(2000);
+			Back(1);
+			waitTime(2000);
+//			Back(1);
+//			waitTime(2000);
+			click(PWASubscriptionPages.objZeeLogo, "Zee5 Logo");
+//			logout();
+		}
+	}
+	
+	
+	
+	public void PWAVerifyToastMessageDisplayedInsteadOfInlineErrorMessageOnAccountInfoPage(String userType)
+			throws Exception {
+		if (userType.equals("Guest")) {
+			extent.HeaderChildNode(
+					"PWA2-7725 : \"Either OTP is not valid or Expired\" toast message displayed instead of inline Error message on Account info page \"Verify OTP\" screen");
+			logger.info(
+					"PWA2-7725 : \"Either OTP is not valid or Expired\" toast message displayed instead of inline Error message on Account info page \"Verify OTP\" screen");
+			navigateToHome();
+			mandatoryRegistrationPopUp(userType);
+			waitTime(3000);
+			Actions action = new Actions(getWebDriver());
+			action.moveToElement(findElement(PWAHomePage.objMastheadCarouselCurrentContent)).build().perform();
+
+			for (int i = 0; i < 5; i++) {
+				try {
+
+					JavascriptExecutor executor = (JavascriptExecutor) getWebDriver();
+					executor.executeScript("arguments[0].click();",
+							findElement(PWAHomePage.objGetPremiumGetClubButton));
+					logger.info("Clicked on " + "Get Premium CTA On MastHead Carousel");
+					extent.extentLogger("clickedElement", "Clicked on " + "Get Premium CTA On MastHead Carousel");
+					break;
+				} catch (Exception e) {
+					Thread.sleep(1000);
+					logger.error(e);
+				}
+			}
+			waitTime(2000);
+			if(verifyElementExist(PWAHamburgerMenuPage.objBrowseAllPacksPageTitleText, "Browse All Packs Page Title Text")) {
+				logger.info("Navigated to plan selection page");
+				extent.extentLoggerPass("", "Navigated to plan selection page");
+				click(PWASubscriptionPages.objContinueBtn, "Continue Button");
+				waitTime(2000);
+				if(verifyElementExist(PWASubscriptionPages.objAccountInfoTitle, "Account Info Title")) {
+					logger.info("Navigated to Account Info page");
+					extent.extentLoggerPass("", "Navigated to Account Info page");
+					type(PWASubscriptionPages.objEmailIDTextField, "9876543211", "Email ID Text Field");
+					waitTime(2000);
+					click(PWASubscriptionPages.objContinueBtn, "Continue Button");
+					waitTime(2000);
+					if(verifyElementExist(PWASubscriptionPages.objVerifyOTPTitle, "Verify OTP Title")) {
+						logger.info("Navigated to plan selection page");
+						extent.extentLoggerPass("", "Navigated to plan selection page");
+						type(PWASubscriptionPages.objOTPTextField1, "1", "First OTP Text Field");
+						waitTime(2000);
+						type(PWASubscriptionPages.objOTPTextField2, "1", "Second OTP Text Field");
+						waitTime(2000);
+						type(PWASubscriptionPages.objOTPTextField3, "1", "Third OTP Text Field");
+						waitTime(2000);
+						type(PWASubscriptionPages.objOTPTextField4, "1", "Fourth OTP Text Field");
+						waitTime(2000);
+						click(PWASubscriptionPages.objVerifyButton, "Verify Button");
+						waitTime(2000);
+						verifyElementPresent(PWASubscriptionPages.objInvalidOTPErrorMessage, "Invalid OTP Error Message");
+					}else {
+						logger.error("Not navigated to plan selection page");
+						extent.extentLoggerFail("", "Not navigated to plan selection page");
+					}
+				}else {
+					logger.error("Not navigated to Account Info page");
+					extent.extentLoggerFail("", "Not navigated to Account Info page");
+				}
+			}else {
+				logger.error("Not navigated to plan selection page");
+				extent.extentLoggerFail("", "Not navigated to plan selection page");
+			}
+			waitTime(2000);
+			Back(1);
+			waitTime(2000);
+			Back(1);
+			waitTime(2000);
+//			click(PWASubscriptionPages.objZeeLogo, "Zee5 Logo");
+		}
+	}
+	
+	
+	@SuppressWarnings("unused")
+	public void PWAVerifyAutoRenewedDateIsUpdatedForPreviousOnesInTransactionsPage(String userType) throws Exception {
+		if (userType.equals("SubscribedUser")) {
+			extent.HeaderChildNode(
+					"PWA2-7910 : Previously purchased Pack Duration/Date is updated with the latest auto-renewed pack Duration/Date in my transaction page");
+			logger.info(
+					"PWA2-7910 : Previously purchased Pack Duration/Date is updated with the latest auto-renewed pack Duration/Date in my transaction page");
+			navigateToHome();
+			mandatoryRegistrationPopUp(userType);
+//			logout();
+//			loginWithUserEmail("gdmplex@mailnesia.com", "123456");
+			waitTime(3000);
+			click(PWAHamburgerMenuPage.objProfileIconWEB, "Profile Icon");
+			waitTime(1000);
+			click(PWAHamburgerMenuPage.objMyTransactionsOption, "My Transactions Option");
+			waitTime(1000);
+			if (verifyElementExist(PWAHamburgerMenuPage.objMyTransactionsPageTitle, "My Transactions Page Title")) {
+				logger.info("Navigated to My Transactions page");
+				extent.extentLoggerPass("", "Navigated to My Transactions page");
+				List<WebElement> PlanPurchaseDatesList = getWebDriver()
+						.findElements(PWASubscriptionPages.objPlanPurchaseDate);
+				ArrayList<String> PlanPurchaseDatesArray = new ArrayList<String>();
+				String LatestTransactionDate = findElement(PWASubscriptionPages.objPlanPurchaseDate(1)).getText();
+				System.out.println("LatestTransactionDate: " + LatestTransactionDate);
+				for (int i = 2; i <= PlanPurchaseDatesList.size(); i++) {
+					String date = findElement(PWASubscriptionPages.objPlanPurchaseDate(i)).getText();
+					PlanPurchaseDatesArray.add(date);
+					System.out.println("array: " + PlanPurchaseDatesArray);
+					System.out.println("Value: " + date);
+				}
+				if (PlanPurchaseDatesArray.contains(LatestTransactionDate)) {
+					logger.error("Previously purchased Pack Date is updated with the latest auto-renewed pack Date in my transaction page");
+					extent.extentLoggerFail("", "Previously purchased Pack Date is updated with the latest auto-renewed pack Date in my transaction page");
+				} else {
+					logger.info("Previously purchased Pack Date is not updated with the latest auto-renewed pack Date in my transaction page");
+					extent.extentLoggerPass("", "Previously purchased Pack Date is not updated with the latest auto-renewed pack Date in my transaction page");
+				}
+				
+				List<WebElement> PlanPurchaseDurationsList = getWebDriver()
+						.findElements(PWASubscriptionPages.objPlanDuration);
+				ArrayList<String> PlanPurchaseDurationsArray = new ArrayList<String>();
+				String LatestTransactionDuration = findElement(PWASubscriptionPages.objPlanDuration(1)).getText();
+				System.out.println("LatestTransactionDuration: " + LatestTransactionDuration);
+				for (int i = 2; i <= PlanPurchaseDatesList.size(); i++) {
+					String date = findElement(PWASubscriptionPages.objPlanDuration(i)).getText();
+					PlanPurchaseDurationsArray.add(date);
+					System.out.println("array: " + PlanPurchaseDurationsArray);
+					System.out.println("Value: " + date);
+				}
+				if (PlanPurchaseDurationsArray.contains(LatestTransactionDuration)) {
+					logger.error("Previously purchased Pack Duration is updated with the latest auto-renewed pack Duration in my transaction page");
+					extent.extentLoggerFail("", "Previously purchased Pack Duration is updated with the latest auto-renewed pack Duration in my transaction page");
+				} else {
+					logger.info("Previously purchased Pack Duration is not updated with the latest auto-renewed pack Duration in my transaction page");
+					extent.extentLoggerPass("", "Previously purchased Pack Duration is not updated with the latest auto-renewed pack Duration in my transaction page");
+				}
+
+			} else {
+				logger.error("Not navigated to My Transactions page");
+				extent.extentLoggerFail("", "Not navigated to My Transactions page");
+			}
+			waitTime(2000);
+			Back(1);
+			waitTime(2000);
+			Back(1);
+			waitTime(2000);
+//			click(PWASubscriptionPages.objZeeLogo, "Zee5 Logo");
+			logout();
+
+		}
+	}
+	
+	
+	public void PWAVerifyGetPremiumCTADisplayedForSubscribedUserWithParentalPin(String userType) throws Exception {
+		if (userType.equals("Guest")) {
+			extent.HeaderChildNode(
+					"PWA2-7925 : \"Get premium \"CTA is displayed on consumption page for the subscribed users with parental pin logged in via guest checkout");
+			logger.info(
+					"PWA2-7925 : \"Get premium \"CTA is displayed on consumption page for the subscribed users with parental pin logged in via guest checkout");
+			navigateToHome();
+			mandatoryRegistrationPopUp(userType);
+			waitTime(3000);
+//			loginWithUserEmail("25off@mailnesia.com", "123456");
+			Actions action = new Actions(getWebDriver());
+			action.moveToElement(findElement(PWAHomePage.objMastheadCarouselCurrentContent)).build().perform();
+
+			for (int i = 0; i < 5; i++) {
+				try {
+
+					JavascriptExecutor executor = (JavascriptExecutor) getWebDriver();
+					executor.executeScript("arguments[0].click();",
+							findElement(PWAHomePage.objPlayIconWithGetPremiumCTAOnCarousel));
+					logger.info("Clicked on " + "Play Icon with Get Premium CTA On MastHead Carousel");
+					extent.extentLogger("clickedElement",
+							"Clicked on " + "Play Icon with Get Premium CTA On MastHead Carousel");
+					break;
+				} catch (Exception e) {
+					Thread.sleep(1000);
+					logger.error(e);
+				}
+			}
+			waitTime(2000);
+			waitForElementAndClick(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen, 30,
+					"Get Premium Link below the Player");
+			waitTime(2000);
+			if (verifyElementExist(PWAHamburgerMenuPage.objBrowseAllPacksPageTitleText,
+					"Browse All Packs Page Title Text")) {
+				logger.info("Navigated to plan selection page");
+				extent.extentLoggerPass("", "Navigated to plan selection page");
+				click(PWASubscriptionPages.objContinueBtn, "Continue Button");
+				waitTime(2000);
+				if (verifyElementExist(PWASubscriptionPages.objAccountInfoTitle, "Account Info Title")) {
+					logger.info("Navigated to Account Info page");
+					extent.extentLoggerPass("", "Navigated to Account Info page");
+					type(PWASubscriptionPages.objEmailIDTextField, "25off@mailnesia.com", "Email ID Text Field");
+					waitTime(2000);
+					click(PWASubscriptionPages.objContinueBtn, "Continue Button");
+					waitTime(3000);
+					// Password Popup
+					verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
+					waitTime(3000);
+					verifyElementPresent(PWASubscriptionPages.objProceedBtnDisabled, "Disabled Proceed Button");
+					waitTime(3000);
+					verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
+					waitTime(3000);
+					type(PWASubscriptionPages.objPasswordFieldHidden, "123456", "Password Field");
+					waitTime(3000);
+					verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnEnabled, "Enabled Proceed Button");
+					waitTime(3000);
+					verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+					type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+					type(PWAHamburgerMenuPage.objParentalLockPin2player, "1", "ParentalLockPin");
+					type(PWAHamburgerMenuPage.objParentalLockPin3player, "1", "ParentalLockPin");
+					type(PWAHamburgerMenuPage.objParentalLockPin4player, "1", "ParentalLockPin");
+					waitTime(4000);
+					if (verifyIsElementDisplayed(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen,
+							"Get Premium CTA below the Player")) {
+						logger.error("Get Premium CTA below the Player is visible");
+						extent.extentLoggerFail("checkElementPresent", "Get Premium CTA below the Player is displayed");
+					} else {
+						logger.info("Get Premium CTA below the Player is not displayed");
+						extent.extentLoggerPass("checkElementPresent",
+								"Get Premium CTA below the Player is not displayed");
+					}
+
+					if (verifyIsElementDisplayed(PWAPlayerPage.objSubscribeNowLink,
+							"In-Line Get Premium CTA On Player Screen")) {
+						logger.error("In-Line Get Premium CTA On Player Screen is visible");
+						extent.extentLoggerFail("checkElementPresent",
+								"In-Line Get Premium CTA On Player Screen is displayed");
+					} else {
+						logger.info("In-Line Get Premium CTA On Player Screen is not displayed");
+						extent.extentLoggerPass("checkElementPresent",
+								"In-Line Get Premium CTA On Player Screen is not displayed");
+					}
+					
+					logout();
+				}
+			}
+		}
+	}
+	
+	
+	public void PWAVerifyRightClickPasteInEmailIDFieldInAccountsInfoPage(String userType) throws Exception {
+		if (userType.equals("Guest")) {
+			extent.HeaderChildNode(
+					"PWA2-7767 : \"Email Id or mobile number \"place holder is selected and user is unable to paste the input in \"Email Id or mobile number \"field on account info page");
+			logger.info(
+					"PWA2-7767 : \"Email Id or mobile number \"place holder is selected and user is unable to paste the input in \"Email Id or mobile number \"field on account info page");
+			navigateToHome();
+			mandatoryRegistrationPopUp(userType);
+			waitTime(3000);
+			Actions action = new Actions(getWebDriver());
+			action.moveToElement(findElement(PWAHomePage.objMastheadCarouselCurrentContent)).build().perform();
+
+			for (int i = 0; i < 5; i++) {
+				try {
+
+					JavascriptExecutor executor = (JavascriptExecutor) getWebDriver();
+					executor.executeScript("arguments[0].click();",
+							findElement(PWAHomePage.objPlayIconWithGetPremiumCTAOnCarousel));
+					logger.info("Clicked on " + "Play Icon with Get Premium CTA On MastHead Carousel");
+					extent.extentLogger("clickedElement",
+							"Clicked on " + "Play Icon with Get Premium CTA On MastHead Carousel");
+					break;
+				} catch (Exception e) {
+					Thread.sleep(1000);
+					logger.error(e);
+				}
+			}
+			waitTime(2000);
+			waitForElementAndClick(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen, 30,
+					"Get Premium Link below the Player");
+			waitTime(2000);
+			if (verifyElementExist(PWAHamburgerMenuPage.objBrowseAllPacksPageTitleText,
+					"Browse All Packs Page Title Text")) {
+				logger.info("Navigated to plan selection page");
+				extent.extentLoggerPass("", "Navigated to plan selection page");
+				click(PWASubscriptionPages.objContinueBtn, "Continue Button");
+				waitTime(2000);
+				if (verifyElementExist(PWASubscriptionPages.objAccountInfoTitle, "Account Info Title")) {
+					logger.info("Navigated to Account Info page");
+					extent.extentLoggerPass("", "Navigated to Account Info page");
+					String ctc = "igstesting@emailid.com";
+				    StringSelection stringSelection = new StringSelection(ctc);
+				    Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+				    clpbrd.setContents(stringSelection, null);
+					Actions actions = new Actions(getWebDriver());
+					WebElement element = findElement(PWASubscriptionPages.objEmailIDTextField);
+					actions.contextClick(element).perform();
+					waitTime(2000);
+				    Robot robot = new Robot();
+				    robot.keyPress(KeyEvent.VK_DOWN);
+				    robot.keyRelease(KeyEvent.VK_DOWN);
+				    robot.keyPress(KeyEvent.VK_DOWN);
+				    robot.keyRelease(KeyEvent.VK_DOWN);
+				    robot.keyPress(KeyEvent.VK_ENTER);
+				    robot.keyRelease(KeyEvent.VK_ENTER);
+				    waitTime(2000);
+				    String PastedEmail = element.getAttribute("value");
+				    System.out.println("Pasted Email: "+PastedEmail);
+				    if(ctc.equals(PastedEmail)) {
+				    	logger.info("Right-click and Paste in the Email ID field is successful");
+						extent.extentLoggerPass("", "Right-click and Paste in the Email ID field is successful");
+				    }else {
+				    	logger.error("Failed to Right-click and Paste in the Email ID field");
+						extent.extentLoggerFail("", "Failed to Right-click and Paste in the Email ID field");
+				    }
+					
+				}else {
+			    	logger.error("Failed to navigate to Account Info page");
+					extent.extentLoggerFail("", "Failed to navigate to Account Info page");
+			    }
+				
+			}else {
+		    	logger.error("Failed to navigate to plan selection page");
+				extent.extentLoggerFail("", "Failed to navigate to plan selection page");
+		    }
+		}
+	}
+	
+	
+	
+	public void PWAVerifySEODetailsOfChannelsPage(String userType) throws Exception {
+		
+		extent.HeaderChildNode("PWA2-7492 : Channel pages - SEO details to be updated.");
+		logger.info("PWA2-7492 : Channel pages - SEO details to be updated.");
+		extent.extentLogger("", "----- Verifying if the user can navigate to the channel page ------");
+		navigateToHome();
+		mandatoryRegistrationPopUp(userType);
+		verifyElementPresentAndClick(PWAHomePage.objMoreMenuIcon, "More Menu Icon");
+		waitTime(5000);
+//		verifyElementPresent(PWAHomePage.objMoreMenuTabs("Live TV"), "Live TV Tab");
+		click(PWAHomePage.objMoreMenuTabs("Channels"), "Channels Tab");
+		if(verifyElementPresent(PWALandingPages.objChannelsLandingPageTitle, "Channels Landing Page Title")) {
+			logger.info("Navigate to Channels Landing page");
+			extent.extentLoggerPass("", "Navigate to Channels Landing page");
+			extent.extentLogger("", "----- Verifying if the user can see the URL, when landed on channel page ------");
+			logger.info("----- Verifying if the user can see the URL, when landed on channel page ------");
+			String getUrl = getWebDriver().getCurrentUrl();
+//			System.out.println("expectedURL: "+getParameterFromXML("url")+"tv-channels");
+//			System.out.println("currURL: "+getUrl);
+			if(getUrl.equals(getParameterFromXML("url")+"tv-channels")) {
+				logger.info("Current URL matches the Channels Landing page URL");
+				extent.extentLoggerPass("", "Current URL matches the Channels Landing page URL");
+			}else {
+				logger.error("Current URL does not match the Channels Landing page URL");
+				extent.extentLoggerFail("", "Current URL does not match the Channels Landing page URL");
+			}
+			
+			extent.extentLogger("", "----- Verifying if the user can see the title  when landed on TV Channels landing page ------");
+			logger.info("----- Verifying if the user can see the title  when landed on TV Channels landing page ------");
+			String ChannelsLandingPageTitle = findElement(PWALandingPages.objChannelsLandingPageTitle).getText();
+//			System.out.println(ChannelsLandingPageTitle);
+			if(ChannelsLandingPageTitle.equals("List of TV Channels")) {
+				logger.info("Title of the Channels Landing Page matches \"List of TV Channels\"");
+				extent.extentLoggerPass("", "Title of the Channels Landing Page matches \"List of TV Channels\"");
+			}else {
+				logger.error("Title of the Channels Landing Page does not match \"List of TV Channels\"");
+				extent.extentLoggerFail("", "Title of the Channels Landing Page does not match \"List of TV Channels\"");
+			}
+			
+			extent.extentLogger("", "----- Verifying the H1 tag on the Tv channel List landing page ------");
+			logger.info("----- Verifying the H1 tag on the Tv channel List landing page ------");
+			checkTagWithTextInSource(getUrl, "h1", "List of TV Channels");
+			
+			extent.extentLogger("", "----- Verifying the SEO Title on the TV Channel listing page ------");
+			logger.info("----- Verifying the SEO Title on the TV Channel listing page ------");
+			checkTagWithTextInSource(getUrl, "title", "Watch ZEE TV Channels Online on ZEE5");
+			
+			extent.extentLogger("", "----- Verifying the SEO description on the TV Channel listing page ------");
+			logger.info("----- Verifying the SEO description on the TV Channel listing page ------");
+			checkAttributeTextWithTextInSource(getUrl, "name=\"description\" content=\"", "Browse through ZEE5's channel list including ZEE TV, ZEE Marathi, ZEE News, BBC World, CNN and more channels in English, Hindi and other regional languages. Watch your favourite tv channel from ZEE5's channel list");
+			
+			extent.extentLogger("", "----- Verifying if the user can navigate to the channel Details page from the Channel listing page ------");
+			logger.info("----- Verifying if the user can navigate to the channel Details page from the Channel listing page ------");
+			String titleOfFirstChannelCard = findElement(PWALandingPages.objFirstChannelCard).getAttribute("title");
+			click(PWALandingPages.objFirstChannelCard, "First Channel Card");
+			
+			String h1TagOfFirstChannelInDetailPage = findElement(By.tagName("h1")).getText();
+			if(h1TagOfFirstChannelInDetailPage.contains(titleOfFirstChannelCard)) {
+				logger.info("Navigated to the correct channel detail page");
+				extent.extentLoggerPass("", "Navigated to the correct channel detail page");
+			}else {
+				logger.error("Navigated to incorrect channel detail page");
+				extent.extentLoggerFail("", "Navigated to incorrect channel detail page");
+			}
+			
+			extent.extentLogger("", "----- Verifying if the user can see the URL,  when landed on channel details page ------");
+			logger.info("----- Verifying if the user can see the URL,  when landed on channel details page ------");
+			String getDetailPageUrl = getWebDriver().getCurrentUrl();
+			String expectedDetailPageUrl = getParameterFromXML("url")+"tv-channels/"+titleOfFirstChannelCard.toLowerCase()+"/0-9-"+titleOfFirstChannelCard.toLowerCase();
+//			System.out.println("expectedURL: "+expectedDetailPageUrl);
+//			System.out.println("currURL: "+getDetailPageUrl);
+			if(getDetailPageUrl.equals(expectedDetailPageUrl)) {
+				logger.info("Current URL matches the Channel detail page URL");
+				extent.extentLoggerPass("", "Current URL matches the Channel detail page URL");
+			}else {
+				logger.error("Current URL does not match the Channel detail page URL");
+				extent.extentLoggerFail("", "Current URL does not match the Channel detail page URL");
+			}
+			
+			extent.extentLogger("", "----- Verifying if the user can see the title  when landed on TV Channels landing page ------");
+			logger.info("----- Verifying if the user can see the title  when landed on TV Channels landing page ------");
+			String titleOfFirstChannelInDetailPage = getWebDriver().getTitle();
+//			System.out.println(titleOfFirstChannelInDetailPage);
+			if(titleOfFirstChannelInDetailPage.equals("Watch "+titleOfFirstChannelCard+" Serials & Shows on ZEE5.")) {
+				logger.info("Navigated to the correct channel detail page");
+				extent.extentLoggerPass("", "Navigated to the correct channel detail page");
+			}else {
+				logger.error("Navigated to incorrect channel detail page");
+				extent.extentLoggerFail("", "Navigated to incorrect channel detail page");
+			}
+			
+			extent.extentLogger("", "----- Verifying the H1 tag on the Tv channel details page ------");
+			logger.info("----- Verifying the H1 tag on the Tv channel details page ------");
+			checkTagWithTextInSource(getDetailPageUrl, "h1", "List of "+titleOfFirstChannelCard+" Serials");
+			
+			extent.extentLogger("", "----- Verifying the SEO Title on the TV Channel details  page ------");
+			logger.info("----- Verifying the SEO Title on the TV Channel details  page ------");
+			checkTagWithTextInSource(getDetailPageUrl, "title", "Watch "+titleOfFirstChannelCard+" Serials & Shows on ZEE5.");
+			
+		}else {
+			logger.error("Failed to navigate to Channels Landing page");
+			extent.extentLoggerFail("", "Failed to navigate to Channels Landing page");
+		}		
+	}
+	
+	public void checkAttributeTextWithTextInSource(String urlLink,String attributeText,String text) throws Exception {
+		boolean foundOpeningTag=false,foundClosingTag=false,foundText=false;
+		String path=System.getProperty("user.dir") + "\\webpagesource.txt";
+		URL url = new URL(urlLink);
+	    try(
+	        BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+	        BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+	    )
+	    {
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            writer.write(line);
+	        }
+	    }
+	    BufferedReader br = new BufferedReader(new FileReader(path));
+	    String line="",doc="",temp="";
+	    while ((line = br.readLine()) != null) {
+	       doc=doc+line; 
+	    }
+	    
+	    if(doc.contains(attributeText)) {
+	    	extent.extentLogger("", "Source contains attribute text "+attributeText);
+        	logger.info("Source contains attribute text "+attributeText);
+        	doc=doc.split(attributeText)[1];
+        	temp=doc.split("\"")[0];
+//        	doc=attributeText+doc;
+        	temp=replacingSpecialCharsInAString(temp, "&#x27;", "'");
+        	if(temp.equals(text)) {
+    			extent.extentLoggerPass("", "Source contains text in Content as expected");
+         		logger.info("Source contains text in Content as expected");
+    		}
+     		else {
+     			extent.extentLoggerFail("", "Source contains incorrect text in Content");
+         		logger.error("Source contains incorrect text in Content");
+     		}
+	    }
+	}
+	
+	public String replacingSpecialCharsInAString(String text, String splitText, String splitTextToBeEntered)throws Exception{
+		String[] textArray;
+		System.out.println(text);
+		textArray = text.split(splitText);
+		System.out.println("String Array: "+Arrays.toString(textArray));
+		String res = textArray[0];
+	    for (int i = 1; i < textArray.length; i++) {
+	    	res = res.concat(splitTextToBeEntered);
+	        res = res.concat(textArray[i]);
+	    }
+		System.out.println(res);
+		return res;
+	}
+	
+	public void checkTagWithTextInSource(String urlLink,String tag,String text) throws Exception {
+		boolean foundOpeningTag=false,foundClosingTag=false,foundText=false;
+		String path=System.getProperty("user.dir") + "\\webpagesource.txt";
+		URL url = new URL(urlLink);
+	    try(
+	        BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+	        BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+	    )
+	    {
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            writer.write(line);
+	        }
+	    }
+	    BufferedReader br = new BufferedReader(new FileReader(path));
+	    String line="",doc="",temp="";
+	    while ((line = br.readLine()) != null) {
+	       doc=doc+line; 
+	    }
+        if(doc.contains("<"+tag)) {
+        	extent.extentLogger("", "Source contains Opening tag for "+tag);
+        	logger.info("Source contains Opening tag for "+tag);
+        	doc=doc.split("<"+tag)[1];
+        	doc="<"+tag+doc;
+        	if(doc.contains("</"+tag+">")) {
+         		extent.extentLogger("", "Source contains Closing tag for "+tag);
+         		logger.info("Source contains Closing tag for "+tag);   
+         		doc=doc.split("</"+tag+">")[0];
+         		doc=doc+"</"+tag+">";
+         		temp=doc.split("<"+tag)[1].split(">")[1].split("</"+tag)[0];
+         		logger.info("Text displayed in source : "+temp);
+         		extent.extentLogger("", "Text displayed in source : "+temp);
+         		logger.info("Expected text between the tags : "+text);
+         		extent.extentLogger("", "Expected text between the tags : "+text);
+         		temp = replacingSpecialCharsInAString(temp, "&amp;", "&");
+         		if(temp.equals(text)) {
+        			extent.extentLoggerPass("", "Source contains text between the tags as expected");
+             		logger.info("Source contains text between the tags as expected");
+        		}
+         		else {
+         			extent.extentLoggerFail("", "Source contains incorrect text between the tags");
+             		logger.error("Source contains incorrect text between the tags");
+         		}
+        	}
+        	else {
+        		extent.extentLoggerFail("", "Source does not contain Closing tag for "+tag);
+            	logger.error("Source does not contain Closing tag for "+tag); 
+        	}
+        }
+    	else {
+    		extent.extentLoggerFail("", "Source does not contain Opening tag for "+tag);
+        	logger.error("Source does not contain Opening tag for "+tag); 
+    	}     
+  
+	}
+	
+	
+//====================COMBO OFFER=========================
+	
+	public void rentNowOnCarousel(String CTAONCarousel) throws Exception {
+		
+		if(CTAONCarousel.equalsIgnoreCase("Trailer")) {
+			click(PWAComboOfferPage.objTrailer, "Trailer");
+		}else if(CTAONCarousel.equalsIgnoreCase("RentNow")) {
+			click(PWAComboOfferPage.objRentNow, "Rent Now");
+		}
+	}
+	
+	public void validateConsumptionScreen() throws Exception {
+		
+		
+		verifyElementPresent(PWAComboOfferPage.objwatchFullContentByRentingIt, "watch full content by renting it");
+		verifyElementPresent(PWAComboOfferPage.objRentNowInPlayer, "Rent Now CTA in-player");
+		
+		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
+		
+		verifyElementPresent(PWAComboOfferPage.objComboOfferWidget, "Combo Offer Widget below the player");
+		verifyElementPresent(PWAComboOfferPage.objKnowMore, "Know More CTA below the player");
+	}
+	
+	public void comboScreen() throws Exception {
+		verifyElementPresent(PWAHamburgerMenuPage.objApply, "Beneficiary Text");
+	}
+	
+	public void termsOfService() throws Exception {
+		click(PWAComboOfferPage.objTermsOfService,"Terms of Service");
+		if(verifyElementPresent(PWAComboOfferPage.objTermsOfServiceTitle, "Terms of Service")) {
+			logger.info("Navigated to Terms of Service");
+			extent.extentLoggerPass("", "Navigated to Terms of Service");
+			Back(1);
+		}else {
+			logger.info("Not Navigated to Terms of Service");
+			extent.extentLoggerFail("", "Not Navigated to Terms of Service");
+		}
+	}
+	
+	public void privacyPolicy() throws Exception {
+		click(PWAComboOfferPage.objPrivacyPolicy,"Privacy Policy");
+		if(verifyElementPresent(PWAComboOfferPage.objPrivacyPolicyTitle, "Privacy Policy")) {
+			logger.info("Navigated to Privacy Policy");
+			extent.extentLoggerPass("", "Navigated to Privacy Policy");
+			Back(1);
+		}else {
+			logger.info("Not Navigated to Privacy Policy");
+			extent.extentLoggerFail("", "Not Navigated to Privacy Policy");
+		}
+	}
+	
 	
 }

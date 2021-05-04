@@ -137,4 +137,23 @@ public class AMDPlayerScreen {
 	
 	public static By objLoginCTA = By.xpath("//*[@id='secondaryActionButton'] | //*[@id='get_premium_login']");
 	
+	public static By objWatchNowCTA = By.xpath("//*[@text='Watch Now']");
+	
+	public static By objRentFor = By.xpath("//*[@text='Rent for']");
+	
+	public static By objInPlayerCTA = By.xpath("//*[@text='Watch Now' | @text='Rent for']");
+	
+	public static By objInPlayerError = By.xpath("//*[@id='errorViewText']");
+	
+	public static By objZeePlexTitle = By.xpath("//*[@text='Radhe']");
+	
+	public static By objZeePlexLogo = By.xpath("");
+	public static By objZeePlexValidity = By.xpath("");
+	public static By objZeeWatchTime = By.xpath("");
+	
+	public static By objPaymentStep = By.xpath("//*[@text='Step 3 of 3']");
+	public static By objMakePayment = By.xpath("//*[@text='Make Payment']");
+	public static By objLoggedIn = By.xpath("//*[@text='Logged In']");
+	public static By objLoggedInEmail = By.xpath("//*[@text='Logged in']//following-sibling::*");
+	
 	}

@@ -438,7 +438,6 @@ public class Utilities extends ExtentReporter {
 			return getDriver().findElements(by).isEmpty();
 		} catch (Exception e) {
 			getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			System.out.println("CATCH - FALSE");
 			return false;
 		}
 	}

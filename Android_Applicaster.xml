@@ -146,6 +146,8 @@
 	<parameter name="SettingsNonsubscribedPassword" value="123456" />
 	<parameter name="RSVODUser" value="rsvodtamil1@gmail.com" />
 	<parameter name="RSVODPassword" value="123456" />
+	<parameter name="OneYearPremiumPack" value="mobicheck@gmail.com" />
+	<parameter name="CommomPassword" value="123456 " />
 	
 	
 	<listeners>

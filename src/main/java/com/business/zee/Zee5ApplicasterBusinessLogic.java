@@ -3515,7 +3515,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void navigateToLoginScreen_DisplaylangScreen() throws Exception {
 		extent.HeaderChildNode("Navigation to Login Screen");
-		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button (Display-LanguageScreen)");
 		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
 		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 	}
@@ -21705,4 +21704,236 @@ public void BackToLandingScreen() throws Exception {
 			extentLogger("Combo offer plan", "Combo offer plan is Not applicable for "+pUserType);
 		}
 	}
+	
+public void ValidationOfTVODContentWithOutActiveRental(String userType, String TVODContent) throws Exception {
+		
+		click(AMDHomePage.objMoviesTab,"Movie tab");
+		//Trailer CTA on carousel
+	    boolean booleanvalue = waitForElementDisplayed(AMDTVODComboOffer.objTrailerCTAonCarousel, 5);
+		if(booleanvalue) {
+			logger.info("Trailer CTA on carousel banner for TVOD content is displayed");
+		 	extent.extentLoggerPass("Carousel", "Trailer CTA on carousel banner for TVOD content is displayed"); 
+		}else {
+			logger.error("Trailer CTA on carousel banner for TVOD content is NOT displayed");
+		 	extent.extentLoggerFail("Carousel", "Trailer CTA on carousel banner for TVOD content is NOTdisplayed"); 
+		}
+		
+		//Rent Now CTA on carousel
+		boolean value = waitForElementDisplayed(AMDTVODComboOffer.objRentNowCTAonCarousel , 10);
+				if(value) {
+					logger.info("Rent Now CTA on carousel banner for TVOD content is displayed");
+				 	extent.extentLoggerPass("Carousel", "Rent Now CTA on carousel banner for TVOD content is displayed"); 
+				}else {
+					logger.error("Rent Now CTA on carousel banner for TVOD content is NOT displayed");
+				 	extent.extentLoggerFail("Carousel", "Rent Now CTA on carousel banner for TVOD content is NOTdisplayed"); 
+				}
+			//clicking on Trailer CTA from Carousel	
+				
+			waitForElementDisplayed(AMDTVODComboOffer.objTrailerCTAonCarousel, 10);
+			click(AMDTVODComboOffer.objTrailerCTAonCarousel,"Trailer CTA on carousel");
+			waitTime(3000);
+			if(verifyElementExist(AMDConsumptionScreen.objContentName, "Content name in Consumption screen")) {
+				logger.info("User is navigated to Consumption screen on clicking Trailer CTA from carousel banner for TVOD content is displayed");
+			 	extent.extentLoggerPass("Consumption Screen", "User is navigated to Consumption screen on clicking Trailer CTA from  carousel banner for TVOD content is displayed"); 
+			}else {
+				logger.error("User Fails navigate to Consumption screen on clicking Trailer CTA from carousel banner for TVOD content");
+			 	extent.extentLoggerFail("Carousel", "User Fails navigate to Consumption screen on clicking Trailer CTA from carousel banner for TVOD content");
+			}
+			Back(1);
+			
+			//clicking on Rent Now CTA from Carousel
+			
+			waitForElementDisplayed(AMDTVODComboOffer.objRentNowCTAonCarousel, 10);
+			click(AMDTVODComboOffer.objRentNowCTAonCarousel,"Rent Now CTA on carousel");
+			waitTime(3000);
+			if(verifyElementDisplayed(AMDConsumptionScreen.objContentName)) {
+				logger.info("User is navigated to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content is displayed");
+			 	extent.extentLoggerPass("Consumption Screen", "User is navigated to Consumption screen on clicking Trailer CTA from  carousel banner for TVOD content is displayed"); 
+			}else {
+				logger.error("User Fails navigate to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content");
+			 	extent.extentLoggerFail("Carousel", "User Fails navigate to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content");
+			}
+			
+			waitTime(8000);
+			//Rent Now CTA on Consumption screen
+			
+			verifyElementExist(AMDTVODComboOffer.objRentNowTextOnPlayer, "Watch full content by renting it now text on player");
+			if(verifyElementDisplayed(AMDTVODComboOffer.objRentNowCTAOnPlayer)) {
+				logger.info("Rent Now CTA on palyer is displayed");
+			 	extent.extentLoggerPass("Consumption Screen", "Rent Now CTA on palyer is displayed"); 
+			}else {
+				logger.error("Rent Now CTA on palyer is NOT displayed");
+			 	extent.extentLoggerFail("Consumption Screen", "Rent Now CTA on palyer is NOt displayed");
+			}
+			if(verifyElementDisplayed(AMDTVODComboOffer.objRentNowCTABelowPlayer)) {
+				logger.info("Rent Now CTA below the palyer is displayed");
+			 	extent.extentLoggerPass("Consumption Screen", "Rent Now CTA below the palyer is displayed"); 
+			}else {
+				logger.error("Rent Now CTA below the palyer is NOT displayed");
+			 	extent.extentLoggerFail("Consumption Screen", "Rent Now CTA below the palyer is NOt displayed");
+			}	
+			
+			//Radhe combo offer widget on Consumption screen
+			
+			if(verifyElementDisplayed(AMDTVODComboOffer.objComboOfferWidgetBelowThePlayer)) {
+				logger.info("Combo offer widget below the palyer is displayed");
+			 	extent.extentLoggerPass("Consumption Screen", "Combo offer widget below the palyer is displayed"); 
+			}else {
+				logger.error("Combo offer widget below the palyer is NOT displayed");
+			 	extent.extentLoggerFail("Consumption Screen", "Combo offer widget below the palyer is NOt displayed");
+			}	
+			
+			verifyElementExist(AMDTVODComboOffer.objHowItWorksCTA, "How it works CTA");
+			click(AMDTVODComboOffer.objHowItWorksCTA, "How it works CTA");
+			waitTime(2000);
+			verifyElementExist(AMDTVODComboOffer.objQandAModelWindow, "Q&A model window");
+			Back(1);
+			
+			//validate Combo offer page
+			//on clicking Rent Now CTA on the player
+			click(AMDTVODComboOffer.objRentNowCTAOnPlayer,"Rent Now CTA on Player");
+			if(verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
+				verifyElementExist(AMDTVODComboOffer.objPayLessWatchMoreText, "'Pay less,Watch more' text");
+				logger.info("Combo offer page is displayed on clicking Rent Now CTA on the player");
+			 	extent.extentLoggerPass("Consumption Screen", "Combo offer page is displayed on clicking Rent Now CTA on the player"); 
+			}else {
+				logger.error("Combo offer page is NOT displayed on clicking Rent Now CTA on the player");
+			 	extent.extentLoggerFail("Consumption Screen", "Combo offer page is NOT displayed on clicking Rent Now CTA on the player");
+			}
+			Back(1);
+			//on clicking Rent Now CTA below the player
+			click(AMDTVODComboOffer.objRentNowCTABelowPlayer,"Rent Now CTA Below the Player");
+			if(verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
+				verifyElementExist(AMDTVODComboOffer.objPayLessWatchMoreText, "'Pay less,Watch more' text");
+				logger.info("Combo offer page is displayed on clicking Rent Now CTA Below the player");
+			 	extent.extentLoggerPass("Consumption Screen", "Combo offer page is displayed on clicking Rent Now CTA Below the player"); 
+			}else {
+				logger.error("Combo offer page is NOT displayed on clicking Rent Now CTA Below the player");
+			 	extent.extentLoggerFail("Consumption Screen", "Combo offer page is NOT displayed on clicking Rent Now CTA Below the player");
+			}
+			Back(1);
+			//on clicking Know more from Combo offer widget below the player
+			verifyElementPresentAndClick(AMDTVODComboOffer.objKnowMoreCTAOnWidget, "'Know more' CTA on combo offer widget");
+			if(verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
+				verifyElementExist(AMDTVODComboOffer.objPayLessWatchMoreText, "'Pay less,Watch more' text");
+				logger.info("Combo offer page is displayed on clicking 'Know More CTA' from combo offer widget below the player");
+			 	extent.extentLoggerPass("Consumption Screen", "Combo offer page is displayed on clicking 'Know More CTA' from combo offer widget below the player"); 
+			}else {
+				logger.error("Combo offer page is NOT displayed on clicking 'Know More CTA' from combo offer widget below the player");
+			 	extent.extentLoggerFail("Consumption Screen", "Combo offer page is NOT displayed on clicking 'Know More CTA' from combo offer widget below the player");
+			}
+			
+		   ValidationOfcomboOfferPage();
+	}
+	
+	public void ValidationOfcomboOfferPage() throws Exception {
+		verifyElementExist(AMDTVODComboOffer.objPosterOfMovieContent, "Poster of Movie Content");
+		verifyElementExist(AMDTVODComboOffer.objComboOfferPlan, "Combo offer plan");
+		verifyElementExist(AMDTVODComboOffer.objOnlyRentMoviePlan, "Only Rent Movie plan");
+		boolean value = findElement(AMDTVODComboOffer.objDefaultComboOfferPlan).isEnabled();
+		if(value) {
+			verifyElementExist(AMDTVODComboOffer.objBuyComboOfferCTAOnComboOfferPage, "Buy combo CTA");
+			logger.info("Radhe combo plan is selected by default");
+		 	extent.extentLoggerPass("Combo offer Screen", "Radhe combo plan is selected by default"); 
+		}else {
+			logger.error("Radhe combo plan is NOT selected by default");
+		 	extent.extentLoggerFail("Combo offer Screen", "Radhe combo plan is NOT selected by default");
+		}	
+		click(AMDTVODComboOffer.objOnlyRentMoviePlan, "Only Rent Movie plan");
+		boolean value2 = findElement(AMDTVODComboOffer.ObjOnlyRentMoviePlanSelect).isEnabled();
+		if(value) {
+			verifyElementExist(AMDTVODComboOffer.objRentMovieCTAonComboOfferPage, "Rent Movie CTA");
+			logger.info("Rent Movie CTA is displayed on selecting the Only Rent Movie plan");
+		 	extent.extentLoggerPass("Combo offer Screen", "Rent Movie CTA is displayed on selecting the Only Rent Movie plan"); 
+		}else {
+			logger.error("Rent Movie CTA is NOT displayed on selecting the Only Rent Movie plan");
+		 	extent.extentLoggerFail("Combo offer Screen", "Rent Movie CTA is NOT displayed on selecting the Only Rent Movie plan");
+		}	
+	}
+	
+	public void SearchZEEPLEXContentAndPlay(String pTitle) throws Exception {
+		extent.HeaderChildNode("Searching for ZEEPLEX content");
+		System.out.println("\nSearching for ZEEPLEX content");
+		
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, pTitle + "\n", "Searchbar");
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);
+		click(AMDSearchScreen.objFirstSearchResult(pTitle), "Searched content");	
+	}
+	
+	public void ZeePlexContentInPlayerCTAValidation() throws Exception {
+		extent.HeaderChildNode("ZEEPLEX content CTA Validation");
+		System.out.println("\nZEEPLEX content CTA Validation");
+		String getCTAName = null;
+		
+		waitTime(3000);
+		verifyElementPresent(AMDPlayerScreen.objPlayer, "Consumption sreen");
+		
+		if(verifyElementPresent(AMDPlayerScreen.objInPlayerCTA, "Player CTA")) {
+			getCTAName = getText(AMDPlayerScreen.objInPlayerCTA);
+		}
+		
+		if(getCTAName.equalsIgnoreCase("Watch Now")) {
+			logger.info("Watch Now CTA is displayed in the player screen");
+			extentLoggerPass("Watch NowCTA", "Watch Now CTA is displayed in the player screen");			
+		}else if(getCTAName.equalsIgnoreCase("Resume")) {
+			logger.info(getCTAName+" CTA is displayed in the player screen");
+			extentLoggerPass(getCTAName, getCTAName+" CTA is displayed in the player screen");
+		}else if(getCTAName.equalsIgnoreCase("Rent for")) {
+			logger.info(getCTAName+" CTA is displayed in the player screen");
+			extentLoggerPass(getCTAName, getCTAName+" CTA is displayed in the player screen");
+		}else {
+			logger.info("No CTA displayed in the player screen");
+			extentLoggerFail("No CTA", "No CTA displayed in the player screen");
+		}
+	}
+	
+	public void ZeePlexContentRentNowCTAValidation() throws Exception {
+		extent.HeaderChildNode("ZEEPLEX content_Rent Now CTA Validation");
+		System.out.println("\nZEEPLEX content_Rent Now CTA Validation");
+		
+		boolean errText;
+		waitTime(3000);
+		errText = verifyElementPresent(AMDPlayerScreen.objInPlayerError, "In player Error text");
+		
+		if(errText) {
+			String InPlayerMsg = getText(AMDPlayerScreen.objInPlayerError);
+			logger.info("In player message is displayed as "+InPlayerMsg);
+			extentLoggerPass("Player message", "In player message is displayed as "+InPlayerMsg);
+			
+			String InPlayerCTA = getText(AMDPlayerScreen.objSubscribeNowButtonOnPlayer);
+			logger.info("InPlayer CTA is displayed as "+InPlayerCTA);
+			extentLoggerPass("InPlayer CTA", "In player message is displayed as "+InPlayerCTA);
+			
+			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowButtonOnPlayer, InPlayerCTA);
+			
+			verifyElementPresent(AMDPlayerScreen.objZeePlexTitle, "RADHE TITLE");
+			verifyElementPresent(AMDPlayerScreen.objZeePlexLogo, "ZEEPLEX LOGO");
+			verifyElementPresent(AMDPlayerScreen.objZeePlexValidity, "VALIDITY");
+			verifyElementPresent(AMDPlayerScreen.objZeeWatchTime, "WATCH TIME");
+			
+			verifyElementPresent(AMDPlayerScreen.objRentFor, "RENT FOR CTA");
+			
+			verifyElementPresentAndClick(AMDPlayerScreen.objRentFor, "Rent for CTA");
+			PaymentScreenVerification();
+			Back(2);			
+		}		
+	}
+	
+	public void PaymentScreenVerification() throws Exception {
+		extent.HeaderChildNode("Payment screen Verification");
+		System.out.println("\nPayment screen Verification");
+		
+		waitTime(2000);
+		verifyElementPresent(AMDPlayerScreen.objMakePayment, "Payment screen");
+		verifyElementPresent(AMDPlayerScreen.objLoggedIn, "Logged in text");
+		String getEmail = getText(AMDPlayerScreen.objLoggedInEmail);
+		if(getEmail.length() > 1) {
+			logger.info("Email Id is displayed in payment screen "+getEmail);
+			extentLoggerPass("Email ID", "Email Id is displayed in payment screen "+getEmail);
+		}
+	}
+	
 }

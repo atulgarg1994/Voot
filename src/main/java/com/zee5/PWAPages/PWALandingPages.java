@@ -146,4 +146,10 @@ public class PWALandingPages {
 	}
 	
 	public static By objWebProfileIcon = By.xpath("//*[contains(@class, 'bm-icon profileMenuBtn iconInitialLoad-ic_profile')]");
+	
+	//Channels landing page title
+	public static By objChannelsLandingPageTitle = By.xpath("//h1[text()='List of TV Channels']");
+	//First Channel card in Channels Landing Page
+	public static By objFirstChannelCard = By.xpath("(//*[contains(@class,'channelCard')]//img)[1]");
+	
 }

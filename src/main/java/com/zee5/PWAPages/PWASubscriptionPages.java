@@ -305,8 +305,6 @@ public class PWASubscriptionPages {
 
 	public static By objremovebtn = By
 			.xpath("//*[contains(@class, 'promoCodePopupApply') and contains(text(), 'Remove')]");
-
-	public static By objContinueBtn = By.xpath("//span[contains(text(), 'Continue')]");
 	
 	public static By objProceedButtonInPassword = By.xpath("//*[text()='Continue']");
 	public static By objProceedBtnInSubscriptionPage = By.xpath("//*[text()='Continue']");
@@ -375,6 +373,40 @@ public class PWASubscriptionPages {
 			"//div[contains(@class,'linearLayout sidebarItem_object')]//*[contains(text(), 'Paytm')]");
 
 	public static By objLoginButtonFromSubscriptionPage = By.xpath("//*[contains(@class, 'loginBtn noSelect subscriptionLoginType')]");
+	
+	// Continue Btn
+	public static By objContinueBtn = By.xpath("(//span[contains(text(), 'Continue')])[1]");
+	// Account Info tab Title
+	public static By objAccountInfoTitle = By.xpath("//h2[contains(text(),'Account Info')]");
+	//Verify OTP screen title
+	public static By objVerifyOTPTitle = By.xpath("//*[@class='verifyOTPBox mobileLoginPopup']//*[contains(text(), 'Verify OTP')]");
+	//OTP text field 1
+	public static By objOTPTextField1 = By.xpath("//input[@name='otp1']");
+	// OTP text field 2
+	public static By objOTPTextField2 = By.xpath("//input[@name='otp2']");
+	// OTP text field 3
+	public static By objOTPTextField3 = By.xpath("//input[@name='otp3']");
+	// OTP text field 4
+	public static By objOTPTextField4 = By.xpath("//input[@name='otp4']");
+		// Verify Button
+	public static By objVerifyButton = By.xpath("(//span[contains(text(), 'Verify')])[1]");
+		//Error Message
+	public static By objInvalidOTPErrorMessage = By.xpath("//*[contains(@class, 'errorContainer') and contains(text(),'Either OTP is not valid or has expired')]");
+
+	//Plan Duration in My transactions page
+	public static By objPlanPurchaseDate = By.xpath("//*[@class='transactionCard']//*[@class='date']");
+	//Plan Duration in My transactions page
+	public static By objPlanPurchaseDate(int i) {
+		return By.xpath("(//*[@class='transactionCard']//*[@class='date'])["+i+"]");
+	}
+	//Plan Duration in My Transactions page
+	public static By objPlanDuration = By.xpath("//*[@class='transactionCard']//*[@class='value' and (./preceding-sibling::* | ./following-sibling::*)[contains(text(),'Duration')]]");
+	//Plan Duration in My Transactions page
+	public static By objPlanDuration(int i) {
+		return By.xpath("(//*[@class='transactionCard']//*[@class='value' and (./preceding-sibling::* | ./following-sibling::*)[contains(text(),'Duration')]])["+i+"]");
+	}
+	//Zee Logo
+	public static By objZeeLogo = By.xpath("//*[@title='ZEE5 Logo']");
 	
 	
 }

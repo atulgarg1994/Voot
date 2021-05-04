@@ -437,13 +437,14 @@ public class PWAPlayerPage {
 	public static By objFirstCardFigureFromTray = By.xpath("//div[@data-index='0']//figure");
 	
 	public static By objSelectAudioLanguage = By.xpath("");
-	
-	public static By objSubscribeNowLink = By.xpath("//div[@class ='subscribe-button subscribemsg_en']");
-
-	public static By objGetPremiumCTABelowPlayerScreen = By
-				.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Get Premium')]");
 
 	public static By objContentTitleInPlayerPage = By.xpath("(//div[@class='consumptionMetaDiv']//div//h2) | (//div[@class='channelConsumptionMetaDiv']//h1)");
 	
 	public static By objGetPremiumInline = By.xpath("//div[@class=\"subscribe-button subscribemsg_en\"]");
+	
+//	 Get Premium CTA Below the Player Screen
+	public static By objGetPremiumCTABelowPlayerScreen = By
+				.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Get Premium')]");
+//	 Subscribe Now Link on player
+	public static By objSubscribeNowLink = By.xpath("//*[@class = 'subscribe-button subscribemsg_en']");
 }

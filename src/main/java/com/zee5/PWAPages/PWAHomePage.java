@@ -601,10 +601,6 @@ public class PWAHomePage {
 	public static By objCarouselCardForClick (int carouselDot) {
 		return By.xpath("//div[contains(@class,'BannerCarousel')]//div[@data-index='"+carouselDot+"']//div[@class='carouselMain']//figure//img");
 	}
-	
-	public static By objMastheadCarouselCurrentContent = By.xpath(
-			"//div[contains(@class,'heroBannerCarousel')]//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'content')]//img");
-
 	public static By objSubscribeBtnTopHeader = By
 			.xpath("//div[contains(@class,'iconInitialLoad-ic_premium')]");
 	
@@ -616,4 +612,13 @@ public class PWAHomePage {
 	public static By objTamilWEB = By.xpath("//span[contains(text(),'Tamil')]");
 	
 	public static By objGetPremiumWeb = By.xpath("//div[contains(@class,'slick-slide slick-active slick-center slick-current')]//div//span[contains(text(),'Get premium') or contains(text(), 'Buy Plan')]");
+
+	// Masthead carousel current content
+	public static By objMastheadCarouselCurrentContent = By.xpath(
+				"//div[contains(@class,'heroBannerCarousel')]//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'content')]//img");
+	//Home Tab display Language independent
+	public static By objRegLangHomeTab =  By.xpath("//*[@class='navMenuWrapper ']//li//a[@href='/']");
+	//Play Icon with Get Premium CTA on carousel
+	public static By objPlayIconWithGetPremiumCTAOnCarousel = By.xpath("//*[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'playIcon') and following-sibling::*//*[contains(text(),'Get premium')]]");
+		
 }
