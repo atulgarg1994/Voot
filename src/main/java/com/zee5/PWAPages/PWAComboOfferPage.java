@@ -6,11 +6,12 @@ public class PWAComboOfferPage {
 
 	
 	public static By objTrailer = By.xpath("(.//*[@class='buttonContainer ']//span[text()='Trailer'])[1]");
-	public static By objRentNow = By.xpath("");
+	public static By objRentNow = By.xpath("(.//*[@class='tvodButtonContainer']//span[contains(text(),'Rent for INR')])[1]");
+	public static By objRentNowTitle = By.xpath("((.//*[@class='tvodButtonContainer']//span[contains(text(),'Rent for INR')])[1])//ancestor::*[@class='tvodCardContainer']//*[@class='tvodTitle']");
 	
 	public static By objwatchFullContentByRentingIt = By.xpath(".//*[@class='subscribe-msg-premium subscribemsg_en']/div/span");
 	
-	public static By objRentNowInPlayer = By.xpath("");
+	public static By objRentNowInPlayer = By.xpath(".//*[@class='subscribe-button subscribemsg_en noPremiumIcon' and text()='Rent Now']");
 	
 	public static By objRentNowBelowPlayer = By.xpath(".//*[@class='tvodBanner']//child::*[text()='Rent Now']");
 	public static By objKnowMore = By.xpath(".//*[@class='comboOfferContainer']//child::*[text()='know more']");
@@ -21,7 +22,6 @@ public class PWAComboOfferPage {
 	
 	public static By objTermsOfServiceTitle = By.xpath(".//*[@class='staticPageContainer']//child::*[text()='Terms of Use']");
 	public static By objPrivacyPolicyTitle = By.xpath(".//*[@class='staticPageContainer']//child::*[text()='Privacy Policy']");
-	
 	
 	public static By objLangPopUp = By.xpath(".//*[@class='popupTitle bigTitle']");
 	
@@ -59,8 +59,8 @@ public class PWAComboOfferPage {
 	public static By objLefftBannerrentvalidationTxt = By.xpath("(.//*[@class='plexExpiryBannerLeft']//*[@class='plexExpiryBannerTitleWrapper']/div)[1]");
 	public static By objLeftBannerDays = By.xpath("(.//*[@class='plexExpiryBannerLeft']//*[@class='plexExpiryBannerTitleWrapper']/div)[2]");
 	public static By objLeftBannerDesc = By.xpath(".//*[@class='plexExpiryBannerLeft']//*[@class='plexExpiryBannerDesc']");
-	
-	
+	public static By objrentvalidityCard = By.xpath(".//*[@class='plexExpiryBannerLeft']");
+	public static By objWatchTimeCard = By.xpath(".//*[@class='plexExpiryBannerRight']");
 	public static By objWatchTimeTxt = By.xpath(".//*[@class='plexExpiryBannerRight']//*[@class='plexExpiryBannerTitleLeft']");
 	public static By objHoursTxt = By.xpath(".//*[@class='plexExpiryBannerRight']//*[@class='plexExpiryBannerTitleRight']");
 	public static By objRightBannerDesc = By.xpath(".//*[@class='plexExpiryBannerRight']//*[@class='plexExpiryBannerDesc']");
@@ -78,7 +78,7 @@ public class PWAComboOfferPage {
 	public static By objWatchListZeeplexTab = By.xpath(".//*[@id='plex']");
 	public static By objFirstContentTitle = By.xpath("(.//*[@class='cardTitle overflowEllipsis '])[1]");
 	
-	public static By objOnlyRentMovieCheckBox = By.xpath(".//*[@class='iconOther-ic_tick radioBtn ']");
+	public static By objOnlyRentMovieCheckBox = By.xpath("(.//*[@class='packGrid'])[2]//*[@class='iconOther-ic_tick radioBtn active']");
 	
 	
 	

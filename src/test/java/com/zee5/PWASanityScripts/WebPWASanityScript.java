@@ -16,12 +16,12 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic = new Zee5PWASanityWEBBusinessLogic("Chrome");
 	}
 
-//	@Test(priority = 1)
-//	@Parameters({ "userType" })
-//	public void PWAWEBLogin(String userType) throws Exception {
-//		Zee5WEBPWASanityBusinessLogic.ZeeWEBPWALogin(userType);
-//	}
-//
+	@Test(priority = 1)
+	@Parameters({ "userType" })
+	public void PWAWEBLogin(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.ZeeWEBPWALogin(userType);
+	}
+
 //	// ------------------SHREENIDHI Mandatory Registration---------------------
 //	@Test(priority = 2)
 //	@Parameters({ "userType" })
@@ -396,10 +396,13 @@ public class WebPWASanityScript {
 //		Zee5WEBPWASanityBusinessLogic.TasksAndDefects(userType);
 //	}
 	
-//	@Test(priority = 32)
-//	public void comboOffer() throws Exception {
-//		Zee5WEBPWASanityBusinessLogic.validateComboScreen();
-//	}
+	@Test(priority = 32)
+	public void comboOffer() throws Exception {
+//		Zee5WEBPWASanityBusinessLogic.validateComboScreenOnClickingCTABelowPlayer();
+//		Zee5WEBPWASanityBusinessLogic.validateComboScreenOnClickingCTAInlinePlayer();
+//		Zee5WEBPWASanityBusinessLogic.playingContentFromwatchListOnClickingCTABelowPlayer();
+		Zee5WEBPWASanityBusinessLogic.validateComboScreenOnClickingCTAInlinePlayerRentNow();
+	}
 	
 //	@Test(priority = 32)
 	@Parameters({ "userType" })
@@ -408,7 +411,7 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.Sprint58(userType);
 	}
 	
-	@Test(priority = 32)
+//	@Test(priority = 32)
 	@Parameters({ "userType" })
 	public void InSprintComboOfferAutomation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();

@@ -128,6 +128,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	Response resp;
 	String PresentTitle;
 	String AdValue = "AdnotPlayed";
+	String contentTitle;
 
 	ArrayList<String> MastheadTitleApi = new ArrayList<String>();
 
@@ -26337,7 +26338,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		
 	}
 	
-	public void validateComboScreen() throws Exception {
+	public void validateComboScreenOnClickingCTABelowPlayer() throws Exception {
 		rentNowOnCarousel("Trailer");
 		validateConsumptionScreen();
 		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
@@ -26346,11 +26347,48 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		privacyPolicy();
 	}
 	
+	public void validateComboScreenOnClickingCTAInlinePlayer() throws Exception {
+		rentNowOnCarousel("Trailer");
+		validateConsumptionScreen();
+		click(PWAComboOfferPage.objRentNowInPlayer, "Rent Now CTA in-player");
+		verifyComboScreen();
+		termsOfService();
+		privacyPolicy();
+	}
+	
+	public void playingContentFromwatchListOnClickingCTABelowPlayer() throws Exception {
+		if (!userType.equals("Guest")) {
+			watchList();
+			validateConsumptionScreen();
+			click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
+			verifyComboScreen();
+			termsOfService();
+			privacyPolicy();
+		}
+	}
+	
+	public void playingContentFromwatchListOnClickingCTAInlinePlayer() throws Exception {
+		if (!userType.equals("Guest")) {
+			watchList();
+			validateConsumptionScreen();
+			click(PWAComboOfferPage.objRentNowInPlayer, "Rent Now CTA in-player");
+			verifyComboScreen();
+			termsOfService();
+			privacyPolicy();
+		}
+	}
+	
+	public void validateComboScreenOnClickingCTAInlinePlayerRentNow() throws Exception {
+		rentNowOnCarousel("RentNow");
+		rentPopUp();
+	}
+	
 	public void rentNowOnCarousel(String CTAONCarousel) throws Exception {
 		HeaderChildNode("1");
 		navigateToAnyScreen("Rent");
 		waitTime(3000);
 		scrollByWEB();
+		contentTitle = getText(PWAComboOfferPage.objRentNowTitle);
 		if(CTAONCarousel.equalsIgnoreCase("Trailer")) {
 			click(PWAComboOfferPage.objTrailer, "Trailer");
 		}else if(CTAONCarousel.equalsIgnoreCase("RentNow")) {
@@ -26360,7 +26398,9 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	
 	public void watchList() throws Exception {
 		HeaderChildNode("2");
-		click(PWAHomePage.objProfileMenu,"Profile");
+		waitTime(5000);
+		JSClick(PWAHomePage.objProfileMenu,"Profile");
+		waitTime(5000);
 		verifyElementPresentAndClick(PWAHomePage.objMyWatchListIcon, "My Watchlist");
 		verifyElementPresentAndClick(PWAComboOfferPage.objWatchListZeeplexTab, "ZEEPLEX Tab");
 		verifyElementPresentAndClick(PWAComboOfferPage.objFirstContentTitle, "First content");
@@ -26369,11 +26409,10 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	public void validateConsumptionScreen() throws Exception {
 		HeaderChildNode("3");
 		waitTime(60000);
+		waitTime(15000);
 		verifyElementPresent(PWAComboOfferPage.objwatchFullContentByRentingIt, "watch full content by renting it");
 		verifyElementPresent(PWAComboOfferPage.objRentNowInPlayer, "Rent Now CTA in-player");
-		
 		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
-		
 		verifyElementPresent(PWAComboOfferPage.objComboOfferWidget, "Combo Offer Widget below the player");
 		verifyElementPresent(PWAComboOfferPage.objKnowMore, "Know More CTA below the player");
 		
@@ -26386,70 +26425,15 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		verifyElementPresent(PWAComboOfferPage.objContentCard, "Content Thumbnail");
 		verifyElementPresent(PWAComboOfferPage.objPremiumCard, "1 year Premium Thumbnail");
 		
-		if(getText(PWAComboOfferPage.objRentalValidateTxt).equals("Rental validity 21 Days")) {
-			logger.info("Rental validity 21 Days text is present");
-			extent.extentLoggerPass("", "Rental validity 21 Days text is present");
-		}else {
-			logger.info("Rental validity 21 Days text is not present");
-			extent.extentLoggerFail("", "Rental validity 21 Days text is not present");
-		}
-		
-		if(getText(PWAComboOfferPage.objWatchTimevalidateTxt).equals("Watch Time validity 4 hours")) {
-			logger.info("'Watch Time validity 4 hours' text is present");
-			extent.extentLoggerPass("", "'Watch Time validity 4 hours' text is present");
-		}else {
-			logger.info("'Watch Time validity 4 hours' text is not present");
-			extent.extentLoggerFail("", "'Watch Time validity 4 hours' text is not present");
-		}
-		
-		
-		if(getText(PWAComboOfferPage.obj4000blockusterTxt).equals("4000+ blockbuster movies")) {
-			logger.info("'4000+ blockbuster movies' text is present");
-			extent.extentLoggerPass("", "'4000+ blockbuster movies' text is present");
-		}else {
-			logger.info("'4000+ blockbuster movies' text is not present");
-			extent.extentLoggerFail("", "'4000+ blockbuster movies' text is not present");
-		}
-		
-		if(getText(PWAComboOfferPage.objzee5OriginalTxt).equals("ZEE5 Originals and Web Series")) {
-			logger.info("'ZEE5 Originals and Web Series' text is present");
-			extent.extentLoggerPass("", "'ZEE5 Originals and Web Series' text is present");
-		}else {
-			logger.info("'ZEE5 Originals and Web Series' text is not present");
-			extent.extentLoggerFail("", "'ZEE5 Originals and Web Series' text is not present");
-		}
-		
-		if(getText(PWAComboOfferPage.objWatchshowsTxt).equals("Watch shows before TV")) {
-			logger.info("'Watch shows before TV' text is present");
-			extent.extentLoggerPass("", "'Watch shows before TV' text is present");
-		}else {
-			logger.info("'Watch shows before TV' text is not present");
-			extent.extentLoggerFail("", "'Watch shows before TV' text is not present");
-		}
-		
-		if(getText(PWAComboOfferPage.objWatchAdTxt).equals("Watch Ad Free")) {
-			logger.info("'Watch Ad Free' text is present");
-			extent.extentLoggerPass("", "'Watch Ad Free' text is present");
-		}else {
-			logger.info("'Watch Ad Free' text is not present");
-			extent.extentLoggerFail("", "'Watch Ad Free' text is not present");
-		}
-		
-		if (getText(PWAComboOfferPage.objDiscount).contains("Save ₹")) {
-			logger.info("'Save ₹500' text is present");
-			extent.extentLoggerPass("", "'Save ₹500' text is present");
-		} else {
-			logger.info("'Save ₹500' text is not present");
-			extent.extentLoggerFail("", "'Save ₹500' text is not present");
-		}
-		
-		if (getText(PWAComboOfferPage.objTotalDiscount).contains("Save ₹")) {
-			logger.info("'Save ₹500' text is present at Total offer Price");
-			extent.extentLoggerPass("", "'Save ₹500' text is present at Total offer Price");
-		} else {
-			logger.info("'Save ₹500' text is not present at Total offer Price");
-			extent.extentLoggerFail("", "'Save ₹500' text is not present at Total offer Price");
-		}
+		compareText(PWAComboOfferPage.objRentalValidateTxt,"Rental validity 21 Days");
+		compareText(PWAComboOfferPage.objWatchTimevalidateTxt,"Watch Time validity 4 hours");
+		compareText(PWAComboOfferPage.obj4000blockusterTxt,"4000+ blockbuster movies");
+		compareText(PWAComboOfferPage.objzee5OriginalTxt,"ZEE5 Originals and Web Series");
+		compareText(PWAComboOfferPage.objWatchshowsTxt,"Watch shows before TV");
+		compareText(PWAComboOfferPage.objWatchAdTxt,"Watch Ad Free");
+		String SaveAmount = getText(PWAComboOfferPage.objDiscount).replace("Save ₹", "");
+		compareText(PWAComboOfferPage.objDiscount,"Save ₹"+SaveAmount);
+		compareText(PWAComboOfferPage.objTotalDiscount,"Save ₹"+SaveAmount);
 		
 		scrollDownWEB();
 		if(userType.equals("Guest")) {
@@ -26458,10 +26442,65 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			verifyElementPresent(PWAComboOfferPage.objUpgradeBtn, "Upgrade Button");
 		}
 		
-		if(findElement(PWAComboOfferPage.objOnlyRentMovieCheckBox).isEnabled()) {
+		if(verifyElementDisplayed(PWAComboOfferPage.objOnlyRentMovieCheckBox)) {
 			verifyElementPresent(PWAComboOfferPage.objRentMovieBtn, "Rent Movie Button");
 		}
 	}
+	
+	public void rentPopUp() throws Exception {
+		HeaderChildNode("Rent PopUp");
+		verifyElementPresent(PWAComboOfferPage.objRentPopUp, "Rent PopUP");
+		
+		if(contentTitle.equals(getText(PWAComboOfferPage.objTitle))) {
+			logger.info(""+contentTitle+"\" Title of the Content matches");
+			extent.extentLoggerPass("",""+contentTitle+"\" Title of the Content matches");
+		} else {
+			logger.info(""+contentTitle+"\"Title of the Content does not matches");
+			extent.extentLoggerFail("", ""+contentTitle+"\"Title of the Content does not matches");
+		}
+		
+		if(verifyElementPresent(PWAComboOfferPage.objReleasetxt,"Released By text")) {
+		logger.info("Released By Text :- "+getText(PWAComboOfferPage.objReleasetxt));
+		extent.extentLoggerPass("", "Released By Text :- "+getText(PWAComboOfferPage.objReleasetxt));
+		}
+		verifyElementPresent(PWAComboOfferPage.objrentvalidityCard, "Rent Validity Card");
+		compareText(PWAComboOfferPage.objLefftBannerrentvalidationTxt,"Rental Validity");
+		String date = getText(PWAComboOfferPage.objLeftBannerDays).replace(" Days", "");
+		compareText(PWAComboOfferPage.objLeftBannerDays,date+" Days");
+		compareText(PWAComboOfferPage.objLeftBannerDesc,"You have "+date+" days to start watching the movie once rented");
+		verifyElementPresent(PWAComboOfferPage.objWatchTimeCard, "Watch Time Card");
+		compareText(PWAComboOfferPage.objWatchTimeTxt,"Watch Time");
+		compareText(PWAComboOfferPage.objHoursTxt,"4 hours");
+		compareText(PWAComboOfferPage.objRightBannerDesc,"You will have 4 hours to finish the movie once started playback");
+		
+		List<WebElement> ExpirePoint = findElements(PWAComboOfferPage.objExpirePoints);
+		compareText(ExpirePoint.get(0),"You can watch the movie multiple times during the 4 hour period");
+		compareText(ExpirePoint.get(1),"This is a non-refundable transaction");
+		compareText(ExpirePoint.get(2),"This content is only available for rent and not a part of Premium or Club Subscription");
+		compareText(ExpirePoint.get(3),"You can play your content on the supported devices");
+		compareText(ExpirePoint.get(4),"Learn more about ZEEPLEX");
+	}
+	
+	public void compareText(By Locator,String Text) throws Exception {
+		if(getText(Locator).equals(Text)) {
+			logger.info("'"+Text+"' text is matched");
+			extent.extentLoggerPass("", "'"+Text+"' text is matched");
+		} else {
+			logger.info("'"+Text+"' text is not matched");
+			extent.extentLoggerFail("", "'"+Text+"' text is not matched");
+		}
+	}
+	
+	public void compareText(WebElement element,String Text) throws Exception {
+		if(element.getText().equals(Text)) {
+			logger.info("'"+Text+"' text is matched");
+			extent.extentLoggerPass("", "'"+Text+"' text is matched");
+		} else {
+			logger.info("'"+Text+"' text is not matched");
+			extent.extentLoggerFail("", "'"+Text+"' text is not matched");
+		}
+	}
+	
 	
 	public void termsOfService() throws Exception {
 		HeaderChildNode("5");

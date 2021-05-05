@@ -258,6 +258,7 @@ public class Utilities extends ExtentReporter {
 		}
 		return false;
 	}
+	
 
 	public boolean checkElementExist(By byLocator, String str) throws Exception {
 
