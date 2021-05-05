@@ -126,8 +126,6 @@ public class PWAShowsPage {
 	public static By objUpgradeCTAInShowDetails = By.xpath("//*[@class='premiumBtn' and text()='Upgrade']");
 	
 	public static By objGetClubCTAInShowDetails = By.xpath("//*[@class='premiumBtn' and text()='Get Club']");
-	
-	public static By objGetPremiumCTAInShowDetails = By.xpath("//*[@class='premiumBtn' and text()='Get premium']");
 
 	public static By objWatchPromo = By.xpath("//p[text()='Watch Promo']//parent::*//div[@class='playBtn']");
 	
@@ -159,4 +157,6 @@ public class PWAShowsPage {
 	}
 	
 	public static By objShowDetailsEpisodeDropdownText = By.xpath("(//div[@class='AllEpisodesListDiv']//div[@class='allEpisodeSelect']//div)[4]//span");
-}
+	
+	public static By objGetPremiumCTAInShowDetails = By.xpath("//*[@class='premiumBtn' and text()='Buy Plan']");
+	}

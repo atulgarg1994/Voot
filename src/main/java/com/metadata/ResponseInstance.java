@@ -4040,5 +4040,48 @@ public static void setFEPropertyOfContentFromAPI2(String contentID, Response Con
 	
 }
 
+public static Response updateWatchHistory(String contentID,int duration) {
+	String userType = "", username = "", password = "", url="",authorizationToken="";
+	userType=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+	Response updateWatchHistory=null;
+	if (!userType.equalsIgnoreCase("Guest")) {
+		if (userType.equals("NonSubscribedUser")) {
+			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserPassword");
+		}
+		if (userType.equals("SubscribedUser")) {
+			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserPassword");
+		}
+		authorizationToken=getAuthorization(username, password);
+		RequestSpecification updateWatchHistoryRequestSpecification = RestAssured.given();
+		updateWatchHistoryRequestSpecification.header("Content-Type", "application/json");
+		updateWatchHistoryRequestSpecification.header("accept", "application/json");
+		updateWatchHistoryRequestSpecification.header("Authorization", authorizationToken);
+		updateWatchHistoryRequestSpecification.body("{\"id\":\""+contentID+"\",\"duration\":"+duration+"}");			
+		updateWatchHistoryRequestSpecification.config(com.jayway.restassured.RestAssured.config().encoderConfig(com.jayway.restassured.config.EncoderConfig
+				.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)));
+		url="https://userapi.zee5.com/v1/watchhistory";
+		updateWatchHistory = updateWatchHistoryRequestSpecification.put(url);
+		System.out.println(updateWatchHistory.getStatusCode());
+		updateWatchHistory.prettyPrint();
+	}			
+	return updateWatchHistory;
+}
+
+public static String getAuthorization(String email, String password) {
+	JSONObject requestParams = new JSONObject();
+	requestParams.put("email", email);
+	requestParams.put("password", password);
+	RequestSpecification req = RestAssured.given();
+	req.header("Content-Type", "application/json");
+	req.config(com.jayway.restassured.RestAssured.config().encoderConfig(com.jayway.restassured.config.EncoderConfig
+			.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)));
+	req.body(requestParams.toString());
+	Response resp = req.post("https://userapi.zee5.com/v2/user/loginemail");
+	String accesstoken = resp.jsonPath().getString("access_token");
+	return accesstoken;
+}
+
 }
 

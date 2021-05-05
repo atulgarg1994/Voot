@@ -39,7 +39,6 @@ public class AMDHomePage {
 	public static By objSubscribeNowInMySubscription = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/btn_subscribe_now']");
 
-	public static By objSubscribeNowInMyTransaction = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_sub_now']");
 	public static By objPackAmount = By.xpath("//*[@resource-id='com.graymatrix.did:id/pack_amount']");
 	public static By objCancelRenewal = By.xpath("//*[@resource-id='com.graymatrix.did:id/cancel_renewal']");
 	public static By objBrowseAllPack = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_browse_packs']");
@@ -256,5 +255,7 @@ public class AMDHomePage {
 	public static By objRegisterPopup = By.xpath("//*[@id='tvtitle' and @text='Register']");
 	
 	public static By objSubscribeTeaser = By.xpath("//*[@text='SUBSCRIBE'] | //*[@id='home_subscribe_text_view']");
+	
+	public static By objSubscribeNowInMyTransaction = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_subscribe_now'] | //*[@resource-id='com.graymatrix.did:id/btn_sub_now']");
 	
 	}

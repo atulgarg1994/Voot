@@ -447,4 +447,6 @@ public class PWAPlayerPage {
 				.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Get Premium')]");
 //	 Subscribe Now Link on player
 	public static By objSubscribeNowLink = By.xpath("//*[@class = 'subscribe-button subscribemsg_en']");
+	
+	public static By objSkipButtonInEnglish = By.xpath("//div[contains(@class,'skip-button') and .='Skip']");
 }

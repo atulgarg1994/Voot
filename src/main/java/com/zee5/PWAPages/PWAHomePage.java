@@ -620,5 +620,7 @@ public class PWAHomePage {
 	public static By objRegLangHomeTab =  By.xpath("//*[@class='navMenuWrapper ']//li//a[@href='/']");
 	//Play Icon with Get Premium CTA on carousel
 	public static By objPlayIconWithGetPremiumCTAOnCarousel = By.xpath("//*[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'playIcon') and following-sibling::*//*[contains(text(),'Get premium')]]");
-		
+	
+	public static By objMyWatchListIcon = By.xpath(".//*[@class='bm-item mainMenu']//child::*[text()='My Watchlist']");
+	
 }

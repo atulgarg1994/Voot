@@ -5,8 +5,8 @@ import org.openqa.selenium.By;
 public class PWAComboOfferPage {
 
 	
-	public static By objTrailer = By.xpath(".//*[@class='trailerInfoContainer']");
-	public static By objRentNow = By.xpath("objPrivacyPolicyTitle");
+	public static By objTrailer = By.xpath("(.//*[@class='buttonContainer ']//span[text()='Trailer'])[1]");
+	public static By objRentNow = By.xpath("");
 	
 	public static By objwatchFullContentByRentingIt = By.xpath(".//*[@class='subscribe-msg-premium subscribemsg_en']/div/span");
 	
@@ -51,5 +51,36 @@ public class PWAComboOfferPage {
 	
 	public static By objBuyRadheComboBtn = By.xpath(".//*[@class='buttonContainer']//child::*[text()='Buy Radhe Combo']");
 	public static By objRentMovieBtn = By.xpath(".//*[@class='buttonContainer']//child::*[text()='Rent Movie']");
+	public static By objUpgradeBtn = By.xpath(".//*[@class='buttonContainer']//child::*[text()='Upgrade']");
+	
+	public static By objRentPopUp = By.xpath(".//*[@class='popupContent']");
+	public static By objTitle = By.xpath(".//*[@class='plexExpiryContent']//*[@class='plexExpiryTitle']");
+	public static By objReleasetxt = By.xpath(".//*[@class='plexExpiryReleaseBy']/span");
+	public static By objLefftBannerrentvalidationTxt = By.xpath("(.//*[@class='plexExpiryBannerLeft']//*[@class='plexExpiryBannerTitleWrapper']/div)[1]");
+	public static By objLeftBannerDays = By.xpath("(.//*[@class='plexExpiryBannerLeft']//*[@class='plexExpiryBannerTitleWrapper']/div)[2]");
+	public static By objLeftBannerDesc = By.xpath(".//*[@class='plexExpiryBannerLeft']//*[@class='plexExpiryBannerDesc']");
+	
+	
+	public static By objWatchTimeTxt = By.xpath(".//*[@class='plexExpiryBannerRight']//*[@class='plexExpiryBannerTitleLeft']");
+	public static By objHoursTxt = By.xpath(".//*[@class='plexExpiryBannerRight']//*[@class='plexExpiryBannerTitleRight']");
+	public static By objRightBannerDesc = By.xpath(".//*[@class='plexExpiryBannerRight']//*[@class='plexExpiryBannerDesc']");
+	public static By objExpirePoints = By.xpath(".//*[@class='plexExpiryPoints']/li");
+	public static By objRentForINRBtn = By.xpath(".//*[@class='popupContent']//*[@class='buttonContainer ']//span");
+	public static By objTermsOfUse = By.xpath(".//*[@class='plexBottomWrapper']//*[text()='Terms of Use']");
+	
+	public static By objTermsOfUseHeader = By.xpath(".//*[@class='staticPageContainer']/h1[text()='Terms of Use']");
+	public static By objSupportedDeviceLink = By.xpath(".//*[@class='plexExpiryPoints']//span[text()='supported devices']");
+	public static By objZeeplexLink = By.xpath(".//*[@class='plexExpiryPoints']//span[text()='ZEEPLEX']");
+	
+	public static By objErrorTitle = By.xpath(".//*[@class='ErrorPage__errorTitle']");
+	public static By objZeePlexPageHeader = By.xpath(".//*[@class='KbDetailLtContainer__articleTitle']//h1[text()='Renting movies on ZEEPLEX']");
+	
+	public static By objWatchListZeeplexTab = By.xpath(".//*[@id='plex']");
+	public static By objFirstContentTitle = By.xpath("(.//*[@class='cardTitle overflowEllipsis '])[1]");
+	
+	public static By objOnlyRentMovieCheckBox = By.xpath(".//*[@class='iconOther-ic_tick radioBtn ']");
+	
+	
+	
 	
 }

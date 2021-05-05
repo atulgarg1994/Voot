@@ -1081,7 +1081,8 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		System.out.println("myaccountOptionsVerification");
 		waitTime(7000);
 
-		verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		verifyElementPresent(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		JSClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
 
 		waitTime(7000);
 		// verifications
@@ -1089,26 +1090,27 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		NavigationsToMyWatchlist();
 		NavigationsToMyReminders();
 		NavigationsToMyTransactions();
-
 	}
 
 	/**
 	 * Function for Navigation to MyWatchlist .
 	 */
 	public void NavigationsToMyWatchlist() throws Exception {
-		extent.HeaderChildNode("My Watchlist");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Watchlist"), "My watchlist");
-		waitTime(4000);
-		verifyElementPresent(PWAHamburgerMenuPage.objMyAccountOptionsText("My Watchlist"), "My Watchlist page");
-		click(PWAHamburgerMenuPage.objProfileIconWEB, "profile icon");
-	}
+			extent.HeaderChildNode("My Watchlist");
+			verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Watchlist"), "My watchlist");
+			JSClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Watchlist"), "My watchlist");
+			waitTime(4000);
+			verifyElementPresent(PWAHamburgerMenuPage.objMyAccountOptionsText("My Watchlist"), "My Watchlist page");
+			click(PWAHamburgerMenuPage.objProfileIconWEB, "profile icon");
+		}
 
 	/**
 	 * Function for Navigation to MyReminders .
 	 */
 	public void NavigationsToMyReminders() throws Exception {
 		extent.HeaderChildNode("My Reminders");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Reminders"), "My Reminders");
+		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Reminders"), "My Reminders");
+		JSClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Reminders"), "My Reminders");
 		waitTime(4000);
 		verifyElementPresent(PWAHamburgerMenuPage.objMyAccountOptionsText("My Reminders"), "My Reminders page");
 		click(PWAHamburgerMenuPage.objProfileIconWEB, "profile icon");
@@ -1119,7 +1121,8 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 	 */
 	public void NavigationsToMySubsccription() throws Exception {
 		extent.HeaderChildNode("My subscriptions");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Subscription"), "My Subscription");
+		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Subscription"), "My Subscription");
+		JSClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Subscription"), "My Subscription");
 		waitTime(4000);
 		verifyElementPresent(PWAHamburgerMenuPage.objMyAccountOptionsText("My Subscription"), "My Subscription page");
 		click(PWAHamburgerMenuPage.objProfileIconWEB, "profile icon");
@@ -1130,7 +1133,8 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 	 */
 	public void NavigationsToMyTransactions() throws Exception {
 		extent.HeaderChildNode("My Transactions");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Transactions"), "My Transactions");
+		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Transactions"), "My Transactions");
+		JSClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Transactions"), "My Transactions");
 		waitTime(4000);
 		verifyElementPresent(PWAHamburgerMenuPage.objMyAccountOptionsText("My Transactions"), "My Transactions page");
 		click(PWAHamburgerMenuPage.objProfileIconWEB, "profile icon");
@@ -1142,7 +1146,8 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 	public void NavigateToMyProfilePage() throws Exception {
 		extent.HeaderChildNode("NavigateToMyProfilePage");
 		System.out.println("NavigateToMyProfilePage");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objProfileIconInProfilePage, "profile icon");
+		verifyElementPresent(PWAHamburgerMenuPage.objProfileIconInProfilePage, "profile icon");
+		JSClick(PWAHamburgerMenuPage.objProfileIconInProfilePage, "profile icon");
 		verifyElementPresent(PWAHamburgerMenuPage.objMyAccountOptionsText("My Profile"), "My Profile page");
 		click(PWAHamburgerMenuPage.objProfileTextWEB, "profile");
 	}

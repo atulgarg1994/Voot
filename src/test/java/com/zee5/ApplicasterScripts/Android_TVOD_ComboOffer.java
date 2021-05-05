@@ -55,6 +55,49 @@ public class Android_TVOD_ComboOffer {
 		ZEE5ApplicasterBusinessLogic.ZeePlexContentRentNowCTAValidation();
 	}
 	
+	@Test(priority = 4)//Sushma
+	@Parameters({ "userType","99PremiumPackEmail", "249PremiumPackEmail", "299PremiumPackEmail", "CommomPassword", "tabName1", "Radhe"}) //---Need to pass the Zeeplex content name which is not rented
+	public void UseCase1(String userType, String PremiumPackEmail99, String PremiumPackEmail249, String PremiumPackEmail299, String pPassword, String ptabName, String pContentTitle) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(PremiumPackEmail99, pPassword);
+		ZEE5ApplicasterBusinessLogic.premiumUser_99(ptabName, pContentTitle);
+		
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(PremiumPackEmail249, pPassword);
+		ZEE5ApplicasterBusinessLogic.premiumUser_249(ptabName, pContentTitle);
+		
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(PremiumPackEmail299, pPassword);
+		ZEE5ApplicasterBusinessLogic.premiumUser_299(ptabName, pContentTitle);
+		
+	}
+	
+	@Test(priority = 5)
+	@Parameters({"SubsUserWithActiveRentalPlan","CommomPassword" })	//---Need to pass Susbcribeduser credentials which has 1-year Premium+Radhe Active plan
+	public void GuestUserLogsinAsSubsUserWithRentalActivePlan(String pEmailId,String pPassword) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin("Guest");
+		ZEE5ApplicasterBusinessLogic.VerifyRentalPlanAsSubscribedUser(pEmailId, pPassword);
+	}
+	
+	@Test(priority = 6)
+	@Parameters({"NonSubsUserWithActiveRentalPlan","CommomPassword" })	//---Need to pass Non-Susbcribeduser credentials which has only Radhe rental Active plan activated
+	public void GuestUserLogsinAsNonSubsUserWithRentalActivePlan(String pEmailId,String pPassword) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin("Guest");
+		ZEE5ApplicasterBusinessLogic.VerifyRentalPlanAsNonSubscribedUser(pEmailId, pPassword);
+	}
+	
 	
 	@AfterTest
 	public void tearDownApp() {

@@ -10,7 +10,6 @@ public class AMDMoreMenu {
 	public static By objProfile = By.xpath("//*[@text='P']");
 	public static By objUserType = By.xpath("//*[@text='Guest']");
 	public static By objBackbutton = By.xpath("//*[@text='a']");
-	public static By objBuySubscription = By.xpath("//*[@text='Buy Subscription']");
 	public static By objMySubscription = By.xpath("//*[@text='My Subscription']");
 	public static By objMyTransactions = By.xpath("//*[@text='My Transactions']");
 	public static By objWatchlist = By.xpath("//*[@text='Watchlist']");
@@ -160,7 +159,6 @@ public class AMDMoreMenu {
 	public static By objDownloadInvoice1 = By.xpath("(//*[@resource-id='com.graymatrix.did:id/btn_dialog_done'])[1]");
 
 	public static By objSubscribeNowCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_subscribe_now']");
-	public static By objSubNowCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_sub_now']");
 	public static By objMyTransactionsHeader = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and contains(text(),'My Transactions')]");
 	public static By objUserName = By.xpath("//*[@resource-id='com.graymatrix.did:id/header']");
@@ -289,4 +287,7 @@ public class AMDMoreMenu {
 	public static By objVideoQualityOption(String qualityOption) {
 		return By.xpath("//*[@id='selector_content' and @text='"+qualityOption+"']");
 	}
+	
+	public static By objSubNowCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_subscribe_now']");
+	public static By objBuySubscription = By.xpath("//*[@id='list_item' and @text='Buy Plan'] | //*[@text='Buy Subscription']");
 }

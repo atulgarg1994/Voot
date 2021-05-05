@@ -156,13 +156,12 @@ public class AMDConsumptionScreen {
     
     public static By objAllEpisodetray = By.xpath("//*[@text='All Episodes']");
     
-    public static By objGetPremiumCTA = By.xpath("//*[@id='subscribeButton' and @text='Get Premium']");
-    
     public static By objSkipctaOnPlayer = By.xpath("//*[@id='primaryActionButton']");
     public static By objRentNowCTABelowthePlayer = By.xpath("//*[@id='subscribeButton' and @text='Rent Now']");
     
-    public static By objGetPremiumOnPlayer = By.xpath("(//*[@id='subscribeButton' and @text='Get Premium'])[1]");
-    public static By objGetpremiumBelowThePlayer = By.xpath("(//*[@id='subscribeButton' and @text='Get Premium'])[2]");
-    
     public static By objLoginCTA = By.xpath("//*[@id='secondaryActionButton'] | //*[@id='get_premium_login']");
+    
+    public static By objGetPremiumOnPlayer = By.xpath("(//*[@id='subscribeButton' or @text='Get Premium'])[1]");
+    public static By objGetpremiumBelowThePlayer = By.xpath("(//*[@id='subscribeButton' or @text='Get Premium'])[2]");
+    public static By objGetPremiumCTA = By.xpath("//*[@id='subscribeButton' or @text='Get Premium']");
 }
