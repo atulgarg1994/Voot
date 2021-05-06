@@ -155,5 +155,6 @@ public class AMDPlayerScreen {
 	public static By objMakePayment = By.xpath("//*[@text='Make Payment']");
 	public static By objLoggedIn = By.xpath("//*[@text='Logged In']");
 	public static By objLoggedInEmail = By.xpath("//*[@text='Logged in']//following-sibling::*");
+	public static By objByRentingTerms = By.xpath("By Renting you agree to our Terms");
 	
 	}

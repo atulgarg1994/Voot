@@ -486,8 +486,6 @@ public class PWAHomePage {
 	//public static By objPlayBtn = By.xpath("//div[contains(@class,'slick-slide slick-active')]//*[contains(@class,'playIcon')]");
 
 	public static By objUpgradeBtn = By.xpath("//div[contains(@class,'slick-slide slick-active')]//*[contains(text(),'Upgrade')]");
-
-	public static By objEduauraaCardCarousel = By.xpath("//h2[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
 	
 	public static By objPopUpProceedButton = By.xpath("//button[contains(@class='noSelect buttonGradient')]");
 	
@@ -623,4 +621,5 @@ public class PWAHomePage {
 	
 	public static By objMyWatchListIcon = By.xpath(".//*[@class='bm-item mainMenu']//child::*[text()='My Watchlist']");
 	
+	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
 }

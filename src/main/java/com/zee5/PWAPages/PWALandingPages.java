@@ -104,8 +104,6 @@ public class PWALandingPages {
 	
 	public static By objViewAllPageFirstContent = By.xpath(
 			"((//div[@class='viewAllGrid']//div[@data-minutelytitle]) | (//div[@class='viewAllGrid']//a[@data-minutelytitle]) | (//div[contains(@class,'channelNewsCard')]//figure))[1]");
-
-	public static By objNavigateToTopStories = By.xpath("//*[contains(@class,'arrow-up')]");
 	
 	public static By objLanguageBtnWEB = By.xpath("//div[contains(@class,'languageBtn')]");
 	
@@ -145,11 +143,13 @@ public class PWALandingPages {
 		return By.xpath("//*[@class='trayHeader']//h2[contains(text(),\""+title+"\")] | //*[@class='trayHeader']//a[contains(text(),\""+title+"\")]");
 	}
 	
-	public static By objWebProfileIcon = By.xpath("//*[contains(@class, 'bm-icon profileMenuBtn iconInitialLoad-ic_profile')]");
-	
 	//Channels landing page title
 	public static By objChannelsLandingPageTitle = By.xpath("//h1[text()='List of TV Channels']");
 	//First Channel card in Channels Landing Page
 	public static By objFirstChannelCard = By.xpath("(//*[contains(@class,'channelCard')]//img)[1]");
+	
+	public static By objNavigateToTopStories = By.xpath("//*[contains(@class,'back-top-wrapper')]");
+	
+	public static By objWebProfileIcon = By.xpath("(//*[text()='Open Menu'])[1]");
 	
 }

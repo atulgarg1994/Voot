@@ -11992,13 +11992,112 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		getDriver().context("CHROMIUM");
 		gettingStartedVerifications();
+		zee5SubscriptionVerification();
 		myAccountVerifications();
 		watchingZEE5Verifications();
 		myZEE5AppVerifications();
 		quickLinksVerifications();
 		contactUsScreenVerification();
 	}
+	
+	public void myAccountVerifications() throws Exception {
+		Back(1);
+		waitTime(3000);
+		partialSwipeLoop(3);
+		waitTime(3000);
 
+	//	verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My Account"), "'My Account' tab");
+		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My Account "), "'My Account ' tab");
+		verifyElementPresentAndClick(
+				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Upgrading to the Radhe Combo offer"),
+				"Upgrading to the Radhe Combo offer");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Upgrading to the Radhe Combo offer"),
+				"Article title 'Upgrading to the Radhe Combo offer'");
+		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(3);
+		waitTime(3000);
+
+	
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Managing your Subscription"),
+				"Managing your Subscription");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Managing your Subscription"),
+				"Article title 'Managing your Subscription'");
+
+		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(3);
+		waitTime(3000);
+		verifyElementPresentAndClick(
+				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My auto-renewal subscription has expired"),
+				"'My auto-renewal subscription has expired'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("My auto-renewal subscription has expired"),
+				"Article title 'My auto-renewal subscription has expired'");
+		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(3);
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I can"),
+				"I can't sign in to ZEE5");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("t sign in to ZEE5"),
+				"Article title 'I can't sign in to ZEE5'");
+
+		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(3);
+		waitTime(3000);
+		verifyElementPresentAndClick(
+				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How many devices can I watch on?"),
+				"How many devices can I watch on?");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How many devices can I watch on?"),
+				"Article title 'How many devices can I watch on?'");
+		Back(1);
+	}
+
+	/**
+	 * Function to verify the FAQ's in Help Center Screen under ZEE5 Subscriptions category
+	 */
+	
+	
+	public void zee5SubscriptionVerification() throws Exception {
+		Back(1);
+		waitTime(3000);
+		partialSwipeLoop(2);
+		waitTime(3000);
+		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("ZEE5 Subscriptions"), "'ZEE5 Subscriptions' tab");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Radhe Combo Offer: Pay Less, Watch More!"),
+				"'Radhe Combo Offer: Pay Less, Watch More!'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Radhe Combo Offer - Pay Less, Watch More"),
+				"Article title 'Radhe Combo Offer - Pay Less, Watch More'");
+		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(2);
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How do I purchase the Radhe Combo offer?"),
+				"How do I purchase the Radhe Combo offer?");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How do I purchase the Radhe Combo offer?"),
+				"Article title 'How do I purchase the Radhe Combo offer?'");
+		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(2);
+		waitTime(3000);
+		verifyElementPresentAndClick(
+				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Payment options for Radhe Combo offer"),
+				"'Payment options for Radhe Combo offer'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Payment options for Radhe Combo offer"),
+				"Article title 'Payment options for Radhe Combo offer'");
+		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(2);
+		waitTime(3000);
+		verifyElementPresentAndClick(
+				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How can I check whether the Radhe Combo offer is active on my account?"),
+				"How can I check whether the Radhe Combo offer is active on my account?");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How can I check whether the Radhe Combo offer is active on my account?"),
+				"Article title 'How can I check whether the Radhe Combo offer is active on my account?'");
+//		Back(1);
+	}
+	
 	/**
 	 * Function to Validating Contact Us page in Help Center
 	 * 
@@ -12368,7 +12467,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Registering with ZEE5"),
 				"Article title 'Registering with ZEE5'");
 		Back(1);
+	/*	
 		waitTime(1000);
+		
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Purchasing a subscription"),
 				"'Purchasing a subscription'");
 		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Purchasing a subscription"),
@@ -12376,6 +12477,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		Back(1);
 		waitTime(3000);
 		PartialSwipe("UP", 1);
+	*/	
 		waitTime(3000);
 		verifyElementPresentAndClick(
 				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How do I watch ZEE5 on my television?"),
@@ -12395,11 +12497,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	/**
 	 * Function to verify the FAQ's in Help Center Screen under My Account category
 	 */
-
+/*
 	public void myAccountVerifications() throws Exception {
 		Back(1);
 		waitTime(3000);
-		partialSwipeLoop(2);
+		partialSwipeLoop(3);
 		waitTime(3000);
 		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My Account"), "'My Account' tab");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Managing your Subscription"),
@@ -12408,7 +12510,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				"Article title 'Managing your Subscription'");
 		Back(1);
 		waitTime(2000);
-		partialSwipeLoop(2);
+		partialSwipeLoop(3);
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I can"),
 				"I can't sign in to ZEE5");
@@ -12416,7 +12518,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				"Article title 'I can't sign in to ZEE5'");
 		Back(1);
 		waitTime(2000);
-		partialSwipeLoop(2);
+		partialSwipeLoop(3);
 		waitTime(3000);
 		verifyElementPresentAndClick(
 				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I made a payment but my subscription"),
@@ -12425,7 +12527,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				"Article title 'I made a payment but my subscription isn't active / My subscription is missing'");
 		Back(1);
 		waitTime(2000);
-		partialSwipeLoop(2);
+		partialSwipeLoop(3);
 		waitTime(3000);
 		verifyElementPresentAndClick(
 				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I want to update my profile information"),
@@ -12434,7 +12536,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				"Article title 'I want to update my profile information'");
 		Back(1);
 	}
-
+*/
+	
 	public void watchingZEE5Verifications() throws Exception {
 		waitTime(2000);
 		partialSwipeLoop(4);
@@ -12479,6 +12582,14 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("All about subtitles"),
 				"Article title 'All about subtitles'");
 		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(4);
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Parental Control"),
+				"'Parental Control'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Parental Control"),
+				"Article title 'Parental Control'");
+		Back(1);
 	}
 
 	public void myZEE5AppVerifications() throws Exception {
@@ -12518,6 +12629,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How do I see my current ZEE5 app version"),
 				"Article title 'How do I see my current ZEE5 app version?'");
 		Back(1);
+	/*	
 		waitTime(2000);
 		partialSwipeLoop(6);
 		waitTime(3000);
@@ -12526,6 +12638,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Parental Control"),
 				"Article title 'Parental Control'");
 		Back(1);
+	*/	
 	}
 
 	/**
@@ -12536,11 +12649,18 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(2000);
 		partialSwipeLoop(6);
 		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Quick Links"), "'Quick Links' tab");
+	/*	
 		verifyElementPresentAndClick(
 				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I am unable to watch the ZEEPLEX movie"),
 				"I am unable to watch the ZEEPLEX movie");
 		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I am unable to watch the ZEEPLEX movie"),
 				"Article title 'I am unable to watch the ZEEPLEX movie'");
+	*/	
+		verifyElementPresentAndClick(
+				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I purchased a subscription but it’s not working"),
+				"I purchased a subscription but it’s not working");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I purchased a subscription but it’s not working"),
+				"Article title 'I purchased a subscription but it’s not working'");
 		Back(1);
 		waitTime(2000);
 		partialSwipeLoop(6);
@@ -12562,6 +12682,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("ZEE5 Partnerships"),
 				"Article title 'ZEE5 Partnerships'");
 		Back(1);
+	/*	
 		waitTime(2000);
 		partialSwipeLoop(7);
 		waitTime(3000);
@@ -12570,6 +12691,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How do I cancel my ZEE5 Subscription"),
 				"Article title 'How do I cancel my ZEE5 Subscription'");
 		Back(1);
+	*/	
 		waitTime(2000);
 	}
 

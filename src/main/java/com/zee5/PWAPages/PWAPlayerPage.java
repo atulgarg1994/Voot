@@ -390,9 +390,6 @@ public class PWAPlayerPage {
 
 	public static By objPlayerProgressScrubber = By.xpath("//div[@class='playkit-bottom-bar']//*[@class='playkit-progress-bar']//*[@class='playkit-scrubber']");
 
-	// Consumption page content title
-	public static By objContentTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//h1");
-
 	public static By objSubscribeCTAWithPremiumIcon = By.xpath("//*[@class='subscribe-teaser-button ']");
 	public static By objSubtitleTextOnPlayer = By.xpath("//div[@class='playkit-subtitles']//div[contains(@style,'plaintext')]");
 
@@ -449,4 +446,6 @@ public class PWAPlayerPage {
 	public static By objSubscribeNowLink = By.xpath("//*[@class = 'subscribe-button subscribemsg_en']");
 	
 	public static By objSkipButtonInEnglish = By.xpath("//div[contains(@class,'skip-button') and .='Skip']");
+	
+	public static By objContentTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//*[@class='metaInfo lineHeightClass']//h2");
 }

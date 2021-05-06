@@ -155,7 +155,7 @@ public class WebPWAHLSScript {
 	@Parameters({ "userType" })
 	public void zeeplexValidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-		Zee5WEBPWASanityBusinessLogic.zeeplexvalidation("ZEEPLEX", userType);
+		Zee5WEBPWASanityBusinessLogic.zeeplexvalidation("Rent", userType);
 	}
 
 	@Test(priority = 21)

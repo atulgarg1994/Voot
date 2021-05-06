@@ -905,4 +905,9 @@ public class PWAHamburgerMenuPage {
 	
 	//Browse All Packs Page Description Text
 	public static By objBrowseAllPacksPageTitleText = By.xpath("//*[@class='subscriptionAndPaymentWrapper']//*[@class='stepTitle']");
+	
+	public static By objonlymovierent=By.xpath("//div[@class='bottomSection']//h3[text()='Only Rent Movie']");
+	
+	public static By objrentmovie=By.xpath("//div[@class='buttonContainer']//span");
+	
 	}

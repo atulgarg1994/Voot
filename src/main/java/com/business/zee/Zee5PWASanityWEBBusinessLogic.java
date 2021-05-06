@@ -182,8 +182,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
 			//dismissDisplayContentLanguagePopUp();
-			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
-			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
+			//click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
+			click(PWAHomePage.objNotNow, "Notification popup");
 			waitTime(3000);
 			break;
 
@@ -191,8 +191,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as NonSubscribed User");
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
-			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
-			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
+			//click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
+			click(PWAHomePage.objNotNow, "Notification popup");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -209,8 +209,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User");
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
-			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
-			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
+			//click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
+			click(PWAHomePage.objNotNow, "Notification popup");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -227,8 +227,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User");
 			String clubUserName = getParameterFromXML("ClubUserName");
 			String clubPassword = getParameterFromXML("ClubPassword");
-			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
-			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
+			//click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
+			click(PWAHomePage.objNotNow, "Notification popup");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -245,7 +245,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn,"Hamburger menu");
 		extent.version = getText(By.xpath(".//*[@class='versionText']"));
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu");
-
 	}
 
 	/**
@@ -2293,12 +2292,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		System.out.println("PlayerIconVaidationsWeb");
 		navigateToAnyScreenOnWeb("Home");
 		extent.HeaderChildNode("Validating Player icons on Player");
-		String movie = "Aakash's Shocking Request";
-		click(PWAHomePage.objSearchBtn, "Search icon");
+		String movie = "Koi... Mil Gaya";
+		JSClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, movie, "Search Field");
-		click(PWASearchPage.objSearchMoviesTab, "Movies tab");
+		JSClick(PWASearchPage.objSearchMoviesTab, "Movies tab");
+		JSClick(PWASearchPage.objSpecificSearch(movie), "Searched content");
 		mandatoryRegistrationPopUp(userType);
-		click(PWASearchPage.objSpecificSearch(movie), "Searched content");
 		waitTime(10000);
 		if (userType.equals("Guest")) {
 			if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Why Register Popup") == true) {
@@ -2308,19 +2307,17 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 			waitForPlayerAdToComplete1("Video Player");
 		}
-		if (checkElementDisplayed(PWAPlayerPage.audioBtn, "Audio Button")) {
-			Actions actions = new Actions(getWebDriver());
-			WebElement player = getWebDriver().findElement(PWAPlayerPage.audioBtn);
-			actions.moveToElement(player).perform();
-			Thread.sleep(5000);
-			WebElement content = getWebDriver().findElement(PWAPlayerPage.objContentTitle);
-			actions.moveToElement(content).perform();
-			Thread.sleep(3000);
-		}
-
-		// clickOnPlayer(PWAPlayerPage.pauseBtn);
-		// Click on Video player
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
+		
+//		if (verifyElementPresent(PWAPlayerPage.audioBtn, "Audio Button")) {
+//			Actions actions = new Actions(getWebDriver());
+//			WebElement player = getWebDriver().findElement(PWAPlayerPage.audioBtn);
+//			actions.moveToElement(player).perform();
+//			Thread.sleep(5000);
+//			WebElement content = getWebDriver().findElement(PWAPlayerPage.objContentTitle);
+//			actions.moveToElement(content).perform();
+//			Thread.sleep(3000);
+//		}
+		verifyElementPresentAndClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresent(PWAPlayerPage.pauseBtn, "Pause button");
 		verifyElementPresent(PWAPlayerPage.rewind10SecBtn, "Rewind 10 Seconds icon");
 		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
@@ -2342,7 +2339,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
 		verifyElementPresentAndClick(PWAPlayerPage.objPlayerQualityButton, "Quality Button");
-		click(PWAPlayerPage.objBestQualityOption, "Best quality");
+		JSClick(PWAPlayerPage.objBestQualityOption, "Best quality");
 		verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
 		verifyElementPresentAndClick(PWAPlayerPage.objPlayerQualityButton, "Quality Button");
 		String SelectedOption = getText(PWAPlayerPage.objPlayerSelectedQuality);
@@ -2350,7 +2347,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("Best option is selected");
 			extent.extentLogger("Quality", "Best option is selected");
 		}
-		click(PWAPlayerPage.objBetterQualityOption, "Better quality");
+		JSClick(PWAPlayerPage.objBetterQualityOption, "Better quality");
 		verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
 		verifyElementPresentAndClick(PWAPlayerPage.objPlayerQualityButton, "Quality Button");
 		String SelectedOption2 = getText(PWAPlayerPage.objPlayerSelectedQuality);
@@ -5196,29 +5193,32 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("My Profile functionality");
 		scrollDownWEB();
 
-		verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
-		click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		verifyElementPresent(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		JSClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
 		waitTime(5000);
 
 		if (checkElementDisplayed(PWAHamburgerMenuPage.objProfileIconInProfilePage, "Profile Icon") == false) {
 			logger.info("User is navigated to previous page");
 			extent.extentLogger("Navigation", "User is navigated to previous page");
 		}
-		click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		JSClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
 		waitTime(3000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objProfileIconInProfilePage,
+		verifyElementPresent(PWAHamburgerMenuPage.objProfileIconInProfilePage,
 				"profile icon in My profile dropdown");
 
+		JSClick(PWAHamburgerMenuPage.objProfileIconInProfilePage,
+				"profile icon in My profile dropdown");
 		checkElementDisplayed(PWAHamburgerMenuPage.objMyAccountOptionsText, "My profile page");
 		checkElementDisplayed(PWAHamburgerMenuPage.objUserNameInMyProfileWeb, "User name");
 		checkElementDisplayed(PWAHamburgerMenuPage.objProfilePageUserIdTxt, "User id");
 		checkElementDisplayed(PWAHamburgerMenuPage.objProfileEditBtn, "Edit button");
-		verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		verifyElementPresent(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		JSClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
 		NavigationsToMyWatchlist();
 		NavigationsToMyReminders();
 		NavigationsToMySubscriptionWeb();
 		NavigationsToMyTransactionsWeb();
-		click(PWAHamburgerMenuPage.objProfileIconWEB, "profile icon");
+		JSClick(PWAHamburgerMenuPage.objProfileIconWEB, "profile icon");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objProfileText, "profile text");
 		extent.HeaderChildNode("Edit page Functionality");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objProfileEditBtn, "Edit button");
@@ -5327,7 +5327,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 */
 	public void NavigationsToMySubscriptionWeb() throws Exception {
 		extent.HeaderChildNode("My subscriptions");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Subscription"), "My Subscription");
+		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Subscription"), "My Subscription");
+		JSClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Subscription"), "My Subscription");
 		waitTime(2000);
 		verifyElementPresent(PWAHamburgerMenuPage.objMyAccountOptionsText, "My Subscriptions page");
 		if (checkElementDisplayed(PWAHamburgerMenuPage.objSubscribitionPageActivePlan, "My Subscription")) {
@@ -5338,7 +5339,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("No Active plan is displayed");
 			extent.extentLogger("Plan", "No Active plan is displayed");
 		}
-
 		click(PWAHamburgerMenuPage.objProfileIconWEB, "profile icon");
 	}
 
@@ -5347,7 +5347,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 */
 	public void NavigationsToMyTransactionsWeb() throws Exception {
 		extent.HeaderChildNode("My Transactions");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Transactions"), "My Transactions");
+		verifyElementPresent(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Transactions"), "My Transactions");
+		JSClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Transactions"), "My Transactions");
 		waitTime(2000);
 		verifyElementPresent(PWAHamburgerMenuPage.objMyAccountOptionsText, "My Transactions");
 		if (checkElementDisplayed(PWAHamburgerMenuPage.objTransactionPageGrid, "Transaction")) {
@@ -7040,8 +7041,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(10000);
 		if (userType.contains("NonSubscribedUser") || (userType.contains("SubscribedUser"))) {
 			extent.HeaderChildNode("Validating the UI of My Subscription Page");
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objProfileIconWEB, "Profile Icon");
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objMySubscription, "My Subscription");
+			verifyElementPresent(PWAHamburgerMenuPage.objProfileIconWEB, "Profile Icon");
+			JSClick(PWAHamburgerMenuPage.objProfileIconWEB, "Profile Icon");
+			verifyElementPresent(PWAHamburgerMenuPage.objMySubscription, "My Subscription");
+			JSClick(PWAHamburgerMenuPage.objMySubscription, "My Subscription");
 			if(userType.equalsIgnoreCase("NonSubscribedUser")) {
 				checkElementDisplayed(PWAHamburgerMenuPage.objBrowseAllPacks, "Browse All Packs");
 				logger.info("Browse All Packs is not displayed as expected for NonSubscribed User");
@@ -7076,8 +7079,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if (userType.contains("NonSubscribedUser") || userType.contains("SubscribedUser")) {
 			extent.HeaderChildNode("Validating the UI of My Transactions Page");
 			waitTime(5000);
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objProfileIconWEB, "Profile Icon");
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyTransactions, "My Transactions");
+			verifyElementPresent(PWAHamburgerMenuPage.objProfileIconWEB, "Profile Icon");
+			JSClick(PWAHamburgerMenuPage.objProfileIconWEB, "Profile Icon");
+			verifyElementPresent(PWAHamburgerMenuPage.objMyTransactions, "My Transactions");
+			JSClick(PWAHamburgerMenuPage.objMyTransactions, "My Transactions");
 			Thread.sleep(3000);
 			extent.HeaderChildNode(
 					"Validating if Empty state screen is displayed when user doesn't have any purchase history");
@@ -17269,11 +17274,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		Back(1);
 
 		extent.HeaderChildNode(" HLS_116 : Verify the EDR contents available in the Kids Page.");
-
 		navigateToAnyScreenOnWeb(tabName);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.Objnextarrowcarousel, "Next arrow ");
 		waitTime(3000);
-		waitForElement(PWAHomePage.objEduauraaCardCarousel, 20, "Eduauraa Card in Carousel");
+		waitForElementAndClick(PWAHomePage.objEduauraaCardCarousel, 20, "Eduauraa Card in Carousel");
+		waitTime(3000);
 
 		extent.HeaderChildNode(
 				"HLS_117: Verify navigated to Consumption page taps on  EDR content and Claim Offer CTA is displayed below the player.");
@@ -17633,76 +17638,63 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	public void MySubscription(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Subscribeduser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.HeaderChildNode("HLS_229: Validate that My Subscription button is displayed under My Account menu.");
-			if (verifyElementExist(PWALandingPages.objWebProfileIcon, "Profile Icon")) {
-				// verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile
-				// Icon");
-				click(PWALandingPages.objWebProfileIcon, "Profile Icon");
-
-				boolean myAccountPresent = verifyElementExist(PWAHamburgerMenuPage.objWEBMyAccount, "My Account");
-				if (myAccountPresent == true) {
+			if (verifyElementPresent(PWALandingPages.objWebProfileIcon, "Profile Icon")) {
+				JSClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
+				
+				if (verifyElementPresent(PWAHamburgerMenuPage.objWEBMyAccount, "My Account")) {
 					verifyElementPresentAndClick(PWAHamburgerMenuPage.objMySubscription, "My Subscription");
 					Thread.sleep(3000);
 					verifyElementPresent(PWAHamburgerMenuPage.objMySubscriptionPage, "My Subscription Page");
 					Thread.sleep(5000);
 				}
-
 			}
 		}
 		if (userType.equalsIgnoreCase("Subscribeduser")) {
 			extent.HeaderChildNode(
 					"HLS_230: Validate that all the active subscription plans are displayed in my subscription screen");
-			if (verifyElementExist(PWALandingPages.objWebProfileIcon, "Profile Icon")) {
-				// verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile
-				// Icon");
-				click(PWALandingPages.objWebProfileIcon, "Profile Icon");
-
-				boolean myAccountPresent = verifyElementExist(PWAHamburgerMenuPage.objWEBMyAccount, "My Account");
-				if (myAccountPresent == true) {
+			if (verifyElementPresent(PWALandingPages.objWebProfileIcon, "Profile Icon")) {
+				JSClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
+				
+				if (verifyElementPresent(PWAHamburgerMenuPage.objWEBMyAccount, "My Account")) {
+					verifyElementPresent(PWAHamburgerMenuPage.objMySubscription, "My Subscription");
 					verifyElementPresentAndClick(PWAHamburgerMenuPage.objMySubscription, "My Subscription");
 					Thread.sleep(3000);
 					verifyElementPresent(PWAHamburgerMenuPage.objMySubscriptionPage, "My Subscription Page");
 					Thread.sleep(5000);
 				}
 
-				verifyElementExist(PWAHamburgerMenuPage.objMYSubscriptionActiveStatus, "My active status");
+				verifyElementPresent(PWAHamburgerMenuPage.objMYSubscriptionActiveStatus, "My active status");
 			}
 
 		}
 		if (userType.equalsIgnoreCase("NonSubscribeduser")) {
 			extent.HeaderChildNode(
 					"HLS_231: Validate that no active subscription plans are displayed in my subscription screen.");
-			if (verifyElementExist(PWALandingPages.objWebProfileIcon, "Profile Icon")) {
-				// verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile
-				// Icon");
-				click(PWALandingPages.objWebProfileIcon, "Profile Icon");
-
-				boolean myAccountPresent = verifyElementExist(PWAHamburgerMenuPage.objWEBMyAccount, "My Account");
-				if (myAccountPresent == true) {
+			if (verifyElementPresent(PWALandingPages.objWebProfileIcon, "Profile Icon")) {
+				JSClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
+				
+				if (verifyElementPresent(PWAHamburgerMenuPage.objWEBMyAccount, "My Account")) {
+					verifyElementPresent(PWAHamburgerMenuPage.objMySubscription, "My Subscription");
 					verifyElementPresentAndClick(PWAHamburgerMenuPage.objMySubscription, "My Subscription");
 					Thread.sleep(3000);
 					verifyElementPresent(PWAHamburgerMenuPage.objMySubscriptionPage, "My Subscription Page");
 					Thread.sleep(5000);
 				}
 
-				checkElementDisplayed(PWAHamburgerMenuPage.objNoActiveSubscription, "No active status");
-				checkElementDisplayed(PWAHamburgerMenuPage.objSubscriptionTeaserBanner, " subscription teaser banner ");
-
+				verifyElementPresent(PWAHamburgerMenuPage.objNoActiveSubscription, "No active status");
+				verifyElementPresent(PWAHamburgerMenuPage.objSubscriptionTeaserBanner, " subscription teaser banner ");
 			}
-
 		}
-
 	}
 
 	public void MyTransactions(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Subscribeduser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.HeaderChildNode("HLS_232: Validate that My Transactions button is displayed under My Account menu.");
-			if (verifyElementExist(PWALandingPages.objWebProfileIcon, "Profile Icon")) {
-				// verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile
-				// Icon");
-				click(PWALandingPages.objWebProfileIcon, "Profile Icon");
-
-				boolean myAccountPresent = verifyElementExist(PWAHamburgerMenuPage.objWEBMyAccount, "My Account");
-				if (myAccountPresent == true) {
+			if (verifyElementPresent(PWALandingPages.objWebProfileIcon, "Profile Icon")) {
+				JSClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
+				
+				if (verifyElementPresent(PWAHamburgerMenuPage.objWEBMyAccount, "My Account")) {
+					verifyElementPresent(PWAHamburgerMenuPage.objMyTransactions, "My Transactions");
 					verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyTransactions, "My Transactions");
 					Thread.sleep(3000);
 					verifyElementPresent(PWAHamburgerMenuPage.objMyTransactionPage, "My Transactions Page");
@@ -17713,36 +17705,31 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		}
 		if (userType.equalsIgnoreCase("Subscribeduser")) {
-
 			extent.HeaderChildNode(
 					"HLS_233: Validate that all the active subscription plans are displayed in my subscription screen");
-			if (verifyElementExist(PWALandingPages.objWebProfileIcon, "Profile Icon")) {
-				// verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile
-				// Icon");
-				click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+			if (verifyElementPresent(PWALandingPages.objWebProfileIcon, "Profile Icon")) {
+				JSClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
 
-				boolean myAccountPresent = verifyElementExist(PWAHamburgerMenuPage.objWEBMyAccount, "My Account");
-				if (myAccountPresent == true) {
+				if (verifyElementPresent(PWAHamburgerMenuPage.objWEBMyAccount, "My Account")) {
+					verifyElementPresent(PWAHamburgerMenuPage.objMyTransactions, "My Transactions");
 					verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyTransactions, "My Transactions");
 					Thread.sleep(3000);
 					verifyElementPresent(PWAHamburgerMenuPage.objMyTransactionPage, "My Transactions Page");
 					Thread.sleep(5000);
 				}
 
-				verifyElementExist(PWAHamburgerMenuPage.objMyTransactionPackStatus, "My active status");
+				verifyElementPresent(PWAHamburgerMenuPage.objMyTransactionPackStatus, "My active status");
 			}
 
 		}
 		if (userType.equalsIgnoreCase("NonSubscribeduser")) {
 			extent.HeaderChildNode(
 					"HLS_234: verify Empty state screen with subscription teaser banner is displayed when user doesn't have any purchase history");
-			if (verifyElementExist(PWALandingPages.objWebProfileIcon, "Profile Icon")) {
-				// verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile
-				// Icon");
-				click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+			if (verifyElementPresent(PWALandingPages.objWebProfileIcon, "Profile Icon")) {
+				JSClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
 
-				boolean myAccountPresent = verifyElementExist(PWAHamburgerMenuPage.objWEBMyAccount, "My Account");
-				if (myAccountPresent == true) {
+				if (verifyElementPresent(PWAHamburgerMenuPage.objWEBMyAccount, "My Account")) {
+					verifyElementPresent(PWAHamburgerMenuPage.objMyTransactions, "My Transactions");
 					verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyTransactions, "My Transactions");
 					Thread.sleep(3000);
 					verifyElementPresent(PWAHamburgerMenuPage.objMyTransactionPage, "My Transactions Page");
@@ -17750,8 +17737,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				}
 				waitTime(3000);
 
-				checkElementDisplayed(PWAHamburgerMenuPage.objNoTranscationText, "No Transation");
-				checkElementDisplayed(PWAHamburgerMenuPage.objSubscriptionTeaserBanner, " subscription teaser banner ");
+				verifyElementPresent(PWAHamburgerMenuPage.objNoTranscationText, "No Transation");
+				verifyElementPresent(PWAHamburgerMenuPage.objSubscriptionTeaserBanner, " subscription teaser banner ");
 
 			}
 		}
@@ -17816,7 +17803,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			navigateToAnyScreenOnWeb(tabName);
 		}
 		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplextab, "Zeeplex tab");
+			navigateToAnyScreenOnWeb(tabName);
 		}
 		extent.HeaderChildNode("HLS_036: Verify ZEEPLEX  contents are displayed in Zeeplex landing page");
 		verifyElementPresent(PWAHamburgerMenuPage.objzeeplexcontent, "Zee plex content");
@@ -26534,5 +26521,235 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		}
 	}
 	
+	public void pwainsprint(String userType) throws Exception
+	{
+		if (userType.equals("NonSubscribneduser")) 
+		{
+			//5
+			extent.HeaderChildNode("Verify that user is getting new subscription page while purchasing TVOD plan");
+			navigateToAnyScreenOnWeb("Rent");
+			ScrollToTheElementWEB(PWAHamburgerMenuPage.objTrailer);
+			click(PWAHamburgerMenuPage.objTrailer, "Trailer");
+			click(PWAComboOfferPage.objRentNow, "Rent Now");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objonlymovierent, "Only movie rent");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objrentmovie, "rent movie");
+			if(checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section"))
+			{
+				logger.info("User should get new subscription page while purchasing TVOD plan,expected behaviour");
+				extent.extentLoggerPass("", "User should get new subscription page while purchasing TVOD plan, expected behaviour");
+				Back(1);
+			}
+			else 
+			{
+				logger.info("User not getting new subscription page while purchasing TVOD plan");
+				extent.extentLoggerFail("", "User not getting  new subscription page while purchasing TVOD plan");
+			}
+			
+			//105
+			extent.HeaderChildNode("Verify that user is getting all the payment modes available for TVOD plan purchase");
+			checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
+			waitTime(5000);
+					WebElement iframeElement = null;
+					if (getPlatform().equalsIgnoreCase("Android")) {
+						iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+						Thread.sleep(5000);
+						Thread.sleep(5000);
+						Thread.sleep(5000);
+						getWebDriver().switchTo().frame(iframeElement);
+					} else if (getPlatform().equalsIgnoreCase("Web")) {
+						iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+						Thread.sleep(5000);
+						Thread.sleep(5000);
+						Thread.sleep(5000);
+						getWebDriver().switchTo().frame(iframeElement);
+					}
+
+			verifyElementPresent(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
+			verifyElementPresent(PWASubscriptionPages.objWallets, "Wallets");
+			verifyElementPresent(PWAHamburgerMenuPage.objnetbanking,"Net banking");
+			verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "Zee logo");
+			
+			//16
+			extent.HeaderChildNode("Verify that On entering card details of any credit card , Optional payment will be applicable");
+			verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscribe button");
+			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
+			verifyElementPresentAndClick(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
+			verifyElementPresentAndClick(PWASubscriptionPages.objEnterCreditAndDebitCardDetails,
+					"Enter Credit/Debit Card Details");
+			type(PWASubscriptionPages.objEnterCreditAndDebitCardDetails,"6587",
+					"Enter Credit/Debit Card Details");
+			
+			if(verifyElementPresent(PWASubscriptionPages.objWallets, "Wallets"))
+			{
+				logger.info("Optional payment should be applicable if user enters any credit card details,expected behaviour");
+				extent.extentLoggerPass("", "Optional payment should be applicable if user enters any credit card details,expected behaviour");
+				Back(1);
+			}
+			else 
+			{
+				logger.info("Optional payment is not applicable if user enters any credit card details");
+				extent.extentLoggerFail("", "Optional payment is not applicable if user enters any credit card details");
+			}
+			if(verifyElementPresent(PWAHamburgerMenuPage.objnetbanking,"Net banking"))
+			{
+				logger.info("Optional payment should be applicable if user enters any credit card details,expected behaviour");
+				extent.extentLoggerPass("", "Optional payment should be applicable if user enters any credit card details,expected behaviour");
+				Back(1);
+			}
+			else 
+			{
+				logger.info("Optional payment is not applicable if user enters any credit card details");
+				extent.extentLoggerFail("", "Optional payment is not applicable if user enters any credit card details");
+			}
+			
+			
+			
+			
+			//106
+			extent.HeaderChildNode("Verify that user is able to purchase the TVOD plan using any available payment mode successfully");
+			verifyElementPresentAndClick(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
+			verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objnetbanking,"Net banking");
+			
+			//108
+			extent.HeaderChildNode("Verify user is not able to see expired plan detail under Zeeplex rental");
+			verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
+			waitTime(5000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("ZEEPLEX Rentals"), "ZEEPLEX Rentals option");
+			
+			//12
+			extent.HeaderChildNode("Verify that on clicking  continue CTA user will get new screen Add credit card/Debit Card");
+			verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscribe button");
+			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
+			checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
+			waitTime(5000);
+					//WebElement iframeElement = null;
+					if (getPlatform().equalsIgnoreCase("Android")) {
+						iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+						Thread.sleep(5000);
+						Thread.sleep(5000);
+						Thread.sleep(5000);
+						getWebDriver().switchTo().frame(iframeElement);
+					} else if (getPlatform().equalsIgnoreCase("Web")) {
+						iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+						Thread.sleep(5000);
+						Thread.sleep(5000);
+						Thread.sleep(5000);
+						getWebDriver().switchTo().frame(iframeElement);
+					}
+
+					verifyElementPresent(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
+					if(checkElementDisplayed(PWASubscriptionPages.objCardNumber, "Enter Card Number Field"))
+					{
+						logger.info("On clicking Continue user should get New screen to Add Credit card/Debit Card,expected behaviour");
+						extent.extentLoggerPass("", "On clicking Continue user should get New screen to Add Credit card/Debit Card, expected behaviour");
+						//Back(1);
+					}
+					else 
+					{
+						logger.info("On clicking Continue user didnot navigated to New screen to Add Credit card/Debit Card");
+						extent.extentLoggerFail("", "On clicking Continue user didnot navigated to New screen to Add Credit card/Debit Card");
+					}
+			
+		}
+			//6
+			if(userType.equals("Guest"))
+			{
+				
+				extent.HeaderChildNode("Verify Guest user logged in with non subscribed use but already rented plex");
+				verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscribe button");
+				verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
+				verifyElementPresentAndClick(PWASubscriptionPages.objEmailIDTextField, "Email ID Text Field");
+				waitTime(3000);
+				type(PWASubscriptionPages.objEmailIDTextField, "tvod_combo@mailnesia.com", "Email Id");
+
+				hideKeyboard();
+				waitTime(3000);
+				verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted,
+						"Proceed Button in Account Info Page Highlighted");
+				waitTime(3000);
+				// Password Popup
+				verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
+				waitTime(3000);
+				verifyElementPresent(PWASubscriptionPages.objProceedBtnDisabled, "Disabled Proceed Button");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
+				waitTime(3000);
+				
+			type(PWASubscriptionPages.objPasswordFieldHidden, "123456", "Password Field");
+
+				hideKeyboard();
+				waitTime(3000);
+				verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnEnabled, "Enabled Proceed Button");
+				waitTime(3000);
+				if(checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section"))
+				{
+					logger.info("User should be redircted to Payment page and selected plan price should be displayed,expected behaviour");
+					extent.extentLoggerPass("", "User should be redircted to Payment page and selected plan price should be displayed, expected behaviour");
+					//Back(1);
+				}
+				else 
+				{
+					logger.info("User not redircted to Payment page and selected plan price should be displayed");
+					extent.extentLoggerFail("", "User not redircted to Payment page and selected plan price should be displayed");
+				}
+				logout();
+				
+				
+				//9
+				extent.HeaderChildNode("Verify that user logged in with migrated premium user with expired Rental is redircetd "
+						+ "to payment page on clicking Rent for Rs 299 CTA from Rental pop up");
+				verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+				type(PWALoginPage.objEmailField, "club1212@gmail.com", "Email Field");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+				type(PWALoginPage.objPasswordField, "123456", "Password field");
+				waitTime(5000);
+				click(PWALoginPage.objWebLoginButton, "Login Button");
+				waitTime(3000);
+				navigateToAnyScreenOnWeb("Rent");
+				ScrollToTheElementWEB(PWAHamburgerMenuPage.objTrailer);
+				click(PWAHamburgerMenuPage.objTrailer, "Trailer");
+				click(PWAComboOfferPage.objRentNow, "Rent Now");
+				verifyElementPresentAndClick(PWAHamburgerMenuPage.objonlymovierent, "Only movie rent");
+				verifyElementPresentAndClick(PWAHamburgerMenuPage.objrentmovie, "rent movie");
+				if(checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section"))
+				{
+					logger.info("User should be redircted to Payment page and selected plan price should be displayed,expected behaviour");
+					extent.extentLoggerPass("", "User should be redircted to Payment page and selected plan price should be displayed,expected behaviour");
+					Back(1);
+				}
+				else 
+				{
+					logger.info("User not redircted to Payment page and selected plan price should be displayed");
+					extent.extentLoggerFail("", "User not redircted to Payment page and selected plan price should be displayed");
+				}
+			}
+			
+			if(userType.equals("SubscribedUser"))
+			{
+				//5
+				extent.HeaderChildNode("Verify Guest user logged in with subscribed user < 499 with active Radhe "
+						+ "and clicks on Upgrade To 499 CTA from Upgrade To 499 pop up");
+				navigateToAnyScreenOnWeb("Rent");
+				ScrollToTheElementWEB(PWAHamburgerMenuPage.objTrailer);
+				click(PWAHamburgerMenuPage.objTrailer, "Trailer");
+				click(PWAComboOfferPage.objRentNow, "Rent Now");
+				verifyElementPresentAndClick(PWAHamburgerMenuPage.objrentmovie, "upgrade button");
+				if(checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section"))
+				{
+					logger.info("User should be redircted to Payment page and selected plan price should be displayed,expected behaviour");
+					extent.extentLoggerPass("", "User should be redircted to Payment page and selected plan price should be displayed, expected behaviour");
+					Back(1);
+				}
+				else 
+				{
+					logger.info("User not redircted to Payment page and selected plan price should be displayed");
+					extent.extentLoggerFail("", "User not redircted to Payment page and selected plan price should be displayed");
+				}
+			}
+	}
 	
 }

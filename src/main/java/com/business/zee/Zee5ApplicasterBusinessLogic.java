@@ -21865,29 +21865,45 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 	}
 	
 	public void ZeePlexContentInPlayerCTAValidation() throws Exception {
-		extent.HeaderChildNode("ZEEPLEX content CTA Validation");
-		System.out.println("\nZEEPLEX content CTA Validation");
+		extent.HeaderChildNode("ZEEPLEX content In-player CTA Validation");
+		System.out.println("\nZEEPLEX content In-player CTA Validation");
+		
 		String getCTAName = null;
+		boolean flgRentExpired=false;
 		
 		waitTime(3000);
 		verifyElementPresent(AMDPlayerScreen.objPlayer, "Consumption sreen");
 		
 		if(verifyElementPresent(AMDPlayerScreen.objInPlayerCTA, "Player CTA")) {
 			getCTAName = getText(AMDPlayerScreen.objInPlayerCTA);
-		}
-		
-		if(getCTAName.equalsIgnoreCase("Watch Now")) {
-			logger.info("Watch Now CTA is displayed in the player screen");
-			extentLoggerPass("Watch NowCTA", "Watch Now CTA is displayed in the player screen");			
-		}else if(getCTAName.equalsIgnoreCase("Resume")) {
-			logger.info(getCTAName+" CTA is displayed in the player screen");
-			extentLoggerPass(getCTAName, getCTAName+" CTA is displayed in the player screen");
-		}else if(getCTAName.equalsIgnoreCase("Rent for")) {
-			logger.info(getCTAName+" CTA is displayed in the player screen");
-			extentLoggerPass(getCTAName, getCTAName+" CTA is displayed in the player screen");
+			
+			if(getCTAName.equalsIgnoreCase("Watch Now")) {
+				logger.info("Watch Now CTA is displayed in the player screen");
+				extentLoggerPass("Watch NowCTA", "Watch Now CTA is displayed in the player screen");			
+			}else if(getCTAName.equalsIgnoreCase("Resume")) {
+				logger.info(getCTAName+" CTA is displayed in the player screen");
+				extentLoggerPass(getCTAName, getCTAName+" CTA is displayed in the player screen");
+			}else if(getCTAName.equalsIgnoreCase("Rent for")) {
+				logger.info(getCTAName+" CTA is displayed in the player screen");
+				extentLoggerPass(getCTAName, getCTAName+" CTA is displayed in the player screen");
+				flgRentExpired =true;
+			}
 		}else {
 			logger.info("No CTA displayed in the player screen");
 			extentLoggerFail("No CTA", "No CTA displayed in the player screen");
+		}
+		
+		if(flgRentExpired) {
+			click(AMDPlayerScreen.objRentFor, "Rent CTA");
+			verifyElementPresent(AMDPlayerScreen.objZeePlexTitle, "Radhe Title");
+			verifyElementPresent(AMDPlayerScreen.objZeePlexLogo, "ZEEPlex logo");
+			verifyElementPresent(AMDPlayerScreen.objZeePlexValidity, "Validity");
+			verifyElementPresent(AMDPlayerScreen.objZeeWatchTime, "Watch Time");
+			verifyElementPresent(AMDPlayerScreen.objByRentingTerms, "By renting Terms text");
+			
+			verifyElementPresentAndClick(AMDPlayerScreen.objRentFor, "Rent for 249");
+			waitTime(2000);
+			PaymentScreenVerification();
 		}
 	}
 	
@@ -22239,4 +22255,6 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 			extentLoggerWarning("ZEEPLEX content", "ZEEPLEX content is not available in the carousel");
 	    }
 	}
+	
+	
 }
