@@ -16,10 +16,6 @@ public class PWAHomePage {
 	// Hamburger menu
 	public static By objHamburgerMenu = By.xpath("(//*[text()='Open Menu'])[1]");
 
-	// Select tab by text
-	public static By objTabName(String tabName) {
-		return By.xpath("//*[@class='navMenuWrapper ']//*[text()='" + tabName + "']");
-	}
 	public static By objverifyNumberPopup = By.xpath("//div[@class='formHeader' and text()='Verify Mobile Number']");
 	public static By objLiveTVtab = By.xpath("//a[contains(text(),'Live TV')]");
 
@@ -428,9 +424,7 @@ public class PWAHomePage {
 
 	// Android google play store
 	public static By objGooglePlayStore = By.xpath("//*[contains(@text,'HiPi, News, Movies, TV Shows, Web Series')]");	
-
-	public static By objGetPremiumGetClubButton = By.xpath("//div[contains(@class,'slick-active')]//*[text()='Get premium' or text()='Get Club']//parent::a");
-
+	
 	public static By obj3xfasterPopUpNoThanks = By.xpath("//*[@text='NO THANKS\\n']");
 	
 	public static By objAdBanner = By.xpath("(//*[@class='adContainer'])[1]");
@@ -583,11 +577,6 @@ public class PWAHomePage {
 	public static By objMastheadCarouselCurrentContentWeb = By.xpath(
 			"(//div[contains(@class,'heroBannerCarousel')]//div[@class='slick-slide slick-center slick-cloned']//*[contains(@class,'content')]//img)[2]");
 
-
-	public static By objHighlightedTab(String tabname) {
-		return By.xpath("//a[contains(@class,'noSelect') and text()=\""+tabname+"\"]");
-	}
-
 	public static By objHindiWEB=By.xpath("//span[contains(@class,'commonName')][contains(text(),'Hindi')]");
 
 //	public static By objContTitleOnCarousel = By
@@ -622,4 +611,14 @@ public class PWAHomePage {
 	public static By objMyWatchListIcon = By.xpath(".//*[@class='bm-item mainMenu']//child::*[text()='My Watchlist']");
 	
 	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
+	
+	public static By objHighlightedTab(String tabname) {
+		return By.xpath("(//a[contains(@class,'noSelect') and text()=\""+tabname+"\"])[2]");
+	}
+	
+	public static By objTabName(String tabName) {
+		return By.xpath("(//a[contains(@class,'noSelect') and text()='" + tabName + "'])[2]");
+	}
+	
+	public static By objGetPremiumGetClubButton = By.xpath("//div[contains(@class,'slick-active')]//*[text()='Buy Plan']//parent::a");
 }

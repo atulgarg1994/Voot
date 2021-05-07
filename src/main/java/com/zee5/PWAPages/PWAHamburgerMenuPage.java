@@ -183,9 +183,6 @@ public class PWAHamburgerMenuPage {
 
 	public static By objMyTransactionPackStatus = By.xpath("//div[@class='billRow']//p[2]");
 
-	// Buy Subscription Option
-	public static By objBuySubscriptionOption = By
-			.xpath("//*[contains(@class,'menuItem') and contains(text(),'Buy Subscription')]");
 	public static By objMyAccountOption = By.xpath("//div[contains(@class,'menuForMyAccount')]");
 
 	public static By objContTitleTextCarousel(String text) {
@@ -909,5 +906,7 @@ public class PWAHamburgerMenuPage {
 	public static By objonlymovierent=By.xpath("//div[@class='bottomSection']//h3[text()='Only Rent Movie']");
 	
 	public static By objrentmovie=By.xpath("//div[@class='buttonContainer']//span");
+	
+	public static By objBuySubscriptionOption = By.xpath("//*[contains(@class,'menuItem') and contains(text(),'Buy Plan')]");
 	
 	}

@@ -153,7 +153,8 @@
 	<parameter name="299PremiumPackEmail" value="newsub07@gmail.com" />
 	<parameter name="NonSubsUserWithActiveRentalPlan" value="xyzk@gmail.com" />
 	<parameter name="SubsUserWithoutRentalPlan" value="mobicheck@gmail.com" />
-	
+	<parameter name="RSVOD49PackEmail" value="rsvodtamil1@gmail.com" />
+	<parameter name="RSVOD499PackEmail" value="mobicheck@gmail.com" />
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

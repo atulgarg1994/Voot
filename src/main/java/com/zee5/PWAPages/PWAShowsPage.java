@@ -91,8 +91,6 @@ public class PWAShowsPage {
 
 	public static By objPlayforPremium = By.xpath("//*[@class='showDetailIcon']//*[@class='playIcon']");
 
-	public static By objShows = By.xpath("//a[contains(text(),'Shows')]");
-
 	public static By objPlayAndWin = By.xpath("//a[contains(text(),'Play & Win')]");
 
 	public static By objGuessScore = By.xpath("//*[@data-minutelytitle='Guess the score & win']");
@@ -159,4 +157,7 @@ public class PWAShowsPage {
 	public static By objShowDetailsEpisodeDropdownText = By.xpath("(//div[@class='AllEpisodesListDiv']//div[@class='allEpisodeSelect']//div)[4]//span");
 	
 	public static By objGetPremiumCTAInShowDetails = By.xpath("//*[@class='premiumBtn' and text()='Buy Plan']");
+	
+	public static By objShows = By.xpath("(//a[contains(text(),'TV Shows')])[2]");
+	
 	}

@@ -254,8 +254,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Functionality of MyPlan options");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		verifyIsElementDisplayed(PWAHamburgerMenuPage.objPlanInHamburger, "Plan option");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objPlanInsideItemsBtn("Buy Subscription"),
-				"Buy Subscription option in Plan section");
+//		verifyElementPresentAndClick(PWAHamburgerMenuPage.objPlanInsideItemsBtn("Buy Subscription"),
+//				"Buy Subscription option in Plan section");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objPlanInsideItemsBtn("Buy Plan"),
+				"Buy Plan option in Plan section");
 		waitTime(3000);
 		if (verifyIsElementDisplayed(PWASubscriptionPages.objZEE5Subscription, "Subscription")) {
 			logger.info("User is navigated to subscription page");
@@ -7413,6 +7415,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				 * if (contentType.equals("Live TV")) pausePlayerForLiveTV(); else
 				 * pausePlayerAndGetLastPlayedTime();
 				 */
+				waitForElement(PWAPlayerPage.objContentTitle1, 30, "Content title");
+				consumptionPageTitle = getText(PWAPlayerPage.objContentTitle1);
 			} else {
 				extent.extentLoggerFail("incorrectNavigation",
 						"Navigated to incorrect Consumption page: " + consumptionPageTitle);
@@ -7761,7 +7765,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 			waitForElementAndClickIfPresent(PWASearchPage.objCloseRegisterDialog, 5, "Close in Sign Up Pop Up");
 
-			String episode = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,
+			String episode = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle1,
 					"Episode title in Consumption Page").toString();
 			extent.extentLogger("episode", "Episode title fetched from UI: " + episode);
 			logger.info("Episode title fetched from UI: " + episode);
@@ -7788,7 +7792,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					"Episode Number in Consumption Page").toString();
 			extent.extentLogger("episodeNo", "Episode No fetched from UI: " + episodeNo);
 			logger.info("Episode No fetched from UI: " + episodeNo);
-			episodeNo = episodeNo.split("Episode ")[1];
+//			episodeNo = episodeNo.split("Episode ")[1];
+			episodeNo = episodeNo.split("E ")[1];
 			if (episodeNoAPI.equals(episodeNo)) {
 				extent.extentLogger("episodeMatch", "Consumption page content Episode Number matched with API");
 				logger.info("Consumption page content Episode Number matched with API");
@@ -8703,8 +8708,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			try {
 				(new WebDriverWait(getDriver(), 40))
 						.until(ExpectedConditions.elementToBeClickable(PWAHomePage.objGetPremiumGetClubButton)).click();
-				logger.info("Clicked on Get Premium/Get Club button");
-				extent.extentLogger("", "Clicked on Get Premium/Get Club button");
+				logger.info("Clicked on Buy Plan button");
+				extent.extentLogger("", "Clicked on Buy Plan button");
 				break;
 			} catch (Exception e) {
 				waitTime(1000);
@@ -13176,6 +13181,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		getDriver().context("CHROMIUM");
 	}
 
+	@SuppressWarnings("unused")
 	public void dismissAllPopUps() throws Exception {
 		String url = getParameterFromXML("url");
 		for (int trial = 0; trial < 8; trial++) {
@@ -16698,6 +16704,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 	
 	
+	@SuppressWarnings("unused")
 	public void PWAVerifyTitleInAnchorTags(String userType) throws Exception {
 		extent.HeaderChildNode("Task PWA2-6003 : SEO - Anchor Text and Link for Top Navigation, Mega Menu & Footer");
 		reloadHome();

@@ -81,24 +81,6 @@ public class PWAPlayerPage {
 	// Consumption page content title for Live News Card
 	public static By objContentTitleLiveTV = By.xpath("//div[@class='channelConsumptionMetaDiv']//h2");
 
-	// Consumption page content meta data episode number
-	public static By objContentMetaEpisode = By
-			.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo']//p[1]");
-
-	// Consumption page content meta data episode number
-	public static By objContentMetaDate = By.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo']//p[2]");
-
-	// Consumption page content meta data duration
-	public static By objContentMetaDuration = By
-			.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo']//p[3]");
-
-	// Consumption page content meta data duration
-	public static By objContentMetaGenre = By.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo']//p[4]");
-
-	// Consumption page content meta data duration
-	public static By objContentMetaAgeRating = By
-			.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo']//p[5]");
-
 	// Player loader
 	public static By objPlayerLoader = By.xpath("//div[@class='playkit-spinner']");
 
@@ -373,9 +355,6 @@ public class PWAPlayerPage {
 	public static By objEnglishSubtitle = By
 			.xpath("//*[contains(@class,'subMenuWrapper')]//*[contains(text(),'English')]");
 	
-	// Consumptions page show title
-	public static By objConsumptionsShowTitle = By.xpath("(//div[@class='metaInfo']//a[contains(@href,'shows/') or contains(@href,'zee5originals/')])[1]");
-
 	public static By objSubscribeCTAWithClubIcon = By.xpath("//*[@class='subscribe-teaser-button player-club-icon']");
 
 	// Charm board presence
@@ -448,4 +427,24 @@ public class PWAPlayerPage {
 	public static By objSkipButtonInEnglish = By.xpath("//div[contains(@class,'skip-button') and .='Skip']");
 	
 	public static By objContentTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//*[@class='metaInfo lineHeightClass']//h2");
+	
+	public static By objContentTitle1 = By.xpath("//div[contains(@class,'metaInfo lineHeightClass') or contains(@class,'bannerTitle')]//h2");
+	
+	public static By objConsumptionsShowTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//h1");
+	
+	public static By objContentMetaEpisode = By
+			.xpath("(//div[@class='consumptionMetaDiv']//div[@class='metaInfo lineHeightClass']//p[1])[1]");
+	
+	public static By objContentMetaDate = By.xpath("(//div[@class='consumptionMetaDiv']//div[@class='metaInfo lineHeightClass']//p[2])[1]");
+		
+	public static By objContentMetaDuration = By
+			.xpath("(//div[@class='consumptionMetaDiv']//div[@class='metaInfo lineHeightClass']//p[3])[1]");
+	
+	public static By objContentMetaGenre = By.xpath("(//div[@class='consumptionMetaDiv']//div[@class='metaInfo lineHeightClass']//p[1])[2]");
+	
+	public static By objContentMetaAgeRating = By
+			.xpath("(//div[@class='consumptionMetaDiv']//div[@class='metaInfo lineHeightClass']//p[2])[2]");
+	
+	public static By objContentTitle2 = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//h1");
+	
 }

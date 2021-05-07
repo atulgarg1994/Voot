@@ -1027,6 +1027,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	public void verifyLoginInitiatedEventForInvalidCredentials(String userType, String loginMethod) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Initiated Event post entering invalid credentials");

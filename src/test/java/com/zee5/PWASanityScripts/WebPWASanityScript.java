@@ -396,22 +396,22 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.TasksAndDefects(userType);
 	}
 	
-//	@Test(priority = 32)
+	@Test(priority = 32)
 	public void comboOffer() throws Exception {
-//		Zee5WEBPWASanityBusinessLogic.validateComboScreenOnClickingCTABelowPlayer();
-//		Zee5WEBPWASanityBusinessLogic.validateComboScreenOnClickingCTAInlinePlayer();
-//		Zee5WEBPWASanityBusinessLogic.playingContentFromwatchListOnClickingCTABelowPlayer();
+		//Zee5WEBPWASanityBusinessLogic.validateComboScreenOnClickingCTABelowPlayer();
+		//Zee5WEBPWASanityBusinessLogic.validateComboScreenOnClickingCTAInlinePlayer();
+		//Zee5WEBPWASanityBusinessLogic.playingContentFromwatchListOnClickingCTABelowPlayer();
 		Zee5WEBPWASanityBusinessLogic.validateComboScreenOnClickingCTAInlinePlayerRentNow();
 	}
 	
-//	@Test(priority = 32)
+	@Test(priority = 32)
 	@Parameters({ "userType" })
 	public void InSprintAutomation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.Sprint58(userType);
 	}
 	
-//	@Test(priority = 32)
+	@Test(priority = 32)
 	@Parameters({ "userType" })
 	public void InSprintComboOfferAutomation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();

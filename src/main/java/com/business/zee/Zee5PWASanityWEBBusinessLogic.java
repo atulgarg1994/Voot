@@ -17285,7 +17285,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHomePage.objFirstItemLearnWithEduauraaTray,
 				"First card under Learn with Eduauraa tray");
 		verifyElementPresentAndClick(PWALandingPages.objViewAllPageFirstContent, "First card in View All page");
-		String consumptionPageTitle = getText(PWAPlayerPage.objContentTitle);
+		String consumptionPageTitle = getText(PWAPlayerPage.objContentTitle2);
+		System.out.println(consumptionPageTitle);
 		extent.extentLogger("", "Navigated to the Consumption page: " + consumptionPageTitle);
 		logger.info("Navigated to the Consumption page: " + consumptionPageTitle);
 		pausePlayer();
@@ -17295,12 +17296,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode(
 					"HLS_118: Verify on tapping on Claim offer CTA user should navigates to Select pack page.");
 			click(PWAPlayerPage.objclaimofferBelowPlayerScreen, "Claim offer");
-			if (checkElementDisplayed(PWASubscriptionPages.objZEE5Subscription, "Zee5 Subscription Page Title")) {
+			if (checkElementDisplayed(PWASubscriptionPages.objZEE5Subscription, "Subscription Page")) {
 				logger.info("Navigated to select pack Page");
-				extent.extentLogger(" Zee5 Subscription Page", "Navigated to select pack Page");
+				extent.extentLogger("Subscription Page", "Navigated to select pack Page");
 			} else {
 				logger.info("Not navigated to select pack Page");
-				extent.extentLoggerFail("Zee5 Subscription Page", "Not navigated to select pack Page");
+				extent.extentLoggerFail("Subscription Page", "Not navigated to select pack Page");
 			}
 		}
 		extent.HeaderChildNode(
@@ -17315,7 +17316,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				extent.extentLogger("Contact Us", "User is navigated to Eduauraa Sign Up page");
 			} else {
 				logger.info("Not navigated to Eduauraa Sign Up Page");
-				extent.extentLoggerFail("Zee5 Subscription Page", "Not navigated to Eduauraa Sign Up Page");
+				extent.extentLoggerFail("Subscription Page", "Not navigated to Eduauraa Sign Up Page");
 			}
 
 		}
@@ -17397,7 +17398,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		playerControlOperations();
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 		extent.HeaderChildNode(
-				"HLS_208 :Verify that watch credits button CTA is display at the end credit rolling screen at End of the content ");
+				"HLS_212 :Verify that watch credits button CTA is display at the end credit rolling screen at End of the content ");
 		WatchCredit(userType);
 		extent.HeaderChildNode("HLS_208 :Validate the UI/UX of upnext rail");
 		upnext(userType);
@@ -21881,7 +21882,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("HLS_052 :Verify the right side bottom arrow ");
 		scrollToBottomOfPageWEB();
 		logger.info("Scrolled Up the page");
-		if (verifyElementPresent(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon")) {
+		if (scrollToElement(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn)) {
 			click(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon");
 		} else {
 			logger.error("Back to Top Arrow icon is not displayed");
@@ -25576,6 +25577,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		
 	}
 		
+	@SuppressWarnings({ "unused", "resource" })
 	public void checkTagWithTextInSource(String urlLink,String tag,String text) throws Exception {
 		boolean foundOpeningTag=false,foundClosingTag=false,foundText=false;
 		String path=System.getProperty("user.dir") + "\\webpagesource.txt";
@@ -26267,6 +26269,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		}		
 	}
 	
+	@SuppressWarnings({ "unused", "resource" })
 	public void checkAttributeTextWithTextInSource(String urlLink,String attributeText,String text) throws Exception {
 		boolean foundOpeningTag=false,foundClosingTag=false,foundText=false;
 		String path=System.getProperty("user.dir") + "\\webpagesource.txt";

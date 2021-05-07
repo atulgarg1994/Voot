@@ -250,8 +250,6 @@ public class PWALiveTVPage {
 	public static By objMovieShow = By.xpath(
 			"(//*[@title=\"Zee Cinemalu\" or @title=\"Zee Picchar\" or @title=\"Zee Cinema\" or @title=\"Zee Talkies\"]//parent::*//parent::*//following-sibling::*//div)[2]");
 
-	public static By objLiveTVMenu = By.xpath("//a[contains(text(),'Live TV')]");
-
 	public static By objNothighlightedChannelGuideToggle = By
 			.xpath("//*[@class='noSelect ' and text()='Channel Guide']");
 
@@ -372,6 +370,7 @@ public class PWALiveTVPage {
 	public static By objChannelsEPGOuter = By.xpath("//*[@class='epgOuter']");
 	
 	public static By objPostToFB = By.xpath("//*[@contentDescription='POST']"); 
-
+	
+	public static By objLiveTVMenu = By.xpath("(//a[contains(text(),'Live TV')])[2]");
 
 }
