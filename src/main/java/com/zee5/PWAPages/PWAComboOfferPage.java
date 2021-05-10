@@ -6,7 +6,9 @@ public class PWAComboOfferPage {
 
 	
 	public static By objTrailer = By.xpath("(.//*[@class='buttonContainer ']//span[text()='Trailer'])[1]");
-	public static By objRentNow = By.xpath("(.//*[@class='tvodButtonContainer']//span[contains(text(),'Rent for INR')])[1]");
+	public static By objRentForINR = By.xpath("(.//*[@class='tvodButtonContainer']//span[contains(text(),'Rent for INR')])[1]");
+	public static By objRentNow = By.xpath("(.//*[@class='tvodButtonContainer']//span[contains(text(),'Rent Now')])[1]");
+	
 	public static By objRentNowTitle = By.xpath("((.//*[@class='tvodButtonContainer']//span[contains(text(),'Rent for INR')])[1])//ancestor::*[@class='tvodCardContainer']//*[@class='tvodTitle']");
 	
 	public static By objwatchFullContentByRentingIt = By.xpath(".//*[@class='subscribe-msg-premium subscribemsg_en']/div/span");

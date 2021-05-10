@@ -15,6 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Reporter;
 import com.driverInstance.DriverInstance;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
@@ -777,7 +779,8 @@ public class ResponseInstance {
 //		getUserSettingsValues("zeeprime@mailnesia.com","123456");
 //		 String jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiaXNzIjoibXlzZWxmIiwiZXhwIjoxNDcxMDg2MzgxfQ.1EI2haSz9aMsHjFUXNVz2Z4mtC0nMdZo6bo3-x-aRpw";
 		
-		fetchSubscriptionDetailsFromToken();
+//		fetchSubscriptionDetailsFromToken();
+		
 	}
 	
 	public static void fetchSubscriptionDetailsFromToken() {
@@ -4082,6 +4085,8 @@ public static String getAuthorization(String email, String password) {
 	String accesstoken = resp.jsonPath().getString("access_token");
 	return accesstoken;
 }
+
+
 
 }
 

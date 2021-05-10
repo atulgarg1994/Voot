@@ -2168,7 +2168,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	}
 
 	public boolean scrollToElement(By element) throws Exception {
-		for (int i = 1; i <= 20; i++) {
+		for (int i = 1; i <= 50; i++) {
 			partialScroll2();
 			if (verifyElementDisplayed(element)) {
 				return true;
@@ -2317,26 +2317,39 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 //			actions.moveToElement(content).perform();
 //			Thread.sleep(3000);
 //		}
-		verifyElementPresentAndClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
+		
+		Actions actions = new Actions(getWebDriver());
+		WebElement ele = getWebDriver().findElement(PWAPlayerPage.objPlaybackVideoOverlay);
+		actions.moveToElement(ele).perform();
+//		verifyElementPresentAndClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresent(PWAPlayerPage.pauseBtn, "Pause button");
 		verifyElementPresent(PWAPlayerPage.rewind10SecBtn, "Rewind 10 Seconds icon");
-		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
+		actions.moveToElement(ele).perform();
+//		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresent(PWAPlayerPage.playBtn, "Play icon");
-		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
+		actions.moveToElement(ele).perform();
+//		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresent(PWAPlayerPage.forward10SecBtn, "Forward 10 Seconds icon");
-		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
+		actions.moveToElement(ele).perform();
+//		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresent(PWAPlayerPage.progressBar, "Progress bar");
-		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
+		actions.moveToElement(ele).perform();
+//		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresent(PWAPlayerPage.audioBtn, "Audio icon");
-		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
+		actions.moveToElement(ele).perform();
+//		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresent(PWAPlayerPage.totalDurationTime, "Total duration time");
-		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
+		actions.moveToElement(ele).perform();
+//		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresent(PWAPlayerPage.settingsBtn, "Settings icon");
-		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
+		actions.moveToElement(ele).perform();
+//		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresent(PWAPlayerPage.maximizeBtn, "Maximize window icon");
-		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
+		actions.moveToElement(ele).perform();
+//		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresent(PWAPlayerPage.totalDurationTime, "Total time");
-		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
+		actions.moveToElement(ele).perform();
+//		JSClick(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 		verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
 		verifyElementPresentAndClick(PWAPlayerPage.objPlayerQualityButton, "Quality Button");
 		JSClick(PWAPlayerPage.objBestQualityOption, "Best quality");
@@ -11423,29 +11436,22 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	/**
 	 * Function to verify the Help Center screen
-	 * 
 	 */
-
-	/**
-	 * Function to verify the Help Center screen
-	 * 
-	 */
-
 	public void HelpCenterScreenValidation() throws Exception {
 		HeaderChildNode("Help Center Screen");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		partialScroll();
 		partialScroll();
-		if (checkElementDisplayed(PWAHomePage.objWhatToWatchPopUp, "wondering what to watch pop up")) {
-			verifyElementPresentAndClick(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
-		}
+//		if (checkElementDisplayed(PWAHomePage.objWhatToWatchPopUp, "wondering what to watch pop up")) {
+//			verifyElementPresentAndClick(PWAHomePage.objWhatToWatchCloseButton, "Pop up close button");
+//		}
 		waitTime(2000);
 		verifyElementPresent(PWAHamburgerMenuPage.objHelpCenterOption, "Help Center option");
 		JSClick(PWAHamburgerMenuPage.objHelpCenterOption, "Help Center option");
 		switchToWindow(2);
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objHelpUsHeader, "Help Center screen")) {
+		if (verifyElementPresent(PWAHamburgerMenuPage.objHelpUsHeader, "Help Center screen")) {
 			logger.info("User is navigated to Help Center screen");
-			extent.extentLogger("Help Center", "User is navigated to Help Center screen");
+			extent.extentLoggerPass("Help Center", "User is navigated to Help Center screen");
 		}
 		gettingStartedVerifications();
 		myAccountVerifications();
@@ -11453,9 +11459,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		// Write to Us button
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objWritetous, "Write to us button");
 		switchToWindow(3);
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objContactUs, "Contact Us page")) {
+		if (verifyElementPresent(PWAHamburgerMenuPage.objContactUs, "Contact Us page")) {
 			logger.info("User is navigated to Contact Us page");
-			extent.extentLogger("Contact Us", "User is navigated to Contact Us page");
+			extent.extentLoggerPass("Contact Us", "User is navigated to Contact Us page");
 		}
 		WriteToUs();
 		getWebDriver().close();
@@ -11707,18 +11713,18 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresent(PWAHomePage.objInstagramIcon, "Instagram icon");
 		click(PWAHomePage.objInstagramIcon, "Instagram icon");
 		switchToWindow(2);
-		if (checkElementDisplayed(PWAHomePage.objInstagramPage, "Instagram page follow button")) {
+		if (verifyElementPresent(PWAHomePage.objInstagramPage, "Instagram page follow button")) {
 			logger.info("User is navigated to Instagram page");
-			extent.extentLogger("Instagram", "User is redirected to Instagram page");
+			extent.extentLoggerPass("Instagram", "User is redirected to Instagram page");
 		}
 		getWebDriver().close();
 		switchToParentWindow();
 		// Twitter
 		verifyElementPresentAndClick(PWAHomePage.objTwitterIcon, "Twitter icon");
 		switchToWindow(2);
-		if (checkElementDisplayed(PWAHomePage.objTwitterPage, "Twitter page follow button")) {
+		if (verifyElementPresent(PWAHomePage.objTwitterPage, "Twitter page follow button")) {
 			logger.info("User is navigated to Twitter page");
-			extent.extentLogger("Twitter", "User is redirected to Twitter page");
+			extent.extentLoggerPass("Twitter", "User is redirected to Twitter page");
 		}
 		getWebDriver().close();
 		switchToParentWindow();
@@ -11728,7 +11734,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		String facebook = getWebDriver().getCurrentUrl();
 		if (facebook.contains("facebook")) {
 			logger.info("User is redirected to facebook page");
-			extent.extentLogger("Facebook", "User is redirected to facebook page");
+			extent.extentLoggerPass("Facebook", "User is redirected to facebook page");
 		}
 		getWebDriver().close();
 		switchToParentWindow();
@@ -11738,9 +11744,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		switchToWindow(2);
 		verifyElementPresentAndClick(PWAHomePage.objwritetous, "Write to us");
 		switchToWindow(3);
-		if (checkElementDisplayed(PWAHomePage.objcontactus, "Contact Us page")) {
+		if (verifyElementPresent(PWAHomePage.objcontactus, "Contact Us page")) {
 			logger.info("User is navigated to Contact Us page");
-			extent.extentLogger("Contact Us", "User is naviagted to Contact Us page");
+			extent.extentLoggerPass("Contact Us", "User is naviagted to Contact Us page");
 
 		}
 		getWebDriver().close();
@@ -11752,9 +11758,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		// android play store
 		verifyElementPresentAndClick(PWAHomePage.objAndroidPlayStoreIcon, "Google play store icon");
 		switchToWindow(2);
-		if (checkElementDisplayed(PWAHomePage.objGooglePlayLogo, "Android Google Play icon") == true) {
+		if (verifyElementPresent(PWAHomePage.objGooglePlayLogo, "Android Google Play icon") == true) {
 			logger.info("User is navigated to Android Google Play store");
-			extent.extentLogger("Google play store", "User is redirected to Google paly store page");
+			extent.extentLoggerPass("Google play store", "User is redirected to Google paly store page");
 		}
 		getWebDriver().close();
 		switchToParentWindow();
@@ -11765,7 +11771,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		String iOSURL = getWebDriver().getCurrentUrl();
 		if (iOSURL.contains("apple")) {
 			logger.info("User is redirected to iOS app store page");
-			extent.extentLogger("iOS app store", "User is redirected to iOS app store page");
+			extent.extentLoggerPass("iOS app store", "User is redirected to iOS app store page");
 		}
 		getWebDriver().close();
 		switchToParentWindow();
@@ -11778,31 +11784,22 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void gettingStartedVerifications() throws Exception {
 		waitTime(3000);
-		checkElementDisplayed(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Getting Started"),
+		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Getting Started"),
 				"Getting started tab");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("What is ZEE5"), "What is zee5");
 
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
+		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
 			logger.info("User is navigated to What is ZEE5 page");
-			extent.extentLogger("Article", "User is navigated to What is ZEE5 page");
+			extent.extentLoggerPass("Article", "User is navigated to What is ZEE5 page");
 		}
 		Back(1);
 
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Registering with ZEE5"),
 				"Registering with ZEE5");
 
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
+		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
 			logger.info("User is navigated to Registeing with ZEE5 page");
-			extent.extentLogger("Article", "User is navigated to Registering with ZEE5 page");
-		}
-		Back(1);
-
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Purchasing a subscription"),
-				"Purchasing a subscription");
-
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
-			logger.info("User is navigated to Purchasing a subscription page");
-			extent.extentLogger("Article", "User is navigated to Purchasing a subscription page");
+			extent.extentLoggerPass("Article", "User is navigated to Registering with ZEE5 page");
 		}
 		Back(1);
 
@@ -11810,9 +11807,18 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How do I watch ZEE5 on my television?"),
 				"How do I watch ZEE5 on my telivision");
 
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
+		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
 			logger.info("User is navigated to How do I watch ZEE5 on my telivision page");
-			extent.extentLogger("Article", "User is navigated to How do I watch ZEE5 on my telivision page");
+			extent.extentLoggerPass("Article", "User is navigated to How do I watch ZEE5 on my telivision page");
+		}
+		Back(1);
+		
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Renting movies on ZEEPLEX"),
+				"Renting Movies on ZEEPLEX");
+
+		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
+			logger.info("User is navigated to Renting movies on ZEEPLEX page");
+			extent.extentLoggerPass("Article", "User is navigated to Renting movies on ZEEPLEX page");
 		}
 		Back(1);
 	}
@@ -11822,46 +11828,65 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 */
 
 	public void myAccountVerifications() throws Exception {
-		checkElementDisplayed(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My Account"), "My Account tab");
+		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My Account"), "My Account tab");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Managing your Subscription"),
 				"Managing your Subscription ");
 
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
+		switchToWindow(3);
+		
+		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
 			logger.info("User is navigated to Managing your Subscription  page");
-			extent.extentLogger("Article", "User is navigated to Managing your Subscription  page");
+			extent.extentLoggerPass("Article", "User is navigated to Managing your Subscription  page");
 		}
-		Back(1);
-
+//		Back(1);
+		
+		getWebDriver().close();
+		switchToWindow(2);
+		
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I can"),
 				"I can't sign in to ZEE5 ");
 
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
+		switchToWindow(3);
+		
+		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
 			logger.info("User is navigated to I can't sign in to ZEE5 page");
-			extent.extentLogger("Article", "User is navigated to I can't sign in to ZEE5 page");
+			extent.extentLoggerPass("Article", "User is navigated to I can't sign in to ZEE5 page");
 		}
-		Back(1);
-
+//		Back(1);
+		
+		getWebDriver().close();
+		switchToWindow(2);
+		
 		verifyElementPresentAndClick(
-				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I made a payment but my subscription"),
-				"I made a payment but my subscription isn't active / My subscription is missing");
+				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My auto-renewal subscription has expired"),
+				"My auto-renewal subscription has expired");
 
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
+		switchToWindow(3);
+		
+		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
 			logger.info(
-					"User is navigated to I made a payment but my subscription isn't active / My subscription is missing page");
-			extent.extentLogger("Article",
-					"User is navigated to I made a payment but my subscription isn't active / My subscription is missing page");
+					"User is navigated to My auto-renewal subscription has expired page");
+			extent.extentLoggerPass("Article",
+					"User is navigated to My auto-renewal subscription has expired page");
 		}
-		Back(1);
-
+//		Back(1);
+		
+		getWebDriver().close();
+		switchToWindow(2);
 		verifyElementPresentAndClick(
-				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I want to update my profile information"),
+				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How many devices can I watch on?"),
 				"I want to update my profile information");
 
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
+		switchToWindow(3);
+		
+		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
 			logger.info("User is navigated to I want to update my profile information  page");
-			extent.extentLogger("Article", "User is navigated to I want to update my profile information page");
+			extent.extentLoggerPass("Article", "User is navigated to I want to update my profile information page");
 		}
-		Back(1);
+//		Back(1);
+
+		getWebDriver().close();
+		switchToWindow(2);
 	}
 
 	/**
@@ -11960,13 +11985,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		Back(1);
 		// Privacy Policy
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-		if (userType.contains("Guest")) {
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPrivacyPolicyInKannadA,
-					"Privacy Policy option in Kannada");
-		} else {
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPrivacyPolicyInKannadA2,
-					"Privacy Policy option in Kannada");
-		}
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objPrivacyPolicyInKannadA, "Privacy Policy option in Kannada");
+//		if (userType.contains("Guest")) {
+//			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPrivacyPolicyInKannadA,
+//					"Privacy Policy option in Kannada");
+//		} else {
+//			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPrivacyPolicyInKannadA2,
+//					"Privacy Policy option in Kannada");
+//		}
 		String title3 = getText(PWAHamburgerMenuPage.objPrivacyPolicyScreen);
 		System.out.println("Title " + title3);
 		if (title3.contains("Privacy Policy")) {
@@ -26381,6 +26407,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		contentTitle = getText(PWAComboOfferPage.objRentNowTitle);
 		if(CTAONCarousel.equalsIgnoreCase("Trailer")) {
 			click(PWAComboOfferPage.objTrailer, "Trailer");
+		}else if(CTAONCarousel.equalsIgnoreCase("RentForINR")) {
+			click(PWAComboOfferPage.objRentForINR, "Rent for INR");
 		}else if(CTAONCarousel.equalsIgnoreCase("RentNow")) {
 			click(PWAComboOfferPage.objRentNow, "Rent Now");
 		}

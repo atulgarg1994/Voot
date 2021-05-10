@@ -283,9 +283,6 @@ public class PWAHomePage {
 	// Facebook page
 	public static By objFacebookPage = By.xpath("(//*[@text='Log In'])[2]");
 
-	// Instagram page
-	public static By objInstagramPage = By.xpath("//button[contains(text(),'Follow')]");
-
 	// Help Center in Footer section
 	public static By objHelp = By.xpath("//a[@class='noSelect'][contains(text(),'Help Center')]");
 	// Help Center screen
@@ -293,9 +290,6 @@ public class PWAHomePage {
 
 	// write to us
 	public static By objwritetous = By.xpath("//img[contains(@class,'img1')]");
-
-	// contact us page
-	public static By objcontactus = By.xpath("//*[@text='Contact Us']");
 
 	// About Us in Footer Section
 	public static By objAboutUsInFooterSection = By.xpath("//a[@class='noSelect'][contains(text(),'About Us')]");
@@ -430,9 +424,6 @@ public class PWAHomePage {
 	public static By objAdBanner = By.xpath("(//*[@class='adContainer'])[1]");
 	
 	public static By objCreateNewAccountPopUpClose = By.xpath("//div[@class='manCloseIcon']");
-
-	// Twitter page
-	public static By objTwitterPage = By.xpath("//*[@text='FOLLOW' or @text='Follow']");
 	
 	//Check for the club tag
 	public static By objClubTag = By.xpath("//*[contains(@class,'clubPackContent')]");
@@ -621,4 +612,12 @@ public class PWAHomePage {
 	}
 	
 	public static By objGetPremiumGetClubButton = By.xpath("//div[contains(@class,'slick-active')]//*[text()='Buy Plan']//parent::a");
+	
+	public static By objTwitterPage = By.xpath("(//*[@class = 'css-901oao css-16my406 css-bfa6kz r-poiln3 r-bcqeeo r-qvutc0']//*[text()='Follow'])[1]");
+	
+	public static By objInstagramPage = By.xpath("(//button[contains(text(),'Follow')])[1]");
+	
+	public static By objcontactus = By.xpath("//*[text()='Contact Us']");
+
+
 }

@@ -162,6 +162,16 @@ public class Android_TVOD_ComboOffer {
 		ZEE5ApplicasterBusinessLogic.Guest_premiumUser_49(ptabName, pContentTitle, RSVOD49PackEmail, pPassword);
 	}
 	
+	@Test(priority = 12)
+	@Parameters({ "userType","SubsUserWithoutRentalPlan","CommomPassword","Radhe"}) //---Need to pass Susbcribeduser credentials which has 1-year Premium plan without Rental Active plan
+	public void UseCase3b(String userType,String pEmailId, String pPassword, String pContentTitle) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(pEmailId, pPassword);
+		ZEE5ApplicasterBusinessLogic.SearchZEEPLEXContentAndPlay(pContentTitle);
+		ZEE5ApplicasterBusinessLogic.ZeePlexContentInPlayerCTAValidation();
+	}
 	
 	@AfterTest
 	public void tearDownApp() {
