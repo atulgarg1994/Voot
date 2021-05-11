@@ -348,4 +348,16 @@ public class PWASearchPage {
 				"//div[@class='trayHeader']//h2[text()='Trending Searches']//parent::*//following-sibling::div[@class='latestEpisodeTrayWrapper']//div[@data-index='0']//h3[@class='cardTitle']");
 
 	public static By objFirstSearch = By.xpath("//div[@class='listingGrid']//img");
+	// PLEX logo in metadata of First searched asset
+	public static By objZEEPLEXLogoFirstSearchedAssetTitle(String searchText) {
+		return By.xpath("//*[@class='cardZeeFlexIconContainerSearch' and //parent::*//parent::*[@class='cardZeeFlexContentSearch']//following-sibling::*//*[text()='"+searchText+"']]");
+	}
+
+		//ZEEPLEX Tab in search page
+	public static By objZEEPLEXTabInSearchPage = By.xpath("//*[contains(@class,'noSelect tabMenuItem') and text()='ZEEPLEX']");
+	
+	// First searched asset Title
+	public static By objFirstSearchedAssetTitle(String searchText) {
+		return By.xpath("//div[contains(@class,'searchCategoryLanding')]//h3[contains(@class,'cardTitle')]//span[contains(@class,'highLight')and text()='"+searchText+"']");
+	}
 }

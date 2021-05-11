@@ -80,9 +80,19 @@ public class PWAComboOfferPage {
 	public static By objWatchListZeeplexTab = By.xpath(".//*[@id='plex']");
 	public static By objFirstContentTitle = By.xpath("(.//*[@class='cardTitle overflowEllipsis '])[1]");
 	
-	public static By objOnlyRentMovieCheckBox = By.xpath("(.//*[@class='packGrid'])[2]//*[@class='iconOther-ic_tick radioBtn active']");
-	
-	
+	public static By objOnlyRentMovieCheckBox = By
+			.xpath("(.//*[@class='packGrid'])[2]//*[@class='iconOther-ic_tick radioBtn active']");
+
+	// Combo Offer Popup
+	public static By objRentMovieForTitle = By.xpath("//span[contains(text(), 'Rent Movie for ')]");
+	public static By objCurrentPlanTextDesc = By.xpath("//span[contains(text(),'You are currently on ')]");
+	public static By objComboPopupRentMovieBtn = By.xpath("//*[@class='comboPopupBtns']//span[text()='Rent Movie']");
+
+	// Upgrade To Combo Offer Popup
+	public static By objUpgradeToComboOfferPopupTitle = By
+			.xpath("//span[contains(text(), 'Upgrade to Combo Offer by just paying the difference')]");
+	public static By objUpgradeToComboOfferPopupUpgradeBtn = By
+			.xpath("//*[@class='comboPopupBtns']//span[text()='Upgrade']");
 	
 	
 }

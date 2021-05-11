@@ -229,15 +229,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDOnboardingScreen.objContentLanguagePageTitle, "Page title");
 		verifyElementExist(AMDOnboardingScreen.objContentLanguageContainer, "Content language");
 		verifyElementExist(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in content language screen");
-		verifyElementExist(AMDOnboardingScreen.objBackBtn, "Back button in content language screen");
+	//	verifyElementExist(AMDOnboardingScreen.objBackBtn, "Back button in content language screen");
 		click(AMDOnboardingScreen.objSelectContentLang("English"), "Unselected English language");
-		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in content language screen");
+	//	click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in content language screen");
 		
-		if (checkElementExist(AMDOnboardingScreen.objLoginLnk, "Login button")) {
-			logger.info("User is navigated to Intro screen");
-			extent.extentLoggerPass("Navigation", "User is navigated to Intro screen");
-			Back(1);
-		}
+//		if (checkElementExist(AMDOnboardingScreen.objLoginLnk, "Login button")) {
+//			logger.info("User is navigated to Intro screen");
+//			extent.extentLoggerPass("Navigation", "User is navigated to Intro screen");
+//			Back(1);
+//		}
 		PartialSwipe("UP", 1);
 		waitTime(3000);
 		click(AMDOnboardingScreen.objSelectContentLang("Kannada"), "Unselected Kannada language");
@@ -551,18 +551,26 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		// verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Loginbutton");
 		
 		//verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn, "Continue");
-		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
-		click(AMDLoginScreen.objEmailIdField, "Email field");
-		verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
-
+		//verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+		verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+		// Verify user is navigated to Login/Register screen post tapping Login/Register link
+		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+		
 		if (userType.equals("NonSubscribedUser")) {
+			click(AMDLoginScreen.objEmailIdField, "Email field");
+			verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, NonsubscribedUserName, "Email field");
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
 			waitTime(2000);
 			type(AMDLoginScreen.objPasswordField, NonsubscribedPassword, "Password field");
 			hideKeyboard();
+			
 		} else if (userType.equals("SubscribedUser")) {
+			click(AMDLoginScreen.objEmailIdField, "Email field");
+			verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUserName, "Email field");
 			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
@@ -573,6 +581,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		if (userType.equalsIgnoreCase("Guest")) {
 			verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip button");
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
 		} else {
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login button");
 		}
@@ -582,7 +591,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(2000);
 
 		if (userType.contains("Guest")) {
-			if (checkElementExist(AMDOnboardingScreen.objBrowseForFreeBtn, "BrowseForFree Screen")) {
+			if (checkElementExist(AMDHomePage.objHomeTab, "Home tab")) {
 				logger.info("When " + userType + " relaunch the app " + ScreenName + " screen is skipped");
 				extent.extentLoggerPass("Relaunch",
 						"When " + userType + " relaunch the app " + ScreenName + " screen is skipped");
@@ -592,9 +601,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						"When " + userType + " relaunch the app " + ScreenName + " screen is displayed");
 			}
 		} else if (checkElementExist(AMDHomePage.objHomeTab, "Home tab")) {
-			logger.info("When " + userType + " relaunch the app Content language and Intro screen is skipped");
+			logger.info("When " + userType + " relaunch the app Content language screen is skipped");
 			extent.extentLoggerPass("Relaunch",
-					"When " + userType + " relaunch the app Content language and Intro screen is skipped");
+					"When " + userType + " relaunch the app Content language screen is skipped");
 		} else {
 			logger.error("When " + userType + " relaunch the app user is not redirected to Home page");
 			extent.extentLoggerFail("Relaunch",
@@ -607,10 +616,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("\nRegister for free Page");
 		String pDOB = "01/01/1990", pNewPassword = "123456";
 		
-		if(checkElementExist(AMDOnboardingScreen.objBrowseForFreeBtn)) {
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
-		}
+//		if(checkElementExist(AMDOnboardingScreen.objBrowseForFreeBtn)) {
+//			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+//		}
 		
+		
+
 		if (user.equals("Email")) {
 			type(AMDRegistrationScreen.objEmailIDTextField, generateRandomString(5) + "@gmail.com", "Email field");
 			click(AMDRegistrationScreen.objProceedBtn, "Proceed button");
@@ -1461,8 +1472,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		if (pUserType.equalsIgnoreCase("Guest")) {
 			waitTime(2000);
-			verifyElementPresent(AMDLoginScreen.objMenu, "Menu icon");
-			click(AMDLoginScreen.objMenu, "Menu icon");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 			verifyElementPresent(AMDLoginScreen.objProfileIcon, "Login Button");
 			click(AMDLoginScreen.objProfileIcon, "Login Button");
 			if (verifyIsElementDisplayed(AMDLoginScreen.objLoginPage)) {
@@ -2010,8 +2020,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			throws Exception {
 		extent.HeaderChildNode("Validating Login/Registration screen");
 		System.out.println("\nValidating Login/Registration screen");
-		
-		verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+		verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		verifyElementPresentAndClick(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+		//verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 		if (userType.equalsIgnoreCase("Guest")) {
 			WebElement element = findElement(AMDLoginScreen.objLoginOrRegisterPageTitle);
 			int leftX = element.getLocation().getX();
@@ -2637,25 +2649,32 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 */
 
 	public void navigateToRegisterScreen(String loginThrough) throws Exception {
-		if (loginThrough.equals("BrowseForFree")) {
-			HeaderChildNode("Validate Browse for Free Button functionality");
-			verifyElementExist(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free button");
-			logger.info("Browse for Free button is displayed in language : "
-					+ getText(AMDOnboardingScreen.objBrowseForFreeBtn));
-			extent.extentLoggerPass("Browse for Free button", "Browse for Free button is displayed in language : "
-					+ getText(AMDOnboardingScreen.objBrowseForFreeBtn));
+		//Browse for free is not present since Intro screen has been removed
+//		if (loginThrough.equals("BrowseForFree")) {
+//			HeaderChildNode("Validate Browse for Free Button functionality");
+//			verifyElementExist(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free button");
+//			logger.info("Browse for Free button is displayed in language : "
+//					+ getText(AMDOnboardingScreen.objBrowseForFreeBtn));
+//			extent.extentLoggerPass("Browse for Free button", "Browse for Free button is displayed in language : "
+//					+ getText(AMDOnboardingScreen.objBrowseForFreeBtn));
+//
+//			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+			// Verify user is navigated to Login/Register screen post tapping Login/Register link
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
 
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 
 			if (verifyIsElementDisplayed(AMDLoginScreen.objLoginLnk)) {
-				logger.info("Login/Register Screen is displayed on selecting Browse for Free");
-				extent.extentLoggerPass("Login/Register Screen", "Login/Register Screen is displayed on selecting Browse for Free");
+				logger.info("Login/Register Screen is displayed");
+				extent.extentLoggerPass("Login/Register Screen", "Login/Register Screen is displayed");
 			} else {
-				logger.error("Login/Register Screen is not displayed on selecting Browse for Free");
-				extent.extentLoggerFail("Login/Register Screen", "Login/Register Screen is not displayed on selecting Browse for Free");
+				logger.error("Login/Register Screen is not displayed");
+				extent.extentLoggerFail("Login/Register Screen", "Login/Register Screen is not displayed");
 			}
 
-		}
+		
 //		else if (loginThrough.equals("login")) {
 //			HeaderChildNode("Validate Login/Register Screen");
 //			click(AMDLoginScreen.objLoginLnk, "Login link");
@@ -2669,9 +2688,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String pGender = "Male";
 		String pEmailID = generateRandomString(5) + "@zee5.com";
 		waitTime(3000);
-		if(checkElementExist(AMDOnboardingScreen.objBrowseForFreeBtn)) {
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
-		}
+//		if(checkElementExist(AMDOnboardingScreen.objBrowseForFreeBtn)) {
+//			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+//		}
 		
 		type(AMDRegistrationScreen.objEmailIDTextField, pEmailID, "Email field");
 		verifyElementPresentAndClick(AMDRegistrationScreen.objProceedBtn, "Proceed button");
@@ -2892,9 +2911,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			waitTime(1000);
-			hideKeyboard();
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+			//Commenting these line as Intro screen has been removed from the App [AMA2-12726]
+			//waitTime(1000);
+			//hideKeyboard();
+			//verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
 			waitTime(3000);
 			break;
 
@@ -2904,8 +2924,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
 
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
-
+			//verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+			// Verify user is navigated to Login/Register screen post tapping Login/Register link
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -2921,7 +2945,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			//verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+			// Verify user is navigated to Login/Register screen post tapping Login/Register link
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
 
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
@@ -3028,8 +3057,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn,
 					"Continue button in content language screen");
 			// navigateToRegisterScreen(loginThrough);
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+		//	verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+			// Verify user is navigated to Login/Register screen post tapping Login/Register link
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
 			verifyElementPresentAndClick(AMDLoginScreen.objGoogleBtn, "Gmail icon");
 
 			if (checkElementExist(AMDLoginScreen.objGmailSignIn, "Gmail Sign In")) {
@@ -3610,7 +3644,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		String pUserType = getParameterFromXML("userType");
 		if (pUserType.contains("Guest")) {
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			//verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
 			verifyElementPresent(AMDGenericObjects.objScreenTitleName("Login/Register"), "Login/Register");
 			type(AMDLoginScreen.objEmailIdField, pUserName, "Email-ID");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed button");
@@ -12721,7 +12759,7 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
 			waitTime(1000);
 			hideKeyboard();
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+			//verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
 			waitTime(3000);
 			break;
 
@@ -12729,7 +12767,12 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 			extent.HeaderChildNode("Login as NonSubscribed User for Settings");
 			String SUsername = getParameterFromXML("SettingsNonsubscribedUserName");
 			String SPassword = getParameterFromXML("SettingsNonsubscribedPassword");
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			//verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+			// Verify user is navigated to Login/Register screen post tapping Login/Register link
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -12744,7 +12787,12 @@ public void AccountDetailsGuestUser(String userType) throws Exception {
 			extent.HeaderChildNode("Login as Subscribed User for Settings");
 			String SettingsSubscribedUsername = getParameterFromXML("SettingsSubscribedUserName");
 			String SettingsSubscribedPassword = getParameterFromXML("SettingsSubscribedPassword");
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			//verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+			// Verify user is navigated to Login/Register screen post tapping Login/Register link
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SettingsSubscribedUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -19907,9 +19955,9 @@ public void BackToLandingScreen() throws Exception {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			waitTime(1000);
-			hideKeyboard();
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+			//waitTime(1000);
+			//hideKeyboard();
+			//verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
 			waitTime(3000);
 			break;
 			
@@ -19920,8 +19968,13 @@ public void BackToLandingScreen() throws Exception {
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
 			
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
-
+			//verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+			// Verify user is navigated to Login/Register screen post tapping Login/Register link
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+			
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -19936,7 +19989,12 @@ public void BackToLandingScreen() throws Exception {
 			extent.HeaderChildNode("Login as "+LoginMethod);
 			System.out.println("\nLogin as "+LoginMethod);
 
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			//verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+			// Verify user is navigated to Login/Register screen post tapping Login/Register link
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
 
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, pUserName, "Email Field");
@@ -19949,6 +20007,7 @@ public void BackToLandingScreen() throws Exception {
 			break;
 		}
 	}
+	
 //======================Defect Task=========================
 	public void movieDownloadFunctonality(String usertype, String searchKeyword4) throws Exception {
 		if(usertype.equalsIgnoreCase("SubscribedUser")) {
@@ -21920,11 +21979,11 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 			logger.info("In player message is displayed as "+InPlayerMsg);
 			extentLoggerPass("Player message", "In player message is displayed as "+InPlayerMsg);
 			
-			String InPlayerCTA = getText(AMDPlayerScreen.objSubscribeNowButtonOnPlayer);
+			String InPlayerCTA = getText(AMDPlayerScreen.objInPlayerCTA);
 			logger.info("InPlayer CTA is displayed as "+InPlayerCTA);
 			extentLoggerPass("InPlayer CTA", "In player message is displayed as "+InPlayerCTA);
 			
-			verifyElementPresentAndClick(AMDPlayerScreen.objSubscribeNowButtonOnPlayer, InPlayerCTA);
+			verifyElementPresentAndClick(AMDPlayerScreen.objInPlayerCTA, InPlayerCTA);
 			
 			verifyElementPresent(AMDPlayerScreen.objZeePlexTitle, "RADHE TITLE");
 			verifyElementPresent(AMDPlayerScreen.objZeePlexLogo, "ZEEPLEX LOGO");
@@ -22285,7 +22344,7 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 		ValidationOfComboOfferPage_AccountInfoPage_UpgradeBottomSheet("Pay less, Watch more!", "Buy Radhe Combo", email, password, "499");
 	}
 	
-	public void Guest_premiumUser_49(String tabName, String contentTitle, String email, String password) throws Exception {
+	public void Guest_RSVODUser_49(String tabName, String contentTitle, String email, String password) throws Exception {
 		validationOfCarousalAndConsumptionPageForComboOfferContent(tabName, contentTitle);
 		ValidationOfComboOfferPage_AccountInfoPage_UpgradeBottomSheet("Pay less, Watch more!", "Buy Radhe Combo", email, password, "49");
 	}
@@ -22399,4 +22458,19 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 	}
 	
 	
+	public void NonSubscribed_withoutRadheRental(String tabName, String contentTitle) throws Exception {
+		validationOfCarousalAndConsumptionPageForComboOfferContent(tabName, contentTitle);
+		ValidationOfcomboOfferPageAndPaymentPage("Pay less, Watch more!", "Buy Radhe Combo");	
+	}
+	
+	public void Guest_RSVODUser_499(String tabName, String contentTitle, String email, String password) throws Exception {
+		validationOfCarousalAndConsumptionPageForComboOfferContent(tabName, contentTitle);
+		ValidationOfComboOfferPage_AccountInfoPage_UpgradeBottomSheet("Pay less, Watch more!", "Buy Radhe Combo", email, password, "499");
+	}
+	
+	public void navigateToHomeScreen() throws Exception {
+		extent.HeaderChildNode("Navigation to Home Screen");
+		click(AMDOnboardingScreen.objgetContentLangName(1), "Continue button (Content-LanguageScreen)");
+		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
+	}
 }

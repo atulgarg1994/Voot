@@ -22,7 +22,7 @@ public class Android_Onboarding_Suite1 {
 	public void Verification_LoginPage(String userType,String displayLanguageSelection1,String displayLanguageSelection2) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
-		ZEE5ApplicasterBusinessLogic.ZEE5AppLogin(userType);
+	//	ZEE5ApplicasterBusinessLogic.ZEE5AppLogin(userType); //This method is not valid since Intro screen is removeds
 		ZEE5ApplicasterBusinessLogic.VerifyLoginPage();
 		ZEE5ApplicasterBusinessLogic.DisplayLanguagePopUpValidation(displayLanguageSelection1,displayLanguageSelection2);
 	}
@@ -41,14 +41,14 @@ public class Android_Onboarding_Suite1 {
 		}
 	}
 	
-	@Test(priority = 3)
-	@Parameters({ "userType" }) // Vinay==Scenarios only for Guest user
-	public void IntroScreenModule(String userType) throws Exception {
+//	@Test(priority = 3) //This test suite is no longer valid since Intro screen has been removed in the application
+	@Parameters({ "userType" }) // Vinay==Scenarios only for Guest user 
+		public void IntroScreenModule(String userType) throws Exception {
 		System.out.println("\nVerify Intro Screen");
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
-		ZEE5ApplicasterBusinessLogic.IntroScreen(userType);
+		ZEE5ApplicasterBusinessLogic.IntroScreen(userType); 
 	}
 
 	@Test(priority = 4) // Sushma and Vinay==Scenarios only for Guest user

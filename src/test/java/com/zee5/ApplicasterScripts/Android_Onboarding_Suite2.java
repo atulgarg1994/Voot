@@ -31,7 +31,7 @@ public class Android_Onboarding_Suite2 {
 		ZEE5ApplicasterBusinessLogic.verifyHaveAPrepaidCodePopUp();
 	}
 	
-	@Test (priority = 2)
+//	@Test (priority = 2) //Test suite is not valid,skip link in Intro screen is not present as Intro screen has been removed.
 	@Parameters({"userType"})	//  Kushal
 	public void BrowseforFreeSkipLoginRegistration(String userType) throws Exception {
 		System.out.println("\nBrowse for Free - Skip Login/Register page to Home Screen");
@@ -43,8 +43,8 @@ public class Android_Onboarding_Suite2 {
 	
 	@Test (priority = 3)	//  Kushal
 	@Parameters({"userType","RegisteredEmail","RegisteredEmailPassword"})
-	public void BrowseforFreeLoginwithEmailID(String userType,String pEmailId,String pPassword) throws Exception {
-		System.out.println("\nBrowse for Free - Login with EmailID");
+	public void LoginwithEmailID(String userType,String pEmailId,String pPassword) throws Exception {
+		System.out.println("\n Login with EmailID");
 		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.VerifyLoginWithEmailId(pEmailId, pPassword);
 	}

@@ -4,7 +4,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.business.zee.Zee5ApplicasterBusinessLogic;
 import com.utility.Utilities;
 
@@ -19,7 +18,7 @@ public class Android_Onboarding_Suite3 {
 		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
 	
-	@Test(priority = 1)
+	//@Test(priority = 1) //This test suite is no longer valid as Intro screen has been removed
 	@Parameters({ "userType"})	//Shreenidhi==Scenarios only for Guest user
 	public void subscribeNow(String userType) throws Exception {
 		System.out.println("\nVerify Subscribe Now screen");

@@ -26400,7 +26400,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void rentNowOnCarousel(String CTAONCarousel) throws Exception {
-		HeaderChildNode("1");
+		HeaderChildNode("Naviagte to consumption/combo offer screen after clicking "+CTAONCarousel+" on carousel");
 		navigateToAnyScreen("Rent");
 		waitTime(3000);
 		scrollByWEB();
@@ -26415,7 +26415,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void watchList() throws Exception {
-		HeaderChildNode("2");
+		HeaderChildNode("Validating Combo offer from watchlist");
 		waitTime(5000);
 		JSClick(PWAHomePage.objProfileMenu,"Profile");
 		waitTime(5000);
@@ -26425,7 +26425,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void validateConsumptionScreen() throws Exception {
-		HeaderChildNode("3");
+		HeaderChildNode("Validate CTA's in consumptions screen");
 		waitTime(60000);
 		waitTime(15000);
 		verifyElementPresent(PWAComboOfferPage.objwatchFullContentByRentingIt, "watch full content by renting it");
@@ -26437,7 +26437,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void verifyComboScreen() throws Exception {
-		HeaderChildNode("4");
+		HeaderChildNode("Validating Text and CTA's in combo offer screen");
 		scrollDownWEB();
 		verifyElementPresent(PWAHamburgerMenuPage.objApply, "Beneficiary Text");
 		verifyElementPresent(PWAComboOfferPage.objContentCard, "Content Thumbnail");
@@ -26466,7 +26466,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void rentPopUp() throws Exception {
-		HeaderChildNode("Rent PopUp");
+		HeaderChildNode("Validating text and CTA's in Rent PopUp");
 		verifyElementPresent(PWAComboOfferPage.objRentPopUp, "Rent PopUP");
 		
 		if(contentTitle.equals(getText(PWAComboOfferPage.objTitle))) {
@@ -26521,7 +26521,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	
 	
 	public void termsOfService() throws Exception {
-		HeaderChildNode("5");
+		HeaderChildNode("Validating Terms of Service");
 		scrollDownWEB();
 		click(PWAComboOfferPage.objTermsOfService,"Terms of Service");
 		switchToWindow(2);
@@ -26537,7 +26537,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void privacyPolicy() throws Exception {
-		HeaderChildNode("6");
+		HeaderChildNode("Validating Privacy and Policy");
 		scrollDownWEB();
 		click(PWAComboOfferPage.objPrivacyPolicy,"Privacy Policy");
 		switchToWindow(2);
@@ -26782,5 +26782,132 @@ public void pwaverifyHaveacode(String userType) throws Exception
 				}
 			}
 	}
+	
+	//-------------------Satish Combo Offer-----------------------------------------------------------------
+	
+		public void PWAComboOfferLoginInSubscriptionFlow(String userType, String premiumPlan) throws Exception {
+			extent.HeaderChildNode("Combo Offer - Login In Subscription Flow");
+			logger.info("Combo Offer - Login In Subscription Flow");
+			waitTime(2000);
+			if (userType.equalsIgnoreCase("Guest")) {
+				
+			}else if(userType.equalsIgnoreCase("SubscribedUser")) {
+				if(premiumPlan.equals("799")) {
+					PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName799"), getParameterFromXML("SubscribedPassword799"));
+				}else if (premiumPlan.equals("299")) {
+					PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName299"), getParameterFromXML("SubscribedPassword299"));
+				}else {
+					PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName"), getParameterFromXML("SubscribedPassword"));
+				}
+			}else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+				PWALoginInSubscriptionFlow(getParameterFromXML("NonsubscribedUserName"), getParameterFromXML("NonsubscribedPassword"));
+			}
+			waitTime(2000);
+		}
+		
+		public void PWALoginInSubscriptionFlow(String userName, String password) throws Exception {
+
+			waitTime(2000);
+			verifyElementPresent(PWASubscriptionPages.objAccountInfoHighlighted, "Account Info Page");
+			waitTime(2000);
+			type(PWASubscriptionPages.objEmailIDTextField, userName, "Email Id");
+			waitTime(2000);
+			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password");
+			waitTime(2000);
+			verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
+			waitTime(2000);
+			type(PWASubscriptionPages.objPasswordFieldHidden, password, "Password Field");
+			waitTime(2000);
+			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
+			
+			
+		}
+		
+		public void PWAVerifyComboPopupRentMovieFor() throws Exception{
+			extent.HeaderChildNode("Verifying Rent Movie For Popup");
+			logger.info("Verifying Rent Movie For Popup");
+			waitTime(5000);
+			verifyElementPresent(PWAComboOfferPage.objRentMovieForTitle, "Rent Movie For Title");
+			waitTime(3000);
+			String currentPlanDescriptionText = getText(PWAComboOfferPage.objCurrentPlanTextDesc);
+			verifyElementPresent(PWAComboOfferPage.objCurrentPlanTextDesc, currentPlanDescriptionText);
+			waitTime(3000);
+			verifyElementPresentAndClick(PWAComboOfferPage.objComboPopupRentMovieBtn, "Rent Movie Button");
+			
+		}
+		
+		public void PWAVerifyUpgradeToComboOfferPopup() throws Exception{
+			extent.HeaderChildNode("Verifying Upgrade To Combo Offer Popup");
+			logger.info("Verifying Upgrade To Combo Offer Popup");
+			waitTime(5000);
+			verifyElementPresent(PWAComboOfferPage.objUpgradeToComboOfferPopupTitle, "Upgrade To Combo Offer Popup Title");
+			waitTime(3000);
+			String currentPlanDescriptionText = getText(PWAComboOfferPage.objCurrentPlanTextDesc);
+			verifyElementPresent(PWAComboOfferPage.objCurrentPlanTextDesc, currentPlanDescriptionText);
+			waitTime(3000);
+			verifyElementPresentAndClick(PWAComboOfferPage.objUpgradeToComboOfferPopupUpgradeBtn, "Upgrade Button");
+			
+		}
+		
+		/**
+		 * Search For Content And Click On First Result
+		 */
+		public void PWASearchForContent(String contentName) throws Exception {
+			// handle mandatory pop up
+			String user = getParameterFromXML("userType");
+			mandatoryRegistrationPopUp(user);
+			verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
+			waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
+			type(PWASearchPage.objSearchEditBox, contentName + "\n", "Search bar");
+			waitTime(5000);
+			waitForElementDisplayed(PWASearchPage.objFirstSearchedAssetTitle(contentName), 20);
+
+		}
+		
+		public void PWAClickOnFirstSearchedResult(String contentName) throws Exception {
+			
+			waitTime(5000);
+			String FirstSearchedAssetTitle = findElement(PWASearchPage.objFirstSearchedAssetTitle(contentName)).getText();
+			click(PWASearchPage.objFirstSearchedAssetTitle(contentName), "First Searched Asset Title: " + FirstSearchedAssetTitle);
+			
+		}
+		
+		
+		public void PWASearchEntryPointValidations(String userType, String premiumPlan) throws Exception {
+
+			extent.HeaderChildNode("Search Entry Point Validations");
+			logger.info("Search Entry Point Validations");
+			logout();
+			navigateToHome();
+			mandatoryRegistrationPopUp(userType);
+			PWASearchForContent(getParameterFromXML("comboOfferMovie"));
+			extent.extentLogger("ZEEPLEX Logo Validation","TestCase 47:Verify user is able to see TVOD[Combo Offer configurable Movie] search results in plex tab under search");
+			verifyElementPresent(PWASearchPage.objZEEPLEXTabInSearchPage, "ZEEPLEX tab in Search page");
+			extent.extentLogger("ZEEPLEX Logo Validation","TestCase 50:Verify, when user searches for TVOD[Combo Offer configurable Movie] contents plex logo should be visible");
+			verifyElementPresent(PWASearchPage.objZEEPLEXLogoFirstSearchedAssetTitle(getParameterFromXML("comboOfferMovie")), "ZEEPLEX logo in metadata of searched TVOD: "+getParameterFromXML("comboOfferMovie"));
+			PWAClickOnFirstSearchedResult(getParameterFromXML("comboOfferMovie"));
+			waitForElementAndClickIfPresent(PWAComboOfferPage.objRentNowInPlayer, 70, "Rent Now CTA On Player");
+			waitTime(2000);
+			verifyComboScreen();
+			verifyElementPresentAndClick(PWAComboOfferPage.objBuyRadheComboBtn, "Buy Radhe Combo Button");
+			waitTime(2000);
+			PWAComboOfferLoginInSubscriptionFlow(userType, premiumPlan);
+			if(premiumPlan.equalsIgnoreCase("799")) {
+				PWAVerifyComboPopupRentMovieFor();
+				zeePWAPaymentPageValidation();
+			}else if(premiumPlan.equalsIgnoreCase("299")) {
+				PWAVerifyUpgradeToComboOfferPopup();
+				zeePWAPaymentPageValidation();
+			}else {
+				PWAVerifyComboPopupRentMovieFor();
+				zeePWAPaymentPageValidation();
+			}
+
+			logout();
+			
+		}
+
 	
 }

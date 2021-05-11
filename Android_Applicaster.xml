@@ -155,6 +155,9 @@
 	<parameter name="SubsUserWithoutRentalPlan" value="mobicheck@gmail.com" />
 	<parameter name="RSVOD49PackEmail" value="rsvodtamil1@gmail.com" />
 	<parameter name="RSVOD499PackEmail" value="mobicheck@gmail.com" />
+	<parameter name="RentalContentName1" value="Aag Ka Gola" />
+	<parameter name="RentalContentName2" value="Mard Ki Zubaan" />
+	<parameter name="RentalContentName3" value="Radhe - Your Most Wanted Bhai" />
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
