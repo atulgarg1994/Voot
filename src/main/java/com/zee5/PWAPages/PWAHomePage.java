@@ -619,5 +619,6 @@ public class PWAHomePage {
 	
 	public static By objcontactus = By.xpath("//*[text()='Contact Us']");
 
-
+	//click on By Plan
+	public static By objByPlan = By.xpath("//a[@class='subscribeBtn noSelect' and @href='/myaccount/subscription']");
 }

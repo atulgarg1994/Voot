@@ -408,5 +408,45 @@ public class PWASubscriptionPages {
 	//Zee Logo
 	public static By objZeeLogo = By.xpath("//*[@title='ZEE5 Logo']");
 	
+	//One Time Radhe ZEEPLEX Rental Text
+
+	public static By objOneTimeRadheZEEPLEXRentalText  = By.xpath("//div[@class='title']");
+
+	//Description Combo Radhe Year Zee5Premium
+	public static By objDescriptionComboRadheYearZee5Premium  = By.xpath("//div[@class='description']");
+
+
+	//Cancle Button
+	public static By objCancleButton  = By.xpath("//div[@class='drowerCloseIcon iconInitialLoad-ic_close']");
+
+
+	//Make Payment
+	public static By objMakePayment  = By.xpath("//h2[@class='stepTitle']");
+
+	//Continue with 499
+	public static By objContinueWith499  = By.xpath("//span[contains(text(),'Continue with ₹499')]");
+
+
+
+	//Login Button
+	public static By objLoginButton  = By.xpath("//a[@class='loginBtn noSelect subscriptionLoginType']");
+
+	//Watch Add-Free
+	public static By objWatchAddFree  = By.xpath("(//div[@class='item'])[5]");
+
+	//Watch Before Tv
+	public static By objWatchBeforeTv  = By.xpath("(//div[@class='subscriTopContWrapper']//div[@class='item']//span)[4]");
+
+	//200+Web Series
+	public static By obj200PlushWebSeries  = By.xpath("(//div[@class='subscriTopContWrapper']//div[@class='item']//span)[3]");
+
+	//Blockbuster Movie 
+	public static By objBlockbusterMovie  = By.xpath("(//div[@class='subscriTopContWrapper']//div[@class='item']//span)[2]");
+
+	//Combo:Radhe + Year Zee5 Premium
+	public static By objComboRadheYearZee5Premium = By.xpath("(//div[@class='subscriTopContWrapper']//div[@class='item']//span)[1]");
+
+	public static By objTextForComboOffer = By.xpath("//h1[contains(text(),'Radhe Combo Offer')]");
+	//Combo:Radhe + Year Zee5 Premium
 	
 }

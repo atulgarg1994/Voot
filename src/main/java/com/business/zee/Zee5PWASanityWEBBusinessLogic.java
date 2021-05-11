@@ -26909,5 +26909,170 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			
 		}
 
-	
+/**
+ * Kartheek
+ */
+		
+		public void ComboOfferPremiumPlexSub(String userType) throws Exception {
+			//Text For Combo Offer On Subscription Page
+			TextForComboOfferOnSubscriptionPage(userType);
+			RadheComboOfferTextSubscriptionPage(userType);
+			premiumBenefitsOnSubscriptionPage(userType);
+			oneTimeRadheRentaltextIsDisplayed(userType);
+			TextWithMoreThan(userType);
+			yearPremiumPlanPostPurchasing(userType);
+		}
+		
+		public void TextForComboOfferOnSubscriptionPage(String userType) throws Exception {
+			
+			extent.HeaderChildNode("-----Verify that users are able to see the Text for Combo offer on subscription page----");
+			logger.info("-----Verify that users are able to see the Text for Combo offer on subscription page----");
+			navigateHome();
+			mandatoryRegistrationPopUp(userType);
+			waitTime(5000);
+			click(PWAHomePage.objByPlan, "By Plan Button");
+			waitTime(5000);
+			String TextForComboOffer = findElement(PWASubscriptionPages.objTextForComboOffer).getText();
+
+			if(TextForComboOffer.equals("Radhe Combo Offer")) {
+				logger.info("Page Title: " + TextForComboOffer + " is displayed");
+				extent.extentLoggerPass("Page Title","Page Title: " + TextForComboOffer + " is displayed");
+		}else {
+			logger.error("Page Title: " + TextForComboOffer + " is not displayed");
+			extent.extentLoggerFail("Page Title","Page Title: " + TextForComboOffer + " is not displayed");
+		}
+	}
+		public void RadheComboOfferTextSubscriptionPage(String userType) throws Exception {
+			extent.HeaderChildNode("Verify that text for Radhe combo is displayed on on subscription page");
+			logger.info("Verify that text for Radhe combo is displayed on on subscription page");
+			String TextForComboOffer = findElement(PWASubscriptionPages.objTextForComboOffer).getText();
+
+			if(TextForComboOffer.equals("Radhe Combo Offer")) {
+				logger.info("Page Title: " + TextForComboOffer + " is displayed");
+				extent.extentLoggerPass("Page Title","Page Title: " + TextForComboOffer + " is displayed");
+		}else {
+			logger.error("Page Title: " + TextForComboOffer + " is not displayed");
+			extent.extentLoggerFail("Page Title","Page Title: " + TextForComboOffer + " is not displayed");
+		}
+	}
+		
+		
+		public void  premiumBenefitsOnSubscriptionPage(String userType) throws Exception {
+			extent.HeaderChildNode("Verify that Radhe combo offer text change is displayed under premium benefits on subscription page");
+			logger.info("Verify that Radhe combo offer text change is displayed under premium benefits on subscription page");
+			String TextForComboOffer = findElement(PWASubscriptionPages.objTextForComboOffer).getText();
+			
+			String comboRadheYearZee5Premium =findElement(PWASubscriptionPages.objComboRadheYearZee5Premium).getText();
+			
+			String BlockbusterMovie = findElement(PWASubscriptionPages.objBlockbusterMovie).getText();
+			
+			String PlushWebSeries = findElement(PWASubscriptionPages.obj200PlushWebSeries).getText();
+			
+			String WatchBeforeTv = findElement(PWASubscriptionPages.objWatchBeforeTv).getText();
+			
+			String WatchAddFree = findElement(PWASubscriptionPages.objWatchAddFree).getText();
+
+			
+			if (comboRadheYearZee5Premium.equals("Radhe + 1 Year ZEE5 Premium")) {
+				logger.info("Combo " + comboRadheYearZee5Premium + " is displayed");
+				extent.extentLoggerPass("Combo","Combo " + comboRadheYearZee5Premium + " is displayed");
+		}else {
+			logger.error("Combo " + comboRadheYearZee5Premium + " is not displayed");
+			extent.extentLoggerFail("Combo","Combo " + comboRadheYearZee5Premium + " is not displayed");
+		}
+			
+			
+			if (BlockbusterMovie.equals("Blockbuster Movies")) {
+				logger.info("4500+ " + BlockbusterMovie + " is displayed");
+				extent.extentLoggerPass("4500+","4500+ " + BlockbusterMovie + " is displayed");
+		}else {
+			logger.error("4500+ " + BlockbusterMovie + " is not displayed");
+			extent.extentLoggerFail("4500+","4500+ " + BlockbusterMovie + " is not displayed");
+		}
+			if (PlushWebSeries.equals("Web Series")) {
+				logger.info("200+ " + PlushWebSeries + " is displayed");
+				extent.extentLoggerPass("200+","200+ " + PlushWebSeries + " is displayed");
+		}else {
+			logger.error("200+ " + PlushWebSeries + " is not displayed");
+			extent.extentLoggerFail("200+","200+ " + PlushWebSeries + " is not displayed");
+		}
+			if (WatchBeforeTv.equals("Before TV")) {
+				logger.info("Watch " + WatchBeforeTv + " is displayed");
+				extent.extentLoggerPass("Watch","Watch " + WatchBeforeTv + " is displayed");
+		}else {
+			logger.error("Watch " + WatchBeforeTv + " is not displayed");
+			extent.extentLoggerFail("Watch","Watch " + WatchBeforeTv + " is not displayed");
+		}	
+			if (WatchAddFree.equals("Watch Ad-free")) {
+				logger.info("Watch " + WatchAddFree + " is displayed");
+				extent.extentLoggerPass("Watch","Watch " + WatchAddFree + " is displayed");
+		}else {
+			logger.error("Watch " + WatchAddFree + " is not displayed");
+			extent.extentLoggerFail("Watch","Watch " + WatchAddFree + " is not displayed");
+		}
+	}
+		
+		public void yearPremiumPlanPostPurchasing(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that Radhe combo offer text change is displayed under premium benefits on subscription page");
+		logger.info("Verify that Radhe combo offer text change is displayed under premium benefits on subscription page");
+		click(PWASubscriptionPages.objCancleButton, "Cancle Button");
+		waitTime(3000);
+		click(PWASubscriptionPages.objContinueWith499, "Continue With 499");
+		waitTime(3000);
+		click(PWASubscriptionPages.objLoginButton, "Login Button");
+		waitTime(4000);
+		String Username = getParameterFromXML("NonsubscribedUserName");
+		String Password = getParameterFromXML("NonsubscribedPassword");
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+		type(PWALoginPage.objEmailField, Username, "Email Field");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+		type(PWALoginPage.objPasswordField, Password, "Password field");
+		waitTime(5000);
+		click(PWALoginPage.objWebLoginButton, "Login Button");
+		waitTime(10000);
+		click(PWASubscriptionPages.objContinueWith499, "Continue With 499");
+		waitTime(5000);
+		if (verifyElementExist(PWASubscriptionPages.objMakePayment, "Make Payment")) {
+			extent.extentLoggerPass("", "Make Payment page is displayed");
+	 		logger.info("Make Payment page is displayed");
+		}
+			else {
+				extent.extentLoggerFail("", "Make Payment page is not displayed");
+	 		logger.error("Make Payment page is not displayed");
+			}
+		}
+		
+		
+		public void TextWithMoreThan(String userType) throws Exception {
+			extent.HeaderChildNode("Verify that Radhe combo offer text change is displayed instead of Existing text: with more than");
+			logger.info("Verify that Radhe combo offer text change is displayed instead of Existing text: with more than");
+			click(PWASubscriptionPages.objCancleButton, "Cancle Button");
+			waitTime(5000);
+			click(PWASubscriptionPages.objComboRadheYearZee5Premium, "Combo Radhe Year Zee5 Premium");
+			waitTime(3000);
+			String Description = findElement(PWASubscriptionPages.objDescriptionComboRadheYearZee5Premium).getText();
+			if (Description.equals("One time Radhe ZEEPLEX Rental: Watch Salman's Latest Blockbuster Radhe with rental validity of 21 Days, watch time validity of 4 hours. Standard ZEEPLEX rental *terms and conditions applicable. Radhe releasing on 13th May 2021 at 12 noon.")) {
+				logger.info("Watch " + Description + " is displayed");
+				extent.extentLoggerPass("Watch","Watch " + Description + " is displayed");
+		}else {
+			logger.error("Watch " + Description + " is not displayed");
+			extent.extentLoggerFail("Watch","Watch " + Description + " is not displayed");
+		}	
+	}
+		public void oneTimeRadheRentaltextIsDisplayed(String userType) throws Exception {
+			extent.HeaderChildNode("Verify that Inside Blockbuster bottom sheet one time Radhe Rental text is displayed");
+			logger.info("Verify that Inside Blockbuster bottom sheet one time Radhe Rental text is displayed");
+			click(PWASubscriptionPages.objBlockbusterMovie, "Blockbuster Movie");
+			waitTime(3000);
+			String oneTimeRadheZEEPLEXRentalText = findElement(PWASubscriptionPages.objOneTimeRadheZEEPLEXRentalText).getText();
+			if (oneTimeRadheZEEPLEXRentalText.equals("4500+ Blockbuster Movies")) {
+				logger.info("" + oneTimeRadheZEEPLEXRentalText + " is displayed");
+				extent.extentLoggerPass(""," " + oneTimeRadheZEEPLEXRentalText + " is displayed");
+		}else {
+			logger.error("" + oneTimeRadheZEEPLEXRentalText + " is not displayed");
+			extent.extentLoggerFail("","" + oneTimeRadheZEEPLEXRentalText + " is not displayed");
+		}
+	}
+		
 }

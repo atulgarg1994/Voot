@@ -418,6 +418,13 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.ComboOfferPremiumPlex(userType);
 	}
 	
+	@Test(priority = 33)
+	@Parameters({ "userType" })
+	public void InSprintComboOfferAutomations(String userType) throws Exception {
+//		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.ComboOfferPremiumPlexSub(userType);
+	}
+	
 	@AfterClass
 	public void tearDown() {
 		Zee5WEBPWASanityBusinessLogic.tearDown();
