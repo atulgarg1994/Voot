@@ -27075,4 +27075,265 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		}
 	}
 		
+		public void PWAValidatingPlaybackAndConcurrency() throws Exception {
+			TVODComboLogin();
+			
+			PWAVerifyPlaybackAndConcurrency();
+			PlayerControls();
+			CastScreen();
+		}
+	public void PWAVerifyPlaybackAndConcurrency() throws Exception {			
+			extent.HeaderChildNode(
+					"\"Verify if user is able to see \"Please note before you start\" popup on player consumption screen");
+			logger.info(
+					"Verify if user is able to see \"Please note before you start\" popup on player consumption screen");
+			
+			mandatoryRegistrationPopUp(userType);
+			click(PWAHomePage.objTabName("Rent"), "Rent now tab");
+			waitTime(3000);
+			scrollToElement(PWAComboOfferPage.objWatchNowCTA);
+			extent.HeaderChildNode(
+					"Verify user is able to see the Watch Now CTA for the rented plex movie.");
+			logger.info(
+					"Verify user is able to see the Watch Now CTA for the rented plex movie.");
+			
+			if(verifyElementDisplayed(PWAComboOfferPage.objWatchNowCTA)) 
+			{
+		    	logger.info("user is able to see the Watch Now CTA for the rented plex movie.");
+				extent.extentLoggerPass("", "user is able to see the Watch Now CTA for the rented plex movie.");
+		    }else {
+		    	logger.error("user is not able to see the Watch Now CTA for the rented plex movie.");
+				extent.extentLoggerFail("", "user is not able to see the Watch Now CTA for the rented plex movie.");
+		    }
+			click(PWAComboOfferPage.objWatchNowCTA, "Watch Now");
+			waitTime(3000);
+			
+			extent.HeaderChildNode(
+					"Verify if user taps on Watch now CTA then \"Please note before you start \"  -->");
+			logger.info(
+					"Verify if user taps on Watch now CTA then \"Please note before you start \"  -->");
+			
+			click(PWAPlayerPage.objWatchNowPlayerCTA, "Watch Now");
+			if(verifyElementDisplayed(PWAPlayerPage.objPleaseNoteBeforeYouStartPopUP)) 
+			{
+		    	logger.info("Please Note Before You Start Pop up screen is displayed");
+				extent.extentLoggerPass("", "Please Note Before You Start Pop up screen is displayed");
+				if(verifyElementDisplayed(PWAPlayerPage.objAgreeAndWatchNowCTA))
+				{logger.info("User is able to see Agree & Start watching CTA");
+				extent.extentLoggerPass("", "User is able to see Agree & Start watching CTA");}
+				else {logger.error("User is not able to see Agree & Start watching CTA");
+				extent.extentLoggerFail("", "User is not able to see Agree & Start watching CTA");}
+		    }else {
+		    	logger.error("Please Note Before You Start Pop up screen is not displayed");
+				extent.extentLoggerFail("", "Please Note Before You Start Pop up screen is not displayed");
+		    }
+			
+			
+			extent.HeaderChildNode(
+					"Verify if user is able to see close option on \"Please note before you start\" popup on player consumption screen and Verify if the close option on the \"Please note before you start\" popup");
+			logger.info(
+					"Verify if user is able to see close option on \"Please note before you start\" popup on player consumption screen and Verify if the close option on the \"Please note before you start\" popup");
+			
+			if(verifyElementDisplayed(PWAPlayerPage.objPopUpCloseIcon)) 
+			{
+		    	logger.info("Please Note Before You Start Pop up close icon is displayed");
+				extent.extentLoggerPass("", "Please Note Before You Start Pop up close icon  is displayed");
+		    }else {
+		    	logger.error("Please Note Before You Start Pop up close icon is not displayed");
+				extent.extentLoggerFail("", "Please Note Before You Start Pop up close icon is not displayed");
+		    }
+			
+			click(PWAPlayerPage.objPopUpCloseIcon, "Close Icon");
+			if(verifyElementDisplayed(PWAPlayerPage.objWatchNowPlayerCTA)) 
+			{
+		    	logger.info("User is able to close the popup and land on player consumption screen with watch now CTA on player screen");
+				extent.extentLoggerPass("", "User is able to close the popup and land on player consumption screen with watch now CTA on player screen");
+		    }else {
+		    	logger.error("User is not able to close the popup and land on player consumption screen.");
+				extent.extentLoggerFail("", "User is not able to close the popup and land on player consumption screen.");
+		    }
+			
+			
+			extent.HeaderChildNode(
+					"Verify if the parental pin is asked post the \"Please note before you start\" popup if user has Parental pin set");
+			logger.info(
+					"Verify if the parental pin is asked post the \"Please note before you start\" popup if user has Parental pin set");
+			
+			click(PWAPlayerPage.objWatchNowPlayerCTA, "Watch Now");
+			click(PWAPlayerPage.objAgreeAndWatchNowCTA, "Agree and Watch now CTA");
+			waitTime(3000);
+			
+			if(verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field"))
+			{logger.info("Parental pin pop up is displayed post accepting the \"Please note before you start\" popup");
+			extent.extentLoggerPass("", "Parental pin pop up is displayed post accepting the \\\"Please note before you start\\\" popup");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "1", "ParentalLockPin");
+			waitTime(4000);
+			
+			}
+			else {logger.info("Parental pin pop up is not displayed post accepting the \"Please note before you start\" popup");
+			extent.extentLoggerPass("", "Parental pin pop up is not displayed post accepting the \\\"Please note before you start\\\" popup");
+		    }
+			
+			
+			extent.HeaderChildNode(
+					"\"Verify where plex logo and content expiry information is displayed on the \r\n"
+					+ "  plex consumption screen.\"");
+			logger.info(
+					"\"Verify where plex logo and content expiry information is displayed on the \r\n"
+					+ "  plex consumption screen.\"");
+			if(verifyElementDisplayed(PWAPlayerPage.objZeePlexLogo) && verifyElementDisplayed(PWAPlayerPage.objContentExpiryInfo) ) 
+			{
+		    	logger.info("Plex logo and content expiry information (expires in 2 days) is displayed on the plex consumption screen.");
+				extent.extentLoggerPass("", "Plex logo and content expiry information (expires in 2 days) is displayed on the plex consumption screen.");
+		    }else {
+		    	logger.error("Plex logo and content expiry information (expires in 2 days) is not displayed on the plex consumption screen.");
+				extent.extentLoggerFail("", "Plex logo and content expiry information (expires in 2 days) is not displayed on the plex consumption screen.");
+		    }
+
+			waitTime(2000);
+			extent.HeaderChildNode("Verify if user is able to watch the content on clicking Agree & start watching");
+			logger.info("Verify if user is able to watch the content on clicking Agree & start watching");
+			
+			
+			if(verifyElementDisplayed(PWAPlayerPage.objPlayerBottomBar))  
+			{
+		    	logger.info("user is able to watch the content on clicking Agree & start watching");
+				extent.extentLoggerPass("", "user is able to watch the content on clicking Agree & start watching");
+		    }else {
+		    	logger.error("user is not able to watch the content on clicking Agree & start watching");
+				extent.extentLoggerFail("", "user is not able to watch the content on clicking Agree & start watching");
+		    }
+			
+
+			extent.HeaderChildNode("verify if user is clicking on watch trailer CTA below the player");
+			logger.info("verify if user is clicking on watch trailer CTA below the player");
+			
+			waitTime(2000);
+			scrollToElement(PWAPlayerPage.objWatchTrailer);
+			if(verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field"))
+			{logger.info("Parental pin pop up is displayed post accepting the \"Please note before you start\" popup");
+			extent.extentLoggerPass("", "Parental pin pop up is displayed post accepting the \\\"Please note before you start\\\" popup");
+			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3player, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4player, "1", "ParentalLockPin");
+			waitTime(4000);
+			
+			}
+			else {logger.info("Parental pin pop up is not displayed post accepting the \"Please note before you start\" popup");
+			extent.extentLoggerPass("", "Parental pin pop up is not displayed post accepting the \\\"Please note before you start\\\" popup");
+		    }
+			waitTime(2000);
+			if(verifyElementDisplayed(PWAPlayerPage.objTrailerText))  
+			{
+		    	logger.info("User is able to see the trailer playback on the consumption screen");
+				extent.extentLoggerPass("", "User is able to see the trailer playback on the consumption screen");
+		    }else {
+		    	logger.error("User is not able to see the trailer playback on the consumption screen");
+				extent.extentLoggerFail("", "User is not able to see the trailer playback on the consumption screen");
+		    }
+			
+			
+			extent.HeaderChildNode("Verify if the plex content is playing after the trailer playback on clicking watch trailer CTA from consumption screen");
+			logger.info("Verify if the plex content is playing after the trailer playback on clicking watch trailer CTA from consumption screen");
+			
+			
+			if(verifyElementNotPresent(PWAPlayerPage.objRentNow, 10))  
+			{
+		    	logger.info("User does not see any Rent now CTA while trailer playback and Plex movie should start playing");
+				extent.extentLoggerPass("", "User does not see any Rent now CTA while trailer playback and Plex movie should start playing");
+		    }else {
+		    	logger.error("User is able to see any Rent now CTA while trailer playback and Plex movie should start playing");
+				extent.extentLoggerFail("", "User is able to see any Rent now CTA while trailer playback and Plex movie should start playing");
+		    }
+			
+			extent.HeaderChildNode("Verify if the user is able to see the timer and zeeplex logo below the player");
+			logger.info("Verify if the user is able to see the timer and zeeplex logo below the player");
+			
+			if(verifyElementDisplayed(PWAPlayerPage.objZeePlexLogo) && verifyElementDisplayed(PWAPlayerPage.objContentExpiryInfo) ) 
+			{
+		    	logger.info("user is able to see the timer and zeeplex logo below the player");
+				extent.extentLoggerPass("", "user is able to see the timer and zeeplex logo below the player");
+		    }else {
+		    	logger.error("user is not able to see the timer and zeeplex logo below the player");
+				extent.extentLoggerFail("", "user is not able to see the timer and zeeplex logo below the player");
+		    }
+			
+			
+		}
+		
+
+		public void PlayerControls() throws Exception {
+			
+			extent.HeaderChildNode("Verify if user is able to see the player controls on the player");
+			logger.info("Verify if user is able to see the player controls on the player");
+			
+			mouseHover();
+			if(verifyIsElementDisplayed(PWAPlayerPage.objPlayerPause)&&verifyIsElementDisplayed(PWAPlayerPage.forward10SecBtn)&&verifyIsElementDisplayed(PWAPlayerPage.rewind10SecBtn))
+				{logger.info("user is able to see the player controls on the player");
+			extent.extentLoggerPass("", "user is able to see the player controls on the player");
+		}else {
+			logger.error("user is not able to see the player controls on the player");
+			extent.extentLoggerFail("", "user is not able to see the player controls on the player");
+		}
+			
+			extent.HeaderChildNode("Verify if user clicks on play icon");
+			logger.info("Verify if user clicks on play icon");
+			
+			mouseHover();
+			
+			if(verifyIsElementDisplayed(PWAPlayerPage.objPlayerPause)&&verifyIsElementDisplayed(PWAPlayerPage.forward10SecBtn)&&verifyIsElementDisplayed(PWAPlayerPage.rewind10SecBtn))
+				{logger.info("User is able to play the content and show the pause icon");
+			extent.extentLoggerPass("", "User is able to play the content and show the pause icon");
+		}else {
+			logger.error("User is not able to play the content and show the pause icon");
+			extent.extentLoggerFail("", "User is not able to play the content and show the pause icon");
+		}
+			
+			
+			extent.HeaderChildNode("Verify if user clicks on pause icon");
+			logger.info("Verify if user clicks on pause icon");
+			
+		mouseHover();
+			click(PWAPlayerPage.objPlayerPause, "Pause icon");
+			if(verifyIsElementDisplayed(PWAPlayerPage.objPlayerPause)&&verifyIsElementDisplayed(PWAPlayerPage.forward10SecBtn)&&verifyIsElementDisplayed(PWAPlayerPage.rewind10SecBtn))
+				{logger.info("User is able to pause the content and show the pause icon");
+			extent.extentLoggerPass("", "User is able to pause the content and show the pause icon");
+		}else {
+			logger.error("User is not able to pause the content and show the pause icon");
+			extent.extentLoggerFail("", "User is not able to pause the content and show the pause icon");
+		}
+			
+		
+	}
+
+		public void CastScreen() throws Exception {
+			extent.HeaderChildNode("Verify if cast option is displaying on the TVOD content player on right top corner");
+			logger.info("Verify if cast option is displaying on the TVOD content player on right top corner");
+			
+			if(verifyIsElementDisplayed(PWAPlayerPage.objChromecastButton))
+			{logger.info("cast option is displaying on the TVOD content player on right top corner");
+		extent.extentLoggerPass("", "cast option is displaying on the TVOD content player on right top corner");
+	}else {
+		logger.error("cast option is not displaying on the TVOD content player on right top corner");
+		extent.extentLoggerFail("", "cast option is not displaying on the TVOD content player on right top corner");
+	}
+		}
+		
+	public void TVODComboLogin() throws Exception {
+		extent.HeaderChildNode("Login");
+			extent.extentLogger("", "Login through TVOD User");
+			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			waitTime(5000);
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			type(PWALoginPage.objEmailField, "tvod_combo@mailnesia.com", "Email Field");
+			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			type(PWALoginPage.objPasswordField, "123456", "Password field");
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(5000);
+	}
+		
 }

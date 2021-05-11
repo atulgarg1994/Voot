@@ -447,4 +447,23 @@ public class PWAPlayerPage {
 	
 	public static By objContentTitle2 = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//h1");
 	
+	public static By objWatchNowCTA = By.xpath("(//button[@type='button' and span[text()='Watch Now']])[1]");
+	
+	public static By objWatchNowPlayerCTA = By.xpath("(//button[@type='button' and span[text()='Watch Now']])[1]");
+	
+	public static By objPleaseNoteBeforeYouStartPopUP = By.xpath("//*[@class='beforeStartpopupContainer']");
+	
+	public static By objPopUpCloseIcon = By.xpath("//*[contains(@class,'noSelect closePupup iconInitialLoad-ic_close')]");
+	
+	public static By objAgreeAndWatchNowCTA = By.xpath("//*[@class='agreeandWatchButton']");
+	
+	public static By objPlayerBottomBar = By.xpath("//*[@class='playkit-bottom-bar']");
+	
+	public static By objWatchTrailer = By.xpath("//*[@title='Watch Trailer']");
+	
+	public static By objTrailerText = By.xpath("//*[@class='trailerInfoContainer']");
+	
+	public static By objRentNow = By.xpath("//*[text()='Rent Now']");
+	public static By objContentExpiryInfo = By.xpath("(//*[@class='rentButton'])[1]");
+	public static By objZeePlexLogo = By.xpath("(//*[@title='plex Logo'])[1]");
 }

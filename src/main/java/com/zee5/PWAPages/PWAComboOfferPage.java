@@ -94,5 +94,5 @@ public class PWAComboOfferPage {
 	public static By objUpgradeToComboOfferPopupUpgradeBtn = By
 			.xpath("//*[@class='comboPopupBtns']//span[text()='Upgrade']");
 	
-	
+	public static By objWatchNowCTA = By.xpath("(//button[@type='button' and span[text()='Watch Now']])[1]");
 }
