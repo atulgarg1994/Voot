@@ -89,17 +89,17 @@ public class Android_TVOD_ComboOffer {
 		ZEE5ApplicasterBusinessLogic.VerifyRentalPlanAsSubscribedUser(pEmailId, pPassword);
 	}
 	
-	@Test(priority = 6)//Bhavana
-	@Parameters({ "userType","","","tabName1", "Radhe"}) //---Need to pass the Non-subscribed user which is not rented
-	public void UseCase5(String userType, String pEmailId, String pPassword, String ptabName, String pContentTitle) throws Exception {
-        ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
-		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(pEmailId,pPassword);
-        ZEE5ApplicasterBusinessLogic.NonSubscribed_withoutRadheRental(ptabName,pContentTitle); 
-    }
-	
+	@Test(priority = 6)
+	@Parameters({"NonSubsUserWithActiveRentalPlan","CommomPassword" })	//---Need to pass Non-Susbcribeduser credentials which has only Radhe rental Active plan activated
+	public void GuestUserLogsinAsNonSubsUserWithRentalActivePlan(String pEmailId,String pPassword) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
+		ZEE5ApplicasterBusinessLogic.selectSpecificContentLanguages();
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin("Guest");
+		ZEE5ApplicasterBusinessLogic.VerifyRentalPlanAsNonSubscribedUser(pEmailId, pPassword);
+	}
 
-	
 	@Test(priority = 7)
 	@Parameters({ "userType","SubsUserWithActiveRentalPlan","CommomPassword","Radhe"}) //---Need to pass Susbcribeduser credentials which has 1-year Premium+Radhe Active plan
 	public void UseCase3a(String userType,String pEmailId, String pPassword, String pContentTitle) throws Exception {
@@ -181,16 +181,14 @@ public class Android_TVOD_ComboOffer {
 		ZEE5ApplicasterBusinessLogic.ZeePlexContentInPlayerCTAValidation();
 	}
 	
-	@Test(priority = 13)
-	@Parameters({"NonSubsUserWithActiveRentalPlan","CommomPassword" })	//---Need to pass Non-Susbcribeduser credentials which has only Radhe rental Active plan activated
-	public void GuestUserLogsinAsNonSubsUserWithRentalActivePlan(String pEmailId,String pPassword) throws Exception {
-		ZEE5ApplicasterBusinessLogic.relaunch(true);
-		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
-		ZEE5ApplicasterBusinessLogic.selectSpecificContentLanguages();
-		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
-		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin("Guest");
-		ZEE5ApplicasterBusinessLogic.VerifyRentalPlanAsNonSubscribedUser(pEmailId, pPassword);
-	}
+//	@Test(priority = 13)//Bhavana
+//	@Parameters({ "userType","","","tabName1", "Radhe"}) //---Need to pass the Non-subscribed user which is not rented
+//	public void UseCase5(String userType, String pEmailId, String pPassword, String ptabName, String pContentTitle) throws Exception {
+//        ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+//		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
+//		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(pEmailId,pPassword);
+//        ZEE5ApplicasterBusinessLogic.NonSubscribed_withoutRadheRental(ptabName,pContentTitle); 
+//    }
 	
 	@AfterTest
 	public void tearDownApp() {
