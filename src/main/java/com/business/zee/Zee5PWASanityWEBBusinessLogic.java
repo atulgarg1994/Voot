@@ -28870,7 +28870,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		validatePaymentPageNavigation();
 		type(PWALoginPage.objEmailField, "igstesting002@gmail.com", "Email ID");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
-		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
+		type(PWALoginPage.objPasswordField, "igs@12345", "Password Button");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
 		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
 		navigateHome();
@@ -28887,7 +28887,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		validatePaymentPageNavigation();
 		type(PWALoginPage.objEmailField, RandomStringGenerator(6)+"007@gmail.com", "Email ID");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
-		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
+		type(PWALoginPage.objPasswordField, "igs@12345", "Password Button");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
 		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
 		navigateHome();
@@ -28905,7 +28905,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		validatePaymentPageNavigation();
 		type(PWALoginPage.objEmailField, "igstesting002@gmail.com", "Email ID");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
-		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
+		type(PWALoginPage.objPasswordField, "igs@12345", "Password Button");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
 		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
 		navigateHome();
@@ -28922,7 +28922,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		validatePaymentPageNavigation();
 		type(PWALoginPage.objEmailField, RandomStringGenerator(6)+"002@gmail.com", "Email ID");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
-		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
+		type(PWALoginPage.objPasswordField, "igs@12345", "Password Button");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
 		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
 		navigateHome();
@@ -28960,7 +28960,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		click(PWASubscriptionPages.objContinueBtn,"Continue Button");
 		type(PWALoginPage.objEmailField, "igstesting002@gmail.com", "Email ID");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
-		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
+		type(PWALoginPage.objPasswordField, "igs@12345", "Password Button");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
 		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
 		navigateHome();
@@ -28972,7 +28972,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		click(PWASubscriptionPages.objContinueBtn,"Continue Button");
 		type(PWALoginPage.objEmailField, RandomStringGenerator(6)+"002@gmail.com", "Email ID");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
-		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
+		type(PWALoginPage.objPasswordField, "igs@12345", "Password Button");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
 		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
 		navigateHome();
