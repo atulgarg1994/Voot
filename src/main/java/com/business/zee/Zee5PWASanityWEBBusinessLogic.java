@@ -26388,11 +26388,20 @@ public void pwaverifyHaveacode(String userType) throws Exception
 //		PWAZeePLEXPageEntryPointValidations(userType, "299", "BelowPlayer");
 //		PWAZeePLEXPageEntryPointValidations(userType, "299", "KnowMore");
 		
-		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+		if(userType.equals("Guest")) {
 			deeplinkConsumptionScreen499Login();
 			deeplinkConsumptionScreen499Register();
 			deeplinkConsumptionScreen249Login();
 			deeplinkConsumptionScreen249Register();
+		}else if(userType.equals("NonSubscribedUser")){
+			deeplinkConsumptionScreen499();
+			deeplinkConsumptionScreen249();
+		}
+		if(userType.equals("Guest")) {
+			deeplinkSubscriptionLogin();
+			deeplinkSubscriptionRegister();
+		}else if(userType.equals("NonSubscribedUser")){
+			deeplinkSubscriptionNonSub();
 		}
 	}
 	
@@ -26905,6 +26914,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 				PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName299"), getParameterFromXML("SubscribedPassword299"));
 			}else if (premiumPlan.equals("499")) {
 				PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName499"), getParameterFromXML("SubscribedPassword499"));
+			}else if (premiumPlan.equals("99")) {
+				PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName99"), getParameterFromXML("SubscribedPassword99"));
 			}else {
 				PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName"), getParameterFromXML("SubscribedPassword"));
 			}
@@ -27006,14 +27017,13 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			PWAComboOfferLoginInSubscriptionFlow(userType, premiumPlan);
 			if(premiumPlan.equalsIgnoreCase("799")) {
 				PWAVerifyComboPopupRentMovieFor();
-				zeePWAPaymentPageValidation();
 			}else if(premiumPlan.equalsIgnoreCase("299")) {
 				PWAVerifyUpgradeToComboOfferPopup();
-				zeePWAPaymentPageValidation();
 			}else {
 				PWAVerifyComboPopupRentMovieFor();
-				zeePWAPaymentPageValidation();
 			}
+			verifyElementPresent(PWASubscriptionPages.objPaymentHighlighted, "Make Payment Screen");
+			navigateHome();
 			logout();
 		}
 		
@@ -28862,6 +28872,9 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		click(PWALoginPage.objContinueBtn, "Continue Button");
 		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
+		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
+		navigateHome();
+		logout();
 	}
 	
 	public void deeplinkConsumptionScreen499Register() throws Exception {
@@ -28876,6 +28889,9 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		click(PWALoginPage.objContinueBtn, "Continue Button");
 		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
+		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
+		navigateHome();
+		logout();
 	}
 	
 	public void deeplinkConsumptionScreen249Login() throws Exception {
@@ -28891,6 +28907,9 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		click(PWALoginPage.objContinueBtn, "Continue Button");
 		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
+		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
+		navigateHome();
+		logout();
 	}
 	
 	public void deeplinkConsumptionScreen249Register() throws Exception {
@@ -28905,6 +28924,66 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		click(PWALoginPage.objContinueBtn, "Continue Button");
 		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
 		click(PWALoginPage.objContinueBtn, "Continue Button");
+		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
+		navigateHome();
+		logout();
 	}
 	
+	public void deeplinkConsumptionScreen499() throws Exception {
+		getWebDriver().get(getParameterFromXML("DeeplinkConsumption"));
+		validateConsumptionScreen();
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
+		verifyComboScreen();
+		termsOfService();
+		privacyPolicy();
+		validatePaymentPageNavigation();
+		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
+		navigateHome();
+		logout();
+	}
+	
+	public void deeplinkConsumptionScreen249() throws Exception {
+		getWebDriver().get(getParameterFromXML("DeeplinkConsumption"));
+		validateConsumptionScreen();
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
+		verifyComboScreen();
+		termsOfService();
+		privacyPolicy();
+		validatePaymentPageNavigation();
+		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
+		navigateHome();
+		logout();
+	}
+	
+	public void deeplinkSubscriptionLogin() throws Exception {
+		getWebDriver().get(getParameterFromXML("DeeplinkSubscription"));
+		click(PWASubscriptionPages.objContinueBtn,"Continue Button");
+		type(PWALoginPage.objEmailField, "igstesting002@gmail.com", "Email ID");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
+		navigateHome();
+		logout();
+	}
+	
+	public void deeplinkSubscriptionRegister() throws Exception {
+		getWebDriver().get(getParameterFromXML("DeeplinkSubscription"));
+		click(PWASubscriptionPages.objContinueBtn,"Continue Button");
+		type(PWALoginPage.objEmailField, RandomStringGenerator(6)+"002@gmail.com", "Email ID");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
+		navigateHome();
+		logout();
+	}
+	
+	public void deeplinkSubscriptionNonSub() throws Exception {
+		getWebDriver().get(getParameterFromXML("DeeplinkSubscription"));
+		click(PWASubscriptionPages.objContinueBtn,"Continue Button");
+		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
+		navigateHome();
+		logout();
+	}
 }

@@ -34,6 +34,8 @@ public class ParameterInjector implements IAlterSuiteListener {
 		params.put("SubscribedPassword299", suite.getParameter("SubscribedPassword299"));
 		params.put("SubscribedUserName499", suite.getParameter("SubscribedUserName499"));
 		params.put("SubscribedPassword499", suite.getParameter("SubscribedPassword499"));
+		params.put("SubscribedUserName99", suite.getParameter("SubscribedUserName99"));
+		params.put("SubscribedPassword99", suite.getParameter("SubscribedPassword99"));
 		System.out.println("Browser type : " + suite.getParameter("browserType"));
 
 		if (suite.getParameter("url").equals("newpwa")) {
@@ -129,6 +131,7 @@ public class ParameterInjector implements IAlterSuiteListener {
 					"https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paaru-gets-tipsy-paaru-highlights/0-1-249189");
 			params.put("comboOfferMovie", "Aag Ka Gola");
 			params.put("DeeplinkConsumption","https://newpwa.zee5.com/movies/details/aag-ka-gola/0-0-movie_216980339");
+			params.put("DeeplinkSubscription","https://newpwa.zee5.com/myaccount/subscription");
 			
 		}
 		if (region.equals("MH")) {
