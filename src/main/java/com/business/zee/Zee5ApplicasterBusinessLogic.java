@@ -22088,167 +22088,178 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 		extent.HeaderChildNode("Validation of Carousal and Consumption page");
 		SelectTopNavigationTab(tabName);
 	
-		 boolean trailerCTA = verifyElementExist(AMDTVODComboOffer.objTrailerCTAonCarouselForContent(contentTitle), "Trailer CTA");
-		 boolean rentCTA = verifyElementExist(AMDTVODComboOffer.objRentNowCTAonCarouselForContent(contentTitle), "Rent Now CTA");
-			if(trailerCTA) {
-				logger.info("Trailer CTA on carousel banner for TVOD content is displayed");
-			 	extent.extentLoggerPass("Carousel", "Trailer CTA on carousel banner for "+contentTitle+" is displayed"); 
-			}else {
-				logger.error("Trailer CTA on carousel banner for TVOD content is NOT displayed");
-			 	extent.extentLoggerFail("Carousel", "Trailer CTA on carousel banner for "+contentTitle+" is NOTdisplayed"); 
-			}
-			if(rentCTA) {
-				logger.info("Rent Now CTA on carousel banner for TVOD content is displayed");
-			 	extent.extentLoggerPass("Carousel", "Rent Now CTA on carousel banner for "+contentTitle+" is displayed"); 
-			}else {
-				logger.error("Rent Now CTA on carousel banner for TVOD content is NOT displayed");
-			 	extent.extentLoggerFail("Carousel", "Rent Now CTA on carousel banner for "+contentTitle+" is NOTdisplayed"); 
-			}		
+		if(verifyElementExist(AMDHomePage.objCarouselContentTitleCard(contentTitle), "Carousel content: "+contentTitle)) {
+			waitTime(10000);
+			 boolean trailerCTA = verifyElementExist(AMDTVODComboOffer.objTrailerCTAonCarouselForContent(contentTitle), "Trailer CTA");
+			 boolean rentCTA = verifyElementExist(AMDTVODComboOffer.objRentNowCTAonCarouselForContent(contentTitle), "Rent Now CTA");
+				if(trailerCTA) {
+					logger.info("Trailer CTA on carousel banner for TVOD content is displayed");
+				 	extent.extentLoggerPass("Carousel", "Trailer CTA on carousel banner for "+contentTitle+" is displayed"); 
+				}else {
+					logger.error("Trailer CTA on carousel banner for TVOD content is NOT displayed");
+				 	extent.extentLoggerFail("Carousel", "Trailer CTA on carousel banner for "+contentTitle+" is NOTdisplayed"); 
+				}
+				if(rentCTA) {
+					logger.info("Rent Now CTA on carousel banner for TVOD content is displayed");
+				 	extent.extentLoggerPass("Carousel", "Rent Now CTA on carousel banner for "+contentTitle+" is displayed"); 
+				}else {
+					logger.error("Rent Now CTA on carousel banner for TVOD content is NOT displayed");
+				 	extent.extentLoggerFail("Carousel", "Rent Now CTA on carousel banner for "+contentTitle+" is NOTdisplayed"); 
+				}		
+					
+				//clicking on Trailer CTA from Carousel		
+				waitTime(5000);
+			    waitForElementAndClickIfPresent(AMDTVODComboOffer.objTrailerCTAonCarouselForContent(contentTitle), 60, "Trailer CTA on "+contentTitle+" Carousel content");
+				waitTime(3000);
+				if(verifyElementExist(AMDConsumptionScreen.objContentName, "Content name in Consumption screen")) {
+					logger.info("User is navigated to Consumption screen on clicking Trailer CTA from carousel banner for content: "+contentTitle);
+				 	extent.extentLoggerPass("Consumption Screen", "User is navigated to Consumption screen on clicking Trailer CTA from  carousel banner for content: "+contentTitle); 
+				    Back(1);
+				}else {
+					logger.error("User Fails navigate to Consumption screen on clicking Trailer CTA from carousel banner for content: "+contentTitle);
+				 	extent.extentLoggerFail("Carousel", "User Fails navigate to Consumption screen on clicking Trailer CTA from carousel banner for content: "+contentTitle);
+				}
 				
-			//clicking on Trailer CTA from Carousel		
-			waitTime(5000);
-		    waitForElementAndClickIfPresent(AMDTVODComboOffer.objTrailerCTAonCarouselForContent(contentTitle), 60, "Trailer CTA on "+contentTitle+" Carousel content");
-			waitTime(3000);
-			if(verifyElementExist(AMDConsumptionScreen.objContentName, "Content name in Consumption screen")) {
-				logger.info("User is navigated to Consumption screen on clicking Trailer CTA from carousel banner for content: "+contentTitle);
-			 	extent.extentLoggerPass("Consumption Screen", "User is navigated to Consumption screen on clicking Trailer CTA from  carousel banner for content: "+contentTitle); 
-			    Back(1);
-			}else {
-				logger.error("User Fails navigate to Consumption screen on clicking Trailer CTA from carousel banner for content: "+contentTitle);
-			 	extent.extentLoggerFail("Carousel", "User Fails navigate to Consumption screen on clicking Trailer CTA from carousel banner for content: "+contentTitle);
-			}
+				
+				//clicking on Rent Now CTA from Carousel
+				waitForElementAndClickIfPresent(AMDTVODComboOffer.objRentNowCTAonCarouselForContent(contentTitle), 60, "Rent Now CTA on "+contentTitle+" Carousel content");
+				waitTime(3000);
+				if(verifyElementDisplayed(AMDConsumptionScreen.objContentName)) {
+					logger.info("User is navigated to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle);
+				 	extent.extentLoggerPass("Consumption Screen", "User is navigated to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle); 
+				    Back(1);
+				}else {
+					logger.error("User Fails navigate to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle);
+				 	extent.extentLoggerFail("Carousel", "User Fails navigate to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle);
+				}
+				
+				//clicking on TVOD Carousel content
+				waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(contentTitle), 60, "Carousel content: "+contentTitle);
+				waitTime(3000);
+				if(verifyElementDisplayed(AMDConsumptionScreen.objContentName)) {
+					logger.info("User is navigated to Consumption screen on clicking carousel banner for TVOD content: "+contentTitle);
+				 	extent.extentLoggerPass("Consumption Screen", "User is navigated to Consumption screen on clicking carousel banner for TVOD content: "+contentTitle); 
+				}else {
+					logger.error("User Fails navigate to Consumption screen on clicking carousel banner for TVOD content: "+contentTitle);
+				 	extent.extentLoggerFail("Carousel", "User Fails navigate to Consumption screen on clicking carousel banner for TVOD content: "+contentTitle);
+				}
+				
+				//Rent Now CTA below the player
+				if(verifyElementExist(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA below the player")) {
+					click(AMDTVODComboOffer.objRentNowCTABelowPlayer,"Rent Now CTA Below the Player");
+					if(verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
+						logger.info("Combo offer page is displayed on clicking Rent Now CTA Below the player");
+					 	extent.extentLoggerPass("Consumption Screen", "Combo offer page is displayed on clicking Rent Now CTA Below the player"); 
+					 	Back(1);
+					}else {
+						logger.error("Combo offer page is not displayed on clicking Rent Now CTA Below the player");
+					 	extent.extentLoggerFail("Consumption Screen", "Combo offer page is not displayed on clicking Rent Now CTA Below the player");
+					}
+				}
+				//Rent Now CTA on The player
+				//click(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer");
+				waitTime(5000);
+				click(AMDPlayerScreen.objPlayerScreen, "player screen");
+				if(verifyIsElementDisplayed(AMDPlayerScreen.objPauseIcon)) {
+					scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
+				}
+				verifyElementExist(AMDTVODComboOffer.objRentNowTextOnPlayer, "Watch full content by renting it now text on player");
+				if(verifyElementExist(AMDTVODComboOffer.objRentNowCTAOnPlayer,"Rent Now CTA on Player")) {
+					click(AMDTVODComboOffer.objRentNowCTAOnPlayer,"Rent Now CTA on Player");
+					if(verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
+						logger.info("Combo offer page is displayed on clicking Rent Now CTA on the player");
+					 	extent.extentLoggerPass("Consumption Screen", "Combo offer page is displayed on clicking Rent Now CTA on the player"); 
+					 	Back(1);
+					}else {
+						logger.error("Combo offer page is not displayed on clicking Rent Now CTA on the player");
+					 	extent.extentLoggerFail("Consumption Screen", "Combo offer page is not displayed on clicking Rent Now CTA on the player");
+					}
+				}
 			
-			
-			//clicking on Rent Now CTA from Carousel
-			waitForElementAndClickIfPresent(AMDTVODComboOffer.objRentNowCTAonCarouselForContent(contentTitle), 60, "Rent Now CTA on "+contentTitle+" Carousel content");
-			waitTime(3000);
-			if(verifyElementDisplayed(AMDConsumptionScreen.objContentName)) {
-				logger.info("User is navigated to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle);
-			 	extent.extentLoggerPass("Consumption Screen", "User is navigated to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle); 
-			    Back(1);
-			}else {
-				logger.error("User Fails navigate to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle);
-			 	extent.extentLoggerFail("Carousel", "User Fails navigate to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle);
-			}
-			
-			//clicking on TVOD Carousel content
-			waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard("Aag Ka Gola"), 60, "Carousel content: "+contentTitle);
-			waitTime(3000);
-			if(verifyElementDisplayed(AMDConsumptionScreen.objContentName)) {
-				logger.info("User is navigated to Consumption screen on clicking carousel banner for TVOD content: "+contentTitle);
-			 	extent.extentLoggerPass("Consumption Screen", "User is navigated to Consumption screen on clicking carousel banner for TVOD content: "+contentTitle); 
-			}else {
-				logger.error("User Fails navigate to Consumption screen on clicking carousel banner for TVOD content: "+contentTitle);
-			 	extent.extentLoggerFail("Carousel", "User Fails navigate to Consumption screen on clicking carousel banner for TVOD content: "+contentTitle);
-			}
-			
-			//Rent Now CTA on Consumption screen
-			verifyElementExist(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA below the player");
-//			click(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer");
-//			waitTime(5000);
-//			scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
-			verifyElementExist(AMDTVODComboOffer.objRentNowTextOnPlayer, "Watch full content by renting it now text on player");
-			verifyElementExist(AMDTVODComboOffer.objRentNowCTAOnPlayer, "Rent Now CTA on player");
+				//Radhe combo offer widget on Consumption screen
+				if(verifyElementExist(AMDTVODComboOffer.objComboOfferWidgetBelowThePlayer, "Combo offer widget below the player")) {
+					click(AMDTVODComboOffer.objComboOfferWidgetBelowThePlayer, "combo offer widget");
+					if(verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
+						logger.info("Combo offer page is displayed on clicking combo offer widget below the player");
+					 	extent.extentLoggerPass("Consumption Screen", "Combo offer page is displayed on clicking combo offer widget below the player"); 
+					    Back(1);
+					}else {
+						logger.error("Combo offer page is not displayed on clicking combo offer widget below the player");
+					 	extent.extentLoggerFail("Consumption Screen", "Combo offer page is not displayed on clicking combo offer widget below the player");
+					}
+				}
+				Swipe("UP", 1);
+				verifyElementExist(AMDTVODComboOffer.objHowItWorksCTA, "How it works CTA");
+				click(AMDTVODComboOffer.objHowItWorksCTA, "How it works CTA");
+				waitTime(2000);
+				verifyElementExist(AMDTVODComboOffer.objQandAModelWindow, "Q&A model window");
+				Back(1);
+				waitTime(3000);
+				PartialSwipeInConsumptionScreen("DOWN", 2);
+				click(AMDTVODComboOffer.objRentNowCTABelowPlayer,"Rent Now CTA Below the Player");	
+		}else {
+			logger.info("Content is not displayed on Carousal");
+			extentLoggerWarning("Content on Carousal", "Content is not displayed on Carousal");
+		}
 		
-			//Radhe combo offer widget on Consumption screen
-			if(verifyElementDisplayed(AMDTVODComboOffer.objComboOfferWidgetBelowThePlayer)) {
-				logger.info("Combo offer widget below the palyer is displayed");
-			 	extent.extentLoggerPass("Consumption Screen", "Combo offer widget below the palyer is displayed"); 
-			}else {
-				logger.error("Combo offer widget below the palyer is not displayed");
-			 	extent.extentLoggerFail("Consumption Screen", "Combo offer widget below the palyer is Not displayed");
-			}	
-			Swipe("UP", 1);
-			verifyElementExist(AMDTVODComboOffer.objHowItWorksCTA, "How it works CTA");
-			click(AMDTVODComboOffer.objHowItWorksCTA, "How it works CTA");
-			waitTime(2000);
-			verifyElementExist(AMDTVODComboOffer.objQandAModelWindow, "Q&A model window");
-			Back(1);
-			//validate Combo offer page
-			//on clicking Rent Now CTA on the player
-			click(AMDTVODComboOffer.objRentNowCTAOnPlayer,"Rent Now CTA on Player");
-			if(verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
-				logger.info("Combo offer page is displayed on clicking Rent Now CTA on the player");
-			 	extent.extentLoggerPass("Consumption Screen", "Combo offer page is displayed on clicking Rent Now CTA on the player"); 
-			 	Back(1);
-			}else {
-				logger.error("Combo offer page is not displayed on clicking Rent Now CTA on the player");
-			 	extent.extentLoggerFail("Consumption Screen", "Combo offer page is not displayed on clicking Rent Now CTA on the player");
-			}
-			
-			
-			//on clicking Rent Now CTA below the player
-			click(AMDTVODComboOffer.objRentNowCTABelowPlayer,"Rent Now CTA Below the Player");
-			if(verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
-				logger.info("Combo offer page is displayed on clicking Rent Now CTA Below the player");
-			 	extent.extentLoggerPass("Consumption Screen", "Combo offer page is displayed on clicking Rent Now CTA Below the player"); 
-			 	Back(1);
-			}else {
-				logger.error("Combo offer page is not displayed on clicking Rent Now CTA Below the player");
-			 	extent.extentLoggerFail("Consumption Screen", "Combo offer page is not displayed on clicking Rent Now CTA Below the player");
-			}
-			
-			PartialSwipeInConsumptionScreen("DOWN", 1);
-			//on clicking Combo offer widget below the player
-			verifyElementPresentAndClick(AMDTVODComboOffer.objComboOfferWidgetBelowThePlayer, "combo offer widget");
-			if(verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
-				logger.info("Combo offer page is displayed on clicking combo offer widget below the player");
-			 	extent.extentLoggerPass("Consumption Screen", "Combo offer page is displayed on clicking combo offer widget below the player"); 
-			}else {
-				logger.error("Combo offer page is not displayed on clicking combo offer widget below the player");
-			 	extent.extentLoggerFail("Consumption Screen", "Combo offer page is not displayed on clicking combo offer widget below the player");
-			}
 	}
 	
 	public void ValidationOfcomboOfferPageAndPaymentPage(String subText, String CTAName) throws Exception {
 		extent.HeaderChildNode("Validation of Combo offer page");
-		verifyElementExist(AMDTVODComboOffer.objPosterOfMovieContent, "Poster of Movie Content");
-		verifyElementExist(AMDTVODComboOffer.objUpgradeTextOnComboOfferPage, "Upgrade text");
-		verifyElementExist(AMDTVODComboOffer.objUpgradeSubTextOnComboOfferPage, "Upgrade subtext");
-		String upgradeSubtext = getText(AMDTVODComboOffer.objUpgradeSubTextOnComboOfferPage);
-		if(upgradeSubtext.contains(subText)) {
-			logger.info(upgradeSubtext+" is displayed");
-			extentLoggerPass("subText", upgradeSubtext+" is displayed");
-		}else {
-			logger.info(upgradeSubtext+" is not displayed");
-			extentLoggerFail("subText", upgradeSubtext+" is not displayed");
-		}
-		verifyElementExist(AMDTVODComboOffer.objComboOfferPlan, "Combo offer plan");
-		Swipe("UP", 1);
-		verifyElementExist(AMDTVODComboOffer.objOnlyRentMoviePlan, "Only Rent Movie plan");
-		Swipe("DOWN", 1);
-		ComboOfferPlanCard_OnlyRentMoviePlanCard_Validation();
-		String value = getAttributValue("checked", AMDTVODComboOffer.objPlanCost);
-		if(value.equalsIgnoreCase("true")) {
-			logger.info("Radhe combo plan is selected by default");
-		 	extent.extentLoggerPass("Combo offer Screen", "Radhe combo plan is selected by default"); 
-		 	String cta = getText(AMDTVODComboOffer.objCTABelowTheComboOfferPage);
-		 	if(cta.equalsIgnoreCase(CTAName)) {
-		 		logger.info(CTAName+" CTA is displayed when Radhe combo plan is selected");
-		 		extentLoggerPass("Upgrade CTA", CTAName+" CTA is displayed when Radhe combo plan is selected");
-		 		click(AMDTVODComboOffer.objCTABelowTheComboOfferPage, "Upgrade CTA");
+		if(verifyElementExist(AMDTVODComboOffer.objPosterOfMovieContent, "Poster of Movie Content")) {
+			verifyElementExist(AMDTVODComboOffer.objUpgradeTextOnComboOfferPage, "Upgrade text");
+			verifyElementExist(AMDTVODComboOffer.objUpgradeSubTextOnComboOfferPage, "Upgrade subtext");
+			String upgradeSubtext = getText(AMDTVODComboOffer.objUpgradeSubTextOnComboOfferPage);
+			if(upgradeSubtext.contains(subText)) {
+				logger.info(upgradeSubtext+" is displayed");
+				extentLoggerPass("subText", upgradeSubtext+" is displayed");
+			}else {
+				logger.info(upgradeSubtext+" is not displayed");
+				extentLoggerFail("subText", upgradeSubtext+" is not displayed");
+			}
+			verifyElementExist(AMDTVODComboOffer.objComboOfferPlan, "Combo offer plan");
+			Swipe("UP", 1);
+			verifyElementExist(AMDTVODComboOffer.objOnlyRentMoviePlan, "Only Rent Movie plan");
+			Swipe("DOWN", 1);
+			ComboOfferPlanCard_OnlyRentMoviePlanCard_Validation();
+			Swipe("DOWN", 1);
+			String value = getAttributValue("checked", AMDTVODComboOffer.objPlanCost);
+			if(value.equalsIgnoreCase("true")) {
+				logger.info("Radhe combo plan is selected by default");
+			 	extent.extentLoggerPass("Combo offer Screen", "Radhe combo plan is selected by default"); 
+			 	String cta = getText(AMDTVODComboOffer.objCTABelowTheComboOfferPage);
+			 	if(cta.equalsIgnoreCase(CTAName)) {
+			 		logger.info(CTAName+" CTA is displayed when Radhe combo plan is selected");
+			 		extentLoggerPass("Upgrade CTA", CTAName+" CTA is displayed when Radhe combo plan is selected");
+			 		click(AMDTVODComboOffer.objCTABelowTheComboOfferPage, "Upgrade CTA");
+				 	PaymentScreenVerification();
+				 	Back(1);
+			 	}else {
+			 		logger.info("Upgrade CTA is not displayed when Radhe combo plan is selected");
+			 		extentLoggerFail("Upgrade CTA", "Upgrade CTA is not displayed when Radhe combo plan is selected");
+			 	}	
+			}else {
+				logger.error("Radhe combo plan is NOT selected by default");
+			 	extent.extentLoggerFail("Combo offer Screen", "Radhe combo plan is NOT selected by default");
+			}	
+			Swipe("UP", 1);
+			click(AMDTVODComboOffer.objOnlyRentMoviePlan, "Only Rent Movie plan");
+			String cta2 = getText(AMDTVODComboOffer.objCTABelowTheComboOfferPage);
+		 	if(cta2.equalsIgnoreCase("Rent Movie")) {
+		 		logger.info("'Rent Movie' CTA is displayed when 'Only Rent Movie plan' is selected");
+		 		extentLoggerPass("Rent Movie CTA", "'Rent Movie' CTA is displayed when 'Only Rent Movie plan' is selected");
+		 		click(AMDTVODComboOffer.objCTABelowTheComboOfferPage, "'Rent Movie' CTA");
 			 	PaymentScreenVerification();
 			 	Back(1);
 		 	}else {
-		 		logger.info("Upgrade CTA is not displayed when Radhe combo plan is selected");
-		 		extentLoggerFail("Upgrade CTA", "Upgrade CTA is not displayed when Radhe combo plan is selected");
+		 		logger.info("'Rent Movie' CTA is not displayed when 'Only Rent Movie plan' is selected");
+		 		extentLoggerFail("Rent Movie CTA", "'Rent Movie' CTA is not displayed when 'Only Rent Movie plan' is selected");
 		 	}	
 		}else {
-			logger.error("Radhe combo plan is NOT selected by default");
-		 	extent.extentLoggerFail("Combo offer Screen", "Radhe combo plan is NOT selected by default");
-		}	
-		click(AMDTVODComboOffer.objOnlyRentMoviePlan, "Only Rent Movie plan");
-		String cta2 = getText(AMDTVODComboOffer.objCTABelowTheComboOfferPage);
-	 	if(cta2.equalsIgnoreCase("Rent Movie")) {
-	 		logger.info("'Rent Movie' CTA is displayed when 'Only Rent Movie plan' is selected");
-	 		extentLoggerPass("Rent Movie CTA", "'Rent Movie' CTA is displayed when 'Only Rent Movie plan' is selected");
-	 		click(AMDTVODComboOffer.objCTABelowTheComboOfferPage, "'Rent Movie' CTA");
-		 	PaymentScreenVerification();
-		 	Back(1);
-	 	}else {
-	 		logger.info("'Rent Movie' CTA is not displayed when 'Only Rent Movie plan' is selected");
-	 		extentLoggerFail("Rent Movie CTA", "'Rent Movie' CTA is not displayed when 'Only Rent Movie plan' is selected");
-	 	}	
+			logger.info("Combo offer page is not displayed");
+			extentLoggerWarning("Combo offer page", "Combo offer page is not displayed");
+		}
+		
 	}
 	
 	public void VerifyRentalPlanAsSubscribedUser(String pEmailId,String pPassword) throws Exception {
@@ -22405,92 +22416,82 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 	
 	public void ValidationOfComboOfferPage_AccountInfoPage_UpgradeBottomSheet(String subText, String CTAName, String email, String password, String subText2) throws Exception {
 		extent.HeaderChildNode("Validation of Combo offer page, Account Info page and Upgrade bottom sheet");
-		verifyElementExist(AMDTVODComboOffer.objPosterOfMovieContent, "Poster of Movie Content");
-		verifyElementExist(AMDTVODComboOffer.objUpgradeTextOnComboOfferPage, "Upgrade text");
-		verifyElementExist(AMDTVODComboOffer.objUpgradeSubTextOnComboOfferPage, "Upgrade subtext");
-		String upgradeSubtext = getText(AMDTVODComboOffer.objUpgradeSubTextOnComboOfferPage);
-		if(upgradeSubtext.contains(subText)) {
-			logger.info(upgradeSubtext+" is displayed");
-			extentLoggerPass("subText", upgradeSubtext+" is displayed");
-		}else {
-			logger.info(upgradeSubtext+" is not displayed");
-			extentLoggerFail("subText", upgradeSubtext+" is not displayed");
-		}
-		verifyElementExist(AMDTVODComboOffer.objComboOfferPlan, "Combo offer plan");
-		verifyElementExist(AMDTVODComboOffer.objOnlyRentMoviePlan, "Only Rent Movie plan");
-		ComboOfferPlanCard_OnlyRentMoviePlanCard_Validation();
-		boolean value = findElement(AMDTVODComboOffer.objComboOfferPlan).isEnabled();
-		if(value) {
-			logger.info("Radhe combo plan is selected by default");
-		 	extent.extentLoggerPass("Combo offer Screen", "Radhe combo plan is selected by default"); 
-		 	String cta = getText(AMDTVODComboOffer.objCTABelowTheComboOfferPage);
-		 	if(cta.equalsIgnoreCase(CTAName)) {
-		 		logger.info(CTAName+" CTA is displayed when Radhe combo plan is selected");
-		 		extentLoggerPass("Upgrade CTA", CTAName+" CTA is displayed when Radhe combo plan is selected");
-		 		click(AMDTVODComboOffer.objCTABelowTheComboOfferPage, CTAName+" CTA");
-		 		waitTime(2000);
-		    	verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
-		    	
-		    	if(verifyElementPresent(AMDTVODComboOffer.objAccountInfoLabel, "Account Info overlay")) {
-		    		logger.info("Account Info widget is displayed");
-					extentLoggerPass("Account Info widget", "Account Info widget is displayed");
-					
-					type(AMDTVODComboOffer.objEmailIdfield, email, "Email Id");
-					hideKeyboard();
-					click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
-					type(AMDTVODComboOffer.objPasswordfield, password, "Password");
-					hideKeyboard();
-					click(AMDTVODComboOffer.objContinueBtn, "");
-					waitTime(2000);
-					if(verifyElementPresent(AMDTVODComboOffer.objUpgradeBottomSheet, "Upgrade bottom sheet")) {
-						String text = getText(AMDTVODComboOffer.objUpgradeBottomSheetText);
-						if(text.contains("Upgrade") | text.contains("Rent")) {
-							logger.info(text+" is displayed");
-							extentLoggerPass("Upgrade", text+" is displayed");
-						}else {
-							logger.info(text+" is not displayed");
-							extentLoggerFail("Upgrade", text+" is not displayed");
-						}
+		if(verifyElementExist(AMDTVODComboOffer.objPosterOfMovieContent, "Poster of Movie Content")) {
+			verifyElementExist(AMDTVODComboOffer.objUpgradeTextOnComboOfferPage, "Upgrade text");
+			verifyElementExist(AMDTVODComboOffer.objUpgradeSubTextOnComboOfferPage, "Upgrade subtext");
+			String upgradeSubtext = getText(AMDTVODComboOffer.objUpgradeSubTextOnComboOfferPage);
+			if(upgradeSubtext.contains(subText)) {
+				logger.info(upgradeSubtext+" is displayed");
+				extentLoggerPass("subText", upgradeSubtext+" is displayed");
+			}else {
+				logger.info(upgradeSubtext+" is not displayed");
+				extentLoggerFail("subText", upgradeSubtext+" is not displayed");
+			}
+			verifyElementExist(AMDTVODComboOffer.objComboOfferPlan, "Combo offer plan");
+			Swipe("UP", 1);
+			verifyElementExist(AMDTVODComboOffer.objOnlyRentMoviePlan, "Only Rent Movie plan");
+			Swipe("DOWN", 1);
+			ComboOfferPlanCard_OnlyRentMoviePlanCard_Validation();
+			Swipe("DOWN", 2);
+			boolean value = findElement(AMDTVODComboOffer.objComboOfferPlan).isEnabled();
+			if(value) {
+				logger.info("Radhe combo plan is selected by default");
+			 	extent.extentLoggerPass("Combo offer Screen", "Radhe combo plan is selected by default"); 
+			 	String cta = getText(AMDTVODComboOffer.objCTABelowTheComboOfferPage);
+			 	if(cta.equalsIgnoreCase(CTAName)) {
+			 		logger.info(CTAName+" CTA is displayed when Radhe combo plan is selected");
+			 		extentLoggerPass("Upgrade CTA", CTAName+" CTA is displayed when Radhe combo plan is selected");
+			 		click(AMDTVODComboOffer.objCTABelowTheComboOfferPage, CTAName+" CTA");
+			 		waitTime(2000);
+			    	verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
+			    	
+			    	if(verifyElementPresent(AMDTVODComboOffer.objAccountInfoLabel, "Account Info overlay")) {
+			    		logger.info("Account Info widget is displayed");
+						extentLoggerPass("Account Info widget", "Account Info widget is displayed");
 						
-						String subtext = getText(AMDTVODComboOffer.objUpgradeBottomSheetSubText);
-						if(subtext.contains(subText2)) {
-							logger.info(subtext+" is displayed");
-							extentLoggerPass("Upgrade", subtext+" is displayed");
-						}else {
-							logger.info(subtext+" is not displayed");
-							extentLoggerFail("Upgrade", subtext+" is not displayed");
+						type(AMDTVODComboOffer.objEmailIdfield, email, "Email Id");
+						hideKeyboard();
+						click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+						type(AMDTVODComboOffer.objPasswordfield, password, "Password");
+						hideKeyboard();
+						click(AMDTVODComboOffer.objContinueBtn, "Continue");
+						waitTime(2000);
+						if(verifyElementPresent(AMDTVODComboOffer.objUpgradeBottomSheet, "Upgrade bottom sheet")) {
+							String text = getText(AMDTVODComboOffer.objUpgradeBottomSheetText);
+							if(text.contains("Upgrade") | text.contains("Rent")) {
+								logger.info(text+" is displayed");
+								extentLoggerPass("Upgrade", text+" is displayed");
+							}else {
+								logger.info(text+" is not displayed");
+								extentLoggerFail("Upgrade", text+" is not displayed");
+							}
+							
+							String subtext = getText(AMDTVODComboOffer.objUpgradeBottomSheetSubText);
+							if(subtext.contains(subText2)) {
+								logger.info(subtext+" is displayed");
+								extentLoggerPass("Upgrade", subtext+" is displayed");
+							}else {
+								logger.info(subtext+" is not displayed");
+								extentLoggerFail("Upgrade", subtext+" is not displayed");
+							}
+							verifyElementPresentAndClick(AMDTVODComboOffer.objUpgradeBottomSheetCTA, "Upgrade bottom sheet CTA");	
+							PaymentScreenVerification();
+							Back(1);
 						}
-						verifyElementExist(AMDTVODComboOffer.objUpgradeBottomSheetCTA, "Upgrade bottom sheet CTA");	
-						Back(1);
-					}
-		    	}
-			 	Back(1);
-		 	}else {
-		 		logger.info("Upgrade CTA is not displayed when Radhe combo plan is selected");
-		 		extentLoggerFail("Upgrade CTA", "Upgrade CTA is not displayed when Radhe combo plan is selected");
-		 	}	
+			    	}
+				 	Back(1);
+			 	}else {
+			 		logger.info("Upgrade CTA is not displayed when Radhe combo plan is selected");
+			 		extentLoggerFail("Upgrade CTA", "Upgrade CTA is not displayed when Radhe combo plan is selected");
+			 	}	
+			}else {
+				logger.error("Radhe combo plan is NOT selected by default");
+			 	extent.extentLoggerFail("Combo offer Screen", "Radhe combo plan is NOT selected by default");
+			}
 		}else {
-			logger.error("Radhe combo plan is NOT selected by default");
-		 	extent.extentLoggerFail("Combo offer Screen", "Radhe combo plan is NOT selected by default");
-		}	
-		click(AMDTVODComboOffer.objOnlyRentMoviePlan, "Only Rent Movie plan");
-		boolean value2 = findElement(AMDTVODComboOffer.objOnlyRentMoviePlan).isEnabled();
-		if(value2) {
-			String cta = getText(AMDTVODComboOffer.objCTABelowTheComboOfferPage);
-		 	if(cta.equalsIgnoreCase("Rent Movie")) {
-		 		logger.info("'Rent Movie' CTA is displayed when 'Only Rent Movie plan' is selected");
-		 		extentLoggerPass("Rent Movie CTA", "'Rent Movie' CTA is displayed when 'Only Rent Movie plan' is selected");
-		 		click(AMDTVODComboOffer.objCTABelowTheComboOfferPage, "'Rent Movie' CTA");
-			 	PaymentScreenVerification();
-			 	Back(1);
-		 	}else {
-		 		logger.info("'Rent Movie' CTA is not displayed when 'Only Rent Movie plan' is selected");
-		 		extentLoggerFail("Rent Movie CTA", "'Rent Movie' CTA is not displayed when 'Only Rent Movie plan' is selected");
-		 	}
-		}else {
-			logger.error("'Only Rent Movie' plan is not selected");
-		 	extent.extentLoggerFail("Only Rent Movie", "'Only Rent Movie' plan is not selected");
-		}	
+			logger.info("Combo offer page is not displayed");
+			extentLoggerWarning("Combo offer page", "Combo offer page is not displayed");
+		}
 	}
 	
 	public void ComboOfferPlanCard_OnlyRentMoviePlanCard_Validation() throws Exception {

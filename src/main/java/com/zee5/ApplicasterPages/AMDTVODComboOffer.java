@@ -13,7 +13,6 @@ public class AMDTVODComboOffer {
 	
 	public static By objHowItWorksCTA = By.xpath("//*[@id='howItWorksTextView']");
 	public static By objQandAModelWindow = By.xpath("//*[@id='faqList']");
-	public static By obComboOfferScreen = By.xpath("//*[@id='mainTitle' and contains(text(), 'Combo')]");
 	
 	public static By objPayLessWatchMoreText = By.xpath("//*[@id='mainSubtitle' and @text='Pay less, Watch more!']");
 	public static By objKnowMoreCTAOnWidget = By.xpath("");
@@ -34,7 +33,6 @@ public class AMDTVODComboOffer {
 	public static By objBackIcon = By.xpath("//*[@id='backIcon']");
 	public static By objEmailIdfield = By.xpath("//*[@id='edit_email']");
 	public static By objContinueBtn = By.xpath("//*[@id='continueButton']");
-	public static By objPasswordfield = By.xpath("//*[@id='edit_email' and @text='Password']");
 
 	public static By objAlreadyActive = By.xpath("//*[@text='You have it all']");
 	public static By objAlreadyRented = By.xpath("//*[@text='Movie already rented']");
@@ -89,5 +87,8 @@ public class AMDTVODComboOffer {
 
 	public static By objWatchNowCalloutCTA = By.xpath("//*[@id='buttonFirstAction' and @text='Watch Now']");
 	public static By objBuyPremiumCalloutCTA = By.xpath("//*[@id='buttonSecondAction' and @text='Buy Premium']");
+	
+	public static By obComboOfferScreen = By.xpath("//*[@id='posterImageView']");
+	public static By objPasswordfield = By.xpath("//*[@id='edit_email']");
 
 }
