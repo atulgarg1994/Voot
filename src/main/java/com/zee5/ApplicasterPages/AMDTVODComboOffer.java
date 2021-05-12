@@ -37,9 +37,7 @@ public class AMDTVODComboOffer {
 	public static By objAlreadyActive = By.xpath("//*[@text='You have it all']");
 	public static By objAlreadyRented = By.xpath("//*[@text='Movie already rented']");
 	public static By objWatchNowCTA = By.xpath("//*[@id='continueButton' and @text='Watch Now']");
-	public static By objExplorePremiumCTA = By.xpath("//*[@id='continueButton' and @text='Explore Premium']");
 	public static By objBuyPremiumCTA = By.xpath("//*[@id='continueButton' and @text='Buy Premium']");
-	public static By objActivePlanMsg1 = By.xpath("//*[@text='You are currently on 499 Premium 1 year plan']");
 	public static By objActivePlanMsg2 = By.xpath("//*[@text='You have already rented this ZEEPLEX movie']");
 
 	public static By objAdFreeTxt = By.xpath("//*[@id='label' and @text='Watch Ad-free']");
@@ -84,11 +82,16 @@ public class AMDTVODComboOffer {
 	
 	public static By objRentNowCTAonCarousel = By.xpath("//*[@id='subscribeButton' and @text='Rent Now']");
 	public static By objRentNowCTAonCarouselAagKaGola = By.xpath("//*[@text='Aag Ka Gola']//following::*//*[@id='subscribeButton' and @text='Rent Now']");
-
-	public static By objWatchNowCalloutCTA = By.xpath("//*[@id='buttonFirstAction' and @text='Watch Now']");
-	public static By objBuyPremiumCalloutCTA = By.xpath("//*[@id='buttonSecondAction' and @text='Buy Premium']");
 	
 	public static By obComboOfferScreen = By.xpath("//*[@id='posterImageView']");
 	public static By objPasswordfield = By.xpath("//*[@id='edit_email']");
 
+	public static By objBottomSheetTitle = By.xpath("//*[@id='titleText']");
+	public static By objBottomSheetSubTitle = By.xpath("//*[@id='subtitleText']");
+
+	public static By objActivePlanMsg1 = By.xpath("//*[@id='titleText']");
+
+	public static By objWatchNowCalloutCTA = By.xpath("//*[@id='buttonFirstAction' and @text='Watch Now']");
+	public static By objBuyPremiumCalloutCTA = By.xpath("//*[@id='buttonSecondAction' and @text='Buy Premium']");
+	public static By objExplorePremiumCTA = By.xpath("//*[@id='buttonSecondAction' and @text='Explore Premium']");
 }

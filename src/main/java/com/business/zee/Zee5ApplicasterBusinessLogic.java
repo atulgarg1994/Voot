@@ -22263,52 +22263,48 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 	}
 	
 	public void VerifyRentalPlanAsSubscribedUser(String pEmailId,String pPassword) throws Exception {
-		extent.HeaderChildNode("Verify You have it all screen displayed for SubscribedUser");
-		System.out.println("\nVerify You have it all screen displayed for SubscribedUser");
+		extent.HeaderChildNode("UC-9: Validate 'You have it all' bottom sheet displayed for SubscribedUser");
+		System.out.println("\nUC-9: Validate 'You have it all' bottom sheet  displayed for SubscribedUser");
 		
-		click(AMDHomePage.objMoviesTab,"Movie tab");
-		//Trailer CTA on carousel
-	    boolean flag = waitForElementDisplayed(AMDTVODComboOffer.objRentNowCTAonCarousel, 5);
-	    if(flag) {
-	    	
-	    	click(AMDTVODComboOffer.objRentNowCTAonCarousel, "Rent Now CTA");
-	    	verifyElementPresent(AMDTVODComboOffer.obComboOfferScreen, "Combo offer screen");
-	    	click(AMDTVODComboOffer.objBuyRadheComboCTA, "Buy Radhe Combo CTA");
-	    	
-	    	waitTime(2000);
-	    	verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
-	    	
-	    	if(verifyElementPresent(AMDTVODComboOffer.objAccountInfoLabel, "Account Info overlay")) {
-	    		logger.info("Account Info widget is displayed");
-				extentLoggerPass("Account Info widget", "Account Info widget is displayed");
+		waitForElementDisplayed(AMDTVODComboOffer.objRentNowCTAonCarouselAagKaGola, 15);
+	    verifyElementPresentAndClick(AMDTVODComboOffer.objRentNowCTAonCarouselAagKaGola, "Rent Now");
+	    click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA");
+	    waitTime(3000);
+	    ComboOfferPlanCard_OnlyRentMoviePlanCard_Validation();
+	    click(AMDTVODComboOffer.objBuyRadheComboCTA, "Buy Radhe Combo CTA");
+	    waitTime(2000);
+	    
+	    if(verifyElementPresent(AMDTVODComboOffer.objAccountInfoLabel, "Account Info overlay")) {
+	    	logger.info("Account Info widget is displayed");
+			extentLoggerPass("Account Info widget", "Account Info widget is displayed");
+			
+			verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
+	    	type(AMDTVODComboOffer.objEmailIdfield, pEmailId, "Email Id");
+			hideKeyboard();
+			click(AMDTVODComboOffer.objAccountInfoLabel, "HideKeyboard");
+			click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+			type(AMDTVODComboOffer.objPasswordfield, pPassword, "Password");
+			hideKeyboard();
+			click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+			
+			if(verifyElementDisplayed(AMDTVODComboOffer.objAlreadyActive)) {
+				logger.info("'You have it all' bottom sheet is displayed since user already has active plan");
+				extentLoggerPass("You have it all", "<b>'You have it all'</b> bottom sheet is displayed since user already has active plan");
 				
-				type(AMDTVODComboOffer.objEmailIdfield, pEmailId, "Email Id");
-				hideKeyboard();
-				click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
-				type(AMDTVODComboOffer.objPasswordfield, pPassword, "Password");
-				hideKeyboard();
-				click(AMDTVODComboOffer.objContinueBtn, "");
+				verifyElementPresent(AMDTVODComboOffer.objBottomSheetTitle, getText(AMDTVODComboOffer.objBottomSheetTitle));
+				verifyElementPresent(AMDTVODComboOffer.objBottomSheetSubTitle, getText(AMDTVODComboOffer.objBottomSheetSubTitle));
+				verifyElementPresent(AMDTVODComboOffer.objActivePlanMsg2, "You have already rented this ZEEPLEX movie");
+				verifyElementPresent(AMDTVODComboOffer.objWatchNowCalloutCTA, "Watch Now CTA");
+				verifyElementPresent(AMDTVODComboOffer.objExplorePremiumCTA, "Explore Premium CTA");
 				
-				waitTime(2000);
-				verifyElementPresent(AMDTVODComboOffer.objAlreadyActive, "You Have it all");
-				if(verifyElementDisplayed(AMDTVODComboOffer.objAlreadyActive)) {
-					logger.info("You have it all screen is displayed since user is already have active plan");
-					extentLoggerPass("You have it all", "You have it all screen is displayed since user is already have active plan");
-					
-					verifyElementPresent(AMDTVODComboOffer.objActivePlanMsg1, "Active Plan Detail");
-					verifyElementPresent(AMDTVODComboOffer.objActivePlanMsg2, "Active Rental Details");
-					verifyElementPresent(AMDTVODComboOffer.objWatchNowCTA, "Watch Now CTA");
-					verifyElementPresent(AMDTVODComboOffer.objExplorePremiumCTA, "Explore Premium CTA");
-					
-				}else {
-					logger.info("You have it all screen is not displayed");
-					extentLoggerFail("You have it all", "You have it all screen is not displayed ");
-				}	
-	    	}
+			}else {
+				logger.info("'You have it all' screen is not displayed");
+				extentLoggerFail("Bottom Sheet", "<b>'You have it all'</b> screen is not displayed ");
+			}
 	    }else {
-	    	logger.info("ZEEPLEX content is not available in the carousel");
-			extentLoggerWarning("ZEEPLEX content", "ZEEPLEX content is not available in the carousel");
-	    }
+	    	logger.info("Account info screen is not displayed");
+			extentLoggerFail("Account info", "Account info screen is not displayed ");
+	    }  
 	}
 	
 	
@@ -22346,8 +22342,8 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 	}
 	
 	public void VerifyRentalPlanAsNonSubscribedUser(String pEmailId,String pPassword) throws Exception {
-		extent.HeaderChildNode("Verify Movie already rented screen displayed for Non-SubscribedUser");
-		System.out.println("\nVerify Movie already rented screen displayed for Non-SubscribedUser");
+		extent.HeaderChildNode("UC-8: Validate Movie already rented screen displayed for Non-SubscribedUser");
+		System.out.println("\nUC-8: Validate Movie already rented screen displayed for Non-SubscribedUser");
 		
 	    waitForElementDisplayed(AMDTVODComboOffer.objRentNowCTAonCarouselAagKaGola, 15);
 	    verifyElementPresentAndClick(AMDTVODComboOffer.objRentNowCTAonCarouselAagKaGola, "Rent Now");
@@ -22368,20 +22364,24 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 			type(AMDTVODComboOffer.objPasswordfield, pPassword, "Password");
 			hideKeyboard();
 			click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
-	    }
-	    waitTime(3000);
-		if(verifyElementDisplayed(AMDTVODComboOffer.objAlreadyRented)) {
-			logger.info("Movie already rented screen is displayed");
-			extentLoggerPass("Movie already rented", "Movie already rented screen is displayed");
 			
-			verifyElementPresent(AMDTVODComboOffer.objActivePlanMsg2, "Already Rental Details");
-			verifyElementPresent(AMDTVODComboOffer.objWatchNowCalloutCTA, "Watch Now CTA");
-			verifyElementPresent(AMDTVODComboOffer.objBuyPremiumCalloutCTA, "Buy Premium CTA");
-			
-		}else {
-			logger.info("Movie already rented screen is not displayed");
-			extentLoggerFail("Movie already rented", "Movie already rented screen is not displayed ");
-		}
+			waitTime(5000);
+			if(verifyIsElementDisplayed(AMDTVODComboOffer.objAlreadyRented)) {
+				logger.info("'Movie already rented' bottom sheet is displayed");
+				extentLoggerPass("Bottom Sheet", "<b>'Movie already rented'</b> bottom sheet is displayed");
+				
+				verifyElementPresent(AMDTVODComboOffer.objActivePlanMsg2, "Already Rental Details");
+				verifyElementPresent(AMDTVODComboOffer.objWatchNowCalloutCTA, "Watch Now CTA");
+				verifyElementPresent(AMDTVODComboOffer.objBuyPremiumCalloutCTA, "Buy Premium CTA");
+				
+			}else {
+				logger.info("'Movie already rented' screen is not displayed");
+				extentLoggerFail("Movie already rented", "<b>'Movie already rented'</b> screen is not displayed ");
+			}
+	    }else {
+	    	logger.info("Account info screen is not displayed");
+			extentLoggerFail("Account info", "Account info screen is not displayed ");
+	    }	    
 	}
 	
 	public void RSVODUser_49(String tabName, String contentTitle) throws Exception {
@@ -22496,10 +22496,10 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 	
 	public void ComboOfferPlanCard_OnlyRentMoviePlanCard_Validation() throws Exception {
 		verifyElementExist(AMDTVODComboOffer.objRecommendedTag, "Recommended tag");
-		verifyElementExist(AMDTVODComboOffer.objPlanTitle, "Plan title");
-		verifyElementExist(AMDTVODComboOffer.objPlanCost, "Plan price");
-		verifyElementExist(AMDTVODComboOffer.objStrikeOutCost, "Strike out price");
-		verifyElementExist(AMDTVODComboOffer.objSaveAmount, "Save amount");
+		verifyElementExist(AMDTVODComboOffer.objPlanTitle, "Plan Title: "+getText(AMDTVODComboOffer.objPlanTitle));
+		verifyElementExist(AMDTVODComboOffer.objPlanCost, "Plan Cost: "+getText(AMDTVODComboOffer.objPlanCost));
+		verifyElementExist(AMDTVODComboOffer.objStrikeOutCost, "Strickout: "+getText(AMDTVODComboOffer.objStrikeOutCost));
+		verifyElementExist(AMDTVODComboOffer.objSaveAmount, "Save: "+getText(AMDTVODComboOffer.objSaveAmount));
 		verifyElementExist(AMDTVODComboOffer.objRadheCard, "Radhe card");
 		verifyElementExist(AMDTVODComboOffer.obj1YearPremiumCard, "1 year Premium card");
 		Swipe("UP", 2);
@@ -22545,7 +22545,6 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 			verifyElementPresent(AMDSubscibeScreen.objLinkedlabel("Radhe + 1 Year ZEE5 Premium"), "Radhe + 1 Year ZEE5 Premium");
 			verifyElementPresent(AMDSubscibeScreen.objLinkedlabel("Blockbuster movies"), "Blockbuster movies");
 			verifyElementPresent(AMDSubscibeScreen.objLinkedlabel("Web Series"), "Web Series");
-			verifyElementPresent(AMDSubscibeScreen.objLinkedlabel("Before TV"), "Before TV");
 			verifyElementPresent(AMDSubscibeScreen.objHelpIcons, "Help Icons");
 			verifyElementPresent(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue Button");
 			verifyElementPresent(AMDSubscibeScreen.objContinueOnSubscribePopup, getText(AMDSubscibeScreen.objContinueOnSubscribePopup));
