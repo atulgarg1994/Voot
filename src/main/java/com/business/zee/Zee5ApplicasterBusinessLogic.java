@@ -22064,6 +22064,9 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 			logger.info("Email Id is displayed in payment screen "+getEmail);
 			extentLoggerPass("Email ID", "Email Id is displayed in payment screen "+getEmail);
 		}
+		
+		verifyElementPresent(AMDSubscibeScreen.objOfferPlanName, getText(AMDSubscibeScreen.objOfferPlanName));
+		verifyElementPresent(AMDSubscibeScreen.objOfferPlanPrice, getText(AMDSubscibeScreen.objOfferPlanPrice));
 	}
 	
 	public void premiumUser_99(String tabName, String contentTitle) throws Exception {
@@ -22332,51 +22335,42 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 	}
 	
 	public void VerifyRentalPlanAsNonSubscribedUser(String pEmailId,String pPassword) throws Exception {
-		extent.HeaderChildNode("Verify You have it all screen displayed for SubscribedUser");
-		System.out.println("\nVerify You have it all screen displayed for SubscribedUser");
+		extent.HeaderChildNode("Verify Movie already rented screen displayed for Non-SubscribedUser");
+		System.out.println("\nVerify Movie already rented screen displayed for Non-SubscribedUser");
 		
-		click(AMDHomePage.objMoviesTab,"Movie tab");
-		//Trailer CTA on carousel
-	    boolean flag = waitForElementDisplayed(AMDTVODComboOffer.objRentNowCTAonCarousel, 5);
-	    if(flag) {
-	    	
-	    	click(AMDTVODComboOffer.objRentNowCTAonCarousel, "Rent Now CTA");
-	    	verifyElementPresent(AMDTVODComboOffer.obComboOfferScreen, "Combo offer screen");
-	    	click(AMDTVODComboOffer.objBuyRadheComboCTA, "Buy Radhe Combo CTA");
-	    	
-	    	waitTime(2000);
-	    	verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
-	    	
-	    	if(verifyElementPresent(AMDTVODComboOffer.objAccountInfoLabel, "Account Info overlay")) {
-	    		logger.info("Account Info widget is displayed");
-				extentLoggerPass("Account Info widget", "Account Info widget is displayed");
-				
-				type(AMDTVODComboOffer.objEmailIdfield, pEmailId, "Email Id");
-				hideKeyboard();
-				click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
-				type(AMDTVODComboOffer.objPasswordfield, pPassword, "Password");
-				hideKeyboard();
-				click(AMDTVODComboOffer.objContinueBtn, "");
-				
-				waitTime(2000);
-				verifyElementPresent(AMDTVODComboOffer.objAlreadyRented, "Movie already rented");
-				if(verifyElementDisplayed(AMDTVODComboOffer.objAlreadyRented)) {
-					logger.info("Movie already rented screen is displayed");
-					extentLoggerPass("Movie already rented", "Movie already rented screen is displayed");
-					
-					verifyElementPresent(AMDTVODComboOffer.objActivePlanMsg2, "Already Rental Details");
-					verifyElementPresent(AMDTVODComboOffer.objWatchNowCTA, "Watch Now CTA");
-					verifyElementPresent(AMDTVODComboOffer.objBuyPremiumCTA, "Buy Premium CTA");
-					
-				}else {
-					logger.info("Movie already rented screen is not displayed");
-					extentLoggerFail("Movie already rented", "Movie already rented screen is not displayed ");
-				}	
-	    	}
-	    }else {
-	    	logger.info("ZEEPLEX content is not available in the carousel");
-			extentLoggerWarning("ZEEPLEX content", "ZEEPLEX content is not available in the carousel");
+	    waitForElementDisplayed(AMDTVODComboOffer.objRentNowCTAonCarouselAagKaGola, 15);
+	    verifyElementPresentAndClick(AMDTVODComboOffer.objRentNowCTAonCarouselAagKaGola, "Rent Now");
+	    click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA");
+	    waitTime(3000);
+	    ComboOfferPlanCard_OnlyRentMoviePlanCard_Validation();
+	    click(AMDTVODComboOffer.objBuyRadheComboCTA, "Buy Radhe Combo CTA");
+	    waitTime(2000);
+	    if(verifyElementPresent(AMDTVODComboOffer.objAccountInfoLabel, "Account Info overlay")) {
+	    	logger.info("Account Info widget is displayed");
+			extentLoggerPass("Account Info widget", "Account Info widget is displayed");
+			
+			verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
+	    	type(AMDTVODComboOffer.objEmailIdfield, pEmailId, "Email Id");
+			hideKeyboard();
+			click(AMDTVODComboOffer.objAccountInfoLabel, "HideKeyboard");
+			click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+			type(AMDTVODComboOffer.objPasswordfield, pPassword, "Password");
+			hideKeyboard();
+			click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
 	    }
+	    waitTime(3000);
+		if(verifyElementDisplayed(AMDTVODComboOffer.objAlreadyRented)) {
+			logger.info("Movie already rented screen is displayed");
+			extentLoggerPass("Movie already rented", "Movie already rented screen is displayed");
+			
+			verifyElementPresent(AMDTVODComboOffer.objActivePlanMsg2, "Already Rental Details");
+			verifyElementPresent(AMDTVODComboOffer.objWatchNowCalloutCTA, "Watch Now CTA");
+			verifyElementPresent(AMDTVODComboOffer.objBuyPremiumCalloutCTA, "Buy Premium CTA");
+			
+		}else {
+			logger.info("Movie already rented screen is not displayed");
+			extentLoggerFail("Movie already rented", "Movie already rented screen is not displayed ");
+		}
 	}
 	
 	public void RSVODUser_49(String tabName, String contentTitle) throws Exception {
@@ -22531,7 +22525,7 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 	
 	public void navigateToHomeScreen() throws Exception {
 		extent.HeaderChildNode("Navigation to Home Screen");
-		click(AMDOnboardingScreen.objgetContentLangName(1), "Content Language");
+//		click(AMDOnboardingScreen.objgetContentLangName(1), "Content Language");
 		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
 	}
 	
@@ -22558,6 +22552,41 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 			logger.info(pPlanName+" plan is Not applicable for "+pUserType);
 			extentLogger(pPlanName, pPlanName+" plan is Not applicable for "+pUserType);
 		}
+	}
+	
+	
+	public void LoginFromAccountInfoScreen(String pEmailId, String pPassword) throws Exception {
+//		extent.HeaderChildNode("Log into ZEE5 from Account Info screen");
+		
+		verifyElementPresent(AMDLoginScreen.objAccountInfoScreen, "Account Info screen");
+		type(AMDLoginScreen.objEmailIdField, pEmailId, "Email-Id/Phone");
+		hideKeyboard();
+		click(AMDLoginScreen.objAccountInfoScreen, "HideKeyboard");
+		click(AMDGenericObjects.objContinueCTA, "Continue button");
+		verifyElementPresent(AMDLoginScreen.objEnterPasswordField, "Enter Password screen");
+		type(AMDLoginScreen.objEmailIdField, pPassword, "Password");
+		hideKeyboard();
+		click(AMDGenericObjects.objContinueCTA, "Continue button");
+	}
+	
+	public void VerifyNavigationAsNonSusbscribedUser(String pEmailId, String pPassword) throws Exception {
+		extent.HeaderChildNode("Verify Navigation to Payment screen for plan selection as non subscirbed user");
+		System.out.println("\nVerify Navigation to Payment screen for plan selection as non subscirbed user");
+		
+		verifyElementPresentAndClick(AMDSubscibeScreen.objContinueOnSubscribePopup, getText(AMDSubscibeScreen.objContinueOnSubscribePopup));
+		LoginFromAccountInfoScreen(pEmailId, pPassword);
+		PaymentScreenVerification();
+	}
+	
+	public void selectSpecificContentLanguages() throws Exception {
+		
+//		click(AMDOnboardingScreen.objSelectContentLang("Hindi"), "Hindi");
+		PartialSwipe("UP", 2);
+		waitTime(1000);
+		click(AMDOnboardingScreen.objSelectContentLang("Kannada"), "Kannada");
+		Swipe("UP", 3);
+		waitTime(1000);
+		click(AMDOnboardingScreen.objSelectContentLang("Punjabi"), "Punjabi");
 	}
 	
 	

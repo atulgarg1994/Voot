@@ -15,5 +15,8 @@ public class AMDMySubscriptionPage {
 		}
 	public static By objTermsandPrivacyLink = By.xpath("//*[@text='By proceeding you agree to our Terms of Use and Privacy Policy']");
 
-
+	public static By objOfferPlanName = By.xpath("(//*[@text='Make Payment']//following::*[@class='android.widget.TextView'])[1]");
+	
+	public static By objOfferPlanPrice = By.xpath("((//*[@text='Make Payment']//following::*[4])//child::*[3])[1]");
+	
 }

@@ -141,4 +141,8 @@ public class AMDSubscibeScreen {
 	public static By objHelpIcons = By.id("helpIcon");
 	public static By objPlanSelectionBadge = By.id("planSelectionBadge");
 	
+	public static By objOfferPlanName = By.xpath("(//*[@text='Make Payment']//following::*[@class='android.widget.TextView'])[1]");
+	
+	public static By objOfferPlanPrice = By.xpath("((//*[@text='Make Payment']//following::*[4])//child::*[3])[1]"); 
+	
 }

@@ -26394,9 +26394,11 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			deeplinkConsumptionScreen249Login();
 			deeplinkConsumptionScreen249Register();
 			PWASearchEntryPointValidations(userType, "299", "Inline");
+			zeePWASubscriptionFlowFromHomePageHeaderSubscribeButton(userType, getPlatform());
 		}else if(userType.equals("NonSubscribedUser")){
 			deeplinkConsumptionScreen499();
 			deeplinkConsumptionScreen249();
+			PWASearchEntryPointValidations(userType, "299", "Inline");
 		}
 		if(userType.equals("Guest")) {
 			deeplinkSubscriptionLogin();
@@ -26405,15 +26407,15 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			deeplinkSubscriptionNonSub();
 		}
 		
-		if(userType.equals("Guest")) {
-			PlexLandingPage499Login();
-			PlexLandingPage499Register();
-			PlexLandingPage249Login();
-			PlexLandingPage249Register();
-		}else if(userType.equals("NonSubscribedUser")){
-			PlexLandingPage499Nonsub();
-			PlexLandingPage249Nonsub();
-		}
+//		if(userType.equals("Guest")) {
+//			PlexLandingPage499Login();
+//			PlexLandingPage499Register();
+//			PlexLandingPage249Login();
+//			PlexLandingPage249Register();
+//		}else if(userType.equals("NonSubscribedUser")){
+//			PlexLandingPage499Nonsub();
+//			PlexLandingPage249Nonsub();
+//		}
 	}
 	
 	public void ValidateCTAsAndValidateComboOfferScreen() throws Exception {
@@ -26514,7 +26516,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		HeaderChildNode("Naviagte to consumption/combo offer screen after clicking "+CTAToBeclicked+" in ZEEPLEX Screen");
 		navigateToAnyScreenOnWeb("ZEEPLEX");
 		waitTime(3000);
-		scrollByWEB();
+		scrollDownWEB();
 		scrollDownWEB();
 		contentTitle = getText(PWAComboOfferPage.objRentNowTitle);
 		ClickOnCTAInZeePlexScreen(CTAToBeclicked);
@@ -27032,19 +27034,21 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			verifyComboScreen();
 			verifyElementPresentAndClick(PWAComboOfferPage.objBuyRadheComboBtn, "Buy Radhe Combo Button");
 			waitTime(2000);
-			if(userType.equals("Guest"))
-			PWAComboOfferLoginInSubscriptionFlow(userType, premiumPlan);
-			if(premiumPlan.equalsIgnoreCase("799")) {
-				PWAVerifyComboPopupRentMovieFor();
-			}else if(premiumPlan.equalsIgnoreCase("299")) {
-				PWAVerifyUpgradeToComboOfferPopup();
-			}else {
-				PWAVerifyComboPopupRentMovieFor();
+			if (userType.equals("Guest")) {
+				PWAComboOfferLoginInSubscriptionFlow(userType, premiumPlan);
+				if (premiumPlan.equalsIgnoreCase("799")) {
+					PWAVerifyComboPopupRentMovieFor();
+				} else if (premiumPlan.equalsIgnoreCase("299")) {
+					PWAVerifyUpgradeToComboOfferPopup();
+				} else {
+					PWAVerifyComboPopupRentMovieFor();
+				}
 			}
 			verifyElementPresent(PWASubscriptionPages.objPaymentHighlighted, "Make Payment Screen");
 			navigateHome();
-			logout();
-			
+			if (userType.equals("Guest")) {
+				logout();
+			}
 		}
 		
 		

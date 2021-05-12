@@ -184,4 +184,7 @@ public class AMDLoginScreen {
 	
 	public static By objTwitterAutorizeAllowBtn = By.xpath("//*[@resource-id='com.twitter.android:id/ok_button'] | //*[@id='allow']"); 
 	public static By objResendOtpLink = By.xpath("//*[@id='resendOTP'] | //*[@resource-id='com.graymatrix.did:id/didntGetTheOTPId']");
+	
+	public static By objEnterPasswordField = By.xpath("//*[@id='heading' and @text='Enter Password']");
+	public static By objAccountInfoScreen = By.xpath("//*[@id='heading' and @text='Account Info']");
 }

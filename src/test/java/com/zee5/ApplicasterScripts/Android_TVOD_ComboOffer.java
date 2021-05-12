@@ -27,9 +27,10 @@ public class Android_TVOD_ComboOffer {
 	}
 	
 	@Test(priority = 1)
-	@Parameters({ "userType" })
-	public void SubscriptionScreenValidation(String userType) throws Exception {
+	@Parameters({ "userType","NonsubscribedUserName","NonsubscribedPassword" })
+	public void SubscriptionScreenAndPaymentScreenValidation(String userType,String pEmailId,String pPassword) throws Exception {
 		ZEE5ApplicasterBusinessLogic.TVODComboOfferScreenValidation(userType,"Buy Premium Now!");
+		ZEE5ApplicasterBusinessLogic.VerifyNavigationAsNonSusbscribedUser(pEmailId, pPassword);
 	}
 	
 	
@@ -96,6 +97,8 @@ public class Android_TVOD_ComboOffer {
 		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(pEmailId,pPassword);
         ZEE5ApplicasterBusinessLogic.NonSubscribed_withoutRadheRental(ptabName,pContentTitle); 
     }
+	
+
 	
 	@Test(priority = 7)
 	@Parameters({ "userType","SubsUserWithActiveRentalPlan","CommomPassword","Radhe"}) //---Need to pass Susbcribeduser credentials which has 1-year Premium+Radhe Active plan
@@ -176,6 +179,17 @@ public class Android_TVOD_ComboOffer {
 		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(pEmailId, pPassword);
 		ZEE5ApplicasterBusinessLogic.SearchZEEPLEXContentAndPlay(pContentTitle);
 		ZEE5ApplicasterBusinessLogic.ZeePlexContentInPlayerCTAValidation();
+	}
+	
+	@Test(priority = 13)
+	@Parameters({"NonSubsUserWithActiveRentalPlan","CommomPassword" })	//---Need to pass Non-Susbcribeduser credentials which has only Radhe rental Active plan activated
+	public void GuestUserLogsinAsNonSubsUserWithRentalActivePlan(String pEmailId,String pPassword) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
+		ZEE5ApplicasterBusinessLogic.selectSpecificContentLanguages();
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin("Guest");
+		ZEE5ApplicasterBusinessLogic.VerifyRentalPlanAsNonSubscribedUser(pEmailId, pPassword);
 	}
 	
 	@AfterTest

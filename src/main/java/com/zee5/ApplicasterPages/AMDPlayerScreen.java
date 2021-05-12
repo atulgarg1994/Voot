@@ -141,7 +141,6 @@ public class AMDPlayerScreen {
 	
 	public static By objPaymentStep = By.xpath("//*[@text='Step 3 of 3']");
 	public static By objMakePayment = By.xpath("//*[@text='Make Payment']");
-	public static By objLoggedIn = By.xpath("//*[@text='Logged In']");
 	public static By objLoggedInEmail = By.xpath("//*[@text='Logged in']//following-sibling::*");
 	public static By objByRentingTerms = By.xpath("By Renting you agree to our Terms");
 	
@@ -158,5 +157,6 @@ public class AMDPlayerScreen {
 	public static By objZeePlexTitle = By.xpath("//*[@id='contentTitleTextView']");
 	public static By objZeePlexValidity = By.xpath("//*[@id='detailsValidityTextView']");
 	public static By objZeeWatchTime = By.xpath("//*[@id='detailsWatchTimeTextView']");
+	public static By objLoggedIn = By.xpath("//*[@text='Logged in']");
 	
 	}

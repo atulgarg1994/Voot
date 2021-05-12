@@ -117,4 +117,5 @@ public class AMDGenericObjects {
 		return By.xpath("//*[@id='screen_title' and @text='" + title + "'] | //*[@id='title' and @text='" + title + "']|//*[@id='railDialogToolBar']");
 	}
 	
+	public static By objContinueCTA = By.xpath("//*[@id='continueButton']");
 }

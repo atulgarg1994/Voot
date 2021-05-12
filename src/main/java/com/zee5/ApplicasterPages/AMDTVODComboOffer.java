@@ -6,7 +6,6 @@ public class AMDTVODComboOffer {
 
 	public static final By ObjOnlyRentMoviePlanSelect = null;
 	public static By objTrailerCTAonCarousel = By.xpath("");
-	public static By objRentNowCTAonCarousel = By.xpath("");
 	public static By objRentNowTextOnPlayer = By.xpath("//*[@id='rentNowDescription']");
 	public static By objRentNowCTAOnPlayer = By.xpath("//*[@id='rentNowCta']");
 	public static By objRentNowCTABelowPlayer = By.xpath("//*[@id='ctaBannerButton']/child::*[@id='subscribeButton' and contains(text(), 'Rent')]");
@@ -84,5 +83,11 @@ public class AMDTVODComboOffer {
 	public static By objRentNowCTAonCarouselForContent(String contentTitle) {
 		return By.xpath("//*[@text='"+contentTitle+"']/parent::*/following-sibling::*/child::*/child::*[@id='subscribeButton' and @text='Rent Now']");
 	}
+	
+	public static By objRentNowCTAonCarousel = By.xpath("//*[@id='subscribeButton' and @text='Rent Now']");
+	public static By objRentNowCTAonCarouselAagKaGola = By.xpath("//*[@text='Aag Ka Gola']//following::*//*[@id='subscribeButton' and @text='Rent Now']");
+
+	public static By objWatchNowCalloutCTA = By.xpath("//*[@id='buttonFirstAction' and @text='Watch Now']");
+	public static By objBuyPremiumCalloutCTA = By.xpath("//*[@id='buttonSecondAction' and @text='Buy Premium']");
 
 }
