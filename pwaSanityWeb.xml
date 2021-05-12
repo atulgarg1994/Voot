@@ -15,8 +15,8 @@
 	<parameter name="runMode" value="Suites"/>
 	
 	<!-- NONSubscribed User -->
-	<parameter name="NonsubscribedUserName" value="zeesub@mailnesia.com"/> <!-- "igstesting002@gmail.com" -->
-	<parameter name="NonsubscribedPassword" value="123456"/> <!-- "igs@12345" -->
+	<parameter name="NonsubscribedUserName" value="igstesting002@gmail.com"/> <!-- "igstesting002@gmail.com" -->
+	<parameter name="NonsubscribedPassword" value="igs@12345"/> <!-- "igs@12345" -->
 	<!--  Subscribed User --> 
 	<parameter name="SubscribedUserName" value="zeetest10@test.com"/>
 	<parameter name="SubscribedPassword" value="123456"/>

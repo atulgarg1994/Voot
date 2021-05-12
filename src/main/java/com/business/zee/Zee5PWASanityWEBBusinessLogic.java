@@ -26393,6 +26393,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			deeplinkConsumptionScreen499Register();
 			deeplinkConsumptionScreen249Login();
 			deeplinkConsumptionScreen249Register();
+			PWASearchEntryPointValidations(userType, "299", "Inline");
 		}else if(userType.equals("NonSubscribedUser")){
 			deeplinkConsumptionScreen499();
 			deeplinkConsumptionScreen249();
@@ -26402,6 +26403,16 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			deeplinkSubscriptionRegister();
 		}else if(userType.equals("NonSubscribedUser")){
 			deeplinkSubscriptionNonSub();
+		}
+		
+		if(userType.equals("Guest")) {
+			PlexLandingPage499Login();
+			PlexLandingPage499Register();
+			PlexLandingPage249Login();
+			PlexLandingPage249Register();
+		}else if(userType.equals("NonSubscribedUser")){
+			PlexLandingPage499Nonsub();
+			PlexLandingPage249Nonsub();
 		}
 	}
 	
@@ -26506,6 +26517,10 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		scrollByWEB();
 		scrollDownWEB();
 		contentTitle = getText(PWAComboOfferPage.objRentNowTitle);
+		ClickOnCTAInZeePlexScreen(CTAToBeclicked);
+	}
+	
+	public void ClickOnCTAInZeePlexScreen(String CTAToBeclicked)throws Exception {
 		if(CTAToBeclicked.equalsIgnoreCase("Trailer")) {
 			click(PWAComboOfferPage.objTrailer, "Trailer CTA");
 		}else if(CTAToBeclicked.equalsIgnoreCase("RentForINR")) {
@@ -26529,8 +26544,9 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	
 	public void validateConsumptionScreen() throws Exception {
 		HeaderChildNode("Validate CTA's in consumptions screen");
-		waitTime(60000);
-		waitTime(15000);
+//		waitTime(60000);
+//		waitTime(15000);
+		waitForElementPresence(PWAComboOfferPage.objRentNowInPlayer, 75, "Rent Now CTA in-player");
 		verifyElementPresent(PWAComboOfferPage.objwatchFullContentByRentingIt, "watch full content by renting it");
 		verifyElementPresent(PWAComboOfferPage.objRentNowInPlayer, "Rent Now CTA in-player");
 		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
@@ -28979,7 +28995,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void deeplinkSubscriptionRegister() throws Exception {
-		HeaderChildNode("Deeplink Subscription Register");
+		HeaderChildNode("Deeplink Subscription Register screen");
 		getWebDriver().get(getParameterFromXML("DeeplinkSubscription"));
 		click(PWASubscriptionPages.objContinueBtn,"Continue Button");
 		type(PWALoginPage.objEmailField, RandomStringGenerator(6)+"002@gmail.com", "Email ID");
@@ -28992,11 +29008,111 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void deeplinkSubscriptionNonSub() throws Exception {
-		HeaderChildNode("NonSubscribed - Deeplink Subscription");
+		HeaderChildNode("NonSubscribed - Deeplink Subscription screen");
 		getWebDriver().get(getParameterFromXML("DeeplinkSubscription"));
 		click(PWASubscriptionPages.objContinueBtn,"Continue Button");
 		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
 		navigateHome();
 		logout();
 	}
+	
+	/**
+	 * Plex Landing Page
+	 * @throws Exception
+	 */
+	public void PlexLandingPage499Login() throws Exception {
+		HeaderChildNode("Navigation from Plex Landing page to purchase plan 499 by login");
+		navigationFromZeeplexScreen("RentNow");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
+		verifyComboScreen();
+		termsOfService();
+		privacyPolicy();
+		validatePaymentPageNavigation();
+		type(PWALoginPage.objEmailField, "igstesting002@gmail.com", "Email ID");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		type(PWALoginPage.objPasswordField, "igs@12345", "Password Button");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
+		navigateHome();
+		logout();
+	}
+	
+	public void PlexLandingPage499Register() throws Exception {
+		HeaderChildNode("Navigation from Plex Landing page to purchase plan 499 by registration");
+		navigationFromZeeplexScreen("RentNow");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
+		verifyComboScreen();
+		termsOfService();
+		privacyPolicy();
+		validatePaymentPageNavigation();
+		type(PWALoginPage.objEmailField, RandomStringGenerator(6)+"002@gmail.com", "Email ID");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		type(PWALoginPage.objPasswordField, "igs@12345", "Password Button");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
+		navigateHome();
+		logout();
+	}
+	
+	public void PlexLandingPage249Login() throws Exception {
+		HeaderChildNode("Navigation from Plex Landing page to purchase plan 499 by login");
+		navigationFromZeeplexScreen("RentNow");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
+		verifyComboScreen();
+		termsOfService();
+		privacyPolicy();
+		click(PWAComboOfferPage.objOnlyRentMovieCheckBox,"249 Checkbox");
+		validatePaymentPageNavigation();
+		type(PWALoginPage.objEmailField, "igstesting002@gmail.com", "Email ID");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		type(PWALoginPage.objPasswordField, "igs@12345", "Password Button");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
+		navigateHome();
+		logout();
+	}
+	
+	public void PlexLandingPage249Register() throws Exception {
+		HeaderChildNode("Navigation from Plex Landing page to purchase plan 499 by registration");
+		navigationFromZeeplexScreen("RentNow");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
+		verifyComboScreen();
+		termsOfService();
+		privacyPolicy();
+		click(PWAComboOfferPage.objOnlyRentMovieCheckBox,"249 Checkbox");
+		validatePaymentPageNavigation();
+		type(PWALoginPage.objEmailField, RandomStringGenerator(6)+"002@gmail.com", "Email ID");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		type(PWALoginPage.objPasswordField, "igs@12345", "Password Button");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
+		navigateHome();
+		logout();
+	}
+	
+	public void PlexLandingPage499Nonsub() throws Exception {
+		HeaderChildNode("Navigation from Plex Landing page to purchase plan 499 by login");
+		navigationFromZeeplexScreen("RentNow");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
+		verifyComboScreen();
+		termsOfService();
+		privacyPolicy();
+		validatePaymentPageNavigation();
+		navigateHome();
+		logout();
+	}
+	
+	public void PlexLandingPage249Nonsub() throws Exception {
+		HeaderChildNode("Navigation from Plex Landing page to purchase plan 499 by registration");
+		navigationFromZeeplexScreen("RentNow");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
+		verifyComboScreen();
+		termsOfService();
+		privacyPolicy();
+		click(PWAComboOfferPage.objOnlyRentMovieCheckBox,"249 Checkbox");
+		validatePaymentPageNavigation();
+		navigateHome();
+		logout();
+	}
+	
 }

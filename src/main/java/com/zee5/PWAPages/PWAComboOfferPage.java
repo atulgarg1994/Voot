@@ -13,9 +13,9 @@ public class PWAComboOfferPage {
 	
 	public static By objwatchFullContentByRentingIt = By.xpath(".//*[@class='subscribe-msg-premium subscribemsg_en']/div/span");
 	
-	public static By objRentNowInPlayer = By.xpath(".//*[@class='subscribe-button subscribemsg_en noPremiumIcon' and text()='Rent Now']");
+	public static By objRentNowInPlayer = By.xpath(".//*[contains(@class,'subscribe-button subscribemsg_en') and contains(text(),'Rent')]");
 	
-	public static By objRentNowBelowPlayer = By.xpath(".//*[@class='tvodBanner']//child::*[text()='Rent Now']");
+	public static By objRentNowBelowPlayer = By.xpath(".//*[@class='tvodBanner']//child::*[contains(text(),'Rent')]");
 	public static By objKnowMore = By.xpath(".//*[@class='comboOfferContainer']//child::*[text()='know more']");
 	public static By objComboOfferWidget = By.xpath(".//*[@class='comboOfferWidget']");
 	
