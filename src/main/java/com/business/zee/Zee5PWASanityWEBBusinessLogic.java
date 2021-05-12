@@ -26377,7 +26377,23 @@ public void pwaverifyHaveacode(String userType) throws Exception
 //====================COMBO OFFER=========================
 	
 	public void ComboOfferPremiumPlex(String userType)throws Exception {
+//		if(!userType.equals("Guest")) {
+//			logout();
+//		}
+//		PWASearchEntryPointValidations(userType, "299", "Inline");
+//		PWASearchEntryPointValidations(userType, "299", "BelowPlayer");
+//		PWASearchEntryPointValidations(userType, "299", "KnowMore");
+//		
+//		PWAZeePLEXPageEntryPointValidations(userType, "299", "Inline");
+//		PWAZeePLEXPageEntryPointValidations(userType, "299", "BelowPlayer");
+//		PWAZeePLEXPageEntryPointValidations(userType, "299", "KnowMore");
 		
+		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			deeplinkConsumptionScreen499Login();
+			deeplinkConsumptionScreen499Register();
+			deeplinkConsumptionScreen249Login();
+			deeplinkConsumptionScreen249Register();
+		}
 	}
 	
 	public void ValidateCTAsAndValidateComboOfferScreen() throws Exception {
@@ -26432,6 +26448,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void validatePaymentPageNavigation() throws Exception {
+		scrollDownWEB();
+		scrollDownWEB();
 		if (userType.equals("Guest")) {
 			click(PWAComboOfferPage.objBuyRadheComboBtn, "Buy Radhe Combo Button");
 		} else if (userType.equals("NonSubscribedUser")) {
@@ -26509,7 +26527,6 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
 		verifyElementPresent(PWAComboOfferPage.objComboOfferWidget, "Combo Offer Widget below the player");
 //		verifyElementPresent(PWAComboOfferPage.objKnowMore, "Know More CTA below the player");
-		
 	}
 	
 	public void verifyComboScreen() throws Exception {
@@ -26875,25 +26892,27 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	
 	//-------------------Satish Combo Offer-----------------------------------------------------------------
 	
-		public void PWAComboOfferLoginInSubscriptionFlow(String userType, String premiumPlan) throws Exception {
-			extent.HeaderChildNode("Combo Offer - Login In Subscription Flow");
-			logger.info("Combo Offer - Login In Subscription Flow");
-			waitTime(2000);
-			if (userType.equalsIgnoreCase("Guest")) {
-				
-			}else if(userType.equalsIgnoreCase("SubscribedUser")) {
-				if(premiumPlan.equals("799")) {
-					PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName799"), getParameterFromXML("SubscribedPassword799"));
-				}else if (premiumPlan.equals("299")) {
-					PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName299"), getParameterFromXML("SubscribedPassword299"));
-				}else {
-					PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName"), getParameterFromXML("SubscribedPassword"));
-				}
-			}else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-				PWALoginInSubscriptionFlow(getParameterFromXML("NonsubscribedUserName"), getParameterFromXML("NonsubscribedPassword"));
+	public void PWAComboOfferLoginInSubscriptionFlow(String userType, String premiumPlan) throws Exception {
+		extent.HeaderChildNode("Combo Offer - Login In Subscription Flow");
+		logger.info("Combo Offer - Login In Subscription Flow");
+		waitTime(2000);
+		if (userType.equalsIgnoreCase("Guest")) {
+			
+		}else if(userType.equalsIgnoreCase("SubscribedUser")) {
+			if(premiumPlan.equals("799")) {
+				PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName799"), getParameterFromXML("SubscribedPassword799"));
+			}else if (premiumPlan.equals("299")) {
+				PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName299"), getParameterFromXML("SubscribedPassword299"));
+			}else if (premiumPlan.equals("499")) {
+				PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName499"), getParameterFromXML("SubscribedPassword499"));
+			}else {
+				PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName"), getParameterFromXML("SubscribedPassword"));
 			}
-			waitTime(2000);
+		}else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			PWALoginInSubscriptionFlow(getParameterFromXML("NonsubscribedUserName"), getParameterFromXML("NonsubscribedPassword"));
 		}
+		waitTime(2000);
+	}
 		
 		public void PWALoginInSubscriptionFlow(String userName, String password) throws Exception {
 
@@ -26959,11 +26978,11 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		}
 		
 		
-		public void PWASearchEntryPointValidations(String userType, String premiumPlan) throws Exception {
+		public void PWASearchEntryPointValidations(String userType, String premiumPlan, String CTAToBeClicked) throws Exception {
 
 			extent.HeaderChildNode("Search Entry Point Validations");
 			logger.info("Search Entry Point Validations");
-			logout();
+			
 			navigateToHome();
 			mandatoryRegistrationPopUp(userType);
 			PWASearchForContent(getParameterFromXML("comboOfferMovie"));
@@ -26972,7 +26991,14 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			extent.extentLogger("ZEEPLEX Logo Validation","TestCase 50:Verify, when user searches for TVOD[Combo Offer configurable Movie] contents plex logo should be visible");
 			verifyElementPresent(PWASearchPage.objZEEPLEXLogoFirstSearchedAssetTitle(getParameterFromXML("comboOfferMovie")), "ZEEPLEX logo in metadata of searched TVOD: "+getParameterFromXML("comboOfferMovie"));
 			PWAClickOnFirstSearchedResult(getParameterFromXML("comboOfferMovie"));
-			waitForElementAndClickIfPresent(PWAComboOfferPage.objRentNowInPlayer, 70, "Rent Now CTA On Player");
+			
+			if(CTAToBeClicked.equalsIgnoreCase("Inline")){
+				validateComboScreenOnClickingCTAInlinePlayer();
+			}else if(CTAToBeClicked.equalsIgnoreCase("BelowPlayer")){
+				validateComboScreenOnClickingCTABelowPlayer();
+			}else if(CTAToBeClicked.equalsIgnoreCase("KnowMore")){
+				validateComboScreenOnClickingCTAKnowMore();
+			}
 			waitTime(2000);
 			verifyComboScreen();
 			verifyElementPresentAndClick(PWAComboOfferPage.objBuyRadheComboBtn, "Buy Radhe Combo Button");
@@ -26988,9 +27014,31 @@ public void pwaverifyHaveacode(String userType) throws Exception
 				PWAVerifyComboPopupRentMovieFor();
 				zeePWAPaymentPageValidation();
 			}
-
 			logout();
-			
+		}
+		
+		
+		public void PWAZeePLEXPageEntryPointValidations(String userType, String premiumPlan, String CTAToBeClicked) throws Exception {
+			extent.HeaderChildNode("Search Entry Point Validations");
+			logger.info("Search Entry Point Validations");
+			navigateToHome();
+			mandatoryRegistrationPopUp(userType);
+			navigationFromZeeplexScreen(CTAToBeClicked);
+			verifyComboScreen();
+			verifyElementPresentAndClick(PWAComboOfferPage.objBuyRadheComboBtn, "Buy Radhe Combo Button");
+			waitTime(2000);
+			PWAComboOfferLoginInSubscriptionFlow(userType, premiumPlan);
+			if(premiumPlan.equalsIgnoreCase("799")) {
+				PWAVerifyComboPopupRentMovieFor();
+				zeePWAPaymentPageValidation();
+			}else if(premiumPlan.equalsIgnoreCase("299")) {
+				PWAVerifyUpgradeToComboOfferPopup();
+				zeePWAPaymentPageValidation();
+			}else {
+				PWAVerifyComboPopupRentMovieFor();
+				zeePWAPaymentPageValidation();
+			}
+			logout();			
 		}
 
 /**
@@ -28801,5 +28849,62 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		}
 	}
 
+	
+	public void deeplinkConsumptionScreen499Login() throws Exception {
+		getWebDriver().get(getParameterFromXML("DeeplinkConsumption"));
+		validateConsumptionScreen();
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
+		verifyComboScreen();
+		termsOfService();
+		privacyPolicy();
+		validatePaymentPageNavigation();
+		type(PWALoginPage.objEmailField, "igstesting002@gmail.com", "Email ID");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+	}
+	
+	public void deeplinkConsumptionScreen499Register() throws Exception {
+		getWebDriver().get(getParameterFromXML("DeeplinkConsumption"));
+		validateConsumptionScreen();
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
+		verifyComboScreen();
+		termsOfService();
+		privacyPolicy();
+		validatePaymentPageNavigation();
+		type(PWALoginPage.objEmailField, RandomStringGenerator(6)+"007@gmail.com", "Email ID");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+	}
+	
+	public void deeplinkConsumptionScreen249Login() throws Exception {
+		getWebDriver().get(getParameterFromXML("DeeplinkConsumption"));
+		validateConsumptionScreen();
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
+		verifyComboScreen();
+		termsOfService();
+		privacyPolicy();
+		click(PWAComboOfferPage.objOnlyRentMovieCheckBox,"249 Checkbox");
+		validatePaymentPageNavigation();
+		type(PWALoginPage.objEmailField, "igstesting002@gmail.com", "Email ID");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+	}
+	
+	public void deeplinkConsumptionScreen249Register() throws Exception {
+		getWebDriver().get(getParameterFromXML("DeeplinkConsumption"));
+		validateConsumptionScreen();
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
+		verifyComboScreen();
+		termsOfService();
+		privacyPolicy();
+		validatePaymentPageNavigation();
+		type(PWALoginPage.objEmailField, RandomStringGenerator(6)+"002@gmail.com", "Email ID");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		type(PWALoginPage.objEmailField, "igs@12345", "Password Button");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+	}
 	
 }

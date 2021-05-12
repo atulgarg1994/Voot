@@ -15,8 +15,8 @@
 	<parameter name="runMode" value="Suites"/>
 	
 	<!-- NONSubscribed User -->
-	<parameter name="NonsubscribedUserName" value="zeesub@mailnesia.com"/>
-	<parameter name="NonsubscribedPassword" value="123456"/>
+	<parameter name="NonsubscribedUserName" value="zeesub@mailnesia.com"/> <!-- "igstesting002@gmail.com" -->
+	<parameter name="NonsubscribedPassword" value="123456"/> <!-- "igs@12345" -->
 	<!--  Subscribed User --> 
 	<parameter name="SubscribedUserName" value="zeetest10@test.com"/>
 	<parameter name="SubscribedPassword" value="123456"/>
@@ -68,9 +68,11 @@
 	<parameter name="SubscribedUserName299" value="zee299@g.com"/>
 	<parameter name="SubscribedPassword299" value="123456"/>
 	<!--  Subscribed User 499 Plan--> 
-	<parameter name="SubscribedUserName499" value="zee299@g.com"/>
+	<parameter name="SubscribedUserName499" value="zeetesting499@g.com"/>
 	<parameter name="SubscribedPassword499" value="123456"/>
+	
 	<parameter name="comboOfferMovie" value="Aag Ka Gola"/>
+	<parameter name="DeeplinkConsumption" value="https://newpwa.zee5.com/movies/details/aag-ka-gola/0-0-movie_216980339"/>
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

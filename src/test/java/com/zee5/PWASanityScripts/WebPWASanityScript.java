@@ -408,21 +408,21 @@ public class WebPWASanityScript {
 //		Zee5WEBPWASanityBusinessLogic.Sprint58(userType);
 //	}
 //	
-//	@Test(priority = 32)
-//	@Parameters({ "userType" })
-//	public void InSprintComboOfferAutomation(String userType) throws Exception {
-//		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-//		Zee5WEBPWASanityBusinessLogic.ComboOfferPremiumPlex(userType);
-//	}
-//	
-//	@Test(priority = 33)
-//	@Parameters({ "userType" })
-//	public void InSprintComboOfferAutomations(String userType) throws Exception {
-////		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-//		Zee5WEBPWASanityBusinessLogic.ComboOfferPremiumPlexSub(userType);
-//	}
-//	
-	@Test(priority = 34)
+	@Test(priority = 32)
+	@Parameters({ "userType" })
+	public void InSprintComboOfferAutomation(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.ComboOfferPremiumPlex(userType);
+	}
+	
+	@Test(priority = 33)
+	@Parameters({ "userType" })
+	public void InSprintComboOfferAutomations(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.ComboOfferPremiumPlexSub(userType);
+	}
+	
+	@Test(priority = 34) //Lakshmi
 	@Parameters({ "userType" })
 	public void SubscriptionComboOfferPageValidation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();

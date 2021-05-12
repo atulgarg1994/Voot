@@ -205,4 +205,5 @@ public class PWALoginPage {
 
 	 public static By objLoginBtnWEB = By.xpath("//*[contains(@class,'loginBtn noSelect') and text()='Login']");
 
+	 public static By objContinueBtn = By.xpath(".//*[contains(@class,'buttonContainer')]//span[text()='Continue']"); 
 }
