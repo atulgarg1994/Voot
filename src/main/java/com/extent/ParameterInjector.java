@@ -36,6 +36,8 @@ public class ParameterInjector implements IAlterSuiteListener {
 		params.put("SubscribedPassword499", suite.getParameter("SubscribedPassword499"));
 		params.put("SubscribedUserName99", suite.getParameter("SubscribedUserName99"));
 		params.put("SubscribedPassword99", suite.getParameter("SubscribedPassword99"));
+		params.put("SubscribedUserName49", suite.getParameter("SubscribedUserName49"));
+		params.put("SubscribedPassword49", suite.getParameter("SubscribedPassword49"));
 		System.out.println("Browser type : " + suite.getParameter("browserType"));
 
 		if (suite.getParameter("url").equals("newpwa")) {

@@ -26905,24 +26905,23 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		extent.HeaderChildNode("Combo Offer - Login In Subscription Flow");
 		logger.info("Combo Offer - Login In Subscription Flow");
 		waitTime(2000);
-		if (userType.equalsIgnoreCase("Guest")) {
-			
-		}else if(userType.equalsIgnoreCase("SubscribedUser")) {
-			if(premiumPlan.equals("799")) {
-				PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName799"), getParameterFromXML("SubscribedPassword799"));
-			}else if (premiumPlan.equals("299")) {
-				PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName299"), getParameterFromXML("SubscribedPassword299"));
-			}else if (premiumPlan.equals("499")) {
-				PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName499"), getParameterFromXML("SubscribedPassword499"));
-			}else if (premiumPlan.equals("99")) {
-				PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName99"), getParameterFromXML("SubscribedPassword99"));
-			}else {
-				PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName"), getParameterFromXML("SubscribedPassword"));
-			}
-		}else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-			PWALoginInSubscriptionFlow(getParameterFromXML("NonsubscribedUserName"), getParameterFromXML("NonsubscribedPassword"));
+
+		if (premiumPlan.equals("799")) {
+			PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName799"),
+					getParameterFromXML("SubscribedPassword799"));
+		} else if (premiumPlan.equals("299")) {
+			PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName299"),
+					getParameterFromXML("SubscribedPassword299"));
+		} else if (premiumPlan.equals("499")) {
+			PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName499"),
+					getParameterFromXML("SubscribedPassword499"));
+		} else if (premiumPlan.equals("99")) {
+			PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName99"),
+					getParameterFromXML("SubscribedPassword99"));
+		} else {
+			PWALoginInSubscriptionFlow(getParameterFromXML("SubscribedUserName"),
+					getParameterFromXML("SubscribedPassword"));
 		}
-		waitTime(2000);
 	}
 		
 		public void PWALoginInSubscriptionFlow(String userName, String password) throws Exception {
@@ -27004,16 +27003,20 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			PWAClickOnFirstSearchedResult(getParameterFromXML("comboOfferMovie"));
 			
 			if(CTAToBeClicked.equalsIgnoreCase("Inline")){
-				validateComboScreenOnClickingCTAInlinePlayer();
+				validateConsumptionScreen();
+				click(PWAComboOfferPage.objRentNowInPlayer, "Rent Now CTA in-player");
 			}else if(CTAToBeClicked.equalsIgnoreCase("BelowPlayer")){
-				validateComboScreenOnClickingCTABelowPlayer();
+				validateConsumptionScreen();
+				click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
 			}else if(CTAToBeClicked.equalsIgnoreCase("KnowMore")){
-				validateComboScreenOnClickingCTAKnowMore();
+				validateConsumptionScreen();
+				click(PWAComboOfferPage.objComboOfferWidget, "Combo Offer Wedget");
 			}
 			waitTime(2000);
 			verifyComboScreen();
 			verifyElementPresentAndClick(PWAComboOfferPage.objBuyRadheComboBtn, "Buy Radhe Combo Button");
 			waitTime(2000);
+			if(userType.equals("Guest"))
 			PWAComboOfferLoginInSubscriptionFlow(userType, premiumPlan);
 			if(premiumPlan.equalsIgnoreCase("799")) {
 				PWAVerifyComboPopupRentMovieFor();
@@ -27025,6 +27028,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			verifyElementPresent(PWASubscriptionPages.objPaymentHighlighted, "Make Payment Screen");
 			navigateHome();
 			logout();
+			
 		}
 		
 		
@@ -28861,6 +28865,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 
 	
 	public void deeplinkConsumptionScreen499Login() throws Exception {
+		HeaderChildNode("Deeplink Consumption Screen 499 Login");
 		getWebDriver().get(getParameterFromXML("DeeplinkConsumption"));
 		validateConsumptionScreen();
 		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
@@ -28878,6 +28883,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void deeplinkConsumptionScreen499Register() throws Exception {
+		HeaderChildNode("Deeplink Consumption Screen 499 Register");
 		getWebDriver().get(getParameterFromXML("DeeplinkConsumption"));
 		validateConsumptionScreen();
 		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
@@ -28895,6 +28901,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void deeplinkConsumptionScreen249Login() throws Exception {
+		HeaderChildNode("Deeplink Consumption Screen 249 Login");
 		getWebDriver().get(getParameterFromXML("DeeplinkConsumption"));
 		validateConsumptionScreen();
 		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
@@ -28913,6 +28920,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void deeplinkConsumptionScreen249Register() throws Exception {
+		HeaderChildNode("Deeplink Consumption Screen 249 Register");
 		getWebDriver().get(getParameterFromXML("DeeplinkConsumption"));
 		validateConsumptionScreen();
 		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
@@ -28930,6 +28938,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void deeplinkConsumptionScreen499() throws Exception {
+		HeaderChildNode("NonSubscribed - Deeplink Consumption Screen 499");
 		getWebDriver().get(getParameterFromXML("DeeplinkConsumption"));
 		validateConsumptionScreen();
 		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
@@ -28943,6 +28952,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void deeplinkConsumptionScreen249() throws Exception {
+		HeaderChildNode("NonSubscribed - Deeplink Consumption Screen 249");
 		getWebDriver().get(getParameterFromXML("DeeplinkConsumption"));
 		validateConsumptionScreen();
 		click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
@@ -28956,6 +28966,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void deeplinkSubscriptionLogin() throws Exception {
+		HeaderChildNode("Deeplink Subscription Login");
 		getWebDriver().get(getParameterFromXML("DeeplinkSubscription"));
 		click(PWASubscriptionPages.objContinueBtn,"Continue Button");
 		type(PWALoginPage.objEmailField, "igstesting002@gmail.com", "Email ID");
@@ -28968,6 +28979,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void deeplinkSubscriptionRegister() throws Exception {
+		HeaderChildNode("Deeplink Subscription Register");
 		getWebDriver().get(getParameterFromXML("DeeplinkSubscription"));
 		click(PWASubscriptionPages.objContinueBtn,"Continue Button");
 		type(PWALoginPage.objEmailField, RandomStringGenerator(6)+"002@gmail.com", "Email ID");
@@ -28980,6 +28992,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	}
 	
 	public void deeplinkSubscriptionNonSub() throws Exception {
+		HeaderChildNode("NonSubscribed - Deeplink Subscription");
 		getWebDriver().get(getParameterFromXML("DeeplinkSubscription"));
 		click(PWASubscriptionPages.objContinueBtn,"Continue Button");
 		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
