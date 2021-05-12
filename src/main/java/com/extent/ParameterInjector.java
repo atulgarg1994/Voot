@@ -127,6 +127,7 @@ public class ParameterInjector implements IAlterSuiteListener {
 			params.put("ClubPassword", suite.getParameter("ClubPassword"));
 			params.put("freeContentURL",
 					"https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paaru-gets-tipsy-paaru-highlights/0-1-249189");
+			params.put("comboOfferMovie", "Aag Ka Gola");
 			
 		}
 		if (region.equals("MH")) {
@@ -204,6 +205,7 @@ public class ParameterInjector implements IAlterSuiteListener {
 			params.put("ClubPassword", suite.getParameter("ClubPassword"));
 			params.put("freeContentURL",
 					"https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paaru-gets-tipsy-paaru-highlights/0-1-249189");
+			params.put("comboOfferMovie", "Aag Ka Gola");
 			
 		}
 		suite.setParameters(params);

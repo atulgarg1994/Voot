@@ -70,6 +70,7 @@
 	<!--  Subscribed User 499 Plan--> 
 	<parameter name="SubscribedUserName499" value="zee299@g.com"/>
 	<parameter name="SubscribedPassword499" value="123456"/>
+	<parameter name="comboOfferMovie" value="Aag Ka Gola"/>
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

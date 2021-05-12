@@ -207,7 +207,7 @@ public class Mixpanel extends ExtentReporter {
 			APIKey = "e45c2466330383c493ba355fd0819bf4";
 			UserID = "$model";
 			distinct_id = modelName();
-		}
+		} 
 	
 		Response request=null;
 		for(int trial=0;trial<5;trial++) {

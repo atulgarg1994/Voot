@@ -186,7 +186,6 @@ public class AMDHomePage {
 	public static By objCarouselTitle = By.xpath("//*[@id='item_primary_text'] | (//*[@id='cell_top_container'])[1]/following-sibling::*[@resource-id='com.graymatrix.did:id/cell_center_container']/child::*[@index='0']");
 
 	public static By objLoginButtonOnPlayerscreen = By.xpath("//*[@id='errorViewButton' and @text='Login']");
-	public static By objSubscribeIcon = By.xpath("//*[@id='home_subscribe_text_view']");
 	
 	public static By objCarouselDots = By.xpath("(//*[@resource-id='com.graymatrix.did:id/cell_top_container'])[1]/parent::*/parent::*/parent::*/following-sibling::*");
 	public static By objCarouselConetentCard = By.xpath("((//*[@resource-id='com.graymatrix.did:id/cell_top_container'])[1]/child::*)[1]");
@@ -253,9 +252,13 @@ public class AMDHomePage {
 	public static By objTrendingNewsTray = By.xpath("//*[@text='Trending News ']");
 	
 	public static By objRegisterPopup = By.xpath("//*[@id='tvtitle' and @text='Register']");
-	
-	public static By objSubscribeTeaser = By.xpath("//*[@text='SUBSCRIBE'] | //*[@id='home_subscribe_text_view']");
+
 	
 	public static By objSubscribeNowInMyTransaction = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_subscribe_now'] | //*[@resource-id='com.graymatrix.did:id/btn_sub_now']");
+	
+	public static By objSubscribeTeaser = By.xpath("//*[@id='home_toolbar_buy_plan'] | //*[@text='SUBSCRIBE'] | //*[@id='home_subscribe_text_view']");
+	public static By objSubscribeIcon = By.xpath("//*[@id='home_toolbar_buy_plan']  | //*[@id='home_subscribe_text_view']");
+	
+	public static By objCarouselResumeCTA = By.xpath("//*[@id='outlinedButton' and @text='Resume']");
 	
 	}

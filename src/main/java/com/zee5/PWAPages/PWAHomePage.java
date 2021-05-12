@@ -583,9 +583,6 @@ public class PWAHomePage {
 			.xpath("//div[contains(@class,'iconInitialLoad-ic_premium')]");
 	
 	public static By objPopUpClose = By.xpath("//div[contains(@class, 'drowerCloseIcon iconInitialLoad-ic_close')]"); 
-	
-	public static By objContTitleOnCarousel = By
-			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
 
 	public static By objTamilWEB = By.xpath("//span[contains(text(),'Tamil')]");
 	
@@ -608,7 +605,7 @@ public class PWAHomePage {
 	}
 	
 	public static By objTabName(String tabName) {
-		return By.xpath("(//a[contains(@class,'noSelect') and text()='" + tabName + "'])[2]");
+		return By.xpath("(//a[contains(@class,'noSelect') and contains(text(),'" + tabName + "')])[2]");
 	}
 	
 	public static By objGetPremiumGetClubButton = By.xpath("//div[contains(@class,'slick-active')]//*[text()='Buy Plan']//parent::a");
@@ -621,4 +618,13 @@ public class PWAHomePage {
 
 	//click on By Plan
 	public static By objByPlan = By.xpath("//a[@class='subscribeBtn noSelect' and @href='/myaccount/subscription']");
+	
+	public static By objTabName1(String tabName) {
+		return By.xpath("(//a[contains(@class,'noSelect text_news_active') and text()='" + tabName + "'])[3]");
+	}
+	
+	public static By objContTitleOnCarousel = By
+			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
+	
+	
 }

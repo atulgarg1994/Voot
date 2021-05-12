@@ -447,6 +447,9 @@ public class PWASubscriptionPages {
 	public static By objComboRadheYearZee5Premium = By.xpath("(//div[@class='subscriTopContWrapper']//div[@class='item']//span)[1]");
 
 	public static By objTextForComboOffer = By.xpath("//h1[contains(text(),'Radhe Combo Offer')]");
-	//Combo:Radhe + Year Zee5 Premium
 	
+	public static By objsavethiscard=By.xpath("//*[contains(@class,'linearLayout')]//following-sibling::*//article[contains(text(),'Save this card for faster payments')]");
+	public static By objamazonpaypage=By.xpath("//div[@class='a-box-inner a-padding-extra-large']");
+	public static By objpaytmentermobileno=By.xpath("//input[@placeholder='Please Enter a Number']");
+	public static By objpaytmlink=By.xpath("//article[contains(text(),'Paytm')]");
 }

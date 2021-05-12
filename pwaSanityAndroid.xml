@@ -11,26 +11,18 @@
 	<parameter name="browserType" value="${browserType}"/>
 	<parameter name="url" value="${url}" /> -->
 
-
 	<parameter name="url" value="newpwa" />
-
 	<parameter name="browserType" value="chrome" />
-
 	<parameter name="userType" value="Guest" />
 
 	<!-- Guest/NonSubscribedUser/SubscribedUser -->
-
-
 	<parameter name="runModule" value="Suite" />
-	
 	<parameter name="runMode" value="Suites"/>
 
 	<!-- NONSubscribed User -->
 
-	<parameter name="NonsubscribedUserName"
-		value="impact0314@gmail.com" />
-
-	<parameter name="NonsubscribedPassword" value="impact123" />
+	<parameter name="NonsubscribedUserName" value="impact0314@gmail.com" />
+	<parameter name="NonsubscribedPassword" value="igs123" />
 
 	<!-- Subscribed User -->
 

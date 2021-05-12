@@ -161,6 +161,6 @@ public class PWAPremiumPage {
 
 	public static By objGetPremiumCTAOnCarousel = By.xpath("(//div[@class='slick-slide slick-active slick-center slick-current']//span[contains(text(),'Get premium')])");
 	
-	public static By objNextArrowBtn = By.xpath("(//button[@class='slick-arrow slick-next'])[1]");
-	public static By objPreviousArrowBtn = By.xpath("(//button[@class='slick-arrow slick-prev'])[1]");
+	public static By objNextArrowBtn = By.xpath("(//button[@class='slick-arrow slick-next'])[2]");
+	public static By objPreviousArrowBtn = By.xpath("(//button[@class='slick-arrow slick-prev'])[2]");
 }

@@ -487,7 +487,7 @@ public class PWAHamburgerMenuPage {
 
 	public static By objMySubscriptionPackName = By.xpath("//*[@class='packNameWrap']");
 
-	public static By objHamburgerBtn = By.xpath("//*[contains(text(),'Open Menu')]");
+	public static By objHamburgerBtn = By.xpath("//*[contains(@class,'hamburgerMenuBtn')]//following-sibling::*[contains(text(),'Open Menu')]");
 
 	public static By objMyTransactionPackName = By.xpath("//*[@class='packInline']");
 

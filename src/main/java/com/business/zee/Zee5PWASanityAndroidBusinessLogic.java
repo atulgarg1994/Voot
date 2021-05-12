@@ -7405,8 +7405,12 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			// waitForElementAndClickIfPresent(PWASubscriptionPages.objPopupCloseButton, 5,
 			// "Close in Pop Up");
 			waitTime(4000);
-			waitForElement(PWAPlayerPage.objContentTitle, 30, "Content title");
-			consumptionPageTitle = getText(PWAPlayerPage.objContentTitle);
+	//		waitForElement(PWAPlayerPage.objContentTitle, 30, "Content title");
+	//		consumptionPageTitle = getText(PWAPlayerPage.objContentTitle);
+			
+			waitForElement(PWAPlayerPage.objContentTitle1, 30, "Content title");
+			consumptionPageTitle = getText(PWAPlayerPage.objContentTitle1);
+			
 			if (consumptionPageTitle.contains(contentTitle)) {
 				extent.extentLogger("correctNavigation",
 						"Successfully navigated to the correct Consumption page: " + consumptionPageTitle);
@@ -7415,8 +7419,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				 * if (contentType.equals("Live TV")) pausePlayerForLiveTV(); else
 				 * pausePlayerAndGetLastPlayedTime();
 				 */
-				waitForElement(PWAPlayerPage.objContentTitle1, 30, "Content title");
-				consumptionPageTitle = getText(PWAPlayerPage.objContentTitle1);
+
 			} else {
 				extent.extentLoggerFail("incorrectNavigation",
 						"Navigated to incorrect Consumption page: " + consumptionPageTitle);
@@ -7424,6 +7427,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 		}
 	}
+
 
 	/**
 	 * Method to pause the player and get the duration lapsed
@@ -9732,6 +9736,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			System.out.println(contentLanguages);
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objApplyBtn, "Apply Button");
 			verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscribe button");
+			
+			waitTime(5000);
+			
+			Swipe("UP", 1);
+			
 			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "Have a Code");
 			hideKeyboard();
 			
@@ -13720,7 +13729,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		// pausePlayer();
 		String freeMovieTitle = "";
 		try {
-			freeMovieTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle,
+			
+	//		freeMovieTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle,
+			
+					freeMovieTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle1,
+							
 					"Free Movie Title in Consumptions Page").toString();
 			logger.info("Free Movie Title in Consumptions Page: " + freeMovieTitle);
 			extent.extentLogger("", "Free Movie Title in Consumptions Page: " + freeMovieTitle);
@@ -13762,7 +13775,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		// pausePlayer();
 		String premiumMovieTitle = "";
 		try {
-			premiumMovieTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle,
+			
+		//	premiumMovieTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle,
+			
+					premiumMovieTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle1,
+							
 					"Premium Movie Title in Consumptions Page").toString();
 			logger.info("Premium Movie Title in Consumptions Page: " + premiumMovieTitle);
 			extent.extentLogger("", "Premium Movie Title in Consumptions Page: " + premiumMovieTitle);
@@ -14784,39 +14801,41 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 		}
 
-	public void PWAStoriesPageHLS(String usertype, String Tabname) throws Exception {
-		extent.HeaderChildNode("HLS_145 : Verify whether user is able to navigate Stories landing page ");
-		System.out.println("HLS_145 : Verify whether user is able to navigate Stories landing page ");
-		PWAPagesNavigationAndTabHighlight(Tabname);
-		navigateToAnyScreen("Stories");
-		extent.HeaderChildNode("HLS_146 : Trays and data load for 2 scrolls vertically");
-		System.out.println("HLS_146 : Trays and data load for 2 scrolls vertically");
-		dataValidationOnScrollForStories();
-		extent.HeaderChildNode(
-				"HLS_147 : Verify at right side bottom arrow is given to navigate top of screen without scrolling");
-		System.out.println(
-				"HLS_147 : Verify at right side bottom arrow is given to navigate top of screen without scrolling");
-		verifyElementPresentAndClick(PWALandingPages.objNavigateToTopStories, "Back to Top arrow");
-		extent.HeaderChildNode("HLS_148 : Verify whether user is navigate to Story consumption page");
-		System.out.println("HLS_148 : Verify whether user is navigate to Story consumption page");
-		String cardTitle = getElementPropertyToString("innerText", PWAHomePage.objStoriesPageCardTitle,
-				"Story title in Landing");
-		logger.info("Title of the Story in Stories page: " + cardTitle);
-		extent.extentLogger("", "Title of the Story in Stories page: " + cardTitle);
-		click(PWAHomePage.objStoriesPageCardTitle, "Story card");
-		String cardTitleConsum = getElementPropertyToString("innerText", PWAHomePage.objStoriesPageConsumptionsTitle,
-				"Story title in Consumptions");
-		logger.info("Title of the Story in Article page: " + cardTitleConsum);
-		extent.extentLogger("", "Title of the Story in Article page: " + cardTitleConsum);
-		if (cardTitle.equals(cardTitleConsum)) {
-			logger.info("Successful navigation to consumption page");
-			extent.extentLogger("", "Successful navigation to consumption page");
-		} else {
-			logger.error("Navigation failed to consumption page");
-			extent.extentLoggerFail("", "Navigation failed to consumption page");
+	 public void PWAStoriesPageHLS(String usertype, String Tabname) throws Exception {
+			extent.HeaderChildNode("HLS_145 : Verify whether user is able to navigate Stories landing page ");
+			System.out.println("HLS_145 : Verify whether user is able to navigate Stories landing page ");
+			PWAPagesNavigationAndTabHighlight(Tabname);
+			
+		//	navigateToAnyScreen("Stories");
+			navigateToPerticularScreen("Stories");
+			
+			extent.HeaderChildNode("HLS_146 : Trays and data load for 2 scrolls vertically");
+			System.out.println("HLS_146 : Trays and data load for 2 scrolls vertically");
+			dataValidationOnScrollForStories();
+			extent.HeaderChildNode(
+					"HLS_147 : Verify at right side bottom arrow is given to navigate top of screen without scrolling");
+			System.out.println(
+					"HLS_147 : Verify at right side bottom arrow is given to navigate top of screen without scrolling");
+			verifyElementPresentAndClick(PWALandingPages.objNavigateToTopStories, "Back to Top arrow");
+			extent.HeaderChildNode("HLS_148 : Verify whether user is navigate to Story consumption page");
+			System.out.println("HLS_148 : Verify whether user is navigate to Story consumption page");
+			String cardTitle = getElementPropertyToString("innerText", PWAHomePage.objStoriesPageCardTitle,
+					"Story title in Landing");
+			logger.info("Title of the Story in Stories page: " + cardTitle);
+			extent.extentLogger("", "Title of the Story in Stories page: " + cardTitle);
+			click(PWAHomePage.objStoriesPageCardTitle, "Story card");
+			String cardTitleConsum = getElementPropertyToString("innerText", PWAHomePage.objStoriesPageConsumptionsTitle,
+					"Story title in Consumptions");
+			logger.info("Title of the Story in Article page: " + cardTitleConsum);
+			extent.extentLogger("", "Title of the Story in Article page: " + cardTitleConsum);
+			if (cardTitle.equals(cardTitleConsum)) {
+				logger.info("Successful navigation to consumption page");
+				extent.extentLogger("", "Successful navigation to consumption page");
+			} else {
+				logger.error("Navigation failed to consumption page");
+				extent.extentLoggerFail("", "Navigation failed to consumption page");
+			}
 		}
-
-	}
 
 	public void PWAVideosPageHLS(String usertype, String Tabname) throws Exception {
 		extent.HeaderChildNode("HLS_149 : Verify whether user is able to navigate Videos landing page");
@@ -14878,6 +14897,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					"HLS_164 : Verify the Premium user is able to watch all the zee originals shows, HLS_166 : Verify user is able to watch the First Episode of the originals shows, HLS_167 : Verify user can Navigate to the Original shows Details Screen post click on any Show Thumbnail Card");
 			swipeTillTrayAndClickContentCard("Best of ZEE5 Originals in Hindi");
 		}
+	/*	
 		if (userType.equals("ClubUser")) {
 			extent.HeaderChildNode(
 					"HLS_165 : Verify the Club user is able to watch all the zee originals shows from Zee originals page, HLS_166 : Verify user is able to watch the First Episode of the originals shows, HLS_167 : Verify user can Navigate to the Original shows Details Screen post click on any Show Thumbnail Card");
@@ -14885,15 +14905,18 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					"HLS_165 : Verify the Club user is able to watch all the zee originals shows from Zee originals page, HLS_166 : Verify user is able to watch the First Episode of the originals shows, HLS_167 : Verify user can Navigate to the Original shows Details Screen post click on any Show Thumbnail Card");
 			swipeTillTrayAndClickContentCard("Best of ZEE5 Originals in Hindi");
 		}
+	*/	
 		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 			extent.HeaderChildNode(
 					"HLS_166 : Verify user is able to watch the First Episode of the originals shows, HLS_167 : Verify user can Navigate to the Original shows Details Screen post click on any Show Thumbnail Card");
 			System.out.println(
 					"HLS_166 : Verify user is able to watch the First Episode of the originals shows, HLS_167 : Verify user can Navigate to the Original shows Details Screen post click on any Show Thumbnail Card");
-			swipeTillTrayAndClickContentCard("Best of ZEE5 Originals in Hindi");
+		//	swipeTillTrayAndClickContentCard("Best of ZEE5 Originals in Hindi");
+			swipeTillTrayAndClickContentCard("Top ZEE5 Web Series");
 		}
 		click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 		navigateToAnyScreen(Tabname);
+/*		
 		if (userType.equals("Guest")) {
 			extent.HeaderChildNode(
 					"HLS_168 : Verify the GET CLUB CTA is displayed on the  Club originals detail screen");
@@ -14907,6 +14930,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			verifyElementPresent(PWAShowsPage.objGetClubCTAInShowDetails, "Get Club CTA in originals details");
 			verifyIsElementDisplayed(PWAShowsPage.objShowdeatilPlayIcon, "Play icon in originals details");
 		}
+*/		
 		if (userType.equals("Guest")) {
 			extent.HeaderChildNode(
 					"HLS_169 : Verify the GET Premium CTA is displayed on the  Club originals detail screen");
@@ -15387,7 +15411,11 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 					"HLS_221 : Validate that selected pack information is displayed on the right side of the account info screen.");
 			System.out.println(
 					"HLS_221 : Validate that selected pack information is displayed on the right side of the account info screen.");
-			click(PWASubscriptionPages.objPremiumPack, "Premium Pack");
+			
+		//	click(PWASubscriptionPages.objPremiumPack, "Premium Pack");
+			
+			click(PWASubscriptionPages.objDefaultSelectedPack, "Default Selected Package");
+			
 			click(PWASubscriptionPages.objContinueBtn, "Continue button");
 			verifyElementPresent(PWASubscriptionPages.objAccountInfoHighlighted, "Account Info Page");
 
@@ -18259,5 +18287,25 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			verifyLandscapeforPremiumContent();
 			VerifyExternalLinkInShowsLandingPage();
 		}
+	}
+	
+	public boolean navigateToPerticularScreen(String screen) throws Exception {
+		for (int i = 0; i < 3; i++) {
+			try {
+				if (verifyElementPresentAndClick(PWAHomePage.objTabName1(screen), "Tab : " + screen))
+					return true;
+			} catch (Exception e) {
+				try {
+					swipeOnTab("Left");
+					if (verifyElementPresentAndClick(PWAHomePage.objTabName1(screen), "Tab : " + screen)) {
+						waitTime(5000);
+						return true;
+					}
+				} catch (Exception exc) {
+					swipeOnTab("Right");
+				}
+			}
+		}
+		return false;
 	}
 }

@@ -86,6 +86,9 @@ public class Zee5TvWelcomePage {
 	public static By objYoumayLike = By.xpath("//*[@id='header_title']");
 	public static By objAddtoWatchlist = By
 			.xpath("(//*[@id='detail_button_text' and @text='Add to Watchlist']//parent::*//child::*)[1]");
+	
+	public static By objRemoveWatchlist = By
+			.xpath("(//*[@id='detail_button_icon'])[3]");
 
 	public static By objPremiumTag(int str) {
 		return By.xpath("(//*[@id='premium_tag'])[" + str + "]");
@@ -191,4 +194,6 @@ public class Zee5TvWelcomePage {
 	public static By objViewAllTrayApi(String str) {
 		return By.xpath("(//*[@id='row_header' and contains(text(),'"+ str +"')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*//child::*[@id='main_image'])[2]");
 	}
+	
+	public static By objContentTitle = By.xpath("//*[@id='detail_title']");
 }

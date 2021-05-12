@@ -95,4 +95,13 @@ public class PWAComboOfferPage {
 			.xpath("//*[@class='comboPopupBtns']//span[text()='Upgrade']");
 	
 	public static By objWatchNowCTA = By.xpath("(//button[@type='button' and span[text()='Watch Now']])[1]");
+	
+	public static By objPaymentPageHeader = By.xpath(".//*[@class='stepTitle' and text()='Make Payment']");
+
+	// Lakshmi Combo Offer
+	public static By objcomboofferpage = By.xpath("//div[@class='titleSubTitleComp']//h1");
+	public static By objbuycta = By.xpath("//div[@class='buttonContainer']");
+	public static By objpackprice249 = By.xpath("(//div[@class='priceAmout'])[2]");
+	public static By objpackprice499 = By.xpath("(//div[@class='priceAmout'])[1]");
+
 }

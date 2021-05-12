@@ -1742,8 +1742,13 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			// waitForElementAndClickIfPresent(PWASubscriptionPages.objPopupCloseButton, 5,
 			// "Close in Pop Up");
 			waitTime(4000);
-			waitForElement(PWAPlayerPage.objContentTitle, 30, "Content title");
-			consumptionPageTitle = getText(PWAPlayerPage.objContentTitle);
+			
+//			waitForElement(PWAPlayerPage.objContentTitle, 30, "Content title");
+//			consumptionPageTitle = getText(PWAPlayerPage.objContentTitle);
+			
+			waitForElement(PWAPlayerPage.objContentTitle1, 30, "Content title");
+			consumptionPageTitle = getText(PWAPlayerPage.objContentTitle1);
+			
 			if (consumptionPageTitle.contains(contentTitle)) {
 				extent.extentLogger("correctNavigation",
 						"Successfully navigated to the correct Consumption page: " + consumptionPageTitle);
@@ -1752,8 +1757,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 				 * if (contentType.equals("Live TV")) pausePlayerForLiveTV(); else
 				 * pausePlayerAndGetLastPlayedTime();
 				 */
-				waitForElement(PWAPlayerPage.objContentTitle1, 30, "Content title");
-				consumptionPageTitle = getText(PWAPlayerPage.objContentTitle1);
+
 			} else {
 				extent.extentLoggerFail("incorrectNavigation",
 						"Navigated to incorrect Consumption page: " + consumptionPageTitle);

@@ -901,12 +901,69 @@ public class PWAHamburgerMenuPage {
 	public static By objMyTransactionsOption = By.xpath("//*[contains(@href,'/myprofile/payments')]");
 	
 	//Browse All Packs Page Description Text
-	public static By objBrowseAllPacksPageTitleText = By.xpath("//*[@class='subscriptionAndPaymentWrapper']//*[@class='stepTitle']");
-	
-	public static By objonlymovierent=By.xpath("//div[@class='bottomSection']//h3[text()='Only Rent Movie']");
-	
-	public static By objrentmovie=By.xpath("//div[@class='buttonContainer']//span");
-	
-	public static By objBuySubscriptionOption = By.xpath("//*[contains(@class,'menuItem') and contains(text(),'Buy Plan')]");
-	
+	public static By objBrowseAllPacksPageTitleText = By
+			.xpath("//*[@class='subscriptionAndPaymentWrapper']//*[@class='stepTitle']");
+
+	public static By objonlymovierent = By.xpath("//div[@class='bottomSection']//h3[text()='Only Rent Movie']");
+
+	public static By objrentmovie = By.xpath("//div[@class='buttonContainer']//span");
+
+	public static By objBuySubscriptionOption = By
+			.xpath("//*[contains(@class,'menuItem') and contains(text(),'Buy Plan')]");
+
+	// Lakshmi Combo Offer
+	public static By obj499pack = By.xpath("//span[@class='price' and text()='499']");
+	public static By objplanpriceinpaymentpage = By.xpath("//p[@class='packPrice ']");
+
+	public static By objscanorcodetext(String text) {
+		return By.xpath("//*[@class='textView']//following-sibling::*//article[contains(text(),'" + text + "')]");
+	}
+
+	public static By objtoarstmessage = By.xpath("//div[text()='Could not find card. Please enter valid card number']");
+	public static By objamazonpaylogo = By.xpath("//img[@alt='Amazon Pay']");
+	public static By objamazonlogintext = By.xpath("//div[@class='a-box-inner a-padding-extra-large']//h1");
+	public static By objamazonemailandphnofield = By.xpath("//div[@class='a-row a-spacing-base']//label");
+
+	public static By objamazonsignincta = By.xpath("//input[@id='signInSubmit']");
+	public static By objplandetailsinamazon = By.xpath("//div[@class='a-box a-spacing-none']");
+
+	public static By objmobikvikloginpage = By.xpath("//div[@id='view_login']");
+
+	public static By objmobikviklogo = By.xpath("//div[@class='logos']");
+	public static By objmobikviklogintext = By.xpath("//h2[text()='Please Login/Register to your wallet']");
+	public static By objmobikvikemailandphnofield = By.xpath("//div[@class='form-group']//label");
+	public static By objmobikviksendotpcta = By.xpath("//*[text()='Send OTP']");
+	public static By objmobikvikentermobilenumber = By.xpath("//input[@placeholder='Enter Mobile Number']");
+	public static By objenterotppage = By.xpath("//input[@placeholder='Enter OTP']");
+	public static By objotpsentsuccessfully = By.xpath("//h2[text()='OTP Sent Successfully on 9000000000']");
+
+	public static By objchangecta = By.xpath("//button[text()='Change ']");
+	public static By objmobikvikresendotp = By.xpath("//button[text()='Resend OTP ']");
+	public static By objsubmitmobikvik = By.xpath("//button[text()='Submit']");
+
+	public static By objinputnumbercard = By.xpath("//input[@name='giftCardNumber']");
+	public static By objentermobilenumber = By.xpath("//input[@placeholder='Enter Mobile Number']");
+
+	public static By objtimerinupi = By.xpath("//div[@id='timer2']//article");
+	public static By objscanandpay = By
+			.xpath("//*[@class='linearLayout']//following-sibling::*//article[contains(text(),'Scan QR and Pay')]");
+	public static By objotpscreen = By.xpath("//div[@class='tabs-Otp']");
+	public static By objsearchbarinnetbanking = By.xpath("//input[@placeholder='Search']");
+	public static By objlistofbanks = By.xpath(
+			"//div[@class='horizontalScrollView']//div[@class='linearLayout']//div[@class='linearLayout']//div[@class='linearLayout']");
+
+	public static By objpinnumber = By.xpath("//input[@type='password' and @name='pinNumber']");
+	public static By objinputpincard = By.xpath("//input[@name='pinNumber']");
+	public static By objenterpintohaveagiftcard = By.xpath("//span[@class='inputLabel ' and text()='PIN']");
+
+	public static By objcardsinpaytm = By
+			.xpath("//*[@class='_15Mz d-block po-n overflow-h fl ']//span[text()='Debit Card']");
+	public static By objgobackinpaytm = By.xpath("//span[text()='go back']");
+	public static By objcancelpaymentyes = By.xpath("//div[@class='_WCVy btn btn-primary pos-r']");
+
+	public static By objpaymentfailurepopup = By.xpath("//h1[@class='retryPaymentHeader']");
+	public static By objpaymentpopupclosebtn = By.xpath("//div[@class='drowerCloseIcon iconInitialLoad-ic_close']");
+	public static By objupiarrow = By
+			.xpath("(//*[@class='textView']//following-sibling::*//article[contains(text(),'UPI')])[3]");
+
 	}

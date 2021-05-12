@@ -22,23 +22,23 @@ public class Android_TVOD_ComboOffer {
 	@Parameters({ "userType", })
 	public void ApplicasterLogin(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 	}
 	
 	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void SubscriptionScreenValidation(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.TVODComboOfferScreenValidation(userType);
+		ZEE5ApplicasterBusinessLogic.TVODComboOfferScreenValidation(userType,"Buy Premium Now!");
 	}
 	
 	
 	@Test(priority = 2)
-	@Parameters({ "userType","","","Radhe"}) //---Need to pass the credentials which has Radhe active plan
+	@Parameters({ "userType","SubsUserWithRadheRentalPlan","CommomPassword","RentalContentName3"}) //---Need to pass the credentials which has Radhe active plan
 	public void ZEEPLEXContentInPlayerCTAValidation(String userType,String pEmailId, String pPassword, String pContentTitle) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(pEmailId, pPassword);
 		ZEE5ApplicasterBusinessLogic.SearchZEEPLEXContentAndPlay(pContentTitle);
 		ZEE5ApplicasterBusinessLogic.ZeePlexContentInPlayerCTAValidation();
@@ -56,23 +56,23 @@ public class Android_TVOD_ComboOffer {
 	}
 	
 	@Test(priority = 4)//Sushma - Logged in subscribed user with premium plans lower in value than the Combo offer price of 499/- without Radhe rental
-	@Parameters({ "userType","99PremiumPackEmail", "249PremiumPackEmail", "299PremiumPackEmail", "CommomPassword", "tabName1", "Radhe"})
+	@Parameters({ "userType","99PremiumPackEmail", "249PremiumPackEmail", "299PremiumPackEmail", "CommomPassword", "tabName1", "RentalContentName1"})
 	public void UseCase1(String userType, String PremiumPackEmail99, String PremiumPackEmail249, String PremiumPackEmail299, String pPassword, String ptabName, String pContentTitle) throws Exception {
-		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		//ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(PremiumPackEmail99, pPassword);
 		ZEE5ApplicasterBusinessLogic.premiumUser_99(ptabName, pContentTitle);
 		
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(PremiumPackEmail249, pPassword);
 		ZEE5ApplicasterBusinessLogic.premiumUser_249(ptabName, pContentTitle);
 		
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(PremiumPackEmail299, pPassword);
 		ZEE5ApplicasterBusinessLogic.premiumUser_299(ptabName, pContentTitle);
 		
@@ -88,15 +88,14 @@ public class Android_TVOD_ComboOffer {
 		ZEE5ApplicasterBusinessLogic.VerifyRentalPlanAsSubscribedUser(pEmailId, pPassword);
 	}
 	
-	@Test(priority = 6)
-	@Parameters({"NonSubsUserWithActiveRentalPlan","CommomPassword" })	//---Need to pass Non-Susbcribeduser credentials which has only Radhe rental Active plan activated
-	public void GuestUserLogsinAsNonSubsUserWithRentalActivePlan(String pEmailId,String pPassword) throws Exception {
-		ZEE5ApplicasterBusinessLogic.relaunch(true);
-		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
-		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
-		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin("Guest");
-		ZEE5ApplicasterBusinessLogic.VerifyRentalPlanAsNonSubscribedUser(pEmailId, pPassword);
-	}
+	@Test(priority = 6)//Bhavana
+	@Parameters({ "userType","","","tabName1", "Radhe"}) //---Need to pass the Non-subscribed user which is not rented
+	public void UseCase5(String userType, String pEmailId, String pPassword, String ptabName, String pContentTitle) throws Exception {
+        ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(pEmailId,pPassword);
+        ZEE5ApplicasterBusinessLogic.NonSubscribed_withoutRadheRental(ptabName,pContentTitle); 
+    }
 	
 	@Test(priority = 7)
 	@Parameters({ "userType","SubsUserWithActiveRentalPlan","CommomPassword","Radhe"}) //---Need to pass Susbcribeduser credentials which has 1-year Premium+Radhe Active plan
@@ -114,13 +113,13 @@ public class Android_TVOD_ComboOffer {
 	public void UseCase2(String userType, String RSVOD49PackEmail, String RSVOD499PackEmail, String pPassword, String ptabName, String pContentTitle) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(RSVOD49PackEmail, pPassword);
 		ZEE5ApplicasterBusinessLogic.RSVODUser_49(ptabName, pContentTitle);
 		
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToLoginScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(RSVOD499PackEmail, pPassword);
 		ZEE5ApplicasterBusinessLogic.RSVODUser_499(ptabName, pContentTitle);
 	}
@@ -130,13 +129,13 @@ public class Android_TVOD_ComboOffer {
 	public void UseCase6(String userType, String PremiumPackEmail99, String PremiumPackEmail299, String pPassword, String ptabName, String pContentTitle) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.Guest_premiumUser_99(ptabName, pContentTitle, PremiumPackEmail99, pPassword);
 		
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.Guest_premiumUser_299(ptabName, pContentTitle, PremiumPackEmail299, pPassword);
 	}
@@ -146,7 +145,7 @@ public class Android_TVOD_ComboOffer {
 	public void UseCase6b(String userType, String SubscribedUserName, String pPassword, String ptabName, String pContentTitle) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.Guest_premiumUser_499(ptabName, pContentTitle, SubscribedUserName, pPassword);
 	}
@@ -157,13 +156,13 @@ public class Android_TVOD_ComboOffer {
 	public void UseCase7(String userType, String RSVOD49PackEmail, String RSVOD499PackEmail, String pPassword, String ptabName, String pContentTitle) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.Guest_RSVODUser_49(ptabName, pContentTitle, RSVOD49PackEmail, pPassword);
 		
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.Guest_RSVODUser_499(ptabName, pContentTitle, RSVOD499PackEmail, pPassword);
 	}

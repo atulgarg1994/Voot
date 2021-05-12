@@ -139,11 +139,6 @@ public class AMDPlayerScreen {
 	
 	public static By objWatchNowCTA = By.xpath("//*[@text='Watch Now']");
 	
-	public static By objInPlayerCTA = By.xpath("//*[@text='Watch Now' | @text='Rent for']");
-	
-	public static By objZeePlexValidity = By.xpath("");
-	public static By objZeeWatchTime = By.xpath("");
-	
 	public static By objPaymentStep = By.xpath("//*[@text='Step 3 of 3']");
 	public static By objMakePayment = By.xpath("//*[@text='Make Payment']");
 	public static By objLoggedIn = By.xpath("//*[@text='Logged In']");
@@ -153,5 +148,15 @@ public class AMDPlayerScreen {
 	public static By objInPlayerError = By.xpath("//*[@id='errorViewText'] | //*[@id='rentNowDescription']");
 	public static By objZeePlexLogo = By.xpath("//*[@id='zeeplexLogo']");
 	public static By objRentFor = By.xpath("(//*[contains(text(),'Rent for')])[1]");
-	public static By objZeePlexTitle = By.xpath("//*[@id='content_title']");
+	
+	public static By objInPlayerCTA = By.xpath("//*[@id='watchNow'] | //*[@id='rentNowCta']");
+	public static By objPlayerTrailerText = By.xpath("//*[@id='playerInfo' and @text='You are watching the trailer']");
+	public static By objZeePlexIcon = By.xpath("//*[@id='iconZeePlex']");
+	public static By objZeePlexValidityDetails = By.xpath("//*[@id='detailsTextValidity']");
+	public static By objZeeWatchTimeDetails = By.xpath("//*[@id='detailsText']");
+
+	public static By objZeePlexTitle = By.xpath("//*[@id='contentTitleTextView']");
+	public static By objZeePlexValidity = By.xpath("//*[@id='detailsValidityTextView']");
+	public static By objZeeWatchTime = By.xpath("//*[@id='detailsWatchTimeTextView']");
+	
 	}

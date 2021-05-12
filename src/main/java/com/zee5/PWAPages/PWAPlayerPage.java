@@ -426,8 +426,6 @@ public class PWAPlayerPage {
 	
 	public static By objSkipButtonInEnglish = By.xpath("//div[contains(@class,'skip-button') and .='Skip']");
 	
-	public static By objContentTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//*[@class='metaInfo lineHeightClass']//h2");
-	
 	public static By objContentTitle1 = By.xpath("//div[contains(@class,'metaInfo lineHeightClass') or contains(@class,'bannerTitle')]//h2");
 	
 	public static By objConsumptionsShowTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//h1");
@@ -466,4 +464,5 @@ public class PWAPlayerPage {
 	public static By objRentNow = By.xpath("//*[text()='Rent Now']");
 	public static By objContentExpiryInfo = By.xpath("(//*[@class='rentButton'])[1]");
 	public static By objZeePlexLogo = By.xpath("(//*[@title='plex Logo'])[1]");
+	public static By objContentTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//h1");
 }

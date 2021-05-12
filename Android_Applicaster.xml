@@ -10,9 +10,8 @@
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" /> 
 	
-	 <parameter name="url" value="https://newpwa.zee5.com/" />
-	
-	<parameter name="SubscribedUserWith15daysExpiryUsername" value="crssri@g.co.in" />
+	<parameter name="url" value="https://newpwa.zee5.com/" />
+	<parameter name="SubscribedUserWith15daysExpiryUsername" value="zzzz@g.com" />
 	<parameter name="SubscribedUserWith15daysExpiryPassword" value="123456" />
 
 	<parameter name="NonsubscribedUserName" value="ramkt@gmail.com" />
@@ -31,7 +30,7 @@
 	<parameter name="RegisteredMobilePassword" value="User@123" />
 	
 	<parameter name="UnRegisteredMobile" value="8073661163" />
-	<parameter name="PromoCode" value="zee5sbi20" />
+	<parameter name="PromoCode" value="NRTDC1" />
 	
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsUsername" value="zeetest08@gmail.com" />
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsPassword" value="123456"/>
@@ -154,10 +153,11 @@
 	<parameter name="NonSubsUserWithActiveRentalPlan" value="xyzk@gmail.com" />
 	<parameter name="SubsUserWithoutRentalPlan" value="mobicheck@gmail.com" />
 	<parameter name="RSVOD49PackEmail" value="rsvodtamil1@gmail.com" />
-	<parameter name="RSVOD499PackEmail" value="mobicheck@gmail.com" />
+	<parameter name="RSVOD499PackEmail" value="rsvodkannada1@gmail.com" />
 	<parameter name="RentalContentName1" value="Aag Ka Gola" />
 	<parameter name="RentalContentName2" value="Mard Ki Zubaan" />
 	<parameter name="RentalContentName3" value="Radhe - Your Most Wanted Bhai" />
+	
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

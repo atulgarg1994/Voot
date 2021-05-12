@@ -80,4 +80,14 @@ public class Zee5TvSearchPage {
 	
 	public static By objSearchedText = By.xpath("//*[@id='popular_his_sugg' and @text='Panchatantra']");
 
+	
+	public static By objnewslider = By.xpath("//*[@id='popup_heading']");
+	public static By objZeeLogo = By.xpath("//*[@id='qr_code_image']");
+	public static By objinfotext1 = By.xpath("//*[@id='info_text1']");
+	public static By objinfotext2 = By.xpath("//*[@id='info_text2']");
+	public static By objinfotext3 = By.xpath("//*[@id='info_text3']");
+	public static By objtvodokbutton = By.xpath("//*[@id='tvod_ok']");
+	
+	
+	
 }
