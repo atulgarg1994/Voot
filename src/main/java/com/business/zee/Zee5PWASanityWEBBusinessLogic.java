@@ -16228,7 +16228,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(2000);
 		scrollToBottomOfPageWEB();
 		waitTime(5000);
-		if (checkElementDisplayed(PWAMusicPage.objArrowToNavigateTop, "Arrow icon")) {
+		if (verifyElementPresent(PWAMusicPage.objArrowToNavigateTop, "Arrow icon")) {
 			waitTime(2000);
 			click(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
 		}
@@ -16240,9 +16240,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 //			click(PWAMusicPage.objBannerPlusTrayCard, "Banner Tray card");
 			JSClick(PWAMusicPage.objBannerPlusTrayCard, "Banner Tray card");
 		}
-		if (checkElementDisplayed(PWASubscriptionPages.objGetPremiumPopupTitle, "Subscribe Pop Up")) {
-			verifyElementPresentAndClick(PWAPremiumPage.objClosePremiumPopup, "Premium PopUp Close icon");
-		}
+//		if (checkElementDisplayed(PWASubscriptionPages.objGetPremiumPopupTitle, "Subscribe Pop Up")) {
+//			verifyElementPresentAndClick(PWAPremiumPage.objClosePremiumPopup, "Premium PopUp Close icon");
+//		}
 		mandatoryRegistrationPopUp(userType);
 		waitTime(5000);
 		verifyElementPresent(PWAMusicPage.objRecommendedSongsVideosTray, "Recommended Songs Videos tray");
