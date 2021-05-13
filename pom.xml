@@ -275,7 +275,7 @@
 					<suiteXmlFiles>
 						<!-- TestNG suite XML files -->
 						<!-- <suiteXmlFile>${rp.launch}.xml</suiteXmlFile> -->
-						<suiteXmlFile>pwaWebHLS.xml</suiteXmlFile>
+						<suiteXmlFile>pwaWebComboOffer.xml</suiteXmlFile>
 						<!-- <suiteXmlFile>${suiteXmlFile}.xml</suiteXmlFile> -->
 						<!-- <suiteXmlFile>pwaAndroidHLS.xml</suiteXmlFile> -->
 					</suiteXmlFiles>

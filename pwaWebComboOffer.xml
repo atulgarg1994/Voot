@@ -88,9 +88,9 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
-	<test name="WebPWASanityScript">
+	<test name="WebPWAComboOfferScript">
 		<classes>
-			<class name="com.zee5.PWASanityScripts.WebPWASanityScript" />
+			<class name="com.zee5.PWASanityScripts.WebPWAComboOfferScript" />
 		</classes>
 	</test> 
 </suite>

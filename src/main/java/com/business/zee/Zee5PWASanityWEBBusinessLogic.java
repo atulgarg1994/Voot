@@ -26548,7 +26548,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		HeaderChildNode("Validate CTA's in consumptions screen");
 //		waitTime(60000);
 //		waitTime(15000);
-		waitForElementPresence(PWAComboOfferPage.objRentNowInPlayer, 75, "Rent Now CTA in-player");
+		waitForElementPresence(PWAComboOfferPage.objRentNowInPlayer, 180, "Rent Now CTA in-player");
 		verifyElementPresent(PWAComboOfferPage.objwatchFullContentByRentingIt, "watch full content by renting it");
 		verifyElementPresent(PWAComboOfferPage.objRentNowInPlayer, "Rent Now CTA in-player");
 		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
