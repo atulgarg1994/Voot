@@ -395,12 +395,12 @@ public class WebPWASanityScript {
 //		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 //		Zee5WEBPWASanityBusinessLogic.TasksAndDefects(userType);
 //	}
-	
-	@Test(priority = 32)
-	public void comboOffer() throws Exception {
-		Zee5WEBPWASanityBusinessLogic.ValidateCTAsAndValidateComboOfferScreen();
-	}
-	
+//	
+//	@Test(priority = 32)
+//	public void comboOffer() throws Exception {
+//		Zee5WEBPWASanityBusinessLogic.ValidateCTAsAndValidateComboOfferScreen();
+//	}
+//	
 //	@Test(priority = 32)
 //	@Parameters({ "userType" })
 //	public void InSprintAutomation(String userType) throws Exception {
@@ -412,27 +412,28 @@ public class WebPWASanityScript {
 	@Parameters({ "userType" })
 	public void InSprintComboOfferAutomation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-		Zee5WEBPWASanityBusinessLogic.ComboOfferPremiumPlex(userType);
+//		Zee5WEBPWASanityBusinessLogic.ComboOfferPremiumPlex(userType);
+		Zee5WEBPWASanityBusinessLogic.ValidateCTAsAndValidateComboOfferScreen();
 	}
 	
-	@Test(priority = 33)
-	@Parameters({ "userType" })
-	public void InSprintComboOfferAutomations(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-		Zee5WEBPWASanityBusinessLogic.ComboOfferPremiumPlexSub(userType);
-	}
-	
-	@Test(priority = 34) //Lakshmi
-	@Parameters({ "userType" })
-	public void SubscriptionComboOfferPageValidation(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-		Zee5WEBPWASanityBusinessLogic.pwasubscription(userType);
-		Zee5WEBPWASanityBusinessLogic.pwavalidatingpaymentpage(userType);
-		Zee5WEBPWASanityBusinessLogic.pwavalidatinupiandwalletpaymentpage(userType);
-		Zee5WEBPWASanityBusinessLogic.PWAMobikvikPageValidation(userType);
-		Zee5WEBPWASanityBusinessLogic.pwainsprint1(userType);
-		Zee5WEBPWASanityBusinessLogic.pwainsprint(userType);
-	}
+//	@Test(priority = 33)
+//	@Parameters({ "userType" })
+//	public void InSprintComboOfferAutomations(String userType) throws Exception {
+//		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+//		Zee5WEBPWASanityBusinessLogic.ComboOfferPremiumPlexSub(userType);
+//	}
+//	
+//	@Test(priority = 34) //Lakshmi
+//	@Parameters({ "userType" })
+//	public void SubscriptionComboOfferPageValidation(String userType) throws Exception {
+//		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+//		Zee5WEBPWASanityBusinessLogic.pwasubscription(userType);
+//		Zee5WEBPWASanityBusinessLogic.pwavalidatingpaymentpage(userType);
+//		Zee5WEBPWASanityBusinessLogic.pwavalidatinupiandwalletpaymentpage(userType);
+//		Zee5WEBPWASanityBusinessLogic.PWAMobikvikPageValidation(userType);
+//		Zee5WEBPWASanityBusinessLogic.pwainsprint1(userType);
+//		Zee5WEBPWASanityBusinessLogic.pwainsprint(userType);
+//	}
 	
 	@AfterClass
 	public void tearDown() {

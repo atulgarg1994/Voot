@@ -26472,9 +26472,9 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	public void validatePaymentPageNavigation() throws Exception {
 		scrollDownWEB();
 		scrollDownWEB();
-		if (userType.equals("Guest")) {
+		if (userType.equals("Guest") || userType.equals("SubscribedUser")) {
 			click(PWAComboOfferPage.objBuyRadheComboBtn, "Buy Radhe Combo Button");
-		} else if (userType.equals("NonSubscribedUser")) {
+		} else if (userType.equals("SubscribedUser")) {
 			click(PWAComboOfferPage.objUpgradeBtn, "Upgrade Button");
 		}
 		if (verifyElementDisplayed(PWAComboOfferPage.objOnlyRentMovieCheckBox)) {
@@ -26575,9 +26575,9 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		
 		scrollDownWEB();
 		scrollDownWEB();
-		if(userType.equals("Guest")) {
+		if(userType.equals("Guest") || userType.equals("SubscribedUser")) {
 			verifyElementPresent(PWAComboOfferPage.objBuyRadheComboBtn, "Buy Radhe Combo Button");
-		}else if(userType.equals("NonSubscribedUser")) {
+		}else if(userType.equals("SubscribedUser")) {
 			verifyElementPresent(PWAComboOfferPage.objUpgradeBtn, "Upgrade Button");
 		}
 		
@@ -28968,7 +28968,6 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		validatePaymentPageNavigation();
 		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
 		navigateHome();
-		logout();
 	}
 	
 	public void deeplinkConsumptionScreen249() throws Exception {
@@ -28982,7 +28981,6 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		validatePaymentPageNavigation();
 		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
 		navigateHome();
-		logout();
 	}
 	
 	public void deeplinkSubscriptionLogin() throws Exception {
@@ -29017,7 +29015,6 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		click(PWASubscriptionPages.objContinueBtn,"Continue Button");
 		verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
 		navigateHome();
-		logout();
 	}
 	
 	/**
