@@ -598,8 +598,6 @@ public class PWAHomePage {
 	
 	public static By objMyWatchListIcon = By.xpath(".//*[@class='bm-item mainMenu']//child::*[text()='My Watchlist']");
 	
-	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
-	
 	public static By objHighlightedTab(String tabname) {
 		return By.xpath("(//a[contains(@class,'noSelect') and text()=\""+tabname+"\"])[2]");
 	}
@@ -625,6 +623,6 @@ public class PWAHomePage {
 	
 	public static By objContTitleOnCarousel = By
 			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
-	
+	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
 	
 }

@@ -358,6 +358,6 @@ public class PWASearchPage {
 	
 	// First searched asset Title
 	public static By objFirstSearchedAssetTitle(String searchText) {
-		return By.xpath("//div[contains(@class,'searchCategoryLanding')]//h3[contains(@class,'cardTitle')]//span[contains(@class,'highLight')and text()='"+searchText+"']");
+		return By.xpath("//div[contains(@class,'searchCategoryLanding')]//h3[contains(@class,'cardTitle')]//*[text()='"+searchText+"']");
 	}
 }

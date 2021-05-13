@@ -158,5 +158,6 @@ public class AMDPlayerScreen {
 	public static By objZeePlexValidity = By.xpath("//*[@id='detailsValidityTextView']");
 	public static By objZeeWatchTime = By.xpath("//*[@id='detailsWatchTimeTextView']");
 	public static By objLoggedIn = By.xpath("//*[@text='Logged in']");
+	public static By objParentalPinContinue = By.id("parentalFragmentContinueButton");
 	
 	}

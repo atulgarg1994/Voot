@@ -9,11 +9,9 @@ public class PWAComboOfferPage {
 	public static By objRentForINR = By.xpath("(.//*[@class='tvodButtonContainer']//span[contains(text(),'Rent for INR')])[1]");
 	public static By objRentNow = By.xpath("(.//*[@class='tvodButtonContainer']//span[contains(text(),'Rent Now')])[1]");
 	
-	public static By objRentNowTitle = By.xpath("((.//*[@class='tvodButtonContainer']//span[contains(text(),'Rent for INR')])[1])//ancestor::*[@class='tvodCardContainer']//*[@class='tvodTitle']");
-	
 	public static By objwatchFullContentByRentingIt = By.xpath(".//*[@class='subscribe-msg-premium subscribemsg_en']/div/span");
 	
-	public static By objRentNowInPlayer = By.xpath(".//*[contains(@class,'subscribe-button subscribemsg_en') and contains(text(),'Rent')]");
+	public static By objRentNowInPlayer = By.xpath(".//*[contains(@class,'subscribe-button subscribemsg_en') and contains(text(),'Rent Now')]");
 	
 	public static By objRentNowBelowPlayer = By.xpath(".//*[@class='tvodBanner']//child::*[contains(text(),'Rent')]");
 	public static By objKnowMore = By.xpath(".//*[@class='comboOfferContainer']//child::*[text()='know more']");
@@ -103,5 +101,7 @@ public class PWAComboOfferPage {
 	public static By objbuycta = By.xpath("//div[@class='buttonContainer']");
 	public static By objpackprice249 = By.xpath("(//div[@class='priceAmout'])[2]");
 	public static By objpackprice499 = By.xpath("(//div[@class='priceAmout'])[1]");
+	public static By objRentNowTitle = By.xpath("((.//*[@class='tvodButtonContainer']//span[contains(text(),'Rent Now')])[1])//ancestor::*[@class='tvodCardContainer']//*[@class='tvodTitle']");
 
+	public static By objRentNowInConsumptionPage=By.xpath("//*[@class='rentButton']");
 }

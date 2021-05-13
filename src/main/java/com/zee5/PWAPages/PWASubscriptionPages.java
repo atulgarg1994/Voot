@@ -153,9 +153,6 @@ public class PWASubscriptionPages {
 	public static By objPasswordFieldHidden = By
 			.xpath("//*[contains(@name, 'inputPassword') and contains(@type, 'password')]");
 
-	public static By objProceedBtnEnabled = By
-			.xpath("//*[contains(@class, 'popupBtn') and contains(text(), 'PROCEED')]");
-
 	public static By objCreditAndDebitCardBtn = By.xpath(
 			"//*[contains(@class,'linearLayout sidebarItem_object')]//following-sibling::*//article[contains(text(),'Credit / Debit Card')]");
 
@@ -169,10 +166,6 @@ public class PWASubscriptionPages {
 	public static By objAmazonPay = By.xpath("//article[contains(text(),'Amazon Pay')]");
 	public static By objMobikwik = By.xpath("//article[contains(text(),'Mobikwik')]");
 	public static By objBanks = By.xpath("(//div[@class='horizontalScrollView ']//div)//div//child::*[2]//article");
-	public static By objAmazonPayProceedToPay = By
-			.xpath("//div[@id='305']//article[contains(text(), 'Proceed to pay')]");
-	public static By objMobikwikProceedToPay = By
-			.xpath("//div[@id='328']//article[contains(text(), 'Proceed to pay')]");
 	public static By objCardNumber = By.xpath("//article[contains(text(),'Card Number')]");
 	public static By objCVV = By.xpath("//article[contains(text(),'CVV')]");
 	public static By objExpiry = By.xpath("//article[contains(text(),'Expiry')]");
@@ -217,7 +210,6 @@ public class PWASubscriptionPages {
 	public static By objHaveACodeCloseBtn = By
 			.xpath("//div[contains(@class,'applyPromo')]//following-sibling::span[contains(@class,'close')]");
 
-	public static By objMobileLinkPaytmOption = By.xpath("//*[@text='Link Wallet']");
 
 	public static By objClubPack = By.xpath("//span[contains(text(),'Club')]");
 
@@ -452,4 +444,14 @@ public class PWASubscriptionPages {
 	public static By objamazonpaypage=By.xpath("//div[@class='a-box-inner a-padding-extra-large']");
 	public static By objpaytmentermobileno=By.xpath("//input[@placeholder='Please Enter a Number']");
 	public static By objpaytmlink=By.xpath("//article[contains(text(),'Paytm')]");
+	
+	public static By objAmazonPayProceedToPay = By.xpath("//div[@id='1000354']//article[contains(text(), 'Proceed to pay')]");
+
+	public static By objMobikwikProceedToPay = By
+	.xpath("//div[@id='1000381']//article[contains(text(), 'Proceed to pay')]");
+	public static By objProceedBtnEnabled = By
+	.xpath("//*[contains(@class, 'noSelect pinkBtn')]/span[contains(text(),'Continue')]");
+
+
+	public static By objMobileLinkPaytmOption = By.xpath("(//article[text()='Link Wallet'])[1]");
 }

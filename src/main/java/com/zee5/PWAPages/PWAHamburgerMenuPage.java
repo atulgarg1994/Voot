@@ -966,4 +966,5 @@ public class PWAHamburgerMenuPage {
 	public static By objupiarrow = By
 			.xpath("(//*[@class='textView']//following-sibling::*//article[contains(text(),'UPI')])[3]");
 
+	public static By objrentnowinlandingpage = By.xpath("");
 	}

@@ -35,23 +35,23 @@ public class Android_TVOD_ComboOffer {
 	
 	
 	@Test(priority = 2)
-	@Parameters({"NonSubsUserWithActiveRentalPlan","CommomPassword" })	//---Need to pass Non-Susbcribeduser credentials which has only Radhe rental Active plan activated
-	public void GuestUserLogsinAsNonSubsUserWithRentalActivePlan(String pEmailId,String pPassword) throws Exception {
+	@Parameters({"NonSubsUserWithActiveRentalPlan","CommomPassword","RentalContentName3"})	//---Need to pass Non-Susbcribeduser credentials which has only Radhe rental Active plan activated
+	public void GuestUserLogsinAsNonSubsUserWithRentalActivePlan(String pEmailId,String pPassword,String pContent) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
 		ZEE5ApplicasterBusinessLogic.selectSpecificContentLanguages();
 		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
-		ZEE5ApplicasterBusinessLogic.VerifyRentalPlanAsNonSubscribedUser(pEmailId, pPassword);
+		ZEE5ApplicasterBusinessLogic.VerifyRentalPlanAsNonSubscribedUser(pEmailId, pPassword,pContent);
 	}
 	
 	@Test(priority = 3)
-	@Parameters({"SubsUserWithRadheRentalPlan","CommomPassword" })	//---Need to pass Susbcribeduser credentials which has 1-year Premium+Radhe Active plan
-	public void GuestUserLogsinAsSubsUserWithRentalActivePlan(String pEmailId,String pPassword) throws Exception {
+	@Parameters({"SubsUserWithRadheRentalPlan","CommomPassword","RentalContentName3" })	//---Need to pass Susbcribeduser credentials which has 1-year Premium+Radhe Active plan
+	public void GuestUserLogsinAsSubsUserWithRentalActivePlan(String pEmailId,String pPassword,String pContent) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
 		ZEE5ApplicasterBusinessLogic.selectSpecificContentLanguages();
 		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
-		ZEE5ApplicasterBusinessLogic.VerifyRentalPlanAsSubscribedUser(pEmailId, pPassword);
+		ZEE5ApplicasterBusinessLogic.VerifyRentalPlanAsSubscribedUser(pEmailId, pPassword,pContent);
 	}
 	
 	@Test(priority = 4)//Sushma - Logged in subscribed user with premium plans lower in value than the Combo offer price of 499/- without Radhe rental
@@ -141,29 +141,29 @@ public class Android_TVOD_ComboOffer {
 	
 	@Test(priority = 10)
 	@Parameters({ "userType","SubsUserWithRadheRentalPlan","CommomPassword","RentalContentName3"}) //---Need to pass Susbcribeduser credentials which has 1-year Premium+Radhe Active plan
-	public void UseCase3a(String userType,String pEmailId, String pPassword, String pContentTitle) throws Exception {
+	public void ZEEPLEXContentInPlayerCTAValidationUC3(String userType,String pEmailId, String pPassword, String pContentTitle) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(pEmailId, pPassword);
 		ZEE5ApplicasterBusinessLogic.SearchZEEPLEXContentAndPlay(pContentTitle);
 		ZEE5ApplicasterBusinessLogic.ZeePlexContentInPlayerCTAValidation();
+	}
+		
+	@Test(priority = 11)	
+	@Parameters({ "userType","OneYearPremiumPack","CommomPassword","RentalContentName4"}) //---Need to pass Susbcribeduser credentials which has 1-year Premium plan without Rental Active plan
+	public void ZEEPLEXContentPaymentScreenValidationUC3b(String userType,String pEmailId, String pPassword, String pContentTitle) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(pEmailId, pPassword);
+		ZEE5ApplicasterBusinessLogic.SearchZEEPLEXContentAndPlay(pContentTitle);
+		ZEE5ApplicasterBusinessLogic.ZeePlexContentRentNowCTAValidation();
 	}
 	
-	@Test(priority = 11)
-	@Parameters({ "userType","SubsUserWithoutRentalPlan","CommomPassword","RentalContentName3"}) //---Need to pass Susbcribeduser credentials which has 1-year Premium plan without Rental Active plan
-	public void UseCase3b(String userType,String pEmailId, String pPassword, String pContentTitle) throws Exception {
-		ZEE5ApplicasterBusinessLogic.relaunch(true);
-		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
-		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(pEmailId, pPassword);
-		ZEE5ApplicasterBusinessLogic.SearchZEEPLEXContentAndPlay(pContentTitle);
-		ZEE5ApplicasterBusinessLogic.ZeePlexContentInPlayerCTAValidation();
-	}
-
 	@Test(priority = 12)
-	@Parameters({ "userType","SubsUserWithRadheRentalPlan","CommomPassword","RentalContentName3"}) //---Need to pass the credentials which has Radhe active plan
-	public void ZEEPLEXContentInPlayerCTAValidation(String userType,String pEmailId, String pPassword, String pContentTitle) throws Exception {
+	@Parameters({ "userType","NonSubsUserWithActiveRentalPlan","CommomPassword","RentalContentName3"}) //---Need to pass Non-Susbcribeduser credentials which has only Radhe Active plan
+	public void ZEEPLEXContentInPlayerCTAValidationUC4(String userType,String pEmailId, String pPassword, String pContentTitle) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();

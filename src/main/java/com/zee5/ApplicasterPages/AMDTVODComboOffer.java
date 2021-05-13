@@ -94,4 +94,8 @@ public class AMDTVODComboOffer {
 	public static By objWatchNowCalloutCTA = By.xpath("//*[@id='buttonFirstAction' and @text='Watch Now']");
 	public static By objBuyPremiumCalloutCTA = By.xpath("//*[@id='buttonSecondAction' and @text='Buy Premium']");
 	public static By objExplorePremiumCTA = By.xpath("//*[@id='buttonSecondAction' and @text='Explore Premium']");
+	
+	public static By objPlayCTAonCarouselforContent(String pContentName) {
+		return By.xpath("//*[@text='"+pContentName+"']//following::*//*[@id='outlinedButton' and @text='Play']");
+	}
 }

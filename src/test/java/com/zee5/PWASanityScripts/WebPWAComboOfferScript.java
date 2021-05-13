@@ -1,5 +1,6 @@
 package com.zee5.PWASanityScripts;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -39,12 +40,12 @@ public class WebPWAComboOfferScript {
 	@Parameters({ "userType" })
 	public void SubscriptionComboOfferPageValidation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-		Zee5WEBPWASanityBusinessLogic.pwasubscription(userType);
+		Zee5WEBPWASanityBusinessLogic.pwasubscription(userType, "299");
 		Zee5WEBPWASanityBusinessLogic.pwavalidatingpaymentpage(userType);
 		Zee5WEBPWASanityBusinessLogic.pwavalidatinupiandwalletpaymentpage(userType);
 		Zee5WEBPWASanityBusinessLogic.PWAMobikvikPageValidation(userType);
 		Zee5WEBPWASanityBusinessLogic.pwainsprint1(userType);
-		Zee5WEBPWASanityBusinessLogic.pwainsprint(userType);
+//		Zee5WEBPWASanityBusinessLogic.pwainsprint(userType, "299");
 	}
 	
 //	@Test(priority = 5)
@@ -52,6 +53,11 @@ public class WebPWAComboOfferScript {
 	public void InSprintComboOfferAutomations(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.ComboOfferPremiumPlexSub(userType);
+	}
+	
+	@AfterTest
+	public void tearDown() {
+		Zee5WEBPWASanityBusinessLogic.tearDown();
 	}
 	
 }

@@ -21948,6 +21948,10 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 		type(AMDSearchScreen.objSearchBoxBar, pTitle + "\n", "Searchbar");
 		hideKeyboard();
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);
+		
+		if(!verifyIsElementDisplayed(AMDSearchScreen.objFirstSearchResult(pTitle))) {
+			SwipeUntilFindElement(AMDSearchScreen.objFirstSearchResult(pTitle), "UP");
+		}
 		click(AMDSearchScreen.objFirstSearchResult(pTitle), "Searched content");	
 	}
 	
@@ -21959,8 +21963,21 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 		boolean flgRentExpired=false;
 		
 		waitTime(3000);
-		verifyElementPresent(AMDPlayerScreen.objPlayer, "Consumption sreen");
+		if(verifyElementExist(AMDPlayerScreen.objParentalPinPopUp, "Parental Pin Popup")) {
+			type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
+			hideKeyboard();
+			waitTime(4000);
+			click(AMDPlayerScreen.objParentalPinContinue, "Continue Button");
+			waitTime(4000);
+		}
 		
+		verifyElementPresent(AMDPlayerScreen.objPlayer, "Consumption sreen");	
 		if(verifyElementPresent(AMDPlayerScreen.objInPlayerCTA, "Player CTA")) {
 			getCTAName = getText(AMDPlayerScreen.objInPlayerCTA);
 			
@@ -21995,8 +22012,8 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 	}
 	
 	public void ZeePlexContentRentNowCTAValidation() throws Exception {
-		extent.HeaderChildNode("ZEEPLEX content_Rent Now CTA Validation");
-		System.out.println("\nZEEPLEX content_Rent Now CTA Validation");
+		extent.HeaderChildNode("UC-3b: ZEEPLEX content_Rent For CTA Validation");
+		System.out.println("\nUC-3b: ZEEPLEX content_Rent For CTA Validation");
 		
 		if(verifyElementDisplayed(AMDPlayerScreen.objPlayerTrailerText)) {
 			logger.info("Trailer is played...");
@@ -22014,12 +22031,16 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 			verifyElementPresent(AMDPlayerScreen.objZeeWatchTime, "WATCH TIME: "+getText(AMDPlayerScreen.objZeeWatchTime));
 			verifyElementPresent(AMDPlayerScreen.objZeeWatchTimeDetails, getText(AMDPlayerScreen.objZeeWatchTimeDetails));
 			
-			verifyElementPresent(AMDPlayerScreen.objRentFor, "RENT FOR CTA");
-			
-			verifyElementPresentAndClick(AMDPlayerScreen.objRentFor, "Rent for CTA");
-			PaymentScreenVerification();
-			Back(2);	
-				
+			PartialSwipe("UP", 1);
+			verifyIsElementDisplayed(AMDPlayerScreen.objRentFor, "RENT FOR CTA");
+			if(verifyIsElementDisplayed(AMDPlayerScreen.objRentFor, "RENT FOR CTA")) {
+				verifyElementPresentAndClick(AMDPlayerScreen.objRentFor, "Rent for CTA");
+				PaymentScreenVerification();
+				Back(2);
+			}else {
+				logger.info("Rent for CTA is not displated");
+				extentLoggerFail("Rent for", "Rent for CTA is not displated");
+			}		
 		}else {
 			boolean errText;
 			waitTime(10000);
@@ -22262,12 +22283,14 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 		
 	}
 	
-	public void VerifyRentalPlanAsSubscribedUser(String pEmailId,String pPassword) throws Exception {
+	public void VerifyRentalPlanAsSubscribedUser(String pEmailId,String pPassword,String pContentName) throws Exception {
 		extent.HeaderChildNode("UC-9: Validate 'You have it all' bottom sheet displayed for SubscribedUser");
 		System.out.println("\nUC-9: Validate 'You have it all' bottom sheet  displayed for SubscribedUser");
 		
-		waitForElementDisplayed(AMDTVODComboOffer.objRentNowCTAonCarouselAagKaGola, 15);
-	    verifyElementPresentAndClick(AMDTVODComboOffer.objRentNowCTAonCarouselAagKaGola, "Rent Now");
+//		waitForElementDisplayed(AMDTVODComboOffer.objRentNowCTAonCarouselAagKaGola, 15);
+//	    verifyElementPresentAndClick(AMDTVODComboOffer.objRentNowCTAonCarouselAagKaGola, "Rent Now");
+	    waitForElementDisplayed(AMDTVODComboOffer.objPlayCTAonCarouselforContent(pContentName), 15);
+	    verifyElementPresentAndClick(AMDTVODComboOffer.objPlayCTAonCarouselforContent(pContentName), "Rent Now");
 	    click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA");
 	    waitTime(3000);
 	    ComboOfferPlanCard_OnlyRentMoviePlanCard_Validation();
@@ -22341,12 +22364,11 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 		}
 	}
 	
-	public void VerifyRentalPlanAsNonSubscribedUser(String pEmailId,String pPassword) throws Exception {
+	public void VerifyRentalPlanAsNonSubscribedUser(String pEmailId,String pPassword,String pContent) throws Exception {
 		extent.HeaderChildNode("UC-8: Validate Movie already rented screen displayed for Non-SubscribedUser");
 		System.out.println("\nUC-8: Validate Movie already rented screen displayed for Non-SubscribedUser");
 		
-	    waitForElementDisplayed(AMDTVODComboOffer.objRentNowCTAonCarouselAagKaGola, 15);
-	    verifyElementPresentAndClick(AMDTVODComboOffer.objRentNowCTAonCarouselAagKaGola, "Rent Now");
+	    verifyElementPresentAndClick(AMDTVODComboOffer.objPlayCTAonCarouselforContent(pContent), "Rent Now");
 	    click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA");
 	    waitTime(3000);
 	    ComboOfferPlanCard_OnlyRentMoviePlanCard_Validation();
@@ -22361,6 +22383,8 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 			hideKeyboard();
 			click(AMDTVODComboOffer.objAccountInfoLabel, "HideKeyboard");
 			click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+			waitTime(3000);
+			click(AMDTVODComboOffer.objPasswordfield, "Password field");
 			type(AMDTVODComboOffer.objPasswordfield, pPassword, "Password");
 			hideKeyboard();
 			click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
