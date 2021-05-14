@@ -6987,6 +6987,20 @@ public void carouselValidationforShowsAndNews(String UserType, String tabName) t
 					"Failed to navigate to Music tab on clicking Music tab");
 			logger.error("Failed to navigate to Music tab on clicking Music tab");
 		}
+		
+		if((userType.equalsIgnoreCase("Guest"))) {
+			selectContentLang_MoreMenu2("Hindi,English");
+			waitTime(3000);
+			SelectTopNavigationTab("Music");
+			findParticularTray(AMDHomePage.objBrandNewMusicRail, "Brand new Music");
+			if (verifyElementDisplayed(AMDHomePage.objBrandNewMusicRail)) {
+				logger.info("Brand New Music rail is dislayed");
+				extent.extentLoggerPass("Music landing screen", "Brand New Music rail is dislayed");
+			} else {
+				logger.info("Brand New Music rail is not dislayed");
+				extent.extentLoggerWarning("Music landing screen", "Brand New Music rail is not dislayed");
+			}
+		}
 
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			if (verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
@@ -14358,7 +14372,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 			navigateToIntroScreen_DisplaylangScreen();
 			extent.HeaderChildNode("Login as Subscribed User");
 			// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			//verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
 			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
@@ -22613,5 +22627,60 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 		click(AMDOnboardingScreen.objSelectContentLang("Punjabi"), "Punjabi");
 	}
 	
+	public void SearchResultByContentDescription(String searchword) throws Exception{
+		extent.HeaderChildNode("Validating that user is able to find the searched content by entering content description");
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDHomePage.objHome, "Home Tab");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, searchword + "\n", "Search bar");
+		hideKeyboard();
+		verifyIsElementDisplayed(AMDSearchScreen.objFirstSearchResult);
+		click(AMDSearchScreen.objFirstSearchResult,"Search result");
+		waitTime(2000);
+		String description = findElement(AMDSearchScreen.objContentDescription).getText();
+		System.out.println("Description: " + description);
+		if (description.contains(searchword)) {
+			logger.info("User is able to check search result by entering content description of the content");
+			extent.extentLoggerPass("Related search results",
+					"User is able to check search result by entering content description of the content");
+		} else {
+			logger.info("User is NOT able to check search result by entering content description of the content");
+			extent.extentLogger("Related search results",
+					"User is NOT able to check search result by entering content description of the content");
+		}
+	}
+	
+
+public void SearResultsOfDifferentTestData(String searchKeyword) throws Exception{
+		extent.HeaderChildNode("Validating that user is able to find the searched content");
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDHomePage.objHome, "Home Tab");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, searchKeyword + "\n", "Search bar");
+		hideKeyboard();
+		if (verifyIsElementDisplayed(AMDSearchScreen.objFirstSearchResult)) {
+			String searchResults = findElement(AMDSearchScreen.objFirstSearchResult).getText();
+			System.out.println("Search result : " + searchResults);
+
+			if (searchResults.contains(searchKeyword)) {
+				logger.info("Related search results are displayed");
+				extent.extentLoggerPass("Related search results",
+						"Related search results are displayed");
+			} else {
+				logger.info("Related search results are not displayed");
+				extent.extentLogger("Related search results",
+						"Related search results are not displayed");
+			}
+
+		} else {
+			logger.info("Related search results are not displayed");
+			extent.extentLogger("Related search results",
+					"Related search results are not displayed");
+		}
+     Back(1);
+		
+	}
 	
 }

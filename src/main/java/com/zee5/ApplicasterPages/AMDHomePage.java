@@ -261,4 +261,6 @@ public class AMDHomePage {
 	
 	public static By objCarouselResumeCTA = By.xpath("//*[@id='outlinedButton' and @text='Resume']");
 	
+	public static By objBrandNewMusicRail = By.xpath("//*[@class='android.widget.TextView'][@text='Brand New Music']");
+	
 	}

@@ -104,4 +104,5 @@ public class PWAComboOfferPage {
 	public static By objRentNowTitle = By.xpath("((.//*[@class='tvodButtonContainer']//span[contains(text(),'Rent Now')])[1])//ancestor::*[@class='tvodCardContainer']//*[@class='tvodTitle']");
 
 	public static By objRentNowInConsumptionPage=By.xpath("//*[@class='rentButton']");
+
 }

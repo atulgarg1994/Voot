@@ -40,8 +40,6 @@ public class AMDSubscibeScreen {
 	public static By objDrabBtn = By.xpath("//*[@id='dialog_divider']");
 	public static By objPasswordTextField  = By.xpath("//*[@id='input_password']");
 	public static By objProceedPWDScreen = By.xpath("//*[@id='subscription_plan_validate_password_button']");
-	
-	public static By objVerifyOTPScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_verify_mobile_otp_account_header']");
 	public static By objForgotPasswordPageHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title' and @text='Forgot Password']");
 
 	//Payment Screen
@@ -144,5 +142,7 @@ public class AMDSubscibeScreen {
 	public static By objOfferPlanName = By.xpath("(//*[@text='Make Payment']//following::*[@class='android.widget.TextView'])[1]");
 	
 	public static By objOfferPlanPrice = By.xpath("((//*[@text='Make Payment']//following::*[4])//child::*[3])[1]"); 
+	
+	public static By objVerifyOTPScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_verify_mobile_otp_account_header'] | //*[@id='heading']");
 	
 }
