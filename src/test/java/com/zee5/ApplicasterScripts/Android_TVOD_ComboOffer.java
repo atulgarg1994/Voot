@@ -33,13 +33,12 @@ public class Android_TVOD_ComboOffer {
 		ZEE5ApplicasterBusinessLogic.VerifyNavigationAsNonSusbscribedUser(pEmailId, pPassword);
 	}
 	
-	
 	@Test(priority = 2)
-	@Parameters({"NonSubsUserWithActiveRentalPlan","CommomPassword","RentalContentName3"})	//---Need to pass Non-Susbcribeduser credentials which has only Radhe rental Active plan activated
+	@Parameters({"NonSubsUserWithActiveRentalPlan","NonSubsUserWithActiveRentalPlanPwd","RentalContentName3"})	//---Need to pass Non-Susbcribeduser credentials which has only Radhe rental Active plan activated
 	public void GuestUserLogsinAsNonSubsUserWithRentalActivePlan(String pEmailId,String pPassword,String pContent) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
-		ZEE5ApplicasterBusinessLogic.selectSpecificContentLanguages();
+		//ZEE5ApplicasterBusinessLogic.selectSpecificContentLanguages();
 		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.VerifyRentalPlanAsNonSubscribedUser(pEmailId, pPassword,pContent);
 	}
