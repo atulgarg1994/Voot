@@ -465,4 +465,6 @@ public class PWAPlayerPage {
 	public static By objContentExpiryInfo = By.xpath("(//*[@class='rentButton'])[1]");
 	public static By objZeePlexLogo = By.xpath("(//*[@title='plex Logo'])[1]");
 	public static By objContentTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//h1");
+	
+	public static By objResumePlayerCTA = By.xpath("(//button[@type='button' and span[text()='Resume']])[1]");
 }

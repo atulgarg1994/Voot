@@ -963,10 +963,10 @@ public class PWAHamburgerMenuPage {
 
 	public static By objpaymentfailurepopup = By.xpath("//h1[@class='retryPaymentHeader']");
 	public static By objpaymentpopupclosebtn = By.xpath("//div[@class='drowerCloseIcon iconInitialLoad-ic_close']");
-	public static By objupiarrow = By
-			.xpath("(//*[@class='textView']//following-sibling::*//article[contains(text(),'UPI')])[3]");
 
 	public static By objrentnowinlandingpage=By.xpath("//span[contains(text(),'Rent Now')]");
 	public static By objHamburgerMenu = By.xpath("(//*[text()='Open Menu'])[2]");
 	
+	public static By objupiarrow = By.xpath("//*[@id='1000435']");
+
 	}

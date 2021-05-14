@@ -26399,10 +26399,14 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			deeplinkConsumptionScreen499();
 			deeplinkConsumptionScreen249();
 			PWASearchEntryPointValidations(userType, "299", "Inline");
+		}else if(userType.equals("SubscribedUser")){
+			PWASearchEntryPointValidations(userType, "299", "Inline");
 		}
+		
 		if(userType.equals("Guest")) {
 			deeplinkSubscriptionLogin();
 			deeplinkSubscriptionRegister();
+			zeePWASubscriptionFlowFromHomePageHeaderSubscribeButtonRegister(userType, getPlatform());
 		}else if(userType.equals("NonSubscribedUser")){
 			deeplinkSubscriptionNonSub();
 		}
@@ -26486,10 +26490,32 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			click(PWAComboOfferPage.objRentMovieBtn, "Rent Movie Button");
 		}
 		if (!userType.equals("Guest")) {
+			scrollUp();
+			scrollUp();
+			scrollUp();
 			verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
-		}else if(userType.equals("Guest")) {
-			verifyElementPresent(PWALoginPage.objEmailField, "Login Screen");
 		}
+	}
+	
+	/**
+	 * Subscription Flow From Home Page Header Subscribe Button Register
+	 */
+	public void zeePWASubscriptionFlowFromHomePageHeaderSubscribeButtonRegister(String userType, String platform)
+			throws Exception {
+		HeaderChildNode("PWA Subscription Flow From Home Page Header Subcribe Button");
+
+		// Scenario no. 89
+		waitTime(5000);
+		click(PWAHomePage.objSubscribeBtnTopHeader, "Subscribe Button in the Header");
+//		driver.findElement(PWAHomePage.objSubscribeButton).click();			
+		waitTime(5000);
+		zeePWASelectPackPageValidation();
+		type(PWALoginPage.objEmailField, RandomStringGenerator(6)+"007@gmail.com", "Email ID");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		type(PWALoginPage.objPasswordField, "igs@12345", "Password Button");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		zeePWAPaymentPageValidation();		
+		navigateBackFromPayTmWalletAndLogout(platform, userType);
 	}
 	
 	public void playingContentFromwatchListOnClickingCTABelowPlayer() throws Exception {
@@ -26831,7 +26857,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			verifyElementPresentAndClick(PWASubscriptionPages.objEmailIDTextField, "Email ID Text Field");
 			waitTime(3000);
-			type(PWASubscriptionPages.objEmailIDTextField, "tvod_combo@mailnesia.com", "Email Id");
+			type(PWASubscriptionPages.objEmailIDTextField, "zeetvodpass@g.co", "Email Id");
 
 			hideKeyboard();
 			waitTime(3000);
@@ -27027,35 +27053,43 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			extent.extentLogger("ZEEPLEX Logo Validation","TestCase 50:Verify, when user searches for TVOD[Combo Offer configurable Movie] contents plex logo should be visible");
 			verifyElementPresent(PWASearchPage.objZEEPLEXLogoFirstSearchedAssetTitle(getParameterFromXML("comboOfferMovie")), "ZEEPLEX logo in metadata of searched TVOD: "+getParameterFromXML("comboOfferMovie"));
 			PWAClickOnFirstSearchedResult(getParameterFromXML("comboOfferMovie"));
-			
-			if(CTAToBeClicked.equalsIgnoreCase("Inline")){
-				validateConsumptionScreen();
-				click(PWAComboOfferPage.objRentNowInPlayer, "Rent Now CTA in-player");
-			}else if(CTAToBeClicked.equalsIgnoreCase("BelowPlayer")){
-				validateConsumptionScreen();
-				click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
-			}else if(CTAToBeClicked.equalsIgnoreCase("KnowMore")){
-				validateConsumptionScreen();
-				click(PWAComboOfferPage.objComboOfferWidget, "Combo Offer Wedget");
-			}
-			waitTime(2000);
-			verifyComboScreen();
-			verifyElementPresentAndClick(PWAComboOfferPage.objBuyRadheComboBtn, "Buy Radhe Combo Button");
-			waitTime(2000);
-			if (userType.equals("Guest")) {
-				PWAComboOfferLoginInSubscriptionFlow(userType, premiumPlan);
-				if (premiumPlan.equalsIgnoreCase("799")) {
-					PWAVerifyComboPopupRentMovieFor();
-				} else if (premiumPlan.equalsIgnoreCase("299")) {
-					PWAVerifyUpgradeToComboOfferPopup();
-				} else {
-					PWAVerifyComboPopupRentMovieFor();
+			if (userType.equals("Guest")||userType.equals("NonSubscribedUser")) {
+				if(CTAToBeClicked.equalsIgnoreCase("Inline")){
+					validateConsumptionScreen();
+					click(PWAComboOfferPage.objRentNowInPlayer, "Rent Now CTA in-player");
+				}else if(CTAToBeClicked.equalsIgnoreCase("BelowPlayer")){
+					validateConsumptionScreen();
+					click(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player");
+				}else if(CTAToBeClicked.equalsIgnoreCase("KnowMore")){
+					validateConsumptionScreen();
+					click(PWAComboOfferPage.objComboOfferWidget, "Combo Offer Wedget");
 				}
-			}
-			verifyElementPresent(PWASubscriptionPages.objPaymentHighlighted, "Make Payment Screen");
-			navigateHome();
-			if (userType.equals("Guest")) {
-				logout();
+				waitTime(2000);
+				verifyComboScreen();
+				verifyElementPresentAndClick(PWAComboOfferPage.objBuyRadheComboBtn, "Buy Radhe Combo Button");
+				waitTime(2000);
+				if (userType.equals("Guest")) {
+					PWAComboOfferLoginInSubscriptionFlow(userType, premiumPlan);
+					if (premiumPlan.equalsIgnoreCase("799")) {
+						PWAVerifyComboPopupRentMovieFor();
+					} else if (premiumPlan.equalsIgnoreCase("299")) {
+						PWAVerifyUpgradeToComboOfferPopup();
+					} else {
+						PWAVerifyComboPopupRentMovieFor();
+					}
+				}
+				verifyElementPresent(PWASubscriptionPages.objPaymentHighlighted, "Make Payment Screen");
+				navigateHome();
+				if (userType.equals("Guest")) {
+					logout();
+				}
+			}else if (userType.equals("SubscribedUser")){
+				waitTime(5000);
+				if(waitForElementPresence(PWAPlayerPage.objResumePlayerCTA, 10, "Resume CTA on Player")) {
+					verifyElementPresent(PWAPlayerPage.objResumePlayerCTA, "Resume CTA on Player");
+				}else if(waitForElementPresence(PWAComboOfferPage.objWatchNowCTA, 10, "Watch Now CTA on Player")) {
+					verifyElementPresent(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA on Player");
+				}
 			}
 		}
 		
@@ -27664,49 +27698,49 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		  
 		 }
 		 
-		if (userType.equals("NonSubscribedUser")) {
-			// 15
-			extent.HeaderChildNode("Verify that logged in user is redircted to payment page on clicking "
-					+ "Rent for INR CTA other than Radhe TVOD");
-			navigateToAnyScreenOnWeb("ZEEPLEX");
-			boolean trailerdisplayed = false;
-			for (int i = 0; i < 3; i++) {
-				if (checkElementDisplayed(PWAHamburgerMenuPage.objTrailer, "ZeePlex movie Trailer")) {
-					trailerdisplayed = true;
-					break;
-				} else {
-					partialScroll();
-					logger.info("Swiped page..");
-					extent.extentLogger("", "Swiped page..");
-				}
-			}
-			if (trailerdisplayed) {
-				
-				// click(PWAHamburgerMenuPage.objTrailer, "Trailer");
-				waitTime(5000);
-				if (verifyElementPresent(PWAHamburgerMenuPage.objrentforINR, "Rent For INR")) {
-					ScrollToTheElementWEB(PWAHamburgerMenuPage.objrentforINR);
-					click(PWAHamburgerMenuPage.objrentnowinlandingpage, "Rent For INR");
+//		if (userType.equals("NonSubscribedUser")) {
+//			// 15
+//			extent.HeaderChildNode("Verify that logged in user is redircted to payment page on clicking "
+//					+ "Rent for INR CTA other than Radhe TVOD");
+//			navigateToAnyScreenOnWeb("ZEEPLEX");
+//			boolean trailerdisplayed = false;
+//			for (int i = 0; i < 3; i++) {
+//				if (checkElementDisplayed(PWAHamburgerMenuPage.objTrailer, "ZeePlex movie Trailer")) {
+//					trailerdisplayed = true;
+//					break;
+//				} else {
+//					partialScroll();
+//					logger.info("Swiped page..");
+//					extent.extentLogger("", "Swiped page..");
+//				}
+//			}
+//			if (trailerdisplayed) {
+//				
+//				// click(PWAHamburgerMenuPage.objTrailer, "Trailer");
+//				waitTime(5000);
+//				if (verifyElementPresent(PWAHamburgerMenuPage.objrentforINR, "Rent For INR")) {
+//					ScrollToTheElementWEB(PWAHamburgerMenuPage.objrentforINR);
+//					click(PWAHamburgerMenuPage.objrentnowinlandingpage, "Rent For INR");
 //					verifyElementPresent(PWAHamburgerMenuPage.objrentforINRpopup, "Rental Pop Up");
 //					JSClick(PWAHamburgerMenuPage.objrentforINRpopup, "Rent for INR");
-					// checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment
-					// Section");
-
-					if (checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section")) {
-						logger.info(
-								"User should be redircted to Payment page and selected plan price should be displayed, expected behaviour");
-						extent.extentLoggerPass("",
-								"User should be redircted to Payment page and selected plan price should be displayed, expected behaviour");
-					} else {
-						logger.info("User not redircted to Payment page .");
-						extent.extentLoggerFail(" ", "User not redircted to Payment page .");
-
-					}
-					Back(1);
-					Back(1);
-				}
-			}
-		}
+//					// checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment
+//					// Section");
+//
+//					if (checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section")) {
+//						logger.info(
+//								"User should be redircted to Payment page and selected plan price should be displayed, expected behaviour");
+//						extent.extentLoggerPass("",
+//								"User should be redircted to Payment page and selected plan price should be displayed, expected behaviour");
+//					} else {
+//						logger.info("User not redircted to Payment page .");
+//						extent.extentLoggerFail(" ", "User not redircted to Payment page .");
+//
+//					}
+//					Back(1);
+//					Back(1);
+//				}
+//			}
+//		}
 
 		if (userType.equals("NonSubscribedUser")) {
 			// 16
@@ -27741,6 +27775,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			} else {
 				logger.info("User not able to see Credit card/Debit card Tile as per VD.");
 				extent.extentLoggerFail(" ", "User not able to see Credit card/Debit card Tile as per VD.");
+
 			}
 			Back(1);
 			Back(1);
@@ -27753,9 +27788,9 @@ public void pwaverifyHaveacode(String userType) throws Exception
 //			type(PWASubscriptionPages.objEnterCreditAndDebitCardDetails,"5432",
 //					"Enter Credit/Debit Card Details");
 //			
-
 		}
 	}
+
 
 	public void pwavalidatingpaymentpage(String userType) throws Exception {
 
@@ -28244,8 +28279,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 
 			extent.HeaderChildNode("Verify that user redirect to Mobikvikpay page on clicking proceed "
 					+ "after selecting Amazon Pay wallet optionA");
-			logout();
 			navigateHome();
+			logout();
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");

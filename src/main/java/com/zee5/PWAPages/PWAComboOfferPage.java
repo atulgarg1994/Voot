@@ -111,7 +111,7 @@ public class PWAComboOfferPage {
 	public static By objpackprice249 = By.xpath("(//div[@class='priceAmout'])[2]");
 	public static By objpackprice499 = By.xpath("(//div[@class='priceAmout'])[1]");
 	public static By objRentNowTitle = By.xpath("((.//*[@class='tvodButtonContainer']//span[contains(text(),'Rent Now')])[1])//ancestor::*[@class='tvodCardContainer']//*[@class='tvodTitle']");
-
-	public static By objRentNowInConsumptionPage=By.xpath("//*[@class='rentButton']");
+	
+	public static By objRentNowInConsumptionPage=By.xpath("//*[@class='buttonContainer ']//span[text()='Rent Now']");
 
 }
