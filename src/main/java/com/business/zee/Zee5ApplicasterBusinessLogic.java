@@ -17835,7 +17835,9 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
 		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
 		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
-		click(AMDPlayerScreen.objPlayerScreen, "player screen");
+		if(verifyElementIsNotDisplayed(AMDPlayerScreen.objPauseIcon)) {
+			click(AMDPlayerScreen.objPlayerScreen, "player screen");
+		}
 		click(AMDPlayerScreen.objPauseIcon, "Pause");
 		WebElement element = getDriver().findElement(byLocator1);
 		String xDuration = getAttributValue("x", AMDPlayerScreen.objTotalDuration);
@@ -17844,6 +17846,7 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
 		logger.info("Current time after seeking : " + timeToSec(afterSeek));
 		extent.extentLogger("Seek", "Current time after seeking in seconds: " + timeToSec(afterSeek));
+		waitTime(5000);
 		click(AMDPlayerScreen.objPlayIcon, "Play");
 		waitTime(6000);
 	}
@@ -22127,47 +22130,48 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 			waitTime(10000);
 			 boolean trailerCTA = verifyElementExist(AMDTVODComboOffer.objTrailerCTAonCarouselForContent(contentTitle), "Trailer CTA");
 			 boolean rentCTA = verifyElementExist(AMDTVODComboOffer.objRentNowCTAonCarouselForContent(contentTitle), "Rent Now CTA");
-				if(trailerCTA) {
+				
+			//Trailer CTA from Carousel		
+			 if(trailerCTA) {
 					logger.info("Trailer CTA on carousel banner for TVOD content is displayed");
 				 	extent.extentLoggerPass("Carousel", "Trailer CTA on carousel banner for "+contentTitle+" is displayed"); 
+				 	
+					waitTime(5000);
+				    waitForElementAndClickIfPresent(AMDTVODComboOffer.objTrailerCTAonCarouselForContent(contentTitle), 60, "Trailer CTA on "+contentTitle+" Carousel content");
+					waitTime(3000);
+					if(verifyElementExist(AMDConsumptionScreen.objContentName, "Content name in Consumption screen")) {
+						logger.info("User is navigated to Consumption screen on clicking Trailer CTA from carousel banner for content: "+contentTitle);
+					 	extent.extentLoggerPass("Consumption Screen", "User is navigated to Consumption screen on clicking Trailer CTA from  carousel banner for content: "+contentTitle); 
+					    Back(1);
+					}else {
+						logger.error("User Fails navigate to Consumption screen on clicking Trailer CTA from carousel banner for content: "+contentTitle);
+					 	extent.extentLoggerFail("Carousel", "User Fails navigate to Consumption screen on clicking Trailer CTA from carousel banner for content: "+contentTitle);
+					}
 				}else {
 					logger.error("Trailer CTA on carousel banner for TVOD content is NOT displayed");
 				 	extent.extentLoggerFail("Carousel", "Trailer CTA on carousel banner for "+contentTitle+" is NOTdisplayed"); 
 				}
+				
+			    //Rent Now CTA from Carousel
 				if(rentCTA) {
 					logger.info("Rent Now CTA on carousel banner for TVOD content is displayed");
 				 	extent.extentLoggerPass("Carousel", "Rent Now CTA on carousel banner for "+contentTitle+" is displayed"); 
+				 	
+					waitForElementAndClickIfPresent(AMDTVODComboOffer.objRentNowCTAonCarouselForContent(contentTitle), 60, "Rent Now CTA on "+contentTitle+" Carousel content");
+					waitTime(3000);
+					if(verifyElementDisplayed(AMDConsumptionScreen.objContentName)) {
+						logger.info("User is navigated to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle);
+					 	extent.extentLoggerPass("Consumption Screen", "User is navigated to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle); 
+					    Back(1);
+					}else {
+						logger.error("User Fails navigate to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle);
+					 	extent.extentLoggerFail("Carousel", "User Fails navigate to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle);
+					}
 				}else {
 					logger.error("Rent Now CTA on carousel banner for TVOD content is NOT displayed");
 				 	extent.extentLoggerFail("Carousel", "Rent Now CTA on carousel banner for "+contentTitle+" is NOTdisplayed"); 
 				}		
 					
-				//clicking on Trailer CTA from Carousel		
-				waitTime(5000);
-			    waitForElementAndClickIfPresent(AMDTVODComboOffer.objTrailerCTAonCarouselForContent(contentTitle), 60, "Trailer CTA on "+contentTitle+" Carousel content");
-				waitTime(3000);
-				if(verifyElementExist(AMDConsumptionScreen.objContentName, "Content name in Consumption screen")) {
-					logger.info("User is navigated to Consumption screen on clicking Trailer CTA from carousel banner for content: "+contentTitle);
-				 	extent.extentLoggerPass("Consumption Screen", "User is navigated to Consumption screen on clicking Trailer CTA from  carousel banner for content: "+contentTitle); 
-				    Back(1);
-				}else {
-					logger.error("User Fails navigate to Consumption screen on clicking Trailer CTA from carousel banner for content: "+contentTitle);
-				 	extent.extentLoggerFail("Carousel", "User Fails navigate to Consumption screen on clicking Trailer CTA from carousel banner for content: "+contentTitle);
-				}
-				
-				
-				//clicking on Rent Now CTA from Carousel
-				waitForElementAndClickIfPresent(AMDTVODComboOffer.objRentNowCTAonCarouselForContent(contentTitle), 60, "Rent Now CTA on "+contentTitle+" Carousel content");
-				waitTime(3000);
-				if(verifyElementDisplayed(AMDConsumptionScreen.objContentName)) {
-					logger.info("User is navigated to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle);
-				 	extent.extentLoggerPass("Consumption Screen", "User is navigated to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle); 
-				    Back(1);
-				}else {
-					logger.error("User Fails navigate to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle);
-				 	extent.extentLoggerFail("Carousel", "User Fails navigate to Consumption screen on clicking Rent Now CTA from carousel banner for TVOD content: "+contentTitle);
-				}
-				
 				//clicking on TVOD Carousel content
 				waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(contentTitle), 60, "Carousel content: "+contentTitle);
 				waitTime(3000);
@@ -22194,10 +22198,10 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 				//Rent Now CTA on The player
 				//click(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer");
 				waitTime(5000);
-				click(AMDPlayerScreen.objPlayerScreen, "player screen");
-				if(verifyIsElementDisplayed(AMDPlayerScreen.objPauseIcon)) {
-					scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
+				if(verifyElementIsNotDisplayed(AMDPlayerScreen.objPauseIcon)) {
+					click(AMDPlayerScreen.objPlayerScreen, "player screen");	
 				}
+				scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
 				verifyElementExist(AMDTVODComboOffer.objRentNowTextOnPlayer, "Watch full content by renting it now text on player");
 				if(verifyElementExist(AMDTVODComboOffer.objRentNowCTAOnPlayer,"Rent Now CTA on Player")) {
 					click(AMDTVODComboOffer.objRentNowCTAOnPlayer,"Rent Now CTA on Player");
@@ -22230,13 +22234,12 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 				verifyElementExist(AMDTVODComboOffer.objQandAModelWindow, "Q&A model window");
 				Back(1);
 				waitTime(3000);
-				PartialSwipeInConsumptionScreen("DOWN", 2);
+//				PartialSwipeInConsumptionScreen("DOWN", 2);
 				click(AMDTVODComboOffer.objRentNowCTABelowPlayer,"Rent Now CTA Below the Player");	
 		}else {
 			logger.info("Content is not displayed on Carousal");
 			extentLoggerWarning("Content on Carousal", "Content is not displayed on Carousal");
 		}
-		
 	}
 	
 	public void ValidationOfcomboOfferPageAndPaymentPage(String subText, String CTAName) throws Exception {
@@ -22490,6 +22493,7 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 						type(AMDTVODComboOffer.objEmailIdfield, email, "Email Id");
 						hideKeyboard();
 						click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+						waitTime(5000);
 						type(AMDTVODComboOffer.objPasswordfield, password, "Password");
 						hideKeyboard();
 						click(AMDTVODComboOffer.objContinueBtn, "Continue");
@@ -22565,6 +22569,7 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 	public void navigateToHomeScreen() throws Exception {
 		extent.HeaderChildNode("Navigation to Home Screen");
 //		click(AMDOnboardingScreen.objgetContentLangName(1), "Content Language");
+		selectSpecificContentLanguages();
 		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
 	}
 	
@@ -22616,15 +22621,15 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 		PaymentScreenVerification();
 	}
 	
-	public void selectSpecificContentLanguages() throws Exception {
+public void selectSpecificContentLanguages() throws Exception {
 		
-//		click(AMDOnboardingScreen.objSelectContentLang("Hindi"), "Hindi");
+		click(AMDOnboardingScreen.objSelectContentLang("Hindi"), "Hindi");
 		PartialSwipe("UP", 2);
 		waitTime(1000);
 		click(AMDOnboardingScreen.objSelectContentLang("Kannada"), "Kannada");
-		Swipe("UP", 3);
-		waitTime(1000);
-		click(AMDOnboardingScreen.objSelectContentLang("Punjabi"), "Punjabi");
+		//Swipe("UP", 3);
+//		waitTime(1000);
+//		click(AMDOnboardingScreen.objSelectContentLang("Punjabi"), "Punjabi");
 	}
 	
 	public void SearchResultByContentDescription(String searchword) throws Exception{

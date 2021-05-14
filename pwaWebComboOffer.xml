@@ -92,5 +92,6 @@
 		<classes>
 			<class name="com.zee5.PWASanityScripts.WebPWAComboOfferScript" />
 		</classes>
-	</test> 
+	</test>
+
 </suite>

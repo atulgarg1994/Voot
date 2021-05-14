@@ -155,7 +155,7 @@
 	<parameter name="RSVOD49PackEmail" value="49rsvod@yopmail.com" />
 	<parameter name="RSVOD49PackPwd" value="welcome" />
 	
-	<parameter name="299PremiumPackEmail" value="zeetest6@g.comm" />
+	<parameter name="299PremiumPackEmail" value="zeetest6@g.com" />
 	<parameter name="RSVOD499PackEmail" value="rsvodkannada1@gmail.com" />
 	
 	<parameter name="SubsUserWithRadheRentalPlan" value="combooffer78@gmail.com" />
@@ -167,6 +167,8 @@
 	<parameter name="RentalContentName2" value="Mard Ki Zubaan" />
 	<parameter name="RentalContentName3" value="Radhe - Your Most Wanted Bhai" />
 	<parameter name="RentalContentName4" value="Passport" />
+	
+	<parameter name="499PremiumPackEmail" value="499subnoradhe@gmail.com" />
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
