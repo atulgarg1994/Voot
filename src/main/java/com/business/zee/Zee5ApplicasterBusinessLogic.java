@@ -17850,6 +17850,26 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		click(AMDPlayerScreen.objPlayIcon, "Play");
 		waitTime(6000);
 	}
+	
+	public void scrubProgressBarTillEnd2(By byLocator1) throws Exception {
+		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
+		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
+		if(verifyElementIsNotDisplayed(AMDPlayerScreen.objPauseIcon)) {
+			click(AMDPlayerScreen.objPlayerScreen, "player screen");
+		}
+//		click(AMDPlayerScreen.objPauseIcon, "Pause");
+		WebElement element = getDriver().findElement(byLocator1);
+		String xDuration = getAttributValue("x", AMDPlayerScreen.objTotalDuration);
+		int endX = Integer.parseInt(xDuration) - 70;
+		SwipeAnElement(element, endX, 0);
+		String afterSeek = findElement(AMDPlayerScreen.objTimer).getText();
+		logger.info("Current time after seeking : " + timeToSec(afterSeek));
+		extent.extentLogger("Seek", "Current time after seeking in seconds: " + timeToSec(afterSeek));
+		waitTime(5000);
+		click(AMDPlayerScreen.objPlayIcon, "Play");
+		waitTime(6000);
+	}
 
 	/**
 	 * Author : Manasa
@@ -21980,7 +22000,7 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 		boolean flgRentExpired=false;
 		
 		waitTime(3000);
-		if(verifyElementExist(AMDPlayerScreen.objParentalPinPopUp, "Parental Pin Popup")) {
+		if(verifyIsElementDisplayed(AMDPlayerScreen.objParentalPinPopUp)) {
 			type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
 			hideKeyboard();
 			type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
@@ -22000,10 +22020,10 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 			
 			if(getCTAName.equalsIgnoreCase("Watch Now")) {
 				logger.info("Watch Now CTA is displayed in the player screen");
-				extentLoggerPass("Watch NowCTA", "Watch Now CTA is displayed in the player screen");			
+				extentLoggerPass("Watch NowCTA", "<b>WATCH NOW</b> CTA is displayed in the player screen");			
 			}else if(getCTAName.equalsIgnoreCase("Resume")) {
 				logger.info(getCTAName+" CTA is displayed in the player screen");
-				extentLoggerPass(getCTAName, getCTAName+" CTA is displayed in the player screen");
+				extentLoggerPass(getCTAName, "<b>RESUME</b> CTA is displayed in the player screen");
 			}else if(getCTAName.equalsIgnoreCase("Rent for")) {
 				logger.info(getCTAName+" CTA is displayed in the player screen");
 				extentLoggerPass(getCTAName, getCTAName+" CTA is displayed in the player screen");
@@ -22029,8 +22049,8 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 	}
 	
 	public void ZeePlexContentRentNowCTAValidation() throws Exception {
-		extent.HeaderChildNode("UC-3b: ZEEPLEX content_Rent For CTA Validation");
-		System.out.println("\nUC-3b: ZEEPLEX content_Rent For CTA Validation");
+		extent.HeaderChildNode("UC-3b: ZEEPLEX content validation of Rental Callout screen to Payment");
+		System.out.println("\nUC-3b: ZEEPLEX content validation of Rental Callout screen to Payment");
 		
 		if(verifyElementDisplayed(AMDPlayerScreen.objPlayerTrailerText)) {
 			logger.info("Trailer is played...");
@@ -22049,7 +22069,6 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 			verifyElementPresent(AMDPlayerScreen.objZeeWatchTimeDetails, getText(AMDPlayerScreen.objZeeWatchTimeDetails));
 			
 			PartialSwipe("UP", 1);
-			verifyIsElementDisplayed(AMDPlayerScreen.objRentFor, "RENT FOR CTA");
 			if(verifyIsElementDisplayed(AMDPlayerScreen.objRentFor, "RENT FOR CTA")) {
 				verifyElementPresentAndClick(AMDPlayerScreen.objRentFor, "Rent for CTA");
 				PaymentScreenVerification();
@@ -22201,7 +22220,8 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 				if(verifyElementIsNotDisplayed(AMDPlayerScreen.objPauseIcon)) {
 					click(AMDPlayerScreen.objPlayerScreen, "player screen");	
 				}
-				scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
+				click(AMDPlayerScreen.objPauseIcon, "Pause");
+				scrubProgressBarTillEnd2(AMDPlayerScreen.objProgressBar);
 				verifyElementExist(AMDTVODComboOffer.objRentNowTextOnPlayer, "Watch full content by renting it now text on player");
 				if(verifyElementExist(AMDTVODComboOffer.objRentNowCTAOnPlayer,"Rent Now CTA on Player")) {
 					click(AMDTVODComboOffer.objRentNowCTAOnPlayer,"Rent Now CTA on Player");

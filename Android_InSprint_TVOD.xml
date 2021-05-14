@@ -159,7 +159,8 @@
 	<parameter name="RSVOD499PackEmail" value="rsvodkannada1@gmail.com" />
 	
 	<parameter name="SubsUserWithRadheRentalPlan" value="combooffer78@gmail.com" />
-	<parameter name="NonSubsUserWithActiveRentalPlan" value="testcombo_radhe@mailnesia.com" />
+	<parameter name="NonSubsUserWithActiveRentalPlan" value="testtvod_radhe1@mailnesia.com" />
+	
 	
 	<parameter name="SubsUserWithoutRentalPlan" value="mobicheck@gmail.com" />
 	
@@ -169,6 +170,7 @@
 	<parameter name="RentalContentName4" value="Passport" />
 	
 	<parameter name="499PremiumPackEmail" value="499subnoradhe@gmail.com" />
+	
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

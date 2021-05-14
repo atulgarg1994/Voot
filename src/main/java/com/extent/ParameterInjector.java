@@ -131,9 +131,14 @@ public class ParameterInjector implements IAlterSuiteListener {
 			params.put("ClubPassword", suite.getParameter("ClubPassword"));
 			params.put("freeContentURL",
 					"https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paaru-gets-tipsy-paaru-highlights/0-1-249189");
-			params.put("comboOfferMovie", "Aag Ka Gola");
-			params.put("DeeplinkConsumption","https://newpwa.zee5.com/movies/details/aag-ka-gola/0-0-movie_216980339");
-			params.put("DeeplinkSubscription","https://newpwa.zee5.com/myaccount/subscription");
+			params.put("comboOfferMovie", "Radhe - Your Most Wanted Bhai");
+			if(suite.getParameter("url").equals("newpwa")) {
+				params.put("DeeplinkConsumption","https://newpwa.zee5.com/movies/details/radhe-your-most-wanted-bhai/0-0-399328");
+				params.put("DeeplinkSubscription","https://newpwa.zee5.com/myaccount/subscription");
+			}else {
+				params.put("DeeplinkConsumption","https://www.zee5.com/movies/details/radhe-your-most-wanted-bhai/0-0-399328");
+				params.put("DeeplinkSubscription","https://www.zee5.com/myaccount/subscription");
+			}
 			
 		}
 		if (region.equals("MH")) {
@@ -211,8 +216,14 @@ public class ParameterInjector implements IAlterSuiteListener {
 			params.put("ClubPassword", suite.getParameter("ClubPassword"));
 			params.put("freeContentURL",
 					"https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paaru-gets-tipsy-paaru-highlights/0-1-249189");
-			params.put("comboOfferMovie", "Aag Ka Gola");
-			params.put("DeeplinkConsumption","https://newpwa.zee5.com/movies/details/aag-ka-gola/0-0-movie_216980339");
+			params.put("comboOfferMovie", "Radhe - Your Most Wanted Bhai");
+			if(suite.getParameter("url").equals("newpwa")) {
+				params.put("DeeplinkConsumption","https://newpwa.zee5.com/movies/details/radhe-your-most-wanted-bhai/0-0-399328");
+				params.put("DeeplinkSubscription","https://newpwa.zee5.com/myaccount/subscription");
+			}else {
+				params.put("DeeplinkConsumption","https://www.zee5.com/movies/details/radhe-your-most-wanted-bhai/0-0-399328");
+				params.put("DeeplinkSubscription","https://www.zee5.com/myaccount/subscription");
+			}
 			
 		}
 		suite.setParameters(params);

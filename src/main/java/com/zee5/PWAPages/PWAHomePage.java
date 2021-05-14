@@ -602,10 +602,6 @@ public class PWAHomePage {
 		return By.xpath("(//a[contains(@class,'noSelect') and text()=\""+tabname+"\"])[2]");
 	}
 	
-	public static By objTabName(String tabName) {
-		return By.xpath("(//a[contains(@class,'noSelect') and contains(text(),'" + tabName + "')])[2]");
-	}
-	
 	public static By objGetPremiumGetClubButton = By.xpath("//div[contains(@class,'slick-active')]//*[text()='Buy Plan']//parent::a");
 	
 	public static By objTwitterPage = By.xpath("(//*[@class = 'css-901oao css-16my406 css-bfa6kz r-poiln3 r-bcqeeo r-qvutc0']//*[text()='Follow'])[1]");
@@ -624,5 +620,9 @@ public class PWAHomePage {
 	public static By objContTitleOnCarousel = By
 			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
 	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
+
+	public static By objTabName(String tabName) {
+		return By.xpath("(//a[contains(@class,'noSelect') and contains(text(),'" + tabName + "')])[1]");
+	}
 	
 }

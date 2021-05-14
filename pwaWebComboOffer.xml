@@ -77,7 +77,7 @@
 	<parameter name="SubscribedUserName49" value="49rsvod@yopmail.com"/>
 	<parameter name="SubscribedPassword49" value="welcome"/>
 	
-	<parameter name="comboOfferMovie" value="Aag Ka Gola"/>
+	<parameter name="comboOfferMovie" value="Radhe - Your Most Wanted Bhai"/>
 	<parameter name="DeeplinkConsumption" value="https://newpwa.zee5.com/movies/details/aag-ka-gola/0-0-movie_216980339"/>
 	<parameter name="DeeplinkSubscription" value="https://newpwa.zee5.com/myaccount/subscription"/>
 

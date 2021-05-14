@@ -9,6 +9,17 @@ public class PWAComboOfferPage {
 	public static By objRentForINR = By.xpath("(.//*[@class='tvodButtonContainer']//span[contains(text(),'Rent for INR')])[1]");
 	public static By objRentNow = By.xpath("(.//*[@class='tvodButtonContainer']//span[contains(text(),'Rent Now')])[1]");
 	
+	public static By objWatchNowCTA = By.xpath("(.//*[@class='tvodButtonContainer']//span[contains(text(),'Watch Now')])[1]");
+	public static By objExpiresDaysTxt = By.xpath(".//*[contains(@class,'timeExpired')]/span");
+	public static By objWatchNowCTAInPlayer = By.xpath(".//*[@class='playerButtonAlignment']//child::*[text()='Watch Now']");
+	public static By objExpiresinDaysTxtBelowThePlayer = By.xpath(".//*[@class='tvodBanner']//child::*//h3");
+	public static By objPleaseNotebeForYouStartPopUp = By.xpath(".//*[@class='logoTitle']//child::*[text()='Please note before you start']");
+	public static By objWatchTimeTxtPopUp = By.xpath(".//*[@class='hourData']/*[text()='Watch Time']");
+	public static By objHourTime = By.xpath(".//*[@class='hourData']/span");
+	public static By objYouWillHaveHoursToFinishTheMovieOnceStartedPlaybackTxt = By.xpath(".//*[@class='bannerTitle']/h5");
+	public static By objPopUpDescription = By.xpath(".//*[@class='popupDescription']/span");
+	public static By objAgreeAndWatchNow = By.xpath(".//*[@class='agreeandWatchButton']//*[text()='Agree and Watch Now']");
+	
 	public static By objwatchFullContentByRentingIt = By.xpath(".//*[@class='subscribe-msg-premium subscribemsg_en']/div/span");
 	
 	public static By objRentNowInPlayer = By.xpath(".//*[contains(@class,'subscribe-button subscribemsg_en') and contains(text(),'Rent Now')]");
@@ -91,8 +102,6 @@ public class PWAComboOfferPage {
 			.xpath("//span[contains(text(), 'Upgrade to Combo Offer by just paying the difference')]");
 	public static By objUpgradeToComboOfferPopupUpgradeBtn = By
 			.xpath("//*[@class='comboPopupBtns']//span[text()='Upgrade']");
-	
-	public static By objWatchNowCTA = By.xpath("(//button[@type='button' and span[text()='Watch Now']])[1]");
 	
 	public static By objPaymentPageHeader = By.xpath(".//*[@class='stepTitle' and text()='Make Payment']");
 

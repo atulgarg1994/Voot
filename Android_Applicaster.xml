@@ -150,7 +150,7 @@
 	<parameter name="99PremiumPackEmail" value="zeetest6@g.com" />
 	<parameter name="249PremiumPackEmail" value="newsub12@gmail.com" />
 	<parameter name="299PremiumPackEmail" value="newsub07@gmail.com" />
-	<parameter name="NonSubsUserWithActiveRentalPlan" value="xyzk@gmail.com" />
+	<parameter name="NonSubsUserWithActiveRentalPlan" value="testtvod_radhe1@mailnesia.com" />
 	<parameter name="SubsUserWithoutRentalPlan" value="mobicheck@gmail.com" />
 	<parameter name="RSVOD49PackEmail" value="rsvodtamil1@gmail.com" />
 	<parameter name="RSVOD499PackEmail" value="rsvodkannada1@gmail.com" />

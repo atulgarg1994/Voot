@@ -967,4 +967,6 @@ public class PWAHamburgerMenuPage {
 			.xpath("(//*[@class='textView']//following-sibling::*//article[contains(text(),'UPI')])[3]");
 
 	public static By objrentnowinlandingpage=By.xpath("//span[contains(text(),'Rent Now')]");
+	public static By objHamburgerMenu = By.xpath("(//*[text()='Open Menu'])[2]");
+	
 	}

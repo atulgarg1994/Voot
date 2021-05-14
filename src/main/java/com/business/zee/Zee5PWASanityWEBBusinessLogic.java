@@ -26418,6 +26418,11 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		}
 	}
 	
+	public void watchNowCTA() {
+		
+		
+	}
+	
 	public void ValidateCTAsAndValidateComboOfferScreen() throws Exception {
 		validateComboScreenOnClickingCTABelowPlayer();
 		navigateToHome();
@@ -26482,6 +26487,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		}
 		if (!userType.equals("Guest")) {
 			verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
+		}else if(userType.equals("Guest")) {
+			verifyElementPresent(PWALoginPage.objEmailField, "Login Screen");
 		}
 	}
 	
@@ -26531,6 +26538,9 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			click(PWAComboOfferPage.objRentNow, "Rent Now");
 		}else if(CTAToBeclicked.equalsIgnoreCase("KnowMore")) {
 			click(PWAComboOfferPage.objComboOfferWidget, "Know More");
+		}else if(CTAToBeclicked.equalsIgnoreCase("WatchNow")) {
+			verifyElementPresent(PWAComboOfferPage.objExpiresDaysTxt, "Expires day text");
+			click(PWAComboOfferPage.objWatchNowCTA, "Watch now");
 		}
 	}
 	

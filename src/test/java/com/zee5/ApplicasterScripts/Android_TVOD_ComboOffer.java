@@ -57,11 +57,11 @@ public class Android_TVOD_ComboOffer {
 	@Test(priority = 4)//Sushma - Logged in subscribed user with premium plans lower in value than the Combo offer price of 499/- without Radhe rental
 	@Parameters({ "userType","99PremiumPackEmail", "99PremiumPackPwd", "299PremiumPackEmail", "CommomPassword", "tabName1", "RentalContentName1"})
 	public void UseCase1(String userType, String PremiumPackEmail99, String PremiumPackPwd99, String PremiumPackEmail299, String pPassword, String ptabName, String pContentTitle) throws Exception {
-		ZEE5ApplicasterBusinessLogic.relaunch(true);
-		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
-		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(PremiumPackEmail99, PremiumPackPwd99);
-		ZEE5ApplicasterBusinessLogic.premiumUser_99(ptabName, pContentTitle);
+//		ZEE5ApplicasterBusinessLogic.relaunch(true);
+//		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+//		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+//		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(PremiumPackEmail99, PremiumPackPwd99);
+//		ZEE5ApplicasterBusinessLogic.premiumUser_99(ptabName, pContentTitle);
 		
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
@@ -90,11 +90,11 @@ public class Android_TVOD_ComboOffer {
 	@Test(priority = 6)//Sushma - Guest user -->>Login as already subscribeduser with premium plans lower in value than the combo offer price of 499/- without radhe rental
 	@Parameters({ "userType","99PremiumPackEmail", "99PremiumPackPwd", "299PremiumPackEmail", "CommomPassword", "tabName1", "RentalContentName1"}) 
 	public void UseCase6(String userType, String PremiumPackEmail99, String PremiumPackPwd99, String PremiumPackEmail299, String pPassword, String ptabName, String pContentTitle) throws Exception {
-		ZEE5ApplicasterBusinessLogic.relaunch(true);
-		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
-		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
-		ZEE5ApplicasterBusinessLogic.Guest_premiumUser_99(ptabName, pContentTitle, PremiumPackEmail99, PremiumPackPwd99);
+//		ZEE5ApplicasterBusinessLogic.relaunch(true);
+//		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+//		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+//		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+//		ZEE5ApplicasterBusinessLogic.Guest_premiumUser_99(ptabName, pContentTitle, PremiumPackEmail99, PremiumPackPwd99);
 
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
@@ -103,7 +103,7 @@ public class Android_TVOD_ComboOffer {
 		ZEE5ApplicasterBusinessLogic.Guest_premiumUser_299(ptabName, pContentTitle, PremiumPackEmail299, pPassword);
 	}
 	
-	@Test(priority = 7)//Sushma - Guest user -->>Login as already subscribeduser with active premium plan(1 year or 6 months plan users) without radhe rental
+//	@Test(priority = 7)//Sushma - Guest user -->>Login as already subscribeduser with active premium plan(1 year or 6 months plan users) without radhe rental
 	@Parameters({ "userType","499PremiumPackEmail", "CommomPassword", "tabName1", "RentalContentName1"}) 
 	public void UseCase6b(String userType, String PremiumPackEmail499, String pPassword, String ptabName, String pContentTitle) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
