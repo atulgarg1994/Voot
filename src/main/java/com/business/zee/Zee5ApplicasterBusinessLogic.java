@@ -22341,22 +22341,32 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 			verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
 	    	type(AMDTVODComboOffer.objEmailIdfield, pEmailId, "Email Id");
 			hideKeyboard();
-			click(AMDTVODComboOffer.objAccountInfoLabel, "HideKeyboard");
+			click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
 			click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
 			type(AMDTVODComboOffer.objPasswordfield, pPassword, "Password");
 			hideKeyboard();
+			click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
 			click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
-			
-			if(verifyElementDisplayed(AMDTVODComboOffer.objAlreadyActive)) {
-				logger.info("'You have it all' bottom sheet is displayed since user already has active plan");
-				extentLoggerPass("You have it all", "<b>'You have it all'</b> bottom sheet is displayed since user already has active plan");
+			waitTime(4000);
+			if(verifyIsElementDisplayed(AMDTVODComboOffer.objBottomImg)) {
 				
-				verifyElementPresent(AMDTVODComboOffer.objBottomSheetTitle, getText(AMDTVODComboOffer.objBottomSheetTitle));
-				verifyElementPresent(AMDTVODComboOffer.objBottomSheetSubTitle, getText(AMDTVODComboOffer.objBottomSheetSubTitle));
-				verifyElementPresent(AMDTVODComboOffer.objActivePlanMsg2, "You have already rented this ZEEPLEX movie");
-				verifyElementPresent(AMDTVODComboOffer.objWatchNowCalloutCTA, "Watch Now CTA");
-				verifyElementPresent(AMDTVODComboOffer.objExplorePremiumCTA, "Explore Premium CTA");
-				
+				if(verifyIsElementDisplayed(AMDTVODComboOffer.objAlreadyActive)){
+					logger.info("'You have it all' bottom sheet is displayed since user already has active plan");
+					extentLoggerPass("You have it all", "<b>'You have it all'</b> bottom sheet is displayed since user already has active plan");
+					
+					verifyElementPresent(AMDTVODComboOffer.objBottomSheetTitle, getText(AMDTVODComboOffer.objBottomSheetTitle));
+					verifyElementPresent(AMDTVODComboOffer.objBottomSheetSubTitle, getText(AMDTVODComboOffer.objBottomSheetSubTitle));
+					verifyElementPresent(AMDTVODComboOffer.objActivePlanMsg2, "You have already rented this ZEEPLEX movie");
+					verifyElementPresent(AMDTVODComboOffer.objWatchNowCalloutCTA, "Watch Now CTA");
+					verifyElementPresent(AMDTVODComboOffer.objExplorePremiumCTA, "Explore Premium CTA");
+				}else{
+					logger.info(getText(AMDTVODComboOffer.objBottomSheetTitle)+" message in bottom sheet is displayed even though user already has active plan");
+					extentLoggerFail("You have it all", getText(AMDTVODComboOffer.objBottomSheetTitle)+" message in bottom sheet is displayed even though user already has active plan");
+					
+					verifyElementPresent(AMDTVODComboOffer.objBottomSheetTitle, getText(AMDTVODComboOffer.objBottomSheetTitle));
+					verifyElementPresent(AMDTVODComboOffer.objBottomSheetSubTitle, getText(AMDTVODComboOffer.objBottomSheetSubTitle));
+					verifyElementPresent(AMDTVODComboOffer.objBottomSheetCTA, getText(AMDTVODComboOffer.objBottomSheetSubTitle));
+				}	
 			}else {
 				logger.info("'You have it all' screen is not displayed");
 				extentLoggerFail("Bottom Sheet", "<b>'You have it all'</b> screen is not displayed ");
@@ -22418,12 +22428,13 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 			verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
 	    	type(AMDTVODComboOffer.objEmailIdfield, pEmailId, "Email Id");
 			hideKeyboard();
-			click(AMDTVODComboOffer.objAccountInfoLabel, "HideKeyboard");
+			click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
 			click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
 			waitTime(3000);
 			click(AMDTVODComboOffer.objPasswordfield, "Password field");
 			type(AMDTVODComboOffer.objPasswordfield, pPassword, "Password");
 			hideKeyboard();
+			click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
 			click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
 			
 			waitTime(5000);
@@ -22629,6 +22640,7 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 		verifyElementPresent(AMDLoginScreen.objEnterPasswordField, "Enter Password screen");
 		type(AMDLoginScreen.objEmailIdField, pPassword, "Password");
 		hideKeyboard();
+		click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
 		click(AMDGenericObjects.objContinueCTA, "Continue button");
 	}
 	

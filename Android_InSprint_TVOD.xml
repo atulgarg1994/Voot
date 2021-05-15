@@ -158,7 +158,7 @@
 	<parameter name="299PremiumPackEmail" value="zeetest6@g.com" />
 	<parameter name="RSVOD499PackEmail" value="rsvodkannada1@gmail.com" />
 	
-	<parameter name="SubsUserWithRadheRentalPlan" value="combooffer78@gmail.com" />
+	<parameter name="SubsUserWithRadheRentalPlan" value="subb@g.com" />
 	<parameter name="NonSubsUserWithActiveRentalPlan" value="radhecontent@gmail.com" />
 	
 	
@@ -172,6 +172,7 @@
 	<parameter name="499PremiumPackEmail" value="499subnoradhe@gmail.com" />
 	<parameter name="NonSubsUserWithActiveRentalPlan" value="radhecontent@gmail.com" />
 	<parameter name="NonSubsUserWithActiveRentalPlanPwd" value="Anto123" />
+	
 	
 	
 	<listeners>
