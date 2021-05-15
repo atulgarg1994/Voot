@@ -22633,11 +22633,13 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 //		extent.HeaderChildNode("Log into ZEE5 from Account Info screen");
 		
 		verifyElementPresent(AMDLoginScreen.objAccountInfoScreen, "Account Info screen");
+		click(AMDLoginScreen.objEmailIdField, "EmailId");
 		type(AMDLoginScreen.objEmailIdField, pEmailId, "Email-Id/Phone");
 		hideKeyboard();
 		click(AMDLoginScreen.objAccountInfoScreen, "HideKeyboard");
 		click(AMDGenericObjects.objContinueCTA, "Continue button");
 		verifyElementPresent(AMDLoginScreen.objEnterPasswordField, "Enter Password screen");
+		click(AMDLoginScreen.objEmailIdField, "Password");
 		type(AMDLoginScreen.objEmailIdField, pPassword, "Password");
 		hideKeyboard();
 		click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
