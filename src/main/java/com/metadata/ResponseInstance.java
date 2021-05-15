@@ -4087,6 +4087,48 @@ public static String getAuthorization(String email, String password) {
 }
 
 
+public static Response updateWatchHistory(String contentID,int duration,String guestToken) {
+	String userType = "", username = "", password = "", url="",authorizationToken="";
+	userType=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+	Response userDetailsResponse=null;
+	Response updateWatchHistoryResponse=null;
+	if (!userType.equalsIgnoreCase("Guest")) {
+		if (userType.equals("NonSubscribedUser")) {
+			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserPassword");
+		}
+		if (userType.equals("SubscribedUser")) {
+			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserPassword");
+		}
+		userDetailsResponse=getUserDetails(username, password);
+		String userID=userDetailsResponse.jsonPath().get("id");
+		System.out.println("userID:"+userID);
+		RequestSpecification updateWatchHistoryRequestSpecification = RestAssured.given();
+		updateWatchHistoryRequestSpecification.header("Content-Type", "application/json");
+		updateWatchHistoryRequestSpecification.header("accept", "application/json");
+		updateWatchHistoryRequestSpecification.header("Authorization", userID);
+		updateWatchHistoryRequestSpecification.body("{\"id\":\""+contentID+"\",\"duration\":"+duration+",\"device_id\":\""+guestToken+"\"}");			
+		updateWatchHistoryRequestSpecification.config(com.jayway.restassured.RestAssured.config().encoderConfig(com.jayway.restassured.config.EncoderConfig
+				.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)));
+		url="https://api.zee5.com/api/v1/watchhistory";
+		updateWatchHistoryResponse = updateWatchHistoryRequestSpecification.post(url);
+		//System.out.println(updateWatchHistoryResponse.getStatusCode());
+		//updateWatchHistoryResponse.prettyPrint();
+		System.out.println("Updated watch history for: "+contentID);
+	}			
+	return updateWatchHistoryResponse;
+}
+
+public static Response getUserDetails(String username, String password) {
+	Response response = null;
+	String bearerToken = getBearerToken(username, password);
+	String url = "https://userapi.zee5.com/v1/user";
+	response = given().headers("Authorization", bearerToken).when().get(url);
+	//System.out.println("\nresponse body: " + response.prettyPrint());
+	return response;
+}
+
 
 }
 

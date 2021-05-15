@@ -59,6 +59,8 @@ import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import java.net.URL;
+import org.openqa.selenium.html5.LocalStorage;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
@@ -2895,10 +2897,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			keyword = "Sathya";
 		else
 			keyword = "Kamali";
+		
 		click(PWAHomePage.objSearchBtn, "Search icon");
+		click(PWAHomePage.objNotNow,"Not Now");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 		waitTime(2000);
-		click(PWASearchPage.objSearchNavigationTab("Shows"), "Shows tab");
+		click(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows tab");
 		click(PWASearchPage.objSearchedResult(keyword), "Search Result");
 		click(PWAShowsPage.objShowDetailEpisodeDropdown, "Episode Dropdown");
 		click(PWAShowsPage.objShowDetailNonSelectedEpisodeDropdownValues(1), "Second Episode set");
@@ -2942,34 +2946,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		extent.extentLogger("", "Season ID fetched from API: " + seasonID);
 		logger.info("Season ID fetched from API: " + seasonID);
-
-		click(PWAPlayerPage.objSubTitleOverlay, "Playback Overlay");
-		/////////////////////////////////////////////////////
-		WebElement progressBar = findElement(PWAPlayerPage.progressBar);
-		int progressBarWidth = progressBar.getSize().getWidth();
-		System.out.println(progressBarWidth);
-		int progressBarX = progressBar.getLocation().getX();
-		System.out.println(progressBarX);
-		int progressBarEndX = progressBarX + progressBarWidth;
-		System.out.println(progressBarEndX);
-		WebElement scrubber = findElement(PWAPlayerPage.objPlayerScrubber);
-		int scrubberX = scrubber.getLocation().getX();
-		System.out.println(scrubberX);
-		int offsetForEnd = progressBarEndX - scrubberX - 10;
-
-		/////////////////////////////////////
-		Actions act = new Actions(getWebDriver());
-		act.moveToElement(scrubber, offsetForEnd, 0).click().build().perform();
-		waitTime(2000);
-		mandatoryRegistrationPopUp(userType);
-		extent.extentLogger("", "Scrubbed to end of the player");
-		logger.info("Scrubbed to end of the player");
-		mandatoryRegistrationPopUp(userType);
+		ScrubToPlayerEnd();
 		String upnextTrayCardTitle = "";
 		for (int i = 0; i < 3; i++) {
 			try {
-				upnextTrayCardTitle = getElementPropertyToString("innerText",
-						PWAPlayerPage.objPlayerUpnextTrayCardTitle, "");
+				upnextTrayCardTitle = getElementPropertyToString("innerText",PWAPlayerPage.objPlayerUpnextTrayCardTitle, "");
 				logger.info("Up Next Rail on player is displayed");
 				extent.extentLogger("", "Up Next Rail on player is displayed");
 				logger.info("First Card Title fetched from Up Next Rail : " + upnextTrayCardTitle);
@@ -3028,6 +3009,37 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Verify UpNext Rail", "Card displayed in Upnext rail does not match with API");
 			logger.error("Card displayed in Upnext rail does not match with API");
 		}
+		mandatoryRegistrationPopUp(userType);
+		
+		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+		ResponseInstance.updateWatchHistory(contentID,1,local.getItem("guestToken"));
+	}
+	
+	public void ScrubToPlayerEnd() throws Exception {
+		Actions act = new Actions(getWebDriver());
+		WebElement overlay=findElement(PWAPlayerPage.objSubTitleOverlay);
+		int overlayX=overlay.getLocation().getX();
+		int overlayY=overlay.getLocation().getY();
+		act.moveToElement(overlay, (overlayX+10), (overlayY+10)).build().perform();
+		/////////////////////////////////////////////////////
+		WebElement progressBar = findElement(PWAPlayerPage.progressBar);
+		int progressBarWidth = progressBar.getSize().getWidth();
+		System.out.println(progressBarWidth);
+		int progressBarX = progressBar.getLocation().getX();
+		System.out.println(progressBarX);
+		int progressBarEndX = progressBarX + progressBarWidth;
+		System.out.println(progressBarEndX);
+		WebElement scrubber = findElement(PWAPlayerPage.objPlayerScrubber);
+		int scrubberX = scrubber.getLocation().getX();
+		System.out.println(scrubberX);
+		int offsetForEnd = progressBarEndX - scrubberX - 10;
+		System.out.println(offsetForEnd);
+		/////////////////////////////////////		
+		act.moveToElement(scrubber, offsetForEnd, 0).click().build().perform();
+		waitTime(2000);
+		mandatoryRegistrationPopUp(userType);
+		extent.extentLogger("", "Scrubbed to end of the player");
+		logger.info("Scrubbed to end of the player");
 		mandatoryRegistrationPopUp(userType);
 	}
 
@@ -15065,6 +15077,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		JSClick(PWAPremiumPage.objContentCardShareBtn, "Share Button");
 		Back(1);
 		waitTime(1000);
+		/*
 		verifyElementEnabled(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist Button");
 		JSClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist Button");
 		if (userType.equalsIgnoreCase("Guest")) {
@@ -15084,28 +15097,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 						"Login popup is not displayed when clicked on 'Add to Watchlist' icon on tray content card");
 			}
 		}
-
-//		extent.HeaderChildNode(" HLS_021 : Verify the availability of the Footer section at bottom");
-//		boolean found=false;
-//		for(int i=0;i<30;i++) {			
-//			if(checkElementDisplayed(PWAHamburgerMenuPage.objfooter,"Footer")) {
-//				found=true;
-//				break;
-//			}				
-//			else {
-//				scrollDownByY(300);
-//				scrollDownByY(300);	
-//				scrollDownByY(300);	
-//			}
-//		}
-//		verifyElementPresent(PWAHamburgerMenuPage.objfooter, "Footer section in Home Tab");
-
+		 */
 		extent.HeaderChildNode(" HLS_021 : Verify the availability of the Footer section at bottom ");
 		waitTime(3000);
 		scrollToBottomOfPageWEB();
-		//scrollDownWEB();
 		verifyElementPresent(PWAHamburgerMenuPage.objfooter, "Footer section");
-
 	}
 
 	public void movies(String tabName, String userType) throws Exception {
@@ -17363,14 +17359,19 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			click(PWAPlayerPage.objGoToEduauraa, "Go To Eduauraa offer");
 			checkElementDisplayed(PWAPlayerPage.objContinue, "Continue offer");
 			click(PWAPlayerPage.objContinue, "Continue offer");
-			if (checkElementDisplayed(PWAHamburgerMenuPage.objEduauraaSignupPage, "Eduauraa Sign Up page")) {
-				logger.info("User is navigated to Eduauraa Sign Up page");
-				extent.extentLogger("Contact Us", "User is navigated to Eduauraa Sign Up page");
-			} else {
-				logger.info("Not navigated to Eduauraa Sign Up Page");
-				extent.extentLoggerFail("Subscription Page", "Not navigated to Eduauraa Sign Up Page");
+			if(checkElementDisplayed(PWAPlayerPage.objHiGuest,"Hi Guest")) {
+				logger.info("Hi Guest is displayed, offer is already claimed");
+				extent.extentLogger("", "Hi Guest is displayed, offer is already claimed");
 			}
-
+			else {
+				if (checkElementDisplayed(PWAHamburgerMenuPage.objEduauraaSignupPage, "Eduauraa Sign Up page")) {
+					logger.info("User is navigated to Eduauraa Sign Up page");
+					extent.extentLogger("Contact Us", "User is navigated to Eduauraa Sign Up page");
+				} else {
+					logger.info("Not navigated to Eduauraa Sign Up Page");
+					extent.extentLoggerFail("Subscription Page", "Not navigated to Eduauraa Sign Up Page");
+				}
+			}
 		}
 		navigateToHome();
 		waitTime(3000);

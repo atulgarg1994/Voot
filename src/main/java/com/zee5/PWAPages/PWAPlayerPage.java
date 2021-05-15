@@ -467,4 +467,6 @@ public class PWAPlayerPage {
 	public static By objContentTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//h1");
 	
 	public static By objResumePlayerCTA = By.xpath("(//button[@type='button' and span[text()='Resume']])[1]");
+	
+	public static By objHiGuest = By.xpath("//div[@class='usr-name']");
 }
