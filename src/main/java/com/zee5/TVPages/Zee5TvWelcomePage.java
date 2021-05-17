@@ -18,6 +18,8 @@ public class Zee5TvWelcomePage {
 	public static By objHomepageTrayContent = By.xpath(
 			"(//*[@id='row_header' and contains(text(),'Top')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*//child::*[@id='main_image'])[1]");
 
+	
+			public static By objwatchlistTray = By.xpath("(//*[@id='row_header' and contains(text(),'Watchlist')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*//child::*[@id='main_image'])[1]");		
 	public static By objContinuewatchingTrayImage = By.xpath(
 			"(//*[@id='row_header' and contains(text(),'Continue')]//parent::*//following-sibling::*//child::*//child::*//child::*//child::*//child::*[@id='main_image'])[1]");
 	public static By objBeforeTVTray = By.xpath(

@@ -84,6 +84,12 @@ public class Zee5TvHomePage {
 		return By.xpath("(//*[contains(text(),'" + option + "')]//parent::*)[1]");
 	}
 
+	
+	public static By objPlatformName = By.xpath("//*[@id='txtPlatform']");
+	public static By objPlatformChipset = By.xpath("//*[@id='txtDeviceChipset']");
+	public static By objPlatformAppVersion = By.xpath("//*[@id='txtDeviceAppVersion']");
+	public static By objPlatformInternetType = By.xpath("//*[@id='txtDeviceNetworkStatus']");
+	
 	public static By objFAQPage = By.xpath("//*[@id='faq_activity_title']");
 
 	public static By objContactUsPage = By.xpath("//*[@id='contact_us_text']");

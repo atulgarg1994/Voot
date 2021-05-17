@@ -39,8 +39,14 @@ public class Zee5TvPlayerPage {
 	public static By objPlayerContainer = By.xpath("	//*[@id='container_list']");
 	
 	
+	public static By objPlayerScreenNowPlaying = By.xpath("//*[@id='now_showing_view']");
 	public static By objPaymentPage = By.xpath("//*[@id='plan_selected']");
 	
 	public static By objreloadButton = By.xpath("//*[@id='reload_btn']");
 	public static By objplayerzelogo = By.xpath("//*[@id='gif_animation_view']");
+	
+	public static By objplayeroverlay= By.xpath("//*[@id='player_main_overlay']");
+
+	public static By objpremiumInUpnext= By.xpath("	(//*[@id='related_item_premium_tag']//parent::*//child::*[@id='related_thumbnail'])[1]");
+	
 }

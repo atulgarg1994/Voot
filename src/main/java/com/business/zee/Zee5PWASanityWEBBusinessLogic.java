@@ -9099,12 +9099,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				logger.info("Metadata on the content card is not validated with Api data");
 				extent.extentLogger("Metadata", "Metadata on the content card is not validated with Api data");
 			}
-			waitTime(1000);
-			checkElementDisplayed(PWAPremiumPage.objContentCardPlayBtn, "Play Button");
-			waitTime(1000);
-			checkElementDisplayed(PWAPremiumPage.objContentCardShareBtn, "Share Button");
-			waitTime(1000);
-			verifyElementEnabled(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist Button");
+			waitTime(2000);
+			verifyElementPresent(PWAPremiumPage.objContentCardPlayBtn, "Play Button");
+			waitTime(2000);
+			verifyElementPresent(PWAPremiumPage.objContentCardShareBtn, "Share Button");
+//			waitTime(1000);
+//			verifyElementEnabled(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist Button");
 		}
 	}
 
@@ -11797,13 +11797,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void gettingStartedVerifications() throws Exception {
 		waitTime(3000);
-		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Getting Started"),
-				"Getting started tab");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("What is ZEE5"), "What is zee5");
+		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Popular Topics"),
+				"Popular Topics tab");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How can I check"),
+				"How can I check whether the Radhe Combo offer is active on my account?");
 
 		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
-			logger.info("User is navigated to What is ZEE5 page");
-			extent.extentLoggerPass("Article", "User is navigated to What is ZEE5 page");
+			logger.info("User is navigated to How can I check whether the Radhe Combo offer is active on my account? page");
+			extent.extentLoggerPass("Article", "User is navigated to How can I check whether the Radhe Combo offer is active on my account? page");
 		}
 		Back(1);
 
@@ -11826,12 +11827,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		Back(1);
 		
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Renting movies on ZEEPLEX"),
-				"Renting Movies on ZEEPLEX");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How can I delete"),
+				"How can I delete / log out a registered device?");
 
 		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
-			logger.info("User is navigated to Renting movies on ZEEPLEX page");
-			extent.extentLoggerPass("Article", "User is navigated to Renting movies on ZEEPLEX page");
+			logger.info("User is navigated to How can I delete / log out a registered device? page");
+			extent.extentLoggerPass("Article", "User is navigated to How can I delete / log out a registered device? page");
 		}
 		Back(1);
 	}
@@ -11842,138 +11843,140 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void myAccountVerifications() throws Exception {
 		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My Account"), "My Account tab");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Managing your Subscription"),
-				"Managing your Subscription ");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Managing your subscription"),
+				"Managing your subscription");
 
-		switchToWindow(3);
+//		switchToWindow(3);
 		
 		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
 			logger.info("User is navigated to Managing your Subscription  page");
 			extent.extentLoggerPass("Article", "User is navigated to Managing your Subscription  page");
 		}
-//		Back(1);
+		Back(1);
 		
-		getWebDriver().close();
-		switchToWindow(2);
+//		getWebDriver().close();
+//		switchToWindow(2);
 		
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I can"),
-				"I can't sign in to ZEE5 ");
+				"I can't sign in to ZEE5");
 
-		switchToWindow(3);
+//		switchToWindow(3);
 		
 		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
 			logger.info("User is navigated to I can't sign in to ZEE5 page");
 			extent.extentLoggerPass("Article", "User is navigated to I can't sign in to ZEE5 page");
 		}
-//		Back(1);
+		Back(1);
 		
-		getWebDriver().close();
-		switchToWindow(2);
+//		getWebDriver().close();
+//		switchToWindow(2);
 		
 		verifyElementPresentAndClick(
-				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My auto-renewal subscription has expired"),
-				"My auto-renewal subscription has expired");
+				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I purchased a subscription, but it’s not working"),
+				"I purchased a subscription, but it’s not working");
 
-		switchToWindow(3);
+//		switchToWindow(3);
 		
 		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
 			logger.info(
-					"User is navigated to My auto-renewal subscription has expired page");
+					"User is navigated to I purchased a subscription, but it’s not working page");
 			extent.extentLoggerPass("Article",
-					"User is navigated to My auto-renewal subscription has expired page");
+					"User is navigated to I purchased a subscription, but it’s not working page");
 		}
-//		Back(1);
+		Back(1);
 		
-		getWebDriver().close();
-		switchToWindow(2);
+//		getWebDriver().close();
+//		switchToWindow(2);
+		
 		verifyElementPresentAndClick(
 				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How many devices can I watch on?"),
 				"I want to update my profile information");
 
-		switchToWindow(3);
+//		switchToWindow(3);
 		
 		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
 			logger.info("User is navigated to I want to update my profile information  page");
 			extent.extentLoggerPass("Article", "User is navigated to I want to update my profile information page");
 		}
-//		Back(1);
+		Back(1);
 
-		getWebDriver().close();
-		switchToWindow(2);
+//		getWebDriver().close();
+//		switchToWindow(2);
 	}
 
 	/**
 	 * Function to verify the FAQ's in Help Center Screen under Quick Links category
 	 */
 	public void quickLinksVerifications() throws Exception {
-		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Quick Links"), "Quick Links tab");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How Can I"), "How Can I ");
+		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Offers & Partnerships"), "Offers & Partnerships tab");
+//		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How Can I"), "How Can I");
 
-		switchToWindow(3);
+//		switchToWindow(3);
 		
-		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
-			logger.info("User is navigated to How Can I page");
-			extent.extentLoggerPass("Article", "User is navigated to How Can I page");
-		}
+//		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
+//			logger.info("User is navigated to How Can I page");
+//			extent.extentLoggerPass("Article", "User is navigated to How Can I page");
+//		}
 //		Back(1);
 
-		getWebDriver().close();
-		switchToWindow(2);
+//		getWebDriver().close();
+//		switchToWindow(2);
 		
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("ZEE5 Offers"),
 				"ZEE5 Offers");
 
-		switchToWindow(3);
+//		switchToWindow(3);
 		
 		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
 			logger.info("User is navigated to ZEE5 Offers page");
 			extent.extentLoggerPass("Article", "User is navigated to ZEE5 Offers page");
 		}
-//		Back(1);
+		Back(1);
 
-		getWebDriver().close();
-		switchToWindow(2);
+//		getWebDriver().close();
+//		switchToWindow(2);
 		
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Partnerships"),
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("ZEE5 Partnerships"),
 				"ZEE5 Partnerships");
 
-		switchToWindow(3);
+//		switchToWindow(3);
 		
 		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
 			logger.info("User is navigated to ZEE5 Partnerships page");
 			extent.extentLoggerPass("Article", "User is navigated to ZEE5 Partnerships page");
 		}
+		Back(1);
+
+//		getWebDriver().close();
+//		switchToWindow(2);
+		
+//		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I purchased a subscription"),
+//				"I purchased a subscription but it's not working");
+
+//		switchToWindow(3);
+		
+//		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
+//			logger.info("User is navigated to I purchased a subscription but it's not working page");
+//			extent.extentLoggerPass("Article", "User is navigated to I purchased a subscription but it's not working page");
+//		}
 //		Back(1);
 
-		getWebDriver().close();
-		switchToWindow(2);
-		
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I purchased a subscription"), "I purchased a subscription but it's not working");
-
-		switchToWindow(3);
-		
-		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
-			logger.info("User is navigated to I purchased a subscription but it's not working page");
-			extent.extentLoggerPass("Article", "User is navigated to I purchased a subscription but it's not working page");
-		}
-//		Back(1);
-
-		getWebDriver().close();
-		switchToWindow(2);
+//		getWebDriver().close();
+//		switchToWindow(2);
 		
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Applying a code in ZEE5"),
-			"Cancel Subscription");
+			"Applying a code in ZEE5");
 		
-		switchToWindow(3);
+//		switchToWindow(3);
 
 		if (verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle, "Article title") == true) {
 			logger.info("User is navigated to Applying a code in ZEE5 page");
 			extent.extentLoggerPass("Article", "User is navigated to Applying a code in ZEE5 page");
 		}
-//		Back(1);
+		Back(1);
 
-		getWebDriver().close();
-		switchToWindow(2);
+//		getWebDriver().close();
+//		switchToWindow(2);
 	}
 
 	/**
@@ -15063,7 +15066,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		click(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top");
 
-		extent.HeaderChildNode(" HLS_019 : Availability and functionality of play, watch-list, Share icons");
+		extent.HeaderChildNode(" HLS_019 : Availability and functionality of play, Share icons");
 		Actions actions = new Actions(getWebDriver());
 		WebElement contentCard = getWebDriver()
 				.findElement(By.xpath("(//div[@class='slick-list']//div[@class='content'])[" + 2 + "]"));
@@ -15077,30 +15080,45 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		JSClick(PWAPremiumPage.objContentCardShareBtn, "Share Button");
 		Back(1);
 		waitTime(1000);
-		/*
-		verifyElementEnabled(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist Button");
-		JSClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist Button");
-		if (userType.equalsIgnoreCase("Guest")) {
-			if (checkElementDisplayed(PWAHomePage.objLoginRequiredPopUpHeader, "Login Required PopUp Header")) {
-				extent.extentLogger(
-						"Login popup is displayed when clicked on 'Add to Watchlist' icon on tray content card",
-						"Login popup is displayed when clicked on 'Add to Watchlist' icon on tray content card for guest user");
-				logger.info(
-						"Login popup is displayed when clicked on 'Add to Watchlist' icon on tray content card for guest user");
-				click(PWAHomePage.objPopupCloseicon(), "Popup Close icon");
+//		verifyElementEnabled(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist Button");
+//		JSClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist Button");
+//		if (userType.equalsIgnoreCase("Guest")) {
+//			if (checkElementDisplayed(PWAHomePage.objLoginRequiredPopUpHeader, "Login Required PopUp Header")) {
+//				extent.extentLogger(
+//						"Login popup is displayed when clicked on 'Add to Watchlist' icon on tray content card",
+//						"Login popup is displayed when clicked on 'Add to Watchlist' icon on tray content card for guest user");
+//				logger.info(
+//						"Login popup is displayed when clicked on 'Add to Watchlist' icon on tray content card for guest user");
+//				click(PWAHomePage.objPopupCloseicon(), "Popup Close icon");
+//
+//			} else {
+//				extent.extentLoggerFail(
+//						"Login popup is not displayed when clicked on 'Add to Watchlist' icon on tray content card",
+//						"Login popup is not displayed when clicked on 'Add to Watchlist' icon on tray content card");
+//				logger.info(
+//						"Login popup is not displayed when clicked on 'Add to Watchlist' icon on tray content card");
+//			}
+//		}
 
-			} else {
-				extent.extentLoggerFail(
-						"Login popup is not displayed when clicked on 'Add to Watchlist' icon on tray content card",
-						"Login popup is not displayed when clicked on 'Add to Watchlist' icon on tray content card");
-				logger.info(
-						"Login popup is not displayed when clicked on 'Add to Watchlist' icon on tray content card");
-			}
-		}
-		 */
+//		extent.HeaderChildNode(" HLS_021 : Verify the availability of the Footer section at bottom");
+//		boolean found=false;
+//		for(int i=0;i<30;i++) {			
+//			if(checkElementDisplayed(PWAHamburgerMenuPage.objfooter,"Footer")) {
+//				found=true;
+//				break;
+//			}				
+//			else {
+//				scrollDownByY(300);
+//				scrollDownByY(300);	
+//				scrollDownByY(300);	
+//			}
+//		}
+//		verifyElementPresent(PWAHamburgerMenuPage.objfooter, "Footer section in Home Tab");
+
 		extent.HeaderChildNode(" HLS_021 : Verify the availability of the Footer section at bottom ");
 		waitTime(3000);
 		scrollToBottomOfPageWEB();
+		//scrollDownWEB();
 		verifyElementPresent(PWAHamburgerMenuPage.objfooter, "Footer section");
 	}
 
@@ -15137,7 +15155,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 
 		partialScroll();
-		extent.HeaderChildNode("HLS_033 :Verify that Play, share, watchlist CTA");
+		extent.HeaderChildNode("HLS_033 :Verify that Play, share CTA");
 		trayTitleAndContentValidationWithApiDataMovie(tabName, "movies");
 
 		extent.HeaderChildNode(" HLS_024 : Verify the rails name and content are loaded for first 2 scroll");
@@ -15218,13 +15236,16 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					waitForElement(PWASubscriptionPages.objPremiumText, 20, "To Watch this Premium Content - Text");
 					waitForElementAndClick(PWASubscriptionPages.objGetPremiumButton, 20, "Get Premium Button");
 					waitForElement(PWASubscriptionPages.objZEE5Subscription, 20, "Navigated to Subscription page");
+					waitTime(2000);
 					Back(1);
 					waitForElementAndClick(PWASubscriptionPages.objSkipLink, 20, "Skip Link");
 					waitForElement(PWASubscriptionPages.objTrailerTextAtConsumptionPage, 20, "Navigated to Next Content");
+					waitTime(2000);
 					Back(1);
 					waitForElement(PWASubscriptionPages.objExistUserText, 20, "Are you a Zee5 Subscriber? - Text");
 					waitForElementAndClick(PWASubscriptionPages.objLoginLink, 20, "Login Link");
 					waitForElement(PWASubscriptionPages.objLoginPage, 20, "Navigated to Login page");
+					waitTime(2000);
 					Back(1);
 				} 
 						
@@ -15233,9 +15254,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					waitForElement(PWASubscriptionPages.objPremiumText, 20, "To Watch this Premium Content - Text");
 					waitForElementAndClick(PWASubscriptionPages.objGetPremiumButton, 20, "Get Premium Button");
 					waitForElement(PWASubscriptionPages.objZEE5Subscription, 20, "Navigated to Subscription page");
+					waitTime(2000);
 					Back(1);
 					waitForElementAndClick(PWASubscriptionPages.objSkipLink, 20, "Skip Link");
 					waitForElement(PWASubscriptionPages.objTrailerTextAtConsumptionPage, 20, "Navigated to Next Content");
+					waitTime(2000);
 					Back(1);
 				}
 			}

@@ -67,7 +67,6 @@ public class TvZee5ATVScripts {
 	public void landingScenarios(String userType) throws Exception {
 
 		Zee5TvBusiness.landingPageHome(userType);
-
 	}
 
 //	@Test(priority = 10)
@@ -122,7 +121,7 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.ads();
 	}
 
-//	@Test(priority = 20)
+//   @Test(priority = 20)
 	public void profile() throws Exception {
 		Zee5TvBusiness.profile();
 	}
@@ -168,6 +167,35 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.zeeplex();
 	}
 	
+//	@Test(priority = 29) //Insprint
+	public void nowplaying() throws Exception {
+		Zee5TvBusiness.nowplayingButton();
+	}
+	
+//	@Test(priority = 30) //Insprint
+	public void premiumLiveChannel() throws Exception {
+		Zee5TvBusiness.premiumLiveChannel();
+	}
+	
+//	@Test(priority = 31) //Insprint
+	public void premiumcontentFromInfo() throws Exception {
+		Zee5TvBusiness.premiumInUpnext();
+	}
+	
+//	@Test(priority = 32) //Insprint
+	public void e24channelSearch() throws Exception {
+		Zee5TvBusiness.e24ChannelSearch();
+	}
+	
+//	@Test(priority = 33) //Insprint
+	public void noReminderText() throws Exception {
+		Zee5TvBusiness.noReminderText();
+	}
+	
+//	@Test(priority = 34) //Insprint
+	public void premiumContentPlayback() throws Exception {
+		Zee5TvBusiness.premiumconetntPlayback();
+	}
 
 	@AfterTest
 	public void After() {

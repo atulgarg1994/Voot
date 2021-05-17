@@ -55,10 +55,16 @@ public class Zee5TvSearchPage {
 
 	public static By objChalnnelName = By.xpath("(//*[@id='channel_name_text'])[1]");
 
+	public static By objLiveChalnnelName = By.xpath("(//*[@id='search_result_title'])[1]");
 	public static By objProgressBar = By.xpath("(//*[@id='episode_elapsed_progress_bar_search'])[1]");
 
 	public static By objSearchedTumbnailImageEPG(String str) {
 		return By.xpath("//*[@id='channel_name_text' and @text='" + str
+				+ "']//parent::*//parent::*//parent::*//child::*//child::*[@id='imageOverlay']");
+	}
+	
+	public static By objSearchedLiveTumbnailImageEPG(String str) {
+		return By.xpath("//*[@id='search_result_title' and @text='" + str
 				+ "']//parent::*//parent::*//parent::*//child::*//child::*[@id='imageOverlay']");
 	}
 
@@ -75,19 +81,19 @@ public class Zee5TvSearchPage {
 	public static By objSubscribePopup = By.xpath("//*[@id='tv_pop_up_un_subscribe_text']");
 
 	public static By objContinueWatchingProgressbar = By.xpath("(//*[@id='progressbar'])[1]");
-	
+
 	public static By objClosePopupButton = By.xpath("//*[@id='tv_pop_up_cancel_text']");
-	
+
 	public static By objSearchedText = By.xpath("//*[@id='popular_his_sugg' and @text='Panchatantra']");
 
-	
 	public static By objnewslider = By.xpath("//*[@id='popup_heading']");
 	public static By objZeeLogo = By.xpath("//*[@id='qr_code_image']");
 	public static By objinfotext1 = By.xpath("//*[@id='info_text1']");
 	public static By objinfotext2 = By.xpath("//*[@id='info_text2']");
 	public static By objinfotext3 = By.xpath("//*[@id='info_text3']");
 	public static By objtvodokbutton = By.xpath("//*[@id='tvod_ok']");
-	
-	
-	
+
+	public static By objzeetvhdimage = By
+			.xpath("(//*[@id='search_result_title' and @text='Zee TV HD']//parent::*//parent::*//child::*)[1]");
+
 }
