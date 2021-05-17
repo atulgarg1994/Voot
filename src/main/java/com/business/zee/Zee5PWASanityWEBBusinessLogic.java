@@ -24512,8 +24512,6 @@ public void pwaverifythemetatag(String userType) throws Exception
 		waitTime(3000);
 		waitTime(3000);
 		type(PWASubscriptionPages.objEmailIDTextField, "igszee5testing@gmail.com", "Email Id");
-
-		hideKeyboard();
 		waitTime(3000);
 		verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted,
 				"Proceed Button in Account Info Page Highlighted");
@@ -26757,43 +26755,22 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			// 105
 			extent.HeaderChildNode(
 					"Verify that user is getting all the payment modes available for TVOD plan purchase");
-			checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
-			waitTime(5000);
-			WebElement iframeElement = null;
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
-			}
 
+			PWAIframe();
 			verifyElementPresent(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
 			verifyElementPresent(PWASubscriptionPages.objWallets, "Wallets");
 			verifyElementPresent(PWAHamburgerMenuPage.objnetbanking, "Net banking");
 			Back(1);
 			Back(1);
-			// verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "Zee logo");
+			
 
 			// 16
 			extent.HeaderChildNode(
 					"Verify that On entering card details of any credit card , Optional payment will be applicable");
 			verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscribe button");
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-			checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
-			waitTime(5000);
-			WebElement iframeElement1 = null;
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement1 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement1);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement1 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement1);
-			}
+
+			PWAIframe();
 			// scrollToTopOfPageWEB();
 			verifyElementPresentAndClick(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
 			verifyElementPresentAndClick(PWASubscriptionPages.objEnterCreditAndDebitCardDetails,
@@ -26828,38 +26805,17 @@ public void pwaverifyHaveacode(String userType) throws Exception
 					"Verify that user is able to purchase the TVOD plan using any available payment mode successfully");
 			verifyElementPresentAndClick(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
 			verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
-			// verifyElementPresentAndClick(PWAHamburgerMenuPage.objnetbanking,"Net
-			// banking");
+			
 			Back(1);
 			Back(1);
-//				//108
-//				extent.HeaderChildNode("Verify user is not able to see expired plan detail under Zeeplex rental");
-//				verifyElementPresentAndClick(PWALandingPages.objWebProfileIcon, "Profile Icon");
-//				waitTime(5000);
-//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("ZEEPLEX Rentals"), "ZEEPLEX Rentals option");
 
 			// 12
 			extent.HeaderChildNode(
 					"Verify that on clicking  continue CTA user will get new screen Add credit card/Debit Card");
 			verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscribe button");
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-			checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
-			waitTime(5000);
-			// WebElement iframeElement = null;
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				getWebDriver().switchTo().frame(iframeElement);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				getWebDriver().switchTo().frame(iframeElement);
-			}
 
+			PWAIframe();
 			verifyElementPresent(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
 			if (checkElementDisplayed(PWASubscriptionPages.objCardNumber, "Enter Card Number Field")) {
 				logger.info(
@@ -27645,8 +27601,6 @@ public void pwaverifyHaveacode(String userType) throws Exception
 					verifyElementPresentAndClick(PWAComboOfferPage.objpackprice499, "499 pack price");
 					verifyElementPresent(PWAComboOfferPage.objcomboofferpage, "Combo Offer Page");
 					verifyElementPresentAndClick(PWAComboOfferPage.objbuycta, "Buy cta");
-
-					// accountinfopage();
 					checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
 					verifyElementPresent(PWAHamburgerMenuPage.objplanpriceinpaymentpage, "Plan price ");
 					String packpriceinpaymentpage = getText(PWAHamburgerMenuPage.objplanpriceinpaymentpage);
@@ -27675,7 +27629,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		
 		  if (userType.equals("SubscribedUser")) 
 		 { //14 extent.
-		  HeaderChildNode("Verify that logged in RSVOD user is redirected to payment page on clicking Upgradeto 499 CTA"
+			extent.HeaderChildNode("Verify that logged in RSVOD user is redirected to payment page on clicking Upgradeto 499 CTA"
 				  ); 
 		  navigateHome();
 		  logout();
@@ -27782,19 +27736,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			String packprice1 = "?" + packprice;
 			extent.extentLogger("", "selected pack price : " + packprice1);
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-			checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
-			waitTime(5000);
-			WebElement iframeElement = null;
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
-			}
-
+			PWAIframe();
 			verifyElementPresentAndClick(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
 			waitTime(5000);
 			String creditcard = getText(PWASubscriptionPages.objCreditAndDebitCardBtn);
@@ -27810,15 +27752,6 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			}
 			Back(1);
 			Back(1);
-
-//			extent.HeaderChildNode("Verify that on clicking Enter card number tile "
-//					+ "user will get new screen Add credit card/Debit Card");
-//			
-//			checkElementDisplayed(PWASubscriptionPages.objEnterCreditAndDebitCardDetails,
-//					"Enter Credit/Debit Card Details");
-//			type(PWASubscriptionPages.objEnterCreditAndDebitCardDetails,"5432",
-//					"Enter Credit/Debit Card Details");
-//			
 		}
 	}
 
@@ -27835,18 +27768,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			String packprice1 = "?" + packprice;
 			extent.extentLogger("", "selected pack price : " + packprice1);
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-			checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
-			waitTime(5000);
-			WebElement iframeElement = null;
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
-			}
+
+			PWAIframe();
 
 			verifyElementPresentAndClick(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
 			waitTime(5000);
@@ -27913,19 +27836,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			String packprice1 = "?" + packprice;
 			extent.extentLogger("", "selected pack price : " + packprice1);
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-			checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
-			waitTime(5000);
-			WebElement iframeElement = null;
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
-			}
 
+			PWAIframe();
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objnetbanking, "Net banking");
 			waitTime(3000);
 			verifyElementPresent(PWAHamburgerMenuPage.objlistofbanks, "List of banks");
@@ -27977,16 +27889,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 					"Verify that user is able to the select the UPI payment mode while purchasing non recurring plan");
 			Back(1);
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-			 WebElement iframeElement2 = null;
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement2 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement2);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement2 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement2);
-			}
+
+			PWAIframe();
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaymentoption("UPI"), "Payment option");
 			if (verifyElementPresent(PWAHamburgerMenuPage.objscanorcodetext("Generate QR Code"), "Generate QR Code")) {
 				logger.info(
@@ -28028,9 +27932,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			click(PWAHamburgerMenuPage.objscanorcodetext("Generate QR Code"), "Generate QR Code");
 			verifyElementPresent(PWAHamburgerMenuPage.objscanandpay, "Scan and pay OR code is generated");
 			verifyElementPresent(PWAHamburgerMenuPage.objtimerinupi, "Timer upi");
-//		String	timer =getText(PWAHamburgerMenuPage.objtimerinupi);
-//		System.out.println(timer);
-//		extent.extentLogger("", "Timer : " + timer);
+
 			if (verifyElementPresent(PWAHamburgerMenuPage.objtimerinupi, "Timer upi")) {
 				logger.info(
 						"The Countdown should get started as soon as the QR Code is displayed on the screen of website, expected behaviour");
@@ -28072,75 +27974,65 @@ public void pwaverifyHaveacode(String userType) throws Exception
 				extent.extentLoggerFail(" ", "User not redirected to previous page i.e UPI payment page");
 
 			}
-
 		}
 	}
 
 	public void pwavalidatinupiandwalletpaymentpage(String userType) throws Exception {
-		if (userType.equals("NonSubscribedUser")) {
-			// 9
-			extent.HeaderChildNode("Verify that user is not able to see UPI payment option for recurring plan");
-			navigateHome();
-			verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscription button");
-			if (verifyElementPresent(PWASubscriptionPages.objPopup99Plan, "99 pack ")) {
-				click(PWASubscriptionPages.objPopup99Plan, "99 pack is selected");
-				String packprice = getText(PWASubscriptionPages.objPopup99Plan);
-
-				extent.extentLogger("", "selected pack price : " + packprice);
-				verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-				checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
-				waitTime(5000);
-				WebElement iframeElement = null;
-				if (getPlatform().equalsIgnoreCase("Android")) {
-					iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-					Thread.sleep(15000);
-					getWebDriver().switchTo().frame(iframeElement);
-				} else if (getPlatform().equalsIgnoreCase("Web")) {
-					iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-					Thread.sleep(15000);
-					getWebDriver().switchTo().frame(iframeElement);
-				}
-				if (verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaymentoption("UPI"), "Payment option")) {
-					logger.info("User should be able to select UPI payment option for non recurring plan.");
-					extent.extentLoggerFail("",
-							"User should be able to select UPI payment option for non recurring plan.");
-				} else {
-					logger.info(
-							"User not able to select UPI payment option for non recurring plan, expected behaviour");
-					extent.extentLoggerPass(" ",
-							"User not able to select UPI payment option for non recurring plan, expected behaviour");
-
-				}
-
-			} else {
-				logger.info("99 pack is not displayed");
-				extent.extentLogger(" ", "99 pack is not displayed");
-
-			}
-		}
+//		if (userType.equals("NonSubscribedUser")) {
+//			// 9
+//			extent.HeaderChildNode("Verify that user is not able to see UPI payment option for recurring plan");
+//			navigateHome();
+//			verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscription button");
+//			if (verifyElementPresent(PWASubscriptionPages.objPopup99Plan, "99 pack ")) {
+//				click(PWASubscriptionPages.objPopup99Plan, "99 pack is selected");
+//				String packprice = getText(PWASubscriptionPages.objPopup99Plan);
+//
+//				extent.extentLogger("", "selected pack price : " + packprice);
+//				verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
+//				checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
+//				waitTime(5000);
+//				WebElement iframeElement = null;
+//				if (getPlatform().equalsIgnoreCase("Android")) {
+//					iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+//					Thread.sleep(15000);
+//					getWebDriver().switchTo().frame(iframeElement);
+//				} else if (getPlatform().equalsIgnoreCase("Web")) {
+//					iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+//					Thread.sleep(15000);
+//					getWebDriver().switchTo().frame(iframeElement);
+//				}
+//				if (verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaymentoption("UPI"), "Payment option")) {
+//					logger.info("User should be able to select UPI payment option for non recurring plan.");
+//					extent.extentLoggerFail("",
+//							"User should be able to select UPI payment option for non recurring plan.");
+//				} else {
+//					logger.info(
+//							"User not able to select UPI payment option for non recurring plan, expected behaviour");
+//					extent.extentLoggerPass(" ",
+//							"User not able to select UPI payment option for non recurring plan, expected behaviour");
+//
+//				}
+//
+//			} else {
+//				logger.info("99 pack is not displayed");
+//				extent.extentLogger(" ", "99 pack is not displayed");
+//
+//			}
+//		}
 
 		if (userType.equals("NonSubscribedUser")) {
 			// 20
 			extent.HeaderChildNode("Verify that user redirect to Amazon pay page on clicking proceed "
 					+ "after selecting Amazon Pay wallet optionA");
-//			verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscription button");
-//			verifyElementPresent(PWAHamburgerMenuPage.obj499pack,"499 pack");
-//			String packprice = getText(PWAHamburgerMenuPage.obj499pack);
-//			String packprice1 = "? "+ packprice;
-//			extent.extentLogger("", "selected pack price : " + packprice1);
+			navigateHome();
+			verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscription button");
+			verifyElementPresent(PWAHamburgerMenuPage.obj499pack,"499 pack");
+			String packprice = getText(PWAHamburgerMenuPage.obj499pack);
+			String packprice1 = "? "+ packprice;
+			extent.extentLogger("", "selected pack price : " + packprice1);
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-			checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
-			waitTime(5000);
-			WebElement iframeElement = null;
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
-			}
+
+			PWAIframe();
 
 			verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
 			verifyElementPresentAndClick(PWASubscriptionPages.objAmazonPay, "Amazonpay");
@@ -28163,32 +28055,6 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			verifyElementPresent(PWAHamburgerMenuPage.objamazonlogintext, "Amazon Login");
 			verifyElementPresent(PWAHamburgerMenuPage.objamazonemailandphnofield, "Amazon email field");
 			verifyElementPresent(PWAHamburgerMenuPage.objamazonsignincta, "Amazon sign in CTA");
-
-			// 22
-//			extent.HeaderChildNode("Verify that plan details are displayed in"
-//					+ " Amazon pay page post logging in Amazon Pay account");
-//			
-//			if (verifyElementPresent(PWAHamburgerMenuPage.objplandetailsinamazon, "Plan details in Amazon")) {
-//				logger.info(
-//						"Plan details should be displayed in Amazon pay page post logging in Amazon Pay account ,expected behaviour.");
-//				extent.extentLoggerPass("",
-//						"Plan details should be displayed in Amazon pay page post logging in Amazon Pay account , expected behaviour.");
-//			} else{
-//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objAmazonEmailField,"Email field");
-//				type(PWAHamburgerMenuPage.objAmazonEmailField, "8660341328", "Email field");
-//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objAmazonPasswordField,"Password field");
-//				type(PWAHamburgerMenuPage.objAmazonPasswordField, "vasilucky@123", "Password field");
-//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objamazonsignincta, "Amazon sign in CTA");
-//				if (verifyElementPresent(PWAHamburgerMenuPage.objplandetailsinamazon, "Plan details in Amazon")) {
-//					logger.info(
-//							"Plan details should be displayed in Amazon pay page post logging in Amazon Pay account ,expected behaviour.");
-//					extent.extentLoggerPass("",
-//							"Plan details should be displayed in Amazon pay page post logging in Amazon Pay account , expected behaviour.");
-//				}else 
-//				{
-//				logger.info("Plan details is not displayed in Amazon pay page ");
-//				extent.extentLoggerFail(" ", "Plan details is not displayed in Amazon pay page ");
-//				}
 			}
 
 		
@@ -28204,19 +28070,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			String packprice1 = "?" + packprice;
 			extent.extentLogger("", "selected pack price : " + packprice1);
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-			checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
-			waitTime(5000);
-			WebElement iframeElement = null;
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
-			}
 
+			PWAIframe();
 			verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
 			verifyElementPresentAndClick(PWASubscriptionPages.objMobikwik, "Mobikvik");
 			verifyElementPresentAndClick(PWASubscriptionPages.objMobikwikProceedToPay, "Proceed to pay");
@@ -28284,22 +28139,11 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			// 28
 			extent.HeaderChildNode(
 					"Verify that user is able to list of applicable " + "wallets (Amazon pay, Mobikwik, Paytm )");
-			WebElement iframeElement3 = null;
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement3 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement3);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement3 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement3);
-			}
 
+			PWAIframe();
 			verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
 			verifyElementPresentAndClick(PWASubscriptionPages.objAmazonPay, "Amazonpay");
 			verifyElementPresentAndClick(PWASubscriptionPages.objMobikwik, "Mobikvik");
-			// verifyElementPresentAndClick(PWASubscriptionPages.objPaytmWallet, "Paytm");
-
 		}
 	}
 
@@ -28328,19 +28172,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			String packprice1 = "?" + packprice;
 			extent.extentLogger("", "selected pack price : " + packprice1);
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-			checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
-			waitTime(5000);
-			WebElement iframeElement = null;
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
-			}
 
+			PWAIframe();
 			verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
 			if (verifyElementPresent(PWASubscriptionPages.objMobileLinkPaytmOption, "Link Wallets")) {
 				logger.info("User should be able to see the link CTA for paytm wallets,expected behaviour.");
@@ -28381,22 +28214,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
 			waitTime(5000);
-//			WebElement iframeElement = null;
-//			if (getPlatform().equalsIgnoreCase("Android")) {
-//				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-//				Thread.sleep(5000);
-//				Thread.sleep(5000);
-//				Thread.sleep(5000);
-//				getWebDriver().switchTo().frame(iframeElement);
-//			} else if (getPlatform().equalsIgnoreCase("Web")) {
-//				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-//				Thread.sleep(5000);
-//				Thread.sleep(5000);
-//				Thread.sleep(5000);
-//				getWebDriver().switchTo().frame(iframeElement);
-//			}
-//			waitTime(5000);
-			// scrollToBottomOfPageWEB();
+
 			if (verifyElementPresent(PWAHamburgerMenuPage.objhaveagiftcard, "Have a gift card")) {
 				logger.info(
 						"User should be able to see see gift card option at the bottom of the payment screen.,expected behaviour.");
@@ -28462,11 +28280,11 @@ public void pwaverifyHaveacode(String userType) throws Exception
 //			}
 //			
 			verifyElementPresent(PWAHamburgerMenuPage.objenterpintohaveagiftcard, "PIN details");
-			// JSClick(PWAHamburgerMenuPage.objenterpintohaveagiftcard, "PIN details");
+			
 			type(PWAHamburgerMenuPage.objinputpincard, "1234567", "PIN  number");
 			String pinnumber = findElement(PWAHamburgerMenuPage.objpinnumber).getAttribute("value");
 			int pinnumber1 = Integer.parseInt(pinnumber);
-			// int a=getCountweb(pinnumber1);
+			
 			System.out.println(pinnumber1);
 			extent.extentLogger("", " pinnumber  : " + pinnumber1);
 			if (pinnumber1 == 6) {
@@ -28504,11 +28322,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 				logger.info("User not getting error text message if card number and pin combination is not correct");
 				extent.extentLoggerFail(" ",
 						"User not getting error text message if card number and pin combination is not correct");
-
 			}
-
 		}
-
 	}
 
 	public void pwainsprint1(String userType) throws Exception {
@@ -28524,20 +28339,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			verifyElementPresentAndClick(PWAComboOfferPage.objpackprice499, "499 pack price");
 			verifyElementPresent(PWAComboOfferPage.objcomboofferpage, "Combo Offer Page");
 			verifyElementPresentAndClick(PWAComboOfferPage.objbuycta, "Buy cta");
-//			WebElement iframeElement = null;
-//			if (getPlatform().equalsIgnoreCase("Android")) {
-//				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-//				Thread.sleep(5000);
-//				Thread.sleep(5000);
-//				Thread.sleep(5000);
-//				getWebDriver().switchTo().frame(iframeElement);
-//			} else if (getPlatform().equalsIgnoreCase("Web")) {
-//				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-//				Thread.sleep(5000);
-//				Thread.sleep(5000);
-//				Thread.sleep(5000);
-//				getWebDriver().switchTo().frame(iframeElement);
-//			}
+
 
 			if (checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section")) {
 				logger.info(
@@ -28558,20 +28360,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 
 			verifyElementPresent(PWAComboOfferPage.objcomboofferpage, "Combo Offer Page");
 			verifyElementPresentAndClick(PWAComboOfferPage.objbuycta, "Buy cta");
-			// WebElement iframeElement = null;
-//			if (getPlatform().equalsIgnoreCase("Android")) {
-//				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-//				Thread.sleep(5000);
-//				Thread.sleep(5000);
-//				Thread.sleep(5000);
-//				getWebDriver().switchTo().frame(iframeElement);
-//			} else if (getPlatform().equalsIgnoreCase("Web")) {
-//				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-//				Thread.sleep(5000);
-//				Thread.sleep(5000);
-//				Thread.sleep(5000);
-//				getWebDriver().switchTo().frame(iframeElement);
-//			}
+			
 
 			if (checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section")) {
 				logger.info(
@@ -28595,12 +28384,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			if (checkElementDisplayed(PWAHamburgerMenuPage.objrentnowinlandingpage, "Rent Now")) {
 				ScrollToTheElementWEB(PWAHamburgerMenuPage.objrentnowinlandingpage);
 				click(PWAHamburgerMenuPage.objrentnowinlandingpage, "Rent Now");
-				//click(PWAHamburgerMenuPage.objrentforINRpopup, "Rent for INR");
-//				if(checkElementDisplayed(PWAComboOfferPage.objRentNowInConsumptionPage, "Rent Now")) 
-//				 {
-//					  ScrollToTheElementWEB(PWAComboOfferPage.objRentNowInConsumptionPage);
-//					 click(PWAComboOfferPage.objRentNowInConsumptionPage, "Rent Now");
-					 //verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
+				
 					 verifyElementPresentAndClick(PWAComboOfferPage.objbuycta, "Buy cta");
 				// }
 				if (checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section")) {
@@ -28616,17 +28400,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 				// 41
 				extent.HeaderChildNode(
 						"Verify that user is getting all the payment modes available " + "for TVOD plan purchase");
-				WebElement iframeElement = null;
-				if (getPlatform().equalsIgnoreCase("Android")) {
-					iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-					Thread.sleep(15000);
-					getWebDriver().switchTo().frame(iframeElement);
-				} else if (getPlatform().equalsIgnoreCase("Web")) {
-					iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-					Thread.sleep(15000);
-					getWebDriver().switchTo().frame(iframeElement);
-				}
 
+				PWAIframe();
 				verifyElementPresent(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
 				verifyElementPresent(PWAHamburgerMenuPage.objnetbanking, "Net banking");
 				verifyElementPresent(PWAHamburgerMenuPage.objPaymentoption("UPI"), "UPI option");
@@ -28652,19 +28427,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			String packprice1 = "?" + packprice;
 			extent.extentLogger("", "selected pack price : " + packprice1);
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-			checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
-			waitTime(5000);
-			WebElement iframeElement = null;
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(15000);
-				getWebDriver().switchTo().frame(iframeElement);
 
-			}
+			PWAIframe();
 			verifyElementPresentAndClick(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
 			waitTime(5000);
 			String creditcard = getText(PWASubscriptionPages.objCreditAndDebitCardBtn);
@@ -28754,22 +28518,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			extent.HeaderChildNode("Verify that user is able to enter VPA/handle to initiate UPI payment");
 			Back(1);
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-			waitTime(5000);
-			WebElement iframeElement1 = null;
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement1 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				getWebDriver().switchTo().frame(iframeElement1);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement1 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				getWebDriver().switchTo().frame(iframeElement1);
 
-			}
+			PWAIframe();
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaymentoption("UPI"), "UPI option");
 			waitTime(3000);
 			checkElementDisplayed(PWAHamburgerMenuPage.objenterupiid, "Enter upi Details");
@@ -28809,24 +28559,11 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			verifyElementPresent(PWAHamburgerMenuPage.obj499pack, "499 pack");
 
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-			WebElement iframeElement2 = null;
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement2 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				getWebDriver().switchTo().frame(iframeElement2);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement2 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				getWebDriver().switchTo().frame(iframeElement2);
 
-			}
+			PWAIframe();
 			verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
 			verifyElementPresentAndClick(PWASubscriptionPages.objPaytmWallet, "Paytm");
-//			verifyElementPresentAndClick(PWASubscriptionPages.objpaytmlink, "Paytm link");
+			//verifyElementPresentAndClick(PWASubscriptionPages.objpaytmlink, "Paytm link");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaytmProceedToPay, "Procced to pay");
 			waitTime(5000);
 			if (verifyElementPresent(PWAHamburgerMenuPage.objcardsinpaytm, "Cards in paytm")) {
@@ -28891,25 +28628,11 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			verifyElementPresent(PWAHamburgerMenuPage.obj499pack, "499 pack");
 
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-			WebElement iframeElement3 = null;
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement3 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				getWebDriver().switchTo().frame(iframeElement3);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement3 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				getWebDriver().switchTo().frame(iframeElement3);
 
-			}
+			PWAIframe();
 			verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
 			verifyElementPresentAndClick(PWASubscriptionPages.objPaytmWallet, "Paytm");
-			verifyElementPresentAndClick(PWASubscriptionPages.objpaytmlink, "Paytm link");
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objproceedtopay, "Procced to pay");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaytmProceedToPay, "Procced to pay");
 			waitTime(5000);
 			extent.HeaderChildNode("Verify that on clicking browser back button on payment gateway "
 					+ "screen of respective wallets User redirect to Account info screen with intent popup");
@@ -28943,20 +28666,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			// 169
 			extent.HeaderChildNode(
 					"Verify, user should able to selected any other/same mode of payment after payment failure");
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement2 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				getWebDriver().switchTo().frame(iframeElement2);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement2 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				getWebDriver().switchTo().frame(iframeElement2);
 
-			}
+			PWAIframe();
 			click(PWASubscriptionPages.objWallets, "Wallets");
 			if (verifyElementPresent(PWASubscriptionPages.objWallets, "Wallets")) {
 				logger.info("Optional payment should be applicable ,expected behaviour");
@@ -28966,7 +28677,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 				logger.info("Optional payment is not applicable ");
 				extent.extentLoggerFail("", "Optional payment is not applicable ");
 			}
-			click(PWAHamburgerMenuPage.objnetbanking, "Net banking");
+			
 			if (verifyElementPresent(PWAHamburgerMenuPage.objnetbanking, "Net banking")) {
 				logger.info("Optional payment should be applicable ,expected behaviour");
 				extent.extentLoggerPass("", "Optional payment should be applicable ,expected behaviour");
@@ -28975,7 +28686,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 				logger.info("Optional payment is not applicable ");
 				extent.extentLoggerFail("", "Optional payment is not applicable ");
 			}
-			click(PWASubscriptionPages.objEnterCreditAndDebitCardDetails, "Enter Credit/Debit Card Details");
+			
 			if (verifyElementPresent(PWASubscriptionPages.objEnterCreditAndDebitCardDetails,
 					"Enter Credit/Debit Card Details")) {
 				logger.info("Optional payment should be applicable ,expected behaviour");
@@ -28985,15 +28696,6 @@ public void pwaverifyHaveacode(String userType) throws Exception
 				logger.info("Optional payment is not applicable ");
 				extent.extentLoggerFail("", "Optional payment is not applicable");
 			}
-//			click(PWAHamburgerMenuPage.objPaymentoption("UPI"), "Payment option");
-//			if (verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaymentoption("UPI"), "Payment option")) {
-//				logger.info("Optional payment should be applicable ,expected behaviour");
-//				extent.extentLoggerPass("", "Optional payment should be applicable ,expected behaviour");
-//				// Back(1);
-//			} else {
-//				logger.info("Optional payment is not applicable ");
-//				extent.extentLoggerFail("", "Optional payment is not applicable");
-//			}
 
 			// 170
 			extent.HeaderChildNode("Verify, whether retry payment option is available in payment page");
@@ -29002,20 +28704,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			verifyElementPresent(PWAHamburgerMenuPage.obj499pack, "499 pack");
 
 			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-			if (getPlatform().equalsIgnoreCase("Android")) {
-				iframeElement2 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				getWebDriver().switchTo().frame(iframeElement2);
-			} else if (getPlatform().equalsIgnoreCase("Web")) {
-				iframeElement2 = getWebDriver().findElement(By.id("juspay_iframe"));
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				Thread.sleep(5000);
-				getWebDriver().switchTo().frame(iframeElement2);
 
-			}
+			PWAIframe();
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaymentoption("UPI"), "Payment option");
 			waitTime(3000);
 			checkElementDisplayed(PWAHamburgerMenuPage.objenterupiid, "Enter upi Details");
@@ -29267,5 +28957,28 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		navigateHome();
 	}
 
+	
+//	Lakshmi
+	
+	public void PWAIframe() throws Exception
+	{
+		checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
+		//ScrollToTheElementWEB(PWASubscriptionPages.objPaymentHighlighted);
+		scrollToTopOfPageWEB();
+		waitTime(5000);
+		WebElement iframeElement = null;
+		if (getPlatform().equalsIgnoreCase("Android")) {
+			iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+			Thread.sleep(15000);
+			getWebDriver().switchTo().frame(iframeElement);
+		} else if (getPlatform().equalsIgnoreCase("Web")) {
+			iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+			scrollUp();
+			scrollUp();
+			scrollUp();
+			Thread.sleep(15000);
+			getWebDriver().switchTo().frame(iframeElement);
+		}
+	}
 		
 }

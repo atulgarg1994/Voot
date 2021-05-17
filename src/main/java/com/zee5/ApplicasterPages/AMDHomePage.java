@@ -263,4 +263,6 @@ public class AMDHomePage {
 	
 	public static By objBrandNewMusicRail = By.xpath("//*[@class='android.widget.TextView'][@text='Brand New Music']");
 	
+	public static By objPopUpToOpenZeeApp = By.xpath("//*[@text='Open with ZEE5']");
+	public static By objJustOnceOption = By.xpath("//*[@id='button_once']");
 	}
