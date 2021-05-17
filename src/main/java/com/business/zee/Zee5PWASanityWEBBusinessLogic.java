@@ -26733,14 +26733,15 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		}
 	}
 	
-	public void pwainsprint(String userType) throws Exception {
+	public void pwainsprint(String userType , String premiumPlan) throws Exception {
 		if (userType.equals("NonSubscribedUser")) {
 			// 5
 			extent.HeaderChildNode("Verify that user is getting new subscription page while purchasing TVOD plan");
+			navigateHome();
 			navigateToAnyScreenOnWeb("ZEEPLEX");
 			ScrollToTheElementWEB(PWAHamburgerMenuPage.objTrailer);
 			click(PWAHamburgerMenuPage.objTrailer, "Trailer");
-			click(PWAComboOfferPage.objRentNow, "Rent Now");
+			click(PWAComboOfferPage.objRentNowInConsumptionPage, "Rent Now");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objonlymovierent, "Only movie rent");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objrentmovie, "rent movie");
 			if (checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section")) {
@@ -26903,7 +26904,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			hideKeyboard();
 			waitTime(3000);
 			verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnEnabled, "Enabled Proceed Button");
-			waitTime(3000);
+			waitTime(5000);
 			if (checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section")) {
 				logger.info(
 						"User should be redircted to Payment page and selected plan price should be displayed,expected behaviour");
@@ -26937,7 +26938,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			navigateToAnyScreenOnWeb("ZEEPLEX");
 			ScrollToTheElementWEB(PWAHamburgerMenuPage.objTrailer);
 			click(PWAHamburgerMenuPage.objTrailer, "Trailer");
-			click(PWAComboOfferPage.objRentNow, "Rent Now");
+			click(PWAComboOfferPage.objRentNowInConsumptionPage, "Rent Now");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objonlymovierent, "Only movie rent");
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objrentmovie, "rent movie");
 			if (checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section")) {
@@ -26957,11 +26958,17 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			// 5
 			extent.HeaderChildNode("Verify Guest user logged in with subscribed user < 499 with active Radhe "
 					+ "and clicks on Upgrade To 499 CTA from Upgrade To 499 pop up");
+			logout();
+			
 			navigateToAnyScreenOnWeb("ZEEPLEX");
 			ScrollToTheElementWEB(PWAHamburgerMenuPage.objTrailer);
 			click(PWAHamburgerMenuPage.objTrailer, "Trailer");
-			click(PWAComboOfferPage.objRentNow, "Rent Now");
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objrentmovie, "upgrade button");
+			click(PWAComboOfferPage.objRentNowInConsumptionPage, "Rent Now");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objrentmovie, "Rent button");
+			PWAComboOfferLoginInSubscriptionFlow(userType, "299");
+			if(premiumPlan.equalsIgnoreCase("299")) {
+				PWAVerifyUpgradeToComboOfferPopup();
+			}
 
 			if (checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section")) {
 				logger.info(
@@ -28819,8 +28826,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			}
 			verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
 			verifyElementPresentAndClick(PWASubscriptionPages.objPaytmWallet, "Paytm");
-			verifyElementPresentAndClick(PWASubscriptionPages.objpaytmlink, "Paytm link");
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objproceedtopay, "Procced to pay");
+//			verifyElementPresentAndClick(PWASubscriptionPages.objpaytmlink, "Paytm link");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaytmProceedToPay, "Procced to pay");
 			waitTime(5000);
 			if (verifyElementPresent(PWAHamburgerMenuPage.objcardsinpaytm, "Cards in paytm")) {
 				logger.info(
@@ -29259,5 +29266,6 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		validatePaymentPageNavigation();
 		navigateHome();
 	}
-	
+
+		
 }

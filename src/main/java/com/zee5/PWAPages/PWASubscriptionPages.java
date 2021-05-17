@@ -454,4 +454,7 @@ public class PWASubscriptionPages {
 
 
 	public static By objMobileLinkPaytmOption = By.xpath("(//article[text()='Link Wallet'])[1]");
+	
+	//Watch Now CTA
+	public static By objWatchNowCTA  = By.xpath("//span[text()='Watch Now']");
 }

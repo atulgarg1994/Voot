@@ -806,10 +806,6 @@ public class PWAHamburgerMenuPage {
 		return By.xpath("//h1[text()='"+text+"']");
 	}
 			
-	public static By objPaymentoption(String text) {
-			return By.xpath("//*[@class='linearLayout sidebarItem_object ']//following-sibling::*//article[contains(text(),'"+text+"')]");
-	}	
-			
 	public static By objpayupage=By.xpath("//div[@id='payu_logo']");
 			
 	public static By objcluborpremiumcontentcard=By.xpath("(//div[contains(@class,'clubPackContent') or contains(@class,'cardPremiumContent')])");
@@ -969,4 +965,9 @@ public class PWAHamburgerMenuPage {
 	
 	public static By objupiarrow = By.xpath("//*[@id='1000435']");
 
+	public static By objPaymentoption(String text) {
+		return By.xpath("//*[@class='linearLayout sidebarItem_object']//following-sibling::*//article[contains(text(),'"+text+"')]");
+	}	
+	public static By objPaytmProceedToPay = By
+			.xpath("//div[@id='1000320']//article[contains(text(), 'Proceed to pay')]");
 	}

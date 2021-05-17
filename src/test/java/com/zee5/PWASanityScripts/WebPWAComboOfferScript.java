@@ -48,12 +48,13 @@ public class WebPWAComboOfferScript {
 //		Zee5WEBPWASanityBusinessLogic.pwainsprint(userType, "299");
 	}
 	
-//	@Test(priority = 5)
+//	@Test(priority = 5) //Kartheek
 	@Parameters({ "userType" })
 	public void InSprintComboOfferAutomations(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.ComboOfferPremiumPlexSub(userType);
 	}
+	
 	
 	@AfterTest
 	public void tearDown() {
