@@ -17855,9 +17855,9 @@ public void skipIntroValidationInLandscapeMode(String searchKeyword3, String use
 		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
 		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
 		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
-		if(verifyElementIsNotDisplayed(AMDPlayerScreen.objPauseIcon)) {
-			click(AMDPlayerScreen.objPlayerScreen, "player screen");
-		}
+//		if(verifyElementIsNotDisplayed(AMDPlayerScreen.objPauseIcon)) {
+//			click(AMDPlayerScreen.objPlayerScreen, "player screen");
+//		}
 //		click(AMDPlayerScreen.objPauseIcon, "Pause");
 		WebElement element = getDriver().findElement(byLocator1);
 		String xDuration = getAttributValue("x", AMDPlayerScreen.objTotalDuration);
