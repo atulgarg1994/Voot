@@ -160,4 +160,6 @@ public class PWAShowsPage {
 	
 	public static By objShows = By.xpath("(//a[contains(text(),'TV Shows')])[2]");
 	
+	public static By objEpisodeCard2 = By.xpath("(//div[@class='clickWrapper'])[2]");
+	
 	}

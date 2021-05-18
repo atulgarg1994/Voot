@@ -968,6 +968,8 @@ public class PWAHamburgerMenuPage {
 	public static By objPaymentoption(String text) {
 		return By.xpath("//*[@class='linearLayout sidebarItem_object']//following-sibling::*//article[contains(text(),'"+text+"')]");
 	}	
+	
 	public static By objPaytmProceedToPay = By
-			.xpath("//div[@id='1000320']//article[contains(text(), 'Proceed to pay')]");
+			.xpath("//article[contains(text(),'Paytm')]//ancestor::*[@class='linearLayout PaymentOptionViewNotListNestedChild']//child::*[text()='Proceed to pay']");
+	
 	}

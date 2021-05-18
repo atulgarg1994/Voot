@@ -617,12 +617,13 @@ public class PWAHomePage {
 		return By.xpath("(//a[contains(@class,'noSelect text_news_active') and text()='" + tabName + "'])[3]");
 	}
 	
-	public static By objContTitleOnCarousel = By
-			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
 	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
 
 	public static By objTabName(String tabName) {
 		return By.xpath("(//a[contains(@class,'noSelect') and contains(text(),'" + tabName + "')])[1]");
 	}
+	
+	public static By objContTitleOnCarousel = By
+			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
 	
 }

@@ -9907,7 +9907,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			ValidatingPremiumTag(Tabname);
 			mandatoryRegistrationPopUp(UserType);
 			ConsumptionScreen(Tabname);
-			Subscriptionpopup(UserType, Tabname, "ZEE5 Original Movies");
+			Subscriptionpopup(UserType, Tabname, "Top ZEE5 Web Series");
 			break;
 
 		case "NonSubscribedUser":
@@ -9918,7 +9918,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			ValidatingPremiumTag(Tabname);
 			mandatoryRegistrationPopUp(UserType);
 			ConsumptionScreen(Tabname);
-			Subscriptionpopup(UserType, Tabname, "ZEE5 Original Movies");
+			Subscriptionpopup(UserType, Tabname, "Top ZEE5 Web Series");
 			break;
 
 		case "SubscribedUser":
@@ -9929,7 +9929,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			ValidatingPremiumTag(Tabname);
 			mandatoryRegistrationPopUp(UserType);
 			ConsumptionScreen(Tabname);
-			Subscriptionpopup(UserType, Tabname, "ZEE5 Original Movies");
+			Subscriptionpopup(UserType, Tabname, "Top ZEE5 Web Series");
 		}
 	}
 
@@ -10232,7 +10232,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	@SuppressWarnings("unused")
 	public void Subscriptionpopup(String UserType, String tabName, String trayTitle) throws Exception {
-		extent.HeaderChildNode("Validating the Subscription popup after some interval of time");
+		extent.HeaderChildNode("Validating Player Inline Subscription link after end of trailer playback");
 		navigateToAnyScreenOnWeb(tabName);
 		waitTime(20000);
 		// handle mandatory pop up
@@ -10246,7 +10246,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("Shows Details page is displayed " + nextPageTitle);
 			extent.extentLogger("showDetails", "Shows Details page is displayed " + nextPageTitle);
 			scrollDownByY(300);
-			click(PWAShowsPage.objEpisodeCard, "First Episode Card");
+			click(PWAShowsPage.objEpisodeCard2, "Episode Card");
 		} catch (Exception e) {
 			try {
 				nextPageTitle = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
@@ -10258,15 +10258,18 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 		}
 		if (UserType.equals("Guest") || UserType.equals("NonSubscribedUser")) {
-			if (waitForElement(PWASubscriptionPages.objGetPremiumPopupTitle, 20, "Subscribe Pop Up"))
-				click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close button");
-		} else {
-			if (checkElementDisplayed(PWASubscriptionPages.objGetPremiumPopupTitle, "Subscribe Pop Up")) {
-				logger.error("Subscribe Pop Up should not be displayed for Subscribed User");
-				extent.extentLoggerFail("", "Subscribe Pop Up should not be displayed for Subscribed User");
+			if (waitForElement(PWASubscriptionPages.objGetPremiumButton, 20, "Player Inline Subscription link")) {
+				click(PWASubscriptionPages.objGetPremiumButton, "Player Inline Subscription link");
+				verifyElementPresent(PWASubscriptionPages.objZEE5Subscription, "Subscription Page");
+			}
+		}
+		else {
+			if (checkElementDisplayed(PWASubscriptionPages.objGetPremiumButton, "Player Inline Subscription link")) {
+				logger.error("Player Inline Subscription link should not be displayed for Subscribed User");
+				extent.extentLoggerFail("", "Player Inline Subscription link should not be displayed for Subscribed User");
 			} else {
-				logger.info("Subscribe Pop Up not displayed is expected behavior for Subscribed User");
-				extent.extentLogger("", "Subscribe Pop Up not displayed is expected behavior for Subscribed User");
+				logger.info("Player Inline Subscription link not displayed is expected behavior for Subscribed User");
+				extent.extentLogger("", "Player Inline Subscription link not displayed is expected behavior for Subscribed User");
 			}
 		}
 		navigateHome();
