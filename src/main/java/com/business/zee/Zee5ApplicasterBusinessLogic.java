@@ -3564,7 +3564,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Navigation to Intro Screen");
 //		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button (Display-LanguageScreen)");
 		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
-		verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+//		verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 	}
 
 	public void LoginWithEmailID(String pEmailId, String pPassword) throws Exception {
@@ -3574,6 +3574,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDLoginScreen.objProfileIcon,"Profile icon");
 		verifyElementPresent(AMDLoginScreen.objEmailIdLabel, "Login/Register screen");
 		type(AMDLoginScreen.objEmailIdField, pEmailId, "Email-Id/Phone");
+		hideKeyboard();
 		click(AMDLoginScreen.objProceedBtn, "Proceed button");
 		verifyElementPresent(AMDLoginScreen.objPasswordField, "Password field");
 		type(AMDLoginScreen.objPasswordField, pPassword, "Password");
@@ -18926,7 +18927,7 @@ public void MandatoryPopUpScenarios(String userType) throws Exception {
 		verifyElementPresent(AMDHomePage.objCarouselConetentCard, "Carousel unit");
 
 		if (userType.equalsIgnoreCase("Guest")) {
-			verifyElementExist(AMDHomePage.objGetPremiumCTAOnCarousel, "Buy Plan button");
+			verifyElementExist(AMDHomePage.objGetPremiumCTAOnCarousel, "Buy Plan CTA");
 		}
 
 		waitTime(3000);
@@ -18950,7 +18951,7 @@ public void MandatoryPopUpScenarios(String userType) throws Exception {
 				// click(AMDGenericObjects.objPopUpDivider, "Pop Up divider");
 			}
 			verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
-			String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
+			String consumptionScreenTitle = getText(AMDConsumptionScreen.objContentInfo);
 			if (consumptionScreenTitle.contains(courselContentTitle)) {
 				logger.info("Respective content screen on tap of any carousel banner is displayed");
 				extent.extentLoggerPass("Consumption screen",
@@ -19024,7 +19025,7 @@ public void MandatoryPopUpScenarios(String userType) throws Exception {
 			// click(AMDGenericObjects.objPopUpDivider, "Pop Up divider");
 		}
 		verifyElementPresent(AMDHomePage.objConsumptionScreenTitle, "Consumption screen");
-		String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
+		String consumptionScreenTitle = getText(AMDConsumptionScreen.objContentInfo);
 		if (consumptionScreenTitle.contains(searchResults)) {
 			logger.info("User taken to respective consumption screen on tapping any search result.");
 			extent.extentLoggerPass("Consumption screen",
@@ -19101,28 +19102,29 @@ public void MandatoryPopUpScenarios(String userType) throws Exception {
 
 	@SuppressWarnings("deprecation")
 	public void subscriptionValidationForHLS(String userType, String contentWithoutTrailer) throws Exception {
-		extent.HeaderChildNode("Verify Join Now/Subscribe Now CTA in Intro screen");
-		verifyElementPresent(AMDOnboardingScreen.objSubscribeNowBtn, "Subscribe now CTA");
+		extent.HeaderChildNode("Verify Buy Plan button on Landing screen");
 		ZeeApplicasterLogin(userType);
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Get Premium/Subscribe CTA in Header");
-			verifyElementPresent(AMDHomePage.objSubscribeTeaser, "Subscribe CTA");
+			verifyElementPresent(AMDHomePage.objSubscribeTeaser, "Buy plan CTA on landing screen");
 
-			extent.HeaderChildNode("Verify Get Premium CTA on carousel");
+			extent.HeaderChildNode("Verify Buy Plan CTA on carousel");
 			waitTime(2000);
-			verifyElementPresent(AMDHomePage.objGetPremiumCTAOnCarousel, "Get Premium CTA on carousel");
+			verifyElementPresent(AMDHomePage.objGetPremiumCTAOnCarousel, "Buy Plan CTA on carousel");
 
-			click(AMDHomePage.objSubscribeTeaser, "Subscribe CTA");
+			click(AMDHomePage.objSubscribeTeaser, "Buy Plan CTA on landing screen");
 			waitTime(5000);
-			String prepaidcode = "Z56MSK93rJGDyi";
-			click(AMDSubscibeScreen.objApplyPromoCodeTextbox, "Prepaid code");
+			String prepaidcode = "NRTDC1";
+			Swipe("UP",1);
+			click(AMDSubscibeScreen.objHaveACodeCTA, "Have a code");
 			waitTime(2000);
 			getDriver().getKeyboard().sendKeys(prepaidcode);
 			// type(AMDSubscibeScreen.objApplyPromoCodeTextbox, prepaidcode, "Prepaid
 			// code");
 			hideKeyboard();
-			click(AMDSubscibeScreen.objApply, "Apply button");
-			if (userType.equals("Guest")) {
+			click(AMDSubscibeScreen.objApplyOnHaveACodescreen, "Apply button");
+			 //Have a code flow has been changed
+		/*	if (userType.equals("Guest")) {
 				boolean objAccountinfo = verifyIsElementDisplayed(AMDSubscibeScreen.objAccountInfoText1);
 				if (objAccountinfo) {
 					logger.info(
@@ -19144,25 +19146,25 @@ public void MandatoryPopUpScenarios(String userType) throws Exception {
 				getDriver().getKeyboard().sendKeys("User@123" + "\n");
 
 				hideKeyboard();
-				click(AMDSubscibeScreen.objProceedPWDScreen, "Proceed button");
-				waitTime(5000);
-				verifyElementPresent(AMDSubscibeScreen.objInvalidPrepaidCodePopUp, "Invalid Prepaid code pop up");
-				verifyElementPresentAndClick(AMDSubscibeScreen.objDoneBtn, "Done Button");
-				waitTime(5000);
+				click(AMDSubscibeScreen.objProceedPWDScreen, "Proceed button");*/
+				if (verifyIsElementDisplayed(AMDSubscibeScreen.objApplyPromoCodeappliedText)) {
+					logger.info("Discounted price is displayed after promo code is applied");
+					extent.extentLoggerPass("Promo", "Discounted price is displayed after promo code is applied");
+				} else {
+					logger.error("Discounted price is not displayed after promo code is applied");
+					extent.extentLoggerFail("Promo", "Discounted price is not displayed after promo code is applied");
+				}
+				
+			//	verifyElementPresent(AMDSubscibeScreen.objInvalidPrepaidCodePopUp, "Invalid Prepaid code pop up");
+			//	verifyElementPresentAndClick(AMDSubscibeScreen.objDoneBtn, "Done Button");
+			//	waitTime(5000);
 
 				Back(1);
 				waitTime(2000);
-				click(AMDHomePage.objMoreMenu, "More Menu");
-				Swipe("UP", 3);
-				click(AMDHomePage.objLogout, "Logout");
-				click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
-				waitTime(2000);
-				Back(1);
-				waitTime(5000);
-				click(AMDHomePage.objSubscribeTeaser, "Subscribe CTA");
 			}
 
-			waitTime(5000);
+		//Subscribe screen feature has been changed
+		/*	waitTime(5000);
 			Swipe("UP", 2);
 			PartialSwipe("UP", 2);
 			Swipe("DOWN", 1);
@@ -19193,7 +19195,7 @@ public void MandatoryPopUpScenarios(String userType) throws Exception {
 				}
 			}
 
-			Back(1);
+			Back(1); */
 			waitTime(5000);
 			click(AMDHomePage.objSearchBtn, "Search button");
 			waitTime(5000);
@@ -19205,17 +19207,17 @@ public void MandatoryPopUpScenarios(String userType) throws Exception {
 			waitTime(5000);
 			verifyIsElementDisplayed(AMDConsumptionScreen.objContentName);
 			waitTime(3000);
-			click(AMDPlayerScreen.objSubscribeButtonBelowThePlayer, "Get Premium Button");
-			verifyElementPresent(AMDHomePage.objGetPremiumPopUP, "Get Premium PopUp");
-
-			click(AMDSubscibeScreen.objHaveAPromocode, "Prepaid code");
+			click(AMDPlayerScreen.objSubscribeButtonBelowThePlayer, "Buy Plan CTA below the player");
+			verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup, "Subscribe screen");
+            Swipe("UP",1);
+			click(AMDSubscibeScreen.objHaveACodeCTA, "Prepaid code");
 			waitTime(2000);
+			String prepaidcode = "Z56MSK93rJGDyi";
 			getDriver().getKeyboard().sendKeys(prepaidcode);
-			// type(AMDSubscibeScreen.objHaveAPromocode, prepaidcode, "Prepaid code");
 			hideKeyboard();
-			click(AMDSubscibeScreen.objApplyBtn, "Apply button");
-
-			if (userType.equals("Guest")) {
+			click(AMDSubscibeScreen.objApplyOnHaveACodescreen, "Apply button");
+           //Have a code flow has been changed
+		/*	if (userType.equals("Guest")) {
 				boolean objAccountinfo = verifyIsElementDisplayed(AMDSubscibeScreen.objAccountInfoText1);
 				if (objAccountinfo) {
 					logger.info(
@@ -19237,34 +19239,29 @@ public void MandatoryPopUpScenarios(String userType) throws Exception {
 				click(AMDSubscibeScreen.objProceedPWDScreen, "Proceed button");
 				waitTime(5000);
 				verifyElementPresent(AMDSubscibeScreen.objInvalidPrepaidCodePopUp, "Invalid Prepaid code pop up");
-				verifyElementPresentAndClick(AMDSubscibeScreen.objDoneBtn, "Done Button");
-			}
+				verifyElementPresentAndClick(AMDSubscibeScreen.objDoneBtn, "Done Button"); */
+				verifyElementExist(AMDSubscibeScreen.objInvalidPromoCodeText, "Invalid promo code error message");
 			if (userType.equals("Guest")) {
 				navigateBackToHomeLandingScreen();
 			} else {
 				navigateBackToHomeLandingScreen();
 			}
-
 		}
 
-		if (userType.equals("Guest")) {
-			click(AMDHomePage.objMoreMenu, "More Menu");
-			Swipe("UP", 3);
-			click(AMDHomePage.objLogout, "Logout");
-			click(AMDHomePage.objLogoutPopUpLogoutButton, "Logout button");
-			waitTime(2000);
-			Back(1);
-		}
-	}
 
 	public void IntroScreenAndLoginScreenValidation(String userType, String RegisteredEmail) throws Exception {
 
 		extent.HeaderChildNode("Intro screen and Login/Register screen validation");
 		if (userType.equalsIgnoreCase("Guest")) {
-			verifyElementPresent(AMDOnboardingScreen.objCarouselInIntroScreen, "Carousel features");
-			verifyElementPresent(AMDOnboardingScreen.objBenefitsTextSection, "Benefits of premium member section");
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			//Intro screen has been removed from application
+//			verifyElementPresent(AMDOnboardingScreen.objCarouselInIntroScreen, "Carousel features");
+//			verifyElementPresent(AMDOnboardingScreen.objBenefitsTextSection, "Benefits of premium member section");
+//			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
 			if (findElement(AMDOnboardingScreen.objScreenTitle).getText().equals("Login/Register")) {
 				extent.extentLoggerPass("Verify Navigation on clicking Login button",
 						"User is navigated to" + findElement(AMDOnboardingScreen.objScreenTitle).getText() + " screen");
@@ -19276,8 +19273,8 @@ public void MandatoryPopUpScenarios(String userType) throws Exception {
 				logger.error("Failed to navigate into Login/Register screen post tapping Login button");
 			}
 			click(AMDOnboardingScreen.objBackBtn, "Back button");
-
-			verifyElementPresentAndClick(AMDOnboardingScreen.objSubscribeNowBtn, "Subscribe Now");
+//Subscribe now button has been removed
+	/*		verifyElementPresentAndClick(AMDOnboardingScreen.objSubscribeNowBtn, "Subscribe Now");
 			waitTime(2000);
 			if (findElement(AMDOnboardingScreen.objScreenTitle).getText().equals("Subscribe")) {
 				extent.extentLoggerPass("Verify Navigation on clicking Subscribe Now button",
@@ -19292,7 +19289,9 @@ public void MandatoryPopUpScenarios(String userType) throws Exception {
 			click(AMDOnboardingScreen.objBackBtn, "Back button");
 
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+			*/
 			waitTime(3000);
+			Back(1);
 			verifyElementExist(AMDHomePage.objHomeBtn, "Landing screen");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
 			verifyElementPresentAndClick(AMDMoreMenu.objGuestUserAccount, "Login/Register button");
@@ -22077,8 +22076,8 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 				PaymentScreenVerification();
 				Back(2);
 			}else {
-				logger.info("Rent for CTA is not displated");
-				extentLoggerFail("Rent for", "Rent for CTA is not displated");
+				logger.info("{JiraId: AMA2-14410} Rent for CTA is not displated");
+				extentLoggerFail("Rent for", "<b>{JiraId: AMA2-14410}</b> Rent for CTA is not displated");
 			}		
 		}else {
 			boolean errText;
@@ -22146,6 +22145,7 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 	
 	public void validationOfCarousalAndConsumptionPageForComboOfferContent(String tabName, String contentTitle) throws Exception {
 		extent.HeaderChildNode("Validation of Carousal and Consumption page");
+		System.out.println("\nValidation of Carousal and Consumption page");
 		SelectTopNavigationTab(tabName);
 	
 		if(verifyElementExist(AMDHomePage.objCarouselContentTitleCard(contentTitle), "Carousel content: "+contentTitle)) {
@@ -22491,6 +22491,7 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 	
 	public void ValidationOfComboOfferPage_AccountInfoPage_UpgradeBottomSheet(String subText, String CTAName, String email, String password, String subText2) throws Exception {
 		extent.HeaderChildNode("Validation of Combo offer page, Account Info page and Upgrade bottom sheet");
+		System.out.println("\nValidation of Combo offer page, Account Info page and Upgrade bottom sheet");
 		if(verifyElementExist(AMDTVODComboOffer.objPosterOfMovieContent, "Poster of Movie Content")) {
 			verifyElementExist(AMDTVODComboOffer.objUpgradeTextOnComboOfferPage, "Upgrade text");
 			verifyElementExist(AMDTVODComboOffer.objUpgradeSubTextOnComboOfferPage, "Upgrade subtext");
@@ -22508,8 +22509,8 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 			Swipe("DOWN", 1);
 			ComboOfferPlanCard_OnlyRentMoviePlanCard_Validation();
 			Swipe("DOWN", 2);
-			String value = getAttributValue("checked", AMDTVODComboOffer.objPlanCost);
-			if(value.equalsIgnoreCase("true")) {
+			boolean value = findElement(AMDTVODComboOffer.objComboOfferPlan).isEnabled();
+			if(value) {
 				logger.info("Radhe combo plan is selected by default");
 			 	extent.extentLoggerPass("Combo offer Screen", "Radhe combo plan is selected by default"); 
 			 	String cta = getText(AMDTVODComboOffer.objCTABelowTheComboOfferPage);
@@ -22524,13 +22525,7 @@ public void ValidationOfTVODContentWithOutActiveRental(String userType, String T
 			    		logger.info("Account Info widget is displayed");
 						extentLoggerPass("Account Info widget", "Account Info widget is displayed");
 						
-						type(AMDTVODComboOffer.objEmailIdfield, email, "Email Id");
-						hideKeyboard();
-						click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
-						waitTime(5000);
-						type(AMDTVODComboOffer.objPasswordfield, password, "Password");
-						hideKeyboard();
-						click(AMDTVODComboOffer.objContinueBtn, "Continue");
+						LoginFromAccountInfoScreen(email, password);
 						waitTime(2000);
 						if(verifyElementPresent(AMDTVODComboOffer.objUpgradeBottomSheet, "Upgrade bottom sheet")) {
 							String text = getText(AMDTVODComboOffer.objUpgradeBottomSheetText);

@@ -445,10 +445,9 @@ public class PWASubscriptionPages {
 	public static By objpaytmentermobileno=By.xpath("//input[@placeholder='Please Enter a Number']");
 	public static By objpaytmlink=By.xpath("//article[contains(text(),'Paytm')]");
 	
-	public static By objAmazonPayProceedToPay = By.xpath("//div[@id='1000354']//article[contains(text(), 'Proceed to pay')]");
+	public static By objAmazonPayProceedToPay = By.xpath("//article[contains(text(),'Amazon Pay')]//ancestor::*[@class='linearLayout PaymentOptionViewNotListNestedChild']//child::*[text()='Proceed to pay']");
 
-	public static By objMobikwikProceedToPay = By
-	.xpath("//div[@id='1000381']//article[contains(text(), 'Proceed to pay')]");
+	public static By objMobikwikProceedToPay = By.xpath("//article[contains(text(),'Mobikwik')]//ancestor::*[@class='linearLayout PaymentOptionViewNotListNestedChild']//child::*[text()='Proceed to pay']");
 	public static By objProceedBtnEnabled = By
 	.xpath("//*[contains(@class, 'noSelect pinkBtn')]/span[contains(text(),'Continue')]");
 

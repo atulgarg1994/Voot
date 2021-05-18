@@ -27548,7 +27548,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			String packprice1 = "?" + packprice;
 			System.out.println(packprice1);
 			extent.extentLogger("", "selected pack price : " + packprice1);
-			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
+			verifyElementPresent(PWASubscriptionPages.objContinueBtn, "Continue Button");
+			JSClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
 			if (userType.equals("Guest")) {
 				accountinfopage();
 			}
@@ -27888,7 +27889,8 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			extent.HeaderChildNode(
 					"Verify that user is able to the select the UPI payment mode while purchasing non recurring plan");
 			Back(1);
-			verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
+			verifyElementPresent(PWASubscriptionPages.objContinueBtn, "Continue Button");
+			JSClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
 
 			PWAIframe();
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaymentoption("UPI"), "Payment option");

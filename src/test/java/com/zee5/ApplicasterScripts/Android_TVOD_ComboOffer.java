@@ -82,7 +82,7 @@ public class Android_TVOD_ComboOffer {
 		ZEE5ApplicasterBusinessLogic.RSVODUser_49(ptabName, pContentTitle);
 	}
 	
-	@Test(priority = 7)//Sushma - Logged in subscribed user with any non-premium plans (499) lower or equal in value to the Combo offer price of 499/- without Radhe rental 
+//	@Test(priority = 7)//Sushma - Logged in subscribed user with any non-premium plans (499) lower or equal in value to the Combo offer price of 499/- without Radhe rental 
 	@Parameters({ "userType", "RSVOD499PackEmail", "CommomPassword", "tabName1", "RentalContentName1"})
 	public void LoginAsNonPremiumRSVOD499WithoutRentalPlanToValidateComboOfferScreenUC2(String userType, String RSVOD499PackEmail, String pPassword, String ptabName, String pContentTitle) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
@@ -133,7 +133,7 @@ public class Android_TVOD_ComboOffer {
 		ZEE5ApplicasterBusinessLogic.Guest_RSVODUser_49(ptabName, pContentTitle, RSVOD49PackEmail, RSVOD49PackPwd);
 	}
 	
-	@Test(priority = 12)//Sushma -  Guest user -->>Login as already subscribeduser with any non-premium plans without radhe rental
+//	@Test(priority = 12)//Sushma -  Guest user -->>Login as already subscribeduser with any non-premium plans without radhe rental
 	@Parameters({ "userType", "RSVOD499PackEmail", "CommomPassword", "tabName1", "RentalContentName1"}) 
 	public void  GuestUserFromComboPageLoginAsNonPremiumRSVOD499ToValidateUpgradeBottomsheetUC7(String userType, String RSVOD499PackEmail, String pPassword, String ptabName, String pContentTitle) throws Exception {		
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
@@ -188,7 +188,7 @@ public class Android_TVOD_ComboOffer {
 	
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println("\nQuit the App\n");
+		System.out.println("\nExecution Complete - Closing the App");
 		ZEE5ApplicasterBusinessLogic.tearDown();
 	}
 	
