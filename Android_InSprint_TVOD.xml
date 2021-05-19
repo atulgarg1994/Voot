@@ -173,6 +173,8 @@
 	<parameter name="RentalContentName2" value="Mard Ki Zubaan" />
 	<parameter name="RentalContentName3" value="Radhe - Your Most Wanted Bhai" />
 	<parameter name="RentalContentName4" value="Passport" />
+	<parameter name="RadhedeeplinkURl" value="https://www.zee5.com/movies/details/radhe-your-most-wanted-bhai/0-0-399328" />
+	<parameter name="SubscriptionDeeplinkURl" value="https://www.zee5.com/myaccount/subscription" />
 	
 	
 	<listeners>

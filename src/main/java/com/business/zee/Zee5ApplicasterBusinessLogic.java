@@ -22839,5 +22839,123 @@ public void TVODDeeplink(String url, String cost, String LoginOrRegister, String
 	}	
 }
 
+public void ConsumptionDeeplink_TVOD(String url, String cost, String LoginOrRegister, String email, String password) throws Exception {
+	extent.HeaderChildNode("Deeplinking to Consumption page and navigating till Payment page");
+	try {
+		waitTime(5000);
+		String cmd3 = "adb shell am start -W -a android.intent.action.VIEW -d  " +url;
+		Process process = Runtime.getRuntime().exec(cmd3);
+		new BufferedReader(new InputStreamReader(process.getInputStream()));
+		waitTime(12000);
+		if(verifyIsElementDisplayed(AMDHomePage.objPopUpToOpenZeeApp)) {
+			click(AMDHomePage.objJustOnceOption, "Just once option");
+		}
+		waitTime(3000);
+		if(verifyElementExist(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA below the player")) {
+			click(AMDTVODComboOffer.objRentNowCTABelowPlayer,"Rent Now CTA Below the Player");
+			if(verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
+				logger.info("Combo offer page is displayed on clicking Rent Now CTA Below the player");
+			 	extent.extentLoggerPass("Consumption Screen", "Combo offer page is displayed on clicking Rent Now CTA Below the player"); 
+			 	
+			 	if(cost.equalsIgnoreCase("499")) {
+			 		String value = getAttributValue("checked", AMDTVODComboOffer.objPlanCost);
+					if(value.equalsIgnoreCase("true")) {
+						logger.info(cost+" plan is selected by default");
+					 	extent.extentLoggerPass("Combo offer Screen", cost+" plan is selected by default"); 
+					}else {
+						click(AMDTVODComboOffer.objPlanCost, "cost");
+					}
+			 	}else if(cost.equalsIgnoreCase("249")){
+			 		Swipe("UP", 2);
+			 		click(AMDTVODComboOffer.objOnlyRentMoviePlan, "Only Rent Movie plan");
+			 	}
+			 	
+			 	 waitTime(3000);
+				 click(AMDTVODComboOffer.objCTABelowTheComboOfferPage, getText(AMDTVODComboOffer.objCTABelowTheComboOfferPage)+" CTA");
+				 waitTime(6000);
+				 
+			     if(verifyIsElementDisplayed(AMDTVODComboOffer.objAccountInfoLabel, "Account Info overlay")) {
+			    	 logger.info("Account Info widget is displayed");
+						extentLoggerPass("Account Info widget", "Account Info widget is displayed");
+						
+						if(LoginOrRegister.equalsIgnoreCase("Login")) {
+							type(AMDTVODComboOffer.objEmailIdfield, email, "Email Id");
+						}else {
+							type(AMDTVODComboOffer.objEmailIdfield, generateRandomString(5) + "@gmail.com", "Email Id");
+						}
+						hideKeyboard();
+						click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+						waitTime(8000);
+						type(AMDTVODComboOffer.objPasswordfield, password, "Password");
+						hideKeyboard();
+						click(AMDTVODComboOffer.objContinueBtn, "Continue");
+						waitTime(6000);
+						PaymentScreenVerification();			 	
+				}else if(verifyIsElementDisplayed(AMDPlayerScreen.objMakePayment, "Payment screen")){
+					PaymentScreenVerification();
+				}
+			}
+			else {
+				logger.error("Combo offer page is not displayed on clicking Rent Now CTA Below the player");
+			 	extent.extentLoggerFail("Consumption Screen", "Combo offer page is not displayed on clicking Rent Now CTA Below the player");
+			}
+		}
+	}catch(Exception e){
+		System.out.println("URL not triggered");
+	}	
+}
+
+public void SubscriptionDeeplink_TVOD(String url, String LoginOrRegister, String email, String password) {
+	extent.HeaderChildNode("Deeplinking to Subscription page and navigating till Payment page");
+	try {
+		waitTime(5000);
+		String cmd3 = "adb shell am start -W -a android.intent.action.VIEW -d  " +url;
+		Process process = Runtime.getRuntime().exec(cmd3);
+		new BufferedReader(new InputStreamReader(process.getInputStream()));
+		waitTime(12000);
+		
+		if(verifyIsElementDisplayed(AMDHomePage.objPopUpToOpenZeeApp)) {
+			click(AMDHomePage.objJustOnceOption, "Just once option");
+		}
+		waitTime(3000);
+		
+		String selectedPlanPrice = getText(AMDSubscibeScreen.objContinueBtn);
+		if(selectedPlanPrice.contains("499")) {
+			logger.info("499 plan is selected");
+			extent.extentLoggerPass("Plan", "499 plan is selected");
+			click(AMDSubscibeScreen.objContinueBtn, "Continue button");
+			 waitTime(6000);
+			 
+		     if(verifyIsElementDisplayed(AMDTVODComboOffer.objAccountInfoLabel, "Account Info overlay")) {
+		    	 logger.info("Account Info widget is displayed");
+					extentLoggerPass("Account Info widget", "Account Info widget is displayed");
+					
+					if(LoginOrRegister.equalsIgnoreCase("Login")) {
+						type(AMDTVODComboOffer.objEmailIdfield, email, "Email Id");
+					}else {
+						type(AMDTVODComboOffer.objEmailIdfield, generateRandomString(5) + "@gmail.com", "Email Id");
+					}
+					hideKeyboard();
+					click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+					waitTime(8000);
+					type(AMDTVODComboOffer.objPasswordfield, password, "Password");
+					hideKeyboard();
+					click(AMDTVODComboOffer.objContinueBtn, "Continue");
+					waitTime(6000);
+					PaymentScreenVerification();			 	
+			}else if(verifyIsElementDisplayed(AMDPlayerScreen.objMakePayment, "Payment screen")){
+				PaymentScreenVerification();
+			}	
+		}else {
+			logger.error("499 plan is not selected");
+			extent.extentLoggerFail("Plan", "499 plan is not selected");
+		}
+		
+	}catch(Exception e) {
+		System.out.println("URL not triggered");
+	}
+	
+}
+
 
 }

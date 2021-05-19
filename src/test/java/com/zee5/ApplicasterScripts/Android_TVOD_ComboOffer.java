@@ -186,6 +186,99 @@ public class Android_TVOD_ComboOffer {
 		ZEE5ApplicasterBusinessLogic.ZeePlexContentInPlayerCTAValidation();
 	}
 	
+	@Test(priority = 17)
+	@Parameters({ "userType", "RadhedeeplinkURl", "NonsubscribedUserName", "NonsubscribedPassword"}) 
+	public void ConsumptionDeeplink_Guest_LoginAsNonSub_499(String userType, String deepLinkUrl, String email, String password) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.ConsumptionDeeplink_TVOD(deepLinkUrl, "499", "Login", email, password);
+		
+	}
+	
+	@Test(priority = 18)
+	@Parameters({ "userType", "RadhedeeplinkURl", "NonsubscribedUserName", "NonsubscribedPassword"}) 
+	public void ConsumptionDeeplink_Guest_LoginAsNonSub_249(String userType, String deepLinkUrl, String email, String password) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.ConsumptionDeeplink_TVOD(deepLinkUrl, "249", "Login", email, password);
+	
+	}
+	
+	@Test(priority = 19)
+	@Parameters({ "userType", "RadhedeeplinkURl", "NonsubscribedUserName", "NonsubscribedPassword"}) 
+	public void ConsumptionDeeplink_Guest_RegisterAsNonSub_499(String userType, String deepLinkUrl, String email, String password) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.ConsumptionDeeplink_TVOD(deepLinkUrl, "499", "Register", email, password);
+		
+	}
+	
+	@Test(priority = 20)
+	@Parameters({ "userType", "RadhedeeplinkURl", "NonsubscribedUserName", "NonsubscribedPassword"}) 
+	public void ConsumptionDeeplink_Guest_RegisterAsNonSub_249(String userType, String deepLinkUrl, String email, String password) throws Exception {
+		//ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.ConsumptionDeeplink_TVOD(deepLinkUrl, "249", "Register", email, password);
+	}
+	
+	@Test(priority = 21)
+	@Parameters({ "userType", "RadhedeeplinkURl", "NonsubscribedUserName", "NonsubscribedPassword"}) 
+	public void ConsumptionDeeplink_NonSub_499(String userType, String deepLinkUrl, String email, String password) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(email, password);
+		ZEE5ApplicasterBusinessLogic.ConsumptionDeeplink_TVOD(deepLinkUrl, "449", "Login", email, password);
+	}
+	
+	@Test(priority = 22)
+	@Parameters({ "userType", "RadhedeeplinkURl", "NonsubscribedUserName", "NonsubscribedPassword"}) 
+	public void ConsumptionDeeplink_NonSub_249(String userType, String deepLinkUrl, String email, String password) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(email, password);
+		ZEE5ApplicasterBusinessLogic.ConsumptionDeeplink_TVOD(deepLinkUrl, "249", "Login", email, password);
+	}
+	
+	@Test(priority = 23)
+	@Parameters({ "userType", "SubscriptionDeeplinkURl", "NonsubscribedUserName", "NonsubscribedPassword"}) 
+	public void SubscriptionDeeplink_Guest_LoginAsNonSub(String userType, String deepLinkUrl, String email, String password) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.SubscriptionDeeplink_TVOD(deepLinkUrl, "Login", email, password);
+	}
+	
+	@Test(priority = 24)
+	@Parameters({ "userType", "SubscriptionDeeplinkURl", "NonsubscribedUserName", "NonsubscribedPassword"}) 
+	public void SubscriptionDeeplink_Guest_RegisterAsNonSub(String userType, String deepLinkUrl, String email, String password) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.SubscriptionDeeplink_TVOD(deepLinkUrl, "Register", email, password);
+	}
+	
+	@Test(priority = 25)
+	@Parameters({ "userType", "SubscriptionDeeplinkURl", "NonsubscribedUserName", "NonsubscribedPassword"}) 
+	public void SubscriptionDeeplink_NonSub(String userType, String deepLinkUrl, String email, String password) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(email, password);
+		ZEE5ApplicasterBusinessLogic.SubscriptionDeeplink_TVOD(deepLinkUrl, "Login", email, password);
+	}
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("\nExecution Complete - Closing the App");
