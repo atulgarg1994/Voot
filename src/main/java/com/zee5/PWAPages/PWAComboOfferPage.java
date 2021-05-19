@@ -14,6 +14,7 @@ public class PWAComboOfferPage {
 	public static By objWatchNowCTAInPlayer = By.xpath(".//*[@class='playerButtonAlignment']//child::*[text()='Watch Now']");
 	public static By objExpiresinDaysTxtBelowThePlayer = By.xpath(".//*[@class='tvodBanner']//child::*//h3");
 	public static By objPleaseNotebeForYouStartPopUp = By.xpath(".//*[@class='logoTitle']//child::*[text()='Please note before you start']");
+	public static By objwatchNowCTAInPlayer = By.xpath(".//*[contains(@class,'buttonContainer')]//*[text()='Watch Now']");
 	public static By objWatchTimeTxtPopUp = By.xpath(".//*[@class='hourData']/*[text()='Watch Time']");
 	public static By objHourTime = By.xpath(".//*[@class='hourData']/span");
 	public static By objYouWillHaveHoursToFinishTheMovieOnceStartedPlaybackTxt = By.xpath(".//*[@class='bannerTitle']/h5");
@@ -52,7 +53,7 @@ public class PWAComboOfferPage {
 	public static By objWatchshowsTxt = By.xpath("((.//*[@class='packDescDetails'])[2]/ul/li)[3]");
 	public static By objWatchAdTxt = By.xpath("((.//*[@class='packDescDetails'])[2]/ul/li)[4]");
 	
-	public static By objDiscount = By.xpath(".//*[@class='packPriceDetails']//*[@class='saveAmount']");
+	public static By objDiscount = By.xpath(".//*[contains(@class,'packPriceDetails')]//*[@class='saveAmount']");
 	public static By objTotalDiscount = By.xpath(".//*[@class='packDescDetails totalDetails']//*[@class='saveAmount']");
 	
 	public static By objOnlyRentMovie = By.xpath("(.//*[@class='bottomSection'])[2]/h3");
@@ -115,5 +116,7 @@ public class PWAComboOfferPage {
 	public static By objRentNowInConsumptionPage=By.xpath("//*[@class='buttonContainer ']//span[text()='Rent Now']");
 	
 	public static By objTrailerOfFirstMovie  = By.xpath("(//span[contains(text(),'Trailer')])[1]");
+	
+	
 
 }

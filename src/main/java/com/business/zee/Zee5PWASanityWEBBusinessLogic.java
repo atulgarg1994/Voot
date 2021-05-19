@@ -26447,9 +26447,18 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		}
 	}
 	
-	public void watchNowCTA() {
-		
-		
+	public void watchNowCTA() throws Exception {
+		verifyElementPresent(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
+		click(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
+		verifyElementPresent(PWAComboOfferPage.objExpiresDaysTxt, "Expires in days text");
+		verifyElementPresent(PWAComboOfferPage.objWatchNowCTAInPlayer, "Watch Now CTA - inPlayer");
+		verifyElementPresent(PWAComboOfferPage.objExpiresinDaysTxtBelowThePlayer, "Expires in days text below the player");
+		click(PWAComboOfferPage.objwatchNowCTAInPlayer, "Watch Now CTA inPlayer");
+		verifyElementPresent(PWAComboOfferPage.objWatchTimeTxtPopUp, "Watch Time text");
+		verifyElementPresent(PWAComboOfferPage.objHourTime, "Hour Time text");
+		compareText(PWAComboOfferPage.objYouWillHaveHoursToFinishTheMovieOnceStartedPlaybackTxt,"You will have 4 hours to finish the movie once started playback");
+		compareText(PWAComboOfferPage.objPopUpDescription,"You can watch the movie multiple times during the 4 hour period after first playback");
+		verifyElementPresent(PWAComboOfferPage.objAgreeAndWatchNow, "Agree and Watch Now");
 	}
 	
 	public void ValidateCTAsAndValidateComboOfferScreen() throws Exception {
@@ -26497,7 +26506,7 @@ public void pwaverifyHaveacode(String userType) throws Exception
 	public void validateComboScreenOnClickingCTAKnowMore() throws Exception {
 		navigationFromZeeplexScreen("Trailer");
 		validateConsumptionScreen();
-		click(PWAComboOfferPage.objKnowMore, "Know More Wedget");
+		click(PWAComboOfferPage.objComboOfferWidget, "Know More Wedget");
 		verifyComboScreen();
 		termsOfService();
 		privacyPolicy();
@@ -26520,6 +26529,23 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			scrollUp();
 			verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment Header");
 		}
+	}
+	
+	public void login() throws Exception {
+		HeaderChildNode("Login - Non subscribed user with No Active Radhe Rental");
+		String Username = "anything@mailnesia.com";
+		String Password = "123456";
+		click(PWAHomePage.objNotNow, "Notification popup");
+		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+		type(PWALoginPage.objEmailField, Username, "Email Field");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+		type(PWALoginPage.objPasswordField, Password, "Password field");
+		waitTime(5000);
+		click(PWALoginPage.objWebLoginButton, "Login Button");
+		waitTime(3000);
 	}
 	
 	/**

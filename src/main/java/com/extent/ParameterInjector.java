@@ -54,7 +54,7 @@ public class ParameterInjector implements IAlterSuiteListener {
 		Response regionResponse = given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
 		String region = regionResponse.getBody().jsonPath().getString("state_code");
 		System.out.println("Region : "+region);
-		if (region.equals("KA")) {
+		if (!region.equals("KA")) {
 			params.put("searchModuleSearchKey", "Kamali");
 			params.put("consumptionsEpisode", "Digvijay stunned on hearing Sambhashiva");
 			params.put("consumptionsShow", "Paaru");
@@ -139,6 +139,7 @@ public class ParameterInjector implements IAlterSuiteListener {
 				params.put("DeeplinkConsumption","https://www.zee5.com/movies/details/radhe-your-most-wanted-bhai/0-0-399328");
 				params.put("DeeplinkSubscription","https://www.zee5.com/myaccount/subscription");
 			}
+//			params.put("ClubPassword", suite.getParameter("ClubPassword"));
 			
 		}
 		if (region.equals("MH")) {

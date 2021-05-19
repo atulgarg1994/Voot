@@ -287,7 +287,7 @@ public class AMDMoreMenu {
 	public static By objVideoQualityOption(String qualityOption) {
 		return By.xpath("//*[@id='selector_content' and @text='"+qualityOption+"']");
 	}
-	
-	public static By objSubNowCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_subscribe_now']");
 	public static By objBuySubscription = By.xpath("//*[@id='list_item' and @text='Buy Plan'] | //*[@text='Buy Subscription']");
+	
+	public static By objSubNowCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_subscribe_now'] | //*[@id='btn_sub_now']");
 }
