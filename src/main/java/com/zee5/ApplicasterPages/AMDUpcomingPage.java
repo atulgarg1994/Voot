@@ -66,5 +66,5 @@ public class AMDUpcomingPage {
 			return By.xpath(""+title+"//following-sibling::*//following-sibling::*");
 		}
 
-public static By objContentCardInfo = By.xpath("(//*[@id='upcoming_toolbar_title']//following::*//*[@id='imageContainer']//following-sibling::*//child::*)");
+	public static By objContentCardInfo = By.xpath("//*[@id='cell_top_container'] | (//*[@id='upcoming_toolbar_title']//following::*//*[@id='imageContainer']//following-sibling::*//child::*)");
 }

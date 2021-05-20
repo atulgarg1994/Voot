@@ -36,12 +36,26 @@ public class AndroidApp_HLS {
 	
 	@Test(priority = 2) // Manasa
 	@Parameters({ "userType", "contentWithoutTrailer" })
-	public void subscriptionValidationHLS(String userType, String contentWithoutTrailer) throws Exception {
+	public void subscriptionValidPrepaidCodeHLS(String userType, String contentWithoutTrailer) throws Exception {
 		System.out.println("\n---Subscription Validation ---\n");
-		ZEE5ApplicasterBusinessLogic.subscriptionValidationForHLS(userType, contentWithoutTrailer);
+		ZEE5ApplicasterBusinessLogic.subscriptionValidationHLSForValidPrepaidCode(userType, contentWithoutTrailer);
 	}
 
-	@Test(priority = 3) // Sushma
+	@Test(priority = 3) 
+	@Parameters({ "userType", "contentWithoutTrailer" })
+	public void subscriptionInvalidPrepaidCodeHLS(String userType, String contentWithoutTrailer) throws Exception {
+		System.out.println("\n---Subscription Validation ---\n");
+		ZEE5ApplicasterBusinessLogic.SubscriptionValidationHLSForInvalidPrepaidCode(userType, contentWithoutTrailer);
+	}
+	
+	@Test(priority = 4) 
+	@Parameters({ "userType"})
+	public void subscriptionValidationHLSForSubUser(String userType) throws Exception {
+		System.out.println("\n---Subscription Validation ---\n");
+		ZEE5ApplicasterBusinessLogic.SubscriptionValidationForSubscribedUser(userType);
+	}
+	
+	@Test(priority = 5) // Sushma
 	@Parameters({ "userType", "searchModuleKeyword", "searchKeyword10", "searchKeyword4" })
 	public void homeScreen_Search_Playback_HLS(String userType, String searchModuleKeyword, String searchKeyword10, String searchKeyword4)
 			throws Exception {

@@ -237,9 +237,6 @@ public class PWASearchPage {
 		return By.xpath("//h1[text()='" + title + "']");
 	}
 
-	// Show title in Consumption Page
-	public static By objShowTitleInConsumptionPage = By.xpath("(//div[@class='metaInfo']/child::a)[1]");
-
 	public static By objSearchBtnWEB = By.xpath("//a[@class='noSelect searchBtn iconInitialLoad-ic_search']");
 
 	public static By objPremiumSearchResult = By.xpath("//*[@title='RX Soori']");
@@ -360,4 +357,13 @@ public class PWASearchPage {
 	public static By objFirstSearchedAssetTitle(String searchText) {
 		return By.xpath("//div[contains(@class,'searchCategoryLanding')]//h3[contains(@class,'cardTitle')]//*[text()='"+searchText+"']");
 	}
+	
+	public static By objFirstSearchResult = By.xpath("(//h3[contains(@class,'cardTitle')]//parent::div//preceding-sibling::figure)[1]");
+	
+	public static By objShowTitleInConsumptionPage = By.xpath("//div[@class='consumptionMetaDiv']//h2");
+	
+	public static By objSecondAssetTitleTrendingSearch = By.xpath(
+			"//div[@class='trayHeader']//h2[text()='Trending Searches']//parent::*//following-sibling::div[@class='latestEpisodeTrayWrapper']//div[@data-index='1']//h3[@class='cardTitle']");
+
+
 }

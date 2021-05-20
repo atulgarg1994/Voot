@@ -205,7 +205,6 @@ public class Android_TVOD_ComboOffer {
 		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.ConsumptionDeeplink_TVOD(deepLinkUrl, "249", "Login", email, password);
-	
 	}
 	
 	@Test(priority = 19)
@@ -222,7 +221,7 @@ public class Android_TVOD_ComboOffer {
 	@Test(priority = 20)
 	@Parameters({ "userType", "RadhedeeplinkURl", "NonsubscribedUserName", "NonsubscribedPassword"}) 
 	public void ConsumptionDeeplink_Guest_RegisterAsNonSub_249(String userType, String deepLinkUrl, String email, String password) throws Exception {
-		//ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);

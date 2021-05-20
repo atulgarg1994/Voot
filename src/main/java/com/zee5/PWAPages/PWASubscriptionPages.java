@@ -456,4 +456,19 @@ public class PWASubscriptionPages {
 	
 	//Watch Now CTA
 	public static By objWatchNowCTA  = By.xpath("//span[text()='Watch Now']");
+	
+	// explore Premium
+	public static By objexplorePremium = By.xpath("//span[text()='Explore Premium']");
+		//You are currently on ₹499 Premium 1 Year plan
+	public static By objYouAreCurrentlyOnPremiumYearPlan = By.xpath("//span[text()='You are currently on ₹499 Premium 1 Year plan.']");
+		//Upgrade Now Message
+	public static By objUpgradeNowMessage = By.xpath("(//span[.='Upgrade'])[2]");
+		// Your are currently on plan<Plan Name >. CTA's Message
+	public static By objYourAreCurrentlyOnPlanPlanNameCTAsMessage = By.xpath("//li[@class='subtitleItem']");
+		//Right Tick As Per VD
+	public static By objRightTickAsPerVD = By.xpath("//img[@alt='combo offer popup icon']");
+		//Upgrade To Radhe Combo Pack By Just Paying
+	public static By objUpgradeToRadheComboPackByJustPaying = By.xpath("//span[@class='title']");
+		//differential amount calculated.
+	public static By objDifferentialAmountCalculated = By.xpath("(//span[text()='309'])[1]");
 }

@@ -469,4 +469,26 @@ public class PWAPlayerPage {
 	public static By objResumePlayerCTA = By.xpath("(//button[@type='button' and span[text()='Resume']])[1]");
 	
 	public static By objHiGuest = By.xpath("//div[@class='usr-name']");
+	
+	public static By objResetButton = By.xpath("//*[@id='reset-device-button']");
+	public static By objDeviceLimitPopup = By.xpath("//*[@id='device-limit-reached']");
+	public static By objWatchTrailerEnabled = By.xpath("//*[contains(@class,'promoButtonDiv')]");
+	public static By objContentExpiryInfoYellowText = By.xpath("//*[@class='yellowText']");
+	public static By objResumeCTA = By.xpath("//span[text()='Resume']");
+	public static By objContentThumbnail = By.xpath("(//*[@class='tvodCard card marginRight minutelyUrl noZoomOverlay'])[1]");
+	public static By objWouldYouLikePopUp = By.xpath("//div[contains(@class,'popupContent languageChangeContentPopup')]");
+	public static By objRentnowInline = By.xpath("//div[contains(@class,'subscribe-msg-premium subscribemsg_en')]");
+	public static By objRentNowPlayerCTA = By.xpath("(//*[contains(text(),'Rent')])[1]");
+	public static By objPlayerStartTime = By.xpath("//*[@class='timeDuration-Container']//span[contains(text(),'00:0')]");
+	
+	// Trailer Consumption Page
+	public static By objTrailerConsumptionPage = By.xpath("//div[@style='position: absolute; inset: 0px; margin: 1.5%;']");
+		// Rent Now once trailer completed
+	public static By objRentNowPlaybackOnConsumptionPage = By.xpath("//div[@class='subscribe-button subscribemsg_en noPremiumIcon']");
+		// Skip CTA once trailer completed
+	public static By objSkipCTAPlaybackOnConsumptionPage = By.xpath("//*[contains(@class,'skip-button subscribe-link subscribemsg_en')]");
+		// Login button once trailer completed
+	public static By objLoginButtonPlaybackOnConsumptionPage = By.xpath("//span[@class='login-link']");	
+	
+	public static By objContentTitleShow = By.xpath("//div[@class='metaInfo lineHeightClass']//h2");
 }

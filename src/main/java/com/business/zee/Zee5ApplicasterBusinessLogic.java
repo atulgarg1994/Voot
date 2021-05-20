@@ -3038,7 +3038,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		waitForElementDisplayed(AMDUpcomingPage.objContentCardInfo, 10);
 		int cardInfo = findElements(AMDUpcomingPage.objContentCardInfo).size();
-		if(cardInfo==4) {
+		if(cardInfo > 1) {
 			logger.info("Appropriate page is loaded with Upcoming Page Content card info");
 			extent.extentLoggerPass("Page", "Appropriate page is loaded with Upcoming Page Content card info");
 		} else {
@@ -22840,7 +22840,9 @@ public void TVODDeeplink(String url, String cost, String LoginOrRegister, String
 }
 
 public void ConsumptionDeeplink_TVOD(String url, String cost, String LoginOrRegister, String email, String password) throws Exception {
-	extent.HeaderChildNode("Deeplinking to Consumption page and navigating till Payment page");
+	extent.HeaderChildNode("Deeplinking to Consumption page and navigating till Payment screen");
+	System.out.println("\nDeeplinking to Consumption page and navigating till Payment screen");
+	
 	try {
 		waitTime(5000);
 		String cmd3 = "adb shell am start -W -a android.intent.action.VIEW -d  " +url;
@@ -22851,6 +22853,7 @@ public void ConsumptionDeeplink_TVOD(String url, String cost, String LoginOrRegi
 			click(AMDHomePage.objJustOnceOption, "Just once option");
 		}
 		waitTime(3000);
+		String newEmail = "Auto"+generateRandomString(5) + "@zee5.com";
 		if(verifyElementExist(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA below the player")) {
 			click(AMDTVODComboOffer.objRentNowCTABelowPlayer,"Rent Now CTA Below the Player");
 			if(verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
@@ -22879,16 +22882,21 @@ public void ConsumptionDeeplink_TVOD(String url, String cost, String LoginOrRegi
 						extentLoggerPass("Account Info widget", "Account Info widget is displayed");
 						
 						if(LoginOrRegister.equalsIgnoreCase("Login")) {
+							click(AMDLoginScreen.objEmailIdField, "EmailId");
 							type(AMDTVODComboOffer.objEmailIdfield, email, "Email Id");
 						}else {
-							type(AMDTVODComboOffer.objEmailIdfield, generateRandomString(5) + "@gmail.com", "Email Id");
+							click(AMDLoginScreen.objEmailIdField, "EmailId");
+							type(AMDTVODComboOffer.objEmailIdfield, newEmail, "Email Id");
 						}
 						hideKeyboard();
+						click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
 						click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
-						waitTime(8000);
+						waitTime(5000);
+						click(AMDLoginScreen.objEmailIdField, "Password");
 						type(AMDTVODComboOffer.objPasswordfield, password, "Password");
 						hideKeyboard();
-						click(AMDTVODComboOffer.objContinueBtn, "Continue");
+						click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
+						click(AMDTVODComboOffer.objContinueBtn, "Continue");			
 						waitTime(6000);
 						PaymentScreenVerification();			 	
 				}else if(verifyIsElementDisplayed(AMDPlayerScreen.objMakePayment, "Payment screen")){
@@ -22901,12 +22909,14 @@ public void ConsumptionDeeplink_TVOD(String url, String cost, String LoginOrRegi
 			}
 		}
 	}catch(Exception e){
-		System.out.println("URL not triggered");
+		System.out.println("URL is not triggered or accessible");
 	}	
 }
 
 public void SubscriptionDeeplink_TVOD(String url, String LoginOrRegister, String email, String password) {
-	extent.HeaderChildNode("Deeplinking to Subscription page and navigating till Payment page");
+	extent.HeaderChildNode("Deeplinking to Subscription page and navigating till Payment screen");
+	System.out.println("\nDeeplinking to Subscription page and navigating till Payment screen");
+	
 	try {
 		waitTime(5000);
 		String cmd3 = "adb shell am start -W -a android.intent.action.VIEW -d  " +url;
@@ -22919,6 +22929,7 @@ public void SubscriptionDeeplink_TVOD(String url, String LoginOrRegister, String
 		}
 		waitTime(3000);
 		
+		String newEmail = "Auto"+generateRandomString(5) + "@zee5.com";
 		String selectedPlanPrice = getText(AMDSubscibeScreen.objContinueBtn);
 		if(selectedPlanPrice.contains("499")) {
 			logger.info("499 plan is selected");
@@ -22931,15 +22942,20 @@ public void SubscriptionDeeplink_TVOD(String url, String LoginOrRegister, String
 					extentLoggerPass("Account Info widget", "Account Info widget is displayed");
 					
 					if(LoginOrRegister.equalsIgnoreCase("Login")) {
+						click(AMDLoginScreen.objEmailIdField, "EmailId");
 						type(AMDTVODComboOffer.objEmailIdfield, email, "Email Id");
 					}else {
-						type(AMDTVODComboOffer.objEmailIdfield, generateRandomString(5) + "@gmail.com", "Email Id");
+						click(AMDLoginScreen.objEmailIdField, "EmailId");
+						type(AMDTVODComboOffer.objEmailIdfield, newEmail, "Email Id");
 					}
 					hideKeyboard();
+					click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
 					click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
-					waitTime(8000);
+					waitTime(5000);
+					click(AMDLoginScreen.objEmailIdField, "Password");
 					type(AMDTVODComboOffer.objPasswordfield, password, "Password");
 					hideKeyboard();
+					click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
 					click(AMDTVODComboOffer.objContinueBtn, "Continue");
 					waitTime(6000);
 					PaymentScreenVerification();			 	
@@ -22952,10 +22968,226 @@ public void SubscriptionDeeplink_TVOD(String url, String LoginOrRegister, String
 		}
 		
 	}catch(Exception e) {
-		System.out.println("URL not triggered");
-	}
-	
+		System.out.println("URL not triggered or accessible");
+	}	
 }
 
+@SuppressWarnings("deprecation")
+public void subscriptionValidationHLSForValidPrepaidCode(String userType, String contentWithoutTrailer) throws Exception {
+	extent.HeaderChildNode("Verify valid Prepaid code journey from Subscription Screen");
+	ZeeApplicasterLogin(userType);
+	if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		extent.HeaderChildNode("Verify Get Premium/Subscribe CTA in Header");
+		verifyElementPresent(AMDHomePage.objSubscribeTeaser, "Buy plan CTA on landing screen");
+
+		extent.HeaderChildNode("Verify Buy Plan CTA on carousel");
+		waitTime(2000);
+		verifyElementPresent(AMDHomePage.objGetPremiumCTAOnCarousel, "Buy Plan CTA on carousel");
+
+		click(AMDHomePage.objSubscribeTeaser, "Buy Plan CTA on landing screen");
+		waitTime(5000);
+		String prepaidcode = "NRTDC1";
+		Swipe("UP",1);
+		click(AMDSubscibeScreen.objHaveACodeCTA, "Have a code");
+		waitTime(2000);
+		getDriver().getKeyboard().sendKeys(prepaidcode);
+		// type(AMDSubscibeScreen.objApplyPromoCodeTextbox, prepaidcode, "Prepaid
+		// code");
+		hideKeyboard();
+		click(AMDSubscibeScreen.objApplyOnHaveACodescreen, "Apply button");
+		 //Have a code flow has been changed
+	/*	if (userType.equals("Guest")) {
+			boolean objAccountinfo = verifyIsElementDisplayed(AMDSubscibeScreen.objAccountInfoText1);
+			if (objAccountinfo) {
+				logger.info(
+						"User is navigated to Account info screen on tapping apply button after entering prepaid code");
+				extent.extentLoggerPass("Account info",
+						"User is navigated to Account info screen on tapping apply button after entering prepaid code");
+			} else {
+				logger.error("User is unable to navigate to Account info screen");
+				extent.extentLoggerFail("Account info", "User is unable to navigate to Account info screen");
+			}
+
+			click(AMDSubscibeScreen.objEmailID, "Email field");
+			type(AMDSubscibeScreen.objEmailID, "zee5latest@gmail.com", "Email field");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
+			click(AMDSubscibeScreen.objPasswordTextField, "Password field");
+			// type(AMDSubscibeScreen.objPasswordTextField, "User@123"+"\n", "Password
+			// field");
+			getDriver().getKeyboard().sendKeys("User@123" + "\n");
+
+			hideKeyboard();
+			click(AMDSubscibeScreen.objProceedPWDScreen, "Proceed button");*/
+			if (verifyIsElementDisplayed(AMDSubscibeScreen.objApplyPromoCodeappliedText)) {
+				logger.info("Discounted price is displayed after promo code is applied");
+				extent.extentLoggerPass("Promo", "Discounted price is displayed after promo code is applied");
+			} else {
+				logger.error("Discounted price is not displayed after promo code is applied");
+				extent.extentLoggerFail("Promo", "Discounted price is not displayed after promo code is applied");
+			}
+			
+			verifyElementExist(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button");
+			click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button");
+			verifyElementExist(AMDSubscibeScreen.objAccountInfoScreen, "Account info screen is displayed");
+			LoginFromAccountInfoScreen(NonsubscribedUserName, NonsubscribedPassword);
+			waitTime(2000);
+			verifyElementExist(AMDSubscibeScreen.objMakePaymentScreen, "Make payment screen");
+			
+		//	verifyElementPresent(AMDSubscibeScreen.objInvalidPrepaidCodePopUp, "Invalid Prepaid code pop up");
+		//	verifyElementPresentAndClick(AMDSubscibeScreen.objDoneBtn, "Done Button");
+		//	waitTime(5000);
+
+			waitTime(2000);
+		    BackToLandingScreen();
+		    ZNALogoutMethod();
+		
+	//Subscribe screen feature has been changed
+	/*	waitTime(5000);
+		Swipe("UP", 2);
+		PartialSwipe("UP", 2);
+		Swipe("DOWN", 1);
+
+		String defaultSelectedPack = getText(AMDSubscibeScreen.objDefaultSelectedPack);
+		logger.info("Default Selected Pack : " + defaultSelectedPack);
+		extentLoggerPass("Default Selected Pack", "Default Selected Pack : " + defaultSelectedPack);
+
+		verifyElementPresent(AMDSubscibeScreen.objPremiumTab, "Premium pack tab");
+		//verifyElementPresent(AMDSubscibeScreen.objClubTab, "Club pack tab");
+		Swipe("UP", 1);
+		int size = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
+		for (int i = 0; i < size; i++) {
+			boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).isDisplayed();
+			if (isDisplayed) {
+				String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
+				extent.extentLoggerPass("", "Pack Title " + i + " : " + pack);
+				logger.info("Pack Title " + i + " : " + pack);
+
+				String packDescription = getDriver().findElements(AMDSubscibeScreen.objPackDescription).get(i)
+						.getText();
+				extent.extentLoggerPass("", "Pack Description " + i + " : " + packDescription);
+				logger.info("Pack Description " + i + " : " + packDescription);
+
+			} else {
+				extent.extentLoggerFail("Packs", "No Packs are available");
+				logger.info("No Packs are available");
+			}
+		}
+
+		Back(1); */
+		    
+	}else {
+		logger.info("This is NOT applicable for " + userType);
+		extentLoggerWarning("Login", "This is NOT applicable for " + userType);
+	}
+}
+
+public void SubscriptionValidationHLSForInvalidPrepaidCode(String userType, String contentWithoutTrailer) throws Exception {
+	if (!(userType.equalsIgnoreCase("SubscribedUser"))) {	
+	waitTime(5000);
+		click(AMDHomePage.objSearchBtn, "Search button");
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, contentWithoutTrailer, "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDSearchScreen.objContentNameInPlayer(contentWithoutTrailer), "Search result");
+		waitTime(5000);
+		verifyIsElementDisplayed(AMDConsumptionScreen.objContentName);
+		waitTime(3000);
+		click(AMDPlayerScreen.objSubscribeButtonBelowThePlayer, "Buy Plan CTA below the player");
+		verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup, "Subscribe screen");
+        Swipe("UP",1);
+		click(AMDSubscibeScreen.objHaveACodeCTA, "Prepaid code");
+		waitTime(2000);
+		String prepaidcode1 = "Z56MSK93rJGDyi";
+		getDriver().getKeyboard().sendKeys(prepaidcode1);
+		hideKeyboard();
+		click(AMDSubscibeScreen.objApplyOnHaveACodescreen, "Apply button");
+       //Have a code flow has been changed
+	/*	if (userType.equals("Guest")) {
+			boolean objAccountinfo = verifyIsElementDisplayed(AMDSubscibeScreen.objAccountInfoText1);
+			if (objAccountinfo) {
+				logger.info(
+						"User is navigated to Account info screen on tapping apply button after entering prepaid code");
+				extent.extentLoggerPass("Account info",
+						"User is navigated to Account info screen on tapping apply button after entering prepaid code");
+			} else {
+				logger.error("User is unable to navigate to Account info screen");
+				extent.extentLoggerFail("Account info", "User is unable to navigate to Account info screen");
+			}
+
+			click(AMDSubscibeScreen.objEmailID, "Email field");
+			type(AMDSubscibeScreen.objEmailID, "zee5latest@gmail.com", "Email field");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
+			click(AMDSubscibeScreen.objPasswordTextField, "Password field");
+			type(AMDSubscibeScreen.objPasswordTextField, "User@123", "Password field");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objProceedPWDScreen, "Proceed button");
+			waitTime(5000);
+			verifyElementPresent(AMDSubscibeScreen.objInvalidPrepaidCodePopUp, "Invalid Prepaid code pop up");
+			verifyElementPresentAndClick(AMDSubscibeScreen.objDoneBtn, "Done Button"); */
+			verifyElementExist(AMDSubscibeScreen.objInvalidPromoCodeText, "Invalid promo code error message");
+			BackToLandingScreen();
+	}
+	else {
+		logger.info("This is NOT applicable for " + userType);
+		extentLoggerWarning("Login", "This is NOT applicable for " + userType);	
+	}
+}
+public void SubscriptionValidationForSubscribedUser(String userType) throws Exception {
+	if (userType.equals("SubscribedUser")) {
+		extent.HeaderChildNode("Subscribed user with All Access pack validations");
+		click(AMDHomePage.objMoreMenu, "More menu");
+		click(AMDHomePage.objMyProfileIcon, "profile icon");
+
+		if (verifyIsElementDisplayed(AMDHomePage.objEditProfile)) {
+			logger.info("User is logged in successfully");
+			extent.extentLoggerPass("Edit", "User is logged in successfully");
+		} else {
+			logger.error("User is not logged in successfully");
+			extent.extentLoggerFail("Edit", "User is not logged in successfully");
+		}
+		Back(1);
+		click(AMDHomePage.objHomeBtn, "Home tab");
+		waitTime(4000);
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More Menu");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenuOptions("My Subscription"), "My Subscription");
+		verifyElementExist(AMDHomePage.objPackAmount, "Purchased pack details");
+		verifyElementExist(AMDHomePage.objCancelRenewal, "Cancel Renewal option");
+		verifyElementPresentAndClick(AMDHomePage.objBrowseAllPack, "Browse all packs button");
+		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page");
+		Back(1);
+		waitTime(2000);
+		Back(1);
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenuOptions("Buy Plan"), "Buy Plan");
+		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page");
+		verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in subscription page");
+		verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in subscribe page");
+		verifyElementExist(AMDSubscibeScreen.objPlanName, "Available plan in subscribe page");
+		verifyElementExist(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button in subscribe page");
+		if (getDriver().findElement(AMDSubscibeScreen.objContinueOnSubscribePopup).isEnabled()) {
+			logger.info("Continue button is highlighted");
+			extent.extentLoggerPass("Highlighted", "Continue button is highlighted");
+		}
+		click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button");
+		if (checkElementExist(AMDHomePage.objHomeBtn, "Home tab")) {
+			logger.info(
+					"Subscribed user with all access pack is navigated to home page after tapping on buy subscription continue button");
+			extent.extentLoggerPass("Home",
+					"Subscribed user with all access pack is navigated to home page after tapping on buy subscription continue button");
+		} else {
+			logger.error(
+					"Subscribed user with all access pack is not navigated to home page after tapping on buy subscription continue button");
+			extent.extentLoggerFail("Home",
+					"Subscribed user with all access pack is not navigated to home page after tapping on buy subscription continue button");
+			Back(1);
+		}
+	}else {
+		logger.info("This is NOT applicable for " + userType);
+		extentLoggerWarning("Login", "This is NOT applicable for " + userType);
+	}
+}
 
 }

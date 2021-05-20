@@ -972,4 +972,5 @@ public class PWAHamburgerMenuPage {
 	public static By objPaytmProceedToPay = By
 			.xpath("//article[contains(text(),'Paytm')]//ancestor::*[@class='linearLayout PaymentOptionViewNotListNestedChild']//child::*[text()='Proceed to pay']");
 	
+	
 	}

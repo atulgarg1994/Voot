@@ -117,6 +117,29 @@ public class PWAComboOfferPage {
 	
 	public static By objTrailerOfFirstMovie  = By.xpath("(//span[contains(text(),'Trailer')])[1]");
 	
+	public static By objComboOfferPageHeader = By.xpath("//*[@class='titleSubTitleComp']");
+	public static By objExplorePremiumButton = By.xpath("//*[text()='Explore Premium']");
+	public static By objBuyCombobutton = By.xpath("//*[@class='buttonContainer']");
+	public static By objRentMoviebutton = By.xpath("//*[text()='Rent Movie']");
+	public static By objHaveitAllPopDialog = By.xpath("//*[text()='You have it all']");
+	public static By objYouHaveAlreadyRentedThisZEEPLEXMovieDialog = By.xpath("//*[@class='subtitleItem']//span[text()='You have already rented this ZEEPLEX movie']");
+	public static By objYouHaveActivePremiumPlanDialog = By.xpath("//*[@class='subtitleItem']//span[text()='Your premium Rs 999 for 1 year plan is active']");
+	public static By objExplorePremiumCTA = By.xpath("//*[@class='buttonContainer ']//span[text()='Buy Premium']");
+	public static By objZeeplexPopupCloseButton = By.xpath("//*[@class='drowerCloseIcon iconInitialLoad-ic_close']");
+	public static By obj299PackUpgradePopup = By.xpath("(//div[@class='titleAndSubtitle'])//span[text()='Upgrade to Combo Offer by just paying the difference']");
+	public static By obj299PackUpgradeCTA = By.xpath("(//div[@class='buttonContainer '])//span[text()='Upgrade']");
+	public static By objZeeplexAndTickIcon = By.xpath("//*[@class='icon']//img[@alt='combo offer popup icon']");
+	public static By objComboOfferPageUpgrade299PackHeader = By.xpath("//li[@class='subtitleItem']//span[text()='You are currently on ₹299 Premium 3 Months plan.']");
+	public static By objUpgradeTextJustPayingDifference= By.xpath("//div[@class='titleSubTitleComp']//h1");
+	public static By objPayLessWatchMoreHeader= By.xpath("//div[@class='titleSubTitleComp']//p[text()='Pay less, Watch more!']");
+	public static By objUpgradeCloseButton= By.xpath("//div[@class='drowerCloseIcon iconInitialLoad-ic_close']");
+	public static By objRentOnlyMovieCheckboxPrice= By.xpath("(//div[@class='priceAmout'])[2]");
+	public static By objTrailerBtn = By.xpath("(.//*[@class='buttonContainer ']//span[text()='Trailer'])[1]");
+
+	public static By objContentThumbnail = By.xpath("(//*[@class='tvodCard card marginRight minutelyUrl noZoomOverlay'])[1]");
+	public static By objResumeCTA = By.xpath("//span[text()='Resume']");
 	
+	//Combo offer is displayed with Upgrade text Upgrade your existing pack by paying the difference
+	public static By objUpgradeToRadheComboPackByJustPayingTheDifference   = By.xpath("//h1[.='Upgrade to Radhe Combo pack by just paying the difference']");
 
 }

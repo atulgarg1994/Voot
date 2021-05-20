@@ -702,7 +702,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitForElementDisplayed(PWASearchPage.objSearchNavigationTab("All"), 5);
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("All"), "All Tab");
 		checkElementDisplayed(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
-		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("Shows"), "Shows Tab");
+		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows Tab");
 		checkElementDisplayed(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
 		clearField(PWASearchPage.objSearchEditBox, "Search field");
 	}
@@ -811,23 +811,24 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Navigation to Consumption Screen through Trending Searches");
 		waitTime(3000);
 		mandatoryRegistrationPopUp(userType);
+		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		if (verifyElementPresent(PWASearchPage.objTrendingSearchesTray, "Trending Searches tray")) {
 
-			checkElementDisplayed(PWASearchPage.objFirstAssetThumbnailTrendingSearch,
-					"First asset thumbnail of Trending searches tray");
+			checkElementDisplayed(PWASearchPage.objSecondAssetThumbnailTrendingSearch,
+					"Second asset thumbnail of Trending searches tray");
 
-			checkElementDisplayed(PWASearchPage.objFirstAssetTitleTrendingSearch,
-					"First asset title of Trending searches tray");
+			checkElementDisplayed(PWASearchPage.objSecondAssetTitleTrendingSearch,
+					"Second asset title of Trending searches tray");
 
 			if (checkElementDisplayed(PWAPlayerPage.objCloseBtnLoginPopup, "Login Pop-up")) {
 				click(PWAPlayerPage.objCloseBtnLoginPopup, "Login Pop-up");
 			}
 
 			String searchScreenTitle = getElementPropertyToString("innerText",
-					PWASearchPage.objFirstAssetTitleTrendingSearch, "FirstAssetTitleTrending Search");
+					PWASearchPage.objSecondAssetTitleTrendingSearch, "Second Asset Title of Trending Search");
 			System.out.println(searchScreenTitle);
-			click(PWASearchPage.objFirstAssetThumbnailTrendingSearch,
-					"First asset thumbnail of Trending searches tray");
+			click(PWASearchPage.objSecondAssetThumbnailTrendingSearch,
+					"Second asset thumbnail of Trending searches tray");
 			waitTime(6000);
 			waitTime(6000);
 
@@ -842,10 +843,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 			}
 
-			if (checkElementDisplayed(PWAPlayerPage.subscribePopUp, "Subscription popup")) {
-				waitTime(3000);
-				click(PWAPlayerPage.ObjSubscriptionpopupCloseIcon, "Subscription popup close icon");
-			}
+//			if (checkElementDisplayed(PWAPlayerPage.subscribePopUp, "Subscription popup")) {
+//				waitTime(3000);
+//				click(PWAPlayerPage.ObjSubscriptionpopupCloseIcon, "Subscription popup close icon");
+//			}
 
 			if (checkElementDisplayed(PWASearchPage.objShowTitleInConsumptionPage, "Show title In Consumption")) {
 				String ConsumptionScreenShowTitle = getText(PWASearchPage.objShowTitleInConsumptionPage);
@@ -9078,7 +9079,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		System.out.println("The Title of the Tray is " + Tray_Title + "");
 		List<String> contentList = resp.jsonPath().getList("buckets[1].items");
 		System.out.println(contentList.size());
-		partialScrollDown();
+//		partialScrollDown();
+		scrollByWEB();
 		for (int i = 0; i < 5; i++) {
 			String titles = resp.jsonPath().getString("buckets[1].items[" + i + "].title");
 			// System.out.println("Api data " +titles);
@@ -9087,7 +9089,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			apiTitleList.add(titles);
 			Actions actions = new Actions(getWebDriver());
 			WebElement contentCard = getWebDriver()
-					.findElement(By.xpath("(//div[@class='slick-list']//div[@class='content'])[" + (i + 1) + "]"));
+					.findElement(By.xpath("(//div[@class='slick-list']//div[@class='content' or @class='clickWrapper'])[" + (i + 1) + "]"));
 			actions.moveToElement(contentCard).build().perform();
 			String trayTitle = apiTitleList.get(i);
 			logger.info("UI data " + titles);
@@ -9492,7 +9494,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	public void MicrophoneVoiceInput() throws Exception {
 		extent.HeaderChildNode("Validating that user is asked to give the voice input post tapping on microphone icon");
 		if (BROWSER.equals("Chrome")) {
-			click(PWASearchPage.objVoiceSearchButton, "Voice search icon");
+			verifyElementPresentAndClick(PWASearchPage.objVoiceSearchButton, "Voice search icon");
 			waitTime(2000);
 			logger.info("Voice Search Icon is present in Chrome Browser and clicked on Voice Search Icon ");
 			extent.extentLogger("Voice input",
@@ -9500,11 +9502,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 			Robot robot = new Robot();
 			robot.keyPress(KeyEvent.VK_TAB);
-			waitTime(1000);
+			waitTime(2000);
 			robot.keyPress(KeyEvent.VK_TAB);
-			waitTime(1000);
+			waitTime(2000);
 			robot.keyPress(KeyEvent.VK_ENTER);
-
+			
 			waitTime(2000);
 			click(PWASearchPage.objVoiceSearchButton, "Voice seach icon");
 			String searchBarText = getAttributValue("placeholder", PWASearchPage.objSearchEditBox);
@@ -15158,9 +15160,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 
 		partialScroll();
-		extent.HeaderChildNode("HLS_033 :Verify that Play, share CTA");
+		extent.HeaderChildNode("HLS_033 :Verify that Play and share CTA");
 		trayTitleAndContentValidationWithApiDataMovie(tabName, "movies");
-
 		extent.HeaderChildNode(" HLS_024 : Verify the rails name and content are loaded for first 2 scroll");
 		pagesTrayValidation(tabName);
 
@@ -15508,7 +15509,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		navigateToAnyScreenOnWeb("Shows");
 
-		extent.HeaderChildNode(" HLS_051 : Verify the Play, share and add to watch list CTA buttons ");
+		extent.HeaderChildNode(" HLS_051 : Verify the Play and share CTA buttons ");
 		trayTitleAndContentValidationWithApiDataMovie(tabName, "tvshows");
 
 		extent.HeaderChildNode("HLS_052 :Verify the right side bottom arrow ");
@@ -16926,27 +16927,24 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.extentLogger("showDetails", "Show Details page displayed: " + contentPlayed);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
-		extent.HeaderChildNode("HLS_189: Validating that related search results are available under each tabs");
-		type(PWASearchPage.objSearchEditBox, title, "Search bar");
-		waitForElementDisplayed(PWASearchPage.objSearchNavigationTab("All"), 5);
+		extent.HeaderChildNode("Validating that related search results are available under each tabs");
+
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("All"), "All Tab");
-		verifyElementExist(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
-		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("TV Shows"), "Shows Tab");
-		verifyElementExist(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
+		checkElementDisplayed(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows Tab");
+		checkElementDisplayed(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("Episodes"), "Episodes Tab");
-		verifyElementExist(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
+		checkElementDisplayed(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("Movies"), "Movies Tab");
-		verifyElementExist(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
+		checkElementDisplayed(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("News"), "News Tab");
-		verifyElementExist(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
+		checkElementDisplayed(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("Music"), "Music Tab");
-		verifyElementExist(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
+		checkElementDisplayed(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("Videos"), "Videos Tab");
-		verifyElementExist(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
+		checkElementDisplayed(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("All"), "All Tab");
-
 		clearField(PWASearchPage.objSearchEditBox, "Search Bar");
-
 		if (getPlatform().equals("Android")) {
 			getDriver().hideKeyboard();
 			logger.info("Hiding keyboard was Successfull");
@@ -21854,7 +21852,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("HLS_046,HLS_044 : Verify that user is able to rotate tray");
 		verifyElementPresent(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
 		JSClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
-		if (checkElementDisplayed(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button")) {
+		waitTime(2000);
+		if (verifyElementPresent(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button")) {
 			waitTime(3000);
 			logger.info("Tray is rotated");
 			extent.extentLogger("Tray is rotated", "Tray is rotated");
@@ -21863,22 +21862,22 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLogger("Tray is not rotated", "Tray is not rotated");
 		}
 		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
-		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
-			click(PWAPremiumPage.objViewAllBtn, "View All Button");
+		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "See All Button")) {
+			click(PWAPremiumPage.objViewAllBtn, "See All Button");
 			waitTime(10000);
-			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "View All Page")) {
-				logger.info("Navigated to View All Page");
-				extent.extentLogger("View All", "Navigated to View All Page");
+			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "See All Page")) {
+				logger.info("Navigated to See All Page");
+				extent.extentLogger("See All", "Navigated to See All Page");
 			} else {
-				logger.info("Not navigated to View All Page");
-				extent.extentLogger("View All", "Not navigated to View All Page");
+				logger.info("Not navigated to See All Page");
+				extent.extentLogger("View All", "Not navigated to See All Page");
 			}
 		}
 		Back(1);
 		extent.HeaderChildNode(" HLS_045 : Verify the premium tag for all premium content card");
 		waitTime(3000);
 		for (int i = 0; i < 10; i++) {
-			if (getWebDriver().findElements(PWAHomePage.objClubTag).size() > 0) {
+			if (getWebDriver().findElements(PWAHomePage.objPremiumTag).size() > 0) {
 				logger.info("Premium tag is displayed");
 				extent.extentLogger("Premium Tag", "Premium Tag is isplayed");
 				break;
@@ -21955,7 +21954,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		navigateToAnyScreenOnWeb(tabName);
 
-		extent.HeaderChildNode(" HLS_051 : Verify the Play, share and add to watch list CTA buttons ");
+		extent.HeaderChildNode(" HLS_051 : Verify the Play and share CTA buttons ");
 		trayTitleAndContentValidationWithApiDataMovie(tabName, "tvshows");
 
 		extent.HeaderChildNode("HLS_052 :Verify the right side bottom arrow ");
@@ -22079,8 +22078,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("HLS_164 : Verify the Premium user is able to watch all the zee originals shows");
 		if (userType.equalsIgnoreCase("Subscribeduser")) {
 			navigateToAnyScreenOnWeb(tabName);
-			swipeTillTrayAndClickFirstAsset(userType, 15, "Best of ZEE5 Originals in Kannada",
-					"Best of ZEE5 Originals in Kannada tray", tabName);
+			swipeTillTrayAndClickFirstAsset(userType, 15, "ZEE5 Kannada Originals",
+					"ZEE5 Kannada Originals tray", tabName);
 //			scrollToTheElementWEB(PWAHomePage.objtrayname("Best of ZEE5 Originals in Hindi"));
 //			checkElementDisplayed(PWAHamburgerMenuPage.objFirstcontentCard, "1st content card");
 //			click(PWAHamburgerMenuPage.objFirstcontentCard, "1st content card");
@@ -22100,25 +22099,25 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 		}
 
-		if (userType.equalsIgnoreCase("Clubuser")) {
-			extent.HeaderChildNode(
-					"HLS_165 : Verify the Club user is able to watch all the zee originals shows from Zee originals page");
-			navigateToAnyScreenOnWeb("ZEE5 Originals");
-			checkElementDisplayed(PWAHamburgerMenuPage.objClubcontentcard, "content card");
-			click(PWAHamburgerMenuPage.objClubcontentcard, "content card");
-			waitTime(3000);
-			JSClick(PWAShowsPage.objEpisodeCard, "First Episode Card");
-
-			if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
-				logger.info("club user is able to watch the zee originals shows");
-				extent.extentLogger("zee originals shows", "club user is able to watch the zee originals shows");
-			} else {
-				logger.info("club user is not able to watch the zee originals shows");
-				extent.extentLoggerFail("zee originals shows",
-						" club user is not able to watch the zee originals shows");// update
-			}
-			Back(1);
-		}
+//		if (userType.equalsIgnoreCase("Clubuser")) {
+//			extent.HeaderChildNode(
+//					"HLS_165 : Verify the Club user is able to watch all the zee originals shows from Zee originals page");
+//			navigateToAnyScreenOnWeb("ZEE5 Originals");
+//			checkElementDisplayed(PWAHamburgerMenuPage.objClubcontentcard, "content card");
+//			click(PWAHamburgerMenuPage.objClubcontentcard, "content card");
+//			waitTime(3000);
+//			JSClick(PWAShowsPage.objEpisodeCard, "First Episode Card");
+//
+//			if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
+//				logger.info("club user is able to watch the zee originals shows");
+//				extent.extentLogger("zee originals shows", "club user is able to watch the zee originals shows");
+//			} else {
+//				logger.info("club user is not able to watch the zee originals shows");
+//				extent.extentLoggerFail("zee originals shows",
+//						" club user is not able to watch the zee originals shows");// update
+//			}
+//			Back(1);
+//		}
 		extent.HeaderChildNode("HLS_166 : Verify user is able to watch the First Episode of the originals shows");
 		navigateToAnyScreenOnWeb(tabName);
 //		scrollToTheElementWEB(PWAHomePage.objtrayname("Best of ZEE5 Originals in Kannada"));
@@ -27489,49 +27488,49 @@ public void pwaverifyHaveacode(String userType) throws Exception
 		}
 		
 
-		public void PlayerControls() throws Exception {
-			
-			extent.HeaderChildNode("Verify if user is able to see the player controls on the player");
-			logger.info("Verify if user is able to see the player controls on the player");
-			
-			mouseHover();
-			if(verifyIsElementDisplayed(PWAPlayerPage.objPlayerPause)&&verifyIsElementDisplayed(PWAPlayerPage.forward10SecBtn)&&verifyIsElementDisplayed(PWAPlayerPage.rewind10SecBtn))
-				{logger.info("user is able to see the player controls on the player");
-			extent.extentLoggerPass("", "user is able to see the player controls on the player");
-		}else {
-			logger.error("user is not able to see the player controls on the player");
-			extent.extentLoggerFail("", "user is not able to see the player controls on the player");
-		}
-			
-			extent.HeaderChildNode("Verify if user clicks on play icon");
-			logger.info("Verify if user clicks on play icon");
-			
-			mouseHover();
-			
-			if(verifyIsElementDisplayed(PWAPlayerPage.objPlayerPause)&&verifyIsElementDisplayed(PWAPlayerPage.forward10SecBtn)&&verifyIsElementDisplayed(PWAPlayerPage.rewind10SecBtn))
-				{logger.info("User is able to play the content and show the pause icon");
-			extent.extentLoggerPass("", "User is able to play the content and show the pause icon");
-		}else {
-			logger.error("User is not able to play the content and show the pause icon");
-			extent.extentLoggerFail("", "User is not able to play the content and show the pause icon");
-		}
-			
-			
-			extent.HeaderChildNode("Verify if user clicks on pause icon");
-			logger.info("Verify if user clicks on pause icon");
-			
-		mouseHover();
-			click(PWAPlayerPage.objPlayerPause, "Pause icon");
-			if(verifyIsElementDisplayed(PWAPlayerPage.objPlayerPause)&&verifyIsElementDisplayed(PWAPlayerPage.forward10SecBtn)&&verifyIsElementDisplayed(PWAPlayerPage.rewind10SecBtn))
-				{logger.info("User is able to pause the content and show the pause icon");
-			extent.extentLoggerPass("", "User is able to pause the content and show the pause icon");
-		}else {
-			logger.error("User is not able to pause the content and show the pause icon");
-			extent.extentLoggerFail("", "User is not able to pause the content and show the pause icon");
-		}
-			
-		
-	}
+//		public void PlayerControls() throws Exception {
+//			
+//			extent.HeaderChildNode("Verify if user is able to see the player controls on the player");
+//			logger.info("Verify if user is able to see the player controls on the player");
+//			
+//			mouseHover();
+//			if(verifyIsElementDisplayed(PWAPlayerPage.objPlayerPause)&&verifyIsElementDisplayed(PWAPlayerPage.forward10SecBtn)&&verifyIsElementDisplayed(PWAPlayerPage.rewind10SecBtn))
+//				{logger.info("user is able to see the player controls on the player");
+//			extent.extentLoggerPass("", "user is able to see the player controls on the player");
+//		}else {
+//			logger.error("user is not able to see the player controls on the player");
+//			extent.extentLoggerFail("", "user is not able to see the player controls on the player");
+//		}
+//			
+//			extent.HeaderChildNode("Verify if user clicks on play icon");
+//			logger.info("Verify if user clicks on play icon");
+//			
+//			mouseHover();
+//			
+//			if(verifyIsElementDisplayed(PWAPlayerPage.objPlayerPause)&&verifyIsElementDisplayed(PWAPlayerPage.forward10SecBtn)&&verifyIsElementDisplayed(PWAPlayerPage.rewind10SecBtn))
+//				{logger.info("User is able to play the content and show the pause icon");
+//			extent.extentLoggerPass("", "User is able to play the content and show the pause icon");
+//		}else {
+//			logger.error("User is not able to play the content and show the pause icon");
+//			extent.extentLoggerFail("", "User is not able to play the content and show the pause icon");
+//		}
+//			
+//			
+//			extent.HeaderChildNode("Verify if user clicks on pause icon");
+//			logger.info("Verify if user clicks on pause icon");
+//			
+//		mouseHover();
+//			click(PWAPlayerPage.objPlayerPause, "Pause icon");
+//			if(verifyIsElementDisplayed(PWAPlayerPage.objPlayerPause)&&verifyIsElementDisplayed(PWAPlayerPage.forward10SecBtn)&&verifyIsElementDisplayed(PWAPlayerPage.rewind10SecBtn))
+//				{logger.info("User is able to pause the content and show the pause icon");
+//			extent.extentLoggerPass("", "User is able to pause the content and show the pause icon");
+//		}else {
+//			logger.error("User is not able to pause the content and show the pause icon");
+//			extent.extentLoggerFail("", "User is not able to pause the content and show the pause icon");
+//		}
+//			
+//		
+//	}
 
 		public void CastScreen() throws Exception {
 			extent.HeaderChildNode("Verify if cast option is displaying on the TVOD content player on right top corner");
@@ -29011,5 +29010,658 @@ public void pwaverifyHaveacode(String userType) throws Exception
 			getWebDriver().switchTo().frame(iframeElement);
 		}
 	}
+	
+	
+//	public void PWAValidatingPlaybackAndConcurrency() throws Exception {
+//		logout();	
+//		PlayerPostPurchase();
+//		PlayerControls();
+//		CastScreen();
+//		ExpiredContentValidation();
+//		Ads();
+//		CrossDeviceValidation();
+//	}
+	
+	public void WatchMorePopup() throws Exception {
+		if(verifyIsElementDisplayed(PWAPlayerPage.objWouldYouLikePopUp))
+		{
+			click(PWAPlayerPage.objWouldYouLikeClosePopup, "Wach now close icon");
+		}
+		else {}
+	}
+	public void DeviceLimitPopOp() throws Exception {
+		if(verifyIsElementDisplayed(PWAPlayerPage.objDeviceLimitPopup))
+		{
+			click(PWAPlayerPage.objResetButton, "Reset Now");
+		}
+		else {}
+	}
+public void PlayerPostPurchase() throws Exception {
+	extent.HeaderChildNode("Verify user is able to see the Watch Now CTA for the rented plex movie.");
+	logger.info("Verify user is able to see the Watch Now CTA for the rented plex movie.");
+	
+		TVODComboLogin("kirankm12345@gmail.com","123456");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(3000);
+		logger.info("Set parental Pin");
+		waitTime(3000);
+		SetParentalPopup(PWAHamburgerMenuPage.objRestrictAll, "Restrict all");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHomePage.objTabName("ZEEPLEX"), "Rent tab");
+		waitTime(3000);
+		scrollDownWEB();
+		waitTime(5000);
+		verifyElementPresentAndClick(PWAComboOfferPage.objContentThumbnail, "Rented content");
+		waitTime(10000);
+		DeviceLimitPopOp();
+		waitTime(5000);
+		verifyElementPresent(PWAPlayerPage.objWatchNowPlayerCTA,"Watch Now on Player");
+		
+		extent.HeaderChildNode("Verify if user taps on Watch now CTA then \"Please note before you start \" pop window should be displayed with watch time info and Agree & start watching -->");
+		logger.info("Verify if user taps on Watch now CTA then \"Please note before you start \" pop window should be displayed with watch time info and Agree & start watching -->");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAPlayerPage.objWatchNowPlayerCTA, "Watch Now on Player");
+		waitTime(3000);
+		DeviceLimitPopOp();
+		if(verifyElementPresent(PWAPlayerPage.objPleaseNoteBeforeYouStartPopUP,"Please Note Before You Start Pop up screen")) 
+		{verifyElementPresent(PWAPlayerPage.objAgreeAndWatchNowCTA,"Agree & Start watching CTA");}
+		waitTime(5000);
+
+		extent.HeaderChildNode("\"Verify if user is able to see \"Please note before you start\" popup on player consumption screen");
+		logger.info("Verify if user is able to see \"Please note before you start\" popup on player consumption screen");
+		
+		verifyElementPresent(PWAPlayerPage.objPleaseNoteBeforeYouStartPopUP,"Please Note Before You Start Pop up screen");
+		
+		extent.HeaderChildNode("Verify if user is able to see close option on \"Please note before you start\" popup on player consumption screen and Verify if the close option on the \"Please note before you start\" popup");
+		logger.info("Verify if user is able to see close option on \"Please note before you start\" popup on player consumption screen and Verify if the close option on the \"Please note before you start\" popup");
+		
+		verifyElementPresent(PWAPlayerPage.objPopUpCloseIcon,"Please Note Before You Start Pop up close icon");
+		waitTime(5000);
+		verifyElementPresentAndClick(PWAPlayerPage.objPopUpCloseIcon, "Close Icon");
+		verifyElementPresent(PWAPlayerPage.objWatchNowPlayerCTA,"Watch Now on Player");
+		
+		
+		extent.HeaderChildNode("Verify if the Time display in days format if the validity is more than a day");
+		logger.info("Verify if the Time display in days format if the validity is more than a day");
+		
+		if(verifyElementDisplayed(PWAPlayerPage.objContentExpiryInfo)) 
+		{
+			String ExpiryStatus = getText(PWAPlayerPage.objContentExpiryInfo);
+			System.out.println(ExpiryStatus);
+			extent.extentLogger("", ExpiryStatus);
+
+			if(ExpiryStatus.contains("days"))
+			{
+	    	logger.info("Time is display in days format if the validity is more than a day");
+			extent.extentLoggerPass("", "Time is display in days format if the validity is more than a day");
+			} }else {
+	    	logger.error("Time is not display in days format if the validity is more than a day");
+			extent.extentLoggerFail("", "Time is not display in days format if the validity is more than a day");
+	    }
+		
+		//Set parental pin back to No restrict
+//		SetParentalPopup(PWAHamburgerMenuPage.objNoRestrict, "No Restrict content");
+		WatchMorePopup();
+		//Login to another credential
+		logout();	
+		waitTime(5000);
+//		if(verifyElementPresent(PWAHomePage.objNotNow, "Notification popup")) {
+//		click(PWAHomePage.objNotNow, "Notification popup");
+//		}
+		WatchMorePopup();
+		waitTime(3000);
+		TVODComboLogin("apstest@m.com","123456");
+		SetParentalPopup(PWAHamburgerMenuPage.objRestrictAll, "Restrict all");
+		waitTime(3000);
+		click(PWAHomePage.objTabName("ZEEPLEX"), "Rent tab");
+		DeviceLimitPopOp();
+		waitTime(10000);
+		scrollDownWEB();
+		verifyElementPresentAndClick(PWAComboOfferPage.objContentThumbnail, "Rented content");
+		click(PWAComboOfferPage.objResumeCTA, "Resume");
+		
+		
+		waitTime(5000);
+		extent.HeaderChildNode("Verify if the parental pin is asked post the \"Please note before you start\" popup if user has Parental pin set");
+		logger.info("Verify if the parental pin is asked post the \"Please note before you start\" popup if user has Parental pin set");
+		
+		click(PWAPlayerPage.objResumePlayerCTA, "Resume Now");
+//		click(PWAPlayerPage.objAgreeAndWatchNowCTA, "Agree and Watch now CTA");
+		waitTime(5000);
+		DeviceLimitPopOp();
+		verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1player, "post accepting the \\\"Please note before you start\\\" popup, Parental Pin code");
+	
+		
+	    
+	waitTime(5000);
+		extent.HeaderChildNode("Verify the parental pin popup is displayed for TVOD content if user select All restrict content");
+		logger.info("Verify the parental pin popup is displayed for TVOD content if user select All restrict content");
+		
+		if(verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1player, "Parental pin pop up for TVOD content if user select All restrict content"))
+		{type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "1", "ParentalLockPin");
+		waitTime(4000);
+		}
+		
+		waitTime(5000);
+		extent.HeaderChildNode("Verify, whether ads are displaying for the TVOD subscribed user");
+		logger.info("Verify, whether ads are displaying for the TVOD subscribed user");
+		
+		
+		if(verifyElementDisplayed(PWAPlayerPage.objAd))
+		{logger.error("ads are displaying for the TVOD subscribed user");
+		extent.extentLoggerFail("", "ads are displaying for the TVOD subscribed user");
+}else {
+	logger.info("ads are not displaying for the TVOD subscribed user");
+	extent.extentLoggerPass("", "ads are not displaying for the TVOD subscribed user");
+}
+
+			
+		extent.HeaderChildNode("Verify where plex logo and content expiry information is displayed on the plex consumption screen.");
+		logger.info("Verify where plex logo and content expiry information is displayed on the plex consumption screen.");
+		if(verifyElementPresent(PWAPlayerPage.objZeePlexLogo,"Plex logo") && verifyElementPresent(PWAPlayerPage.objContentExpiryInfo,"content expiry information") ) 
+		waitTime(2000);
+		
+		
+		extent.HeaderChildNode("Verify if user is able to watch the content on clicking Agree & start watching");
+		logger.info("Verify if user is able to watch the content on clicking Agree & start watching");
+		
+		mouseHover();
+		verifyElementPresent(PWAPlayerPage.objPlayerBottomBar,"Content on clicking Agree & start watching");  
+		
+		waitTime(5000);
+
+		extent.HeaderChildNode("verify if user is clicking on watch trailer CTA below the player");
+		logger.info("verify if user is clicking on watch trailer CTA below the player");
+		
+		waitTime(2000);
+		scrollToElement(PWAPlayerPage.objWatchTrailer);
+		click(PWAPlayerPage.objWatchTrailer, "Watch trailer");
+		if(verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1player, "post accepting the \\\"Please note before you start\\\" popup,Parental pin pop up"))
+		{type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "1", "ParentalLockPin");
+		}
+	
+		waitTime(5000);
+		verifyElementPresent(PWAPlayerPage.objTrailerText,"trailer playback on the consumption screen");
+		
+		waitTime(5000);
+		extent.HeaderChildNode("Verify , whether Ads are not playing during the trailer of the TVOD  content ");
+		logger.info("Verify , whether Ads are not playing during the trailer of the TVOD  content ");
+	
+		if(verifyElementDisplayed(PWAPlayerPage.objAd))
+		{	logger.error("ads are playing during the trailer of the TVOD subscribed user");
+		extent.extentLoggerFail("", "ads are playing during the trailer of the TVOD subscribed user");
+		}else {
+
+	logger.info("ads are not playing during the trailer of the TVOD subscribed user");
+	extent.extentLoggerPass("", "ads are not playing during the trailer of the TVOD subscribed user");
+
+}
+		
+		waitTime(30000);
+		extent.HeaderChildNode("Verify if the plex content is playing after the trailer playback on clicking watch trailer CTA from consumption screen");
+		logger.info("Verify if the plex content is playing after the trailer playback on clicking watch trailer CTA from consumption screen");
+		
+		
+		if(verifyElementDisplayed(PWAPlayerPage.objRentNow))  
+		{ 
+	    	logger.error("User is able to see any Rent now CTA while trailer playback and Plex movie should start playing");
+			extent.extentLoggerFail("", "User is able to see any Rent now CTA while trailer playback and Plex movie should start playing");
+	    }else {
+
+	    	logger.info("User does not see any Rent now CTA while trailer playback and Plex movie should start playing");
+			extent.extentLoggerPass("", "User does not see any Rent now CTA while trailer playback and Plex movie should start playing");
+	   }
+		
+		extent.HeaderChildNode("Verify if the user is facing any issue in entitlement post purchase of the pack");
+		logger.info("Verify if the user is facing any issue in entitlement post purchase of the pack");
+		waitTime(50000);
+		waitTime(50000);
+		if(verifyElementDisplayed(PWAPlayerPage.objWatchTrailerEnabled))
+			mouseHover();
+			if(verifyElementPresent(PWAPlayerPage.objPlayerBottomBar,"Content without any interruption post purchasing the pack")){
+		}
+		waitTime(5000);
+		
+		
+		
+		
+		
+		
+		
+		extent.HeaderChildNode("Verify if the user is able to see the timer and zeeplex logo below the player");
+		logger.info("Verify if the user is able to see the timer and zeeplex logo below the player");
+		
+		if(verifyElementPresent(PWAPlayerPage.objZeePlexLogo,"Plex logo") && verifyElementPresent(PWAPlayerPage.objContentExpiryInfo,"timer") ) 
+		
+	    
+		extent.HeaderChildNode("Verify if the user can see Resume option on the player if the user paused the content while playing");
+		logger.info("Verify if the user can see Resume option on the player if the user paused the content while playing");
+		//DeviceLimitPopOp();
+
+		verifyElementPresentAndClick(PWAHomePage.objTabName("ZEEPLEX"), "ZEEPLEX tab");
+		scrollToElement(PWAComboOfferPage.objContentThumbnail);
+		verifyElementPresentAndClick(PWAComboOfferPage.objContentThumbnail, "Rented content");
+		DeviceLimitPopOp();
+		verifyElementPresent(PWAPlayerPage.objResumePlayerCTA,"Resume option on the player if the user paused the content while playing");
+	
+		
+		
+		
+		extent.HeaderChildNode("Verify the parental pin popup is displayed for TVOD content if user restrice +13 content");
+		logger.info("Verify the parental pin popup is displayed for TVOD content if user restrice +13 content");
+		
+		waitTime(5000);
+		SetParentalPopup(PWAHamburgerMenuPage.objRestrict13PlusContent, "Restrict 13+ content");
+		waitTime(5000);
+		verifyElementPresentAndClick(PWAPlayerPage.objResumePlayerCTA, "Resume");
+		DeviceLimitPopOp();
+		
+		if(verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1player, "Parental pin pop when the TVOD content is 13+ conten, "))
+		{type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "1", "ParentalLockPin");
+		waitTime(4000);
+		}
+		
+		extent.HeaderChildNode("Verify if user is able to see the timer in hours if the validity is less than 12 hours");
+		logger.info("Verify if user is able to see the timer in hours if the validity is less than 12 hours");
+		
+		if(verifyElementDisplayed(PWAPlayerPage.objContentExpiryInfoYellowText)) 
+		{
+			String ExpiryStatus = getText(PWAPlayerPage.objContentExpiryInfoYellowText);
+			System.out.println(ExpiryStatus);
+			extent.extentLogger("", ExpiryStatus);
+
+			if(ExpiryStatus.contains("hours"))
+			{
+	    	logger.info("user is able to see the timer in hours if the validity is less than 12 hours below the player and font color changes to Yellow");
+			extent.extentLoggerPass("", "user is able to see the timer in hours if the validity is less than 12 hours below the player and font color changes to Yellow");
+			} }else {
+	    	logger.error("user is not able to see the timer in hours if the validity is less than 12 hours below the player");
+			extent.extentLoggerFail("", "user is not able to see the timer in hours if the validity is less than 12 hours below the player ");
+	    }
+
+		}
+		
+	public void PlayerControls() throws Exception {
+		
+		
+		extent.HeaderChildNode("Verify if user is able to see the player controls on the player");
+		logger.info("Verify if user is able to see the player controls on the player");
+		mouseHover();
+		if(verifyElementPresent(PWAPlayerPage.pauseBtn,"Pause button")&&verifyElementPresent(PWAPlayerPage.forward10SecBtn,"Forward 10 Sec Button")&&verifyElementPresent(PWAPlayerPage.rewind10SecBtn,"Rewind 10 Sec Button"))
+		{
+		
+		
+		extent.HeaderChildNode("Verify if user clicks on play icon");
+		logger.info("Verify if user clicks on play icon");
+		
+		mouseHover();
+//		click(PWAPlayerPage.objPlayerPlay, "Play icon");
+		verifyElementPresent(PWAPlayerPage.pauseBtn,"When content is playing, pause icon");
+		
+		
+		
+		extent.HeaderChildNode("Verify if user clicks on pause icon");
+		logger.info("Verify if user clicks on pause icon");
+		
+	mouseHover();
+	verifyElementPresentAndClick(PWAPlayerPage.pauseBtn, "Pause icon");
+	verifyElementPresent(PWAPlayerPage.playBtn, "When content is paused, player icon");
+
+		
+		
+		extent.HeaderChildNode("Verify if user clicks on backward and forward icon");
+		logger.info("Verify if user clicks on backward and forward icon");
+		
+		
+		waitTime(10000);
+//		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		//JSClick(PWAPlayerPage.pauseBtn, "Pause icon");
+		String currentDuration = getElementPropertyToString("innerText", PWAPlayerPage.currentDurationTime,"Current duration");
+		System.out.println("time fetched before rewind: " + currentDuration);
+		String[] time = currentDuration.split(":");
+		int timeDuration = Integer.parseInt(time[1]);
+		System.out.println("seconds lapsed before rewind: " + timeDuration);
+		int rewindTime = timeDuration - 10;
+		click(PWAPlayerPage.rewind10SecBtn, "Rewind 10 seconds");
+		// Get the current time duration after clicking the rewind button
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "player");
+		String currentDurationAfter10Sec = getElementPropertyToString("innerText", PWAPlayerPage.currentDurationTime,
+				"current duration");
+		System.out.println("time fetched after rewind: " + currentDurationAfter10Sec);
+		String[] time2 = currentDurationAfter10Sec.split(":");
+		int timeDuration2 = Integer.parseInt(time2[1]);
+		System.out.println("seconds lapsed after rewind: " + timeDuration2);
+		if (rewindTime <= timeDuration2) {
+			softAssert.assertEquals(rewindTime <= timeDuration2, true, "Rewinded video playback 10 seconds");
+			extent.extentLogger("Verify rewind button", "Playback is rewinded 10 seconds");
+			logger.info("Rewinded 10 seconds is passed");
+		} else {
+			softAssert.assertEquals(rewindTime <= timeDuration2, false, " Can not Rewind video playback 10 seconds");
+			softAssert.assertAll();
+			extent.extentLoggerFail("Verify rewind button", "Playback can not be rewind 10 seconds");
+			logger.info("Rewind 10 sec is failed");
+		}
+	
+		// Verify Farword 10 seconds icon
+		pausePlayer();
+		String currentDurationF = getElementPropertyToString("innerText", PWAPlayerPage.currentDurationTime,
+				"current duration");
+		System.out.println("time fetched before Farword : " + currentDuration);
+		String[] timeF = currentDurationF.split(":");
+		System.out.println(timeF);
+		int timeDurationF = Integer.parseInt(timeF[1]);
+		System.out.println("seconds lapsed before farword: " + timeDurationF);
+		int farwordTimeF = timeDurationF + 10;
+		// Verify Playback is farworded 10 Seconds back
+		click(PWAPlayerPage.forward10SecBtn, "Farword 10 seconds");
+		// Get the current time duration after clicking the rewind button
+		// click(PWAPlayerPage.objPlaybackVideoOverlay, "player");
+		String currentDurationAfter10SecF = getElementPropertyToString("innerText", PWAPlayerPage.currentDurationTime,
+				"current duration");
+		System.out.println("time fetched after rewind: " + currentDurationAfter10Sec);
+		String[] time2F = currentDurationAfter10SecF.split(":");
+		int timeDuration2F = Integer.parseInt(time2F[1]);
+		System.out.println("seconds lapsed after Farword: " + timeDuration2F);
+		if (farwordTimeF >= timeDuration2F) {
+			softAssert.assertEquals(farwordTimeF >= timeDuration2F, true, "Farworded video playback 10 seconds");
+			extent.extentLogger("Verify rewind button", "Playback is Farword 10 seconds");
+			logger.info("Farword 10 seconds is passed");
+		} else {
+			softAssert.assertEquals(farwordTimeF >= timeDuration2F, false,
+					" Can not Farword video playback 10 seconds");
+			softAssert.assertAll();
+			extent.extentLoggerFail("Verify rewind button", "Playback can not be Farword 10 seconds");
+			logger.info("Farword 10 sec is failed");
+
+		}
+		extent.HeaderChildNode("Verify that player controls are functional");
+		logger.info("Verify that player controls are functional");
+		
+		logger.info("Player controls are functional");
+		extent.extentLoggerPass("", "Player controls are functional");
+	
+		}
+
+
+			
+}
+
+//	public void CastScreen() throws Exception {
+//		extent.HeaderChildNode("Verify if cast option is displaying on the TVOD content player on right top corner");
+//		logger.info("Verify if cast option is displaying on the TVOD content player on right top corner");
+//		
+//		verifyElementPresent(PWAPlayerPage.objChromecastButton,"cast option on the TVOD content player on right top corner");
+//		
+//	}
+	
+	public void Ads() throws Exception {
+
+		
+			extent.HeaderChildNode("Verify, whether ads are displaying for the registered  user and not subscribed to Zee5");
+			logger.info("Verify, whether ads are displaying for the registered  user and not subscribed to Zee5");
+			waitTime(5000);
+
+			//Set parental pin back to No restrict
+			SetParentalPopup(PWAHamburgerMenuPage.objNoRestrict, "No Restrict content");
+			logout();
+			waitTime(3000);
+//			if(verifyElementPresent(PWAHomePage.objNotNow, "Notification popup")) {
+//				click(PWAHomePage.objNotNow, "Notification popup");
+//				}
+	//		verifyElementPresentAndClick(PWAHomePage.objLoginText, "Login");
+			waitTime(5000);
+			WatchMorePopup();
+			waitTime(3000);
+			TVODComboLogin("tvodtesting@gmail.com","123456");
+			waitTime(5000);
+			WatchMorePopup();	
+			SearchContent("freeEpisode2");
+			waitTime(10000);
+			if(verifyElementDisplayed(PWAPlayerPage.objAd))
+			{logger.info("ads are displaying for the TVOD subscribed user");
+		extent.extentLoggerPass("", "ads are displaying for the TVOD subscribed user");
+	}else {
+		logger.info("ads are not displaying for the TVOD subscribed user");
+		extent.extentLoggerFail("", "ads are not displaying for the TVOD subscribed user");
+	}
+		
+
+	}
+	
+
+	public void ExpiredContentValidation() throws Exception {
+		
+		
+		extent.HeaderChildNode("Verify the Rent for INR XX CTA is displayed post TVOD expiry below player");
+		logger.info("Verify the Rent for INR XX CTA is displayed post TVOD expiry below player");
+
+		//Set parental pin back to No restrict
+		SetParentalPopup(PWAHamburgerMenuPage.objNoRestrict, "No Restrict content");
+
+		logout();
+		waitTime(5000);
+		WatchMorePopup();
+		click(PWAHomePage.objNotNow, "Notification popup");
+		
+		//ZeeWEBPWALogin("NonSubscribedUser");
+		TVODComboLogin("hdhd@g.com","123456");
+	
+		
+		WatchMorePopup();
+		waitTime(5000);
+		click(PWAHomePage.objTabName("ZEEPLEX"), "Rent tab");
+		
+		waitTime(5000);
+		scrollToElement(PWAComboOfferPage.objContentThumbnail);
+		verifyElementPresentAndClick(PWAComboOfferPage.objContentThumbnail, "Content thumbnail");
+		DeviceLimitPopOp();
+		if(verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field"))
+		{logger.info("Parental pin pop up is displayed post accepting the \"Please note before you start\" popup");
+		extent.extentLoggerPass("", "Parental pin pop up is displayed post accepting the \\\"Please note before you start\\\" popup");
+		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "1", "ParentalLockPin");
+		waitTime(4000);
+		}
+		
+		verifyElementPresent(PWAPlayerPage.objContentExpiryInfo,"post TVOD expiry below player, Rent for INR XX CTA");
+			
+		
+		extent.HeaderChildNode("Verify Rent for INR XX displaying on player screen post expiry");
+		logger.info("Verify Rent for INR XX displaying on player screen post expiry");
+		waitTime(60000);
+		waitTime(30000);
+		waitTime(60000);
+		verifyElementPresent(PWAPlayerPage.objRentnowInline,"Watch full content by renting it now on Player");
+		
+		
+		
+	
+		extent.HeaderChildNode("Verify if Rent for INR XX inline text should be displayed on player screen with solid background");
+		logger.info("Verify if Rent for INR XX inline text should be displayed on player screen with solid background");
+		waitTime(5000);
+		
+		verifyElementPresent(PWAPlayerPage.objRentNowPlayerCTA,"Rent for INR XX inline text");
+		
+		
+		
+		
+	}
+	public void CrossDeviceValidation() throws Exception {
+
+		extent.HeaderChildNode("Verify the parental pin popup is displayed for premium content if user select All restrict content");
+		logger.info("Verify the parental pin popup is displayed for premium content if user select All restrict content");
+
+		//Set parental pin back to No restrict
+		//SetParentalPopup(PWAHamburgerMenuPage.objNoRestrict, "No Restrict content");
+
+		logout(); 
+		waitTime(5000);
+		WatchMorePopup();
+		waitTime(5000);
+		click(PWAHomePage.objNotNow, "Notification popup");
+		mandatoryRegistrationPopUp("Guest");
+
+		//ZeeWEBPWALogin("NonSubscribedUser");
+		TVODComboLogin("zeecombooffer@g.co","123456");
+		WatchMorePopup();
+		waitTime(5000);
+		String PremiumContent = SearchContent("premiumMovie");
+		waitTime(5000);
+		DeviceLimitPopOp();
+		waitTime(5000);
+		SetParentalPopup(PWAHamburgerMenuPage.objRestrictAll, "Restrict all");
+		waitTime(5000);
+		if(verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1player, "when all restrict is enabled, Parental pin pop"))
+		{type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "1", "ParentalLockPin");
+		waitTime(4000);
+		}
+	
+	
+		extent.HeaderChildNode("Verify whether user able to play the premium content on other platforms if user has purchase the combo plan through web or App");
+		logger.info("Verify whether user able to play the premium content on other platforms if user has purchase the combo plan through web or App");
+		
+		
+		if(verifyElementPresent(PWAPlayerPage.objPlayerPromoMetadata,"Title name"))
+		{
+			String Title = getText(PWAPlayerPage.objPlayerPromoMetadata);
+			System.out.println(Title);
+			extent.extentLogger("", Title);
+			if(Title.contains(PremiumContent)) {
+			logger.info("user is able to play the premium content on other platforms if user has purchase the combo plan through web or App");
+		extent.extentLoggerPass("", "user is able to play the premium content on other platforms if user has purchase the combo plan through web or App");
+	}}else {
+		logger.info("user is not able to play the premium content on other platforms if user has purchase the combo plan through web or App");
+		extent.extentLogger("", "user is notable to play the premium content on other platforms if user has purchase the combo plan through web or App");
+	}
+
+		extent.HeaderChildNode("Verify the parental pin popup is displayed for premium content if user restrice +13 content");
+		logger.info("Verify the parental pin popup is displayed for premium content if user restrice +13 content");
+		
+		waitTime(5000);
+		SetParentalPopup(PWAHamburgerMenuPage.objRestrict13PlusContent, "Restrict 13+ content");
+		waitTime(5000);
+//		SearchContent("premiumMovie2");
+//		DeviceLimitPopOp();
+		waitTime(5000);
+		verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+	
+	
+		
+
+		extent.HeaderChildNode("Verify if the timer is started on entering parental pin");
+		logger.info("Verify if the timer is started on entering parental pin");
+		
+		SetParentalPopup(PWAHamburgerMenuPage.objRestrictAll, "Restrict all");
+		SearchContent("premiumMovieWithTrailer");
+		waitTime(5000);
+		scrollToElement(PWAPlayerPage.objWatchTrailer);
+		verifyElementPresentAndClick(PWAPlayerPage.objWatchTrailer, "Watch Trailer");
+		
+		if(verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field"))
+		{
+		type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin2player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin3player, "1", "ParentalLockPin");
+		type(PWAHamburgerMenuPage.objParentalLockPin4player, "1", "ParentalLockPin");
+		waitTime(2000);
+		verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1player, "Timer is started on entering parental pin");
+		}
+	else {
+		logger.error("Timer is not started on entering parental pin");
+		extent.extentLoggerFail("", "Timer is not started on entering parental pin");
+	}
+		
+		
+		
+		
+		extent.HeaderChildNode("verify the parental pop-up not  displayed when there is no restriction");
+		logger.info("verify the parental pop-up not  displayed when there is no restriction");
+		waitTime(5000);
+		SetParentalPopup(PWAHamburgerMenuPage.objNoRestrict, "No Restrict content");
+		waitTime(5000);
+		//SearchContent("premiumMovie2");
+		//waitTime(5000);
+		if(verifyElementDisplayed(PWAHamburgerMenuPage.objParentalLockPin1player))
+		{logger.info("Parental pin pop-up is displayed when there is no restriction");
+		extent.extentLoggerFail("", "Parental pin pop-up is displayed when there is no restriction");
+		}
+	else {
+		logger.error("Parental pin pop-up is not displayed when there is no restriction");
+		extent.extentLoggerPass("", "Parental pin pop-up is not displayed when there is no restriction");
+	}
+		
+	
+		
+		
+		
+	}
+	public void  SetParentalPopup(By loc, String button) throws Exception {
+	
+		waitTime(5000);
+		verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "parental pincode");
+		waitTime(3000);
+		//verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "parental pincode");
+		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password field");
+		type(PWALoginPage.objPasswordField, "123456", "Password");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+		WatchMorePopup();
+		waitTime(3000);
+		click(PWAHamburgerMenuPage.objRestrict13PlusContent, "Restrict 13+ content");
+		waitTime(3000);
+		verifyElementPresentAndClick(loc, button);
+		waitTime(3000);
+		if(verifyElementDisplayed(PWAHamburgerMenuPage.objParentalLockPin1)) {
+		{type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "setParentalLockPin");}
+		if(verifyElementDisplayed(PWAHamburgerMenuPage.objParentalLockPin2))
+		{type(PWAHamburgerMenuPage.objParentalLockPin2, "1", "setParentalLockPin");}
+		if(verifyElementDisplayed(PWAHamburgerMenuPage.objParentalLockPin3))
+		{type(PWAHamburgerMenuPage.objParentalLockPin3, "1", "setParentalLockPin");}
+		if(verifyElementDisplayed(PWAHamburgerMenuPage.objParentalLockPin4))
+		{type(PWAHamburgerMenuPage.objParentalLockPin4, "1", "setParentalLockPin");}}
+		waitTime(2000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objSetParentalLockButton, "Continue button");
+		
+	}
+	public String  SearchContent(String s2) throws Exception {
+		String s1 = getParameterFromXML(s2);
+		
+		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search");
+		type(PWAHomePage.objSearchField, s1, "Search field");
+		//verifyElementPresentAndClick(PWAHomePage.objSearchField, "Search");
+		waitTime(8000);
+		verifyElementPresentAndClick(PWASearchPage.objFirstSearchResult, "Search");
+		waitTime(5000);
+		return s1;
+	}
+	
+public void TVODComboLogin(String username, String password) throws Exception {
+//	extent.HeaderChildNode("Login");
+//		extent.extentLogger("", "Login through TVOD User");
+		String Username = getParameterFromXML("UserName");
+		String Password = getParameterFromXML("Password");
+		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+		waitTime(5000);
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+		type(PWALoginPage.objEmailField, username, "Email Field");
+		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+		type(PWALoginPage.objPasswordField,password , "Password field");
+		click(PWALoginPage.objWebLoginButton, "Login Button");
+		waitTime(5000);	
+}
 		
 }
