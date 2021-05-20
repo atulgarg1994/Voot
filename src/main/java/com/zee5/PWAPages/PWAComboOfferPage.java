@@ -142,4 +142,9 @@ public class PWAComboOfferPage {
 	//Combo offer is displayed with Upgrade text Upgrade your existing pack by paying the difference
 	public static By objUpgradeToRadheComboPackByJustPayingTheDifference   = By.xpath("//h1[.='Upgrade to Radhe Combo pack by just paying the difference']");
 
+	public static By objTvodConsumptionPage=By.xpath("//*[@class='tvodImageContainer']");
+	
+	public static By objRentedMoviePricePaymentPage=By.xpath("//*[@class='yearDetails']");
+	
+	public static By objRentedMoviePrice=By.xpath("//*[@class='iconOther-ic_tick radioBtn active']//parent::*");
 }

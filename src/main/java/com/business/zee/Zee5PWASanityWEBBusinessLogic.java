@@ -29664,4 +29664,145 @@ public void TVODComboLogin(String username, String password) throws Exception {
 		waitTime(5000);	
 }
 		
+public void comboOfferValidationForGuestCheckout(String userType) throws Exception {
+	if(userType.equalsIgnoreCase("Guest")) {
+		HeaderChildNode("Verify that user is able to purchase Combo offer using any payment modes displayed on payment page");
+	
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3000);
+		scrollDownWEB();
+		scrollDownWEB();
+		ClickOnCTAInZeePlexScreen("Trailer");
+		
+		waitTime(5000);
+		scrollDownWEB();
+		click(PWAComboOfferPage.objComboOfferWidget, "Know More Widget");
+		click(PWAComboOfferPage.objBuyRadheComboBtn, "Buy Radhe Combo Button");
+		
+		String Username = getParameterFromXML("NonsubscribedUserName");
+		String Password = getParameterFromXML("NonsubscribedPassword");
+		
+		type(PWALoginPage.objEmailField, Username, "Email ID");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		type(PWALoginPage.objPasswordField, Password, "Password Button");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		
+		waitTime(10000);
+		WebElement iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+		Thread.sleep(5000);
+		Thread.sleep(5000);
+		Thread.sleep(5000);
+		getWebDriver().switchTo().frame(iframeElement);
+		
+		click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
+		type(PWASubscriptionPages.objEnterCardNumber, "4012001037141112", "Card Number");
+		click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
+		click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+		type(PWASubscriptionPages.objEnterExpiry, "0525", "Expiry");
+		click(PWASubscriptionPages.objEnterCVV, "CVV");
+		type(PWASubscriptionPages.objEnterCVV, "124", "CVV");
+		
+		verifyElementPresent(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
+		
+		getWebDriver().switchTo().defaultContent();
+		waitTime(5000);
+		navigateHome();
+		logout();
+		
+		
+		extent.HeaderChildNode("Verify that user is able to play premium content/Rented Movie");
+		
+		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+		waitTime(3000);
+		
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+		type(PWALoginPage.objEmailField, "kirankm12345@gmail.com", "Email Field");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+		type(PWALoginPage.objPasswordField, "123456", "Password field");
+		waitTime(5000);
+		click(PWALoginPage.objWebLoginButton, "Login Button");
+		waitTime(3000);
+		waitTime(5000);
+		
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3000);
+		click(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
+		
+		waitTime(2000);
+		
+		if(checkElementDisplayed(PWAComboOfferPage.objTvodConsumptionPage, "Consumption Screen")) {
+			extent.extentLogger("Movie", "User is able to play premium Rented Movie");
+			logger.info("User is able to play premium Rented Movie");	
+		}else {
+			extent.extentLoggerFail("Movie", "User is not able to play premium Rented Movie");
+			logger.error("User is not able to play premium Rented Movie");
+		}
+		
+		waitTime(2000);
+		navigateHome();
+		
+		logout();
+		
+		HeaderChildNode("Verify that user is able to redirect to payment page with only TVOD price on clicking Rent Movie CTA");
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3000);
+		scrollDownWEB();
+		scrollDownWEB();
+		ClickOnCTAInZeePlexScreen("Trailer");
+		waitTime(5000);
+		scrollDownWEB();
+		click(PWAComboOfferPage.objComboOfferWidget, "Know More Widget");
+		waitTime(3000);
+		scrollDownWEB();
+		scrollDownWEB();
+		click(PWAComboOfferPage.objOnlyRentMovie, "Rent Movie CTA");
+		
+		String price1= getText(PWAComboOfferPage.objRentedMoviePrice);
+		System.out.println(price1);
+		
+		click(PWAComboOfferPage.objRentMovieBtn, "Buy Radhe Combo Button");
+		waitTime(8000);
+		
+		type(PWALoginPage.objEmailField, Username, "Email ID");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		type(PWALoginPage.objPasswordField, Password, "Password Button");
+		click(PWALoginPage.objContinueBtn, "Continue Button");
+		
+		waitTime(10000);
+		String price= getText(PWAComboOfferPage.objRentedMoviePricePaymentPage);
+		System.out.println(price);
+		
+		if(price1.equalsIgnoreCase(price)) {
+			extent.extentLoggerPass("Rent Movie", "User is redirected to payment screen with only Movie price on clicking Rent Movie CTA");
+			logger.info("User is redirected to payment screen with only Movie price on clicking Rent Movie CTA");	
+		}else {
+			extent.extentLoggerFail("Rent Movie", "User is not redirected to payment screen with only Movie price on clicking Rent Movie CTA");
+			logger.error("User is not redirected to payment screen with only Movie price on clicking Rent Movie CTA");
+		}
+		
+		Thread.sleep(5000);
+		Thread.sleep(5000);
+		Thread.sleep(5000);
+		
+		WebElement iframe = getWebDriver().findElement(By.id("juspay_iframe"));
+		getWebDriver().switchTo().frame(iframe);
+		
+		click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
+		type(PWASubscriptionPages.objEnterCardNumber, "4012001037141112", "Card Number");
+		click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
+		click(PWASubscriptionPages.objEnterExpiry, "Expiry");
+		type(PWASubscriptionPages.objEnterExpiry, "0525", "Expiry");
+		click(PWASubscriptionPages.objEnterCVV, "CVV");
+		type(PWASubscriptionPages.objEnterCVV, "124", "CVV");
+		
+		verifyElementPresent(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
+		
+		getWebDriver().switchTo().defaultContent();
+		waitTime(5000);
+		navigateHome();
+	
+		logout();
+	}	
+}
 }

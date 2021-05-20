@@ -55,6 +55,12 @@ public class WebPWAComboOfferScript {
 		Zee5WEBPWASanityBusinessLogic.ComboOfferPremiumPlexSub(userType);
 	}
 	
+	@Test(priority = 6)
+	@Parameters({ "userType" })
+	public void comboOfferValidationForGuestCheckout(String userType) throws Exception {
+	
+		Zee5WEBPWASanityBusinessLogic.comboOfferValidationForGuestCheckout(userType);
+	}
 	
 	@AfterTest
 	public void tearDown() {
