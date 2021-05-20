@@ -1168,7 +1168,7 @@ public class ResponseInstance {
 			
 			if (pUserType.equalsIgnoreCase("SubscribedUser")) {
 				String email = getParameterFromXML("SubscribedUserName");
-				String password = getParameterFromXML("SubscribedUserPassword");
+				String password = getParameterFromXML("SubscribedPassword");
 				String bearerToken = getBearerToken(email, password);
 				respCarousel = given().headers("x-access-token", getXAccessTokenAMD()).header("authorization", bearerToken).when().get(Url);
 			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
@@ -1758,7 +1758,7 @@ public static Response getUserinfoforNonSubORSubForAppMixpanel(String userType) 
 
 	if (userType.equalsIgnoreCase("SubscribedUser")) {
 		String email = getParameterFromXML("SubscribedUserName");
-		String password = getParameterFromXML("SubscribedUserPassword");
+		String password = getParameterFromXML("SubscribedPassword");
 		String bearerToken = getBearerToken(email, password);
 		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 	} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
@@ -2240,7 +2240,7 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedUserName");
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedUserPassword");
+					.getParameter("SubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
 			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
@@ -3055,7 +3055,7 @@ public static void setSubscriptionDetails() {
 		
 		String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";		
 		String pUsername = getParameterFromXML("SubscribedUserName");
-		String pPassword = getParameterFromXML("SubscribedUserPassword");
+		String pPassword = getParameterFromXML("SubscribedPassword");
 //		String pUsername = "clubRK@g.com";
 //		String pPassword = "123456";
 		
@@ -3337,7 +3337,7 @@ public static void getContentDetailsForCarouselClick(String tab, int carousalDot
 			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedUserName");
 			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedUserPassword");
+					.getParameter("SubscribedPassword");
 		}
 		Response userDetails = getUserSettingDetails(username, password);
 		int keyCount = userDetails.jsonPath().get("key.size()");
@@ -3524,7 +3524,7 @@ public static Response getResponseForPages(String tab, int pageNumber,String con
 		}
 		if (userType.equals("SubscribedUser")) {
 			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
-			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserPassword");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
 		}
 		Response userDetails = getUserSettingDetails(username, password);
 		int keyCount = userDetails.jsonPath().get("key.size()");
@@ -3784,7 +3784,7 @@ public static void setSubscriptionDetails_NativeAndroid() {
 	
 	String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";		
 	String pUsername = getParameterFromXML("SubscribedUserName");
-	String pPassword = getParameterFromXML("SubscribedUserPassword");
+	String pPassword = getParameterFromXML("SubscribedPassword");
 //	String pUsername = "clubRK@g.com";
 //	String pPassword = "123456";
 	
@@ -4054,7 +4054,7 @@ public static Response updateWatchHistory(String contentID,int duration) {
 		}
 		if (userType.equals("SubscribedUser")) {
 			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
-			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserPassword");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
 		}
 		authorizationToken=getAuthorization(username, password);
 		RequestSpecification updateWatchHistoryRequestSpecification = RestAssured.given();
@@ -4099,7 +4099,7 @@ public static Response updateWatchHistory(String contentID,int duration,String g
 		}
 		if (userType.equals("SubscribedUser")) {
 			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
-			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserPassword");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
 		}
 		userDetailsResponse=getUserDetails(username, password);
 		String userID=userDetailsResponse.jsonPath().get("id");

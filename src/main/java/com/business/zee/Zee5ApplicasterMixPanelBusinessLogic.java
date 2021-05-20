@@ -254,7 +254,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User");
 
 			Username = getParameterFromXML("SubscribedUserName");
-			Password = getParameterFromXML("SubscribedUserPassword");
+			Password = getParameterFromXML("SubscribedPassword");
 
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 
@@ -773,7 +773,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			Password = getParameterFromXML("NonSubscribedUserPassword");
 		} else {
 			Username = getParameterFromXML("SubscribedUserName");
-			Password = getParameterFromXML("SubscribedUserPassword");
+			Password = getParameterFromXML("SubscribedPassword");
 
 		}
 
@@ -886,7 +886,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (!(pUserType.equalsIgnoreCase("Guest"))) {
 				if(pUserType.equalsIgnoreCase("SubscribedUser")) {
 					Username = getParameterFromXML("SubscribedUserName");
-					Password = getParameterFromXML("SubscribedUserPassword");
+					Password = getParameterFromXML("SubscribedPassword");
 				}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
 					Username = getParameterFromXML("NonSubscribedUserName");
 					Password = getParameterFromXML("NonSubscribedUserPassword");
@@ -2010,7 +2010,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (!(pUserType.equalsIgnoreCase("Guest"))) {
 			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
 				Username = getParameterFromXML("SubscribedUserName");
-				Password = getParameterFromXML("SubscribedUserPassword");
+				Password = getParameterFromXML("SubscribedPassword");
 			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
 				Username = getParameterFromXML("NonSubscribedUserName");
 				Password = getParameterFromXML("NonSubscribedUserPassword");
@@ -3572,7 +3572,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 			case "SubscribedUser":
 				pUsername = getParameterFromXML("SubscribedUserName");
-				pPwd = getParameterFromXML("SubscribedUserPassword");
+				pPwd = getParameterFromXML("SubscribedPassword");
 				break;
 			}
 
@@ -8768,7 +8768,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 			if (pUserType.equalsIgnoreCase("SubscribedUser")) {
 				Username = getParameterFromXML("SubscribedUserName");
-				Password = getParameterFromXML("SubscribedUserPassword");
+				Password = getParameterFromXML("SubscribedPassword");
 			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
 				Username = getParameterFromXML("NonSubscribedUserName");
 				Password = getParameterFromXML("NonSubscribedUserPassword");
@@ -9373,7 +9373,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (!pUsertype.equalsIgnoreCase("Guest")) {
 			if (pUsertype.equalsIgnoreCase("SubscribedUser")) {
 				pUsername = getParameterFromXML("SubscribedUserName");
-				pPassword = getParameterFromXML("SubscribedUserPassword");
+				pPassword = getParameterFromXML("SubscribedPassword");
 
 				ResponseInstance.setSubscriptionDetails_NativeAndroid();
 				mixpanel.FEProp.setProperty("User Type", "Premium");
@@ -9764,7 +9764,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (!(pUserType.equalsIgnoreCase("Guest"))) {
 			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
 				Username = getParameterFromXML("SubscribedUserName");
-				Password = getParameterFromXML("SubscribedUserPassword");
+				Password = getParameterFromXML("SubscribedPassword");
 			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
 				Username = getParameterFromXML("NonSubscribedUserName");
 				Password = getParameterFromXML("NonSubscribedUserPassword");
@@ -10076,7 +10076,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (!(pUserType.equalsIgnoreCase("Guest"))) {
 			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
 				Username = getParameterFromXML("SubscribedUserName");
-				Password = getParameterFromXML("SubscribedUserPassword");
+				Password = getParameterFromXML("SubscribedPassword");
 			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
 				Username = getParameterFromXML("NonSubscribedUserName");
 				Password = getParameterFromXML("NonSubscribedUserPassword");
@@ -10114,7 +10114,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (!(pUserType.equalsIgnoreCase("Guest"))) {
 			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
 				Username = getParameterFromXML("SubscribedUserName");
-				Password = getParameterFromXML("SubscribedUserPassword");
+				Password = getParameterFromXML("SubscribedPassword");
 			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
 				Username = getParameterFromXML("NonSubscribedUserName");
 				Password = getParameterFromXML("NonSubscribedUserPassword");
@@ -10154,7 +10154,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (!(pUserType.equalsIgnoreCase("Guest"))) {
 			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
 				Username = getParameterFromXML("SubscribedUserName");
-				Password = getParameterFromXML("SubscribedUserPassword");
+				Password = getParameterFromXML("SubscribedPassword");
 			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
 				Username = getParameterFromXML("NonSubscribedUserName");
 				Password = getParameterFromXML("NonSubscribedUserPassword");

@@ -11,7 +11,7 @@
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" />
 	<parameter name="browserType" value="chrome" />
-	<parameter name="url" value="https://newpwa.zee5.com/" />
+	<parameter name="url" value="newpwa" />
 	<!-- NONSubscribed User -->
 	<parameter name="NonsubscribedUserName" value="tvautomation@gmail.com"/>
 	<parameter name="NonsubscribedPassword" value="123456"/>

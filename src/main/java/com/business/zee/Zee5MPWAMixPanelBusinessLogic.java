@@ -4873,7 +4873,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 		case "SubscribedUser":
 			extent.HeaderChildNode("Login as Subscribed User");
 			Username = getParameterFromXML("SubscribedUserName");
-			Password = getParameterFromXML("SubscribedUserPassword");
+			Password = getParameterFromXML("SubscribedPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresent(PWALoginPage.objWebLoginPageText, "Login page");
@@ -4887,6 +4887,7 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			waitTime(3000);
 			break;
 		}
+		
 		mixpanel.FEProp.setProperty("Source", "home");
 		mixpanel.FEProp.setProperty("Page Name", "sign_in");
 
@@ -4916,7 +4917,6 @@ public class Zee5MPWAMixPanelBusinessLogic extends Utilities {
 			String ID = js.executeScript("return window.localStorage.getItem('ID');").toString();
 			mixpanel.ValidateParameter(ID, "Search Cancelled");
 		}
-
 	}
 
 	public void verifyAdBannerImpressionEvent(String tabName) throws Exception {

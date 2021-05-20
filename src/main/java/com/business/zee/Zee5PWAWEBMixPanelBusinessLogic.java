@@ -115,7 +115,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		case "SubscribedUser":
 			extent.HeaderChildNode("Login as Subscribed User");
 			Username = getParameterFromXML("SubscribedUserName");
-			Password = getParameterFromXML("SubscribedUserPassword");
+			Password = getParameterFromXML("SubscribedPassword");
 			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
@@ -179,7 +179,7 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User");
 			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
 			String SettingsSubscribedUsername = getParameterFromXML("SubscribedUserName");
-			String SettingsSubscribedPassword = getParameterFromXML("SubscribedUserPassword");
+			String SettingsSubscribedPassword = getParameterFromXML("SubscribedPassword");
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -1250,7 +1250,7 @@ public void verifyParentalRestrictionEvent(String userType, String restriction) 
 				password = getParameterFromXML("NonSubscribedUserPassword");
 				
 			} else if (userType.equals("SubscribedUser")) {
-				password = getParameterFromXML("SubscribedUserPassword");
+				password = getParameterFromXML("SubscribedPassword");
 				
 			}
 			type(PWALoginPage.objPasswordField, password, "Password field");
@@ -1330,7 +1330,7 @@ public void verifyParentalRestrictionEvent(String userType, String restriction) 
 			if (userType.equals("NonSubscribedUser")) {
 				password = getParameterFromXML("NonSubscribedUserPassword");
 			} else if (userType.equals("SubscribedUser")) {
-				password = getParameterFromXML("SubscribedUserPassword");
+				password = getParameterFromXML("SubscribedPassword");
 				
 			}
 			type(PWALoginPage.objPasswordField, password, "Password field");
@@ -2303,7 +2303,7 @@ public void verifyParentalRestrictionEvent(String userType, String restriction) 
 			if(userType.equals("NonSubscribedUser")) {
 					password = getParameterFromXML("NonSubscribedUserPassword");
 			}else {
-				password = getParameterFromXML("SubscribedUserPassword");
+				password = getParameterFromXML("SubscribedPassword");
 			}
 			
 			JSClick(PWAHamburgerMenuPage.objChangePasswordBtn, "change password button");
@@ -13499,7 +13499,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			if (userType.equals("NonSubscribedUser")) {
 				password=getParameterFromXML("NonSubscribedUserPassword");
 			} else if (userType.equals("SubscribedUser")) {
-				password=getParameterFromXML("SubscribedUserPassword");
+				password=getParameterFromXML("SubscribedPassword");
 			}			
 			type(PWALoginPage.objPasswordField, password, "Password field");
 			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
@@ -13532,7 +13532,7 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			if (userType.equals("NonSubscribedUser")) {
 				password=getParameterFromXML("NonSubscribedUserPassword");
 			} else if (userType.equals("SubscribedUser")) {
-				password=getParameterFromXML("SubscribedUserPassword");
+				password=getParameterFromXML("SubscribedPassword");
 			}
 			type(PWALoginPage.objPasswordField, password, "Password field");
 			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
