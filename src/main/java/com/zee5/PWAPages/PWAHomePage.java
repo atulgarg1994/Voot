@@ -627,4 +627,18 @@ public class PWAHomePage {
 	public static By objPremiumTag = By.xpath("//*[@class='cardPremiumContent']");
 
 	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
+
+	// Home Page
+	public static By objHomePage = By.xpath("(//*[text()='Home'])[1]");
+	// Click on Rent
+	public static By objRent = By.xpath("(//a[@class='noSelect  ' and @href='/zee-plex-movies-on-rent'])[1]");
+	// CLICK Trailer
+	public static By objTrailer = By.xpath("(//span[contains(text(),'Trailer')])[1]");
+	// movies tab
+	public static By objMoviesTab = By.xpath("(//*[text()='Home'])[1]");
+	
+	public static By objMandatoryRegPopUpCloseIcon = By.xpath("//*[contains(@class,'manCloseIcon')]");
+	
+	public static By objMandatoryRegPopUp = By.xpath("//*[contains(@class,'mandatoryRegisterPopup')]");
+	
 }

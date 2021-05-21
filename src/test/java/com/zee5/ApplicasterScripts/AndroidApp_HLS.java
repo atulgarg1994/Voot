@@ -21,43 +21,42 @@ public class AndroidApp_HLS {
 	@Test(priority = 0)
 	@Parameters({ "userType" })
 	public void ApplicasterLogin(String userType) throws Exception {
-
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
-
 	}
 	
 	@Test(priority = 1) // Kushal
 	@Parameters({ "userType", "RegisteredEmail" })
-	public void IntroScreenAndLoginScreenValidation(String userType, String RegisteredEmail) throws Exception {
-		System.out.println("\n---Onboarding screen Validation ---\n");
+	public void OnboardLoginScreenVerification(String userType, String RegisteredEmail) throws Exception {
+		System.out.println("\n---Onboarding Login screen verification ---\n");
 		ZEE5ApplicasterBusinessLogic.IntroScreenAndLoginScreenValidation(userType, RegisteredEmail);
 	}
 	
 	@Test(priority = 2) // Manasa
 	@Parameters({ "userType", "contentWithoutTrailer" })
-	public void subscriptionValidPrepaidCodeHLS(String userType, String contentWithoutTrailer) throws Exception {
-		System.out.println("\n---Subscription Validation ---\n");
-		ZEE5ApplicasterBusinessLogic.subscriptionValidationHLSForValidPrepaidCode(userType, contentWithoutTrailer);
+	public void SubscriptionScreenValidPrepaidCodeVerificationHLS(String userType, String contentWithoutTrailer) throws Exception {
+		System.out.println("\n---Verify valid Promo/prepaid code from Subscription Screen---\n");
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.subscriptionValidationHLSForValidPrepaidCode(userType);
 	}
 
 	@Test(priority = 3) 
 	@Parameters({ "userType", "contentWithoutTrailer" })
-	public void subscriptionInvalidPrepaidCodeHLS(String userType, String contentWithoutTrailer) throws Exception {
-		System.out.println("\n---Subscription Validation ---\n");
+	public void SubscriptionScreenInvalidPrepaidCodeVerificationHLS(String userType, String contentWithoutTrailer) throws Exception {
+		System.out.println("\n----Verify invalid Promo/prepaid code from Subscription Screen ---\n");
 		ZEE5ApplicasterBusinessLogic.SubscriptionValidationHLSForInvalidPrepaidCode(userType, contentWithoutTrailer);
 	}
 	
 	@Test(priority = 4) 
 	@Parameters({ "userType"})
-	public void subscriptionValidationHLSForSubUser(String userType) throws Exception {
-		System.out.println("\n---Subscription Validation ---\n");
+	public void SubscriptionValidationHLSForSubUser(String userType) throws Exception {
+		System.out.println("\n---Subscription screen Validation for SubscribedUser---\n");
 		ZEE5ApplicasterBusinessLogic.SubscriptionValidationForSubscribedUser(userType);
 	}
 	
 	@Test(priority = 5) // Sushma
 	@Parameters({ "userType", "searchModuleKeyword", "searchKeyword10", "searchKeyword4" })
-	public void homeScreen_Search_Playback_HLS(String userType, String searchModuleKeyword, String searchKeyword10, String searchKeyword4)
+	public void HomeScreen_Search_Playback_HLS(String userType, String searchModuleKeyword, String searchKeyword10, String searchKeyword4)
 			throws Exception {
 
 		System.out.println("\n---Verify Home landing screen---\n");
@@ -73,7 +72,7 @@ public class AndroidApp_HLS {
 
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println("\nQuit the App\n");
+		System.out.println("\nExecution Complete - Closing the App");
 		ZEE5ApplicasterBusinessLogic.tearDown();
 	}
 }

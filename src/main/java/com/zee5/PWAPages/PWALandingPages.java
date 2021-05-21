@@ -152,4 +152,18 @@ public class PWALandingPages {
 	
 	public static By objWebProfileIcon = By.xpath("(//*[text()='Open Menu'])[1]");
 	
+	//Himadri
+	
+			public static By objRentPage=By.xpath("//*[@class='plexTrayHeader' and text()='Now Showing']");
+			public static By objControlButton=By.xpath("(//div[@class='buttonContainer '])[1]");
+			public static By objLoginIcon=By.xpath("//*[@class='bm-icon profileMenuBtn iconInitialLoad-ic_profile']");//added on 6/5/2021
+			public static By objRentNowBelowZeePlexPage=By.xpath("(//div[@class='rentNowButton'])[1]");//added on 8/5/2021
+			public static By objConsumptionPage = By.xpath("(//a[@title='Watch Movies Online'])[1]");//updated on 13/5/2021
+			public static By objRentWith299Inr = By.xpath("//div[@class='buttonContainer ']//span[text()='Rent for 299 INR']");//updated on 13/5/2021
+			public static By objNowShowing=By.xpath("//*[@class='plexTrayHeader' and text()='Now Showing']");
+			
+			//Kartheek
+			//Resume
+			public static By objResume = By.xpath("//span[text()='Watch Now']");
+	
 }

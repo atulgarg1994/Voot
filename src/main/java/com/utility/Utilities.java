@@ -569,7 +569,6 @@ public class Utilities extends ExtentReporter {
 	 * @param text      the text
 	 */
 	public void type(By byLocator, String text, String FieldName) {
-
 		try {
 			waitTime(1000);
 			if (!getPlatform().equals("Web")) {
@@ -589,12 +588,11 @@ public class Utilities extends ExtentReporter {
 	}
 
 	/**
-	 * Wait .
+	 * Wait
 	 *
 	 * @param x seconds to lock
 	 */
 	public void Wait(int x) {
-
 		try {
 			getDriver().manage().timeouts().implicitlyWait(x, TimeUnit.SECONDS);
 		} catch (Exception e) {

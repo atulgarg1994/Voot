@@ -471,4 +471,44 @@ public class PWASubscriptionPages {
 	public static By objUpgradeToRadheComboPackByJustPaying = By.xpath("//span[@class='title']");
 		//differential amount calculated.
 	public static By objDifferentialAmountCalculated = By.xpath("(//span[text()='309'])[1]");
+	
+		public static By objComboOfferPageHeader = By.xpath("//*[@class='titleSubTitleComp']");//added 5/5/2021
+		public static By objExplorePremiumButton = By.xpath("//*[text()='Explore Premium']");//added 6/5/2021
+		public static By objBuyCombobutton = By.xpath("//*[@class='buttonContainer']");//added 4/5/2021
+		public static By objRentMoviebutton = By.xpath("//*[text()='Rent Movie']");//added 4/5/2021
+		public static By objHaveitAllPopDialog = By.xpath("//*[text()='You have it all']");//added 5/5/2021
+		public static By objYouHaveAlreadyRentedThisZEEPLEXMovieDialog = By.xpath("//*[@class='subtitleItem']//span[text()='You have already rented this ZEEPLEX movie']");//added 5/5/2021
+		
+		public static By objZeeplexPopupCloseButton = By.xpath("//*[@class='drowerCloseIcon iconInitialLoad-ic_close']");//added 5/5/2021
+
+		public static By obj299PackUpgradePopup = By.xpath("(//div[@class='titleAndSubtitle'])//span[text()='Upgrade to Combo Offer by just paying the difference']");//added 7/5/2021
+		public static By obj299PackUpgradeCTA = By.xpath("(//div[@class='buttonContainer '])//span[text()='Upgrade']");//added 7/5/2021
+		public static By objZeeplexAndTickIcon = By.xpath("//*[@class='icon']//img[@alt='combo offer popup icon']");//added 7/5/2021
+		public static By objComboOfferPageUpgrade299PackHeader = By.xpath("//li[@class='subtitleItem']//span[text()='You are currently on ₹299 Premium 3 Months plan.']");//added 7/5/2021
+		public static By objUpgradeTextJustPayingDifference= By.xpath("//div[@class='titleSubTitleComp']//h1");//added 7/5/2021
+		public static By objPayLessWatchMoreHeader= By.xpath("//div[@class='titleSubTitleComp']//p[text()='Pay less, Watch more!']");//added 7/5/2021
+
+		public static By objRentOnlyMovieCheckboxPrice= By.xpath("(//div[@class='priceAmout'])[2]");//added 8/5/2021
+
+		public static By objZeePlexLogo = By.xpath("(//a[@href='/zee-plex-movies-on-rent'])[1]");//added 4/5/2021
+		
+		public static By objBuyPlanLogo = By.xpath("//*[@class='iconInitialLoad-ic_premium']");//added 3/5/2021
+		public static By objSubcriptionPage = By.xpath("//*[@class='stepWrapper']//div[@class='stepValue']");//added 3/5/2021
+		public static By objRadheComboOfferTitle = By.xpath("//*[@class='pageTitle']");//added 3/5/2021
+		
+		public static By objRentOnlyMoviePriceMakePaymentPage = By.xpath("//p[@class='period']");//added 8/5/2021
+		public static By objGenerateQRCode = By.xpath("//article[(text()='Generate QR Code')]");//added 8/5/2021
+		public static By objWalletsProceedToPay = By.xpath("(//article[contains(text(), 'Proceed to pay')])[3]");//added 8/5/2021
+		public static By objBankName = By.xpath("//article[contains(text(),'COSMOS Bank')]");//added 11/5/2021  
+		public static By objUpgradeButton = By.xpath("//div[@class='buttonContainer ']//span[text()='Upgrade']");//added 11/5/2021  
+		public static By objDebitCredit = By.xpath("(//article[(text()='Credit / Debit Card')])[1]");//added 11/5/2021  
+		public static By objUpi = By.xpath("//article[(text()='UPI')]");//added 14/5/2021 updated
+		
+		public static By objNetBanking = By.xpath("//article[contains(text(),'Netbanking')]");//added 13/5/2021 updated
+		public static By objHaveACard = By.xpath("//div[@class='qwickCiver']");//added 13/5/2021 added
+		public static By objWallet = By.xpath("//article[contains(text(), 'Wallets')]");//added 13/5/2021
+		public static By objYouHaveActivePremiumPlanDialog = By.xpath("//*[@class='subtitleItem']//span[text()='You are currently on ₹999 Premium 1 Year plan.']");//updated 13/5/2021
+		
+		public static By objBuyPremiumCTA = By.xpath("//*[@class='buttonContainer ']//span[text()='Buy Premium']");//added 13/5/2021
+	
 }

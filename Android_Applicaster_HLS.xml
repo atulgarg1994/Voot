@@ -10,7 +10,7 @@
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" /> 
 
-	<parameter name="SubscribedUserWith15daysExpiryUsername" value="testzee5_4@gmail.com" />
+	<parameter name="SubscribedUserWith15daysExpiryUsername" value="crssri@g.co.in" />
 	<parameter name="SubscribedUserWith15daysExpiryPassword" value="123456" />
 
 	<parameter name="NonsubscribedUserName" value="zee5latest@gmail.com" />
@@ -136,6 +136,41 @@
 	<parameter name="searchKeyword10" value="Vikrant and Aarati reconcile - Gattimela" />
 	<parameter name="contentWithoutTrailer" value="Londonalli Lambodara" />
 	
+	<!-- ######  TVOD Credentials ###### -->
+	<parameter name="RSVODUser" value="rsvodtamil1@gmail.com" />
+	<parameter name="RSVODPassword" value="123456" />
+	
+	<parameter name="OneYearPremiumPack" value="mobicheck@gmail.com" />
+	<parameter name="CommomPassword" value="123456 " />
+	
+	<parameter name="99PremiumPackEmail" value="recurringdc@mailnesia.com" />
+	<parameter name="99PremiumPackPwd" value="ABCD1234" />
+	
+	<parameter name="RSVOD49PackEmail" value="49rsvod@yopmail.com" />
+	<parameter name="RSVOD49PackPwd" value="welcome" />
+	
+	<parameter name="299PremiumPackEmail" value="zeetest6@g.com" />
+	<parameter name="RSVOD499PackEmail" value="rsvodkannada1@gmail.com" />
+	
+	<parameter name="SubsUserWithRadheRentalPlan" value="sanaraj.sunny@gmail.com" />
+	
+	<parameter name="NonSubsUserWithActiveRentalPlan" value="radhecontent@gmail.com" />
+	<parameter name="NonSubsUserWithActiveRentalPlanPwd" value="Anto123" />
+	
+	<parameter name="SubsUserWithoutRentalPlan" value="mobicheck@gmail.com" />
+	
+	<parameter name="499PremiumPackEmail" value="499subnoradhe@gmail.com" />
+	
+	<!-- ######  ZEEPLEX Content Names	###### -->
+	<parameter name="RentalContentName1" value="Radhe - Your Most Wanted Bhai" />
+	<parameter name="RentalContentName2" value="Mard Ki Zubaan" />
+	<parameter name="RentalContentName3" value="Radhe - Your Most Wanted Bhai" />
+	<parameter name="RentalContentName4" value="Passport" />
+	
+	<!-- ######  Deeplinking URL ######	 -->
+	<parameter name="RadhedeeplinkURl" value="https://www.zee5.com/movies/details/radhe-your-most-wanted-bhai/0-0-399328" />
+	<parameter name="SubscriptionDeeplinkURl" value="https://www.zee5.com/myaccount/subscription" />
+	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
 		<!--  <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->
@@ -148,6 +183,12 @@
 		</classes>
 	</test>
 	
+	<test name="Android_TVOD_ComboOffer">
+		<classes>
+			<class
+				name="com.zee5.ApplicasterScripts.Android_TVOD_ComboOffer" />
+		</classes>
+	</test>
 	
 
 </suite>

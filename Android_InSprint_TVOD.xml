@@ -145,6 +145,8 @@
 	<parameter name="SettingsNonsubscribedUserName" value="rancho@gmail.com" />
 	<parameter name="SettingsNonsubscribedPassword" value="123456" />
 	
+	
+	<!-- ######  TVOD Credentials ###### -->
 	<parameter name="RSVODUser" value="rsvodtamil1@gmail.com" />
 	<parameter name="RSVODPassword" value="123456" />
 	
@@ -169,10 +171,13 @@
 	
 	<parameter name="499PremiumPackEmail" value="499subnoradhe@gmail.com" />
 	
+	<!-- ######  ZEEPLEX Content Names	###### -->
 	<parameter name="RentalContentName1" value="Radhe - Your Most Wanted Bhai" />
 	<parameter name="RentalContentName2" value="Mard Ki Zubaan" />
 	<parameter name="RentalContentName3" value="Radhe - Your Most Wanted Bhai" />
 	<parameter name="RentalContentName4" value="Passport" />
+	
+	<!-- ######  Deeplinking URL ######	 -->
 	<parameter name="RadhedeeplinkURl" value="https://www.zee5.com/movies/details/radhe-your-most-wanted-bhai/0-0-399328" />
 	<parameter name="SubscriptionDeeplinkURl" value="https://www.zee5.com/myaccount/subscription" />
 	

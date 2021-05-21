@@ -146,4 +146,16 @@ public class PWAComboOfferPage {
 	public static By objRentedMoviePricePaymentPage=By.xpath("//*[@class='yearDetails']");
 	
 	public static By objRentedMoviePrice=By.xpath("//*[@class='iconOther-ic_tick radioBtn active']//parent::*");
+	
+		// Trailer Consumption Page
+		public static By objTrailerConsumptionPage = By
+				.xpath("//div[@style='position: absolute; inset: 0px; margin: 1.5%;']");
+		// Rent Now once trailer completed
+		public static By objRentNowPlaybackOnConsumptionPage = By
+				.xpath("//div[@class='subscribe-button subscribemsg_en noPremiumIcon']");
+		// Skip CTA once trailer completed
+		public static By objSkipCTAPlaybackOnConsumptionPage = By
+				.xpath("//*[contains(@class,'skip-button subscribe-link subscribemsg_en')]");
+		// Login button once trailer completed
+		public static By objLoginButtonPlaybackOnConsumptionPage = By.xpath("//span[@class='login-link']");	
 }
