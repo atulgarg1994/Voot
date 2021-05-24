@@ -80,7 +80,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	/** The Constant logger. */
 	// final static Logger logger = Logger.getLogger("rootLogger");
 	static LoggingUtils logger = new LoggingUtils();
-
+ 
 	/** The Android driver. */
 	public AndroidDriver<AndroidElement> androidDriver;
 

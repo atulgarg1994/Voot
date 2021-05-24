@@ -20,7 +20,6 @@ public class AndroidPWAHLSScript {
 	public void Login(String userType) throws Exception {
 		Zee5PWASanityBusinessLogic.ZeePWALogin("E-mail", userType);
 		Zee5PWASanityBusinessLogic.selectLanguages();
-		
 	}
 	
 	@Test(priority = 1) 
@@ -225,8 +224,6 @@ public class AndroidPWAHLSScript {
 		Zee5PWASanityBusinessLogic.PWARSVODUserHLS(userType);
 	}
 	
-	
-
 	@AfterClass
 	public void tearDown() {
 		Zee5PWASanityBusinessLogic.tearDown();
