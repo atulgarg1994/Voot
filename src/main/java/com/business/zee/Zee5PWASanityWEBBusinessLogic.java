@@ -28933,34 +28933,21 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 	}
 
-//	public void PWAValidatingPlaybackAndConcurrency() throws Exception {
-//		logout();	
-//		PlayerPostPurchase();
-//		PlayerControls();
-//		CastScreen();
-//		ExpiredContentValidation();
-//		Ads();
-//		CrossDeviceValidation();
-//	}
-
 	public void WatchMorePopup() throws Exception {
 		if (verifyIsElementDisplayed(PWAPlayerPage.objWouldYouLikePopUp)) {
 			click(PWAPlayerPage.objWouldYouLikeClosePopup, "Watch now close icon");
-		} else {
 		}
 	}
 
 	public void DeviceLimitPopOp() throws Exception {
 		if (verifyIsElementDisplayed(PWAPlayerPage.objDeviceLimitPopup)) {
 			click(PWAPlayerPage.objResetButton, "Reset Now");
-		} else {
 		}
 	}
 
 	public void MandatoryRegisterationPopOp() throws Exception {
 		if (verifyIsElementDisplayed(PWAHomePage.objMandatoryRegPopUp)) {
 			click(PWAHomePage.objMandatoryRegPopUpCloseIcon, "Close icon");
-		} else {
 		}
 	}
 
@@ -28997,12 +28984,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					verifyElementPresent(PWAPlayerPage.objAgreeAndWatchNowCTA, "Agree & Start watching CTA");
 				}
 				waitTime(5000);
-
 				extent.HeaderChildNode(
 						"\"Verify if user is able to see \"Please note before you start\" popup on player consumption screen");
 				logger.info(
 						"Verify if user is able to see \"Please note before you start\" popup on player consumption screen");
-
 				verifyElementPresent(PWAPlayerPage.objPleaseNoteBeforeYouStartPopUP,
 						"Please Note Before You Start Pop up screen");
 
@@ -29015,7 +29000,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				waitTime(5000);
 				verifyElementPresentAndClick(PWAPlayerPage.objPopUpCloseIcon, "Close Icon");
 				verifyElementPresent(PWAPlayerPage.objWatchNowPlayerCTA, "Watch Now on Player");
-
 			} else {
 				extent.extentLoggerWarning("", "Watch Now CTA is not displayed on player");
 			}
@@ -29136,26 +29120,21 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 						logger.error("ads are playing during the trailer of the TVOD subscribed user");
 						extent.extentLoggerFail("", "ads are playing during the trailer of the TVOD subscribed user");
 					} else {
-
 						logger.info("ads are not playing during the trailer of the TVOD subscribed user");
 						extent.extentLoggerPass("",
 								"ads are not playing during the trailer of the TVOD subscribed user");
-
 					}
-
 					waitTime(30000);
 					extent.HeaderChildNode(
 							"Verify if the plex content is playing after the trailer playback on clicking watch trailer CTA from consumption screen");
 					logger.info(
 							"Verify if the plex content is playing after the trailer playback on clicking watch trailer CTA from consumption screen");
-
 					if (verifyElementDisplayed(PWAPlayerPage.objRentNow)) {
 						logger.error(
 								"User is able to see any Rent now CTA while trailer playback and Plex movie should start playing");
 						extent.extentLoggerFail("",
 								"User is able to see any Rent now CTA while trailer playback and Plex movie should start playing");
 					} else {
-
 						logger.info(
 								"User does not see any Rent now CTA while trailer playback and Plex movie should start playing");
 						extent.extentLoggerPass("",
@@ -29173,19 +29152,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 						"Content without any interruption post purchasing the pack")) {
 				}
 				waitTime(5000);
-
 				extent.HeaderChildNode("Verify if the user is able to see the timer and zeeplex logo below the player");
 				logger.info("Verify if the user is able to see the timer and zeeplex logo below the player");
-
 				if (verifyElementPresent(PWAPlayerPage.objZeePlexLogo, "Plex logo")
 						&& verifyElementPresent(PWAPlayerPage.objContentExpiryInfo, "timer"))
-
 					extent.HeaderChildNode(
 							"Verify if the user can see Resume option on the player if the user paused the content while playing");
 				logger.info(
 						"Verify if the user can see Resume option on the player if the user paused the content while playing");
 				// DeviceLimitPopOp();
-
 				navigateToAnyScreenOnWeb("ZEEPLEX");
 				WatchMorePopup();
 				scrollToElement(PWAComboOfferPage.objContentThumbnail);
@@ -29193,18 +29168,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				DeviceLimitPopOp();
 				verifyElementPresent(PWAPlayerPage.objResumePlayerCTA,
 						"Resume option on the player if the user paused the content while playing");
-
 				extent.HeaderChildNode(
 						"Verify the parental pin popup is displayed for TVOD content if user restrice +13 content");
 				logger.info("Verify the parental pin popup is displayed for TVOD content if user restrice +13 content");
-
 				waitTime(5000);
 				SetParentalPopup(PWAHamburgerMenuPage.objRestrict13PlusContent, "PlaybackInitTVODpassword",
 						"Restrict 13+ content");
 				waitTime(5000);
 				verifyElementPresentAndClick(PWAPlayerPage.objResumePlayerCTA, "Resume");
 				DeviceLimitPopOp();
-
 				if (verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1player,
 						"Parental pin pop when the TVOD content is 13+ conten, ")) {
 					type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
@@ -29395,25 +29367,19 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	}
 
 	public void ExpiredContentValidation() throws Exception {
-
 		extent.HeaderChildNode("Verify the Rent for INR XX CTA is displayed post TVOD expiry below player");
 		logger.info("Verify the Rent for INR XX CTA is displayed post TVOD expiry below player");
-
 		// Set parental pin back to No restrict
 		SetParentalPopup(PWAHamburgerMenuPage.objNoRestrict, "PlaybackInitTVODpassword", "No Restrict content");
-
 		logout();
 		waitTime(5000);
 		WatchMorePopup();
 		click(PWAHomePage.objNotNow, "Notification popup");
-
 		// ZeeWEBPWALogin("NonSubscribedUser");
 		TVODComboLogin("ExpiredTVODUserName", "ExpiredTVODPassword");
-
 		WatchMorePopup();
 		waitTime(5000);
 		navigateToAnyScreenOnWeb("ZEEPLEX");
-
 		waitTime(5000);
 		scrollToElement(PWAComboOfferPage.objContentThumbnail);
 		if (verifyElementPresentAndClick(PWAComboOfferPage.objContentThumbnail, "Content thumbnail")) {
@@ -29426,30 +29392,23 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				type(PWAHamburgerMenuPage.objParentalLockPin4player, "1", "ParentalLockPin");
 				waitTime(4000);
 			}
-
-			verifyElementPresent(PWAPlayerPage.objContentExpiryInfo,
-					"post TVOD expiry below player, Rent for INR XX CTA");
-
+			verifyElementPresent(PWAPlayerPage.objContentExpiryInfo,"post TVOD expiry below player, Rent for INR XX CTA");
 			extent.HeaderChildNode("Verify Rent for INR XX displaying on player screen post expiry");
 			logger.info("Verify Rent for INR XX displaying on player screen post expiry");
 			waitTime(60000);
 			waitTime(30000);
 			waitTime(60000);
 			verifyElementPresent(PWAPlayerPage.objRentnowInline, "Watch full content by renting it now on Player");
-
 			extent.HeaderChildNode(
 					"Verify if Rent for INR XX inline text should be displayed on player screen with solid background");
 			logger.info(
 					"Verify if Rent for INR XX inline text should be displayed on player screen with solid background");
 			waitTime(5000);
-
 			verifyElementPresent(PWAPlayerPage.objRentNowPlayerCTA, "Rent for INR XX inline text");
-
 		} else {
 			logger.info("Contents not dispalyed in rent tab");
 			extent.extentLoggerFail("", "Contents not dispalyed in rent tab");
 		}
-
 	}
 
 	public void CrossDeviceValidation() throws Exception {
@@ -29637,33 +29596,27 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Guest")) {
 			HeaderChildNode(
 					"Verify that user is able to purchase Combo offer using any payment modes displayed on payment page");
-
 			navigateToAnyScreenOnWeb("ZEEPLEX");
 			waitTime(3000);
 			scrollDownWEB();
 			scrollDownWEB();
 			ClickOnCTAInZeePlexScreen("Trailer");
-
 			waitTime(5000);
 			scrollDownWEB();
 			click(PWAComboOfferPage.objComboOfferWidget, "Know More Widget");
 			click(PWAComboOfferPage.objBuyRadheComboBtn, "Buy Radhe Combo Button");
-
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
-
 			type(PWALoginPage.objEmailField, Username, "Email ID");
 			click(PWALoginPage.objContinueBtn, "Continue Button");
 			type(PWALoginPage.objPasswordField, Password, "Password Button");
 			click(PWALoginPage.objContinueBtn, "Continue Button");
-
 			waitTime(10000);
 			WebElement iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
 			Thread.sleep(5000);
 			Thread.sleep(5000);
 			Thread.sleep(5000);
 			getWebDriver().switchTo().frame(iframeElement);
-
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
 			type(PWASubscriptionPages.objEnterCardNumber, "4012001037141112", "Card Number");
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
@@ -29671,19 +29624,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			type(PWASubscriptionPages.objEnterExpiry, "0525", "Expiry");
 			click(PWASubscriptionPages.objEnterCVV, "CVV");
 			type(PWASubscriptionPages.objEnterCVV, "124", "CVV");
-
 			verifyElementPresent(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
-
 			getWebDriver().switchTo().defaultContent();
 			waitTime(5000);
 			navigateHome();
 			logout();
-
 			extent.HeaderChildNode("Verify that user is able to play premium content/Rented Movie");
-
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
-
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
 			type(PWALoginPage.objEmailField, "kirankm12345@gmail.com", "Email Field");
 			waitTime(3000);
@@ -29693,13 +29641,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			click(PWALoginPage.objWebLoginButton, "Login Button");
 			waitTime(3000);
 			waitTime(5000);
-
 			navigateToAnyScreenOnWeb("ZEEPLEX");
 			waitTime(3000);
 			click(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
-
 			waitTime(2000);
-
 			if (checkElementDisplayed(PWAComboOfferPage.objTvodConsumptionPage, "Consumption Screen")) {
 				extent.extentLogger("Movie", "User is able to play premium Rented Movie");
 				logger.info("User is able to play premium Rented Movie");
@@ -29710,9 +29655,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 			waitTime(2000);
 			navigateHome();
-
 			logout();
-
 			HeaderChildNode(
 					"Verify that user is able to redirect to payment page with only TVOD price on clicking Rent Movie CTA");
 			navigateToAnyScreenOnWeb("ZEEPLEX");
@@ -29727,22 +29670,17 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			scrollDownWEB();
 			scrollDownWEB();
 			click(PWAComboOfferPage.objOnlyRentMovie, "Rent Movie CTA");
-
 			String price1 = getText(PWAComboOfferPage.objRentedMoviePrice);
 			System.out.println(price1);
-
 			click(PWAComboOfferPage.objRentMovieBtn, "Buy Radhe Combo Button");
 			waitTime(8000);
-
 			type(PWALoginPage.objEmailField, Username, "Email ID");
 			click(PWALoginPage.objContinueBtn, "Continue Button");
 			type(PWALoginPage.objPasswordField, Password, "Password Button");
 			click(PWALoginPage.objContinueBtn, "Continue Button");
-
 			waitTime(10000);
 			String price = getText(PWAComboOfferPage.objRentedMoviePricePaymentPage);
 			System.out.println(price);
-
 			if (price1.equalsIgnoreCase(price)) {
 				extent.extentLoggerPass("Rent Movie",
 						"User is redirected to payment screen with only Movie price on clicking Rent Movie CTA");
@@ -29753,14 +29691,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				logger.error(
 						"User is not redirected to payment screen with only Movie price on clicking Rent Movie CTA");
 			}
-
 			Thread.sleep(5000);
 			Thread.sleep(5000);
 			Thread.sleep(5000);
-
 			WebElement iframe = getWebDriver().findElement(By.id("juspay_iframe"));
 			getWebDriver().switchTo().frame(iframe);
-
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
 			type(PWASubscriptionPages.objEnterCardNumber, "4012001037141112", "Card Number");
 			click(PWASubscriptionPages.objEnterCardNumber, "Card Number");
@@ -29768,13 +29703,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			type(PWASubscriptionPages.objEnterExpiry, "0525", "Expiry");
 			click(PWASubscriptionPages.objEnterCVV, "CVV");
 			type(PWASubscriptionPages.objEnterCVV, "124", "CVV");
-
 			verifyElementPresent(PWASubscriptionPages.objCreditDebitProceedToPay, "Proceed To Pay Button");
-
 			getWebDriver().switchTo().defaultContent();
 			waitTime(5000);
 			navigateHome();
-
 			logout();
 		}
 	}

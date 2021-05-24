@@ -2905,7 +2905,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			new BufferedReader(new InputStreamReader(process.getInputStream()));
 			waitTime(12000);
 			HeaderChildNode("DeepLink verification for " + tabName);
-			logger.info("Executed the deeplink for " + tabName);
+			logger.info("Executed the deeplink for " + tabName); 
 			extent.extentLogger("", "Executed the deeplink for " + tabName);
 		} catch (Exception e) {
 			logger.error("Failed to execute the deeplink for " + tabName);
@@ -23345,6 +23345,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void SubscriptionValidationHLSForInvalidPrepaidCode(String userType, String contentWithoutTrailer)
 			throws Exception {
 		extent.HeaderChildNode("Verify invalid Prepaid/Promo code from Subscription screen");
@@ -23456,5 +23457,405 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extentLoggerWarning("Login", "This is NOT applicable for " + userType);
 		}
 	}
+	
+	
+	@SuppressWarnings("deprecation")
+	public void ParentalControlValidationOnClickingTrailer(String pEmailId, String pPassword,String contentTitle) throws Exception {
+		extent.HeaderChildNode("Verify Parental control on clicking trailer");
+		boolean popUpFlag = false;
+		click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+		waitTime(1000);
+		click(AMDMoreMenu.objSettings, "Settings option");
+		waitTime(5000);
+		Swipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
+		verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
+		click(AMDMoreMenu.objPasswordField, "Password field");
+		getDriver().getKeyboard().sendKeys(pPassword);
+		hideKeyboard();
+		if (getOEMName.contains("vivo")) {
+			hidePwdKeyboard();
+		}
+		click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
+		waitTime(2000);
 
+		String state = getText(AMDMoreMenu.objNoRestriction);
+		System.out.println(state);
+		if (state.equalsIgnoreCase("No Restriction")) {
+			logger.info(state + " is selected by default");
+			extent.extentLoggerPass("Parental Pin", state + " is selected by default");
+
+		} else {
+			logger.error(state + " is not selected by default");
+			extent.extentLoggerFail("Parental Pin", state + " is not selected by default");
+
+		}
+
+		click(AMDMoreMenu.objRestrictAllContent, "Restrict All Content option");
+		click(AMDMoreMenu.objContinueBtn, "Continue Button");
+		waitTime(2000);
+
+		if(verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin")) {
+			logger.info("Parental Pin is SET");
+			extent.extentLoggerPass("Parental Pin", "Parental Pin is SET");
+			popUpFlag=true;
+			verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin");
+			type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
+			hideKeyboard();
+			waitTime(4000);
+			click(AMDMoreMenu.objSetPinContinueBtn, "Continue Button");
+			waitTime(2000);
+
+			click(AMDMoreMenu.objParentalLockDone, "Done Button");
+		    BackToLandingScreen();
+		}
+		//clicking on TVOD Carousel content
+		waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(contentTitle), 60, "Carousel content: "+contentTitle);
+		waitTime(3000);
+		if(popUpFlag) {
+			boolean checkParentalPopUp = verifyElementPresent(AMDPlayerScreen.objParentalPinPopUp,
+					"Parental Pin Popup");
+			if (checkParentalPopUp) {
+				logger.info("Parental Pin Popup is displayed");
+				extentLoggerPass("Parental Pin Popup", "Parental Pin Popup is displayed");
+			    	type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+					hideKeyboard();
+					type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
+					hideKeyboard();
+					type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
+					hideKeyboard();
+					type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
+					hideKeyboard();
+					click(AMDMoreMenu.objContinueBtn, "Continue Button");
+					waitTime(6000);			
+					if(verifyElementDisplayed(AMDTVODComboOffer.objPlayerInfo)) {
+						logger.info("User is able to play trailer of TVOD content " + contentTitle + " on post successful validation of PIN");
+					 	extent.extentLoggerPass("Consumption Screen", "User is able to play trailer of TVOD content " + contentTitle + " on post successful validation of PIN"); 
+					}else {
+						logger.error("User is Unable to play trailer of TVOD content " + contentTitle + " on post successful validation of PIN");
+					 	extent.extentLoggerFail("Carousel", "User is Unable to play trailer of TVOD content " + contentTitle + " on post successful validation of PIN");
+					}
+			    BackToLandingScreen();
+				click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+				waitTime(1000);
+				PartialSwipe("UP", 1);
+				click(AMDMoreMenu.objSettings, "Settings option");
+				waitTime(2000);
+				SwipeUntilFindElement(AMDMoreMenu.objParentalControl, "UP");
+				verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
+				click(AMDMoreMenu.objPasswordField, "Password field");
+				getDriver().getKeyboard().sendKeys(pPassword);
+				hideKeyboard();
+				if (getOEMName.contains("vivo")) {
+					hidePwdKeyboard();
+				}
+				click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
+				waitTime(2000);
+				click(AMDMoreMenu.objNoRestriction, "No Restriction");
+				click(AMDMoreMenu.objContinueBtn, "Continue Button");
+				waitTime(2000);
+				click(AMDMoreMenu.objParentalLockDone, "Done Button");
+				Back(1);
+			} else {
+				logger.info("Parental Pin Popup is NOT displayed");
+				extentLoggerFail("Parental Pin Popup", "Parental Pin Popup is NOT displayed in Landscape mode");
+			}
+			
+		}else {
+			logger.info("Parental Pin failed to set hence Popup is NOT displayed");
+			extentLoggerFail("Parental Pin Popup", "Parental Pin failed to set hence Popup is NOT displayed in Landscape mode");
+		}
+	}
+
+
+	@SuppressWarnings("deprecation")
+	public void playerControlValidationOnclickingWatchNowCTA(String pEmailId, String pPassword ,String contentTitle) throws Exception {
+		extent.HeaderChildNode("Verify Parental control on clicking WatchNow CTA");	
+		boolean popUpFlag = false;
+		click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+		waitTime(1000);
+		click(AMDMoreMenu.objSettings, "Settings option");
+		waitTime(5000);
+		Swipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
+		verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
+		click(AMDMoreMenu.objPasswordField, "Password field");
+		getDriver().getKeyboard().sendKeys(pPassword);
+		hideKeyboard();
+		if (getOEMName.contains("vivo")) {
+			hidePwdKeyboard();
+		}
+		click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
+		waitTime(2000);
+
+		String state = getText(AMDMoreMenu.objNoRestriction);
+		System.out.println(state);
+		if (state.equalsIgnoreCase("No Restriction")) {
+			logger.info(state + " is selected by default");
+			extent.extentLoggerPass("Parental Pin", state + " is selected by default");
+
+		} else {
+			logger.error(state + " is not selected by default");
+			extent.extentLoggerFail("Parental Pin", state + " is not selected by default");
+
+		}
+
+		click(AMDMoreMenu.objRestrictAllContent, "Restrict All Content option");
+		click(AMDMoreMenu.objContinueBtn, "Continue Button");
+		waitTime(2000);
+
+		if(verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin")) {
+			logger.info("Parental Pin is SET");
+			extent.extentLoggerPass("Parental Pin", "Parental Pin is SET");
+			popUpFlag=true;
+			verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin");
+			type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
+			hideKeyboard();
+			waitTime(4000);
+			click(AMDMoreMenu.objSetPinContinueBtn, "Continue Button");
+			waitTime(2000);
+
+			click(AMDMoreMenu.objParentalLockDone, "Done Button");
+		    BackToLandingScreen();
+		}
+		//clicking on TVOD Carousel content
+		waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(contentTitle), 60, "Carousel content: "+contentTitle);
+		waitTime(3000);
+		if(popUpFlag) {
+			boolean checkParentalPopUp = verifyElementPresent(AMDPlayerScreen.objParentalPinPopUp,
+					"Parental Pin Popup");
+			if (checkParentalPopUp) {
+				logger.info("Parental Pin Popup is displayed");
+				extentLoggerPass("Parental Pin Popup", "Parental Pin Popup is displayed");
+					type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+					hideKeyboard();
+					type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
+					hideKeyboard();
+					type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
+					hideKeyboard();
+					type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
+					hideKeyboard();
+					waitTime(4000);
+					click(AMDMoreMenu.objContinueBtn, "Continue Button");
+					waitTime(3000);			
+					if(verifyElementDisplayed(AMDTVODComboOffer.objWatchNowCTA)) {
+						click(AMDTVODComboOffer.objWatchNowCTA,"Watch Now CTA");
+						if(verifyElementDisplayed(AMDTVODComboOffer.objAgreeAndWatchCTA)) {
+						logger.info("User is able to see Agree and Start watching of TVOD content " + contentTitle + " on post successful validation of PIN");
+					 	extent.extentLoggerPass("Consumption Screen", "User is able to see Agree and Start watching of TVOD content " + contentTitle + " on post successful validation of PIN");
+					 	VerifyPlayBackAfterEnteringPIN();			 	
+					}else {
+						logger.error("User is Unable to see Agree and Start watching of TVOD content " + contentTitle + " on post successful validation of PIN");
+					 	extent.extentLoggerFail("Carousel", "User is Unable to see Agree and Start watching of TVOD content " + contentTitle + " on post successful validation of PIN");
+					}
+					}
+				
+				BackToLandingScreen();
+				click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+				waitTime(1000);
+				PartialSwipe("UP", 1);
+				click(AMDMoreMenu.objSettings, "Settings option");
+				waitTime(2000);
+				SwipeUntilFindElement(AMDMoreMenu.objParentalControl, "UP");
+				verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
+				click(AMDMoreMenu.objPasswordField, "Password field");
+				getDriver().getKeyboard().sendKeys(pPassword);
+				hideKeyboard();
+				if (getOEMName.contains("vivo")) {
+					hidePwdKeyboard();
+				}
+				click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
+				waitTime(2000);
+				click(AMDMoreMenu.objNoRestriction, "No Restriction");
+				click(AMDMoreMenu.objContinueBtn, "Continue Button");
+				waitTime(2000);
+				click(AMDMoreMenu.objParentalLockDone, "Done Button");
+				BackToLandingScreen();
+			} else {
+				logger.info("Parental Pin Popup is NOT displayed");
+				extentLoggerFail("Parental Pin Popup", "Parental Pin Popup is NOT displayed ");
+			}
+			
+		}else {
+			logger.info("Parental Pin failed to set hence Popup is NOT displayed");
+			extentLoggerFail("Parental Pin Popup", "Parental Pin failed to set hence Popup is NOT displayed");
+		}
+
+	}
+
+	public void VerifyPlayBackAfterEnteringPIN() throws Exception {
+		extent.HeaderChildNode("Verifying playback of TVOD content after entering Parental PIN");
+		waitTime(3000);
+		click(AMDTVODComboOffer.objAgreeAndWatchCTA,"Agree and watch CTA");
+		waitForElementAndClickIfPresent(AMDPlayerScreen.objPauseIcon, 5,"Pause icon");
+		if(verifyElementDisplayed(AMDPlayerScreen.objPlayIcon)) {
+			logger.info("Playback is started after entering valid Parental PIN");
+		 	extent.extentLoggerPass("Consumption Screen", "Playback is started after entering valid Parental PIN");	 		
+		}else {
+			logger.info("Fails to initiate playaback after entering Paretal PIN");
+			extentLoggerFail("Parental Pin Popup", "Fails to initiate playaback after entering Paretal PIN");
+		}
+	}
+
+	public void SearchForTVODContent(String contentTitle) throws Exception {
+		extent.HeaderChildNode("Verifying Search result for TVOD content");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, contentTitle + "\n", "Searchbar");
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);	
+		if(verifyIsElementDisplayed(AMDSearchScreen.objFirstSearchResult(contentTitle))) {
+			click(AMDSearchScreen.objFirstSearchResult(contentTitle), "Searched content");
+			waitTime(5000);
+			if(verifyElementDisplayed(AMDTVODComboOffer.objPlayerInfo)) {
+			String info = findElement(AMDTVODComboOffer.objPlayerInfo).getText();
+			if(info.contains("trailer")) {
+				logger.info("User is navigated to PLEX consumption screen clicking on content if only trailer is available.");
+			 	extent.extentLoggerPass("Consumption Screen", "User is navigated to PLEX consumption screen clicking on content if only trailer is available.");	 
+			}else {
+				logger.error("User is NOT navigated to PLEX consumption screen clicking on content if only trailer is available.");
+			 	extent.extentLoggerFail("Consumption Screen", "User is NOT navigated to PLEX consumption screen clicking on content if only trailer is available.");	 
+			}
+			
+		}else {
+			logger.error("Playback is not initaiated");
+		 	extent.extentLoggerFail("Consumption Screen", "Playback is not initaiated");	 
+		}
+		}	
+	}
+
+	public void SearchForExpiredTVODContent(String email,String pswd,String TVODExpiredContent) throws Exception {
+		extent.HeaderChildNode("Verifying search result for Expired TVOD content");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, TVODExpiredContent + "\n", "Searchbar");
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 20);	
+		if(verifyIsElementDisplayed(AMDSearchScreen.objFirstSearchResult(TVODExpiredContent))) {
+			logger.info("Related search is displayed when user searches for Expired content");
+		 	extent.extentLoggerPass("Consumption Screen", "Related search is displayed when user searches for Expired content");	 
+		}else {
+			logger.error("Related search is NOT displayed when user searches for Expired content");
+		 	extent.extentLoggerFail("Consumption Screen", "Related search is NOT displayed when user searches for Expired content");	 
+		}
+		
+	}
+		
+	public void HaveACodeValidationTVOD(String userType,String content) throws Exception {
+		extent.HeaderChildNode("Verify Have a code journey");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			verifyElementPresent(AMDHomePage.objSubscribeTeaser, "Buy plan CTA on landing screen");
+			click(AMDHomePage.objSubscribeTeaser, "Buy Plan CTA on landing screen");
+			waitTime(5000);
+			VerifyValidCode("NRTDC1");
+			waitTime(3000);
+			click(AMDHomePage.objSubscribeTeaser, "Buy Plan CTA on landing screen");
+			VerifyInvalidCode("Z56MSK93rJGDyi");
+			BackToLandingScreen();
+			extent.HeaderChildNode("Verify Have a code in Combo Offer Page"); 
+			waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(content), 60, "Carousel content: "+content);
+			click(AMDTVODComboOffer.objRentNowCTABelowPlayer,"Rent Now CTA Below the Player");
+			verifyElementExist(AMDTVODComboOffer.obComboOfferScreen,"Combo offer page");
+			Swipe("UP",1);
+			if(verifyElementIsNotDisplayed(AMDSubscibeScreen.objHaveACodeCTA)) {
+				logger.info("Have a code CTA is not displayed in Combo offer page - Expected behaviour");
+				extent.extentLoggerPass("Code", "Have a code CTA is not displayed in Combo offer page - Expected behaviour");
+			}else {
+				logger.error("Have a code CTA is displayed in combo offer page");
+				extent.extentLoggerFail("Code", "Have a code CTA is displayed in combo offer page");
+					}
+			BackToLandingScreen();
+		}else {
+			logger.info("This is NOT applicable for " + userType);
+			extentLoggerWarning("Login", "This is NOT applicable for " + userType);
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	public void VerifyValidCode(String code) throws Exception {
+		extent.HeaderChildNode("Verify Valid prepaid/promocode");
+		Swipe("UP",1);
+		click(AMDSubscibeScreen.objHaveACodeCTA, "Have a code");
+		waitTime(2000);
+		getDriver().getKeyboard().sendKeys(code);
+		hideKeyboard();
+		click(AMDSubscibeScreen.objApplyOnHaveACodescreen, "Apply button");
+		 	if (verifyIsElementDisplayed(AMDSubscibeScreen.objApplyPromoCodeappliedText)) {
+		 		String text = findElement(AMDSubscibeScreen.objApplyPromoCodeappliedText).getText();
+				logger.info("Code applied : " + text  + " is displayed");
+				extent.extentLoggerPass("Code", "Code applied : " + text  + " is displayed");
+			} else {
+				logger.error("Code applied text is NOT displayed");
+				extent.extentLoggerFail("Code", "Code applied text is NOT displayed");
+			}
+		Back(1);
+	}
+
+	@SuppressWarnings("deprecation")
+	public void VerifyInvalidCode(String code) throws Exception{
+		extent.HeaderChildNode("Verify Invalid prepaid/promocode");
+		waitTime(3000);
+		Swipe("UP",1);
+		click(AMDSubscibeScreen.objHaveACodeCTA, "Have a code");
+		getDriver().getKeyboard().sendKeys(code);
+		hideKeyboard();
+		if(verifyElementDisplayed(AMDSubscibeScreen.objApplyOnHaveACodescreen)) {
+		click(AMDSubscibeScreen.objApplyOnHaveACodescreen, "Apply button");
+		}
+		waitTime(2000);
+		if (verifyElementDisplayed(AMDSubscibeScreen.objInvalidPromoCodeText)) {
+			String text = findElement(AMDSubscibeScreen.objInvalidPromoCodeText).getText();
+				logger.info("Invalid Error Code : "+ text+" is displayed");
+				extent.extentLoggerPass("Code", "Invalid Error Code : "+ text+" is displayed");
+			} else {
+				logger.error("Invalid Error Code text is NOT displayed");
+				extent.extentLoggerFail("Code", "Invalid Error Code text is NOT displayed");
+			}
+		BackToLandingScreen();
+	}
+
+	public void Guest_SearchEntryPoint_ZeePlexConsumptionPage(String usertype, String contentTitle) throws Exception {
+		if(usertype.equalsIgnoreCase("Guest")) {
+			SearchZEEPLEXContentAndPlay(contentTitle);	
+			boolean var = verifyElementExist(AMDTVODComboOffer.objZeePlexLogoBelowThePlayer, "ZeePlex logo below the Player");
+			if(var==true) {
+	             logger.info("Guest user can reach ZEEPLEX Consumption page from search screen");
+	             extent.extentLoggerPass("ZEEPLEX content", "Guest user can reach ZEEPLEX Consumption page from search screen");
+			}else {
+				 logger.error("Guest user can't reach ZEEPLEX Consumption page from search screen");
+				 extent.extentLoggerFail("ZEEPLEX content", "Guest user can't reach ZEEPLEX Consumption page from search screen");
+			}
+		}else {
+			logger.info("Not applicable for this user");
+			extent.extentLogger("Not Applicable", "Not applicable for this user");
+		}
+	}
+	
+	public void ThumbhnailEntryPoint_ZeeplexConsumptionPage(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Navigation to Zeeplex consumption page through Thumbhnail entry point");
+		SelectTopNavigationTab(tabName);
+		waitTime(5000);
+		SwipeUntilFindElement(AMDHomePage.objFirstContentCardOfTray("ZEEPLEX"), "UP");
+		click(AMDHomePage.objFirstContentCardOfTray("ZEEPLEX"), "Zeeplex conent");
+		boolean var = verifyElementExist(AMDTVODComboOffer.objZeePlexLogoBelowThePlayer, "ZeePlex logo below the Player");
+		if(var==true) {
+             logger.info(usertype+" user can reach ZEEPLEX Consumption page from the Thumbnails from "+tabName+" screen");
+             extent.extentLoggerPass("ZEEPLEX content", usertype+ " user can reach ZEEPLEX Consumption page from the Thumbnails from "+tabName+" screen");
+		}else {
+			 logger.error(usertype+" user can reach ZEEPLEX Consumption page from the Thumbnails from "+tabName+" screen");
+			 extent.extentLoggerFail("ZEEPLEX content", usertype+" user can reach ZEEPLEX Consumption page from the Thumbnails from "+tabName+" screen");
+		}	
+	}
 }

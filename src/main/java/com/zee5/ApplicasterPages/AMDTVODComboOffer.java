@@ -102,4 +102,9 @@ public class AMDTVODComboOffer {
 	public static By objBottomImg = By.id("bottomImage");
 	public static By objBottomSheetCTA = By.xpath("//*[@id='buttonFirstAction']");
 	public static By objHeadingBottomSheet = By.xpath("//*[@id='heading']");
+	
+	public static By objPlayerInfo = By.xpath("//*[@id='playerInfo']");
+	public static By objAgreeAndWatchCTA = By.xpath("//*[@id='tvodAgreeAndStartButton']");
+	
+	public static By objZeePlexLogoBelowThePlayer = By.xpath("//*[@id='iconZeePlex']");
 }
