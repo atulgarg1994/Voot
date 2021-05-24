@@ -1,5 +1,7 @@
 package com.business.zee;
 
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -128,18 +130,14 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			//dismissDisplayContentLanguagePopUp();
-			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
-			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
-			waitTime(3000);
+			allowPopUp();
 			break;
 
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
-			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
-			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
+			allowPopUp();
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -156,8 +154,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User");
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
-			click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
-			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
+			allowPopUp();
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -172,6 +169,22 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		}
 
 		selectLanguages();
+	}
+	
+	public void allowPopUp() throws Exception {
+		JSClick(PWAHomePage.objAllow, "Notification popup");
+		waitTime(3000);
+		JSClick(PWAHomePage.objAllowCloseButton, "Close button");
+		waitTime(30000);
+		Robot robot = new Robot();
+		robot.keyPress(KeyEvent.VK_TAB);
+		waitTime(2000);
+		robot.keyPress(KeyEvent.VK_TAB);
+		waitTime(2000);
+		robot.keyPress(KeyEvent.VK_ENTER);
+		robot.keyRelease(KeyEvent.VK_ENTER);
+		waitTime(3000);
+		System.out.println("dismissed all");
 	}
 	
 	public void selectLanguages() throws Exception {

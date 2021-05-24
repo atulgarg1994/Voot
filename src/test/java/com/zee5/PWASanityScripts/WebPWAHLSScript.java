@@ -112,7 +112,7 @@ public class WebPWAHLSScript {
 	@Parameters({ "userType" })
 	public void searchPageValidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-		Zee5WEBPWASanityBusinessLogic.Search("Parru ");
+		Zee5WEBPWASanityBusinessLogic.Search("Paaru ");
 	}
 
 	@Test(priority = 15)

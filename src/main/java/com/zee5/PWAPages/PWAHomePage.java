@@ -641,4 +641,7 @@ public class PWAHomePage {
 	
 	public static By objMandatoryRegPopUp = By.xpath("//*[contains(@class,'mandatoryRegisterPopup')]");
 	
+	public static By objAllow = By.xpath(".//*[text()='Allow']");
+	public static By objAllowCloseButton = By.xpath("//*[@class='aiq-1xYiw8']");
+	
 }
