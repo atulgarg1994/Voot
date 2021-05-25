@@ -22549,6 +22549,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					logger.info("Combo offer page is displayed on clicking Rent Now CTA on the player");
 					extent.extentLoggerPass("Consumption Screen",
 							"Combo offer page is displayed on clicking Rent Now CTA on the player");
+					verifyElementExist(AMDTVODComboOffer.objUpgradeTextOnComboOfferPage, "Upgrade Text");
+					verifyElementExist(AMDTVODComboOffer.objUpgradeSubTextOnComboOfferPage, "Upgrade Subtext");
 					Back(1);
 				} else {
 					logger.error("Combo offer page is not displayed on clicking Rent Now CTA on the player");
@@ -22565,6 +22567,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					logger.info("Combo offer page is displayed on clicking combo offer widget below the player");
 					extent.extentLoggerPass("Consumption Screen",
 							"Combo offer page is displayed on clicking combo offer widget below the player");
+					verifyElementExist(AMDTVODComboOffer.objUpgradeTextOnComboOfferPage, "Upgrade Text");
+					verifyElementExist(AMDTVODComboOffer.objUpgradeSubTextOnComboOfferPage, "Upgrade Subtext");
+					
 					Back(1);
 				} else {
 					logger.error("Combo offer page is not displayed on clicking combo offer widget below the player");
@@ -22931,6 +22936,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDTVODComboOffer.objOnlyRentMoviePlanCost, "Price of Only Rent Movie card");
 		verifyElementExist(AMDTVODComboOffer.objOnlyRentMovieRentalValidity, "Rental validity of Only Rent Movie card");
 		verifyElementExist(AMDTVODComboOffer.objOnlyRentMovieWatchTimeValidity, "Price of Only Rent Movie card");
+		verifyElementExist(AMDTVODComboOffer.objTermsOfUse_PrivacyPolicy, "'By proceeding, you agree to our Terms of Service and Privacy Policy' disclaimer");
 	}
 
 	public void NonSubscribed_withoutRadheRental(String tabName, String contentTitle) throws Exception {
@@ -24186,4 +24192,38 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //			extent.extentLoggerFail("My Rentals Screen","Watch now CTA is not displayed");
 //		}
 	}
+	
+	public void WatchlistEntryPoint_ZeeplexConsumptionPage(String userType, String contentTitle) throws Exception {
+		extent.HeaderChildNode("Navigation to Zeeplex consumption page through Watchlist screen");
+		click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+		waitTime(2000);
+		click(AMDMoreMenu.objWatchlist, "Watchlist option");
+		click(AMDUserSessionManagement.objMoviesTabUnderWatchList, "Movies Tab");
+		boolean contentsInMoviesTab = verifyIsElementDisplayed(AMDUserSessionManagement.objcontentTitleInWatchList);
+		if (contentsInMoviesTab == true) {
+			main: for (int i = 0; i < 3; i++) {
+				int totalContents = getDriver().findElements(AMDUserSessionManagement.objcontentTitleInWatchList).size();
+				for (int j = 1; j <= totalContents; j++) {
+					String content = getDriver().findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[" + j + "]")).getText();
+					if(content.equalsIgnoreCase(contentTitle)) {
+						getDriver().findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/txt_reminder_item_title'])[" + j + "]")).click();
+						boolean var = verifyElementExist(AMDTVODComboOffer.objZeePlexLogoBelowThePlayer, "ZeePlex logo below the Player");
+						if(var==true) {
+				             logger.info("User is navigated to ZEEPLEX Consumption page.");
+				             extent.extentLoggerPass("ZEEPLEX content", "User is navigated to ZEEPLEX Consumption page.");
+						}else {
+							 logger.error("User is not navigated to ZEEPLEX Consumption page.");
+							 extent.extentLoggerFail("ZEEPLEX content", "User is not navigated to ZEEPLEX Consumption page.");
+						}	
+						break main;
+					}
+				}
+				Swipe("UP", 1);
+			}
+		} else {
+			verifyIsElementDisplayed(AMDUserSessionManagement.objNoContentInWatchlist, "Nothing to watch text");
+		}
+	}
+	
+	
 }

@@ -117,4 +117,6 @@ public class AMDTVODComboOffer {
     public static By objPackValidityInMyRentals = By.xpath("(//*[@id='cell_center_container']//*[@class='android.widget.TextView'])[4]");
     public static By objWatchNowCTAinMyRentals = By.xpath("//*[@id='button'][@text='Watch Now']");
     public static By objZEEPLEXLogo = By.xpath("//*[@id='zee_plex_logo']");
+    
+    public static By objTermsOfUse_PrivacyPolicy = By.xpath("//*[@id='privacyPolicyAndTAC']");
 }
