@@ -181,6 +181,9 @@
 	<parameter name="RadhedeeplinkURl" value="https://www.zee5.com/movies/details/radhe-your-most-wanted-bhai/0-0-399328" />
 	<parameter name="SubscriptionDeeplinkURl" value="https://www.zee5.com/myaccount/subscription" />
 	
+	<parameter name="ExpiredRadheRentalEmail" value="9503308953" />
+	<parameter name="ExpiredRadheRentalPassword" value="123456" />
+	
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

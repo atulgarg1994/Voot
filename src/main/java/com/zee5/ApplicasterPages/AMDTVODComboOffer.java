@@ -107,4 +107,14 @@ public class AMDTVODComboOffer {
 	public static By objAgreeAndWatchCTA = By.xpath("//*[@id='tvodAgreeAndStartButton']");
 	
 	public static By objZeePlexLogoBelowThePlayer = By.xpath("//*[@id='iconZeePlex']");
+	
+	public static By objMyRentalsOption = By.xpath("//*[@id='list_item'][@text='My Rentals']");
+    
+    public static By objMyRentalsTitle = By.xpath("//*[@id='title' and @text='My Rentals']");
+    public static By objContentThumbnailInMyRentals = By.xpath("//*[@class='android.widget.ImageView' and ./parent::*[@id='cell_start_container']]");
+    public static By objContentTitleInMyRentals = By.xpath("(//*[@id='cell_center_container']//*[@class='android.widget.TextView'])[1]");
+    public static By objReleasedByInMyRentals = By.xpath("(//*[@id='cell_center_container']//*[@class='android.widget.TextView'])[2]");
+    public static By objPackValidityInMyRentals = By.xpath("(//*[@id='cell_center_container']//*[@class='android.widget.TextView'])[4]");
+    public static By objWatchNowCTAinMyRentals = By.xpath("//*[@id='button'][@text='Watch Now']");
+    public static By objZEEPLEXLogo = By.xpath("//*[@id='zee_plex_logo']");
 }

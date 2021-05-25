@@ -10364,9 +10364,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		if (pUserType.equals("Guest")) {
 			// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-			waitTime(3000);
-			hideKeyboard();
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+			//waitTime(3000);
+			//hideKeyboard();
+			//verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
 			verifyElementPresent(AMDHomePage.objHomeTab, "Home landing screen");
 		} else {
 			logger.info(pUserType + " is already in the Home screen");
@@ -23857,5 +23857,333 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			 logger.error(usertype+" user can reach ZEEPLEX Consumption page from the Thumbnails from "+tabName+" screen");
 			 extent.extentLoggerFail("ZEEPLEX content", usertype+" user can reach ZEEPLEX Consumption page from the Thumbnails from "+tabName+" screen");
 		}	
+	}
+	
+	public void VerifyMyTransactionForPLEXPlan() throws Exception{
+		
+		if(verifyElementDisplayed(AMDHomePage.objMoreMenu)) {
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+		}else {
+			if(!verifyElementDisplayed(AMDMoreMenu.objMyTransactions)) {
+				BackToLandingScreen();
+				verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu");
+			}
+		}	
+		waitTime(3000);
+		if (verifyIsElementDisplayed(AMDMoreMenu.objMyTransactions)) {
+			logger.info("My Transactions option is availabel on More button");
+			extent.extentLoggerPass("MoreMenu Screen", "My Transactions option is availabel on More button");
+
+		} else {
+			logger.info("My Transactions option is not availabel on More button");
+			extent.extentLoggerFail("MoreMenu Screen", "My Transactions option is not availabel on More button");
+		}
+		click(AMDMoreMenu.objMyTransactions, "My TransactionsOption");
+		waitTime(2000);
+		if (verifyIsElementDisplayed(AMDMoreMenu.objMyTransactionsHeader)) {
+			logger.info("User navigated to My Transactions Page on tapping My Transactions");
+			extent.extentLoggerPass("MyTransactions Screen",
+					"User navigated to My Transactions Page on tapping My Transactions");
+		} else {
+			logger.info("User not navigated to My Transactions Page on tapping My Transactions");
+			extent.extentLoggerFail("MyTransactions Screen",
+					"User not navigated to My Transactions Page on tapping My Transactions");
+		}
+		if (checkElementExist(AMDTVODComboOffer.objZEEPLEXLogo, "ZEEPLEX logo")) {
+			logger.info("ZEEPLEX logo is displayed");
+			extent.extentLoggerPass("MyTransactions Screen","ZEEPLEX logo is displayed");
+		} else {
+			logger.error("ZEEPLEX logo is NOT displayed");
+			extent.extentLoggerFail("MyTransactions Screen","ZEEPLEX logo is NOT displayed");
+		}	
+		MyTransactionsWithDetails();
+		extent.HeaderChildNode("Verify Date of Transaction for every transaction done by the user");
+		String TransactionDate = getDriver().findElement(AMDMoreMenu.objTransactionDate1).getText();
+		logger.info(TransactionDate);
+		if (checkElementExist(AMDMoreMenu.objTransactionDate1, "Transaction date")) {
+			logger.info(
+					TransactionDate + " : Date of Transaction is shown for the transactions done by the " + userType);
+			extent.extentLoggerPass("MyTransactions Screen",
+					TransactionDate + " :Date of Transaction is shown for the transactions done by the " + userType);
+		} else {
+
+			logger.info(TransactionDate + " : Date of Transaction is not shown for the transactions done by the "
+					+ userType);
+			extent.extentLoggerFail("MyTransactions Screen", TransactionDate
+					+ " :Date of Transaction is not shown for the transactions done by the " + userType);
+		}
+
+		extent.HeaderChildNode("Verify My Transactions pack details");
+		String TransactionPackName = getDriver().findElement(AMDMoreMenu.objTransactionPackName1).getText();
+		logger.info(TransactionPackName);
+		if (checkElementExist(AMDMoreMenu.objTransactionPackName1, "Transaction Pack name")) {
+			logger.info(TransactionPackName + " : Transaction pack name is displayed for the " + userType);
+			extent.extentLoggerPass("MyTransactions Screen",
+					TransactionPackName + " : Transaction pack name is displayed for the " + userType);
+		} else {
+
+			logger.info(TransactionPackName + " : Transaction pack name is not displayed for the " + userType);
+			extent.extentLoggerFail("MyTransactions Screen",
+					TransactionPackName + " : Transaction pack name is not displayed for the " + userType);
+		}
+
+		String TransactionPackduration = getDriver().findElement(AMDMoreMenu.objTransactionPackDuration1).getText();
+		logger.info(TransactionPackduration);
+		if (checkElementExist(AMDMoreMenu.objTransactionPackDuration1, "Transaction Pack duration")) {
+			logger.info(TransactionPackduration + " : Transaction pack duration is displayed for the " + userType);
+			extent.extentLoggerPass("MyTransactions Screen",
+					TransactionPackduration + " : Transaction pack duration is displayed for the " + userType);
+		} else {
+
+			logger.info(TransactionPackduration + " : Transaction pack duration is not displayed for the " + userType);
+			extent.extentLoggerFail("MyTransactions Screen",
+					TransactionPackduration + " : Transaction pack duration is not displayed for the " + userType);
+		}
+
+		String TransactionPackRental = getDriver().findElement(AMDMoreMenu.objTransactionPackRental1).getText();
+		logger.info(TransactionPackRental);
+		if (checkElementExist(AMDMoreMenu.objTransactionPackRental1, "Transaction PackRental")) {
+			logger.info(TransactionPackRental + " : Transaction pack rental is displayed for the " + userType);
+			extent.extentLoggerPass("MyTransactions Screen",
+					TransactionPackRental + " : Transaction pack rental is displayed for the " + userType);
+		} else {
+
+			logger.info(TransactionPackRental + " : Transaction pack rental is not displayed for the " + userType);
+			extent.extentLoggerFail("MyTransactions Screen",
+					TransactionPackRental + " : Transaction pack rental is not displayed for the " + userType);
+		}
+
+		extent.HeaderChildNode("Verify Payment mode mentioned for the Transaction done by the user");
+		String TransactionPackPaymentMode = getDriver().findElement(AMDMoreMenu.objTransactionPackPaymentMode1)
+				.getText();
+		logger.info(TransactionPackPaymentMode);
+		if (checkElementExist(AMDMoreMenu.objTransactionPackPaymentMode1, "Transaction Pack PaymentMode")) {
+			logger.info(
+					TransactionPackPaymentMode + " : Transaction pack payment mode is displayed for the " + userType);
+			extent.extentLoggerPass("MyTransactions Screen",
+					TransactionPackPaymentMode + " : Transaction pack payment mode is displayed for the " + userType);
+		} else {
+
+			logger.info(TransactionPackPaymentMode + " : Transaction pack payment mode is not displayed for the "
+					+ userType);
+			extent.extentLoggerFail("MyTransactions Screen", TransactionPackPaymentMode
+					+ " : Transaction pack payment mode is not displayed for the " + userType);
+		}
+
+		String TransactionPackCountryDetails = getDriver().findElement(AMDMoreMenu.objTransactionPackCountry1)
+				.getText();
+		logger.info(TransactionPackCountryDetails);
+		if (checkElementExist(AMDMoreMenu.objTransactionPackCountry1, "Transaction Pack Country Details")) {
+			logger.info(TransactionPackCountryDetails + " : Transaction pack Country details is displayed for the "
+					+ userType);
+			extent.extentLoggerPass("MyTransactions Screen", TransactionPackCountryDetails
+					+ " : Transaction pack Country details is displayed for the " + userType);
+		} else {
+
+			logger.info(TransactionPackCountryDetails + " : Transaction pack Country details is not displayed for the "
+					+ userType);
+			extent.extentLoggerFail("MyTransactions Screen", TransactionPackCountryDetails
+					+ " : Transaction pack Country details is not displayed for the " + userType);
+		}
+
+		String TransactionPackAutoRenewal = getDriver().findElement(AMDMoreMenu.objTransactionPackAutoRenewal1)
+				.getText();
+		logger.info(TransactionPackAutoRenewal);
+		if (checkElementExist(AMDMoreMenu.objTransactionPackAutoRenewal1, "Transaction Pack Auto-renewal status")) {
+			logger.info(TransactionPackAutoRenewal + " : Transaction pack Auto-renewal details is displayed for the "
+					+ userType);
+			extent.extentLoggerPass("MyTransactions Screen", TransactionPackAutoRenewal
+					+ " : Transaction pack Auto-renewal details is displayed for the " + userType);
+		} else {
+
+			logger.info(TransactionPackAutoRenewal
+					+ " : Transaction pack Auto-renewal details is not displayed for the " + userType);
+			extent.extentLoggerFail("MyTransactions Screen", TransactionPackAutoRenewal
+					+ " : Transaction pack Auto-renewal details is not displayed for the " + userType);
+		}
+
+		extent.HeaderChildNode("Verify status of Transaction is Shown according to the duration of the pack");
+		String TransactionPackStatus = getDriver().findElement(AMDMoreMenu.objTransactionPackStatus1).getText();
+		logger.info(TransactionPackStatus);
+		if (checkElementExist(AMDMoreMenu.objTransactionPackStatus1, "Transaction Pack Status")) {
+			logger.info(TransactionPackStatus + " : Transaction pack Status details is displayed for the " + userType);
+			extent.extentLoggerPass("MyTransactions Screen",
+					TransactionPackStatus + " : Transaction pack Status details is displayed for the " + userType);
+		} else {
+
+			logger.info(
+					TransactionPackStatus + " : Transaction pack Status details is not displayed for the " + userType);
+			extent.extentLoggerFail("MyTransactions Screen",
+					TransactionPackStatus + " : Transaction pack Status details is not displayed for the " + userType);
+		}
+
+		extent.HeaderChildNode("Verify download Invoice CTA below My transactions");
+		if (checkElementExist(AMDMoreMenu.objDownloadInvoice1, "Download invoice")) {
+			logger.info("Download invoice CTA is displayed under My Transactions Screen");
+			extent.extentLoggerPass("MyTransactions Screen",
+					"Download invoice CTA is displayed under My Transactions Screen");
+		} else {
+			logger.info("Download invoice CTA is not displayed under My Transactions Screen");
+			extent.extentLoggerFail("MyTransactions Screen",
+					"Download invoice CTA is not displayed under My Transactions Screen");
+		}	
+	}
+
+	public void MyRentalsScreenVerification() throws Exception{
+		if(verifyElementDisplayed(AMDHomePage.objMoreMenu)) {
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+		}else {
+			if(!verifyElementDisplayed(AMDTVODComboOffer.objMyRentalsOption)) {
+				BackToLandingScreen();
+				verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu");
+			}
+		}	
+		waitTime(3000);
+		if (verifyIsElementDisplayed(AMDTVODComboOffer.objMyRentalsOption)) {
+			logger.info("My Rentals option is availabel on More button");
+			extent.extentLoggerPass("MoreMenu Screen", "My Rentals option is availabel on More button");
+
+		} else {
+			logger.info("My Rentals option is not availabel on More button");
+			extent.extentLoggerFail("MoreMenu Screen", "My Rentals option is not availabel on More button");
+		}
+		click(AMDTVODComboOffer.objMyRentalsOption,"My Rentals");
+		waitTime(2000);
+		if (verifyIsElementDisplayed(AMDTVODComboOffer.objMyRentalsTitle)) {
+			logger.info("User navigated to My Rentals Page on tapping My Rentals");
+			extent.extentLoggerPass("MyTransactions Screen",
+					"User navigated to My Rentals Page on tapping My Rentals");
+		} else {
+			logger.info("User not navigated to My Rentals Page on tapping My Rentals");
+			extent.extentLoggerFail("MyTransactions Screen",
+					"User not navigated to My Rentals Page on tapping My Rentals");
+		}
+	}
+
+	public void PLEXContentYetToWatch() throws Exception {
+		
+		extent.HeaderChildNode("Verify TVOD content details which user is yet to watch in My Rentals Screen");
+		if (checkElementExist(AMDTVODComboOffer.objContentThumbnailInMyRentals, "Thumbnail")) {
+			logger.info("Content thumbnail is displayed");
+			extent.extentLoggerPass("My Rentals Screen",
+					"Content thumbnail is displayed");
+		} else {
+
+			logger.info("Content thumbnail is not displayed");
+			extent.extentLoggerFail("My Rentals Screen","Content thumbnail is not displayed");
+		}
+
+		String Contenttile = getDriver().findElement(AMDTVODComboOffer.objContentTitleInMyRentals).getText();
+		logger.info(Contenttile);
+		if (checkElementExist(AMDTVODComboOffer.objContentTitleInMyRentals, "Content Title")) {
+			logger.info(Contenttile + " : Content Title is displayed");
+			extent.extentLoggerPass("My Rentals Screen",
+					Contenttile + " : Content Title is displayed");
+		} else {
+
+			logger.info(Contenttile + " : Content Title is not displayed");
+			extent.extentLoggerFail("My Rentals Screen",
+					Contenttile + " : Content Title is not displayed");
+		}
+
+		String ReleasedBy = getDriver().findElement(AMDTVODComboOffer.objReleasedByInMyRentals).getText();
+		logger.info(ReleasedBy);
+		if (checkElementExist(AMDTVODComboOffer.objReleasedByInMyRentals, "Released by")) {
+			logger.info(ReleasedBy + " : is displayed");
+			extent.extentLoggerPass("My Rentals Screen",ReleasedBy + " : is displayed");
+		} else {
+
+			logger.info(ReleasedBy + " : is not displayed");
+			extent.extentLoggerFail("My Rentals Screen",ReleasedBy + " : is not displayed");
+		}
+
+		String Packvalidity = getDriver().findElement(AMDTVODComboOffer.objPackValidityInMyRentals).getText();
+		logger.info(Packvalidity);
+		if (checkElementExist(AMDTVODComboOffer.objPackValidityInMyRentals, "Pack validity")) {
+			logger.info(Packvalidity + " : pack validity is displayed");
+			extent.extentLoggerPass("My Rentals Screen",Packvalidity + " : pack validity is displayed");
+		} else {
+
+			logger.info(Packvalidity + " : pack validity is not displayed");
+			extent.extentLoggerFail("My Rentals Screen",Packvalidity + " : pack validity is not displayed");
+		}
+
+		extent.HeaderChildNode("Verify WatchNow CTA in My Rentals");
+		if (checkElementExist(AMDTVODComboOffer.objWatchNowCTAinMyRentals, "WatchNow CTA")) {
+			logger.info("Watch now CTA is displayed");
+			extent.extentLoggerPass("My Rentals Screen","Watch now CTA is displayed");
+		} else {
+			logger.info("Watch now CTA is not displayed");
+			extent.extentLoggerFail("My Rentals Screen","Watch now CTA is not displayed");
+		}
+		
+	}
+
+	public void PLEXEXpiredContent() throws Exception {
+
+		extent.HeaderChildNode("Verify Expired TVOD content details in My Rentals Screen");
+		if(verifyElementDisplayed(AMDHomePage.objMoreMenu)) {
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+		}else {
+			if(!verifyElementDisplayed(AMDTVODComboOffer.objMyRentalsOption)) {
+				BackToLandingScreen();
+				verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu");
+			}
+		}	
+		click(AMDTVODComboOffer.objMyRentalsOption,"My Rentals");
+		
+		if (checkElementExist(AMDTVODComboOffer.objContentThumbnailInMyRentals, "Thumbnail")) {
+			logger.info("Content thumbnail is displayed");
+			extent.extentLoggerPass("My Rentals Screen",
+					"Content thumbnail is displayed");
+		} else {
+
+			logger.info("Content thumbnail is not displayed");
+			extent.extentLoggerFail("My Rentals Screen","Content thumbnail is not displayed");
+		}
+
+		String Contenttile = getDriver().findElement(AMDTVODComboOffer.objContentTitleInMyRentals).getText();
+		logger.info(Contenttile);
+		if (checkElementExist(AMDTVODComboOffer.objContentTitleInMyRentals, "Content Title")) {
+			logger.info(Contenttile + " : Content Title is displayed");
+			extent.extentLoggerPass("My Rentals Screen",
+					Contenttile + " : Content Title is displayed");
+		} else {
+
+			logger.info(Contenttile + " : Content Title is not displayed");
+			extent.extentLoggerFail("My Rentals Screen",
+					Contenttile + " : Content Title is not displayed");
+		}
+
+		String ReleasedBy = getDriver().findElement(AMDTVODComboOffer.objReleasedByInMyRentals).getText();
+		logger.info(ReleasedBy);
+		if (checkElementExist(AMDTVODComboOffer.objReleasedByInMyRentals, "Released by")) {
+			logger.info(ReleasedBy + " : is displayed");
+			extent.extentLoggerPass("My Rentals Screen",ReleasedBy + " : is displayed");
+		} else {
+
+			logger.info(ReleasedBy + " : is not displayed");
+			extent.extentLoggerFail("My Rentals Screen",ReleasedBy + " : is not displayed");
+		}
+
+		String Packvalidity = getDriver().findElement(AMDTVODComboOffer.objPackValidityInMyRentals).getText();
+		logger.info(Packvalidity);
+		if (checkElementExist(AMDTVODComboOffer.objPackValidityInMyRentals, "Pack validity")) {
+			logger.info(Packvalidity + " : pack validity is displayed");
+			extent.extentLoggerPass("My Rentals Screen",Packvalidity + " : pack validity is displayed");
+		} else {
+
+			logger.info(Packvalidity + " : pack validity is not displayed");
+			extent.extentLoggerFail("My Rentals Screen",Packvalidity + " : pack validity is not displayed");
+		}
+
+//		extent.HeaderChildNode("Verify WatchNow CTA in My Rentals");
+//		if (checkElementExist(AMDTVODComboOffer.objWatchNowCTAinMyRentals, "WatchNow CTA")) {
+//			logger.info("Watch now CTA is displayed");
+//			extent.extentLoggerPass("My Rentals Screen","Watch now CTA is displayed");
+//		} else {
+//			logger.info("Watch now CTA is not displayed");
+//			extent.extentLoggerFail("My Rentals Screen","Watch now CTA is not displayed");
+//		}
 	}
 }
