@@ -450,9 +450,6 @@ public class PWASubscriptionPages {
 	public static By objMobikwikProceedToPay = By.xpath("//article[contains(text(),'Mobikwik')]//ancestor::*[@class='linearLayout PaymentOptionViewNotListNestedChild']//child::*[text()='Proceed to pay']");
 	public static By objProceedBtnEnabled = By
 	.xpath("//*[contains(@class, 'noSelect pinkBtn')]/span[contains(text(),'Continue')]");
-
-
-	public static By objMobileLinkPaytmOption = By.xpath("(//article[text()='Link Wallet'])[1]");
 	
 	//Watch Now CTA
 	public static By objWatchNowCTA  = By.xpath("//span[text()='Watch Now']");
@@ -510,5 +507,5 @@ public class PWASubscriptionPages {
 		public static By objYouHaveActivePremiumPlanDialog = By.xpath("//*[@class='subtitleItem']//span[text()='You are currently on ₹999 Premium 1 Year plan.']");//updated 13/5/2021
 		
 		public static By objBuyPremiumCTA = By.xpath("//*[@class='buttonContainer ']//span[text()='Buy Premium']");//added 13/5/2021
-	
+		public static By objMobileLinkPaytmOption = By.xpath("//*[@text='Link Wallet']");
 }

@@ -145,4 +145,5 @@ public class AMDSubscibeScreen {
 	
 	public static By objVerifyOTPScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_verify_mobile_otp_account_header'] | //*[@id='heading']");
 	
+	public static By objPremiumPlansInSubscriptionPage = By.xpath("//*[@id='subscriptionPlanItem']");
 }

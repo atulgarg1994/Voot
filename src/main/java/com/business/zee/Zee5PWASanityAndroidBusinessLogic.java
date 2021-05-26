@@ -1917,7 +1917,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				click(PWAMusicPage.objWEBCloseBtnLoginPopup, "Sign Up Pop up close button");
 			}
 			try {
-				ConsumptionTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle,
+				ConsumptionTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle1,
 						"Music Consumptions Title").toString();
 				logger.info("Title of the card fetched from Music Consumptions Page: " + ConsumptionTitle);
 				extent.extentLogger("", "Title of the card fetched from Music Consumptions Page: " + ConsumptionTitle);
@@ -1952,6 +1952,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 
 	}
+
 
 //	=========================================================================================
 
@@ -10940,6 +10941,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			extent.extentLoggerFail("url", "Failed to navigate to Collections page");
 		}
 		navigateToAnyScreen("Kids");
+		verifyElementPresentAndClick(PWAHomePage.objEduauraaCardCarousel, "Eduauraa Card in Carousel");
 		verifyElementPresent(PWAHomePage.objLearnWithEduauraaTray, "Learn with Eduauraa tray");
 		verifyElementPresentAndClick(PWAHomePage.objFirstItemLearnWithEduauraaTray,
 				"First card under Learn with Eduauraa tray");
@@ -14303,7 +14305,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		if (checkPremiumPlay == true) {
 			// handle mandatory pop up
 			mandatoryRegistrationPopUp(userType);
-			String keyword = "Ep 3 - Joker In the Pack";
+			String keyword = "Burma";
 			click(PWAHomePage.objSearchBtn, "Search icon");
 			type(PWAHomePage.objSearchField, keyword + "\n", "Search");
 			verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
@@ -14314,7 +14316,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			}
 			String premiumMovieTitle = "";
 			try {
-				premiumMovieTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle,
+				premiumMovieTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle1,
 						"Premium Movie Title in Consumptions Page").toString();
 				logger.info("Premium Movie Title in Consumptions Page: " + premiumMovieTitle);
 				extent.extentLoggerPass("", "Premium Movie Title in Consumptions Page: " + premiumMovieTitle);

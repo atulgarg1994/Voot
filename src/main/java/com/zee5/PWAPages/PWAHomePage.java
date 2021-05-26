@@ -616,18 +616,9 @@ public class PWAHomePage {
 	public static By objTabName1(String tabName) {
 		return By.xpath("(//a[contains(@class,'noSelect text_news_active') and text()='" + tabName + "'])[3]");
 	}
-
-	public static By objTabName(String tabName) {
-		return By.xpath("(//a[contains(@class,'noSelect') and contains(text(),'" + tabName + "')])[1]");
-	}
 	
-	public static By objContTitleOnCarousel = By
-			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
 	
 	public static By objPremiumTag = By.xpath("//*[@class='cardPremiumContent']");
-
-	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
-
 	// Home Page
 	public static By objHomePage = By.xpath("(//*[text()='Home'])[1]");
 	// Click on Rent
@@ -644,4 +635,12 @@ public class PWAHomePage {
 	public static By objAllow = By.xpath(".//*[text()='Allow']");
 	public static By objAllowCloseButton = By.xpath("//*[@class='aiq-1xYiw8']");
 	
+	public static By objTabName(String tabName) {
+		return By.xpath("(//a[contains(@class,'noSelect') and text()='" + tabName + "'])[2]");
+	}
+	
+	public static By objContTitleOnCarousel = By
+			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
+	
+	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
 }

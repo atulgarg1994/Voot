@@ -139,6 +139,12 @@ public class ParameterInjector implements IAlterSuiteListener {
 				params.put("DeeplinkConsumption","https://www.zee5.com/movies/details/radhe-your-most-wanted-bhai/0-0-399328");
 				params.put("DeeplinkSubscription","https://www.zee5.com/myaccount/subscription");
 			}
+			params.put("TVODUserName", suite.getParameter("TVODUserName"));
+			params.put("TVODPassword", suite.getParameter("TVODPassword"));
+			params.put("PlaybackInitTVODuserName", suite.getParameter("PlaybackInitTVODuserName"));
+			params.put("PlaybackInitTVODpassword", suite.getParameter("PlaybackInitTVODpassword"));
+			params.put("ExpiredTVODUserName", suite.getParameter("ExpiredTVODUserName"));
+			params.put("ExpiredTVODPassword", suite.getParameter("ExpiredTVODPassword"));
 //			params.put("ClubPassword", suite.getParameter("ClubPassword"));
 			
 		}

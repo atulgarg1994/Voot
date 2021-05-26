@@ -131,6 +131,36 @@
 	<parameter name="premiumMovieWithTrailer2" value="Bhinna" />
 	<parameter name="premiumShow" value="Police Diary 2" />
 	<parameter name="clubShow" value="Jamai 2" />
+	
+	<!--  Subscribed User 799 Plan--> 
+	<parameter name="SubscribedUserName799" value="testsvod_purchase@gmail.com"/>
+	<parameter name="SubscribedPassword799" value="123456"/>
+	<!--  Subscribed User 299 Plan--> 
+	<parameter name="SubscribedUserName299" value="zee299@g.com"/>
+	<parameter name="SubscribedPassword299" value="123456"/>
+	<!--  Subscribed User 499 Plan--> 
+	<parameter name="SubscribedUserName499" value="zeetesting499@g.com"/>
+	<parameter name="SubscribedPassword499" value="123456"/>
+		<!--  Subscribed User 99 Plan--> 
+	<parameter name="SubscribedUserName99" value="recurringdc@mailnesia.com"/>
+	<parameter name="SubscribedPassword99" value="ABCD1234"/>
+	<!--  Subscribed User 49 Plan--> 
+	<parameter name="SubscribedUserName49" value="49rsvod@yopmail.com"/>
+	<parameter name="SubscribedPassword49" value="welcome"/>
+	
+	<parameter name="comboOfferMovie" value="Radhe - Your Most Wanted Bhai"/>
+	<parameter name="DeeplinkConsumption" value="https://newpwa.zee5.com/movies/details/aag-ka-gola/0-0-movie_216980339"/>
+	<parameter name="DeeplinkSubscription" value="https://newpwa.zee5.com/myaccount/subscription"/>
+	
+	<!-- TVOD User -->
+	<parameter name="TVODUserName" value="pack499html@mailnesia.com" />
+	<parameter name="TVODPassword" value="123456" />
+	<!-- TVOD User(Playback Initiated) -->
+	<parameter name="PlaybackInitTVODuserName" value="test1832@gmail.com" />
+	<parameter name="PlaybackInitTVODpassword" value="123456" />
+	<!-- TVOD User(Expired TVOD user) -->
+	<parameter name="ExpiredTVODUserName" value="hdhd@g.com" />
+	<parameter name="ExpiredTVODPassword" value="123456" />
 
 	<listeners>
 		<listener class-name="com.extent.ParameterInjector" />

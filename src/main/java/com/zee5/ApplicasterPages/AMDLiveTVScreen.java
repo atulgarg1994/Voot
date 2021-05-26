@@ -26,6 +26,6 @@ public class AMDLiveTVScreen {
 			return By.xpath("//*[@id='cell_top_container']//*[@text='"+ trayName +"']");
 		} 
 	
-	public static By objSubscribeIcon = By.xpath("//*[@id='home_subscribe_text_view']");
+	public static By objSubscribeIcon = By.xpath("//*[@id='home_subscribe_text_view'] | //*[@id='home_toolbar_buy_plan']");
 	
 }

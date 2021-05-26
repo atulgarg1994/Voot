@@ -4,7 +4,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.business.zee.Zee5ApplicasterBusinessLogic;
 import com.utility.Utilities;
 
@@ -37,6 +36,8 @@ public class TasksAndDefects {
 	@Test(priority = 2)
 	@Parameters({ "userType" })
 	public void TasksAndDefectsMethod2(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
 		ZEE5ApplicasterBusinessLogic.DownloadUpNextContent(userType);
 		ZEE5ApplicasterBusinessLogic.PostLogoutValidation(userType);
 		ZEE5ApplicasterBusinessLogic.LoginFromMoreScreen(userType);
@@ -46,10 +47,13 @@ public class TasksAndDefects {
 	@Test(priority = 3)
 	@Parameters({ "userType" })
 	public void TasksAndDefectsMethod3(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.PlayEduauraaAndValidateExpandCollapseofBenefitsSection(userType);
 		ZEE5ApplicasterBusinessLogic.RecommendRailListingScreenInNews(userType);
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.ContinueWatchingTrayDefectValidation(userType);
 		ZEE5ApplicasterBusinessLogic.TrendingNews(userType);
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.SearchedContent(userType);
 
 	}
@@ -63,6 +67,7 @@ public class TasksAndDefects {
 
 		ZEE5ApplicasterBusinessLogic.ValidationOfDownloadedContentInDownlodsScreen(userType);
 		ZEE5ApplicasterBusinessLogic.prepaidCodeValidation(userType);
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.EduaraaCarousel(userType);
 
 	}
@@ -70,7 +75,10 @@ public class TasksAndDefects {
 	@Test(priority = 5)
 	@Parameters({ "userType" })
 	public void TasksAndDefectsMethod5(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
 		ZEE5ApplicasterBusinessLogic.contentPlayBackValidation(userType);
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.DownloadBeforeTvContent(userType);
 		ZEE5ApplicasterBusinessLogic.AllEpisodeTrayListingScreen(userType);
 
@@ -80,13 +88,12 @@ public class TasksAndDefects {
 	@Parameters({ "userType" })
 	public void TasksAndDefectsMethod6(String userType) throws Exception {
 		// re-launch
-		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.relaunch(true);		
 		ZEE5ApplicasterBusinessLogic.LaunchAppinOffline(userType);
 		ZEE5ApplicasterBusinessLogic.ValidatingQualityOptionDefect(userType);
 		// Login CTA in subscribe screen is not present in latest build
 		// ZEE5ApplicasterBusinessLogic.FirstEpisodeContentPlayback(userType);
 		ZEE5ApplicasterBusinessLogic.LoginThroughAnyentryPointDefect(userType);
-
 	}
 
 	@Test(priority = 7)
@@ -95,14 +102,38 @@ public class TasksAndDefects {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
 		ZEE5ApplicasterBusinessLogic.PlayerControlDefect(userType);
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.SomethingWentWrongDefectValidation(userType);
 		// skip CTA on player is not present in latest build
 		// ZEE5ApplicasterBusinessLogic.PreviousIconForPremiumContent(userType);
-		ZEE5ApplicasterBusinessLogic.SubscriptionRevamp(userType);
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.RentNowCTAforTVODcontent(userType);
-
 	}
 
+	@Test(priority = 8)
+	@Parameters({ "userType" })
+	public void TasksAndDefectsMethod8(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.VerifyBackButtonFromPaymentScreen(userType);
+		ZEE5ApplicasterBusinessLogic.VerifySubscribeIcon(userType);
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.verifyExplorePremiiumOffline(userType);
+		
+	}
+	
+	@Test(priority = 9)
+	@Parameters({ "userType" })
+	public void TasksAndDefectsMethod9(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.verifyNegativeRoundOffPrice(userType);
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.verifyBuyPlanForEduauraa(userType);
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.VerifyDiscountAmount(userType);
+	}
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("Quit the App");

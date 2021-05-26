@@ -41,8 +41,8 @@
 	<parameter name="NonSubsWithoutPhNum" value="testma@gmail.com" />
 	<parameter name="NonSubsWithoutPhNumPwd" value="123456" />
 	
-	<parameter name="EduauraaClaimedUserName" value="vasilucky1997@gmail.com" />
-	<parameter name="EduauraaClaimedPassword" value="vasilucky@123" />
+	<parameter name="EduauraaClaimedUserName" value="zss@gmail.com" />
+	<parameter name="EduauraaClaimedPassword" value="123456" />
 	
 	
 	<!-- ======Test Data====== -->
