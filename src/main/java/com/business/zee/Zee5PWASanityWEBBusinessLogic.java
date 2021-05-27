@@ -44,7 +44,7 @@ import org.testng.asserts.SoftAssert;
 import com.driverInstance.CommandBase;
 import com.emailReport.GmailInbox;
 import com.extent.ExtentReporter;
-import com.jayway.restassured.response.Response;
+//import com.jayway.restassured.response.Response;
 import com.metadata.ResponseInstance;
 import com.metadata.getResponseUpNextRail;
 import com.metadata.responseWatchlist;
@@ -60,6 +60,8 @@ import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import java.net.URL;
 import org.openqa.selenium.chrome.ChromeDriver;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 
 public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
@@ -239,13 +241,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		selectLanguages();
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		extent.version = getText(By.xpath(".//*[@class='versionText']"));
+		String ver = getText(By.xpath(".//*[@class='versionText']"));
+		extent.extentLogger("", ver);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu");
 	}
 	
 	public void allowPopUp() throws Exception {
-		JSClick(PWAHomePage.objAllow, "Notification popup");
+		click(PWAHomePage.objAllow, "Notification popup");
 		waitTime(3000);
-		JSClick(PWAHomePage.objAllowCloseButton, "Close button");
+		click(PWAHomePage.objAllowCloseButton, "Close button");
 		waitTime(30000);
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_TAB);
@@ -12385,7 +12389,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresent(PWAShowsPage.objShareIcon, "Share icon");
 		waitTime(3000);
 		click(PWAShowsPage.objShareIcon, "Share icon");
-		WebShareFunctionalityContent();
+//		WebShareFunctionalityContent();
 
 		// Watchhistory is showing at back-end response properly
 		Response resp = ResponseInstance
@@ -13475,7 +13479,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if (userType.equals("Guest")) {
 			playContentsToTriggerRecoApiWeb(userType);
 			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Home", "Trending on ZEE5");
-			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Shows", "Trending Shows");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "TV Shows", "Trending Shows");
 			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Movies", "Trending Movies");
 			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Music", "Recommended for you");
 			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "News", "Recommended for you");
@@ -13485,7 +13489,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			playContentsToTriggerRecoApiWeb(userType);
 			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Home", "Trending on ZEE5");
 			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Premium", "Trending Now");
-			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Shows", "Trending Shows");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "TV Shows", "Trending Shows");
 			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Movies", "Trending Movies");
 			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Music", "Recommended for you");
 			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "News", "Recommended for you");
@@ -13495,7 +13499,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Home", "Trending on ZEE5");
 			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Home", "You may also like");
 			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Home", "Recommended for you");
-			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Shows", "Recommended for you");
+			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "TV Shows", "Recommended for you");
 			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Home", "Because you watched");
 			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Premium", "Recommended for you");
 			verifyRecoTrayAndPlayContentWithoutAPIWeb(userType, "Movies", "Recommended for you");
@@ -17191,35 +17195,36 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		extent.HeaderChildNode("HLS_105 :Verify user is navigate to respective games screen");
 		if (checkElementDisplayed(PWAPremiumPage.objWEBMastheadCarousel, "Carousel")) {
-			click(PWAPlayPage.objPlayNowButton, "Play Now button of Carousel");
-			// click(PWAHamburgerMenuPage.objplay, "Play icon");
+			JSClick(PWAPlayPage.objPlayNowButton, "Play Now button of Carousel");
 		}
-
-		String currentHandle = getWebDriver().getWindowHandle();
-		Set<String> handles = getWebDriver().getWindowHandles();
-		@SuppressWarnings("rawtypes")
-		Iterator it = handles.iterator();
-		for (int i = 0; i < handles.size(); i++) {
-			String handle = it.next().toString();
-			if (!handle.equals(currentHandle)) {
-				getWebDriver().switchTo().window(handle);
-				break;
-			}
-		}
+		switchToWindow(2);
+//		String currentHandle = getWebDriver().getWindowHandle();
+//		Set<String> handles = getWebDriver().getWindowHandles();
+//		@SuppressWarnings("rawtypes")
+//		Iterator it = handles.iterator();
+//		for (int i = 0; i < handles.size(); i++) {
+//			String handle = it.next().toString();
+//			if (!handle.equals(currentHandle)) {
+//				getWebDriver().switchTo().window(handle);
+//				break;
+//			}
+//		}
 		String currentUrl = getWebDriver().getCurrentUrl();
 		logger.info("Current URL: " + currentUrl);
 		extent.extentLogger("", "Current URL: " + currentUrl);
 		if (currentUrl.contains("games")) {
 			logger.info("Navigated to Games screen");
-			extent.extentLogger("", "Navigated to Games screen");
+			extent.extentLoggerPass("", "Navigated to Games screen");
 		} else {
 			logger.info("Failed to navigate to Games screen");
-			extent.extentLogger("", "Failed to navigate to Games screen");
+			extent.extentLoggerFail("", "Failed to navigate to Games screen");
 		}
-		Back(1);
-		Back(1);
-		getWebDriver().switchTo().window(currentHandle);
-
+//		Back(1);
+//		Back(1);
+//		getWebDriver().switchTo().window(currentHandle);
+		getWebDriver().close();
+		switchToParentWindow();
+		
 		extent.HeaderChildNode("HLS_107 :Verify the Joystick icon is given on top left for all Play content card");
 
 		verifyElementPresentAndClick(PWASearchPage.objSearchBtn, "Search button");
@@ -17229,17 +17234,18 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		extent.HeaderChildNode(
 				"HLS_108 :Verify whether user is able to navigate to Game content from the Search result");
-		click(PWASearchPage.objFirstSearchedAssetTitle, "First search result");
+		JSClick(PWASearchPage.objFirstSearchedAssetTitle, "First search result");
 		switchToWindow(2);
-
 		String aludigamesURL = getWebDriver().getCurrentUrl();
 		if (aludigamesURL.contains("ludigames")) {
 			logger.info("Game screen is opened in webview");
-			extent.extentLogger("Game", "Game screen is opened in webview");
+			extent.extentLoggerPass("Game", "Game screen is opened in webview");
 
 		} else {
 			logger.info(" Game screen is not opened in webview");
+			extent.extentLoggerFail("Game", "Game screen is not opened in webview");
 		}
+//		Back(1);
 		getWebDriver().close();
 		switchToParentWindow();
 	}

@@ -28,7 +28,7 @@ import com.zee5.PWAPages.*;
 import com.driverInstance.CommandBase;
 import com.emailReport.GmailInbox;
 import com.extent.ExtentReporter;
-import com.jayway.restassured.response.Response;
+//import com.jayway.restassured.response.Response;
 import com.metadata.ResponseInstance;
 import com.metadata.getResponseUpNextRail;
 import com.propertyfilereader.PropertyFileReader;
@@ -38,6 +38,8 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 
 public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 

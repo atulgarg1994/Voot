@@ -9,7 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.testng.Reporter;
 import com.driverInstance.CommandBase;
 import com.extent.ExtentReporter;
-import com.jayway.restassured.response.Response;
 import com.metadata.ResponseInstance;
 import com.mixpanelValidation.Mixpanel;
 import com.propertyfilereader.PropertyFileReader;
@@ -25,6 +24,8 @@ import com.zee5.TVPages.Zee5TvWelcomePage;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 
 public class Zee5TvMixPanelBusinessLogic extends Utilities {
 	public Zee5TvMixPanelBusinessLogic(String Application) throws InterruptedException {

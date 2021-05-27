@@ -198,4 +198,20 @@ public class Zee5TvWelcomePage {
 	}
 	
 	public static By objContentTitle = By.xpath("//*[@id='detail_title']");
+	
+	public static By objAllplanButton = By.xpath("//*[@id='allaccessBtn']");
+	
+	public static By objPriceLayout = By.xpath("//*[@id='price_layout']");
+	public static By objCurrencyType = By.xpath("//*[@id='txt_symbol']");
+	public static By objAmountText = By.xpath("//*[@id='price_text']");
+	public static By objValidityText = By.xpath("//*[@id='validity_text']");
+	public static By objGuestPlanTitle = By.xpath("//*[@id='date_text']");
+	
+	public static By objSubPlantitle = By.xpath("//*[@id='device_title']");
+	public static By objSubPlanDescription = By.xpath("//*[@id='device_offer' or @id='device_desc']");
+	public static By objLoggedInPlantitle = By.xpath("//*[@id='date_text']");
+	
+	public static By objzeelogo= By.xpath("//*[@id='zee_logo_image' or @id='zee5_logo']");
+	public static By objGuestPlanDescription = By.xpath("//*[@id='device_offer' or @id='device_desc']");
+	public static By objNumberOfDevice = By.xpath("//*[@id='device_text']");
 }

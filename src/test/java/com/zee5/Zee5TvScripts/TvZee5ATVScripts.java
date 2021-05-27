@@ -38,9 +38,10 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.welcomescreen();
 	}
 
-//	@Test(priority = 5)
+	@Test(priority = 5)
 	@Parameters({ "userType" })
 	public void TvLogin(String userType) throws Exception {
+		// Zee5TvBusiness.jiraID = "TES-119";
 		Zee5TvBusiness.login(userType);
 	}
 
@@ -141,7 +142,7 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.talamoos();
 	}
 
-//	@Test(priority = 24)
+	// @Test(priority = 24)
 	public void staticPage() throws Exception {
 		Zee5TvBusiness.staticPages();
 	}
@@ -161,40 +162,327 @@ public class TvZee5ATVScripts {
 	public void zeelogoVerificationInPlayer() throws Exception {
 		Zee5TvBusiness.zeelogoVerificationInPlayer();
 	}
-	
+
 //	@Test(priority = 28) //Insprint
 	public void zeeplexTVOD() throws Exception {
 		Zee5TvBusiness.zeeplex();
 	}
-	
+
 //	@Test(priority = 29) //Insprint
 	public void nowplaying() throws Exception {
 		Zee5TvBusiness.nowplayingButton();
 	}
-	
+
 //	@Test(priority = 30) //Insprint
 	public void premiumLiveChannel() throws Exception {
 		Zee5TvBusiness.premiumLiveChannel();
 	}
-	
+
 //	@Test(priority = 31) //Insprint
 	public void premiumcontentFromInfo() throws Exception {
 		Zee5TvBusiness.premiumInUpnext();
 	}
-	
+
 //	@Test(priority = 32) //Insprint
+	@SuppressWarnings("static-access")
 	public void e24channelSearch() throws Exception {
+		Zee5TvBusiness.jiraID = "TES-121";
 		Zee5TvBusiness.e24ChannelSearch();
 	}
-	
+
 //	@Test(priority = 33) //Insprint
 	public void noReminderText() throws Exception {
 		Zee5TvBusiness.noReminderText();
 	}
-	
+
 //	@Test(priority = 34) //Insprint
 	public void premiumContentPlayback() throws Exception {
 		Zee5TvBusiness.premiumconetntPlayback();
+	}
+
+	@SuppressWarnings("static-access")
+//	@Test(priority = 40) // Insprint
+	@Parameters({ "userType" })
+	public void planTitle(String userType) throws Exception {
+		if (userType.equals("Guest")) {
+			Zee5TvBusiness.jiraID = "TC-21174";
+		} else if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21177";
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21178";
+		}
+		Zee5TvBusiness.planTitle();
+	}
+
+	@SuppressWarnings("static-access")
+//	@Test(priority = 42) // Insprint
+	@Parameters({ "userType" })
+	public void planLanguage(String userType) throws Exception {
+		if (userType.equals("Guest")) {
+			Zee5TvBusiness.jiraID = "TC-21179";
+		} else if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21180";
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21181";
+		}
+		Zee5TvBusiness.planTitleLanguage();
+	}
+
+	@SuppressWarnings("static-access")
+//	@Test(priority = 43) // Insprint
+	@Parameters({ "userType" })
+	public void planDescription(String userType) throws Exception {
+		if (userType.equals("Guest")) {
+			Zee5TvBusiness.jiraID = "TC-21182";
+		} else if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21183";
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21184";
+		}
+		Zee5TvBusiness.planDiscription();
+	}
+
+	@SuppressWarnings("static-access")
+//	@Test(priority = 44) // Insprint
+	@Parameters({ "userType" })
+	public void planDescriptionLanguage(String userType) throws Exception {
+		if (userType.equals("Guest")) {
+			Zee5TvBusiness.jiraID = "TC-21185";
+		} else if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21186";
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21187";
+		}
+		Zee5TvBusiness.planDescriptionLanguage();
+	}
+
+	@SuppressWarnings("static-access")
+	@Test(priority = 45) // Insprint
+	@Parameters({ "userType" })
+	public void playercontol(String userType) throws Exception {
+		if (userType.equals("Guest")) {
+			Zee5TvBusiness.jiraID = "TC-21188";
+		} else if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21193";
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21194";
+		}
+		Zee5TvBusiness.playerbar();
+	}
+
+	@SuppressWarnings("static-access")
+	@Test(priority = 46) // Insprint
+	@Parameters({ "userType" })
+	public void playerfadeout(String userType) throws Exception {
+		if (userType.equals("Guest")) {
+			Zee5TvBusiness.jiraID = "TC-21189";
+		} else if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21195";
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21196";
+		}
+		Zee5TvBusiness.playerbarfadeoutPaused();
+	}
+
+	@SuppressWarnings("static-access")
+	@Test(priority = 47) // Insprint
+	@Parameters({ "userType" })
+	public void infoScreen(String userType) throws Exception {
+		if (userType.equals("Guest")) {
+			Zee5TvBusiness.jiraID = "TC-21190";
+		} else if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21197";
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21198";
+		}
+		Zee5TvBusiness.infoScreen();
+	}
+
+	@SuppressWarnings("static-access")
+	@Test(priority = 48) // Insprint
+	@Parameters({ "userType" })
+	public void playerFadeout(String userType) throws Exception {
+		if (userType.equals("Guest")) {
+			Zee5TvBusiness.jiraID = "TC-21191";
+		} else if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21199";
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21200";
+		}
+		Zee5TvBusiness.playerFadeOut();
+	}
+
+	@SuppressWarnings("static-access")
+	@Test(priority = 49) // Insprint
+	@Parameters({ "userType" })
+	public void playerFadeOutContentDetail(String userType) throws Exception {
+		if (userType.equals("Guest")) {
+			Zee5TvBusiness.jiraID = "TC-21192";
+		} else if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21201";
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21202";
+		}
+		Zee5TvBusiness.playerFadeOutContentDetail();
+	}
+
+	@SuppressWarnings("static-access")
+	@Test(priority = 50) // Insprint
+	@Parameters({ "userType" })
+	public void cwPlayerControl(String userType) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21203";
+			Zee5TvBusiness.cwPlayerControl();
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21204";
+			Zee5TvBusiness.cwPlayerControl();
+		}
+
+	}
+
+	@SuppressWarnings("static-access")
+	@Test(priority = 51) // Insprint
+	@Parameters({ "userType" })
+	public void cwplayerfadeout(String userType) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21205";
+			Zee5TvBusiness.playerbarfadeoutPaused();
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21206";
+			Zee5TvBusiness.playerbarfadeoutPaused();
+		}
+
+	}
+
+	@SuppressWarnings("static-access")
+	@Test(priority = 52) // Insprint
+	@Parameters({ "userType" })
+	public void cwinfoScreen(String userType) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21207";
+			Zee5TvBusiness.infoScreen();
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21208";
+			Zee5TvBusiness.infoScreen();
+		}
+
+	}
+
+	@SuppressWarnings("static-access")
+	@Test(priority = 53) // Insprint
+	@Parameters({ "userType" })
+	public void cwplayerFadeout(String userType) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21209";
+			Zee5TvBusiness.playerFadeOut();
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21210";
+			Zee5TvBusiness.playerFadeOut();
+		}
+
+	}
+
+	@SuppressWarnings("static-access")
+	@Test(priority = 54) // Insprint
+	@Parameters({ "userType" })
+	public void cwplayerFadeOutContentDetail(String userType) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21211";
+			Zee5TvBusiness.playerFadeOutContentDetail();
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21212";
+			Zee5TvBusiness.playerFadeOutContentDetail();
+		}
+
+	}
+	
+	@SuppressWarnings("static-access")
+	@Test(priority = 55) // Insprint
+	@Parameters({ "userType" })
+	public void watchlistPlayerControl(String userType) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21213";
+			Zee5TvBusiness.watchlistPlayerControl();
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21214";
+			Zee5TvBusiness.watchlistPlayerControl();
+		}
+
+	}
+
+	@SuppressWarnings("static-access")
+	@Test(priority = 56) // Insprint
+	@Parameters({ "userType" })
+	public void watchlistplayerfadeout(String userType) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21215";
+			Zee5TvBusiness.playerbarfadeoutPaused();
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21216";
+			Zee5TvBusiness.playerbarfadeoutPaused();
+		}
+
+	}
+
+	@SuppressWarnings("static-access")
+	@Test(priority = 57) // Insprint
+	@Parameters({ "userType" })
+	public void watchlistinfoScreen(String userType) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21217";
+			Zee5TvBusiness.infoScreen();
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-212128";
+			Zee5TvBusiness.infoScreen();
+		}
+
+	}
+
+	@SuppressWarnings("static-access")
+	@Test(priority = 58) // Insprint
+	@Parameters({ "userType" })
+	public void watchlistplayerFadeout(String userType) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21219";
+			Zee5TvBusiness.playerFadeOut();
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21220";
+			Zee5TvBusiness.playerFadeOut();
+		}
+
+	}
+
+	@SuppressWarnings("static-access")
+	@Test(priority = 59) // Insprint
+	@Parameters({ "userType" })
+	public void watchlistplayerFadeOutContentDetail(String userType) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21221";
+			Zee5TvBusiness.playerFadeOutContentDetail();
+
+		} else if (userType.equals("SubscribedUser")) {
+			Zee5TvBusiness.jiraID = "TC-21222";
+			Zee5TvBusiness.playerFadeOutContentDetail();
+		}
+
 	}
 
 	@AfterTest

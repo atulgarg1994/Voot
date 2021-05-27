@@ -53,6 +53,7 @@ public class ExtentReporter implements ITestListener {
 	private static int moduleFailCount = 0;
 	private static int logfail = 0;
 	public static String version;
+	public static String jiraID = "TC";
 	
 
 	/** The Constant logger. */

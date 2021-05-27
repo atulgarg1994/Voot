@@ -12,7 +12,7 @@ import com.deviceDetails.DeviceDetails;
 import com.driverInstance.CommandBase;
 import com.emailReport.GmailInbox;
 import com.extent.ExtentReporter;
-import com.jayway.restassured.response.Response;
+//import com.jayway.restassured.response.Response;
 import com.metadata.ResponseInstance;
 import com.mixpanelValidation.Mixpanel;
 import com.mixpanelValidation.MixpanelAndroid;
@@ -29,6 +29,8 @@ import io.appium.java_client.touch.LongPressOptions;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 
 public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 

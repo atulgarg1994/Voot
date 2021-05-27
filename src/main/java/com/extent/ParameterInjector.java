@@ -1,16 +1,14 @@
 package com.extent;
 
-import static com.jayway.restassured.RestAssured.given;
-
+//import static com.jayway.restassured.RestAssured.given;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.testng.xml.XmlSuite;
-
-import com.jayway.restassured.response.Response;
-
+//import com.jayway.restassured.response.Response;
 import org.testng.IAlterSuiteListener;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 
 public class ParameterInjector implements IAlterSuiteListener {
 
@@ -51,7 +49,7 @@ public class ParameterInjector implements IAlterSuiteListener {
 		}
 
 		// Pass region specific data
-		Response regionResponse = given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
+		Response regionResponse = RestAssured.given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
 		String region = regionResponse.getBody().jsonPath().getString("state_code");
 		System.out.println("Region : "+region);
 		if (region.equals("KA")) {

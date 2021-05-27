@@ -40,9 +40,13 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.config.EncoderConfig;
-import com.jayway.restassured.response.Response;
+//import com.jayway.restassured.RestAssured;
+//import com.jayway.restassured.config.EncoderConfig;
+//import com.jayway.restassured.response.Response;
+import com.metadata.ResponseInstance;
+import io.restassured.RestAssured;
+import io.restassured.config.EncoderConfig;
+import io.restassured.response.Response;
 import com.metadata.ResponseInstance;
 import com.propertyfilereader.PropertyFileReader;
 

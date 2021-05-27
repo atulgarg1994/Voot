@@ -27,7 +27,7 @@ import org.testng.asserts.SoftAssert;
 import com.driverInstance.CommandBase;
 import com.emailReport.GmailInbox;
 import com.extent.ExtentReporter;
-import com.jayway.restassured.response.Response;
+//import com.jayway.restassured.response.Response;
 import com.metadata.ResponseInstance;
 import com.metadata.getResponseUpNextRail;
 import com.propertyfilereader.PropertyFileReader;
@@ -39,6 +39,8 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 
 public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 
@@ -172,9 +174,9 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 	}
 	
 	public void allowPopUp() throws Exception {
-		JSClick(PWAHomePage.objAllow, "Notification popup");
+		click(PWAHomePage.objAllow, "Notification popup");
 		waitTime(3000);
-		JSClick(PWAHomePage.objAllowCloseButton, "Close button");
+		click(PWAHomePage.objAllowCloseButton, "Close button");
 		waitTime(30000);
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_TAB);

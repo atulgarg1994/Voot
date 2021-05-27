@@ -31,7 +31,7 @@ import com.zee5.PWAPages.*;
 import com.driverInstance.CommandBase;
 import com.emailReport.GmailInbox;
 import com.extent.ExtentReporter;
-import com.jayway.restassured.response.Response;
+//import com.jayway.restassured.response.Response;
 import com.metadata.ResponseInstance;
 import com.metadata.getResponseUpNextRail;
 import com.propertyfilereader.*;
@@ -41,6 +41,8 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 
 public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
@@ -2303,28 +2305,17 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		// click(PWALiveTVPage.objFirstPremiumCardinTray, "Premium Content");
 		waitTime(5000);
-		
 	//	waitForElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, 5);
-		
 		waitForElementDisplayed(PWAPlayerPage.objGetPremiumInline, 5);
-		
 	//	if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up")) {
-			
 			if (verifyIsElementDisplayed(PWAPlayerPage.objGetPremiumInline, "Get Premium IN Line")){
-				
 	//		verifyElementPresentAndClick(PWAPremiumPage.objClosePremiumPopup, "Subscribe Pop Up Close icon");
-			
 			click(PWAPlayerPage.objGetPremiumInline, "Get Premium IN Line");
-			
 			Back(1);
-			
 			extent.HeaderChildNode("Verifing that premium content videos in landscape mode");
-			
 	//		if (verifyIsElementDisplayed(PWALiveTVPage.objPlayerInlineSubscriptionLink,
 	//				"Player inline Subscribtion link")) {
-				
 				if (verifyIsElementDisplayed(PWAPlayerPage.objGetPremiumInline, "Get Premium IN Line")){
-					
 				logger.info(
 						"Maximize icon is not displayed since user is getting Player inline Subscription link on Player screen");
 				extent.extentLogger("Maximize icon",
@@ -2334,7 +2325,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			pauseLiveTVPlayer();
 			verifyElementPresent(PWAPlayerPage.maximizeBtn, "Maximize icon");
 			click(PWAPlayerPage.maximizeBtn, "Maximize icon");
-
 			for (int i = 0; i < 5; i++) {
 				if (verifyIsElementDisplayed(PWAPlayerPage.minimizeBtn, "Minimize icon")) {
 					logger.info("User is able to watch Premium content in landscape mode");

@@ -20,13 +20,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import com.driverInstance.CommandBase;
 import com.extent.ExtentReporter;
-import com.jayway.restassured.response.Response;
+//import com.jayway.restassured.response.Response;
 import com.metadata.ResponseInstance;
 import com.mixpanelValidation.Mixpanel;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.LoggingUtils;
 import com.utility.Utilities;
 import com.zee5.PWAPages.*;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 
 public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 

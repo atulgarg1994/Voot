@@ -23,7 +23,7 @@ import org.testng.asserts.SoftAssert;
 import com.utility.Utilities;
 import com.driverInstance.CommandBase;
 import com.extent.ExtentReporter;
-import com.jayway.restassured.response.Response;
+//import com.jayway.restassured.response.Response;
 import com.metadata.ResponseInstance;
 import com.propertyfilereader.PropertyFileReader;
 import com.zee5Pages.BaseLoginPage;
@@ -40,12 +40,13 @@ import com.zee5Pages.TraditionalLoginPage;
 import com.zee5Pages.VideoPlayer;
 import com.zee5Pages.WelcomePage;
 import com.zee5Pages.ZeePages;
-
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 
 public class ZeeBusinessLogic extends Utilities {
 

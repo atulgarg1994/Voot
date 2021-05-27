@@ -1,7 +1,6 @@
 package com.metadata;
 
-import static com.jayway.restassured.RestAssured.given;
-
+//import static com.jayway.restassured.RestAssured.given;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -10,16 +9,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Reporter;
 import com.driverInstance.DriverInstance;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.response.Response;
-import com.jayway.restassured.specification.RequestSpecification;
+//import com.jayway.restassured.RestAssured;
+//import com.jayway.restassured.response.Response;
+//import com.jayway.restassured.specification.RequestSpecification;
 import com.mixpanelValidation.Mixpanel;
 import com.mixpanelValidation.MixpanelAndroid;
 import com.propertyfilereader.PropertyFileReader;
@@ -28,6 +26,9 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 
 public class ResponseInstance {
 
@@ -39,13 +40,13 @@ public class ResponseInstance {
 	public static boolean trailer = false;
 	
 	public static Response getResponse() {
-		resp = given().urlEncodingEnabled(false).when().get(
+		resp = RestAssured.given().urlEncodingEnabled(false).when().get(
 				"https://gwapi.zee5.com/content/collection/0-8-homepage?limit=20&page=1&item_limit=20&desc=no&version=6&translation=en&languages=en,kn&country=IN");
 		return resp;
 	}
 
 	public static Response getResponse(String URL) {
-		resp = given().urlEncodingEnabled(false).when().get(URL);
+		resp = RestAssured.given().urlEncodingEnabled(false).when().get(URL);
 		System.out.println(resp.statusCode());
 		return resp;
 	}
@@ -81,7 +82,7 @@ public class ResponseInstance {
 		for (int i = 1; i <= 3; i++) {
 			String page1 = "https://gwapi.zee5.com/content/collection/0-8-2074?page=" + i
 					+ "&limit=20&desc=no&country=IN&languages=en,kn&translation=en&version=6";
-			resp = given().urlEncodingEnabled(false).when().get(page1);
+			resp = RestAssured.given().urlEncodingEnabled(false).when().get(page1);
 			int sizeOfAnItem = resp.jsonPath().getList("buckets[0].items").size();
 			if (sizeOfAnItem > 0) {
 				for (int j = 0; j < sizeOfAnItem; j++) {
@@ -116,7 +117,7 @@ public class ResponseInstance {
 	public static Response getRECOResponse(String URL, String username, String password) {
 		Response respp = null;
 		String Uri = URL;
-		respp = given()
+		respp = RestAssured.given()
 				.headers("X-ACCESS-TOKEN", getXAccessToken(), "Authorization", getBearerToken(username, password))
 				.when().get(Uri);
 		System.out.println(respp.getBody());
@@ -133,7 +134,7 @@ public class ResponseInstance {
 		Response resp = null;
 		String xAccessToken = "";
 		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
-		resp = given().urlEncodingEnabled(false).when().get(url);
+		resp = RestAssured.given().urlEncodingEnabled(false).when().get(url);
 		String respString = resp.getBody().asString();
 		respString = respString.replace("\"gwapiPlatformToken\":\"\"", "");
 		respString = respString.split("\"gwapiPlatformToken\":\"")[1];
@@ -145,12 +146,12 @@ public class ResponseInstance {
 		Response respToken = null, respForKey = null;
 		// get APi-KEY
 		String Uri = "https://gwapi.zee5.com/user/getKey?=aaa";
-		respForKey = given().urlEncodingEnabled(false).when().get(Uri);
+		respForKey = RestAssured.given().urlEncodingEnabled(false).when().get(Uri);
 		String rawApiKey = respForKey.getBody().asString();
 		String apiKeyInResponse = rawApiKey.substring(0, rawApiKey.indexOf("<br>airtel "));
 		String finalApiKey = apiKeyInResponse.replaceAll("<br>rel - API-KEY : ", "");
 		String UriForToken = "http://gwapi.zee5.com/user/getToken";
-		respToken = given().headers("API-KEY", finalApiKey).when().get(UriForToken);
+		respToken = RestAssured.given().headers("API-KEY", finalApiKey).when().get(UriForToken);
 		String xAccessToken = respToken.jsonPath().getString("X-ACCESS-TOKEN");
 		return xAccessToken;
 	}
@@ -167,7 +168,7 @@ public class ResponseInstance {
 		requestParams.put("password", password);
 		RequestSpecification req = RestAssured.given();
 		req.header("Content-Type", "application/json");
-		req.config(com.jayway.restassured.RestAssured.config().encoderConfig(com.jayway.restassured.config.EncoderConfig
+		req.config(io.restassured.RestAssured.config().encoderConfig(io.restassured.config.EncoderConfig
 				.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)));
 		req.body(requestParams.toString());
 		Response resp = req.post("https://userapi.zee5.com/v2/user/loginemail");
@@ -204,7 +205,7 @@ public class ResponseInstance {
 		} else if (tab.equalsIgnoreCase("news")) {
 			tab = "626";
 		}
-		Response regionResponse = given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
+		Response regionResponse = RestAssured.given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
 		String region = regionResponse.getBody().jsonPath().getString("state_code");
 		String Uri;
 		if(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite().getName().equals("TV")) {
@@ -224,13 +225,12 @@ public class ResponseInstance {
 			requestParams.put("UserAgent", "pwaweb");
 			RequestSpecification request = RestAssured.given();
 			request.header("Content-Type", "application/json");
-			request.config(com.jayway.restassured.RestAssured.config()
-					.encoderConfig(com.jayway.restassured.config.EncoderConfig.encoderConfig()
-							.appendDefaultContentCharsetToContentTypeIfUndefined(false)));
+			request.config(io.restassured.RestAssured.config().encoderConfig(io.restassured.config.EncoderConfig
+					.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)));
 			request.body(requestParams.toString());
 			Response response = request.post("https://whapi-prod-node.zee5.com/fetchGuestToken");
 			String guestToken = response.jsonPath().get("guest_user").toString();
-			respReco = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", guestToken).when()
+			respReco = RestAssured.given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", guestToken).when()
 					.get(Uri);
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -238,7 +238,7 @@ public class ResponseInstance {
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respReco = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respReco = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -246,7 +246,7 @@ public class ResponseInstance {
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("NonsubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respReco = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respReco = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else {
 		}
@@ -267,7 +267,7 @@ public class ResponseInstance {
 		System.out.println("Hitting content api:\n" + Uri);
 		String xAccessToken = getXAccessToken();
 		if (userType.equalsIgnoreCase("Guest")) {
-			respReco = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when()
+			respReco = RestAssured.given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when()
 					.get(Uri);
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -275,7 +275,7 @@ public class ResponseInstance {
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respReco = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respReco = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -283,7 +283,7 @@ public class ResponseInstance {
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("NonsubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respReco = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respReco = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else {
 			System.out.println("Incorrect user type passed to method");
@@ -330,7 +330,7 @@ public class ResponseInstance {
 		}
 			Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page
 				+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages=en,kn&version=6";
-		respCarousel = given().urlEncodingEnabled(false).when().get(Uri);
+		respCarousel = RestAssured.given().urlEncodingEnabled(false).when().get(Uri);
 		return respCarousel;
 	}
 
@@ -348,7 +348,7 @@ public class ResponseInstance {
 		} else {
 			Uri = "https://gwapi.zee5.com/content/details/" + contentID + "?translation=en&country=IN&version=2";
 		}
-		respContentDetails = given().headers("X-ACCESS-TOKEN", getXAccessTokenWithApiKey()).when().get(Uri);
+		respContentDetails = RestAssured.given().headers("X-ACCESS-TOKEN", getXAccessTokenWithApiKey()).when().get(Uri);
 //		System.out.println("Content Details API Response: "+respContentDetails.getBody().asString());
 		return respContentDetails;
 	}
@@ -396,7 +396,7 @@ public class ResponseInstance {
 					+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages=" + contLang + "&version=10";
 			System.out.println(Uri);
 		}
-		respCarousel = given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(Uri);
+		respCarousel = RestAssured.given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(Uri);
 		System.out.println("Response status : " + respCarousel.statusCode());
 		// System.out.println("Response Body : "+respCarousel.getBody().asString());
 		return respCarousel;
@@ -456,7 +456,7 @@ public class ResponseInstance {
 					+ "&limit=5&item_limit=20&country=IN&translation=en&languages=" + contLang + "&version=6";
 		}
 
-		respCarousel = given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(Uri);
+		respCarousel = RestAssured.given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(Uri);
 		System.out.println("Response status : " + respCarousel.statusCode());
 		return respCarousel;
 	}
@@ -466,12 +466,12 @@ public class ResponseInstance {
 
 		
 		String xAccessToken = getXAccessTokenWithApiKey();
-//		respCarousel = given().urlEncodingEnabled(false).when().get(Url);
+//		respCarousel = RestAssured.given().urlEncodingEnabled(false).when().get(Url);
 		
 		if (userType.equalsIgnoreCase("Guest")) {
 			String Uri = "https://gwapi.zee5.com/content/collection/0-8-3367?page=1&limit=10&item_limit=20&translation=en&country=IN&languages=en,kn&version=6&";
 			
-			respCarousel = given().headers("x-access-token", xAccessToken).when().get(Uri);
+			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).when().get(Uri);
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
 			String Uri = "https://gwapi.zee5.com/content/collection/0-8-3367?page=1&limit=10&item_limit=20&translation=en&country=IN&languages=en,kn,hi&version=6&";
 			
@@ -480,7 +480,7 @@ public class ResponseInstance {
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			String Uri = "https://gwapi.zee5.com/content/collection/0-8-3367?page=1&limit=10&item_limit=20&translation=en&country=IN&languages=en,kn&version=6&";
@@ -490,7 +490,7 @@ public class ResponseInstance {
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("NonsubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else {
 			System.out.println("Incorrect user type passed to method");
@@ -507,14 +507,14 @@ public class ResponseInstance {
 
 		String xAccessToken = getXAccessTokenWithApiKey();
 		if (userType.equalsIgnoreCase("Guest")) {
-			respHome = given().headers("x-access-token", xAccessToken).when().get(Uri);
+			respHome = RestAssured.given().headers("x-access-token", xAccessToken).when().get(Uri);
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedUserName");
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respHome = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respHome = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -522,7 +522,7 @@ public class ResponseInstance {
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("NonsubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respHome = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respHome = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else {
 			System.out.println("Incorrect user type passed to method");
@@ -542,7 +542,7 @@ public class ResponseInstance {
 
 		String xAccessToken = getXAccessTokenWithApiKey();
 //					if (userType.equalsIgnoreCase("Guest")) {
-//						resp = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when()
+//						resp = RestAssured.given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when()
 //								.get(url);
 //					} else
 		if (userType.equalsIgnoreCase("SubscribedUser")) {
@@ -553,7 +553,7 @@ public class ResponseInstance {
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+			resp = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 //						String email="igstesting001@gmail.com";
 			// String password ="igs@12345";
@@ -562,7 +562,7 @@ public class ResponseInstance {
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("NonsubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+			resp = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 		} else {
 			System.out.println("Incorrect user type passed to method");
 		}
@@ -600,12 +600,12 @@ public class ResponseInstance {
 		Response respToken = null, respForKey = null;
 		// get APi-KEY
 		String Uri = "https://gwapi.zee5.com/user/getKey?=aaa";
-		respForKey = given().urlEncodingEnabled(false).when().get(Uri);
+		respForKey = RestAssured.given().urlEncodingEnabled(false).when().get(Uri);
 		String rawApiKey = respForKey.getBody().asString();
 		String apiKeyInResponse = rawApiKey.substring(0, rawApiKey.indexOf("<br>airtel "));
 		String finalApiKey = apiKeyInResponse.replaceAll("<br>rel - API-KEY : ", "");
 		String UriForToken = "http://gwapi.zee5.com/user/getToken";
-		respToken = given().headers("API-KEY", finalApiKey).when().get(UriForToken);
+		respToken = RestAssured.given().headers("API-KEY", finalApiKey).when().get(UriForToken);
 		String xAccessToken = respToken.jsonPath().getString("X-ACCESS-TOKEN");
 		return xAccessToken;
 	}
@@ -619,7 +619,7 @@ public class ResponseInstance {
 		String xAccessToken = getXAccessTokenWithApiKey();
 
 		if (userType.equalsIgnoreCase("Guest")) {
-			respCW = given().headers("x-access-token", xAccessToken).when().get(Uri);
+			respCW = RestAssured.given().headers("x-access-token", xAccessToken).when().get(Uri);
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
 //			String email = "zeetest998@test.com";
 //			String password = "123456";
@@ -628,7 +628,7 @@ public class ResponseInstance {
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respCW = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respCW = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 
@@ -639,7 +639,7 @@ public class ResponseInstance {
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("NonsubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respCW = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respCW = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else {
 			System.out.println("Incorrect user type passed to method");
@@ -656,14 +656,14 @@ public class ResponseInstance {
 
 		String xAccessToken = getXAccessTokenWithApiKey();
 		if (userType.equalsIgnoreCase("Guest")) {
-			respHome = given().headers("x-access-token", xAccessToken).when().get(Uri);
+			respHome = RestAssured.given().headers("x-access-token", xAccessToken).when().get(Uri);
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
 			String bearerToken = getBearerToken(pUsername, pPassword);
-			respHome = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respHome = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			String bearerToken = getBearerToken(pUsername, pPassword);
-			respHome = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respHome = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else {
 			System.out.println("Incorrect user type passed to method");
@@ -701,7 +701,7 @@ public class ResponseInstance {
 
 		if (userType.equalsIgnoreCase("SubscribedUser") | userType.equalsIgnoreCase("NonSubscribedUser")) {
 			String bearerToken = getBearerToken(pUsername, pPassword);
-			resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+			resp = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 		} else {
 			System.out.println("Incorrect user type passed to method");
 		}
@@ -713,10 +713,10 @@ public class ResponseInstance {
 		boolean title = false;
 		String xAccessToken = getXAccessTokenWithApiKey();
 		if (tabName.equals("Home")) {
-			resp = given().headers("x-access-token", xAccessToken).when().get(
+			resp = RestAssured.given().headers("x-access-token", xAccessToken).when().get(
 					"https://gwapi.zee5.com/content/collection/0-8-homepage?page=1&limit=10&item_limit=20&translation=en&country=IN&languages=en,kn&version=6");
 		} else if (tabName.equals("Show")) {
-			resp = given().headers("x-access-token", xAccessToken).when().get(
+			resp = RestAssured.given().headers("x-access-token", xAccessToken).when().get(
 					"https://gwapi.zee5.com/content/collection/0-8-tvshows?page=1&limit=10&item_limit=20&translation=en&country=IN&version=6&languages=en,kn&version=6");
 		}
 
@@ -765,7 +765,7 @@ public class ResponseInstance {
 //		System.out.println(AL);
 //		subscriptionDetails();
 //		getSubscriptionDetails("zeetest10@test.com", "123456");
-//		resp = given().headers("x-access-token", getXAccessToken()).when().get("https://gwapi.zee5.com/content/details/0-0-manual_5dtffmaonrs0?translation=en&country=IN&version=2");
+//		resp = RestAssured.given().headers("x-access-token", getXAccessToken()).when().get("https://gwapi.zee5.com/content/details/0-0-manual_5dtffmaonrs0?translation=en&country=IN&version=2");
 //		resp.prettyPrint();
 //		getTrayNameFromPage("home");
 //		System.out.println(getPageResponse("home","free"));
@@ -808,7 +808,7 @@ public class ResponseInstance {
 		Properties pro = new Properties();
 		if (!pUsername.equals("")) {
 			String bearerToken = getBearerToken(pUsername, pPassword);
-			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken)
+			resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken)
 					.when().get("https://userapi.zee5.com/v1/settings");
 
 			String[] comm = resp.asString().replace("{", "").replace("}", "").replace("[", "").replace("]", "")
@@ -840,7 +840,7 @@ public class ResponseInstance {
 		String xAccessToken = getXAccessTokenWithApiKey();
 		String bearerToken = getBearerToken(pUsername, pPassword);
 		String url = "https://userapi.zee5.com/v1/user";
-		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+		resp = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 		String commaSplit[] = resp.asString().replace("{", "").replace("}", "").replaceAll("[.,](?=[^\\[]*\\])", "-")
 				.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 		for (int i = 0; i < commaSplit.length; i++) {
@@ -873,12 +873,12 @@ public class ResponseInstance {
 	}
 
 	public static String getRegion() {
-		Response regionResponse = given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
+		Response regionResponse = RestAssured.given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
 		return regionResponse.getBody().jsonPath().getString("state");
 	}
 
 	public static String getresponse(String searchText) {
-		Response resp = given().urlEncodingEnabled(false).when().get("https://gwapi.zee5.com/content/search_all?q="
+		Response resp = RestAssured.given().urlEncodingEnabled(false).when().get("https://gwapi.zee5.com/content/search_all?q="
 				+ searchText
 				+ "&limit=10&asset_type=0,6,1&country=IN&languages=hi,en,mr,te,kn,ta,ml,bn,gu,pa,hr,or&translation=en&version=3&");
 		return resp.jsonPath().getString("results[0].total");
@@ -900,9 +900,9 @@ public class ResponseInstance {
 		String xAccessToken = getXAccessTokenWithApiKey();
 		if (!pUsername.equals("")) {
 			String bearerToken = getBearerToken(pUsername, pPassword);
-			resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+			resp = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 		} else {
-			resp = given().headers("x-access-token", xAccessToken).when().get(url);
+			resp = RestAssured.given().headers("x-access-token", xAccessToken).when().get(url);
 		}
 		String title = "No Free Contents";
 		for (int i = 0; i < 7; i++) {
@@ -925,7 +925,7 @@ public class ResponseInstance {
 		Properties pro = new Properties();
 		if (!pUsername.equals("")) {
 			String bearerToken = getBearerToken(pUsername, pPassword);
-			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken)
+			resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken)
 					.when().get("https://userapi.zee5.com/v1/settings");
 
 			String[] comm = resp.asString().replace("{", "").replace("}", "").replace("[", "").replace("]", "")
@@ -955,30 +955,30 @@ public class ResponseInstance {
 		
 		if (assetSubType.equalsIgnoreCase("tvshow") || assetSubType.equalsIgnoreCase("episode")
 				|| assetSubType.equalsIgnoreCase("external_link")) {
-			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+			resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
 					.get("https://gwapi.zee5.com/content/tvshow/" + ID + "?translation=en&country=IN");
 		} else if (assetSubType.equalsIgnoreCase("external_link")) { 
 
 		} else if(assetSubType.equalsIgnoreCase("original") || assetSubType.equalsIgnoreCase("video")
 				|| assetSubType.equalsIgnoreCase("movie")|| assetSubType.equalsIgnoreCase("trailer")){
-			resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+			resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
 					.get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
 			if(!assetSubType.equalsIgnoreCase("trailer")) {
 			if(resp.jsonPath().getList("related")  != null) {
 				ID = resp.jsonPath().getString("related[0].id");
-				resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
+				resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
 				}
 			}
 		} else {
 			if (pageName.equals("episode") || pageName.equals("shows")) {
-				resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+				resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
 						.get("https://gwapi.zee5.com/content/tvshow/" + ID + "?translation=en&country=IN");
 			} else if (pageName.equals("movies")) {
-				resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+				resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
 						.get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
 				if(trailer) {
 					ID = resp.jsonPath().getString("related[0].id");
-					resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
+					resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
 				}
 			}
 		}
@@ -1007,7 +1007,7 @@ public class ResponseInstance {
 	public static void Player(String pUsername, String pPassword) {
 		String url = "https://gwapi.zee5.com/content/player/0-1-136585";
 		String bearerToken = getBearerToken(pUsername, pPassword);
-		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
+		resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
 		resp.print();
 	}
 	
@@ -1017,7 +1017,7 @@ public class ResponseInstance {
 		String bearerToken = getBearerToken(pUsername, pPassword);
 		System.out.println(getXAccessTokenWithApiKey()+"\n");
 		System.out.println(bearerToken);
-//		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
+//		resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
 //		resp.print();
 	}
 	
@@ -1048,7 +1048,7 @@ public class ResponseInstance {
 	}
 	
 	public static void getContentDetailsForNews(String ID) {
-		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
+		resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
 		Mixpanel.FEProp.setProperty("Content Duration", resp.jsonPath().getString("duration"));
 		Mixpanel.FEProp.setProperty("Content ID", resp.jsonPath().getString("id"));
 		Mixpanel.FEProp.setProperty("Content Name", resp.jsonPath().getString("original_title"));
@@ -1070,7 +1070,7 @@ public class ResponseInstance {
 
 		Response responseRAW = null;
 		String URI = "https://gwapi.zee5.com/content/details/" + contentID + "?translation=en&country=IN&version=2";
-		responseRAW = given().headers("X-ACCESS-TOKEN", getXAccessTokenAMD()).when().get(URI);
+		responseRAW = RestAssured.given().headers("X-ACCESS-TOKEN", getXAccessTokenAMD()).when().get(URI);
 		System.out.println("\n" + URI);
 		if (responseRAW.statusCode() != 200) {
 			System.out.println(responseRAW.getStatusLine() + " | Content ID: " + contentID);
@@ -1082,12 +1082,12 @@ public class ResponseInstance {
 		Response respToken = null, respForKey = null;
 		// get APi-KEY
 		String Uri = "https://gwapi.zee5.com/user/getKey?=aaa";
-		respForKey = given().urlEncodingEnabled(false).when().get(Uri);
+		respForKey = RestAssured.given().urlEncodingEnabled(false).when().get(Uri);
 		String rawApiKey = respForKey.getBody().asString();
 		String apiKeyInResponse = rawApiKey.substring(0, rawApiKey.indexOf("<br>airtel "));
 		String finalApiKey = apiKeyInResponse.replaceAll("<br>rel - API-KEY : ", "");
 		String UriForToken = "http://gwapi.zee5.com/user/getToken";
-		respToken = given().headers("API-KEY", finalApiKey).when().get(UriForToken);
+		respToken = RestAssured.given().headers("API-KEY", finalApiKey).when().get(UriForToken);
 		String xAccessToken = respToken.jsonPath().getString("X-ACCESS-TOKEN");
 		return xAccessToken;
 	}
@@ -1164,20 +1164,20 @@ public class ResponseInstance {
 		
 		if(Url.length() == 0) {
 			Url = "https://gwapi.zee5.com/content/collection/0-8-" + page+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages=" + contLang + "&version=10";
-//			respCarousel = given().headers("X-ACCESS-TOKEN", getXAccessTokenAMD()).when().get(Url);
+//			respCarousel = RestAssured.given().headers("X-ACCESS-TOKEN", getXAccessTokenAMD()).when().get(Url);
 			
 			if (pUserType.equalsIgnoreCase("SubscribedUser")) {
 				String email = getParameterFromXML("SubscribedUserName");
 				String password = getParameterFromXML("SubscribedPassword");
 				String bearerToken = getBearerToken(email, password);
-				respCarousel = given().headers("x-access-token", getXAccessTokenAMD()).header("authorization", bearerToken).when().get(Url);
+				respCarousel = RestAssured.given().headers("x-access-token", getXAccessTokenAMD()).header("authorization", bearerToken).when().get(Url);
 			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
 				String email = getParameterFromXML("NonSubscribedUserName");
 				String password = getParameterFromXML("NonSubscribedUserPassword");
 				String bearerToken = getBearerToken(email, password);
-				respCarousel = given().headers("x-access-token", getXAccessTokenAMD()).header("authorization", bearerToken).when().get(Url);
+				respCarousel = RestAssured.given().headers("x-access-token", getXAccessTokenAMD()).header("authorization", bearerToken).when().get(Url);
 			} else {
-				respCarousel = given().headers("X-ACCESS-TOKEN", getXAccessTokenAMD()).when().get(Url);
+				respCarousel = RestAssured.given().headers("X-ACCESS-TOKEN", getXAccessTokenAMD()).when().get(Url);
 			}	
 		}else if(page.equalsIgnoreCase("Live TV") ||page.equalsIgnoreCase("Livetv")) {
 			respCarousel = getResponse(Url);
@@ -1760,12 +1760,12 @@ public static Response getUserinfoforNonSubORSubForAppMixpanel(String userType) 
 		String email = getParameterFromXML("SubscribedUserName");
 		String password = getParameterFromXML("SubscribedPassword");
 		String bearerToken = getBearerToken(email, password);
-		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+		resp = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 	} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 		String email = getParameterFromXML("NonSubscribedUserName");
 		String password = getParameterFromXML("NonSubscribedUserPassword");
 		String bearerToken = getBearerToken(email, password);
-		resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+		resp = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 	} else {
 		System.out.println("Incorrect user type passed to method");
 	}
@@ -2187,7 +2187,7 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 		String pPassword = "123456";
 		
 		String bearerToken = getBearerToken(pUsername, pPassword);
-		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
+		resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
 		resp.prettyPrint();
 		System.out.println("\n Subscrition related");
 		Mixpanel.FEProp.setProperty("Pack Duration",resp.jsonPath().getString("[0].subscription_plan.billing_frequency")); 
@@ -2235,14 +2235,14 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 		}
 		String xAccessToken = getXAccessTokenWithApiKey();
 		if (userType.equalsIgnoreCase("Guest")) {
-			respCarousel = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when().get(Uri);
+			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when().get(Uri);
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedUserName");
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -2250,7 +2250,7 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("NonSubscribedUserPassword");
 			String bearerToken = getBearerToken(email,password);
-			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else {
 			System.out.println("Incorrect user type passed to method");
@@ -2278,10 +2278,10 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 			for (int k = 0; k < 6; k++) {
 				if (respCarousel.jsonPath().getList("buckets[0].items[" + k + "].related") != null) {
 					String relatedID = respCarousel.jsonPath().getString("buckets[0].items[" + k + "].id");
-					Response relatedtrailerID = given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/" + relatedID+ "?translation=en&country=IN&version=2");
+					Response relatedtrailerID = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/" + relatedID+ "?translation=en&country=IN&version=2");
 					String trailerID = relatedtrailerID.jsonPath().getString("related[0].id");
 					System.out.println("Trailer ID : " + trailerID);
-					given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/" + trailerID+ "?translation=en&country=IN&version=2");
+					RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/" + trailerID+ "?translation=en&country=IN&version=2");
 					getContentDetails(trailerID);
 					return respCarousel.jsonPath().getString("buckets[0].items[" + k + "].title");
 				}
@@ -2310,19 +2310,19 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 		}
 		String xAccessToken = getXAccessTokenWithApiKey();
 		if (userType.equalsIgnoreCase("Guest")) {
-			respCarousel = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when().get(Uri);
+			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when().get(Uri);
 		} else if (userType.equalsIgnoreCase("SubscribedUser"))
 		{
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
+			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser"))
 		{
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
+			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
 		} else {
 			System.out.println("Incorrect user type passed to method");
 		}
@@ -2368,7 +2368,7 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 							&& !respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].related").contains("false")) {
 //						respCarousel.print();
 						String relatedID = respCarousel.jsonPath().getString("buckets["+j+"].items["+k+"].id");
-						Response relatedtrailerID =  given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+relatedID+"?translation=en&country=IN&version=2");
+						Response relatedtrailerID =  RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+relatedID+"?translation=en&country=IN&version=2");
 //						relatedtrailerID.print();
 						String trailerID = relatedtrailerID.jsonPath().getString("related[0].id");
 						getContentDetails(trailerID);
@@ -2417,7 +2417,7 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 
 		String xAccessToken = getXAccessToken();
 		if (userType.equalsIgnoreCase("Guest")) {
-			respCarousel = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when()
+			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345").when()
 					.get(Uri);
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -2425,7 +2425,7 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -2434,7 +2434,7 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 					.getParameter("NonsubscribedPassword");
 
 			String bearerToken = getBearerToken(email, password);
-			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
+			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 		} else {
 			System.out.println("Incorrect user type passed to method");
@@ -2462,7 +2462,7 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 			}
 			String xAccessToken = getXAccessTokenWithApiKey();
 			if (userType.equalsIgnoreCase("Guest")) {
-				respCarousel = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345")
+				respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345")
 						.when().get(Uri);
 			} else if (userType.equalsIgnoreCase("SubscribedUser")) {
 				String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -2470,7 +2470,7 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 				String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 						.getParameter("SubscribedPassword");
 				String bearerToken = getBearerToken(email, password);
-				respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken)
+				respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken)
 						.when().get(Uri);
 			} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 
@@ -2481,7 +2481,7 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 //			String email="tvautomation@gmail.com";
 //			 String password ="123456";
 				String bearerToken = getBearerToken(email, password);
-				respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken)
+				respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken)
 						.when().get(Uri);
 			} else {
 				System.out.println("Incorrect user type passed to method");
@@ -2568,7 +2568,7 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 								contentAndTrayTitle.add(
 										respCarousel.jsonPath().getString("buckets[" + j + "].items[" + k + "].title"));
 								System.out.println("Related contentName :" + contentName);
-								Response relatedtrailerID = given()
+								Response relatedtrailerID = RestAssured.given()
 										.headers("x-access-token", getXAccessTokenWithApiKey()).when()
 										.get("https://gwapi.zee5.com/content/details/" + relatedID
 												+ "?translation=en&country=IN&version=2");
@@ -2581,7 +2581,7 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 												.getString("related[" + l + "].id");
 
 										System.out.println("Trailer ID : " + trailerID);
-										given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+										RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
 												.get("https://gwapi.zee5.com/content/details/" + trailerID
 														+ "?translation=en&country=IN&version=2");
 										getContentDetails(trailerID);
@@ -2600,7 +2600,7 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 	}
 
 	public static String getSearchresponseTv(String searchText) {
-		Response resp = given().urlEncodingEnabled(false).when().get("https://gwapi.zee5.com/content/search_all?q="
+		Response resp = RestAssured.given().urlEncodingEnabled(false).when().get("https://gwapi.zee5.com/content/search_all?q="
 				+ searchText
 				+ "&limit=10&asset_type=0,6,1&country=IN&languages=hi,en,mr,te,kn,ta,ml,bn,gu,pa,hr,or&translation=en&version=3&");
 
@@ -3060,7 +3060,7 @@ public static void setSubscriptionDetails() {
 //		String pPassword = "123456";
 		
 		String bearerToken = getBearerToken(pUsername, pPassword);
-		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
+		resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
 		
 		System.out.println("\nSubscrition related");
 		Mixpanel.FEProp.setProperty("Pack Duration",resp.jsonPath().getString("[0].subscription_plan.billing_frequency")); 
@@ -3093,7 +3093,7 @@ public static void setSubscriptionDetails() {
 public static void getUserSettingsValues(String pUsername, String pPassword) {
 	if (!pUsername.equals("")) {
 		String bearerToken = getBearerToken(pUsername, pPassword);
-		resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken)
+		resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken)
 				.when().get("https://userapi.zee5.com/v1/settings");
 
 		String[] comm = resp.asString().replace("{", "").replace("}", "").replace("[", "").replace("]", "")
@@ -3144,7 +3144,7 @@ public static ArrayList<String> getTrayNameAndContentID(String tabName, String t
 		}
 		String xAccessToken = getXAccessTokenWithApiKey();
 		if (userType.equalsIgnoreCase("Guest")) {
-			respCarousel = given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345")
+			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", "12345")
 					.when().get(Uri);
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -3152,7 +3152,7 @@ public static ArrayList<String> getTrayNameAndContentID(String tabName, String t
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("SubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken)
+			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken)
 					.when().get(Uri);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -3160,7 +3160,7 @@ public static ArrayList<String> getTrayNameAndContentID(String tabName, String t
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("NonsubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
-			respCarousel = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken)
+			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken)
 					.when().get(Uri);
 		} else {
 			System.out.println("Incorrect user type passed to method");
@@ -3223,7 +3223,7 @@ public static ArrayList<String> getTrayNameAndContentID(String tabName, String t
 //				respCarousel.print();
 						String relatedID = respCarousel.jsonPath()
 								.getString("buckets[" + j + "].items[" + k + "].id");
-						Response relatedtrailerID = given().headers("x-access-token", getXAccessTokenWithApiKey())
+						Response relatedtrailerID = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey())
 								.when().get("https://gwapi.zee5.com/content/details/" + relatedID
 										+ "?translation=en&country=IN&version=2");
 //				relatedtrailerID.print();
@@ -3298,7 +3298,7 @@ public static Response getSubscriptionDetails(String username, String password) 
 	Response response = null;
 	String b = getBearerToken(username, password);
 	// System.out.println("\nbearer token :"+b+"\n");
-	response = given().headers("Authorization", b).when().get(url);
+	response = RestAssured.given().headers("Authorization", b).when().get(url);
 	// System.out.println("\nresponse body: "+response.getBody().asString());
 	return response;
 }
@@ -3308,7 +3308,7 @@ public static Response getSettingsDetails(String username, String password) {
 	Response response = null;
 	String b = getBearerToken(username, password);
 	// System.out.println("\nbearer token :"+b+"\n");
-	response = given().headers("Authorization", b).when().get(url);
+	response = RestAssured.given().headers("Authorization", b).when().get(url);
 	// System.out.println("\nresponse body: "+response.getBody().asString());
 	return response;
 }
@@ -3318,7 +3318,7 @@ public static Response getTVODDetails(String username, String password) {
 	Response response = null;
 	String b = getBearerToken(username, password);
 	// System.out.println("\nbearer token :"+b+"\n");
-	response = given().headers("Authorization", b).when().get(url);
+	response = RestAssured.given().headers("Authorization", b).when().get(url);
 	// System.out.println("\nresponse body: "+response.getBody().asString());
 	return response;
 }
@@ -3445,7 +3445,7 @@ public static Response getUserSettingDetails(String pUsername, String pPassword)
 	String xAccessToken = getXAccessTokenWithApiKey();
 	String bearerToken = getBearerToken(pUsername, pPassword);
 	String url = "https://userapi.zee5.com/v1/settings";
-	response = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+	response = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 	System.out.println("\nresponse body: " + response.getBody().asString());
 	return response;
 }
@@ -3537,10 +3537,10 @@ public static Response getResponseForPages(String tab, int pageNumber,String con
 	}		
 	String xAccessToken = getXAccessTokenWithApiKey();
 	if (userType.equalsIgnoreCase("Guest")) {
-		respPages = given().headers("x-access-token", xAccessToken).when().get(Uri);
+		respPages = RestAssured.given().headers("x-access-token", xAccessToken).when().get(Uri);
 	} else {		
 		String bearerToken = getBearerToken(username, password);
-		respPages = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
+		respPages = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
 	}
 	//System.out.println("Response status : " + respPages.statusCode());
 	return respPages;
@@ -3750,7 +3750,7 @@ public static Properties getUserData_NativeAndroid(String pUsername,String pPass
 	String xAccessToken = getXAccessTokenWithApiKey();
 	String bearerToken = getBearerToken(pUsername, pPassword);
 	String url = "https://userapi.zee5.com/v1/user";
-	resp = given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+	resp = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
 	String commaSplit[] = resp.asString().replace("{", "").replace("}", "").replaceAll("[.,](?=[^\\[]*\\])", "-")
 			.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 	for (int i = 0; i < commaSplit.length; i++) {
@@ -3789,7 +3789,7 @@ public static void setSubscriptionDetails_NativeAndroid() {
 //	String pPassword = "123456";
 	
 	String bearerToken = getBearerToken(pUsername, pPassword);
-	resp = given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
+	resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
 	
 	System.out.println("\nSubscrition related");
 	MixpanelAndroid.FEProp.setProperty("Pack Duration",resp.jsonPath().getString("[0].subscription_plan.billing_frequency")); 
@@ -4062,7 +4062,7 @@ public static Response updateWatchHistory(String contentID,int duration) {
 		updateWatchHistoryRequestSpecification.header("accept", "application/json");
 		updateWatchHistoryRequestSpecification.header("Authorization", authorizationToken);
 		updateWatchHistoryRequestSpecification.body("{\"id\":\""+contentID+"\",\"duration\":"+duration+"}");			
-		updateWatchHistoryRequestSpecification.config(com.jayway.restassured.RestAssured.config().encoderConfig(com.jayway.restassured.config.EncoderConfig
+		updateWatchHistoryRequestSpecification.config(io.restassured.RestAssured.config().encoderConfig(io.restassured.config.EncoderConfig
 				.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)));
 		url="https://userapi.zee5.com/v1/watchhistory";
 		updateWatchHistory = updateWatchHistoryRequestSpecification.put(url);
@@ -4078,7 +4078,7 @@ public static String getAuthorization(String email, String password) {
 	requestParams.put("password", password);
 	RequestSpecification req = RestAssured.given();
 	req.header("Content-Type", "application/json");
-	req.config(com.jayway.restassured.RestAssured.config().encoderConfig(com.jayway.restassured.config.EncoderConfig
+	req.config(io.restassured.RestAssured.config().encoderConfig(io.restassured.config.EncoderConfig
 			.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)));
 	req.body(requestParams.toString());
 	Response resp = req.post("https://userapi.zee5.com/v2/user/loginemail");
@@ -4109,7 +4109,7 @@ public static Response updateWatchHistory(String contentID,int duration,String g
 		updateWatchHistoryRequestSpecification.header("accept", "application/json");
 		updateWatchHistoryRequestSpecification.header("Authorization", userID);
 		updateWatchHistoryRequestSpecification.body("{\"id\":\""+contentID+"\",\"duration\":"+duration+",\"device_id\":\""+guestToken+"\"}");			
-		updateWatchHistoryRequestSpecification.config(com.jayway.restassured.RestAssured.config().encoderConfig(com.jayway.restassured.config.EncoderConfig
+		updateWatchHistoryRequestSpecification.config(io.restassured.RestAssured.config().encoderConfig(io.restassured.config.EncoderConfig
 				.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)));
 		url="https://api.zee5.com/api/v1/watchhistory";
 		updateWatchHistoryResponse = updateWatchHistoryRequestSpecification.post(url);
@@ -4124,7 +4124,7 @@ public static Response getUserDetails(String username, String password) {
 	Response response = null;
 	String bearerToken = getBearerToken(username, password);
 	String url = "https://userapi.zee5.com/v1/user";
-	response = given().headers("Authorization", bearerToken).when().get(url);
+	response = RestAssured.given().headers("Authorization", bearerToken).when().get(url);
 	//System.out.println("\nresponse body: " + response.prettyPrint());
 	return response;
 }

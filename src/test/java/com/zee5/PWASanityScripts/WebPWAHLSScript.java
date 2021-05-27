@@ -165,12 +165,12 @@ public class WebPWAHLSScript {
 		Zee5WEBPWASanityBusinessLogic.kidsvalidation(userType, "Kids");
 	}
 	
-	@Test(priority = 22)
-	@Parameters({ "userType" })
-	public void InSprintComboOfferAutomation(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-		Zee5WEBPWASanityBusinessLogic.ComboOfferPremiumPlex(userType);
-	}
+//	@Test(priority = 22)
+//	@Parameters({ "userType" })
+//	public void InSprintComboOfferAutomation(String userType) throws Exception {
+//		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+//		Zee5WEBPWASanityBusinessLogic.ComboOfferPremiumPlex(userType);
+//	}
 	
 
 	@AfterClass

@@ -397,11 +397,6 @@ public class WebPWASanityScript {
 	}
 	
 	@Test(priority = 32)
-	public void comboOffer() throws Exception {
-		Zee5WEBPWASanityBusinessLogic.ValidateCTAsAndValidateComboOfferScreen();
-	}
-	
-	@Test(priority = 32)
 	@Parameters({ "userType" })
 	public void InSprintAutomation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();

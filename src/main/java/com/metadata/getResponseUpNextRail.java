@@ -1,17 +1,19 @@
 package com.metadata;
 
-import static com.jayway.restassured.RestAssured.given;
+//import static com.jayway.restassured.RestAssured.given;
 import java.util.LinkedList;
 import java.util.List;
-
-import com.jayway.restassured.response.Response;
+//import com.jayway.restassured.response.Response;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 
 	public class getResponseUpNextRail {
 		
 		protected  static Response resp = null;
 		public static Response getResponse() {
 			String uri ="https://gwapi.zee5.com/content/season/next_previous/0-2-1095?episode_id=0-1-manual_1qskonmm7sk8&type=next&limit=25&translation=en&country=IN&page=1";
-			resp = given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(uri);
+			resp = RestAssured.given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(uri);
 			System.out.println(resp.getBody());
 			return resp;
 	}
@@ -19,7 +21,7 @@ import com.jayway.restassured.response.Response;
 		
 		public static Response getResponse1() {
 			String uri ="https://gwapi.zee5.com/content/season/next_previous/0-2-1864?episode_id=0-1-manual_4vqosf28clu0&type=next&limit=25&translation=en&country=IN&page=1";
-			resp = given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(uri);
+			resp = RestAssured.given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(uri);
 			System.out.println(resp.getBody());
 			return resp;
 	}
@@ -49,14 +51,14 @@ import com.jayway.restassured.response.Response;
 		
 		//get APi-KEY
 		String Uri = "https://gwapi.zee5.com/user/getKey?=aaa";
-		respForKey = given().urlEncodingEnabled(false).when().get(Uri);
+		respForKey = RestAssured.given().urlEncodingEnabled(false).when().get(Uri);
 
 		String rawApiKey = respForKey.getBody().asString();
 		String apiKeyInResponse = rawApiKey.substring(0, rawApiKey.indexOf("<br>airtel "));
 		String finalApiKey = apiKeyInResponse.replaceAll("<br>rel - API-KEY : ", "");
 		
 		String UriForToken = "http://gwapi.zee5.com/user/getToken";
-		respToken = given().headers("API-KEY", finalApiKey).when().get(UriForToken);
+		respToken = RestAssured.given().headers("API-KEY", finalApiKey).when().get(UriForToken);
 		String xAccessToken = respToken.jsonPath().getString("X-ACCESS-TOKEN");
 		
 		return xAccessToken;
@@ -80,7 +82,7 @@ import com.jayway.restassured.response.Response;
 		}
 		
 		String Uri = "https://gwapi.zee5.com/content/collection/0-8-" + page+ "?page=1&limit=5&item_limit=20&country=IN&translation=en&languages="+contLang+"&version=6";
-		respCarousel = given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(Uri);
+		respCarousel = RestAssured.given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(Uri);
 		System.out.println("Response Body"+respCarousel.getBody().asString());
 		return respCarousel;
 	}
@@ -110,14 +112,14 @@ import com.jayway.restassured.response.Response;
 	public static Response getTVShowDetails(String tvShowID) {
 		Response respContentDetails = null;
 		String Uri = "https://gwapi.zee5.com/content/tvshow/"+tvShowID+"?translation=en&country=IN";
-		respContentDetails = given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(Uri);
+		respContentDetails = RestAssured.given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(Uri);
 		System.out.println("TV Show Response API"+respContentDetails.getBody().asString());
 		return respContentDetails;
 	}
 	
 	public static Response getUpNextResponse(String seasonID,String contentID) {
 		String uri ="https://gwapi.zee5.com/content/season/next_previous/"+seasonID+"?episode_id="+contentID+"&type=next&limit=25&translation=en&country=IN&page=1";
-		resp = given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(uri);
+		resp = RestAssured.given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(uri);
 		System.out.println(resp.getBody().print());
 		return resp;
 	}
