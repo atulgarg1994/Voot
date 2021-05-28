@@ -88,7 +88,7 @@ public class TasksAndDefects {
 	@Parameters({ "userType" })
 	public void TasksAndDefectsMethod6(String userType) throws Exception {
 		// re-launch
-		ZEE5ApplicasterBusinessLogic.relaunch(true);		
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.LaunchAppinOffline(userType);
 		ZEE5ApplicasterBusinessLogic.ValidatingQualityOptionDefect(userType);
 		// Login CTA in subscribe screen is not present in latest build
@@ -119,9 +119,9 @@ public class TasksAndDefects {
 		ZEE5ApplicasterBusinessLogic.VerifySubscribeIcon(userType);
 		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.verifyExplorePremiiumOffline(userType);
-		
+
 	}
-	
+
 	@Test(priority = 9)
 	@Parameters({ "userType" })
 	public void TasksAndDefectsMethod9(String userType) throws Exception {
@@ -133,7 +133,7 @@ public class TasksAndDefects {
 		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.VerifyDiscountAmount(userType);
 	}
-	
+
 	@Test(priority = 10)
 	@Parameters({ "userType" })
 	public void VerifyAccountPopupDefect(String userType) throws Exception {
@@ -141,29 +141,29 @@ public class TasksAndDefects {
 		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
 		ZEE5ApplicasterBusinessLogic.AccountInfoPopupDefect(userType);
 	}
-	
+
 	@Test(priority = 11)
 	@Parameters({ "userType" })
 	public void VerifyLogoutAndAuthenticateOptions(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.VerifyLogoutAndAuthenticateDeviceOptions(userType);
 	}
-	
+
 	@Test(priority = 12)
 	@Parameters({ "userType" })
 	public void VeirfyMyTransactions(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
-		ZEE5ApplicasterBusinessLogic.verifyMyTransactionOption(userType);		
+		ZEE5ApplicasterBusinessLogic.verifyMyTransactionOption(userType);
 	}
-	
+
 	@Test(priority = 13)
 	@Parameters({ "userType" })
 	public void VeirfyGoogleLoginFromSubscriptionJourney(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(false);
-		ZEE5ApplicasterBusinessLogic.VerifyGoogleIconInSubscriptionScreen(userType);		
+		ZEE5ApplicasterBusinessLogic.VerifyGoogleIconInSubscriptionScreen(userType);
 	}
-	
+
 	@Test(priority = 14)
 	@Parameters({ "userType" })
 	public void DownloadIconValidation(String userType) throws Exception {
@@ -172,9 +172,9 @@ public class TasksAndDefects {
 		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.DownloadIconValidation_NetworkInterupption(userType, "Movies");
-		
+
 	}
-	
+
 	@Test(priority = 15)
 	@Parameters({ "userType" })
 	public void contentPlaybackValidation_afterTappingReplayIcon(String userType) throws Exception {
@@ -182,9 +182,9 @@ public class TasksAndDefects {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
 		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
-		ZEE5ApplicasterBusinessLogic.contentPlayBack_afterTappingReplayIcon(userType);	
+		ZEE5ApplicasterBusinessLogic.contentPlayBack_afterTappingReplayIcon(userType);
 	}
-	
+
 	@Test(priority = 16)
 	@Parameters({ "userType" })
 	public void NavigationToEduauraaWebPageValidation(String userType) throws Exception {
@@ -192,9 +192,51 @@ public class TasksAndDefects {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
 		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
 		ZEE5ApplicasterBusinessLogic.LoginWithEmailID("smoke.622@gmail.com", "11223344");
-		ZEE5ApplicasterBusinessLogic.NavigationToEduauraaWeb(userType, "Eduauraa");	
+		ZEE5ApplicasterBusinessLogic.NavigationToEduauraaWeb(userType, "Eduauraa");
 	}
-	
+
+	@Test(priority = 17)
+	@Parameters({ "userType" })
+	public void PlayBackInBackgroundValidation(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.contentPlayBackInBackGroundValidation(userType, "Music");
+	}
+
+	@Test(priority = 18)
+	@Parameters({ "userType" })
+	public void audioLanguageoptionValidation(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.audioLanguageValidation("Trailer - Khushi");
+	}
+
+	@Test(priority = 19)
+	@Parameters({ "userType" })
+	public void UserAccountInfoValidation(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.LoginWithEmailID("7892215214", "User@123");
+		ZEE5ApplicasterBusinessLogic.accountInfoValidationInPaymentPage(userType);
+	}
+
+	@Test(priority = 14)
+	public void VerifyUpcomingContent() throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.VerifyUpcomingContent();
+	}
+
+	@Test(priority = 15)
+	@Parameters({ "userType" })
+	public void DownloadWeekInShortContent(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.VerifyWeekInShorts(userType);
+	}
+
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("Quit the App");

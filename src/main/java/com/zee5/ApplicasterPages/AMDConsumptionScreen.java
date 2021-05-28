@@ -164,5 +164,8 @@ public class AMDConsumptionScreen {
     public static By objGetPremiumOnPlayer = By.xpath("(//*[@id='subscribeButton' or @text='Get Premium'])[1]");
     public static By objGetpremiumBelowThePlayer = By.xpath("(//*[@id='subscribeButton' or @text='Get Premium'])[2]");
     public static By objGetPremiumCTA = By.xpath("//*[@id='subscribeButton' or @text='Get Premium']");
-    public static By objEduauraaWelcomePageOrHomePageInWeb = By.xpath("(//*[@text='Welcome to'])[2] | (//*[@text='My Courses'])[3]");
+    
+    public static By objEduauraaWelcomePageOrHomePageInWeb = By.xpath("//*[@placeholder='First Name*'] | //*[@class='usr-img']");
+    
+    
 }

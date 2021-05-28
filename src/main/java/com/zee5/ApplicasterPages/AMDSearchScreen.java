@@ -229,4 +229,5 @@ public class AMDSearchScreen {
 	
 	public static By objContentDescription = By.xpath("//*[@id='contentDescriptionTextView']");
 	
+	public static By objMoviesTabInSearchResult = By.xpath("//*[@text='Movies']");
 }

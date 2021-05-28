@@ -12480,7 +12480,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	 */
 	public void WebShareFunctionalityContent() throws Exception {
 		// click on share Option
-
 		// Verify Facebook share option
 		Thread.sleep(2000);
 		verifyElementPresent(PWAPlayerPage.facebookShareBtn, "Facebook share option");

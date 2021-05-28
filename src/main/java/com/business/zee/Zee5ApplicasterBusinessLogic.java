@@ -21499,7 +21499,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void findParticularTray(By byLocator, String trayname) {
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 15; i++) {
 			if (!(verifyIsElementDisplayed(byLocator))) {
 				Swipe("UP", 1);
 			} else {
@@ -24620,11 +24620,11 @@ public void DownloadIconValidation_NetworkInterupption(String userType, String t
 			}
 		}else {
 			if(var1==true) {
-				logger.error("Download is in progress state in consumption page");
+				logger.info("Download is in progress state in consumption page");
 				extent.extentLoggerPass("Download", "Download is in progress state in consumption page");
 			}
 			else if(var2==true){
-				logger.error("Download is completed in consumption page");
+				logger.info("Download is completed in consumption page");
 				extent.extentLoggerPass("Download", "Download is completed in consumption page");
 			}
 		}	
@@ -24721,7 +24721,7 @@ public void contentPlayBack_afterTappingReplayIcon(String userType) throws Excep
 		logger.info("Same content playback is initiated on tapping reply icon on the player.");
 		extent.extentLoggerPass("content", "Same content playback is initiated on tapping reply icon on the player.");
 	}else {
-		logger.info("Same content playback is not initiated on tapping reply icon on the player.");
+		logger.error("Same content playback is not initiated on tapping reply icon on the player.");
 		extent.extentLoggerFail("content", "Same content playback is not initiated on tapping reply icon on the player.");
 	}	
 }
@@ -24742,9 +24742,10 @@ public void NavigationToEduauraaWeb(String userType, String tabName) throws Exce
 			logger.info("User is navigated to Eduauraa welcome page or Home page");
 			extent.extentLoggerPass("Eduauraa", "User is navigated to Eduauraa welcome page or Home page");
 		}else {
-			logger.info("Error message is displayed post redirecting to Eduauraa Web");
+			logger.error("Error message is displayed post redirecting to Eduauraa Web");
 			extent.extentLoggerFail("Eduauraa", "Error message is displayed post redirecting to Eduauraa Web");
 		}
+		waitTime(5000);
 		Back(1);	
 		waitTime(10000);
 		getDriver().context("NATIVE_APP");
@@ -24755,5 +24756,168 @@ public void NavigationToEduauraaWeb(String userType, String tabName) throws Exce
 	}	
 }
 
+public void contentPlayBackInBackGroundValidation(String userType, String tabName) throws Exception {
+	extent.HeaderChildNode("AMA2-11866: Content Playback continues to play in background post tapping on 'View all' button of all trays in consumption screen");
+	SelectTopNavigationTab(tabName);
+	waitTime(5000);
+	click(AMDHomePage.objCarouselTitle1, "Carousal card");
+	if(!(userType.equalsIgnoreCase("SubscribedUser"))) {	
+		waitForAdToFinishInAmd();
+		registerPopUpClose();
+		completeProfilePopUpClose(userType);
+	}
+	waitTime(5000);
+	
+	if (verifyElementIsNotDisplayed(AMDPlayerScreen.objPauseIcon)) {
+		click(AMDPlayerScreen.objPlayerScreen, "player screen");
+	}
+	click(AMDPlayerScreen.objPauseIcon, "Pause");
+	
+	scrubVideoToBegining(AMDPlayerScreen.objProgressBar);
+	
+	String time1 = getText(AMDPlayerScreen.objTimer);
+	int elapsedTime1 = timeToSec(time1);
+	logger.info("Elapsed time before clicking View All button of a tray : " + elapsedTime1);
+	extentLogger("timer", "Elapsed time before clicking View All button of a tray : " + elapsedTime1);
+	
+	click(AMDPlayerScreen.objPlayIcon, "Play icon");
+	PartialSwipeInConsumptionScreen("UP", 1);
+	click(AMDGenericObjects.objViewAllBtn("Up Next"), "View All icon of tray");	
+	waitTime(3000);
+	Swipe("UP", 2);
+	Swipe("DOWN", 2);
+	Back(1);
+	if (verifyElementIsNotDisplayed(AMDPlayerScreen.objPauseIcon)) {
+		click(AMDPlayerScreen.objPlayerScreen, "player screen");
+	}
+	click(AMDPlayerScreen.objPauseIcon, "Pause");
+	
+	
+	String time2 = getText(AMDPlayerScreen.objTimer);
+	int elapsedTime2 = timeToSec(time2);
+	logger.info("Elapsed time after navigating back from Listing screen : " + elapsedTime2);
+	extentLogger("timer", "Elapsed time after navigating back from Listing screen : " + elapsedTime2);
+	
+	if(elapsedTime2 > elapsedTime1) {
+		logger.error("Playback continued in background post tapping on View all button all trays in consumption screen.");
+		extent.extentLoggerFail("playback", "Playback continued in background post tapping on View all button all trays in consumption screen.");
+	}else {
+		logger.info("Content playback is stoped, post tapping on view all button and listing screen should be displayed");
+		extent.extentLoggerPass("playback", "Content playback is stoped, post tapping on view all button and listing screen should be displayed");
+	}	
+}
+
+public void accountInfoValidationInPaymentPage(String userType) throws Exception {
+	extent.HeaderChildNode("AMA2-11879: Dummy email id is displayed in Account info on payment screen when user logs in with mobile number while purchasing /upgrading pack");
+	if(userType.equalsIgnoreCase("NonSubscribedUser")) {
+		click(AMDHomePage.objSubscribeIcon, "Buy Plan");
+		Swipe("UP", 1);
+		click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button in Subscription page");
+		String mobileNumber = getText(AMDSubscibeScreen.objUserEmailIdOrPhnNoInPaymentPage);
+		if(mobileNumber.contains("dummy")) {
+			logger.error("dummy email id is displayed in the account info on the payment screen");
+			extent.extentLoggerFail("emailID", "dummy email id is displayed in the account info on the payment screen");
+		}else {
+			logger.info("User details as mentioned by user mobile number is displayed in the Account info of payment screen");
+			extent.extentLoggerPass("emailID", "User details as mentioned by user mobile number is displayed in the Account info of payment screen");
+		}
+		
+	}else {
+		logger.info("Not Applicable for this userType");
+		extent.extentLoggerWarning("Not Applicable", "Not Applicable for this userType");
+	}
+}
+
+public void audioLanguageValidation(String contentName) throws Exception{
+	extent.HeaderChildNode("AMA2-15465: Audio language options are non functional in the 'Audio language' popup displayed in the consumption screen for the contents which has multiple Audio languages");
+	click(AMDHomePage.objSearchBtn, "Search button");
+	waitTime(5000);
+	click(AMDSearchScreen.objSearchEditBox, "Search box");
+	type(AMDSearchScreen.objSearchBoxBar, contentName, "Search box");
+	hideKeyboard();
+	click(AMDSearchScreen.objMoviesTabInSearchResult, "Movies tab");
+	waitTime(6000);
+	click(AMDSearchScreen.objFirstSearchResult, "Search result");
+	waitTime(5000);
+	String audioLang1 = getText(AMDConsumptionScreen.objCurrentAudioLanguage);
+	click(AMDConsumptionScreen.objCurrentAudioLanguage, "Selected audio language");
+	String lang1 = getText(AMDConsumptionScreen.objSubtitleAndAudioLangItems(1));
+	if(lang1.equalsIgnoreCase(audioLang1)) {
+		click(AMDConsumptionScreen.objSubtitleAndAudioLangItems(2), "Audio language");
+	}else {
+		click(AMDConsumptionScreen.objSubtitleAndAudioLangItems(1), "Audio language");
+	}
+	waitTime(3000);
+	String audioLang2 = getText(AMDConsumptionScreen.objCurrentAudioLanguage);
+	if(audioLang2.equalsIgnoreCase(audioLang1)) {
+		logger.error("Audio language options are non functional");
+		extent.extentLoggerFail("Audio language", "Audio language options are non functional");
+	}else {
+		logger.info("Audio language options are functional");
+		extent.extentLoggerPass("Audio language", "Audio language options are functional");
+	}
+}
+
+public void VerifyUpcomingContent() throws Exception {
+	 //AMA2-12127
+	 extent.HeaderChildNode("AMA2-12127 :Upcoming contents fails to display & 'You aren't connected to the internet.' with Retry cta is displayed post navigating to upcoming screen");
+   logger.info("AMA2-12127 :Upcoming contents fails to display & 'You aren't connected to the internet.' with Retry cta is displayed post navigating to upcoming screen");
+   selectContentLang_MoreMenu2("Hindi,English,Kannada");
+   waitTime(5000);
+   verifyElementPresentAndClick(AMDHomePage.objUpcoming, "Upcoming tab");
+	waitForElementDisplayed(AMDUpcomingPage.objContentCardInfo, 10);
+	int cardInfo = findElements(AMDUpcomingPage.objContentCardInfo).size();
+	if (cardInfo > 1) {
+		logger.info("Upcoming contents is loaded & displayed when user navigates to upcoming screen");
+		extent.extentLoggerPass("Page", "Upcoming contents is loaded & displayed when user navigates to upcoming screen");
+	} else {
+		logger.error("[AMA2-12127] Upcoming contents fails to display post navigating to upcoming screen.");
+		extent.extentLoggerFail("Page", "[AMA2-12127] Upcoming contents fails to display post navigating to upcoming screen.");
+	}
+}
+
+ public void VerifyWeekInShorts(String userType) throws Exception {
+	  //AMA2-11938
+		 extent.HeaderChildNode("AMA2-11938 :'Week in short' show downloaded / downloading content is displayed in the videos tab instead of the Shows tab");
+	    logger.info("AMA2-11938 :'Week in short' show downloaded / downloading content is displayed in the videos tab instead of the Shows tab");
+	    if(!userType.equalsIgnoreCase("Guest")) {
+	    waitTime(4000);
+	    verifyElementPresentAndClick(AMDHomePage.objShowsTab, "TV Shows tab");
+	    waitTime(10000);
+	    findParticularTray(AMDHomePage.objWeekInShortTray, "Week In Short");
+	    if(verifyElementDisplayed(AMDHomePage.objWeekInShortTray)) {
+	    	verifyElementExist(AMDHomePage.objWeekInShortContent, "Week In Short Content card");
+	    	click(AMDHomePage.objWeekInShortContent, "Week In Short Content card");
+	    	waitTime(5000);
+	    	waitForElementDisplayed(AMDDownloadPage.objPauseIconOnPlayer, 2000);
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
+			waitTime(2000);
+			DownloadVideoQualityPopUp(pVideoQuality, true);
+			waitTime(3000);
+			Back(1);
+			click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		String	getSelectedTabName = getText(AMDHomePage.objSelectedTab);
+			if (getSelectedTabName.equalsIgnoreCase("Videos")) {				
+				extent.extentLoggerFail("Movies tab",
+						"[AMA2-11938] 'Week in short' show downloaded/downloading content is displayed in the videos tab instead of the Shows tab");
+				logger.error("[AMA2-11938]  'Week in short' show downloaded/downloading content is displayed in the videos tab instead of the Shows tab");
+			} else {
+				extent.extentLoggerPass("Videos tab", "User is navigated to Shows landing page");
+				logger.info("User is navigated to Shows landing page");
+			}
+			
+	    }else {
+	    	logger.info("Week In short tray is not displayed");
+			extent.extentLoggerWarning("Page", "Week In short tray is not displayed");
+	    }
+	    
+	    }else {
+	    	logger.info("AMA2-11938 : Not applicable for "+ userType);
+			extent.extentLogger("Subscribe", "AMA2-11938 : Not applicable for " + userType);  
+	    }
+ }
+ 
+ 
 
 }

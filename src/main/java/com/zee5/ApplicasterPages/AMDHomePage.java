@@ -265,4 +265,9 @@ public class AMDHomePage {
 	
 	public static By objPopUpToOpenZeeApp = By.xpath("//*[@text='Open with ZEE5']");
 	public static By objJustOnceOption = By.xpath("//*[@id='button_once']");
+	
+	public static By objWeekInShortTray = By.xpath("//*[@class='android.widget.TextView'][contains(text(),'Week In Short')]");
+	
+	public static By objWeekInShortContent = By.xpath("(//*[@id='cell_center_container' and  (./preceding-sibling::* | ./following-sibling::*)[./*[contains(text(),'Week In Short')]]]//following-sibling::*)[1]");
+	
 	}
