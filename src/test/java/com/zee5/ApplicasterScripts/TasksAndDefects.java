@@ -236,6 +236,39 @@ public class TasksAndDefects {
 		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
 		ZEE5ApplicasterBusinessLogic.VerifyWeekInShorts(userType);
 	}
+	
+	@Test(priority = 22)
+	@Parameters({ "userType" })
+	public void AppCrash_TVODContent(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.AppcrashIssue_ChennaiVSChina(userType,"Chennai vs China | Trailer");
+	}
+	
+	@Test(priority = 23)
+	@Parameters({ "userType" })
+	public void BottomNavigationBar_ListingScreen(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.bottomNavigationBarValidationInListingScreen(userType);
+	}
+	
+	@Test(priority = 24)
+	@Parameters({ "userType" })
+	public void ListingScreenHeaderValidation(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.listingScreenHeader("Unlimited Fun | Kannada");
+	}
+	
+	@Test(priority = 25)
+	@Parameters({ "userType" })
+	public void HaveACodeOptionInPlanSelectionScreen(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", "Guest");
+		ZEE5ApplicasterBusinessLogic.navigateToHomeScreen();
+		ZEE5ApplicasterBusinessLogic.haveAPrepaidCodeDuringUpgradeJourney(userType,"newsubsrevamp4@mailnesia.com", "111222");
+	}
 
 	@AfterTest
 	public void tearDownApp() {

@@ -24917,7 +24917,159 @@ public void VerifyUpcomingContent() throws Exception {
 			extent.extentLogger("Subscribe", "AMA2-11938 : Not applicable for " + userType);  
 	    }
  }
+
+ public void DeeplinkToLoginScreenFromEmailNotification(String pDeeplinkUrl, String pUserType)
+			throws Exception {
+		extent.HeaderChildNode("Deeplink to Login/Register screen from Email/notification");
+		System.out.println("\nDeeplink to Login/Register screen from Email/notification");
+		
+		if (pUserType.equalsIgnoreCase("Guest")) {
+			try {
+				waitTime(3000);
+				String cmd3 = "adb shell am start -W -a android.intent.action.VIEW -d  " + pDeeplinkUrl;
+				Process process = Runtime.getRuntime().exec(cmd3);
+				new BufferedReader(new InputStreamReader(process.getInputStream()));
+				waitTime(12000);
+				if (verifyIsElementDisplayed(AMDHomePage.objPopUpToOpenZeeApp)) {
+					click(AMDHomePage.objJustOnceOption, "Just once option");
+				}
+				waitTime(4000);
+				if (verifyIsElementDisplayed(AMDLoginScreen.objLoginOrRegisterPageTitle)) {
+					logger.info("User is navigated to Login/Register screen post tapping on deeplinking URL from Email/notification");
+					extent.extentLoggerPass("Login/Register screen","User is navigated to Login/Register screen post tapping on deeplinking URL from Email/notification");
+				} else {
+					logger.error("User failed to navigate to Login/Register screen post tapping on deeplinking URL from Email/notification");
+					extent.extentLoggerFail("Login/Register screen", "User failed to navigate to Login/Register screen post tapping on deeplinking URL from Email/notification");
+				}
+
+			} catch (Exception e) {
+				System.out.println("URL is not triggered or accessible");
+			}
+		} else {
+			logger.info("Login/Register screen validation is not applicable for "+pUserType);
+			extent.extentLoggerPass("Login/Register screen","Login/Register screen validation is not applicable for "+pUserType);
+		}	
+	}
  
+ public void AppcrashIssue_ChennaiVSChina(String userType, String contentTitle) throws Exception {
+	 extent.HeaderChildNode("AMA2-15115: App crashes post tapping on 'Chennai vs China | Trailer' TVOD content for Guest and Subscribed users");
+	 if(!(userType.equalsIgnoreCase("NonSubscribedUser"))) {
+		 click(AMDHomePage.objSearchBtn, "Search button");
+			waitTime(5000);
+			click(AMDSearchScreen.objSearchEditBox, "Search box");
+			type(AMDSearchScreen.objSearchBoxBar, contentTitle, "Search box");
+			hideKeyboard();
+			click(AMDSearchScreen.objFirstSearchResult, "Search result");
+			waitTime(5000);
+			boolean var = verifyIsElementDisplayed(AMDConsumptionScreen.objShareBtn);
+			if(var==true) {
+				logger.info("user is navigated to the consumption screen post tapping on the 'Chennai vs China | trailer' TVOD content");
+				extent.extentLoggerPass("App crash", "user is navigated to the consumption screen post tapping on the 'Chennai vs China | trailer' TVOD content");
+			}else {
+				logger.error("App crashed post tapping on 'Chennai vs China | trailer' TVOD content");
+				extent.extentLoggerFail("App crash", "[AMA2-15115] - App crashed post tapping on 'Chennai vs China | trailer' TVOD content");
+			}
+	 }	else {
+		 logger.info("Not Applicable for this userType");
+		 extent.extentLoggerWarning("Not Applicable", "Not Applicable for this userType");
+	 }
+ }
+
+ public void bottomNavigationBarValidationInListingScreen(String userType) throws Exception {
+	 extent.HeaderChildNode("AMA2-11640 - Bottom navigation bar is getting displayed on the All episode rails listing screen");
+	 SelectTopNavigationTab("TV Shows");
+	 waitTime(5000);
+	 click(AMDHomePage.objCarouselTitle1, "Carousal card");
+	 if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		 waitForAdToFinishInAmd();
+		 registerPopUpClose();
+		 completeProfilePopUpClose(userType);
+	 }
+	 
+	 for(int i=0; i<3;i++) {
+		 if(verifyIsElementDisplayed(AMDGenericObjects.objViewAllBtn("All Episodes"))) {
+			 click(AMDGenericObjects.objViewAllBtn("All Episodes"), "View All button of 'All Episodes' tray");
+			 break;
+		 }else {
+			 PartialSwipeInConsumptionScreen("UP", 2);
+		 }
+	 }
+	 
+	boolean var= verifyElementExist(AMDHomePage.objMoreMenu, "More menu");
+	if(var==true) {
+		logger.error("Bottom navigation bar is displayed on the All episode rails listing screen");
+		extent.extentLoggerFail("Bottom Navigation bar", "[AMA2-11640] - Bottom navigation bar is displayed on the All episode rails listing screen");
+	}else {
+		logger.info("Bottom navigation bar is displayed on the All episode rails listing screen");
+		extent.extentLoggerPass("Bottom Navigation bar", "Bottom navigation bar is displayed on the All episode rails listing screen");
+
+	}	 
+	  
+ }
  
+ public void listingScreenHeader(String contentTitle) throws Exception {
+	 extent.HeaderChildNode("AMA2-11726: Listing screen header fails to display when user navigate back to 'Free Movies' listing screen from Collection listing screen");
+	SelectTopNavigationTab("Home");
+	boolean var = waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentTitle), 4, "Carousel content");
+	if(var==true) {
+		waitTime(4000);
+		getDriver().findElement(By.xpath("(//*[@text='a'])[1]")).click();
+		waitTime(3000);
+		Back(1);
+		boolean header = verifyIsElementDisplayed(AMDNewsPage.objListingScreenHeader, "Listing screen header");
+		if(header == true) {
+			logger.info("Free Movies Header text is displayed when user navigate back from collection listing screen");
+			extent.extentLoggerPass("Listingscreen header", "Free Movies Header text is displayed when user navigate back from collection listing screen");
+		}else {
+			logger.error("Listing screen header failed to display when user navigate back to 'Free Movies' listing screen from Collection listing screen");
+			extent.extentLoggerFail("Listingscreen header", "[AMA2-11726] - Listing screen header failed to display when user navigate back to 'Free Movies' listing screen from Collection listing screen");
+		}
+	}else {
+		logger.info("Free Movies content is not displayed under Carousal banner");
+		extent.extentLoggerWarning("Free movies", "Free Movies content is not displayed under Carousal banner");
+	}
+	
+ }
+
+ public void haveAPrepaidCodeDuringUpgradeJourney(String userType, String email, String password) throws Exception {
+	 extent.HeaderChildNode("AMA2-12294: Have a Code ? option is displayed during upgrade journey .");
+	 if(!(userType.equalsIgnoreCase("NonSubscribedUser"))) {
+		 if(!(userType.equalsIgnoreCase("Guest"))) {
+			 LoginWithEmailID("newsubsrevamp4@mailnesia.com", "111222");
+		 }
+		 click(AMDHomePage.objMoreMenu, "More menu");
+			click(AMDMoreMenu.objBuySubscription, "Buy Plan");
+			click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button");
+			if(userType.equalsIgnoreCase("Guest")) {
+				verifyElementExist(AMDSubscibeScreen.objAccountInfoScreen, "Account info screen");
+				click(AMDSubscibeScreen.objEmailID, "Email");
+				type(AMDSubscibeScreen.objEmailID, email, "Email field");
+				hideKeyboard();
+				click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button");
+				waitTime(5000);
+				verifyElementExist(AMDSubscibeScreen.objEnterPassword, "Enter Password PopUp");
+				click(AMDSubscibeScreen.objEnterPassword, "Password");
+				type(AMDSubscibeScreen.objEnterPassword, password, "Password field");
+				hideKeyboard();
+				verifyElementPresentAndClick(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button in password popup");
+			}
+			waitTime(15000);
+			if(verifyIsElementDisplayed(AMDSubscibeScreen.objMakePaymentScreen)){
+				Back(1);
+			}
+			Swipe("UP", 1);
+			boolean var = verifyIsElementDisplayed(AMDSubscibeScreen.objHaveACodeCTA);
+			if(var==true) {
+				logger.error("Have a Code is displayed in Plan selection screen ");
+				extent.extentLoggerFail("code", "[AMA2-12294] - Have a Code is displayed in Plan selection screen");
+			}else {
+				logger.info("Have a Code is not displayed in Plan selection screen ");
+				extent.extentLoggerPass("code", "Have a Code is not displayed in Plan selection screen");
+			}
+		 }else {
+			 logger.info("Not Applicable for this userType");
+			 extent.extentLoggerWarning("Not Applicable", "Not Applicable for this userType");
+		 }
+	 }
 
 }

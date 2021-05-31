@@ -79,6 +79,15 @@ public class Android_Onboarding_Suite2 {
 		ZEE5ApplicasterBusinessLogic.verifyCongratulationPopupAppearsforValidPrepaidCode(pCode, pUserName, pPassword);
 	}
 	
+	@Test(priority = 10)
+	@Parameters({"DeeplinkToLoginScreenFrmEmail","userType"})	//---Author: Kushal
+	public void DeeplinkToLoginScreenFromEmailNoticication(String pDeeplinkUrl,String pUserType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", pUserType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.DeeplinkToLoginScreenFromEmailNotification(pDeeplinkUrl,pUserType);
+	}
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("\nExecution Complete - Quiting the App");
