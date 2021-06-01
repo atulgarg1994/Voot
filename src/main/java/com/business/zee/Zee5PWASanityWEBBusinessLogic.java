@@ -2910,9 +2910,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			keyword = "Sathya";
 		else
 			keyword = "Kamali";
-
+		
 		click(PWAHomePage.objSearchBtn, "Search icon");
-//		click(PWAHomePage.objNotNow, "Not Now");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 		waitTime(2000);
 		click(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows tab");
@@ -2934,107 +2933,76 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if (userType.equals("SubscribedUser") || userType.equals("ClubUser")) {
 			waitTime(10000);
 		}
-
-		contentURL = getWebDriver().getCurrentUrl();
-		String[] abc = contentURL.split("/");
-		String contentID = abc[abc.length - 1];
-		extent.extentLogger("", "Content ID fetched from URL: " + contentID);
-		logger.info("Content ID fetched from URL: " + contentID);
-		Response respContent = null;
-		for (int i = 0; i < 10; i++) {
-			respContent = ResponseInstance.getContentDetails(contentID, "content");
-			// System.out.println(resp.getBody().asString());
-			if (!respContent.getBody().asString().contains("\"error_code\":401")) {
-				waitTime(1000);
-				break;
-			} else
-				waitTime(1000);
-		}
-		// System.out.println(respContent.getBody().asString());
-		mandatoryRegistrationPopUp(userType);
-		String seasonID = "";
-		try {
-			seasonID = respContent.jsonPath().get("season_details.id").toString().trim();
-		} catch (Exception e) {
-		}
-		extent.extentLogger("", "Season ID fetched from API: " + seasonID);
-		logger.info("Season ID fetched from API: " + seasonID);
+		String sourceContent="";
+		try {		
+			sourceContent=getWebDriver().findElement(PWALandingPages.objPlayerTitle).getText();	
+			logger.info("Content playing :"+sourceContent);
+			extent.extentLogger("", "Content playing :"+sourceContent);
+		}catch(Exception e) {}
+		
+		String sourceContentURL = getWebDriver().getCurrentUrl();
+		String[] abc = sourceContentURL.split("/");
+		String sourceContentID = abc[abc.length - 1];
 		ScrubToPlayerEnd();
-		String upnextTrayCardTitle = "";
-		for (int i = 0; i < 3; i++) {
-			try {
-				upnextTrayCardTitle = getElementPropertyToString("innerText",
-						PWAPlayerPage.objPlayerUpnextTrayCardTitle, "");
-				logger.info("Up Next Rail on player is displayed");
-				extent.extentLogger("", "Up Next Rail on player is displayed");
-				logger.info("First Card Title fetched from Up Next Rail : " + upnextTrayCardTitle);
-				extent.extentLogger("", "First Card Title fetched from Up Next Rail : " + upnextTrayCardTitle);
-				upnextTrayCardTitle = upnextTrayCardTitle.replace("'", "");
-				break;
-			} catch (Exception e) {
-			}
+		String upnextTitle=waitUntilUpNextCardPlays(sourceContent);
+		contentURL = getWebDriver().getCurrentUrl();
+		String[] abc1 = contentURL.split("/");
+		String contentID = abc[abc.length - 1];
+		if(!upnextTitle.equals("")) {
+			logger.info("Up Next content play successful");
+			extent.extentLogger("", "Up Next content play successful");
 		}
-		JSClick(PWAPlayerPage.objPlayerPlay, "Play button");
-		if (!(userType.equals("SubscribedUser") || userType.equals("ClubUser"))) {
-			extent.extentLogger("", "Postroll Ad play check");
-			logger.info("Postroll Ad play check");
-			waitForPlayerAdToComplete("Video Player");
-			extent.extentLogger("", "Preroll Ad play check");
-			logger.info("Preroll Ad play check");
-			waitForPlayerAdToComplete("Video Player");
-		}
-		mandatoryRegistrationPopUp(userType);
-		// Verify the Upnext content is auto playing
-		getResponseUpNextRail.getUpNextResponse(seasonID, contentID);
-		String episodeName = getText(PWAPlayerPage.objContentName);
-		String APIData = getResponseUpNextRail.getMediaContentName();
-		logger.info("Up Next First Card Title returned by API : " + APIData);
-		extent.extentLogger("", "Up Next First Card Title returned by API : " + APIData);
-		APIData = APIData.replace("'", "");
-		if (APIData.contains(upnextTrayCardTitle)) {
-			softAssert.assertEquals(APIData, upnextTrayCardTitle);
-			extent.extentLoggerPass("Upnext Rail", "Card displayed in Upnext rail matches with API");
-			logger.info("Card displayed in Upnext rail matches with API");
-			if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
-				waitForPlayerAdToComplete("Video");
-				mandatoryRegistrationPopUp(userType);
-				waitForPlayerAdToComplete("Video");
-			} else
-			JSClick(PWAPlayerPage.objPlayerPlay, "Play button");
-			waitTime(10000);
-			try {
-				String contentPlayed = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitleShow,
-						"Content Title").toString();
-				extent.extentLogger("Upnext Rail", "Up Next Content played in UI :" + contentPlayed);
-				logger.info("Up Next Content played in UI :" + contentPlayed);
-				contentPlayed = contentPlayed.replace("'", "");
-				if (APIData.contains(contentPlayed)) {
-					extent.extentLoggerPass("Upnext Rail", "Upnext content played matches with API");
-					logger.info("Upnext content played matches with API");
-				} else {
-					extent.extentLoggerFail("", "Upnext content played does not match with API");
-					logger.error("Upnext content played does not match with API");
-				}
-			} catch (Exception e) {
-			}
-
-		} else {
-			softAssert.assertNotEquals(APIData, upnextTrayCardTitle);
-			extent.extentLoggerFail("Verify UpNext Rail", "Card displayed in Upnext rail does not match with API");
-			logger.error("Card displayed in Upnext rail does not match with API");
-		}
-		mandatoryRegistrationPopUp(userType);
-
+		else {
+			logger.info("Up Next content play failed");
+			extent.extentLoggerFail("", "Up Next content play failed");
+		}		
+		mandatoryRegistrationPopUp(userType);		
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		ResponseInstance.updateWatchHistory(contentID, 1, local.getItem("guestToken"));
+		ResponseInstance.updateWatchHistory(contentID,1,local.getItem("guestToken"));
+		ResponseInstance.updateWatchHistory(sourceContentID,1,local.getItem("guestToken"));
+	}
+	
+	public String waitUntilUpNextCardPlays(String sourceCardTitle) throws Exception {
+		System.out.println("sourceCardTitle:"+sourceCardTitle);
+		getWebDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		main:for(int trial=0;trial<480;trial++) {
+			for(int sec=0;sec<60;sec++) {
+				//check for Ad Play After Scrub
+				try {
+					getWebDriver().findElement(PWAPlayerPage.objAd);
+					if (trial== 0 && sec==5) {
+						logger.info("Ad play in progress");
+						extent.extentLogger("AdPlayInProgress", "Ad play in progress");
+					}
+				}
+				catch(Exception e) {
+					//No Ad
+					try {
+						String playerTitle=getWebDriver().findElement(PWALandingPages.objPlayerTitle).getText();	
+						System.out.println("playerTitle"+playerTitle);
+						if(!playerTitle.equals(sourceCardTitle)) {
+							logger.info("Upnext Card is playing :"+playerTitle);
+							extent.extentLogger("", "Upnext Card is playing :"+playerTitle);
+							return playerTitle;
+						}					
+					}
+					catch(Exception e1) {}
+				}				
+			}
+			if(Math.floorMod(trial, 60)==0) {
+				logger.info("Waiting for Upnext content to play");
+				extent.extentLogger("", "Waiting for Upnext content to play");
+			}
+		}
+		return "";
 	}
 
 	public void ScrubToPlayerEnd() throws Exception {
 		Actions act = new Actions(getWebDriver());
-		WebElement overlay = findElement(PWAPlayerPage.objSubTitleOverlay);
-		int overlayX = overlay.getLocation().getX();
-		int overlayY = overlay.getLocation().getY();
-		act.moveToElement(overlay, (overlayX + 10), (overlayY + 10)).build().perform();
+		WebElement overlay=findElement(PWAPlayerPage.objSubTitleOverlay);
+		int overlayX=overlay.getLocation().getX();
+		int overlayY=overlay.getLocation().getY();
+		act.moveToElement(overlay, (overlayX+10), (overlayY+10)).build().perform();
 		/////////////////////////////////////////////////////
 		WebElement progressBar = findElement(PWAPlayerPage.progressBar);
 		int progressBarWidth = progressBar.getSize().getWidth();
@@ -3048,7 +3016,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		System.out.println(scrubberX);
 		int offsetForEnd = progressBarEndX - scrubberX - 10;
 		System.out.println(offsetForEnd);
-		/////////////////////////////////////
+		/////////////////////////////////////		
 		act.moveToElement(scrubber, offsetForEnd, 0).click().build().perform();
 		waitTime(2000);
 		mandatoryRegistrationPopUp(userType);
