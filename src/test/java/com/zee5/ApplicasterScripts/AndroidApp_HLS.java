@@ -69,6 +69,35 @@ public class AndroidApp_HLS {
 		ZEE5ApplicasterBusinessLogic.playBack(userType, searchKeyword10, searchKeyword4);
 
 	}
+	
+	@Test(priority = 6) //--- Kushal
+	@Parameters({"userType"})
+	public void SkipButtonVerification(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.SkipToHomeLandingScreenVerification(userType);
+	}
+	
+	@Test(priority = 7) //--- Kushal
+	@Parameters({"userType"})
+	public void TrendingAndRecentSearchScreen(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.RecentSearchHistoryValidation();
+	}
+	
+	@Test(priority = 8) //--- Kushal
+	@Parameters({"userType"})
+	public void SkipToHomeScreen(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.HaveaCodeSubscriptionJourney(userType);
+	}
+
 
 	@AfterTest
 	public void tearDownApp() {

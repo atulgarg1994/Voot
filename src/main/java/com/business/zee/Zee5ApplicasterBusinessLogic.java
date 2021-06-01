@@ -20251,7 +20251,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("Downloading Movie content is displayed in Downloads tab");
 				extentLoggerPass("Download", "Downloading Movie content is displayed in Downloads tab");
 			} else {
-				logger.info("Downloading Movie content is not displayed in Downloads tab");
+				logger.error("Downloading Movie content is not displayed in Downloads tab");
 				extentLoggerFail("Download", "Downloading Movie content is not displayed in Downloads tab");
 			}
 			click(AMDDownloadPage.objDownloadingConents(searchKeyword4), "Downloading content");
@@ -20279,15 +20279,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(3000);
 		hideKeyboard();
 		boolean var = verifyElementPresent(AMDSearchScreen.objPremiumSearchResult(contentName),
-				"Buy Plan icon on premium content");
+				"Premium icon on premium content");
 		if (var == true) {
-			logger.info("Buy Plan tag/icon is displayed on the content thumbnail in search results screen");
+			logger.info("Premium tag/icon is displayed on the content thumbnail in search results screen");
 			extentLoggerPass("Preium icon",
-					"Buy Plan tag/icon is displayed on the content thumbnail in search results screen");
+					"Premium tag/icon is displayed on the content thumbnail in search results screen");
 		} else {
-			logger.info("Buy Plan tag/icon is not displayed on the content thumbnail in search results screen");
-			extentLoggerPass("Premium icon",
-					"Buy Plan tag/icon is not displayed on the content thumbnail in search results screen");
+			logger.error("Premium tag/icon is not displayed on the content thumbnail in search results screen");
+			extentLoggerFail("Premium icon",
+					"Premium tag/icon is not displayed on the content thumbnail in search results screen");
 		}
 		Back(1);
 	}
@@ -20296,6 +20296,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Scroll functionality - AMA2-330");
 		for (int i = 0; i < 6; i++) {
 			boolean var = false;
+			waitTime(10000);
 			var = verifyIsElementDisplayed(AMDHomePage.objFirstContentCardOfTray("Top"), "content");
 			if (var == true) {
 				SwipeRailContentCards(AMDHomePage.objFirstContentCardOfTray("Top"));
@@ -20311,7 +20312,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("User is scrolled only the current section");
 			extentLoggerPass("scroll", "User is scrolled only the current section");
 		} else {
-			logger.info("User is moved to next tab");
+			logger.error("User is moved to next tab");
 			extentLoggerFail("Swipe", "User is moved to next tab");
 		}
 	}
@@ -20403,7 +20404,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("App maximized without any crash");
 			extentLoggerPass("App crash", "App maximized without any crash");
 		} else {
-			logger.info("App is not maximized");
+			logger.error("App is not maximized");
 			extentLoggerFail("App crash", "App is not maximized");
 		}
 		TurnONWifi();
@@ -20523,6 +20524,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		waitTime(3000);
 		click(AMDHomePage.objHomeBottomBtn, "Bottom bar Home Button");
+		TurnONWifi();
 	}
 
 	public void CrashIssue_OptionBelowPlayer(String searchKeyword) throws Exception {
@@ -20545,7 +20547,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extentLoggerPass("App crash", "App is not crashed on clicking any option below player post playing "
 					+ searchKeyword + " content in consumption screen");
 		} else {
-			logger.info("App is crashed on clicking any option below player post playing " + searchKeyword
+			logger.error("App is crashed on clicking any option below player post playing " + searchKeyword
 					+ " content in consumption screen");
 			extentLoggerFail("App crash", "App is crashed on clicking any option below player post playing "
 					+ searchKeyword + " content in consumption screen");
@@ -20613,7 +20615,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void IndiaTodayLiveChannel() throws Exception {
 		extent.HeaderChildNode("India Today Live Channel - ZNA-11065");
 		SelectTopNavigationTab("News");
-		boolean content = waitForElementAndClickIfPresent(AMDHomePage.objContentTitle("India Today"), 60,
+		boolean content = waitForElementAndClickIfPresent(AMDHomePage.objContentTitle("India Today"), 7,
 				"India Today Live Channel");
 		if (content == true) {
 			waitForAdToFinishInAmd();
@@ -20626,7 +20628,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("Able to play India Today Live Channel");
 				extentLoggerPass("Play", "Able to play India Today Live Channel");
 			} else {
-				logger.info("Not able to play India Today Live Channel");
+				logger.error("Not able to play India Today Live Channel");
 				extentLoggerFail("Play", "Not able to play India Today Live Channel");
 			}
 			Back(1);
@@ -20641,6 +20643,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				"App crash issue on tapping share icon from consumption screen post switching to Offline mode - ZNA-10571");
 		SelectTopNavigationTab("Movies");
 		waitTime(5000);
+		TurnOFFWifi();
 		click(AMDHomePage.objCarouselConetentCard, "content");
 		waitTime(3000);
 		click(AMDConsumptionScreen.objShareBtn, "Share icon");
@@ -20650,11 +20653,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extentLoggerPass("App crash",
 					"App is not crashed tapping share icon from consumption screen post switching to Offline mode");
 		} else {
-			logger.info("App crashed tapping share icon from consumption screen post switching to Offline mode");
+			logger.error("App crashed tapping share icon from consumption screen post switching to Offline mode");
 			extentLoggerFail("App crash",
 					"App crashed tapping share icon from consumption screen post switching to Offline mode");
 		}
-		Back(1);
+		Back(2);
+		TurnONWifi();
 		click(AMDHomePage.objHomeBottomBtn, "Bottom bar Home Button");
 	}
 
@@ -21020,7 +21024,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					Swipe("UP",2);
 					click(AMDMoreMenu.objLogout,"Logout");
 					click(AMDMoreMenu.objLogoutBtn,"Logout Button");
-					BackToLandingScreen();
+				
 				}else {
 					logger.info("ZNA-11271 : Not applicable for "+ userType);
 					extent.extentLogger("More screen", "ZNA-11271 : Not applicable for " + userType);
@@ -21033,9 +21037,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		logger.info("ZNA-3495");	
 		click(AMDHomePage.objMoviesTab,"Movies tab");
 		waitForElementAndClickIfPresent(AMDHomePage.objPlayBtn, 10, "Play button");
-		waitTime(3000);
-		click(AMDPlayerScreen.objPlayerScreen,"Player screen");
-		click(AMDPlayerScreen.objPauseIcon,"Pause icon");
+		if(verifyElementDisplayed(AMDPlayerScreen.objPauseIcon)) {
+			click(AMDPlayerScreen.objPauseIcon,"Pause icon");
+		}else{
+			click(AMDPlayerScreen.objPlayerScreen,"Player screen");
+			click(AMDPlayerScreen.objPauseIcon,"Pause icon");	
+		}
+//		waitTime(3000);
+//		click(AMDPlayerScreen.objPlayerScreen,"Player screen");
+//		click(AMDPlayerScreen.objPauseIcon,"Pause icon");
 		findParticularTray(AMDConsumptionScreen.objRecommendedRail,"Recommended");
 		if(verifyElementExist(AMDConsumptionScreen.objRecommendedRail, "Recommended rail")) {
 			logger.info("Recommended rail is displayed in Movies consumption screen");
@@ -21082,7 +21092,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.error("User is Unable to expand and collapse the Benifits section of Eduauraa");
 			extent.extentLoggerFail("Eduauraa", "User is Unable to expand and collapse the Benifits section of Eduauraa");
 		}
-	BackToLandingScreen();
 	}
 
 	public void RecommendRailListingScreenInNews(String userType) throws Exception {
@@ -21178,8 +21187,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	    	 Swipe("UP",2);
 	    	 click(AMDMoreMenu.objLogout,"Logout");
 			 click(AMDMoreMenu.objLogoutBtn,"Logout Button");
-			 BackToLandingScreen();
-     		}else {
+			  		}else {
      			logger.info("ZNA-9679 : Not applicable for "+ userType);
     			extent.extentLogger("Continue watching tray", "ZNA-9679 : Not applicable for " + userType);
      		}	     		
@@ -21298,7 +21306,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.error("User is navigated to Consumption screen and is able to play the content");
 				extent.extentLoggerFail("Eduauraa", "User is navigated to Consumption screen and is able to play the content");
 			}
-			BackToLandingScreen();
 		}
 		else{
 				logger.info("'Learn About The Green House Effect' content is not displayed in carousel of Eduauraa landing screen");
@@ -21356,6 +21363,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		 extent.HeaderChildNode("AMA2-9692");
 	     logger.info("AMA2-9692"); 
 	     if (!userType.contentEquals("Guest")) {
+	    	 click(AMDHomePage.objShowsTab,"TV shows tab");
+	    	 waitForElementAndClickIfPresent(AMDHomePage.objPlayBtn, 10, "Play button");
+	    	 waitTime(3000);
+	    	 click(AMDConsumptionScreen.objWatchlistBtn,"Watchlist icon");
+	    	 Back(1);
 	    	 click(AMDHomePage.objMoreMenuBtn,"More menu");
 	    	 click(AMDMoreMenu.objWatchlist,"Watchlist");
 	    	 click(AMDMoreMenu.objWatchlistFirstContent,"Watch list content");
@@ -21380,6 +21392,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	     }
 	}
 
+
 	// relaunch
 
 	public void LaunchAppinOffline(String userType) throws Exception {
@@ -21397,8 +21410,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	     if(verifyElementDisplayed(AMDHomePage.errortitle)){
 	    	 verifyElementExist(AMDHomePage.objRetryCTA, "Retry CTA");
 	    	 String text= findElement(AMDHomePage.errortitle).getText();
-	    	 logger.error(text + " message is displayed when user launch the app in offline mode. [AMA2-8340]");
-			 extent.extentLoggerFail("AppLaunch",text + " message is displayed when user launch the app in offline mode. [AMA2-8340]");
+	    	 logger.error("[AMA2-8340] " + text + " message is displayed when user launch the app in offline mode.");
+			 extent.extentLoggerFail("AppLaunch", "[AMA2-8340]  " + text + " message is displayed when user launch the app in offline mode.");
 	    	     }else {
 	    	    	 logger.info("User is able to launch the app");
 	 				extent.extentLogger("AppLaunch","User is able to launch the app");
@@ -21407,7 +21420,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	     waitTime(5000);
 	     verifyElementExist(AMDHomePage.objRetryCTA, "Retry CTA");
 	     click(AMDHomePage.objRetryCTA, "Retry CTA");
-	     navigateToHomeLandingScreen();
 	}
 
 	public void ValidatingQualityOptionDefect(String userType)  throws Exception  {
@@ -21582,7 +21594,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void PlayerControlDefect(String userType) throws Exception{
 		//AMA2-9143
 		 extent.HeaderChildNode("AMA2-9143");
-	     logger.info("AMA2-9143");
+		 logger.info("AMA2-9143");
 	        click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar,"Kurukshetra" + "\n", "Search bar");
@@ -21598,7 +21610,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				adPlay();
 				registerPopUpClose();
 				waitTime(5000);
-				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+//				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			}
 			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
@@ -21630,7 +21642,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extentLoggerFail("Player controls Auto hide",
 						"[AMA2-9143] Blank screen is displayed on the player upon tapping next button on the player post sharing the content in landscape mode");
 							}
-			
 	}
 
 	public void SomethingWentWrongDefectValidation(String userType) throws Exception{
@@ -24290,16 +24301,24 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		 //AMA2-11278
 		 extent.HeaderChildNode("AMA2-11278 :In differential amount negative round off value is being displayed after INR while upgrading to 499");
 	    logger.info("AMA2-11278 :In differential amount negative round off value is being displayed after INR while upgrading to 499");
-	   	    click(AMDHomePage.objSubscribeTeaser, "Buy Plan CTA");
+	    if(!userType.contains("SubscribedUser")) {    
+	    click(AMDHomePage.objSubscribeTeaser, "Buy Plan CTA");
 		    verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup,"Subscription screen");
+		    waitTime(3000);
 			click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
-			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			waitTime(3000);
+			click(AMDLoginScreen.objEmailIdField, "Email field");			 
 			hideKeyboard();
+			waitTime(3000);
 			type(AMDLoginScreen.objEmailIdField, "js1@mailnesia.com", "Email Field");
+			waitTime(3000);
 			click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
-			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Password field");
+			waitTime(3000);
+			click(AMDLoginScreen.objEmailIdField, "Password field");
 			hideKeyboard();
+			waitTime(3000);
 			type(AMDLoginScreen.objPasswordField, "welcome" , "Password field");
+			waitTime(3000);
 			click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Continue");
 			waitTime(5000);
 			click(AMDSubscibeScreen.objContinueOnSubscribePopup,"Upgrade CTA");
@@ -24321,6 +24340,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		    	 Swipe("UP",2);
 		    	 click(AMDMoreMenu.objLogout,"Logout");
 				 click(AMDMoreMenu.objLogoutBtn,"Logout Button");
+	    }else {
+	    	logger.info("AMA2-11278 : Not applicable for "+ userType);
+			extent.extentLogger("Subscribe", "AMA2-11278 : Not applicable for " + userType); 
+	    }
 		        
 	}
 
@@ -24331,13 +24354,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	    logger.info("AMA2-11873 :On Playing eduauraa content user is getting Get Premium CTA on Player post content finishes");
 	    if(!userType.contains("SubscribedUser")) {
 	   	 SelectTopNavigationTab("Eduauraa");
-	   	 waitForElementAndClickIfPresent(AMDHomePage.objPlayBtn, 10, "Eduauraa content");
-			 waitTime(3000);
+	   	 waitForElementAndClickIfPresent(AMDHomePage.objPlayBtn, 10, "Eduauraa content");			 
 			 verifyElementExist(AMDConsumptionScreen.objClaimOfferCTA, "Claim Offer CTA");
+			 waitTime(3000);
+			 click(AMDPlayerScreen.objPlayerScreen,"Player screen");
 			 scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
-			 boolean value4 = verifyElementDisplayed(AMDConsumptionScreen.objGetPremiumCTA); 
-			 boolean value5 = verifyElementDisplayed(AMDConsumptionScreen.objSkipctaOnPlayer);
-			 if((value4 == true) & (value5 == true)) {
+			 if((verifyElementDisplayed(AMDConsumptionScreen.objGetPremiumCTA)) & (verifyElementDisplayed(AMDConsumptionScreen.objSkipctaOnPlayer))) {
 				 logger.error("[AMA2-11873] User is getting 'To watch this Premium content “Buy Plan CTA“ and Skip' for Eduauraa content");
 				 extent.extentLoggerFail("Subscribe", "[AMA2-11873] User is getting 'To watch this Premium content “Buy Plan CTA“ and Skip' for Eduauraa content");  
 			 }else {
@@ -24363,10 +24385,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		     verifyElementPresentAndClick(AMDSubscibeScreen.objHaveACodeCTA,"Have a code");
 		     verifyElementPresentAndClick(AMDSubscibeScreen.objEnterACodeEditFiled, "Enter a code field");
 		     hideKeyboard();
-		 	 type(AMDSubscibeScreen.objEnterACodeEditFiled, "Testz40" , "Enter a code field");
+		 	 type(AMDSubscibeScreen.objEnterACodeEditFiled, "NRTDC1" , "Enter a code field");
 		 	 verifyElementPresentAndClick(AMDSubscibeScreen.objApplyOnHaveACodescreen,"Apply CTA");
 		 	 verifyElementExist(AMDSubscibeScreen.objPlanPriceValue, "Discounted Plan Price value");
 		 	 String pricevalue1 = findElement(AMDSubscibeScreen.objPlanPriceValue).getText();
+		 	 System.out.println(pricevalue1);
 		  	 if(userType.equals("Guest")) {
 		 	  LoginInSusbscribeScreen("NonSubscribedUser");	
 		 	 }
@@ -24374,6 +24397,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		 	 verifyElementExist(AMDSubscibeScreen.objMakePaymentScreen, "Payment Screen");
 		 	 verifyElementExist(AMDSubscibeScreen.objPriceValueOnPaymentScreen, "Plan price on payment screen");
 		 	 String pricevalue2 = findElement(AMDSubscibeScreen.objPriceValueOnPaymentScreen).getText();
+		 	 System.out.println(pricevalue2);
 		 	 if(pricevalue1.equals(pricevalue2)) {
 		 		 logger.info("The discounted amount is displayed on the make a payment screen, Post applying the Promo code");
 				 extent.extentLoggerPass("Subscribe", "The discounted amount is displayed on the make a payment screen, Post applying the Promo code");  
@@ -24569,6 +24593,7 @@ public void DownloadIconValidation_NetworkInterupption(String userType, String t
 	extent.HeaderChildNode("AMA2-15869: Download completed' icon is getting displayed on the consumption screen even though download has not completed, post network interruption");
 	if(userType.equalsIgnoreCase("SubscribedUser")) {
 		SelectTopNavigationTab(tabName);
+		waitTime(10000);
 		click(AMDHomePage.objCarouselTitle1, "Carousal card");
 		waitTime(5000);
 		String consumptionScreenTitle = getText(AMDHomePage.objConsumptionScreenTitle);
@@ -24580,7 +24605,7 @@ public void DownloadIconValidation_NetworkInterupption(String userType, String t
 		TurnOFFWifi();
 		Back(1);
 		TurnONWifi();
-		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(consumptionScreenTitle), 60, "Carousel content");
+		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(consumptionScreenTitle), 6, "Carousel content");
 		waitTime(10000);
 		boolean var1 = verifyIsElementDisplayed(AMDDownloadPage.objDownloadingCircularBar, "Downloading Icon");
 		boolean var2 = verifyIsElementDisplayed(AMDDownloadPage.objDownloadedIcon, "Downloaded icon");
@@ -24607,7 +24632,7 @@ public void DownloadIconValidation_NetworkInterupption(String userType, String t
 		}	
 	}else {
 		logger.info("Not Applicable for this userType");
-		extent.extentLoggerWarning("Not Applicable", "Not Applicable for this userType");
+		extent.extentLogger("Not Applicable", "Not Applicable for this userType");
 	}
 }
 
@@ -24625,6 +24650,7 @@ public void contentPlayBack_afterTappingReplayIcon(String userType) throws Excep
 	SelectTopNavigationTab("TV Shows");
 	click(AMDHomePage.objCarouselTitle1, "Carousal card");
 	waitTime(3000);
+	PartialSwipeInConsumptionScreen("UP", 1);
 	click(AMDGenericObjects.objViewAllBtn("Up Next"), "View All icon of Up Next tray");
 	getDriver().findElement(By.xpath("(//*[@resource-id='com.graymatrix.did:id/cell_center_container']/child::*[@class='android.widget.ImageView'])[5]")).click();
 	String consumptionScreenTitle1= null;
@@ -24690,8 +24716,6 @@ public void contentPlayBack_afterTappingReplayIcon(String userType) throws Excep
 			}
 		}
 	}
-	
-	
 	waitTime(10000);
 	String consumptionScreenTitle2 = getText(AMDHomePage.objConsumptionScreenTitle);
 	if(consumptionScreenTitle1.equalsIgnoreCase(consumptionScreenTitle2)) {
@@ -24699,7 +24723,7 @@ public void contentPlayBack_afterTappingReplayIcon(String userType) throws Excep
 		extent.extentLoggerPass("content", "Same content playback is initiated on tapping reply icon on the player.");
 	}else {
 		logger.error("Same content playback is not initiated on tapping reply icon on the player.");
-		extent.extentLoggerFail("content", "Same content playback is not initiated on tapping reply icon on the player.");
+		extent.extentLoggerFail("content", "[AMA2-15782] - Same content playback is not initiated on tapping reply icon on the player.");
 	}	
 }
 
@@ -24729,7 +24753,7 @@ public void NavigationToEduauraaWeb(String userType, String tabName) throws Exce
 		System.out.println(getDriver().getContext());
 	}else {
 		logger.info("Not Applicable for this userType");
-		extent.extentLoggerWarning("Not Applicable", "Not Applicable for this userType");
+		extent.extentLogger("Not Applicable", "Not Applicable for this userType");
 	}	
 }
 
@@ -24743,7 +24767,7 @@ public void contentPlayBackInBackGroundValidation(String userType, String tabNam
 		registerPopUpClose();
 		completeProfilePopUpClose(userType);
 	}
-	waitTime(5000);
+	waitTime(15000);
 	
 	if (verifyElementIsNotDisplayed(AMDPlayerScreen.objPauseIcon)) {
 		click(AMDPlayerScreen.objPlayerScreen, "player screen");
@@ -24777,7 +24801,7 @@ public void contentPlayBackInBackGroundValidation(String userType, String tabNam
 	
 	if(elapsedTime2 > elapsedTime1) {
 		logger.error("Playback continued in background post tapping on View all button all trays in consumption screen.");
-		extent.extentLoggerFail("playback", "Playback continued in background post tapping on View all button all trays in consumption screen.");
+		extent.extentLoggerFail("playback", "[AMA2-11866] - Playback continued in background post tapping on View all button all trays in consumption screen.");
 	}else {
 		logger.info("Content playback is stoped, post tapping on view all button and listing screen should be displayed");
 		extent.extentLoggerPass("playback", "Content playback is stoped, post tapping on view all button and listing screen should be displayed");
@@ -24793,7 +24817,7 @@ public void accountInfoValidationInPaymentPage(String userType) throws Exception
 		String mobileNumber = getText(AMDSubscibeScreen.objUserEmailIdOrPhnNoInPaymentPage);
 		if(mobileNumber.contains("dummy")) {
 			logger.error("dummy email id is displayed in the account info on the payment screen");
-			extent.extentLoggerFail("emailID", "dummy email id is displayed in the account info on the payment screen");
+			extent.extentLoggerFail("emailID", "[AMA2-11879] - dummy email id is displayed in the account info on the payment screen");
 		}else {
 			logger.info("User details as mentioned by user mobile number is displayed in the Account info of payment screen");
 			extent.extentLoggerPass("emailID", "User details as mentioned by user mobile number is displayed in the Account info of payment screen");
@@ -24801,7 +24825,7 @@ public void accountInfoValidationInPaymentPage(String userType) throws Exception
 		
 	}else {
 		logger.info("Not Applicable for this userType");
-		extent.extentLoggerWarning("Not Applicable", "Not Applicable for this userType");
+		extent.extentLogger("Not Applicable", "Not Applicable for this userType");
 	}
 }
 
@@ -24828,7 +24852,7 @@ public void audioLanguageValidation(String contentName) throws Exception{
 	String audioLang2 = getText(AMDConsumptionScreen.objCurrentAudioLanguage);
 	if(audioLang2.equalsIgnoreCase(audioLang1)) {
 		logger.error("Audio language options are non functional");
-		extent.extentLoggerFail("Audio language", "Audio language options are non functional");
+		extent.extentLoggerFail("Audio language", "[AMA2-15465] - Audio language options are non functional");
 	}else {
 		logger.info("Audio language options are functional");
 		extent.extentLoggerPass("Audio language", "Audio language options are functional");
@@ -24853,7 +24877,7 @@ public void VerifyUpcomingContent() throws Exception {
 	}
 }
 
- public void VerifyWeekInShorts(String userType) throws Exception {
+public void VerifyWeekInShorts(String userType) throws Exception {
 	  //AMA2-11938
 		 extent.HeaderChildNode("AMA2-11938 :'Week in short' show downloaded / downloading content is displayed in the videos tab instead of the Shows tab");
 	    logger.info("AMA2-11938 :'Week in short' show downloaded / downloading content is displayed in the videos tab instead of the Shows tab");
@@ -24874,7 +24898,7 @@ public void VerifyUpcomingContent() throws Exception {
 			waitTime(3000);
 			Back(1);
 			click(AMDHomePage.objDownloadBtn, "Downloads tab");
-		String	getSelectedTabName = getText(AMDHomePage.objSelectedTab);
+		   String	getSelectedTabName = getText(AMDHomePage.objSelectedTab);
 			if (getSelectedTabName.equalsIgnoreCase("Videos")) {				
 				extent.extentLoggerFail("Movies tab",
 						"[AMA2-11938] 'Week in short' show downloaded/downloading content is displayed in the videos tab instead of the Shows tab");
@@ -24893,7 +24917,7 @@ public void VerifyUpcomingContent() throws Exception {
 	    	logger.info("AMA2-11938 : Not applicable for "+ userType);
 			extent.extentLogger("Subscribe", "AMA2-11938 : Not applicable for " + userType);  
 	    }
- }
+}
 
  public void DeeplinkToLoginScreenFromEmailNotification(String pDeeplinkUrl, String pUserType)
 			throws Exception {
@@ -24948,7 +24972,7 @@ public void VerifyUpcomingContent() throws Exception {
 			}
 	 }	else {
 		 logger.info("Not Applicable for this userType");
-		 extent.extentLoggerWarning("Not Applicable", "Not Applicable for this userType");
+		 extent.extentLogger("Not Applicable", "Not Applicable for this userType");
 	 }
  }
 
@@ -25012,7 +25036,7 @@ public void VerifyUpcomingContent() throws Exception {
 	 extent.HeaderChildNode("AMA2-12294: Have a Code ? option is displayed during upgrade journey .");
 	 if(!(userType.equalsIgnoreCase("NonSubscribedUser"))) {
 		 if(!(userType.equalsIgnoreCase("Guest"))) {
-			 LoginWithEmailID("newsubsrevamp4@mailnesia.com", "111222");
+			 LoginWithEmailID(email, password);
 		 }
 		 click(AMDHomePage.objMoreMenu, "More menu");
 			click(AMDMoreMenu.objBuySubscription, "Buy Plan");
@@ -25045,7 +25069,7 @@ public void VerifyUpcomingContent() throws Exception {
 			}
 		 }else {
 			 logger.info("Not Applicable for this userType");
-			 extent.extentLoggerWarning("Not Applicable", "Not Applicable for this userType");
+			 extent.extentLogger("Not Applicable", "Not Applicable for this userType");
 		 }
 	 }
  
@@ -25054,6 +25078,197 @@ public void VerifyUpcomingContent() throws Exception {
 		verifyElementPresent(AMDHomePage.objHipiMenuBtn, "Hipi bottom bar menu");
 	}
  
+
+ public void AppcrashIssue_OnTappingBackButton_LearnWithEduauraaTray() throws Exception {
+		extent.HeaderChildNode("App crash issue on tapping device back button, post accessing any of the contents from 'Learn with Eduauraa' tray - ZNA-10939");
+		SelectTopNavigationTab("Eduauraa");
+		waitTime(4000);
+		boolean flag = false;
+		for (int i = 0; i < 20; i++) {
+			boolean var = verifyIsElementDisplayed(AMDHomePage.objFirstContentCardOfTray("Learn with Eduauraa"));
+			if (var == true) {
+				click(AMDHomePage.objFirstContentCardOfTray("Learn with Eduauraa"),
+						"content from Learn with Eduauraa tray");
+				flag=true;
+				click(AMDGenericObjects.objFirstContentInListingCollectionPage,
+						"First content in Listing collection page");
+				waitForElementDisplayed(AMDConsumptionScreen.objShareBtn, 30);
+				verifyElementExist(AMDConsumptionScreen.objShareBtn, "Consumption screen");
+				Back(1);
+				boolean screen = verifyIsElementDisplayed(AMDHomePage.objListingScreen, "Listing screen");
+				if (screen == true) {
+					logger.info("User is navigated to previous screen post tapping on device back button");
+					extentLoggerPass("Previous screen",
+							"User is navigated to previous screen post tapping on device back button");
+				} else {
+					logger.error("User is not navigated to previous screen post tapping on device back button");
+					extentLoggerFail("Previous screen",
+							"User is not navigated to previous screen post tapping on device back button");
+				}
+				break;
+			} else {
+				Swipe("UP", 1);
+			}
+		}
+		if(flag==false) {
+			logger.info("Learn with Eduauraa tray is not displayed");
+			extentLogger("", "Learn with Eduauraa tray is not displayed");
+		}
+	}
+ 
+ public void crashIssue_AppLaunch_OfflineMode(String userType) throws Exception {
+		extent.HeaderChildNode("App crash issue on launching the app in offline mode - ZNA-10528");
+		if(userType.equalsIgnoreCase("Guest")) {
+			click(AMDHomePage.objHomeBottomBtn, "Bottom bar Home Button");
+			boolean lastSecTab = false;
+			TurnOFFWifi();
+
+			int noOfTabs = getCount(AMDHomePage.objTitle);
+			System.out.println("HOME PAGE HEADERS: " + noOfTabs);
+			for (int i = 1; i <= 10; i++) {
+
+				String tabName = null;
+				if (i == noOfTabs) {
+					if (!lastSecTab) {
+						i = noOfTabs - 1;
+					}
+					WebElement eleTab = getDriver().findElement(By.xpath(
+							"(//*[@class='android.widget.HorizontalScrollView']/child::*/child::*/child::*)[" + i + "]"));
+					tabName = eleTab.getText();
+					System.out.println(tabName);
+					eleTab.click();
+
+				} else {
+					WebElement eleTab = getDriver().findElement(By.xpath(
+							"(//*[@class='android.widget.HorizontalScrollView']/child::*/child::*/child::*)[" + i + "]"));
+					tabName = eleTab.getText();
+					System.out.println(tabName);
+					eleTab.click();
+				}
+
+				waitTime(2000);
+
+				logger.info(tabName + " tab is displayed and clicked on " + tabName + " tab");
+				extent.extentLoggerPass(" ", tabName + " tab is displayed and clicked on " + tabName + " tab");
+
+				boolean var = verifyIsElementDisplayed(AMDOfflineScreen.objYouAreOffline);
+				if (var == true) {
+					logger.info(
+							"You aren't connected to the internet screen is displayed on launching the app in offline mode");
+					extent.extentLoggerPass("Offline screen",
+							"You aren't connected to the internet screen is displayed on launching the app in offline mode");
+					break;
+				}
+				if (lastSecTab) {
+					break;
+				}
+				if (tabName.equalsIgnoreCase("Music")) {
+					lastSecTab = true;
+				}
+				waitTime(3000);
+			}
+			click(AMDHomePage.objHomeBtn, "Bottom bar Home Option");
+			TurnONWifi();
+			
+		}else {
+			logger.info("Not Applicable for this userType");
+			extent.extentLogger("Not Applicable", "Not Applicable for this userType");
+		}
+	}
+ 
+ public void SkipToHomeLandingScreenVerification(String pUserType) throws Exception {
+	 extent.HeaderChildNode("SKIP to Home landing screen");
+	 System.out.println("\nSKIP to Home landing screen");
+	 
+	 click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
+	 if(pUserType.equalsIgnoreCase("Guest")) {
+		 click(AMDHomePage.HomeIcon, "Home Tab");
+		 click(AMDHomePage.MoreMenuIcon, "More Menu");
+		 click(AMDHomePage.objMyProfileIcon, "Profile icon");
+		 verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "SKIP");
+		 waitTime(1000);
+		 
+		 if(verifyIsElementDisplayed(AMDHomePage.objHome)) {
+			 click(AMDHomePage.objHome, "Home Button");
+			 logger.info("User navigates to landing screen on selecting Skip Button");
+			 extent.extentLoggerPass("Skip button", "User navigates to landing screen on selecting <b>Skip</b> Button");
+		 }else {
+			 logger.error("User failed to navigate to landing screen on selecting Skip Button");
+			 extent.extentLoggerFail("Skip button", "User failed to navigate to landing screen on selecting <b>Skip</b> Button");
+		 }	 
+	 }else {
+		 logger.info("Skip verification Not Applicable for "+pUserType);
+		 extent.extentLogger("Skip","Skip verification Not Applicable for "+pUserType);
+	 } 
+ }
+
+ public void RecentSearchHistoryValidation() throws Exception {
+		extent.HeaderChildNode("Trending & Recent Search history Validation");
+		System.out.println("\nTrending & Recent Search history Validation");
+		
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+		waitTime(2000);
+		if(verifyIsElementDisplayed(AMDGenericObjects.objText("Trending Searches"))) {
+			logger.info("Trending Search is available in Search screen");
+			extent.extentLoggerPass("Trending Search","<b>Trending Search</b> is available in Search screen");
+		}else {
+			logger.error("Trending Search is not available in Search screen");
+			extent.extentLoggerFail("Trending Search", "<b>Trending Search</b> is not available in Search screen");
+		}
+		
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Hero" + "\n", "Search bar");
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objClearSearch, "ClearText");
+		
+		type(AMDSearchScreen.objSearchBoxBar, "Mummy" + "\n", "Search bar");
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objClearSearch, "ClearText");
+		
+		type(AMDSearchScreen.objSearchBoxBar, "Friends" + "\n", "Search bar");
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objClearSearch, "ClearText");
+		
+		type(AMDSearchScreen.objSearchBoxBar, "Abhay2" + "\n", "Search bar");
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objClearSearch, "ClearText");
+		
+		type(AMDSearchScreen.objSearchBoxBar, "GOD" + "\n", "Search bar");
+		hideKeyboard();
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objClearSearch, "ClearText");
+		
+		if (verifyIsElementDisplayed(AMDSearchScreen.objRecentsearchOverlay)) {
+			extent.extentLoggerPass("Recent Search Overlay",
+					"<b>Recent Search Overlay</b> is available in search screen with past search history");
+			logger.info("Recent Search Overlay is available in search screen with past search history");
+		} else {
+			extent.extentLoggerFail("Recent Search Overlay",
+					"Recent Search Overlay is not displayed in search screen");
+			logger.info("Recent Search Overlay is not available in search screen");
+		}
+		
+		if (verifyIsElementDisplayed(AMDSearchScreen.objClearAll)) {
+			extent.extentLoggerPass("Recent Searched Keywords",
+					"<b>Recent Searched Keywords</b> are displayed in search screen");
+			logger.info("Recent Searched Keywords are displayed in search screen");
+		} else {
+			extent.extentLoggerFail("Recent Search Overlay",
+					"Recent Searched Keywords is not displayed in search screen");
+			logger.info("Recent Searched Keywords are not displayed in search screen");
+		}
+	}
+	
+public void HaveaCodeSubscriptionJourney(String pUserType) throws Exception {
+	 extent.HeaderChildNode("Have a Code Subscription journey validation");
+	 System.out.println("\nHave a Code Subscription journey validation");
+	 
+ }
  
 
 }

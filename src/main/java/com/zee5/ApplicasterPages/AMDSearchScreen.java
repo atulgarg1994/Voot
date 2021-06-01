@@ -104,8 +104,6 @@ public class AMDSearchScreen {
 
 	public static By objRecentSearch = By.xpath("//*[@text='Recent Searches']");
 
-	public static By objClearAll = By.xpath("//*[@id='search_cancel_text']");
-
 	public static By objVoiceSearchScreen = By.xpath("//*[@id='speechListeningScreen']");
 
 	public static By objVirtualKeypadLetter = By.xpath("//*[@id='key_pos_1_4']");
@@ -230,4 +228,6 @@ public class AMDSearchScreen {
 	public static By objMoviesTabInSearchResult = By.xpath("//*[@text='Movies']");
 	
     public static By objAllow = By.xpath("//*[@id='permission_allow_button'] | //*[@id='permission_allow_foreground_only_button']");
+    
+    public static By objClearAll = By.xpath("//*[@id='search_cancel_text'] | //*[@id='recentSearchClearAllText']");
 }

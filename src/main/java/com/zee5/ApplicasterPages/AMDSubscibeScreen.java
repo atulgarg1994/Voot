@@ -121,7 +121,6 @@ public class AMDSubscibeScreen {
 	public static By objVerifyOTPScreenProceed = By.xpath("//*[@id='continueButton'] | //*[@resource-id='com.graymatrix.did:id/btn_verify_proceed']");
 	
 	public static By objRoundOffValue = By.xpath("//*[@text='Round Off' and @class='android.widget.TextView']//following-sibling::*//following-sibling::*");
-	public static By objPriceValueOnPaymentScreen = By.xpath("//*[@class='android.widget.LinearLayout' and ./*[@text='50% Off on 999']]//*[@class='android.widget.TextView'][3]");
 	public static By objexplorePremiumCTA = By.xpath("//*[@id='continueButton']");
 	
 	public static By objPremiumBadge = By.xpath("//*[@id='premiumBadge' and @text='P']");
@@ -148,4 +147,6 @@ public class AMDSubscibeScreen {
 	public static By objPremiumPlansInSubscriptionPage = By.xpath("//*[@id='subscriptionPlanItem']");
 	
 	public static By objUserEmailIdOrPhnNoInPaymentPage = By.xpath("//*[@text='Logged in']/following-sibling::*");
+	
+	public static By objPriceValueOnPaymentScreen = By.xpath("(//*[@class='android.widget.LinearLayout']//*[@class='android.widget.TextView'][3])[1] | //*[@class='android.widget.LinearLayout' and ./*[@text='50% Off on 999']]//*[@class='android.widget.TextView'][3]");
 }

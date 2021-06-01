@@ -149,8 +149,6 @@ public class AMDHomePage {
     public static By objHome = By.xpath("//*[@id='navigationTitleTextView' and @text='Home']");
     
     public static By objPlayerScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/player_root'] | //*[@id='homeTabPageRecyclerView']");
-    public static By objSelectedTab = By.xpath("//*[@id='homeTabLayout']//*[@class='android.widget.LinearLayout' and @selected='true']//child::*");
-
     public static By objTopNav_HomeTab = By.xpath("//*[@resource-id='com.graymatrix.did:id/homeTabLayout']/child::*/child::*/child::*[@text='Home']");
 
     // Bottom Navigation TEXT Buttons
@@ -269,5 +267,6 @@ public class AMDHomePage {
 	public static By objWeekInShortTray = By.xpath("//*[@class='android.widget.TextView'][contains(text(),'Week In Short')]");
 	
 	public static By objWeekInShortContent = By.xpath("(//*[@id='cell_center_container' and  (./preceding-sibling::* | ./following-sibling::*)[./*[contains(text(),'Week In Short')]]]//following-sibling::*)[1]");
-	
+
+	public static By objSelectedTab = By.xpath("//*[@id='tab_layout']//*[@class='android.widget.LinearLayout' and @selected='true']//child::* | //*[@id='homeTabLayout']//*[@class='android.widget.LinearLayout' and @selected='true']//child::*");
 	}
