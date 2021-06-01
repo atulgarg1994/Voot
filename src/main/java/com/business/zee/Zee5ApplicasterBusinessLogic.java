@@ -4676,8 +4676,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info(
 						"“Browse to Download” button is be tappable in the Empty-state screen to Download the contents");
 			} else {
-				extent.extentLoggerFail("Shows tab", "User fails to tap the 'Browse to Download' button");
-				logger.error("User fails to tap the 'Browse to Download' button");
+				extent.extentLoggerFail("Shows tab", "AMA2-9515 : User fails to tap the 'Browse to Download' button");
+				logger.error("AMA2-9515 : User fails to tap the 'Browse to Download' button");
 			}
 			click(AMDHomePage.objDownloadBtn, "Downloads tab");
 		} else {
@@ -4691,17 +4691,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
 
 			System.out.println("\nValidating funtionality of Pause and Continue Download CTA call-Out option");
-			Back(1);
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
 			DownloadContent(content2, pVideoQuality, true);
 			if (checkElementExist(AMDDownloadPage.objDownloadingText)) {
-				extent.extentLoggerPass("Donwloading Content", "Downloading content is displayed in Downloads screen");
-				logger.info("Downloading content is displayed in Donwloads screen");
+				extent.extentLoggerPass("Donwloading Content", "ZNA-3763: Downloading content is displayed in Downloads screen");
+				logger.info("ZNA-3763: Downloading content is displayed in Donwloads screen");
 			} else {
 				extent.extentLoggerFail("Donwloading Content",
 						"Downloading content is not displayed in Downloads screen");
 				logger.error("Downloading content is not displayed in Downloads screen");
 			}
-			verifyElementExist(AMDDownloadPage.objDownloadingText, "'Downloading' text");
+			verifyElementExist(AMDDownloadPage.objDownloadingText, "'ZNA-3763 : Downloading' text");
 			click(AMDDownloadPage.objDownloadingText, "Downloading text");
 			verifyElementExist(AMDDownloadPage.objDownloadingCircularBar, "Downloading circular bar");
 			click(AMDDownloadPage.objDownloadingCircularBar, "Downloading circular bar");
@@ -5286,7 +5286,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (userType.contentEquals("NonSubscribedUser") || userType.contentEquals("SubscribedUser")) {
 
 			System.out.println("\nValidating the downloading content in Movies tab");
-			Back(1);
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
 			DownloadContent(MovieName, Quality, true);
 			String getPropertyValue = getAttributValue("enabled", AMDDownloadPage.objmoviestab);
 			if (getPropertyValue.equalsIgnoreCase("true")) {
@@ -5316,7 +5316,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("Movie content Downloads validation is not applicable for " + userType);
 			extent.extentLogger("Downloads", "Movie content Downloads validation is not applicable for " + userType);
 		}
-
 	}
 
 	/**
@@ -5372,9 +5371,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerPass("Shows tab", "User is navigated to Shows landing page");
 			logger.info("User is navigated to Shows landing page");
 		} else {
-			extent.extentLoggerFail("Shows tab", "User fails to navigate to Shows landing page and instead displayed : "
+			extent.extentLoggerFail("Shows tab", "AMA2-9515 : User fails to navigate to Shows landing page and instead displayed : "
 					+ getSelectedTabName + " landing screen");
-			logger.error("User fails to navigate to Shows landing page and instead displayed : " + getSelectedTabName
+			logger.error("AMA2-9515 : User fails to navigate to Shows landing page and instead displayed : " + getSelectedTabName
 					+ " landing screen");
 		}
 		click(AMDHomePage.objDownloadBtn, "Downloads tab");
@@ -5430,7 +5429,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			// verifyElementPresentAndClick(AMDSearchScreen.objDownloadsOption, "Downloading
 			// Icon");
 			waitTime(2000);
-			Back(1);
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
 			DownloadContent(content1, "Good", true);
 			String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
 			System.out.println(DownloadedContentText);
@@ -20004,7 +20003,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(3000);
 			click(AMDDownloadPage.objCancelDownloadOption, "Cancel Download CTA");
 			waitTime(10000);
-			Back(1);
+			//Back(1);
 			Boolean value = verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn);
 //			int totalEpisodesList2 = getDriver().findElements(AMDDownloadPage.objNoOfEpisodeList).size();
 //			logger.info("Content Cards: " + totalEpisodesList2);
@@ -20016,6 +20015,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.error("Downloading content is NOT deleted");
 			}
 			waitTime(2000);
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
 			// Back(1);
 			String getProperty1 = getAttributValue("enabled", AMDHomePage.objDownloadBtn);
 			if (getProperty1.equalsIgnoreCase("true")) {
@@ -20030,7 +20030,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			extent.HeaderChildNode("Verify multiple downloading content in Downloads screen");
 			System.out.println("\nVerify multiple downloading content in Downloads screen");
-			Back(1);
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
 			// **** Download Episode content3
 			DownloadContent(content3, pVideoQuality, true);
 			if (checkElementExist(AMDDownloadPage.objDownloadingText)) {
@@ -20081,6 +20081,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					"Validation of Download and multiple content is not applicable for " + userType);
 		}
 	}
+
 
 	public void DownloadsSectionAndLatestEpisode(String userType) throws Exception {
 		extent.HeaderChildNode("Validating Downloads Page section");
@@ -20336,15 +20337,22 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					extentLogger("Trailer", "This content has Trailer");
 					System.out.println(contentName);
 					SelectTopNavigationTab("Movies");
-					waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 60, "content");
+					waitTime(3000);
+					waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 7, "content");
 					waitTime(3000);
 					verifyElementPresentAndClick(AMDConsumptionScreen.objWatchTrialer, "WatchTrailer button");
-					Boolean var = verifyElementPresent(AMDPlayerScreen.objplayer, "Player controls");
+					waitTime(5000);
+					Boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objplayer, "Player controls");
 					if (var == true) {
 						logger.info(
 								"Watch trailer cta is displayed for the content consumption screen which is having trailer nodes and on tapping 'Watch trailer' CTA, playBack of Trailer is observed");
 						extentLoggerPass("Watch trailer",
 								"Watch trailer cta is displayed for the content consumption screen which is having trailer nodes and on tapping 'Watch trailer' CTA, playBack of Trailer is observed");
+					}else {
+						logger.error(
+								"Watch trailer cta is displayed for the content consumption screen which is having trailer nodes and on tapping 'Watch trailer' CTA, playBack of Trailer is not observed");
+						extentLoggerFail("Watch trailer",
+								"Watch trailer cta is displayed for the content consumption screen which is having trailer nodes and on tapping 'Watch trailer' CTA, playBack of Trailer is not observed");
 					}
 					Back(1);
 					break;
@@ -20354,7 +20362,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extentLogger("Trailer", "This content is not havinag a Trailer");
 			}
 		}
-
 	}
 
 	public void Eduauraa_TopNavBar() throws Exception {
@@ -20377,40 +20384,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 		}
 		if (flag == false) {
-			logger.info("Eduauraa is not included in top Navigation bar menu");
+			logger.error("Eduauraa is not included in top Navigation bar menu");
 			extentLoggerFail("Eduauraa", "Eduauraa is not included in top Navigation bar menu");
-		} else {
-			extent.HeaderChildNode(
-					"App crash issue on tapping device back button, post accessing any of the contents from 'Learn with Eduauraa' tray - ZNA-10939");
-			click(AMDGenericObjects.objPageTitle("Eduauraa"), "Eduauraa option");
-			for (int i = 0; i < 20; i++) {
-				boolean var = verifyIsElementDisplayed(AMDHomePage.objFirstContentCardOfTray("Learn with Eduauraa"));
-				if (var == true) {
-					click(AMDHomePage.objFirstContentCardOfTray("Learn with Eduauraa"),
-							"content from Learn with Eduauraa tray");
-					click(AMDGenericObjects.objFirstContentInListingCollectionPage,
-							"First content in Listing collection page");
-					waitForElementDisplayed(AMDConsumptionScreen.objShareBtn, 30);
-					verifyElementExist(AMDConsumptionScreen.objShareBtn, "Consumption screen");
-					Back(1);
-					boolean screen = verifyIsElementDisplayed(AMDHomePage.objListingScreen, "Listing screen");
-					if (screen == true) {
-						logger.info("User is navigated to previous screen post tapping on device back button");
-						extentLoggerPass("Previous screen",
-								"User is navigated to previous screen post tapping on device back button");
-					} else {
-						logger.info("User is not navigated to previous screen post tapping on device back button");
-						extentLoggerFail("Previous screen",
-								"User is not navigated to previous screen post tapping on device back button");
-					}
-					break;
-
-				} else {
-					Swipe("UP", 1);
-				}
-
-			}
-
 		}
 	}
 
@@ -20473,8 +20448,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	@SuppressWarnings("unused")
 	public void MandatoryRegistration_NewsContent(String usertype) throws Exception {
+		extent.HeaderChildNode("Removal of mandatory registration for News browsing - ZNA-9356");
 		if (usertype.equalsIgnoreCase("Guest")) {
-			extent.HeaderChildNode("Removal of mandatory registration for News browsing - ZNA-9356");
 			SelectTopNavigationTab("News");
 			SwipeUntilFindElement(AMDHomePage.objTrayTitle("Live"), "UP");
 			click(AMDHomePage.objFirstContentCardOfTray("Live"), "First content of Live News Tray");
@@ -20488,7 +20463,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extentLoggerPass("Mandatory Registration popUp",
 						"Mandatory Registration popUp is not displayed for Live content");
 			} else {
-				logger.info("Mandatory Registration popUp is displayed for Live content");
+				logger.error("Mandatory Registration popUp is displayed for Live content");
 				extentLoggerFail("Mandatory Registration popUp",
 						"Mandatory Registration popUp is displayed for Live content");
 			}
@@ -20516,7 +20491,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					extentLoggerPass("Mandatory Registration popUp",
 							"Mandatory Registration popUp is not displayed for content" + i);
 				} else {
-					logger.info("Mandatory Registration popUp is displayed for content" + i);
+					logger.error("Mandatory Registration popUp is displayed for content" + i);
 					extentLoggerFail("Mandatory Registration popUp",
 							"Mandatory Registration popUp is displayed for content" + i);
 				}
@@ -20525,6 +20500,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				waitTime(5000);
 			}
 			Back(1);
+		}else {
+		    logger.info("Not Applicable for this userType");	
+		    extent.extentLogger("Not Applicable", "Not Applicable for this userType");
 		}
 	}
 
@@ -20710,12 +20688,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					logger.info("Exit Pop up is closed when user swipe down on Exit ZEE5 pop up.");
 					extentLoggerPass("Exit popUp", "Exit Pop up is closed when user swipe down on Exit ZEE5 pop up.");
 				} else {
-					logger.info("Exit Pop up is not closed when user swipe down on Exit ZEE5 pop up.");
+					logger.error("Exit Pop up is not closed when user swipe down on Exit ZEE5 pop up.");
 					extentLoggerFail("Exit popUp",
 							"Exit Pop up is not closed when user swipe down on Exit ZEE5 pop up.");
 				}
 			} else {
-				logger.info("Exit pop up is not closed post tapping on Cancel CTA");
+				logger.error("Exit pop up is not closed post tapping on Cancel CTA");
 				extentLoggerFail("Exit popUp", "Exit pop up is not closed post tapping on Cancel CTA");
 			}
 
@@ -20733,7 +20711,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("By default About Eduauraa section is open");
 			extentLoggerPass("About Eduauraa section", "By default About Eduauraa section is open");
 		} else {
-			logger.info("By default About Eduauraa section is not open");
+			logger.error("By default About Eduauraa section is not open");
 			extentLoggerFail("About Eduauraa section", "By default About Eduauraa section is not open - AMA2-4996");
 		}
 		click(AMDConsumptionScreen.objExpandIcon("About Eduauraa"), "Expand Icon for 'About Eduauraa' section");
@@ -20794,7 +20772,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extentLoggerPass("Plan", "Only one plan '" + getText(AMDSubscibeScreen.objPlanName)
 						+ "' is displayed on BUY Subscription");
 			} else {
-				logger.info("More than one plan is displayed on BUY Subscription");
+				logger.error("More than one plan is displayed on BUY Subscription");
 				extentLoggerFail("Plan", "More than one plan is displayed on BUY Subscription");
 			}
 			click(AMDSubscibeScreen.objContinueBtn, "Continue button");
@@ -20824,7 +20802,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				click(AMDHomePage.objHomeBtn, "Bottom bar Home Option");
 			}
 		}
-
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -25071,5 +25048,12 @@ public void VerifyUpcomingContent() throws Exception {
 			 extent.extentLoggerWarning("Not Applicable", "Not Applicable for this userType");
 		 }
 	 }
+ 
+ public void HipLogo_BottomNavigationBar() throws Exception {
+		extent.HeaderChildNode("HiPi Logo on bottom navigation bar - ZNA-9337");
+		verifyElementPresent(AMDHomePage.objHipiMenuBtn, "Hipi bottom bar menu");
+	}
+ 
+ 
 
 }

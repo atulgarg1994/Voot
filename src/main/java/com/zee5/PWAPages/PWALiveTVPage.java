@@ -372,5 +372,6 @@ public class PWALiveTVPage {
 	public static By objPostToFB = By.xpath("//*[@contentDescription='POST']"); 
 	
 	public static By objLiveTVMenu = By.xpath("(//a[contains(text(),'Live TV')])[2]");
-
+	
+	public static By objEPGContainer = By.xpath("//*[@class='epgContainer']");
 }

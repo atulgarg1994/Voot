@@ -94,8 +94,6 @@ public class AMDSearchScreen {
 	
 	public static By objBackBtn = By.xpath("//*[@id='backIv']");
 
-	public static By objAllow = By.xpath("//*[@id='permission_allow_button']");
-
 	public static By objDeny = By.xpath("//*[@id='permission_deny_button']");
 
 	public static By objAudioPermissionPopUp = By.xpath("//*[@id='permission_message']");
@@ -230,4 +228,6 @@ public class AMDSearchScreen {
 	public static By objContentDescription = By.xpath("//*[@id='contentDescriptionTextView']");
 	
 	public static By objMoviesTabInSearchResult = By.xpath("//*[@text='Movies']");
+	
+    public static By objAllow = By.xpath("//*[@id='permission_allow_button'] | //*[@id='permission_allow_foreground_only_button']");
 }

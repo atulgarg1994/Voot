@@ -156,8 +156,6 @@ public class PWAPlayerPage {
 	// First content on player
 	public static By objfirstContent = By
 			.xpath("(//*[@class='mainCarouselDiv']//parent::*[@class='mainCarouselDiv'])[1]");
-	// Content Name below the Playback
-	public static By objContentName = By.xpath("//div[@class='consumptionMetaDiv']//h1");
 
 	public static By objPlayerScrubber = By.xpath("//a[@class='playkit-scrubber']");
 	public static By objPlayerQualities = By.xpath("//*[contains(@class,'subMenuWrapper')]//div");
@@ -464,7 +462,6 @@ public class PWAPlayerPage {
 	public static By objRentNow = By.xpath("//*[text()='Rent Now']");
 	public static By objContentExpiryInfo = By.xpath("(//*[@class='rentButton'])[1]");
 	public static By objZeePlexLogo = By.xpath("(//*[@title='plex Logo'])[1]");
-	public static By objContentTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//h1");
 	
 	public static By objResumePlayerCTA = By.xpath("(//button[@type='button' and span[text()='Resume']])[1]");
 	
@@ -491,4 +488,9 @@ public class PWAPlayerPage {
 	public static By objLoginButtonPlaybackOnConsumptionPage = By.xpath("//span[@class='login-link']");	
 	
 	public static By objContentTitleShow = By.xpath("//div[@class='metaInfo lineHeightClass']//h2");
+	
+	public static By objContentName = By.xpath("//div[@class='metaInfo lineHeightClass']/h2");
+	
+	public static By objContentTitle = By.xpath("//div[contains(@class,'consumptionMetaDiv')]//h1");
+
 }
