@@ -14,12 +14,20 @@
 	<parameter name="runModule" value="Suite"/>
 	<parameter name="runMode" value="Suites"/>
 	
-	<!--  NonSubscribed User --> 
+	<!-- 
 	<parameter name="NonsubscribedUserName" value="basavaraj.pn5@gmail.com"/>
 	<parameter name="NonsubscribedPassword" value="igsindia123"/>
-	<!--  Subscribed User --> 
 	<parameter name="SubscribedUserName" value="zeetest10@test.com"/>
+	<parameter name="SubscribedPassword" value="123456"/> -->
+	
+	<!-- NONSubscribed User -->
+	<parameter name="NonsubscribedUserName" value="luckyigscon0074@gmail.com"/>
+	<parameter name="NonsubscribedPassword" value="vasilucky@123"/>
+	
+	<!-- Subscribed User -->
+	<parameter name="SubscribedUserName" value="prepaid@code.com"/>
 	<parameter name="SubscribedPassword" value="123456"/>
+	
 	<parameter name="devicePin" value="1619"/>
 	<parameter name="searchModuleSearchKey" value="Kamali"/>
 	<parameter name="consumptionsEpisode" value="Digvijay stunned on hearing Sambhashiva"/>

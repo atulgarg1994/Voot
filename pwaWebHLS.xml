@@ -15,20 +15,13 @@
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" />
 
-	<!-- NONSubscribed User -->
-
-	<parameter name="NonsubscribedUserName"
-		value="basavaraj.pn5@gmail.com" />
-
-	<parameter name="NonsubscribedPassword" value="igsindia123" />
-
+<!-- NONSubscribed User -->
+	<parameter name="NonsubscribedUserName" value="luckyigscon0074@gmail.com"/>
+	<parameter name="NonsubscribedPassword" value="vasilucky@123"/>
+	
 	<!-- Subscribed User -->
-
-
-	<parameter name="SubscribedUserName"
-		value="zeetest10@test.com" />
-
-	<parameter name="SubscribedPassword" value="123456" />
+	<parameter name="SubscribedUserName" value="prepaid@code.com"/>
+	<parameter name="SubscribedPassword" value="123456"/>
 
 	<parameter name="ClubUserName" value="edpwa4@mailnesia.com" />
 

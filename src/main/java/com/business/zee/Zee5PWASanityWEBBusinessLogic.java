@@ -10338,13 +10338,21 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			waitTime(10000);
 		}
 		if (userType.equalsIgnoreCase("Guest")) {
-			if (waitForElement(PWASubscriptionPages.objGetPremiumButton, 20, "Get Premium Button")) {
+			if (waitForElement(PWASubscriptionPages.objGetPremiumButton, 20, "Buy Plan CTA")) {
 				waitForElement(PWASubscriptionPages.objPremiumText, 20, "To Watch this Premium Content - Text");
-				waitForElementAndClick(PWASubscriptionPages.objGetPremiumButton, 20, "Get Premium Button");
+				waitForElementAndClick(PWASubscriptionPages.objGetPremiumButton, 20, "Buy Plan CTA");
 				waitForElement(PWASubscriptionPages.objZEE5Subscription, 20, "Navigated to Subscription page");
 				Back(1);
+				String exp = getWebDriver().getCurrentUrl();
 				waitForElementAndClick(PWASubscriptionPages.objSkipLink, 20, "Skip Link");
-				waitForElement(PWASubscriptionPages.objTrailerTextAtConsumptionPage, 20, "Navigated to Next Content");
+				String act = getWebDriver().getCurrentUrl();
+				if (exp != act) {
+					logger.info("User is navigated to next content");
+					extent.extentLoggerPass("", "User is navigated to next content");
+				} else {
+					logger.info("User is not navigated to next content");
+					extent.extentLoggerPass("", "User is not navigated to next content");
+				}
 				Back(1);
 				waitForElement(PWASubscriptionPages.objExistUserText, 20, "Are you a Zee5 Subscriber? - Text");
 				waitForElementAndClick(PWASubscriptionPages.objLoginLink, 20, "Login Link");
@@ -10353,13 +10361,21 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-			if (waitForElement(PWASubscriptionPages.objGetPremiumButton, 20, "Get Premium Button")) {
+			if (waitForElement(PWASubscriptionPages.objGetPremiumButton, 20, "Buy Plan CTA")) {
 				waitForElement(PWASubscriptionPages.objPremiumText, 20, "To Watch this Premium Content - Text");
-				waitForElementAndClick(PWASubscriptionPages.objGetPremiumButton, 20, "Get Premium Button");
+				waitForElementAndClick(PWASubscriptionPages.objGetPremiumButton, 20, "Buy Plan CTA");
 				waitForElement(PWASubscriptionPages.objZEE5Subscription, 20, "Navigated to Subscription page");
 				Back(1);
+				String exp = getWebDriver().getCurrentUrl();
 				waitForElementAndClick(PWASubscriptionPages.objSkipLink, 20, "Skip Link");
-				waitForElement(PWASubscriptionPages.objTrailerTextAtConsumptionPage, 20, "Navigated to Next Content");
+				String act = getWebDriver().getCurrentUrl();
+				if (exp != act) {
+					logger.info("User is navigated to next content");
+					extent.extentLoggerPass("", "User is navigated to next content");
+				} else {
+					logger.info("User is not navigated to next content");
+					extent.extentLoggerPass("", "User is not navigated to next content");
+				}
 				Back(1);
 			}
 		}
@@ -15228,16 +15244,22 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			zeeSearchForContentAndClickOnFirstResult("Ondh Kathe Hella");
 			waitTime(10000);
 			if (userType.equalsIgnoreCase("Guest")) {
-				if (waitForElement(PWASubscriptionPages.objGetPremiumButton, 20, "Get Premium Button")) {
+				if (waitForElement(PWASubscriptionPages.objGetPremiumButton, 20, "Buy Plan CTA")) {
 					waitForElement(PWASubscriptionPages.objPremiumText, 20, "To Watch this Premium Content - Text");
-					waitForElementAndClick(PWASubscriptionPages.objGetPremiumButton, 20, "Get Premium Button");
+					waitForElementAndClick(PWASubscriptionPages.objGetPremiumButton, 20, "Buy Plan CTA");
 					waitForElement(PWASubscriptionPages.objZEE5Subscription, 20, "Navigated to Subscription page");
 					waitTime(2000);
 					Back(1);
+					String exp = getWebDriver().getCurrentUrl();
 					waitForElementAndClick(PWASubscriptionPages.objSkipLink, 20, "Skip Link");
-					waitForElement(PWASubscriptionPages.objTrailerTextAtConsumptionPage, 20,
-							"Navigated to Next Content");
-					waitTime(2000);
+					String act = getWebDriver().getCurrentUrl();
+					if (exp != act) {
+						logger.info("User is navigated to next content");
+						extent.extentLoggerPass("", "User is navigated to next content");
+					} else {
+						logger.info("User is not navigated to next content");
+						extent.extentLoggerPass("", "User is not navigated to next content");
+					}
 					Back(1);
 					waitForElement(PWASubscriptionPages.objExistUserText, 20, "Are you a Zee5 Subscriber? - Text");
 					waitForElementAndClick(PWASubscriptionPages.objLoginLink, 20, "Login Link");
@@ -15245,18 +15267,23 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					waitTime(2000);
 					Back(1);
 				}
-
 			} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-				if (waitForElement(PWASubscriptionPages.objGetPremiumButton, 20, "Get Premium Button")) {
+				if (waitForElement(PWASubscriptionPages.objGetPremiumButton, 20, "Buy Plan CTA")) {
 					waitForElement(PWASubscriptionPages.objPremiumText, 20, "To Watch this Premium Content - Text");
-					waitForElementAndClick(PWASubscriptionPages.objGetPremiumButton, 20, "Get Premium Button");
+					waitForElementAndClick(PWASubscriptionPages.objGetPremiumButton, 20, "Buy Plan CTA");
 					waitForElement(PWASubscriptionPages.objZEE5Subscription, 20, "Navigated to Subscription page");
 					waitTime(2000);
 					Back(1);
+					String exp = getWebDriver().getCurrentUrl();
 					waitForElementAndClick(PWASubscriptionPages.objSkipLink, 20, "Skip Link");
-					waitForElement(PWASubscriptionPages.objTrailerTextAtConsumptionPage, 20,
-							"Navigated to Next Content");
-					waitTime(2000);
+					String act = getWebDriver().getCurrentUrl();
+					if (exp != act) {
+						logger.info("User is navigated to next content");
+						extent.extentLoggerPass("", "User is navigated to next content");
+					} else {
+						logger.info("User is not navigated to next content");
+						extent.extentLoggerPass("", "User is not navigated to next content");
+					}
 					Back(1);
 				}
 			}
@@ -16125,19 +16152,20 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				zeeSearchForContentAndClickOnFirstResult("Ondh Kathe Hella");
 				waitTime(10000);
 				if (userType.equalsIgnoreCase("Guest")) {
-					if (waitForElement(PWASubscriptionPages.objGetPremiumButton, 20, "Get Premium Button")) {
+					if (waitForElement(PWASubscriptionPages.objGetPremiumButton, 20, "Buy Plan CTA")) {
 						waitForElement(PWASubscriptionPages.objPremiumText, 20, "To Watch this Premium Content - Text");
-						waitForElementAndClick(PWASubscriptionPages.objGetPremiumButton, 20, "Get Premium Button");
+						waitForElementAndClick(PWASubscriptionPages.objGetPremiumButton, 20, "Buy Plan CTA");
 						waitForElement(PWASubscriptionPages.objZEE5Subscription, 20, "Navigated to Subscription page");
 						Back(1);
+						String exp = getWebDriver().getCurrentUrl();
 						waitForElementAndClick(PWASubscriptionPages.objSkipLink, 20, "Skip Link");
-						if (waitForElement(PWASubscriptionPages.objTrailerTextAtConsumptionPage, 20,
-								"Navigated to Next Content")) {
-							logger.info("User navigated to next content with trailer content");
-							extent.extentLoggerPass("", "User navigated to next content with trailer content");
-						} else if (waitForElement(PWASubscriptionPages.objSkipLink, 20, "Skip Link")) {
-							logger.info("User navigated to next content without trailer content");
-							extent.extentLoggerPass("", "User navigated to next content without trailer content");
+						String act = getWebDriver().getCurrentUrl();
+						if (exp != act) {
+							logger.info("User navigated to next content");
+							extent.extentLoggerPass("", "User navigated to next content");
+						} else {
+							logger.info("User is not navigated to next content");
+							extent.extentLoggerPass("", "User is not navigated to next content");
 						}
 						Back(1);
 						waitForElement(PWASubscriptionPages.objExistUserText, 20, "Are you a Zee5 Subscriber? - Text");
@@ -16147,18 +16175,19 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					}
 
 				} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-					if (waitForElement(PWASubscriptionPages.objGetPremiumButton, 20, "Get Premium Button")) {
+					if (waitForElement(PWASubscriptionPages.objGetPremiumButton, 20, "Buy Plan CTA")) {
 						waitForElement(PWASubscriptionPages.objPremiumText, 20, "To Watch this Premium Content - Text");
-						waitForElementAndClick(PWASubscriptionPages.objGetPremiumButton, 20, "Get Premium Button");
+						waitForElementAndClick(PWASubscriptionPages.objGetPremiumButton, 20, "Buy Plan CTA");
 						Back(1);
+						String exp = getWebDriver().getCurrentUrl();
 						waitForElementAndClick(PWASubscriptionPages.objSkipLink, 20, "Skip Link");
-						if (waitForElement(PWASubscriptionPages.objTrailerTextAtConsumptionPage, 20,
-								"Navigated to Next Content")) {
-							logger.info("User navigated to next content with trailer content");
-							extent.extentLoggerPass("", "User navigated to next content with trailer content");
-						} else if (waitForElement(PWASubscriptionPages.objSkipLink, 20, "Skip Link")) {
-							logger.info("User navigated to next content without trailer content");
-							extent.extentLoggerPass("", "User navigated to next content without trailer content");
+						String act = getWebDriver().getCurrentUrl();
+						if (exp != act) {
+							logger.info("User navigated to next content");
+							extent.extentLoggerPass("", "User navigated to next content");
+						} else {
+							logger.info("User is not navigated to next content");
+							extent.extentLoggerPass("", "User is not navigated to next content");
 						}
 						Back(1);
 					}
