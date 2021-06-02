@@ -269,4 +269,9 @@ public class AMDHomePage {
 	public static By objWeekInShortContent = By.xpath("(//*[@id='cell_center_container' and  (./preceding-sibling::* | ./following-sibling::*)[./*[contains(text(),'Week In Short')]]]//following-sibling::*)[1]");
 
 	public static By objSelectedTab = By.xpath("//*[@id='tab_layout']//*[@class='android.widget.LinearLayout' and @selected='true']//child::* | //*[@id='homeTabLayout']//*[@class='android.widget.LinearLayout' and @selected='true']//child::*");
+	public static By objBuyNowCTAForContentOnCarousal(String contentTitle) {
+		return By.xpath("//*[@text='"+contentTitle+"']/parent::*/following-sibling::*/child::*/child::*[@id='subscribeButton']");
+		
 	}
+	
+}

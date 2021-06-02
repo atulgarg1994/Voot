@@ -90,14 +90,33 @@ public class AndroidApp_HLS {
 	
 	@Test(priority = 8) //--- Kushal
 	@Parameters({"userType"})
-	public void SkipToHomeScreen(String userType) throws Exception {
+	public void HaveaCodeJourneyForInvalidPrepaidCodeValidation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
-		ZEE5ApplicasterBusinessLogic.HaveaCodeSubscriptionJourney(userType);
+		ZEE5ApplicasterBusinessLogic.HaveaCodeForInvalidPrepaidCodeValidation(userType);
 	}
 
+	@Test(priority = 9) //--- Sushma
+	@Parameters({"userType"})
+	public void ValidationOfSubscriptionPlanTitleAndDescription(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.SubscriptionPackValidation(userType);
+	}
+
+	@Test(priority = 10) //--- Sushma
+	@Parameters({"userType"})
+	public void ValationOfPremiumContents(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.PremiumContentsValidationInPlayerScreen(userType);
+	}
 
 	@AfterTest
 	public void tearDownApp() {

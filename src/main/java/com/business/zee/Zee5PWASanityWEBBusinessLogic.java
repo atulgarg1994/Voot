@@ -15289,7 +15289,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 		}
 		Back(2);
-
 		extent.HeaderChildNode("HLS_034 :Verify the right side bottom arrow ");
 		scrollToBottomOfPageWEB();
 		if (checkElementDisplayed(PWAMusicPage.objArrowToNavigateTop, "Arrow icon")) {

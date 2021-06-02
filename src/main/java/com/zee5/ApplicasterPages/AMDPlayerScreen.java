@@ -160,4 +160,5 @@ public class AMDPlayerScreen {
 	public static By objLoggedIn = By.xpath("//*[@text='Logged in']");
 	public static By objParentalPinContinue = By.id("parentalFragmentContinueButton");
 	
+	public static By objBuyNowCTABelowThePlayer = By.xpath("//*[@id='ctaBannerButton']/child::*[@id='subscribeButton']");
 	}

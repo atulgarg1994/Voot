@@ -16,7 +16,7 @@
 	<parameter name="NonsubscribedUserName" value="zee5latest@gmail.com" />
 	<parameter name="NonsubscribedPassword" value="User@123" />
 
-	<parameter name="SubscribedUserName" value="zeetest998@test.com" />
+	<parameter name="SubscribedUserName" value="testz6@g.com" />
 	<parameter name="SubscribedPassword" value="123456" />
 
 	<parameter name="RegisteredEmail" value="zee5latest@gmail.com" />
@@ -182,13 +182,5 @@
 			<class name="com.zee5.ApplicasterScripts.AndroidApp_HLS" />
 		</classes>
 	</test>
-	
-	<test name="Android_TVOD_ComboOffer">
-		<classes>
-			<class
-				name="com.zee5.ApplicasterScripts.Android_TVOD_ComboOffer" />
-		</classes>
-	</test>
-	
 
 </suite>

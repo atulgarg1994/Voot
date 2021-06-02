@@ -290,4 +290,8 @@ public class AMDMoreMenu {
 	public static By objBuySubscription = By.xpath("//*[@id='list_item' and @text='Buy Plan'] | //*[@text='Buy Subscription']");
 	
 	public static By objSubNowCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_subscribe_now'] | //*[@id='btn_sub_now']");
+	public static By objPopUpDisc = By.id("txt_success_desc");
+	public static By objLoginBtn = By.id("btn_dialog_login");
+	public static By objDoneBtn = By.id("btn_dialog_done");
+	
 }

@@ -46,11 +46,11 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
- <test name="WebPWASmokeScript">
-	<classes>
-		<class name="com.zee5.PWASmokeScripts.WebPWASmokeScript" />
-	</classes>
-</test>
+	<test name="WebPWASmokeScript">
+		<classes>
+			<class name="com.zee5.PWASmokeScripts.WebPWASmokeScript" />
+		</classes>
+	</test>
  
  	
 </suite>

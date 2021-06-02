@@ -23302,18 +23302,21 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			verifyElementExist(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button");
 			click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue button");
-			verifyElementExist(AMDSubscibeScreen.objAccountInfoScreen, "Account info screen is displayed");
+			if(userType.equalsIgnoreCase("Guest")) {
+			verifyElementExist(AMDSubscibeScreen.objAccountInfoScreen, "Account info screen");
 			LoginFromAccountInfoScreen(NonsubscribedUserName, NonsubscribedPassword);
 			waitTime(2000);
+			}
 			verifyElementExist(AMDSubscibeScreen.objMakePaymentScreen, "Make payment screen");
-
 			waitTime(2000);
 			BackToLandingScreen();
+			if(userType.equalsIgnoreCase("Guest")) {
 			ZNALogoutMethod();
+			}
 
 		} else {
 			logger.info("Not applicable for " + userType);
-			extentLoggerWarning("Login", "Not applicable for " + userType);
+			extentLogger("Login", "Not applicable for " + userType);
 		}
 	}
 
@@ -23372,7 +23375,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			BackToLandingScreen();
 		} else {
 			logger.info("Not applicable for " + userType);
-			extentLoggerWarning("Login", "Not applicable for " + userType);
+			extentLogger("Login", "Not applicable for " + userType);
 		}
 	}
 
@@ -25264,11 +25267,202 @@ public void VerifyWeekInShorts(String userType) throws Exception {
 		}
 	}
 	
-public void HaveaCodeSubscriptionJourney(String pUserType) throws Exception {
+ public void HaveaCodeForInvalidPrepaidCodeValidation(String pUserType) throws Exception {
 	 extent.HeaderChildNode("Have a Code Subscription journey validation");
 	 System.out.println("\nHave a Code Subscription journey validation");
-	 
+	
+	 String invalidPrepaid = "HIJKLN";
+		switch (pUserType.toUpperCase()) {
+
+		case "GUEST":
+
+			click(AMDHomePage.HomeIcon, "Home Tab");
+			click(AMDHomePage.MoreMenuIcon, "More Menu");
+			click(AMDMoreMenu.objHaveaPrepaidCode, "Have a Prepaid code");
+
+			if (verifyIsElementDisplayed(AMDMoreMenu.objPrepaidCodePopUp)) {
+				waitTime(2000);
+				click(AMDMoreMenu.objPrepaidCodeTxt, "Prepaidcode field");
+				type(AMDMoreMenu.objPrepaidCodeTxt, invalidPrepaid, "Prepaid Code");
+				hideKeyboard();
+				click(AMDMoreMenu.objApplyBtn, "Apply Btn");
+
+				if (getText(AMDMoreMenu.objPopUpDisc).contains("You are not logged in")) {
+					click(AMDMoreMenu.objLoginBtn, "Login Button");
+					
+					verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+					type(AMDLoginScreen.objEmailIdField, getParameterFromXML("regUserName"), "Email Field");
+					hideKeyboard();
+					verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+					verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+					type(AMDLoginScreen.objPasswordField, getParameterFromXML("regPassword"), "Password field");
+					hideKeyboard();
+					verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+					waitTime(3000);
+
+					String getPopupDisc = getText(AMDMoreMenu.objPopUpDisc);
+					if (getPopupDisc.contains("Invalid code")) {
+						logger.info(getPopupDisc + " message is displayed");
+						extent.extentLoggerPass("Invalid Code", "<b>" + getPopupDisc + "</b> message is displayed");
+
+						click(AMDMoreMenu.objDoneBtn, "Done");
+						SwipeUntilFindElement(AMDMoreMenu.objLogout, "UP");
+						click(AMDMoreMenu.objLogout, "Logout");
+						click(AMDMoreMenu.objLogoutBtn, "LogoutBtn");
+					} else {
+						logger.error("Invalid popup message is not displayed");
+						extent.extentLoggerFail("Invalid Code", "Invalid Code popup message is not displayed");
+					}
+				} else {
+					logger.error("Popup screen is not displayed");
+					extent.extentLoggerFail("Popup screen", "Popup screen is not displayed");
+				}
+			} else {
+				logger.info("Prepaid Code popup is not displayed");
+				extent.extentLoggerFail("Prepaid code", "Prepaid Code popup is not displayed");
+			}
+			break;
+			
+		case "NONSUBSCRIBEDUSER":
+			
+			click(AMDHomePage.HomeIcon, "Home Tab");
+			click(AMDHomePage.MoreMenuIcon, "More Menu");
+			click(AMDMoreMenu.objHaveaPrepaidCode, "Have a Prepaid code");
+			
+			if (verifyIsElementDisplayed(AMDMoreMenu.objPrepaidCodePopUp)) {
+				waitTime(2000);
+				click(AMDMoreMenu.objPrepaidCodeTxt, "Prepaidcode field");
+				type(AMDMoreMenu.objPrepaidCodeTxt, invalidPrepaid, "Prepaid Code");
+				hideKeyboard();
+				click(AMDMoreMenu.objApplyBtn, "Apply Btn");
+				
+				waitTime(2000);
+				String getPopupDisc = getText(AMDMoreMenu.objPopUpDisc);
+				if (getPopupDisc.contains("Invalid code")) {
+					logger.info(getPopupDisc + " message is displayed");
+					extent.extentLoggerPass("Invalid Code", "<b>" + getPopupDisc + "</b> message is displayed");
+
+					click(AMDMoreMenu.objDoneBtn, "Done");
+					SwipeUntilFindElement(AMDMoreMenu.objLogout, "UP");
+					click(AMDMoreMenu.objLogout, "Logout");
+					click(AMDMoreMenu.objLogoutBtn, "LogoutBtn");
+				} else {
+					logger.error("Invalid popup message is not displayed");
+					extent.extentLoggerFail("Invalid Code", "Invalid Code popup message is not displayed");
+				}
+			}
+			break;
+			
+		case "SUBSCRIBEDUSER":
+			
+			click(AMDHomePage.HomeIcon, "Home Tab");
+			click(AMDHomePage.MoreMenuIcon, "More Menu");
+			click(AMDMoreMenu.objHaveaPrepaidCode, "Have a Prepaid code");
+			
+			if (verifyIsElementDisplayed(AMDMoreMenu.objPrepaidCodePopUp)) {
+				waitTime(2000);
+				click(AMDMoreMenu.objPrepaidCodeTxt, "Prepaidcode field");
+				type(AMDMoreMenu.objPrepaidCodeTxt, invalidPrepaid, "Prepaid Code");
+				hideKeyboard();
+				click(AMDMoreMenu.objApplyBtn, "Apply Btn");
+				
+				waitTime(2000);
+				String getPopupDisc = getText(AMDMoreMenu.objPopUpDisc);
+				if (getPopupDisc.contains("Invalid code")) {
+					logger.info(getPopupDisc + " message is displayed");
+					extent.extentLoggerPass("Invalid Code", "<b>" + getPopupDisc + "</b> message is displayed");
+
+					click(AMDMoreMenu.objDoneBtn, "Done");
+					SwipeUntilFindElement(AMDMoreMenu.objLogout, "UP");
+					click(AMDMoreMenu.objLogout, "Logout");
+					click(AMDMoreMenu.objLogoutBtn, "LogoutBtn");
+				} else {
+					logger.error("Invalid popup message is not displayed");
+					extent.extentLoggerFail("Invalid Code", "Invalid Code popup message is not displayed");
+				}
+			}
+			break;
+		}
  }
  
+public void SubscriptionPackValidation(String userType) throws Exception {
+	extent.HeaderChildNode("Subscription Plan Title And Description Validation");
+	if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		click(AMDHomePage.objSubscribeIcon, "Buy Plan");
+		waitTime(10000);
+		Swipe("UP", 1);
+		int subscriptionPlans = getDriver().findElements(AMDSubscibeScreen.objPremiumPlansInSubscriptionPage).size();
+		for(int i=1; i<= subscriptionPlans; i++) {
+			boolean title = verifyIsElementDisplayed(AMDSubscibeScreen.objPlanName, "Plan Title");
+			if(title==true) {
+				logger.info("Plan title: "+getText(AMDSubscibeScreen.objPlanName));
+				extentLoggerPass("Plan Title", "Plan title: "+getText(AMDSubscibeScreen.objPlanName));
+			}else {
+				logger.error("Plan title is not displayed");
+				extent.extentLoggerFail("Plan Title", "Plan title is not displayed");
+			}
+			
+			boolean desc = verifyIsElementDisplayed(AMDSubscibeScreen.objPlanDescription, "Plan Description");
+			if(desc==true) {
+				logger.info("Plan description: "+getText(AMDSubscibeScreen.objPlanDescription));
+				extentLoggerPass("Plan description", "Plan description: "+getText(AMDSubscibeScreen.objPlanDescription));
+			}else {
+				logger.error("Plan description is not displayed");
+				extent.extentLoggerFail("Plan Title", "Plan description is not displayed");
+			}
+			
+		}	
+	}else {
+		logger.info("Not Applicable for this userType");
+		extentLogger("Not Applicable", "Not Applicable for this userType");
+	}
+}
+
+
+public void PremiumContentsValidationInPlayerScreen(String userType) throws Exception {
+	extent.HeaderChildNode("Premium contents validation");
+	String courselContentTitle = carouselValidationWithApi(userType, "homepage");
+	waitTime(5000);
+	if(userType.equalsIgnoreCase("SubscribedUser")) {
+		if(verifyElementIsNotDisplayed(AMDHomePage.objBuyNowCTAForContentOnCarousal(courselContentTitle))) {
+			logger.info("BuyNow CTA is not displayed on Premium banners");
+			extentLoggerPass("Buy Now CTA", "BuyNow CTA is not displayed on Premium banners");
+		}	
+	}
+	waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(courselContentTitle), 6, "Carousel content");
+	waitTime(5000);
+	if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		verifyElementExist(AMDPlayerScreen.objBuyNowCTABelowThePlayer, "Buy Now CTA below the Player");
+	}else {
+		if(verifyIsElementDisplayed(AMDPlayerScreen.objBuyNowCTABelowThePlayer)) {
+			logger.error("Buy Now CTA is displayed");
+			extentLoggerFail("Buy Now CTA", "Buy Now CTA is displayed");
+		}else {
+			logger.info("Buy Now CTA is not displayed");
+			extentLoggerPass("Buy Now CTA", "Buy Now CTA is not displayed");
+		}
+	}
+	if(userType.equalsIgnoreCase("NonSubscribedUser")) {
+		waitTime(4000);
+		Boolean var = verifyIsElementDisplayed(AMDConsumptionScreen.objWatchTrialer);
+		if(var==false) {
+			verifyElementExist(AMDConsumptionScreen.objGetPremiumOnPlayer, "Buy Now CTA on the Player");
+		}else {
+			if (!(verifyIsElementDisplayed(AMDPlayerScreen.objPauseIcon))) {
+				click(AMDPlayerScreen.objPlayerScreen, "player screen");
+			}
+			click(AMDPlayerScreen.objPauseIcon, "Pause");
+			
+			WebElement element = getDriver().findElement(AMDPlayerScreen.objProgressBar);
+			String xDuration = getAttributValue("x", AMDPlayerScreen.objTotalDuration);
+			int endX = Integer.parseInt(xDuration) - 30;
+			SwipeAnElement(element, endX, 0);
+			waitTime(5000);
+			click(AMDPlayerScreen.objPlay, "Play icon");
+			verifyElementExist(AMDConsumptionScreen.objGetPremiumOnPlayer, "Buy Now CTA on the Player");
+		}
+	}
+	
+}
 
 }
