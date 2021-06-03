@@ -25462,7 +25462,6 @@ public void PremiumContentsValidationInPlayerScreen(String userType) throws Exce
 			verifyElementExist(AMDConsumptionScreen.objGetPremiumOnPlayer, "Buy Now CTA on the Player");
 		}
 	}
-	
 }
 
 }
