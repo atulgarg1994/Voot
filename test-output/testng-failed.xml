@@ -1,49 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite thread-count="1" guice-stage="DEVELOPMENT" name="Failed suite [Web]">
-  <parameter name="SettingsNonSubscribedUserName" value="zeetest@gmail.com"/>
-  <parameter name="audioTrackPremiumContent" value="No Entry"/>
-  <parameter name="skipIntroURL" value="https://newpwa.zee5.com/movies/details/bablu-dablu-robo-rumble/0-0-54219"/>
-  <parameter name="SubscribedUserPassword" value="123456"/>
-  <parameter name="keyword5" value="Bhinna"/>
-  <parameter name="keyword6" value="Popcorn Monkey Tiger (A)"/>
-  <parameter name="NonsubscribedInvalidPassword" value="igsindia"/>
-  <parameter name="keyword4" value="Paaru gets tipsy"/>
-  <parameter name="keyword1" value="Shivaji Surathkal"/>
-  <parameter name="subtitleTrackContent" value="Episode 01 - Ganga Enters Widowhood"/>
-  <parameter name="keyword2" value="Chemistry of Kariyappa"/>
-  <parameter name="browserType" value="Chrome"/>
-  <parameter name="audioTrackURL" value="https://newpwa.zee5.com/tvshows/details/agent-raghav-crime-branch/0-6-965/episode-13-agent-raghav/0-1-agentragh_1895058002-agentragh_1804723548-episode_779139720"/>
-  <parameter name="audioTrackTrailerContent" value="Trailer - No Entry"/>
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
   <parameter name="runModule" value="Suite"/>
-  <parameter name="SubscribedUserName" value="zeetest10@test.com"/>
-  <parameter name="ClubSubscribedUserName" value="365clublg@gmail.com"/>
-  <parameter name="audioTrackContent" value="Episode 13 - Agent Raghav"/>
-  <parameter name="NonSubscribedUserPassword" value="igsindia123"/>
-  <parameter name="keyword" value="Jodi Hakki"/>
-  <parameter name="freeContentURL" value="https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paaru-gets-tipsy-paaru-highlights/0-1-249189"/>
-  <parameter name="ClubSubscribedPassword" value="123456"/>
+  <parameter name="userType" value="Guest"/>
   <parameter name="url" value="https://newpwa.zee5.com/"/>
   <parameter name="runMode" value="Suites"/>
-  <parameter name="freeMovie2" value="Bablu Dablu - Robo Rumble"/>
-  <parameter name="SettingsNonSubscribedPassword" value="zee123"/>
-  <parameter name="NonSubscribedUserName" value="basavaraj.pn5@gmail.com"/>
-  <parameter name="subtitleTrackPremiumContent" value="Welcome Back"/>
-  <parameter name="userType" value="Guest"/>
-  <parameter name="subtitleTrackURL" value="https://newpwa.zee5.com/tvshows/details/gangaa/0-6-972/episode-01-ganga-enters-widowhood/0-1-136585"/>
-  <parameter name="skipIntroPremium" value="The Rum Diary"/>
-  <listeners>
-    <listener class-name="com.extent.ExtentReporter"/>
-  </listeners>
-  <test thread-count="1" name="WebPWAMixpanelScript(failed)">
+  <parameter name="browserType" value="Chrome"/>
+  <test thread-count="5" name="VerifyURL(failed)">
     <classes>
-      <class name="com.zee5.MixpanelScripts.PWA_Web_Player">
+      <class name="com.VerifyURL.VerifyURL">
         <methods>
           <include name="init"/>
-          <include name="tearDown"/>
-          <include name="checkPageName"/>
+          <include name="verifyPageresponse"/>
         </methods>
-      </class> <!-- com.zee5.MixpanelScripts.PWA_Web_Player -->
+      </class> <!-- com.VerifyURL.VerifyURL -->
     </classes>
-  </test> <!-- WebPWAMixpanelScript(failed) -->
-</suite> <!-- Failed suite [Web] -->
+  </test> <!-- VerifyURL(failed) -->
+</suite> <!-- Failed suite [Suite] -->

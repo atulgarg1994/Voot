@@ -2,24 +2,24 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Web" duration-ms="76651" started-at="2021-02-23T17:06:54 IST" finished-at="2021-02-23T17:08:11 IST">
+  <suite name="Web" duration-ms="27153" started-at="2021-05-27T23:11:17 IST" finished-at="2021-05-27T23:11:44 IST">
     <groups>
     </groups>
-    <test name="WebPWAMixpanelScript" duration-ms="76651" started-at="2021-02-23T17:06:54 IST" finished-at="2021-02-23T17:08:11 IST">
-      <class name="com.zee5.MixpanelScripts.PWA_Web_Player">
-        <test-method status="PASS" signature="init()[pri:0, instance:com.zee5.MixpanelScripts.PWA_Web_Player@cad498c]" name="init" is-config="true" duration-ms="12721" started-at="2021-02-23T17:06:55 IST" finished-at="2021-02-23T17:07:07 IST">
+    <test name="VerifyURL" duration-ms="27153" started-at="2021-05-27T23:11:17 IST" finished-at="2021-05-27T23:11:44 IST">
+      <class name="com.VerifyURL.VerifyURL">
+        <test-method status="PASS" signature="init()[pri:0, instance:com.VerifyURL.VerifyURL@43bd930a]" name="init" is-config="true" duration-ms="11988" started-at="2021-05-27T23:11:17 IST" finished-at="2021-05-27T23:11:29 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- init -->
-        <test-method status="PASS" signature="checkPageName()[pri:0, instance:com.zee5.MixpanelScripts.PWA_Web_Player@cad498c]" name="checkPageName" duration-ms="61466" started-at="2021-02-23T17:07:07 IST" finished-at="2021-02-23T17:08:09 IST">
+        <test-method status="PASS" signature="verifyPageresponse()[pri:0, instance:com.VerifyURL.VerifyURL@43bd930a]" name="verifyPageresponse" duration-ms="14416" started-at="2021-05-27T23:11:29 IST" finished-at="2021-05-27T23:11:43 IST">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- checkPageName -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.zee5.MixpanelScripts.PWA_Web_Player@cad498c]" name="tearDown" is-config="true" duration-ms="836" started-at="2021-02-23T17:08:10 IST" finished-at="2021-02-23T17:08:11 IST">
+        </test-method> <!-- verifyPageresponse -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.VerifyURL.VerifyURL@43bd930a]" name="tearDown" is-config="true" duration-ms="701" started-at="2021-05-27T23:11:43 IST" finished-at="2021-05-27T23:11:44 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- com.zee5.MixpanelScripts.PWA_Web_Player -->
-    </test> <!-- WebPWAMixpanelScript -->
+      </class> <!-- com.VerifyURL.VerifyURL -->
+    </test> <!-- VerifyURL -->
   </suite> <!-- Web -->
 </testng-results>

@@ -49,7 +49,7 @@
               <ul>
                 <li>
                   <a href="#" class="navigator-link " panel-name="test-xml-Web">
-                    <span>E:\Zee5_Project\Zee5\zee5_updated\WEB_Mixpanel.xml</span>
+                    <span>E:\Zee5_Project\Zee5\zee5_updated\testng.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -102,7 +102,7 @@
                     <div class="method-list-content passed suite-Web">
                       <span>
                         <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Web" title="com.zee5.MixpanelScripts.PWA_Web_Player" hash-for-method="checkPageName">checkPageName</a> <!-- method navigator-link -->
+                        <a href="#" class="method navigator-link" panel-name="suite-Web" title="com.VerifyURL.VerifyURL" hash-for-method="verifyPageresponse">verifyPageresponse</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Web -->
@@ -120,14 +120,14 @@
           <div class="suite-Web-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
-              <span class="class-name">com.zee5.MixpanelScripts.PWA_Web_Player</span>
+              <span class="class-name">com.VerifyURL.VerifyURL</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="checkPageName">
-                  </a> <!-- checkPageName -->
-                  <span class="method-name">checkPageName</span>
+                  <a name="verifyPageresponse">
+                  </a> <!-- verifyPageresponse -->
+                  <span class="method-name">verifyPageresponse</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -135,52 +135,23 @@
         </div> <!-- panel Web -->
         <div panel-name="test-xml-Web" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">E:\Zee5_Project\Zee5\zee5_updated\WEB_Mixpanel.xml</span>
+            <span class="header-content">E:\Zee5_Project\Zee5\zee5_updated\testng.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
-&lt;suite thread-count=&quot;1&quot; guice-stage=&quot;DEVELOPMENT&quot; name=&quot;Web&quot;&gt;
-  &lt;parameter name=&quot;SettingsNonSubscribedUserName&quot; value=&quot;zeetest@gmail.com&quot;/&gt;
-  &lt;parameter name=&quot;audioTrackPremiumContent&quot; value=&quot;No Entry&quot;/&gt;
-  &lt;parameter name=&quot;skipIntroURL&quot; value=&quot;https://newpwa.zee5.com/movies/details/bablu-dablu-robo-rumble/0-0-54219&quot;/&gt;
-  &lt;parameter name=&quot;SubscribedUserPassword&quot; value=&quot;123456&quot;/&gt;
-  &lt;parameter name=&quot;keyword5&quot; value=&quot;Bhinna&quot;/&gt;
-  &lt;parameter name=&quot;keyword6&quot; value=&quot;Popcorn Monkey Tiger (A)&quot;/&gt;
-  &lt;parameter name=&quot;NonsubscribedInvalidPassword&quot; value=&quot;igsindia&quot;/&gt;
-  &lt;parameter name=&quot;keyword4&quot; value=&quot;Paaru gets tipsy&quot;/&gt;
-  &lt;parameter name=&quot;keyword1&quot; value=&quot;Shivaji Surathkal&quot;/&gt;
-  &lt;parameter name=&quot;subtitleTrackContent&quot; value=&quot;Episode 01 - Ganga Enters Widowhood&quot;/&gt;
-  &lt;parameter name=&quot;keyword2&quot; value=&quot;Chemistry of Kariyappa&quot;/&gt;
-  &lt;parameter name=&quot;browserType&quot; value=&quot;Chrome&quot;/&gt;
-  &lt;parameter name=&quot;audioTrackURL&quot; value=&quot;https://newpwa.zee5.com/tvshows/details/agent-raghav-crime-branch/0-6-965/episode-13-agent-raghav/0-1-agentragh_1895058002-agentragh_1804723548-episode_779139720&quot;/&gt;
-  &lt;parameter name=&quot;audioTrackTrailerContent&quot; value=&quot;Trailer - No Entry&quot;/&gt;
+&lt;suite guice-stage=&quot;DEVELOPMENT&quot; name=&quot;Web&quot;&gt;
   &lt;parameter name=&quot;runModule&quot; value=&quot;Suite&quot;/&gt;
-  &lt;parameter name=&quot;SubscribedUserName&quot; value=&quot;zeetest10@test.com&quot;/&gt;
-  &lt;parameter name=&quot;ClubSubscribedUserName&quot; value=&quot;365clublg@gmail.com&quot;/&gt;
-  &lt;parameter name=&quot;audioTrackContent&quot; value=&quot;Episode 13 - Agent Raghav&quot;/&gt;
-  &lt;parameter name=&quot;NonSubscribedUserPassword&quot; value=&quot;igsindia123&quot;/&gt;
-  &lt;parameter name=&quot;keyword&quot; value=&quot;Jodi Hakki&quot;/&gt;
-  &lt;parameter name=&quot;freeContentURL&quot; value=&quot;https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paaru-gets-tipsy-paaru-highlights/0-1-249189&quot;/&gt;
-  &lt;parameter name=&quot;ClubSubscribedPassword&quot; value=&quot;123456&quot;/&gt;
+  &lt;parameter name=&quot;userType&quot; value=&quot;Guest&quot;/&gt;
   &lt;parameter name=&quot;url&quot; value=&quot;https://newpwa.zee5.com/&quot;/&gt;
   &lt;parameter name=&quot;runMode&quot; value=&quot;Suites&quot;/&gt;
-  &lt;parameter name=&quot;freeMovie2&quot; value=&quot;Bablu Dablu - Robo Rumble&quot;/&gt;
-  &lt;parameter name=&quot;SettingsNonSubscribedPassword&quot; value=&quot;zee123&quot;/&gt;
-  &lt;parameter name=&quot;NonSubscribedUserName&quot; value=&quot;basavaraj.pn5@gmail.com&quot;/&gt;
-  &lt;parameter name=&quot;subtitleTrackPremiumContent&quot; value=&quot;Welcome Back&quot;/&gt;
-  &lt;parameter name=&quot;userType&quot; value=&quot;Guest&quot;/&gt;
-  &lt;parameter name=&quot;subtitleTrackURL&quot; value=&quot;https://newpwa.zee5.com/tvshows/details/gangaa/0-6-972/episode-01-ganga-enters-widowhood/0-1-136585&quot;/&gt;
-  &lt;parameter name=&quot;skipIntroPremium&quot; value=&quot;The Rum Diary&quot;/&gt;
-  &lt;listeners&gt;
-    &lt;listener class-name=&quot;com.extent.ExtentReporter&quot;/&gt;
-  &lt;/listeners&gt;
-  &lt;test thread-count=&quot;1&quot; name=&quot;WebPWAMixpanelScript&quot;&gt;
+  &lt;parameter name=&quot;browserType&quot; value=&quot;Chrome&quot;/&gt;
+  &lt;test thread-count=&quot;5&quot; name=&quot;VerifyURL&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.zee5.MixpanelScripts.PWA_Web_Player&quot;/&gt;
+      &lt;class name=&quot;com.VerifyURL.VerifyURL&quot;/&gt;
     &lt;/classes&gt;
-  &lt;/test&gt; &lt;!-- WebPWAMixpanelScript --&gt;
+  &lt;/test&gt; &lt;!-- VerifyURL --&gt;
 &lt;/suite&gt; &lt;!-- Web --&gt;
             </pre>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -192,7 +163,7 @@
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">WebPWAMixpanelScript (1 class)</span>
+                <span class="test-name">VerifyURL (1 class)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -220,14 +191,14 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'checkPageName')
-data.setCell(0, 2, 'com.zee5.MixpanelScripts.PWA_Web_Player')
-data.setCell(0, 3, 61466);
+data.setCell(0, 1, 'verifyPageresponse')
+data.setCell(0, 2, 'com.VerifyURL.VerifyURL')
+data.setCell(0, 3, 14416);
 window.suiteTableData['Web']= { tableData: data, tableDiv: 'times-div-Web'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 1 minutes</span>
+              <span class="suite-total-time">Total running time: 14 seconds</span>
               <div id="times-div-Web">
               </div> <!-- times-div-Web -->
             </div> <!-- times-div -->
@@ -253,19 +224,19 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">com.zee5.MixpanelScripts.PWA_Web_Player</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">com.VerifyURL.VerifyURL</div> <!-- chronological-class-name -->
               <div class="configuration-test before">
                 <span class="method-name">init</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-test before -->
               <div class="test-method">
-                <span class="method-name">checkPageName</span>
-                <span class="method-start">12761 ms</span>
+                <span class="method-name">verifyPageresponse</span>
+                <span class="method-start">12024 ms</span>
               </div> <!-- test-method -->
-              <div class="configuration-class after">
+              <div class="configuration-test after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">75471 ms</span>
-              </div> <!-- configuration-class after -->
+                <span class="method-start">26446 ms</span>
+              </div> <!-- configuration-test after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
       </div> <!-- main-panel-root -->
