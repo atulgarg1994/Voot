@@ -131,7 +131,7 @@ public class AMDMoreMenu {
 	public static By objBackbtnInSettings = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_back']");
 	public static By objTextInAboutUsScreen = By.xpath("//*[@text='Zee5 can be accessed at ']");
 	// Help Center
-	public static By objSearchBarInHelpCenter = By.xpath("//*[@class='android.widget.EditText']");
+	public static By objSearchBarInHelpCenter = By.xpath("//*[@text='Help Center']//following::*[@class='android.widget.EditText']");
 
 	public static By objPrepaidCodePopUp = By.xpath("//*[@id='txt_prepaid_code']");
 
@@ -227,9 +227,11 @@ public class AMDMoreMenu {
 	}
 
 	public static By objArticleTitle(String title) {
-		return By.xpath("(//*[contains(@content-desc,'" + title + "')] | //*[contains(@text,'" + title + "')])[2]");
+		return By.xpath("(//*[contains(@content-desc,'" + title + "')] | //*[contains(@text,'" + title + "')])[2] | //*[@id='articelDetail']//child::*[contains(text(),'"+ title + "')]");
 	}
 
+	//####--- Help Screen locators -----####
+	public static By objZee5Logo = By.xpath("//*[@text='ZEE5_Dark_Theme_256x256']");
 	public static By objGettingStartedHeader = By
 			.xpath("//*[@content-desc='Getting Started ' or @text='Getting Started ']");
 	public static By objMyAccountHeader = By.xpath("//*[@content-desc='My Account ' or @text='My Account ']");

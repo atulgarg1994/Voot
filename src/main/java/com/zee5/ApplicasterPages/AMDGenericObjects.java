@@ -37,10 +37,6 @@ public class AMDGenericObjects {
 	public static By objMetaData = By.xpath(
 			"//*[@id='main_genre_tv'] | //*[@id='release_year_tv'] | //*[@id='duration_tv'] | //*[@id='genresTv'] | //*[@id='ageRatingTv']");
 
-	public static By objContainText(String text) {
-		return By.xpath("//*[contains(text(),'" + text + "']");
-	}
-
 	public static By objBottomNavigation(String tabName) {
 		return By.xpath("//*[@id='bb_bottom_bar_title' and @text='" + tabName + "']");
 	}
@@ -118,4 +114,8 @@ public class AMDGenericObjects {
 	}
 	
 	public static By objContinueCTA = By.xpath("//*[@id='continueButton']");
+	
+	public static By objContainText(String text) {
+		return By.xpath("//*[contains(text(),'" + text + "')]");
+	}
 }

@@ -131,14 +131,13 @@ public class PWAMusicPage {
 	public static By objArrowToNavigateTop = By.xpath("//div[contains(@class, 'ic_arrow_back')]");
 	
 	public static By objBannerPlusTrayCard = By.xpath("(//div[contains(@class,'bannerPlusTray')]//div[@data-minutelytitle]//img)[2]");
-	
-	public static By objConsumptionPageTitle = By.xpath(".//div[@class='consumptionMetaDiv']/h1");
-	
-	public static By objConsumptionPageTitle1 = By.xpath(".//div[@class='metaInfo lineHeightClass']/h2");
 
 	public static By objMusicNextArrowBtn = By.xpath("(//button[@class='slick-arrow slick-next'])[2]");
 
 	public static By objMusicPreviousArrowBtn = By.xpath("(//button[@class='slick-arrow slick-prev'])[1]");
 
+	public static By objConsumptionPageTitle = By.xpath(".//div[@class='metaInfo lineHeightClass']/h2");
+	
+	public static By objConsumptionPageTitle1 = By.xpath(".//div[@class='consumptionMetaDiv']/h1");
 	
 }

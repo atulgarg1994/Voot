@@ -929,7 +929,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				extent.extentLogger("Not Logged in", "User is not logged in");
 				logger.info("User is not logged in");
 				noLogoutOption();
-				forgotPassword();
+//				forgotPassword();
 				waitTime(5000);
 				getWebDriver().get(URL);
 				waitTime(8000);
@@ -6247,9 +6247,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	public void phoneNumberRegistration() throws Exception {
 		extent.HeaderChildNode(
 				"verifing that user is able to enter Mobile number, Password, date of birth, gender in Registration page");
-		click(PWALoginPage.objSignUpBtnWEB, "Sign up button");
+		verifyElementPresentAndClick(PWALoginPage.objLoginCTA, "Login CTA on Header");
+		verifyElementPresent(PWALoginPage.objLoginPage, "Login to ZEE5 page");
+//		click(PWALoginPage.objSignUpBtnWEB, "Sign up button");
+		verifyElementPresentAndClick(PWALoginPage.objRegisterLink, "Register link");
 		waitForElementDisplayed(PWALoginPage.objEmailField, 5);
-		checkElementDisplayed(PWALoginPage.objEmailField, "Email/PhoneNo Field");
+		checkElementDisplayed(PWALoginPage.objEmailField, "PhoneNo Field");
 		type(PWALoginPage.objEmailField, "7892215", "PhoneNumber Field");
 		String PhoneNumberField = getText(PWALoginPage.objEmailField);
 		if (PhoneNumberField != null) {
@@ -6263,27 +6266,27 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("User is allowed to enter valid PhoneNumber");
 			extent.extentLogger("PhoneNumber", "User is allowed to enter valid PhoneNumber");
 		}
-		checkElementDisplayed(PWALoginPage.objCountryCode, "Country code field");
-		click(PWALoginPage.objCountryCode, "Country code field");
-		checkElementDisplayed(PWALoginPage.objCountryCodeDropDown, "Drop down of country code");
-		click(PWALoginPage.objCountryCodeAlgeria, "Algeria country code");
-		click(PWALoginPage.objCountryCode, "Country code field");
-		click(PWALoginPage.objCountryCodeAndoora, "Andoora country code");
-		click(PWALoginPage.objCountryCode, "Country code field");
-		click(PWALoginPage.objCountryCodeIndia, "India country code");
+//		checkElementDisplayed(PWALoginPage.objCountryCode, "Country code field");
+//		click(PWALoginPage.objCountryCode, "Country code field");
+//		checkElementDisplayed(PWALoginPage.objCountryCodeDropDown, "Drop down of country code");
+//		click(PWALoginPage.objCountryCodeAlgeria, "Algeria country code");
+//		click(PWALoginPage.objCountryCode, "Country code field");
+//		click(PWALoginPage.objCountryCodeAndoora, "Andoora country code");
+//		click(PWALoginPage.objCountryCode, "Country code field");
+//		click(PWALoginPage.objCountryCodeIndia, "India country code");
 
 		if (getWebDriver().findElement(PWASignupPage.objSignUpButtonHighlightedWeb).isEnabled()) {
-			logger.info("SignUp button is highlighted");
-			extent.extentLogger("Continue button", "SignUp button is highlighted");
+			logger.info("Send OTP button is highlighted");
+			extent.extentLogger("Send OTP button", "Send OTP button is highlighted");
 		}
-		click(PWASignupPage.objSignUpButtonHighlightedWeb, "SignUp Button");
+		click(PWASignupPage.objSignUpButtonHighlightedWeb, "Send OTP Button");
 		extent.HeaderChildNode(
 				"Verifing that user is allowed to update the mobile number, password, date of birth and gender post navigating back from change number button");
 		waitTime(10000);
 		click(PWASignupPage.objChangeNumberLink, "Change number link");
 		waitTime(5000);
 		type(PWALoginPage.objEmailField, "7892215214", "PhoneNumber Field");
-		click(PWASignupPage.objSignUpButtonHighlightedWeb, "Continue Button");
+		click(PWASignupPage.objSignUpButtonHighlightedWeb, "Send OTP Button");
 		extent.HeaderChildNode("verifing OTP Screen");
 		waitForElementDisplayed(PWASignupPage.objOTPTimer, 5);
 		checkElementDisplayed(PWASignupPage.objOTPTimer, "OTP timer");
@@ -6338,6 +6341,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		Back(2);
 	}
+
 
 	public void emailRegistration() throws Exception {
 		extent.HeaderChildNode(
@@ -16473,15 +16477,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		extent.HeaderChildNode("HLS_141 : Validating that On going live show cards are highlighted");
 		waitForElementDisplayed(PWALiveTVPage.objFirstOngoingLiveTvShowCard, 20);
-		checkElementDisplayed(PWALiveTVPage.objFirstOngoingLiveTvShowCard, "Ongoing Live Tv show card");
+		verifyElementPresent(PWALiveTVPage.objFirstOngoingLiveTvShowCard, "Ongoing Live Tv show card");
 		String ongoingLiveTvcardClass = getAttributValue("class", PWALiveTVPage.objFirstOngoingLiveTvShowCard);
 		if (ongoingLiveTvcardClass.contains("active")) {
 			logger.info("On going live show cards are highlighted on channel guide screen");
-			extent.extentLogger("On going live show card",
+			extent.extentLoggerPass("On going live show card",
 					"On going live show cards are highlighted on channel guide screen");
 		} else {
-			logger.info("On going live show cards are not highlighted on channel guide screen");
-			extent.extentLogger("On going live show card",
+			logger.error("On going live show cards are not highlighted on channel guide screen");
+			extent.extentLoggerFail("On going live show card",
 					"On going live show cards are not highlighted on channel guide screen");
 		}
 		navigateToAnyScreenOnWeb("Live TV");
@@ -21982,9 +21986,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		trayTitleAndContentValidationWithApiDataMovie(tabName, "tvshows");
 
 		extent.HeaderChildNode("HLS_052 :Verify the right side bottom arrow ");
-		scrollToBottomOfPageWEB();
-		logger.info("Scrolled Up the page");
-		if (scrollToElement(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn)) {
+//		scrollToBottomOfPageWEB();
+//		logger.info("Scrolled Up the page");
+		scrollToElement(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn);
+		if (verifyElementPresent(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon")) {
 			click(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon");
 		} else {
 			logger.error("Back to Top Arrow icon is not displayed");

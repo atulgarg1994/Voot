@@ -6,7 +6,7 @@
 		<parameter name="runMode" value="${runMode}"/> <parameter name="runModule" 
 		value="${runModule}"/> <parameter name="browserType" value="${browserType}"/> -->
 
-	<parameter name="userType" value="Guest" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
+	<parameter name="userType" value="NonSubscribedUser" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" /> 
 	
@@ -168,13 +168,17 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
+
+<!--	TEST MODULE NAMES TO EXECUTE	-->
+<!-- #1 -->
 	<test name="Android_AppLaunch">
 		<classes>
 			<class
 				name="com.zee5.ApplicasterScripts.Android_AppLaunch" />
 		</classes>
 	</test> 
-
+	
+<!-- #2 -->
 	<test name="Android_Onboarding_Suite1">
 		<classes>
 			<class
@@ -182,118 +186,164 @@
 		</classes>
 	</test> 
  
+ <!-- #3 -->
 	<test name="Android_Onboarding_Suite2">
 		<classes>
 			<class
 				name="com.zee5.ApplicasterScripts.Android_Onboarding_Suite2" />
 		</classes>
 	</test>
-
+	
+<!-- #4 -->	
 	<test name="Android_Onboarding_Suite3">
 		<classes>
 			<class
 				name="com.zee5.ApplicasterScripts.Android_Onboarding_Suite3" />
 		</classes>
 	</test>
-
-	<test name="Android_Subscription">
-		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_Subscription" />
-		</classes>
-	</test> 
- 
+<!-- #5 -->
 	<test name="Android_Search">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_Search" />
 		</classes>
 	</test>
 
+<!-- #6 -->
 	<test name="Android_LandingScreen_BottomNavigation">
 		<classes>
 			<class
 				name="com.zee5.ApplicasterScripts.Android_LandingScreen_BottomNavigation" />
 		</classes>
 	</test>
-
-	<test name="Android_Downloads">
+	
+<!-- #7 -->
+	<test name="Android_Subscription">
 		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_Downloads" />
+			<class name="com.zee5.ApplicasterScripts.Android_Subscription" />
 		</classes>
-	</test>
-
-	<test name="Android_LandingScreen_TopNavigation">
-		<classes>
-			<class
-				name="com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation" />
-		</classes>
-	</test>
-
+	</test> 
+	
+<!-- #8 -->
 	<test name="Android_ListingScreen">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_ListingScreen" />
 		</classes>
-	</test> 
+	</test>
 
+<!-- #9 -->
 	<test name="Android_Settings">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_Settings" />
 		</classes>
 	</test>
- 
+
+<!-- #10 -->
 	<test name="Android_ExitPop">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_ExitPop" />
 		</classes>
 	</test>
-
+	
+<!-- #11 -->
 	<test name="Android_MoreScreen">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_MoreScreen" />
 		</classes>
 	</test> 
 	
+<!-- #12 -->
 	<test name="Android_BeforeTV">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_BeforeTV" />
 		</classes>
 	</test>
 	
+<!-- #13 -->
+	<test name="Android_LandingScreen_TopNavigation">
+		<classes>
+			<class
+				name="com.zee5.ApplicasterScripts.Android_LandingScreen_TopNavigation" />
+		</classes>
+	</test>
+	
+<!-- #14 -->
+	<test name="Android_Consumption_Screen">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_Consumption_Screen" />
+		</classes>
+	</test>
+
+<!-- #15 -->
+	<test name="Android_Downloads">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_Downloads" />
+		</classes>
+	</test>
+	
+<!-- #16 -->
+	<test name="Android_PlayerScreen">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_PlayerScreen" />
+		</classes>
+	</test>
+
+<!-- #17 -->
+	<test name="Android_UserSessionManagement">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_UserSessionManagement" />
+		</classes>
+	</test>
+
+<!-- #18 -->
+	<test name="Android_Tasks">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_Tasks" />
+		</classes>
+	</test>
+ 
+ <!-- #19 -->
+ 	<test name="Android_Defects">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_Defects" />
+		</classes>
+	</test>
+	
+<!-- #20 
+	<test name="Android_TVOD_TestSuite">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_TVOD_TestSuite" />
+		</classes>
+	</test>		-->
+
+<!-- #21 
+	<test name="Android_TVOD_OtherScreens">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_TVOD_OtherScreens" />
+		</classes>
+	</test>		-->
+
+<!-- #22 
+	<test name="Android_TVOD_ComboOffer">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_TVOD_ComboOffer" />
+		</classes>
+	</test>		-->
+	
+<!--	
+	>>  Not valid test	<<
+  	<test name="DeepLinkValidation">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.DeepLinkValidation" />
+		</classes>
+	</test>
+	
+	>>	Club pack feature has been removed hence this test is obsolete	<<
 	<test name="Android_ClubPack">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_ClubPack" />
 		</classes>
 	</test>
 	
-	<test name="Android_UserSessionManagement">
-		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_UserSessionManagement" />
-		</classes>
-	</test>
+-->
 	
-	<test name="Android_PlayerScreen">
-		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_PlayerScreen" />
-		</classes>
-	</test>
-	
-	<test name="Android_Consumption_Screen">
-		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_Consumption_Screen" />
-		</classes>
-	</test>
-	
-	<test name="TasksAndDefects">
-		<classes>
-			<class
-				name="com.zee5.ApplicasterScripts.TasksAndDefects" />
-		</classes>
-	</test>
-	
-<!--  <test name="DeepLinkValidation">
-		<classes>
-			<class name="com.zee5.ApplicasterScripts.DeepLinkValidation" />
-		</classes>
-	</test>		 -->
-	
-
 </suite>

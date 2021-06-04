@@ -2941,26 +2941,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 */
 
 	public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
-		extent.HeaderChildNode("Login Functionality");
-
-		String UserType = getParameterFromXML("userType");
-		if (UserType.equals("Guest")) {
-			extent.extentLogger("userType", "UserType : Guest");
-		}
-
-//		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-//		waitTime(3000);
-
+		System.out.println("\nLogin to the App");
+		
 		switch (LoginMethod) {
 		case "Guest":
-			extent.HeaderChildNode("Guest User");
-			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			// Commenting these line as Intro screen has been removed from the App
-			// [AMA2-12726]
-			// waitTime(1000);
-			// hideKeyboard();
-			// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
-			waitTime(3000);
+			extent.HeaderChildNode("Logged in as <b>Guest</b> User");
+			
+			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as <b>Guest</b> user");
 			break;
 
 		case "NonSubscribedUser":
@@ -2969,13 +2956,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
 
-			// verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse
-			// for Free");
 			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
-			// Verify user is navigated to Login/Register screen post tapping Login/Register
-			// link
+			
 			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
@@ -2992,15 +2976,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
-			// verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse
-			// for Free");
+		
 			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
-			// Verify user is navigated to Login/Register screen post tapping Login/Register
-			// link
+			
 			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
-
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -3010,7 +2991,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
 			waitTime(3000);
 			break;
-
 		}
 	}
 
@@ -3609,7 +3589,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void navigateToIntroScreen_DisplaylangScreen() throws Exception {
-		extent.HeaderChildNode("Navigation to Intro Screen");
 //		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button (Display-LanguageScreen)");
 		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
 //		verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
@@ -9412,74 +9391,55 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //		click(AMDHomePage.HomeIcon, "Home icon");
 	}
 
-	public void GettingStartedValidation() throws Exception {
-		System.out.println("\nValidating links under Getting Started rail");
-		verifyElementExist(AMDMoreMenu.objGettingStartedHeader, "'Getting Started' Header");
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("What is ZEE5"), "'What is ZEE5?'");
-		waitTime(5000);
-		if (checkElementExist(AMDMoreMenu.objArticleTitle("What is ZEE5"), "Article title 'What is ZEE5?'")) {
-			logger.info("User is navigated to 'What is ZEE5?' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'What is ZEE5?' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			extent.extentLoggerFail("Verify navigation", "Unable to navigate to page What is ZEE5?");
-			logger.info("Unable to navigate to page What is ZEE5?");
+public void GettingStartedValidation() throws Exception {
+		
+		String Header1 = "Popular Topics";
+		String articleName1 = "F.R.I.E.N.D.S: The Reunion on ZEE5 Premium!";
+		String articleName2 = "Where can I view my subscription information?";
+		String articleName3 = "Registering with ZEE5";
+		String articleName4 = "How do I watch ZEE5 on my television?";
+		String articleName5 = "Video not playing due to DRM/protected content";
+		
+		System.out.println("\nValidating links under "+Header1+" rail");
+		
+		verifyElementExist(AMDMoreMenu.objZee5Logo, "ZEE5 Logo");
+		verifyElementExist(AMDGenericObjects.objText("GRIEVANCE REDRESSAL"), "GRIEVANCE REDRESSAL label");
+		
+		boolean flagHeader1 = verifyElementPresent(AMDGenericObjects.objContainText(Header1), Header1 +" header ");
+		if(flagHeader1) {
+			verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName1), articleName1);
+			verifyArticlePageNavigation(articleName1);
+			
+			verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName2), articleName2);
+			verifyArticlePageNavigation(articleName2);
+			
+			verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName3), articleName3);
+			verifyArticlePageNavigation(articleName3);
+			
+			PartialSwipe("UP", 1);
+			verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName4), articleName4);
+			verifyArticlePageNavigation(articleName4);
+			
+			PartialSwipe("UP", 1);
+			verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName5), articleName5);
+			verifyArticlePageNavigation("Video not playing error due to DRM/Protected Content");
+		}else {
+			extent.extentLoggerFail("Header", "Header: <b>"+Header1+"</b> is not present in the page");
+			logger.error("Header: "+Header1+" is not present in the page");
 		}
-//		Back(1);
-		waitTime(3000);
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Registering with ZEE5"), "'Registering with ZEE5'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("Registering with ZEE5"))) {
-			logger.info("User is navigated to 'Registering with ZEE5' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'Registering with ZEE5' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'Registering with ZEE5' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'Registering with ZEE5' page");
-		}
-//		Back(1);
-		waitTime(3000);
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Purchasing a subscription"),
-				"'Purchasing a subscription'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("Purchasing a subscription"))) {
-			logger.info("User is navigated to 'Purchasing a subscription' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'Purchasing a subscription' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'Purchasing a subscription' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'Purchasing a subscription' page");
-		}
-//		Back(1);
-		waitTime(3000);
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("How do I watch ZEE5"),
-				"'How do I watch ZEE5 on my television'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("How do I watch ZEE5 on my television"))) {
-			logger.info("User is navigated to 'How do I watch ZEE5 on my television?' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'How do I watch ZEE5 on my television?' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'How do I watch ZEE5 on my television?' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'How do I watch ZEE5 on my television?' page");
-		}
-//		Back(1);
-		waitTime(3000);
-		SwipeUntilFindElement(AMDMoreMenu.objMyAccountHeader, "UP");
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Renting movies on ZEEPLEX"),
-				"'Renting movies on ZEEPLEX'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("Renting movies on ZEEPLEX"))) {
-			logger.info("User is navigated to 'Renting movies on ZEEPLEX' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'Renting movies on ZEEPLEX' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'Renting movies on ZEEPLEX' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'Renting movies on ZEEPLEX' page");
-		}
-//		Back(1);
-		waitTime(3000);
 	}
+
+public void verifyArticlePageNavigation(String pArticleName) throws Exception {
+	waitTime(3000);
+	if (verifyElementDisplayed(AMDMoreMenu.objArticleTitle(pArticleName))) {
+		logger.info("User is navigated to Artical page: "+pArticleName);
+		extent.extentLoggerPass("Article", "User is navigated to Artical page: <b>"+pArticleName+"</b>");
+		verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
+	} else {
+		extent.extentLoggerFail("Verify navigation", "Failed to navigate to Article page: "+pArticleName);
+		logger.error("Failed to navigate to Article page: "+pArticleName);
+	}
+}
 
 	public void MyAccountValidation() throws Exception {
 		System.out.println("\nValidating links under My Account rail");
