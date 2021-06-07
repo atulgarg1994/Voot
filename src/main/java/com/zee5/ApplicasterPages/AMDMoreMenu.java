@@ -232,14 +232,15 @@ public class AMDMoreMenu {
 
 	//####--- Help Screen locators -----####
 	public static By objZee5Logo = By.xpath("//*[@text='ZEE5_Dark_Theme_256x256']");
-	public static By objGettingStartedHeader = By
-			.xpath("//*[@content-desc='Getting Started ' or @text='Getting Started ']");
-	public static By objMyAccountHeader = By.xpath("//*[@content-desc='My Account ' or @text='My Account ']");
+	public static By objGettingStartedHeader = By.xpath("//*[@content-desc='Getting Started ' or @text='Getting Started ']");
+	public static By objMyAccountHeader = By.xpath("//*[@content-desc='My Account ' or @text='My Account '] | [contains(@text,'My Account')]");
 	public static By objsupportlinkInprivacypolicy = By.xpath("//*[@content-desc='support@zee5.com.']");
 	public static By objPrivacyPolicyHeader = By
 			.xpath("(//*[contains(@content-desc,'Privacy Policy')] | //*[contains(@text,'Privacy Policy')])[1]");
 	public static By objShareOptions = By.xpath("//*[@id='text1']");
-
+	public static By objArticlePageSignIntoZee5 = By.xpath("(//*[@text=concat('I can', \"'\", 't sign in to ZEE5')])[2]");
+	public static By objArticlePageAuthMyTV = By.xpath("(//*[@text=concat('I', \"'\", 'm unable to authenticate my TV')])[2]");
+	
 	public static By objShareOptions(int index) {
 		return By.xpath("(//*[@id='text1'])[" + index + "]");
 	}

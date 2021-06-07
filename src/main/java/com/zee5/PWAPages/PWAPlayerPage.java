@@ -415,10 +415,6 @@ public class PWAPlayerPage {
 	public static By objContentTitleInPlayerPage = By.xpath("(//div[@class='consumptionMetaDiv']//div//h2) | (//div[@class='channelConsumptionMetaDiv']//h1)");
 	
 	public static By objGetPremiumInline = By.xpath("//div[@class=\"subscribe-button subscribemsg_en\"]");
-	
-//	 Get Premium CTA Below the Player Screen
-	public static By objGetPremiumCTABelowPlayerScreen = By
-				.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Get Premium')]");
 //	 Subscribe Now Link on player
 	public static By objSubscribeNowLink = By.xpath("//*[@class = 'subscribe-button subscribemsg_en']");
 	
@@ -493,4 +489,8 @@ public class PWAPlayerPage {
 	
 	public static By objContentTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//h1");
 
+	public static By objTextBelowThePlayer = By.xpath("//*[contains(text(), 'Get Flat 50% Off on 1 Year Premium at ₹499')]");
+	
+	public static By objGetPremiumCTABelowPlayerScreen = By
+			.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Buy Plan')]");
 }

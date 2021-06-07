@@ -315,6 +315,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			clearField(AMDLoginScreen.objEmailIdField, "EmailId/Phone field");
 			type(AMDLoginScreen.objEmailIdField, RegisteredMobile, "Mobile number field");
 			click(AMDLoginScreen.objProceedBtn, "Proceed button");
+			waitTime(5000);
 			type(AMDLoginScreen.objPasswordField, RegisteredMobilePassword, "Password field");
 			hideKeyboard();
 			click(AMDLoginScreen.objLoginBtn, "Login button");
@@ -326,7 +327,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDHomePage.objHome, "Home tab");
 		} else {
 			logger.info("Mobile Registration is NOT Applicable for Registered Users");
-			extentLoggerPass("Mobile Registration", "Mobile Registration is NOT Applicable for Registered Users");
+			extentLogger("Mobile Registration", "Mobile Registration is NOT Applicable for Registered Users");
 		}
 	}
 
@@ -3149,8 +3150,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			} else {
 				logger.info("Pre conditions not met, Account is not logged In");
-				extentLoggerWarning("Gmail", "Pre conditions not met, Account is not logged In");
-				Back(1);
+				extentLogger("Gmail", "Pre conditions not met, Account is not logged In");
+				for(int i=0; i<5; i++) {
+					if(verifyIsElementDisplayed(AMDLoginScreen.objtwitterBtn)) {
+						break;
+					}else{
+						Back(1);
+					}
+				}
+				
 			}
 
 			verifyElementPresentAndClick(AMDLoginScreen.objtwitterBtn, "Twitter icon");
@@ -3205,8 +3213,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
 			} else {
 				logger.info("Pre conditions not met, Account is not logged In");
-				extentLoggerWarning("Twitter", "Pre conditions not met, Account is not logged In");
-				Back(1);
+				extentLogger("Twitter", "Pre conditions not met, Account is not logged In");
+				for(int i=0; i<5; i++) {
+					if(verifyIsElementDisplayed(AMDLoginScreen.objtwitterBtn)) {
+						break;
+					}else{
+						Back(1);
+					}
+				}
 			}
 
 			verifyElementPresentAndClick(AMDLoginScreen.objfbBtn, "Facebook icon");
@@ -3216,7 +3230,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerPass("FB", "facebook Page is displayed");
 			} else {
 				logger.info("facebook Page is not displayed");
-				extent.extentLoggerWarning("Login", "User logged in not successfully");
+				extent.extentLogger("Login", "User logged in not successfully");
 			}
 //			if (checkElementExist(AMDLoginScreen.objFBLogIntoAnotherAccount, "Log Into Another Account")) {
 //				click(AMDLoginScreen.objFBLogIntoAnotherAccount, "Log Into Another Account");
@@ -3247,8 +3261,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
 			} else {
 				logger.info("Pre conditions not met, Account is not logged In");
-				extentLoggerWarning("Facebook", "Pre conditions not met, Account is not logged In");
-				Back(1);
+				extentLogger("Facebook", "Pre conditions not met, Account is not logged In");
+				for(int i=0; i<5; i++) {
+					if(verifyIsElementDisplayed(AMDLoginScreen.objtwitterBtn)) {
+						break;
+					}else{
+						Back(1);
+					}
+				}
 			}
 //			if (checkElementExist(AMDOnboardingScreen.objTellUsMore, "More info Screen")) {
 //				if (checkElementExist(AMDLoginScreen.objEmailIdField, "Email Id field")) {
@@ -3264,7 +3284,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //			}
 		} else {
 			logger.info("Social Login is NOT Applicable for Registered Users");
-			extentLoggerPass("Registered User", "Social Login is NOT Applicable for Registered Users");
+			extentLogger("Registered User", "Social Login is NOT Applicable for Registered Users");
 		}
 	}
 
@@ -9380,15 +9400,56 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresent(AMDMoreMenu.objSearchBarInHelpCenter, "Search bar to enter help queries");
 		GettingStartedValidation();
 		PartialSwipe("UP", 1);
+		SubsRentalsValidation();
+		Swipe("UP", 1);
 		MyAccountValidation();
-		PartialSwipe("UP", 1);
+		Swipe("UP", 2);
 		WatchingZEE5Validation();
-		PartialSwipe("UP", 1);
+		Swipe("UP", 2);
 		MyZEE5AppValidation();
-		PartialSwipe("UP", 1);
+		Swipe("UP", 3);
 		QuickLinksValidation();
+		waitTime(2000);
 		click(AMDMoreMenu.objcloseButton, "Close button");
 //		click(AMDHomePage.HomeIcon, "Home icon");
+	}
+	
+public void SubsRentalsValidation() throws Exception {
+		
+		String Header2 = "Subscriptions & Rentals";
+		String articleName1 = "Premium Subscription Plans";
+		String articleName2 = "How  do I purchase a Premium subscription?";
+		String articleName3 = "Renting movies on ZEEPLEX";
+		String articleName4 = "Upgrading your Subscription";
+		String articleName5 = "I am unable to watch Premium videos";
+		SwipeUntilFindElement(AMDGenericObjects.objContainText(Header2), "UP");		
+		System.out.println("\nValidating links under "+Header2+" rail");
+		
+		boolean flagHeader = verifyElementPresent(AMDGenericObjects.objContainText(Header2), Header2 +" header ");
+		if(flagHeader) {
+			PartialSwipe("UP", 1);
+			verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName1), articleName1);
+			verifyArticlePageNavigation(articleName1);
+			
+			SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName3), "UP");
+			verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName2), articleName2);
+			verifyArticlePageNavigation("How do I purchase a Premium subscription?");
+						
+			SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName4), "UP");
+			verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName3), articleName3);
+			verifyArticlePageNavigation(articleName3);
+			
+			SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName5), "UP");
+			verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName4), articleName4);
+			verifyArticlePageNavigation(articleName4);
+			
+			SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName5), "UP");
+			verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName5), articleName5);
+			verifyArticlePageNavigation(articleName5);
+		}else {
+			extent.extentLoggerFail("Header", "Header: <b>"+Header2+"</b> is not present in the page");
+			logger.error("Header: "+Header2+" is not present in the page");
+		}	
 	}
 
 public void GettingStartedValidation() throws Exception {
@@ -9441,335 +9502,175 @@ public void verifyArticlePageNavigation(String pArticleName) throws Exception {
 	}
 }
 
-	public void MyAccountValidation() throws Exception {
-		System.out.println("\nValidating links under My Account rail");
-		SwipeUntilFindElement(AMDMoreMenu.objMyAccountHeader, "UP");
-
-		verifyElementPresent(AMDMoreMenu.objMyAccountHeader, "'My Account' Header");
-		waitTime(2000);
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Managing your Subscription"),
-				"'Managing your Subscription'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("Managing your Subscription"))) {
-			logger.info("User is navigated to 'Managing your Subscription' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'Managing your Subscription' page");
+public void MyAccountValidation() throws Exception {
+	
+	String Header3 = "My Account";
+	String articleName1 = "Managing your subscription";
+	String articleName2 = "I can’t sign in to ZEE5";
+	String articleName3 = "How many devices can I watch on?";
+	String articleName4 = "How can I delete / log out a registered device?";
+	String articleName5 = "I purchased a subscription, but it’s not working";
+	String articleName6 = "Parental Control";
+			
+	SwipeUntilFindElement(AMDGenericObjects.objContainText(Header3), "UP");		
+	System.out.println("\nValidating links under "+Header3+" rail");
+	
+	boolean flagHeader = verifyElementPresent(AMDGenericObjects.objContainText(Header3), Header3 +" header ");
+	if(flagHeader) {
+		PartialSwipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName1), articleName1);
+		verifyArticlePageNavigation("Managing your Subscription");
+		
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName3), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName2), articleName2);
+		waitTime(3000);
+		if (verifyElementDisplayed(AMDMoreMenu.objArticlePageSignIntoZee5)) {
+			logger.info("User is navigated to Artical page: "+articleName2);
+			extent.extentLoggerPass("Article", "User is navigated to Artical page: <b>"+articleName2+"</b>");
 			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
-			logger.info("User is not navigated to 'Managing your Subscription' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'Managing your Subscription' page");
+			extent.extentLoggerFail("Verify navigation", "Failed to navigate to Article page: "+articleName2);
+			logger.error("Failed to navigate to Article page: "+articleName2);
 		}
-//		Back(1);
-		waitTime(3000);
+					
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName4), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName3), articleName3);
+		verifyArticlePageNavigation(articleName3);
+		
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName5), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName4), articleName4);
+		verifyArticlePageNavigation(articleName4);
+		
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName6), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName5), articleName5);
+		verifyArticlePageNavigation("I purchased a subscription/ZEEPLEX rental, but it’s not working");
+		
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName6), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName6), articleName6);
+		verifyArticlePageNavigation(articleName6);
+	}else {
+		extent.extentLoggerFail("Header", "Header: <b>"+Header3+"</b> is not present in the page");
+		logger.error("Header: "+Header3+" is not present in the page");
+	}	
+}
 
-		PartialSwipe("Up", 1);
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("I can"), "UP");
+public void QuickLinksValidation() throws Exception {
+	
+	String Header6 = "Offers & Partnerships";
+	String articleName1 = "ZEE5 Offers";
+	String articleName2 = "ZEE5 Partnerships";
+	String articleName3 = "Applying a code in ZEE5";
+			
+	SwipeUntilFindElement(AMDGenericObjects.objContainText(Header6), "UP");		
+	System.out.println("\nValidating links under "+Header6+" rail");
+	
+	boolean flagHeader = verifyElementPresent(AMDGenericObjects.objContainText(Header6), Header6 +" header ");
+	if(flagHeader) {
+		PartialSwipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName1), articleName1);
+		verifyArticlePageNavigation(articleName1);
+		
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName3), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName2), articleName2);
+		verifyArticlePageNavigation(articleName2);
+					
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName3), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName3), articleName3);
+		verifyArticlePageNavigation("Applying a Code or Gift Card in ZEE5");
+		
+	}else {
+		extent.extentLoggerFail("Header", "Header: <b>"+Header6+"</b> is not present in the page");
+		logger.error("Header: "+Header6+" is not present in the page");
+	}
+}
 
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I can"), "I can't sign in to ZEE5");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("sign in to ZEE5"))) {
-			logger.info("User is navigated to 'I can't sign in to ZEE5' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'I can't sign in to ZEE5' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not  navigated to 'I can't sign in to ZEE5' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'I can't sign in to ZEE5' page");
-		}
-//		Back(1);
-		waitTime(3000);
-
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("I made a payment but"), "UP");
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I made a payment but"),
-				"'I made a payment but my subscription isn't active / My subscription is missing'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("I made a payment but my subscription"))) {
-			logger.info(
-					"User is navigated to 'I made a payment but my subscription isn't active / My subscription is missing' page");
-			extent.extentLoggerPass("Article",
-					"User is navigated to 'I made a payment but my subscription isn't active / My subscription is missing' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info(
-					"User is not navigated to 'I made a payment but my subscription isn't active / My subscription is missing' page");
-			extent.extentLoggerFail("Article",
-					"User is not navigated to 'I made a payment but my subscription isn't active / My subscription is missing' page");
-		}
-//		Back(1);
-		waitTime(3000);
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("What happened to my"), "UP");
-
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("What happened to my"),
-				"What happened to my Club subscription?");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("What happened to my Club subscription?"))) {
-			logger.info("User is navigated to 'What happened to my Club subscription?' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'What happened to my Club subscription?' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'What happened to my Club subscription?' page");
-			extent.extentLoggerFail("Article",
-					"User is not navigated to 'What happened to my Club subscription?' page");
-		}
-//		Back(1);
-		waitTime(3000);
+public void WatchingZEE5Validation() throws Exception {
+		
+		String Header4 = "Watching ZEE5";
+		String articleName1 = "I need help with playing a video";
+		String articleName2 = "I need help with audio";
+		String articleName3 = "I need help with casting ZEE5 on my TV";
+		String articleName4 = "All about downloads";
+		String articleName5 = "All about subtitles";
+		
+				
+		SwipeUntilFindElement(AMDGenericObjects.objContainText(Header4), "UP");		
+		System.out.println("\nValidating links under "+Header4+" rail");
+		
+		boolean flagHeader = verifyElementPresent(AMDGenericObjects.objContainText(Header4), Header4 +" header ");
+		if(flagHeader) {
+			PartialSwipe("UP", 1);
+			verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName1), articleName1);
+			verifyArticlePageNavigation(articleName1);
+			
+			SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName3), "UP");
+			verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName2), articleName2);
+			verifyArticlePageNavigation(articleName2);
+						
+			SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName4), "UP");
+			verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName3), articleName3);
+			verifyArticlePageNavigation(articleName3);
+			
+			SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName5), "UP");
+			verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName4), articleName4);
+			verifyArticlePageNavigation(articleName4);
+			
+			SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName5), "UP");
+			verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName5), articleName5);
+			verifyArticlePageNavigation(articleName5);
+		}else {
+			extent.extentLoggerFail("Header", "Header: <b>"+Header4+"</b> is not present in the page");
+			logger.error("Header: "+Header4+" is not present in the page");
+		}	
 	}
 
-	public void QuickLinksValidation() throws Exception {
-		System.out.println("\nValidating links under Quick Links rail");
-		Swipe("Up", 3);
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("How Can I"), "UP");
-
-		verifyElementPresent(AMDMoreMenu.objQueriesHeader("Quick Links"), " 'Quick Links' tab");
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("How Can I"), "'How Can I'");
+public void MyZEE5AppValidation() throws Exception {
+	
+	String Header5 = "My ZEE5 App";
+	String articleName1 = "App Performance";
+	String articleName2 = "I am unable to authenticate my TV";
+	String articleName3 = "How can I enable automatic updates for the ZEE5 app?";
+	String articleName4 = "What’s the latest ZEE5 App version?";
+	String articleName5 = "How Can I?";
+	
+			
+	SwipeUntilFindElement(AMDGenericObjects.objContainText(Header5), "UP");		
+	System.out.println("\nValidating links under "+Header5+" rail");
+	
+	boolean flagHeader = verifyElementPresent(AMDGenericObjects.objContainText(Header5), Header5 +" header ");
+	if(flagHeader) {
+		PartialSwipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName1), articleName1);
+		verifyArticlePageNavigation("My ZEE5 App Performance");
+		
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName3), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName2), articleName2);
 		waitTime(3000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("How Can I"))) {
-			logger.info("User is navigated to 'How Can I?' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'How Can I?' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-
-		} else {
-			logger.info("User is not navigated to 'How Can I?' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'How Can I?' page");
-		}
-//		Back(1);
-		waitTime(2000);
-		Swipe("Up", 4);
-
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("How Can I"), "UP");
-		waitTime(2000);
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I am unable to watch the ZEEPLEX movie"),
-				"'I am unable to watch the ZEEPLEX movie'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("I am unable to watch the ZEEPLEX movie"))) {
-			logger.info("User is navigated to 'I am unable to watch the ZEEPLEX movie' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'I am unable to watch the ZEEPLEX movie' page");
+		if (verifyElementDisplayed(AMDMoreMenu.objArticlePageAuthMyTV)) {
+			logger.info("User is navigated to Artical page: "+articleName2);
+			extent.extentLoggerPass("Article", "User is navigated to Artical page: <b>"+articleName2+"</b>");
 			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
 		} else {
-			logger.info("User is not navigated to 'I am unable to watch the ZEEPLEX movie' page");
-			extent.extentLoggerFail("Article",
-					"User is not navigated to 'I am unable to watch the ZEEPLEX movie' page");
+			extent.extentLoggerFail("Verify navigation", "Failed to navigate to Article page: "+articleName2);
+			logger.error("Failed to navigate to Article page: "+articleName2);
 		}
-//		Back(1);
-		waitTime(2000);
-		Swipe("Up", 4);
-
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("ZEE5 Offers"), "UP");
-		waitTime(2000);
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("ZEE5 Offers"), "'Zee5 offers'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("ZEE5 Offers"))) {
-			logger.info("User is navigated to 'ZEE5 Offers' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'ZEE5 Offers' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'ZEE5 Offers' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'ZEE5 Offers' page");
-		}
-//		Back(1);
-		waitTime(2000);
-		Swipe("Up", 4);
-
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("ZEE5 Partnerships"), "UP");
-		waitTime(2000);
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("ZEE5 Partnerships"), "'ZEE5 Partnerships'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("ZEE5 Partnerships"))) {
-			logger.info("User is navigated to 'ZEE5 Partnerships' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'ZEE5 Partnerships' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'ZEE5 Partnerships' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'ZEE5 Partnerships' page");
-		}
-//		Back(1);
-		waitTime(2000);
-		Swipe("Up", 4);
-
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("Cancel Auto-renewal"), "UP");
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Cancel Auto-renewal"), "'Cancel Auto-renewal'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("How do I cancel auto-renewal of my subscription?"))) {
-			logger.info("User is navigated to 'How do I cancel auto-renewal of my subscription?");
-			extent.extentLoggerPass("Article",
-					"User is navigated to 'How do I cancel auto-renewal of my subscription?' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'How do I cancel auto-renewal of my subscription?' page");
-			extent.extentLoggerFail("Article",
-					"User is not navigated to 'How do I cancel auto-renewal of my subscription?' page");
-		}
-//		Back(1);
-		waitTime(2000);
-	}
-
-	public void WatchingZEE5Validation() throws Exception {
-		System.out.println("\nValidating links under Watching ZEE5 rail");
-		// Swipe("Up", 1);
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("Watching ZEE5"), "UP");
-		// PartialSwipe("Up", 1);
-		verifyElementPresent(AMDMoreMenu.objQueriesHeader("Watching ZEE5"), " 'Watching ZEE5' tab");
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I need help with playing a video"),
-				"'I need help with playing a video'");
-		waitTime(3000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("I need help with playing a video"))) {
-			logger.info("User is navigated to 'I need help with playing a video' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'I need help with playing a video' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'I need help with playing a video' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'I need help with playing a video' page");
-		}
-//		Back(1);
-		waitTime(2000);
-
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("I need help with audio"), "UP");
-		waitTime(2000);
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I need help with audio"),
-				"'I need help with audio'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("I need help with audio"))) {
-			logger.info("User is navigated to 'I need help with audio' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'I need help with audio' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'I need help with audio' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'I need help with audio' page");
-		}
-//		Back(1);
-		waitTime(2000);
-		Swipe("Up", 2);
-
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("I need help with casting ZEE5 on my TV"), "UP");
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I need help with casting ZEE5 on my TV"),
-				"'I need help with casting ZEE5 on my TV'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("I need help with casting ZEE5 on my TV"))) {
-			logger.info("User is navigated to 'I need help with casting ZEE5 on my TV' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'I need help with casting ZEE5 on my TV' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'I need help with casting ZEE5 on my TV' page");
-			extent.extentLoggerFail("Article",
-					"User is not navigated to 'I need help with casting ZEE5 on my TV' page");
-		}
-//		Back(1);
-		waitTime(2000);
-		Swipe("Up", 2);
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("My ZEE5 App"), "UP");
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("All about downloads"), "'All about downloads'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("All about downloads"))) {
-			logger.info("User is navigated to 'All about downloads' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'All about downloads' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'All about downloads' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'All about downloads' page");
-		}
-//		Back(1);
-		waitTime(2000);
-		Swipe("Up", 2);
-
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("My ZEE5 App"), "UP");
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("All about subtitles"), "'All about subtitles'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("All about subtitles"))) {
-			logger.info("User is navigated to 'All about subtitles' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'All about subtitles' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'All about subtitles' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'All about subtitles' page");
-		}
-//		Back(1);
-		waitTime(2000);
-	}
-
-	public void MyZEE5AppValidation() throws Exception {
-		System.out.println("\nValidating links under My ZEE5 App rail");
-		Swipe("Up", 3);
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("My ZEE5 App"), "UP");
-
-		verifyElementPresent(AMDMoreMenu.objQueriesHeader("My ZEE5 App"), " 'My ZEE5 App' tab");
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("App Performance"), "'App Performance'");
-		waitTime(3000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("App Performance"))) {
-			logger.info("User is navigated to 'App Performance' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'How Can I?' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'App Performance' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'App Performance' page");
-		}
-//		Back(1);
-		waitTime(2000);
-		Swipe("Up", 3);
-
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("I am unable to authenticate my TV"), "UP");
-		waitTime(2000);
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("I am unable to authenticate my TV"),
-				"'I am unable to authenticate my TV'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("authenticate my TV"))) {
-			logger.info("User is navigated to 'I am unable to authenticate my TV' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'I am unable to authenticate my TV' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'I am unable to authenticate my TV' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'I am unable to authenticate my TV' page");
-		}
-//		Back(1);
-		waitTime(2000);
-		Swipe("Up", 3);
-
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("How can I enable automatic updates"), "UP");
-		waitTime(2000);
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("How can I enable automatic updates"),
-				"'How can I enable automatic updates for the ZEE5 app?'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("How can I enable automatic updates"))) {
-			logger.info("User is navigated to 'How can I enable automatic updates for the ZEE5 app?' page");
-			extent.extentLoggerPass("Article",
-					"User is navigated to 'How can I enable automatic updates for the ZEE5 app?' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'How can I enable automatic updates for the ZEE5 app?' page");
-			extent.extentLoggerFail("Article",
-					"User is not navigated to 'How can I enable automatic updates for the ZEE5 app?' page");
-		}
-//		Back(1);
-		waitTime(2000);
-		Swipe("Up", 3);
-
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("My ZEE5 App Version"), "UP");
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("My ZEE5 App Version"), "'My ZEE5 App Version'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("How do I see my current ZEE5 app version?"))) {
-			logger.info("User is navigated to 'My ZEE5 App Version' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'My ZEE5 App Version' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'My ZEE5 App Version' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'My ZEE5 App Version' page");
-		}
-//		Back(1);
-		waitTime(2000);
-
-		Swipe("Up", 3);
-
-		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader("Parental Control"), "UP");
-		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader("Parental Control"), "'Parental Control'");
-		waitTime(5000);
-		if (verifyIsElementDisplayed(AMDMoreMenu.objArticleTitle("Parental Control"))) {
-			logger.info("User is navigated to 'Parental Control' page");
-			extent.extentLoggerPass("Article", "User is navigated to 'Parental Control' page");
-			verifyElementPresentAndClick(AMDMoreMenu.objBackToHome, "Back To Home");
-		} else {
-			logger.info("User is not navigated to 'Parental Control' page");
-			extent.extentLoggerFail("Article", "User is not navigated to 'Parental Control' page");
-		}
-//		Back(1);
-		waitTime(2000);
-	}
+					
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName4), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName3), articleName3);
+		verifyArticlePageNavigation(articleName3);
+		
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName5), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName4), articleName4);
+		verifyArticlePageNavigation("What’s the latest ZEE5 App Version?");
+		
+		SwipeUntilFindElement(AMDMoreMenu.objQueriesHeader(articleName5), "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objQueriesHeader(articleName5), articleName5);
+		verifyArticlePageNavigation(articleName5);
+	}else {
+		extent.extentLoggerFail("Header", "Header: <b>"+Header5+"</b> is not present in the page");
+		logger.error("Header: "+Header5+" is not present in the page");
+	}		
+}
 
 	/**
 	 * Author : Kushal Module : listing screen

@@ -416,8 +416,6 @@ public class PWAHamburgerMenuPage {
 
 	// About Us option in Kannada
 	public static By objAboutUsinKannada = By.xpath("//a[text()='ನಮ್ಮ ಬಗ್ಗೆ']");
-	// Terms of Use option in kannada
-	public static By objTermsInKannada = By.xpath("//a[text()='ಬಳಕೆಯ ನಿಯಮಗಳು']");
 	// Privacy Policy in Kannada
 	public static By objPrivacyPolicyInKannadA = By.xpath("//a[text()='ಗೌಪ್ಯತೆ ನೀತಿ']");
 	// English option
@@ -971,6 +969,7 @@ public class PWAHamburgerMenuPage {
 	
 	public static By objPaytmProceedToPay = By
 			.xpath("//article[contains(text(),'Paytm')]//ancestor::*[@class='linearLayout PaymentOptionViewNotListNestedChild']//child::*[text()='Proceed to pay']");
-	
-	
-	}
+
+	public static By objTermsInKannada = By.xpath("(//a[text()='ಬಳಕೆಯ ನಿಯಮಗಳು'])[1]");
+
+}
