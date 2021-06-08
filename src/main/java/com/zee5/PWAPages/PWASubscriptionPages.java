@@ -173,7 +173,6 @@ public class PWASubscriptionPages {
 
 	public static By objLoginLinkInPlayer = By.xpath("//*[@class='login-link']");
 	public static By objPasswordField = By.xpath("//*[@type='password']");
-	public static By objAccountDetailInSubscription = By.xpath("//*[@class='autoPopulatedDetail']");
 
 	public static By objPaytmProceedToPay = By.xpath("(//article[contains(text(), 'Proceed to pay')])[2]");
 
@@ -366,8 +365,6 @@ public class PWASubscriptionPages {
 
 	public static By objLoginButtonFromSubscriptionPage = By.xpath("//*[contains(@class, 'loginBtn noSelect subscriptionLoginType')]");
 	
-	// Continue Btn
-	public static By objContinueBtn = By.xpath("(//span[contains(text(), 'Continue')])[1]");
 	// Account Info tab Title
 	public static By objAccountInfoTitle = By.xpath("//h2[contains(text(),'Account Info')]");
 	//Verify OTP screen title
@@ -508,4 +505,7 @@ public class PWASubscriptionPages {
 		
 		public static By objBuyPremiumCTA = By.xpath("//*[@class='buttonContainer ']//span[text()='Buy Premium']");//added 13/5/2021
 		public static By objMobileLinkPaytmOption = By.xpath("//*[@text='Link Wallet']");
+		
+		public static By objContinueBtn = By.xpath("//div[@class='buttonContainer ']");
+		public static By objAccountDetailInSubscription = By.xpath("//*[@class='userDetails']");
 }

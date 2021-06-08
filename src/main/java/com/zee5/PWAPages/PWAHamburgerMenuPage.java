@@ -971,5 +971,29 @@ public class PWAHamburgerMenuPage {
 			.xpath("//article[contains(text(),'Paytm')]//ancestor::*[@class='linearLayout PaymentOptionViewNotListNestedChild']//child::*[text()='Proceed to pay']");
 
 	public static By objTermsInKannada = By.xpath("(//a[text()='ಬಳಕೆಯ ನಿಯಮಗಳು'])[1]");
+	
+	public static By objLoadingPaymentOption=By.xpath("//div[@class='loadingMsg']");
+	public static By objBuyPlanInSubscription=By.xpath("//h3[@class='bannerTitle']");
+	public static By objBuyPlanonheader=By.xpath("//*[contains(@class,'headerContainer')]//span[text()='Buy Plan']");
+	public static By objLoginLink=By.xpath("//span[@class='login-link']");
+	public static By objEpisodeNumberInconsumptionPage=By.xpath("(//div[@class='metaInfo lineHeightClass']//p)[1]");
+	public static By objEpisodeNumber1=By.xpath("(//div[@class='metaInfo lineHeightClass']//span)[1]");
+	public static By objSeasonNumber=By.xpath("(//div[@class='metaInfo lineHeightClass']//a)[1]");
+	public static By objShowMetaData=By.xpath("//a[@class='showMetaAnchor']");
+	public static By objFailureMessage=By.xpath("//div[contains(@class,'applyPromo applyPromoFailure')]");
+	public static By objOTP1=By.xpath("(//input[@name='otp1'])");
+	public static By objOTP2=By.xpath("(//input[@name='otp2'])");
+	public static By objOTP3=By.xpath("(//input[@name='otp3'])");
+	public static By objOTP4=By.xpath("(//input[@name='otp4'])");
+	public static By objChannelsHeader=By.xpath("//div[@class='tvchannelLanding allItemsPage viewAllShow']//h1");
+	public static By objErrorMessageInAccountInfoPage=By.xpath("//*[contains(@class, 'errorContainer')]");
+	public static By objchannelnameHeader= By.xpath("//div[@class='channelDetailContainer']//h1");
+	public static By objChromeCast=By.xpath("//google-cast-launcher[@class='chromeCastIcon']");
+	public static By objToastMessage=By.xpath("//*[@class='toastMessage']");
+	public static By objAutoFlipcontent(String text)
+	{
+			return By.xpath("(//h2[text()='"+text+"'])[2]");
+	}
+	public static By objPerkSideText=By.xpath("//div[@class='title']");
 
 }

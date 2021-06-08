@@ -63,6 +63,19 @@ public class Android_Search {
 		ZEE5ApplicasterBusinessLogic.voiceSearchDenyValidation();
 	}
 	
+	@Test(priority = 5)		
+	@Parameters({ "userType"})		
+	public void searchResultS(String userType) throws Exception {
+		System.out.println("\nVerify Search Results");
+		ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("Allu Arjun"); //Search by Actor
+		ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("Kannada"); //Search by language
+		ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("Action");  //Search by Genre
+		ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("Star wars"); 
+                ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("Simba");
+		ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("Kumkum bhagya-Episode 131000"); 
+		ZEE5ApplicasterBusinessLogic.SearchResultByContentDescription("Pritham's talks make Aditya emotional. Pritham gives Aditya advice. Aditya feels elated on imagining Paarvathi. Later, Pritham's talks confuse Janani.");
+			}
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("\nQuit the App\n");

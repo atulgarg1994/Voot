@@ -409,9 +409,6 @@ public class PWAHomePage {
 
 	// Get premium btn
 	public static By objGetPremium = By.xpath("//*[text()='Get premium' or text()='Get Club']");
-	
-	public static By objWEBGetPremium = By
-			.xpath("//*[text()='Get premium' or text()='Get Club']");
 
 	public static By objWEBShowsPagePlayCarousel = By.xpath(
 			"//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'carouselMain')]");
@@ -586,8 +583,6 @@ public class PWAHomePage {
 
 	public static By objTamilWEB = By.xpath("//span[contains(text(),'Tamil')]");
 	
-	public static By objGetPremiumWeb = By.xpath("//div[contains(@class,'slick-slide slick-active slick-center slick-current')]//div//span[contains(text(),'Get premium') or contains(text(), 'Buy Plan')]");
-
 	// Masthead carousel current content
 	public static By objMastheadCarouselCurrentContent = By.xpath(
 				"//div[contains(@class,'heroBannerCarousel')]//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'content')]//img");
@@ -635,12 +630,18 @@ public class PWAHomePage {
 	public static By objAllow = By.xpath(".//*[text()='Allow']");
 	public static By objAllowCloseButton = By.xpath("//*[@class='aiq-1xYiw8']");
 
-	public static By objContTitleOnCarousel = By
-			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
 
  	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
 
  	public static By objTabName(String tabName) {
 		return By.xpath("(//a[contains(@class,'noSelect') and text()='" + tabName + "'])[1]");
 	}
-}
+ 	
+ 	public static By objGetPremiumWeb = By.xpath("//div[contains(@class,'slick-slide slick-active slick-center slick-current')]//div//span[contains(text(),'Get premium') or contains(text(), 'Buy Plan') or contains(text(), 'Upgrade')]");
+
+ 	public static By objContTitleOnCarousel = By
+			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
+ 	
+ 	public static By objWEBGetPremium = By
+			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//a[1]//span[1]");
+ 	}

@@ -485,12 +485,12 @@ public class PWAPlayerPage {
 	
 	public static By objContentTitleShow = By.xpath("//div[@class='metaInfo lineHeightClass']//h2");
 	
-	public static By objContentName = By.xpath("//div[@class='metaInfo lineHeightClass']/h2");
-	
 	public static By objContentTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//h1");
 
 	public static By objTextBelowThePlayer = By.xpath("//*[contains(text(), 'Get Flat 50% Off on 1 Year Premium at ₹499')]");
 	
 	public static By objGetPremiumCTABelowPlayerScreen = By
 			.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Buy Plan')]");
+	
+	public static By objContentName = By.xpath("//div[@class='consumptionMetaDiv']/h1");
 }

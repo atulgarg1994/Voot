@@ -86,22 +86,18 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	static ArrayList<String> AppSubscription = new ArrayList<String>();
 	static ArrayList<String> AppTransaction = new ArrayList<String>();
 
-	@Override
 	public int getTimeout() {
 		return timeout;
 	}
 
-	@Override
 	public void setTimeout(int timeout) {
 		this.timeout = timeout;
 	}
 
-	@Override
 	public int getRetryCount() {
 		return retryCount;
 	}
 
-	@Override
 	public void setRetryCount(int retryCount) {
 		this.retryCount = retryCount;
 	}
@@ -4009,13 +4005,21 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		} else {
 			if (verifyElementIsNotDisplayed(AMDHomePage.objSubscribeTeaser)) {
 				logger.info("Buy Plan icon is NOT dislayed");
-				extent.extentLoggerPass("Subscribe icon", "Buy Plan icon is NOT dislayed");
+				extent.extentLoggerPass("Zee5 logo", "Buy Plan icon is NOT dislayed");
 			} else {
 				logger.error("Buy Plan icon is dislayed");
-				extent.extentLoggerFail("Subscribe icon", "Buy Plan icon is dislayed");
+				extent.extentLoggerFail("Zee5 logo", "Buy Plan icon is dislayed");
 			}
 		}
 
+		if (verifyElementDisplayed(AMDHomePage.objZee5Logo)) {
+			logger.info("Zee5 logo is dislayed");
+			extent.extentLoggerPass("Subscribe icon", "Zee5 logo is dislayed");
+		} else {
+			logger.error("Zee5 logo is not dislayed");
+			extent.extentLoggerFail("Subscribe icon", "Zee5 logo is NOT dislayed");
+		}
+		
 		String courselContentTitle = carouselValidationWithApi(userType, "homepage");
 		carouselValidation(userType, tabName, courselContentTitle);
 		click(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content");
@@ -5593,6 +5597,16 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						"Buy Plan icon is dislayed on the header of the Shows Landing Screen");
 			}
 		}
+		
+
+		if (verifyElementDisplayed(AMDHomePage.objZee5Logo)) {
+			logger.info("Zee5 logo is dislayed");
+			extent.extentLoggerPass("Zee5 logo", "Zee5 logo is dislayed");
+		} else {
+			logger.error("Zee5 logo is not dislayed");
+			extent.extentLoggerFail("Zee5 logo", "Zee5 logo is NOT dislayed");
+		}
+		
 		carouselValidationforShowsAndNews(userType, "Shows");
 		String CarouselTitle = ShowsScreenValidationwithApiData(userType);
 		if (CarouselTitle == null) {
@@ -6144,12 +6158,22 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (!(UserType.equalsIgnoreCase("SubscribedUser"))) {
 			if (verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
 				logger.info("Buy Plan icon is dislayed");
-				extent.extentLoggerPass("Subscribe icon", "Buy Plan icon is dislayed");
+				extent.extentLoggerPass("Zee5 logo", "Buy Plan icon is dislayed");
 			} else {
 				logger.error("Buy Plan icon is not dislayed");
-				extent.extentLoggerFail("Subscribe icon", "Buy Plan icon is not dislayed");
+				extent.extentLoggerFail("Zee5 logo", "Buy Plan icon is not dislayed");
 			}
 		}
+		
+
+		if (verifyElementDisplayed(AMDHomePage.objZee5Logo)) {
+			logger.info("Zee5 logo is dislayed");
+			extent.extentLoggerPass("Subscribe icon", "Zee5 logo is dislayed");
+		} else {
+			logger.error("Zee5 logo is not dislayed");
+			extent.extentLoggerFail("Subscribe icon", "Zee5 logo is NOT dislayed");
+		}
+		
 		// Verify continue watching tray is not displayed for guest user
 		/*
 		 * if(UserType.equals("Guest")) {
@@ -6203,6 +6227,16 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		} else {
 			verifyElementPresent(AMDHomePage.objSubscribeIcon, "Buy Plan icon in Kids tab");
 		}
+		
+
+		if (verifyElementDisplayed(AMDHomePage.objZee5Logo)) {
+			logger.info("Zee5 logo is dislayed");
+			extent.extentLoggerPass("Zee5 logo", "Zee5 logo is dislayed");
+		} else {
+			logger.error("Zee5 logo is not dislayed");
+			extent.extentLoggerFail("Zee5 logo", "Zee5 logo is NOT dislayed");
+		}
+		
 		// Verify Trending on ZEE5 tray is displayed
 		// verifyElementPresent(AMDHomePage.objTrendingOnZee5Tray, "Trending on Zee5");
 		// Verify Play icon is displayed
@@ -6276,6 +6310,16 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						"Buy Plan icon is dislayed on the header of the News Landing Screen");
 			}
 		}
+
+		if (verifyElementDisplayed(AMDHomePage.objZee5Logo)) {
+			logger.info("Zee5 logo is dislayed");
+			extent.extentLoggerPass("Zee5 logo", "Zee5 logo is dislayed");
+		} else {
+			logger.error("Zee5 logo is not dislayed");
+			extent.extentLoggerFail("Zee5 logo", "Zee5 logo is NOT dislayed");
+		}
+		
+		
 		carouselValidationforShowsAndNews(userType, "News");
 	}
 
@@ -6568,10 +6612,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			if (verifyElementDisplayed(AMDHomePage.objSubscribeTeaser)) {
 				logger.info("Buy Plan icon is dislayed");
-				extent.extentLoggerPass("Subscribe icon", "Buy Plan icon is dislayed");
+				extent.extentLoggerPass("Zee5 logo", "Buy Plan icon is dislayed");
 			} else {
 				logger.error("Buy Plan icon is not dislayed");
-				extent.extentLoggerFail("Subscribe icon", "Buy Plan icon is not dislayed");
+				extent.extentLoggerFail("Zee5 logo", "Buy Plan icon is not dislayed");
 			}
 		} else {
 			if (verifyElementIsNotDisplayed(AMDHomePage.objSubscribeTeaser)) {
@@ -6582,6 +6626,16 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Subscribe icon", "Buy Plan icon is dislayed");
 			}
 		}
+		
+
+		if (verifyElementDisplayed(AMDHomePage.objZee5Logo)) {
+			logger.info("Zee5 logo is dislayed");
+			extent.extentLoggerPass("Subscribe icon", "Zee5 logo is dislayed");
+		} else {
+			logger.error("Zee5 logo is not dislayed");
+			extent.extentLoggerFail("Subscribe icon", "Zee5 logo is NOT dislayed");
+		}
+		
 
 		waitTime(3000);
 		String courselContentTitle = carouselValidationWithApi(userType, "movies");
@@ -6863,6 +6917,16 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extentLoggerFail("Navigation to Live TV", "Unable to navigated to Live TV Screen");
 		}
 
+
+		if (verifyElementDisplayed(AMDHomePage.objZee5Logo)) {
+			logger.info("Zee5 logo is dislayed");
+			extent.extentLoggerPass("Zee5 logo", "Zee5 logo is dislayed");
+		} else {
+			logger.error("Zee5 logo is not dislayed");
+			extent.extentLoggerFail("Zee5 logo", "Zee5 logo is NOT dislayed");
+		}
+		
+		
 		if (UserType.equals("Guest")) {
 			verifyElementExist(AMDLiveTVScreen.objSubscribeIcon, "Buy Plan Icon for " + UserType + " User");
 		} else if (UserType.equals("NonSubscribedUser")) {
@@ -7048,6 +7112,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			selectContentLang_MoreMenu2("Hindi,English");
 			waitTime(3000);
 			SelectTopNavigationTab("Music");
+
+			if (verifyElementDisplayed(AMDHomePage.objZee5Logo)) {
+				logger.info("Zee5 logo is dislayed");
+				extent.extentLoggerPass("Zee5 logo", "Zee5 logo is dislayed");
+			} else {
+				logger.error("Zee5 logo is not dislayed");
+				extent.extentLoggerFail("Zee5 logo", "Zee5 logo is NOT dislayed");
+			}
+			
 			findParticularTray(AMDHomePage.objBrandNewMusicRail, "Brand new Music");
 			if (verifyElementDisplayed(AMDHomePage.objBrandNewMusicRail)) {
 				logger.info("Brand New Music rail is dislayed");
@@ -7071,6 +7144,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String carouselContent = getText(AMDHomePage.objCarouselTitle1);
 		carouselValidation(userType, "Music", carouselContent);
 	}
+
 
 	/**
 	 * Author : Manasa Module : ZeeOriginals
@@ -7116,7 +7190,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Subscribe icon", "Buy Plan icon is displayed");
 			}
 		}
+		
 
+		if (verifyElementDisplayed(AMDHomePage.objZee5Logo)) {
+			logger.info("Zee5 logo is dislayed");
+			extent.extentLoggerPass("Zee5 logo", "Zee5 logo is dislayed");
+		} else {
+			logger.error("Zee5 logo is not dislayed");
+			extent.extentLoggerFail("Zee5 logo", "Zee5 logo is NOT dislayed");
+		}
 		String courselContentTitle = zeeOriginalsCarouselValidationWithApi(userType, "zeeoriginals");
 		carouselValidation(userType, tabName, courselContentTitle);
 		verifyElementPresentAndClick(AMDHomePage.objContentTitle(courselContentTitle), "Carousel content");
