@@ -291,7 +291,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void mobileRegistration(String loginThrough, String userType) throws Exception {
 		extent.HeaderChildNode("Mobile Registration From Intro screen " + loginThrough + " button");
 		if (userType.equalsIgnoreCase("Guest")) {
-			click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in content language screen");
 			navigateToRegisterScreen(loginThrough);
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
 			type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
@@ -330,7 +329,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void subscribeNowSceanrios(String userType) throws Exception {
 		extent.HeaderChildNode("Subscribe Now Scenarios");
 
-		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in content language screen");
 		if (userType.equals("Guest")) {
 			verifyElementPresentAndClick(AMDOnboardingScreen.objSubscribeNowBtn, "Buy Plan button");
 			subscribePageValidation();
@@ -340,9 +338,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		if (userType.equals("NonSubscribedUser")) {
 			extent.HeaderChildNode("Relaunch functionality");
-			// verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login
-			// button");
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+
 			click(AMDLoginScreen.objEmailIdField, "Email field");
 			verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, NonsubscribedUserName, "Email field");
@@ -369,9 +365,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		if (userType.equals("SubscribedUser")) {
 			extent.HeaderChildNode("Relaunch functionality");
-			// verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login
-			// button");
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			
 			click(AMDLoginScreen.objEmailIdField, "Email field");
 			verifyElementExist(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUserName, "Email field");
@@ -622,16 +616,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void registerForFreeScreen(String user) throws Exception {
-		extent.HeaderChildNode("Register for free Page");
-		System.out.println("\nRegister for free Page");
+		extent.HeaderChildNode("Register for Free");
+		System.out.println("\nRegister for Free");
+		
 		String pDOB = "01/01/1990", pNewPassword = "123456";
-
-//		if(checkElementExist(AMDOnboardingScreen.objBrowseForFreeBtn)) {
-//			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
-//		}
+		String newEmailId = "Auto"+generateRandomString(4) + "@ZEE.com";
 
 		if (user.equals("Email")) {
-			type(AMDRegistrationScreen.objEmailIDTextField, generateRandomString(5) + "@gmail.com", "Email field");
+			type(AMDRegistrationScreen.objEmailIDTextField, newEmailId, "Email field");
 			click(AMDRegistrationScreen.objProceedBtn, "Proceed button");
 		} else if (user.equals("Mobile")) {
 			logger.info("Mobile registration");
@@ -2693,21 +2685,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 */
 
 	public void navigateToRegisterScreen(String loginThrough) throws Exception {
-		// Browse for free is not present since Intro screen has been removed
-//		if (loginThrough.equals("BrowseForFree")) {
-//			HeaderChildNode("Validate Browse for Free Button functionality");
-//			verifyElementExist(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free button");
-//			logger.info("Browse for Free button is displayed in language : "
-//					+ getText(AMDOnboardingScreen.objBrowseForFreeBtn));
-//			extent.extentLoggerPass("Browse for Free button", "Browse for Free button is displayed in language : "
-//					+ getText(AMDOnboardingScreen.objBrowseForFreeBtn));
-//
-//			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+		System.out.println("\nVerify Login/Register screen is displayed");
+		
 		verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 		verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
-		// Verify user is navigated to Login/Register screen post tapping Login/Register
-		// link
 		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
 
 		if (verifyIsElementDisplayed(AMDLoginScreen.objLoginLnk)) {
@@ -2717,11 +2699,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.error("Login/Register Screen is not displayed");
 			extent.extentLoggerFail("Login/Register Screen", "Login/Register Screen is not displayed");
 		}
-
-//		else if (loginThrough.equals("login")) {
-//			HeaderChildNode("Validate Login/Register Screen");
-//			click(AMDLoginScreen.objLoginLnk, "Login link");
-//		}
 	}
 
 	public void validateRegister(String firstName, String secoundName) throws Exception {
@@ -3084,13 +3061,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void socialLoginValidation(String loginThrough, String usertype) throws Exception {
 		extent.HeaderChildNode("Social Login Validation");
 		if (usertype.equalsIgnoreCase("Guest")) {
-
-			verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn,
-					"Continue button in content language screen");
-			// navigateToRegisterScreen(loginThrough);
-			// verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse
-			// for Free");
-			// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+			waitTime(3000);
 			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
@@ -3610,7 +3581,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void navigateToIntroScreen_DisplaylangScreen() throws Exception {
 //		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button (Display-LanguageScreen)");
-		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
+//		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
 //		verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 	}
 
@@ -3702,9 +3673,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		String pUserType = getParameterFromXML("userType");
 		if (pUserType.contains("Guest")) {
-			// verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse
-			// for Free");
-			click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
+
 			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 			verifyElementPresentAndClick(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
@@ -5910,33 +5879,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("More Screen Validation");
 		System.out.println("\nMore Section Validation");
 
-//		Runtime.getRuntime().exec("adb shell svc wifi disable");
-//		if (getOEMName.equalsIgnoreCase("Sony")) {
-//			Wifi_TurnOFFnON();
-//		}
-//
-		waitTime(5000);
+		waitTime(3000);
 		verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu tab");
-//
-//		verifyElementExist(AMDOfflineScreen.objYouAreOffline, "You are Offline");
-//		verifyElementExist(AMDOfflineScreen.objDescription, "Please connect to the internet and try again");
-//		verifyElementExist(AMDOfflineScreen.objTryAgain, "Try Again");
-//		verifyElementExist(AMDOfflineScreen.objGoToDownloads, "Go to Downloads");
-//
-//		Runtime.getRuntime().exec("adb shell svc wifi enable");
-//		if (getOEMName.equalsIgnoreCase("Sony")) {
-//			Wifi_TurnOFFnON();
-//		}
-//		waitTime(5000);
-//		verifyElementPresentAndClick(AMDOfflineScreen.objTryAgain, "Try Again");
-//		waitTime(2000);
-//		Swipe("DOWN", 1);
+
 		verifyElementExist(AMDMoreMenu.objProfile, "Profile icon");
 		verifyElementExist(AMDMoreMenu.objBuySubscription, "Buy Subscription option");
 		verifyElementExist(AMDMoreMenu.objMySubscription, "My Subscription option");
 		verifyElementExist(AMDMoreMenu.objMyTransactions, "My Transactions option");
 		verifyElementExist(AMDMoreMenu.objWatchlist, "Watchlist option");
-		verifyElementExist(AMDMoreMenu.objMyRemainders, "My Reminders option");
 		verifyElementExist(AMDMoreMenu.objHaveaPrepaidCode, "Have a prepaid code option");
 		Swipe("UP", 1);
 		verifyElementExist(AMDMoreMenu.objSettings, "Settings option");
@@ -10309,10 +10259,6 @@ public void MyZEE5AppValidation() throws Exception {
 		System.out.println("\nNavigation to Home Screen");
 
 		if (pUserType.equals("Guest")) {
-			// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-			//waitTime(3000);
-			//hideKeyboard();
-			//verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
 			verifyElementPresent(AMDHomePage.objHomeTab, "Home landing screen");
 		} else {
 			logger.info(pUserType + " is already in the Home screen");
@@ -14399,9 +14345,7 @@ public void MyZEE5AppValidation() throws Exception {
 		case "NonSubscribedUser":
 			navigateToIntroScreen_DisplaylangScreen();
 			extent.HeaderChildNode("Login as NonSubscribed User");
-			// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-			// verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse
-			// for Free");
+			
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
 			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
@@ -14423,16 +14367,14 @@ public void MyZEE5AppValidation() throws Exception {
 		case "SubscribedUser":
 			navigateToIntroScreen_DisplaylangScreen();
 			extent.HeaderChildNode("Login as Subscribed User");
-			// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-			// verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse
-			// for Free");
+			
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
 			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
 			// Verify user is navigated to Login/Register screen post tapping Login/Register
-			// link
+
 			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
@@ -20108,7 +20050,6 @@ public void MyZEE5AppValidation() throws Exception {
 
 	public void navigateToLandingScreen() throws Exception {
 		accessDeviceLocationPopUp("Allow", userType);
-		navigateToIntroScreen_DisplaylangScreen();
 		ZeeApplicasterLogin(userType);
 	}
 
