@@ -1327,6 +1327,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementExist(AMDSubscibeScreen.objForgotPasswordPageHeader, "Forgot password page");
 			waitTime(5000);
 			click(AMDSubscibeScreen.objProceedBtn, "Proceed button");
+			if(verifyElementIsNotDisplayed(AMDSubscibeScreen.objEnterPassword)) {
+				Back(2);	
+			}
+			
 		}
 		if (UserType == "UnRegistered") {
 			logger.info("Forgot password is not displayed for unregistered user");
@@ -16926,7 +16930,7 @@ public void MyZEE5AppValidation() throws Exception {
 	@SuppressWarnings("unused")
 	public void webMyProfile(String usertype) throws Exception {
 		extent.HeaderChildNode("My Profile in Web");
-
+         waitTime(10000);
 		click(PWALandingPages.objWebProfileIcon, "Profile Icon");
 		waitTime(5000);
 		click(PWAHamburgerMenuPage.objProfileIconInProfilePage, "profile icon in My profile dropdown");
@@ -16974,7 +16978,6 @@ public void MyZEE5AppValidation() throws Exception {
 		String WebConvertedDOB = Day + "/" + monthNumber + "/" + year;
 		WebPWAMyProfile.add(WebConvertedDOB);
 		logger.info(WebPWAMyProfile);
-
 	}
 
 	public int convertMonthToNumber(String month) {
@@ -17001,38 +17004,41 @@ public void MyZEE5AppValidation() throws Exception {
 	public void webWatchList() throws Exception {
 		extent.HeaderChildNode("My watchList in Web");
 		JSClick(PWAHamburgerMenuPage.objMyProfileOptionsWEB("My Watchlist"), "My watchlist");
-		waitTime(3000);
-		click(AMDUserSessionManagement.objMoviesTabInMyWatchlist, "Movies tab");
-		int contentsInMoviesTab = getWebDriver().findElements(AMDUserSessionManagement.objcontentsInAllTheTabs).size();
-		System.out.println(contentsInMoviesTab);
-		if (contentsInMoviesTab >= 0) {
-			for (int i = 1; i <= contentsInMoviesTab; i++) {
-				String contentTitle = getWebDriver()
-						.findElement(By.xpath("(//h3[@class='cardTitle overflowEllipsis ']/child::a)[" + i + "]"))
-						.getText();
-				WebPWAWatchList.add(contentTitle);
+		waitTime(10000);
+		if(verifyIsElementDisplayed(AMDUserSessionManagement.objMoviesTabInMyWatchlist, "Movies tab")) {
+			click(AMDUserSessionManagement.objMoviesTabInMyWatchlist, "Movies tab");
+			int contentsInMoviesTab = getWebDriver().findElements(AMDUserSessionManagement.objcontentsInAllTheTabs).size();
+			System.out.println(contentsInMoviesTab);
+			if (contentsInMoviesTab >= 0) {
+				for (int i = 1; i <= contentsInMoviesTab; i++) {
+					String contentTitle = getWebDriver()
+							.findElement(By.xpath("(//h3[@class='cardTitle overflowEllipsis ']/child::a)[" + i + "]"))
+							.getText();
+					WebPWAWatchList.add(contentTitle);
+				}
+			} else {
+				logger.info("No contents in Movies tab");
+				extentLogger("Videos tab", "No contents in Movies tab");
 			}
-		} else {
-			logger.info("No contents in Movies tab");
-			extentLogger("Videos tab", "No contents in Movies tab");
 		}
+		
+		if(verifyIsElementDisplayed(AMDUserSessionManagement.objVideosTabInMyWatchlist, "Videos tab")) {
+			click(AMDUserSessionManagement.objVideosTabInMyWatchlist, "Videos tab");
+			int contentsInVideosTab = getWebDriver().findElements(AMDUserSessionManagement.objcontentsInAllTheTabs).size();
+			System.out.println(contentsInVideosTab);
+			if (contentsInVideosTab >= 0) {
 
-		click(AMDUserSessionManagement.objVideosTabInMyWatchlist, "Videos tab");
-		int contentsInVideosTab = getWebDriver().findElements(AMDUserSessionManagement.objcontentsInAllTheTabs).size();
-		System.out.println(contentsInVideosTab);
-		if (contentsInVideosTab >= 0) {
-
-			for (int i = 1; i <= contentsInVideosTab; i++) {
-				String contentTitle = getWebDriver()
-						.findElement(By.xpath("(//h3[@class='cardTitle overflowEllipsis ']/child::a)[" + i + "]"))
-						.getText();
-				WebPWAWatchList.add(contentTitle);
+				for (int i = 1; i <= contentsInVideosTab; i++) {
+					String contentTitle = getWebDriver()
+							.findElement(By.xpath("(//h3[@class='cardTitle overflowEllipsis ']/child::a)[" + i + "]"))
+							.getText();
+					WebPWAWatchList.add(contentTitle);
+				}
+			} else {
+				logger.info("No contents in Vidoes tab");
+				extentLogger("Videos tab", "No contents in videos tab");
 			}
-		} else {
-			logger.info("No contents in Vidoes tab");
-			extentLogger("Videos tab", "No contents in videos tab");
 		}
-
 		logger.info(WebPWAWatchList);
 	}
 
@@ -17114,8 +17120,8 @@ public void MyZEE5AppValidation() throws Exception {
 			webPWATransaction.add(packCountry);
 			String packDuration = getText(AMDUserSessionManagement.objPackDetails("Duration"));
 			webPWATransaction.add(packDuration);
-			String paymentMode = getText(AMDUserSessionManagement.objPackDetails("Payment Mode"));
-			webPWATransaction.add(paymentMode);
+//			String paymentMode = getText(AMDUserSessionManagement.objPackDetails("Payment Mode"));
+//			webPWATransaction.add(paymentMode);
 			String autoRenewal = getText(AMDUserSessionManagement.objPackDetails("Auto Renewal"));
 			webPWATransaction.add(autoRenewal);
 		} else {
@@ -17130,8 +17136,8 @@ public void MyZEE5AppValidation() throws Exception {
 			webPWATransaction.add(packCountry);
 			String packDuration = getText(AMDUserSessionManagement.objPackDetails("Duration"));
 			webPWATransaction.add(packDuration);
-			String paymentMode = getText(AMDUserSessionManagement.objPackDetails("Payment Mode"));
-			webPWATransaction.add(paymentMode);
+//			String paymentMode = getText(AMDUserSessionManagement.objPackDetails("Payment Mode"));
+//			webPWATransaction.add(paymentMode);
 			String autoRenewal = getText(AMDUserSessionManagement.objPackDetails("Auto Renewal"));
 			webPWATransaction.add(autoRenewal);
 			verifyElementExist(AMDUserSessionManagement.objDownloadInvoiceBtn, "Download Invoice button");
@@ -17456,7 +17462,7 @@ public void MyZEE5AppValidation() throws Exception {
 
 	public void appTransaction(String usertype) throws Exception {
 		extent.HeaderChildNode("My Transaction in App");
-
+		click(AMDMoreMenu.objMoreMenuIcon, "More tab screen");
 		click(AMDMoreMenu.objMyTransactions, "My Transactions");
 		boolean emptyScreen = checkElementExist(AMDUserSessionManagement.objNoTransaction, "No Transactions text");
 		if (emptyScreen == true) {
@@ -17472,8 +17478,8 @@ public void MyZEE5AppValidation() throws Exception {
 			AppTransaction.add(packCountry);
 			String packDuration = getText(AMDMoreMenu.objTransactionPackDuration);
 			AppTransaction.add(packDuration);
-			String paymentMode = getText(AMDMoreMenu.objTransactionPackPaymentMode);
-			AppTransaction.add(paymentMode);
+//			String paymentMode = getText(AMDMoreMenu.objTransactionPackPaymentMode);
+//			AppTransaction.add(paymentMode);
 			String autoRenewal = getText(AMDMoreMenu.objTransactionPackAutoRenewal);
 			AppTransaction.add(autoRenewal);
 		} else {
@@ -17487,16 +17493,17 @@ public void MyZEE5AppValidation() throws Exception {
 			AppTransaction.add(packCountry);
 			String packDuration = getText(AMDMoreMenu.objTransactionPackDuration);
 			AppTransaction.add(packDuration);
-			String paymentMode = getText(AMDMoreMenu.objTransactionPackPaymentMode);
-			AppTransaction.add(paymentMode);
+//			String paymentMode = getText(AMDMoreMenu.objTransactionPackPaymentMode);
+//			AppTransaction.add(paymentMode);
 			String autoRenewal = getText(AMDMoreMenu.objTransactionPackAutoRenewal);
 			AppTransaction.add(autoRenewal);
+			Swipe("UP", 1);
 			verifyElementExist(AMDMoreMenu.objDownloadInvoice, "Download Invoice button");
 		}
 		logger.info(AppTransaction);
 		logger.info(webPWATransaction);
 		for (int i = 0; i < webPWATransaction.size(); i++) {
-			if (webPWATransaction.get(i).equalsIgnoreCase(AppTransaction.get(i))) {
+			if (webPWATransaction.get(i).contains(AppTransaction.get(i))) {
 				logger.info(
 						"Web Value: " + webPWATransaction.get(i) + " is same as App value: " + AppTransaction.get(i));
 				extentLoggerPass("Transaction details",
@@ -17508,7 +17515,6 @@ public void MyZEE5AppValidation() throws Exception {
 						+ " is not same as App value: " + AppTransaction.get(i));
 			}
 		}
-
 		Back(1);
 	}
 

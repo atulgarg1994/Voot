@@ -392,6 +392,9 @@ public class WebPWASanityScript {
 	@Parameters({ "userType" })
 	public void TasksImplementation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.defects(userType, "ZEEPLEX");
+		Zee5WEBPWASanityBusinessLogic.TasksAndDefectssprint57(userType);
+		Zee5WEBPWASanityBusinessLogic.PWA2Sprint58(userType);
 		Zee5WEBPWASanityBusinessLogic.TasksAndDefects(userType);
 	}
 	

@@ -48,7 +48,6 @@ public class AMDUserSessionManagement {
 	public static By objSubscriptionPackName = By.xpath("//*[@resource-id='com.graymatrix.did:id/subs_Title']");
 	public static By objPurchaseDate = By.xpath("//*[@resource-id='com.graymatrix.did:id/pack_purchase_date']");
 	public static By objAutoRenewalvalue = By.xpath("//*[@resource-id='com.graymatrix.did:id/auto_renewal']");
-	public static By objTransPackPrice = By.xpath("//*[@resource-id='com.graymatrix.did:id/mytran_amount']");
 	public static By objNothingToWatchOrReminder = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_no_reminder']");
 	public static By objSelectedRestrictAllContentOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/selectionImageSelector']/parent::*/preceding-sibling::*/child::*[@text='Restrict All Content']");
 	public static By objNoTransaction = By.xpath("//*[@text='No Transactions']");
@@ -61,4 +60,6 @@ public class AMDUserSessionManagement {
 	public static By objShowsTabUnderWatchList = By.xpath("//*[@text='Shows'] | //*[@text='SHOWS']");
 	public static By objMoviesTabUnderWatchList = By.xpath("//*[@text='Movies'] | //*[@text='MOVIES']");
 	public static By objVideosTabUnderWatchList = By.xpath("//*[@text='Videos'] | //*[@text='VIDEOS']");
+	
+	public static By objTransPackPrice = By.xpath("(//*[@resource-id='com.graymatrix.did:id/mytran_amount'])[1]");
 }

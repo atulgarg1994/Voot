@@ -65,16 +65,36 @@ public class Android_Search {
 	
 	@Test(priority = 5)		
 	@Parameters({ "userType"})		
-	public void searchResultS(String userType) throws Exception {
+	public void searchResults(String userType) throws Exception {
 		System.out.println("\nVerify Search Results");
 		ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("Allu Arjun"); //Search by Actor
-		ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("Kannada"); //Search by language
+		ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("Kannada");
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("Action");  //Search by Genre
 		ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("Star wars"); 
-                ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("Simba");
+    }
+	
+	@Test(priority = 6)		
+	@Parameters({ "userType"})		
+	public void VerifysearchResults(String userType) throws Exception {
+		System.out.println("\nVerify Search Results");
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+        ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("Simba");
+        ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("Zee5 Originals");
+        ZEE5ApplicasterBusinessLogic.relaunch(false);
+        ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("URI"); 
+     }
+	
+	@Test(priority = 7)		
+	@Parameters({ "userType"})		
+	public void searchResultsForDifferentData(String userType) throws Exception {
+		System.out.println("\nVerify Search Results");
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("TV9");
 		ZEE5ApplicasterBusinessLogic.SearResultsOfDifferentTestData("Kumkum bhagya-Episode 131000"); 
-		ZEE5ApplicasterBusinessLogic.SearchResultByContentDescription("Pritham's talks make Aditya emotional. Pritham gives Aditya advice. Aditya feels elated on imagining Paarvathi. Later, Pritham's talks confuse Janani.");
-			}
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.SearchResultByContentDescription("Tanu is shocked to see Pradeep alive. He threatens her, but she offers him a deal. Prachi tries to start things afresh with Rhea. Pallavi talks to Abhi and Pragya about Ranbeer and Rhea’s wedding.");
+	}
 	
 	@AfterTest
 	public void tearDownApp() {

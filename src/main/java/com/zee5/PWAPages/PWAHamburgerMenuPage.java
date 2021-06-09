@@ -705,8 +705,6 @@ public class PWAHamburgerMenuPage {
 	public static By objzeeplexcontentcard=By.xpath("(//*[contains(@class,'plexTrayHeader')]//parent::*//parent::*//following-sibling::*//*[contains(@class, 'content')])[1]");
 	public static By objrentforinrbelowtheplayer=By.xpath("//div[@class='rentButton']");
 	
-	public static By objZeeplexComesToYou=By.xpath("//*[@class='planLandingPageHeader' and text()='Theatre Comes to you']");
-	public static By objzeeplexHowitworkspopupClose=By.xpath("//*[@class='PlexLearnNowCloseIcon']");
 	public static By objrentforINRpopupClose=By.xpath("//*[@class='plexExpiryCloseIcon']");
 	
 	public static By objzeeplexHowitWorksMobile=By.xpath("//div[@class='plexLearnMoreLink' and .='How it Works ?']");
@@ -995,5 +993,9 @@ public class PWAHamburgerMenuPage {
 			return By.xpath("(//h2[text()='"+text+"'])[2]");
 	}
 	public static By objPerkSideText=By.xpath("//div[@class='title']");
+	
+	public static By objZeeplexComesToYou=By.xpath("//*[@class='plexBannerDescription' and text()='Watch films before the theatre']");
+	
+	public static By objzeeplexHowitworkspopupClose=By.xpath("//*[@class='drowerCloseIcon iconInitialLoad-ic_close']");
 
 }

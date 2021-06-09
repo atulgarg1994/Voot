@@ -630,9 +630,6 @@ public class PWAHomePage {
 	public static By objAllow = By.xpath(".//*[text()='Allow']");
 	public static By objAllowCloseButton = By.xpath("//*[@class='aiq-1xYiw8']");
 
-
- 	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
-
  	public static By objTabName(String tabName) {
 		return By.xpath("(//a[contains(@class,'noSelect') and text()='" + tabName + "'])[1]");
 	}
@@ -644,4 +641,8 @@ public class PWAHomePage {
  	
  	public static By objWEBGetPremium = By
 			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//a[1]//span[1]");
+ 	
+ 	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
+ 	
+ 	public static By objComingSoonText = By.xpath("//*[@class='comingSoonText' and text()='Coming Soon!']");
  	}

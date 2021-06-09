@@ -1035,7 +1035,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 				extent.extentLogger("Not Logged in", "User is not logged in");
 				logger.info("User is not logged in");
 				noLogoutOption();
-				forgotPassword();
+//				forgotPassword();
 				waitTime(5000);
 				getWebDriver().get("https://newpwa.zee5.com/");
 				waitTime(8000);
@@ -2595,7 +2595,8 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		// Click on search icon
 		click(PWAHomePage.objSearchBtn, "Search Button");
 		// Enter text
-		type(PWASearchPage.objSearchEditBox, "right yaaa wrong", "Search Edit box");
+//		type(PWASearchPage.objSearchEditBox, "right ya wrong", "Search Edit box");
+		type(PWASearchPage.objSearchEditBox, "welcome back", "Search Edit box");
 		// type(PWASearchPage.objSearchEditBox, " ", "Search Edit box");
 		Thread.sleep(8000);
 		// Click on first content
@@ -2604,7 +2605,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 
 		if (userType.equalsIgnoreCase("Guest")) {
 
-			if (verifyElementExist(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register popup close btn")) {
+			if (checkElementDisplayed(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register popup close button")) {
 				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 			}
 
@@ -2614,27 +2615,30 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 
 			// LoadingInProgress(PWAPlayerPage.objPlayerLoader);
 //			waitForPlayerLoaderToComplete();
-			verifyElementNotPresent(PWAPlayerPage.objAd, 60);
-			waitForPlayerAdToComplete1("Video Player");
+//			verifyElementNotPresent(PWAPlayerPage.objAd, 60);
+//			waitForPlayerAdToComplete1("Video Player");
 			// Click on the video playback
-
-			if (verifyElementExist(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup")) {
-				click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
-			}
+//			if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup")) {
+//				click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
+//			}
 			Thread.sleep(2000);
 //			verifyElementNotPresent(PWAPlayerPage.objAd, 60);
 			waitForPlayerAdToComplete1("Video Player");
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			Thread.sleep(5000);
 			getWebDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
 			// Scub the video
 			WebElement slider = getWebDriver().findElement(PWAPlayerPage.progressBar);
-//			System.out.println(slider);
+			System.out.println(slider);
 			Actions move = new Actions(getWebDriver());
-//			System.out.println(move);
-			Action action = (Action) move.dragAndDropBy(slider, 395, 0).build();
+			System.out.println(move);
+			Action action = (Action) move.dragAndDropBy(slider, 815, 0).build();
 			action.perform();
-			verifyElementExist(PWAPlayerPage.objWatchCredit, "Watch Credit");
+			waitForPlayerAdToComplete1("Video Player");
+
+			waitForElementDisplayed(PWAPlayerPage.objWatchCredit, 25);
+			verifyElementPresentAndClick(PWAPlayerPage.objWatchCredit, "Watch Credit");
 //			click(PWAPlayerPage.playBtn, "Play icon");
 //			getWebDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 //			// adValidation();
@@ -2644,41 +2648,41 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 //
 //			waitForElementDisplayed(PWAPlayerPage.objWatchCredit, 50);
 //
-//			if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
+//			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
 //				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
 //			}
 
 			// click on play button
 			// Verify Watch credit is displayed
-//			verifyElementExist(PWAPlayerPage.objWatchCredit, "Watch Credit");
+//			checkElementDisplayed(PWAPlayerPage.objWatchCredit, "Watch Credit");
 
 			// Verify Content cards are displayed
-//			verifyElementExist(PWAPlayerPage.objContentCardsOnPlayer, "Upnext Rail on video playback");
+//			checkElementDisplayed(PWAPlayerPage.objContentCardsOnPlayer, "Upnext Rail on video playback");
 			// Click on Watch credit button
 			// click(PWAPlayerPage.objWatchCredit, "Watch Credit");
 
 //			Thread.sleep(10000);
 //
-//			if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
+//			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
 //				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
 //			}
 //
-//			if (verifyElementExist(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup")) {
+//			if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup")) {
 //				click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
 //			}
 
 		} else {
 			Thread.sleep(2000);
 
-			if (verifyElementExist(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register popup close btn")) {
+			if (checkElementDisplayed(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register popup close button")) {
 				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 			}
 
-			if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
-				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
-			}
+//			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
+//				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
+//			}
 //			Thread.sleep(2000);
-//			if(verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true)
+//			if(checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true)
 //			{
 //				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
 //			}
@@ -2686,8 +2690,8 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			if (getParameterFromXML("browserType").equalsIgnoreCase("Firefox")) {
 				click(PWAPlayerPage.objContentTitle, "Content Title");
 			}
-			waitForPlayerLoaderToComplete();
-			verifyElementNotPresent(PWAPlayerPage.objAd, 60);
+			// waitForPlayerLoaderToComplete();
+			// verifyElementNotPresent(PWAPlayerPage.objAd, 60);
 //			waitForPlayerAdToComplete1("Video Player");
 //			waitForPlayerAdToComplete1("Video Player");
 
@@ -2698,9 +2702,9 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 
 			click(PWAPlayerPage.objWatchCredit, "Watch Credit");
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-			if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
-				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
-			}
+//			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
+//				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
+//			}
 			WebElement slider = getWebDriver().findElement(PWAPlayerPage.progressBar);
 			System.out.println(slider);
 			Actions move = new Actions(getWebDriver());
@@ -2708,10 +2712,11 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			Action action1 = (Action) move.dragAndDropBy(slider, 0, 0).build();
 			action1.perform();
 
-			Thread.sleep(5000);
-			if (verifyElementExist(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
-				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
-			}
+			waitForPlayerAdToComplete1("Video Player");
+//			Thread.sleep(5000);
+//			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
+//				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
+//			}
 
 		}
 

@@ -25,17 +25,19 @@
 	<parameter name="MobilePassword" value="User@123"/>
 	<parameter name="ClubUserName" value="upiprime@mailnesia.com"/>
 	<parameter name="ClubPassword" value="123456"/>
+	<parameter name="RsvodUserName" value="prtsew12@gmail.com"/>
+	<parameter name="RsvodPassword" value="123456"/>
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
 		<!-- <listener class-name="com.extent.ParameterInjector" />-->
-		 <!--  listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->
+	    <!--  listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
 	<test name="Zee5TV">
 		<classes>
-			<class name="com.zee5.Zee5TvScripts.TvZee5ATVScripts" />
+			<class name="com.zee5.Zee5TvScripts.TvZee5ATVScripts" /> 
 		</classes>
 	</test>
 </suite>

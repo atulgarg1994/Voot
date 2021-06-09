@@ -374,4 +374,6 @@ public class PWALiveTVPage {
 	public static By objLiveTVMenu = By.xpath("(//a[contains(text(),'Live TV')])[2]");
 	
 	public static By objEPGContainer = By.xpath("//*[@class='epgContainer']");
+	
+	public static By objActiveEPGContent = By.xpath("(//*[contains(@class, 'programInner active')])[1]");
 }

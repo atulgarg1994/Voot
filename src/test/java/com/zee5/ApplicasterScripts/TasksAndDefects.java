@@ -28,7 +28,7 @@ public class TasksAndDefects {
 
 	@Test(priority = 1)
 	@Parameters({ "userType", "searchKeyword4" })
-	public void TasksAndDefects(String userType, String searchKeyword4) throws Exception {
+	public void tasksAndDefects(String userType, String searchKeyword4) throws Exception {
 		ZEE5ApplicasterBusinessLogic.tasksAndDefectsValidation(userType, searchKeyword4);
 
 	}

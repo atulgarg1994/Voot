@@ -122,7 +122,7 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.ads();
 	}
 
-//   @Test(priority = 20)
+//  @Test(priority = 20)
 	public void profile() throws Exception {
 		Zee5TvBusiness.profile();
 	}
@@ -142,7 +142,7 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.talamoos();
 	}
 
-	// @Test(priority = 24)
+//	@Test(priority = 24)
 	public void staticPage() throws Exception {
 		Zee5TvBusiness.staticPages();
 	}
@@ -261,7 +261,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-	@Test(priority = 45) // Insprint
+	//	@Test(priority = 45) // Insprint
 	@Parameters({ "userType" })
 	public void playercontol(String userType) throws Exception {
 		if (userType.equals("Guest")) {
@@ -276,7 +276,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-	@Test(priority = 46) // Insprint
+//	@Test(priority = 46) // Insprint
 	@Parameters({ "userType" })
 	public void playerfadeout(String userType) throws Exception {
 		if (userType.equals("Guest")) {
@@ -291,7 +291,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-	@Test(priority = 47) // Insprint
+//	@Test(priority = 47) // Insprint
 	@Parameters({ "userType" })
 	public void infoScreen(String userType) throws Exception {
 		if (userType.equals("Guest")) {
@@ -306,7 +306,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-	@Test(priority = 48) // Insprint
+//	@Test(priority = 48) // Insprint
 	@Parameters({ "userType" })
 	public void playerFadeout(String userType) throws Exception {
 		if (userType.equals("Guest")) {
@@ -321,7 +321,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-	@Test(priority = 49) // Insprint
+//	@Test(priority = 49) // Insprint
 	@Parameters({ "userType" })
 	public void playerFadeOutContentDetail(String userType) throws Exception {
 		if (userType.equals("Guest")) {
@@ -336,7 +336,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-	@Test(priority = 50) // Insprint
+//	@Test(priority = 50) // Insprint
 	@Parameters({ "userType" })
 	public void cwPlayerControl(String userType) throws Exception {
 		if (userType.equals("NonSubscribedUser")) {
@@ -351,7 +351,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-	@Test(priority = 51) // Insprint
+//	@Test(priority = 51) // Insprint
 	@Parameters({ "userType" })
 	public void cwplayerfadeout(String userType) throws Exception {
 		if (userType.equals("NonSubscribedUser")) {
@@ -366,7 +366,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-	@Test(priority = 52) // Insprint
+//	@Test(priority = 52) // Insprint
 	@Parameters({ "userType" })
 	public void cwinfoScreen(String userType) throws Exception {
 		if (userType.equals("NonSubscribedUser")) {
@@ -381,7 +381,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-	@Test(priority = 53) // Insprint
+//	@Test(priority = 53) // Insprint
 	@Parameters({ "userType" })
 	public void cwplayerFadeout(String userType) throws Exception {
 		if (userType.equals("NonSubscribedUser")) {
@@ -396,7 +396,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-	@Test(priority = 54) // Insprint
+//	@Test(priority = 54) // Insprint
 	@Parameters({ "userType" })
 	public void cwplayerFadeOutContentDetail(String userType) throws Exception {
 		if (userType.equals("NonSubscribedUser")) {
@@ -411,7 +411,7 @@ public class TvZee5ATVScripts {
 	}
 	
 	@SuppressWarnings("static-access")
-	@Test(priority = 55) // Insprint
+//	@Test(priority = 55) // Insprint
 	@Parameters({ "userType" })
 	public void watchlistPlayerControl(String userType) throws Exception {
 		if (userType.equals("NonSubscribedUser")) {
@@ -426,7 +426,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-	@Test(priority = 56) // Insprint
+//	@Test(priority = 56) // Insprint
 	@Parameters({ "userType" })
 	public void watchlistplayerfadeout(String userType) throws Exception {
 		if (userType.equals("NonSubscribedUser")) {
@@ -441,7 +441,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-	@Test(priority = 57) // Insprint
+//	@Test(priority = 57) // Insprint
 	@Parameters({ "userType" })
 	public void watchlistinfoScreen(String userType) throws Exception {
 		if (userType.equals("NonSubscribedUser")) {
@@ -456,7 +456,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-	@Test(priority = 58) // Insprint
+//	@Test(priority = 58) // Insprint
 	@Parameters({ "userType" })
 	public void watchlistplayerFadeout(String userType) throws Exception {
 		if (userType.equals("NonSubscribedUser")) {
@@ -471,7 +471,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-	@Test(priority = 59) // Insprint
+//	@Test(priority = 59) // Insprint
 	@Parameters({ "userType" })
 	public void watchlistplayerFadeOutContentDetail(String userType) throws Exception {
 		if (userType.equals("NonSubscribedUser")) {
@@ -484,7 +484,64 @@ public class TvZee5ATVScripts {
 		}
 
 	}
+	
+//	@Test(priority = 60) // Insprint
+	@Parameters({ "userType" })
+	public void expiredPlan(String userType) throws Exception {
+		Zee5TvBusiness.expiredPlanVerification();
+	}
+	
+//	@Test(priority = 60) // Insprint
+	@Parameters({ "userType" })
+	public void settingsOptionNaviation(String userType) throws Exception {
+		Zee5TvBusiness.settingScreen();
+		Zee5TvBusiness.settingsIconFocus();
+		Zee5TvBusiness.firststRowLeftNavigation();
+		Zee5TvBusiness.lastRowRightNavigation();
+		Zee5TvBusiness.firstRowLastcontentRightNavigation();
+		Zee5TvBusiness.secondRowFirstcontentLeftNavigation();
+		Zee5TvBusiness.upButtonNavigation();
+	}
+	
+//	@Test(priority = 61) // Insprint
+	@Parameters({ "userType" })
+	public void deviceInfo(String userType) throws Exception {
+		Zee5TvBusiness.deviceInfotab();
+	}
+	
+//	@Test(priority = 62) // Insprint
+	@Parameters({ "userType" })
+	public void remoteRCU(String userType) throws Exception {
+		Zee5TvBusiness.remoteKeysAFS();
+		Zee5TvBusiness.selectRCU();
+		Zee5TvBusiness.BackRCU();
+	}
+	
+	
+//	@Test(priority = 62) // Insprint
+	@Parameters({ "userType" })
+	public void svodInNews(String userType) throws Exception {
+		Zee5TvBusiness.svodInNews();
+	}
 
+//	@Test(priority = 63) // Insprint
+	@Parameters({ "userType" })
+	public void rsvodplayback(String userType) throws Exception {
+		Zee5TvBusiness.rsvodPlaybackCheck();
+	}
+	
+	@Test(priority = 64) // Insprint
+	@Parameters({ "userType" })
+	public void afsnews24(String userType) throws Exception {
+		Zee5TvBusiness.afsNews24();
+	}
+	
+//	@Test(priority = 64) // Insprint
+	@Parameters({ "userType" })
+	public void polimerNewsChannelAFS(String userType) throws Exception {
+		Zee5TvBusiness.afsPolimerNews();
+	}
+	
 	@AfterTest
 	public void After() {
 		System.out.println("Tear Down");

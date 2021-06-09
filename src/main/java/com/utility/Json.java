@@ -12,6 +12,7 @@ public class Json {
 
 	private static final String BASE_URL= "https://xray.cloud.xpand-it.com";
 	
+	@SuppressWarnings("unchecked")
 	public static void XrayJsonImport(String testKey, String result) throws InterruptedException, IOException {
 		
 		ConfigurationGetter config = new ConfigurationGetter();
