@@ -18301,5 +18301,26 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		return false;
 	}
 	
+	public void VILogin() throws Exception {
+		HeaderChildNode("Login with credentials");
+		type(PWAVIAppPage.objMobileNoField, "" ,"Mobile Number Field");
+		waitTime(30000);
+		click(PWAVIAppPage.objGOIcon, "GO Icon");
+	}
+	
+	public void NavigationFromVIAPPToZee5ConsumptionScreen() {
+		HeaderChildNode("Click on Zee5 content");
+		getDriver();
+		getDriver().context("WEBVIEW_1");
+	}
+	
+	public void ValidateBuySubscription() throws Exception {
+		HeaderChildNode("Validate Buy Subscription");
+		click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+		click(PWAHamburgerMenuPage.objMySubscription, "My Subscription");
+		
+	}
+	
+	
 	
 }
