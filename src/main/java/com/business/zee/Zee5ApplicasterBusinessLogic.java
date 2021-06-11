@@ -198,7 +198,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				System.out.println("Allow is present");
 				click(AMDOnboardingScreen.objAllow(str2), str2);
 			}
-
+			AppPerformanceTestInfo("com.graymatrix.did");
 			Thread.sleep(10000);
 		} else {
 			System.out.println("Access Device Location PopUp not displayed");
@@ -19421,6 +19421,9 @@ public void MyZEE5AppValidation() throws Exception {
 		extent.HeaderChildNode("Screen Navigation Performance");
 		System.out.println("\nSelecting " + pTabname + " from Top navigation tabs");
 
+//		String appPackageName = getParameterFromXML("appPackageName");
+		String appPackageName = "com.graymatrix.did";
+		
 		verifyElementPresentAndClick(AMDHomePage.objHome, "Home button");
 
 		Instant startTime = Instant.now();
@@ -19440,11 +19443,8 @@ public void MyZEE5AppValidation() throws Exception {
 						+ timeElapsed.toMillis()/1000);
 				extent.extentLogger("Timer", "<b>Time taken to navigate from Home to "+pTabname+" (sec):</b> " + timeElapsed.toMillis()/1000);
 				
-				//--- BATTERY, MEMORY, CPU & GPU USAGE
-				Memory_UsagePerformance();
-				BatteryStats_Performance();
-				CPU_UsagePerformance();
-				GPU_UsagePerformance();
+				//#### App Performance Usage Info
+				AppPerformanceTestInfo(appPackageName);
 				break;
 			} else {
 				List<WebElement> element = getDriver().findElements(By.xpath("//*[@id='homeTabLayout']/*/child::*"));
@@ -19456,6 +19456,9 @@ public void MyZEE5AppValidation() throws Exception {
 
 	public void deepLink_Validation(String pDeeplink) {
 		extent.HeaderChildNode("DeepLink to Playback " + pDeeplink + " screen");
+		
+//		String appPackageName = getParameterFromXML("appPackageName");
+		String appPackageName = "com.graymatrix.did";
 		
 		try {
 			getDriver().close();
@@ -19490,11 +19493,8 @@ public void MyZEE5AppValidation() throws Exception {
 					extent.extentLogger("Timer",
 							"<b>Time taken to play through deeplink (sec):</b> " + timeElapsed.toMillis()/1000);
 					
-					//--- BATTERY, MEMORY, CPU & GPU USAGE
-					Memory_UsagePerformance();
-					BatteryStats_Performance();
-					CPU_UsagePerformance();
-					GPU_UsagePerformance();
+					//#### App Performance Usage Info
+					AppPerformanceTestInfo(appPackageName);
 				} else {
 					logger.info("Consumption Screen is not displayed for the deeplink");
 					extent.extentLoggerFail("Consumption screen",
@@ -19518,11 +19518,8 @@ public void MyZEE5AppValidation() throws Exception {
 					extent.extentLogger("Timer",
 							"<b>Time taken to play through deeplink (sec):</b> " + timeElapsed.toMillis()/1000);
 					
-					//--- BATTERY, MEMORY, CPU & GPU USAGE
-					Memory_UsagePerformance();
-					BatteryStats_Performance();
-					CPU_UsagePerformance();
-					GPU_UsagePerformance();
+					//#### App Performance Usage Info
+					AppPerformanceTestInfo(appPackageName);
 				} else {
 					logger.info("Live TV is not played for the deeplink");
 					extent.extentLoggerFail("Live TV", "Live TV is not played for the deeplink");
@@ -25134,22 +25131,30 @@ public void VerifyWeekInShorts(String userType) throws Exception {
 		hideKeyboard();
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 		click(AMDSearchScreen.objClearSearch, "ClearText");
+		waitTime(2000);
 		
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
 		type(AMDSearchScreen.objSearchBoxBar, "Mummy" + "\n", "Search bar");
 		hideKeyboard();
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 		click(AMDSearchScreen.objClearSearch, "ClearText");
+     waitTime(2000);
 		
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
 		type(AMDSearchScreen.objSearchBoxBar, "Friends" + "\n", "Search bar");
 		hideKeyboard();
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 		click(AMDSearchScreen.objClearSearch, "ClearText");
+     waitTime(2000);
 		
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
 		type(AMDSearchScreen.objSearchBoxBar, "Abhay2" + "\n", "Search bar");
 		hideKeyboard();
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 		click(AMDSearchScreen.objClearSearch, "ClearText");
+     waitTime(2000);
 		
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");		
 		type(AMDSearchScreen.objSearchBoxBar, "GOD" + "\n", "Search bar");
 		hideKeyboard();
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
@@ -25175,6 +25180,7 @@ public void VerifyWeekInShorts(String userType) throws Exception {
 			logger.info("Recent Searched Keywords are not displayed in search screen");
 		}
 	}
+	
 	
  public void HaveaCodeForInvalidPrepaidCodeValidation(String pUserType) throws Exception {
 	 extent.HeaderChildNode("Have a Code Subscription journey validation");
@@ -25606,7 +25612,7 @@ public void hipiLogoAndDurationOnSubscriptionPlan(String userType) throws Except
 //Performance scripts
 
 public void Memory_UsagePerformance() throws IOException {
-	System.out.println("\nMemory Usage of Native App");
+	System.out.println("Memory Usage of Native App");
 
 	String getNativeMemory=""; String getTotalMemory="";
 	String adbCommand1="adb shell dumpsys meminfo com.graymatrix.did | grep Native";
@@ -25668,7 +25674,7 @@ public void BatteryStats_Performance() throws Exception {
 	BufferedReader result = new BufferedReader(new InputStreamReader(process.getInputStream()));
 	
 	getBatteryInfo = result.readLine().trim();
-	System.out.println(getBatteryInfo);
+	//System.out.println(getBatteryInfo);
 
 	String[] batteryStats = getBatteryInfo.split(",");
 
@@ -25689,42 +25695,52 @@ public void CPU_UsagePerformance() throws IOException {
 	
 	String[] getCPUStatus = getCpuStats.split(" ");
 	
-	logger.info("App CPU Usage status :" + getCPUStatus[0]);
-	extent.extentLoggerPass("CPU Status","<b>App CPU  Usage status :</b> " +getCPUStatus[0]);
+	logger.info("App CPU Usage status : " + getCPUStatus[0]);
+	extent.extentLoggerPass("CPU Status","<b>App CPU  Usage status : </b>" +getCPUStatus[0]);
 }
 
 public void GPU_UsagePerformance() throws Exception {
 	System.out.println("\nGPU Usage of App");
 
-	String getGPUInfo="";
+	String getGPUInfo=""; String nGPUFramesRendered="";
 	String adbCommand="adb shell dumpsys gfxinfo com.graymatrix.did | grep MB";
+	String adbCommand2="adb shell dumpsys gfxinfo com.graymatrix.did | grep rendered";
 	
 	Process process=Runtime.getRuntime().exec(adbCommand);
 	BufferedReader result = new BufferedReader(new InputStreamReader(process.getInputStream()));
 	
+	Process process2=Runtime.getRuntime().exec(adbCommand2);
+	BufferedReader result2 = new BufferedReader(new InputStreamReader(process2.getInputStream()));
+	
 	getGPUInfo = result.readLine().trim();
-	System.out.println(getGPUInfo);
+	//System.out.println(getGPUInfo);
 	String[] splitData = getGPUInfo.split(",");
 	String GPUConsumed = splitData[1].trim();
+	
+	nGPUFramesRendered =result2.readLine().trim();
+	//System.out.println(nGPUFramesRendered);
 
-	logger.info("\nTotal GPU Memory Usage of Current session - " + GPUConsumed);
+	logger.info("\nTotal GPU Memory Usage of Current session : " + GPUConsumed);
 	extent.extentLoggerPass("GPU Info","<b>Total GPU Memory Usage of Current session :</b> " +GPUConsumed);
+	
+	logger.info("\nGPU Rendering Info of Current session - " + nGPUFramesRendered);
+	extent.extentLoggerPass("GPU Info","<b>GPU Rendering Info of Current session - </b> " +nGPUFramesRendered);
 }
 
 public void Performance_LoginFunctionality() throws Exception {
 	extent.HeaderChildNode("Login Functionality Performance");
 	System.out.println("\nLogin Functionality Performance");
 	
+//	String appPackageName = getParameterFromXML("appPackageName");
+	String appPackageName = "com.graymatrix.did";
+	
 	Instant startTime = Instant.now();
 	logger.info("Instant Start time : " + startTime);
 	
 	LoginWithEmailID("igszee23@yopmail.com", "123456");
-	//--- BATTERY, MEMORY, CPU & GPU USAGE
-	Memory_UsagePerformance();
-	BatteryStats_Performance();
-	CPU_UsagePerformance();
-	GPU_UsagePerformance();
-	
+	//#### App Performance Usage Info
+	AppPerformanceTestInfo(appPackageName);
+
 	Instant endTime = Instant.now();
 	logger.info("Instant End time : " + endTime);
 
@@ -25733,13 +25749,16 @@ public void Performance_LoginFunctionality() throws Exception {
 	logger.info("Time taken to login with registered user (sec): " + timeElapsed.toMillis()/1000);
 	extent.extentLogger("Timer",
 			"<b>Time taken to login with registered user (sec)</b>: " + timeElapsed.toMillis()/1000);
-
 }
 
 	
+
 public void Performance_InitiateContentPlayback() throws Exception {
 	extent.HeaderChildNode("Initiate content playback Performance");
 	System.out.println("\nInitiate content playback Performance");
+	
+//	String appPackageName = getParameterFromXML("appPackageName");
+	String appPackageName = "com.graymatrix.did";
 	
 	verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
 	Instant startTime = Instant.now();
@@ -25747,11 +25766,8 @@ public void Performance_InitiateContentPlayback() throws Exception {
 	
 	verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Player Start");
 	
-	//--- BATTERY, MEMORY, CPU & GPU USAGE
-	Memory_UsagePerformance();
-	BatteryStats_Performance();
-	CPU_UsagePerformance();
-	GPU_UsagePerformance();
+	//#### App Performance Usage Info
+	AppPerformanceTestInfo(appPackageName);
 	
 	Instant endTime = Instant.now();
 	logger.info("Instant End time : " + endTime);
@@ -25762,5 +25778,76 @@ public void Performance_InitiateContentPlayback() throws Exception {
 	extent.extentLogger("Timer",
 			"<b>Time taken to start playback in consumption screen (Sec):</b> " + timeElapsed.toMillis()/1000);
 }
+
 	
+public void AppPerformanceTestInfo(String pPackageName) throws Exception {
+	System.out.println("\nApp Performance Test infomation - Memory|CPU|GPU|Battery and Network Usage");
+	
+	Memory_UsagePerformance();
+	BatteryStats_Performance();
+	CPU_UsagePerformance();
+	GPU_UsagePerformance();
+	getApp_NetworkTrafficUsage(pPackageName);
+}
+
+public void getApp_NetworkTrafficUsage(String pPackageName) throws Exception {
+	
+//	String PackageName = "com.graymatrix.did";
+	
+	double flowAction = 0;
+	try {
+		String pidCommand = "adb shell pidof "+pPackageName;
+		Process process = Runtime.getRuntime().exec(pidCommand);
+		BufferedReader pidResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		
+		String PID = pidResult.readLine().trim();
+		//System.out.println("PID : "+PID);
+
+		Runtime runtime = Runtime.getRuntime();
+		Process proc = runtime.exec("adb shell cat /proc/" + PID + "/net/dev");
+		try {
+			if (proc.waitFor() != 0) {
+				System.err.println("exit value = " + proc.exitValue());
+			}
+			BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+			StringBuffer stringBuffer = new StringBuffer();
+			String line = null;
+			while ((line = in.readLine()) != null) {
+				stringBuffer.append(line + " ");
+
+			}
+			String str1 = stringBuffer.toString();
+			String str2 = str1.substring(str1.indexOf("wlan0:"), str1.indexOf("wlan0:") + 100);
+
+			// System.out.println("sent first sentence" + str2);
+			// The space is divided into a string array to take the second and tenth
+			// numbers, which are the sending traffic and the receiving traffic.
+			String[] toks = str2.split(" +");
+			String str4 = toks[1];
+			String str6 = toks[9];
+			int b = Integer.parseInt(str4);
+			int a = Integer.parseInt(str6);
+
+			double sendFlow = a / 1024;
+			double revFlow = b / 1024;
+			flowAction = sendFlow + revFlow;
+			System.out.println("The current App traffic usage is : " + flowAction + "Kbps");
+			logger.info("\nThe current App traffic usage is : "+ (int)flowAction/1024 + "Mbps");
+			extent.extentLoggerPass("Traffic Usage","<b>The current App traffic usage is : </b> " + (int)flowAction/1024 + "Mbps");
+			
+		} catch (InterruptedException e) {
+			System.err.println(e);
+		} finally {
+			try {
+				proc.destroy();
+			} catch (Exception e2) {
+			}
+		}
+	} catch (Exception StringIndexOutOfBoundsException) {
+		System.out.println("Please check if the device is connected | App is closed");
+		extent.extentLoggerWarning("Traffic Usage","<b>Please check if the device is connected | App is closed </b>");
+	}
+}
+
+
 }

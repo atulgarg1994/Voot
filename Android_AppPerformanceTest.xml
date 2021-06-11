@@ -97,15 +97,17 @@
 	<parameter name="SubscriptionDeeplinkURl" value="https://www.zee5.com/myaccount/subscription" />
 	<parameter name="DeeplinkToLoginScreenFrmEmail" value="https://www.zee5.com/signin/email" />
 	
+	<parameter name="appPackageName" value="com.graymatrix.did"/>
+	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
 		<!--  <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
-	<test name="Android_PerformanceMatics">
+	<test name="Android_AppPerformanceTest">
 		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_PerformanceMatics" />
+			<class name="com.zee5.ApplicasterScripts.Android_AppPerformanceTest" />
 		</classes>
 	</test>
 
