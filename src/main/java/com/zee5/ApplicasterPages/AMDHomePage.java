@@ -271,7 +271,12 @@ public class AMDHomePage {
 	public static By objSelectedTab = By.xpath("//*[@id='tab_layout']//*[@class='android.widget.LinearLayout' and @selected='true']//child::* | //*[@id='homeTabLayout']//*[@class='android.widget.LinearLayout' and @selected='true']//child::*");
 	public static By objBuyNowCTAForContentOnCarousal(String contentTitle) {
 		return By.xpath("//*[@text='"+contentTitle+"']/parent::*/following-sibling::*/child::*/child::*[@id='subscribeButton']");
-		
 	}
+	
+	public static By objFloatingBannerOfWhatsapp = By.xpath("");
+	public static By objCloseIconOnFloatingBannerOfWhatsapp = By.xpath("");
+	public static By objWhatsappSmallIconNudge = By.xpath("");
+	public static By objHipiBottomSection = By.xpath("//*[@id='hipi_bottom_section']");
+	
 	
 }

@@ -150,5 +150,12 @@ public class AMDSubscibeScreen {
 	
 	public static By objPriceValueOnPaymentScreen = By.xpath("(//*[@class='android.widget.LinearLayout']//*[@class='android.widget.TextView'][3])[1] | //*[@class='android.widget.LinearLayout' and ./*[@text='50% Off on 999']]//*[@class='android.widget.TextView'][3]");
 	public static By objPlanDescription = By.xpath("//*[@id='planDescription']");
+	
+	public static By objPlanDescrptionOfPremiumPlans(int i) {
+		return By.xpath("(//*[@id='subscriptionPlanItem'])["+i+"]/child::*[@id='planDescription']");
+	}	
+	public static By objOfferBadgeOnPremiumPlans(int i) {
+		return By.xpath("(//*[@id='subscriptionPlanItem'])["+i+"]/child::*[@id='limitedPeriodBadge']");
+	}
 	 
 }

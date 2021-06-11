@@ -161,6 +161,8 @@
 	<!-- 	Deeplink URLs Parameters	 -->
 	<parameter name="DeeplinkToLoginScreenFrmEmail" value="https://www.zee5.com/signin/email" />
 	
+	<parameter name="WhatsappOptInDeeplinkUrl" value="" />
+	
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

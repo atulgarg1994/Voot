@@ -174,10 +174,11 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 	}
 	
 	public void allowPopUp() throws Exception {
+		waitTime(5000);
 		click(PWAHomePage.objAllow, "Notification popup");
 		waitTime(3000);
 		click(PWAHomePage.objAllowCloseButton, "Close button");
-		waitTime(30000);
+		waitTime(20000);
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_TAB);
 		waitTime(2000);
@@ -3797,7 +3798,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			waitForElement(PWASearchPage.objSearchedResult(contentTitle), 10, "Search Result");
 			verifyElementPresentAndClick(PWASearchPage.objSearchedResult(contentTitle), "Search Result");
 			waitTime(5000);
-			consumptionPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,
+			consumptionPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitleShow,
 					"Content Title").toString();
 		}
 		if (consumptionPageTitle.contains(contentTitle)) {
@@ -4084,7 +4085,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("Shows"), "Shows tab");
+		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("TV Shows"), "Shows tab");
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(contentTitle), "Search Result");
 		verifyElementPresent(PWAShowsPage.objShowsTitle, "Show title");
 		String consumptionPageTitle = getElementPropertyToString("innerText", PWAShowsPage.objShowsTitle,
@@ -4129,23 +4130,23 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			logger.info("Successfully navigated to the correct Details page: " + contentTitle);
 			// Share functionality
 			waitForElementAndClickIfPresent(PWAShowsPage.objShareIcon, 5, "Share Icon");
-			waitForElementAndClickIfPresent(PWALiveTVPage.objFacebookShareBtn, 5, "Share to Facebook");
-			switchToWindow(2);
-			if (checkElementDisplayed(PWALiveTVPage.objFacebookEmailField, "Facebook Email field")) {
-				// waitForElementAndClickIfPresent(PWALiveTVPage.objFacebookEmailField, 5,
-				// "Facebook Email field");
-				click(PWALiveTVPage.objFacebookEmailField, "Facebook Email field");
-				getWebDriver().findElement(PWALiveTVPage.objFacebookEmailField).sendKeys("igszeetest@gmail.com");
-				verifyElementPresentAndClick(PWALiveTVPage.objFacebookPasswordField, "Facebook Password field");
-				getWebDriver().findElement(PWALiveTVPage.objFacebookPasswordField).sendKeys("igs@12345");
-				waitForElementAndClickIfPresent(PWALiveTVPage.objFacebookLoginBtn, 5, "Facebook Login button");
-				waitTime(2000);
-				verifyAlert();
-			}
-			waitForElementAndClickIfPresent(PWALiveTVPage.objPostToFacebookBtn, 5, "Post to Facebook");
-			waitTime(3000);
-			acceptAlert();
-			switchToWindow(1);
+//			waitForElementAndClickIfPresent(PWALiveTVPage.objFacebookShareBtn, 5, "Share to Facebook");
+//			switchToWindow(2);
+//			if (checkElementDisplayed(PWALiveTVPage.objFacebookEmailField, "Facebook Email field")) {
+//				// waitForElementAndClickIfPresent(PWALiveTVPage.objFacebookEmailField, 5,
+//				// "Facebook Email field");
+//				click(PWALiveTVPage.objFacebookEmailField, "Facebook Email field");
+//				getwebdriver().findelement(pwalivetvpage.objfacebookemailfield).sendkeys("igszeetest@gmail.com");
+//				verifyElementPresentAndClick(PWALiveTVPage.objFacebookPasswordField, "Facebook Password field");
+//				getWebDriver().findElement(PWALiveTVPage.objFacebookPasswordField).sendKeys("igs@12345");
+//				waitForElementAndClickIfPresent(PWALiveTVPage.objFacebookLoginBtn, 5, "Facebook Login button");
+//				waitTime(2000);
+//				verifyAlert();
+//			}
+//			waitForElementAndClickIfPresent(PWALiveTVPage.objPostToFacebookBtn, 5, "Post to Facebook");
+//			waitTime(3000);
+//			acceptAlert();
+//			switchToWindow(1);
 			waitTime(3000);
 			verifyElementPresent(PWAShowsPage.objShowsTitle, "Show title in Zee5 PWA");
 			sharePassed = true;
@@ -4160,30 +4161,30 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 					"Content Title in Details Page").toString();
 			String detailsEpisode = getElementPropertyToString("innerText", PWAShowsPage.objFirstAssetEpisodeFirstRail,
 					"Content Episode number in Details Page").toString();
-			String detailsDuration = getElementPropertyToString("innerText",
+			String detailsDate = getElementPropertyToString("innerText",
 					PWAShowsPage.objFirstAssetDurationFirstRail, "Content total Duration in Details Page").toString();
 			System.out.println("Data fetched from Show details: Title: " + detailsTitle + ", Episode: " + detailsEpisode
-					+ ", Duration: " + detailsDuration);
+					+ ", Date: " + detailsDate);
 			extent.extentLogger("dataFetched", "Data fetched from Show details: Title: " + detailsTitle + ", Episode: "
-					+ detailsEpisode + ", Duration: " + detailsDuration);
+					+ detailsEpisode + ", Date: " + detailsDate);
 			logger.info("Data fetched from Show details: Title: " + detailsTitle + ", Episode: " + detailsEpisode
-					+ ", Duration: " + detailsDuration);
+					+ ", Date: " + detailsDate);
 			detailsEpisode = detailsEpisode.split("E")[1];
 			verifyElementPresentAndClick(PWAShowsPage.objFirstAssetImageFirstRail, "First asset image from first rail");
-			waitForElementDisplayed(PWAPlayerPage.objContentTitle, 10);
-			String consumptionTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,
+			waitForElementDisplayed(PWAPlayerPage.objContentTitleShow, 10);
+			String consumptionTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitleShow,
 					"Content Title in Consumption Page").toString();
 			String consumptionEpisode = getElementPropertyToString("innerText", PWAPlayerPage.objContentMetaEpisode,
 					"Content Episode Number in Consumption Page").toString();
-			String consumptionDuration = getElementPropertyToString("innerText", PWAPlayerPage.objContentMetaDuration,
-					"Content Total Duration in Consumption Page").toString();
+			String consumptionDate = getElementPropertyToString("innerText", PWAPlayerPage.objContentMetaDate,
+					"Content Date in Consumption Page").toString();
 			System.out.println("Data fetched from Consumptions page: Title: " + consumptionTitle + ", Episode: "
-					+ consumptionEpisode + ", Duration: " + consumptionDuration);
+					+ consumptionEpisode + ", Duration: " + consumptionDate);
 			extent.extentLogger("dataFetched", "Data fetched from Consumptions page: Title: " + consumptionTitle
-					+ ", Episode: " + consumptionEpisode + ", Duration: " + consumptionDuration);
+					+ ", Episode: " + consumptionEpisode + ", Date: " + consumptionDate);
 			logger.info("Data fetched from Consumptions page: Title: " + consumptionTitle + ", Episode: "
-					+ consumptionEpisode + ", Duration: " + consumptionDuration);
-			consumptionEpisode = consumptionEpisode.split("Episode ")[1];
+					+ consumptionEpisode + ", Date: " + consumptionDate);
+			consumptionEpisode = consumptionEpisode.split("E ")[1];
 			if (detailsTitle.equals(consumptionTitle)) {
 				extent.extentLogger("titleMatch",
 						"Details page and Consumption page content Title matched: " + consumptionTitle);
@@ -4203,15 +4204,15 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 				logger.error(
 						"Details page and Consumption page content episode number mismatched: " + consumptionEpisode);
 			}
-			if (detailsDuration.equals(consumptionDuration)) {
+			if (consumptionDate.contains(detailsDate)) {
 				extent.extentLogger("durationMatch",
-						"Details page and Consumption page content total duration matched: " + consumptionDuration);
-				logger.info("Details page and Consumption page content total duration matched: " + consumptionDuration);
+						"Details page and Consumption page content date matched: " + consumptionDate);
+				logger.info("Details page and Consumption page content date matched: " + consumptionDate);
 			} else {
 				extent.extentLoggerFail("durationMismatch",
-						"Details page and Consumption page content total duration mismatched: " + consumptionDuration);
+						"Details page and Consumption page content date mismatched: " + consumptionDate);
 				logger.error(
-						"Details page and Consumption page content total duration mismatched: " + consumptionDuration);
+						"Details page and Consumption page content date mismatched: " + consumptionDate);
 			}
 		} else {
 			extent.extentLoggerFail("incorrectNavigation",
@@ -4219,16 +4220,16 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			logger.error("Navigated to incorrect Details page: " + consumptionPageTitle);
 		}
 
-		if (checkElementDisplayed(PWAPlayerPage.objWebZeeLogo, "ZeeLogo") == true) {
-			click(PWAPlayerPage.objWebZeeLogo, "Zeelogo");
+		if (checkElementDisplayed(PWAHomePage.objZeeLogo, "ZeeLogo") == true) {
+			verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "Zeelogo");
 		} else {
 			if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Register popup ") == true) {
-				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
+				verifyElementPresentAndClick(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 			}
-			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
-			}
-			click(PWAPlayerPage.objWebZeeLogo, "Zeelogo");
+//			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
+//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
+//			}
+			verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "Zeelogo");
 		}
 	}
 
@@ -4243,36 +4244,31 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 	}
 
 	public void verifySubscriptionPopupForPremiumContent(String userType, String contentType, String contentTitle) throws Exception {
-		extent.HeaderChildNode("Verify Subscription Popup For Premium Content");
+		extent.HeaderChildNode("Verify Player Inline Subscription link For Premium Content");
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchedResult(contentTitle), 60, "Search Result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(contentTitle), "Search Result");
-		if (waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 1, "Close in Premium Pop Up")) {
-			logger.info("Verify Subscription Popup For Premium Content is passed");
-			extent.extentLogger("LocatedElementPopup", "Verify Subscription Popup For Premium Content is passed");
-		} else {
-			if (userType.equals("Guest"))
-				waitForElementAndClickIfPresent(PWASearchPage.objCloseRegisterDialog, 5, "Close in Register Pop Up");
-			waitForElement(PWAPlayerPage.objContentTitle, 20, "Content title");
-			String consumptionPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,
-					"Content Title").toString();
-			if (consumptionPageTitle.contains(contentTitle)) {
-				extent.extentLogger("correctNavigation",
-						"Successfully navigated to the correct Consumption page: " + contentTitle);
-				logger.info("Successfully navigated to the correct Consumption page: " + contentTitle);
-				if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
-					waitForElement(PWAPremiumPage.objPremiumPopUp, 15, "Premium Pop Up");
-					waitForElementAndClickIfPresent(PWASearchPage.objClosePremiumDialog, 1, "Close in Premium Pop Up");
-				} else {
-					waitForElementAbsence(PWAPremiumPage.objPremiumPopUp, 15, "Premium Pop Up for Subscribed User");
-				}
+		if (userType.equals("Guest"))
+			waitForElementAndClickIfPresent(PWASearchPage.objCloseRegisterDialog, 5, "Close in Register Pop Up");
+		waitForElement(PWAPlayerPage.objContentTitle, 20, "Content title");
+		String consumptionPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitle,
+				"Content Title").toString();
+		if (consumptionPageTitle.contains(contentTitle)) {
+			extent.extentLogger("correctNavigation",
+					"Successfully navigated to the correct Consumption page: " + contentTitle);
+			logger.info("Successfully navigated to the correct Consumption page: " + contentTitle);
+			if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+				waitForElement(PWASubscriptionPages.objGetPremiumButton, 20, "Player Inline Subscription link");
+				waitForElementAndClickIfPresent(PWASubscriptionPages.objGetPremiumButton, 20, "Player Inline Subscription link");
 			} else {
-				extent.extentLoggerFail("incorrectNavigation",
-						"Navigated to incorrect Consumption page: " + consumptionPageTitle);
-				logger.error("Navigated to incorrect Consumption page: " + consumptionPageTitle);
+				waitForElementAbsence(PWASubscriptionPages.objGetPremiumButton, 20, "Player Inline Subscription link");
 			}
+		} else {
+			extent.extentLoggerFail("incorrectNavigation",
+					"Navigated to incorrect Consumption page: " + consumptionPageTitle);
+			logger.error("Navigated to incorrect Consumption page: " + consumptionPageTitle);
 		}
 	}
 
@@ -4299,11 +4295,12 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 	}
 
 	public void verifyNoSubscriptionPopupForFreeContent(String userType, String contentType, String contentTitle) throws Exception {
-		extent.HeaderChildNode("Verify No Subscription Popup For Free Content");
+		extent.HeaderChildNode("Verify No Player Inline Subscription link For Free Content");
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchedResult(contentTitle), 60, "Search Result");
+		verifyElementPresentAndClick(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(contentTitle), "Search Result");
 		if (userType.equals("Guest"))
 			waitForElementAndClickIfPresent(PWASearchPage.objCloseRegisterDialog, 5, "Close in Register Pop Up");

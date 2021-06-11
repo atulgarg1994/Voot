@@ -15,7 +15,6 @@ public class PWALandingPages {
 			"//*[@nodeName='DIV' and @width>0 and ./parent::*[@nodeName='DIV' and @width>0] and (./preceding-sibling::* | ./following-sibling::*)[@nodeName='H2' and ./*[@text='Top ZEE5 Movies in Kannada']]]");
 	public static By obj_Pwa_WhyRegister_Popup = By.xpath("//*[@text='Why Register?']");
 	public static By obj_Pwa_Popup_Close = By.xpath("//*[@class='manCloseIcon']");
-	public static By obj_Pwa_Subcription_teaser_btn = By.xpath("//*[@class='subscribeBtn noSelect']");
 
 	public static By objFirstTray = By.xpath("(//div[contains(@class,'trayHeader')])[1]");
 
@@ -167,5 +166,6 @@ public class PWALandingPages {
 	public static By objResume = By.xpath("//span[text()='Watch Now']");
 	
 	public static By objPlayerTitle = By.xpath("(//div[@class='episodeDetailContainer']//div[contains(@class,'metaInfo')]//h2)|(//div[@class='movieDetailContainer' or @class='videoDetailContainer' or @class='newsContainer']//h1)");
-	
+
+	public static By obj_Pwa_Subcription_teaser_btn = By.xpath("//a[@class='subscribeBtn noSelect']//span[contains(text(),'Buy Plan')]");
 }

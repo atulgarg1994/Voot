@@ -38,7 +38,7 @@ public class WebPWASmokeScript {
 		zee5WebBusinessLogic.navigateHome();
 		zee5WebBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Episode", consumptionsEpisode); // Episode
 		zee5WebBusinessLogic.verifyConsumptionsScreenTappingOnCard(userType, "Live TV", ""); // Live TV Card
-		//zee5WebBusinessLogic.verifyWatchLatestEpisodeCTA(consumptionsShow);
+		zee5WebBusinessLogic.verifyWatchLatestEpisodeCTA(consumptionsShow);
 		zee5WebBusinessLogic.verifyNoSubscriptionPopupForFreeContent(userType, "Movies", consumptionsFreeContent);
 		zee5WebBusinessLogic.verifySubscriptionPopupForPremiumContent(userType, "Movies", consumptionsPremiumContent);
 		zee5WebBusinessLogic.verifyShareAndMetaDataInDetailsAndConsumption(consumptionsShow);

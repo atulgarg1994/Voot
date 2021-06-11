@@ -19418,6 +19418,7 @@ public void MyZEE5AppValidation() throws Exception {
 	}
 
 	public void SelectTopNavigationTab_Timer(String pTabname) throws Exception {
+		extent.HeaderChildNode("Screen Navigation Performance");
 		System.out.println("\nSelecting " + pTabname + " from Top navigation tabs");
 
 		verifyElementPresentAndClick(AMDHomePage.objHome, "Home button");
@@ -19430,33 +19431,32 @@ public void MyZEE5AppValidation() throws Exception {
 		for (int k = 1; k <= noOfTabs; k++) {
 			if (verifyIsElementDisplayed(AMDGenericObjects.objPageTitle(pTabname))) {
 				click(AMDGenericObjects.objPageTitle(pTabname), pTabname);
+				
 				Instant endTime = Instant.now();
 				logger.info("End time: " + endTime);
 
 				Duration timeElapsed = Duration.between(startTime, endTime);
-				logger.info("Time taken to navigate from Home screen to " + pTabname + " screen (millisec): "
-						+ timeElapsed.toMillis());
-				extent.extentLogger("Timer", "Time taken to navigate from Home screen to " + pTabname
-						+ " screen (millisec): " + timeElapsed.toMillis());
+				logger.info("Time taken to navigate from Home to " + pTabname + " screen (sec): "
+						+ timeElapsed.toMillis()/1000);
+				extent.extentLogger("Timer", "<b>Time taken to navigate from Home to "+pTabname+" (sec):</b> " + timeElapsed.toMillis()/1000);
+				
+				//--- BATTERY, MEMORY, CPU & GPU USAGE
+				Memory_UsagePerformance();
+				BatteryStats_Performance();
+				CPU_UsagePerformance();
+				GPU_UsagePerformance();
 				break;
 			} else {
-				Instant endTime = Instant.now();
-				logger.info("End time: " + endTime);
-
-				Duration timeElapsed = Duration.between(startTime, endTime);
-				logger.info("Time taken to navigate between screen (millisec): " + timeElapsed.toMillis());
-				extent.extentLogger("Timer",
-						"Time taken to navigate between screen (millisec): " + timeElapsed.toMillis());
-
-				List<WebElement> element = getDriver().findElements(By.xpath("//*[@id='title']"));
+				List<WebElement> element = getDriver().findElements(By.xpath("//*[@id='homeTabLayout']/*/child::*"));
 				element.get(noOfTabs - 1).click();
 				waitTime(1000);
 			}
 		}
-
 	}
 
 	public void deepLink_Validation(String pDeeplink) {
+		extent.HeaderChildNode("DeepLink to Playback " + pDeeplink + " screen");
+		
 		try {
 			getDriver().close();
 			waitTime(5000);
@@ -19465,16 +19465,19 @@ public void MyZEE5AppValidation() throws Exception {
 			logger.info("Start time: " + startTime);
 			extent.extentLogger("Start Time", "Start time: " + startTime);
 			if (pDeeplink.equalsIgnoreCase("Consumption")) {
-				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/movies/details/rog/0-0-46027";
+				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/movies/details/rog/0-0-46027\"";
 			} else if (pDeeplink.equalsIgnoreCase("LiveTV")) {
-				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/channels/details/republic-tv/0-9-channel_1422341819";
+				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/channels/details/republic-tv/0-9-channel_1422341819\"";
 			}
 
 			Process process = Runtime.getRuntime().exec(command);
 			new BufferedReader(new InputStreamReader(process.getInputStream()));
-//		waitTime(12000);
-			HeaderChildNode("DeepLink to Playback " + pDeeplink + " screen");
+			
 			if (pDeeplink.equalsIgnoreCase("Consumption")) {
+				waitForElementDisplayed(AMDHomePage.objPopUpToOpenZeeApp, 30);
+				if (verifyIsElementDisplayed(AMDHomePage.objPopUpToOpenZeeApp)) {
+					click(AMDHomePage.objJustOnceOption, "Just once option");
+				}
 				if (verifyElementExist(AMDHomePage.objPlayerScreen, "Player Screen")) {
 					Instant endTime = Instant.now();
 					logger.info("End time: " + endTime);
@@ -19483,9 +19486,15 @@ public void MyZEE5AppValidation() throws Exception {
 					extent.extentLoggerPass("Consumption", "Consumption Screen is displayed for the deeplink");
 
 					Duration timeElapsed = Duration.between(startTime, endTime);
-					logger.info("Time taken to play through deeplink (millisec): " + timeElapsed.toMillis());
+					logger.info("Time taken to play through deeplink (sec): " + timeElapsed.toMillis()/1000);
 					extent.extentLogger("Timer",
-							"Time taken to play through deeplink (millisec): " + timeElapsed.toMillis());
+							"<b>Time taken to play through deeplink (sec):</b> " + timeElapsed.toMillis()/1000);
+					
+					//--- BATTERY, MEMORY, CPU & GPU USAGE
+					Memory_UsagePerformance();
+					BatteryStats_Performance();
+					CPU_UsagePerformance();
+					GPU_UsagePerformance();
 				} else {
 					logger.info("Consumption Screen is not displayed for the deeplink");
 					extent.extentLoggerFail("Consumption screen",
@@ -19493,6 +19502,10 @@ public void MyZEE5AppValidation() throws Exception {
 				}
 
 			} else if (pDeeplink.equalsIgnoreCase("LiveTV")) {
+				waitForElementDisplayed(AMDHomePage.objPopUpToOpenZeeApp, 30);
+				if (verifyIsElementDisplayed(AMDHomePage.objPopUpToOpenZeeApp)) {
+					click(AMDHomePage.objJustOnceOption, "Just once option");
+				}
 				if (verifyElementExist(AMDHomePage.objPlayerScreen, "Player Screen")) {
 					Instant endTime = Instant.now();
 					logger.info("End time: " + endTime);
@@ -19501,9 +19514,15 @@ public void MyZEE5AppValidation() throws Exception {
 					extent.extentLoggerPass("Live TV", "Live TV is played for the deeplink");
 
 					Duration timeElapsed = Duration.between(startTime, endTime);
-					logger.info("Time taken to play through deeplink (millisec): " + timeElapsed.toMillis());
+					logger.info("Time taken to play through deeplink (sec): " + timeElapsed.toMillis()/1000);
 					extent.extentLogger("Timer",
-							"Time taken to play through deeplink (millisec): " + timeElapsed.toMillis());
+							"<b>Time taken to play through deeplink (sec):</b> " + timeElapsed.toMillis()/1000);
+					
+					//--- BATTERY, MEMORY, CPU & GPU USAGE
+					Memory_UsagePerformance();
+					BatteryStats_Performance();
+					CPU_UsagePerformance();
+					GPU_UsagePerformance();
 				} else {
 					logger.info("Live TV is not played for the deeplink");
 					extent.extentLoggerFail("Live TV", "Live TV is not played for the deeplink");
@@ -25354,4 +25373,394 @@ public void PremiumContentsValidationInPlayerScreen(String userType) throws Exce
 	}
 }
 
+public void WhatsApp_UnRegisteredUser(String userType) throws Exception {
+	extent.HeaderChildNode("WhatsApp opt-in in Registration screen for UnRegistered user");
+	if(userType.equalsIgnoreCase("Guest")) {
+		verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+		type(AMDRegistrationScreen.objEmailIDTextField, generateRandomString(5) + "@gmail.com", "Email field");
+		click(AMDRegistrationScreen.objProceedBtn, "Proceed button");	
+		waitTime(5000);
+		if(!(verifyIsElementDisplayed(AMDRegistrationScreen.objWhatsappOptIn))) {
+			logger.info("WhatsApp opt-in tickbox is not visible");
+			extent.extentLoggerPass("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is not visible");
+		}else {
+			logger.error("WhatsApp opt-in tickbox is visible");
+			extent.extentLoggerFail("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is visible");
+		}
+		Back(1);
+		
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
+		type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
+		hideKeyboard();
+		click(AMDLoginScreen.objProceedBtn, "Proceed icon");
+		waitTime(5000);
+		if(verifyIsElementDisplayed(AMDRegistrationScreen.objWhatsappOptIn)) {
+			logger.info("WhatsApp opt-in tickbox is visible");
+			extent.extentLoggerPass("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is visible");
+			
+			String tickBox1 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptInTickBox);
+			if(tickBox1.equalsIgnoreCase("false")) {
+				logger.info("WhatsApp opt-in tick box appears unchehcked by default");
+				extent.extentLoggerPass("TickBox", "WhatsApp opt-in tick box appears unchehcked by default");
+			}else {
+				logger.error("WhatsApp opt-in tick box appears checked by default");
+				extent.extentLoggerFail("TickBox", "WhatsApp opt-in tick box appears checked by default");
+			}
+			click(AMDRegistrationScreen.objWhatsappOptInTickBox, "Whatsapp OptIn Tick Box");
+			waitTime(3000);
+			String tickBox2 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptInTickBox);
+			if(!(tickBox1.equalsIgnoreCase(tickBox2))) {
+				logger.info("user is able select or deselect the WhatsApp opt-in tickbox");
+				extent.extentLoggerPass("tickbox", "user is able select or deselect the WhatsApp opt-in tickbox");
+			}else {
+				logger.error("user is not able select or deselect the WhatsApp opt-in tickbox");
+				extent.extentLoggerFail("tickbox", "user is not able select or deselect the WhatsApp opt-in tickbox");
+			}	
+		}else {
+			logger.error("WhatsApp opt-in tickbox is not visible");
+			extent.extentLoggerFail("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is not visible");
+		}	
+	}else {
+		logger.info("Not Applicable for this userType");
+		extent.extentLogger("Not Applicable", "Not Applicable for this userType");
+	}
+	
+}
+
+public void  WhatsApp_RegisteredUser(String userType) throws Exception {
+	extent.HeaderChildNode("WhatsApp opt-in in Edit profile screen for Registered user");
+	if(!(userType.equalsIgnoreCase("Guest"))) {
+		verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDHomePage.objMyProfileIcon, "profile icon");
+		verifyElementPresentAndClick(AMDMyProfileScreen.objEditProfileButton, "Edit CTA");
+		
+		verifyElementPresent(AMDEditProfileScreen.objMobileNoField, "Mobile number text field");
+		String mobileNumber = getText(AMDEditProfileScreen.objMobileNumberField);
+		if(!(mobileNumber.equalsIgnoreCase("Mobile Number"))) {
+			String tickBox1 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptInTickBox);
+			click(AMDRegistrationScreen.objWhatsappOptInTickBox, "Whatsapp OptIn Tick Box");
+			waitTime(3000);
+			String tickBox2 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptInTickBox);
+			if(!(tickBox1.equalsIgnoreCase(tickBox2))) {
+				logger.info("user is able select or deselect the WhatsApp opt-in tickbox");
+				extent.extentLoggerPass("tickbox", "user is able select or deselect the WhatsApp opt-in tickbox");
+			}else {
+				logger.error("user is not able select or deselect the WhatsApp opt-in tickbox");
+				extent.extentLoggerFail("tickbox", "user is not able select or deselect the WhatsApp opt-in tickbox");
+			}	
+			
+		}else {
+			logger.info("User has only EmailId");
+			extentLogger("EmailId", "User has only EmailId");
+			String tickBox1 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptInTickBox);
+			click(AMDRegistrationScreen.objWhatsappOptInTickBox, "Whatsapp OptIn Tick Box");
+			waitTime(3000);
+			String tickBox2 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptInTickBox);
+			if(tickBox1.equalsIgnoreCase(tickBox2)) {
+				logger.info("WhatsApp opt-in tickbox is remain deactivated");
+				extent.extentLoggerPass("tickbox", "WhatsApp opt-in tickbox is remain deactivated");
+			}else {
+				logger.error("WhatsApp opt-in tickbox is activated");
+				extent.extentLoggerFail("tickbox", "WhatsApp opt-in tickbox is activated");
+			}	
+			
+		}	
+	}else {
+		logger.info("Not Applicable for this userType");
+		extent.extentLogger("Not Applicable", "Not Applicable for this userType");
+	}
+	
+  }
+
+public void floatingBannerAndSmallIconOnHomeScreen(String userType) throws Exception {
+		extent.HeaderChildNode("validation of Floating Banner and Small icon in Home screen for Registered user and Apperance of Floating banner during same App session");
+		if(!(userType.equalsIgnoreCase("Guest"))) {
+			boolean flag = verifyElementExist(AMDHomePage.objFloatingBannerOfWhatsapp, "Floating Banner of Whatsapp");
+			if(flag==true) {
+				click(AMDHomePage.objCloseIconOnFloatingBannerOfWhatsapp, "Close icon");
+				waitTime(5000);
+				if(!(verifyIsElementDisplayed(AMDHomePage.objFloatingBannerOfWhatsapp))) {
+					logger.info("Floating Banner of Whatsapp disappered");
+					extent.extentLoggerPass("Floating banner", "Floating Banner of Whatsapp disappered");
+					
+					verifyElementExist(AMDHomePage.objWhatsappSmallIconNudge, "Small icon nudge");
+					
+					SelectTopNavigationTab("Movies");
+					SelectTopNavigationTab("Home");
+					if(!(verifyIsElementDisplayed(AMDHomePage.objWhatsappSmallIconNudge, "Small icon nudge"))) {
+						logger.info("Floating Banner is appreared only once during one app session");
+						extent.extentLoggerPass("Floating banner", "Floating Banner is appreared only once during one app session");
+					}else {
+						logger.error("Floating Banner is reappreared in same app session");
+						extent.extentLoggerFail("Floating banner", "Floating Banner is reappreared in same app session");
+					}	
+				}else {
+					logger.error("Floating Banner of Whatsapp is still appered");
+					extent.extentLoggerFail("Floating banner", "Floating Banner of Whatsapp is still appered");
+				}
+			}
+		}else {
+			logger.info("Not Applicable for this userType");
+			extent.extentLogger("Not Applicable", "Not Applicable for this userType");
+		}
+		
+	}
+
+public void WhatsAppBannerCollapseWhileBrowsingPageFromTopToBottom(String userType) throws Exception {
+	extent.HeaderChildNode("Whatsapp Banner Collapse - While browsing from top to bottom and reappering of Nudge when user relaunch the app");
+	waitTime(5000);
+	if(!(userType.equalsIgnoreCase("Guest"))) {
+		boolean flag = verifyElementExist(AMDHomePage.objFloatingBannerOfWhatsapp, "Floating Banner of Whatsapp");
+		if(flag==true) {
+			Swipe("UP", 2);
+			waitTime(5000);
+			verifyElementExist(AMDHomePage.objWhatsappSmallIconNudge, "Small icon nudge");
+			relaunch(false);
+			if(verifyIsElementDisplayed(AMDHomePage.objWhatsappSmallIconNudge, "Small icon nudge")) {
+				logger.info("User Stoped the App & Launched again then the nudge is reappeared");
+				extent.extentLoggerPass("Floating banner", "User Stoped the App & Launched again then the nudge is reappeared");
+			}else {
+				logger.error("User Stoped the App & Launched again then the nudge is not reappeared");
+				extent.extentLoggerFail("Floating banner", "User Stoped the App & Launched again then the nudge is not reappeared");
+			}	
+		}
+	}else {
+		logger.info("Not Applicable for this userType");
+		extent.extentLogger("Not Applicable", "Not Applicable for this userType");
+	}
+}
+
+public void navigationToHomePageOrLoginOrRegisterPageThrough_Deeplinking(String userType, String url) throws Exception {
+    extent.HeaderChildNode("Navigation to Home screen or Login/Register screen through Deeplinking");
+	waitTime(5000);
+	String cmd3 = "adb shell am start -W -a android.intent.action.VIEW -d  " + url;
+	Process process = Runtime.getRuntime().exec(cmd3);
+	new BufferedReader(new InputStreamReader(process.getInputStream()));
+	if(!(userType.equalsIgnoreCase("Guest"))) {
+	waitTime(12000);
+	if (verifyIsElementDisplayed(AMDHomePage.objTopNav_HomeTab)) {
+		logger.info("The User who opted for Zee5 Whatsapp is redirected to homepage");
+		extent.extentLoggerPass("Deeplinking", "The User who opted for Zee5 Whatsapp is redirected to homepage");
+	}else {
+		logger.error("The User who opted for Zee5 Whatsapp is not redirected to homepage");
+		extent.extentLoggerFail("Deeplinking", "The User who opted for Zee5 Whatsapp is not redirected to homepage");
+	}
+	
+}else {
+	waitTime(12000);
+	if (verifyIsElementDisplayed(AMDRegistrationScreen.objEmailIDTextField, "Email Id field")) {
+		logger.info("The Guest user is redirected to Login/Register page");
+		extent.extentLoggerPass("Deeplinking", "The Guest user is redirected to Login/Register page");
+	}else {
+		logger.error("The Guest user is not redirected to Login/Register page");
+		extent.extentLoggerFail("Deeplinking", "The Guest user is not redirected to Login/Register page");
+	}
+}
+
+}
+
+public void hipiLogoAndDurationOnSubscriptionPlan(String userType) throws Exception {
+	extent.HeaderChildNode("HiPi Logo functionality on bottom navigation bar");
+	if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		click(AMDHomePage.objHipiMenuBtn, "Hipi bottom bar menu");
+		waitTime(5000);
+		Swipe("UP", 8);;
+		if(verifyIsElementDisplayed(AMDHomePage.objHipiBottomSection)) {
+			logger.error("Hipi logo is functional");
+			extent.extentLoggerFail("Hipi", "Hipi logo is functional");
+			Back(1);
+		}else {
+			logger.info("Hipi logo is nonfunctional");
+			extent.extentLoggerPass("Hipi", "Hipi logo is nonfunctional");
+		}
+		click(AMDHomePage.objSubscribeIcon, "Buy plan");
+		waitTime(15000);
+		Swipe("UP", 1);
+		int plans = getDriver().findElements(AMDSubscibeScreen.objPremiumPlansInSubscriptionPage).size();
+		for(int i=1; i<=plans; i++) {
+			if(verifyIsElementDisplayed(AMDSubscibeScreen.objOfferBadgeOnPremiumPlans(i))){
+				logger.info("Offer is available on Pack "+i);
+				extent.extentLogger("Offer", "Offer is available on this Pack "+i);
+			}else {
+				boolean planDuration = verifyIsElementDisplayed(AMDSubscibeScreen.objPlanDescrptionOfPremiumPlans(i));
+				if(planDuration==false) {
+					logger.info("Duration below the subscribe plan is removed for Pack "+i);
+					extent.extentLoggerPass("Plan duration", "Duration below the subscribe plan is removed for Pack "+i);
+				}else {
+					logger.error("Duration below the subscribe plan is not removed for Pack "+i);
+					extent.extentLoggerFail("Plan duration", "Duration below the subscribe plan is not removed for Pack "+i);
+				}
+			}
+			
+		}
+	}else {
+		logger.info("Not Applicable for this userType");
+		extent.extentLogger("Not Applicable", "Not Applicable for this userType");
+	}
+  }
+
+//Performance scripts
+
+public void Memory_UsagePerformance() throws IOException {
+	System.out.println("\nMemory Usage of Native App");
+
+	String getNativeMemory=""; String getTotalMemory="";
+	String adbCommand1="adb shell dumpsys meminfo com.graymatrix.did | grep Native";
+	String adbCommand2="adb shell dumpsys meminfo com.graymatrix.did | grep TOTAL";
+	
+	Process process1=Runtime.getRuntime().exec(adbCommand1);
+	BufferedReader nativeResult = new BufferedReader(new InputStreamReader(process1.getInputStream()));
+	
+	Process process2=Runtime.getRuntime().exec(adbCommand2);
+	BufferedReader totalResult = new BufferedReader(new InputStreamReader(process2.getInputStream()));
+
+	getNativeMemory = nativeResult.readLine().trim();
+	getTotalMemory = totalResult.readLine().trim();
+	
+//	System.out.println(getNativeMemory);
+//	System.out.println(getTotalMemory);
+	
+	ArrayList<String> getNativeValue = new ArrayList<String>();
+	String[] splitData = getNativeMemory.split(" ");
+	for(int i=0;i<splitData.length;i++) {
+		if(!splitData[i].isEmpty()) {
+			getNativeValue.add(splitData[i]);
+		}
+	}
+	
+	ArrayList<String> getTotalValue = new ArrayList<String>();
+	String[] splitData2 = getTotalMemory.split(" ");
+	for(int i=0;i<splitData2.length;i++) {
+		if(!splitData2[i].isEmpty()) {
+			getTotalValue.add(splitData2[i]);
+		}
+	}
+
+//	System.out.println(getNativeValue);	
+//	System.out.println(getTotalValue);
+
+	int mbNativeHeap = (Integer.parseInt(getNativeValue.get(2))/1024);
+	logger.info("App Memory Info - Native Heap : " + getNativeValue.get(2)+" KB");
+	logger.info("App Memory Info - Native Heap : " + mbNativeHeap+" MB");
+	extent.extentLoggerPass("Memory Info",
+			"<b>App Memory Info - Native Heap :</b> " +mbNativeHeap+" MB");
+	
+	int mbTotal = (Integer.parseInt(getTotalValue.get(1))/1024);
+	logger.info("App Memory Info - TOTAL : " + getTotalValue.get(1)+" KB");
+	logger.info("App Memory Info - TOTAL : " + mbTotal+" MB");
+	extent.extentLoggerPass("Memory Info",
+			"<b>App Memory Info - TOTAL :</b> " +mbTotal+" MB");
+	
+}
+
+
+public void BatteryStats_Performance() throws Exception {
+	System.out.println("\nBattery Stats Information");
+
+	String getBatteryInfo="";
+	String adbCommand="adb shell dumpsys batterystats --charged com.graymatrix.did | grep Computed";
+	
+	Process process=Runtime.getRuntime().exec(adbCommand);
+	BufferedReader result = new BufferedReader(new InputStreamReader(process.getInputStream()));
+	
+	getBatteryInfo = result.readLine().trim();
+	System.out.println(getBatteryInfo);
+
+	String[] batteryStats = getBatteryInfo.split(",");
+
+	logger.info("\nApp Battery Info - " + batteryStats[1]);
+	extent.extentLoggerPass("Battery Info","<b>App Battery Info - </b> " + batteryStats[1]);
+}
+
+public void CPU_UsagePerformance() throws IOException {
+	System.out.println("\nCPU Usage of App");
+	
+	String getCpuStats="";
+	String adbCommand="adb shell dumpsys cpuinfo | grep com.graymatrix.did";
+	Process process=Runtime.getRuntime().exec(adbCommand);
+	BufferedReader adbResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+	getCpuStats = adbResult.readLine().trim();
+//	System.out.println(getCpuStats);
+	
+	String[] getCPUStatus = getCpuStats.split(" ");
+	
+	logger.info("App CPU Usage status :" + getCPUStatus[0]);
+	extent.extentLoggerPass("CPU Status","<b>App CPU  Usage status :</b> " +getCPUStatus[0]);
+}
+
+public void GPU_UsagePerformance() throws Exception {
+	System.out.println("\nGPU Usage of App");
+
+	String getGPUInfo="";
+	String adbCommand="adb shell dumpsys gfxinfo com.graymatrix.did | grep MB";
+	
+	Process process=Runtime.getRuntime().exec(adbCommand);
+	BufferedReader result = new BufferedReader(new InputStreamReader(process.getInputStream()));
+	
+	getGPUInfo = result.readLine().trim();
+	System.out.println(getGPUInfo);
+	String[] splitData = getGPUInfo.split(",");
+	String GPUConsumed = splitData[1].trim();
+
+	logger.info("\nTotal GPU Memory Usage of Current session - " + GPUConsumed);
+	extent.extentLoggerPass("GPU Info","<b>Total GPU Memory Usage of Current session :</b> " +GPUConsumed);
+}
+
+public void Performance_LoginFunctionality() throws Exception {
+	extent.HeaderChildNode("Login Functionality Performance");
+	System.out.println("\nLogin Functionality Performance");
+	
+	Instant startTime = Instant.now();
+	logger.info("Instant Start time : " + startTime);
+	
+	LoginWithEmailID("igszee23@yopmail.com", "123456");
+	//--- BATTERY, MEMORY, CPU & GPU USAGE
+	Memory_UsagePerformance();
+	BatteryStats_Performance();
+	CPU_UsagePerformance();
+	GPU_UsagePerformance();
+	
+	Instant endTime = Instant.now();
+	logger.info("Instant End time : " + endTime);
+
+	Duration timeElapsed = Duration.between(startTime, endTime);
+	
+	logger.info("Time taken to login with registered user (sec): " + timeElapsed.toMillis()/1000);
+	extent.extentLogger("Timer",
+			"<b>Time taken to login with registered user (sec)</b>: " + timeElapsed.toMillis()/1000);
+
+}
+
+	
+public void Performance_InitiateContentPlayback() throws Exception {
+	extent.HeaderChildNode("Initiate content playback Performance");
+	System.out.println("\nInitiate content playback Performance");
+	
+	verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
+	Instant startTime = Instant.now();
+	logger.info("Instant Start time : " + startTime);
+	
+	verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Player Start");
+	
+	//--- BATTERY, MEMORY, CPU & GPU USAGE
+	Memory_UsagePerformance();
+	BatteryStats_Performance();
+	CPU_UsagePerformance();
+	GPU_UsagePerformance();
+	
+	Instant endTime = Instant.now();
+	logger.info("Instant End time : " + endTime);
+
+	Duration timeElapsed = Duration.between(startTime, endTime);
+	
+	logger.info("Time taken to start playback in consumption screen (Sec): " + timeElapsed.toMillis()/1000);
+	extent.extentLogger("Timer",
+			"<b>Time taken to start playback in consumption screen (Sec):</b> " + timeElapsed.toMillis()/1000);
+}
+	
 }

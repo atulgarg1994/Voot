@@ -506,6 +506,7 @@ public class PWASubscriptionPages {
 		public static By objBuyPremiumCTA = By.xpath("//*[@class='buttonContainer ']//span[text()='Buy Premium']");//added 13/5/2021
 		public static By objMobileLinkPaytmOption = By.xpath("//*[@text='Link Wallet']");
 		
-		public static By objContinueBtn = By.xpath("//div[@class='buttonContainer ']");
 		public static By objAccountDetailInSubscription = By.xpath("//*[@class='userDetails']");
+		
+		public static By objContinueBtn = By.xpath("//div[@class='buttonContainer']");
 }

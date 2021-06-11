@@ -247,10 +247,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	}
 	
 	public void allowPopUp() throws Exception {
+		waitTime(5000);
 		click(PWAHomePage.objAllow, "Notification popup");
 		waitTime(3000);
 		click(PWAHomePage.objAllowCloseButton, "Close button");
-		waitTime(30000);
+		waitTime(20000);
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_TAB);
 		waitTime(2000);
@@ -13019,20 +13020,34 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		// Subscription_button
 		waitTime(2000);
-		if (checkElementDisplayed(PWALandingPages.obj_Pwa_Subcription_teaser_btn, "Subcription button")) {
-			logger.info("Subscription button is displayed");
-			extent.extentLoggerPass("Subscription", "Subscription button is displayed");
+		if(userType.equalsIgnoreCase("Subscribed User")) {
+			
+			if (!(checkElementDisplayed(PWALandingPages.obj_Pwa_Subcription_teaser_btn, "Buy Plan CTA on Header"))) {
+				
+				logger.error("Buy Plan CTA should not displayed on Header for Subscribed User");
+				extent.extentLoggerFail("Buy Plan CTA on Header", "Buy Plan CTA should not displayed on Header for Subscribed User");
+			} else {
+				
+				logger.info("Buy Plan CTA is not displayed on Header is expected for Subscribed User");
+				extent.extentLoggerPass("Buy Plan CTA", "Buy Plan CTA is not displayed on Header is expected for Subscribed User");
+			}
 		} else {
-			logger.error("Subscription button is not displayed");
-			extent.extentLoggerFail("Subscription", "Subscription button is not displayed");
+			
+			if (verifyElementPresent(PWALandingPages.obj_Pwa_Subcription_teaser_btn, "Buy Plan CTA on Header")) {
+				logger.info("Buy Plan CTA is displayed on Header");
+				extent.extentLoggerPass("Buy Plan CTA", "Buy Plan CTA is displayed on Heaader");
+			} else {
+				logger.error("Buy Plan CTA is not displayed on Header");
+				extent.extentLoggerFail("Buy Plan CTA on Header", "Buy Plan CTA is not displayed on Header");
+			}
 		}
-
+		
 		partialScroll();
 
-		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
+		if (verifyElementPresent(PWAPremiumPage.objViewAllBtn, "View All Button")) {
 			click(PWAPremiumPage.objViewAllBtn, "View All Button");
 
-			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "View All Page")) {
+			if (verifyElementPresent(PWAPremiumPage.objViewAllPage, "View All Page")) {
 				logger.info("Navigated to View All Page");
 				extent.extentLoggerPass("View All", "Navigated to View All Page");
 			} else {
@@ -32326,7 +32341,7 @@ public void PWA2Sprint58(String UserType)throws Exception
 	PWA2BuyPlanAndUpgradeValidation(UserType);
 	verifyChannelNameTranslationAfterDisplayLanguageChanged(UserType);
 	PWA2FooterSectionValidationBasedOnContentLanguage(UserType);
-
 }
+
 	
 }

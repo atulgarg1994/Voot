@@ -18303,15 +18303,16 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	
 	public void VILogin() throws Exception {
 		HeaderChildNode("Login with credentials");
-		type(PWAVIAppPage.objMobileNoField, "" ,"Mobile Number Field");
+		type(PWAVIAppPage.objMobileNoField, "","Mobile Number Field");
 		waitTime(30000);
 		click(PWAVIAppPage.objGOIcon, "GO Icon");
 	}
 	
-	public void NavigationFromVIAPPToZee5ConsumptionScreen() {
+	public void NavigationFromVIAPPToZee5ConsumptionScreen() throws Exception {
 		HeaderChildNode("Click on Zee5 content");
-		getDriver();
+		waitTime(6000);
 		getDriver().context("WEBVIEW_1");
+		click(PWAVIAppPage.objFirstZee5Content, "First Content");
 	}
 	
 	public void ValidateBuySubscription() throws Exception {

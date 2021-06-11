@@ -17,4 +17,6 @@ public class PWAVIAppPage {
 	
 	public static By objGOIcon = By.xpath("//*[@id='otp_btn_2']");
 	
+	public static By objFirstZee5Content = By.xpath("(//*[@resource-id='com.myplex.vodafonestaging:id/thumbnail_movie'])[1]");
+	
 }
