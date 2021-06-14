@@ -492,5 +492,5 @@ public class PWAPlayerPage {
 	
 	public static By objContentName = By.xpath("//div[@class='consumptionMetaDiv']/h1");
 	
-	public static By objContentTitle = By.xpath("//div[contains(@class,'consumptionMetaDiv')]//h2");
+	public static By objContentTitle = By.xpath("//div[contains(@class,'consumptionMetaDiv')]//h1");
 }
