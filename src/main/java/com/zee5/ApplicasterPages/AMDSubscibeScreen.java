@@ -158,4 +158,12 @@ public class AMDSubscibeScreen {
 		return By.xpath("(//*[@id='subscriptionPlanItem'])["+i+"]/child::*[@id='limitedPeriodBadge']");
 	}
 	 
+	public static By objconsumptionBuyPlanButton = By.xpath("(//*[@id='subscribeButton' and @text='Buy Plan'])[1]");
+	
+	public static By objContinueButton  = By.xpath("//*[@id='continueButton']");
+	
+	public static By objBuyPlanButton  = By.xpath("//*[@id='home_toolbar_buy_plan']");
+	
+	public static By obj299Pack = By.xpath("(//*[@id='planBackground'])[2]");
+	public static By obj299PlanPrice = By.xpath("(//*[@id='planPrice'])[2]");
 }

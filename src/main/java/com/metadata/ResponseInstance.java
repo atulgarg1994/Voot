@@ -1,5 +1,9 @@
 package com.metadata;
 
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 //import static com.jayway.restassured.RestAssured.given;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,6 +16,8 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Reporter;
+
+import com.appsflyerValidation.AppsFlyer;
 import com.driverInstance.DriverInstance;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -38,6 +44,8 @@ public class ResponseInstance {
 	public static String searchContentID = null;
 	public static String pageName = "shows";
 	public static boolean trailer = false;
+	public static String newEmailID = null;
+	public static String newPassword = null;
 	
 	public static Response getResponse() {
 		resp = RestAssured.given().urlEncodingEnabled(false).when().get(
@@ -4128,6 +4136,719 @@ public static Response getUserDetails(String username, String password) {
 	//System.out.println("\nresponse body: " + response.prettyPrint());
 	return response;
 }
+
+
+
+//----------------Appsflyer------------------
+
+
+public static void fetchExpectedDataforAppsFlyer(String event, String userType, String idNumber, String userValue, String topnavtab, String tabname, String showID, String packID, String musicID) throws IOException, ParseException{
+	
+	getLanguageforAppsFlyer(userType);
+	
+	//USERDATA
+	getUserDataforAppsFlyer(userType);
+
+	//SETTINGS
+	getUserSettingsDetailsforAppsFlyer(userType);
+
+	//LOCATION
+	getUserLocationforAppsFlyer();
+
+	//DEVICE DETAILS
+	getDeviceDetails();
+	
+	
+	StaticValuesforAppsFlyer(event,idNumber,userValue,topnavtab,tabname);
+	
+	
+	DynamicValuesAsUserTypeforAppsFlyer(userType);
+	
+	
+	if(event.contains("TVShows_Content_Play")||event.contains("af_svod_first_episode_free")||event.contains("video_view_50_percent")||event.contains("video_view_85_percent")||event.contains("videos_viewed_is_20")){
+		getContentDetailsOFOriginalForAppsflyer(showID);
+	}
+	
+	if(event.equalsIgnoreCase("af_add_to_cart")){
+		getBuyPlanDataForAppsFlyer(packID);
+	}
+	
+	if(event.equalsIgnoreCase("Videos_Content_Play")){
+		getContentDetailsOFMusicForAppsflyer(musicID);
+	}
+
+	if(userType.equals("Guest")){
+		if(event.equalsIgnoreCase("af_complete_registration") || event.equals("content_lang_done") || event.equals("display_lang_done")){
+			getRegistrationDetailsForAppsflyer();	
+		}	
+	
+	}
+	
+	
+	
+}
+
+
+
+public static void getLanguageforAppsFlyer(String userType) {
+	System.out.println("- - - - getLanguageforAppsFlyer - - - -");
+	String language = null;
+	if (userType.contains("Guest")) {
+		AppsFlyer.expectedData.setProperty("New Content Language", "en-kn");
+	} else {
+		Response resplanguage = getUserinfoforNonSubORSub(userType);
+		for (int i = 0; i < resplanguage.jsonPath().getList("array").size(); i++) {
+			String key = resplanguage.jsonPath().getString("[" + i + "].key");
+			if (key.contains("content_language")) {
+				language = resplanguage.jsonPath().getString("[" + i + "].value");
+				System.out.println("New Content Language : " + language);
+				AppsFlyer.expectedData.setProperty("New Content Language", language.replace(",", "-"));
+				break;
+			}
+		}
+	}
+	
+	AppsFlyer.expectedData.forEach((key, value) -> System.out.println(key + " : " + value));
+}
+
+
+
+
+
+public static Properties getUserDataforAppsFlyer(String userType) {
+	System.out.println("- - - - getUserDataforAppsFlyer - - - -");
+	Properties pro = new Properties();
+	if(!userType.equals("Guest")){
+	String[] userData = { "id", "email", "mobile", "birthday", "gender", "ip_address",
+			"registration_country", "recurring_enabled" };
+	
+	String xAccessToken = getXAccessTokenWithApiKey();
+
+	String pUsername = null;
+	String pPassword = null;
+	
+	if(userType.contains("NonSubscribedUser")){
+		pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
+		pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
+		
+	}else{
+		pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+		pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+		
+	}
+
+	
+	String bearerToken = getBearerToken(pUsername, pPassword);
+	String url = "https://userapi.zee5.com/v1/user";
+	resp = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+	System.out.println(resp.print());
+	AppsFlyer.expectedData.setProperty("Email", resp.jsonPath().getString("email"));
+	AppsFlyer.expectedData.setProperty("Gender", resp.jsonPath().getString("gender"));
+	AppsFlyer.expectedData.setProperty("Registering Country", resp.jsonPath().getString("registration_country"));
+
+	AppsFlyer.expectedData.setProperty("Unique ID", resp.jsonPath().getString("id"));
+	
+	//user_id only for Registration scenario
+	AppsFlyer.expectedData.setProperty("user_id", resp.jsonPath().getString("id"));
+	
+	
+	AppsFlyer.expectedData.setProperty("IP", resp.jsonPath().getString("ip_address"));
+	AppsFlyer.expectedData.setProperty("Partner Name", resp.jsonPath().getString("additional.partner"));
+	getDOBforAppsFlyer();			
+	try{
+		AppsFlyer.expectedData.setProperty("Phone Number", resp.jsonPath().getString("mobile"));			
+	}catch(Exception e){
+		System.out.println("Phone number not displayed");
+	}
+
+	
+	AppsFlyer.expectedData.setProperty("Name", resp.jsonPath().getString("first_name")+" "+resp.jsonPath().getString("last_name"));
+	
+	try{
+		AppsFlyer.expectedData.setProperty("Platform Name", resp.jsonPath().getString("additional.platform"));	
+	}catch(Exception e){
+		System.out.println("platform not displayed");
+	}
+	
+
+	AppsFlyer.expectedData.forEach((key, value) -> System.out.println(key + " : " + value));
+	
+	}else{
+		
+		AppsFlyer.expectedData.setProperty("Unique ID", "Z5X_ca2ef614db067f977ae58776fb46d3b4c4301e2d33e175b5a10ccc7c3dd2d393");
+	}
+	return pro;
+	
+
+}
+
+
+
+private static String getDOBforAppsFlyer() {
+	String birthday=resp.jsonPath().get("birthday").toString();
+	LocalDate dob = LocalDate.parse(birthday.split("T")[0]);
+	LocalDate curDate = LocalDate.now();
+	int ageYears=Period.between(dob, curDate).getYears();
+	int ageMonths=Period.between(dob, curDate).getMonths();
+	if(ageMonths>=6) {
+		++ageYears;
+	}
+	AppsFlyer.expectedData.setProperty("Age", String.valueOf(ageYears));
+	
+	return String.valueOf(ageYears);
+}
+
+
+public static Properties getUserSettingsDetailsforAppsFlyer(String userType) {
+//	String[] userData = { "streaming_quality", "auto_play", "download_quality", "stream_over_wifi", "download_over_wifi", "display_language", "parental_control", "content_language", "eduauraaClaimed", "paytmconsent" };
+	System.out.println("- - - - getUserSettingsDetailsforAppsFlyer - - - -");
+	Properties pro = new Properties();
+	
+	if(!userType.equals("Guest")){
+		
+		String pUsername = null;
+		String pPassword = null;
+		
+		if(userType.contains("NonSubscribedUser")){
+			pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
+			pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
+//			pUsername = "zeenonsubhipi@gmail.com";
+//			pPassword = "123456";
+		}else{
+			pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+			pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+//			pUsername = "zeetest10@test.com";
+//			pPassword = "123456";
+		}
+
+		
+		
+		String bearerToken = getBearerToken(pUsername, pPassword);
+		resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken)
+				.when().get("https://userapi.zee5.com/v1/settings");
+		resp.print();
+		AppsFlyer.expectedData.setProperty("New Download Over Wifi Setting", resp.jsonPath().getString("[4].value"));
+		AppsFlyer.expectedData.setProperty("New Download Quality Setting", resp.jsonPath().getString("[2].value"));
+		AppsFlyer.expectedData.setProperty("New Content Language", resp.jsonPath().getString("[9].value").replace(",", "-"));
+		AppsFlyer.expectedData.setProperty("New Stream Over Wifi Setting", resp.jsonPath().getString("[3].value"));
+		AppsFlyer.expectedData.setProperty("New Video Streaming Quality Setting", resp.jsonPath().getString("[0].value"));
+		AppsFlyer.expectedData.setProperty("New App Language", resp.jsonPath().getString("[7].value"));
+		AppsFlyer.expectedData.setProperty("New Autoplay Setting", resp.jsonPath().getString("[1].value"));
+		String prentControl = "N/A";
+		try{
+							
+		System.out.println(resp.jsonPath().getString("[17].value"));
+		if(!resp.jsonPath().getString("[17].value").equals("{}")){
+			prentControl = resp.jsonPath().getString("[17].value").split(",")[0].replace("pin", "").split(":")[1].replace("\"", "");
+			AppsFlyer.expectedData.setProperty("Parent Control Setting",prentControl);
+		}
+		}catch(Exception e){
+			AppsFlyer.expectedData.setProperty("Parent Control Setting",prentControl);
+		}
+		
+		
+
+	AppsFlyer.expectedData.forEach((key, value) -> System.out.println(key + " : " + value));
+	}
+	return pro;
+}
+
+
+
+
+public static Properties getUserLocationforAppsFlyer() {
+	System.out.println("- - - - getUserLocationforAppsFlyer - - - -");
+	String[] userData = { "country_code", "country", "state", "state_code" };
+	Properties pro = new Properties();
+	String url = "https://xtra.zee5.com/country";
+	resp = RestAssured.given().urlEncodingEnabled(false).when().get(url);
+	resp.print();
+	AppsFlyer.expectedData.setProperty("State", resp.jsonPath().getString("state"));
+	AppsFlyer.expectedData.setProperty("Country", resp.jsonPath().getString("country"));
+	AppsFlyer.expectedData.setProperty("Country Code", resp.jsonPath().getString("country_code"));
+//	AppsFlyer.expectedData.setProperty("State", resp.jsonPath().getString("state_code"));
+	return pro;
+
+}
+
+
+
+public static Properties getDeviceDetails() throws IOException{
+	System.out.println("- - - - getDeviceDetails - - - -");
+	Properties pro = new Properties();
+
+	//APP VERSION
+	String temp;
+	String appVersion = null;
+	String cmd = "adb shell \"dumpsys package com.graymatrix.did | grep versionName\"";
+	Process p = Runtime.getRuntime().exec(cmd);
+	BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+	while ((temp = br.readLine()) != null) {
+	//	System.out.println(temp);	
+		appVersion = temp.trim();
+	}
+	String[] str = appVersion.split("=");
+	AppsFlyer.expectedData.setProperty("App Version", str[1]);
+
+	
+	//MOBILE BRAND+MODEL
+	String MobileBrand = null,MobileModel = null;
+	String DeviceType = null;
+	String cmd1 = "adb shell getprop ro.product.vendor.brand";
+	Process p1 = Runtime.getRuntime().exec(cmd1);
+	BufferedReader br1 = new BufferedReader(new InputStreamReader(p1.getInputStream()));
+	while ((temp = br1.readLine()) != null) {
+	//	System.out.println(temp);	
+		MobileBrand = temp.trim();
+	}
+	String cmd2 = "adb shell getprop ro.product.vendor.model";
+	Process p2 = Runtime.getRuntime().exec(cmd2);
+	BufferedReader br2 = new BufferedReader(new InputStreamReader(p2.getInputStream()));
+	while ((temp = br2.readLine()) != null) {
+	//	System.out.println(temp);	
+		MobileModel = temp.trim();
+	}
+	DeviceType = MobileBrand +"-"+ MobileModel;
+	AppsFlyer.expectedData.setProperty("Device Type", DeviceType);
+
+	
+	//OS VERSION
+	float osVersion = 0 ;
+	String cmd4 = "adb shell getprop ro.build.version.release";
+	Process p4 = Runtime.getRuntime().exec(cmd4);
+	BufferedReader br4 = new BufferedReader(new InputStreamReader(p4.getInputStream()));
+	while ((temp = br4.readLine()) != null) {
+	//	System.out.println(temp);	
+		osVersion = Float.parseFloat(temp.trim());
+	}
+	AppsFlyer.expectedData.setProperty("OS Version", String.valueOf(osVersion));
+	
+	
+	AppsFlyer.expectedData.forEach((key, value) -> System.out.println(key + " : " + value));
+	
+	return pro;
+	
+}
+
+
+
+public static Properties StaticValuesforAppsFlyer(String eventName, String idNumber,String userType, String topnavtab, String tabname){
+	System.out.println("- - - - StaticValuesforAppsFlyer - - - -");
+	Properties pro = new Properties();
+	
+	AppsFlyer.expectedData.setProperty("App UTM Medium", "N/A");
+	AppsFlyer.expectedData.setProperty("Advertisement ID", "7e128be0-8f02-4eb4-93e4-e7382eb01d82");
+	AppsFlyer.expectedData.setProperty("Latitude", "N/A");
+	AppsFlyer.expectedData.setProperty("App isRetargeting", "N/A");
+	AppsFlyer.expectedData.setProperty("App UTM Source", "N/A");
+	AppsFlyer.expectedData.setProperty("App Campaign", "None");
+	AppsFlyer.expectedData.setProperty("App UTM Content", "N/A");
+	AppsFlyer.expectedData.setProperty("Sugar Box Value", "N/A");
+	AppsFlyer.expectedData.setProperty("Appsflyer Campaign", "None");
+	AppsFlyer.expectedData.setProperty("App UTM Campaign", "N/A");
+	AppsFlyer.expectedData.setProperty("App UTM Term", "N/A");
+	AppsFlyer.expectedData.setProperty("WIFI", "true");
+	AppsFlyer.expectedData.setProperty("Appsflyer Source", "Basapplicastertest"+idNumber);
+	AppsFlyer.expectedData.setProperty("App Source", "Basapplicastertest"+idNumber);
+	
+	AppsFlyer.expectedData.setProperty("User Type", userType);
+	if(eventName.contains("Tab_View")){
+		AppsFlyer.expectedData.setProperty("Tab Name", tabname);
+		AppsFlyer.expectedData.setProperty("top_nav_tab", topnavtab);
+	}else if(eventName.contains("screen_view")){
+		AppsFlyer.expectedData.setProperty("Source", topnavtab);
+		AppsFlyer.expectedData.setProperty("Page Name", tabname);
+	}else if(eventName.contains("landing_on_subscriber_plans_screen")){
+		AppsFlyer.expectedData.setProperty("Source", topnavtab);
+		AppsFlyer.expectedData.setProperty("Page Name", tabname);
+	}else if(eventName.contains("af_add_to_cart")){
+		AppsFlyer.expectedData.setProperty("Source", topnavtab);
+		AppsFlyer.expectedData.setProperty("Page Name", tabname);
+	}
+	
+	
+	
+	
+	
+	AppsFlyer.expectedData.setProperty("City", "N/A");
+	AppsFlyer.expectedData.setProperty("Longitude", "N/A");
+	AppsFlyer.expectedData.setProperty("New Setting Value", "N/A");
+	//AppsFlyer.expectedData.setProperty("Session ID", "1620393330");
+	AppsFlyer.expectedData.setProperty("Appsflyer Medium", "N/A");
+	//AppsFlyer.expectedData.setProperty("Appsflyer ID", "1620393331603-1718919116979185738");
+	//AppsFlyer.expectedData.setProperty("First App Launch Date", "2021-05-07T06:45:30Z");
+	AppsFlyer.expectedData.setProperty("Language", "English");
+	AppsFlyer.expectedData.setProperty("AppsFlyer ID", "1620307847410-6601692054452113154");
+	AppsFlyer.expectedData.setProperty("Advertising ID", "7e128be0-8f02-4eb4-93e4-e7382eb01d82");
+	AppsFlyer.expectedData.setProperty("Platform", "android");
+	AppsFlyer.expectedData.setProperty("SDK Version", "true");
+
+	
+	AppsFlyer.expectedData.forEach((key, value) -> System.out.println(key + " : " + value));
+	
+	return pro;
+}
+
+
+
+public static Properties DynamicValuesAsUserTypeforAppsFlyer(String userType) throws ParseException{
+	System.out.println("- - - - DynamicValuesAsUserTypeforAppsFlyer - - - -");
+	Properties pro = new Properties();
+			
+	if(userType.equals("Guest")){
+		dynamicValuesOfSubscription();
+		
+//		AppsFlyer.expectedData.setProperty("Unique ID", resp.jsonPath().getString("additional.guest_token"));	
+		AppsFlyer.expectedData.setProperty("IP", "null");
+		AppsFlyer.expectedData.setProperty("Partner Name", "N/A");	
+		AppsFlyer.expectedData.setProperty("Age", "null");
+		
+		AppsFlyer.expectedData.setProperty("Email", "null");
+		AppsFlyer.expectedData.setProperty("Gender", "null");
+		AppsFlyer.expectedData.setProperty("Name", "null");
+		AppsFlyer.expectedData.setProperty("Platform Name", "Android");
+		AppsFlyer.expectedData.setProperty("Registering Country", "IN");
+		
+		AppsFlyer.expectedData.setProperty("New Download Over Wifi Setting", "false");
+		AppsFlyer.expectedData.setProperty("New Download Quality Setting", "Ask Each Time");
+		AppsFlyer.expectedData.setProperty("New Content Language", "en-kn");
+		AppsFlyer.expectedData.setProperty("New Stream Over Wifi Setting", "false");
+		AppsFlyer.expectedData.setProperty("New Video Streaming Quality Setting", "Auto");
+		AppsFlyer.expectedData.setProperty("New App Language", "en");
+		AppsFlyer.expectedData.setProperty("New Autoplay Setting", "true");
+		String prentControl = "N/A";	
+		AppsFlyer.expectedData.setProperty("Parent Control Setting",prentControl);
+		
+		AppsFlyer.expectedData.setProperty("hasRental", "null");
+		AppsFlyer.expectedData.setProperty("Method", "N/A");
+		AppsFlyer.expectedData.setProperty("isRental", "false");
+		
+		
+	}else if(userType.equals("NonSubscribedUser")){
+		dynamicValuesOfSubscription();
+		AppsFlyer.expectedData.setProperty("hasRental", "false");
+		AppsFlyer.expectedData.setProperty("Method", "N/A");
+		AppsFlyer.expectedData.setProperty("isRental", "false");
+		AppsFlyer.expectedData.setProperty("ad_id", "7e128be0-8f02-4eb4-93e4-e7382eb01d82");
+	}else if(userType.equals("SubscribedUser")){
+		SubcribedDetailsforAppsFlyer(userType);
+	}
+	
+
+
+	AppsFlyer.expectedData.forEach((key, value) -> System.out.println(key + " : " + value));
+	
+	return pro;
+}
+
+
+
+public static void dynamicValuesOfSubscription(){
+	AppsFlyer.expectedData.setProperty("Pack Duration", "N/A");
+	AppsFlyer.expectedData.setProperty("Latest Subscription Pack", "N/A");
+	AppsFlyer.expectedData.setProperty("Free Trial Package", "N/A");
+	AppsFlyer.expectedData.setProperty("Latest Subscription Pack Expiry", "N/A");
+	AppsFlyer.expectedData.setProperty("Next Pack Expiry Date", "N/A");
+	AppsFlyer.expectedData.setProperty("Subscription Status", "N/A");
+	AppsFlyer.expectedData.setProperty("hasEduauraa", "false");
+	AppsFlyer.expectedData.setProperty("Next Expiring Pack", "N/A");
+}
+
+
+
+public static void SubcribedDetailsforAppsFlyer(String userType) throws ParseException {	
+//	String UserType;
+//	UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+	String username = null,password = null;
+	if(userType.equals("SubscribedUser")) {
+		username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+		password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+
+//		username = "zeetest10@test.com"; //"zeein7@mailnesia.com";
+//		password = "123456";
+	
+	}
+	
+
+	Response subscriptionResp=ResponseInstance.getSubscriptionDetails(username, password);
+	subscriptionResp.print();
+	
+	int subscriptionItems=subscriptionResp.jsonPath().get("subscription_plan.size()");	
+	String state=subscriptionResp.jsonPath().get("["+(subscriptionItems-1)+"].state");
+	String id=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].id").toString();
+	String subscription_plan_type=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].subscription_plan_type").toString();
+	String title=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].title").toString();
+	String Latest_Subscription_Pack=id+"_"+title+"_"+subscription_plan_type;
+	
+//	String packExpiry=subscriptionResp.jsonPath().get("subscription_end["+(subscriptionItems-1)+"]").toString();
+	String packExpiry=subscriptionResp.jsonPath().get("["+(subscriptionItems-1)+"].subscription_end").toString();
+//	System.out.println(" PACK "+packExpiry);
+//	SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+	
+//	java.text.DateFormat actualFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+//	actualFormat.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
+//	java.util.Date packExpiryDate = actualFormat.parse(packExpiry);
+	String Latest_Subscription_Pack_Expiry=packExpiry.toString();
+	String Next_Expiring_Pack=Latest_Subscription_Pack;
+	String Next_Pack_Expiry_Date=Latest_Subscription_Pack_Expiry;
+	
+	String billing_frequency=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].billing_frequency").toString();	
+	Response tvodResp=ResponseInstance.getTVODDetails(username, password);
+	int tvodItems=tvodResp.jsonPath().get("playback_state.size()");
+	String HasRental="";
+	try {			
+		if(tvodResp.jsonPath().get("playback_state["+(tvodItems-1)+"]").toString().equalsIgnoreCase("purchased")) HasRental="true";
+		else HasRental="false";
+	}catch(Exception e) {HasRental="false";}
+	
+	Response settingsResp=ResponseInstance.getSettingsDetails(username, password);
+	String hasEduauraa="false",key="";
+	int pairs=settingsResp.jsonPath().get("key.size()");
+	for (int i=0;i<pairs;i++) {
+		key=settingsResp.jsonPath().get("key["+i+"]").toString();
+		if(key.equals("eduauraaClaimed")) { 			
+			hasEduauraa=settingsResp.jsonPath().get("value["+i+"]").toString();
+			if(hasEduauraa.equals("")) hasEduauraa="false";
+			break;
+		}
+	}
+	
+	AppsFlyer.expectedData.setProperty("Latest Subscription Pack", Latest_Subscription_Pack);
+	AppsFlyer.expectedData.setProperty("Latest Subscription Pack Expiry", Latest_Subscription_Pack_Expiry);
+	AppsFlyer.expectedData.setProperty("Next Expiring Pack", Next_Expiring_Pack);
+	AppsFlyer.expectedData.setProperty("Next Pack Expiry Date", Next_Pack_Expiry_Date);
+	AppsFlyer.expectedData.setProperty("Free Trial Package", "N/A");	
+	AppsFlyer.expectedData.setProperty("hasEduauraa", hasEduauraa);
+	AppsFlyer.expectedData.setProperty("Subscription Status", state);
+	AppsFlyer.expectedData.setProperty("Free Trial Expiry Date", "N/A");
+	AppsFlyer.expectedData.setProperty("Pack Duration", billing_frequency);
+	AppsFlyer.expectedData.setProperty("HasRental", HasRental);
+	
+	
+//	printProperties1(AppsFlyer.expectedData);
+	
+	
+}
+
+
+
+
+public static Properties getContentDetailsOFOriginalForAppsflyer(String ID) {
+	Properties pro = new Properties();
+	System.out.println("Content ID :"+ID);
+	
+	if (assetSubType.equalsIgnoreCase("tvshow") || assetSubType.equalsIgnoreCase("episode")
+			|| assetSubType.equalsIgnoreCase("external_link")) {
+		resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+				.get("https://gwapi.zee5.com/content/tvshow/" + ID + "?translation=en&country=IN");
+	} else if (assetSubType.equalsIgnoreCase("external_link")) { 
+
+	} else if(assetSubType.equalsIgnoreCase("original") || assetSubType.equalsIgnoreCase("video")
+			|| assetSubType.equalsIgnoreCase("movie")|| assetSubType.equalsIgnoreCase("trailer")){
+		resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+				.get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
+		if(!assetSubType.equalsIgnoreCase("trailer")) {
+		if(resp.jsonPath().getList("related")  != null) {
+			ID = resp.jsonPath().getString("related[0].id");
+			resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
+			}
+		}
+	} else {
+		if (pageName.equals("episode") || pageName.equals("shows")) {
+			resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+					.get("https://gwapi.zee5.com/content/tvshow/" + ID + "?translation=en&country=IN");
+		} else if (pageName.equals("movies")) {
+			resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+					.get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
+			if(trailer) {
+				ID = resp.jsonPath().getString("related[0].id");
+				resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
+			}
+		}
+	}
+
+	
+	
+//	Mixpanel.FEProp.setProperty("Content Duration", resp.jsonPath().getString("duration"));
+	AppsFlyer.expectedData.setProperty("show_id", resp.jsonPath().getString("id"));
+	AppsFlyer.expectedData.setProperty("season_id", resp.jsonPath().getString("season.id"));
+	AppsFlyer.expectedData.setProperty("Content ID", resp.jsonPath().getString("seasons[0].episodes[0].id"));
+	AppsFlyer.expectedData.setProperty("Series", resp.jsonPath().getString("original_title"));
+	AppsFlyer.expectedData.setProperty("Content Name", resp.jsonPath().getString("seasons[0].episodes[0].title"));	
+	AppsFlyer.expectedData.setProperty("subtitle language", resp.jsonPath().getList("seasons[0].episodes[0].video_details.subtitles").toString().replaceAll("\\[", "").replaceAll("\\]", ""));
+	AppsFlyer.expectedData.setProperty("Audio Language", resp.jsonPath().getList("seasons[0].episodes[0].video_details.audiotracks").toString().replaceAll("\\[", "").replaceAll("\\]", ""));
+	AppsFlyer.expectedData.setProperty("Content Original Language", resp.jsonPath().getList("seasons[0].episodes[0].audio_languages").toString().replaceAll("\\[", "").replaceAll("\\]", ""));
+	AppsFlyer.expectedData.setProperty("Subtitle Language", resp.jsonPath().getList("seasons[0].episodes[0].subtitle_languages").toString().replaceAll("\\[", "").replaceAll("\\]", ""));
+	AppsFlyer.expectedData.setProperty("Genre",resp.jsonPath().getList("seasons[0].episodes[0].genres.id").toString().replaceAll(",","-").replaceAll("\\s", " ").replaceAll("\\[", "").replaceAll("\\]", ""));
+	AppsFlyer.expectedData.setProperty("Content Type", resp.jsonPath().getString("seasons[0].episodes[0].business_type"));
+	
+	if(resp.jsonPath().getString("seasons[0].episodes[0].tvshow_details.asset_subtype").contains("original")){
+		AppsFlyer.expectedData.setProperty("Top Category", "Zee Original");	
+	}else{
+		AppsFlyer.expectedData.setProperty("Top Category", "Original");
+	}
+	
+
+//	Mixpanel.FEProp.setProperty("Content Specification", resp.jsonPath().getString("asset_subtype"));
+//	Mixpanel.FEProp.setProperty("Characters",resp.jsonPath().getList("actors").toString().replaceAll(",","-").replaceAll("\\s", ""));
+////	Mixpanel.FEProp.setProperty("Audio Language",resp.jsonPath().getList("audio_languages").toString().replace("[", "").replace("]", ""));
+//	Mixpanel.FEProp.setProperty("Subtitle Language", resp.jsonPath().getString("subtitle_languages").toString());
+//	Mixpanel.FEProp.setProperty("Content Type",resp.jsonPath().getString("business_type"));
+//	Mixpanel.FEProp.setProperty("Genre",resp.jsonPath().getList("genre.id").toString().replaceAll(",","-").replaceAll("\\s", ""));
+//	Mixpanel.FEProp.setProperty("Content Original Language",resp.jsonPath().getString("languages").replace("[", "").replace("]", ""));
+//	if(resp.jsonPath().getString("is_drm").equals("1")) {
+//	Mixpanel.FEProp.setProperty("DRM Video","true");
+//	}else {
+//		Mixpanel.FEProp.setProperty("DRM Video","false");
+//	}
+	resp.print();
+	AppsFlyer.expectedData.forEach((key, value) -> System.out.println(key + " : " + value));
+	trailer = false;
+	
+	return pro;
+}
+
+
+
+public static void getBuyPlanDataForAppsFlyer(String PlanId){
+
+	//String PlanId="0-11-1842";
+	Response buyPlanResp = null;
+	
+	String url = "https://subscriptionapi.zee5.com/v1/subscriptionplan?country=IN&translation=en&system=Z5&version=2&platform_name=web_app";
+
+	//String b = getBearerToken(username, password);
+	// System.out.println("\nbearer token :"+b+"\n");
+	//response = given().headers("Authorization", b).when().get(url);
+	buyPlanResp = RestAssured.given().when().get(url);
+	System.out.println("\nresponse body: "+buyPlanResp.getBody().asString());
+			
+	//buyPlanResp.print();
+	
+	int buyPlanItems=buyPlanResp.jsonPath().get("subscription_plan.size()");	
+	//System.out.println(buyPlanItems);
+	int j = 0;
+	for(int i=0; i<=buyPlanItems; i++){
+		
+		String id = buyPlanResp.jsonPath().get("["+i+"].id").toString();
+		
+		if(PlanId.equalsIgnoreCase(id)){
+			j=i;
+			//System.out.println(i);
+			break;
+		}
+		
+	}
+	
+	String id = buyPlanResp.jsonPath().get("["+j+"].id").toString();
+	String title = buyPlanResp.jsonPath().get("["+j+"].title").toString();
+	String PackSelected = id+"_"+title;
+	AppsFlyer.expectedData.setProperty("Pack Selected", PackSelected);
+	
+	String description = buyPlanResp.jsonPath().get("["+j+"].description").toString().replace("50% off on ₹", "").concat(".0");
+	String price = buyPlanResp.jsonPath().get("["+j+"].price").toString();
+	String currency = buyPlanResp.jsonPath().get("["+j+"].currency").toString();
+	AppsFlyer.expectedData.setProperty("af_revenue", description);
+	AppsFlyer.expectedData.setProperty("Cost", price);
+	AppsFlyer.expectedData.setProperty("pack_id", id);
+	AppsFlyer.expectedData.setProperty("af_currency", currency);
+	AppsFlyer.expectedData.setProperty("login_method", "N/A");
+	AppsFlyer.expectedData.setProperty("ft_available", "N/A");
+	AppsFlyer.expectedData.setProperty("Promo Code", "N/A");
+
+
+	AppsFlyer.expectedData.forEach((key, value) -> System.out.println(key + " : " + value));
+	
+}
+
+
+
+public static Properties getContentDetailsOFMusicForAppsflyer(String ID) {
+	Properties pro = new Properties();
+	System.out.println("Content ID :"+ID);
+	Response resp;
+	resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+			.get("https://gwapi.zee5.com/content/details/" +ID +"?translation=en&country=IN&version=2");
+
+	System.out.println(resp.print());
+	
+	AppsFlyer.expectedData.setProperty("show_id", resp.jsonPath().getString("id"));
+	AppsFlyer.expectedData.setProperty("season_id", "N/A");
+	AppsFlyer.expectedData.setProperty("Content Name", resp.jsonPath().getString("title"));
+	AppsFlyer.expectedData.setProperty("Content ID", resp.jsonPath().getString("id"));
+	AppsFlyer.expectedData.setProperty("Genre", resp.jsonPath().getString("genre[0].value"));
+	AppsFlyer.expectedData.setProperty("Content Type", resp.jsonPath().getString("business_type"));
+	AppsFlyer.expectedData.setProperty("Audio Language", resp.jsonPath().getList("video_details.audiotracks").toString().replaceAll("\\[", "").replaceAll("\\]", ""));
+	AppsFlyer.expectedData.setProperty("Content Original Language", resp.jsonPath().getList("languages").toString().replaceAll("\\[", "").replaceAll("\\]", ""));
+	AppsFlyer.expectedData.setProperty("Top Category", "Music");
+	String subtitle = resp.jsonPath().getList("subtitle_languages").toString();
+	if(subtitle.equals("[]")){
+		AppsFlyer.expectedData.setProperty("Subtitle Language", "N/A");
+	}else{
+		AppsFlyer.expectedData.setProperty("Subtitle Language", subtitle.replaceAll("\\[", "").replaceAll("\\]", ""));
+	}
+	
+	AppsFlyer.expectedData.forEach((key, value) -> System.out.println(key + " : " + value));
+	
+	return pro;
+}
+
+
+
+public static Properties getRegistrationDetailsForAppsflyer() {
+	Properties pro = new Properties();
+
+	
+	String xAccessToken = getXAccessTokenWithApiKey();
+
+	String pUsername = newEmailID;
+	String pPassword = newPassword;
+	
+
+	String bearerToken = getBearerToken(pUsername, pPassword);
+	String url = "https://userapi.zee5.com/v1/user";
+	resp = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+	System.out.println(resp.print());
+	
+	//user_id only for Registration scenario
+	AppsFlyer.expectedData.setProperty("user_id", resp.jsonPath().getString("id"));
+
+
+	AppsFlyer.expectedData.setProperty("ad_id", "7e128be0-8f02-4eb4-93e4-e7382eb01d82");
+	AppsFlyer.expectedData.setProperty("af_registration_method", "email_password");
+	AppsFlyer.expectedData.forEach((key, value) -> System.out.println(key + " : " + value));
+	
+	return pro;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

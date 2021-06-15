@@ -1592,6 +1592,19 @@ public class Utilities extends ExtentReporter {
 		return randomInt;
 	}
 
+	
+	public String RandomIntegerGenerator(int n){
+		String number = "0123456789";
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = (int) (number.length() * Math.random());
+
+			sb.append(number.charAt(index));
+		}
+		return sb.toString();
+	}
+	
+	
 	/**
 	 * Function to generate Random String of length 4
 	 * 

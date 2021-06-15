@@ -6,8 +6,9 @@ import org.openqa.selenium.By;
 
 public class AMDHomePage {
 
-	// ZEE5 Logo
-	public static By objZee5Logo = By.xpath("//*[@contentDescription='LOGO']");
+	public static By objPlaystoreZeeText = By.xpath("(//*[contains(text(),'ZEE5: Movies, TV Shows, Web Series')])");
+	
+	public static By objOpenButton = By.xpath("//*[@text='Open']");
 
 	public static By objGetPremium = By.xpath("//*[@id='get_premium_hero_component']");
 
@@ -130,6 +131,9 @@ public class AMDHomePage {
 	public static By objKidsTab = By.xpath("//*[@id='title' and @text='Kids'] | //*[@text='Eduauraa']");
 	public static By objMusicTab = By.xpath("//*[@id='title' and @text='Music'] | //*[@text='Music']");
 	public static By objLiveTvTab = By.xpath("//*[@id='title' and @text='Live TV'] | //*[@text='Live TV']");
+	public static By objEduauraaTab = By.xpath("//*[@id='title' and @text='Eduauraa'] | //*[@text='Eduauraa']");
+	public static By objWebSeriesTab = By.xpath("//*[@id='title' and @text='Web Series'] | //*[@text='Web Series']");
+	
 	public static By objZee5OriginalsTab = By
 			.xpath("//*[@id='title' and @text='ZEE5 Originals'] | //*[@text='ZEE5 Originals']");
 
@@ -241,7 +245,6 @@ public class AMDHomePage {
 	public static By objSlectedTabInDownloadsScreen = By.xpath("//*[@id='tab_layout']//*[@class='android.widget.TextView' and @selected='true']");
 	
 	public static By errortitle = By.xpath("//*[@id='txt_error_title']");
-	public static By objRetryCTA = By.xpath("//*[@id='txt_error_retry']");
 	
 	public static By objCarouselContentTitleCard(String title) {
 		return By.xpath("//*[@id='cell_center_container' and @class='android.widget.LinearLayout']//*[@text='"+title+"']");
@@ -278,5 +281,13 @@ public class AMDHomePage {
 	public static By objWhatsappSmallIconNudge = By.xpath("");
 	public static By objHipiBottomSection = By.xpath("//*[@id='hipi_bottom_section']");
 	
+	public static By objBottomHomeBtn = By.xpath("(//*[@id='navigationTitleTextView' and @text='Home'])");
+ 	public static By objBottomUpcomingBtn = By.xpath("(//*[@id='navigationTitleTextView' and @text='Upcoming'])");
+ 	public static By objBottomDownloadBtn = By.xpath("(//*[@id='navigationTitleTextView' and @text='Downloads'])");
+ 	public static By objBottomMoreMenuBtn = By.xpath("(//*[@id='navigationTitleTextView' and @text='More'])");
+ 	
+ 	public static By objZee5Logo = By.xpath("//*[@id='home_toolbar_brand_logo'] | //*[@contentDescription='LOGO']");
+
+ 	public static By objRetryCTA = By.xpath("//*[@id='errorViewButton'] | //*[@id='txt_error_retry']");
 	
 }

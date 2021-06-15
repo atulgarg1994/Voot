@@ -81,16 +81,18 @@ public class responseWatchlist {
 	}
 
 	public static void main(String args[]) {
-		String URL = "https://gwapi.zee5.com/user/v2/watchhistory?country=IN&translation=en";
-
-		String username = "raghucpatel@gmail.com";
-		String pwd = "raghu@123";
-		getRECOResponse(URL, username, pwd);
+//		String URL = "https://gwapi.zee5.com/user/v2/watchhistory?country=IN&translation=en";
+//
+//		String username = "raghucpatel@gmail.com";
+//		String pwd = "raghu@123";
+//		getRECOResponse(URL, username, pwd);
 //		ArrayList<String> episode = WatchlistValidationEpisodesTab();
 //		System.out.println(episode);
 //		WatchlistValidationVideoTab();
 //		WatchlistValidationMoviesTab();
-
+//		Response resp = RestAssured.given().urlEncodingEnabled(false).when().post(
+//						"https://useraction.zee5.com/device/v3/getdeviceuser.php");
+//		resp.print();
 	}
 
 	public static String getXAccessToken() {
@@ -177,5 +179,8 @@ public class responseWatchlist {
 		System.out.println(respCarousel.print());
 		return respCarousel;
 	}
+	
+	
+	
 
 }

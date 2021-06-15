@@ -450,6 +450,14 @@ public class Android_Defects {
 		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
 		ZEE5ApplicasterBusinessLogic.VerifyWeekInShorts(userType);		
 	}
+	
+	@Test(priority = 54) //Bhavana
+	@Parameters({ "userType" })
+	public void VerifyContinueCTAInSubscribeScreen(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.VerifyContinueCTAInSubscribeScreen(userType);		
+	}
 
 	@AfterTest
 	public void tearDownApp() {

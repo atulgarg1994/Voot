@@ -187,4 +187,11 @@ public class AMDLoginScreen {
 	
 	public static By objEnterPasswordField = By.xpath("//*[@id='heading' and @text='Enter Password']");
 	public static By objAccountInfoScreen = By.xpath("//*[@id='heading' and @text='Account Info']");
+	
+	
+	public static By objContentLanguageHindi = By.xpath("//*[@id='btn_content_lang' and @text='Hindi']");
+
+	public static By objContentLanguageEnglish = By.xpath("//*[@id='btn_content_lang' and @text='English']");
+
+	public static By objContentLanguageContinueButton = By.xpath("//*[@id='btn_content_language_selection' and @text='Continue']");
 }

@@ -6128,6 +6128,16 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Subscribe icon", "Zee5 logo is NOT dislayed");
 		}
 		
+		if (userType.contentEquals("SubscribedUser")) {
+			if (verifyElementIsNotDisplayed(AMDHomePage.objContinueWatchingTray)) {
+				logger.info("Continue watching tray is NOT displayed for Premium tab");
+				extent.extentLoggerPass("Continue watching", "Continue watching tray is NOT displayed for Premium tab");
+			} else {
+				logger.error("Continue watching tray is displayed for Premium tab");
+				extent.extentLoggerFail("Continue watching", "Continue watching tray is displayed for Premium tab");
+			}
+		}
+		
 		// Verify continue watching tray is not displayed for guest user
 		/*
 		 * if(UserType.equals("Guest")) {
@@ -6189,6 +6199,16 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		} else {
 			logger.error("Zee5 logo is not dislayed");
 			extent.extentLoggerFail("Zee5 logo", "Zee5 logo is NOT dislayed");
+		}
+		
+		if (userType.contentEquals("SubscribedUser")) {
+			if (verifyElementIsNotDisplayed(AMDHomePage.objContinueWatchingTray)) {
+				logger.info("Continue watching tray is NOT displayed for Eduauraa tab");
+				extent.extentLoggerPass("Continue watching", "Continue watching tray is NOT displayed for Eduauraa tab");
+			} else {
+				logger.error("Continue watching tray is displayed for Eduauraa tab");
+				extent.extentLoggerFail("Continue watching", "Continue watching tray is displayed for Eduauraa tab");
+			}
 		}
 		
 		// Verify Trending on ZEE5 tray is displayed
@@ -6272,7 +6292,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.error("Zee5 logo is not dislayed");
 			extent.extentLoggerFail("Zee5 logo", "Zee5 logo is NOT dislayed");
 		}
-		
+		if (userType.contentEquals("SubscribedUser")) {
+			if (verifyElementIsNotDisplayed(AMDHomePage.objContinueWatchingTray)) {
+				logger.info("Continue watching tray is NOT displayed for News tab");
+				extent.extentLoggerPass("Continue watching", "Continue watching tray is NOT displayed for News tab");
+			} else {
+				logger.error("Continue watching tray is displayed for News tab");
+				extent.extentLoggerFail("Continue watching", "Continue watching tray is displayed for News tab");
+			}
+		}
 		
 		carouselValidationforShowsAndNews(userType, "News");
 	}
@@ -6880,6 +6908,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Zee5 logo", "Zee5 logo is NOT dislayed");
 		}
 		
+		if (userType.contentEquals("SubscribedUser")) {
+			if (verifyElementIsNotDisplayed(AMDHomePage.objContinueWatchingTray)) {
+				logger.info("Continue watching tray is NOT displayed for Live TV");
+				extent.extentLoggerPass("Continue watching", "Continue watching tray is NOT displayed for Live Tv");
+			} else {
+				logger.error("Continue watching tray is displayed for Live Tv");
+				extent.extentLoggerFail("Continue watching", "Continue watching tray is displayed for Live TV");
+			}
+		}
 		
 		if (UserType.equals("Guest")) {
 			verifyElementExist(AMDLiveTVScreen.objSubscribeIcon, "Buy Plan Icon for " + UserType + " User");
@@ -6947,6 +6984,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		VerifyDuplicateTrays(AMDLiveTVScreen.objTray("Music"), "Music tray");
 		VerifyDuplicateTrays(AMDLiveTVScreen.objTray("News"), "News tray");
 	}
+
 
 	public void channelGuideScreenValidation(String UserType) throws Exception {
 		extent.HeaderChildNode("Verifying Channel Guide screen in Live TV Landing screen");
@@ -7073,6 +7111,16 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			} else {
 				logger.error("Zee5 logo is not dislayed");
 				extent.extentLoggerFail("Zee5 logo", "Zee5 logo is NOT dislayed");
+			}
+			
+			if (userType.contentEquals("SubscribedUser")) {
+				if (verifyElementIsNotDisplayed(AMDHomePage.objContinueWatchingTray)) {
+					logger.info("Continue watching tray is NOT displayed for Music tab");
+					extent.extentLoggerPass("Continue watching", "Continue watching tray is NOT displayed for Music tab");
+				} else {
+					logger.error("Continue watching tray is displayed for Music tab");
+					extent.extentLoggerFail("Continue watching", "Continue watching tray is displayed for Music tab");
+				}
 			}
 			
 			findParticularTray(AMDHomePage.objBrandNewMusicRail, "Brand new Music");
@@ -25848,6 +25896,65 @@ public void getApp_NetworkTrafficUsage(String pPackageName) throws Exception {
 		extent.extentLoggerWarning("Traffic Usage","<b>Please check if the device is connected | App is closed </b>");
 	}
 }
+
+public void TapOnVideoInOfflineMode() throws Exception {
+	extent.HeaderChildNode("Offline Screen Validation");
+	System.out.println("\nOffline Screen Validation");
+	waitTime(3000);
+	click(AMDHomePage.objMoviesTab,"Movie tab");
+	waitTime(5000);
+	TurnOFFWifi();
+	if (getOEMName.equalsIgnoreCase("Sony")) {
+		Wifi_TurnOFFnON();
+	}
+	waitTime(2000);	
+	waitForElementAndClickIfPresent(AMDHomePage.objPlayBtn, 10, "Play icon");
+	waitTime(3000);
+	if(verifyElementDisplayed(AMDHomePage.objRetryCTA)) {
+		String text = findElement(AMDConsumptionScreen.objErrTextOnPlayer).getText();
+		logger.info(text + " with Retry CTA is displayed");
+		extentLoggerPass("Applaunch", text + " with Retry CTA is displayed");
+	}else {
+		logger.error("Retry CTA is not displayed");
+		extentLoggerFail("Buy Now CTA", "Retry CTA is not displayed");
+	}	
+	TurnONWifi();
+	if (getOEMName.equalsIgnoreCase("Sony")) {
+		Wifi_TurnOFFnON();
+	}	
+	waitTime(2000);
+	Back(1);	
+}
+
+
+
+public void VerifyContinueCTAInSubscribeScreen(String userType) throws Exception {
+	 //AMA2-10443
+	 extent.HeaderChildNode("AMA2-10443 : 'Continue with ₹299 per month' text is displayed on continue cta");
+   logger.info("AMA2-10443 : 'Continue with ₹299 per month' text is displayed on continue cta");
+   if(!userType.equalsIgnoreCase("SubscribedUser")) {
+	   click(AMDHomePage.objSubscribeTeaser,"Buy Plan CTA on Home landing screen");
+	   Swipe("UP",1);
+	   verifyElementExist(AMDSubscibeScreen.obj299Pack, "299 pack");
+	   String planprice = findElement(AMDSubscibeScreen.obj299Pack).getText();
+	   logger.info(planprice);
+	   verifyElementExist(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue CTA");
+	   String ContinueCTA = findElement(AMDSubscibeScreen.objContinueOnSubscribePopup).getText();
+	   logger.info(ContinueCTA);
+	   if(ContinueCTA.contains("per month")){
+		   extent.extentLoggerFail("Subscribe screen","[AMA2-10443] " + ContinueCTA + " is displayed");
+			logger.error("[AMA2-10443] " + ContinueCTA + " is displayed"); 		   
+	   }else {
+		   extent.extentLoggerPass("Subscribe screen", ContinueCTA + " is displayed");
+			logger.info(ContinueCTA + " is displayed");
+	   }	   
+   }else {
+	   logger.info("AMA2-10443 : Not applicable for "+ userType);
+		extent.extentLogger("Subscribe", "AMA2-10443 : Not applicable for " + userType);  
+   }
+	
+}
+
 
 
 }

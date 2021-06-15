@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 public class AMDMoreMenu {
 
 	public static By objMoreMenu = By.xpath("//*[@id='bb_bottom_bar_icon']");
+	public static By objLoginRegister = By.xpath("//*[@text='Login/Register for best experience']");
 	public static By objProfile = By.xpath("//*[@text='P']");
 	public static By objUserType = By.xpath("//*[@text='Guest']");
 	public static By objBackbutton = By.xpath("//*[@text='a']");

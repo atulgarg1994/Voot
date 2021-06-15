@@ -50,6 +50,14 @@ public class Android_AppLaunch {
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.checkScreenAfterRelaunch(userType, "Content language screen");
 	}
+	
+	@Test(priority = 4)
+	@Parameters({ "userType"})
+	public void TapVideoInOfflineMode(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+	    ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.TapOnVideoInOfflineMode();
+	}
 
 	@AfterTest
 	public void tearDownApp() {

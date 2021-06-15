@@ -166,4 +166,16 @@ public class AMDOnboardingScreen {
 	public static By objCancelZEE5Update = By.xpath("//*[@id='0_resource_name_obfuscated' and @text='NO THANKS']");
 	public static By objUpdateZEE5UpdateApp= By.xpath("//*[@id='0_resource_name_obfuscated' and @text='UPDATE']");
 	public static By objExitPopUp_ConfirmCTA = By.xpath("//*[@id='btn_continue']");
+	
+	public static By objUpdateZee5PopUpNOTHANKSButton = By.xpath("//*[@text='NO THANKS']");
+	
+	public static By ele1Allow(String str){
+		return By.xpath("//*[@text='"+str+"']");
+	}
+
+	public static By objZeeMoreButton = By.xpath("//*[contains(@resource-id,'navigationTitleTextView') and @text='More']");	
+	
+	public static By objZeeLoginRegisterLink = By.xpath("//*[@text='Login/Register for best experience']");
+	
+	
 }

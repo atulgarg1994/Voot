@@ -18301,12 +18301,15 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		return false;
 	}
 	
-	public void VILogin() throws Exception {
-		HeaderChildNode("Login with credentials");
-		type(PWAVIAppPage.objMobileNoField, "","Mobile Number Field");
-		waitTime(30000);
-		click(PWAVIAppPage.objGOIcon, "GO Icon");
-	}
+	
+//	VI Integration
+
+//	public void VILogin() throws Exception {
+//		HeaderChildNode("Login with credentials");
+//		type(PWAVIAppPage.objMobileNoField, "","Mobile Number Field");
+//		waitTime(30000);
+//		click(PWAVIAppPage.objGOIcon, "GO Icon");
+//	}
 	
 	public void NavigationFromVIAPPToZee5ConsumptionScreen() throws Exception {
 		HeaderChildNode("Click on Zee5 content");
@@ -18321,6 +18324,91 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		click(PWAHamburgerMenuPage.objMySubscription, "My Subscription");
 		
 	}
+	
+	public void Zee5ContentsOnViApp() throws Exception {
+		HeaderChildNode("P1 - zee 5 contents on Vi app");
+		verifyElementDisplayed(PWAVIAppPage.objFirstZee5Content);
+	}
+	
+	public void VerifyComplimentaryPackIsAttachedForClassicUserViaVIJourney() throws Exception {
+		HeaderChildNode("Verify Complimentary Pack Is Attached For Classic User Via VI Journey");
+		verifyElementPresentAndClick(PWAVIAppPage.objFirstZee5Content,"Zee5 Content in VI App");
+		waitTime(6000);
+		getDriver().context("WEBVIEW_1");
+		verifyElementPresentAndClick(PWAVIAppPage.objHamburgerMenu, "Hamburger Menu");
+		verifyElementPresentAndClick(PWAVIAppPage.objMyAccount, "My Account");
+		verifyElementPresentAndClick(PWAVIAppPage.objMySubscription, "My Subscription");
+		verifyElementPresent(PWAVIAppPage.objViMTVVIPPackTitle,"VIMTV VIP Pack Page");
+		verifyElementPresent(PWAVIAppPage.objFor30DaysTxt, "For 30 Day's text");
+		verifyElementPresent(PWAVIAppPage.objDateOfPurchaseTxt, "Date of purchase text");
+		verifyElementPresent(PWAVIAppPage.objAutoRenewsOnTxt, "Auto Renews On");
+		String status = getText(PWAVIAppPage.objStatusValue);
+		if(status.equals("Active")) {
+			extent.extentLoggerPass("", "Status of the pack is active");
+			logger.error("Status of the pack is active");
+		}else {
+			extent.extentLoggerFail("", "Status of the pack is "+status);
+			logger.error("Status of the pack is "+status);
+		}
+		
+		String PaymentModeValue = getText(PWAVIAppPage.objPaymentModeValue);
+		if(PaymentModeValue.equals("CRM")) {
+			extent.extentLoggerPass("", "Payment Mode Value is CRM");
+			logger.error("Payment Mode Value is CRM");
+		}else {
+			extent.extentLoggerFail("", "Payment Mode Value is "+PaymentModeValue);
+			logger.error("Payment Mode Value is "+PaymentModeValue);
+		}
+		
+		String AutoRenewal = getText(PWAVIAppPage.objAutoRenewalValue);
+		if(AutoRenewal.equals("Yes")) {
+			extent.extentLoggerPass("", "AutoRenewal value is Yes");
+			logger.error("AutoRenewal value is Yes");
+		}else {
+			extent.extentLoggerFail("", "AutoRenewal value is "+AutoRenewal);
+			logger.error("AutoRenewal value is "+AutoRenewal);
+		}
+	}
+	
+	public void VerifyAutoRenewableAndRenewedDetailsOnMySubscriptionPage() throws Exception {
+		HeaderChildNode("Verify Complimentary Pack Is Attached For Classic User Via VI Journey");
+		verifyElementPresentAndClick(PWAVIAppPage.objFirstZee5Content,"Zee5 Content in VI App");
+		waitTime(6000);
+		getDriver().context("WEBVIEW_1");
+		verifyElementPresentAndClick(PWAVIAppPage.objHamburgerMenu, "Hamburger Menu");
+		verifyElementPresentAndClick(PWAVIAppPage.objMyAccount, "My Account");
+		verifyElementPresentAndClick(PWAVIAppPage.objMySubscription, "My Subscription");
+		verifyElementPresent(PWAVIAppPage.objViMTVVIPPackTitle,"VIMTV VIP Pack Page");
+		verifyElementPresent(PWAVIAppPage.objAutoRenewsOnTxt, "Auto Renews On");
+		String status = getText(PWAVIAppPage.objStatusValue);
+		if(status.equals("Active")) {
+			extent.extentLoggerPass("", "Status of the pack is active");
+			logger.error("Status of the pack is active");
+		}else {
+			extent.extentLoggerFail("", "Status of the pack is "+status);
+			logger.error("Status of the pack is "+status);
+		}
+		
+		String PaymentModeValue = getText(PWAVIAppPage.objPaymentModeValue);
+		if(PaymentModeValue.equals("CRM")) {
+			extent.extentLoggerPass("", "Payment Mode Value is CRM");
+			logger.error("Payment Mode Value is CRM");
+		}else {
+			extent.extentLoggerFail("", "Payment Mode Value is "+PaymentModeValue);
+			logger.error("Payment Mode Value is "+PaymentModeValue);
+		}
+		
+		String AutoRenewal = getText(PWAVIAppPage.objAutoRenewalValue);
+		if(AutoRenewal.equals("Yes")) {
+			extent.extentLoggerPass("", "AutoRenewal value is Yes");
+			logger.error("AutoRenewal value is Yes");
+		}else {
+			extent.extentLoggerFail("", "AutoRenewal value is "+AutoRenewal);
+			logger.error("AutoRenewal value is "+AutoRenewal);
+		}
+	}
+	
+	
 	
 	
 	
