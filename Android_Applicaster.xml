@@ -147,7 +147,7 @@
 	<parameter name="RSVODPassword" value="123456" />
 	<parameter name="OneYearPremiumPack" value="mobicheck@gmail.com" />
 	<parameter name="CommomPassword" value="123456 " />
-	<parameter name="99PremiumPackEmail" value="zeetest6@g.com" />
+	<parameter name="99PremiumPackEmail" value="zeetest6@g.com"/>
 	<parameter name="249PremiumPackEmail" value="newsub12@gmail.com" />
 	<parameter name="299PremiumPackEmail" value="newsub07@gmail.com" />
 	<parameter name="NonSubsUserWithActiveRentalPlan" value="testtvod_radhe1@mailnesia.com" />

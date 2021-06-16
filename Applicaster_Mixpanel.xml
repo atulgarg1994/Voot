@@ -10,7 +10,7 @@
 	<parameter name="NonSubscribedUserPassword" value="123456" />
 	
 	<parameter name="SubscribedUserName" value="clubRK@g.com" />
-	<parameter name="SubscribedUserPassword" value="123456" />
+	<parameter name="SubscribedPassword" value="123456" />
 	
 	<parameter name="ParentalNonsubscribedUserName" value="juspayuser@mailnesia.com" />
 	<parameter name="ParentalNonsubscribedPassword" value="123456" />

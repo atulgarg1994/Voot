@@ -18307,6 +18307,66 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		return false;
 	}
 	
+	public void PWAVerifyTextInCTAOFSubscriptionPage(String userType) throws Exception {
+		if (userType.equals("Guest")) {
+			reloadHome();
+			extent.HeaderChildNode("PWA2-7908 : Subscription page shows incorrect text on CTA");
+			logger.info("PWA2-7908 : Subscription page shows incorrect text on CTA");
+			verifyElementPresentAndClick(PWAHomePage.objBuyPlanCTA, "Buy Plan");
+			
+			String price = null;
+			price = getText(PWASubscriptionPages.objPackSelected);
+			String ContinueBtnTxt = getText(PWASubscriptionPages.objContinueButtonTxt);
+			if (ContinueBtnTxt.equals("Continue with ₹" + price)) {
+				extent.extentLoggerPass("", "Text on Continue button is displayed properly");
+				logger.error("Text on Continue button is displayed properly");
+			} else {
+				extent.extentLoggerFail("", "Text on Continue button is not displayed proper");
+				logger.error("Text on Continue button is not displayed proper");
+			}
+			click(PWASubscriptionPages.objPackCheckBox, "Check Box");
+			price = getText(PWASubscriptionPages.objPackSelected);
+			String ContinueBtnTxt2 = getText(PWASubscriptionPages.objContinueButtonTxt);
+			if (ContinueBtnTxt2.equals("Continue with ₹" + price)) {
+				extent.extentLoggerPass("", "Text on Continue button is displayed properly");
+				logger.error("Text on Continue button is displayed properly");
+			} else {
+				extent.extentLoggerFail("", "Text on Continue button is not displayed proper");
+				logger.error("Text on Continue button is not displayed proper");
+			}
+		}
+	}
+	
+	public void PWAVerifyTextInUpgradeCTAOfSubscriptionPage(String userType) throws Exception {
+		if (userType.equals("Guest")) {
+			reloadHome();
+			extent.HeaderChildNode("PWA2-7909 : Subscription page shows incorrect text on CTA");
+			logger.info("PWA2-7909 : Subscription page shows incorrect text on CTA");
+			verifyElementPresentAndClick(PWAHomePage.objBuyPlanCTA, "Buy Plan");
+			
+			String price = null;
+			price = getText(PWASubscriptionPages.objPackSelected);
+			String ContinueBtnTxt = getText(PWASubscriptionPages.objContinueButtonTxt);
+			if (ContinueBtnTxt.equals("Continue with ₹" + price)) {
+				extent.extentLoggerPass("", "Text on Continue button is displayed properly");
+				logger.error("Text on Continue button is displayed properly");
+			} else {
+				extent.extentLoggerFail("", "Text on Continue button is not displayed proper");
+				logger.error("Text on Continue button is not displayed proper");
+			}
+			click(PWASubscriptionPages.objPackCheckBox, "Check Box");
+			price = getText(PWASubscriptionPages.objPackSelected);
+			String ContinueBtnTxt2 = getText(PWASubscriptionPages.objContinueButtonTxt);
+			if (ContinueBtnTxt2.equals("Continue with ₹" + price)) {
+				extent.extentLoggerPass("", "Text on Continue button is displayed properly");
+				logger.error("Text on Continue button is displayed properly");
+			} else {
+				extent.extentLoggerFail("", "Text on Continue button is not displayed proper");
+				logger.error("Text on Continue button is not displayed proper");
+			}
+		}
+	}
+	
 	
 //	VI Integration
 
@@ -18437,4 +18497,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	public void VerifyAuthenticatedevice() {
 		HeaderChildNode("");
 	}
+	
+	
+	
 }

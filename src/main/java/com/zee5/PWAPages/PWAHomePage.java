@@ -645,4 +645,6 @@ public class PWAHomePage {
  	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
  	
  	public static By objComingSoonText = By.xpath("//*[@class='comingSoonText' and text()='Coming Soon!']");
+ 	
+ 	public static By objBuyPlanCTA = By.xpath(".//*[@class='headerRight']//span[text()='Buy Plan']");
  	}

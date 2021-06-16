@@ -2041,148 +2041,149 @@ public static void setFEPropertyOfContentFromAPI(String contentID, Response Cont
 }
 	
 public static void setPropertyForContentDetailsFromSearchPage(String contentID) {
-		
-		//--- Initialized Variables ---
-		Response contentResp = null;
-		String pCharacters = null;
+	
+	//--- Initialized Variables ---
+	Response contentResp = null;
+	String pCharacters = null;
 
-		contentResp = getResponseDetails(contentID);
-		System.out.println("Status Code: " + contentResp.statusCode());
+	contentResp = getResponseDetails(contentID);
+	System.out.println("Status Code: " + contentResp.statusCode());
 
-		String pOriginalTitle = contentResp.jsonPath().get("original_title");
-		int contentDuration = contentResp.jsonPath().get("duration");
-		String pDuration = Integer.toString(contentDuration);
-		String onAir = contentResp.jsonPath().get("on_air");
-		String pBussinessType = contentResp.jsonPath().get("business_type");
-		String pImgURL = contentResp.jsonPath().get("image_url");
-		int assetType = contentResp.jsonPath().get("asset_type");
-		String pContentSpecification = contentResp.jsonPath().get("asset_subtype");
-		int episode = contentResp.jsonPath().get("episode_number");
-		String pEpisodeNum = Integer.toString(episode);
-		if (pEpisodeNum.equalsIgnoreCase("0")) {
-			pEpisodeNum = "N/A";
-		}
-		String release_date = contentResp.jsonPath().get("release_date").toString();
-		String pPublishedDate = release_date.replace(release_date.substring(10), "");
-		String pContentBillingType = contentResp.jsonPath().get("billing_type");
-		if (pContentBillingType.length() == 0) {
-			pContentBillingType = "N/A";
-		}
-
-		// ---Getting Languages from API
-		int languageCount = contentResp.jsonPath().getList("languages").size();
-		String pLanguages = null;
-		ArrayList<String> getLanguages = new ArrayList<String>();
-		if (languageCount > 1) {
-			for (int l = 0; l < languageCount; l++) {
-				getLanguages.add(contentResp.jsonPath().get("languages[" + l + "]").toString());
-			}
-			pLanguages = getLanguages.toString();
-		} else if (languageCount == 1) {
-			pLanguages = contentResp.jsonPath().get("languages[0]");
-		} else {
-			System.out.println("Original Languages is Empty");
-		}
-
-		// ---Getting Audio Languages from API
-		int audioLangCount = contentResp.jsonPath().getList("audio_languages").size();
-		String pAudioLangguage = null;
-		ArrayList<String> getAudioLanguages = new ArrayList<String>();
-		if (audioLangCount > 1) {
-			for (int a = 0; a < audioLangCount; a++) {
-				getAudioLanguages.add(contentResp.jsonPath().get("audio_languages[" + a + "]").toString());
-			}
-			pAudioLangguage = getAudioLanguages.toString();
-		} else if (audioLangCount == 1) {
-			pAudioLangguage = contentResp.jsonPath().get("audio_languages[0]");
-		} else {
-			pAudioLangguage = "N/A";
-		}
-
-		// ---Getting Subtitle Languages from API
-		int subTitleLangCount = contentResp.jsonPath().getList("subtitle_languages").size();
-		String pSubTitleLangguage = null;
-		ArrayList<String> getSubTitles = new ArrayList<String>();
-		if (subTitleLangCount > 1) {
-			for (int s = 0; s < subTitleLangCount; s++) {
-				getSubTitles.add(contentResp.jsonPath().get("subtitle_languages[" + s + "]").toString());
-			}
-			pSubTitleLangguage = getSubTitles.toString();
-		} else if (subTitleLangCount == 1) {
-			pSubTitleLangguage = contentResp.jsonPath().get("subtitle_languages[0]");
-		} else {
-			pSubTitleLangguage = "N/A";
-		}
-
-		// ---Getting Genres from API
-		int genreCount = contentResp.jsonPath().getList("genres").size();
-		String pGenre = null;
-		for (int i = 0; i < genreCount; i++) {
-			if (genreCount == 1) {
-				pGenre = contentResp.jsonPath().get("genre[" + i + "].value");
-			} else {
-				pGenre = pGenre + "," + contentResp.jsonPath().get("genre[" + i + "].value");
-			}
-		}
-		pGenre = pGenre.replace("null,", "");
-
-		// ---Getting Characters from API
-		int actorsCount = contentResp.jsonPath().getList("actors").size();
-		ArrayList<String> getCharacters = new ArrayList<String>();
-		if (actorsCount >= 1) {
-			for (int j = 0; j < actorsCount; j++) {
-				getCharacters.add(contentResp.jsonPath().get("actors[" + j + "]").toString());
-			}
-			pCharacters = getCharacters.toString();
-			pCharacters = pCharacters.replace("[", "").replace("]", "");
-		} else {
-//					pCharacters = getCharacters.toString();
-			pCharacters = "N/A";
-		}
-
-		int isDRM = contentResp.jsonPath().get("is_drm");
-		String pDRM_Video = "false";
-		if (isDRM == 1) {
-			pDRM_Video = "true";
-		}
-
-		System.out.println("\n--PRINTING VALIDATION PARAMETERS--");
-		System.out.println(contentID);
-		System.out.println(pOriginalTitle);
-		System.out.println(pDuration);
-		System.out.println(pBussinessType);
-		System.out.println(pGenre);
-		System.out.println(pContentSpecification);
-		System.out.println(pEpisodeNum);
-		System.out.println(pPublishedDate);
-		System.out.println(pLanguages);
-		System.out.println(pAudioLangguage);
-		System.out.println(pSubTitleLangguage);
-		System.out.println(pCharacters);
-		System.out.println(pDRM_Video);
-		System.out.println(pImgURL);
-		System.out.println(pContentBillingType);
-		System.out.println(onAir);
-		System.out.println("AssetType: " + assetType);
-
-		// ----- Mix Panel Content Parameters Validation ------
-		Mixpanel.FEProp.setProperty("Audio Language", pAudioLangguage);
-		Mixpanel.FEProp.setProperty("Content ID", contentID);
-		Mixpanel.FEProp.setProperty("Content Name", pOriginalTitle);
-		Mixpanel.FEProp.setProperty("Content Duration", pDuration);
-		Mixpanel.FEProp.setProperty("Content Type", pBussinessType);
-		Mixpanel.FEProp.setProperty("Content Specification", pContentSpecification);
-		Mixpanel.FEProp.setProperty("Content Original Language", pLanguages);
-		Mixpanel.FEProp.setProperty("Characters", pCharacters);
-		Mixpanel.FEProp.setProperty("Content Billing Type", pContentBillingType);
-		Mixpanel.FEProp.setProperty("DRM Video", pDRM_Video);
-		Mixpanel.FEProp.setProperty("Episode No", pEpisodeNum);
-		Mixpanel.FEProp.setProperty("Genre", pGenre);
-		Mixpanel.FEProp.setProperty("Image URL", pImgURL);
-		Mixpanel.FEProp.setProperty("Publishing Date", pPublishedDate);
-		Mixpanel.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);	
-		
+	String pOriginalTitle = contentResp.jsonPath().get("original_title");
+	int contentDuration = contentResp.jsonPath().get("duration");
+	String pDuration = Integer.toString(contentDuration);
+	String onAir = contentResp.jsonPath().get("on_air");
+	String pBussinessType = contentResp.jsonPath().get("business_type");
+	String pImgURL = contentResp.jsonPath().get("image_url");
+	int assetType = contentResp.jsonPath().get("asset_type");
+	String pContentSpecification = contentResp.jsonPath().get("asset_subtype");
+	int episode = contentResp.jsonPath().get("episode_number");
+	String pEpisodeNum = Integer.toString(episode);
+	if (pEpisodeNum.equalsIgnoreCase("0")) {
+		pEpisodeNum = "N/A";
 	}
+	String release_date = contentResp.jsonPath().get("release_date").toString();
+	String pPublishedDate = release_date.replace(release_date.substring(10), "");
+	String pContentBillingType = contentResp.jsonPath().get("billing_type");
+	if (pContentBillingType.length() == 0) {
+		pContentBillingType = "N/A";
+	}
+
+	// ---Getting Languages from API
+	int languageCount = contentResp.jsonPath().getList("languages").size();
+	String pLanguages = null;
+	ArrayList<String> getLanguages = new ArrayList<String>();
+	if (languageCount > 1) {
+		for (int l = 0; l < languageCount; l++) {
+			getLanguages.add(contentResp.jsonPath().get("languages[" + l + "]").toString());
+		}
+		pLanguages = getLanguages.toString();
+	} else if (languageCount == 1) {
+		pLanguages = contentResp.jsonPath().get("languages[0]");
+	} else {
+		System.out.println("Original Languages is Empty");
+	}
+
+	// ---Getting Audio Languages from API
+	int audioLangCount = contentResp.jsonPath().getList("audio_languages").size();
+	String pAudioLangguage = null;
+	ArrayList<String> getAudioLanguages = new ArrayList<String>();
+	if (audioLangCount > 1) {
+		for (int a = 0; a < audioLangCount; a++) {
+			getAudioLanguages.add(contentResp.jsonPath().get("audio_languages[" + a + "]").toString());
+		}
+		pAudioLangguage = getAudioLanguages.toString();
+	} else if (audioLangCount == 1) {
+		pAudioLangguage = contentResp.jsonPath().get("audio_languages[0]");
+	} else {
+		pAudioLangguage = "N/A";
+	}
+
+	// ---Getting Subtitle Languages from API
+	int subTitleLangCount = contentResp.jsonPath().getList("subtitle_languages").size();
+	String pSubTitleLangguage = null;
+	ArrayList<String> getSubTitles = new ArrayList<String>();
+	if (subTitleLangCount > 1) {
+		for (int s = 0; s < subTitleLangCount; s++) {
+			getSubTitles.add(contentResp.jsonPath().get("subtitle_languages[" + s + "]").toString());
+		}
+		pSubTitleLangguage = getSubTitles.toString();
+	} else if (subTitleLangCount == 1) {
+		pSubTitleLangguage = contentResp.jsonPath().get("subtitle_languages[0]");
+	} else {
+		pSubTitleLangguage = "N/A";
+	}
+
+	// ---Getting Genres from API
+	int genreCount = contentResp.jsonPath().getList("genres").size();
+	String pGenre = null;
+	for (int i = 0; i < genreCount; i++) {
+		if (genreCount == 1) {
+			pGenre = contentResp.jsonPath().get("genre[" + i + "].value");
+		} else {
+			pGenre = pGenre + "," + contentResp.jsonPath().get("genre[" + i + "].value");
+		}
+	}
+	pGenre = pGenre.replace("null,", "");
+
+	// ---Getting Characters from API
+	int actorsCount = contentResp.jsonPath().getList("actors").size();
+	ArrayList<String> getCharacters = new ArrayList<String>();
+	if (actorsCount >= 1) {
+		for (int j = 0; j < actorsCount; j++) {
+			getCharacters.add(contentResp.jsonPath().get("actors[" + j + "]").toString());
+		}
+		pCharacters = getCharacters.toString();
+		pCharacters = pCharacters.replace("[", "").replace("]", "");
+	} else {
+//				pCharacters = getCharacters.toString();
+		pCharacters = "N/A";
+	}
+
+	int isDRM = contentResp.jsonPath().get("is_drm");
+	String pDRM_Video = "false";
+	if (isDRM == 1) {
+		pDRM_Video = "true";
+	}
+
+	System.out.println("\n--PRINTING VALIDATION PARAMETERS--");
+	System.out.println(contentID);
+	System.out.println(pOriginalTitle);
+	System.out.println(pDuration);
+	System.out.println(pBussinessType);
+	System.out.println(pGenre);
+	System.out.println(pContentSpecification);
+	System.out.println(pEpisodeNum);
+	System.out.println(pPublishedDate);
+	System.out.println(pLanguages);
+	System.out.println(pAudioLangguage);
+	System.out.println(pSubTitleLangguage);
+	System.out.println(pCharacters);
+	System.out.println(pDRM_Video);
+	System.out.println(pImgURL);
+	System.out.println(pContentBillingType);
+	System.out.println(onAir);
+	System.out.println("AssetType: " + assetType);
+
+	// ----- Mix Panel Content Parameters Validation ------
+	
+	MixpanelAndroid.FEProp.setProperty("Audio Language", pAudioLangguage);
+	MixpanelAndroid.FEProp.setProperty("Content ID", contentID);
+	MixpanelAndroid.FEProp.setProperty("Content Name", pOriginalTitle);
+	MixpanelAndroid.FEProp.setProperty("Content Duration", pDuration);
+	MixpanelAndroid.FEProp.setProperty("Content Type", pBussinessType);
+	MixpanelAndroid.FEProp.setProperty("Content Specification", pContentSpecification);
+	MixpanelAndroid.FEProp.setProperty("Content Original Language", pLanguages);
+	MixpanelAndroid.FEProp.setProperty("Characters", pCharacters);
+	MixpanelAndroid.FEProp.setProperty("Content Billing Type", pContentBillingType);
+	MixpanelAndroid.FEProp.setProperty("DRM Video", pDRM_Video);
+	MixpanelAndroid.FEProp.setProperty("Episode No", pEpisodeNum);
+	MixpanelAndroid.FEProp.setProperty("Genre", pGenre);
+	MixpanelAndroid.FEProp.setProperty("Image URL", pImgURL);
+	MixpanelAndroid.FEProp.setProperty("Publishing Date", pPublishedDate);
+	MixpanelAndroid.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);	
+	
+}
 	
 	public static void subscriptionDetails() {
 		String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";
@@ -3824,7 +3825,6 @@ public static void setSubscriptionDetails_NativeAndroid() {
 	}
 	MixpanelAndroid.FEProp.setProperty("Country",pCountry);
 	MixpanelAndroid.FEProp.setProperty("State",resp.jsonPath().getString("[0].region").toUpperCase());
-	
 }
 
 public static String getCarouselContentFromAPI2(String usertype, String tabName) {

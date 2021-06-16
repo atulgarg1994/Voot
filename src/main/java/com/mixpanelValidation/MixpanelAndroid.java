@@ -545,31 +545,36 @@ public class MixpanelAndroid extends ExtentReporter {
 	}
 	
 	public static void SubcribedDetails() throws ParseException {	
-		String UserType;
-		UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
-		String username = null,password = null;
-		if(UserType.equals("SubscribedUser")) {
-			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
-			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserPassword");
-		}
-//		username = "zeein7@mailnesia.com";
+
+		String username = getParameterFromXML("SubscribedUserName");
+		String password = getParameterFromXML("SubscribedPassword");
+//		username = "zeetest10@test.com";
 //		password = "123456";
+		
 		Response subscriptionResp=ResponseInstance.getSubscriptionDetails(username, password);
 		subscriptionResp.print();
-		int subscriptionItems=subscriptionResp.jsonPath().get("subscription_plan.size()");		
-		String id=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].id").toString();
-		String subscription_plan_type=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].subscription_plan_type").toString();
-		String title=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].title").toString();
+		
+		int subscriptionItems=subscriptionResp.jsonPath().get("subscription_plan.size()");
+		int index = subscriptionItems-3;
+
+		String SubscriptionStatus=subscriptionResp.jsonPath().get("["+index+"].state");
+		String id=subscriptionResp.jsonPath().get("subscription_plan["+index+"].id").toString();
+		String subscription_plan_type=subscriptionResp.jsonPath().get("subscription_plan["+index+"].subscription_plan_type").toString();
+		String title=subscriptionResp.jsonPath().get("subscription_plan["+index+"].title").toString();
 		String Latest_Subscription_Pack=id+"_"+title+"_"+subscription_plan_type;
-		String packExpiry=subscriptionResp.jsonPath().get("subscription_end["+(subscriptionItems-1)+"]").toString();
-		SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		java.text.DateFormat actualFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-		actualFormat.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
-		java.util.Date packExpiryDate = actualFormat.parse(packExpiry);
-		String Latest_Subscription_Pack_Expiry=requiredFormat.format(packExpiryDate).toString();
-		String Next_Expiring_Pack=Latest_Subscription_Pack;
-		String Next_Pack_Expiry_Date=Latest_Subscription_Pack_Expiry;
-		String billing_frequency=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].billing_frequency").toString();	
+
+		String packExpiry=subscriptionResp.jsonPath().get("["+index+"].subscription_end").toString().replace("Z", "");
+
+//		SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");		
+//		java.text.DateFormat actualFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+//		actualFormat.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
+//		java.util.Date packExpiryDate = actualFormat.parse(packExpiry);
+		
+		String Latest_Subscription_Pack_Expiry = packExpiry;
+		String Next_Expiring_Pack = Latest_Subscription_Pack;
+		String Next_Pack_Expiry_Date = Latest_Subscription_Pack_Expiry;
+		
+		String billing_frequency=subscriptionResp.jsonPath().get("subscription_plan["+index+"].billing_frequency").toString();	
 		Response tvodResp=ResponseInstance.getTVODDetails(username, password);
 		int tvodItems=tvodResp.jsonPath().get("playback_state.size()");
 		String HasRental="";
@@ -589,6 +594,7 @@ public class MixpanelAndroid extends ExtentReporter {
 				break;
 			}
 		}
+			
 		MixpanelAndroid.FEProp.setProperty("Free Trial Expiry Date", "N/A");
 		MixpanelAndroid.FEProp.setProperty("Free Trial Package", "N/A");		
 		MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack", Latest_Subscription_Pack);
@@ -890,6 +896,10 @@ public class MixpanelAndroid extends ExtentReporter {
 		for (int i = 1; i < response.size(); i++) {
 			write(i, response.get(i).split("keyvalue")[0], response.get(i).split("keyvalue")[1]);
 		}
+	}
+	
+	public static String getParameterFromXML(String param) {
+		return Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter(param);
 	}
 	
 }

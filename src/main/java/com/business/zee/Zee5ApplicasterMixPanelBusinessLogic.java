@@ -178,7 +178,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			click(AMDOnboardingScreen.objCancelZEE5Update, "No Thanks");
 		}
 
-		Swipe("Up", 1);
 		if (verifyIsElementDisplayed(AMDOnboardingScreen.objContinueBtnInDebugBuild)) {
 			click(AMDOnboardingScreen.objContinueBtnInDebugBuild, "Continue button");
 		}
@@ -203,8 +202,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (verifyIsElementDisplayed(AMDOnboardingScreen.objContinueBtnInCountryPopUp)) {
 			click(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "Continuebutton(Country_Screen)");
 		}
-		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
-		verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+//		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
+//		verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 	}
 
 	String Username;
@@ -213,25 +212,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	/**
 	 * Function to Login to Zee5
 	 */
-	public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
-		extent.HeaderChildNode("Login Functionality");
-
-		String UserType = getParameterFromXML("userType");
-		if (UserType.equals("Guest")) {
-			extent.extentLogger("userType", "UserType : Guest");
-		}
-
-//		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-//		waitTime(3000);
-
+public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
+		
 		switch (LoginMethod) {
 		case "Guest":
-			extent.HeaderChildNode("Guest User");
-			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			waitTime(1000);
-			hideKeyboard();
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
-			waitTime(3000);
+			extent.HeaderChildNode("Login as Guest User");
+			extent.extentLoggerPass("Accessing the application as Guest user", "Accessing the application as Guest user");
+			
 			break;
 
 		case "NonSubscribedUser":
@@ -240,11 +227,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			Username = getParameterFromXML("NonSubscribedUserName");
 			Password = getParameterFromXML("NonSubscribedUserPassword");
 
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
-
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+			
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
 			type(AMDLoginScreen.objPasswordField, Password, "Password field");
 			hideKeyboard();
@@ -258,11 +248,14 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			Username = getParameterFromXML("SubscribedUserName");
 			Password = getParameterFromXML("SubscribedPassword");
 
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
-
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+			
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			hideKeyboard();
 			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
 			type(AMDLoginScreen.objPasswordField, Password, "Password field");
 			hideKeyboard();
@@ -8799,7 +8792,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("Parent Control Setting", value2);
 			mixpanel.FEProp.setProperty("Partner Name", "Zee5");
 			mixpanel.FEProp.setProperty("Gender",
-					ResponseInstance.getUserData_NativeAndroid(Username, Password).getProperty("gender"));
+			ResponseInstance.getUserData_NativeAndroid(Username, Password).getProperty("gender"));
 		} else {
 			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 			mixpanel.FEProp.setProperty("New Autoplay Setting", "true");
