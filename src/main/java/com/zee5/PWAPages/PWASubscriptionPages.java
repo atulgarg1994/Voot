@@ -248,9 +248,6 @@ public class PWASubscriptionPages {
 
 	public static By objEnterCode = By.xpath("//*[@placeholder='Enter code']");
 
-	public static By objEmailContinueButton = By
-			.xpath("//div[@class='buttonContainer ']//span[contains(text(), 'Continue')]");
-
 	public static By objPasswordContinueButton = By
 			.xpath("//div[@class='buttonContainer']//span[contains(text(), 'Continue')]");
 
@@ -445,8 +442,6 @@ public class PWASubscriptionPages {
 	public static By objAmazonPayProceedToPay = By.xpath("//article[contains(text(),'Amazon Pay')]//ancestor::*[@class='linearLayout PaymentOptionViewNotListNestedChild']//child::*[text()='Proceed to pay']");
 
 	public static By objMobikwikProceedToPay = By.xpath("//article[contains(text(),'Mobikwik')]//ancestor::*[@class='linearLayout PaymentOptionViewNotListNestedChild']//child::*[text()='Proceed to pay']");
-	public static By objProceedBtnEnabled = By
-	.xpath("//*[contains(@class, 'noSelect pinkBtn')]/span[contains(text(),'Continue')]");
 	
 	//Watch Now CTA
 	public static By objWatchNowCTA  = By.xpath("//span[text()='Watch Now']");
@@ -509,4 +504,11 @@ public class PWASubscriptionPages {
 		public static By objAccountDetailInSubscription = By.xpath("//*[@class='userDetails']");
 		
 		public static By objContinueBtn = By.xpath("//div[@class='buttonContainer']");
+		
+		public static By objEmailContinueButton = By
+				.xpath("//*[contains(@class, 'noSelect buttonGradient')]");
+
+		public static By objProceedBtnEnabled = By
+		.xpath("//*[contains(@class, 'noSelect pinkBtn')]");
+
 }

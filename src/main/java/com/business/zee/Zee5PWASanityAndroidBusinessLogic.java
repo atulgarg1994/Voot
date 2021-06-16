@@ -31,7 +31,6 @@ import com.zee5.PWAPages.*;
 import com.driverInstance.CommandBase;
 import com.emailReport.GmailInbox;
 import com.extent.ExtentReporter;
-//import com.jayway.restassured.response.Response;
 import com.metadata.ResponseInstance;
 import com.metadata.getResponseUpNextRail;
 import com.propertyfilereader.*;
@@ -41,7 +40,6 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
 public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
@@ -17780,7 +17778,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}		
 	}
 	
-	public void PWAWatchNewsVODAndThenClickAnotherContent (String userType) throws Exception {
+	public void PWAWatchNewsVODAndThenClickAnotherContent(String userType) throws Exception {
+		if(userType.equals("SubscribedUser") || userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 		reloadHome();
 		extent.HeaderChildNode("PWA2-6995 : Play any news VOD content and play any other content from the same page");
 		logger.info("PWA2-6995 : Play any news VOD content and play any other content from the same page");
@@ -17797,6 +17796,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			extent.extentLoggerFail("", "Content click in VOD News Consumptions has failed");
 			logger.error("Content click in VOD News Consumptions has failed");
 		}
+		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			waitForPlayerAdToComplete("Video Player");
+		}
+		waitTime(2000);
 		playerTap();
 		String currentDuration = getElementPropertyToString("innerText", PWAPlayerPage.currentDurationTime,"Current duration");
 		System.out.println("Current Duration: " + currentDuration);
@@ -17816,6 +17819,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info("Content play from VOD News Consumptions has passed");
 		}
 	}
+	}
+	
 	
 	public String swipeTillTrayAndClickCard(String trayTitle) throws Exception {
 		String nextPageTitle = "";
@@ -17925,7 +17930,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 	
 	
-	public void PWAVmaxAdForMusicAndNews (String userType) throws Exception {
+	public void PWAVmaxAdForMusicAndNews(String userType) throws Exception {
 		mandatoryRegistrationPopUp(userType);
 		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 			reloadHome();
@@ -17977,9 +17982,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 	
 	
-	public void PWALatestEpisodeInURLAndCheckSubscribe (String userType) throws Exception {
+	public void PWALatestEpisodeInURLAndCheckSubscribe(String userType) throws Exception {
 		extent.HeaderChildNode("PWA2-6993 : Appending the playback URL as \"latest/latest1\" and verifying Subscribe CTA");
 		logger.info("PWA2-6993 : Appending the playback URL as \"latest/latest1\" and verifying Subscribe CTA");
+		reloadHome();
 		mandatoryRegistrationPopUp(userType);
 		String home = getParameterFromXML("url");
 		extent.extentLogger("","---------- Appending \"latest\" to show url -----------");
@@ -17989,10 +17995,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.extentLogger("","URL opened: "+url);
 		waitTime(5000);
 		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
-			verifyElementPresent(PWAPlayerPage.objGetPremium,"Subscribe button below player");
+			verifyElementPresent(PWAPlayerPage.objBuyPlanCTABelowPlayerScreen,"Subscribe button below player");
 		}
 		else {
-			if(checkElementDisplayed(PWAPlayerPage.objGetPremium,"Subscribe button below player for Subscribed user")) {
+			if(checkElementDisplayed(PWAPlayerPage.objBuyPlanCTABelowPlayerScreen,"Subscribe button below player for Subscribed user")) {
 				extent.extentLoggerFail("", "Subscribe button below player should not be displayed for Subscribed user");
 				logger.error("Subscribe button below player should not be displayed for Subscribed user");
 			}
@@ -18005,10 +18011,10 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		extent.extentLogger("","URL opened: "+url);
 		waitTime(5000);
 		if(userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
-			verifyElementPresent(PWAPlayerPage.objGetPremium,"Subscribe button below player");
+			verifyElementPresent(PWAPlayerPage.objBuyPlanCTABelowPlayerScreen,"Subscribe button below player");
 		}
 		else {
-			if(checkElementDisplayed(PWAPlayerPage.objGetPremium,"Subscribe button below player for Subscribed user")) {
+			if(checkElementDisplayed(PWAPlayerPage.objBuyPlanCTABelowPlayerScreen,"Subscribe button below player for Subscribed user")) {
 				extent.extentLoggerFail("", "Subscribe button below player should not be displayed for Subscribed user");
 				logger.error("Subscribe button below player should not be displayed for Subscribed user");
 			}
@@ -18148,7 +18154,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 	
 	
-	public void PWAVerifyNewsVODPlay (String userType) throws Exception {
+	public void PWAVerifyNewsVODPlay(String userType) throws Exception {
 		reloadHome();
 		extent.HeaderChildNode("PWA2-6926 : Verify error is not displayed on playing News VOD Content");
 		logger.info("PWA2-6926 : Verify error is not displayed on playing News VOD Content");
@@ -18407,9 +18413,28 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error("AutoRenewal value is "+AutoRenewal);
 		}
 	}
+
 	
 	
+	public void VerifyUserIsRedirectedBackToViAppPostTappingBackButtonInZee5ConsumptionScreen() throws Exception {
+		HeaderChildNode("User Is Redirected Back To Vi App Post Tapping Back Button In Zee5 Consumption Screen");
+		verifyElementPresentAndClick(PWAVIAppPage.objFirstZee5Content,"Zee5 Content in VI App");
+		waitTime(6000);
+		getDriver().context("WEBVIEW_1");
+		Back(1);
+		verifyElementDisplayed(PWAVIAppPage.objFirstZee5Content);		
+	}
 	
+	public void VerifyUserIsRedirectedBackToViAppPostTappingAnyOtherContentInZee5ConsumptionScreen() throws Exception {
+		HeaderChildNode("User Is Redirected Back To Vi App Post Tapping Any Other Content In Zee5 ConsumptionScreen");
+		verifyElementPresentAndClick(PWAVIAppPage.objFirstZee5Content,"Zee5 Content in VI App");
+		waitTime(6000);
+		getDriver().context("WEBVIEW_1");
+		click(PWAVIAppPage.objOtherContentOnConsumption, "Content on zee5 consumption screen");
+		verifyElementDisplayed(PWAVIAppPage.objFirstZee5Content);	
+	}
 	
-	
+	public void VerifyAuthenticatedevice() {
+		HeaderChildNode("");
+	}
 }

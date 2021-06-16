@@ -493,4 +493,7 @@ public class PWAPlayerPage {
 	public static By objContentName = By.xpath("//div[@class='consumptionMetaDiv']/h1");
 	
 	public static By objContentTitle = By.xpath("//div[contains(@class,'consumptionMetaDiv')]//h1");
+	
+//	 Buy CTA Below the Player Screen
+	public static By objBuyPlanCTABelowPlayerScreen = By.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Buy Plan')]");
 }

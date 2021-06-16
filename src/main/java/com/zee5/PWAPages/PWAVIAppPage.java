@@ -45,6 +45,8 @@ public class PWAVIAppPage {
 	
 	public static By objContentTitle = By.xpath("//*[@class='consumptionMetaDiv']//h1");
 	
+	public static By objOtherContentOnConsumption = By.xpath("(//*[@class='trayContentWrap']//*[@class='content'])[1]");
+	
 	
 //	Zee5 Hamburger Menu
 	public static By objMyAccount = By.xpath("//*[@class='menuTitle noSelect  menuForMyAccount']//*[@text='My Account']");

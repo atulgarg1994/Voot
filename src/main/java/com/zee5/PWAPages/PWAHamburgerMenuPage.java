@@ -238,7 +238,6 @@ public class PWAHamburgerMenuPage {
 			.xpath("//div[contains(@class,'userDetails')]//div[contains(@class,'userName')]");
 	public static By objEditProfileTextWEB = By.xpath("//h2[contains(@class,'pageSubTitle')]");
 	public static By objChangePasswordTextWEB = By.xpath("//h2[contains(@class,'pageSubTitle')]");
-	public static By objWebBuySubscriptionOption = By.xpath("//*[text()='Buy Subscription']");
 	public static By objLanguageBtnWEB = By.xpath("//div[contains(@class,'languageBtn')]");
 	public static By objContentLanguageWrapper = By.xpath("//div[@id='contentWrapLanguage']");
 	// Display language btn
@@ -785,7 +784,6 @@ public class PWAHamburgerMenuPage {
 	
 	public static By objtop5watchednewa=By.xpath("(//*[contains(@class,'trayHeader')]//*[contains(text(),'Top 5 Most Watched News Videos')]//parent::*//parent::*//following-sibling::*//*[contains(@class, 'view-all')])[1]");
 	
-	public static By objmetadataofcontenttype=By.xpath("//div[@class='metaInfo']//a");
 	public static By objvisaimg=By.xpath("(//img[contains(@class,'imageView')])[6]");
 	
 	public static By objreleatednews=By.xpath("//div[@class='relatedNewsCol']//h2");
@@ -997,5 +995,17 @@ public class PWAHamburgerMenuPage {
 	public static By objZeeplexComesToYou=By.xpath("//*[@class='plexBannerDescription' and text()='Watch films before the theatre']");
 	
 	public static By objzeeplexHowitworkspopupClose=By.xpath("//*[@class='drowerCloseIcon iconInitialLoad-ic_close']");
+	
+	//Humbergermenu
+	public static By objWebBuySubscriptionOption = By.xpath("(//*[text()='Buy Plan'])[2]");
+
+	public static By objmetadataofcontenttype=By.xpath("//div[@class='metaInfo ']//a");
+	
+	public static By objContinuebuttominsubscriptionpage=By.xpath("//*[@class='buttonContainer']//span");
+	
+	public static By objproceedtopayindex(int index)
+	{
+		return By.xpath("(//*[@class='linearLayout sidebarItem_object']//following-sibling::*//article[text()='Proceed to pay'])[" + index + "]");
+	}
 
 }
