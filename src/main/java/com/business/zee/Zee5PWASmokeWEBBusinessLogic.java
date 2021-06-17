@@ -3459,8 +3459,8 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 //		scrollDown();
 //		scrollToBottomOfPage();
 //		scroll1();
-		scrollDownWEB();
-		waitForElementDisplayed(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, 20);
+//		scrollDownWEB();
+		scrollToElement(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn);
 		verifyElementPresentAndClick(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top");
 //		verifyElementPresent(Pwa_LandingPages.obj_Pwa_PlayIcon_Carousal, "Carousal play icon");
 		System.out.println("Scrolled back to top using Back to top btn");
@@ -5007,10 +5007,10 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 	}
 
 	public void navigationsFromPlanSectionWeb() throws Exception {
-		extent.HeaderChildNode("Functionality of MyPlan options");
+		extent.HeaderChildNode("Functionality of Plan options");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		verifyElementExist(PWAHamburgerMenuPage.objPlanInHamburger, "Plan option");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objPlanInsideItemsBtn("Buy Subscription"),
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objPlanInsideItemsBtn("Buy Plan"),
 				"Buy Subscription option in Plan section");
 		waitTime(3000);
 		if (verifyElementExist(PWASubscriptionPages.objZEE5Subscription, "Subscription")) {
@@ -5025,13 +5025,13 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			if (verifyElementExist(PWASubscriptionPages.objZEE5Subscription, "Subscription")) {
 				logger.info("User is navigated to subscription page");
 				extent.extentLogger("subscription page", "User is navigated to subscription page");
-				click(PWAHomePage.objZeeLogo, "zee logo");
-				if (verifyElementExist(PWAHomePage.objSubscripePopupHomePage, "Pop up")) {
-					logger.info("Subscribe popup in home page is dislayed");
-					extent.extentLogger("Popup", "Subscribe popup in home page is dislayed");
-					waitTime(3000);
-					click(PWAHomePage.objSubscripePopupCloseButtonHomePage, "Close button in popup");
-				}
+				verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "zee logo");
+//				if (verifyElementExist(PWAHomePage.objSubscripePopupHomePage, "Pop up")) {
+//					logger.info("Subscribe popup in home page is dislayed");
+//					extent.extentLogger("Popup", "Subscribe popup in home page is dislayed");
+//					waitTime(3000);
+//					click(PWAHomePage.objSubscripePopupCloseButtonHomePage, "Close button in popup");
+//				}
 			}
 		}
 
@@ -6085,8 +6085,9 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			extent.extentLogger("Content not Found in UI", "Content not Found in UI");
 		}
 
-		partialScroll();
-		waitTime(5000);
+//		partialScroll();
+//		waitTime(5000);
+		scrollToElement(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn);
 		if (verifyElementPresentAndClick(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top")) {
 			System.out.println("Navigate back to the Top of Application");
 			logger.info("Navigate back to the Top of Application");

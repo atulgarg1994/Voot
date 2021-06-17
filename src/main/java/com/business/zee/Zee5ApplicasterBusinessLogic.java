@@ -12075,7 +12075,7 @@ public void MyZEE5AppValidation() throws Exception {
 		String OldNUmber = getText(AMDEditProfileScreen.objMobNumberField);
 		click(AMDEditProfileScreen.objMobileNumberField, "Mobile number field");
 		clearField(AMDEditProfileScreen.objMobileNumberField, "Mobile number field");
-		type(AMDEditProfileScreen.objMobileNumberField, "9975625839", "Mobile Number Field");
+		type(AMDEditProfileScreen.objMobileNumberField, "9975625825", "Mobile Number Field");
 		hideKeyboard();
 		String NewNumber = getText(AMDEditProfileScreen.objMobileNumberField);
 		if (OldNUmber.length() < 3) {
@@ -19473,7 +19473,8 @@ public void MyZEE5AppValidation() throws Exception {
 		String appPackageName = "com.graymatrix.did";
 		
 		verifyElementPresentAndClick(AMDHomePage.objHome, "Home button");
-
+		verifyElementPresent(AMDHomePage.objFirstRailDisplay, "First Rail");
+		
 		Instant startTime = Instant.now();
 		logger.info("Start time: " + startTime);
 
@@ -19482,17 +19483,18 @@ public void MyZEE5AppValidation() throws Exception {
 		for (int k = 1; k <= noOfTabs; k++) {
 			if (verifyIsElementDisplayed(AMDGenericObjects.objPageTitle(pTabname))) {
 				click(AMDGenericObjects.objPageTitle(pTabname), pTabname);
+				verifyElementPresent(AMDHomePage.objFirstRailDisplay, "First Rail");
 				
 				Instant endTime = Instant.now();
 				logger.info("End time: " + endTime);
 
+				//#### App Performance Usage Info
+				AppPerformanceTestInfo(appPackageName);
+				
 				Duration timeElapsed = Duration.between(startTime, endTime);
 				logger.info("Time taken to navigate from Home to " + pTabname + " screen (sec): "
 						+ timeElapsed.toMillis()/1000);
 				extent.extentLogger("Timer", "<b>Time taken to navigate from Home to "+pTabname+" (sec):</b> " + timeElapsed.toMillis()/1000);
-				
-				//#### App Performance Usage Info
-				AppPerformanceTestInfo(appPackageName);
 				break;
 			} else {
 				List<WebElement> element = getDriver().findElements(By.xpath("//*[@id='homeTabLayout']/*/child::*"));
@@ -19530,19 +19532,22 @@ public void MyZEE5AppValidation() throws Exception {
 					click(AMDHomePage.objJustOnceOption, "Just once option");
 				}
 				if (verifyElementExist(AMDHomePage.objPlayerScreen, "Player Screen")) {
+					
+					verifyElementPresent(AMDHomePage.objFirstRailDisplay, "FirstRail");
+					
 					Instant endTime = Instant.now();
 					logger.info("End time: " + endTime);
 
 					logger.info("Consumption Screen is displayed for the deeplink");
 					extent.extentLoggerPass("Consumption", "Consumption Screen is displayed for the deeplink");
 
+					//#### App Performance Usage Info
+					AppPerformanceTestInfo(appPackageName);
+					
 					Duration timeElapsed = Duration.between(startTime, endTime);
 					logger.info("Time taken to play through deeplink (sec): " + timeElapsed.toMillis()/1000);
 					extent.extentLogger("Timer",
 							"<b>Time taken to play through deeplink (sec):</b> " + timeElapsed.toMillis()/1000);
-					
-					//#### App Performance Usage Info
-					AppPerformanceTestInfo(appPackageName);
 				} else {
 					logger.info("Consumption Screen is not displayed for the deeplink");
 					extent.extentLoggerFail("Consumption screen",
@@ -19555,19 +19560,22 @@ public void MyZEE5AppValidation() throws Exception {
 					click(AMDHomePage.objJustOnceOption, "Just once option");
 				}
 				if (verifyElementExist(AMDHomePage.objPlayerScreen, "Player Screen")) {
+					
+					verifyElementPresent(AMDHomePage.objFirstRailDisplay, "FirstRail");
+					
 					Instant endTime = Instant.now();
 					logger.info("End time: " + endTime);
 
 					logger.info("Live TV is played for the deeplink");
 					extent.extentLoggerPass("Live TV", "Live TV is played for the deeplink");
 
+					//#### App Performance Usage Info
+					AppPerformanceTestInfo(appPackageName);
+					
 					Duration timeElapsed = Duration.between(startTime, endTime);
 					logger.info("Time taken to play through deeplink (sec): " + timeElapsed.toMillis()/1000);
 					extent.extentLogger("Timer",
-							"<b>Time taken to play through deeplink (sec):</b> " + timeElapsed.toMillis()/1000);
-					
-					//#### App Performance Usage Info
-					AppPerformanceTestInfo(appPackageName);
+							"<b>Time taken to play through deeplink (sec):</b> " + timeElapsed.toMillis()/1000);	
 				} else {
 					logger.info("Live TV is not played for the deeplink");
 					extent.extentLoggerFail("Live TV", "Live TV is not played for the deeplink");
@@ -25716,7 +25724,8 @@ public void BatteryStats_Performance() throws Exception {
 	System.out.println("\nBattery Stats Information");
 
 	String getBatteryInfo="";
-	String adbCommand="adb shell dumpsys batterystats --charged com.graymatrix.did | grep Computed";
+//	String adbCommand="adb shell dumpsys batterystats --charged com.graymatrix.did | grep Computed";
+	String adbCommand="adb shell pm dump com.graymatrix.did | grep Computed";
 	
 	Process process=Runtime.getRuntime().exec(adbCommand);
 	BufferedReader result = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -25788,7 +25797,8 @@ public void Performance_LoginFunctionality() throws Exception {
 	LoginWithEmailID("igszee23@yopmail.com", "123456");
 	//#### App Performance Usage Info
 	AppPerformanceTestInfo(appPackageName);
-
+	verifyElementPresent(AMDHomePage.objCarouselBtn, "Play Btn");
+	
 	Instant endTime = Instant.now();
 	logger.info("Instant End time : " + endTime);
 
@@ -25808,6 +25818,7 @@ public void Performance_InitiateContentPlayback() throws Exception {
 //	String appPackageName = getParameterFromXML("appPackageName");
 	String appPackageName = "com.graymatrix.did";
 	
+	SelectTopNavigationTab("Movies");
 	verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
 	Instant startTime = Instant.now();
 	logger.info("Instant Start time : " + startTime);
@@ -25832,11 +25843,12 @@ public void AppPerformanceTestInfo(String pPackageName) throws Exception {
 	System.out.println("\nApp Performance Test infomation - Memory|CPU|GPU|Battery and Network Usage");
 	
 	Memory_UsagePerformance();
-	BatteryStats_Performance();
+//	BatteryStats_Performance();
 	CPU_UsagePerformance();
 	GPU_UsagePerformance();
 	getApp_NetworkTrafficUsage(pPackageName);
 }
+
 
 public void getApp_NetworkTrafficUsage(String pPackageName) throws Exception {
 	
@@ -25955,6 +25967,170 @@ public void VerifyContinueCTAInSubscribeScreen(String userType) throws Exception
 	
 }
 
+public void VerifyErrorMessageOnPlayerOnTappingNextButton(String userType) throws Exception {
+	//AMA2-10784
+	   extent.HeaderChildNode("AMA2-10784 : Oops!! Something went wrong along with retry button is getting displayed on player, On tapping next button on the player for Zee Tray's");
+	   logger.info("AMA2-10784 :Oops!! Something went wrong along with retry button is getting displayed on player, On tapping next button on the player for Zee Tray's");
+	   click(AMDHomePage.objShowsTab,"Shows tab");
+	   selectContentLang_MoreMenu2("Tamil");
+	   findParticularTray(AMDHomePage.objzeetamilshowstray, "Zee Tamil Shows tray");
+	   String getTrayName = getText(AMDHomePage.objzeetamilshowstray);
+	   click(AMDHomePage.objViewAllBtn(getTrayName), getTrayName + " - View All button");
+	   click(AMDHomePage.objFirstContentCardFromListingScreen,"Content card");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			waitTime(4000);
+			registerPopUpClose();
+			completeProfilePopUpClose(userType);
+    		waitForAdToFinishInAmd();
+			registerPopUpClose();
+		}
+		waitTime(8000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		click(AMDPlayerScreen.objNextIcon,"Next icon on player");
+		boolean value = verifyElementIsNotDisplayed(AMDPlayerScreen.objRetryBtn);
+		if(value == true) {
+			extent.extentLoggerPass("Player screen", "Playback is initiated");
+			logger.info("Playback is initiated");
+		}
+		else{
+			String text = findElement(AMDPlayerScreen.objInPlayerError).getText();
+			logger.error("[AMA2-10784] " + text + " with Retry CTA is displayed");
+			extentLoggerFail("PlayerScreen","[AMA2-10784] " +  text + " with Retry CTA is displayed");
+		}	
+	   
+}
 
+public void FunctionalityOfExplorePremium(String userType) throws Exception{
+	//AMA2-10577
+	   extent.HeaderChildNode("AMA2-10577 : User navigates back to more/previous screen post tapping on 'Explore Premium' button from pack selection screen");
+	   logger.info("AMA2-10577 :User navigates back to more/previous screen post tapping on 'Explore Premium' button from pack selection screen");
+	   if (userType.equalsIgnoreCase("SubscribedUser")) {
+		   verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+		   verifyElementPresentAndClick(AMDMoreMenu.objMySubscription, "My Subscription");
+		   waitTime(3000);
+		   verifyElementPresentAndClick(AMDMoreMenu.objBrowseAllPacks, "Browse All Packs CTA");
+		   waitTime(4000);
+		   verifyElementPresentAndClick(AMDSubscibeScreen.objexplorePremiumCTA, "Explore Premium CTA");
+		String   getSelectedTabName = getText(AMDHomePage.objSelectedTab);
+			if (getSelectedTabName.equalsIgnoreCase("Home")) {
+				extent.extentLoggerPass("More Screen", "User is navigated to Home landing screen post tapping on 'Explore Premium' button from pack selection screen");
+				logger.info("User is navigated to Home landing screen post tapping on 'Explore Premium' button from pack selection screen");				
+			}else {
+				logger.error("[AMA2-10577] User fails to navigate to Home landing screen post tapping on explore premium button.");
+				extentLoggerFail("PlayerScreen","[AMA2-10577] User fails to navigate to Home landing screen post tapping on explore premium button.");
+			}
+			click(AMDHomePage.objMoreMenu, "More menu");
+			click(AMDMoreMenu.objBuySubscription,"Buy Plan");
+			waitTime(4000);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objexplorePremiumCTA, "Explore Premium CTA");
+			String   getSelectedTab = getText(AMDHomePage.objSelectedTab);
+			if (getSelectedTab.equalsIgnoreCase("Home")) {
+				extent.extentLoggerPass("More Screen", "User is navigated to Home landing screen post tapping on 'Explore Premium' button from pack selection screen");
+				logger.info("User is navigated to Home landing screen post tapping on 'Explore Premium' button from pack selection screen");				
+			}else {
+				logger.error("[AMA2-10577] User fails to navigate to Home landing screen post tapping on explore premium button.");
+				extentLoggerFail("PlayerScreen","[AMA2-10577] User fails to navigate to Home landing screen post tapping on explore premium button.");
+			}
+			
+	   }else {
+		   logger.info("AMA2-10577 : Not applicable for "+ userType);
+			extent.extentLogger("Subscribe", "AMA2-10577 : Not applicable for " + userType);    
+	   }
+	   
+}
+  
+
+ public void VerifyBrowseAllPacksInMySubscription(String userType) throws Exception {
+	 //AMA2-10349
+	  extent.HeaderChildNode("AMA2-10349 : User fails to navigate to Subcription pack selection screen instead it redirects back to More Menu screen, on tapping \"Browse All Packs\" CTA in My subscription");
+	   logger.info("AMA2-10349 :User fails to navigate to Subcription pack selection screen instead it redirects back to More Menu screen, on tapping \"Browse All Packs\" CTA in My subscription");
+	   if (userType.equalsIgnoreCase("SubscribedUser")) {
+		   verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+		   verifyElementPresentAndClick(AMDMoreMenu.objMySubscription, "My Subscription");
+		   waitTime(3000);
+		   verifyElementPresentAndClick(AMDMoreMenu.objBrowseAllPacks, "Browse All Packs CTA");
+		   waitTime(4000);
+		   if(verifyElementDisplayed(AMDSubscibeScreen.objNewSubscribePopup)) {
+			   extent.extentLoggerPass("More Screen", "User is navigated to Subscription pack selection screen post tapping on Browse all packs cta in My subscription screen");
+				logger.info("User is navigated to Subscription pack selection screen post tapping on Browse all packs cta in My subscription screen");   
+		   }else{
+			   logger.error("[AMA2-10349] User Fails to navigate to Susbcription pack selection screen post tapping on Broswe All packs CTA in My Subscription");
+				extentLoggerFail("PlayerScreen","[AMA2-10349] User Fails to navigate to Susbcription pack selection screen post tapping on Broswe All packs CTA in My Subscription");
+			    }		   
+	   }else {
+		   logger.info("AMA2-10349 : Not applicable for "+ userType);
+			extent.extentLogger("Subscribe", "AMA2-10349 : Not applicable for " + userType);   
+	   }
+	 
+ }
+
+ public void verifyErrorMeasageOfExpiredCode(String userType) throws Exception {
+	 //AMA2-10146
+	 extent.HeaderChildNode("AMA2-10146 : Error message displaying for Expired promocode is not as per VD");
+	   logger.info("AMA2-10146 : Error message displaying for Expired promocode is not as per VD");
+	 if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+		     verifyElementPresentAndClick(AMDHomePage.objGetPremium, "Buy Plan Header");
+		     waitTime(4000);
+			verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup, "Subscription screen");
+			verifyElementExist(AMDSubscibeScreen.objPlanPriceValue, "Plan Price value");
+			Swipe("UP", 2);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objHaveACodeCTA, "Have a code");
+			verifyElementPresentAndClick(AMDSubscibeScreen.objEnterACodeEditFiled, "Enter a code field");
+			hideKeyboard();
+			type(AMDSubscibeScreen.objEnterACodeEditFiled, "ExpiredCode", "Enter a code field");
+			verifyElementPresentAndClick(AMDSubscibeScreen.objApplyOnHaveACodescreen, "Apply CTA");
+			verifyElementExist(AMDSubscibeScreen.objInvalidPromoCodeText,"Error text");
+			String text = findElement(AMDSubscibeScreen.objInvalidPromoCodeText).getText();
+			if(text.contains("Invalid")) {
+				logger.error("[AMA2-10146] " + text + " is displayed instead 'Promo code is Expired' text");
+				extentLoggerFail("HaveACode","[AMA2-10146] " + text + " is displayed instead 'Promo code is Expired' text");
+			}else {
+				extent.extentLoggerPass("HaveACode", text + " error text is displayed");
+				logger.info(text + " error text is displayed");
+			}
+	 }else {
+		 logger.info("AMA2-10146 : Not applicable for "+ userType);
+		extent.extentLogger("Subscribe", "AMA2-10146 : Not applicable for " + userType); 
+	 }
+ }
+ 
+ public void VerifySubscribeIconPostLoggingFromLoginctaOnPlayer(String userType) throws Exception {
+	 //AMA2-10600
+	 extent.HeaderChildNode("AMA2-10600 :Subscription header CTA/Get Premium CTA is displayed in all landing screens, post logging with Login CTA on player");
+	 logger.info("AMA2-10600 :Subscription header CTA/Get Premium CTA is displayed in all landing screens, post logging with Login CTA on player");
+	 if (userType.equalsIgnoreCase("Guest")) {
+		    verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+			verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, "Karenjit Kaur", "Search bar");
+			hideKeyboard();
+			click(AMDDownloadPage.objsearchresultFirst , "Searched Show");
+			verifyElementPresentAndClick(AMDPlayerScreen.objRetryBtn, "Login CTA on player");
+			waitTime(3000);
+			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
+			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			Back(2);
+			boolean value = verifyElementIsNotDisplayed(AMDHomePage.objSubscribeTeaser);
+			if(value == true) {
+				extent.extentLoggerPass("Search","Subscription header CTA is not displayed, post login from Login CTA on the player.");
+				logger.info("Subscription header CTA is not displayed, post login from Login CTA on the player.");
+			}else {
+				logger.error("[AMA2-10600] Subscription header CTA is displayed in landing screen, post logging with Login CTA on the player");
+				extentLoggerFail("HaveACode","[AMA2-10600] Subscription header CTA is displayed in landing screen, post logging with Login CTA on the player");	
+			}
+	 }else {
+		 logger.info("AMA2-10600 : Not applicable for "+ userType);
+		extent.extentLogger("Subscribe", "AMA2-10600 : Not applicable for " + userType); 
+	 }
+	 
+ }
 
 }

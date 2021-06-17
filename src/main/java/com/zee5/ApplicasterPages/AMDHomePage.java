@@ -289,5 +289,11 @@ public class AMDHomePage {
  	public static By objZee5Logo = By.xpath("//*[@id='home_toolbar_brand_logo'] | //*[@contentDescription='LOGO']");
 
  	public static By objRetryCTA = By.xpath("//*[@id='errorViewButton'] | //*[@id='txt_error_retry']");
+ 	
+ 	public static By objCarouselBtn = By.id("outlinedButton"); 
+ 	public static By objFirstRailDisplay = By.xpath("(//*[@id='cell_top_container']//following::*[@text='a'])[1]");
+ 	
+ 	public static By objzeetamilshowstray = By.xpath("//*[@text='Zee Tamil Shows']");
 	
+	public static By objFirstContentCardFromListingScreen = By.xpath("(//*[@id='cell_center_container'])[2]");
 }

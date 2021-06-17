@@ -458,6 +458,44 @@ public class Android_Defects {
 		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
 		ZEE5ApplicasterBusinessLogic.VerifyContinueCTAInSubscribeScreen(userType);		
 	}
+	
+	@Test(priority = 56) //Bhavana
+	@Parameters({ "userType" })
+	public void VerifyErrorMessageOnPlayerOnTappingNextButton(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.VerifyErrorMessageOnPlayerOnTappingNextButton(userType);		
+	}
+	
+	@Test(priority = 57) //Bhavana
+	@Parameters({ "userType" })
+	public void FunctionalityOfExplorePremium(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.FunctionalityOfExplorePremium(userType);		
+	}
+	
+	@Test(priority = 58) //Bhavana
+	@Parameters({ "userType" })
+	public void VerifyBrowseAllPacksInMySubscription(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.VerifyBrowseAllPacksInMySubscription(userType);		
+	}
+	
+	@Test(priority = 59) //Bhavana
+	@Parameters({ "userType" })
+	public void verifyErrorMeasageOfExpiredCode(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.verifyErrorMeasageOfExpiredCode(userType);		
+	}
+	@Test(priority = 60) //Bhavana
+	@Parameters({ "userType" })
+	public void VerifySubscribeIconPostLoggingFromLoginctaOnPlayer(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.VerifySubscribeIconPostLoggingFromLoginctaOnPlayer(userType);		
+	}
 
 	@AfterTest
 	public void tearDownApp() {

@@ -10,17 +10,17 @@
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" /> 
 
-	<parameter name="SubscribedUserWith15daysExpiryUsername" value="crssri@g.co.in" />
+	<parameter name="SubscribedUserWith15daysExpiryUsername" value="zee.igs7098@gmail.com" />
 	<parameter name="SubscribedUserWith15daysExpiryPassword" value="123456" />
 
-	<parameter name="NonsubscribedUserName" value="zee5latest@gmail.com" />
-	<parameter name="NonsubscribedPassword" value="User@123" />
+	<parameter name="NonsubscribedUserName" value="ramkt@gmail.com" />
+	<parameter name="NonsubscribedPassword" value="123456" />
 
-	<parameter name="SubscribedUserName" value="testz6@g.com" />
+	<parameter name="SubscribedUserName" value="newsub12@gmail.com" />
 	<parameter name="SubscribedPassword" value="123456" />
 
-	<parameter name="RegisteredEmail" value="zee5latest@gmail.com" />
-	<parameter name="RegisteredEmailPassword" value="User@123" />
+	<parameter name="RegisteredEmail" value="ramkt@gmail.com" />
+	<parameter name="RegisteredEmailPassword" value="123456" />
 
 	<parameter name="regUserName" value="igszeefive3@gmail.com" />
 	<parameter name="regPassword" value="123456" />
@@ -29,7 +29,7 @@
 	<parameter name="RegisteredMobilePassword" value="User@123" />
 	
 	<parameter name="UnRegisteredMobile" value="8073661163" />
-	<parameter name="PromoCode" value="PNB20" />
+	<parameter name="PromoCode" value="NRTDC1" />
 	
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsUsername" value="zeetest08@gmail.com" />
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsPassword" value="123456"/>

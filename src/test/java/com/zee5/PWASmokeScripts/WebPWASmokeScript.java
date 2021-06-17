@@ -171,7 +171,7 @@ public class WebPWASmokeScript {
 			//zee5WebBusinessLogic.dismissDisplayContentLanguagePopUp();
 			zee5WebBusinessLogic.navigateHome();
 			zee5WebBusinessLogic.ShareModule(userType);
-	}
+		}
 
 	//--------------------------BHAVANA StaticPages--------------------------
 	@Test(priority = 14)

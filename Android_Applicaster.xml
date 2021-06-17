@@ -158,6 +158,8 @@
 	<parameter name="RentalContentName2" value="Mard Ki Zubaan" />
 	<parameter name="RentalContentName3" value="Radhe - Your Most Wanted Bhai" />
 	
+	<parameter name="ExpiredCode" value="pnb20" />
+	
 	<!-- 	Deeplink URLs Parameters	 -->
 	<parameter name="DeeplinkToLoginScreenFrmEmail" value="https://www.zee5.com/signin/email" />
 	

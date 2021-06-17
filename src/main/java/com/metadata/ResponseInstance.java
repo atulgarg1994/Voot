@@ -2181,8 +2181,7 @@ public static void setPropertyForContentDetailsFromSearchPage(String contentID) 
 	MixpanelAndroid.FEProp.setProperty("Genre", pGenre);
 	MixpanelAndroid.FEProp.setProperty("Image URL", pImgURL);
 	MixpanelAndroid.FEProp.setProperty("Publishing Date", pPublishedDate);
-	MixpanelAndroid.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);	
-	
+	MixpanelAndroid.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);		
 }
 	
 	public static void subscriptionDetails() {
