@@ -25843,7 +25843,7 @@ public void AppPerformanceTestInfo(String pPackageName) throws Exception {
 	System.out.println("\nApp Performance Test infomation - Memory|CPU|GPU|Battery and Network Usage");
 	
 	Memory_UsagePerformance();
-//	BatteryStats_Performance();
+	BatteryStats_Performance();
 	CPU_UsagePerformance();
 	GPU_UsagePerformance();
 	getApp_NetworkTrafficUsage(pPackageName);
