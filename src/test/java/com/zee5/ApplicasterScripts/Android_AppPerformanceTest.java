@@ -19,9 +19,8 @@ public class Android_AppPerformanceTest {
 	}
 	
 	@Test(priority = 0)
-	@Parameters({ "userType" }) 
-	public void accessDeviceLocation(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+	public void AppLaunchToHomeScreen() throws Exception {
+		ZEE5ApplicasterBusinessLogic.appLaunchDeviceLocationPopUp("Allow");
 	}
 	
 	@Test(priority = 1)	
@@ -31,20 +30,24 @@ public class Android_AppPerformanceTest {
 	
 	@Test(priority = 2)	
 	public void ScreenNavigation() throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow");
 		ZEE5ApplicasterBusinessLogic.SelectTopNavigationTab_Timer("Premium");
 	}
 	
-	@Test(priority = 3)	
+	@Test(priority = 3)
 	public void InitiateContentPlayback() throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow");
 		ZEE5ApplicasterBusinessLogic.Performance_InitiateContentPlayback();
 	}
 	
 	@Test(priority = 4)
 	public void DeeplinkValidaton() throws Exception {
 		System.out.println("\nNative Andriod App Deeplink Validation");
-		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow");
 		ZEE5ApplicasterBusinessLogic.deepLink_Validation("Consumption");
-		ZEE5ApplicasterBusinessLogic.deepLink_Validation("LiveTV");
 	}
 	
 	@AfterTest

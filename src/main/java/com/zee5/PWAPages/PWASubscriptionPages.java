@@ -315,8 +315,6 @@ public class PWASubscriptionPages {
 	
 	public static By objGetPremiumButton = By.xpath("//*[contains(@class, 'subscribe-button subscribemsg_en')]");
 	
-	public static By objSkipLink = By.xpath("//*[contains(@class, 'skip-button subscribe-link subscribemsg_en')]");
-	
 	public static By objExistUserText = By.xpath("//*[contains(text(), 'Are you a Zee5 Subscriber?')]");
 	
 	public static By objLoginLink = By.xpath("//*[contains(@class, 'login-link')]");
@@ -515,4 +513,7 @@ public class PWASubscriptionPages {
 	public static By objContinueButtonTxt = By.xpath(".//*[@class='buttonContainer']//span");
 	
 	public static By objPackCheckBox = By.xpath(".//*[@class='iconOther-ic_tick radioBtn ']");
+	
+	public static By objSkipLink = By.xpath("//*[contains(@class, 'skip-button subscribe-link')]");
+
 }

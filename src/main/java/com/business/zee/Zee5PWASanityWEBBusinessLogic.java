@@ -13935,33 +13935,32 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void watchlistMovies(String text, String userType) throws Exception {
 		extent.HeaderChildNode("Validation of Watchlist icon in Movies Consumption Page for " + userType + " User");
-		click(PWAHomePage.objZeelogo1, "zee logo");
+		//click(PWAHomePage.objZeelogo1, "zee logo");
 		click(PWAHomePage.objSearchBtn, "Search button");
 		type(PWASearchPage.objSearchEditBox, text, "Search field");
 		waitTime(5000);
 		click(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(text), "Search Result");
 		waitTime(8000);
-		if (checkElementDisplayed(PWASearchPage.objSubscribepopup, "Subscribepopup")) {
-			click(PWASearchPage.objSubscribepopupCLoseButton, "close button");
-		}
+//		if (checkElementDisplayed(PWASearchPage.objSubscribepopup, "Subscribepopup")) {
+//			click(PWASearchPage.objSubscribepopupCLoseButton, "close button");
+//		}
 		if (checkElementDisplayed(PWAPlayerPage.watchListBtn, "Watchlist")) {
 			logger.info("Watchlist button is displayed in movie consumption page");
 			extent.extentLogger("Watchlist", "Watchlist button is displayed in movie consumption page");
 			if (userType.equals("Guest")) {
-				click(PWAPlayerPage.watchListBtn, "Watchlist");
+				JSClick(PWAPlayerPage.watchListBtn, "Watchlist");
 				checkElementDisplayed(PWAPlayerPage.watchListLoginPopup,
 						"When guest user tries to click on watchlist login popup");
-				click(PWAPlayerPage.watchListLoginPopupCloseButton, "Close button in popup");
+				JSClick(PWAPlayerPage.watchListLoginPopupCloseButton, "Close button in popup");
 			}
-			click(PWAHomePage.objZeelogo1, "Zee logo");
+			//click(PWAHomePage.objZeelogo1, "Zee logo");
 		}
-
 	}
 
 	public void watchlistEpisode(String text, String userType) throws Exception {
 		extent.HeaderChildNode("Validation of Watchlist icon in Episode Consumption Page for " + userType + " User");
-		click(PWAHomePage.objZeelogo1, "zee logo");
+		//click(PWAHomePage.objZeelogo1, "zee logo");
 		click(PWAHomePage.objSearchBtn, "Search button");
 		type(PWASearchPage.objSearchEditBox, text, "Search field");
 		waitTime(5000);
@@ -13979,14 +13978,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 						"When guest user tries to click on watchlist login popup");
 				click(PWAPlayerPage.watchListLoginPopupCloseButton, "Close button in popup");
 			}
-			click(PWAHomePage.objZeelogo1, "Zee logo");
+			//click(PWAHomePage.objZeelogo1, "Zee logo");
 		}
 
 	}
 
 	public void watchlistVideo(String text, String userType) throws Exception {
 		extent.HeaderChildNode("Validation of Watchlist icon in Video Consumption Page for " + userType + " User");
-		click(PWAHomePage.objZeelogo1, "zee logo");
+		//click(PWAHomePage.objZeelogo1, "zee logo");
 		click(PWAHomePage.objSearchBtn, "Search button");
 		type(PWASearchPage.objSearchEditBox, text, "Search field");
 		waitTime(5000);
@@ -14004,14 +14003,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 						"When guest user tries to click on watchlist login popup");
 				click(PWAPlayerPage.watchListLoginPopupCloseButton, "Close button in popup");
 			}
-			click(PWAHomePage.objZeelogo1, "Zee logo");
+			//click(PWAHomePage.objZeelogo1, "Zee logo");
 		}
 
 	}
 
 	public void watchlistMusic(String text, String userType) throws Exception {
 		extent.HeaderChildNode("Validation of Watchlist icon in Music Consumption Page for " + userType + " User");
-		click(PWAHomePage.objZeelogo1, "zee logo");
+		//click(PWAHomePage.objZeelogo1, "zee logo");
 		click(PWAHomePage.objSearchBtn, "Search button");
 		type(PWASearchPage.objSearchEditBox, text, "Search field");
 		waitTime(5000);
@@ -14029,7 +14028,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 						"When guest user tries to click on watchlist login popup");
 				click(PWAPlayerPage.watchListLoginPopupCloseButton, "Close button in popup");
 			}
-			click(PWAHomePage.objZeelogo1, "Zee logo");
+			//click(PWAHomePage.objZeelogo1, "Zee logo");
 		}
 
 	}
@@ -14042,7 +14041,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void Watchlistlogin(String userType, String searchText) throws Exception {
 		extent.HeaderChildNode("Logging in as " + userType + " user on clicking Add to Watchlist icon");
-		click(PWAHomePage.objZeelogo1, "zee logo");
+		//click(PWAHomePage.objZeelogo1, "zee logo");
 		click(PWAHomePage.objSearchBtn, "Search button");
 		type(PWASearchPage.objSearchEditBox, searchText, "Search field");
 		waitTime(5000);
@@ -14082,11 +14081,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				click(PWALoginPage.objWebLoginButton, "Login Button");
 				waitTime(5000);
 			}
-			waitTime(5000);
+			waitTime(10000);
 			String contentName2 = getElementPropertyToString("innerText", PWAPlayerPage.objContentName, "Title");
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objProfileIconWEB, "Profile icon");
+			verifyElementPresent(PWAHamburgerMenuPage.objProfileIconWEB, "Profile icon");
+			JSClick(PWAHamburgerMenuPage.objProfileIconWEB, "Profile icon");
 			waitTime(3000);
-			click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
+			JSClick(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 			if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup") == true) {
 				click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
 			}
@@ -14114,7 +14114,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				logger.info("Added content is not displayed in Watchlist screen");
 			}
 		}
-		click(PWAHomePage.objZeelogo1, "zee logo");
+		//click(PWAHomePage.objZeelogo1, "zee logo");
 		click(PWAHomePage.objSearchBtn, "Search button");
 		type(PWASearchPage.objSearchEditBox, searchText, "Search field");
 		waitTime(5000);
@@ -14125,8 +14125,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		String contentName2 = getElementPropertyToString("innerText", PWAPlayerPage.objContentName, "Title");
 		click(PWAPlayerPage.watchListBtn, "Watchlist");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objProfileIconWEB, "Profile icon");
-		click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
+		verifyElementPresent(PWAHamburgerMenuPage.objProfileIconWEB, "Profile icon");
+		JSClick(PWAHamburgerMenuPage.objProfileIconWEB, "Profile icon");
+		JSClick(PWAAddToWatchListPage.objMyWatchList, "My Watchlist");
 		if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup") == true) {
 			click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
 		}
@@ -14137,7 +14138,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLogger("Watchlist",
 					"Content is removed from My Watchlist when user taps on highlighted watchlist button in consumption page");
 		}
-		click(PWAHomePage.objZeelogo1, "Zee logo");
+		//click(PWAHomePage.objZeelogo1, "Zee logo");
 		logout();
 	}
 
@@ -25295,18 +25296,17 @@ public void TasksAndDefects(String userType) throws Exception {
 	}
 
 	public void PWALoginInSubscriptionFlow(String userName, String password) throws Exception {
-
 		waitTime(2000);
 		verifyElementPresent(PWASubscriptionPages.objAccountInfoHighlighted, "Account Info Page");
 		waitTime(2000);
 		type(PWASubscriptionPages.objEmailIDTextField, userName, "Email Id");
-		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
+		verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnHighlighted, "Continue Button");
 		verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password");
 		verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
 		type(PWASubscriptionPages.objPasswordFieldHidden, password, "Password Field");
-		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
-
+		verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnEnabled, "Continue Button");
 	}
+
 
 	public void PWAVerifyComboPopupRentMovieFor() throws Exception {
 		extent.HeaderChildNode("Verifying Rent Movie For Popup");
@@ -25318,7 +25318,7 @@ public void TasksAndDefects(String userType) throws Exception {
 		verifyElementPresent(PWAComboOfferPage.objCurrentPlanTextDesc, currentPlanDescriptionText);
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAComboOfferPage.objComboPopupRentMovieBtn, "Rent Movie Button");
-
+		
 	}
 
 	public void PWAVerifyUpgradeToComboOfferPopup() throws Exception {

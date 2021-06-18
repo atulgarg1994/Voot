@@ -171,7 +171,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void accessDeviceLocationPopUp(String permission, String userType) throws Exception {
 		extent.HeaderChildNode("Access Device Location PopUp");
-		extent.extentLogger("Time ","Time taken to launch the App (millisec)" + DriverInstance.timeElapsed.getSeconds());
+		extent.extentLogger("Time ","Time taken to launch the App (Sec)" + DriverInstance.timeElapsed.getSeconds());
 		extent.extentLogger("User Type", "UserType : " + userType);
 		logger.info("UserType : " + userType);
 		System.out.println("Access Device Location PopUp");
@@ -19469,17 +19469,30 @@ public void MyZEE5AppValidation() throws Exception {
 
 	public void SelectTopNavigationTab_Timer(String pTabname) throws Exception {
 		extent.HeaderChildNode("Screen Navigation Performance");
-		System.out.println("\nSelecting " + pTabname + " from Top navigation tabs");
+		System.out.println("\n>>> Selecting " + pTabname + " from Top navigation tabs");
 
 //		String appPackageName = getParameterFromXML("appPackageName");
 		String appPackageName = "com.graymatrix.did";
 		
+		//Threshold Values declaration
+		int threshold_TimeTaken = 16;
+		int threshold_NativeMemory = 40;
+		int threshold_TotalMemory = 250;
+		int threshold_CPU = 75;
+		int threshold_GPUMem = 18;
+		int threshold_GPURendered = 2300;
+		int threshold_Network = 50;
+		
+		//Initiated Variable declaration
+		int nativeMemory=0, totalMemory=0,nCpuUSage=0,nGPURendered=0;
+		float nGPUMemory=0; double nNetTraffic=0;
 		verifyElementPresentAndClick(AMDHomePage.objHome, "Home button");
 		verifyElementPresent(AMDHomePage.objFirstRailDisplay, "First Rail");
 		
 		Instant startTime = Instant.now();
 		logger.info("Start time: " + startTime);
 
+		boolean flag=false;
 		int noOfTabs = getCount(AMDHomePage.objTitle);
 		System.out.println("\nTop Navigation Tabs: " + noOfTabs);
 		for (int k = 1; k <= noOfTabs; k++) {
@@ -19489,14 +19502,37 @@ public void MyZEE5AppValidation() throws Exception {
 				
 				Instant endTime = Instant.now();
 				logger.info("End time: " + endTime);
+				//AppPerformanceTestInfo(appPackageName);
 
-				//#### App Performance Usage Info
-				AppPerformanceTestInfo(appPackageName);
+				//#### App Performance Memory Usage Info
+				ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
+				nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+				totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+				
+				//#### App Performance CPU Usage Info
+				String getCPUInfo = CPU_UsagePerformanceV2();
+				nCpuUSage = Integer.parseInt(getCPUInfo);
+				
+				//#### App Performance GPU Usage Info		
+				ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+				nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+				nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+				
+				//#### App Performance Network Traffic Usage Info
+				nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
 				
 				Duration timeElapsed = Duration.between(startTime, endTime);
-				logger.info("Time taken to navigate from Home to " + pTabname + " screen (sec): "
-						+ timeElapsed.toMillis()/1000);
-				extent.extentLogger("Timer", "<b>Time taken to navigate from Home to "+pTabname+" (sec):</b> " + timeElapsed.toMillis()/1000);
+				logger.info("Time taken to navigate from Home to " + pTabname + " screen (sec): "+ timeElapsed.getSeconds());
+				extent.extentLogger("Timer", "<b>Time taken to navigate from Home to "+pTabname+" (sec):</b> " + timeElapsed.getSeconds());
+				
+				if(timeElapsed.getSeconds() < threshold_TimeTaken) {
+					logger.info("Time taken to navigate from Home to " + pTabname + " screen (sec): " + timeElapsed.getSeconds());
+					extent.extentLoggerPass("Timer","<b>Time taken to navigate from Home to " + pTabname + " screen (sec): </b>: " + timeElapsed.getSeconds());
+				}else {
+					logger.info("Time taken to navigate from Home to " + pTabname + " screen (sec): " + timeElapsed.getSeconds());
+					extent.extentLoggerFail("Timer","<b>Time taken to navigate from Home to " + pTabname + " screen (sec): </b>: " + timeElapsed.getSeconds());
+				}
+				flag=true;
 				break;
 			} else {
 				List<WebElement> element = getDriver().findElements(By.xpath("//*[@id='homeTabLayout']/*/child::*"));
@@ -19504,13 +19540,80 @@ public void MyZEE5AppValidation() throws Exception {
 				waitTime(1000);
 			}
 		}
+		
+		if(flag) {
+			
+			if(nativeMemory < threshold_NativeMemory) {
+				logger.info("App Memory Info - Native Heap : " + nativeMemory+" MB");
+				extent.extentLoggerPass("Memory Info","<b>App Memory Info - Native Heap :</b> " +nativeMemory+" MB");
+			}else {
+				logger.error("App Memory Info - Native Heap : " + nativeMemory+" MB");
+				extent.extentLoggerFail("Memory Info","<b>App Memory Info - Native Heap :</b> " +nativeMemory+" MB");
+			}
+			
+			if(totalMemory < threshold_TotalMemory) {
+				logger.info("App Memory Info - Total : " + totalMemory+" MB");
+				extent.extentLoggerPass("Memory Info","<b>App Memory Info - Total :</b> " +totalMemory+" MB");
+			}else {
+				logger.error("App Memory Info - Total : " + totalMemory+" MB");
+				extent.extentLoggerFail("Memory Info","<b>App Memory Info - Total :</b> " +totalMemory+" MB");
+			}
+			
+			if(nCpuUSage < threshold_CPU) {
+				logger.info("App CPU  Usage status : " + nCpuUSage+"%");
+				extent.extentLoggerPass("CPU Info","<b>App CPU Usage status : </b> " +nCpuUSage+"%");
+			}else {
+				logger.error("App Memory Info - Total : " + nCpuUSage+"%");
+				extent.extentLoggerFail("CPU Info","<b>App CPU Usage status : </b> " +nCpuUSage+"%");
+			}
+			
+			if(nGPUMemory < threshold_GPUMem) {
+				logger.info("\nTotal GPU Memory Usage of Current session : " + nGPUMemory+" MB");
+				extent.extentLoggerPass("GPU Info","<b>Total GPU Memory Usage of Current session :</b> " + nGPUMemory+" MB");
+			}else {
+				logger.error("\nTotal GPU Memory Usage of Current session exceeded : " + nGPUMemory+" MB");
+				extent.extentLoggerFail("GPU Info","<b>Total GPU Memory Usage of Current session exceeded:</b> " + nGPUMemory+" MB");
+			}
+			
+			if(nGPURendered < threshold_GPURendered) {		
+				logger.info("\nGPU Current session - Total frames rendered: " + nGPURendered);
+				extent.extentLoggerPass("GPU Info","<b>GPU Current session - Total frames rendered: </b> " +nGPURendered);
+			}else {
+				logger.error("\nGPU Current session - Total frames rendered: " + nGPURendered);
+				extent.extentLoggerFail("GPU Info","<b>GPU Current session - Total frames rendered: </b> " +nGPURendered);
+			}
+			
+			if(nNetTraffic < threshold_Network) {
+				logger.info("\nThe current App traffic usage is : "+ (int)nNetTraffic +" Mbps");
+				extent.extentLoggerPass("Traffic Usage","<b>The Current App traffic usage is : </b> " +(int)nNetTraffic+ " Mbps");
+			}else {
+				logger.error("\nThe current App traffic usage is : "+ (int)nNetTraffic +" Mbps");
+				extent.extentLoggerFail("Traffic Usage","<b>The Current App traffic usage is : </b> " +(int)nNetTraffic+ " Mbps");
+			}
+		}
 	}
+
 
 	public void deepLink_Validation(String pDeeplink) {
 		extent.HeaderChildNode("DeepLink to Playback " + pDeeplink + " screen");
+		System.out.println("\n>>> DeepLink to Playback " + pDeeplink + " screen");
 		
 //		String appPackageName = getParameterFromXML("appPackageName");
 		String appPackageName = "com.graymatrix.did";
+		
+		//Threshold Values declaration
+		int threshold_TimeTaken = 9;
+		int threshold_NativeMemory = 29;
+		int threshold_TotalMemory = 230;
+		int threshold_CPU = 100;
+		int threshold_GPUMem = 13;
+		int threshold_GPURendered = 2500;
+		int threshold_Network = 144;
+		
+		//Initiated Variable declaration
+		boolean flag=false;
+		int nativeMemory=0, totalMemory=0,nCpuUSage=0,nGPURendered=0;
+		float nGPUMemory=0; double nNetTraffic=0;
 		
 		try {
 			getDriver().close();
@@ -19544,12 +19647,37 @@ public void MyZEE5AppValidation() throws Exception {
 					extent.extentLoggerPass("Consumption", "Consumption Screen is displayed for the deeplink");
 
 					//#### App Performance Usage Info
-					AppPerformanceTestInfo(appPackageName);
+					//AppPerformanceTestInfo(appPackageName);
+					
+					//#### App Performance MEMORY Usage Info
+					ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();	
+					nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+					totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+					
+					//#### App Performance CPU Usage Info
+					String getCPUInfo = CPU_UsagePerformanceV2();
+					nCpuUSage = Integer.parseInt(getCPUInfo);
+					
+					//#### App Performance GPU Usage Info					
+					ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+					nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+					nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+					
+					//#### App Performance Network Traffic Usage Info
+					nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
 					
 					Duration timeElapsed = Duration.between(startTime, endTime);
-					logger.info("Time taken to play through deeplink (sec): " + timeElapsed.toMillis()/1000);
-					extent.extentLogger("Timer",
-							"<b>Time taken to play through deeplink (sec):</b> " + timeElapsed.toMillis()/1000);
+					logger.info("Time taken to play through deeplink (sec): " + timeElapsed.getSeconds());
+					extent.extentLogger("Timer","<b>Time taken to play through deeplink (sec):</b> " + timeElapsed.getSeconds());
+					
+					if(timeElapsed.getSeconds() < threshold_TimeTaken) {
+						logger.info("Time taken to consumption screen through deeplink (Sec): " + timeElapsed.getSeconds());
+						extent.extentLoggerPass("Timer","<b>Time taken to consumption screen through deeplink (Sec)</b>: " + timeElapsed.getSeconds());
+					}else {
+						logger.info("Time taken to consumption screen through deeplink (Sec): " + timeElapsed.getSeconds());
+						extent.extentLoggerFail("Timer","<b>Time taken to consumption screen through deeplink (Sec)</b>: " + timeElapsed.getSeconds());
+					}
+					flag=true;
 				} else {
 					logger.info("Consumption Screen is not displayed for the deeplink");
 					extent.extentLoggerFail("Consumption screen",
@@ -19572,12 +19700,36 @@ public void MyZEE5AppValidation() throws Exception {
 					extent.extentLoggerPass("Live TV", "Live TV is played for the deeplink");
 
 					//#### App Performance Usage Info
-					AppPerformanceTestInfo(appPackageName);
+					//AppPerformanceTestInfo(appPackageName);
+					
+					//#### App Performance MEMORY Usage Info					
+					ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();	
+					nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+					totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+					
+					//#### App Performance CPU Usage Info
+					String getCPUInfo = CPU_UsagePerformanceV2();
+					nCpuUSage = Integer.parseInt(getCPUInfo);
+					
+					//#### App Performance GPU Usage Info
+					ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+					nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+					nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+						
+					//#### App Performance Network Traffic Usage Info
+					nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
 					
 					Duration timeElapsed = Duration.between(startTime, endTime);
-					logger.info("Time taken to play through deeplink (sec): " + timeElapsed.toMillis()/1000);
-					extent.extentLogger("Timer",
-							"<b>Time taken to play through deeplink (sec):</b> " + timeElapsed.toMillis()/1000);	
+					logger.info("Time taken to play through deeplink (sec): " + timeElapsed.getSeconds());
+					
+					if(timeElapsed.getSeconds() < threshold_TimeTaken) {
+						logger.info("Time taken to consumption screen through deeplink (Sec): " + timeElapsed.getSeconds());
+						extent.extentLoggerPass("Timer","<b>Time taken to consumption screen through deeplink (Sec)</b>: " + timeElapsed.getSeconds());
+					}else {
+						logger.info("Time taken to consumption screen through deeplink (Sec): " + timeElapsed.getSeconds());
+						extent.extentLoggerFail("Timer","<b>Time taken to consumption screen through deeplink (Sec)</b>: " + timeElapsed.getSeconds());
+					}
+					flag=true;
 				} else {
 					logger.info("Live TV is not played for the deeplink");
 					extent.extentLoggerFail("Live TV", "Live TV is not played for the deeplink");
@@ -19587,6 +19739,57 @@ public void MyZEE5AppValidation() throws Exception {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		if(flag) {
+			
+			if(nativeMemory < threshold_NativeMemory) {
+				logger.info("App Memory Info - Native Heap : " + nativeMemory+" MB");
+				extent.extentLoggerPass("Memory Info","<b>App Memory Info - Native Heap :</b> " +nativeMemory+" MB");
+			}else {
+				logger.error("App Memory Info - Native Heap : " + nativeMemory+" MB");
+				extent.extentLoggerFail("Memory Info","<b>App Memory Info - Native Heap :</b> " +nativeMemory+" MB");
+			}
+			
+			if(totalMemory < threshold_TotalMemory) {
+				logger.info("App Memory Info - Total : " + totalMemory+" MB");
+				extent.extentLoggerPass("Memory Info","<b>App Memory Info - Total :</b> " +totalMemory+" MB");
+			}else {
+				logger.error("App Memory Info - Total : " + totalMemory+" MB");
+				extent.extentLoggerFail("Memory Info","<b>App Memory Info - Total :</b> " +totalMemory+" MB");
+			}
+			
+			if(nCpuUSage < threshold_CPU) {
+				logger.info("App CPU  Usage status : " + nCpuUSage+"%");
+				extent.extentLoggerPass("CPU Info","<b>App CPU Usage status : </b> " +nCpuUSage+"%");
+			}else {
+				logger.error("App Memory Info - Total : " + nCpuUSage+"%");
+				extent.extentLoggerFail("CPU Info","<b>App CPU Usage status : </b> " +nCpuUSage+"%");
+			}
+			
+			if(nGPUMemory < threshold_GPUMem) {
+				logger.info("\nTotal GPU Memory Usage of Current session : " + nGPUMemory+" MB");
+				extent.extentLoggerPass("GPU Info","<b>Total GPU Memory Usage of Current session :</b> " + nGPUMemory+" MB");
+			}else {
+				logger.error("\nTotal GPU Memory Usage of Current session exceeded : " + nGPUMemory+" MB");
+				extent.extentLoggerFail("GPU Info","<b>Total GPU Memory Usage of Current session exceeded:</b> " + nGPUMemory+" MB");
+			}
+			
+			if(nGPURendered < threshold_GPURendered) {		
+				logger.info("\nGPU Current session - Total frames rendered: " + nGPURendered);
+				extent.extentLoggerPass("GPU Info","<b>GPU Current session - Total frames rendered: </b> " +nGPURendered);
+			}else {
+				logger.error("\nGPU Current session - Total frames rendered: " + nGPURendered);
+				extent.extentLoggerFail("GPU Info","<b>GPU Current session - Total frames rendered: </b> " +nGPURendered);
+			}
+			
+			if(nNetTraffic < threshold_Network) {
+				logger.info("\nThe current App traffic usage is : "+ (int)nNetTraffic +" Mbps");
+				extent.extentLoggerPass("Traffic Usage","<b>The Current App traffic usage is : </b> " +(int)nNetTraffic+ " Mbps");
+			}else {
+				logger.error("\nThe current App traffic usage is : "+ (int)nNetTraffic +" Mbps");
+				extent.extentLoggerFail("Traffic Usage","<b>The Current App traffic usage is : </b> " +(int)nNetTraffic+ " Mbps");
+			}	
+		}	
 	}
 
 	public void ZeeApplicasterLogin_Timer(String LoginMethod) throws Exception {
@@ -25786,40 +25989,136 @@ public void GPU_UsagePerformance() throws Exception {
 	extent.extentLoggerPass("GPU Info","<b>GPU Rendering Info of Current session - </b> " +nGPUFramesRendered);
 }
 
+
 public void Performance_LoginFunctionality() throws Exception {
 	extent.HeaderChildNode("Login Functionality Performance");
-	System.out.println("\nLogin Functionality Performance");
+	System.out.println("\n>>> Login Functionality Performance");
 	
 //	String appPackageName = getParameterFromXML("appPackageName");
 	String appPackageName = "com.graymatrix.did";
+	
+	//Threshold Values declaration
+	int threshold_TimeTaken = 22;
+	int threshold_NativeMemory = 35;
+	int threshold_TotalMemory = 35;
+	int threshold_CPU = 75;
+	int threshold_GPUMem = 10;
+	int threshold_GPURendered = 2300;
+	int threshold_Network = 27;
 	
 	Instant startTime = Instant.now();
 	logger.info("Instant Start time : " + startTime);
 	
 	LoginWithEmailID("igszee23@yopmail.com", "123456");
-	//#### App Performance Usage Info
-	AppPerformanceTestInfo(appPackageName);
+//	AppPerformanceTestInfo(appPackageName);
+	
+	//#### App Performance MEMORY Usage Info	
+	ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
+	int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+	int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+		
+	//#### App Performance CPU Usage Info
+	String getCPUInfo = CPU_UsagePerformanceV2();
+	int nCpuUSage = Integer.parseInt(getCPUInfo);
+		
+	//#### App Performance GPU Usage Info
+	ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+	float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+	int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+
+	
+	//#### App Performance Network Traffic Usage Info
+	double nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
+	
+	//#### App Performance Battery Info
+	String batteryInfo = BatteryStats_PerformanceV2();
+	logger.info("\nApp Battery Info - " +batteryInfo);
+	extent.extentLogger("Timer","<b>App Battery Info - </b>" +batteryInfo);
+	
 	verifyElementPresent(AMDHomePage.objCarouselBtn, "Play Btn");
 	
 	Instant endTime = Instant.now();
 	logger.info("Instant End time : " + endTime);
 
 	Duration timeElapsed = Duration.between(startTime, endTime);
+	logger.info("Time taken to login with registered user (sec): " + timeElapsed.getSeconds());
 	
-	logger.info("Time taken to login with registered user (sec): " + timeElapsed.toMillis()/1000);
-	extent.extentLogger("Timer",
-			"<b>Time taken to login with registered user (sec)</b>: " + timeElapsed.toMillis()/1000);
+	if(timeElapsed.getSeconds() < threshold_TimeTaken) {
+		logger.info("Time taken to login with registered user (Sec): " + timeElapsed.getSeconds());
+		extent.extentLoggerPass("Timer","<b>Time taken to login with registered user (Sec)</b>: " + timeElapsed.getSeconds());
+	}else {
+		logger.info("Taken too long to login with registered user (Sec): " + timeElapsed.getSeconds());
+		extent.extentLoggerFail("Timer","<b>Taken too long to login with registered user (Sec)</b>: " + timeElapsed.getSeconds());
+	}
+	
+	if(nativeMemory < threshold_NativeMemory) {
+		logger.info("App Memory Info - Native Heap : " + nativeMemory+" MB");
+		extent.extentLoggerPass("Memory Info","<b>App Memory Info - Native Heap :</b> " +nativeMemory+" MB");
+	}else {
+		logger.error("App Memory Info - Native Heap : " + nativeMemory+" MB");
+		extent.extentLoggerFail("Memory Info","<b>App Memory Info - Native Heap :</b> " +nativeMemory+" MB");
+	}
+	
+	if(totalMemory < threshold_TotalMemory) {
+		logger.info("App Memory Info - Total : " + totalMemory+" MB");
+		extent.extentLoggerPass("Memory Info","<b>App Memory Info - Total :</b> " +totalMemory+" MB");
+	}else {
+		logger.error("App Memory Info - Total : " + totalMemory+" MB");
+		extent.extentLoggerFail("Memory Info","<b>App Memory Info - Total :</b> " +totalMemory+" MB");
+	}
+	
+	if(nCpuUSage < threshold_CPU) {
+		logger.info("App CPU  Usage status : " + nCpuUSage+"%");
+		extent.extentLoggerPass("CPU Info","<b>App CPU Usage status : </b> " +nCpuUSage+"%");
+	}else {
+		logger.error("App Memory Info - Total : " + nCpuUSage+"%");
+		extent.extentLoggerFail("CPU Info","<b>App CPU Usage status : </b> " +nCpuUSage+"%");
+	}
+	
+	if(nGPUMemory < threshold_GPUMem) {
+		logger.info("\nTotal GPU Memory Usage of Current session : " + nGPUMemory+" MB");
+		extent.extentLoggerPass("GPU Info","<b>Total GPU Memory Usage of Current session :</b> " + nGPUMemory+" MB");
+	}else {
+		logger.error("\nTotal GPU Memory Usage of Current session exceeded : " + nGPUMemory+" MB");
+		extent.extentLoggerFail("GPU Info","<b>Total GPU Memory Usage of Current session exceeded:</b> " + nGPUMemory+" MB");
+	}
+	
+	if(nGPURendered < threshold_GPURendered) {		
+		logger.info("\nGPU Current session - Total frames rendered: " + nGPURendered);
+		extent.extentLoggerPass("GPU Info","<b>GPU Current session - Total frames rendered: </b> " +nGPURendered);
+	}else {
+		logger.error("\nGPU Current session - Total frames rendered: " + nGPURendered);
+		extent.extentLoggerFail("GPU Info","<b>GPU Current session - Total frames rendered: </b> " +nGPURendered);
+	}
+	
+	if(nNetTraffic < threshold_Network) {
+		logger.info("\nThe current App traffic usage is : "+ (int)nNetTraffic +" Mbps");
+		extent.extentLoggerPass("Traffic Usage","<b>The Current App traffic usage is : </b> " +(int)nNetTraffic+ " Mbps");
+	}else {
+		logger.error("\nThe current App traffic usage is : "+ (int)nNetTraffic +" Mbps");
+		extent.extentLoggerFail("Traffic Usage","<b>The Current App traffic usage is : </b> " +(int)nNetTraffic+ " Mbps");
+	}
 }
 
 	
 
 public void Performance_InitiateContentPlayback() throws Exception {
-	extent.HeaderChildNode("Initiate content playback Performance");
-	System.out.println("\nInitiate content playback Performance");
+	extent.HeaderChildNode("Initiate content playback Performance detail");
+	System.out.println("\n>>> Initiate content playback Performance detail");
 	
 //	String appPackageName = getParameterFromXML("appPackageName");
 	String appPackageName = "com.graymatrix.did";
 	
+	//Threshold Values declaration
+	int threshold_TimeTaken = 9;
+	int threshold_NativeMemory = 44;
+	int threshold_TotalMemory = 280;
+	int threshold_CPU = 110;
+	int threshold_GPUMem = 26;
+	int threshold_GPURendered = 2300;
+	int threshold_Network = 90;
+	
+	LoginWithEmailID("zeetest34new@test.com", "123456");
 	SelectTopNavigationTab("Movies");
 	verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
 	Instant startTime = Instant.now();
@@ -25827,17 +26126,84 @@ public void Performance_InitiateContentPlayback() throws Exception {
 	
 	verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Player Start");
 	
-	//#### App Performance Usage Info
-	AppPerformanceTestInfo(appPackageName);
+	//#### App Performance MEMORY Usage Info
+	ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
+	int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+	int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+	
+	//#### App Performance CPU Usage Info
+	String getCPUInfo = CPU_UsagePerformanceV2();
+	int nCpuUSage = Integer.parseInt(getCPUInfo);
+	
+	//#### App Performance GPU Usage Info
+	ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+	float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+	int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+	
+	//#### App Performance Network Traffic Usage Info
+	double nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
 	
 	Instant endTime = Instant.now();
 	logger.info("Instant End time : " + endTime);
 
 	Duration timeElapsed = Duration.between(startTime, endTime);
+	extent.extentLogger("Timer","<b>Time taken to start playback in consumption screen (Sec):</b> " + timeElapsed.getSeconds());
 	
-	logger.info("Time taken to start playback in consumption screen (Sec): " + timeElapsed.toMillis()/1000);
-	extent.extentLogger("Timer",
-			"<b>Time taken to start playback in consumption screen (Sec):</b> " + timeElapsed.toMillis()/1000);
+	if(timeElapsed.getSeconds() < threshold_TimeTaken) {
+		logger.info("Time taken to start playback in consumption screen (Sec): " + timeElapsed.getSeconds());
+		extent.extentLoggerPass("Timer","<b>Time taken to start playback in consumption screen (Sec)</b>: " + timeElapsed.getSeconds());
+	}else {
+		logger.info("Time taken to start playback in consumption screen (Sec): " + timeElapsed.getSeconds());
+		extent.extentLoggerFail("Timer","<b>Time taken to start playback in consumption screen (Sec)</b>: " + timeElapsed.getSeconds());
+	}
+	
+	if(nativeMemory < threshold_NativeMemory) {
+		logger.info("App Memory Info - Native Heap : " + nativeMemory+" MB");
+		extent.extentLoggerPass("Memory Info","<b>App Memory Info - Native Heap :</b> " +nativeMemory+" MB");
+	}else {
+		logger.error("App Memory Info - Native Heap : " + nativeMemory+" MB");
+		extent.extentLoggerFail("Memory Info","<b>App Memory Info - Native Heap :</b> " +nativeMemory+" MB");
+	}
+	
+	if(totalMemory < threshold_TotalMemory) {
+		logger.info("App Memory Info - Total : " + totalMemory+" MB");
+		extent.extentLoggerPass("Memory Info","<b>App Memory Info - Total :</b> " +totalMemory+" MB");
+	}else {
+		logger.error("App Memory Info - Total : " + totalMemory+" MB");
+		extent.extentLoggerFail("Memory Info","<b>App Memory Info - Total :</b> " +totalMemory+" MB");
+	}
+	
+	if(nCpuUSage < threshold_CPU) {
+		logger.info("App CPU  Usage status : " + nCpuUSage+"%");
+		extent.extentLoggerPass("CPU Info","<b>App CPU Usage status : </b> " +nCpuUSage+"%");
+	}else {
+		logger.error("App Memory Info - Total : " + nCpuUSage+"%");
+		extent.extentLoggerFail("CPU Info","<b>App CPU Usage status : </b> " +nCpuUSage+"%");
+	}
+	
+	if(nGPUMemory < threshold_GPUMem) {
+		logger.info("\nTotal GPU Memory Usage of Current session : " + nGPUMemory+" MB");
+		extent.extentLoggerPass("GPU Info","<b>Total GPU Memory Usage of Current session :</b> " + nGPUMemory+" MB");
+	}else {
+		logger.error("\nTotal GPU Memory Usage of Current session exceeded : " + nGPUMemory+" MB");
+		extent.extentLoggerFail("GPU Info","<b>Total GPU Memory Usage of Current session exceeded:</b> " + nGPUMemory+" MB");
+	}
+	
+	if(nGPURendered < threshold_GPURendered) {		
+		logger.info("\nGPU Current session - Total frames rendered: " + nGPURendered);
+		extent.extentLoggerPass("GPU Info","<b>GPU Current session - Total frames rendered: </b> " +nGPURendered);
+	}else {
+		logger.error("\nGPU Current session - Total frames rendered: " + nGPURendered);
+		extent.extentLoggerFail("GPU Info","<b>GPU Current session - Total frames rendered: </b> " +nGPURendered);
+	}
+	
+	if(nNetTraffic < threshold_Network) {
+		logger.info("\nThe current App traffic usage is : "+ (int)nNetTraffic +" Mbps");
+		extent.extentLoggerPass("Traffic Usage","<b>The Current App traffic usage is : </b> " +(int)nNetTraffic+ " Mbps");
+	}else {
+		logger.error("\nThe current App traffic usage is : "+ (int)nNetTraffic +" Mbps");
+		extent.extentLoggerFail("Traffic Usage","<b>The Current App traffic usage is : </b> " +(int)nNetTraffic+ " Mbps");
+	}
 }
 
 	
@@ -26135,4 +26501,342 @@ public void FunctionalityOfExplorePremium(String userType) throws Exception{
 	 
  }
 
+ public ArrayList<String> Memory_UsagePerformanceV2() throws IOException {
+		System.out.println("Memory Usage of Native App!");
+
+		String getNativeMemory=""; String getTotalMemory="";
+		String adbCommand1="adb shell dumpsys meminfo com.graymatrix.did | grep Native";
+		String adbCommand2="adb shell dumpsys meminfo com.graymatrix.did | grep TOTAL";
+		
+		Process process1=Runtime.getRuntime().exec(adbCommand1);
+		BufferedReader nativeResult = new BufferedReader(new InputStreamReader(process1.getInputStream()));
+		Process process2=Runtime.getRuntime().exec(adbCommand2);
+		BufferedReader totalResult = new BufferedReader(new InputStreamReader(process2.getInputStream()));
+
+		getNativeMemory = nativeResult.readLine().trim();
+		getTotalMemory = totalResult.readLine().trim();
+		
+//		System.out.println(getNativeMemory);
+//		System.out.println(getTotalMemory);
+		
+		ArrayList<String> getNativeValue = new ArrayList<String>();
+		String[] splitData = getNativeMemory.split(" ");
+		for(int i=0;i<splitData.length;i++) {
+			if(!splitData[i].isEmpty()) {
+				getNativeValue.add(splitData[i]);
+			}
+		}
+		
+		ArrayList<String> getTotalValue = new ArrayList<String>();
+		String[] splitData2 = getTotalMemory.split(" ");
+		for(int i=0;i<splitData2.length;i++) {
+			if(!splitData2[i].isEmpty()) {
+				getTotalValue.add(splitData2[i]);
+			}
+		}
+
+		int mbNativeHeap = (Integer.parseInt(getNativeValue.get(2))/1024);
+		logger.info("App Memory Info - Native Heap : " + mbNativeHeap+" MB");
+		
+		int mbTotal = (Integer.parseInt(getTotalValue.get(1))/1024);
+		logger.info("App Memory Info - TOTAL : " + mbTotal+" MB");
+		
+		ArrayList<String> Memory_UsagePerformanceV2 = new ArrayList<String>();
+		Memory_UsagePerformanceV2.add(convertToString(mbNativeHeap));
+		Memory_UsagePerformanceV2.add(convertToString(mbTotal));
+		
+		return Memory_UsagePerformanceV2;
+	}
+
+ public String CPU_UsagePerformanceV2() throws IOException {
+	System.out.println("\nCPU Usage of App");
+	
+	String getCpuStats="";
+	String adbCommand="adb shell dumpsys cpuinfo | grep com.graymatrix.did";
+	Process process=Runtime.getRuntime().exec(adbCommand);
+	BufferedReader adbResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+	getCpuStats = adbResult.readLine().trim();
+//	System.out.println(getCpuStats);
+	
+	String[] getCPUStatus = getCpuStats.split(" ");
+	logger.info("App CPU Usage status : " + getCPUStatus[0]);
+	
+	String CPUInfo = getCPUStatus[0].replace("%", "").trim(); 
+	return CPUInfo;
+}
+
+ public ArrayList<String> GPU_UsagePerformanceV2() throws Exception {
+		System.out.println("\nGPU Usage of App");
+
+		String getGPUInfo=""; String nGPUFramesRendered="";
+		String adbCommand="adb shell dumpsys gfxinfo com.graymatrix.did | grep MB";
+		String adbCommand2="adb shell dumpsys gfxinfo com.graymatrix.did | grep rendered";
+		
+		Process process=Runtime.getRuntime().exec(adbCommand);
+		BufferedReader result = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		
+		Process process2=Runtime.getRuntime().exec(adbCommand2);
+		BufferedReader result2 = new BufferedReader(new InputStreamReader(process2.getInputStream()));
+		
+		getGPUInfo = result.readLine().trim();
+		//System.out.println(getGPUInfo);
+		String[] splitData = getGPUInfo.split(",");
+		String GPUConsumed = splitData[1].trim();
+		
+		nGPUFramesRendered =result2.readLine().trim();
+
+		logger.info("\nTotal GPU Memory Usage of Current session : " + GPUConsumed);	
+		logger.info("\nGPU Rendering Info of Current session - " + nGPUFramesRendered);
+		
+		ArrayList<String> GPU_UsagePerformanceV2 = new ArrayList<String>();
+		GPU_UsagePerformanceV2.add(GPUConsumed);
+		GPU_UsagePerformanceV2.add(nGPUFramesRendered);
+		
+		return GPU_UsagePerformanceV2;
+	}
+ 
+
+public double getApp_NetworkTrafficUsageV2(String pPackageName) throws Exception {
+	
+//	String PackageName = "com.graymatrix.did";
+	double flowAction = 0;
+	try {
+		String pidCommand = "adb shell pidof "+pPackageName;
+		Process process = Runtime.getRuntime().exec(pidCommand);
+		BufferedReader pidResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		
+		String PID = pidResult.readLine().trim();
+		//System.out.println("PID : "+PID);
+
+		Runtime runtime = Runtime.getRuntime();
+		Process proc = runtime.exec("adb shell cat /proc/" + PID + "/net/dev");
+		try {
+			if (proc.waitFor() != 0) {
+				System.err.println("exit value = " + proc.exitValue());
+			}
+			BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+			StringBuffer stringBuffer = new StringBuffer();
+			String line = null;
+			while ((line = in.readLine()) != null) {
+				stringBuffer.append(line + " ");
+
+			}
+			String str1 = stringBuffer.toString();
+			String str2 = str1.substring(str1.indexOf("wlan0:"), str1.indexOf("wlan0:") + 100);
+
+			// System.out.println("sent first sentence" + str2);
+			// The space is divided into a string array to take the second and tenth
+			// numbers, which are the sending traffic and the receiving traffic.
+			String[] toks = str2.split(" +");
+			String str4 = toks[1];
+			String str6 = toks[9];
+			int b = Integer.parseInt(str4);
+			int a = Integer.parseInt(str6);
+
+			double sendFlow = a / 1024;
+			double revFlow = b / 1024;
+			flowAction = sendFlow + revFlow;
+			logger.info("\nThe current App traffic usage is : "+ (int)flowAction/1024 + "Mbps");
+			//extent.extentLogger("Traffic Usage","<b>The Current App traffic usage is : </b> " + (int)flowAction/1024 + "Mbps");
+			
+		} catch (InterruptedException e) {
+			System.err.println(e);
+		} finally {
+			try {
+				proc.destroy();
+			} catch (Exception e2) {
+			}
+		}
+	} catch (Exception StringIndexOutOfBoundsException) {
+		System.out.println("Please check if the device is connected | App is closed");
+		extent.extentLoggerWarning("Traffic Usage","<b>Please check if the device is connected | App is closed </b>");
+	}
+	
+	if(flowAction!=0) {
+		return (flowAction/1024);
+	}else {
+		return flowAction;
+	}
+}
+
+public String BatteryStats_PerformanceV2() throws Exception {
+	System.out.println("\nBattery Stats Information");
+
+	String getBatteryInfo="";
+//	String adbCommand="adb shell dumpsys batterystats --charged com.graymatrix.did | grep Computed";
+	String adbCommand="adb shell pm dump com.graymatrix.did | grep Computed";
+	String strDrain = null;
+	try {
+		Process process=Runtime.getRuntime().exec(adbCommand);
+		BufferedReader result = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		
+		getBatteryInfo = result.readLine().trim();
+		System.out.println(getBatteryInfo);
+		
+		if(getBatteryInfo.contains("drain")) {
+			String[] batteryStats = getBatteryInfo.split(",");
+			strDrain = batteryStats[1];
+			logger.info("\nApp Battery Info - " +strDrain);
+		}
+		
+	} catch (Exception e) {
+		System.out.println(e);
+		// TODO: handle exception
+	}
+	return strDrain;
+}
+
+public void appLaunchDeviceLocationPopUp(String permission) throws Exception {
+	extent.HeaderChildNode("App Launch Scenario");
+	System.out.println("App Launch Scenario");
+	
+	//Threshold Values declaration
+	int threshold_TimeTaken = 11;
+	int threshold_NativeMemory = 30;
+	int threshold_TotalMemory = 200;
+	int threshold_CPU = 200;
+	int threshold_GPUMem = 7;
+	int threshold_GPURendered = 1500;
+	int threshold_Network = 8;
+	
+	boolean flag=false;
+	
+	if (verifyElementExist(AMDOnboardingScreen.objAllowLocationAccessPopup, "AllowPopup")) {	
+		String str1 = getAttributValue("text", AMDOnboardingScreen.objFirstPermissionButton);
+		String str2 = getAttributValue("text", AMDOnboardingScreen.objSecondPermissionButton);
+
+		if (str1.contains("ALLOW")) {
+			System.out.println("ALLOW is present");
+			click(AMDOnboardingScreen.objAllow(str1), str1);
+		} else if (str1.contains("WHILE USING THE APP")) {
+			System.out.println("Allow is present");
+			click(AMDOnboardingScreen.objAllow(str1), str1);
+		} else if (str1.contains("Allow")) {
+			System.out.println("Allow is present");
+			click(AMDOnboardingScreen.objAllow(str1), str1);
+		} else if (str2.contains("ALLOW")) {
+			System.out.println("ALLOW is present");
+			click(AMDOnboardingScreen.objAllow(str2), str2);
+		} else if (str2.contains("Allow")) {
+			System.out.println("Allow is present");
+			click(AMDOnboardingScreen.objAllow(str2), str2);
+		}
+		flag=true;
+		verifyElementPresent(AMDHomePage.objFirstRailDisplay, "First Rail Loaded");
+		//AppPerformanceTestInfo("com.graymatrix.did");
+		
+	} else {
+		System.out.println("Access Device Location PopUp not displayed");
+	}
+	
+	if(flag) {
+		
+		ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
+		int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+		int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+			
+		//#### App Performance CPU Usage Info
+		String getCPUInfo = CPU_UsagePerformanceV2();
+		int nCpuUSage = Integer.parseInt(getCPUInfo);
+			
+		//#### App Performance GPU Usage Info
+		ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+		float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+		int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+
+		
+		//#### App Performance Network Traffic Usage Info
+		double nNetTraffic = getApp_NetworkTrafficUsageV2("com.graymatrix.did");
+		
+		if(DriverInstance.timeElapsed.getSeconds() < threshold_TimeTaken) {
+			logger.info("Time taken to launch the App (Sec): " + DriverInstance.timeElapsed.getSeconds());
+			extent.extentLoggerPass("Timer","<b>Time taken to launch the App (Sec)</b>: " + DriverInstance.timeElapsed.getSeconds());
+		}else {
+			logger.info("Time taken to launch the App (Sec): " + DriverInstance.timeElapsed.getSeconds());
+			extent.extentLoggerFail("Timer","<b>Time taken to launch the App (Sec)</b>: " + DriverInstance.timeElapsed.getSeconds());
+		}
+		
+		if(nativeMemory < threshold_NativeMemory) {
+			logger.info("App Memory Info - Native Heap : " + nativeMemory+" MB");
+			extent.extentLoggerPass("Memory Info","<b>App Memory Info - Native Heap :</b> " +nativeMemory+" MB");
+		}else {
+			logger.error("App Memory Info - Native Heap : " + nativeMemory+" MB");
+			extent.extentLoggerFail("Memory Info","<b>App Memory Info - Native Heap :</b> " +nativeMemory+" MB");
+		}
+		
+		if(totalMemory < threshold_TotalMemory) {
+			logger.info("App Memory Info - Total : " + totalMemory+" MB");
+			extent.extentLoggerPass("Memory Info","<b>App Memory Info - Total :</b> " +totalMemory+" MB");
+		}else {
+			logger.error("App Memory Info - Total : " + totalMemory+" MB");
+			extent.extentLoggerFail("Memory Info","<b>App Memory Info - Total :</b> " +totalMemory+" MB");
+		}
+		
+		if(nCpuUSage < threshold_CPU) {
+			logger.info("App CPU  Usage status : " + nCpuUSage+"%");
+			extent.extentLoggerPass("CPU Info","<b>App CPU Usage status : </b> " +nCpuUSage+"%");
+		}else {
+			logger.error("App Memory Info - Total : " + nCpuUSage+"%");
+			extent.extentLoggerFail("CPU Info","<b>App CPU Usage status : </b> " +nCpuUSage+"%");
+		}
+		
+		if(nGPUMemory < threshold_GPUMem) {
+			logger.info("\nTotal GPU Memory Usage of Current session : " + nGPUMemory+" MB");
+			extent.extentLoggerPass("GPU Info","<b>Total GPU Memory Usage of Current session :</b> " + nGPUMemory+" MB");
+		}else {
+			logger.error("\nTotal GPU Memory Usage of Current session exceeded : " + nGPUMemory+" MB");
+			extent.extentLoggerFail("GPU Info","<b>Total GPU Memory Usage of Current session exceeded:</b> " + nGPUMemory+" MB");
+		}
+		
+		if(nGPURendered < threshold_GPURendered) {		
+			logger.info("\nGPU Current session - Total frames rendered: " + nGPURendered);
+			extent.extentLoggerPass("GPU Info","<b>GPU Current session - Total frames rendered: </b> " +nGPURendered);
+		}else {
+			logger.error("\nGPU Current session - Total frames rendered: " + nGPURendered);
+			extent.extentLoggerFail("GPU Info","<b>GPU Current session - Total frames rendered: </b> " +nGPURendered);
+		}
+		
+		if(nNetTraffic < threshold_Network) {
+			logger.info("\nThe current App traffic usage is : "+ (int)nNetTraffic +" Mbps");
+			extent.extentLoggerPass("Traffic Usage","<b>The Current App traffic usage is : </b> " +(int)nNetTraffic+ " Mbps");
+		}else {
+			logger.error("\nThe current App traffic usage is : "+ (int)nNetTraffic +" Mbps");
+			extent.extentLoggerFail("Traffic Usage","<b>The Current App traffic usage is : </b> " +(int)nNetTraffic+ " Mbps");
+		}
+	}
+}
+
+public void accessDeviceLocationPopUp(String permission) throws Exception {
+	extent.HeaderChildNode("Access Device Location PopUp");
+	System.out.println("\nAccess Device Location PopUp");
+	
+	if (verifyElementExist(AMDOnboardingScreen.objAllowLocationAccessPopup, "AllowPopup")) {
+		
+		String str1 = getAttributValue("text", AMDOnboardingScreen.objFirstPermissionButton);
+		String str2 = getAttributValue("text", AMDOnboardingScreen.objSecondPermissionButton);
+
+		if (str1.contains("ALLOW")) {
+			System.out.println("ALLOW is present");
+			click(AMDOnboardingScreen.objAllow(str1), str1);
+		} else if (str1.contains("WHILE USING THE APP")) {
+			System.out.println("Allow is present");
+			click(AMDOnboardingScreen.objAllow(str1), str1);
+		} else if (str1.contains("Allow")) {
+			System.out.println("Allow is present");
+			click(AMDOnboardingScreen.objAllow(str1), str1);
+		} else if (str2.contains("ALLOW")) {
+			System.out.println("ALLOW is present");
+			click(AMDOnboardingScreen.objAllow(str2), str2);
+		} else if (str2.contains("Allow")) {
+			System.out.println("Allow is present");
+			click(AMDOnboardingScreen.objAllow(str2), str2);
+		}
+	} else {
+		System.out.println("Access Device Location PopUp not displayed");
+	}
+}
+
+
+ 
 }
