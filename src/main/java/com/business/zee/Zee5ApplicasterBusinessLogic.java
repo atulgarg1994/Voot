@@ -171,7 +171,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void accessDeviceLocationPopUp(String permission, String userType) throws Exception {
 		extent.HeaderChildNode("Access Device Location PopUp");
-		extent.extentLogger("Time ","Time taken to launch the App (millisec)" + DriverInstance.timeElapsed.toMillis());
+		extent.extentLogger("Time ","Time taken to launch the App (millisec)" + DriverInstance.timeElapsed.getSeconds());
 		extent.extentLogger("User Type", "UserType : " + userType);
 		logger.info("UserType : " + userType);
 		System.out.println("Access Device Location PopUp");
