@@ -26,6 +26,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.Reporter;
 import com.deviceDetails.DeviceDetails;
 import com.driverInstance.CommandBase;
+import com.driverInstance.DriverInstance;
 import com.emailReport.GmailInbox;
 import com.extent.ExtentReporter;
 import com.metadata.ResponseInstance;
@@ -170,6 +171,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void accessDeviceLocationPopUp(String permission, String userType) throws Exception {
 		extent.HeaderChildNode("Access Device Location PopUp");
+		extent.extentLogger("Time ","Time taken to launch the App (millisec)" + DriverInstance.timeElapsed.toMillis());
 		extent.extentLogger("User Type", "UserType : " + userType);
 		logger.info("UserType : " + userType);
 		System.out.println("Access Device Location PopUp");
