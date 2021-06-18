@@ -496,4 +496,6 @@ public class PWAPlayerPage {
 	
 //	 Buy CTA Below the Player Screen
 	public static By objBuyPlanCTABelowPlayerScreen = By.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Buy Plan')]");
+	
+	public static By objMuteUnmute =By.xpath("//div[@class='volume-container']//button[@class='playkit-control-button']");
 }

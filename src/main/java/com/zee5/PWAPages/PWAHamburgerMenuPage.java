@@ -1008,4 +1008,9 @@ public class PWAHamburgerMenuPage {
 		return By.xpath("(//*[@class='linearLayout sidebarItem_object']//following-sibling::*//article[text()='Proceed to pay'])[" + index + "]");
 	}
 
+	public static By objmetadataforshows=By.xpath("//*[@class='showMetaAnchor']");
+	
+	public static By objsubscriptioncard=By.xpath("//div[@class='subscriptionItem']");
+	
+	public static By objcontinueinkannada1=By.xpath("//span[contains(text(),' ಮುಂದುವರಿಯಿರಿ')]");
 }

@@ -35,7 +35,7 @@ public class DriverInstance extends Drivertools {
 				tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),this.generateAndroidCapabilities(Application)));
 				util.waitForElementDisplayed(AMDOnboardingScreen.objWaitForSplashScreenDisapear, 240);
 				Instant endTime  = Instant.now();
-				Duration timeElapsed = Duration.between(startTime , endTime  );
+				timeElapsed = Duration.between(startTime , endTime  );
 				logger.info("Time taken to launch the App (millisec)" + timeElapsed.toMillis());
 //				extent.extentLogger("Timer","to the App (millisec): " + timeElapsed.toMillis());
 				break;

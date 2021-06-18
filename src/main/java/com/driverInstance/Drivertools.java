@@ -3,6 +3,7 @@ package com.driverInstance;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
 import java.util.stream.Stream;
@@ -45,6 +46,7 @@ public class Drivertools {
 	Date date = new Date();
 	long StartTime;
 	Instant startTime ;
+	public static Duration timeElapsed ;
 
 	public static String getTestName() {
 		return testName;
