@@ -29624,6 +29624,7 @@ public void TasksAndDefects(String userType) throws Exception {
 				logger.info("\"Skip\" CTA fails to display in the inline player description.");
 				extent.extentLoggerFail("", "\"Skip\" CTA fails to display in the inline player description.");
 			}
+			EnglishLanguageselection();
 		}
 	}
 	
