@@ -8935,7 +8935,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void verifyExitPopupInAnyOfTheLandingScreen(String userType) throws Exception {
 
 		if (userType.equalsIgnoreCase("Guest")) {
-			accessDeviceLocationPopUp("Allow", userType);
+			//accessDeviceLocationPopUp("Allow", userType);
 			navigateToIntroScreen_DisplaylangScreen();
 			navigateToHomecreenFromIntroScreen();
 		}
@@ -9121,8 +9121,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (verifyIsElementDisplayed(AMDWatchlistPage.objNoReminderIcon)) {
 			logger.info("Watchlist screen displayed with Empty Watchlist icon");
 			extent.extentLoggerPass("Watchlist", "Watchlist screen displayed with Empty Watchlist icon");
-			verifyElementPresent(AMDWatchlistPage.objNoReminderIcon, "No Reminder Icon");
-			verifyElementPresent(AMDWatchlistPage.objNoReminderTxt, "No Reminder Text");
+			verifyElementPresent(AMDWatchlistPage.objNoReminderIcon, "No watchlist Icon");
+			verifyElementPresent(AMDWatchlistPage.objNoReminderTxt, "No watchlist Text");
 		} else {
 			watchlistFlag = true;
 			logger.info("Watchlist has some content cards added in Watchlist");
@@ -19486,6 +19486,7 @@ public void MyZEE5AppValidation() throws Exception {
 		//Initiated Variable declaration
 		int nativeMemory=0, totalMemory=0,nCpuUSage=0,nGPURendered=0;
 		float nGPUMemory=0; double nNetTraffic=0;
+		String batteryInfo = null;
 		verifyElementPresentAndClick(AMDHomePage.objHome, "Home button");
 		verifyElementPresent(AMDHomePage.objFirstRailDisplay, "First Rail");
 		
@@ -19515,11 +19516,16 @@ public void MyZEE5AppValidation() throws Exception {
 				
 				//#### App Performance GPU Usage Info		
 				ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
-				nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+				//nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+				String[] parseString = getGPUInfo.get(0).split("MB");
+				nGPUMemory = Float.parseFloat(parseString[0].trim());
 				nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
 				
 				//#### App Performance Network Traffic Usage Info
 				nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
+				
+				//#### App Performance Battery Info
+				batteryInfo = BatteryStats_PerformanceV2();
 				
 				Duration timeElapsed = Duration.between(startTime, endTime);
 				logger.info("Time taken to navigate from Home to " + pTabname + " screen (sec): "+ timeElapsed.getSeconds());
@@ -19590,6 +19596,14 @@ public void MyZEE5AppValidation() throws Exception {
 				logger.error("\nThe current App traffic usage is : "+ (int)nNetTraffic +" Mbps");
 				extent.extentLoggerFail("Traffic Usage","<b>The Current App traffic usage is : </b> " +(int)nNetTraffic+ " Mbps");
 			}
+			
+			if(batteryInfo.contains("drain")) {
+				logger.info("\nApp Battery Info - " +batteryInfo);
+				extent.extentLoggerPass("Timer","<b>App Battery Info - </b>" +batteryInfo);
+			}else {
+				logger.error("\nApp Battery Info - " +batteryInfo);
+				extent.extentLoggerFail("Timer","<b>App Battery Info - </b>" +batteryInfo);
+			}
 		}
 	}
 
@@ -19614,6 +19628,7 @@ public void MyZEE5AppValidation() throws Exception {
 		boolean flag=false;
 		int nativeMemory=0, totalMemory=0,nCpuUSage=0,nGPURendered=0;
 		float nGPUMemory=0; double nNetTraffic=0;
+		String batteryInfo=null;
 		
 		try {
 			getDriver().close();
@@ -19645,6 +19660,7 @@ public void MyZEE5AppValidation() throws Exception {
 
 					logger.info("Consumption Screen is displayed for the deeplink");
 					extent.extentLoggerPass("Consumption", "Consumption Screen is displayed for the deeplink");
+					Back(1);
 
 					//#### App Performance Usage Info
 					//AppPerformanceTestInfo(appPackageName);
@@ -19665,6 +19681,9 @@ public void MyZEE5AppValidation() throws Exception {
 					
 					//#### App Performance Network Traffic Usage Info
 					nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
+					
+					//#### App Performance Battery Info
+					batteryInfo = BatteryStats_PerformanceV2();
 					
 					Duration timeElapsed = Duration.between(startTime, endTime);
 					logger.info("Time taken to play through deeplink (sec): " + timeElapsed.getSeconds());
@@ -19698,7 +19717,8 @@ public void MyZEE5AppValidation() throws Exception {
 
 					logger.info("Live TV is played for the deeplink");
 					extent.extentLoggerPass("Live TV", "Live TV is played for the deeplink");
-
+					Back(1);
+					
 					//#### App Performance Usage Info
 					//AppPerformanceTestInfo(appPackageName);
 					
@@ -19788,7 +19808,15 @@ public void MyZEE5AppValidation() throws Exception {
 			}else {
 				logger.error("\nThe current App traffic usage is : "+ (int)nNetTraffic +" Mbps");
 				extent.extentLoggerFail("Traffic Usage","<b>The Current App traffic usage is : </b> " +(int)nNetTraffic+ " Mbps");
-			}	
+			}
+			
+			if(batteryInfo.contains("drain")) {
+				logger.info("\nApp Battery Info - " +batteryInfo);
+				extent.extentLoggerPass("Timer","<b>App Battery Info - </b>" +batteryInfo);
+			}else {
+				logger.error("\nApp Battery Info - " +batteryInfo);
+				extent.extentLoggerFail("Timer","<b>App Battery Info - </b>" +batteryInfo);
+			}
 		}	
 	}
 
@@ -26010,7 +26038,7 @@ public void Performance_LoginFunctionality() throws Exception {
 	logger.info("Instant Start time : " + startTime);
 	
 	LoginWithEmailID("igszee23@yopmail.com", "123456");
-//	AppPerformanceTestInfo(appPackageName);
+	//AppPerformanceTestInfo(appPackageName);
 	
 	//#### App Performance MEMORY Usage Info	
 	ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
@@ -26023,18 +26051,17 @@ public void Performance_LoginFunctionality() throws Exception {
 		
 	//#### App Performance GPU Usage Info
 	ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
-	float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+//	float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+	String[] parseString = getGPUInfo.get(0).split("MB");
+	float nGPUMemory = Float.parseFloat(parseString[0].trim());
 	int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
-
 	
 	//#### App Performance Network Traffic Usage Info
 	double nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
 	
 	//#### App Performance Battery Info
 	String batteryInfo = BatteryStats_PerformanceV2();
-	logger.info("\nApp Battery Info - " +batteryInfo);
-	extent.extentLogger("Timer","<b>App Battery Info - </b>" +batteryInfo);
-	
+
 	verifyElementPresent(AMDHomePage.objCarouselBtn, "Play Btn");
 	
 	Instant endTime = Instant.now();
@@ -26098,6 +26125,14 @@ public void Performance_LoginFunctionality() throws Exception {
 		logger.error("\nThe current App traffic usage is : "+ (int)nNetTraffic +" Mbps");
 		extent.extentLoggerFail("Traffic Usage","<b>The Current App traffic usage is : </b> " +(int)nNetTraffic+ " Mbps");
 	}
+	
+	if(batteryInfo.contains("drain")) {
+		logger.info("\nApp Battery Info - " +batteryInfo);
+		extent.extentLoggerPass("Timer","<b>App Battery Info - </b>" +batteryInfo);
+	}else {
+		logger.error("\nApp Battery Info - " +batteryInfo);
+		extent.extentLoggerFail("Timer","<b>App Battery Info - </b>" +batteryInfo);
+	}
 }
 
 	
@@ -26143,11 +26178,15 @@ public void Performance_InitiateContentPlayback() throws Exception {
 	//#### App Performance Network Traffic Usage Info
 	double nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
 	
+	//#### App Performance Battery Info
+	String batteryInfo = BatteryStats_PerformanceV2();
+	
 	Instant endTime = Instant.now();
 	logger.info("Instant End time : " + endTime);
 
 	Duration timeElapsed = Duration.between(startTime, endTime);
 	extent.extentLogger("Timer","<b>Time taken to start playback in consumption screen (Sec):</b> " + timeElapsed.getSeconds());
+	Back(1);
 	
 	if(timeElapsed.getSeconds() < threshold_TimeTaken) {
 		logger.info("Time taken to start playback in consumption screen (Sec): " + timeElapsed.getSeconds());
@@ -26203,6 +26242,14 @@ public void Performance_InitiateContentPlayback() throws Exception {
 	}else {
 		logger.error("\nThe current App traffic usage is : "+ (int)nNetTraffic +" Mbps");
 		extent.extentLoggerFail("Traffic Usage","<b>The Current App traffic usage is : </b> " +(int)nNetTraffic+ " Mbps");
+	}
+	
+	if(batteryInfo.contains("drain")) {
+		logger.info("\nApp Battery Info - " +batteryInfo);
+		extent.extentLoggerPass("Timer","<b>App Battery Info - </b>" +batteryInfo);
+	}else {
+		logger.error("\nApp Battery Info - " +batteryInfo);
+		extent.extentLoggerFail("Timer","<b>App Battery Info - </b>" +batteryInfo);
 	}
 }
 
@@ -26569,7 +26616,7 @@ public void FunctionalityOfExplorePremium(String userType) throws Exception{
  public ArrayList<String> GPU_UsagePerformanceV2() throws Exception {
 		System.out.println("\nGPU Usage of App");
 
-		String getGPUInfo=""; String nGPUFramesRendered="";
+		String getGPUInfo=""; String nGPUFramesRendered="";String GPUConsumed = null;
 		String adbCommand="adb shell dumpsys gfxinfo com.graymatrix.did | grep MB";
 		String adbCommand2="adb shell dumpsys gfxinfo com.graymatrix.did | grep rendered";
 		
@@ -26580,9 +26627,14 @@ public void FunctionalityOfExplorePremium(String userType) throws Exception{
 		BufferedReader result2 = new BufferedReader(new InputStreamReader(process2.getInputStream()));
 		
 		getGPUInfo = result.readLine().trim();
-		//System.out.println(getGPUInfo);
-		String[] splitData = getGPUInfo.split(",");
-		String GPUConsumed = splitData[1].trim();
+		//System.out.println(getGPUInfo);		
+		if(getGPUInfo.contains(",")) {
+			String[] splitData = getGPUInfo.split(",");
+			GPUConsumed = splitData[1].trim();
+		}else if(getGPUInfo.contains(":")){
+			String[] splitData = getGPUInfo.replace("Texture:", "").split("MB");
+			GPUConsumed = splitData[0].trim()+" MB";
+		}
 		
 		nGPUFramesRendered =result2.readLine().trim();
 
@@ -26666,7 +26718,7 @@ public String BatteryStats_PerformanceV2() throws Exception {
 	String getBatteryInfo="";
 //	String adbCommand="adb shell dumpsys batterystats --charged com.graymatrix.did | grep Computed";
 	String adbCommand="adb shell pm dump com.graymatrix.did | grep Computed";
-	String strDrain = null;
+	String strDrain = "Not found";
 	try {
 		Process process=Runtime.getRuntime().exec(adbCommand);
 		BufferedReader result = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -26675,13 +26727,17 @@ public String BatteryStats_PerformanceV2() throws Exception {
 		System.out.println(getBatteryInfo);
 		
 		if(getBatteryInfo.contains("drain")) {
-			String[] batteryStats = getBatteryInfo.split(",");
-			strDrain = batteryStats[1];
+			String[] listOfData = getBatteryInfo.split(",");
+			for(int i=0;i<listOfData.length;i++) {
+				if(listOfData[i].contains("Computed drain")) {
+					strDrain = listOfData[i];
+				}
+			}
 			logger.info("\nApp Battery Info - " +strDrain);
 		}
 		
 	} catch (Exception e) {
-		System.out.println(e);
+		System.out.println(strDrain);
 		// TODO: handle exception
 	}
 	return strDrain;

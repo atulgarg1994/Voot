@@ -15663,12 +15663,16 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			extent.extentLoggerFail("", "Maximize button is not available for News");
 		}
 		click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
-
+		
 		extent.HeaderChildNode("HLS_197 : Validate the availability and functionality of the Play/Pause button");
 		System.out.println("HLS_197 : Validate the availability and functionality of the Play/Pause button");
 		// handle mandatory pop up
 		mandatoryRegistrationPopUp(userType);
-		String keyword = "Mahira arrives for the";
+		
+		String keyword = "Rani Gets Angry with Veer";
+		String keywordContentID = "0-1-manual-5q8kbv9us400";
+		
+		String guesttoken=js.executeScript("return window.localStorage.getItem('guestToken')").toString();
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWAHomePage.objSearchField, keyword + "\n", "Search");
 		waitTime(5000);
@@ -15770,6 +15774,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error("Maximize button is not available for VOD");
 			extent.extentLoggerFail("", "Maximize button is not available for VOD");
 		}
+		
 		extent.HeaderChildNode(
 				"HLS_205 : Validate the availability and functionality of maximizing and minimize icons.");
 		System.out.println("HLS_205 : Validate the availability and functionality of maximizing and minimize icons.");
@@ -15779,15 +15784,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				"HLS_204 : Verify Caption/Subtitle icon is displaying next to the Settings button in the Player section");
 		System.out.println(
 				"HLS_204 : Verify Caption/Subtitle icon is displaying next to the Settings button in the Player section");
-		// handle mandatory pop up
-		mandatoryRegistrationPopUp(userType);
-		String keywordcap = "Mahira arrives for the";
-		click(PWAHomePage.objSearchBtn, "Search icon");
-		type(PWAHomePage.objSearchField, keywordcap + "\n", "Search");
-		waitTime(10000);
-		click(PWASearchPage.objSearchedResult(keywordcap), "Search Result");
-		waitForPlayerAdToComplete("Video Player");
-		pausePlayer();
+		
 		if (!verifyIsElementDisplayed(PWAPlayerPage.objSubtitleIcon, "Subtitle icon")) {
 			logger.error("Subtitle icon is not available for VOD");
 			extent.extentLoggerFail("", "Subtitle icon is not available for VOD");
@@ -15805,10 +15802,14 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			click(PWAPlayerPage.objSubtitleIcon, "Subtitle icon");
 			verifyElementPresent(PWAPlayerPage.objPlayerUnSelectedAudioTrack("English"), "Subtitle English");
 			click(PWAPlayerPage.objPlayerUnSelectedAudioTrack("English"), "Subtitle English");
+			act.tap(PointOption.point(x, y)).perform();
 			click(PWAPlayerPage.playBtn, "Play button");
 			waitExplicitlyForElementPresence(PWAPlayerPage.objSubtitleTextOnPlayer, 60, "Subtitle Text on Player");
+			act.tap(PointOption.point(x, y)).perform();
 			click(PWAPlayerPage.objSubtitleIcon, "Subtitle icon");
 			verifyElementPresent(PWAPlayerPage.objPlayerUnSelectedAudioTrack("Off"), "Off Subtitle");
+			click(PWAPlayerPage.objPlayerUnSelectedAudioTrack("Off"), "Subtitle Off");
+			
 			if (verifyIsElementDisplayed(PWAPlayerPage.objPlayerUnSelectedAudioTrack("English"), "Subtitle English")) {
 				logger.error("English Subtitle is displayed even though setting is switched is OFF");
 				extent.extentLoggerFail("", "English Subtitle is displayed even though setting is switched is OFF");
@@ -15976,11 +15977,13 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				extent.extentLogger("quality", "Quality selection successful");
 			}
 		}
-		extent.HeaderChildNode(
-				"HLS_203 : Validate the availability and functionality of the Audio track option under settings");
-		System.out.println(
-				"HLS_203 : Validate the availability and functionality of the Audio track option under settings");
+		ResponseInstance.updateWatchHistory(keywordContentID,1,guesttoken); //required to clear watch history
+		extent.HeaderChildNode("HLS_203 : Validate the availability and functionality of the Audio track option under settings");
+		System.out.println("HLS_203 : Validate the availability and functionality of the Audio track option under settings");		
+		
+		String keywordauContentID = "0-1-agentragh_1895058002-agentragh_1804723548-episode_1532299445";
 		String keywordau = "Episode 13 - Agent Raghav";
+		
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWAHomePage.objSearchField, keywordau, "Search");
 		waitTime(5000);
@@ -16040,8 +16043,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				}
 			}
 		}
-		extent.HeaderChildNode(
-				"HLS_206 : Verify whether a player stays on top when user scrolls the page on playback.");
+		extent.HeaderChildNode("HLS_206 : Verify whether a player stays on top when user scrolls the page on playback.");
 		System.out.println("HLS_206 : Verify whether a player stays on top when user scrolls the page on playback.");
 		Swipe("UP", 4);
 		playerTap();
@@ -16052,7 +16054,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error("Player section has not remained stagnant on swiping contents up");
 			extent.extentLoggerFail("quality", "Player section has not remained stagnant on swiping contents up");
 		}
-
+		ResponseInstance.updateWatchHistory(keywordauContentID,1,guesttoken); //required to clear watch history
+		// handle mandatory pop up
+		mandatoryRegistrationPopUp(userType);
 	}
 
 	public boolean verifyAutoPlay(String Tabname) throws Exception {

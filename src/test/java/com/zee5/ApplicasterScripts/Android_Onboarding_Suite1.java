@@ -27,7 +27,8 @@ public class Android_Onboarding_Suite1 {
 		ZEE5ApplicasterBusinessLogic.DisplayLanguagePopUpValidation(displayLanguageSelection1,displayLanguageSelection2);
 	}
 	
-	@Test(priority = 2) 	// Shreenidhi==Scenarios only for guest user | Kushal: Modified the flow
+//This test suite is no longer valid as content language has been removed from onboarding journey [Mallikarjun]
+//	@Test(priority = 2) 	// Shreenidhi==Scenarios only for guest user | Kushal: Modified the flow 
 	@Parameters({ "userType" })
 	public void ContentLanguagePopUp(String userType) throws Exception {
 		if(userType.equalsIgnoreCase("Guest")) {

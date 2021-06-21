@@ -4101,8 +4101,8 @@ public static Response updateWatchHistory(String contentID,int duration,String g
 	Response updateWatchHistoryResponse=null;
 	if (!userType.equalsIgnoreCase("Guest")) {
 		if (userType.equals("NonSubscribedUser")) {
-			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserName");
-			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserPassword");
+			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
 		}
 		if (userType.equals("SubscribedUser")) {
 			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
@@ -4126,6 +4126,7 @@ public static Response updateWatchHistory(String contentID,int duration,String g
 	}			
 	return updateWatchHistoryResponse;
 }
+
 
 public static Response getUserDetails(String username, String password) {
 	Response response = null;

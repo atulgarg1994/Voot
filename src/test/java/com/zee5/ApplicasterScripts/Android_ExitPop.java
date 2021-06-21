@@ -25,12 +25,12 @@ public class Android_ExitPop {
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 	}
-
-		@Test(priority = 1)
-		@Parameters({ "userType" })
-		public void ExipPopup_ContentLanguage(String userType) throws Exception {
-			ZEE5ApplicasterBusinessLogic.verifyDisplayLanguageScreenExitPopup(userType);// Only for Guest User
-		}
+// Commenting this method as content language screen has been removed [Mallikarjun]
+//	@Test(priority = 1)
+	@Parameters({ "userType" })
+	public void ExipPopup_ContentLanguage(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.verifyDisplayLanguageScreenExitPopup(userType);// Only for Guest User
+	}
 
 	@Test(priority = 2)
 	@Parameters({ "userType" })
