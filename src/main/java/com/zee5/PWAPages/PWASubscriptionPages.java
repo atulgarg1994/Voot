@@ -515,5 +515,18 @@ public class PWASubscriptionPages {
 	public static By objPackCheckBox = By.xpath(".//*[@class='iconOther-ic_tick radioBtn ']");
 	
 	public static By objSkipLink = By.xpath("//*[contains(@class, 'skip-button subscribe-link')]");
+	
+	//new accountTitle xpath
+	public static By objAccountInfoTitle1 = By.xpath("(//h2[contains(text(),'Account Info')])[2]");
+
+	//new continue xpath
+		public static By objContinueBtnWithINR = By.xpath("//div[@class='buttonContainer']//button[@type='button']");
+		
+	//new continue path for mobile no
+		public static By objContinueBtnForEmailOrMobile = By.xpath("//div[@class='buttonContainer ']//button[@type='button']");
+
+	//new Play Icon with Buy Plan CTA on carousel
+
+	public static By objPlayIconWithGetPremiumCTAOnCarousel = By.xpath("//*[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'playIcon') and following-sibling::*//*[contains(text(),'Buy Plan')]]");
 
 }

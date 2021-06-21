@@ -23889,13 +23889,15 @@ public void TasksAndDefects(String userType) throws Exception {
 		navigateToHome();
 		mandatoryRegistrationPopUp(userType);
 		String keyword = "Poison";
-		click(PWAHomePage.objSearchBtn, "Search icon");
+		JSClick(PWAHomePage.objSearchBtn, "Search icon");
+		waitTime(1500);
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
-		waitTime(2000);
-		click(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows tab");
-		click(PWASearchPage.objSearchedResult(keyword), "Search Result");
+		waitTime(2500);
+		JSClick(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows tab");
+		waitTime(2500);
+		JSClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
 		waitTime(4000);
-		click(PWAPlayerPage.objWatchPromo, "Watch Promo icon");
+		JSClick(PWAPlayerPage.objWatchPromo, "Watch Promo icon");
 		waitTime(2000);
 		try {
 			String title = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitleInPlayerPage, "");
@@ -23925,7 +23927,7 @@ public void TasksAndDefects(String userType) throws Exception {
 		}
 
 	}
-
+	
 	@SuppressWarnings({ "unused", "resource" })
 	public void checkTagWithTextInSource(String urlLink, String tag, String text) throws Exception {
 		boolean foundOpeningTag = false, foundClosingTag = false, foundText = false;
@@ -24028,33 +24030,40 @@ public void TasksAndDefects(String userType) throws Exception {
 			extent.HeaderChildNode("PWA2-7916 : Skip CTA in required display language");
 			logger.info("PWA2-7916 : Skip CTA in required display language");
 			navigateToHome();
+			waitTime(4000);
 			mandatoryRegistrationPopUp(userType);
 			String content = "Natasaarvabhowma";
 			String language = "Marathi";
-			click(PWAHomePage.objLanguage, "Language button");
-			click(PWAHomePage.objMarathiWEB, "Marathi Display language");
-			click(PWAHamburgerMenuPage.objApply, "Apply button on Display Langauge dropdown");
+			JSClick(PWAHomePage.objLanguage, "Language button");
+			waitTime(2000);
+			JSClick(PWAHomePage.objMarathiWEB, "Marathi Display language");
+			waitTime(2000);
+			JSClick(PWAHamburgerMenuPage.objApply, "Apply button on Display Langauge dropdown");
 			waitTime(3000);
-			click(PWAHamburgerMenuPage.objApplybutton, "Apply button on Content Language dropdown");
-			waitTime(3000);
-			click(PWAHomePage.objSearchBtn, "Search button");
+			JSClick(PWAHamburgerMenuPage.objApply, "Apply button on Content Language dropdown");
+			waitTime(8000);
+			JSClick(PWAHomePage.objSearchBtn, "Search button");
+			waitTime(2000);
 			type(PWASearchPage.objSearchEditBox, content, "Search field");
 			waitTime(5000);
-			click(PWASearchPage.objSearchMoviesTab, "Movies tab");
+			JSClick(PWASearchPage.objSearchMoviesTab, "Movies tab");
 			verifyElementPresentAndClick(PWASearchPage.objFirstSearch, "Search Result");
-			waitTime(12000);
+			waitTime(14000);
 			if (checkElementDisplayed(PWAPlayerPage.objSkipButtonInEnglish, "Skip Button in English")) {
 				logger.error("Skip button is displayed in English instead of " + language + " Language");
 				extent.extentLoggerFail("", "Skip button is displayed in English instead of " + language + " Language");
 			} else {
 				// write code for skip in required display language
+				logger.info("Skip button is displayed in selected " + language + "  Language");
+				extent.extentLoggerPass("", "Skip button should be displayed in selected " + language + " Language");
 			}
 			navigateToHome();
-			click(PWAHomePage.objLanguage, "Language button");
-			click(PWAHomePage.objEnglishWEB, "English Display language");
-			click(PWAHamburgerMenuPage.objApply, "Apply button on Display Langauge dropdown");
+			waitTime(2000);
+			JSClick(PWAHomePage.objLanguage, "Language button");
+			JSClick(PWAHomePage.objEnglishWEB, "English Display language");
+			JSClick(PWAHamburgerMenuPage.objApply, "Apply button on Display Langauge dropdown");
 			waitTime(3000);
-			click(PWAHamburgerMenuPage.objApplybutton, "Apply button on Content Language dropdown");
+			JSClick(PWAHamburgerMenuPage.objApplybutton, "Apply button on Content Language dropdown");
 			waitTime(4000);
 			mandatoryRegistrationPopUp(userType);
 		}
@@ -24205,16 +24214,16 @@ public void TasksAndDefects(String userType) throws Exception {
 
 	public void PWAVerifyToastMessageDisplayedInsteadOfInlineErrorMessageOnAccountInfoPage(String userType)
 			throws Exception {
-		if (userType.equals("Guest")) {
-			extent.HeaderChildNode(
-					"PWA2-7725 : \"Either OTP is not valid or Expired\" toast message displayed instead of inline Error message on Account info page \"Verify OTP\" screen");
-			logger.info(
-					"PWA2-7725 : \"Either OTP is not valid or Expired\" toast message displayed instead of inline Error message on Account info page \"Verify OTP\" screen");
+	if (userType.equals("Guest")) {
+	extent.HeaderChildNode(
+	"PWA2-7725 : \"Either OTP is not valid or Expired\" toast message displayed instead of inline Error message on Account info page \"Verify OTP\" screen");
+
+	logger.info("PWA2-7725 : \"Either OTP is not valid or Expired\" toast message displayed instead of inline Error message on Account info page \"Verify OTP\" screen");
 			navigateToHome();
 			mandatoryRegistrationPopUp(userType);
 			waitTime(3000);
-			Actions action = new Actions(getWebDriver());
-			action.moveToElement(findElement(PWAHomePage.objMastheadCarouselCurrentContent)).build().perform();
+			//Actions action = new Actions(getWebDriver());
+			//		action.moveToElement(findElement(PWAHomePage.objMastheadCarouselCurrentContent)).build().perform();
 
 			for (int i = 0; i < 5; i++) {
 				try {
@@ -24235,16 +24244,19 @@ public void TasksAndDefects(String userType) throws Exception {
 					"Browse All Packs Page Title Text")) {
 				logger.info("Navigated to plan selection page");
 				extent.extentLoggerPass("", "Navigated to plan selection page");
-				click(PWASubscriptionPages.objContinueBtn, "Continue Button");
-				waitTime(2000);
-				if (verifyElementExist(PWASubscriptionPages.objAccountInfoTitle, "Account Info Title")) {
+				verifyElementPresent(PWASubscriptionPages.objContinueBtnWithINR , "Continue Button");
+				JSClick(PWASubscriptionPages.objContinueBtnWithINR , "Continue Button");
+				waitTime(4500);
+				if (verifyElementPresent(PWASubscriptionPages.objAccountInfoTitle1, "Account Info Title")) {
+					//
 					logger.info("Navigated to Account Info page");
 					extent.extentLoggerPass("", "Navigated to Account Info page");
 					type(PWASubscriptionPages.objEmailIDTextField, "9876543211", "Email ID Text Field");
-					waitTime(2000);
-					click(PWASubscriptionPages.objContinueBtn, "Continue Button");
-					waitTime(2000);
-					if (verifyElementExist(PWASubscriptionPages.objVerifyOTPTitle, "Verify OTP Title")) {
+					waitTime(10000);
+					verifyElementPresent(PWASubscriptionPages.objContinueBtnForEmailOrMobile, "Continue Button");
+					JSClick(PWASubscriptionPages.objContinueBtnForEmailOrMobile, "Continue Button");
+					waitTime(4000);
+					if (verifyElementPresent(PWASubscriptionPages.objVerifyOTPTitle, "Verify OTP Title")) {
 						logger.info("Navigated to plan selection page");
 						extent.extentLoggerPass("", "Navigated to plan selection page");
 						type(PWASubscriptionPages.objOTPTextField1, "1", "First OTP Text Field");
@@ -24458,15 +24470,15 @@ public void TasksAndDefects(String userType) throws Exception {
 			navigateToHome();
 			mandatoryRegistrationPopUp(userType);
 			waitTime(3000);
-			Actions action = new Actions(getWebDriver());
-			action.moveToElement(findElement(PWAHomePage.objMastheadCarouselCurrentContent)).build().perform();
+			//Actions action = new Actions(getWebDriver());
+			//action.moveToElement(findElement(PWAHomePage.objMastheadCarouselCurrentContent)).build().perform();
 
 			for (int i = 0; i < 5; i++) {
 				try {
 
 					JavascriptExecutor executor = (JavascriptExecutor) getWebDriver();
 					executor.executeScript("arguments[0].click();",
-							findElement(PWAHomePage.objPlayIconWithGetPremiumCTAOnCarousel));
+							findElement(PWAHomePage.objPlayIconWithGetPremiumCTAOnCarousel1));
 					logger.info("Clicked on " + "Play Icon with Get Premium CTA On MastHead Carousel");
 					extent.extentLogger("clickedElement",
 							"Clicked on " + "Play Icon with Get Premium CTA On MastHead Carousel");
@@ -24484,9 +24496,11 @@ public void TasksAndDefects(String userType) throws Exception {
 					"Browse All Packs Page Title Text")) {
 				logger.info("Navigated to plan selection page");
 				extent.extentLoggerPass("", "Navigated to plan selection page");
-				click(PWASubscriptionPages.objContinueBtn, "Continue Button");
-				waitTime(2000);
-				if (verifyElementExist(PWASubscriptionPages.objAccountInfoTitle, "Account Info Title")) {
+				verifyElementPresent(PWASubscriptionPages.objContinueBtnWithINR, "Continue Button");
+				JSClick(PWASubscriptionPages.objContinueBtnWithINR, "Continue Button");
+				waitTime(4500);
+				
+				if (verifyElementExist(PWASubscriptionPages.objAccountInfoTitle1, "Account Info Title")) {
 					logger.info("Navigated to Account Info page");
 					extent.extentLoggerPass("", "Navigated to Account Info page");
 					String ctc = "igstesting@emailid.com";
@@ -24537,7 +24551,7 @@ public void TasksAndDefects(String userType) throws Exception {
 		verifyElementPresentAndClick(PWAHomePage.objMoreMenuIcon, "More Menu Icon");
 		waitTime(5000);
 //		verifyElementPresent(PWAHomePage.objMoreMenuTabs("Live TV"), "Live TV Tab");
-		click(PWAHomePage.objMoreMenuTabs("Channels"), "Channels Tab");
+		JSClick(PWAHomePage.objMoreMenuTabs("Channels"), "Channels Tab");
 		if (verifyElementPresent(PWALandingPages.objChannelsLandingPageTitle, "Channels Landing Page Title")) {
 			logger.info("Navigate to Channels Landing page");
 			extent.extentLoggerPass("", "Navigate to Channels Landing page");
@@ -24587,7 +24601,7 @@ public void TasksAndDefects(String userType) throws Exception {
 			logger.info(
 					"----- Verifying if the user can navigate to the channel Details page from the Channel listing page ------");
 			String titleOfFirstChannelCard = findElement(PWALandingPages.objFirstChannelCard).getAttribute("title");
-			click(PWALandingPages.objFirstChannelCard, "First Channel Card");
+			JSClick(PWALandingPages.objFirstChannelCard, "First Channel Card");
 
 			String h1TagOfFirstChannelInDetailPage = findElement(By.tagName("h1")).getText();
 			if (h1TagOfFirstChannelInDetailPage.contains(titleOfFirstChannelCard)) {
@@ -31658,6 +31672,98 @@ if (userType.equals("NonSubscribedUser") ||userType.equals("SubscribedUser"))
 		}
 	}
 	  
+}
+
+public void PWAVerifyBuyPlanCTADisplayedForSubscribedUserWithParentalPin(String userType) throws Exception {
+	if (userType.equals("Guest")) {
+		extent.HeaderChildNode(
+				"PWA2-7925 : \"Buy Plan \"CTA is displayed on consumption page for the subscribed users with parental pin logged in via guest checkout");
+		logger.info(
+				"PWA2-7925 : \"Buy Plan \"CTA is displayed on consumption page for the subscribed users with parental pin logged in via guest checkout");
+		navigateToHome();
+		mandatoryRegistrationPopUp(userType);
+		waitTime(3000);
+//		loginWithUserEmail("25off@mailnesia.com", "123456");
+		//Actions action = new Actions(getWebDriver());
+		//action.moveToElement(findElement(PWAHomePage.objMastheadCarouselCurrentContent)).build().perform();
+
+		for (int i = 0; i < 5; i++) {
+			try {
+
+				JavascriptExecutor executor = (JavascriptExecutor) getWebDriver();
+				executor.executeScript("arguments[0].click();",
+						findElement(PWAHomePage.objPlayIconWithGetPremiumCTAOnCarousel1));
+				logger.info("Clicked on " + "Play Icon with Get Premium CTA On MastHead Carousel");
+				extent.extentLogger("clickedElement",
+						"Clicked on " + "Play Icon with Get Premium CTA On MastHead Carousel");
+				break;
+			} catch (Exception e) {
+				Thread.sleep(1000);
+				logger.error(e);
+			}
+		}
+		waitTime(2000);
+		waitForElementAndClick(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen, 30,
+				"Get Premium Link below the Player");
+		waitTime(2000);
+		if (verifyElementExist(PWAHamburgerMenuPage.objBrowseAllPacksPageTitleText,
+				"Browse All Packs Page Title Text")) {
+			logger.info("Navigated to plan selection page");
+			extent.extentLoggerPass("", "Navigated to plan selection page");
+			JSClick(PWASubscriptionPages.objContinueBtnWithINR , "Continue Button");
+			waitTime(2000);
+			if (verifyElementExist(PWASubscriptionPages.objAccountInfoTitle1, "Account Info Title")) {
+				logger.info("Navigated to Account Info page");
+				extent.extentLoggerPass("", "Navigated to Account Info page");
+				type(PWASubscriptionPages.objEmailIDTextField, "25off@mailnesia.com", "Email ID Text Field");
+				waitTime(10000);
+				JSClick(PWASubscriptionPages.objContinueBtnForEmailOrMobile, "Continue Button");
+				waitTime(4000);
+				// Password Popup
+				verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password Popup Title");
+				waitTime(3000);
+				checkElementDisplayed(PWASubscriptionPages.objProceedBtnDisabled, "Disabled Proceed Button");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWASubscriptionPages.objPasswordFieldHidden, "Password Field");
+				waitTime(3000);
+				type(PWASubscriptionPages.objPasswordFieldHidden, "123456", "Password Field");
+				waitTime(8000);
+				verifyElementPresentAndClick(PWASubscriptionPages.objProceedBtnEnabled, "Enabled Proceed Button");
+				waitTime(3000);
+				verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1player, "Set Lock Field");
+				type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
+				type(PWAHamburgerMenuPage.objParentalLockPin2player, "1", "ParentalLockPin");
+				type(PWAHamburgerMenuPage.objParentalLockPin3player, "1", "ParentalLockPin");
+				type(PWAHamburgerMenuPage.objParentalLockPin4player, "1", "ParentalLockPin");
+				waitTime(4000);
+				if (verifyIsElementDisplayed(PWAPlayerPage.objGetPremiumCTABelowPlayerScreen,
+						"Get Premium CTA below the Player")) {
+					logger.error("Get Premium CTA below the Player is visible");
+					extent.extentLoggerFail("checkElementPresent", "Get Premium CTA below the Player is displayed");
+				} else {
+					logger.info("Get Premium CTA below the Player is not displayed");
+					extent.extentLoggerPass("checkElementPresent",
+							"Get Premium CTA below the Player is not displayed");
+				}
+
+				if (verifyIsElementDisplayed(PWAPlayerPage.objSubscribeNowLink,
+						"In-Line Get Premium CTA On Player Screen")) {
+					logger.error("In-Line Get Premium CTA On Player Screen is visible");
+					extent.extentLoggerFail("checkElementPresent",
+							"In-Line Get Premium CTA On Player Screen is displayed");
+				} else {
+					logger.info("In-Line Get Premium CTA On Player Screen is not displayed");
+					extent.extentLoggerPass("checkElementPresent",
+							"In-Line Get Premium CTA On Player Screen is not displayed");
+				}
+
+				logout();
+				waitTime(3000);
+				navigateHome();
+				waitTime(3000);
+			}
+		}
+	}
 }
 
 

@@ -647,4 +647,8 @@ public class PWAHomePage {
  	public static By objTabName(String tabName) {
 		return By.xpath("(//a[contains(@class,'noSelect') and text()='" + tabName + "'])[2]");
 	}
+ 	
+ 	public static By objPlayIconWithGetPremiumCTAOnCarousel1 = By.xpath("//*[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'playIcon') and following-sibling::*//*[contains(text(),'Buy Plan')]]");
+ 	
+ 	
  	}

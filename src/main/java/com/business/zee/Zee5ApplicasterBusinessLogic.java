@@ -26617,7 +26617,7 @@ public void FunctionalityOfExplorePremium(String userType) throws Exception{
 		System.out.println("\nGPU Usage of App");
 
 		String getGPUInfo=""; String nGPUFramesRendered="";String GPUConsumed = null;
-		String adbCommand="adb shell dumpsys gfxinfo com.graymatrix.did | grep MB";
+		String adbCommand="adb shell dumpsys gfxinfo com.graymatrix.did | grep bytes,";
 		String adbCommand2="adb shell dumpsys gfxinfo com.graymatrix.did | grep rendered";
 		
 		Process process=Runtime.getRuntime().exec(adbCommand);
@@ -26627,15 +26627,22 @@ public void FunctionalityOfExplorePremium(String userType) throws Exception{
 		BufferedReader result2 = new BufferedReader(new InputStreamReader(process2.getInputStream()));
 		
 		getGPUInfo = result.readLine().trim();
-		//System.out.println(getGPUInfo);		
+		//System.out.println(getGPUInfo);
+//		String[] splitData = getGPUInfo.split(",");
+//		String GPUConsumed = splitData[1].trim();
+		
 		if(getGPUInfo.contains(",")) {
 			String[] splitData = getGPUInfo.split(",");
-			GPUConsumed = splitData[1].trim();
+			if(splitData[1].contains("(")) {
+				String[] splitData2 = splitData[1].split("MB");
+				GPUConsumed = splitData2[0].trim()+" MB";
+			}else {
+				GPUConsumed = splitData[1].trim();
+			}	
 		}else if(getGPUInfo.contains(":")){
 			String[] splitData = getGPUInfo.replace("Texture:", "").split("MB");
 			GPUConsumed = splitData[0].trim()+" MB";
 		}
-		
 		nGPUFramesRendered =result2.readLine().trim();
 
 		logger.info("\nTotal GPU Memory Usage of Current session : " + GPUConsumed);	
