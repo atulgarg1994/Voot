@@ -20161,13 +20161,13 @@ public void MyZEE5AppValidation() throws Exception {
 						"On tapping back icon on player, user by default fails to navigates to Videos tab");
 			}
 			click(AMDHomePage.objHomeBtn, "Home");
-			click(AMDHomePage.objDownloadBtn, "Downloads tab");
-			waitTime(2000);
-			click(AMDDownloadPage.objDownloadedContent, "Downloaded content");
-			waitTime(2000);
-			click(AMDDownloadPage.objDeleteDownloadCTA, "Delete Download");
-			waitTime(2000);
-			Back(1);
+//			click(AMDHomePage.objDownloadBtn, "Downloads tab");
+//			waitTime(2000);
+//			click(AMDDownloadPage.objDownloadedContent, "Downloaded content");
+//			waitTime(2000);
+//			click(AMDDownloadPage.objDeleteDownloadCTA, "Delete Download");
+//			waitTime(2000);
+//			Back(1);
 
 		} else {
 			logger.info("Downloads Content Playback is not applicable for " + userType);
@@ -24662,6 +24662,7 @@ public void MyZEE5AppValidation() throws Exception {
 	}
 	
 	
+@SuppressWarnings("unused")
 public void VerifyLogoutAndAuthenticateDeviceOptions(String userType) throws Exception {
 		 //AMA2-13470
 		 extent.HeaderChildNode("AMA2-13470 :Logout and Authenticate Device options are getting displayed in the More section for Guest user even after logging out of the account from More screen");
@@ -26873,9 +26874,9 @@ public void appLaunchDeviceLocationPopUp(String permission) throws Exception {
 public void accessDeviceLocationPopUp(String permission) throws Exception {
 	extent.HeaderChildNode("Access Device Location PopUp");
 	System.out.println("\nAccess Device Location PopUp");
-	
+
 	if (verifyElementExist(AMDOnboardingScreen.objAllowLocationAccessPopup, "AllowPopup")) {
-		
+
 		String str1 = getAttributValue("text", AMDOnboardingScreen.objFirstPermissionButton);
 		String str2 = getAttributValue("text", AMDOnboardingScreen.objSecondPermissionButton);
 
@@ -26900,6 +26901,286 @@ public void accessDeviceLocationPopUp(String permission) throws Exception {
 	}
 }
 
+public void PlayDownloadedContentOffline(String userType) throws Exception {
+	if (!(userType.equalsIgnoreCase("Guest"))) {
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		waitTime(2000);
+		click(AMDDownloadPage.objDownloadedContent, "Downloaded content");
+		waitTime(2000);
+		TurnOFFWifi();
+		if (getOEMName.equalsIgnoreCase("Sony")) {
+			Wifi_TurnOFFnON();
+		}
+		waitTime(4000);
+		verifyElementPresentAndClick(AMDDownloadPage.objPlayDownloadedContent, "Play Call-out");
+		if (verifyElementDisplayed(AMDDownloadPage.objPauseIconOnPlayer)) {
+			logger.info("Playback of downloaded content is initiated in offline");
+			extent.extentLoggerPass("Downloads Screen", "Playback of downloaded content is initiated in offline");
+		} else {
+			logger.error("Playback of downloaded content is NOT initiated in offline");
+			extent.extentLoggerFail("Downloads Screen", "Playback of downloaded content is NOT initiated in offline");
+		}
+		TurnONWifi();
+		if (getOEMName.equalsIgnoreCase("Sony")) {
+			Wifi_TurnOFFnON();
+		}
+		waitTime(2000);
+		BackToLandingScreen();
+		click(AMDHomePage.objHomeBtn, "Home");
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		waitTime(2000);
+		click(AMDDownloadPage.objDownloadedContent, "Downloaded content");
+		waitTime(2000);
+		click(AMDDownloadPage.objDeleteDownloadCTA, "Delete Download");
+		waitTime(2000);
+		Back(1);
+	}
+}
 
+public void VerifyOTPPopup(String userType) throws Exception {
+	// AMA2-10953
+	extent.HeaderChildNode("AMA2-10953 :Verify OTP popup fails to close on tapping minus symbol displayed on the top");
+	logger.info("AMA2-10953 :Verify OTP popup fails to close on tapping minus symbol displayed on the top");
+	if (userType.equalsIgnoreCase("Guest")) {
+		String RegisteredMobile = getParameterFromXML("RegisteredMobile");
+		waitTime(2000);
+		click(AMDHomePage.objSubscribeTeaser, "Buy Plan Header");
+		waitTime(3000);
+		click(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue CTA");
+		verifyElementPresent(AMDLoginScreen.objAccountInfoScreen, "Account Info screen");
+		click(AMDLoginScreen.objEmailIdField, "EmailId");
+		type(AMDLoginScreen.objEmailIdField, RegisteredMobile, "Email-Id/Phone");
+		hideKeyboard();
+		click(AMDGenericObjects.objContinueCTA, "Continue button");
+		verifyElementPresentAndClick(AMDSubscibeScreen.objGetOTP, "Get OTP CTA");
+		verifyElementExist(AMDSubscibeScreen.objVerifyOTPScreen, "Verify OTP popup");
+		verifyElementPresentAndClick(AMDSubscibeScreen.objminusOnVerifyOTP, "Minus symbol on verify OTP screen");
+		waitTime(3000);
+		boolean value = verifyElementIsNotDisplayed(AMDSubscibeScreen.objVerifyOTPScreen);
+		if (value == true) {
+			extent.extentLoggerPass("VerifyOTP", "Verify OTP is closed on tapping minus symbol displayed on the top");
+			logger.info("Verify OTP is closed on tapping minus symbol displayed on the top");
+		} else {
+			logger.error("[AMA2-10953] Verify OTP popup fails to close on tapping minus symbol displayed on the top");
+			extentLoggerFail("VerifyOTP",
+					"[AMA2-10953] Verify OTP popup fails to close on tapping minus symbol displayed on the top");
+		}
+	} else {
+		logger.info("AMA2-10953 : Not applicable for " + userType);
+		extent.extentLogger("VerifyOTP", "AMA2-10953 : Not applicable for " + userType);
+	}
+}
+
+public void UpgradeToPremiumCTA(String userType) throws Exception {
+	// AMA2-10951
+	extent.HeaderChildNode(
+			"AMA2-10951 :'Get Premium' CTA is getting displayed instead 'Upgrade to Premium' CTA on player for RSVOD users");
+	logger.info(
+			"AMA2-10951 :'Get Premium' CTA is getting displayed instead 'Upgrade to Premium' CTA on player for RSVOD users");
+	verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+	verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+	type(AMDSearchScreen.objSearchBoxBar, "Uri: The Surgical Strike", "Search bar");
+	hideKeyboard();
+	click(AMDDownloadPage.objsearchresultFirst, "Searched Show");
+	waitTime(8000);
+	verifyElementDisplayed(AMDPlayerScreen.objUpgradeToPremiumCTAOnPlayer);
+	String text = findElement(AMDPlayerScreen.objUpgradeToPremiumCTAOnPlayer).getText();
+	if (text.contains("Upgrade")) {
+		extent.extentLoggerPass("Player",
+				"'Upgrade to Premium' CTA with appropriate text is displayed on player for RSVOD users");
+		logger.info("'Upgrade to Premium' CTA with appropriate text is displayed on player for RSVOD users");
+	} else {
+		logger.error(
+				"[AMA2-10951] 'Get Premium' CTA is getting displayed instead 'Upgrade to Premium' CTA on player for RSVOD users");
+		extentLoggerFail("Player",
+				"[AMA2-10951] 'Get Premium' CTA is getting displayed instead 'Upgrade to Premium' CTA on player for RSVOD users");
+	}
+
+}
+
+public void VerifyPurchaseofPremiumPack(String userType) throws Exception {
+	// AMA2-11203
+	extent.HeaderChildNode(
+			"AMA2-11203 :Account specific, User is allowed to purchase another premium pack even though a user has annual pack");
+	logger.info(
+			"AMA2-11203 :Account specific, User is allowed to purchase another premium pack even though a user has annual pack");
+	waitTime(2000);
+	click(AMDHomePage.objSubscribeTeaser, "Buy Plan Header");
+	waitTime(3000);
+	verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup, "Subscribe screen");
+	String text = findElement(AMDSubscibeScreen.objContinueOnSubscribePopup).getText();
+	System.out.println(text);
+	logger.info(text);
+	if (text.contains("Upgrade")) {
+		logger.error("[AMA2-11203] " + text
+				+ " is displayed instead 'Explore Premium CTA' for the User which is allowed to purchase another premium pack even though a user has annual pack");
+		extentLoggerFail("Subscribe", "[AMA2-11203] " + text
+				+ " is displayed instead 'Explore Premium CTA' for the User which is allowed to purchase another premium pack even though a user has annual pack");
+	} else {
+		extent.extentLoggerPass("Subscribe", text + " is displayed on pack selection screen");
+		logger.info(text + " is displayed on pack selection screen");
+	}
+
+}
+
+public void IncorrectMessageForInvalidMobileNumber(String userType) throws Exception {
+	// AMA2-11205
+	extent.HeaderChildNode(
+			"AMA2-11205: Incorrect error message is getting displayed on account info screen post entering invalid mobile number");
+	logger.info(
+			"AMA2-11205  :Incorrect error message is getting displayed on account info screen post entering invalid mobile number");
+	waitTime(2000);
+	if (userType.equalsIgnoreCase("Guest")) {
+		click(AMDHomePage.objSubscribeTeaser, "Buy Plan Header");
+		waitTime(3000);
+		verifyElementExist(AMDSubscibeScreen.objNewSubscribePopup, "Subscribe screen");
+		verifyElementPresentAndClick(AMDSubscibeScreen.objContinueOnSubscribePopup, "Continue CTA");
+		verifyElementExist(AMDLoginScreen.objAccountInfoScreen, "Account Info screen");
+		click(AMDLoginScreen.objEmailIdField, "EmailId/Mobile Number field");
+		type(AMDLoginScreen.objEmailIdField, "98806534", "Email-Id/Phone");
+		hideKeyboard();
+		verifyElementExist(AMDSubscibeScreen.objPasswordErrorMessage, "Error text");
+		String text = findElement(AMDSubscibeScreen.objPasswordErrorMessage).getText();
+		System.out.println(text);
+		logger.info(text);
+		if (text.contains("Invalid")) {
+			logger.error("[AMA2-11205] " + text
+					+ " error text is displayed instead 'phone number should be of 10 digits' error message");
+			extentLoggerFail("Subscribe", "[AMA2-11205] " + text
+					+ " error text is displayed instead 'phone number should be of 10 digits' error message");
+		} else {
+			extent.extentLoggerPass("Subscribe",
+					text + " error message is displayed on enetering mobile number lessthan 10 digits");
+			logger.info(text + " error message is displayed on enetering mobile number lessthan 10 digits");
+		}
+
+	} else {
+		logger.info("AMA2-11205 : Not applicable for " + userType);
+		extent.extentLogger("Subscribe", "AMA2-11205 : Not applicable for " + userType);
+	}
+
+}
+
+public void AppCrash_OnTappingBuyPlanInOffline(String userType) throws Exception {
+//AMA2-16721
+	extent.HeaderChildNode(
+			"AMA2-16721: App is getting crashed on tapping Buy plan header CTA post launching the app in offline mode");
+	logger.info(
+			"AMA2-16721  :App is getting crashed on tapping Buy plan header CTA post launching the app in offline mode");
+	if (!userType.equalsIgnoreCase("SubscribedUser")) {
+		waitTime(2000);
+		setWifiConnectionToONOFF("Off");
+		if (getOEMName.equalsIgnoreCase("Sony")) {
+			Wifi_TurnOFFnON();
+		}
+		waitTime(3000);
+		relaunch(true);
+		waitTime(3000);
+		verifyElementExist(AMDHomePage.errortitle, "Retry CTA is displayed");
+		verifyElementPresentAndClick(AMDHomePage.objSubscribeTeaser, "Buy Plan Header");
+		boolean value = verifyElementDisplayed(AMDHomePage.errortitle);
+		if (value == true) {
+			extent.extentLoggerPass("Subscribe", "Internet error message with Retry CTA is displayed");
+			logger.info("Internet error message woth Retry CTA is displayed");
+		} else {
+			logger.error("[AMA2-16721] Internet error message with Retry CTA is NOT displayed");
+			extentLoggerFail("Subscribe", "[AMA2-16721] Internet error message with Retry CTA is NOT displayed");
+		}
+		setWifiConnectionToONOFF("ON");
+
+	} else {
+		logger.info("AMA2-16721 : Not applicable for " + userType);
+		extent.extentLogger("Subscribe", "AMA2-16721 : Not applicable for " + userType);
+	}
+
+}
+
+public void VerifyPrepaidCode(String userType) throws Exception {
+//AMA2-10892
+	extent.HeaderChildNode(
+			"AMA2-10892: Congratulation pop up is displayed when user apply a valid promo code in Have a prepaid code option available on more menu screen");
+	logger.info(
+			"AMA2-10892  :Congratulation pop up is displayed when user apply a valid promo code in Have a prepaid code option available on more menu screen");
+	if (!userType.equalsIgnoreCase("Guest")) {
+		click(AMDHomePage.objMoreMenu, "More Menu");
+		verifyElementExist(AMDMoreMenu.objHaveaPrepaidCode, "Have a prepaid code option");
+		click(AMDMoreMenu.objHaveaPrepaidCode, "Have a prepaid code option");
+		verifyElementExist(AMDMoreMenu.objPrepaidCodePopUp, "Prepaid code popup");
+		click(AMDMoreMenu.objPrepaidCodeField, "Prepaid code edit field");
+		type(AMDMoreMenu.objPrepaidCodeField, "SRM40", "Prepaid code");
+		hideKeyboard();
+		click(AMDMoreMenu.objApplyBtn, "Apply button");
+		verifyElementExist(AMDMoreMenu.objAppliedcodeDesc, "Error message");
+		String text = findElement(AMDMoreMenu.objAppliedcodeDesc).getText();
+		System.out.println(text);
+		logger.info(text);
+		if (text.contains("Invalid")) {
+			extent.extentLoggerPass("Have a code",
+					"Invalid prepaid code pop up is displayed when user enter promo code in prepaid code pop up");
+			logger.info("Invalid prepaid code pop up is displayed when user enter promo code in prepaid code pop up");
+		} else {
+			logger.error(
+					"[AMA2-10892] Invalid prepaid code pop up is NOT displayed when user enter promo code in prepaid code pop up");
+			extentLoggerFail("Have a code",
+					"[AMA2-10892] Invalid prepaid code pop up is NOT displayed when user enter promo code in prepaid code pop up");
+		}
+
+	} else {
+		logger.info("AMA2-10892 : Not applicable for " + userType);
+		extent.extentLogger("Have a code", "AMA2-10892 : Not applicable for " + userType);
+	}
+}
+
+public void VerifyPlaybackOfPremiumContent(String userType) throws Exception {
+//AMA2-12309
+	extent.HeaderChildNode(
+			"AMA2-12309: 'Oops!! something went wrong' error message is displayed on player post playing any premium contents for all user types");
+	logger.info(
+			"AMA2-12309  :'Oops!! something went wrong' error message is displayed on player post playing any premium contents for all user types");
+	verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+	verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+	type(AMDSearchScreen.objSearchBoxBar, "Hebbuli", "Search bar");
+	hideKeyboard();
+	click(AMDDownloadPage.objsearchresultFirst, "Searched content");
+	waitTime(3000);
+	click(AMDPlayerScreen.objPlayerScreen, "Player");
+	if ((verifyElementDisplayed(AMDDownloadPage.objPauseIconOnPlayer))) {
+		logger.info("Playback is initiated for Premium content");
+		extent.extentLoggerPass("Search", "Playback is initiated for Premium content");
+	} else {
+		logger.error("[AMA2-12309] Playback is NOT initiated for Premium content");
+		extent.extentLoggerFail("Search", "[AMA2-12309] Playback is NOT initiated for Premium content");
+	}
+}
+
+public void VerifySkipCTAOnPlayer(String userType) throws Exception {
+//AMA2-12333
+	extent.HeaderChildNode(
+			"AMA2-12333: Skip CTA displayed on player is non-functional for Guest user before the consumption screen rails load");
+	logger.info(
+			"AMA2-12333  :Skip CTA displayed on player is non-functional for Guest user before the consumption screen rails load");
+	if (!userType.equalsIgnoreCase("Guest")) {
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, "Pushpaka Vimana", "Search bar");
+		hideKeyboard();
+		click(AMDSearchScreen.objMoviesTab, "Movies");
+		click(AMDDownloadPage.objsearchresultFirst, "Searched content");
+		verifyElementExist(AMDConsumptionScreen.objSkipctaOnPlayer, "Skip CTA on player");
+		click(AMDConsumptionScreen.objSkipctaOnPlayer, "Skip CTA on player");
+		if ((verifyElementDisplayed(AMDDownloadPage.objPauseIconOnPlayer))) {
+			logger.info("Skip CTA is functional and next content playback is initiated");
+			extent.extentLoggerPass("Player", "Skip CTA is functional and next content playback is initiated");
+		} else {
+			logger.error("[AMA2-12333] Skip CTA is non-functional and next content playback is NOT initiated");
+			extent.extentLoggerFail("Player",
+					"[AMA2-12333] Skip CTA is non-functional and next content playback is NOT initiated");
+		}
+
+	} else {
+		logger.info("AMA2-12333 : Not applicable for " + userType);
+		extent.extentLogger("Player", "AMA2-12333 : Not applicable for " + userType);
+	}
+}
  
 }

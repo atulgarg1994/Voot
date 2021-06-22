@@ -27,8 +27,6 @@ public class AMDSearchScreen {
 		return By.xpath("//*[@id='item_primary_text' and contains(text(), ' \"+title+\" ')]");
 	}
 
-	public static By objMoviesTab = By.xpath("//*[@text='Movies' and @id='title']");
-
 	public static By objShowsTab = By.xpath("//*[@text='Shows' and @id='title']");
 
 	public static By objNewsTab = By.xpath("//*[@text='News' and @id='title']");
@@ -230,4 +228,6 @@ public class AMDSearchScreen {
     public static By objAllow = By.xpath("//*[@id='permission_allow_button'] | //*[@id='permission_allow_foreground_only_button']");
     
     public static By objClearAll = By.xpath("//*[@id='search_cancel_text'] | //*[@id='recentSearchClearAllText']");
+    
+    public static By objMoviesTab = By.xpath("//*[@text='Movies' or @id='title']"); 
 }

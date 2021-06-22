@@ -244,8 +244,6 @@ public class AMDHomePage {
 	
 	public static By objSlectedTabInDownloadsScreen = By.xpath("//*[@id='tab_layout']//*[@class='android.widget.TextView' and @selected='true']");
 	
-	public static By errortitle = By.xpath("//*[@id='txt_error_title']");
-	
 	public static By objCarouselContentTitleCard(String title) {
 		return By.xpath("//*[@id='cell_center_container' and @class='android.widget.LinearLayout']//*[@text='"+title+"']");
 	}
@@ -296,4 +294,6 @@ public class AMDHomePage {
  	public static By objzeetamilshowstray = By.xpath("//*[@text='Zee Tamil Shows']");
 	
 	public static By objFirstContentCardFromListingScreen = By.xpath("(//*[@id='cell_center_container'])[2]");
+	
+	public static By errortitle = By.xpath("//*[@id='textNoInternetRetry'] | //*[@id='txt_error_title']");
 }

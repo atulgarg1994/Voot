@@ -496,6 +496,72 @@ public class Android_Defects {
 		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
 		ZEE5ApplicasterBusinessLogic.VerifySubscribeIconPostLoggingFromLoginctaOnPlayer(userType);		
 	}
+	
+	@Test(priority = 61) //Bhavana
+	@Parameters({ "userType" })
+	public void VerifyOTPPopup(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.VerifyOTPPopup(userType);		
+	}
+
+	@Test(priority = 62) //Bhavana
+	@Parameters({ "userType","RSVODUserEmail","RSVODUserPassword" })
+	public void UpgradeToPremiumCTA(String userType,String pEmailId, String pPassword) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(pEmailId, pPassword);
+		ZEE5ApplicasterBusinessLogic.UpgradeToPremiumCTA(userType);		
+	}
+	
+	@Test(priority = 63) //Bhavana
+	@Parameters({ "userType","zeetestcluball@test.com","123456"  })
+	public void VerifyPurchaseofPremiumPack(String userType,String pEmailId, String pPassword) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.LoginWithEmailID(pEmailId, pPassword);
+		ZEE5ApplicasterBusinessLogic.VerifyPurchaseofPremiumPack(userType);		
+	}
+	
+	@Test(priority = 64) //Bhavana
+	@Parameters({ "userType" })
+	public void IncorrectMessageForInvalidMobileNumber(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.IncorrectMessageForInvalidMobileNumber(userType);		
+	}
+
+	@Test(priority = 65) //Bhavana
+	@Parameters({ "userType" })
+	public void AppCrash_OnTappingBuyPlanInOffline(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.AppCrash_OnTappingBuyPlanInOffline(userType);		
+	}
+	
+	@Test(priority = 66) //Bhavana
+	@Parameters({ "userType" })
+	public void VerifyPrepaidCode(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.VerifyPrepaidCode(userType);		
+	}
+	
+	@Test(priority = 67) //Bhavana
+	@Parameters({ "userType" })
+	public void VerifyPlaybackOfPremiumContent(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.VerifyPlaybackOfPremiumContent(userType);		
+	}
+	
+	@Test(priority = 68) //Bhavana
+	@Parameters({ "userType" })
+	public void VerifySkipCTAOnPlayer(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToHomeLandingScreen();
+		ZEE5ApplicasterBusinessLogic.VerifySkipCTAOnPlayer(userType);		
+	}
 
 	@AfterTest
 	public void tearDownApp() {

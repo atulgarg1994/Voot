@@ -161,4 +161,7 @@ public class AMDPlayerScreen {
 	public static By objParentalPinContinue = By.id("parentalFragmentContinueButton");
 	
 	public static By objBuyNowCTABelowThePlayer = By.xpath("//*[@id='ctaBannerButton']/child::*[@id='subscribeButton']");
+	
+	public static By objUpgradeToPremiumCTAOnPlayer = By.xpath("//*[@id='subscribeButton']");
+
 	}

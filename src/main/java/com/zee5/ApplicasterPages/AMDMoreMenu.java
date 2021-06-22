@@ -298,4 +298,6 @@ public class AMDMoreMenu {
 	public static By objLoginBtn = By.id("btn_dialog_login");
 	public static By objDoneBtn = By.id("btn_dialog_done");
 	
+	public static By objPrepaidCodeField = By.xpath("//*[@id='edit_prepaid_code']");
+	public static By objAppliedcodeDesc = By.xpath("//*[@id='txt_success_desc']");
 }
