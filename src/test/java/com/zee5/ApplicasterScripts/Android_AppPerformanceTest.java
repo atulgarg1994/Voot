@@ -30,6 +30,7 @@ public class Android_AppPerformanceTest {
 	
 	@Test(priority = 2)	
 	public void ScreenNavigation() throws Exception {
+		ZEE5ApplicasterBusinessLogic.clearBackgroundApps();
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow");
 		ZEE5ApplicasterBusinessLogic.SelectTopNavigationTab_Timer("Premium");
@@ -37,6 +38,7 @@ public class Android_AppPerformanceTest {
 	
 	@Test(priority = 3)
 	public void InitiateContentPlayback() throws Exception {
+		ZEE5ApplicasterBusinessLogic.clearBackgroundApps();
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow");
 		ZEE5ApplicasterBusinessLogic.Performance_InitiateContentPlayback();
@@ -45,6 +47,7 @@ public class Android_AppPerformanceTest {
 	@Test(priority = 4)
 	public void DeeplinkValidaton() throws Exception {
 		System.out.println("\nNative Andriod App Deeplink Validation");
+		ZEE5ApplicasterBusinessLogic.clearBackgroundApps();
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow");
 		ZEE5ApplicasterBusinessLogic.deepLink_Validation("Consumption");

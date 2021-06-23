@@ -2055,6 +2055,25 @@ public class Utilities extends ExtentReporter {
 
 		}
 	}
+	
+	public void clearBackgroundApps() throws IOException {
+		String adbRecentApp = "adb shell input keyevent KEYCODE_APP_SWITCH";
+		String adbSelectApp = "adb shell input keyevent KEYCODE_DPAD_DOWN";	
+		String adbClearApp="adb shell input keyevent KEYCODE_DEL";
+		String adbHomeScreen="adb shell input keyevent KEYCODE_HOME";
+
+		Runtime.getRuntime().exec(adbRecentApp);
+		
+		for(int iterator=1; iterator<=7; iterator++) {
+			waitTime(1000);
+			Runtime.getRuntime().exec(adbClearApp);
+			Runtime.getRuntime().exec(adbSelectApp);
+		}
+		
+		waitTime(1000);
+		Runtime.getRuntime().exec(adbHomeScreen);
+		System.out.println("Cleared all background Apps");
+	}
 
 //	====================================================TV=================================================
 	public boolean verifyElementExistTv(By byLocator, String str) throws Exception {
