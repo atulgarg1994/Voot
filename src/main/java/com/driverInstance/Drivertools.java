@@ -1,6 +1,8 @@
 package com.driverInstance;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.time.Duration;
@@ -47,6 +49,15 @@ public class Drivertools {
 	long StartTime;
 	Instant startTime ;
 	public static Duration timeElapsed ;
+	private static String DeviceList;
+
+	public static String getDeviceList() {
+		return DeviceList;
+	}
+
+	public static void setDeviceList(String deviceList) {
+		DeviceList = deviceList;
+	}
 
 	public static String getTestName() {
 		return testName;
@@ -245,6 +256,7 @@ public class Drivertools {
 		setAppVersion(getHandler().getproperty(application + "Version"));
 		setAPKName(getHandler().getproperty(application + "apkfile"));
 		setDriverVersion(getHandler().getproperty("DriverVersion"));
+		setDeviceList(getListOfDevicesConnected());
 	}
 
 	{
@@ -305,5 +317,28 @@ public class Drivertools {
 		} else {
 			throw new SkipException("PlatForm not matched...");
 		}
+	}
+	
+	public static String getListOfDevicesConnected() {
+		String deviceID = null;
+		try {
+			String cmd2 = "adb devices";
+			Process p1 = Runtime.getRuntime().exec(cmd2);
+			BufferedReader br = new BufferedReader(new InputStreamReader(p1.getInputStream()));
+			String s = "";
+			Thread.sleep(1000);
+			while (!(s = br.readLine()).isEmpty()) {
+				if (!s.equals("List of devices attached")) {
+					if(!s.contains(".")) {
+						deviceID = s.replaceAll("device", "").trim();
+						System.out.println(deviceID);
+					}
+				}
+			}
+			return deviceID;
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+		return deviceID;
 	}
 }

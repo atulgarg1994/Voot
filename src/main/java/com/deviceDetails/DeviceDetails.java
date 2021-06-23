@@ -170,4 +170,31 @@ public class DeviceDetails {
 		return DeviceInfo;
 	}
 
+	
+	public static String getListOfDevicesConnected1() {
+		String deviceID = null;
+		try {
+			String cmd2 = "adb devices";
+			Process p1 = Runtime.getRuntime().exec(cmd2);
+			BufferedReader br = new BufferedReader(new InputStreamReader(p1.getInputStream()));
+			String s = "";
+			Thread.sleep(1000);
+			while (!(s = br.readLine()).isEmpty()) {
+				if (!s.equals("List of devices attached")) {
+					if(!s.contains(".")) {
+						deviceID = s.replaceAll("device", "").trim();
+						System.out.println(deviceID);
+					}
+				}
+			}
+			return deviceID;
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+		return deviceID;
+	}
+	
+	public static void main(String[] args) {
+		getListOfDevicesConnected1();
+	}
 }

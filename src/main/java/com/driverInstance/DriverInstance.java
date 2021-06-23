@@ -144,7 +144,7 @@ public class DriverInstance extends Drivertools {
 	public static void removePermisson(String packagename)
 	{
 		logger.info("****Clearing the App Data****");
-		String cmd2 = "adb shell pm clear " + packagename;
+		String cmd2 = "adb -s "+getDeviceList()+" shell pm clear " + packagename;
 		try {
 			Runtime.getRuntime().exec(cmd2);
 		} catch (IOException e) {
