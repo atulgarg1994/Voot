@@ -209,7 +209,6 @@ public class PWASubscriptionPages {
 	public static By objHaveACodeCloseBtn = By
 			.xpath("//div[contains(@class,'applyPromo')]//following-sibling::span[contains(@class,'close')]");
 
-
 	public static By objClubPack = By.xpath("//span[contains(text(),'Club')]");
 
 	public static By objEnterCardNumber = By.xpath("//input[@placeholder='Enter card number here']");
@@ -293,78 +292,84 @@ public class PWASubscriptionPages {
 
 	public static By objremovebtn = By
 			.xpath("//*[contains(@class, 'promoCodePopupApply') and contains(text(), 'Remove')]");
-	
+
 	public static By objProceedButtonInPassword = By.xpath("//*[text()='Continue']");
 	public static By objProceedBtnInSubscriptionPage = By.xpath("//*[text()='Continue']");
-	
+
 	public static By objContinueBtnn = By.xpath("//*[@type='button']//span[text()='Continue']");
-	
+
 	public static By objDiscountAppliedMessage = By.xpath("//div[contains(text(),'DISCOUNT APPLIED')]");
-	
+
 	public static By objHaveACodePlaceHolder = By.xpath("//*[contains(@placeholder,'Enter code')]");
-	
-	public static By objHaveACodeChangeBtn = By
-			.xpath("//div[contains(@class,'applyPromoMobile')]//following-sibling::div[contains(@class,'changeMobileButton')]");
-	
+
+	public static By objHaveACodeChangeBtn = By.xpath(
+			"//div[contains(@class,'applyPromoMobile')]//following-sibling::div[contains(@class,'changeMobileButton')]");
+
 	public static By objSelectedSubscriptionPlanAmount = By
 			.xpath("//*[contains(@class, 'packDetails active')]//*[contains(@class, 'planDuration')]");
-	
+
 	public static By objPasswordPopupInSubscriptionPage = By.xpath("//div[contains(@class, 'drowerPopupContent')]");
-	
+
 	public static By objPremiumText = By.xpath("//span[contains(text(), 'To Watch this Premium Content')]");
-	
+
 	public static By objGetPremiumButton = By.xpath("//*[contains(@class, 'subscribe-button subscribemsg_en')]");
-	
+
 	public static By objExistUserText = By.xpath("//*[contains(text(), 'Are you a Zee5 Subscriber?')]");
-	
+
 	public static By objLoginLink = By.xpath("//*[contains(@class, 'login-link')]");
-	
+
 	public static By objTrailerTextAtConsumptionPage = By.xpath("//*[contains(@class, 'trailerInfoContainer')]");
-	
+
 	public static By objLoginPage = By.xpath("//*[contains(@class, 'formHeader loginHeaderIn')]");
-	
-	public static By objZEE5Subscription = By.xpath("//*[contains(text(),'Unlock ZEE5') and contains(@class, 'stepTitle')]");
+
+	public static By objZEE5Subscription = By
+			.xpath("//*[contains(text(),'Unlock ZEE5') and contains(@class, 'stepTitle')]");
 
 	public static By objMovieLink = By.xpath("//*[text()='Blockbuster Movies']");
-	
+
 	public static By objMovieTrayName = By.xpath("//*[@class='trayHeader']//h2");
-	
-	public static By objMovieTray1 = By.xpath("(//*[@class='slick-slider movieTray slick-initialized']//*[@class='slick-slide slick-active'])[1]");
-	
-	public static By objMovieTray2 = By.xpath("(//*[@class='slick-slider movieTray slick-initialized']//*[@class='slick-slide slick-active'])[4]");
-	
+
+	public static By objMovieTray1 = By
+			.xpath("(//*[@class='slick-slider movieTray slick-initialized']//*[@class='slick-slide slick-active'])[1]");
+
+	public static By objMovieTray2 = By
+			.xpath("(//*[@class='slick-slider movieTray slick-initialized']//*[@class='slick-slide slick-active'])[4]");
+
 	public static By objPaymentHighlighted = By.xpath("//h2[@class='stepTitle' and contains(text(),'Make Payment')]");
-	
+
 	public static By objTeaserGetPremiumButton = By.xpath("//button[contains(@class, 'subscribe-teaser-button ')]");
-	
+
 	public static By objPackAmount1 = By.xpath("(//span[@class='price'])[1]");
-	
+
 	public static By objPackAmount = By.xpath("(//span[@class='price'])");
-	
+
 	public static By objPackAmount2 = By.xpath("(//span[@class='price'])[2]");
-	
-	public static By objHaveACode = By.xpath("//*[contains(@class,'haveCodeText') and contains(text(),'Have a Code?')]");
+
+	public static By objHaveACode = By
+			.xpath("//*[contains(@class,'haveCodeText') and contains(text(),'Have a Code?')]");
 
 	public static By objAccountInfoDetails = By.xpath("//div[contains(@class, 'userDetails')]");
-	
+
 	public static By objSelectedPackDescription = By.xpath("//div[contains(@class, 'packDetails pack')]");
 
 	public static By objSelectedPackDuration = By.xpath("//div[contains(@class, 'yearDetails')]");
 
 	public static By objSelectedPackName = By.xpath("//div[contains(@class, 'packName')]");
-	
-	public static By objCancelBtn = By.xpath("//span[contains(@class, 'promoCodePopupApply')]");
-	
-	public static By objPaytmWallet = By.xpath(
-			"//div[contains(@class,'linearLayout sidebarItem_object')]//*[contains(text(), 'Paytm')]");
 
-	public static By objLoginButtonFromSubscriptionPage = By.xpath("//*[contains(@class, 'loginBtn noSelect subscriptionLoginType')]");
-	
+	public static By objCancelBtn = By.xpath("//span[contains(@class, 'promoCodePopupApply')]");
+
+	public static By objPaytmWallet = By
+			.xpath("//div[contains(@class,'linearLayout sidebarItem_object')]//*[contains(text(), 'Paytm')]");
+
+	public static By objLoginButtonFromSubscriptionPage = By
+			.xpath("//*[contains(@class, 'loginBtn noSelect subscriptionLoginType')]");
+
 	// Account Info tab Title
 	public static By objAccountInfoTitle = By.xpath("//h2[contains(text(),'Account Info')]");
-	//Verify OTP screen title
-	public static By objVerifyOTPTitle = By.xpath("//*[@class='verifyOTPBox mobileLoginPopup']//*[contains(text(), 'Verify OTP')]");
-	//OTP text field 1
+	// Verify OTP screen title
+	public static By objVerifyOTPTitle = By
+			.xpath("//*[@class='verifyOTPBox mobileLoginPopup']//*[contains(text(), 'Verify OTP')]");
+	// OTP text field 1
 	public static By objOTPTextField1 = By.xpath("//input[@name='otp1']");
 	// OTP text field 2
 	public static By objOTPTextField2 = By.xpath("//input[@name='otp2']");
@@ -372,161 +377,253 @@ public class PWASubscriptionPages {
 	public static By objOTPTextField3 = By.xpath("//input[@name='otp3']");
 	// OTP text field 4
 	public static By objOTPTextField4 = By.xpath("//input[@name='otp4']");
-		// Verify Button
+	// Verify Button
 	public static By objVerifyButton = By.xpath("(//span[contains(text(), 'Verify')])[1]");
-		//Error Message
-	public static By objInvalidOTPErrorMessage = By.xpath("//*[contains(@class, 'errorContainer') and contains(text(),'Either OTP is not valid or has expired')]");
+	// Error Message
+	public static By objInvalidOTPErrorMessage = By.xpath(
+			"//*[contains(@class, 'errorContainer') and contains(text(),'Either OTP is not valid or has expired')]");
 
-	//Plan Duration in My transactions page
+	// Plan Duration in My transactions page
 	public static By objPlanPurchaseDate = By.xpath("//*[@class='transactionCard']//*[@class='date']");
-	//Plan Duration in My transactions page
+
+	// Plan Duration in My transactions page
 	public static By objPlanPurchaseDate(int i) {
-		return By.xpath("(//*[@class='transactionCard']//*[@class='date'])["+i+"]");
+		return By.xpath("(//*[@class='transactionCard']//*[@class='date'])[" + i + "]");
 	}
-	//Plan Duration in My Transactions page
-	public static By objPlanDuration = By.xpath("//*[@class='transactionCard']//*[@class='value' and (./preceding-sibling::* | ./following-sibling::*)[contains(text(),'Duration')]]");
-	//Plan Duration in My Transactions page
+
+	// Plan Duration in My Transactions page
+	public static By objPlanDuration = By.xpath(
+			"//*[@class='transactionCard']//*[@class='value' and (./preceding-sibling::* | ./following-sibling::*)[contains(text(),'Duration')]]");
+
+	// Plan Duration in My Transactions page
 	public static By objPlanDuration(int i) {
-		return By.xpath("(//*[@class='transactionCard']//*[@class='value' and (./preceding-sibling::* | ./following-sibling::*)[contains(text(),'Duration')]])["+i+"]");
+		return By.xpath(
+				"(//*[@class='transactionCard']//*[@class='value' and (./preceding-sibling::* | ./following-sibling::*)[contains(text(),'Duration')]])["
+						+ i + "]");
 	}
-	//Zee Logo
+
+	// Zee Logo
 	public static By objZeeLogo = By.xpath("//*[@title='ZEE5 Logo']");
-	
-	//One Time Radhe ZEEPLEX Rental Text
 
-	public static By objOneTimeRadheZEEPLEXRentalText  = By.xpath("//div[@class='title']");
+	// One Time Radhe ZEEPLEX Rental Text
 
-	//Description Combo Radhe Year Zee5Premium
-	public static By objDescriptionComboRadheYearZee5Premium  = By.xpath("//div[@class='description']");
+	public static By objOneTimeRadheZEEPLEXRentalText = By.xpath("//div[@class='title']");
 
+	// Description Combo Radhe Year Zee5Premium
+	public static By objDescriptionComboRadheYearZee5Premium = By.xpath("//div[@class='description']");
 
-	//Cancle Button
-	public static By objCancleButton  = By.xpath("//div[@class='drowerCloseIcon iconInitialLoad-ic_close']");
+	// Cancle Button
+	public static By objCancleButton = By.xpath("//div[@class='drowerCloseIcon iconInitialLoad-ic_close']");
 
+	// Make Payment
+	public static By objMakePayment = By.xpath("//h2[@class='stepTitle']");
 
-	//Make Payment
-	public static By objMakePayment  = By.xpath("//h2[@class='stepTitle']");
+	// Continue with 499
+	public static By objContinueWith499 = By.xpath("//span[contains(text(),'Continue with ₹499')]");
 
-	//Continue with 499
-	public static By objContinueWith499  = By.xpath("//span[contains(text(),'Continue with ₹499')]");
+	// Login Button
+	public static By objLoginButton = By.xpath("//a[@class='loginBtn noSelect subscriptionLoginType']");
 
+	// Watch Add-Free
+	public static By objWatchAddFree = By.xpath("(//div[@class='item'])[5]");
 
+	// Watch Before Tv
+	public static By objWatchBeforeTv = By
+			.xpath("(//div[@class='subscriTopContWrapper']//div[@class='item']//span)[4]");
 
-	//Login Button
-	public static By objLoginButton  = By.xpath("//a[@class='loginBtn noSelect subscriptionLoginType']");
+	// 200+Web Series
+	public static By obj200PlushWebSeries = By
+			.xpath("(//div[@class='subscriTopContWrapper']//div[@class='item']//span)[3]");
 
-	//Watch Add-Free
-	public static By objWatchAddFree  = By.xpath("(//div[@class='item'])[5]");
+	// Blockbuster Movie
+	public static By objBlockbusterMovie = By
+			.xpath("(//div[@class='subscriTopContWrapper']//div[@class='item']//span)[2]");
 
-	//Watch Before Tv
-	public static By objWatchBeforeTv  = By.xpath("(//div[@class='subscriTopContWrapper']//div[@class='item']//span)[4]");
-
-	//200+Web Series
-	public static By obj200PlushWebSeries  = By.xpath("(//div[@class='subscriTopContWrapper']//div[@class='item']//span)[3]");
-
-	//Blockbuster Movie 
-	public static By objBlockbusterMovie  = By.xpath("(//div[@class='subscriTopContWrapper']//div[@class='item']//span)[2]");
-
-	//Combo:Radhe + Year Zee5 Premium
-	public static By objComboRadheYearZee5Premium = By.xpath("(//div[@class='subscriTopContWrapper']//div[@class='item']//span)[1]");
+	// Combo:Radhe + Year Zee5 Premium
+	public static By objComboRadheYearZee5Premium = By
+			.xpath("(//div[@class='subscriTopContWrapper']//div[@class='item']//span)[1]");
 
 	public static By objTextForComboOffer = By.xpath("//h1[contains(text(),'Radhe Combo Offer')]");
-	
-	public static By objsavethiscard=By.xpath("//*[contains(@class,'linearLayout')]//following-sibling::*//article[contains(text(),'Save this card for faster payments')]");
-	public static By objamazonpaypage=By.xpath("//div[@class='a-box-inner a-padding-extra-large']");
-	public static By objpaytmentermobileno=By.xpath("//input[@placeholder='Please Enter a Number']");
-	public static By objpaytmlink=By.xpath("//article[contains(text(),'Paytm')]");
-	
-	public static By objAmazonPayProceedToPay = By.xpath("//article[contains(text(),'Amazon Pay')]//ancestor::*[@class='linearLayout PaymentOptionViewNotListNestedChild']//child::*[text()='Proceed to pay']");
 
-	public static By objMobikwikProceedToPay = By.xpath("//article[contains(text(),'Mobikwik')]//ancestor::*[@class='linearLayout PaymentOptionViewNotListNestedChild']//child::*[text()='Proceed to pay']");
-	
-	//Watch Now CTA
-	public static By objWatchNowCTA  = By.xpath("//span[text()='Watch Now']");
-	
+	public static By objsavethiscard = By.xpath(
+			"//*[contains(@class,'linearLayout')]//following-sibling::*//article[contains(text(),'Save this card for faster payments')]");
+	public static By objamazonpaypage = By.xpath("//div[@class='a-box-inner a-padding-extra-large']");
+	public static By objpaytmentermobileno = By.xpath("//input[@placeholder='Please Enter a Number']");
+	public static By objpaytmlink = By.xpath("//article[contains(text(),'Paytm')]");
+
+	public static By objAmazonPayProceedToPay = By.xpath(
+			"//article[contains(text(),'Amazon Pay')]//ancestor::*[@class='linearLayout PaymentOptionViewNotListNestedChild']//child::*[text()='Proceed to pay']");
+
+	public static By objMobikwikProceedToPay = By.xpath(
+			"//article[contains(text(),'Mobikwik')]//ancestor::*[@class='linearLayout PaymentOptionViewNotListNestedChild']//child::*[text()='Proceed to pay']");
+
+	// Watch Now CTA
+	public static By objWatchNowCTA = By.xpath("//span[text()='Watch Now']");
+
 	// explore Premium
 	public static By objexplorePremium = By.xpath("//span[text()='Explore Premium']");
-		//You are currently on ₹499 Premium 1 Year plan
-	public static By objYouAreCurrentlyOnPremiumYearPlan = By.xpath("//span[text()='You are currently on ₹499 Premium 1 Year plan.']");
-		//Upgrade Now Message
+	// You are currently on ₹499 Premium 1 Year plan
+	public static By objYouAreCurrentlyOnPremiumYearPlan = By
+			.xpath("//span[text()='You are currently on ₹499 Premium 1 Year plan.']");
+	// Upgrade Now Message
 	public static By objUpgradeNowMessage = By.xpath("(//span[.='Upgrade'])[2]");
-		// Your are currently on plan<Plan Name >. CTA's Message
+	// Your are currently on plan<Plan Name >. CTA's Message
 	public static By objYourAreCurrentlyOnPlanPlanNameCTAsMessage = By.xpath("//li[@class='subtitleItem']");
-		//Right Tick As Per VD
+	// Right Tick As Per VD
 	public static By objRightTickAsPerVD = By.xpath("//img[@alt='combo offer popup icon']");
-		//Upgrade To Radhe Combo Pack By Just Paying
+	// Upgrade To Radhe Combo Pack By Just Paying
 	public static By objUpgradeToRadheComboPackByJustPaying = By.xpath("//span[@class='title']");
-		//differential amount calculated.
+	// differential amount calculated.
 	public static By objDifferentialAmountCalculated = By.xpath("(//span[text()='309'])[1]");
-	
-	public static By objComboOfferPageHeader = By.xpath("//*[@class='titleSubTitleComp']");//added 5/5/2021
-	public static By objExplorePremiumButton = By.xpath("//*[text()='Explore Premium']");//added 6/5/2021
-	public static By objBuyCombobutton = By.xpath("//*[@class='buttonContainer']");//added 4/5/2021
-	public static By objRentMoviebutton = By.xpath("//*[text()='Rent Movie']");//added 4/5/2021
-	public static By objHaveitAllPopDialog = By.xpath("//*[text()='You have it all']");//added 5/5/2021
-	public static By objYouHaveAlreadyRentedThisZEEPLEXMovieDialog = By.xpath("//*[@class='subtitleItem']//span[text()='You have already rented this ZEEPLEX movie']");//added 5/5/2021
-	
-	public static By objZeeplexPopupCloseButton = By.xpath("//*[@class='drowerCloseIcon iconInitialLoad-ic_close']");//added 5/5/2021
-	public static By obj299PackUpgradePopup = By.xpath("(//div[@class='titleAndSubtitle'])//span[text()='Upgrade to Combo Offer by just paying the difference']");//added 7/5/2021
-	public static By obj299PackUpgradeCTA = By.xpath("(//div[@class='buttonContainer '])//span[text()='Upgrade']");//added 7/5/2021
-	public static By objZeeplexAndTickIcon = By.xpath("//*[@class='icon']//img[@alt='combo offer popup icon']");//added 7/5/2021
-	public static By objComboOfferPageUpgrade299PackHeader = By.xpath("//li[@class='subtitleItem']//span[text()='You are currently on ₹299 Premium 3 Months plan.']");//added 7/5/2021
-	public static By objUpgradeTextJustPayingDifference= By.xpath("//div[@class='titleSubTitleComp']//h1");//added 7/5/2021
-	public static By objPayLessWatchMoreHeader= By.xpath("//div[@class='titleSubTitleComp']//p[text()='Pay less, Watch more!']");//added 7/5/2021
 
-	public static By objRentOnlyMovieCheckboxPrice= By.xpath("(//div[@class='priceAmout'])[2]");//added 8/5/2021
+	public static By objComboOfferPageHeader = By.xpath("//*[@class='titleSubTitleComp']");// added 5/5/2021
+	public static By objExplorePremiumButton = By.xpath("//*[text()='Explore Premium']");// added 6/5/2021
+	public static By objBuyCombobutton = By.xpath("//*[@class='buttonContainer']");// added 4/5/2021
+	public static By objRentMoviebutton = By.xpath("//*[text()='Rent Movie']");// added 4/5/2021
+	public static By objHaveitAllPopDialog = By.xpath("//*[text()='You have it all']");// added 5/5/2021
+	public static By objYouHaveAlreadyRentedThisZEEPLEXMovieDialog = By
+			.xpath("//*[@class='subtitleItem']//span[text()='You have already rented this ZEEPLEX movie']");// added
+																											// 5/5/2021
 
-	public static By objZeePlexLogo = By.xpath("(//a[@href='/zee-plex-movies-on-rent'])[1]");//added 4/5/2021
-		
-	public static By objBuyPlanLogo = By.xpath("//*[@class='iconInitialLoad-ic_premium']");//added 3/5/2021
-	public static By objSubcriptionPage = By.xpath("//*[@class='stepWrapper']//div[@class='stepValue']");//added 3/5/2021
-	public static By objRadheComboOfferTitle = By.xpath("//*[@class='pageTitle']");//added 3/5/2021
-		
-	public static By objRentOnlyMoviePriceMakePaymentPage = By.xpath("//p[@class='period']");//added 8/5/2021
-	public static By objGenerateQRCode = By.xpath("//article[(text()='Generate QR Code')]");//added 8/5/2021
-	public static By objWalletsProceedToPay = By.xpath("(//article[contains(text(), 'Proceed to pay')])[3]");//added 8/5/2021
-	public static By objBankName = By.xpath("//article[contains(text(),'COSMOS Bank')]");//added 11/5/2021  
-	public static By objUpgradeButton = By.xpath("//div[@class='buttonContainer ']//span[text()='Upgrade']");//added 11/5/2021  
-	public static By objDebitCredit = By.xpath("(//article[(text()='Credit / Debit Card')])[1]");//added 11/5/2021  
-	public static By objUpi = By.xpath("//article[(text()='UPI')]");//added 14/5/2021 updated
-	
-	public static By objNetBanking = By.xpath("//article[contains(text(),'Netbanking')]");//added 13/5/2021 updated
-	public static By objHaveACard = By.xpath("//div[@class='qwickCiver']");//added 13/5/2021 added
-	public static By objWallet = By.xpath("//article[contains(text(), 'Wallets')]");//added 13/5/2021
-	public static By objYouHaveActivePremiumPlanDialog = By.xpath("//*[@class='subtitleItem']//span[text()='You are currently on ₹999 Premium 1 Year plan.']");//updated 13/5/2021
-		
-	public static By objBuyPremiumCTA = By.xpath("//*[@class='buttonContainer ']//span[text()='Buy Premium']");//added 13/5/2021
+	public static By objZeeplexPopupCloseButton = By.xpath("//*[@class='drowerCloseIcon iconInitialLoad-ic_close']");// added
+																														// 5/5/2021
+	public static By obj299PackUpgradePopup = By.xpath(
+			"(//div[@class='titleAndSubtitle'])//span[text()='Upgrade to Combo Offer by just paying the difference']");// added
+																														// 7/5/2021
+	public static By obj299PackUpgradeCTA = By.xpath("(//div[@class='buttonContainer '])//span[text()='Upgrade']");// added
+																													// 7/5/2021
+	public static By objZeeplexAndTickIcon = By.xpath("//*[@class='icon']//img[@alt='combo offer popup icon']");// added
+																												// 7/5/2021
+	public static By objComboOfferPageUpgrade299PackHeader = By
+			.xpath("//li[@class='subtitleItem']//span[text()='You are currently on ₹299 Premium 3 Months plan.']");// added
+																													// 7/5/2021
+	public static By objUpgradeTextJustPayingDifference = By.xpath("//div[@class='titleSubTitleComp']//h1");// added
+																											// 7/5/2021
+	public static By objPayLessWatchMoreHeader = By
+			.xpath("//div[@class='titleSubTitleComp']//p[text()='Pay less, Watch more!']");// added 7/5/2021
+
+	public static By objRentOnlyMovieCheckboxPrice = By.xpath("(//div[@class='priceAmout'])[2]");// added 8/5/2021
+
+	public static By objZeePlexLogo = By.xpath("(//a[@href='/zee-plex-movies-on-rent'])[1]");// added 4/5/2021
+
+	public static By objBuyPlanLogo = By.xpath("//*[@class='iconInitialLoad-ic_premium']");// added 3/5/2021
+	public static By objSubcriptionPage = By.xpath("//*[@class='stepWrapper']//div[@class='stepValue']");// added
+																											// 3/5/2021
+	public static By objRadheComboOfferTitle = By.xpath("//*[@class='pageTitle']");// added 3/5/2021
+
+	public static By objRentOnlyMoviePriceMakePaymentPage = By.xpath("//p[@class='period']");// added 8/5/2021
+	public static By objGenerateQRCode = By.xpath("//article[(text()='Generate QR Code')]");// added 8/5/2021
+	public static By objWalletsProceedToPay = By.xpath("(//article[contains(text(), 'Proceed to pay')])[3]");// added
+																												// 8/5/2021
+	public static By objBankName = By.xpath("//article[contains(text(),'COSMOS Bank')]");// added 11/5/2021
+	public static By objUpgradeButton = By.xpath("//div[@class='buttonContainer ']//span[text()='Upgrade']");// added
+																												// 11/5/2021
+	public static By objDebitCredit = By.xpath("(//article[(text()='Credit / Debit Card')])[1]");// added 11/5/2021
+	public static By objUpi = By.xpath("//article[(text()='UPI')]");// added 14/5/2021 updated
+
+	public static By objNetBanking = By.xpath("//article[contains(text(),'Netbanking')]");// added 13/5/2021 updated
+	public static By objHaveACard = By.xpath("//div[@class='qwickCiver']");// added 13/5/2021 added
+	public static By objWallet = By.xpath("//article[contains(text(), 'Wallets')]");// added 13/5/2021
+	public static By objYouHaveActivePremiumPlanDialog = By
+			.xpath("//*[@class='subtitleItem']//span[text()='You are currently on ₹999 Premium 1 Year plan.']");// updated
+																												// 13/5/2021
+
+	public static By objBuyPremiumCTA = By.xpath("//*[@class='buttonContainer ']//span[text()='Buy Premium']");// added
+																												// 13/5/2021
 	public static By objMobileLinkPaytmOption = By.xpath("//*[@text='Link Wallet']");
-	
-	public static By objAccountDetailInSubscription = By.xpath("//*[@class='userDetails']");
-		
-	public static By objContinueBtn = By.xpath("//div[@class='buttonContainer']");
-		
-	public static By objEmailContinueButton = By
-				.xpath("//*[contains(@class, 'noSelect buttonGradient')]");
 
-	public static By objProceedBtnEnabled = By
-		.xpath("//*[contains(@class, 'noSelect pinkBtn')]");
-		
-	public static By objPackSelected = By.xpath(".//*[contains(@class,'iconOther-ic_tick radioBtn active')]//following-sibling::*[@class='heading']//child::*[@class='price']");
-		
+	public static By objAccountDetailInSubscription = By.xpath("//*[@class='userDetails']");
+
+	public static By objContinueBtn = By.xpath("//div[@class='buttonContainer']");
+
+	public static By objEmailContinueButton = By.xpath("//*[contains(@class, 'noSelect buttonGradient')]");
+
+	public static By objProceedBtnEnabled = By.xpath("//*[contains(@class, 'noSelect pinkBtn')]");
+
+	public static By objPackSelected = By.xpath(
+			".//*[contains(@class,'iconOther-ic_tick radioBtn active')]//following-sibling::*[@class='heading']//child::*[@class='price']");
+
 	public static By objContinueButtonTxt = By.xpath(".//*[@class='buttonContainer']//span");
-	
+
 	public static By objPackCheckBox = By.xpath(".//*[@class='iconOther-ic_tick radioBtn ']");
-	
+
 	public static By objSkipLink = By.xpath("//*[contains(@class, 'skip-button subscribe-link')]");
-	
-	//new accountTitle xpath
+
+	// new accountTitle xpath
 	public static By objAccountInfoTitle1 = By.xpath("(//h2[contains(text(),'Account Info')])[2]");
 
-	//new continue xpath
-		public static By objContinueBtnWithINR = By.xpath("//div[@class='buttonContainer']//button[@type='button']");
-		
-	//new continue path for mobile no
-		public static By objContinueBtnForEmailOrMobile = By.xpath("//div[@class='buttonContainer ']//button[@type='button']");
+	// new continue xpath
+	public static By objContinueBtnWithINR = By.xpath("//div[@class='buttonContainer']//button[@type='button']");
 
-	//new Play Icon with Buy Plan CTA on carousel
+	// new continue path for mobile no
+	public static By objContinueBtnForEmailOrMobile = By
+			.xpath("//div[@class='buttonContainer ']//button[@type='button']");
 
-	public static By objPlayIconWithGetPremiumCTAOnCarousel = By.xpath("//*[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'playIcon') and following-sibling::*//*[contains(text(),'Buy Plan')]]");
+	// new Play Icon with Buy Plan CTA on carousel
 
+	public static By objPlayIconWithGetPremiumCTAOnCarousel = By.xpath(
+			"//*[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'playIcon') and following-sibling::*//*[contains(text(),'Buy Plan')]]");
+
+	// Have a code ?
+	public static By objHaveACodeMPWA = By.xpath("//*[@text='Have a Code?']");
+//Have a Code Text field
+	public static By objTextForHaveACode = By.xpath("//*[@nodeName='INPUT']");
+
+	// Code is Invalid
+	public static By objCodeIsInvalid = By.xpath("//*[@text='Code is Invalid']");
+//Blockbuster Movies  Popup        //*[@text='Blockbuster Movies']
+	public static By objBlockbusterMovies = By.xpath("//*[@text='Blockbuster Movies']");
+//close Button 
+	public static By objCloseButton = By.xpath("//*[@class='drowerCloseIcon iconInitialLoad-ic_close']");
+//200+ Web series             //*[@text='200+ Web series']
+	public static By obj200WebSeriesPopUp = By.xpath(" //*[@text='200+ Web series']");
+//Payment Based Offers
+	public static By objPaymentBasedOffers = By
+			.xpath("(//div[@class='subscriTopContWrapper']//div[@class='item']//span)[4]");
+//See Payment Based Offers
+	public static By objSeePaymentBasedOffersPopUP = By.xpath("//*[@text='See Payment Based Offers']");
+//25% DISCOUNTON 999
+	public static By OBJDiscount999 = By.xpath("//*[@css='H2.packName']");
+
+	// INR 749
+	public static By objINR749 = By.xpath("//*[@class='packPrice']");
+
+	// Continue Btn in Account info page MPWA
+	public static By objContinueBtnAccountInfoPage = By.xpath("//*[@text='Continue']");
+
+// Verify Button
+	public static By objVerifyOTPButton = By.xpath("(//span[contains(text(), 'Verify')])[1]");
+//Continue Btn MPWA
+	public static By objContinueBtnMPWA = By.xpath("//*[contains(text(), 'Continue')]");
+//UPI MPWA
+	public static By OBJUPIMPWA = By.xpath("//*[@text='UPI']");
+	
+	//tamil 200+Web Series Title
+	public static By objTamil200WebSeriesTitle = By.xpath("//*[@text='200+ வெப் சீரீஸ்']");
+	
+	//Step 2 to 3 
+	public static By OBJStep2To3 = By.xpath("//*[@text='Step 2 of 3']");
+	
+//tamil Blockbuster Movies  Titel
+	public static By objTamilBlockbusterMoviesTitle = By.xpath("//*[@text='4500+ பிளாக்பஸ்டர் திரைப்படங்கள்']");
+	
+	public static By objAccountInfoHighlightedKannadaLang = By.xpath("//div[contains(text(),'ಖಾತೆಯ ಮಾಹಿತಿ')]");
+	
+	//Buy Premium Now!
+	public static By objByePremiumNow = By.xpath("//*[@nodeName='H1']");
+	//your Primium 749 for 1 year plan
+	public static By OBJYourPrimium749For1YearPlan= By.xpath("//*[@text='Your Premium ₹749  for 1 Year  plan is active']");
+	
+//Continue Button Kannada Lang
+	public static By objContinueButtonKannadaLang = By.xpath("//*[@text='₹499 ನೊಂದಿಗೆ ಮುಂದುವರಿಯಿರಿ']");
+	public static By objProceedBtnEnabledKannadaLang = By
+	.xpath("//*[contains(@class, 'noSelect pinkBtn')]/span[contains(text(),'ಮುಂದುವರಿಸಿ')]");
+	public static By objProceedBtnHighlightedKannadaLang = By
+			.xpath("//*[contains(@class, 'noSelect buttonGradient')]/span[contains(text(),'ಮುಂದುವರಿಸಿ')]");
+
+//Buy Plan CTA My Subscription
+	public static By objBuyPlanCTAMySubscription = By.xpath("//*[@nodeName='DIV']//*[@css='DIV.gridWrap']");
+	
+	// sent to your Email ID" toast message
+	public static By objSentToYourEmailIDTtoastMessage = By.xpath("(//*[@class='noSelect pinkBtn  \\n            '])[1]");
 }

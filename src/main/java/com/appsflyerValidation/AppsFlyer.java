@@ -63,6 +63,7 @@ public class AppsFlyer extends ExtentReporter{
 
 	public void deleteOldAppsFlyerFiles() {
 		File directory = new File(System.getProperty("user.dir") + File.separator + "AppsflyerReport");
+		directory.mkdir();
 		int fileCount = directory.list().length;
 		System.out.println("File Count:" + fileCount);
 
@@ -92,12 +93,13 @@ public class AppsFlyer extends ExtentReporter{
 	
 	
 	public void deleteOldAppsFlyerEventExcelFiles() {
-		File directory = new File(System.getProperty("user.dir") + File.separator + "eventsReport");
+		File directory = new File(System.getProperty("user.dir")+"//eventsReport");
+		directory.mkdir();
 		int fileCount = directory.list().length;
 		System.out.println("File Count:" + fileCount);
 
 		for (int i = 1; i <= fileCount; i++) {
-			Path parentFolder = Paths.get(System.getProperty("user.dir") + File.separator + "eventsReport");
+			Path parentFolder = Paths.get(System.getProperty("user.dir") + "//eventsReport");
 
 			Optional<File> mostRecentFile = Arrays.stream(parentFolder.toFile().listFiles())
 					.max((f1, f2) -> Long.compare(f1.lastModified(), f2.lastModified()));
@@ -123,7 +125,7 @@ public class AppsFlyer extends ExtentReporter{
 	
 	public static String fetchTheDownloadedAppsFlyerReportName() {
 
-		Path parentFolder = Paths.get(System.getProperty("user.dir") + File.separator + "AppsflyerReport");
+		Path parentFolder = Paths.get(System.getProperty("user.dir") + "//AppsflyerReport");
 
 		Optional<File> mostRecentFile = Arrays.stream(parentFolder.toFile().listFiles())
 				.max((f1, f2) -> Long.compare(f1.lastModified(), f2.lastModified()));
@@ -160,7 +162,7 @@ public class AppsFlyer extends ExtentReporter{
 			 ****/
 			String[] nextLine;
 			reader = new CSVReader(new FileReader(
-					System.getProperty("user.dir") + File.separator + "AppsflyerReport" + "\\" + downloadedFileName),
+					System.getProperty("user.dir") +"//AppsflyerReport" + "\\" + downloadedFileName),
 					FILE_DELIMITER);
 
 			workBook = new SXSSFWorkbook();
@@ -183,7 +185,7 @@ public class AppsFlyer extends ExtentReporter{
 				}
 			}
 
-			generatedXlsxReportFilePath = System.getProperty("user.dir") + File.separator + "AppsflyerConvertedReport"
+			generatedXlsxReportFilePath = System.getProperty("user.dir") +"\\AppsflyerConvertedReport"
 					+ "\\" + FILE_NAME + FILE_EXTN;
 			// logger.info("The File Is Generated At The Following Location?= "
 			// + generatedXlsFilePath);
@@ -310,8 +312,7 @@ public class AppsFlyer extends ExtentReporter{
 	public static void fetchEventValueFromAppsFlyerReport(String Event, String tab) throws IOException {
 		String EventValueString = null;
 		ArrayList<String> mpparameters = new ArrayList<String>();
-		InputStream ExcelFileToRead = new FileInputStream(System.getProperty("user.dir") + File.separator
-				+ "AppsflyerConvertedReport" + "\\" + "EXCEL_DATA" + ".xlsx");
+		InputStream ExcelFileToRead = new FileInputStream(System.getProperty("user.dir")+ "//AppsflyerConvertedReport" + "\\" + "EXCEL_DATA" + ".xlsx");
 
 		XSSFWorkbook wb = new XSSFWorkbook(ExcelFileToRead);
 		XSSFSheet sheet = wb.getSheetAt(0);
@@ -700,7 +701,7 @@ public class AppsFlyer extends ExtentReporter{
 	}
 
 	public static void write(int i, String key, String value, String fileName) {
-		String xlpath = System.getProperty("user.dir") + File.separator + "eventsReport" + "\\" + fileName + ".xlsx";
+		String xlpath = System.getProperty("user.dir") +"//eventsReport" + "\\" + fileName + ".xlsx";
 		try {
 			XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
 			FileOutputStream output = new FileOutputStream(xlpath);
@@ -912,12 +913,6 @@ public class AppsFlyer extends ExtentReporter{
 
 	
 	
-//	public static void main(String[] args) throws IOException, ParseException{
-//		ExtractEventSpecificData("Guest","8231","TVShows_Content_Play");
-//	}
-	
-	
-	
 	public void extractFilesForValidationFunction(String userType, String idNumber,String event) throws IOException, ParseException{
 		
 		
@@ -1007,23 +1002,6 @@ public class AppsFlyer extends ExtentReporter{
 		System.out.println("------------------------------------------------------");
 		validation(event,tab,userType);
 	}
-	
-	
-	
-	
-//	public static void main(String[] args) throws IOException {
-//
-//		// System.out.println(fetchTheDownloadedAppsFlyerReportName());
-//		// convertCsvToXlsxReport(fetchTheDownloadedAppsFlyerReportName());
-//
-//		ExtractEventSpecificData("Tab_View");
-//		System.out.println("------------------------------------------------------");
-//		ResponseInstance.fetchExpectedDataforAppsFlyer("NonSubscribedUser","Basapplicastertest7234","Registered","tvshows","TV Shows");
-//		System.out.println("------------------------------------------------------");
-//		validation();
-//
-//	}
-	
 	
 	
 }

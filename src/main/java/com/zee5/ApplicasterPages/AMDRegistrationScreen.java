@@ -60,6 +60,6 @@ public class AMDRegistrationScreen {
 	public static By objOTPField3= By.xpath("//*[@id='pin_3'] | //*[@resource-id='com.graymatrix.did:id/otpEditText3']");
 	public static By objOTPField4= By.xpath("//*[@id='pin_4'] | //*[@resource-id='com.graymatrix.did:id/otpEditText4']");
 	
-	public static By objWhatsappOptIn = By.xpath("");
 	public static By objWhatsappOptInTickBox = By.xpath("");
+	public static By objWhatsappOptIn = By.xpath("//*[@id='whatsapp_checkbox']");
 }

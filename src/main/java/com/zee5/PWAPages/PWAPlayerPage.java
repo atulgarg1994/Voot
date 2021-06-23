@@ -498,4 +498,8 @@ public class PWAPlayerPage {
 	public static By objMuteUnmute =By.xpath("//div[@class='volume-container']//button[@class='playkit-control-button']");
 	
 	public static By objContentTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv') or contains(@class,'bannerTitle')]//h1");
+	
+	//Movie Name 
+	public static By objMovieName = By.xpath("//*[@nodeName='H1']");
+	
 }

@@ -57,7 +57,7 @@ public class ParameterInjector implements IAlterSuiteListener {
 			params.put("consumptionsEpisode", "Digvijay stunned on hearing Sambhashiva");
 			params.put("consumptionsShow", "Paaru");
 			params.put("consumptionsFreeContent", "Robin Hood");
-			params.put("consumptionsPremiumContent", "Huliraya");
+			params.put("consumptionsPremiumContent", "Natasaarvabhowma");
 			params.put("consumptionsContentWithMetaData", "Jothe Jotheyali");
 			params.put("musicToTriggerReco",
 					"Nenne Monneya Ninna Parichaya - Giftbox | Ameeta Kulal | Ritvvikk Mathad | Bindu Malini");

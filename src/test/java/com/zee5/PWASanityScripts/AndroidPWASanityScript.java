@@ -283,6 +283,54 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.PWAVerifyNewsVODPlay(userType);
 		Zee5PWASanityBusinessLogic.PWAVerifyImageAssetForZee5Logo(userType);
 	}
+	
+	@Test(priority = 29) //Kartheek
+	@Parameters({ "userType" })
+	public void mPWATasksImplementation(String userType) throws Exception {
+		Zee5PWASanityBusinessLogic.reloadHome();
+		Zee5PWASanityBusinessLogic.contentsOnTheWatchlist(userType);
+		Zee5PWASanityBusinessLogic.invalidCodeErrorMessage(userType);
+		Zee5PWASanityBusinessLogic.relatedContentOrDescriptionShouldBeDisplayed(userType);
+		Zee5PWASanityBusinessLogic.headerTextAndRailNameShouldBeUpdatedAndDisplayed(userType);
+		Zee5PWASanityBusinessLogic.crownSymbolShouldBeCisplayedOnGetPremiumCTA(userType);
+		Zee5PWASanityBusinessLogic.planPriceINR749ShouldBeDisplayed(userType);
+		Zee5PWASanityBusinessLogic.verifyOTPCTAShouldBeDisplayed(userType);
+		Zee5PWASanityBusinessLogic.payNowCTAShouldBeDisplayed(userType);
+//		Zee5PWASanityBusinessLogic.userShouldBeNavigatedBacKToTheSubscriptionPage(userType);
+		Zee5PWASanityBusinessLogic.toWatchThisPremiumContentAndSkipAndByPlan(userType);
+		Zee5PWASanityBusinessLogic.explorePremiumCTAShouldBeDisplayed(userType);
+		Zee5PWASanityBusinessLogic.explorePremiumCTAScreenWithToastMessage(userType);
+		Zee5PWASanityBusinessLogic.reloadingTrailerPlaybackPage(userType);
+		Zee5PWASanityBusinessLogic.geTPremiumCTAShouldBeDisplayedOnBelowThePlayer(userType);
+		Zee5PWASanityBusinessLogic.verifyNewTabRevised(userType);
+		Zee5PWASanityBusinessLogic.step2Of3ShouldNotBeDisplayed(userType);
+		Zee5PWASanityBusinessLogic.skipCTAInlineMessageOnPlayerShouldBeTranslateAsPerTheSelectedDisplaylanguage(userType);
+		Zee5PWASanityBusinessLogic.verifyUpgradeToAnnualPlanInSubscriptionPlanPage(userType);
+		Zee5PWASanityBusinessLogic.theTranslationShouldHappenBasedOnTheSelectedDisplayLanguage(userType);
+		Zee5PWASanityBusinessLogic.subscriptionPageShouldBeDisplayedWithTheToastMessage(userType);
+		Zee5PWASanityBusinessLogic.autoflipCarouselTitleShouldBeDisplayed(userType);
+		Zee5PWASanityBusinessLogic.userShouldBeNavigatedBackToTheConsumptionPage(userType);
+		Zee5PWASanityBusinessLogic.upgradeCTAAvailabilityOnTheHeaderMenu(userType);
+		Zee5PWASanityBusinessLogic.contentOrDisplayLanguageShouldChange(userType);
+		Zee5PWASanityBusinessLogic.textSlidersOnTopOfTheScreen(userType);
+		Zee5PWASanityBusinessLogic.subscriptionWidgetBelowThePlayerShouldBeDisplayedForBeforeTvContent(userType);
+		Zee5PWASanityBusinessLogic.mpwa28154(userType);
+		Zee5PWASanityBusinessLogic.changeOfHeaderForAllBreakpoints(userType);
+		Zee5PWASanityBusinessLogic.paymentOptionsShouldBeTranslatedBasedOnTheDisplayLanguage(userType);
+		Zee5PWASanityBusinessLogic.newSVODContentShouldBePlayedProperly(userType);
+		Zee5PWASanityBusinessLogic.paymentPageShouldBeDisplayAfterApplyingPromoCode(userType);
+		Zee5PWASanityBusinessLogic.haveACodeShouldBeAutoPopulate(userType);
+		Zee5PWASanityBusinessLogic.verifyplanpriceinsubscriptionpage(userType);
+		Zee5PWASanityBusinessLogic.verifyshowscontentinbeforetv(userType);
+		Zee5PWASanityBusinessLogic.haveACodeCTATextShouldBeDisplayedForThEExpiredUsers(userType);
+		Zee5PWASanityBusinessLogic.carouselBannerShouldLoadAndThumbnailShouldBeDisplayed(userType);
+		Zee5PWASanityBusinessLogic.EpsiodeAndSeasonValidationInConsumptionPage(userType);
+		Zee5PWASanityBusinessLogic.pageShouldNavigateToPlanListingPageWithoutShowingAnyError(userType);
+		Zee5PWASanityBusinessLogic.seasonAndEpisodeNumberMetadata(userType);
+		Zee5PWASanityBusinessLogic.FooterSectionValidationBasedOnContentLanguage(userType);
+		Zee5PWASanityBusinessLogic.passwordResetLinkSentToYourEmailIDToastMessageShouldBeDisplayed(userType);
+//		Zee5PWASanityBusinessLogic.somethingWentWrongMessageWithRetryOptionShouldBeDisplayed(userType);
+	}
 
 	@AfterClass
 	public void tearDown() {

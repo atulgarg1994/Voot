@@ -649,6 +649,22 @@ public class PWAHomePage {
 	}
  	
  	public static By objPlayIconWithGetPremiumCTAOnCarousel1 = By.xpath("//*[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'playIcon') and following-sibling::*//*[contains(text(),'Buy Plan')]]");
+
+ 	//Crown Symble
+ 	public static By objCrownSymble = By.xpath("//*[@class='iconInitialLoad-ic_premium']");
  	
+ 	public static By objTabCountList = By.xpath("//div[@class='navMenuWrapper ']//li");
+ 	
+ 	//click on By Plan MPWA
+	public static By objByPlanMPWA = By.xpath("(//*[@href='/myaccount/subscription'])[1]");
+	
+	//Upgrade CTA
+	public static By objUpgradeCTA = By.xpath("//*[@text='Upgrade']");
+	public static By objTamilmWEB = By.xpath("//span[contains(text(),'Tamil')]");
+	public static By objHindimWEB=By.xpath("//span[contains(@class,'commonName')][contains(text(),'இந்தி')]");
+ 	
+	public static By objPageHighlightedanyLanguage(String langtext) {
+		return By.xpath("//span[contains(@class,'commonName')][contains(text(),'" + langtext + "')]");
+	}
  	
  	}

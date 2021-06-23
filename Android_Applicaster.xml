@@ -313,6 +313,13 @@
 		</classes>
 	</test>
 	
+	<test name="Android_WhatsAppFeature">
+		<classes>
+			<class
+				name="com.zee5.ApplicasterScripts.Android_WhatsAppFeature" />
+		</classes>
+	</test> 
+	
 	
 <!-- #20 
 	<test name="Android_TVOD_TestSuite">

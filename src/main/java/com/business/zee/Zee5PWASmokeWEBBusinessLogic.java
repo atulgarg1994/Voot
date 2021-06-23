@@ -4116,6 +4116,8 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode(
 				"Verify Share functionality and metadata comparison between Show Details and Consumption page");
 		boolean sharePassed = false;
+		navigateHome();
+		waitTime(4000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentTitle + "\n", "Search Edit box: " + contentTitle);
 		waitTime(4000);
@@ -4130,23 +4132,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			logger.info("Successfully navigated to the correct Details page: " + contentTitle);
 			// Share functionality
 			waitForElementAndClickIfPresent(PWAShowsPage.objShareIcon, 5, "Share Icon");
-//			waitForElementAndClickIfPresent(PWALiveTVPage.objFacebookShareBtn, 5, "Share to Facebook");
-//			switchToWindow(2);
-//			if (checkElementDisplayed(PWALiveTVPage.objFacebookEmailField, "Facebook Email field")) {
-//				// waitForElementAndClickIfPresent(PWALiveTVPage.objFacebookEmailField, 5,
-//				// "Facebook Email field");
-//				click(PWALiveTVPage.objFacebookEmailField, "Facebook Email field");
-//				getwebdriver().findelement(pwalivetvpage.objfacebookemailfield).sendkeys("igszeetest@gmail.com");
-//				verifyElementPresentAndClick(PWALiveTVPage.objFacebookPasswordField, "Facebook Password field");
-//				getWebDriver().findElement(PWALiveTVPage.objFacebookPasswordField).sendKeys("igs@12345");
-//				waitForElementAndClickIfPresent(PWALiveTVPage.objFacebookLoginBtn, 5, "Facebook Login button");
-//				waitTime(2000);
-//				verifyAlert();
-//			}
-//			waitForElementAndClickIfPresent(PWALiveTVPage.objPostToFacebookBtn, 5, "Post to Facebook");
-//			waitTime(3000);
-//			acceptAlert();
-//			switchToWindow(1);
+
 			waitTime(3000);
 			verifyElementPresent(PWAShowsPage.objShowsTitle, "Show title in Zee5 PWA");
 			sharePassed = true;
@@ -4226,9 +4212,6 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Register popup ") == true) {
 				verifyElementPresentAndClick(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 			}
-//			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
-//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
-//			}
 			verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "Zeelogo");
 		}
 	}

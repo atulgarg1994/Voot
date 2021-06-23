@@ -59,4 +59,8 @@ public class PWAAddToWatchListPage {
 	public static By objWatchlistedItem = By.xpath("(//*[contains(@class,'cardTitle')]//*)[1]");
 	
 	public static By objzeeplex=By.xpath("//div[@id='ZEEPLEX']");
+	
+	public static By objmovieText(String movieText) {
+		return By.xpath("//*[@class='noSelect' and @text='"+ movieText +"']");
+	}
 }

@@ -61,6 +61,16 @@ public class Android_Tasks {
 		ZEE5ApplicasterBusinessLogic.eduauraa(userType);
 	}
 	
+	@Test(priority = 6)//Sushma
+	@Parameters({ "userType"})
+	public void ValidationOfHipiLogoAndDurationOnSubscriptionPlan(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.hipiLogoAndDurationOnSubscriptionPlan(userType);
+	}
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("\nExecution Complete - Closing the App");

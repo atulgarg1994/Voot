@@ -25672,32 +25672,64 @@ public void PremiumContentsValidationInPlayerScreen(String userType) throws Exce
 public void WhatsApp_UnRegisteredUser(String userType) throws Exception {
 	extent.HeaderChildNode("WhatsApp opt-in in Registration screen for UnRegistered user");
 	if(userType.equalsIgnoreCase("Guest")) {
-		verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 		verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
 		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
 		type(AMDRegistrationScreen.objEmailIDTextField, generateRandomString(5) + "@gmail.com", "Email field");
+		waitTime(3000);
+		if(verifyIsElementDisplayed(AMDRegistrationScreen.objProceedBtn, "Proceed button")) {
+			logger.info("User is able to enter Email id/Mobile no. on the Login/Registration screen");
+			extent.extentLoggerPass("Email ID", "User is able to enter Email id/Mobile no. on the Login/Registration screen");
+		}else {
+			logger.error("User is not able to enter Email id/Mobile no. on the Login/Registration screen");
+			extent.extentLoggerFail("Email ID", "User is not able to enter Email id/Mobile no. on the Login/Registration screen");
+		}
+		
 		click(AMDRegistrationScreen.objProceedBtn, "Proceed button");	
 		waitTime(5000);
 		if(!(verifyIsElementDisplayed(AMDRegistrationScreen.objWhatsappOptIn))) {
-			logger.info("WhatsApp opt-in tickbox is not visible");
-			extent.extentLoggerPass("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is not visible");
+			logger.info("WhatsApp opt-in tickbox is not visible, if user input Email id on the email/Mobile no. field");
+			extent.extentLoggerPass("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is not visible, if user input Email id on the email/Mobile no. field");
 		}else {
-			logger.error("WhatsApp opt-in tickbox is visible");
-			extent.extentLoggerFail("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is visible");
+			logger.error("WhatsApp opt-in tickbox is visible, if user input Email id on the email/Mobile no. field");
+			extent.extentLoggerFail("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is visible, if user input Email id on the email/Mobile no. field");
 		}
-		Back(1);
 		
+		String text = getDriver().findElement(AMDRegistrationScreen.objEmailIDTextField).getText();
+		Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+		Matcher passWord = p.matcher(text);
+		boolean b = passWord.find();
+		if (b) {
+			logger.info("No error message is displayed and Whatsapp opt-in tickbox is not visible, if user input any special character on the email field");
+			extent.extentLoggerPass("Email", "No error message is displayed and Whatsapp opt-in tickbox is not visible, if user input any special character on the email field");
+			
+		} else {
+			logger.error("Error message is displayed and Whatsapp opt-in tickbox is visible, if user input any special character on the email field");
+			extent.extentLoggerFail("Email", "Error message is displayed and Whatsapp opt-in tickbox is visible, if user input any special character on the email field");
+		}
+		
+		Back(1);
+		clearField(AMDLoginScreen.objEmailIdField, "EmailField");
+		waitTime(3000);
 		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
 		type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
 		hideKeyboard();
 		click(AMDLoginScreen.objProceedBtn, "Proceed icon");
 		waitTime(5000);
 		if(verifyIsElementDisplayed(AMDRegistrationScreen.objWhatsappOptIn)) {
-			logger.info("WhatsApp opt-in tickbox is visible");
-			extent.extentLoggerPass("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is visible");
+			logger.info("WhatsApp opt-in tickbox is visible, if user input Mobile no. on the email/Mobile no. field");
+			extent.extentLoggerPass("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is visible, if user input Mobile no. on the email/Mobile no. field");
 			
-			String tickBox1 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptInTickBox);
+			String whatsappText = getText(AMDRegistrationScreen.objWhatsappOptIn);
+			if(whatsappText.equalsIgnoreCase("I want to receive updates & notifications over WhatsApp")) {
+				logger.info("Text is displayed in Whatsapp Opt-in");
+				extent.extentLoggerPass("text", "Text is displayed in Whatsapp Opt-in");
+			}else {
+				logger.error("Text is not displayed in Whatsapp Opt-in");
+				extent.extentLoggerFail("text", "Text is not displayed in Whatsapp Opt-in");
+			}
+			
+			String tickBox1 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptIn);
 			if(tickBox1.equalsIgnoreCase("false")) {
 				logger.info("WhatsApp opt-in tick box appears unchehcked by default");
 				extent.extentLoggerPass("TickBox", "WhatsApp opt-in tick box appears unchehcked by default");
@@ -25705,9 +25737,9 @@ public void WhatsApp_UnRegisteredUser(String userType) throws Exception {
 				logger.error("WhatsApp opt-in tick box appears checked by default");
 				extent.extentLoggerFail("TickBox", "WhatsApp opt-in tick box appears checked by default");
 			}
-			click(AMDRegistrationScreen.objWhatsappOptInTickBox, "Whatsapp OptIn Tick Box");
+			click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
 			waitTime(3000);
-			String tickBox2 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptInTickBox);
+			String tickBox2 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptIn);
 			if(!(tickBox1.equalsIgnoreCase(tickBox2))) {
 				logger.info("user is able select or deselect the WhatsApp opt-in tickbox");
 				extent.extentLoggerPass("tickbox", "user is able select or deselect the WhatsApp opt-in tickbox");
@@ -25715,9 +25747,37 @@ public void WhatsApp_UnRegisteredUser(String userType) throws Exception {
 				logger.error("user is not able select or deselect the WhatsApp opt-in tickbox");
 				extent.extentLoggerFail("tickbox", "user is not able select or deselect the WhatsApp opt-in tickbox");
 			}	
+			
+			type(AMDRegistrationScreen.objFirstNameTxtField, FirstName, "First name field");
+			hideKeyboard();
+			click(AMDRegistrationScreen.objLastNameTxtField, "Last Name field");
+			type(AMDRegistrationScreen.objLastNameTxtField, LastName, "Last Name");
+			hideKeyboard();
+			
+			String pDOB = "01/01/1990", pNewPassword = "123456";
+			click(AMDRegistrationScreen.objDOBTxtField, "DOB field");
+			type(AMDRegistrationScreen.objDOBTxtField, pDOB, "DOB");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
+			verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
+			click(AMDRegistrationScreen.objPasswordTxtField, "Passowrd");
+			type(AMDRegistrationScreen.objPasswordTxtField, pNewPassword, "Password field");
+			hideKeyboard();
+            Swipe("UP", 1);
+           String btn= getAttributValue("clickable", AMDRegistrationScreen.objRegisterBtn);
+            if(btn.equalsIgnoreCase("true")) {
+            	logger.info("Register CTA is highlited for mobile No. user who Select/deselect on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+            	extent.extentLoggerPass("Register button", "Register CTA is highlited for mobile No. user who Select/deselect on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+              
+            	click(AMDRegistrationScreen.objRegisterBtn, "Register button");
+            	verifyElementExist(AMDLoginScreen.objOtpScreenTitle, "OTP screen");
+            }else {
+            	logger.error("Register CTA is not highlited for mobile No. user who Select/deselect on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+            	extent.extentLoggerFail("Register button", "Register CTA is not highlited for mobile No. user who Select/deselect on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+            }
 		}else {
-			logger.error("WhatsApp opt-in tickbox is not visible");
-			extent.extentLoggerFail("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is not visible");
+			logger.error("WhatsApp opt-in tickbox is not visible, if user input Mobile no. on the email/Mobile no. field");
+			extent.extentLoggerFail("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is not visible, if user input Mobile no. on the email/Mobile no. field");
 		}	
 	}else {
 		logger.info("Not Applicable for this userType");
@@ -25860,19 +25920,20 @@ public void navigationToHomePageOrLoginOrRegisterPageThrough_Deeplinking(String 
 }
 
 public void hipiLogoAndDurationOnSubscriptionPlan(String userType) throws Exception {
-	extent.HeaderChildNode("HiPi Logo functionality on bottom navigation bar");
+	extent.HeaderChildNode("AMA2-15760: HiPi Logo functionality on bottom navigation bar");
+	click(AMDHomePage.objHipiMenuBtn, "Hipi bottom bar menu");
+	waitTime(5000);
+	Swipe("UP", 8);
+	if(verifyIsElementDisplayed(AMDHomePage.objHipiBottomSection)) {
+		logger.error("[AMA2-15760] - Hipi logo is functional");
+		extent.extentLoggerFail("Hipi", "[AMA2-15760] - Hipi logo is functional");
+		Back(1);
+	}else {
+		logger.info("Hipi logo is nonfunctional");
+		extent.extentLoggerPass("Hipi", "Hipi logo is nonfunctional");
+	}
+	extent.HeaderChildNode("AMA2-16398: Removal of duration below the subscription plan");
 	if(!(userType.equalsIgnoreCase("SubscribedUser"))) {
-		click(AMDHomePage.objHipiMenuBtn, "Hipi bottom bar menu");
-		waitTime(5000);
-		Swipe("UP", 8);;
-		if(verifyIsElementDisplayed(AMDHomePage.objHipiBottomSection)) {
-			logger.error("Hipi logo is functional");
-			extent.extentLoggerFail("Hipi", "Hipi logo is functional");
-			Back(1);
-		}else {
-			logger.info("Hipi logo is nonfunctional");
-			extent.extentLoggerPass("Hipi", "Hipi logo is nonfunctional");
-		}
 		click(AMDHomePage.objSubscribeIcon, "Buy plan");
 		waitTime(15000);
 		Swipe("UP", 1);
