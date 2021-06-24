@@ -683,5 +683,5 @@ public class PWAHomePage {
 	public static By objSetNewPasswordCTA = By.xpath("//*[text()='Set New Password']");
 
 	public static By objCountryCodeDropDownIndia = By.xpath("//*[contains(@class,'react-dropdown-select-type-single')]");
-
+	
  }

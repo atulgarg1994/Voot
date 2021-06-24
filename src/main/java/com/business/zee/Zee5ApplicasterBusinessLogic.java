@@ -10557,6 +10557,7 @@ public void MyZEE5AppValidation() throws Exception {
 		verifyElementPresent(AMDPlayerScreen.objRetryBtn, "Retry CTA");
 		TurnONWifi();
 		waitTime(5000);
+		click(AMDPlayerScreen.objRetryBtn, "Retry CTA");
 		tapPlayerToGetControls("portrait");
 		String time2 = getText(AMDPlayerScreen.objTimer);
 		int elapsedTime = timeToSec(time2);
@@ -10909,8 +10910,9 @@ public void MyZEE5AppValidation() throws Exception {
 		extent.extentLogger("", "Seeked to the end");
 		waitTime(5000);
 		tapPlayerToGetControls("portrait");
+		click(AMDPlayerScreen.objPlayIcon, "Play icon");
 		verifyElementExist(AMDPlayerScreen.objReplayIconOnPlayer, "Replay icon");
-		screencapture();
+	//	screencapture();
 		click(AMDPlayerScreen.objReplayIconOnPlayer, "Replay icon");
 		waitTime(3000);
 		if (verifyIsElementDisplayed(AMDPlayerScreen.objGetPremiumPopUp, "Subscribe screen")) {
@@ -10939,7 +10941,7 @@ public void MyZEE5AppValidation() throws Exception {
 	/**
 	 * Author : Manasa Module : Player
 	 */
-	public void playerValidationInFullScreenMode(String userType, String searchKeyword11, String searchKeyword6)
+	public void playerValidationInFullScreenMode(String userType, String searchKeyword11, String searchKeyword4)
 			throws Exception {
 		extent.HeaderChildNode("Player screen Validation in Fullscreen Mode");
 		System.out.println("\nPlayer screen Validation in Fullscreen Mode");
@@ -11145,6 +11147,7 @@ public void MyZEE5AppValidation() throws Exception {
 			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
 				click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 			}
+			click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 			click(AMDPlayerScreen.objShareIconOnPlayer, "Share Icon");
 			verifyElementPresent(AMDPlayerScreen.objSharePopUp, "Share Pop Up/Share Overlay");
 			checkElementExist(AMDPlayerScreen.objCopyToClipboard, "Copy to clipboard");
@@ -11211,11 +11214,13 @@ public void MyZEE5AppValidation() throws Exception {
 			extent.HeaderChildNode("Replay functionality Validation in Fullscreen Mode");
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
-			type(AMDSearchScreen.objSearchBoxBar, searchKeyword6 + "\n", "Search bar");
+			type(AMDSearchScreen.objSearchBoxBar, searchKeyword4 + "\n", "Search bar");
 			waitTime(2000);
 			hideKeyboard();
 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			waitTime(4000);
+			click(AMDPlayerScreen.objPlayerScreen, "Player Frame");
 			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 			verifyElementPresentAndClick(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
 			waitTime(2000);
@@ -11228,8 +11233,8 @@ public void MyZEE5AppValidation() throws Exception {
 			}
 			click(AMDPlayerScreen.objPlayIcon, "Play icon");
 			if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-				verifyElementExist(AMDPlayerScreen.objGetPremiumPopUp,
-						"Get Premium popup at the end of the non premium trailer content playback");
+				verifyElementExist(AMDConsumptionScreen.objGetPremiumOnPlayer,
+						"Buy Plan CTA on player at the end of the non premium trailer content playback");
 			} else {
 				if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
 					click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
@@ -12904,7 +12909,7 @@ public void MyZEE5AppValidation() throws Exception {
 	public void verifyPlaybackAfterLockAndUnlock() throws Exception {
 		extent.HeaderChildNode("Validation of content playback after lock and unlocking the device screen");
 		System.out.println("\nValidation of content playback after lock and unlocking the device screen");
-		waitTime(4000);
+		waitTime(8000);
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		String time1 = getText(AMDPlayerScreen.objTimer);
 		int startTime = timeToSec(time1);
@@ -12917,6 +12922,11 @@ public void MyZEE5AppValidation() throws Exception {
 		Swipe("Up", 1);
 		waitTime(5000);
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		//click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		String time2 = getText(AMDPlayerScreen.objTimer);
 		int elapsedTime = timeToSec(time2);
 
@@ -12931,6 +12941,7 @@ public void MyZEE5AppValidation() throws Exception {
 			extentLoggerFail("Elapsed time", "Content playback is not resumed after unlocking the device screen");
 		}
 	}
+
 
 	/**
 	 * @param keyevent pass the android key event value to perform specific action
@@ -12959,9 +12970,9 @@ public void MyZEE5AppValidation() throws Exception {
 		type(AMDSearchScreen.objSearchBoxBar, searchKeyword + "\n", "Search bar");
 		hideKeyboard();
 		click(AMDSearchScreen.objSearchResultContainsText(searchKeyword), "Search result");
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			waitForAdToFinishInAmd();
-		}
+//		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+//			waitForAdToFinishInAmd();
+//		}
 		if (userType.equals("Guest"))
 			registerPopUpClose();
 		waitTime(7000);
@@ -13078,41 +13089,39 @@ public void MyZEE5AppValidation() throws Exception {
 			if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 				verifyElementExist(AMDConsumptionScreen.objGetPremiumOnPlayer, "Buy Plan CTA to Subscribe on player");
 				String buttonText = getText(AMDConsumptionScreen.objGetPremiumOnPlayer);
-				if (buttonText.equals("Subscribe")) {
-					logger.info("CTA text is \"Subscribe \" as expected");
-					extent.extentLoggerPass("", "CTA text is \"Subscribe \" as expected");
+				if (buttonText.equals("Buy Plan")) {
+					logger.info("CTA text is \"Buy Plan \" as expected");
+					extent.extentLoggerPass("", "CTA text is \"Buy Plan \" as expected");
 				} else {
-					logger.error("CTA text is \"" + buttonText + "\" instead of \"Subscribe \"");
-					extent.extentLoggerFail("", "CTA text is \"" + buttonText + "\" instead of \"Subscribe \"");
+					logger.error("CTA text is \"" + buttonText + "\" instead of \"Buy Plan \"");
+					extent.extentLoggerFail("", "CTA text is \"" + buttonText + "\" instead of \"Buy Plan \"");
 				}
 			} else if (userType.equalsIgnoreCase("Guest")) {
 				checkElementExist(AMDPlayerScreen.objPremiumTextOnPlayer, "Subscription required text");
 				String premiumText = getText(AMDPlayerScreen.objPremiumTextOnPlayer);
-				if (premiumText.contains("You need")) {
-					logger.info("Premium text is \"You need subscription to watch this video\" as expected");
+				if (premiumText.contains("To watch this")) {
+					logger.info("Premium text is " + premiumText + " as expected");
 					extent.extentLoggerPass("",
-							"CTA text is \"You need subscription to watch this video\" as expected");
+							"Premium text is " + premiumText + " as expected");
 				} else {
-					logger.error("Premium text is \"" + premiumText
-							+ "\" instead of \"You need Premium membership to watch this video\"");
-					extent.extentLoggerFail("", "Premium text is \"" + premiumText
-							+ "\" instead of \"You need Premium membership to watch this video\"");
+					logger.error("Premium text is not displayed");
+					extent.extentLoggerFail("", "Premium text is not displayed");
 				}
 				checkElementExist(AMDConsumptionScreen.objGetPremiumOnPlayer, "Buy Plan CTA to Subscribe on player");
 				String buttonText = getText(AMDConsumptionScreen.objGetPremiumOnPlayer);
-				if (buttonText.equals("Subscribe")) {
-					logger.info("CTA text is \"Subscribe\" as expected");
-					extent.extentLoggerPass("", "CTA text is \"Subscribe\" as expected");
+				if (buttonText.equals("Buy Plan")) {
+					logger.info("CTA text is \"Buy Plan\" as expected");
+					extent.extentLoggerPass("", "CTA text is \"Buy Plan\" as expected");
 				} else {
-					logger.error("CTA text is \"" + buttonText + "\" instead of \"Subscribe\"");
-					extent.extentLoggerFail("", "CTA text is \"" + buttonText + "\" instead of \"Subscribe\"");
+					logger.error("CTA text is \"" + buttonText + "\" instead of \"Buy Plan\"");
+					extent.extentLoggerFail("", "CTA text is \"" + buttonText + "\" instead of \"Buy Plan\"");
 				}
 				click(AMDConsumptionScreen.objGetPremiumOnPlayer, "Buy Plan CTA");
 				verifyElementPresent(AMDSubscibeScreen.objNewSubscribePopup, "Subscribe Screen");
 				Back(1);
-				if (!checkElementExist(AMDPlayerScreen.objLoginTextOnPlayer, "Login required")) {
-					logger.error("Login required text is not displayed on player when content has no trailer");
-					extentLoggerFail("", "Login required text is not displayed on player when content has no trailer");
+				if (!checkElementExist(AMDPlayerScreen.objLoginTextOnPlayer, "Login link")) {
+					logger.error("Login link is not displayed on player when content has no trailer");
+					extentLoggerFail("", "Login link is not displayed on player when content has no trailer");
 				}
 				if (!checkElementExist(AMDPlayerScreen.objLoginCTA, "Login CTA")) {
 					logger.error("Login CTA is not displayed on player when content has no trailer");
@@ -13240,10 +13249,10 @@ public void MyZEE5AppValidation() throws Exception {
 		click(AMDPlayerScreen.objPlay, "Play icon");
 		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
+		waitTime(3000);
 		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 		verifyElementPresent(AMDPlayerScreen.objNextIcon, "Next icon");
-		waitTime(1000);
-		// click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
 		click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
 		verifyElementPresentAndClick(AMDPlayerScreen.objSubtitleOption, "Subtitle option");
 		String defaultSelected = getText(AMDPlayerScreen.objSubtitleDefaultSelected);
@@ -17958,7 +17967,9 @@ public void MyZEE5AppValidation() throws Exception {
 		}
 		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
+		waitTime(4000);
 		click(AMDPlayerScreen.objLandscapePlayerScreen, "Player screen");
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		verifyElementPresentAndClick(AMDPlayerScreen.objNextIcon, "Next Icon in Landscape");
 		waitTime(7000);
 		if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
@@ -27243,5 +27254,522 @@ public void VerifySkipCTAOnPlayer(String userType) throws Exception {
 		extent.extentLogger("Player", "AMA2-12333 : Not applicable for " + userType);
 	}
 }
+
+public void validationOfEmailIDField(String userType) throws Exception {
+	   if (userType.equals("Guest")) {
+		   relaunch(false);
+		   extent.HeaderChildNode("Email ID field Validation");
+		   verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+			type(AMDRegistrationScreen.objEmailIDTextField, generateRandomString(5) + "@gmail.com", "Email field");
+			waitTime(3000);
+			if(verifyIsElementDisplayed(AMDRegistrationScreen.objProceedBtn, "Proceed button")) {
+				logger.info("User is able to enter Email id/Mobile no. on the Login/Registration screen");
+				extent.extentLoggerPass("Email ID", "User is able to enter Email id/Mobile no. on the Login/Registration screen");
+			}else {
+				logger.error("User is not able to enter Email id/Mobile no. on the Login/Registration screen");
+				extent.extentLoggerFail("Email ID", "User is not able to enter Email id/Mobile no. on the Login/Registration screen");
+			}
+	   }else {
+		   extent.HeaderChildNode("Email ID field Validation");
+		   logger.info("Not Applicable for this userType");
+		   extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	   }
+}
+
+public void whatsAppTickBox_EmailIDOnEmailIDField(String userType)throws Exception  {
+	 if (userType.equals("Guest")) {
+		 relaunch(false);
+		 extent.HeaderChildNode("Validation of WhatsApp opt-in tickbox, if user input Email id on the email/Mobile no. field");
+		 verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+			type(AMDRegistrationScreen.objEmailIDTextField, generateRandomString(5) + "@gmail.com", "Email field");
+			waitTime(3000);	
+			click(AMDRegistrationScreen.objProceedBtn, "Proceed button");	
+				waitTime(5000);
+				if(!(verifyIsElementDisplayed(AMDRegistrationScreen.objWhatsappOptIn))) {
+					logger.info("WhatsApp opt-in tickbox is not visible, if user input Email id on the email/Mobile no. field");
+					extent.extentLoggerPass("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is not visible, if user input Email id on the email/Mobile no. field");
+				}else {
+					logger.error("WhatsApp opt-in tickbox is visible, if user input Email id on the email/Mobile no. field");
+					extent.extentLoggerFail("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is visible, if user input Email id on the email/Mobile no. field");
+				} 
+	 }else {
+		   extent.HeaderChildNode("Validation of WhatsApp opt-in tickbox, if user input Email id on the email/Mobile no. field");
+		   logger.info("Not Applicable for this userType");
+		   extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	   }
+}
+
+public void whatsAppTickbox_SpecialCharacterOnEmailID(String userType)throws Exception  {
+	 if (userType.equals("Guest")) {
+		 relaunch(false);
+		 extent.HeaderChildNode("Validation of WhatsApp opt-in tickbox, if user input any special character on the email field");
+		 verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+			type(AMDRegistrationScreen.objEmailIDTextField, generateRandomString(5) + "@gmail.com", "Email field");
+			waitTime(3000);	
+			click(AMDRegistrationScreen.objProceedBtn, "Proceed button");	
+			waitTime(5000);	
+			String text = getDriver().findElement(AMDRegistrationScreen.objEmailIDTextField).getText();
+				Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+				Matcher passWord = p.matcher(text);
+				boolean b = passWord.find();
+				if (b) {
+					logger.info("No error message is displayed and Whatsapp opt-in tickbox is not visible, if user input any special character on the email field");
+					extent.extentLoggerPass("Email", "No error message is displayed and Whatsapp opt-in tickbox is not visible, if user input any special character on the email field");
+					
+				} else {
+					logger.error("Error message is displayed and Whatsapp opt-in tickbox is visible, if user input any special character on the email field");
+					extent.extentLoggerFail("Email", "Error message is displayed and Whatsapp opt-in tickbox is visible, if user input any special character on the email field");
+				}
+	 }else {
+		   extent.HeaderChildNode("Validation of WhatsApp opt-in tickbox, if user input any special character on the email field");
+		   logger.info("Not Applicable for this userType");
+		   extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	 }
+}
+
+public void whatsAppTickBox_MobileNoInEmailIDField(String userType)throws Exception  {
+	if (userType.equals("Guest")) {
+		relaunch(false);
+		extent.HeaderChildNode("Validation of WhatsApp opt-in tickbox, if user input Mobile no. on the email/Mobile no. field");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");	
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
+			type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
+			hideKeyboard();
+			click(AMDLoginScreen.objProceedBtn, "Proceed icon");
+			waitTime(5000);
+			if(verifyIsElementDisplayed(AMDRegistrationScreen.objWhatsappOptIn)) {
+				logger.info("WhatsApp opt-in tickbox is visible, if user input Mobile no. on the email/Mobile no. field");
+				extent.extentLoggerPass("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is visible, if user input Mobile no. on the email/Mobile no. field");
+			}else {
+				logger.error("WhatsApp opt-in tickbox is not visible, if user input Mobile no. on the email/Mobile no. field");
+				extent.extentLoggerFail("Whatsapp opt-in tickbox", "WhatsApp opt-in tickbox is not visible, if user input Mobile no. on the email/Mobile no. field");
+			}	
+	}else {
+		extent.HeaderChildNode("Validation of WhatsApp opt-in tickbox, if user input Mobile no. on the email/Mobile no. field");
+		   logger.info("Not Applicable for this userType");
+		   extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	 }
+}
  
+public void whatsappTextOnWhatsappOptIn(String userType)throws Exception  {
+	if (userType.equals("Guest")) {
+		relaunch(false);
+		extent.HeaderChildNode("Validation of WhatsApp text on Whatsapp opt-in tickbox");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");	
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
+			type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
+			hideKeyboard();
+			click(AMDLoginScreen.objProceedBtn, "Proceed icon");
+			waitTime(5000);
+				String whatsappText = getText(AMDRegistrationScreen.objWhatsappOptIn);
+				if(whatsappText.equalsIgnoreCase("I want to receive updates & notifications over WhatsApp")) {
+					logger.info("Text is displayed in Whatsapp Opt-in");
+					extent.extentLoggerPass("text", "Text is displayed in Whatsapp Opt-in");
+				}else {
+					logger.error("Text is not displayed in Whatsapp Opt-in");
+					extent.extentLoggerFail("text", "Text is not displayed in Whatsapp Opt-in");
+				}
+	}else {
+		extent.HeaderChildNode("Validation of WhatsApp text on Whatsapp opt-in tickbox");
+		   logger.info("Not Applicable for this userType");
+		   extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	 }
+}
+
+
+public void whatsAppOptinCheckBoxByDefault(String userType)throws Exception  {
+	if (userType.equals("Guest")) {
+		relaunch(false);
+		extent.HeaderChildNode("Validation of Whatsapp opt-in checkbox by default");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");	
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
+			type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
+			hideKeyboard();
+			click(AMDLoginScreen.objProceedBtn, "Proceed icon");
+			waitTime(5000);
+				String tickBox1 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptIn);
+				if(tickBox1.equalsIgnoreCase("false")) {
+					logger.info("WhatsApp opt-in tick box appears unchehcked by default");
+					extent.extentLoggerPass("TickBox", "WhatsApp opt-in tick box appears unchehcked by default");
+				}else {
+					logger.error("WhatsApp opt-in tick box appears checked by default");
+					extent.extentLoggerFail("TickBox", "WhatsApp opt-in tick box appears checked by default");
+				}
+	}else {
+		extent.HeaderChildNode("Validation of Whatsapp opt-in checkbox by default");
+		 logger.info("Not Applicable for this userType");
+		 extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	}
+	
+}
+
+public void whatsAppOptInCheckBoxFunctionality(String userType)throws Exception {
+	if (userType.equals("Guest")) {
+		relaunch(false);
+		extent.HeaderChildNode("Validation of Whatsapp opt-in checkbox functionality");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");	
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
+			type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
+			hideKeyboard();
+			click(AMDLoginScreen.objProceedBtn, "Proceed icon");
+			waitTime(5000);
+			String tickBox1 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptIn);
+			click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
+			waitTime(3000);
+				
+				String tickBox2 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptIn);
+				if(!(tickBox1.equalsIgnoreCase(tickBox2))) {
+					logger.info("user is able select or deselect the WhatsApp opt-in tickbox");
+					extent.extentLoggerPass("tickbox", "user is able select or deselect the WhatsApp opt-in tickbox");
+				}else {
+					logger.error("user is not able select or deselect the WhatsApp opt-in tickbox");
+					extent.extentLoggerFail("tickbox", "user is not able select or deselect the WhatsApp opt-in tickbox");
+				}	
+	}else {
+		extent.HeaderChildNode("Validation of Whatsapp opt-in checkbox functionality");
+		 logger.info("Not Applicable for this userType");
+		 extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	}
+	
+}
+
+public void RegisterCTAFunctionalityOnSelectingWhatsappOptIn(String userType)throws Exception {
+	if (userType.equals("Guest")) {
+		relaunch(false);
+		extent.HeaderChildNode("Validation of Register CTA Functionality on selecting whatsapp opt in");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");	
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
+			type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
+			hideKeyboard();
+			click(AMDLoginScreen.objProceedBtn, "Proceed icon");
+			waitTime(5000);
+			click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
+			waitTime(3000);
+				type(AMDRegistrationScreen.objFirstNameTxtField, FirstName, "First name field");
+				hideKeyboard();
+				click(AMDRegistrationScreen.objLastNameTxtField, "Last Name field");
+				type(AMDRegistrationScreen.objLastNameTxtField, LastName, "Last Name");
+				hideKeyboard();
+				
+				String pDOB = "01/01/1990", pNewPassword = "123456";
+				click(AMDRegistrationScreen.objDOBTxtField, "DOB field");
+				type(AMDRegistrationScreen.objDOBTxtField, pDOB, "DOB");
+				hideKeyboard();
+				verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
+				verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
+				click(AMDRegistrationScreen.objPasswordTxtField, "Passowrd");
+				type(AMDRegistrationScreen.objPasswordTxtField, pNewPassword, "Password field");
+				hideKeyboard();
+	            Swipe("UP", 1);
+	            String btn= getAttributValue("clickable", AMDRegistrationScreen.objRegisterBtn);
+	            if(btn.equalsIgnoreCase("true")) {
+	            	logger.info("Register CTA is highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+	            	extent.extentLoggerPass("Register button", "Register CTA is highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+	            }else {
+	            	logger.error("Register CTA is not highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+	            	extent.extentLoggerFail("Register button", "Register CTA is not highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+	            }
+	}else {
+		extent.HeaderChildNode("Validation of Register CTA Functionality on selecting whatsapp opt in");
+		 logger.info("Not Applicable for this userType");
+		 extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	}
+	
+}
+
+public void OtpScreen_OnselectingWhatsappOptIn(String userType) throws Exception {
+	if(userType.equalsIgnoreCase("Guest")) {
+		relaunch(false);
+		extent.HeaderChildNode("OTP screen validation on tapping Register CTA, post selecting Whatsapp opt-in tick box");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");	
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
+			type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
+			hideKeyboard();
+			click(AMDLoginScreen.objProceedBtn, "Proceed icon");
+			waitTime(5000);
+			click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
+			waitTime(3000);
+				type(AMDRegistrationScreen.objFirstNameTxtField, FirstName, "First name field");
+				hideKeyboard();
+				click(AMDRegistrationScreen.objLastNameTxtField, "Last Name field");
+				type(AMDRegistrationScreen.objLastNameTxtField, LastName, "Last Name");
+				hideKeyboard();
+				
+				String pDOB = "01/01/1990", pNewPassword = "123456";
+				click(AMDRegistrationScreen.objDOBTxtField, "DOB field");
+				type(AMDRegistrationScreen.objDOBTxtField, pDOB, "DOB");
+				hideKeyboard();
+				verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
+				verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
+				click(AMDRegistrationScreen.objPasswordTxtField, "Passowrd");
+				type(AMDRegistrationScreen.objPasswordTxtField, pNewPassword, "Password field");
+				hideKeyboard();
+	            Swipe("UP", 1);
+	            click(AMDRegistrationScreen.objRegisterBtn, "Register button");
+	            verifyElementExist(AMDLoginScreen.objOtpScreenTitle, "OTP screen");	
+	}else {
+		extent.HeaderChildNode("OTP screen validation on tapping Register CTA, post selecting Whatsapp opt-in tick box");
+		 logger.info("Not Applicable for this userType");
+		 extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	}
+	
+}
+
+public void OtpScreen_OnDeselectingWhatsappOptIn(String userType) throws Exception {
+	if(userType.equalsIgnoreCase("Guest")) {
+		relaunch(false);
+		extent.HeaderChildNode("OTP screen validation on tapping Register CTA, post deselecting Whatsapp opt-in tick box");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");	
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
+			type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
+			hideKeyboard();
+			click(AMDLoginScreen.objProceedBtn, "Proceed icon");
+			waitTime(5000);
+				type(AMDRegistrationScreen.objFirstNameTxtField, FirstName, "First name field");
+				hideKeyboard();
+				click(AMDRegistrationScreen.objLastNameTxtField, "Last Name field");
+				type(AMDRegistrationScreen.objLastNameTxtField, LastName, "Last Name");
+				hideKeyboard();
+				
+				String pDOB = "01/01/1990", pNewPassword = "123456";
+				click(AMDRegistrationScreen.objDOBTxtField, "DOB field");
+				type(AMDRegistrationScreen.objDOBTxtField, pDOB, "DOB");
+				hideKeyboard();
+				verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
+				verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
+				click(AMDRegistrationScreen.objPasswordTxtField, "Passowrd");
+				type(AMDRegistrationScreen.objPasswordTxtField, pNewPassword, "Password field");
+				hideKeyboard();
+	            Swipe("UP", 1);
+	            click(AMDRegistrationScreen.objRegisterBtn, "Register button");
+	            verifyElementExist(AMDLoginScreen.objOtpScreenTitle, "OTP screen");	
+	}else{
+		extent.HeaderChildNode("OTP screen validation on tapping Register CTA, post deselecting Whatsapp opt-in tick box");
+       	  logger.info("Not Applicable for this userType");
+       	  extent.extentLogger("Not applicable", "Not Applicable for this userType");
+       	}
+}
+
+public void whatsAppOptInTickBoxInEditProfileScreen(String userType) throws Exception{
+	if(!(userType.equalsIgnoreCase("Guest"))) {
+		relaunch(true);
+		extent.HeaderChildNode("WhatsApp opt-in tickbox in Edit profile screen");
+		if(userType.equalsIgnoreCase("NonSubscribedUser")) {
+			LoginWithEmailID("igszeefive3@gmail.com", "123456");
+		}else {
+			LoginWithEmailID("zeein7@mailnesia.com", "123456");
+		}
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDHomePage.objMyProfileIcon, "profile icon");
+		verifyElementPresentAndClick(AMDMyProfileScreen.objEditProfileButton, "Edit CTA");
+		verifyElementExist(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
+	}else{
+		extent.HeaderChildNode("WhatsApp opt-in tickbox in Edit profile screen");
+     	  logger.info("Not Applicable for this userType");
+     	  extent.extentLogger("Not applicable", "Not Applicable for this userType");
+     	}
+	
+}
+
+public void whatsAppTextInwhatsAppOptIn_EditProfileScreen(String userType) throws Exception{
+	if(!(userType.equalsIgnoreCase("Guest"))) {
+		relaunch(false);
+		extent.HeaderChildNode("WhatsApp text in Whatsapp opt-in in Edit profile screen");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDHomePage.objMyProfileIcon, "profile icon");
+		verifyElementPresentAndClick(AMDMyProfileScreen.objEditProfileButton, "Edit CTA");
+		waitTime(3000);
+		String whatsappText = getText(AMDRegistrationScreen.objWhatsappOptIn);
+		if(whatsappText.equalsIgnoreCase("I want to receive updates & notifications over WhatsApp")) {
+			logger.info("Text is displayed in Whatsapp Opt-in");
+			extent.extentLoggerPass("text", "Text is displayed in Whatsapp Opt-in");
+		}else {
+			logger.error("Text is not displayed in Whatsapp Opt-in");
+			extent.extentLoggerFail("text", "Text is not displayed in Whatsapp Opt-in");
+		}
+	}else{
+		extent.HeaderChildNode("WhatsApp text in Whatsapp opt-in in Edit profile screen");
+   	  logger.info("Not Applicable for this userType");
+   	  extent.extentLogger("Not applicable", "Not Applicable for this userType");
+   	}
+	
+}
+
+public void FieldValidation_EditProfileSreen(String userType) throws Exception{
+	if(!(userType.equalsIgnoreCase("Guest"))) {
+		relaunch(false);
+		extent.HeaderChildNode("Field validation in Edit profile screen");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDHomePage.objMyProfileIcon, "profile icon");
+		verifyElementPresentAndClick(AMDMyProfileScreen.objEditProfileButton, "Edit CTA");
+		waitTime(3000);
+		type(AMDEditProfileScreen.objMobileNumberField, "0123456789", "Mobile number field");
+		hideKeyboard();
+		Swipe("UP", 1);
+		String saveChanges = getAttributValue("enabled", AMDEditProfileScreen.objSaveChanges);
+		if(saveChanges.equalsIgnoreCase("true")) {
+			logger.info("User is able to enter details in required fields");
+			extentLoggerPass("field", "User is able to enter details in required fields");
+		}else {
+			logger.error("User is not able to enter details in required fields");
+			extentLoggerFail("field", "User is not able to enter details in required fields");
+		}
+	}else{
+		extent.HeaderChildNode("Field validation in Edit profile screen");
+	   	  logger.info("Not Applicable for this userType");
+	   	  extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	   	}
+	
+}
+
+public void whatsappOptInFunctionalityPostEnteringMobileNoInEditProfileScreen(String userType) throws Exception {
+	if(!(userType.equalsIgnoreCase("Guest"))) {
+		relaunch(false);
+		extent.HeaderChildNode("Whatsapp Opt-in functionality post entering mobile number in Edit profile screen");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDHomePage.objMyProfileIcon, "profile icon");
+		verifyElementPresentAndClick(AMDMyProfileScreen.objEditProfileButton, "Edit CTA");
+		waitTime(3000);
+		type(AMDEditProfileScreen.objMobileNumberField, "0123456789", "Mobile number field");
+		hideKeyboard();
+		Swipe("UP", 1);
+		String tickBox1 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptIn);
+		click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
+		waitTime(3000);
+			
+			String tickBox2 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptIn);
+			if(!(tickBox1.equalsIgnoreCase(tickBox2))) {
+				logger.info("user is able select or deselect the WhatsApp opt-in tickbox, post entering the mobile no. in edit profile page");
+				extent.extentLoggerPass("tickbox", "user is able select or deselect the WhatsApp opt-in tickbox, post entering the mobile no. in edit profile page");
+			}else {
+				logger.error("user is not able select or deselect the WhatsApp opt-in tickbox, post entering the mobile no. in edit profile page");
+				extent.extentLoggerFail("tickbox", "user is not able select or deselect the WhatsApp opt-in tickbox, post entering the mobile no. in edit profile page");
+			}	
+	}else{
+		extent.HeaderChildNode("Whatsapp Opt-in functionality post entering mobile number in Edit profile screen");
+	   	  logger.info("Not Applicable for this userType");
+	   	  extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	   	}
+}
+
+public void whatsappOptInEnable_EditProfileScreen(String userType) throws Exception {
+	if(!(userType.equalsIgnoreCase("Guest"))) {
+		relaunch(false);
+		extent.HeaderChildNode("Whatsapp opt-in Enable functionality in Edit profile screen");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDHomePage.objMyProfileIcon, "profile icon");
+		verifyElementPresentAndClick(AMDMyProfileScreen.objEditProfileButton, "Edit CTA");
+		waitTime(3000);
+		type(AMDEditProfileScreen.objMobileNumberField, "0123456789", "Mobile number field");
+		hideKeyboard();
+		Swipe("UP", 1);
+		String tickBox1 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptIn);
+		click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
+		waitTime(3000);
+			String tickBox2 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptIn);
+			if(!(tickBox1.equalsIgnoreCase(tickBox2))) {
+				logger.info("WhatsApp opt-in tickbox  is enabled post entering mobile no. in edit profile page");
+				extent.extentLoggerPass("tickbox", "WhatsApp opt-in tickbox  is enabled post entering mobile no. in edit profile page");
+			}else {
+				logger.error("WhatsApp opt-in tickbox  is not enabled post entering mobile no. in edit profile page");
+				extent.extentLoggerFail("tickbox", "WhatsApp opt-in tickbox  is not enabled post entering mobile no. in edit profile page");
+			}	
+	}else{
+		extent.HeaderChildNode("Whatsapp opt-in Enable functionality in Edit profile screen");
+	   	  logger.info("Not Applicable for this userType");
+	   	  extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	   	}
+}
+
+public void whatsappOptInDisable_EditProfileScreen(String userType) throws Exception {
+	if(!(userType.equalsIgnoreCase("Guest"))) {
+		relaunch(false);
+		extent.HeaderChildNode("Whatsapp opt-in Disable functionality in Edit profile screen");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDHomePage.objMyProfileIcon, "profile icon");
+		verifyElementPresentAndClick(AMDMyProfileScreen.objEditProfileButton, "Edit CTA");
+		waitTime(3000);
+		String tickBox1 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptIn);
+		click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
+		waitTime(3000);
+			String tickBox2 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptIn);
+			if(tickBox1.equalsIgnoreCase(tickBox2)) {
+				logger.info("WhatsApp opt-in tickbox is deactivated when user enter only Email id");
+				extent.extentLoggerPass("tickbox", "WhatsApp opt-in tickbox is deactivated when user enter only Email id");
+			}else {
+				logger.error("WhatsApp opt-in tickbox is not deactivated when user enter only Email id");
+				extent.extentLoggerFail("tickbox", "WhatsApp opt-in tickbox is not deactivated when user enter only Email id");
+			}	
+	}else{
+		extent.HeaderChildNode("Whatsapp opt-in Disable functionality in Edit profile screen");
+	   	  logger.info("Not Applicable for this userType");
+	   	  extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	   	}
+}
+
+public void whatsappOptInFunctionalityPostEnteringOnlyEmailIdInEditProfileScreen(String userType) throws Exception {
+	if(!(userType.equalsIgnoreCase("Guest"))) {
+		relaunch(false);
+		extent.HeaderChildNode("Whatsapp Opt-in functionality post entering only email Id in Edit profile screen");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDHomePage.objMyProfileIcon, "profile icon");
+		verifyElementPresentAndClick(AMDMyProfileScreen.objEditProfileButton, "Edit CTA");
+		waitTime(3000);
+		String tickBox1 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptIn);
+		click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
+		waitTime(3000);
+			String tickBox2 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptIn);
+			if(tickBox1.equalsIgnoreCase(tickBox2)) {
+				logger.info("user is not able select or deselect the WhatsApp opt-in tickbox, post entering only email id in edit profile page");
+				extent.extentLoggerPass("tickbox", "user is not able select or deselect the WhatsApp opt-in tickbox, post entering only email id in edit profile page");
+			}else {
+				logger.error("user is able select or deselect the WhatsApp opt-in tickbox, post entering only email id in edit profile page");
+				extent.extentLoggerFail("tickbox", "user is able select or deselect the WhatsApp opt-in tickbox, post entering only email id in edit profile page");
+			}	
+	}else{
+		extent.HeaderChildNode("Whatsapp Opt-in functionality post entering only email Id in Edit profile screen");
+	   	  logger.info("Not Applicable for this userType");
+	   	  extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	   	}
+}
+
+public void whatsappOptInFunctionalityPostEnteringBothEmailIdAndMobileNumberInEditProfileScreen(String userType) throws Exception {
+	if(!(userType.equalsIgnoreCase("Guest"))) {
+		relaunch(false);
+		extent.HeaderChildNode("Whatsapp opt-in Enable functionality post entering both emailId and Mobile number in Edit profile screen");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		click(AMDHomePage.objMyProfileIcon, "profile icon");
+		verifyElementPresentAndClick(AMDMyProfileScreen.objEditProfileButton, "Edit CTA");
+		waitTime(3000);
+		type(AMDEditProfileScreen.objMobileNumberField, "0123456789", "Mobile number field");
+		hideKeyboard();
+		Swipe("UP", 1);
+		String tickBox1 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptIn);
+		click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
+		waitTime(3000);
+			String tickBox2 = getAttributValue("checked", AMDRegistrationScreen.objWhatsappOptIn);
+			if(!(tickBox1.equalsIgnoreCase(tickBox2))) {
+				logger.info("WhatsApp opt-in tickbox  is enabled post entering both email id and mobile no. in edit profile page");
+				extent.extentLoggerPass("tickbox", "WhatsApp opt-in tickbox  is enabled post entering both email id and mobile no. in edit profile page");
+			}else {
+				logger.error("WhatsApp opt-in tickbox  is not enabled post entering both email id and mobile no. in edit profile page");
+				extent.extentLoggerFail("tickbox", "WhatsApp opt-in tickbox  is not enabled post entering both email id and mobile no. in edit profile page");
+			}	
+	}else{
+		extent.HeaderChildNode("Whatsapp opt-in Enable functionality post entering both emailId and Mobile number in Edit profile screen");
+	   	  logger.info("Not Applicable for this userType");
+	   	  extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	   	}
+}
 }

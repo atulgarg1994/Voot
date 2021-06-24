@@ -218,5 +218,7 @@ public class PWALoginPage {
 	public static By objConfirmNewPasswordtxtField = By.xpath("//*[@text='Confirm New Password']");
 	public static By objSetNewPasswordCTA = By.xpath("//*[text()='Set New Password']");
 	public static By objCountryCodeDropDownIndia = By.xpath("//*[contains(@class,'react-dropdown-select-type-single')]");
+	
+	 public static By objCleverTapPopUp=By.xpath("//button[@id='wzrk-cancel']");
 
 }

@@ -365,5 +365,5 @@ public class PWASearchPage {
 	public static By objSecondAssetTitleTrendingSearch = By.xpath(
 			"//div[@class='trayHeader']//h2[text()='Trending Searches']//parent::*//following-sibling::div[@class='latestEpisodeTrayWrapper']//div[@data-index='1']//h3[@class='cardTitle']");
 
-
+	public static By objMandatoryBuyPlanPopUp = By.xpath("//div[@class='subscribe-button subscribemsg_en']");
 }

@@ -181,37 +181,56 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			allowPopUp();
+			//allowPopUp();
+			if(checkElementDisplayed(PWALoginPage.objCleverTapPopUp, "clever tap pop up")) {
+				WebElement popup=getWebDriver().findElement(PWALoginPage.objCleverTapPopUp);
+				popup.click();
+				
+				}
 			break;
 
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
-			allowPopUp();
-			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			
+			if(checkElementDisplayed(PWALoginPage.objCleverTapPopUp, "clever tap pop up")) {
+				WebElement popup=getWebDriver().findElement(PWALoginPage.objCleverTapPopUp);
+				popup.click();
+				}
+			verifyElementPresent(PWALoginPage.objWebLoginBtn, "Login button");
+			JSClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
-			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			verifyElementPresent(PWALoginPage.objEmailField, "Email field");
+			JSClick(PWALoginPage.objEmailField, "Email field");
 			type(PWALoginPage.objEmailField, Username, "Email Field");
 			waitTime(3000);
-			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			verifyElementPresent(PWALoginPage.objPasswordField, "Password Field");
+			JSClick(PWALoginPage.objPasswordField, "Password Field");
 			type(PWALoginPage.objPasswordField, Password, "Password field");
 			waitTime(5000);
 			click(PWALoginPage.objWebLoginButton, "Login Button");
-			waitTime(3000);
+			waitTime(5000);
 			break;
 
 		case "SubscribedUser":
 			extent.HeaderChildNode("Login as Subscribed User");
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
-			allowPopUp();
-			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			
+			if(checkElementDisplayed(PWALoginPage.objCleverTapPopUp, "clever tap pop up")) {
+				WebElement popup=getWebDriver().findElement(PWALoginPage.objCleverTapPopUp);
+				popup.click();
+				}
+			verifyElementPresent(PWALoginPage.objWebLoginBtn, "Login button");
+			JSClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
-			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			verifyElementPresent(PWALoginPage.objEmailField, "Email field");
+			JSClick(PWALoginPage.objEmailField, "Email field");
 			type(PWALoginPage.objEmailField, SubscribedUsername, "Email Field");
 			waitTime(3000);
-			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			verifyElementPresent(PWALoginPage.objPasswordField, "Password Field");
+			JSClick(PWALoginPage.objPasswordField, "Password Field");
 			type(PWALoginPage.objPasswordField, SubscribedPassword, "Password field");
 			waitTime(5000);
 			click(PWALoginPage.objWebLoginButton, "Login Button");
@@ -222,7 +241,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User");
 			String clubUserName = getParameterFromXML("ClubUserName");
 			String clubPassword = getParameterFromXML("ClubPassword");
-			allowPopUp();
+			//allowPopUp();
+			getWebDriver().findElement(By.xpath("//button[@id='wzrk-cancel']")).click();
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -236,11 +256,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			break;
 		}
 		selectLanguages();
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		JSClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		extent.version = getText(By.xpath(".//*[@class='versionText']"));
 		String ver = getText(By.xpath(".//*[@class='versionText']"));
 		extent.extentLogger("", ver);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu");
+		verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu");
+		JSClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 	}
 	
 	public void allowPopUp() throws Exception {
@@ -1215,9 +1237,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Edit Profile Funcionality");
 		System.out.println("editProfileFuncionality");
 		waitTime(6000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objProfileEditBtn, "Edit button");
+		verifyElementPresent(PWAHamburgerMenuPage.objProfileEditBtn, "Edit button");
+		JSClick(PWAHamburgerMenuPage.objProfileEditBtn, "Edit button");
 		verifyElementPresent(PWAHamburgerMenuPage.objEditProfileTextWEB, "edit profile page");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objEditProfileFirstName, "First name column");
+		verifyElementPresent(PWAHamburgerMenuPage.objEditProfileFirstName, "First name column");
+		JSClick(PWAHamburgerMenuPage.objEditProfileFirstName, "First name column");
 		clearField(PWAHamburgerMenuPage.objEditProfileFirstName, "email field");
 		type(PWAHamburgerMenuPage.objEditProfileFirstName, "Zee5", "Editprofile first name");
 		String firstName = findElement(PWAHamburgerMenuPage.objEditProfileFirstName).getAttribute("value");
@@ -1229,9 +1253,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("User edit functionality in Edit profile screen failed");
 			extent.extentLoggerFail("Edit", "User edit functionality in Edit profile screen failed");
 		}
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objEditProfileSavechangesBtn, "save changes");
+		verifyElementPresent(PWAHamburgerMenuPage.objEditProfileSavechangesBtn, "save changes");
+		JSClick(PWAHamburgerMenuPage.objEditProfileSavechangesBtn, "save changes");
 		waitTime(2000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objEditProfileGoBackBtn, "go back button");
+		verifyElementPresent(PWAHamburgerMenuPage.objEditProfileGoBackBtn, "go back button");
+		JSClick(PWAHamburgerMenuPage.objEditProfileGoBackBtn, "go back button");
 		verifyElementPresent(PWAHamburgerMenuPage.objMyAccountOptionsText("My Profile"), "My Profile page");
 	}
 
@@ -1289,6 +1315,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLogger("Log out", "User successfuly logged out");
 		}
 		click(PWAHomePage.objZeeLogo, "Home page");
+		waitTime(4000);
+		if(checkElementDisplayed(PWALoginPage.objCleverTapPopUp, "clever tap pop up")) {
+		WebElement popup=getWebDriver().findElement(PWALoginPage.objCleverTapPopUp);
+		popup.click();
+		}
 	}
 
 	/**
@@ -2072,7 +2103,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(3000);
 		type(PWASubscriptionPages.objEmailIDTextField, "igszee5testing@gmail.com", "Email Id");
 		waitTime(3000);
-		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
+		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtnForEmailOrMobile , "Continue Button");
+		waitTime(3000);
 		waitTime(3000);
 		verifyElementPresent(PWASubscriptionPages.objEnterPasswordPopupTitle, "Enter Password");
 		waitTime(3000);
@@ -2081,7 +2113,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(3000);
 		type(PWASubscriptionPages.objPasswordFieldHidden, "igs@12345", "Password Field");
 		waitTime(3000);
-		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtn, "Continue Button");
+		verifyElementPresentAndClick(PWASubscriptionPages.objContinueBtnn, "Continue Button");
 		waitTime(3000);
 	}
 
@@ -7205,8 +7237,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(10000);
 		WebElement iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
 		Thread.sleep(5000);
+		
 		Thread.sleep(5000);
+
 		Thread.sleep(5000);
+		scrollUp();
+		
+                Thread.sleep(5000);
 		getWebDriver().switchTo().frame(iframeElement);
 //		checkElementDisplayed(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
 		verifyElementPresent(PWASubscriptionPages.objCreditAndDebitCardBtn, "Credit/Debit Card Option");
@@ -13185,9 +13222,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.extentLogger("", "Language selection");
 		waitTime(5000);
 		click(PWAHamburgerMenuPage.objLanguageBtnWeb, "Language Button");
-		waitTime(2000);
-		waitForElementAndClick(PWAHamburgerMenuPage.objContentLanguageBtn, 2, "Content Languages");
-		waitTime(2000);
+		waitTime(3000);
+		checkElementDisplayed(PWAHamburgerMenuPage.objContentLanguageBtn, "Content Languages");
+		JSClick(PWAHamburgerMenuPage.objContentLanguageBtn, "Content Languages");
+		waitTime(3000);
 		unselectAllContentLanguages();
 		clickElementWithWebLocator(PWAHamburgerMenuPage.objUnselectedKannadaContentLanguage);
 		logger.info("Selected content language Kannada");

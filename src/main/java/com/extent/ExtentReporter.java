@@ -25,6 +25,7 @@ import com.deviceDetails.DeviceDetails;
 import com.driverInstance.DriverInstance;
 import com.excel.ExcelUpdate;
 import com.propertyfilereader.PropertyFileReader;
+import com.utility.Json;
 import com.utility.LoggingUtils;
 import io.appium.java_client.AppiumDriver;
 
@@ -178,6 +179,16 @@ public class ExtentReporter implements ITestListener {
 				totalFailedTest++;
 			}else {
 				totalPassedTest++;
+			}
+			System.out.println("JIRA ID : "+jiraID);
+			try {
+				if(logfail != 0) {
+				Json.XrayJsonImport(jiraID, "FAILED");
+				}else {
+					Json.XrayJsonImport(jiraID, "PASSED");
+				}
+			} catch (InterruptedException | IOException e) {
+				e.printStackTrace();
 			}
 //		mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
 		}

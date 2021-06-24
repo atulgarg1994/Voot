@@ -20473,79 +20473,70 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 //					//PWA2-7318
 		PWAVerifyHTagsAndSubTextforShowsAndOriginals(userType, "KumKum Bhagya", ""); //
 	}
-	
+
 	public void PWAVerifyChangeOfGetPremiumToBuyPlan(String userType) throws Exception {
 		extent.HeaderChildNode("PWA2-8024 : Change of Get Premium to Buy Plan on web ");
 		logger.info("PWA2-8024 : Change of Get Premium to Buy Plan on web ");
-		
+
 		waitTime(10000);
 		navigateToHome();
 		mandatoryRegistrationPopUp(userType);
 		waitTime(3000);
-		//buy plan Left corner
-		if(verifyElementDisplayed(PWAHomePage.objSubscribeBtn)) {
-		String CTA = getText(PWAHomePage.objSubscribeBtn);
-		if(CTA.contains("Buy Plan")){
-			logger.info(
-					"Buy plan CTA in top left corner is displayed");
-			extent.extentLoggerPass(" ",
-					"Buy plan CTA in top left corner is displayed");
-	}
-		else {logger.error("Buy plan CTA in top left corner is not displayed");
-		extent.extentLoggerFail(" ","Buy plan CTA in top left corner is not displayed");
-	}
+		// buy plan Left corner
+		if (verifyElementDisplayed(PWAHomePage.objSubscribeBtn)) {
+			String CTA = getText(PWAHomePage.objSubscribeBtn);
+			if (CTA.contains("Buy Plan")) {
+				logger.info("Buy plan CTA in top left corner is displayed");
+				extent.extentLoggerPass(" ", "Buy plan CTA in top left corner is displayed");
+			} else {
+				logger.error("Buy plan CTA in top left corner is not displayed");
+				extent.extentLoggerFail(" ", "Buy plan CTA in top left corner is not displayed");
+			}
 		}
-		//Buy plan carousel
-		if(verifyElementDisplayed(PWAHomePage.objGetPremiumWeb)) {
+		// Buy plan carousel
+		if (verifyElementDisplayed(PWAHomePage.objGetPremiumWeb)) {
 			String CTA = getText(PWAHomePage.objGetPremiumWeb);
-			if(CTA.contains("Buy Plan")){
-				logger.info(
-						"Buy plan CTA on carousel banner is displayed");
-				extent.extentLoggerPass(" ",
-						"Buy plan CTA on carousel banner is displayed");
-		}
-			else {logger.error("Buy plan CTA on carousel banner is not displayed");
-			extent.extentLoggerFail(" ","Buy plan CTA on carousel banner is not displayed");
-		}
+			if (CTA.contains("Buy Plan")) {
+				logger.info("Buy plan CTA on carousel banner is displayed");
+				extent.extentLoggerPass(" ", "Buy plan CTA on carousel banner is displayed");
+			} else {
+				logger.error("Buy plan CTA on carousel banner is not displayed");
+				extent.extentLoggerFail(" ", "Buy plan CTA on carousel banner is not displayed");
 			}
-		
-		//Buy plan Hamburger
-		if (userType.equals("Guest")){
-		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-		if(verifyElementDisplayed(PWAHamburgerMenuPage.objBuySubscriptionOption)) {
-		String CTA = getText(PWAHamburgerMenuPage.objBuySubscriptionOption);
-		if(CTA.contains("Buy Plan")){
-			logger.info(
-					"Buy plan CTA in Hamburger menu is displayed");
-			extent.extentLoggerPass(" ",
-					"Buy plan CTA in Hamburger menu is displayed");
-	}
-		else {logger.error("Buy plan CTA in Hamburger menu is not displayed");
-		extent.extentLoggerFail(" ","Buy plan CTA in Hamburger menu is not displayed");
-	}
-		click(PWAHamburgerMenuPage.objCloseHamburger, "Close hamburger");
-		}}
-		
-		//Hamburger
-		if (userType.equals("NonSubscribedUser")){
+		}
+
+		// Buy plan Hamburger
+		if (userType.equals("Guest")) {
 			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-		click(PWAHamburgerMenuPage.objMyAccount, "My Account");
-		if(verifyElementDisplayed(PWAHamburgerMenuPage.objMySubscription)) {
-			click(PWAHamburgerMenuPage.objMySubscription, "MySubscriptionOption");
-			String CTA = getText(PWASubscriptionPages.objBuyPlanMySubscription);
-			if(CTA.contains("Buy Plan")){
-				logger.info(
-						"Buy plan CTA in My Subscription screen is displayed");
-				extent.extentLoggerPass(" ",
-						"Buy plan CTA in My Subscription screen is displayed");
-		}
-			else {logger.error("Buy plan CTA in My Subscription screen is not displayed");
-			extent.extentLoggerFail(" ","Buy plan CTA in My Subscription screen is not displayed");
-		}
+			if (verifyElementDisplayed(PWAHamburgerMenuPage.objBuySubscriptionOption)) {
+				String CTA = getText(PWAHamburgerMenuPage.objBuySubscriptionOption);
+				if (CTA.contains("Buy Plan")) {
+					logger.info("Buy plan CTA in Hamburger menu is displayed");
+					extent.extentLoggerPass(" ", "Buy plan CTA in Hamburger menu is displayed");
+				} else {
+					logger.error("Buy plan CTA in Hamburger menu is not displayed");
+					extent.extentLoggerFail(" ", "Buy plan CTA in Hamburger menu is not displayed");
+				}
+				click(PWAHamburgerMenuPage.objCloseHamburger, "Close hamburger");
 			}
-		
-		click(PWAHamburgerMenuPage.objMyProfile, "My Profile");
-		
+		}
+
+		// Hamburger
+		if (userType.equals("NonSubscribedUser")) {
+			click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			click(PWAHamburgerMenuPage.objMyAccount, "My Account");
+			if (verifyElementDisplayed(PWAHamburgerMenuPage.objMySubscription)) {
+				click(PWAHamburgerMenuPage.objMySubscription, "MySubscriptionOption");
+				String CTA = getText(PWASubscriptionPages.objBuyPlanMySubscription);
+				if (CTA.contains("Buy Plan")) {
+					logger.info("Buy plan CTA in My Subscription screen is displayed");
+					extent.extentLoggerPass(" ", "Buy plan CTA in My Subscription screen is displayed");
+				} else {
+					logger.error("Buy plan CTA in My Subscription screen is not displayed");
+					extent.extentLoggerFail(" ", "Buy plan CTA in My Subscription screen is not displayed");
+				}
+			}
+			click(PWAHamburgerMenuPage.objMyProfile, "My Profile");
 		}
 	}
 
@@ -20873,13 +20864,13 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 
 	}
-	
-	public String  SearchContent(String s2) throws Exception {
+
+	public String SearchContent(String s2) throws Exception {
 		String s1 = getParameterFromXML(s2);
 		waitTime(10000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search");
 		type(PWAHomePage.objSearchField, s1, "Search field");
-		//verifyElementPresentAndClick(PWAHomePage.objSearchField, "Search");
+		// verifyElementPresentAndClick(PWAHomePage.objSearchField, "Search");
 		waitTime(10000);
 		verifyElementPresentAndClick(PWASearchPage.objFirstSearchResult, "First Search");
 		waitTime(10000);
@@ -20887,15 +20878,13 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 
 	public void DeviceLimitPopOp() throws Exception {
-		if(verifyElementDisplayed(PWAPlayerPage.objDeviceLimitPopup))
-		{
+		if (verifyElementDisplayed(PWAPlayerPage.objDeviceLimitPopup)) {
 			click(PWAPlayerPage.objResetButton, "Reset Now");
 		}
 	}
 
 	public void WatchMorePopup() throws Exception {
-		if(verifyIsElementDisplayed(PWAPlayerPage.objWouldYouLikePopUp))
-		{
+		if (verifyIsElementDisplayed(PWAPlayerPage.objWouldYouLikePopUp)) {
 			click(PWAPlayerPage.objWouldYouLikeClosePopup, "Watch now close icon");
 		}
 	}
@@ -22120,14 +22109,15 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 	}
 
-	public void  SetParentalPopup(By loc,String password, String button) throws Exception {
-		
+	public void SetParentalPopup(By loc, String password, String button) throws Exception {
+
 		waitTime(5000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "parental pincode");
 		waitTime(3000);
-		
-		//verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "parental pincode");
+
+		// verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl,
+		// "parental pincode");
 		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password field");
 		String Password = getParameterFromXML(password);
 		type(PWALoginPage.objPasswordField, Password, "Password");
@@ -22139,19 +22129,25 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresentAndClick(loc, button);
 		waitTime(3000);
-		if(verifyElementDisplayed(PWAHamburgerMenuPage.objParentalLockPin1)) {
-		{type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "setParentalLockPin");}
-		if(verifyElementDisplayed(PWAHamburgerMenuPage.objParentalLockPin2))
-		{type(PWAHamburgerMenuPage.objParentalLockPin2, "1", "setParentalLockPin");}
-		if(verifyElementDisplayed(PWAHamburgerMenuPage.objParentalLockPin3))
-		{type(PWAHamburgerMenuPage.objParentalLockPin3, "1", "setParentalLockPin");}
-		if(verifyElementDisplayed(PWAHamburgerMenuPage.objParentalLockPin4))
-		{type(PWAHamburgerMenuPage.objParentalLockPin4, "1", "setParentalLockPin");}}
+		if (verifyElementDisplayed(PWAHamburgerMenuPage.objParentalLockPin1)) {
+			{
+				type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "setParentalLockPin");
+			}
+			if (verifyElementDisplayed(PWAHamburgerMenuPage.objParentalLockPin2)) {
+				type(PWAHamburgerMenuPage.objParentalLockPin2, "1", "setParentalLockPin");
+			}
+			if (verifyElementDisplayed(PWAHamburgerMenuPage.objParentalLockPin3)) {
+				type(PWAHamburgerMenuPage.objParentalLockPin3, "1", "setParentalLockPin");
+			}
+			if (verifyElementDisplayed(PWAHamburgerMenuPage.objParentalLockPin4)) {
+				type(PWAHamburgerMenuPage.objParentalLockPin4, "1", "setParentalLockPin");
+			}
+		}
 		waitTime(2000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objSetParentalLockButton, "Continue button");
-		
+
 	}
-	
+
 	public boolean waitForTrailerPlaybackToComplete(String playerType) throws Exception {
 		boolean trailerDisplayed = false;
 		boolean playerDisplayed = false;
@@ -22197,7 +22193,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		return false;
 	}
 
-	
 //	VI Integration
 
 //	public void VILogin() throws Exception {
