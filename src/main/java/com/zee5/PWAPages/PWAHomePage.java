@@ -666,5 +666,22 @@ public class PWAHomePage {
 	public static By objPageHighlightedanyLanguage(String langtext) {
 		return By.xpath("//span[contains(@class,'commonName')][contains(text(),'" + langtext + "')]");
 	}
+	
+	public static By objHomePageLoginbtn= By.xpath("//a[contains(text(), 'Login')]");
  	
- 	}
+	
+	public static By objDisplayLanguage (String Lang) {
+		return By.xpath("//span[contains(text(),'"+Lang+"')]");
+	}
+
+	public static By objPlaybtnCarouselBanner = By.xpath("(//*[contains(@class,'slick-current')]//*[@class='playIcon'])[1]");
+	
+	public static By objForgotPasswordLinkTxt = By.xpath("//*[@class='forgotPassword']");
+	public static By objCreateNewPasswordField = By.xpath("//*[@text='Create New Password']");
+
+	public static By objConfirmNewPasswordtxtField = By.xpath("//*[@text='Confirm New Password']");
+	public static By objSetNewPasswordCTA = By.xpath("//*[text()='Set New Password']");
+
+	public static By objCountryCodeDropDownIndia = By.xpath("//*[contains(@class,'react-dropdown-select-type-single')]");
+
+ }

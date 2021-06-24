@@ -212,4 +212,11 @@ public class PWALoginPage {
 	 public static By objLoginCTA  = By.xpath("//*[contains(@class, 'loginBtn noSelect')]");
 	 
 	 public static By objLoginPage = By.xpath("//div[@class='formHeader loginHeaderIn']");
+	 
+	public static By objForgotPasswordLinkTxt = By.xpath("//*[@class='forgotPassword']");
+	public static By objCreateNewPasswordField = By.xpath("//*[@text='Create New Password']");
+	public static By objConfirmNewPasswordtxtField = By.xpath("//*[@text='Confirm New Password']");
+	public static By objSetNewPasswordCTA = By.xpath("//*[text()='Set New Password']");
+	public static By objCountryCodeDropDownIndia = By.xpath("//*[contains(@class,'react-dropdown-select-type-single')]");
+
 }

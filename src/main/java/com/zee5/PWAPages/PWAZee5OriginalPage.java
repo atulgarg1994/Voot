@@ -80,4 +80,6 @@ public class PWAZee5OriginalPage {
 	public static By objTrayTitle = By.xpath("(//*[@class='titleLink' or @class='trayHeader'])[1]");
 	
 	public static By objNavigateToTop = By.xpath("//div[@class='iconOther-ic_arrow_back'or @class='iconNavi-ic_arrow_back']");
+	
+	public static By objSeasonEpisodesTitle = By.xpath("//div[@class='viewAllLanding middleContainer seasonAll']//h1");
 }

@@ -31,4 +31,7 @@ public class PWANewsPage {
 	public static By objLiveNewsConsumptionsTitle = By.xpath("//div[contains(@class,'onsumptionMetaDiv')]//h1");
 	public static By objAutoPlayContent =By.xpath("//*[@class='playkit-icon playkit-icon-volume-waves']//ancestor::*[@id='anchorTag']");
 	public static By objVolume = By.xpath("//*[@class='playkit-control-button-container playkit-volume-control' or @class='playkit-control-button-container playkit-control-volume playkit-volume-control']");
+	
+	public static By objAutoplayCarousel = By.xpath("//*[contains(@class,'slick-current')]//*[contains(@class,'carouselMain')]//video");
+	
 }

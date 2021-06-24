@@ -168,4 +168,14 @@ public class PWALandingPages {
 	public static By objPlayerTitle = By.xpath("(//div[@class='episodeDetailContainer']//div[contains(@class,'metaInfo')]//h2)|(//div[@class='movieDetailContainer' or @class='videoDetailContainer' or @class='newsContainer']//h1)");
 
 	public static By obj_Pwa_Subcription_teaser_btn = By.xpath("//a[@class='subscribeBtn noSelect']//span[contains(text(),'Buy Plan')]");
+	
+	public static By objChannelsPageTitle(String title) {
+		return By.xpath("//h1[contains(text(),'List of "+title+" Serials')]");
+	}
+
+	public static By objChannelsSeasonPageTitle(String title,String content) {
+		return By.xpath("//h1[contains(text(),'"+content+" "+title+" Episodes')]");
+	}
+	public static By objCountryCodeDropDownIndia = By.xpath("//*[contains(@class,'react-dropdown-select-type-single')]");
+
 }

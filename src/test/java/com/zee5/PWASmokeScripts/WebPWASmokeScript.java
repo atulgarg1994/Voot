@@ -131,13 +131,13 @@ public class WebPWASmokeScript {
 		zee5WebBusinessLogic.navigationToConsumptionScreenThroughTrendingSearches();
 	}
 
-	@Test(priority = 9)
-	@Parameters({ "userType" })
-	public void WEBPWASubscriptionTransaction(String userType) throws Exception {
-		zee5WebBusinessLogic.navigateHome();
-		zee5WebBusinessLogic.WEBPWAValidatingSubscriptionAndTransaction(userType);
-		zee5WebBusinessLogic.WEBPWAValidatingSubscribeLinks();
-	}
+//	@Test(priority = 9)
+//	@Parameters({ "userType" })
+//	public void WEBPWASubscriptionTransaction(String userType) throws Exception {
+//		zee5WebBusinessLogic.navigateHome();
+//		zee5WebBusinessLogic.WEBPWAValidatingSubscriptionAndTransaction(userType);
+//		zee5WebBusinessLogic.WEBPWAValidatingSubscribeLinks();
+//	}
 
 	@Test(priority = 10)
 	@Parameters({ "userType" })

@@ -626,4 +626,11 @@ public class PWASubscriptionPages {
 	
 	// sent to your Email ID" toast message
 	public static By objSentToYourEmailIDTtoastMessage = By.xpath("(//*[@class='noSelect pinkBtn  \\n            '])[1]");
+	
+	public static By objAccountInfoTitleName = By.xpath("(//*[contains(text(),'Account Info')])[2]");
+
+	public static By objBuyPlanMySubscription = By.xpath("//*[contains(@class,'bannerContainer')]");
+
+	public static By objToastMessageNetworkInterruption = By.xpath("//*[contains(@id,'portalContainer')]//*[@class='toastMessage']");
+
 }

@@ -502,4 +502,10 @@ public class PWAPlayerPage {
 	//Movie Name 
 	public static By objMovieName = By.xpath("//*[@nodeName='H1']");
 	
+	public static By objInstallCTA = By.xpath("//*[@text='Install']");
+	public static By objSeeAll = By.xpath("(//*[@class='view-all'])[1]");
+	
+	public static By objShowCategoryMeta = By.xpath("//*[contains(@class,'showMetaAnchor')]");
+	public static By objShowSeasonMeta = By.xpath("(//*[contains(@class,'metaInfo lineHeightClass')]//a)[1]");
+	public static By objShowChannelMeta = By.xpath("(//*[contains(@class,'showMetaClass')]//a)[1]");
 }
