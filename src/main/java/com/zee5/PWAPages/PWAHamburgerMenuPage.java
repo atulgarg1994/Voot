@@ -1015,4 +1015,6 @@ public class PWAHamburgerMenuPage {
 	public static By objcontinueinkannada1=By.xpath("//span[contains(text(),' ಮುಂದುವರಿಯಿರಿ')]");
 	
 	public static By objExploreOption = By.xpath("(//div[@class='menuTitle noSelect  '])[1]");
+	
+	public static By objBlankSpace = By.xpath("//*[@class='mainlink']");
 }

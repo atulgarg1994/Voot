@@ -684,4 +684,5 @@ public class PWAHomePage {
 
 	public static By objCountryCodeDropDownIndia = By.xpath("//*[contains(@class,'react-dropdown-select-type-single')]");
 	
+	public static By objzeeplexHowitWorks=By.xpath("//*[@class='plexLearnMoreLink']");
  }

@@ -22192,6 +22192,305 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		return false;
 	}
+	
+	
+//	Kartheek
+	
+	public void Haveacodeinputfieldvalidation(String userType) throws Exception {
+		reloadHome();
+		if (userType.equals("NonSubscribedUser") || userType.equals("Guest")) {
+			extent.HeaderChildNode(
+					"\"Have a code?\" input field fails to display again when user clicks on \"Change\" CTA (PWA2-7698");
+			verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscription button");
+			verifyElementPresentAndClick(PWASubscriptionPages.objHaveACode, "'Have A Code?' field");
+			waitTime(3000);
+			
+				click(PWASubscriptionPages.objTextForHaveACode,"Text For Have A Code");
+				type(PWASubscriptionPages.objTextForHaveACode, "NRTDC1" + "\n", "'Have A Code?' field");
+//				hideKeyboard();
+			
+			waitTime(5000);
+//			click(PWASubscriptionPages.objApplyBtn, "Apply Button");
+			
+			verifyElementPresentAndClick(PWASubscriptionPages.objChangeButtonHaveAcode, "change Button");
+			
+			if (verifyElementPresent(PWASubscriptionPages.objTextForHaveACode, "'Have A Code?' field")) {
+				logger.info("It should open a promo code field again with a clear cell., expected behaviour");
+				extent.extentLoggerPass(" ", "It should open a promo code field again with a clear cell., expected behaviour");
+			} else {
+				logger.info("It responds to the \\\"Have a code?\\\" link again.");
+				extent.extentLoggerFail(" ",
+						"It responds to the \\\"Have a code?\\\" link again.");
+		}
+	
+	}
+		
+}
+	public void howItWorksLinkPaddingShouldBeDone (String userType) throws Exception {
+		reloadHome();
+		extent.HeaderChildNode("PWA2-8711 : [Combo_Offer] [mpwa] \"How it works?\" link padding fails in the ZeePlex landing page. [Refer SS]\r\n"
+				+ "");
+	navigatetoAnyScreen("ZEEPLEX");
+	waitTime(4000);
+	
+	String a = findElement(PWAHomePage.objzeeplexHowitWorks).getText();
+	if(a.equalsIgnoreCase("How it Works ?"))
+	{
+		logger.info("How it work link is displayed");
+		extent.extentLoggerPass("", "How it work link is displayed");
+	} 
+	else
+	{
+		logger.info("How it work link is not displayed");
+		extent.extentLoggerFail("", "How it work link is not displayed");
+	}
+		
+		
+		
+		
+}	
+	public void PWAIframe() throws Exception {
+		checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section");
+		// ScrollToTheElementWEB(PWASubscriptionPages.objPaymentHighlighted);
+		scrollToTopOfPageWEB();
+		waitTime(5000);
+		WebElement iframeElement = null;
+		if (getPlatform().equalsIgnoreCase("Android")) {
+			iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+			Thread.sleep(15000);
+			getWebDriver().switchTo().frame(iframeElement);
+		} else if (getPlatform().equalsIgnoreCase("Web")) {
+			iframeElement = getWebDriver().findElement(By.id("juspay_iframe"));
+//			scrollUp();
+//			scrollUp();
+//			scrollUp();
+			Thread.sleep(15000);
+			getWebDriver().switchTo().frame(iframeElement);
+		}
+	}
+
+	public void discountCalculatedPriceShouldNotBeMismatchedOnThePaymentGatewayPage (String userType) throws Exception {
+		reloadHome();
+		if (userType.equals("Guest")) {
+			extent.HeaderChildNode(" Discount Calculted price on the payment gateway validation (PWA2-7754)");
+
+			if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
+				verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+			}
+			waitTime(3000);
+			click(PWALoginPage.objLoginBtn, "Login button");
+			waitTime(3000);
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			type(PWALoginPage.objEmailField, "sam@s.com", "Email Field");
+			waitTime(3000);
+			hideKeyboard();
+			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			waitTime(3000);
+			type(PWALoginPage.objPasswordField, "123456", "Password field");
+			hideKeyboard();
+			waitTime(5000);
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(20000);
+			verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+			click(PWAHamburgerMenuPage.objDownArrow("My Account"), "Expander button");
+
+//			verifyElementPresent(PWAHamburgerMenuPage.objProfileIconWEB, "Profile Icon");
+//			JSClick(PWAHamburgerMenuPage.objProfileIconWEB, "Profile Icon");
+			verifyElementPresent(PWAHamburgerMenuPage.objMySubscription, "My Subscription");
+			JSClick(PWAHamburgerMenuPage.objMySubscription, "My Subscription");
+			checkElementDisplayed(PWAHamburgerMenuPage.objBrowseAllPacks, "Browse All Packs");
+			waitTime(3000);
+			click(PWAHamburgerMenuPage.objBrowseAllPacks, "Browse All Packs");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objContinuebuttominsubscriptionpage, "Continue button");
+//			verifyElementPresentAndClick(PWAHamburgerMenuPage.objContinuebuttominsubscriptionpage, "Continue button");
+			verifyElementPresent(PWAHamburgerMenuPage.objamtinpaymentpage, "Amount");
+			String text = getText(PWAHamburgerMenuPage.objamtinpaymentpage);
+			System.out.println(text + ".00");
+			String text1 = "Rs" + text + ".00";
+			// System.out.println(text);
+			extent.extentLogger("", "Amount in payment page : " + text1);
+			String contentURL = getDriver().getCurrentUrl();
+			System.out.println(contentURL);
+			waitTime(5000);
+			PWAIframe();
+			PartialSwipe("UP", 1);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objnetbanking, "Net banking");
+			waitTime(3000);
+			
+			
+
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaymentoption("Airtel Payments Bank"),
+					"Payment option");
+				waitTime(3000);
+				waitTime(3000);
+				verifyElementPresent(PWAHamburgerMenuPage.objproceedtopayindex(1), "Procced to pay");
+				click(PWAHamburgerMenuPage.objproceedtopayindex(1), "Procced to pay");
+				waitTime(3000);
+				waitForElement(PWAHamburgerMenuPage.objtotalamount2, 20, "Total amount");
+				String totalamt2 = getText(PWAHamburgerMenuPage.objtotalamount2);
+				System.out.println(totalamt2);
+				extent.extentLogger("", "pack Amount in payment Process page : " + totalamt2);
+				waitTime(5000);
+				getDriver().get(contentURL);
+				waitTime(10000);
+				waitForElement(PWASubscriptionPages.objZeeLogo, 20, "Zee5 Logo");
+				if (text1 != (totalamt2)) {
+					logger.info("correct Amount is displayed : " + text1);
+					extent.extentLogger("", "correct Amount is displayed : " + text1);
+				} else {
+					logger.info("Incorrect Differential Amount is displayed : " + text1);
+					extent.extentLoggerFail("", "Incorrect Differential Amount is displayed :" + text1);
+				}
+			}
+//			Back(1);
+//			verifyElementPresentAndClick(PWASubscriptionPages.objZeeLogo, "ZeeLogo");
+			if (userType.equals("Guest")) {
+			navigateToHome();
+			
+			logout();
+			}
+		}				
+	
+	public void resetLanguageFeature(String userType) throws Exception {
+		reloadHome();
+			extent.HeaderChildNode("PWA2-8573 : language Settings are reset to default and \"Changes saved successfully\" toast message is displayed Even if user taps blank/empty spaces next to \"Reset settings to default\" option on More settings screen.");
+			verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objMoreSettingInHamburger, "More Setting");
+			waitTime(3000);
+			
+			click(PWAHamburgerMenuPage.objBlankSpace, "Blank Space");
+			if(checkElementDisplayed(PWAHamburgerMenuPage.objToastMessage,"Toast Message")) 
+			{
+				
+				logger.info("Toast message is displayed");
+				extent.extentLoggerFail("", "Toast message is displayed");
+				} else{
+				logger.info("Toast message is not displayed,expected behaviour");
+				extent.extentLoggerPass("", "Toast message is not displayed,expected behaviour");
+				}
+	}
+
+	
+	public void userShouldNavigateToPaymentPagePostSelectingPlan(String userType) throws Exception
+	{
+		reloadHome();
+		extent.HeaderChildNode("PWA2-8906 : language Settings are reset to default and \"Changes saved successfully\" toast message is displayed Even if user taps blank/empty spaces next to \"Reset settings to default\" option on More settings screen.");
+
+		if(userType.equalsIgnoreCase("Guest"))
+		{
+			if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
+				verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+			}
+			waitTime(3000);
+			click(PWALoginPage.objLoginBtn, "Login button");
+			waitTime(3000);
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			type(PWALoginPage.objEmailField, "luckyigscon0074@gmail.com", "Email Field");
+			waitTime(3000);
+			hideKeyboard();
+			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			waitTime(3000);
+			type(PWALoginPage.objPasswordField, "vasilucky@123", "Password field");
+			hideKeyboard();
+			waitTime(5000);
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(20000);
+			verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscription button");
+			waitTime(3000);
+			verifyElementPresent(PWAHamburgerMenuPage.objContinuebuttominsubscriptionpage, "Continue Button");
+			click(PWAHamburgerMenuPage.objContinuebuttominsubscriptionpage, "Continue Button");
+			if (checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section")) {
+				logger.info(
+						"User should be redircted to Payment page and selected plan price should be displayed, expected behaviour");
+				extent.extentLoggerPass("",
+						"User should be redircted to Payment page and selected plan price should be displayed, expected behaviour");
+			} else {
+				logger.info("Account info screen is displayed");
+				extent.extentLoggerFail(" ", "Account info screen is displayed");
+
+			}
+			
+			navigateToHome();
+			waitTime(5000);
+			logout();
+		}
+	}
+
+	public void paymentPageShouldLoadWhenUserNavigateBackFromAmazonPaymentPage(String userType) throws Exception
+	{
+		reloadHome();
+		extent.HeaderChildNode("PWA2-8907 : Payment page is not loading after navigating back from amazon pay Login");
+
+		if(userType.equalsIgnoreCase("Guest"))
+		{
+			if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
+				verifyElementPresentAndClick(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
+			}
+			waitTime(3000);
+			click(PWALoginPage.objLoginBtn, "Login button");
+			waitTime(3000);
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			type(PWALoginPage.objEmailField, "luckyigscon0074@gmail.com", "Email Field");
+			waitTime(3000);
+			hideKeyboard();
+			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			waitTime(3000);
+			type(PWALoginPage.objPasswordField, "vasilucky@123", "Password field");
+			hideKeyboard();
+			waitTime(5000);
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(20000);
+			verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscription button");
+			waitTime(3000);
+			verifyElementPresent(PWAHamburgerMenuPage.objContinuebuttominsubscriptionpage, "Continue Button");
+			click(PWAHamburgerMenuPage.objContinuebuttominsubscriptionpage, "Continue Button");
+			if (checkElementDisplayed(PWASubscriptionPages.objPaymentHighlighted, "Payment Section")) {
+				logger.info(
+						"User should be redircted to Payment page and selected plan price should be displayed, expected behaviour");
+				extent.extentLoggerPass("",
+						"User should be redircted to Payment page and selected plan price should be displayed, expected behaviour");
+			} else {
+				logger.info("Account info screen is displayed");
+				extent.extentLoggerFail(" ", "Account info screen is displayed");
+
+			}
+			String contentURL = getDriver().getCurrentUrl();
+			System.out.println(contentURL);
+			verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+			waitTime(4000);
+			verifyElementPresentAndClick(PWASubscriptionPages.objAmazonPay, "Amazon Pay");
+			click(PWASubscriptionPages.objAmazonPayProceedToPay, "Amazon Pay Proceed To Pay");
+			waitForElement(PWASubscriptionPages.objAmazonLoginPage, 20, "Amazon Login Page");
+			
+			verifyElementPresent(PWASubscriptionPages.objAmazonLoginPage, "Amazon Login Page");
+			getDriver().get(contentURL);
+			verifyElementExist(PWASubscriptionPages.objLoadingPaymentOptions, "Loading Payment Options...");
+			String Loading=getText(PWASubscriptionPages.objLoadingPaymentOptions);
+			System.out.println(Loading);
+			extent.extentLogger("", "Loading text: " + Loading);
+			if(Loading.contains("Loading Payment Options..."))
+			{					
+				logger.info("Payment page should load when user navigate back from amazon payment page");
+				extent.extentLoggerPass(" ", "Payment page should load when user navigate back from amazon payment page");
+			} 
+			else 
+			{
+				logger.info("Payment page should not load when user navigate back from amazon payment page");
+				extent.extentLoggerFail(" ", "Payment page should not load when user navigate back from amazon payment page");
+		
+			}
+			
+			navigateToHome();
+			waitTime(5000);
+			logout();
+		}
+}
+	
+
 
 //	VI Integration
 

@@ -632,5 +632,9 @@ public class PWASubscriptionPages {
 	public static By objBuyPlanMySubscription = By.xpath("//*[contains(@class,'bannerContainer')]");
 
 	public static By objToastMessageNetworkInterruption = By.xpath("//*[contains(@id,'portalContainer')]//*[@class='toastMessage']");
-
+	
+	public static By objAmazonLoginPage = By.xpath("//*[@class='a-spacing-micro a-spacing-top-small a-text-left']");
+	public static By objLoadingPaymentOptions = By.xpath("//*[@text='Loading Payment Options...']");
+	
+	public static By objChangeButtonHaveAcode = By.xpath("//*[@class='changeMobileButton']");
 }
