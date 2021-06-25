@@ -29,10 +29,10 @@ public class Android_UserSessionManagement {
 	@Parameters({ "userType" })
 	public void WebDetails(String userType) throws Exception {
 		System.out.println("Collecting Web details");
-		ZEE5ApplicasterBusinessLogic.webAddContentToWatchlist();
+		//ZEE5ApplicasterBusinessLogic.webAddContentToWatchlist();
 		ZEE5ApplicasterBusinessLogic.webMyProfile(userType);
 		ZEE5ApplicasterBusinessLogic.webWatchList();
-		ZEE5ApplicasterBusinessLogic.webReminders();
+		//ZEE5ApplicasterBusinessLogic.webReminders(); //Reminders has been removed from Android App [Mallikarjun]
 		ZEE5ApplicasterBusinessLogic.webSubscription(userType);
 		ZEE5ApplicasterBusinessLogic.webTransaction();
 		ZEE5ApplicasterBusinessLogic.webDisplayLanguage();
@@ -57,7 +57,7 @@ public class Android_UserSessionManagement {
 		System.out.println("Collecting App details and validating with Web details");
 		ZEE5ApplicasterBusinessLogic.appMyProfile(userType);
 		ZEE5ApplicasterBusinessLogic.appWatchlist();
-		ZEE5ApplicasterBusinessLogic.appMyReminders();
+		//ZEE5ApplicasterBusinessLogic.appMyReminders(); // Reminders has been removed from Android App
 		ZEE5ApplicasterBusinessLogic.appSubscription(userType);
 		ZEE5ApplicasterBusinessLogic.appTransaction(userType);
 		ZEE5ApplicasterBusinessLogic.appDisplayLanguage();
@@ -79,7 +79,7 @@ public class Android_UserSessionManagement {
 	public void Web_Update() throws Exception {
 		System.out.println("Updating web details");
 		ZEE5ApplicasterBusinessLogic.webRemoveWatchList();
-		ZEE5ApplicasterBusinessLogic.webRemoveReminders();
+		//ZEE5ApplicasterBusinessLogic.webRemoveReminders(); //Reminders has been removed from Android App
 	}
 
 	@Test(priority = 7)
@@ -97,7 +97,7 @@ public class Android_UserSessionManagement {
 	public void App_Update() throws Exception {
 		System.out.println("validation of App details with updated Web details");
 		ZEE5ApplicasterBusinessLogic.appRemoveWatlist();
-		ZEE5ApplicasterBusinessLogic.appRemoveReminder();
+		//ZEE5ApplicasterBusinessLogic.appRemoveReminder(); //Reminders has been removed from Android App
 	}
 
 	@AfterTest

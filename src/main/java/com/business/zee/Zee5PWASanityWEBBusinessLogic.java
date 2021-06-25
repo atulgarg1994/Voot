@@ -6878,16 +6878,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitForElement(PWALiveTVPage.objTomorrowDate, 60, "Tomorrow date");
 		waitForElementAndClick(PWALiveTVPage.objTomorrowDate, 60, "Tomorrow date");
 		FilterLanguage();
-		while (!(checkElementDisplayed(PWALiveTVPage.objparticularTime, "choosed time"))) {
-			waitTime(1000);
-			getWebDriver()
-					.findElement(By.xpath(
-							"//div[@class='outerTimeContainer']/child::div[contains(@class, 'ic_back rightArrow')]"))
-					.click();
+		while (!(checkElementDisplayed(PWALiveTVPage.objparticularShowTime, "choosed time"))) {
+			waitTime(3000);
+			getWebDriver().findElement(By.xpath("//div[@class='outerTimeContainer']/child::div[contains(@class, 'ic_back rightArrow')]")).click();
 		}
-		waitTime(5000);
+		waitTime(6000);
 		// Verify Share and Remainder option is available
-		verifyElementPresentAndClick(PWALiveTVPage.objShowNameweb, "Show");
+		waitForElement(PWALiveTVPage.objShowNamewebChannelGuide,10, "Show");
+		verifyElementPresent(PWALiveTVPage.objShowNamewebChannelGuide, "Show");
+		JSClick(PWALiveTVPage.objShowNamewebChannelGuide, "Show");
 		verifyElementPresent(PWALiveTVPage.objShareOption, "Share option");
 		if (checkElementDisplayed(PWALiveTVPage.objRemainderButton, "Reminder option for upcoming show ")) {
 			verifyElementPresentAndClick(PWALiveTVPage.objRemainderButton, "Reminder option");
@@ -6895,11 +6894,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLogger("Reminder option", "User can click on Reminder option");
 			logger.info("User can click on Reminder option");
 		} else {
-
 			extent.extentLoggerFail("Remainder option", "User can not click on Reminder option");
 			logger.info("User can not click on Reminder option");
 		}
-
 		// Click on close button
 		verifyElementPresentAndClick(PWALiveTVPage.objPopupCloseButton, "Close button");
 	}

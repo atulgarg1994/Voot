@@ -376,4 +376,9 @@ public class PWALiveTVPage {
 	public static By objEPGContainer = By.xpath("//*[@class='epgContainer']");
 	
 	public static By objActiveEPGContent = By.xpath("(//*[contains(@class, 'programInner active')])[1]");
+	
+	public static By objShowNamewebChannelGuide = By.xpath(
+			"(//*[@title='Zee Kannada']//parent::*//parent::*//following-sibling::*//div[@class='noSelect programOuter']/child::*/child::*/child::div[contains(text(),'07:30 PM')])[2]");
+	
+	public static By objparticularShowTime = By.xpath("//div[@class='timeSlot']/child::div[text()='7:30 PM']");
 }

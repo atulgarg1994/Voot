@@ -220,5 +220,7 @@ public class PWALoginPage {
 	public static By objCountryCodeDropDownIndia = By.xpath("//*[contains(@class,'react-dropdown-select-type-single')]");
 	
 	 public static By objCleverTapPopUp=By.xpath("//button[@id='wzrk-cancel']");
-
+	 
+     // Clevertap Notification
+	public static By objNotificationPopUp = By.xpath("//button[@id='wzrk-cancel']");
 }

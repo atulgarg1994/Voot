@@ -23,7 +23,7 @@ public class WebPWASanityScript {
 	}
 
 //	 ------------------SHREENIDHI Mandatory Registration---------------------
-	@Test(priority = 2)
+//	@Test(priority = 2)
 	@Parameters({ "userType" })
 	public void PWARegistrationPopUp(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -242,18 +242,17 @@ public class WebPWASanityScript {
 	}
 
 	// -------------------------SUSHMA LiveTV--------------------------
-	@Test(priority = 22)
-	@Parameters({ "userType" })
-	public void LiveTvPage(String userType) throws Exception {
-		// SANITY
-		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-		Zee5WEBPWASanityBusinessLogic.liveLandingPage(userType);
-		Zee5WEBPWASanityBusinessLogic.live();
-		Zee5WEBPWASanityBusinessLogic.premiumPopUp();
-		Zee5WEBPWASanityBusinessLogic.ChannelGuide(userType);
-		// SMOKE
-		Zee5WEBPWASanityBusinessLogic.verifyLiveTvAndChannelGuideScreen();
-	}
+	 @Test(priority = 22)	  
+	 @Parameters({ "userType" }) public void LiveTvPage(String userType) throws Exception {
+	  // SANITY 
+	  Zee5WEBPWASanityBusinessLogic.navigateToHome();
+	  Zee5WEBPWASanityBusinessLogic.liveLandingPage(userType);
+	  Zee5WEBPWASanityBusinessLogic.live();
+	//Zee5WEBPWASanityBusinessLogic.premiumPopUp();
+	  Zee5WEBPWASanityBusinessLogic.ChannelGuide(userType); 
+         // SMOKE
+	  Zee5WEBPWASanityBusinessLogic.verifyLiveTvAndChannelGuideScreen();
+	  }
 
 	// -------------------------VINAY KALTURA--------------------------
 	@Test(priority = 23)

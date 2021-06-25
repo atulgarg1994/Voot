@@ -10,50 +10,46 @@ import com.utility.Utilities;
 public class AndroidApp_PerformanceCheck {
 	
 	private Zee5ApplicasterBusinessLogic ZEE5ApplicasterBusinessLogic;
-	
+
 	@BeforeTest
-	public void AppLaunch() throws InterruptedException {
+	public void AppLaunch() throws Exception {
 		System.out.println("Launching Andriod App");
 		Utilities.relaunch = true;	// Clear App Data on First Launch
 		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
-
+	
 	@Test(priority = 0)
-	@Parameters({ "userType" }) 	
-	public void accessDeviceLocation(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
-	}
-
-	@Test(priority = 1)
-	@Parameters({ "userType" })		//Login with registered user
-	public void ApplicasterLogin(String userType) throws Exception {
-		System.out.println("\nVerify login with registered user for various usertypes");
-		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
-		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin_Timer(userType);
+	public void AppLaunchToHomeScreen() throws Exception {
+		ZEE5ApplicasterBusinessLogic.appLaunchtoHomeScreen();
 	}
 	
-	@Test(priority = 2)
-	public void DeeplinkValidaton() throws Exception {
-		System.out.println("\nNative Andriod App Deeplink Validation");
-		ZEE5ApplicasterBusinessLogic.relaunch(false);
-		ZEE5ApplicasterBusinessLogic.deepLink_Validation("Consumption");
-		ZEE5ApplicasterBusinessLogic.deepLink_Validation("LiveTV");
+	@Test(priority = 1)	
+	public void LoginFunctionality() throws Exception {
+		ZEE5ApplicasterBusinessLogic.Performance_LoginFunctionality();
+	}
+	
+	@Test(priority = 2)	
+	public void ScreenNavigation() throws Exception {
+		ZEE5ApplicasterBusinessLogic.clearBackgroundApps();
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.SelectTopNavigationTab_Timer("Premium");
 	}
 	
 	@Test(priority = 3)
-	public void ScreenNavigation() throws Exception {
-		System.out.println("\nVerify Screen navigation");
-		ZEE5ApplicasterBusinessLogic.relaunch(false);
-		ZEE5ApplicasterBusinessLogic.ScreenNavigation("ZEE5 Originals");
+	public void InitiateContentPlayback() throws Exception {
+		ZEE5ApplicasterBusinessLogic.clearBackgroundApps();
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.Performance_InitiateContentPlayback();
 	}
 	
 	@Test(priority = 4)
-	public void SearchVOD() throws Exception {
-		System.out.println("\nVerify VOD content Playback");
-		ZEE5ApplicasterBusinessLogic.relaunch(false);
-		ZEE5ApplicasterBusinessLogic.searchforContent("Jogi");
+	public void DeeplinkValidaton() throws Exception {
+		System.out.println("\nNative Andriod App Deeplink Validation");
+		ZEE5ApplicasterBusinessLogic.clearBackgroundApps();
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.deepLink_Validation("Consumption");
 	}
-
+	
 	@AfterTest
 	public void tearDownApp() {
 		ZEE5ApplicasterBusinessLogic.tearDown();
