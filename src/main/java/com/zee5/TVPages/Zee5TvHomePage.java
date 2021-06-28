@@ -13,7 +13,13 @@ public class Zee5TvHomePage {
 	public static By objchannelInAllchannelTab(int i) {
 		return By.xpath("(//*[@id='channel_horizontal_view_channel_image'])[" + i + "]");
 	}
+	
+	
+	public static By objSeasonPage = By.xpath("//*[@id='select_seasons_textview']");
+	public static By objpinkloaderinPlayer= By.xpath("//*[@id='tv_gif_progress_loader']");
+	public static By objplayerTitle = By.xpath("//*[@id='player_title_text']");
 
+	public static By objplayerskipad = By.xpath("(//*[@id='kexo_subtitles'])[1]");
 	public static By objSearchIcon = By.xpath("//*[@id='search_icon_menu']");
 
 	public static By objChannelFilterButton = By.xpath("//*[@id='channel_listing_filter_button']");
@@ -84,12 +90,11 @@ public class Zee5TvHomePage {
 		return By.xpath("(//*[contains(text(),'" + option + "')]//parent::*)[1]");
 	}
 
-	
 	public static By objPlatformName = By.xpath("//*[@id='txtPlatform']");
 	public static By objPlatformChipset = By.xpath("//*[@id='txtDeviceChipset']");
 	public static By objPlatformAppVersion = By.xpath("//*[@id='txtDeviceAppVersion']");
 	public static By objPlatformInternetType = By.xpath("//*[@id='txtDeviceNetworkStatus']");
-	
+
 	public static By objFAQPage = By.xpath("//*[@id='faq_activity_title']");
 
 	public static By objContactUsPage = By.xpath("//*[@id='contact_us_text']");
@@ -104,7 +109,7 @@ public class Zee5TvHomePage {
 	public static By objSplCharechter = By.xpath("//*[@id='spl_char']");
 	public static By objatbutton = By.xpath("//*[@text='@']");
 	public static By objdotbutton = By.xpath("//*[@text='.']");
-	
+
 	public static By objmessagebox = By.xpath("//*[@id='edittext_msg']");
 
 	public static By objAlphaKeyboard = By.xpath("//*[@id='caps_turn_On']");
@@ -119,33 +124,33 @@ public class Zee5TvHomePage {
 	public static By objAlphaKeyboardXbutton = By.xpath("//*[@id='button_x']");
 	public static By objAlphaKeyboardYbutton = By.xpath("//*[@id='button_y']");
 	public static By objAlphaKeyboardZbutton = By.xpath("//*[@id='button_z']");
-	
+
 	public static By objCountryCodePopup = By.xpath("//*[@id='country_code_text']");
-	
+
 	public static By objClubPremiumPopup = By.xpath("//*[@id='tv_pop_up_un_subscribe_text']");
-	
+
 	public static By objAllaccessButton = By.xpath("//*[@id='allaccessBtn']");
-	
+
 	public static By objWatchNextTray = By.xpath("//*[@id='row_header' and @text='Watch Next']");
-	
+
 	public static By objEditBox = By.xpath("//*[@id='edittext_msg']");
 	public static By objSelectCountryBox = By.xpath("//*[@id='select_your_country_hint']");
 	public static By objResetButton = By.xpath("//*[@id='reset_button']");
-	
+
 	public static By objrowHeaderTray(String trayname) {
-		return By.xpath("//*[@id='row_header' and @text='"+ trayname +"']");
+		return By.xpath("//*[@id='row_header' and @text='" + trayname + "']");
 	}
-	
+
 	public static By objClubContent(String contentName) {
-		return By.xpath("//*[@id='home_title' and @text='"+ contentName +"']");
+		return By.xpath("//*[@id='home_title' and @text='" + contentName + "']");
 	}
-	
+
 	public static By objCarouselBannerTitle(String title) {
 		return By.xpath("//*[@id='banner_title' and @text='" + title + "']");
 	}
-	
+
 	public static By objPlayerScreenUpNext = By.xpath("//*[@id='info_text']");
-	
+
 	public static By objinfo = By.xpath("//*[@id='player_info']");
-	
+
 }

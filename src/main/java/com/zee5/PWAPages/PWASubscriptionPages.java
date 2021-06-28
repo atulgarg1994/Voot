@@ -274,9 +274,6 @@ public class PWASubscriptionPages {
 
 	public static By objEmailIDTextField = By.xpath("//*[@id='textField' and @name='userName']");
 
-	public static By objProceedBtnHighlighted = By
-			.xpath("//*[contains(@class, 'noSelect buttonGradient')]/span[contains(text(),'Continue')]");
-
 	public static By objWallets = By
 			.xpath("//*[contains(@class, 'linearLayout PaymentOptionViewNotList')]//*[contains(text(), 'Wallets')]");
 
@@ -637,4 +634,6 @@ public class PWASubscriptionPages {
 	public static By objLoadingPaymentOptions = By.xpath("//*[@text='Loading Payment Options...']");
 	
 	public static By objChangeButtonHaveAcode = By.xpath("//*[@class='changeMobileButton']");
+
+	public static By objProceedBtnHighlighted = By.xpath("//*[contains(@class, 'noSelect buttonGradient')]/span");
 }

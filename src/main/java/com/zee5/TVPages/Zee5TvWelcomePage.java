@@ -113,7 +113,7 @@ public class Zee5TvWelcomePage {
 
 	public static By objNameText = By.xpath("(//*[@id='profile_name']//child::*)[2]");
 	public static By objProfileOptionInSettingPage = By
-			.xpath("//*[@text='PROFILE']//parent::*//child::*[@id='icon_image']");
+			.xpath("//*[@text='MY PROFILE']//parent::*//child::*[@id='icon_image']");
 
 	public static By objVerison = By.xpath("//*[@id='tv_settings_version']");
 	public static By objParentalOption = By
@@ -168,8 +168,16 @@ public class Zee5TvWelcomePage {
 	public static By objApiRecoTray(String trayname) {
 		return By.xpath("//*[@id='row_header' and contains(text(),'" + trayname + "')]");
 	}
+	
+	public static By objtitleInViewall = By.xpath("//*[@id='detail_title']");
+	
+			public static By objRowHeader = By.xpath("(//*[@id='row_header'])[1]");	
+			
+			public static By objrownameindetailpage = By.xpath("//*[@id='header_title']");	
 
 	public static By objHomeTabTrending = By.xpath("//*[@id='row_header' and contains(text(),'Trending on')]");
+	
+			public static By objcontenttitleindetail = By.xpath("(//*[@id='movie_title_detail' or @id='show_title-detail'])[1]");
 
 	public static By objShowsTabTrending = By.xpath("//*[@id='row_header' and contains(text(),'Trending')]");
 

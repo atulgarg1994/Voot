@@ -27727,94 +27727,86 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	}
 
-	public void RegisterCTAFunctionalityOnSelectingWhatsappOptIn(String userType) throws Exception {
+	public void RegisterCTAFunctionalityOnSelectingWhatsappOptIn(String userType)throws Exception {
 		if (userType.equals("Guest")) {
 			relaunch(false);
 			extent.HeaderChildNode("Validation of Register CTA Functionality on selecting whatsapp opt in");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
-			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
-			type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
-			hideKeyboard();
-			click(AMDLoginScreen.objProceedBtn, "Proceed icon");
-			waitTime(5000);
-			click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
-			waitTime(3000);
-			type(AMDRegistrationScreen.objFirstNameTxtField, FirstName, "First name field");
-			hideKeyboard();
-			click(AMDRegistrationScreen.objLastNameTxtField, "Last Name field");
-			type(AMDRegistrationScreen.objLastNameTxtField, LastName, "Last Name");
-			hideKeyboard();
-
-			String pDOB = "01/01/1990", pNewPassword = "123456";
-			click(AMDRegistrationScreen.objDOBTxtField, "DOB field");
-			type(AMDRegistrationScreen.objDOBTxtField, pDOB, "DOB");
-			hideKeyboard();
-			verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
-			verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
-			click(AMDRegistrationScreen.objPasswordTxtField, "Passowrd");
-			type(AMDRegistrationScreen.objPasswordTxtField, pNewPassword, "Password field");
-			hideKeyboard();
-			Swipe("UP", 1);
-			String btn = getAttributValue("clickable", AMDRegistrationScreen.objRegisterBtn);
-			if (btn.equalsIgnoreCase("true")) {
-				logger.info(
-						"Register CTA is highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
-				extent.extentLoggerPass("Register button",
-						"Register CTA is highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
-			} else {
-				logger.error(
-						"Register CTA is not highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
-				extent.extentLoggerFail("Register button",
-						"Register CTA is not highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
-			}
-		} else {
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");	
+				verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
+				type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
+				hideKeyboard();
+				click(AMDLoginScreen.objProceedBtn, "Proceed icon");
+				waitTime(3000);
+					type(AMDRegistrationScreen.objFirstNameTxtField, FirstName, "First name field");
+					hideKeyboard();
+					click(AMDRegistrationScreen.objLastNameTxtField, "Last Name field");
+					type(AMDRegistrationScreen.objLastNameTxtField, LastName, "Last Name");
+					hideKeyboard();
+					
+					String pDOB = "01/01/1990", pNewPassword = "123456";
+					click(AMDRegistrationScreen.objDOBTxtField, "DOB field");
+					type(AMDRegistrationScreen.objDOBTxtField, pDOB, "DOB");
+					hideKeyboard();
+					verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
+					verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
+					click(AMDRegistrationScreen.objPasswordTxtField, "Passowrd");
+					type(AMDRegistrationScreen.objPasswordTxtField, pNewPassword, "Password field");
+					hideKeyboard();
+		            Swipe("UP", 1);
+		            waitTime(5000);
+					click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
+		            String btn= getAttributValue("clickable", AMDRegistrationScreen.objRegisterBtn);
+		            if(btn.equalsIgnoreCase("true")) {
+		            	logger.info("Register CTA is highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+		            	extent.extentLoggerPass("Register button", "Register CTA is highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+		            }else {
+		            	logger.error("Register CTA is not highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+		            	extent.extentLoggerFail("Register button", "Register CTA is not highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+		            }
+		}else {
 			extent.HeaderChildNode("Validation of Register CTA Functionality on selecting whatsapp opt in");
-			logger.info("Not Applicable for this userType");
-			extent.extentLogger("Not applicable", "Not Applicable for this userType");
+			 logger.info("Not Applicable for this userType");
+			 extent.extentLogger("Not applicable", "Not Applicable for this userType");
 		}
-
 	}
 
 	public void OtpScreen_OnselectingWhatsappOptIn(String userType) throws Exception {
-		if (userType.equalsIgnoreCase("Guest")) {
+		if(userType.equalsIgnoreCase("Guest")) {
 			relaunch(false);
-			extent.HeaderChildNode(
-					"OTP screen validation on tapping Register CTA, post selecting Whatsapp opt-in tick box");
+			extent.HeaderChildNode("OTP screen validation on tapping Register CTA, post selecting Whatsapp opt-in tick box");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
-			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
-			type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
-			hideKeyboard();
-			click(AMDLoginScreen.objProceedBtn, "Proceed icon");
-			waitTime(5000);
-			click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
-			waitTime(3000);
-			type(AMDRegistrationScreen.objFirstNameTxtField, FirstName, "First name field");
-			hideKeyboard();
-			click(AMDRegistrationScreen.objLastNameTxtField, "Last Name field");
-			type(AMDRegistrationScreen.objLastNameTxtField, LastName, "Last Name");
-			hideKeyboard();
-
-			String pDOB = "01/01/1990", pNewPassword = "123456";
-			click(AMDRegistrationScreen.objDOBTxtField, "DOB field");
-			type(AMDRegistrationScreen.objDOBTxtField, pDOB, "DOB");
-			hideKeyboard();
-			verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
-			verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
-			click(AMDRegistrationScreen.objPasswordTxtField, "Passowrd");
-			type(AMDRegistrationScreen.objPasswordTxtField, pNewPassword, "Password field");
-			hideKeyboard();
-			Swipe("UP", 1);
-			click(AMDRegistrationScreen.objRegisterBtn, "Register button");
-			verifyElementExist(AMDLoginScreen.objOtpScreenTitle, "OTP screen");
-		} else {
-			extent.HeaderChildNode(
-					"OTP screen validation on tapping Register CTA, post selecting Whatsapp opt-in tick box");
-			logger.info("Not Applicable for this userType");
-			extent.extentLogger("Not applicable", "Not Applicable for this userType");
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");	
+				verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
+				type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
+				hideKeyboard();
+				click(AMDLoginScreen.objProceedBtn, "Proceed icon");
+				waitTime(3000);
+					type(AMDRegistrationScreen.objFirstNameTxtField, FirstName, "First name field");
+					hideKeyboard();
+					click(AMDRegistrationScreen.objLastNameTxtField, "Last Name field");
+					type(AMDRegistrationScreen.objLastNameTxtField, LastName, "Last Name");
+					hideKeyboard();
+					
+					String pDOB = "01/01/1990", pNewPassword = "123456";
+					click(AMDRegistrationScreen.objDOBTxtField, "DOB field");
+					type(AMDRegistrationScreen.objDOBTxtField, pDOB, "DOB");
+					hideKeyboard();
+					verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
+					verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
+					click(AMDRegistrationScreen.objPasswordTxtField, "Passowrd");
+					type(AMDRegistrationScreen.objPasswordTxtField, pNewPassword, "Password field");
+					hideKeyboard();
+		            Swipe("UP", 1);
+		            waitTime(5000);
+					click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
+		            click(AMDRegistrationScreen.objRegisterBtn, "Register button");
+		            verifyElementExist(AMDLoginScreen.objOtpScreenTitle, "OTP screen");	
+		}else {
+			extent.HeaderChildNode("OTP screen validation on tapping Register CTA, post selecting Whatsapp opt-in tick box");
+			 logger.info("Not Applicable for this userType");
+			 extent.extentLogger("Not applicable", "Not Applicable for this userType");
 		}
-
 	}
 
 	public void OtpScreen_OnDeselectingWhatsappOptIn(String userType) throws Exception {
@@ -28190,5 +28182,96 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.error("\nHome page is not displayed");
 			extent.extentLoggerFail("Traffic Usage", "<b>Home page is not displayed!</b>");
 		}
+	}
+	
+	public void saveChangesCTA_Highlight_InEditProfileScreen(String userType) throws Exception {
+		if(!(userType.equalsIgnoreCase("Guest"))) {
+			relaunch(false);
+			extent.HeaderChildNode("Save changes CTA functionality in EditProfile screen");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			click(AMDHomePage.objMyProfileIcon, "profile icon");
+			verifyElementPresentAndClick(AMDMyProfileScreen.objEditProfileButton, "Edit CTA");
+			waitTime(3000);
+			type(AMDEditProfileScreen.objMobileNumberField, "0123456789", "Mobile number field");
+			hideKeyboard();
+			Swipe("UP", 1);
+			String cta = getAttributValue("enabled", AMDEditProfileScreen.objSaveChanges);
+			if(cta.equalsIgnoreCase("true")) {
+				logger.info("Savechanges CTA is highlighted for mobile No. user who Select/deselect on WhatsApp opt-in tickbox");
+				extent.extentLoggerPass("CTA", "Savechanges CTA is highlighted for mobile No. user who Select/deselect on WhatsApp opt-in tickbox");
+			}else {
+				logger.error("Savechanges CTA is not highlighted for mobile No. user who Select/deselect on WhatsApp opt-in tickbox");
+				extent.extentLoggerFail("CTA", "Savechanges CTA is not highlighted for mobile No. user who Select/deselect on WhatsApp opt-in tickbox");
+			}
+		}else{
+			extent.HeaderChildNode("Save changes CTA functionality in EditProfile screen");
+		   	  logger.info("Not Applicable for this userType");
+		   	  extent.extentLogger("Not applicable", "Not Applicable for this userType");
+		   	}
+	}
+	
+	public void saveChangesFunctionality_PreviouslyRegisteredUser_havingMobileNumber(String userType) throws Exception {
+		if(!(userType.equalsIgnoreCase("Guest"))) {
+			relaunch(true);
+			ZeeApplicasterLogin(userType);
+			extent.HeaderChildNode("Save changes CTA functionality in EditProfile screen for previously registered user having mobile number");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			click(AMDHomePage.objMyProfileIcon, "profile icon");
+			verifyElementPresentAndClick(AMDMyProfileScreen.objEditProfileButton, "Edit CTA");
+			waitTime(3000);
+			String firstName = getText(AMDRegistrationScreen.objFirstNameTxtField);
+			clearField(AMDRegistrationScreen.objFirstNameTxtField, "First name field");
+			hideKeyboard();
+			waitTime(5000);
+			click(AMDRegistrationScreen.objFirstNameTxtField, "First name field");
+			type(AMDRegistrationScreen.objFirstNameTxtField, firstName+"e", "First name field");
+			hideKeyboard();
+			Swipe("UP", 1);
+			click(AMDEditProfileScreen.objSaveChanges, "Save changes");
+			waitTime(5000);
+			if(verifyIsElementDisplayed(AMDMyProfileScreen.objEditProfileButton)) {
+				logger.info("user navigated to My profile screen on tapping Save changes CTA");
+				extentLoggerPass("Myprofile", "user navigated to My profile screen on tapping Save changes CTA");
+			}else {
+				logger.error("user is not navigated to My profile screen on tapping Save changes CTA");
+				extentLoggerFail("Myprofile", "user is not navigated to My profile screen on tapping Save changes CTA");
+			}
+	}else{
+		extent.HeaderChildNode("Save changes CTA functionality in EditProfile screen for previously registered user having mobile number");
+	 	  logger.info("Not Applicable for this userType");
+	 	  extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	 	}
+	}
+
+	public void saveChangesFunctionality_PreviouslyRegisteredUser_havingOnlyEmailID(String userType) throws Exception {
+		if(!(userType.equalsIgnoreCase("Guest"))) {
+			relaunch(true);
+			extent.HeaderChildNode("Save changes CTA functionality for previously registered user by entering mobile number in edit profile screen");
+			if(userType.equalsIgnoreCase("NonSubscribedUser")) {
+				LoginWithEmailID("igszeefive3@gmail.com", "123456");
+			}else {
+				LoginWithEmailID("zeein7@mailnesia.com", "123456");
+			}
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			click(AMDHomePage.objMyProfileIcon, "profile icon");
+			verifyElementPresentAndClick(AMDMyProfileScreen.objEditProfileButton, "Edit CTA");
+			waitTime(3000);
+			type(AMDEditProfileScreen.objMobileNumberField, UnRegisteredMobile, "Mobile number field");
+			hideKeyboard();
+			Swipe("UP", 1);
+			click(AMDEditProfileScreen.objSaveChanges, "Save changes");
+			waitTime(5000);
+			if(verifyIsElementDisplayed(AMDLoginScreen.objOtpScreenTitle)) {
+				logger.info("user navigated to OTP screen on tapping Save changes CTA");
+				extentLoggerPass("Myprofile", "user navigated to OTP screen on tapping Save changes CTA");
+			}else {
+				logger.error("user is not navigated to OTP screen on tapping Save changes CTA");
+				extentLoggerFail("Myprofile", "user is not navigated to OTP screen on tapping Save changes CTA");
+			}
+	}else{
+		extent.HeaderChildNode("Save changes CTA functionality for previously registered user by entering mobile number in edit profile screen");
+	 	  logger.info("Not Applicable for this userType");
+	 	  extent.extentLogger("Not applicable", "Not Applicable for this userType");
+	 	}
 	}
 }

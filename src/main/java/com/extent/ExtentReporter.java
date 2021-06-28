@@ -202,6 +202,15 @@ public class ExtentReporter implements ITestListener {
 				logger.info("::::::::::Test " + result.getName() + " FAILED::::::::::");
 				moduleFail.add(result.getName()+","+"Fail");
 				totalFailedTest++;
+				try {
+			         if(logfail != 0) {
+				                     Json.XrayJsonImport(jiraID, "FAILED");
+							}else {
+								Json.XrayJsonImport(jiraID, "PASSED");
+							}
+						} catch (InterruptedException | IOException e) {
+							e.printStackTrace();
+						}
 //		mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
 			}
 		}

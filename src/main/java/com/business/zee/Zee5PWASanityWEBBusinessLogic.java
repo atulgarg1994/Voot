@@ -267,17 +267,18 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	
 	public void allowPopUp() throws Exception {
 		waitTime(5000);
-		click(PWAHomePage.objAllow, "Notification popup");
-		waitTime(3000);
-		click(PWAHomePage.objAllowCloseButton, "Close button");
-		waitTime(20000);
-		Robot robot = new Robot();
-		robot.keyPress(KeyEvent.VK_TAB);
-		waitTime(2000);
-		robot.keyPress(KeyEvent.VK_TAB);
-		waitTime(2000);
-		robot.keyPress(KeyEvent.VK_ENTER);
-		robot.keyRelease(KeyEvent.VK_ENTER);
+		click(PWALoginPage.objNotificationPopUp, "Notification PopUp");
+//		click(PWAHomePage.objAllow, "Notification popup");
+//		waitTime(3000);
+//		click(PWAHomePage.objAllowCloseButton, "Close button");
+//		waitTime(20000);
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_TAB);
+//		waitTime(2000);
+//		robot.keyPress(KeyEvent.VK_TAB);
+//		waitTime(2000);
+//		robot.keyPress(KeyEvent.VK_ENTER);
+//		robot.keyRelease(KeyEvent.VK_ENTER);
 		waitTime(3000);
 		System.out.println("dismissed all");
 	}
@@ -12769,26 +12770,28 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLogger("Home", "Home button is highlighted in Hamburger Menu");
 		}
 		click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
-		Actions actions = new Actions(getWebDriver());
-		WebElement contentcard = getWebDriver().findElement(PWAHomePage.objTabName("TV Shows"));
-		actions.moveToElement(contentcard).perform();
 		waitTime(5000);
-		if (checkElementDisplayed(PWAHomePage.objHoverMenu("TV Shows"), "TV Shows menu")) {
-			logger.info("TV Shows tab overlay is displayed when mouse hover is performed");
-			extent.extentLogger("TV Shows", "TV Shows tab overlay is displayed when mouse hover is performed");
-		}
-		verifyElementPresentAndClick(PWAHomePage.objOverlayTray, "Overlay Tray");
-		String Tray = getText(PWAHomePage.objOverlayTray);
-		System.out.println(Tray);
-		if (checkElementDisplayed(PWAHomePage.objOverlayTrayActive(Tray), "Overlay Tray in tv shows page")) {
-			logger.info("Clicked on overlay menu Tray option and tray is highlighted");
-			extent.extentLogger("Tray", "Clicked on overlay menu Tray option and tray is highlighted");
-		}
+//		Actions actions = new Actions(getWebDriver());
+//		WebElement contentcard = getWebDriver().findElement(PWAHomePage.objTabName("TV Shows"));
+//		actions.moveToElement(contentcard).perform();
+//		waitTime(5000);
+//		if (checkElementDisplayed(PWAHomePage.objHoverMenu("TV Shows"), "TV Shows menu")) {
+//			logger.info("TV Shows tab overlay is displayed when mouse hover is performed");
+//			extent.extentLogger("TV Shows", "TV Shows tab overlay is displayed when mouse hover is performed");
+//		}
+//		verifyElementPresentAndClick(PWAHomePage.objOverlayTray, "Overlay Tray");
+//		String Tray = getText(PWAHomePage.objOverlayTray);
+//		System.out.println(Tray);
+//		if (checkElementDisplayed(PWAHomePage.objOverlayTrayActive(Tray), "Overlay Tray in tv shows page")) {
+//			logger.info("Clicked on overlay menu Tray option and tray is highlighted");
+//			extent.extentLogger("Tray", "Clicked on overlay menu Tray option and tray is highlighted");
+//		}
 		click(PWAHomePage.objSearchBtn, "Search button");
 		type(PWASearchPage.objSearchEditBox, text, "Search field");
 		waitTime(5000);
 		click(PWASearchPage.objAssetTitleSearchNavigationTab, "Zee originals");
 		waitTime(35000);
+		waitForElement(PWASubscriptionPages.objGetPremiumButton, 20 ,"Player Inline Subscription Link");
 		if (verifyElementPresent(PWASubscriptionPages.objGetPremiumButton, "Player Inline Subscription Link")) {
 //			checkElementDisplayed(PWASubscriptionPages.objLoginSectionInPopup, "Login section");
 			verifyElementPresentAndClick(PWASubscriptionPages.objLoginLink, "Login button");
@@ -12803,7 +12806,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
 			verifyElementPresent(PWAPlayerPage.pauseBtn, "Pause button");
 		}
-		click(PWAHomePage.objZeelogo1, "Zee logo");
+		//click(PWAHomePage.objZeelogo1, "Zee logo");
 //		if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup") == true) {
 //			click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
 //		}
@@ -12975,15 +12978,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	}
 
 	public void FreeContentAndPremiumContent(String userType) throws Exception {
-		extent.HeaderChildNode("Landing page module:Free And Premium Content availability");
-		verifyElementPresent(PWASearchPage.objSearchBtn, "Search button");
-		JSClick(PWASearchPage.objSearchBtn, "Search button");
+		extent.HeaderChildNode("Landing page module: Free And Premium Content availability");
+		verifyElementPresentAndClick(PWASearchPage.objSearchBtn, "Search button");
 		waitTime(2000);
 		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 				.getParameter("freeMovie2");
 		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
 		waitTime(3000);
-		click(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
+		verifyElementPresentAndClick(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
 		waitTime(10000);
 		if (userType.equals("Guest")) {
 			if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Register popup ")) {
@@ -13053,9 +13055,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		// Subscription_button
 		waitTime(2000);
-		if(userType.equalsIgnoreCase("Subscribed User")) {
+		if(userType.equalsIgnoreCase("SubscribedUser")) {
 			
-			if (!(checkElementDisplayed(PWALandingPages.obj_Pwa_Subcription_teaser_btn, "Buy Plan CTA on Header"))) {
+			if (checkElementDisplayed(PWALandingPages.obj_Pwa_Subcription_teaser_btn, "Buy Plan CTA on Header")) {
 				
 				logger.error("Buy Plan CTA should not displayed on Header for Subscribed User");
 				extent.extentLoggerFail("Buy Plan CTA on Header", "Buy Plan CTA should not displayed on Header for Subscribed User");

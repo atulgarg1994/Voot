@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 
 public class Zee5TvPlayerPage {
 
-	public static By objAd = By.xpath("//*[contains(text(),'Ad :')]");
+	public static By objAd = By.xpath("(//*[contains(text(),'Ad :')])[2]");
 	public static By objProgressLoader = By.xpath("//*[@id='tv_gif_progress_loader']");
 	public static By objPlayPause = By.xpath("//*[@id='new_play_pause_icon']");
 	public static By objPlayPauseHighlighted = By.xpath("//*[@id='new_play_pause_icon' and @focused='true']");

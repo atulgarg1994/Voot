@@ -205,6 +205,39 @@ public class Android_WhatsAppFeature {
 		ZEE5ApplicasterBusinessLogic.whatsappOptInFunctionalityPostEnteringBothEmailIdAndMobileNumberInEditProfileScreen(userType);
 	}
 	
+	@Test(priority = 19)//Sushma
+	@Parameters({ "userType"})
+	public void SaveChangesCTA_RegisteredUser(String userType) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			ZEE5ApplicasterBusinessLogic.jiraID = "TC-25228";
+		}else if(userType.equals("SubscribedUser")) {
+			ZEE5ApplicasterBusinessLogic.jiraID = "TC-25229";
+		}
+		ZEE5ApplicasterBusinessLogic.saveChangesCTA_Highlight_InEditProfileScreen(userType);
+	}
+
+	@Test(priority = 20)//Sushma
+	@Parameters({ "userType"})
+	public void saveChangesFunctionality_havingMobileNumber_RegisteredUser(String userType) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			ZEE5ApplicasterBusinessLogic.jiraID = "TC-25232";
+		}else if(userType.equals("SubscribedUser")) {
+			ZEE5ApplicasterBusinessLogic.jiraID = "TC-25233";
+		}
+		ZEE5ApplicasterBusinessLogic.saveChangesFunctionality_PreviouslyRegisteredUser_havingMobileNumber(userType);
+	}
+	
+	@Test(priority = 21)//Sushma
+	@Parameters({ "userType"})
+	public void saveChangesFunctionality_havingOnlyEmailID_RegisteredUser(String userType) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			ZEE5ApplicasterBusinessLogic.jiraID = "TC-25234";
+		}else if(userType.equals("SubscribedUser")) {
+			ZEE5ApplicasterBusinessLogic.jiraID = "TC-25235";
+		}
+		ZEE5ApplicasterBusinessLogic.saveChangesFunctionality_PreviouslyRegisteredUser_havingOnlyEmailID(userType);
+	}
+	
 //	@Test(priority = 3)//Sushma
 //	@Parameters({ "userType"})
 //	public void Validation_FloatingBannerAndSmallIcon_HomeScreen(String userType) throws Exception {

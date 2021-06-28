@@ -642,8 +642,6 @@ public class PWAHomePage {
  	public static By objContTitleOnCarousel = By
 			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
  	
- 	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
-
  	public static By objTabName(String tabName) {
 		return By.xpath("(//a[contains(@class,'noSelect') and text()='" + tabName + "'])[2]");
 	}
@@ -685,4 +683,7 @@ public class PWAHomePage {
 	public static By objCountryCodeDropDownIndia = By.xpath("//*[contains(@class,'react-dropdown-select-type-single')]");
 	
 	public static By objzeeplexHowitWorks=By.xpath("//*[@class='plexLearnMoreLink']");
+	
+	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
+	
  }
