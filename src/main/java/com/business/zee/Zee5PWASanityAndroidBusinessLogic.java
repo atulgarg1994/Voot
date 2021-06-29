@@ -1745,7 +1745,6 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.info("User didn't navigate to ViewAll Wrap page after clicking on ViewAll");
 			extent.extentLoggerFail("News Player screen", "User failed to validates player controls");
 		}
-
 		Back(1);
 	}
 

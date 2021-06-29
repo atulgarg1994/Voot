@@ -57,7 +57,7 @@ public class Android_MoreScreen {
 		ZEE5ApplicasterBusinessLogic.myWatchList(userType);
 	}
 
-	@Test(priority = 6) // Hitesh
+	//@Test(priority = 6) // Hitesh // My Reminders feature has been removed [Mallikarjun]
 	@Parameters({ "userType" })
 	public void MyReminders(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.myReminders(userType);

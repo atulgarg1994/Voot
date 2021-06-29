@@ -18784,7 +18784,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
-
 			registerPopUpClose();
 			scrubProgressBarToMidDFP(AMDPlayerScreen.objProgressBar);
 			waitTime(5000);
@@ -18814,17 +18813,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("Ad play in progress");
 				extent.extentLoggerPass("Ad", "Ad played in Postroll");
 				waitTime(5000);
-
 			} else {
 				logger.info("Ad is not available for the content");
 				extent.extentLogger("Ad", "Ad is not available for the content");
 			}
-
 		} else {
 			logger.info("Ad validation is not applicable for - " + userType);
 			extent.extentLogger("Ad", "Ad validation is not applicable for - " + userType);
 		}
-
 	}
 
 	public void scrubProgressBarToMid(By byLocator1) throws Exception {

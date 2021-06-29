@@ -13,7 +13,7 @@
 	<parameter name="testExecutionKey" value="TC-25116" />
 	
 	<parameter name="url" value="https://newpwa.zee5.com/" />
-	<parameter name="SubscribedUserWith15daysExpiryUsername" value="zzzz@g.com" />
+	<parameter name="SubscribedUserWith15daysExpiryUsername" value="test25@m.com" />
 	<parameter name="SubscribedUserWith15daysExpiryPassword" value="123456" />
 
 	<parameter name="NonsubscribedUserName" value="ramkt@gmail.com" />
@@ -28,11 +28,11 @@
 	<parameter name="regUserName" value="igszeefive3@gmail.com" />
 	<parameter name="regPassword" value="123456" />
 
-	<parameter name="RegisteredMobile" value="7892215214" />
-	<parameter name="RegisteredMobilePassword" value="User@123" />
+    <parameter name="RegisteredMobile" value="7892215214" />
+	<parameter name="RegisteredMobilePassword" value="123456" />
 	
 	<parameter name="UnRegisteredMobile" value="8073661163" />
-	<parameter name="PromoCode" value="NRTDC1" />
+	<parameter name="PromoCode" value="ZEE5SCB" />
 	
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsUsername" value="zeetest08@gmail.com" />
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsPassword" value="123456"/>
@@ -52,7 +52,7 @@
 	<parameter name="displayLanguageSelection2" value="Marathi" />
 	<parameter name="inValidPhnNumber" value="7892215" />
 	<parameter name="validPhnNumber" value="7892215214" />
-	<parameter name="validPassword" value="User@123" />
+	<parameter name="validPassword" value="123456" />
 	<parameter name="otp1" value="1" />
 	<parameter name="otp2" value="2" />
 	<parameter name="otp3" value="3" />
@@ -73,7 +73,7 @@
 	<parameter name="searchKeyword5" value="Chemistry of Kariyappa" />
 	<parameter name="searchKeyword6" value="Jamai 2.0" />
 	<parameter name="searchKeyword7" value="Paaru" />
-	<parameter name="searchKeyword8" value="Shivaji Surathkal" />
+	<parameter name="searchKeyword8" value="Kedarnath" />
 	<parameter name="searchKeyword9" value="Jamai 2.0" />
 	<parameter name="searchKeyword10" value="Vikrant and Aarati reconcile - Gattimela" />
 	<parameter name="searchKeyword11" value="Paarvathi writes a love letter to Aditya - Paaru" />
