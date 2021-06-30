@@ -167,6 +167,9 @@
 	
 	<parameter name="WhatsappOptInDeeplinkUrl" value="" />
 	
+	<parameter name="UpgradeNonsubscribedUserName" value="testupgrade123@gmail.com" />
+	<parameter name="UpgradeNonsubscribedPassword" value="123456" />
+	
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
@@ -321,6 +324,12 @@
 				name="com.zee5.ApplicasterScripts.Android_WhatsAppFeature" />
 		</classes>
 	</test> 
+	
+	<test name="Android_AppUpgradeScenarios">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_AppUpgradeScenarios" />
+		</classes>
+	</test>	
 	
 	
 <!-- #20 
