@@ -28360,30 +28360,32 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	
 	public void installmarketBuild() throws Exception{
 		extent.HeaderChildNode("Install market build");
-		logger.info("Installing market build");
+		logger.info("Install market build");
 		logger.info("Uninstalling zee5");
+		extent.extentLogger("", "Uninstalling zee5");
 		Runtime.getRuntime().exec("adb uninstall com.graymatrix.did");
 		waitTime(3000);
 		logger.info("Clearing play store app data");
+		extent.extentLogger("", "Clearing play store app data");
 		Runtime.getRuntime().exec("adb shell pm clear -n com.android.vending");
 		waitTime(3000);
 		logger.info("Launching Play store");
+		extent.extentLogger("", "Launching Play store");
 		Runtime.getRuntime().exec("adb shell am start -n com.android.vending/com.android.vending.AssetBrowserActivity");
 		waitTime(3000);
-		installZeeApp();
-		
+		installZeeApp();	
 	}
 	
-	public void installZeeApp() throws Exception {
+	public void installZeeApp() throws Exception{
 		logger.info("Install Zee5");
-		extent.HeaderChildNode("Install Zee5");
-		waitTime(4000);
+	    extent.HeaderChildNode( "Install Zee5");
+	    waitTime(4000);
 		click(AMDAppUpgrade.objplaystoreSearch, "Edit field");
 		type(AMDAppUpgrade.objplaystoreSearch, "Zee5 \n", "Edit field");
 		hideKeyboard();
 		verifyElementPresentAndClick(AMDAppUpgrade.objInstallButton, "Install button");
-		waitForElementDisplayed(AMDAppUpgrade.objOpenButton, 35);
-		waitTime(30000);
+		waitForElementDisplayed(AMDAppUpgrade.objOpenButton, 50);
+		waitTime(40000);
 	}
 
 	public void LoginForUpgradeModule(String LoginMethod) throws Exception{
@@ -28462,13 +28464,27 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	    String downloadoverwifi = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("download_over_wifi");
 	    String displaylang = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("display_language");  
 	    String contentlang = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("content_language");
-	    System.out.println(Streamvalue);
-	    System.out.println(contentlang);
-	    System.out.println(autoPlay);
-	    System.out.println(downloadQuality);
-	    System.out.println(Streamoverwifi);
-	    System.out.println(downloadoverwifi);
-	    System.out.println(displaylang);
+	    logger.info(Streamvalue);
+		extent.extentLogger("", Streamvalue);
+		
+	    logger.info(autoPlay);
+	   	extent.extentLogger("", autoPlay);
+	   	
+	    logger.info(downloadQuality);
+	   	extent.extentLogger("", downloadQuality);
+	   	
+	    logger.info(Streamoverwifi);
+	   	extent.extentLogger("", Streamoverwifi);
+	  
+	    logger.info(downloadoverwifi);
+	   	extent.extentLogger("", downloadoverwifi);
+	   
+	    logger.info(displaylang);
+	   	extent.extentLogger("", displaylang);
+	  
+	    logger.info(contentlang);
+	   	extent.extentLogger("", contentlang);
+	    BackToLandingScreen();
 	}
 
 	public void UninstallZee5() throws Exception{
@@ -28476,9 +28492,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		  extent.HeaderChildNode("Uninstalling zee5");
 		 Runtime.getRuntime().exec("adb uninstall com.graymatrix.did");
 		 logger.info("Uninstalled the zee5 application");
-		 waitTime(2000);
-		 
-	   
+		 extent.extentLogger("", "Uninstalled the zee5 application");
+		 waitTime(2000);	
 	}
 
 	public void LaunchPlayStoreApp() throws Exception {
@@ -28487,7 +28502,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	     Runtime.getRuntime().exec("adb shell am start -n com.android.vending/com.android.vending.AssetBrowserActivity");
 	     logger.info("Play store app is launched");
 	     waitTime(4000);
-	   
 	}
 
 	public void clearPlayStoreAppData() throws Exception {
@@ -28500,52 +28514,226 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 
 	public void InstallZee5() throws Exception{
-			logger.info("Installing Zee5");
-			extent.HeaderChildNode("Installing Zee5 beta build");
-		    LaunchPlayStoreApp();
-		    verifyElementPresentAndClick(AMDAppUpgrade.objgmailProfileicon, "Gmail profile icon");
-		    click(AMDAppUpgrade.objdownArrow,"Down arrow");
-		    if(verifyElementDisplayed(AMDAppUpgrade.objSecondAacountInPlaystore)) {
-		    	click(AMDAppUpgrade.objSecondAacountInPlaystore,"Account");
-		    	waitTime(4000);
-		    }
-		    else {
-		    click(AMDAppUpgrade.objAddAccount,"Add Account");	
-		    waitTime(5000);
-		    click(AMDAppUpgrade.objeditEmailfield,"Edit email field");
-		    type(AMDAppUpgrade.objeditEmailfield, "mallikarjun.beta23@gmail.com", "Edit field");
-			hideKeyboard();
-			waitTime(2000);
-			click(AMDAppUpgrade.objNextbtn,"Next button");
-			waitTime(4000);
-			verifyElementPresentAndClick(AMDAppUpgrade.objEditPasswordfield,"Edit password field");
-			type(AMDAppUpgrade.objEditPasswordfield, "beta12345", "Edit field");
-			hideKeyboard();
-			click(AMDAppUpgrade.objNextbtn,"Next button");
-			waitTime(4000);
-			click(AMDAppUpgrade.objIagreebtn,"I agree button");
-			 waitTime(5000);
-		    }
-		    waitTime(5000);
-			Runtime.getRuntime().exec("adb shell pm clear -n com.android.vending");
-			waitTime(5000);
-			System.out.println("clear play store app data");
-			Runtime.getRuntime().exec("adb shell am start -n com.android.vending/com.android.vending.AssetBrowserActivity");
-			System.out.println("launched play store");
-			waitTime(5000);
-			verifyElementPresentAndClick(AMDAppUpgrade.objgmailProfileicon, "Gmail profile icon");
-			click(AMDAppUpgrade.objdownArrow,"Down arrow");
-		    click(AMDAppUpgrade.objSecondAacountInPlaystore,"Account"); 
-			 waitTime(8000);
-			click(AMDAppUpgrade.objplaystoreSearch, "Edit field");
-			type(AMDAppUpgrade.objplaystoreSearch, "Zee5 \n", "Edit field");
-			hideKeyboard();
-			verifyElementPresentAndClick(AMDAppUpgrade.objInstallButton, "Install button");
-			waitForElementDisplayed(AMDAppUpgrade.objUpdatebutton, 30);
-			click(AMDAppUpgrade.objUpdatebutton,"Update button");
-			waitTime(15000);
-			waitForElementDisplayed(AMDAppUpgrade.objOpenButton, 10);
-			waitTime(15000);		
+		logger.info("Installing Zee5");
+		extent.HeaderChildNode("Installing Zee5 beta build");
+	    LaunchPlayStoreApp();
+	    verifyElementPresentAndClick(AMDAppUpgrade.objgmailProfileicon, "Gmail profile icon");
+	    click(AMDAppUpgrade.objdownArrow,"Down arrow");
+	   if(verifyElementIsNotDisplayed(AMDAppUpgrade.objSecondAacountInPlaystore)) {
+	    click(AMDAppUpgrade.objAddAccount,"Add Account");	
+	    waitTime(8000);
+	    click(AMDAppUpgrade.objeditEmailfield,"Edit email field");
+	    type(AMDAppUpgrade.objeditEmailfield, "mallikarjun.beta23@gmail.com", "Edit field");
+		hideKeyboard();
+		waitTime(2000);
+		click(AMDAppUpgrade.objNextbtn,"Next button");
+		waitTime(4000);
+		verifyElementPresentAndClick(AMDAppUpgrade.objEditPasswordfield,"Edit password field");
+		type(AMDAppUpgrade.objEditPasswordfield, "beta12345", "Edit field");
+		hideKeyboard();
+		click(AMDAppUpgrade.objNextbtn,"Next button");
+		waitTime(4000);
+		click(AMDAppUpgrade.objIagreebtn,"I agree button");
+		 waitTime(5000);
+	    }
+	    if(verifyElementDisplayed(AMDAppUpgrade.objSecondAacountInPlaystore)) {
+	    	click(AMDAppUpgrade.objSecondAacountInPlaystore,"Account");
+	    	waitTime(4000);
+	    }
+	    waitTime(5000);
+		Runtime.getRuntime().exec("adb shell pm clear -n com.android.vending");
+		waitTime(5000);
+		System.out.println("cleared play store app data");
+		waitTime(3000);
+		Runtime.getRuntime().exec("adb shell am start -n com.android.vending/com.android.vending.AssetBrowserActivity");
+		System.out.println("launched play store");
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDAppUpgrade.objgmailProfileicon, "Gmail profile icon");
+		click(AMDAppUpgrade.objdownArrow,"Down arrow");
+	    click(AMDAppUpgrade.objSecondAacountInPlaystore,"Account"); 
+		 waitTime(8000);
+		click(AMDAppUpgrade.objplaystoreSearch, "Edit field");
+		type(AMDAppUpgrade.objplaystoreSearch, "Zee5 \n", "Edit field");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDAppUpgrade.objUpdatebutton,"Update button");
+		waitTime(30000);		
+		waitForElementDisplayed(AMDAppUpgrade.objOpenButton, 30);
+		waitTime(25000);		
 	}
 
+	public void accessDeviceLocationPopUp1(String permission, String userType) throws Exception {
+		extent.HeaderChildNode("Access Device Location PopUp");
+		extent.extentLogger("Time ","Time taken to launch the App (Sec)" + DriverInstance.timeElapsed.getSeconds());
+		extent.extentLogger("User Type", "UserType : " + userType);
+		logger.info("UserType : " + userType);
+		System.out.println("Access Device Location PopUp");
+		Thread.sleep(10000);
+
+		if (verifyElementExist(AMDOnboardingScreen.objAllowLocationAccessPopup, "AllowPopup")) {
+			Wait(5000);
+
+			String str1 = getAttributValue("text", AMDOnboardingScreen.objFirstPermissionButton);
+			String str2 = getAttributValue("text", AMDOnboardingScreen.objSecondPermissionButton);
+
+			if (str1.contains("ALLOW")) {
+				System.out.println("ALLOW is present");
+				click(AMDOnboardingScreen.objAllow(str1), str1);
+
+			} else if (str1.contains("WHILE USING THE APP")) {
+				System.out.println("Allow is present");
+				click(AMDOnboardingScreen.objAllow(str1), str1);
+			} else if (str1.contains("Allow")) {
+				System.out.println("Allow is present");
+				click(AMDOnboardingScreen.objAllow(str1), str1);
+			} else if (str2.contains("ALLOW")) {
+				System.out.println("ALLOW is present");
+				click(AMDOnboardingScreen.objAllow(str2), str2);
+			} else if (str2.contains("Allow")) {
+				System.out.println("Allow is present");
+				click(AMDOnboardingScreen.objAllow(str2), str2);
+			}
+			AppPerformanceTestInfo("com.graymatrix.did");
+			Thread.sleep(10000);
+		} else {
+			System.out.println("Access Device Location PopUp not displayed");
+		}
+	}
+
+
+public void navigateToIntroScreen_DisplaylangScreen1() throws Exception {
+
+		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
+	}
+
+
+public void GetContinueWatchingTrayDetails(String userType) throws Exception{
+	extent.HeaderChildNode("Get Continue watching tray details");
+//	Properties pro = new Properties();
+//	Response respCW = ResponseInstance.getRespofCWTray(userType);
+	Response respCW = ResponseInstance.getRespofCWTray(userType);
+    System.out.println(respCW);
+//	List<String> ApinoOfContentsInCW = respCW.jsonPath().getList("array");
+//	logger.info("no.of contents in CW tray in Api " + ApinoOfContentsInCW.size());
+
+//	ArrayList<String> listOfContentsInCW = new ArrayList<String>();
+//	System.out.println(listOfContentsInCW);
+
+//	for (int k = 0; k < ApinoOfContentsInCW.size(); k++) {
+//
+//		String title = respCW.jsonPath().getString("[" + k + "].title");
+//		listOfContentsInCW.add(title);
+//	}
+
+	//logger.info(listOfContentsInCW);
+
+
+}
+
+public void DownloadsDetails(String userType) throws Exception{
+	extent.HeaderChildNode("Get Downloads details");
+	verifyElementPresent(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
+	click(AMDHomePage.objDownloadBtn, "Downloads tab");
+	waitTime(3000);
+	click(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
+	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+		logger.info("There are no contents in Shows tab");	
+		extent.extentLogger("", "There are no contents in Shows tab");
+	}
+	else {
+		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
+		System.out.println(DownloadedContentText);
+		logger.info(DownloadedContentText + " downloaded content is displayed");
+		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+	}
+	click(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
+	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+		logger.info("There are no contents in Movies tab");	
+		extent.extentLogger("", "There are no contents in Movies tab");
+	}
+	else {
+		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
+		System.out.println(DownloadedContentText);
+		logger.info(DownloadedContentText + " downloaded content is displayed");
+		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+	}
+	click(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
+	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+		logger.info("There are no contents in Videos tab");
+		extent.extentLogger("", "There are no contents in Vidoes tab");
+	}
+	else {
+		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
+		System.out.println(DownloadedContentText);
+		logger.info(DownloadedContentText + " downloaded content is displayed");
+		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+	}
+	BackToLandingScreen();
+}
+
+
+public void WatchListDetails(String userType) throws Exception{
+	extent.HeaderChildNode("Get Watchlist details");
+	String	Username = null;
+	String	Password = null;
+	if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+		Username = getParameterFromXML("SubscribedUserName");
+		Password = getParameterFromXML("SubscribedPassword");
+		}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+				Username = getParameterFromXML("UpgradeNonsubscribedUserName");
+				Password = getParameterFromXML("UpgradeNonsubscribedPassword");
+		}	
+	ResponseInstance.getWatchList(Username,Password);
+}
+
+
+  public void CaptureSettingsDetailsForupgradeBuild() throws Exception {
+	extent.HeaderChildNode("Capture user settings details for upgrade build");
+	click(AMDHomePage.MoreMenuIcon, "More menu icon");
+	verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+	verifyElementExist(AMDSettingsScreen.objVideoQualityDefaultvalue,"Video Quality");
+	String videoqaulity = findElement(AMDSettingsScreen.objVideoQualityDefaultvalue).getText();
+	
+	verifyElementExist(AMDSettingsScreen.objStreamOverWifiValue,"Stream over wifi");
+	String StreamOverWifi = findElement(AMDSettingsScreen.objStreamOverWifiValue).getText();
+	String streamoverwifi = getAttributValue("checked", AMDSettingsScreen.objStreamOverWifiValue);
+	
+	verifyElementExist(AMDSettingsScreen.objAutoPlayToggleSwitch,"Auto Play");
+	String AutoPlay = findElement(AMDSettingsScreen.objAutoPlayToggleSwitch).getText();
+	String autoplay = getAttributValue("checked", AMDSettingsScreen.objAutoPlayToggleSwitch);
+	
+	verifyElementExist(AMDSettingsScreen.objDownloadQualityValue,"Download Quality");
+	String Downloadquality = findElement(AMDSettingsScreen.objDownloadQualityValue).getText();
+	
+	verifyElementExist(AMDSettingsScreen.objDownloadOverWifiToggle,"Download over wifi");
+	String DownloadOverWifi = findElement(AMDSettingsScreen.objDownloadOverWifiToggle).getText();
+	String downloadoverwifi = getAttributValue("checked", AMDSettingsScreen.objDownloadOverWifiToggle);
+	
+	verifyElementExist(AMDSettingsScreen.objDisplayLangValue,"Display Launguage");
+	String DisplayLanguage = findElement(AMDSettingsScreen.objDisplayLangValue).getText();
+	
+	logger.info("Video Streaming Quality: " + videoqaulity);
+	extent.extentLogger("", "Video Streaming Quality: " + videoqaulity);
+	logger.info("Stream over wifi only: " + StreamOverWifi);
+	extent.extentLogger("", "Stream over wifi only: " + StreamOverWifi);
+	logger.info("Stream over wifi only value: " + streamoverwifi);
+	extent.extentLogger("","Stream over wifi only value: " + streamoverwifi);
+	logger.info("Auto Play: " + AutoPlay);
+	extent.extentLogger("", "Auto Play: " + AutoPlay);
+	logger.info("Auto Play value: " + autoplay);
+	extent.extentLogger("", "Auto Play value: " + autoplay);
+	logger.info("Download Quality: " + Downloadquality);
+	extent.extentLogger("", "Download Quality: " + Downloadquality);
+	logger.info("Download over wifi: " + DownloadOverWifi);
+	extent.extentLogger("", "Download over wifi: " + DownloadOverWifi);
+	logger.info("Download over wif value: " + downloadoverwifi);
+	extent.extentLogger("","Download over wif value: " + downloadoverwifi);
+	logger.info("Display language: " + DisplayLanguage);
+	extent.extentLogger("", "Display language: " + DisplayLanguage);
+	
+}
+  
+  
 }

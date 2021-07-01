@@ -31791,7 +31791,32 @@ public void PWAVerifyBuyPlanCTADisplayedForSubscribedUserWithParentalPin(String 
 	}
 }
 
+	public void removeMinutelyContent() {
+		extent.HeaderChildNode("PWA2-9201 : Removing 'Activate Now' CTA upon successful authentication");
+		String pageSource = getWebDriver().getPageSource();
+		if(!pageSource.contains("class=\"minute_apv\"")) {
+			logger.info("Minutley content are not present");
+			extent.extentLoggerPass("Minutley","Minutley content are not present");
+		} else {
+			logger.error("Minutley content are present");
+			extent.extentLoggerFail("Minutley","Minutley content are present");
+		}
+	}
 
-
+	
+	public void GrievanceRedressalOption() throws Exception {
+		extent.HeaderChildNode("PWA2-9172 : Add Grievance Redressal option in the hamburger menu");
+		click(PWAHomePage.objHamburgerMenu, "Hambuger menu");
+		verifyElementPresent(PWAHamburgerMenuPage.objGrievanceRedressal, "Grievance Redressal option");
+		if(verifyElementPresent(PWAHamburgerMenuPage.objGrievanceRedressal, "Grievance Redressal option")) {
+			logger.info("Redirected Grievance Redressal");
+			extent.extentLoggerPass("Grievance Redressal","Redirected Grievance Redressal");
+		} else {
+			logger.error("Not Redirected Grievance Redressal");
+			extent.extentLoggerFail("Grievance Redressal","Not Redirected Grievance Redressal");
+		}
+	}
+	
+	
 	
 }

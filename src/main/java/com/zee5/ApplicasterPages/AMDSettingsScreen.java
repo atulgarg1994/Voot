@@ -42,4 +42,9 @@ public class AMDSettingsScreen {
 	public static By objDownloadVideoQualityOptions(String option) {
 		return By.xpath("//*[@id='selector_content' and @text='"+option+"']");
 	}
+	
+	public static By objStreamOverWifiValue = By.xpath("//*[@id='videoOverWifiSwitch']");
+	public static By objDownloadQualityValue = By.xpath("//*[@id='downloadLabel']");
+	public static By objDisplayLangValue = By.xpath("//*[@id='displayLanguageValue']");
+	public static By objContentLangValue = By.xpath("//*[@id='contentLanguageValue']");
 }
