@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.stream.Stream;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -56,6 +58,7 @@ public class ExtentReporter implements ITestListener {
 	public static String version;
 	public static String jiraID = "TC";
 	public static ArrayList<String> performaceDetails = new ArrayList<String>();
+	public static Dictionary<String, String> performaceMatrics = new Hashtable<String, String>();
 
 	/** The Constant logger. */
 	static LoggingUtils logger = new LoggingUtils();

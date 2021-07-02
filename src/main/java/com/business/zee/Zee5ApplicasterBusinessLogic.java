@@ -19511,7 +19511,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		// Initiated Variable declaration
 		int nativeMemory = 0, totalMemory = 0, nCpuUSage = 0, nGPURendered = 0;
 		float nGPUMemory = 0;
-		double nNetTraffic = 0;
+		int nNetTraffic = 0;
 		String batteryInfo = null;
 		boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
 		
@@ -19649,6 +19649,27 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Traffic Usage",
 						"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mbps");
 			}
+			
+			String timeTaken = Long.toString(timeElapsed.getSeconds());
+			String strNativeMemory = Integer.toString(nativeMemory);
+			String strTotalMemory = Integer.toString(totalMemory);
+			String strCPU = Integer.toString(nCpuUSage);
+			String strGPU = Float.toString(nGPUMemory);
+			String strGPURendered = Integer.toString(nGPURendered);
+			String strTraffic = Integer.toString(nNetTraffic);
+			
+			performaceMatrics.put("Time Taken",timeTaken+" Sec");
+			performaceMatrics.put("Memory Native Heap",strNativeMemory+" MB");
+			performaceMatrics.put("Total Memory",strTotalMemory+" MB");
+			performaceMatrics.put("CPU",strCPU+"%");
+			performaceMatrics.put("GPU",strGPU+" MB");
+			performaceMatrics.put("Total Frames Rendered",strGPURendered);
+			performaceMatrics.put("Current Traffic Usage",strTraffic+" MB");
+			
+			System.out.println("\n---------------------------------------------- Screen Navigation ----------------------------------------------");
+			System.out.println(performaceMatrics);
+			System.out.println("------------------------------------------------------------------------------------------------------------------------");
+			
 			softAssertion.assertEquals(trafficFlag, true);
 			softAssertion.assertAll();
 
@@ -19685,7 +19706,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
 		int nativeMemory = 0, totalMemory = 0, nCpuUSage = 0, nGPURendered = 0;
 		float nGPUMemory = 0;
-		double nNetTraffic = 0;
+		int nNetTraffic = 0;
 		String batteryInfo = null;
 
 		try {
@@ -19903,6 +19924,27 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Traffic Usage",
 						"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mbps");
 			}
+			
+			String timeTaken = Long.toString(timeElapsed.getSeconds());
+			String strNativeMemory = Integer.toString(nativeMemory);
+			String strTotalMemory = Integer.toString(totalMemory);
+			String strCPU = Integer.toString(nCpuUSage);
+			String strGPU = Float.toString(nGPUMemory);
+			String strGPURendered = Integer.toString(nGPURendered);
+			String strTraffic = Integer.toString(nNetTraffic);
+			
+			performaceMatrics.put("Time Taken",timeTaken+" Sec");
+			performaceMatrics.put("Memory Native Heap",strNativeMemory+" MB");
+			performaceMatrics.put("Total Memory",strTotalMemory+" MB");
+			performaceMatrics.put("CPU",strCPU+"%");
+			performaceMatrics.put("GPU",strGPU+" MB");
+			performaceMatrics.put("Total Frames Rendered",strGPURendered);
+			performaceMatrics.put("Current Traffic Usage",strTraffic+" MB");
+			
+			System.out.println("\n---------------------------------------------- Deeplink to Consumption screen ----------------------------------------------");
+			System.out.println(performaceMatrics);
+			System.out.println("------------------------------------------------------------------------------------------------------------------------");
+			
 			softAssertion.assertEquals(trafficFlag, true);
 			softAssertion.assertAll();
 
@@ -26396,7 +26438,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
 
 		// #### App Performance Network Traffic Usage Info
-		double nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
+		int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
 
 		// #### App Performance Battery Info
 		String batteryInfo = BatteryStats_PerformanceV2();
@@ -26483,6 +26525,27 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Traffic Usage",
 					"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mbps");
 		}
+		
+		String timeTaken = Long.toString(timeElapsed.getSeconds());
+		String strNativeMemory = Integer.toString(nativeMemory);
+		String strTotalMemory = Integer.toString(totalMemory);
+		String strCPU = Integer.toString(nCpuUSage);
+		String strGPU = Float.toString(nGPUMemory);
+		String strGPURendered = Integer.toString(nGPURendered);
+		String strTraffic = Integer.toString(nNetTraffic);
+		
+		performaceMatrics.put("Time Taken",timeTaken+" Sec");
+		performaceMatrics.put("Memory Native Heap",strNativeMemory+" MB");
+		performaceMatrics.put("Total Memory",strTotalMemory+" MB");
+		performaceMatrics.put("CPU",strCPU+"%");
+		performaceMatrics.put("GPU",strGPU+" MB");
+		performaceMatrics.put("Total Frames Rendered",strGPURendered);
+		performaceMatrics.put("Current Traffic Usage",strTraffic+" MB");
+		
+		System.out.println("\n---------------------------------------------- Login Functionality ----------------------------------------------");
+		System.out.println(performaceMatrics);
+		System.out.println("------------------------------------------------------------------------------------------------------------------------");
+		
 		softAssertion.assertEquals(trafficFlag, true);
 		softAssertion.assertAll();
 
@@ -26536,7 +26599,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
 
 		// #### App Performance Network Traffic Usage Info
-		double nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
+		int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
 
 		// #### App Performance Battery Info
 		String batteryInfo = BatteryStats_PerformanceV2();
@@ -26623,6 +26686,27 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Traffic Usage",
 					"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mbps");
 		}
+		
+		String timeTaken = Long.toString(timeElapsed.getSeconds());
+		String strNativeMemory = Integer.toString(nativeMemory);
+		String strTotalMemory = Integer.toString(totalMemory);
+		String strCPU = Integer.toString(nCpuUSage);
+		String strGPU = Float.toString(nGPUMemory);
+		String strGPURendered = Integer.toString(nGPURendered);
+		String strTraffic = Integer.toString(nNetTraffic);
+		
+		performaceMatrics.put("Time Taken",timeTaken+" Sec");
+		performaceMatrics.put("Memory Native Heap",strNativeMemory+" MB");
+		performaceMatrics.put("Total Memory",strTotalMemory+" MB");
+		performaceMatrics.put("CPU",strCPU+"%");
+		performaceMatrics.put("GPU",strGPU+" MB");
+		performaceMatrics.put("Total Frames Rendered",strGPURendered);
+		performaceMatrics.put("Current Traffic Usage",strTraffic+" MB");
+		
+		System.out.println("\n---------------------------------------------- Playback Functionality ----------------------------------------------");
+		System.out.println(performaceMatrics);
+		System.out.println("------------------------------------------------------------------------------------------------------------------------");
+		
 		softAssertion.assertEquals(trafficFlag, true);
 		softAssertion.assertAll();
 		
@@ -26966,9 +27050,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		getNativeMemory = nativeResult.readLine().trim();
 		getTotalMemory = totalResult.readLine().trim();
-
-//		System.out.println(getNativeMemory);
-//		System.out.println(getTotalMemory);
 
 		ArrayList<String> getNativeValue = new ArrayList<String>();
 		String[] splitData = getNativeMemory.split(" ");
@@ -28190,7 +28271,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
 
 			// #### App Performance Network Traffic Usage Info
-			double nNetTraffic = getApp_NetworkTrafficUsageV2("com.graymatrix.did");
+			int nNetTraffic = getApp_NetworkTrafficUsageV2("com.graymatrix.did");
 
 			if (DriverInstance.timeElapsed.getSeconds() <= threshold_TimeTaken) {
 				logger.info("Time taken to launch the App (Sec): " + DriverInstance.timeElapsed.getSeconds());
@@ -28261,15 +28342,36 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			softAssertion.assertEquals(gpuRenFlag, true);
 
 			if (nNetTraffic < threshold_Network) {
-				logger.info("\nThe current App traffic usage is : " + (int) nNetTraffic + " Mbps");
+				logger.info("\nThe current App traffic usage is : " + (int) nNetTraffic + " MB");
 				extent.extentLoggerPass("Traffic Usage",
-						"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mbps");
+						"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " MB");
 			} else {
 				trafficFlag=false;
-				logger.error("\nThe current App traffic usage is : " + (int) nNetTraffic + " Mbps");
+				logger.error("\nThe current App traffic usage is : " + (int) nNetTraffic + " MB");
 				extent.extentLoggerFail("Traffic Usage",
-						"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mbps");
+						"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " MB");
 			}
+			
+			String timeTaken = Long.toString(DriverInstance.timeElapsed.getSeconds());
+			String strNativeMemory = Integer.toString(nativeMemory);
+			String strTotalMemory = Integer.toString(totalMemory);
+			String strCPU = Integer.toString(nCpuUSage);
+			String strGPU = Float.toString(nGPUMemory);
+			String strGPURendered = Integer.toString(nGPURendered);
+			String strTraffic = Integer.toString(nNetTraffic);
+			
+			performaceMatrics.put("Time Taken",timeTaken+" Sec");
+			performaceMatrics.put("Memory Native Heap",strNativeMemory+" MB");
+			performaceMatrics.put("Total Memory",strTotalMemory+" MB");
+			performaceMatrics.put("CPU",strCPU+"%");
+			performaceMatrics.put("GPU",strGPU+" MB");
+			performaceMatrics.put("Total Frames Rendered",strGPURendered);
+			performaceMatrics.put("Current Traffic Usage",strTraffic+" MB");
+			
+			System.out.println("\n---------------------------------------------- App Launch Scenario ----------------------------------------------");
+			System.out.println(performaceMatrics);
+			System.out.println("-------------------------------------------------------------------------------------------------------------------");
+			
 			softAssertion.assertEquals(trafficFlag, true);
 			softAssertion.assertAll();
 			

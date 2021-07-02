@@ -140,15 +140,26 @@ public class ResponseInstance {
 	 * @return
 	 */
 	public static String getXAccessToken() {
-		Response resp = null;
-		String xAccessToken = "";
-		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
-		resp = RestAssured.given().urlEncodingEnabled(false).when().get(url);
-		String respString = resp.getBody().asString();
-		respString = respString.replace("\"gwapiPlatformToken\":\"\"", "");
-		respString = respString.split("\"gwapiPlatformToken\":\"")[1];
-		xAccessToken = respString.split("\"")[0];
+//		Response resp = null;
+//		String xAccessToken = "";
+//		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
+//		resp = RestAssured.given().urlEncodingEnabled(false).when().get(url);
+//		String respString = resp.getBody().asString();
+//		respString = respString.replace("\"gwapiPlatformToken\":\"\"", "");
+//		respString = respString.split("\"gwapiPlatformToken\":\"")[1];
+//		xAccessToken = respString.split("\"")[0];
+//		return xAccessToken;
+		try {
+		Response respToken = null, respForKey = null;
+		// get APi-KEY
+		String Uri = "https://useraction.zee5.com/token/platform_tokens.php?platform_name=desktop_web";
+		respForKey = RestAssured.given().urlEncodingEnabled(false).when().get(Uri);
+		String xAccessToken = respForKey.jsonPath().getString("token");
 		return xAccessToken;
+		}catch(Exception e) {
+			return "";
+		}
+	
 	}
 	
 	public static String getXAccessToken1() {
@@ -183,7 +194,7 @@ public class ResponseInstance {
 		Response resp = req.post("https://userapi.zee5.com/v2/user/loginemail");
 		String accesstoken = resp.jsonPath().getString("access_token");
 		String tokentype = resp.jsonPath().getString("token_type");
-		String bearerToken = tokentype + " " + accesstoken;
+		String bearerToken = tokentype.replaceAll("Bearer", "bearer") + " " + accesstoken;
 		return bearerToken;
 	}
 
@@ -609,14 +620,18 @@ public class ResponseInstance {
 		try {
 		Response respToken = null, respForKey = null;
 		// get APi-KEY
-		String Uri = "https://gwapi.zee5.com/user/getKey?=aaa";
+//		String Uri = "https://gwapi.zee5.com/user/getKey?=aaa"; //partner 
+		String Uri = "https://useraction.zee5.com/token/platform_tokens.php?platform_name=desktop_web";
 		respForKey = RestAssured.given().urlEncodingEnabled(false).when().get(Uri);
-		String rawApiKey = respForKey.getBody().asString();
-		String apiKeyInResponse = rawApiKey.substring(0, rawApiKey.indexOf("<br>airtel "));
-		String finalApiKey = apiKeyInResponse.replaceAll("<br>rel - API-KEY : ", "");
-		String UriForToken = "http://gwapi.zee5.com/user/getToken";
-		respToken = RestAssured.given().headers("API-KEY", finalApiKey).when().get(UriForToken);
-		String xAccessToken = respToken.jsonPath().getString("X-ACCESS-TOKEN");
+//		respForKey.print();
+		String xAccessToken = respForKey.jsonPath().getString("token");
+		System.out.println("Toke : "+xAccessToken);
+//		String rawApiKey = respForKey.getBody().asString();
+//		String apiKeyInResponse = rawApiKey.substring(0, rawApiKey.indexOf("<br>airtel "));
+//		String finalApiKey = apiKeyInResponse.replaceAll("<br>rel - API-KEY : ", "");
+//		String UriForToken = "http://gwapi.zee5.com/user/getToken";
+//		respToken = RestAssured.given().headers("API-KEY", finalApiKey).when().get(UriForToken);
+//		String xAccessToken = respToken.jsonPath().getString("X-ACCESS-TOKEN");
 		return xAccessToken;
 		}catch(Exception e) {
 			return "";
@@ -641,6 +656,7 @@ public class ResponseInstance {
 //			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 //					.getParameter("SubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
+//			System.out.println(bearerToken.replace("Bearer", "bearer"));
 			respCW = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
 			respCW.print();
