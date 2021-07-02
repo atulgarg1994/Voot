@@ -2,6 +2,7 @@ package com.metadata;
 
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 //import static com.jayway.restassured.RestAssured.given;
@@ -605,6 +606,7 @@ public class ResponseInstance {
 	}
 
 	public static String getXAccessTokenWithApiKey() {
+		try {
 		Response respToken = null, respForKey = null;
 		// get APi-KEY
 		String Uri = "https://gwapi.zee5.com/user/getKey?=aaa";
@@ -616,28 +618,32 @@ public class ResponseInstance {
 		respToken = RestAssured.given().headers("API-KEY", finalApiKey).when().get(UriForToken);
 		String xAccessToken = respToken.jsonPath().getString("X-ACCESS-TOKEN");
 		return xAccessToken;
+		}catch(Exception e) {
+			return "";
+		}
 	}
 
 	public static Response getRespofCWTray(String userType) {
 		Response respCW = null;
-		String language = getLanguage(userType);
+//		String language = getLanguage(userType);
 
-		String Uri = "https://gwapi.zee5.com/user/v2/watchhistory?country=IN&translation=en&languages=" + language;
+		String Uri = "https://gwapi.zee5.com/user/v2/watchhistory?country=IN&translation=en";
 
 		String xAccessToken = getXAccessTokenWithApiKey();
-
+		System.out.println(xAccessToken);
 		if (userType.equalsIgnoreCase("Guest")) {
 			respCW = RestAssured.given().headers("x-access-token", xAccessToken).when().get(Uri);
 		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
-//			String email = "zeetest998@test.com";
-//			String password = "123456";
-			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedUserName");
-			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("SubscribedPassword");
+			String email = "testupgrade123@gmail.com";
+			String password = "123456";
+//			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+//					.getParameter("SubscribedUserName");
+//			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+//					.getParameter("SubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
 			respCW = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when()
 					.get(Uri);
+			respCW.print();
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 
 //			String email = "igstesting001@gmail.com";
@@ -654,6 +660,7 @@ public class ResponseInstance {
 		}
 		return respCW;
 	}
+
 
 	public static Response getResponseForApplicasterPagesVersion2(String userType, String page, String pUsername,
 			String pPassword) {
@@ -788,6 +795,8 @@ public class ResponseInstance {
 //		 String jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiaXNzIjoibXlzZWxmIiwiZXhwIjoxNDcxMDg2MzgxfQ.1EI2haSz9aMsHjFUXNVz2Z4mtC0nMdZo6bo3-x-aRpw";
 		
 //		fetchSubscriptionDetailsFromToken();
+		
+		getRespofCWTray("SubscribedUser");
 		
 	}
 	
@@ -4822,33 +4831,70 @@ public static Properties getRegistrationDetailsForAppsflyer() {
 }
 
 
+@SuppressWarnings("unused")
+public static Response getWatchList1(String pUsername, String pPassword) {
+	String url = "https://userapi.zee5.com/v1/watchlist";
+	String bearerToken = getBearerToken(pUsername, pPassword);
+	System.out.println(getXAccessTokenWithApiKey()+"\n");
+	System.out.println(bearerToken);
+	resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
+	resp.print();
+	return resp;
+}
 
+public static Response getContentDetails1(String ID) {
+	System.out.println("Content ID :"+ID);
+	
+	if (assetSubType.equalsIgnoreCase("tvshow") || assetSubType.equalsIgnoreCase("episode")
+			|| assetSubType.equalsIgnoreCase("external_link")) {
+		resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+				.get("https://gwapi.zee5.com/content/tvshow/" + ID + "?translation=en&country=IN");
+	} else if (assetSubType.equalsIgnoreCase("external_link")) { 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	} else if(assetSubType.equalsIgnoreCase("original") || assetSubType.equalsIgnoreCase("video")
+			|| assetSubType.equalsIgnoreCase("movie")|| assetSubType.equalsIgnoreCase("trailer")){
+		resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+				.get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
+		if(!assetSubType.equalsIgnoreCase("trailer")) {
+		if(resp.jsonPath().getList("related")  != null) {
+			ID = resp.jsonPath().getString("related[0].id");
+			resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
+			}
+		}
+	} else {
+		if (pageName.equals("episode") || pageName.equals("shows")) {
+			resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+					.get("https://gwapi.zee5.com/content/tvshow/" + ID + "?translation=en&country=IN");
+		} else if (pageName.equals("movies")) {
+			resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when()
+					.get("https://gwapi.zee5.com/content/details/" + ID + "?translation=en&country=IN&version=2");
+			if(trailer) {
+				ID = resp.jsonPath().getString("related[0].id");
+				resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).when().get("https://gwapi.zee5.com/content/details/"+ID+"?translation=en&country=IN&version=2");
+			}
+		}
+	}
+	
+	Mixpanel.FEProp.setProperty("Content Duration", resp.jsonPath().getString("duration"));
+	Mixpanel.FEProp.setProperty("Content ID", resp.jsonPath().getString("id"));
+	Mixpanel.FEProp.setProperty("Content Name", resp.jsonPath().getString("original_title"));
+	Mixpanel.FEProp.setProperty("Content Specification", resp.jsonPath().getString("asset_subtype"));
+	Mixpanel.FEProp.setProperty("Characters",resp.jsonPath().getList("actors").toString().replaceAll(",","-").replaceAll("\\s", ""));
+//	Mixpanel.FEProp.setProperty("Audio Language",resp.jsonPath().getList("audio_languages").toString().replace("[", "").replace("]", ""));
+	Mixpanel.FEProp.setProperty("Subtitle Language", resp.jsonPath().getString("subtitle_languages").toString());
+	Mixpanel.FEProp.setProperty("Content Type",resp.jsonPath().getString("business_type"));
+	Mixpanel.FEProp.setProperty("Genre",resp.jsonPath().getList("genre.id").toString().replaceAll(",","-").replaceAll("\\s", ""));
+	Mixpanel.FEProp.setProperty("Content Original Language",resp.jsonPath().getString("languages").replace("[", "").replace("]", ""));
+	if(resp.jsonPath().getString("is_drm").equals("1")) {
+	Mixpanel.FEProp.setProperty("DRM Video","true");
+	}else {
+		Mixpanel.FEProp.setProperty("DRM Video","false");
+	}
+	resp.print();
+	Mixpanel.FEProp.forEach((key, value) -> System.out.println(key + " : " + value));
+	trailer = false;
+	return resp;
+}
 
 
 }

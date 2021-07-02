@@ -90,6 +90,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	static ArrayList<String> AppSubscription = new ArrayList<String>();
 	static ArrayList<String> AppTransaction = new ArrayList<String>();
 	
+	static ArrayList<String> marketsettings = new ArrayList<String>();
+	static ArrayList<String> Upgradesettings = new ArrayList<String>();
+	static ArrayList<String> Upgradewatchlist = new ArrayList<String>();	
+	static ArrayList<String> marketwatchlist = new ArrayList<String>();
+	static ArrayList<String> Downloadedcontent = new ArrayList<String>();
+	static ArrayList<String> UpgradeDownloadedcontent = new ArrayList<String>();
+	
+	
 	private SoftAssert softAssertion = new SoftAssert();
 
 	public int getTimeout() {
@@ -19498,6 +19506,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		int threshold_GPUMem = 18;
 		int threshold_GPURendered = 2300;
 		int threshold_Network = 50;
+		Duration timeElapsed = null;
 
 		// Initiated Variable declaration
 		int nativeMemory = 0, totalMemory = 0, nCpuUSage = 0, nGPURendered = 0;
@@ -19546,7 +19555,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				// #### App Performance Battery Info
 				batteryInfo = BatteryStats_PerformanceV2();
 
-				Duration timeElapsed = Duration.between(startTime, endTime);
+				timeElapsed = Duration.between(startTime, endTime);
 				logger.info("Time taken to navigate from Home to " + pTabname + " screen (sec): "
 						+ timeElapsed.getSeconds());
 				
@@ -19651,6 +19660,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
 			}
 		}
+		performaceDetails.add("Screen Navigation Performance"+","+timeElapsed.getSeconds()+","+nativeMemory+"MB,"+totalMemory+"MB,"+nCpuUSage+"%,"+nGPUMemory+"MB,"+nGPURendered+","+nNetTraffic+"MB");
 	}
 
 	public void deepLink_Validation(String pDeeplink) {
@@ -19668,6 +19678,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		int threshold_GPUMem = 13;
 		int threshold_GPURendered = 2500;
 		int threshold_Network = 144;
+		Duration timeElapsed = null;
 
 		// Initiated Variable declaration
 		boolean flag = false;
@@ -19732,7 +19743,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					// #### App Performance Battery Info
 					batteryInfo = BatteryStats_PerformanceV2();
 
-					Duration timeElapsed = Duration.between(startTime, endTime);
+					timeElapsed = Duration.between(startTime, endTime);
 					logger.info("Time taken to play through deeplink (sec): " + timeElapsed.getSeconds());
 					extent.extentLogger("Timer",
 							"<b>Time taken to play through deeplink (sec):</b> " + timeElapsed.getSeconds());
@@ -19795,7 +19806,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					// #### App Performance Network Traffic Usage Info
 					nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
 
-					Duration timeElapsed = Duration.between(startTime, endTime);
+					timeElapsed = Duration.between(startTime, endTime);
 					logger.info("Time taken to play through deeplink (sec): " + timeElapsed.getSeconds());
 
 					if (timeElapsed.getSeconds() < threshold_TimeTaken) {
@@ -19903,6 +19914,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
 			}
 		}
+		performaceDetails.add("DeepLink to Playback " + pDeeplink + " screen"+","+timeElapsed.getSeconds()+","+nativeMemory+"MB,"+totalMemory+"MB,"+nCpuUSage+"%,"+nGPUMemory+"MB,"+nGPURendered+","+nNetTraffic+"MB");
 	}
 
 	public void ZeeApplicasterLogin_Timer(String LoginMethod) throws Exception {
@@ -26481,6 +26493,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.error("\nApp Battery Info - " + batteryInfo);
 			extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
 		}
+		performaceDetails.add("Login Functionality Performance"+","+timeElapsed.getSeconds()+","+nativeMemory+"MB,"+totalMemory+"MB,"+nCpuUSage+"%,"+nGPUMemory+"MB,"+nGPURendered+","+nNetTraffic+"MB");
 	}
 
 	public void Performance_InitiateContentPlayback() throws Exception {
@@ -26620,6 +26633,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.error("\nApp Battery Info - " + batteryInfo);
 			extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
 		}
+		performaceDetails.add("Initiate content playback Performance detail"+","+timeElapsed.getSeconds()+","+nativeMemory+"MB,"+totalMemory+"MB,"+nCpuUSage+"%,"+nGPUMemory+"MB,"+nGPURendered+","+nNetTraffic+"MB");
 	}
 
 	public void AppPerformanceTestInfo(String pPackageName) throws Exception {
@@ -27047,70 +27061,69 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		return GPU_UsagePerformanceV2;
 	}
 
-	public double getApp_NetworkTrafficUsageV2(String pPackageName) throws Exception {
+	public int getApp_NetworkTrafficUsageV2(String pPackageName) throws Exception {
 
-//	String PackageName = "com.graymatrix.did";
-		double flowAction = 0;
-		try {
-			String pidCommand = "adb shell pidof " + pPackageName;
-			Process process = Runtime.getRuntime().exec(pidCommand);
-			BufferedReader pidResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-			String PID = pidResult.readLine().trim();
-			// System.out.println("PID : "+PID);
-
-			Runtime runtime = Runtime.getRuntime();
-			Process proc = runtime.exec("adb shell cat /proc/" + PID + "/net/dev");
+//		String PackageName = "com.graymatrix.did";
+			int flowAction = 0;
 			try {
-				if (proc.waitFor() != 0) {
-					System.err.println("exit value = " + proc.exitValue());
-				}
-				BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-				StringBuffer stringBuffer = new StringBuffer();
-				String line = null;
-				while ((line = in.readLine()) != null) {
-					stringBuffer.append(line + " ");
+				String pidCommand = "adb shell pidof " + pPackageName;
+				Process process = Runtime.getRuntime().exec(pidCommand);
+				BufferedReader pidResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
-				}
-				String str1 = stringBuffer.toString();
-				String str2 = str1.substring(str1.indexOf("wlan0:"), str1.indexOf("wlan0:") + 100);
+				String PID = pidResult.readLine().trim();
+				// System.out.println("PID : "+PID);
 
-				// System.out.println("sent first sentence" + str2);
-				// The space is divided into a string array to take the second and tenth
-				// numbers, which are the sending traffic and the receiving traffic.
-				String[] toks = str2.split(" +");
-				String str4 = toks[1];
-				String str6 = toks[9];
-				int b = Integer.parseInt(str4);
-				int a = Integer.parseInt(str6);
-
-				double sendFlow = a / 1024;
-				double revFlow = b / 1024;
-				flowAction = sendFlow + revFlow;
-				logger.info("\nThe current App traffic usage is : " + (int) flowAction / 1024 + "Mbps");
-				// extent.extentLogger("Traffic Usage","<b>The Current App traffic usage is :
-				// </b> " + (int)flowAction/1024 + "Mbps");
-
-			} catch (InterruptedException e) {
-				System.err.println(e);
-			} finally {
+				Runtime runtime = Runtime.getRuntime();
+				Process proc = runtime.exec("adb shell cat /proc/" + PID + "/net/dev");
 				try {
-					proc.destroy();
-				} catch (Exception e2) {
-				}
-			}
-		} catch (Exception StringIndexOutOfBoundsException) {
-			System.out.println("Please check if the device is connected | App is closed");
-			extent.extentLoggerWarning("Traffic Usage",
-					"<b>Please check if the device is connected | App is closed </b>");
-		}
+					if (proc.waitFor() != 0) {
+						System.err.println("exit value = " + proc.exitValue());
+					}
+					BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+					StringBuffer stringBuffer = new StringBuffer();
+					String line = null;
+					while ((line = in.readLine()) != null) {
+						stringBuffer.append(line + " ");
 
-		if (flowAction != 0) {
-			return (flowAction / 1024);
-		} else {
+					}
+					String str1 = stringBuffer.toString();
+					String str2 = str1.substring(str1.indexOf("wlan0:"), str1.indexOf("wlan0:") + 100);
+					
+
+					// System.out.println("sent first sentence" + str2);
+					// The space is divided into a string array to take the second and tenth
+					// numbers, which are the sending traffic and the receiving traffic.
+					String[] toks = str2.split(" +");
+					String str4 = toks[1];
+					String str6 = toks[9];
+//					int b = Integer.parseInt(str4);
+//					int a = Integer.parseInt(str6);
+					long b = Long.parseLong(str4);
+					long a = Long.parseLong(str6);
+
+					int sendFlow = (int) (a / 1024);
+					int revFlow = (int) (b / 1024);
+					flowAction = sendFlow + revFlow;
+					flowAction=flowAction/1024;
+					logger.info("\nCurrent App traffic usage: " + flowAction+ "MB");
+					// extent.extentLogger("Traffic Usage","<b>Current App traffic usage:
+					// </b> " + (int)flowAction/1024 + "Mbps");
+
+				} catch (InterruptedException e) {
+					System.err.println(e);
+				} finally {
+					try {
+						proc.destroy();
+					} catch (Exception e2) {
+					}
+				}
+			} catch (Exception StringIndexOutOfBoundsException) {
+				System.out.println("Please check if the device is connected | App is closed");
+				extent.extentLoggerWarning("Traffic Usage",
+						"<b>Please check if the device is connected | App is closed </b>");
+			}
 			return flowAction;
 		}
-	}
 
 	public String BatteryStats_PerformanceV2() throws Exception {
 		System.out.println("\nBattery Stats Information");
@@ -27138,7 +27151,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		} catch (Exception e) {
 			System.out.println(strDrain);
-			// TODO: handle exception
 		}
 		return strDrain;
 	}
@@ -28443,10 +28455,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		
 
+	@SuppressWarnings("unused")
 	public void GetSettingsDetails(String puserType) throws Exception{
 		extent.HeaderChildNode("Getting the user settings details");
-		click(AMDHomePage.MoreMenuIcon, "More menu icon");
-		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");	
+			
 		String	Username = null;
 		String	Password = null;	
 			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
@@ -28459,32 +28471,40 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		Properties pro = new Properties();
 	    String Streamvalue = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("streaming_quality");   
 	    String autoPlay = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("auto_play");  
-	    String downloadQuality = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("download_quality");  
-	    String Streamoverwifi = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("stream_over_wifi");  
+	    String downloadQuality = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("download_quality");
+	    if(downloadQuality.equalsIgnoreCase("High")) {
+	    	downloadQuality = "Better";
+	    }
+	    if(downloadQuality.equalsIgnoreCase("Medium")) {
+	    	downloadQuality = "Good";
+	    }
+	    if(downloadQuality.equalsIgnoreCase("Low")) {
+	    	downloadQuality = "Datasaver";
+	    }
+	    String Streamoverwifi = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("stream_over_wifi");
 	    String downloadoverwifi = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("download_over_wifi");
-	    String displaylang = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("display_language");  
-	    String contentlang = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("content_language");
-	    logger.info(Streamvalue);
-		extent.extentLogger("", Streamvalue);
+	    String displaylang = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("display_language"); 
+	    if(displaylang.equalsIgnoreCase("en")) {
+	    	displaylang = "English";
+	    } 
+	    
+	    extentLogger("", "Stream quality: " + Streamvalue );
+	    extentLogger("", "Auto play: " + autoPlay );
+	    extentLogger("", "Download quality: " + downloadQuality );
+	    extentLogger("", "Stream over wifi: " + Streamoverwifi );
+	    extentLogger("", "Download over wifi: " + downloadoverwifi );
+	    extentLogger("", "Display language: " + displaylang );
+	    
+	    marketsettings.add(Streamvalue);
+	    marketsettings.add(autoPlay);
+	    marketsettings.add(downloadQuality);
+	    marketsettings.add(Streamoverwifi);
+	    marketsettings.add(downloadoverwifi);
+	    marketsettings.add(displaylang);
+	 // marketsettings.add(contentlang);
+	    System.out.println("Market build user settings details : " + marketsettings);
+	    logger.info("Market build user settings details : " + marketsettings);
 		
-	    logger.info(autoPlay);
-	   	extent.extentLogger("", autoPlay);
-	   	
-	    logger.info(downloadQuality);
-	   	extent.extentLogger("", downloadQuality);
-	   	
-	    logger.info(Streamoverwifi);
-	   	extent.extentLogger("", Streamoverwifi);
-	  
-	    logger.info(downloadoverwifi);
-	   	extent.extentLogger("", downloadoverwifi);
-	   
-	    logger.info(displaylang);
-	   	extent.extentLogger("", displaylang);
-	  
-	    logger.info(contentlang);
-	   	extent.extentLogger("", contentlang);
-	    BackToLandingScreen();
 	}
 
 	public void UninstallZee5() throws Exception{
@@ -28514,8 +28534,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 
 	public void InstallZee5() throws Exception{
-		logger.info("Installing Zee5");
-		extent.HeaderChildNode("Installing Zee5 beta build");
+		logger.info("Installing Zee5 Upgrade build");
+		extent.HeaderChildNode("Installing Zee5 Upgrade build");
 	    LaunchPlayStoreApp();
 	    verifyElementPresentAndClick(AMDAppUpgrade.objgmailProfileicon, "Gmail profile icon");
 	    click(AMDAppUpgrade.objdownArrow,"Down arrow");
@@ -28558,8 +28578,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(AMDAppUpgrade.objUpdatebutton,"Update button");
 		waitTime(30000);		
 		waitForElementDisplayed(AMDAppUpgrade.objOpenButton, 30);
-		waitTime(25000);		
-	}
+		waitTime(25000);
+		click(AMDAppUpgrade.objOpenButton,"Open button");
+		waitTime(8000);
+}
 
 	public void accessDeviceLocationPopUp1(String permission, String userType) throws Exception {
 		extent.HeaderChildNode("Access Device Location PopUp");
@@ -28600,11 +28622,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 
-public void navigateToIntroScreen_DisplaylangScreen1() throws Exception {
-
-		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
-	}
-
 
 public void GetContinueWatchingTrayDetails(String userType) throws Exception{
 	extent.HeaderChildNode("Get Continue watching tray details");
@@ -28632,6 +28649,7 @@ public void GetContinueWatchingTrayDetails(String userType) throws Exception{
 public void DownloadsDetails(String userType) throws Exception{
 	extent.HeaderChildNode("Get Downloads details");
 	verifyElementPresent(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
+	DownloadContent(content1, "Good", true);
 	click(AMDHomePage.objDownloadBtn, "Downloads tab");
 	waitTime(3000);
 	click(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
@@ -28643,8 +28661,9 @@ public void DownloadsDetails(String userType) throws Exception{
 		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
 		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
 		System.out.println(DownloadedContentText);
-		logger.info(DownloadedContentText + " downloaded content is displayed");
-		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+		logger.info("Downloaded content: " + DownloadedContentText + " is displayed");
+		extent.extentLogger("", "Downloaded content: " + DownloadedContentText + " is displayed");
+		Downloadedcontent.add(DownloadedContentText);
 	}
 	click(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
 	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
@@ -28655,8 +28674,9 @@ public void DownloadsDetails(String userType) throws Exception{
 		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
 		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
 		System.out.println(DownloadedContentText);
-		logger.info(DownloadedContentText + " downloaded content is displayed");
-		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+		logger.info("Downloaded content: " + DownloadedContentText + " is displayed" );
+		extent.extentLogger("", "Downloaded content: " + DownloadedContentText + " is displayed" );
+		Downloadedcontent.add(DownloadedContentText);
 	}
 	click(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
 	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
@@ -28667,9 +28687,11 @@ public void DownloadsDetails(String userType) throws Exception{
 		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
 		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
 		System.out.println(DownloadedContentText);
-		logger.info(DownloadedContentText + " downloaded content is displayed");
-		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+		logger.info("Downloaded content: " + DownloadedContentText + " is displayed" );
+		extent.extentLogger("","Downloaded content: " + DownloadedContentText + " is displayed");
+		Downloadedcontent.add(DownloadedContentText);
 	}
+	logger.info("Downloaded contents: " + Downloadedcontent );
 	BackToLandingScreen();
 }
 
@@ -28684,12 +28706,36 @@ public void WatchListDetails(String userType) throws Exception{
 		}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
 				Username = getParameterFromXML("UpgradeNonsubscribedUserName");
 				Password = getParameterFromXML("UpgradeNonsubscribedPassword");
-		}	
-	ResponseInstance.getWatchList(Username,Password);
+		}		
+	Response respWatchlist = ResponseInstance.getWatchList1(Username,Password);
+	int totalcontent =	respWatchlist.jsonPath().getList("array").size();
+	extent.extentLogger("", "Number of contents in Watch list " + totalcontent);
+	System.out.println("Number of contents in Watch list " + totalcontent);		
+	String contentid=null;
+	for(int i=0;i<totalcontent;i++) {
+	 contentid = respWatchlist.jsonPath().getString("["+i+"].id");
+	 Response contentresp = ResponseInstance.getContentDetails1(contentid);
+	 String assetSubtype = contentresp.jsonPath().getString("asset_subtype");
+	 String contenttitle=null;
+	 if(assetSubtype.equalsIgnoreCase("episode")) {
+		  contenttitle = contentresp.jsonPath().getString("tvshow_details.title");
+	 }else {
+		  contenttitle = contentresp.jsonPath().getString("original_title");
+	 } 
+	marketwatchlist.add(contenttitle);		 
+	}		
+	 System.out.println(marketwatchlist);
+	 extent.extentLogger("", "Watch list contents: " + marketwatchlist);
+}
+
+public void navigateToIntroScreen_DisplaylangScreen1() throws Exception {
+
+	click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
 }
 
 
-  public void CaptureSettingsDetailsForupgradeBuild() throws Exception {
+@SuppressWarnings("unused")
+public void CaptureSettingsDetailsForupgradeBuild() throws Exception {
 	extent.HeaderChildNode("Capture user settings details for upgrade build");
 	click(AMDHomePage.MoreMenuIcon, "More menu icon");
 	verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
@@ -28714,26 +28760,182 @@ public void WatchListDetails(String userType) throws Exception{
 	verifyElementExist(AMDSettingsScreen.objDisplayLangValue,"Display Launguage");
 	String DisplayLanguage = findElement(AMDSettingsScreen.objDisplayLangValue).getText();
 	
-	logger.info("Video Streaming Quality: " + videoqaulity);
-	extent.extentLogger("", "Video Streaming Quality: " + videoqaulity);
-	logger.info("Stream over wifi only: " + StreamOverWifi);
-	extent.extentLogger("", "Stream over wifi only: " + StreamOverWifi);
-	logger.info("Stream over wifi only value: " + streamoverwifi);
-	extent.extentLogger("","Stream over wifi only value: " + streamoverwifi);
-	logger.info("Auto Play: " + AutoPlay);
-	extent.extentLogger("", "Auto Play: " + AutoPlay);
-	logger.info("Auto Play value: " + autoplay);
-	extent.extentLogger("", "Auto Play value: " + autoplay);
-	logger.info("Download Quality: " + Downloadquality);
-	extent.extentLogger("", "Download Quality: " + Downloadquality);
-	logger.info("Download over wifi: " + DownloadOverWifi);
-	extent.extentLogger("", "Download over wifi: " + DownloadOverWifi);
-	logger.info("Download over wif value: " + downloadoverwifi);
-	extent.extentLogger("","Download over wif value: " + downloadoverwifi);
-	logger.info("Display language: " + DisplayLanguage);
-	extent.extentLogger("", "Display language: " + DisplayLanguage);
+	extentLogger("", "Stream quality: " + videoqaulity );
+  extentLogger("", "Auto play: " + autoplay );
+  extentLogger("", "Download quality: " + Downloadquality );
+  extentLogger("", "Stream over wifi: " + StreamOverWifi );
+  extentLogger("", "Download over wifi: " + DownloadOverWifi );
+  extentLogger("", "Display language: " + DisplayLanguage );	
+
+	Upgradesettings.add(videoqaulity);
+	Upgradesettings.add(autoplay);
+	Upgradesettings.add(Downloadquality);
+	Upgradesettings.add(streamoverwifi);
+	Upgradesettings.add(downloadoverwifi);
+	Upgradesettings.add(DisplayLanguage);
+//	Upgradesettings.add(contentlang);
+	
+	logger.info("Market build Settings details: "+ marketsettings);
+	logger.info("Upgrade build Settings details: " + Upgradesettings);
+	
+	for(int i=0;i<Upgradesettings.size();i++) {		
+		if(marketsettings.get(i).equalsIgnoreCase(Upgradesettings.get(i))){
+			logger.info("Market build user setting detail: " + marketsettings.get(i) + " is same as Upgrade build :" + Upgradesettings.get(i));
+			extent.extentLoggerPass("", "Market build user setting detail: " + marketsettings.get(i) + " is same as Upgrade build :" + Upgradesettings.get(i));
+		}else {
+			logger.error("Market build user setting detail: " + marketsettings.get(i) + " is NOT same as Upgrade build :" + Upgradesettings.get(i));
+			extent.extentLoggerFail("", "Market build user setting detail: " + marketsettings.get(i) + " is NOT same as Upgrade build :" + Upgradesettings.get(i));
+		}
+	}
+	BackToLandingScreen();
+}
+
+public void captureWatchlistDetailsForUpgradeBuild() throws Exception{
+	extent.HeaderChildNode("Capture Watchlist Details for Upgrade build");
+	verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+	click(AMDMoreMenu.objWatchlist, "My Watchlist");
+	waitTime(3000);
+	if (verifyIsElementDisplayed(AMDWatchlistPage.objWatchlistTitle)) {
+		logger.info("User navigated to my Watchlist screen");
+		extent.extentLoggerPass("watchlist", "User navigated to my Watchlist screen");
+	} else {
+		logger.error("User not navigated to my Watchlist screen");
+		extent.extentLoggerFail("watchlist", "User not navigated to my Watchlist screen");
+	}
+	click(AMDWatchlistPage.objShowsTab, "Shows tab");
+	watchlistContents();
+	waitTime(3000);
+	click(AMDWatchlistPage.objMoviesTab, "Movies tab");
+	watchlistContents();
+	waitTime(3000);
+	click(AMDWatchlistPage.objVideosTab, "Videos tab");
+	watchlistContents();
+	waitTime(3000);
+	logger.info("Upgrade build watch list contents: " + Upgradewatchlist);
+	
+	for(int i=0;i<Upgradewatchlist.size();i++) {
+		
+		if(Upgradewatchlist.get(i).equalsIgnoreCase(Upgradewatchlist.get(i))){
+			logger.info("Market build Watchlist details: " + marketwatchlist.get(i) + " is same as Upgrade build :" + Upgradewatchlist.get(i));
+			extent.extentLoggerPass("", "Market build Watchlist details: " + marketwatchlist.get(i) + " is same as Upgrade build :" + Upgradewatchlist.get(i));
+		}else {
+			logger.error("Market build Watchlist details: " + marketwatchlist.get(i) + " is NOT same as Upgrade build :" + Upgradewatchlist.get(i));
+			extent.extentLoggerFail("", "Market build Watchlist details: " + marketwatchlist.get(i) + " is NOT same as Upgrade build :" + Upgradewatchlist.get(i));
+		}
+	}
+	}
+
+public void watchlistContents() throws Exception{
+		boolean watchlistFlag = false;
+		
+		if (verifyIsElementDisplayed(AMDWatchlistPage.objNoReminderIcon)) {
+			logger.info("Watchlist screen displayed with Empty Watchlist icon");
+			extent.extentLoggerPass("Watchlist", "Watchlist screen displayed with Empty Watchlist icon");
+			
+		} else {
+			watchlistFlag = true;
+			logger.info("Watchlist has some content cards");
+			extent.extentLoggerPass("watchlist", "Watchlist has some content cards");
+			if (watchlistFlag) {
+				List<WebElement> contents = getDriver().findElements(AMDWatchlistPage.objContentNames);
+				System.out.println(contents.size());		
+				for (int i = 1; i <= contents.size(); i++) {
+					System.out.println("i : " + i);
+					WebElement ele = findElement(AMDWatchlistPage.objIterateTitle(i));
+				    String watchlistcontent = ele.getText();
+				logger.info(i + " Watch list content title : " + watchlistcontent);
+				extentLogger("", i + " Watch list content title :  " + watchlistcontent);
+				Upgradewatchlist.add(watchlistcontent);
+				}
+		}
+	}	 	
+}
+
+
+public void CaptureDownloadsForrUpgradeBuild() throws Exception{
+	extent.HeaderChildNode("Capture Downloads Details for Upgrade build");
+	verifyElementPresent(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
+	
+	click(AMDHomePage.objDownloadBtn, "Downloads tab");
+	waitTime(3000);
+	click(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
+	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+		logger.info("There are no contents in Shows tab");	
+		extent.extentLogger("", "There are no contents in Shows tab");
+	}
+	else {
+		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
+		System.out.println(DownloadedContentText);
+		logger.info(DownloadedContentText + " downloaded content is displayed");
+		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+		UpgradeDownloadedcontent.add(DownloadedContentText);
+	}
+	click(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
+	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+		logger.info("There are no contents in Movies tab");	
+		extent.extentLogger("", "There are no contents in Movies tab");
+	}
+	else {
+		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
+		System.out.println(DownloadedContentText);
+		logger.info(DownloadedContentText + " downloaded content is displayed");
+		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+		UpgradeDownloadedcontent.add(DownloadedContentText);
+	}
+	click(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
+	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+		logger.info("There are no contents in Videos tab");
+		extent.extentLogger("", "There are no contents in Vidoes tab");
+	}
+	else {
+		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
+		System.out.println(DownloadedContentText);
+		logger.info(DownloadedContentText + " downloaded content is displayed");
+		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+		UpgradeDownloadedcontent.add(DownloadedContentText);
+	}
+	
+	logger.info("Downloaded contents in Upgrade build: " + UpgradeDownloadedcontent);
+	
+	logger.info("Downloaded contents in Market build: " + Downloadedcontent);
+	
+   for(int i=0;i<UpgradeDownloadedcontent.size();i++) {
+		
+		if(Downloadedcontent.get(i).equalsIgnoreCase(UpgradeDownloadedcontent.get(i))){
+			logger.info("Market build Downloaded contents: " + Downloadedcontent.get(i) + " is same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+			extent.extentLoggerPass("", "Market build Downloaded contents: " + Downloadedcontent.get(i) + " is same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+		}else {
+			logger.error("Market build Downloaded contents: " + Downloadedcontent.get(i) + " is NOT same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+			extent.extentLoggerFail("", "Market build Downloaded contents: " + Downloadedcontent.get(i) + " is NOT same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+		}
+	}
+	
+	BackToLandingScreen();
+}
+
+
+public void CaptureContinueWatchingTrayForUpgradeBuild() throws Exception{
+	extent.HeaderChildNode("Capture Continue watching tray details for Upgrade build");
+	waitForElementDisplayed(AMDHomePage.objContinueWatchingTray, 30);
+	boolean ContinueWatchingTray = verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray);
+	if (ContinueWatchingTray) {
+		List<WebElement> tabs = getDriver().findElements(AMDHomePage.objCWtraycontents);
+		System.out.println(tabs.size());		
+		for (int i = 1; i <= tabs.size(); i++) {
+			System.out.println("i : " + i);
+			WebElement ele = findElement(AMDHomePage.objCWContent(i));
+		    String CWTrayFirstContentTitle = ele.getText();
+		logger.info(i + " Continue watching content title : " + CWTrayFirstContentTitle);
+		extentLogger("", i + " Continue watching content title :  " + CWTrayFirstContentTitle);
+		}
+	}else {
+		logger.info("Continue watching tray not displayed");
+		extent.extentLoggerWarning("Continue watching Tray","Continue watching tray not displayed in");
+	}
 	
 }
-  
   
 }

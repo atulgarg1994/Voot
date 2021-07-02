@@ -132,14 +132,22 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			allowPopUp();
+			//allowPopUp();
+			if(checkElementDisplayed(PWALoginPage.objCleverTapPopUp, "clever tap pop up")) {
+				WebElement popup=getWebDriver().findElement(PWALoginPage.objCleverTapPopUp);
+				popup.click();
+				}
 			break;
 
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
-			allowPopUp();
+			//allowPopUp();
+			if(checkElementDisplayed(PWALoginPage.objCleverTapPopUp, "clever tap pop up")) {
+				WebElement popup=getWebDriver().findElement(PWALoginPage.objCleverTapPopUp);
+				popup.click();
+				}
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -156,7 +164,11 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User");
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
-			allowPopUp();
+			//allowPopUp();
+			if(checkElementDisplayed(PWALoginPage.objCleverTapPopUp, "clever tap pop up")) {
+				WebElement popup=getWebDriver().findElement(PWALoginPage.objCleverTapPopUp);
+				popup.click();
+				}
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -171,6 +183,12 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		}
 
 		selectLanguages();
+		verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		JSClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		String ver = getText(By.xpath(".//*[@class='versionText']"));
+		extent.extentLogger("", ver);
+		verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu");
+		JSClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 	}
 	
 	public void allowPopUp() throws Exception {

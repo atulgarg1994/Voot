@@ -15298,7 +15298,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		String premiumMovieTitle = "";
 		try {
-			premiumMovieTitle = getElementPropertyToString("innerText", PWAMusicPage.objConsumptionPageTitle,
+			premiumMovieTitle = getElementPropertyToString("innerText", PWAMusicPage.objMovieConsumptionPageTitle,
 					"Premium Movie Title in Consumptions Page").toString();
 			logger.info("Premium Movie Title in Consumptions Page: " + premiumMovieTitle);
 			extent.extentLogger("", "Premium Movie Title in Consumptions Page: " + premiumMovieTitle);

@@ -139,4 +139,6 @@ public class PWAMusicPage {
 	public static By objConsumptionPageTitle1 = By.xpath(".//div[@class='consumptionMetaDiv']/h1");
 	
 	public static By objConsumptionPageTitle = By.xpath(".//div[@class='metaInfo lineHeightClass']/h2");
+	
+	public static By objMovieConsumptionPageTitle = By.xpath(".//div[@class='consumptionMetaDiv']/h1");
 }

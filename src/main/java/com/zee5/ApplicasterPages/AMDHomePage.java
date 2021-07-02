@@ -296,4 +296,11 @@ public class AMDHomePage {
 	public static By objFirstContentCardFromListingScreen = By.xpath("(//*[@id='cell_center_container'])[2]");
 	
 	public static By errortitle = By.xpath("//*[@id='textNoInternetRetry'] | //*[@id='txt_error_title']");
+	
+	public static By objCWtraycontents = By.xpath("//*[@text='Continue Watching']/parent::*/parent::*/child::*/child::*/child::*");	
+	
+	public static By objCWContent(int i) {
+			return By.xpath("(//*[@text='Continue Watching']/parent::*/parent::*/child::*/child::*/child::*)["+ i +"]/child::*//following-sibling::*/child::*");
+		}
+
 }

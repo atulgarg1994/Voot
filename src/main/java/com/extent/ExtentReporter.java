@@ -55,7 +55,7 @@ public class ExtentReporter implements ITestListener {
 	private static int logfail = 0;
 	public static String version;
 	public static String jiraID = "TC";
-	
+	public static ArrayList<String> performaceDetails = new ArrayList<String>();
 
 	/** The Constant logger. */
 	static LoggingUtils logger = new LoggingUtils();
@@ -366,4 +366,18 @@ public class ExtentReporter implements ITestListener {
 		}
 	}
 	
+	public static StringBuilder performanceDetails() {
+		StringBuilder builder = new StringBuilder();
+		if (performaceDetails.size() > 0) {
+			for (int i = 0; i < performaceDetails.size(); i++) {
+				String result[] = performaceDetails.get(i).toString().split(",");
+					builder.append("<tr>\r\n" + "<td> " + result[0] + " </td>\r\n" + "<td>"+ result[1] + " </td>\r\n" + "<td>"+ result[2] + " </td>\r\n"
+							+"<td>"+ result[3] + " </td>\r\n"+"<td>"+ result[4] + " </td>\r\n"+"<td>"+ result[5] + " </td>\r\n"
+							+"<td>"+ result[6] + " </td>\r\n"+"<td>"+ result[7] + " </td>\r\n"+"</tr>\r\n");
+			}
+			return builder;
+		}else {
+			return null;
+		}
+	}
 }
